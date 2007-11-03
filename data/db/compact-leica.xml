@@ -1,0 +1,52 @@
+<lensdatabase>
+
+    <mount>
+        <name>leicaDigilux2</name>
+    </mount>
+
+    <camera>
+        <maker>LEICA</maker>
+        <model>DIGILUX 2</model>
+        <mount>leicaDigilux2</mount>
+        <cropfactor>3.933</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>LEICA</maker>
+        <model>D-LUX2</model>
+        <variant>D-LUX 2 (16:9)</variant>
+        <mount>panasonicLX1</mount>
+        <cropfactor>4.45</cropfactor>
+    </camera>
+
+    <lens>
+        <maker>Leica</maker>
+        <model>Standard</model>
+        <mount>leicaDigilux2</mount>
+        <cropfactor>3.933</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="7" a="0" b="0.009873" c="-0.057763" />
+            <distortion model="ptlens" focal="7.6" a="0" b="0.003123" c="-0.039833" />
+            <distortion model="ptlens" focal="8.3" a="0" b="-0.003305" c="-0.03234" />
+            <distortion model="ptlens" focal="9.1" a="0" b="-0.006188" c="-0.01791" />
+            <distortion model="ptlens" focal="9.8" a="0" b="-0.01067" c="-0.008812" />
+            <distortion model="ptlens" focal="10.6" a="0" b="-0.007992" c="-0.009762" />
+            <distortion model="ptlens" focal="11.6" a="0" b="-0.009507" c="-0.002939" />
+            <distortion model="ptlens" focal="12.8" a="0" b="-0.00301" c="-0.00523" />
+            <distortion model="ptlens" focal="13.8" a="0" b="-0.002981" c="-0.008074" />
+            <distortion model="ptlens" focal="14.7" a="0" b="-0.010144" c="0.002157" />
+            <distortion model="ptlens" focal="16" a="0" b="-0.007409" c="0.003268" />
+            <distortion model="ptlens" focal="17.3" a="0" b="-0.010874" c="0.007128" />
+            <distortion model="ptlens" focal="19.1" a="0" b="-0.009048" c="0.005592" />
+            <distortion model="ptlens" focal="22.5" a="0" b="-0.003695" c="0.005038" />
+        </calibration>
+    </lens>
+
+    <camera>
+        <maker>LEICA</maker>
+        <model>DIGILUX 3</model>
+        <mount>4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+    </camera>
+
+</lensdatabase>

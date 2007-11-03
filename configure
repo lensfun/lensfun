@@ -1,0 +1,57 @@
+#!/usr/bin/python
+#
+# configure script for libLensFun
+#
+
+import ac
+
+# Define project name
+ac.PROJ = "lensfun"
+# Define version number (major.minor.release)
+ac.VERSION = "0.2.0"
+
+ac.start ()
+
+# Check for tools
+ac.check_program ("GNU Make", "make --version", ".*?([0-9\.]+).*", "3.80", True)
+if ac.check_program ("makedep", "makedep -V", ".*Version.*?([0-9\.]+).*", "0.1.0"):
+    ac.add_config_mak ("MAKEDEP", "makedep")
+    makedep = "yes"
+else:
+    makedep = "no"
+
+if ac.check_program ("Doxygen", "doxygen --version", "([0-9\.]+)", "1.5.0"):
+    ac.add_config_mak ("DOXYGEN", "doxygen")
+    doxygen = "yes"
+else:
+    doxygen = "no"
+
+ac.pkgconfig_check_library ("glib-2.0", "2.0",
+    "this is the low-level library that libLensFun relies on")
+ac.pkgconfig_check_library ("libpng", "1.0")
+
+# Check for zlib: first check for the standard libz.a name,
+# and then check for the bastard windoz's "zlib.lib".
+if not ac.check_library ("zlib", None, None, None, "", ac.TOOLKIT.linklib ("z")):
+    print "Re-trying with another library name ..."
+    ac.check_library ("zlib", None, None, None, "", ac.TOOLKIT.linklib ("zlib"))
+
+ac.add_config_mak ("TOOLKIT", ac.COMPILER.upper ())
+ac.add_config_mak ("CFLAGS", ac.CFLAGS)
+ac.add_config_mak ("CXXFLAGS", ac.CXXFLAGS)
+ac.add_config_mak ("LDFLAGS", ac.LDFLAGS)
+ac.add_config_mak ("LDLIBS", ac.LIBS)
+ac.add_config_mak ("MODE", ac.MODE)
+
+ac.update_file ("include/" + "config.h", "\n".join (ac.CONFIG_H) + "\n")
+ac.update_file ("config.mak", "\n".join (ac.CONFIG_MAK) + "\n")
+
+print "-------------------------------------------------------------------"
+print "Default build mode:                 " + ac.MODE
+print "Build doxygen documentation:        " + doxygen
+print "Use the pre-installed makedep:      " + makedep
+print "Target directory for binaries:      " + ac.BINDIR
+print "Target directory for data files:    " + ac.DATADIR
+print "Target directory for libraries:     " + ac.LIBDIR
+print "Target directory for documentation: " + ac.DOCSDIR
+print "-------------------------------------------------------------------"

@@ -1,0 +1,475 @@
+/**
+@mainpage lensfun: A library for rectifying and simulating photographic lens distortions
+
+@section intro Introduction
+
+The goal of the lensfun library is to provide a open source database
+of photographic lenses and their characteristics. In the past there
+was a effort in this direction (see http://www.epaperpress.com/ptlens/),
+but then author decided to take the commercial route and the database
+froze at the last public stage. This database was used as the basement
+on which lensfun database grew, thanks to PTLens author which gave his
+permission for this, while the code was totally rewritten from scratch
+(and the database was converted to a totally new, XML-based format).
+
+The lensfun library not only provides a way to read the database and
+search for specific things in it, but also provides a set of algorithms
+for correcting images based on detailed knowledge of lens properties
+and calibration data. Right now lensfun is designed to correct distortion,
+transversal (also known as lateral) chromatic aberrations, vignetting
+and colour contribution of the lens (e.g. when sometimes people says
+one lens gives "yellowish" images and another, say, "bluish").
+
+@section contents Contents
+
+<ul>
+<li>@ref license
+<li>@ref credits
+<li>@ref database
+    <ul>
+    <li>@ref dbformat
+    <li>@ref dbsearch
+    </ul>
+<li>@ref programming
+    <ul>
+    <li>@ref basearch
+    <li>@ref samplecode
+    </ul>
+</ul>
+
+
+@page license Software license
+
+The libraries which are part of this package are licensed under the terms of the
+<b>GNU Lesser General Public License, version 3</b>. Libraries are located under
+the subdirectory libs/ of the source package. A copy of the license is available
+in the file lgpl-3.0.txt which can be found in the source archive. You can read
+it here: @ref lgpl or <a href="http://www.gnu.org/licenses/lgpl-3.0.html">on the GNU site</a>.
+
+Applications which are part of this package are licensed under the terms of the
+<b>GNU General Public License, version 3</b>. Applications are located under
+the apps/ subdirectory of the source package. A copy of the license can be found
+in the file gpl-3.0.txt which can be found in the source archive. You can read it
+here: @ref gpl or <a href="http://www.gnu.org/licenses/gpl-3.0.html">on the GNU site</a>.
+
+Also the build system (the contents of the build/ subdirectory plus the ac.py file)
+is licensed under GPL v3.
+
+Test programs and tools are put into public domain, unless explicitly specified
+otherwise in the header of the source files. Test programs are located under the
+tests/ subdirectory, and tools are located in tools/.
+
+The lens database is licensed under the Creative Commons Attribution-Share Alike 3.0
+license. The database is located under the data/ subdirectory of the source package.
+You can read it here: @ref cc-by-ca or
+<a href="http://creativecommons.org/licenses/by-sa/">on the Creative Commons Web site</a>.
+
+
+@page credits Credits
+
+The following people directly or indirectly contributed to the birth and growth
+of this library:
+
+<ul>
+<li><b>Thomas Niemann</b> for the original open-source PTLens software and database.
+<li><b>Pablo d'Angelo</b> for the idea of a open-source lens database.
+<li><b>The whole PanoTools team:</b> for all math and knowledge I have borrowed
+    from PanoTools.
+    <ul>
+    <li><b>Helmut Dersch</b> - The father of most (all?) open-source panorama creation tools.
+    <li><b>Daniel M. German</b>
+    <li><b>Kevin Kratzke</b>
+    <li><b>Rik Littlefield</b>
+    <li><b>Fulvio Senore</b>
+    <li><b>Jim Watters</b>
+    <li><b>Thomas Rauscher</b>
+    <li><b>Pablo d'Angelo</b> (thanks once more :)
+    <li><b>Bret McKee</b>
+    <li><b>Robert Platt</b>
+    </ul>
+</ul>
+
+
+@page database Lens database
+
+The original PTLens database format has been replaced by a new XML-based format.
+A single XML file can contain entries for mounts, cameras and lenses.
+The whole file contents are enclosed in a @<lensdatabase@> element.
+
+The database is made of multiple XML files, conventionally split by manufacturer
+and camera type. Compact and SLR cameras/lenses are split apart for easier
+maintainance.
+
+Database contains three kinds of objects: @b mounts, @b cameras and @b lenses.
+
+Every @b camera has a mount type assigned (and only one). Similarily, @b lenses
+also have a list of mounts assigned, because lenses often come in several variants
+with different mounts. Finally, every @b mount has assigned a list of compatible mounts,
+so if your camera has mount B which is compatible with mount A, you can list all the
+lenses that come either with mounts A or B. However, there are various custom adapters
+that can be used to connect lenses to bodies with "incompatible" mounts, so the
+application in any case must provide a mean to choose from the whole list in
+addition to filtering lenses by mount.
+
+The cameras may be autodetected by using EXIF information from
+the source image. However, the lensfun library is not tied in any way
+to EXIF tags, it is in the application's responsibility to read those
+tags in any way they like. In fact, you may detect the camera which
+was used to take the image in some other way (for example, if you
+want to use lensfun for processing images taken from videocams, which
+usually do not use EXIF, or scanned images from film cameras),
+you may even ask the user directly to choose the camera from a list.
+
+Same about lenses: you may either autodetect them (which is tricky
+even if you have EXIF information, since unlike camera/model the
+lens model is highly manufacturer-dependent and is usually hidden
+in the Exif.MakerNote tag which is a big binary blob; luckily
+the exiv2 library can parse many vendor-specific MakerNote's),
+or you may (must) provide some mean for the user to enter the
+lens model manually. The lensfun library will help you a little
+here, since it provides a means to match a set of lenses from
+the database given a human-entered lens description (e.g.
+fuzzy lens search).
+
+<ul>
+<li>@ref dbformat
+<li>@ref dbsearch
+</ul>
+
+
+@page dbformat Database file format
+
+Here goes a simple lens database file, I hope I don't have to explain
+much what is what, as the format is pretty much self-documenting.
+
+@code
+<lensdatabase>
+
+    <mount>
+        <name>Pentax K</name>
+        <compat>M42</compat>
+    </mount>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>SMC Pentax M 50mm f/1.4</model>
+        <mount>Pentax K</mount>
+        <cropfactor>1.0</cropfactor>
+        <focal>50</focal>
+        <aperture>1.4-22</aperture>
+        <type>rectilinear</type>
+        <calibration>
+            <!-- WARNING: this calibration data is completely bogus :) -->
+            <distortion model="ptlens" focal="50" a="0.012" b="-0.036" c="0" />
+        </calibration>
+    </lens>
+
+    <camera>
+        <maker>PENTAX Corporation</maker>
+        <model>PENTAX K10</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.5</cropfactor>
+    </camera>
+
+</lensdatabase>
+@endcode
+
+Since lenses and cameras may be known with different names in
+different languages/countries, the library provides a built-in
+mechanism for name translations. You can provide such multi-language
+strings for every language you want, and when the library client will
+ask for string value, it will get the one in the current locale.
+
+This mechanism is also useful sometimes when you want to use a
+name for camera which is different from the value put in EXIF
+data. For example:
+
+@code
+<maker>KONICA MINOLTA</maker>
+<maker lang="en">Konica Minolta</maker>
+<maker lang="ru">Коника Минольта</maker>
+@endcode
+
+The value without a "lang" attribute is always used for identification,
+but GUI may use the translated string for display. If no language matches,
+and an "en" translation is present, it is used. And only if there's no
+native translation and there's no "en" translation, the no-language
+version is used.
+
+Here is a complete list of elements recognized by the library and the
+format of the data within elements.
+
+<ul>
+<li>@ref el_mount
+<li>@ref el_camera
+<li>@ref el_lens
+</ul>
+
+@page el_mount Describing camera mounts: \<mount\>
+
+Possible embedded elements:
+<dl>
+<dt>\<name\>string\</name\>
+<dd>This gives the name of the mount.
+<dt>\<compat\>string\</compat\>
+<dd>Declares that this mount is compatible with another one. Usually this means that
+either they are directly compatible (e.g. the Pentax KAF2 mount is compatible with
+Pentax K so you can insert K lenses into a KAF2 camera) or there exists mount adapters
+which permit to install lenses with such mounts into this mount. Note that the
+compatibility is unidirectional, e.g. in the above example it doesn't say that you
+can insert Pentax KAF2 lenses into a Pentax K camera; if you need a two-way
+compatibility, declare it both ways.
+</dl>
+
+@page el_camera Declaring cameras: \<camera\>
+
+Possible embedded elements:
+<dl>
+<dt>\<maker\>string\</maker\>
+<dd>Camera maker. This must be specified \b exactly as it is specified in
+    camera EXIF data to allow for automatic recognition of the camera.
+<dt>\<model\>string\</model\>
+<dd>Camera model. This must be specified \b exactly as it is specified in
+    camera EXIF data to allow for automatic recognition of the camera.
+<dt>\<variant\>string\</variant\>
+<dd>Camera variant. Sometimes makers create several cameras without changing
+    EXIF information. Unfortunately, camera variant cannot be automatically
+    detected so this is a manual choice item.
+<dt>\<mount\>string\</mount\>
+<dd>Camera mount. There can be only one such element in camera declaration.
+    If you want to specify that it is possible to use lenses with a different mount
+    on this camera, use the \<compat\> element in mount declaration.
+<dt>\<cropfactor\>number\</cropfactor\>
+<dd>Camera crop factor. This is the ratio between the standard film frame diagonal
+(36x24mm) and camera sensor diagonal.
+</dl>
+
+@page el_lens Declaring lenses: \<lens\>
+
+Possible embedded elements:
+<dl>
+<dt>\<maker\>string\</maker\>
+<dd>Lens maker. This must be specified \b exactly as it is returned by
+    EXIF reading libraries to allow for automatic recognition of the lens.
+<dt>\<model\>string\</model\>
+<dd>Lens model. This must be specified \b exactly as it is returned by
+    EXIF reading libraries to allow for automatic recognition of the lens.
+    See below for extended information about the model name field.
+<dt>\<variant\>string\</variant\>
+<dd>Lens variant. Sometimes there are several variants of the same lens which
+    even sometimes differs in parameters.
+<dt>\<type\>string\</type\>
+    Lens type. This is one of: "rectilinear", "fisheye", "panoramic", "equirectangular".
+<dt>\<focal min="number" max="number" value="number" /\>
+<dd>Lens focal distance. This can be either a single value for a fixed-focal length
+    lens, or a "min-max" range in the case of a zoom lens.
+<dt>\<aperture min="number" max="number" value="number" /\>
+<dd>Lens aperture. This can be either a single value for a fixed-aperture
+    lens, or a "min-max" range in the case of a normal lens.
+<dt>\<mount\>string\</mount\>
+<dd>Lens mount. There can be multiple \<mount\> entries if the same lens is manufactured
+    with several mounts, or it has a variable mount (e.g. Tamron Adaptall).
+<dt>\<cropfactor\>number\</cropfactor\>
+<dd>This is the crop factor of the camera with which all shots for computing distortion
+    models were made. The library will compute correction factors if you used this lens
+    on another camera with a different crop factor. Generally it is advised to use
+    a camera with maximal crop factor for this lens, because the models may become
+    imprecise for crop factors smaller than the one used for models.
+<dt>\<cci r="number" g="number" b="number" /\>
+<dd>The Colour Contribution Index of the lens, as defined by ISO 6728-83.
+    Unfortunately, for now this data is unused as I couldn't find the respective
+    standard (they are sold for 30 euros or more).
+<dt>\<calibration\>calibration data\</calibration\>
+<dd>@ref elem_calibration
+</dl>
+
+Library recognizes several ways to specify lens parameters directly
+in lens model name. The first way to specify lens focal distance and
+aperture range is "[min focal]-[max focal]mm f/[min aperture]-[max aperture]"
+where the "mm" and "f/" are totally optional. For primes the 'max'
+values may be omited. Examples:
+
+<ul>
+<li>70-210mm f/4-5.6
+<li>18-55 3.5-5.6
+<li>50 f2
+</ul>
+
+Another pattern for lens parameters is
+"[min aperture]-[max aperture]/[min focal]-[max focal]". Examples:
+
+<ul>
+<li>2.8-3.5/25-45
+<li>4.5/300
+</ul>
+
+If you encode lens parameters directly in the lens name, you may omit the
+@<focal@> and @<aperture@> elements. Also if the range of focal distances is
+missing both from lens name and there's no @<focal@> element, the library
+tries to guess the range of focal distances from the @<calibration@> section.
+
+Note the @<type@> lens element. This declares the lens geometry. Most lenses are
+rectilinear, so this is the default value if a @<type@> element is missing. However,
+the library also supports fish-eye, panoramic (cylindrical) and equirectilinear lens
+types. The library allows converting images from one geometry to another, e.g.
+you can transform for example fish-eye images to rectilinear, panoramic images
+to fish-eye and so on.
+
+
+@page elem_calibration Lens calibration data format
+
+Possible embedded elements:
+<dl>
+<dt>\<distortion focal="number" model="name" k1="number" k2="number" k3="number" omega="number" a="number" b="number" c="number" /\>
+<dd>Declares the image distortion model for this lens. Distortion is specific for every
+    focal distance, so you can declare multiple distortion entries with different focal
+    values; the library will interpolate the parameters for intermediate focal lengths.
+    @see lfDistortionModel
+<dt>\<tca focal="number" model="name" k="number" /\>
+<dd>Declares the Transversal Chromatic Aberrations model for this lens.
+    @see lfTCAModel
+<dt>\<vignetting focal="number" aperture="number" distance="number" model="name" k1="number" k2="number" k3="number" /\>
+<dd>Declares the vignetting model for this lens at given focal distance, given aperture
+    and given distance to subject. This kind of calibration requires relatively many
+    sample points since it depends on three variables.
+    @see lfVignettingModel
+</dl>
+
+@page dbsearch How database files are found and loaded
+
+In a typical application, all XML files are loaded automatically at startup.
+If same object is defined in multiple files, later definitions override earlier
+definitions, e.g. user can override system-wide definitions by placing
+appropiately formatted XML files in its home directory.
+
+A typical application will initialize the lens database by calling the method
+lfDatabase::Load() with no parameters. This method searches for all available
+XML files and loads them, ignoring files with errors.
+
+The main place where lensfun looks for database files are the directories
+returned by the gtk function g_get_system_data_dirs(). This is (usually) the
+@b /usr/share/lensfun/ subdirectory (the part after /usr/share/ is configurable
+at library compilation time) and also the @b /usr/local/share/lensfun/ directory
+for system-local files. On Windows this is something like
+"C:\Documents and Settings\%User%\something" but I'm not sure exactly :-).
+
+After that the user's home directory is searched too, as returned by
+g_get_user_data_dir() with "lensfun" appended as well. On my system this is
+<b>/home/user/.local/share/lensfun</b>. The exact path to the user-specific
+directory can be found in the variable lfDatabase::HomeDataDir.
+
+Another way to load database file is to load them one by one. For this you call
+lfDatabase::Load(const char *) for every XML file that must be loaded.
+
+
+@page programming Using this library in your programs
+
+One of main goals while developing this library was easiness of use.
+Libraries with complex API are usually slow to be accepted by the community,
+and often libraries that can do less but have a cleaner API are preferred
+over more sophisticated libraries that have a user-unfriendly API.
+
+The library is accessinble both from plain C and C++ programs.
+Since the library itself is written in C++ (without use of bloated and bloating
+libraries like libstdc++ or boost), the C interface is a (very) thin wrapper
+around the C++ classes. The overhead imposed by the wrappers is negligible.
+
+<ul>
+<li>@ref basearch
+<li>@ref samplecode
+</ul>
+
+
+@page basearch Library architecture
+
+The library provides five basic types of objects to work with:
+@b mounts (lfMount), @b cameras (lfCamera), @b lenses (lfLens),
+@b databases (lfDatabase) and @b modificators (lfModifier).
+
+The lfMount structure provides the information about a mount. For now the only
+information about a mount is its name and the list of compatible mounts.
+
+The lfCamera structure provides information about a particular camera. Camera maker,
+model name, mount type and other things are included here.
+
+The lfLens structure provides information about a lens. This structure contains a
+lot of information, since it's the heart of the library. Besides other things, this
+contains a list of lens calibration data. This information tells the library how to
+correct images distorted by a certain lens.
+
+The lfDatabase class provides a interface to the XML database. It allows to load,
+save XML files and to search the database for lenses, cameras and mounts.
+
+Finally, the lfModifier class will allow you to modify images. Not only correct
+for distortion introduced by lenses but also apply special effects on a image such
+as emulating certain lens (e.g. apply a reverse transform), modify the geometry
+of a image (e.g. convert a fisheye image to a rectilinear etc).
+
+A typical application will first load the database by creating a lfDatabase object
+and invoking the respective lfDatabase::Load() method. After that it can look for a
+Lens object using the bits of information from the user or from the source file.
+For example, the EXIF data contains the camera maker and camera model. Using this
+you can search for the respective camera in the database. In camera record you look
+at the mount field, and then do a lens search based on at least mount name. Additionaly,
+you may provide the lens manufacturer and/or model name from the EXIF data (which is
+not always possible). You get a list of possible lenses. If it's just one lens, you
+can assume that it's exactly the lens that was used to take the shot (this is true
+for compact cameras which have a fixed mount).
+
+Now if you found more than one matching lens you must provide the user a choice.
+User chooses the exact lens that was used to make a shot. After that you can
+create a lfModifier object using lens data. Using this object the image
+may be modified according to user preferences.
+
+
+@page samplecode Sample code
+
+Here goes some coding examples, from simple to complex.
+
+<ul><li>\ref example.c</ul>
+
+This is a example written in pure C and it shows how to load the whole
+database, then prints it to stdout and finally saves the whole database
+to a new XML file.
+
+<ul><li>\ref tfun.cpp</ul>
+
+This is a more complex sample in C++ which shows how to do database lookups.
+The results found are saved to a new XML file.
+
+<ul><li>\ref tmod.cpp</ul>
+
+This is a more or less complex command-line application which can access
+most library functionality. It has been used as the main library testbed.
+
+*/
+
+/**
+\example example.c
+Sample program demonstrating basic usage of C API.
+*/
+
+/**
+\example tfun.cpp
+This example shows how to do basic database lookups.
+*/
+
+/**
+\example tmod.cpp
+Library testbed. This program can access most library functionality.
+*/
+
+/**
+\page gpl GNU General Public License, version 3
+\verbinclude gpl-3.0.txt
+*/
+
+/**
+\page lgpl GNU Lesser General Public License, version 3
+\verbinclude lgpl-3.0.txt
+*/
+
+/**
+\page cc-by-ca Creative Commons Attribution-Share Alike 3.0 Unported
+\verbinclude cc-by-sa-3.0.txt
+*/

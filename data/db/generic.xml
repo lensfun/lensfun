@@ -1,0 +1,37 @@
+<!--
+    The meaning of this file is to provide some generic lenses that can be used
+    to correct or simulate geometric distortions for specific types of lenses.
+    It does not provide (obviously) any calibration data.
+-->
+<lensdatabase>
+
+    <mount>
+        <name>Generic</name>
+        <compat>*</compat>
+    </mount>
+
+    <lens>
+        <maker>Generic</maker>
+        <model>Rectilinear 10-1000mm f/1.0</model>
+        <mount>Generic</mount>
+        <cropfactor>1.0</cropfactor>
+        <type>rectilinear</type>
+    </lens>
+
+    <lens>
+        <maker>Generic</maker>
+        <model>Fisheye 8-20mm f/1.0</model>
+        <mount>Generic</mount>
+        <cropfactor>1.0</cropfactor>
+        <type>fisheye</type>
+    </lens>
+
+    <lens>
+        <maker>Generic</maker>
+        <model>Panoramic 10-100mm f/1.0</model>
+        <mount>Generic</mount>
+        <cropfactor>1.0</cropfactor>
+        <type>panoramic</type>
+    </lens>
+
+</lensdatabase>

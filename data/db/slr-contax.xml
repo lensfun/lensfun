@@ -1,0 +1,35 @@
+<lensdatabase>
+
+    <mount>
+        <name>Contax/Yashica</name>
+        <compat>M42</compat>
+    </mount>
+
+    <camera>
+        <maker>Contax SLR</maker>
+        <model>35mm film: full frame</model>
+        <mount>Contax/Yashica</mount>
+        <cropfactor>1.0</cropfactor>
+    </camera>
+
+    <lens>
+        <maker>Contax</maker>
+        <model>Zeiss 21mm f/2.8 Distagon</model>
+        <mount>Contax/Yashica</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="21" a="0.021925" b="-0.043445" c="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Contax</maker>
+        <model>Zeiss 28mm f/2.8 Distagon</model>
+        <mount>Contax/Yashica</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="28" a="0.007448" b="-0.019182" c="0" />
+        </calibration>
+    </lens>
+
+</lensdatabase>

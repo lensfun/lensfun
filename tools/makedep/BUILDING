@@ -1,0 +1,4 @@
+To build the tool, just compile all the .cpp file together into a executable called
+makedep{.exe}. With the GNU C compiler this is just:
+
+g++ -s -O3 -fomit-frame-pointer -fno-exceptions -fno-rtti -o makedep *.cpp

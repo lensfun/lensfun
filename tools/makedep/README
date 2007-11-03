@@ -1,0 +1,73 @@
+This is makedepend that comes with XFree86 distribution with several changes
+(listed below). Here is the copyright notice (from the source files):
+
+   Copyright (c) 1993, 1994  X Consortium
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in
+   all copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+   X CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+   AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+   Except as contained in this notice, the name of the X Consortium shall not be
+   used in advertising or otherwise to promote the sale, use or other dealings
+   in this Software without prior written authorization from the X Consortium.
+
+   Author: Todd Brunhoff, Tektronix, Inc. and MIT Project Athena
+
+The following changes have been made to it:
+
+-*- Renamed "makedepend" into "makedep" to conform with pity DOS file naming
+    convention (8 + 3).
+
+-*- Converted to C++ (better syntax checking and so on ...). Replaced
+    "boolean" with "bool", "TRUE" -> "true" and "FALSE" -> "false".
+
+-*- When run with no files on command line, display a short message and exit.
+
+-*- Added the "-h" option for a short command-line help.
+
+-*- Added the "-S" option so that "makedep" will generate dependencies
+    on system include files (like before and like gcc -M). By default
+    (i.e. without "-S" switch) it lists only user include files (i.e.
+    those that are #include'd "...", system include files are considered
+    those that are #include'd <...> this way).
+
+-*- Modified so that by default it won't create backups of makefile. If you
+    need them, run makedep with "-b" switch.
+
+-*- Added the "-c" switch to tell "makedep" to create makefile if it does
+    not exist.
+
+-*- Added the "-r" switch to remove directory prefix from object files.
+
+-*- Added preprocessor predefines required on Win32 platform.
+
+-*- Added displaying of include file history on errors and warnings.
+    Example:
+
+makedep: warning:  ./include/def.h: 23: #error "You are not allowed to include this file! Use cssysdef.h instead."
+makedep: warning:  included from ./include/csutil/impexp.h
+makedep: warning:  included from ./include/csparser/crossbld.h
+makedep: warning:  included from libs/csparser/crossbld.cpp
+
+-*- Updated man page on all above improvements.
+
+-*- Added a version number to distinguish between different versions of makedep.
+    Although makedepend itself is pretty old, I've started from version 0.0.1
+    as I don't have any idea what the version number should be :-)
+    Added the "-V" switch to display the version.
+
+Comments/questions/bugreports:
+Andrew Zabolotny, <anpaza@mail.ru>
