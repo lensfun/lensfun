@@ -22,7 +22,7 @@ endef
 # Install rules ($1 = module name, $2 = unexpanded target file,
 # $3 = full target file name)
 define MKIRULES.DOXYGEN
-install-$1: $3
+
 	$(if $V,,@echo INSTALLDIR $3 &&)$$(call INSTALLDIR,$3,$(call .INSTDIR,$1,$2,$(CONF_DOCSDIR)),0644)
 endef
 

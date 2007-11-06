@@ -44,6 +44,7 @@ SYSCONFDIR = None
 LIBDIR = None
 LIBEXECDIR = None
 DOCSDIR = None
+INCLUDEDIR = None
 VERBOSE = 0
 MODE = "release"
 SHAREDLIBS = True
@@ -79,6 +80,8 @@ OPTIONS = [
       "Define the installation directory for data files" ],
     [ None, "libdir",     "DIR",   "global LIBDIR; LIBDIR = optarg",
       "Define the installation directory for application libraries" ],
+    [ None, "includedir", "DIR",   "global INCLUDEDIR; INCLUDEDIR = optarg",
+      "Define the installation directory for include files" ],
     [ None, "libexecdir", "DIR",   "global LIBEXECDIR; LIBEXECDIR = optarg",
       "Define the installation for exectutable application components" ],
     [ "v",  "verbose",    None,    "global VERBOSE; VERBOSE = 1",
@@ -212,7 +215,8 @@ COMPILERS = {
 # Common initialization
 def start ():
     global HOST, TARGET, DEVNULL, EXE, TOOLKIT
-    global PREFIX, BINDIR, SYSCONFDIR, DATADIR, DOCSDIR, LIBDIR, LIBEXECDIR, SHAREDLIBS
+    global PREFIX, BINDIR, SYSCONFDIR, DATADIR, DOCSDIR, LIBDIR
+    global INCLUDEDIR, LIBEXECDIR, SHAREDLIBS
     if os.name == "posix":
         HOST = ["posix"]
         TARGET = ["posix"]
@@ -318,6 +322,8 @@ def start ():
             LIBDIR = PREFIX + "/lib64"
         else:
             LIBDIR = PREFIX + "/lib"
+    if not INCLUDEDIR:
+        INCLUDEDIR = PREFIX + "/include"
     if not LIBEXECDIR:
         LIBEXECDIR = PREFIX + "/libexec/" + PROJ
 
@@ -332,6 +338,8 @@ def start ():
     add_config_mak ("CONF_DATADIR", DATADIR + '/')
     add_config_h ("CONF_LIBDIR", '"' + LIBDIR + '"')
     add_config_mak ("CONF_LIBDIR", LIBDIR + '/')
+    add_config_h ("CONF_INCLUDEDIR", '"' + INCLUDEDIR + '"')
+    add_config_mak ("CONF_INCLUDEDIR", INCLUDEDIR + '/')
     add_config_h ("CONF_DOCSDIR", '"' + DOCSDIR + '"')
     add_config_mak ("CONF_DOCSDIR", DOCSDIR + '/')
     add_config_h ("CONF_LIBEXECDIR", '"' + LIBEXECDIR + '"')

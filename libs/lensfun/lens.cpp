@@ -394,10 +394,15 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
     if (!CalibDistortion)
         return false;
 
-    lfLensCalibDistortion *spline [4] = { NULL, NULL, NULL, NULL };
+    union
+    {
+        lfLensCalibDistortion *spline [4];
+        void *spline_ptr [4];
+    };
     float spline_dist [4] = { -FLT_MAX, -FLT_MAX, FLT_MAX, FLT_MAX };
     lfDistortionModel dm = LF_DIST_MODEL_NONE;
 
+    memset (spline, 0, sizeof (spline));
     for (int i = 0; CalibDistortion [i]; i++)
     {
         lfLensCalibDistortion *c = CalibDistortion [i];
@@ -422,7 +427,7 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
             return true;
         }
 
-        __insert_spline ((void **)spline, spline_dist, df, c);
+        __insert_spline (spline_ptr, spline_dist, df, c);
     }
 
     if (!spline [1] || !spline [2])
@@ -457,10 +462,15 @@ bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
     if (!CalibTCA)
         return false;
 
-    lfLensCalibTCA *spline [4] = { NULL, NULL, NULL, NULL };
+    union
+    {
+        lfLensCalibTCA *spline [4];
+        void **spline_ptr;
+    };
     float spline_dist [4] = { -FLT_MAX, -FLT_MAX, FLT_MAX, FLT_MAX };
     lfTCAModel tcam = LF_TCA_MODEL_NONE;
 
+    memset (&spline, 0, sizeof (spline));
     for (int i = 0; CalibTCA [i]; i++)
     {
         lfLensCalibTCA *c = CalibTCA [i];
@@ -485,7 +495,7 @@ bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
             return true;
         }
 
-        __insert_spline ((void **)spline, spline_dist, df, c);
+        __insert_spline (spline_ptr, spline_dist, df, c);
     }
 
     if (!spline [1] || !spline [2])
@@ -630,11 +640,16 @@ bool lfLens::InterpolateVignetting (
         pcy *= norm;
         pcz *= norm;
 
-        lfLensCalibVignetting *spline [4] = { NULL, NULL, c, NULL };
+        union
+        {
+            lfLensCalibVignetting *spline [4];
+            void **spline_ptr;
+        };
         // Don't pick up way off points
         float spline_rating [4] = { -10.0, -10.0, 1.0, 10.0 };
         float spline_dist [4] =  { FLT_MAX, FLT_MAX, 1.0, FLT_MAX };
 
+        memset (&spline, 0, sizeof (spline));
         for (uint j = 0; j < vc->len; j++)
         {
             if (j == i)
@@ -668,7 +683,7 @@ bool lfLens::InterpolateVignetting (
                 goto leave;
             }
 
-            switch (__insert_spline ((void **)spline, spline_rating, rating, x))
+            switch (__insert_spline (spline_ptr, spline_rating, rating, x))
             {
                 case 0:
                     spline_dist [0] = dist;
