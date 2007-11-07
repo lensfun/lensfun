@@ -152,7 +152,7 @@ dep: $(OUT)deps/$2.dep
 else
 -include $(OUT)deps/$2.dep
 endif
-DEPS.$2 = $(call MKDEPS,$(.TKNAME),$(SRC.$1) $(SRC.$2)) $(call XFNAME.$(.TKNAME),$(filter %$L,$(LIBS.$1) $(LIBS.$2)))
+DEPS.$2 = $(call MKDEPS,$(.TKNAME),$(SRC.$1) $(SRC.$2)) $(foreach 3,$(filter %$L,$(LIBS.$1) $(LIBS.$2)),$(call XFNAME.$(.TKNAME),$3))
 OUTDIRS += $$(dir $$(DEPS.$2))
 $(call MKCRULES.$(.TKNAME),$(SRC.$1) $(SRC.$2),$(call .DIRLIST,$(SRC.$1) $(SRC.$2)),$1,$2)
 $(call MKLRULES.$(.TKNAME),$(call XFNAME.$(.TKNAME),$2),$$(DEPS.$2),$1,$2)
