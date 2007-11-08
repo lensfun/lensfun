@@ -116,10 +116,12 @@ showhelp:
 	$(foreach x,$(GROUPS),$(call SAYHELP,$x))
 	$(call SAY,$-)
 
-ifndef DO.DEP
 # Generate dependency files
 dep depend:
-	@$(MAKE) --no-print-directory dep DO.DEP=1
+ifneq ($(AUTODEP),1)
+	@$(MAKE) --no-print-directory dep AUTODEP=1
+else
+	$(call SAY,done)
 endif
 
 # Make the 'all' target which builds all groups
@@ -136,7 +138,7 @@ $(foreach x,$(GROUPS),$(eval install-$($x.dir): install-$($x)))
 # Return the given $1 flags (CFLAGS/CXXFLAGS/LDFLAGS) for the module $2/target $3
 .SYSLIBS = $(foreach 3,$(SYSLIBS.$2),$(subst $(COMMA),$$(COMMA),$($1.$3)))
 # Installation directory for module $1 target $2, default value $3
-.INSTDIR = $(if $(INSTDIR.$2),$(INSTDIR.$2),$(if $(INSTDIR.$1),$(INSTDIR.$1),$3))
+.INSTDIR = $(INSTALL_PREFIX)$(if $(INSTDIR.$2),$(INSTDIR.$2),$(if $(INSTDIR.$1),$(INSTDIR.$1),$3))
 
 # Okay, here goes the horror part :)
 # $1 - module name
@@ -144,14 +146,10 @@ define RULES.MODULE
 .PHONY: $1
 $1: outdirs $(foreach 2,$(TARGETS.$1),$(call XFNAME.$(.TKNAME),$2))
 $(foreach 2,$(TARGETS.$1),$(if $(SRC.$2),
-ifneq ($(DO.DEP)$(AUTODEP),)
+ifeq ($(AUTODEP),1)
 $(call MKDRULES.$(.TKNAME),$(OUT)deps/$2.dep,$(OUT)deps/.dir $(SRC.$1) $(SRC.$2),$1,$2)
 endif
-ifdef DO.DEP
-dep: $(OUT)deps/$2.dep
-else
 -include $(OUT)deps/$2.dep
-endif
 DEPS.$2 = $(call MKDEPS,$(.TKNAME),$(SRC.$1) $(SRC.$2)) $(foreach 3,$(filter %$L,$(LIBS.$1) $(LIBS.$2)),$(call XFNAME.$(.TKNAME),$3))
 OUTDIRS += $$(dir $$(DEPS.$2))
 $(call MKCRULES.$(.TKNAME),$(SRC.$1) $(SRC.$2),$(call .DIRLIST,$(SRC.$1) $(SRC.$2)),$1,$2)
@@ -181,8 +179,6 @@ showrules:
 	@echo -e '$(subst $(NL),\n,$(foreach x,$(filter-out $(INSTALL.EXCLUDE),$(INSTALL.TARGETS)),$(call INSTRULES.MODULE,$x)))'
 
 OUTDIRS := $(sort $(OUTDIRS))
-
-dep: outdirs
 
 # Clean the currently configured output directory
 clean:

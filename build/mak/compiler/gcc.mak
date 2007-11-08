@@ -92,13 +92,13 @@ define MKIRULES.GCC
 $(if $(findstring $L,$2),\
 $(foreach _,$3 $(if $(SHARED.$2),$3.$(SHARED.$2) $3.$(basename $(basename $(SHARED.$2)))),
 	$(if $V,,@echo INSTALL $_ &&)$$(call INSTALL,$_,\
-        $(if $(INSTDIR.$2),$(INSTDIR.$2),$(CONF_LIBDIR)),$(if $(SHARED.$2),0755,0644))))\
+        $(call .INSTDIR,$1,$2,$(CONF_LIBDIR)),$(if $(SHARED.$2),0755,0644))))\
 $(if $(findstring $E,$2),
 	$(if $V,,@echo INSTALL $3 &&)$$(call INSTALL,$3,\
-        $(if $(INSTDIR.$2),$(INSTDIR.$2),$(CONF_BINDIR)),0755))\
+        $(call .INSTDIR,$1,$2,$(CONF_BINDIR)),0755))\
 $(if $(INSTALL.HEADERS.$2),\
-	$(if $V,,@echo INSTALL $(INSTALL.HEADERS.$2) &&)$$(call INSTALL,$(INSTALL.HEADERS.$2),$(CONF_INCLUDEDIR),0644)\
-)
+	$(if $V,,@echo INSTALL $(INSTALL.HEADERS.$2) &&)$$(call INSTALL,$(INSTALL.HEADERS.$2),\
+	$(call .INSTDIR,$1,$2,$(CONF_INCLUDEDIR)),0644))
 endef
 
 define MAKEDEP.GCC

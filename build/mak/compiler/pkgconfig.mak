@@ -22,7 +22,7 @@ endef
 # $3 = module name, $4 = unexpanded target name)
 define MKLRULES.PKGCONFIG
 $1: $2
-	$(if $V,,@echo LINK.GCC.AR $$@ &&)$$(call LINK.PKGCONFIG,$1,$3)
+	$(if $V,,@echo SED $$@ &&)$$(call LINK.PKGCONFIG,$1,$3)
 endef
 
 # Install rules ($1 = module name, $2 = unexpanded target file,
@@ -30,7 +30,7 @@ endef
 define MKIRULES.PKGCONFIG
 
 	$(if $V,,@echo INSTALL $3 &&)$$(call INSTALL,$3,\
-        $(if $(INSTDIR.$2),$(INSTDIR.$2),$(CONF_LIBDIR)pkgconfig/),0644)
+        $(call .INSTDIR,$1,$2,$(CONF_LIBDIR)pkgconfig/),0644)
 endef
 
 # Dependency rules ($1 = dependency file, $2 = source file list,

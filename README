@@ -1,7 +1,7 @@
 WHAT IS IT
 ----------
 
-The goal of the lensfun library is to provide a open soruce database
+The goal of the lensfun library is to provide a open source database
 of photographic lenses and their characteristics. In the past there
 was a effort in this direction (see http://www.epaperpress.com/ptlens/),
 but then author decided to take the commercial route and the database
@@ -25,10 +25,28 @@ The C interface is a wrapper around the C++ classes.
 LICENSE
 -------
 
-This library is licensed under the GNU Lesser General Public License,
-version 3, which can be found in the file lgpl-3.0.txt. It, in turn,
-is based on the GNU General Public License version 3, which can be
-found in the file gpl-3.0.txt.
+The libraries which are part of this package are licensed under the terms of the
+GNU Lesser General Public License, version 3. Libraries are located under
+the subdirectory libs/ of the source package. A copy of the license is available
+in the file lgpl-3.0.txt which can be found in the source archive. You can read
+it here: http://www.gnu.org/licenses/lgpl-3.0.html
+
+Applications which are part of this package are licensed under the terms of the
+GNU General Public License, version 3. Applications are located under
+the apps/ subdirectory of the source package. A copy of the license can be found
+in the file gpl-3.0.txt which can be found in the source archive. You can read it
+here: http://www.gnu.org/licenses/gpl-3.0.html
+
+Also the build system (the contents of the build/ subdirectory plus the ac.py file)
+is licensed under GPL v3.
+
+Test programs and tools are put into public domain, unless explicitly specified
+otherwise in the header of the source files. Test programs are located under the
+tests/ subdirectory, and tools are located in tools/.
+
+The lens database is licensed under the Creative Commons Attribution-Share Alike 3.0
+license. The database is located under the data/ subdirectory of the source package.
+You can read it here: http://creativecommons.org/licenses/by-sa/
 
 
 FURTHER DIRECTIONS

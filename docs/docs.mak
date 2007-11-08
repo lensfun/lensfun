@@ -10,8 +10,7 @@ SRC.manual$D = docs/manual-doc.conf include/lensfun/lensfun.h docs/manual-main.t
 
 DOCS += readme
 DESCRIPTION.readme = Readme file and licenses
+TARGETS.readme = README docs/lgpl-3.0.txt docs/gpl-3.0.txt docs/cc-by-sa-3.0.txt
+TOOLKIT.readme = DATA
 INSTALL.TARGETS += readme
-SRC.readme = README docs/lgpl-3.0.txt docs/gpl-3.0.txt
-
-install-readme: $(SRC.readme)
-	@$(if $V,,@echo INSTALL $(SRC.readme) &&)$(call INSTALL,$(SRC.readme),$(CONF_DOCSDIR),0644)
+INSTDIR.readme = $(CONF_DOCSDIR)

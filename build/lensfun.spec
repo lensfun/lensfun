@@ -1,0 +1,87 @@
+Summary: A photographic lens database and a library for accessing it
+Name: lensfun
+Version: 0.2.0
+Release: 1%{?dist}
+License: LGPL
+Group: System Environment/Libraries
+URL: http://lensfun.berlios.de
+Source: http://lensfun.berlios.de/%{name}-%{version}.tar.bz2
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
+Provides: %{name}-devel = %{version}-%{release}
+BuildRequires: python doxygen
+
+
+%description
+The goal of the lensfun library is to provide a open source database
+of photographic lenses and their characteristics. In the past there
+was a effort in this direction (see http://www.epaperpress.com/ptlens/),
+but then author decided to take the commercial route and the database
+froze at the last public stage. This database was used as the basement
+on which lensfun database grew, thanks to PTLens author which gave his
+permission for this, while the code was totally rewritten from scratch
+(and the database was converted to a totally new, XML-based format).
+
+The lensfun library not only provides a way to read the database and
+search for specific things in it, but also provides a set of algorithms
+for correcting images based on detailed knowledge of lens properties
+and calibration data. Right now lensfun is designed to correct distortion,
+transversal (also known as lateral) chromatic aberrations, vignetting
+and colour contribution index of the lens.
+
+
+%package devel
+Summary: lensfun development files
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+
+
+%description devel
+Header and library definition files for developing applications
+that use the lensfun library/database.
+
+
+%prep
+%setup -n %{name}-%{version}
+./configure \
+        --cflags="${CFLAGS:-%optflags}" \
+        --cxxflags="${CXXFLAGS:-%optflags}" \
+ 	--prefix=%{_prefix} \
+	--bindir=%{_bindir} \
+	--sysconfdir=%{_sysconfdir} \
+	--datadir=%{_datadir}/lensfun \
+	--libdir=%{_libdir} \
+	--includedir=%{_includedir} \
+	--libexecdir=%{_libexecdir}
+
+%build
+make AUTODEP=0 %{?_smp_mflags} lensfun manual
+
+
+%install
+%{__rm} -rf %{buildroot}
+make AUTODEP=0 INSTALL_PREFIX=%{?buildroot:%{buildroot}} install
+
+%clean
+%{__rm} -rf %{buildroot}
+
+
+%files
+%defattr(-, root, root, 0755)
+%doc %{_datadir}/doc/%{name}-%{version}/README
+%doc %{_datadir}/doc/%{name}-%{version}/lgpl-3.0.txt
+%doc %{_datadir}/doc/%{name}-%{version}/gpl-3.0.txt
+%doc %{_datadir}/doc/%{name}-%{version}/cc-by-sa-3.0.txt
+%{_libdir}/*.so.*
+%{_datadir}/lensfun/*.xml
+
+%files devel
+%defattr(-,root,root,-)
+%doc %{_datadir}/doc/%{name}-%{version}/manual
+%{_libdir}/*.so
+%{_libdir}/pkgconfig/*
+%{_includedir}/*.h
+
+
+%changelog
+* Thu Nov  8 2007 Andrew Zabolotny <anpaza@mail.ru>
+- Initial version of this spec file
