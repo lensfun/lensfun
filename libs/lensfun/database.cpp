@@ -859,9 +859,10 @@ const lfCamera *const *lfDatabase::GetCameras () const
 }
 
 const lfLens **lfDatabase::FindLenses (const lfCamera *camera,
-                                       const char *model) const
+                                       const char *maker, const char *model) const
 {
     lfLens lens;
+    lens.SetMaker (maker);
     lens.SetModel (model);
     if (camera)
         lens.AddMount (camera->Mount);
@@ -879,18 +880,52 @@ static gint _lf_compare_lens_score (gconstpointer a, gconstpointer b)
     return i2->Score - i1->Score;
 }
 
+static void _lf_add_compat_mounts (
+    const lfDatabase *This, const lfLens *lens, GPtrArray *mounts, char *mount)
+{
+    const lfMount *m = This->FindMount (mount);
+    if (m && m->Compat)
+        for (int i = 0; m->Compat [i]; i++)
+        {
+            mount = m->Compat [i];
+
+            int idx = _lf_ptr_array_find_sorted (mounts, mount, (GCompareFunc)_lf_strcmp);
+            if (idx >= 0)
+                continue; // mount already in the list
+
+            // Check if the mount is not already in the main list
+            bool already = false;
+            for (int j = 0; lens->Mounts [j]; j++)
+                if (!_lf_strcmp (mount, lens->Mounts [j]))
+                {
+                    already = true;
+                    break;
+                }
+            if (!already)
+                _lf_ptr_array_insert_sorted (mounts, mount, (GCompareFunc)_lf_strcmp);
+        }
+}
+
 const lfLens **lfDatabase::FindLenses (const lfLens *lens) const
 {
     const GPtrArray *lenses = static_cast<const lfExtDatabase *> (this)->Lenses;
     GPtrArray *ret = g_ptr_array_new ();
+    GPtrArray *mounts = g_ptr_array_new ();
 
     lfFuzzyStrCmp fc (lens->Model);
+
+    // Create a list of compatible mounts
+    if (lens->Mounts)
+        for (int i = 0; lens->Mounts [i]; i++)
+            _lf_add_compat_mounts (this, lens, mounts, lens->Mounts [i]);
+    g_ptr_array_add (mounts, NULL);
 
     int score;
     for (size_t i = 0; i < lenses->len - 1; i++)
     {
         lfLens *dblens = static_cast<lfLens *> (g_ptr_array_index (lenses, i));
-        if ((score = _lf_lens_compare_score (lens, dblens, &fc)) > 0)
+        if ((score = _lf_lens_compare_score (
+            lens, dblens, &fc, (const char **)mounts->pdata)) > 0)
         {
             dblens->Score = score;
             _lf_ptr_array_insert_sorted (ret, dblens, _lf_compare_lens_score);
@@ -900,6 +935,8 @@ const lfLens **lfDatabase::FindLenses (const lfLens *lens) const
     // Add a NULL to mark termination of the array
     if (ret->len)
         g_ptr_array_add (ret, NULL);
+
+    g_ptr_array_free (mounts, TRUE);
 
     // Free the GPtrArray but not the actual list.
     return (const lfLens **) (g_ptr_array_free (ret, FALSE));
@@ -997,9 +1034,9 @@ const lfCamera *const *lf_db_get_cameras (const lfDatabase *db)
 }
 
 const lfLens **lf_db_find_lenses_hd (const lfDatabase *db, const lfCamera *camera,
-                                     const char *lens)
+                                     const char *maker, const char *lens)
 {
-    return db->FindLenses (camera, lens);
+    return db->FindLenses (camera, maker, lens);
 }
 
 const lfLens **lf_db_find_lenses (const lfDatabase *db, const lfLens *lens)

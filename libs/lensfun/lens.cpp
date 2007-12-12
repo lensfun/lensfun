@@ -75,18 +75,27 @@ static bool _lf_parse_lens_name (const char *model,
     } lens_name_regex [] =
     {
         {
-            //"[min focal]-[max focal]mm f/[min aperture]-[max aperture]"
-            "([0-9.]+)(-[0-9.]+)?(mm)?[[:space:]]+(f/?)?([0-9.]+)(-[0-9.]+)?",
-            { 1, 2, 5, 6 },
+            // 1:[min aperture]-[max aperture] [min focal]-[max focal]mm
+            "[[:space:]]+1:([0-9.]+)(-[0-9.]+)?[[:space:]]+([0-9.]+)(-[0-9.]+)?(mm)?",
+            { 3, 4, 1, 2 },
             false
         },
         {
-            //"[min aperture]-[max aperture]/[min focal]-[max focal]"
+            // [min aperture]-[max aperture]/[min focal]-[max focal]
             "([0-9.]+)(-[0-9.]+)?[[:space:]]*/[[:space:]]*([0-9.]+)(-[0-9.]+)?",
             { 3, 4, 1, 2 },
             false
+        },
+        {
+            // [min focal]-[max focal]mm f/[min aperture]-[max aperture]
+            "([0-9.]+)(-[0-9.]+)?(mm)?[[:space:]]+(f/?)?([0-9.]+)(-[0-9.]+)?",
+            { 1, 2, 5, 6 },
+            false
         }
     };
+
+    if (!model)
+        return false;
 
     for (size_t i = 0; i < ARRAY_LEN (lens_name_regex); i++)
     {
@@ -255,7 +264,7 @@ const char *lfLens::GetDistortionModelDesc (
 
     if (details)
         *details = NULL;
-    return "Unknown";
+    return NULL;
 }
 
 const char *lfLens::GetTCAModelDesc (
@@ -276,7 +285,7 @@ const char *lfLens::GetTCAModelDesc (
 
     if (details)
         *details = NULL;
-    return "Unknown";
+    return NULL;
 }
 
 const char *lfLens::GetVignettingModelDesc (
@@ -299,7 +308,7 @@ const char *lfLens::GetVignettingModelDesc (
 
     if (details)
         *details = "";
-    return "Unknown";
+    return NULL;
 }
 
 const char *lfLens::GetLensTypeDesc (lfLensType type, const char **details)
@@ -326,7 +335,7 @@ const char *lfLens::GetLensTypeDesc (lfLensType type, const char **details)
 
     if (details)
         *details = "";
-    return "Unknown";
+    return NULL;
 }
 
 void lfLens::AddCalibDistortion (const lfLensCalibDistortion *dc)
@@ -822,11 +831,19 @@ gint _lf_lens_compare (gconstpointer a, gconstpointer b)
             return cmp;
     }
 
-    cmp = int ((i1->MinFocal - i2->MaxFocal) * 100);
+    cmp = int ((i1->MinFocal - i2->MinFocal) * 100);
     if (cmp != 0)
         return cmp;
 
-    cmp = int ((i1->MinAperture - i2->MaxAperture) * 100);
+    cmp = int ((i1->MaxFocal - i2->MaxFocal) * 100);
+    if (cmp != 0)
+        return cmp;
+
+    cmp = int ((i1->MinAperture - i2->MinAperture) * 100);
+    if (cmp != 0)
+        return cmp;
+
+    cmp = int ((i1->MaxAperture - i2->MaxAperture) * 100);
     if (cmp != 0)
         return cmp;
 
@@ -845,7 +862,7 @@ static int _lf_compare_num (float a, float b)
 }
 
 int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
-                            lfFuzzyStrCmp *fuzzycmp)
+                            lfFuzzyStrCmp *fuzzycmp, const char **compat_mounts)
 {
     int score = 0;
 
@@ -884,32 +901,64 @@ int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
     }
 
     // Check the lens mount, if specified
-    if (pattern->Mounts && match->Mounts)
+    if (match->Mounts)
     {
-        int nm = 0;
+        int old_score = score;
 
-        for (int i = 0; pattern->Mounts [i]; i++)
+        if (pattern->Mounts)
         {
-            int old_nm = nm;
+            int nm = 0;
+            for (int i = 0; pattern->Mounts [i]; i++)
+                for (int j = 0; match->Mounts [j]; j++)
+                    if (!_lf_strcmp (pattern->Mounts [i], match->Mounts [j]))
+                    {
+                        nm++;
+                        break;
+                    }
 
-            for (int j = 0; match->Mounts [j]; j++)
-                if (!strcasecmp (pattern->Mounts [i], match->Mounts [j]))
-                {
-                    nm++;
-                    break;
-                }
-
-            // The match doesn't specify such a mount
-            if (nm == old_nm)
-                return 0;
+            if (nm)
+            {
+                // Count number of mounts in the match lens
+                int match_nm;
+                for (match_nm = 0; match->Mounts [match_nm]; match_nm++)
+                    ;
+                // Don't allow 0 score, make it at least 1
+                int _score = (nm * 20) / match_nm;
+                if (!_score)
+                    _score = 1;
+                score += _score;
+            }
         }
 
-        // Count number of mounts in the match lens
-        int match_nm;
-        for (match_nm = 0; match->Mounts [match_nm]; match_nm++)
-            ;
+        if (compat_mounts)
+        {
+            int nm = 0;
+            for (int i = 0; compat_mounts [i]; i++)
+                for (int j = 0; match->Mounts [j]; j++)
+                    if (!_lf_strcmp (compat_mounts [i], match->Mounts [j]))
+                    {
+                        nm++;
+                        break;
+                    }
 
-        score += (nm * 20) / match_nm;
+            if (nm)
+            {
+                // Count number of compatible mounts in the match lens
+                int match_nm;
+                for (match_nm = 0; compat_mounts [match_nm]; match_nm++)
+                    ;
+
+                // Don't allow 0 score, make it at least 1
+                int _score = (nm * 10) / match_nm;
+                if (!_score)
+                    _score = 1;
+                score += _score;
+            }
+        }
+
+        // If there were no mount matches, fail the comparison
+        if (old_score == score && (pattern->Mounts || compat_mounts))
+            return 0;
     }
 
     // If maker is specified, check it using our patented _lf_strcmp(tm) technology
@@ -921,7 +970,15 @@ int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
 
     // And now the most complex part - compare models
     if (pattern->Model && match->Model)
-        score += (fuzzycmp->Compare (match->Model) * 4) / 10;
+    {
+        int _score = fuzzycmp->Compare (match->Model);
+        if (!_score)
+            return 0; // Model does not match
+        _score = (_score * 4) / 10;
+        if (!_score)
+            _score = 1;
+        score += _score;
+    }
 
     return score;
 }

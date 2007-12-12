@@ -267,13 +267,16 @@ extern float _lf_interpolate (float y1, float y2, float y3, float y4, float t);
  *     The object to match against.
  * @param fuzzycmp
  *     A fuzzy comparator initialized with pattern->Model
+ * @param compat_mounts
+ *     An additional list of compatible mounts, can be NULL.
+ *     This does not include the mounts from pattern->Mounts.
  * @return
  *     A numeric score in the range 0 to 100, where 100 means that
  *     every field matches and 0 means that at least one field is
  *     fundamentally different.
  */
 extern int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
-                                   lfFuzzyStrCmp *fuzzycmp);
+                                   lfFuzzyStrCmp *fuzzycmp, const char **compat_mounts);
 
 /**
  * Extract a third-order root from a number.

@@ -218,7 +218,12 @@ Pentax K so you can insert K lenses into a KAF2 camera) or there exists mount ad
 which permit to install lenses with such mounts into this mount. Note that the
 compatibility is unidirectional, e.g. in the above example it doesn't say that you
 can insert Pentax KAF2 lenses into a Pentax K camera; if you need a two-way
-compatibility, declare it both ways.
+compatibility, declare it both ways. Also the "compatibility" is restricted
+in the sense that if mount A is compatible with mount B (e.g. you can put B lenses
+on an A camera), and mount B is compatible with mount C, this does not neccessarily
+mean that mount A is compatible with mount C. Recursion doesn't work here, this is
+a design decision. If you need to make mount A compatible with mount C, declare it
+so explicitely.
 </dl>
 
 @page el_camera Declaring cameras: \<camera\>

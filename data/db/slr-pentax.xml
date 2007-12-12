@@ -7,6 +7,7 @@
         <compat>Pentax KA</compat>
         <compat>Pentax KAF</compat>
         <compat>Pentax KAF2</compat>
+        <compat>Generic</compat>
     </mount>
 
     <mount>
@@ -15,6 +16,7 @@
         <compat>Pentax K</compat>
         <compat>Pentax KAF</compat>
         <compat>Pentax KAF2</compat>
+        <compat>Generic</compat>
     </mount>
 
     <mount>
@@ -23,6 +25,7 @@
         <compat>Pentax K</compat>
         <compat>Pentax KA</compat>
         <compat>Pentax KAF2</compat>
+        <compat>Generic</compat>
     </mount>
 
     <mount>
@@ -31,10 +34,20 @@
         <compat>Pentax K</compat>
         <compat>Pentax KA</compat>
         <compat>Pentax KAF</compat>
+        <compat>Generic</compat>
     </mount>
 
     <camera>
+        <maker>Pentax</maker>
+        <maker lang="en">Pentax</maker>
+        <model>35mm film: full frame</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.0</cropfactor>
+    </camera>
+
+    <camera>
         <maker>PENTAX Corporation</maker>
+        <maker lang="en">Pentax</maker>
         <model>PENTAX *ist DL2</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.5</cropfactor>
@@ -42,6 +55,7 @@
 
     <camera>
         <maker>PENTAX Corporation</maker>
+        <maker lang="en">Pentax</maker>
         <model>PENTAX *ist DL</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.5</cropfactor>
@@ -49,6 +63,7 @@
 
     <camera>
         <maker>PENTAX Corporation</maker>
+        <maker lang="en">Pentax</maker>
         <model>PENTAX *ist DS2</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.5</cropfactor>
@@ -56,6 +71,7 @@
 
     <camera>
         <maker>PENTAX Corporation</maker>
+        <maker lang="en">Pentax</maker>
         <model>PENTAX *ist DS</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.5</cropfactor>
@@ -63,6 +79,7 @@
 
     <camera>
         <maker>PENTAX Corporation</maker>
+        <maker lang="en">Pentax</maker>
         <model>PENTAX *ist D</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.5</cropfactor>
@@ -70,6 +87,7 @@
 
     <camera>
         <maker>PENTAX Corporation</maker>
+        <maker lang="en">Pentax</maker>
         <model>PENTAX K100</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.5</cropfactor>
@@ -77,16 +95,10 @@
 
     <camera>
         <maker>PENTAX Corporation</maker>
+        <maker lang="en">Pentax</maker>
         <model>PENTAX K10</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.5</cropfactor>
-    </camera>
-
-    <camera>
-        <maker>Pentax SLR</maker>
-        <model>35mm film: full frame</model>
-        <mount>Pentax KAF2</mount>
-        <cropfactor>1.0</cropfactor>
     </camera>
 
     <lens>

@@ -669,7 +669,7 @@ struct LF_EXPORT lfLens
      *     of lfParameter structures, every structure describes a model
      *     parameter. The list is NULL-terminated.
      * @return
-     *     A short name of the distortion model.
+     *     A short name of the distortion model or NULL if model is unknown.
      */
     static const char *GetDistortionModelDesc (
         lfDistortionModel model, const char **details, const lfParameter ***params);
@@ -686,7 +686,7 @@ struct LF_EXPORT lfLens
      *     of lfParameter structures, every structure describes a model
      *     parameter. The list is NULL-terminated.
      * @return
-     *     A short name of the TCA model.
+     *     A short name of the TCA model or NULL if model is unknown.
      */
     static const char *GetTCAModelDesc (
         lfTCAModel model, const char **details, const lfParameter ***params);
@@ -704,7 +704,7 @@ struct LF_EXPORT lfLens
      *     of lfParameter structures, every structure describes a model
      *     parameter. The list is NULL-terminated.
      * @return
-     *     A short name of the vignetting model.
+     *     A short name of the vignetting model or NULL if model is unknown.
      */
     static const char *GetVignettingModelDesc (
         lfVignettingModel model, const char **details, const lfParameter ***params);
@@ -718,7 +718,7 @@ struct LF_EXPORT lfLens
      *     If not NULL, this string will be set to a more detailed (technical)
      *     description of the lens type. This string may contain newlines.
      * @return
-     *     A short name of the lens type.
+     *     A short name of the lens type or NULL if model is unknown.
      */
     static const char *GetLensTypeDesc (lfLensType type, const char **details);
 
@@ -936,37 +936,36 @@ struct LF_EXPORT lfDatabase
      * @param model
      *     Camera model (either from EXIF tags or from some other source).
      * @return
-     *     A list of cameras matching the search criteria or NULL if none.
-     *     Release return value with lf_free() (only the list of pointers,
-     *     not the camera objects!).
+     *     A NULL-terminated list of cameras matching the search criteria
+     *     or NULL if none. Release return value with lf_free() (only the list
+     *     of pointers, not the camera objects!).
      */
     const lfCamera **FindCameras (const char *maker, const char *model) const;
 
     /**
      * Retrieve a full list of cameras.
      * @return
-     *     An array containing all cameras loaded until now.
+     *     An NULL-terminated list containing all cameras loaded until now.
      *     The list is valid only until the lens database is modified.
      *     The returned pointer does not have to be freed.
      */
     const lfCamera *const *GetCameras () const;
 
     /**
-     * Parse a human-friendly lens description (ex: "smc PENTAX-F 35-105mm F4-5.6
-     * or SIGMA AF 28-300 F3.5-5.6 DL IF") and return a list of lfLens'es which
-     * are matching this description. Multiple lenses may be listed using the
-     * "or" glueword like in the example above, also multiple lenses may be
-     * returned if multiple lenses match (perhaps due to non-unical lens
-     * description provided, e.g. "Pentax SMC").
+     * Parse a human-friendly lens description (ex: "smc PENTAX-F 35-105mm F4-5.6"
+     * or "SIGMA AF 28-300 F3.5-5.6 DL IF") and return a list of lfLens'es which
+     * are matching this description. Multiple lenses may be returned if multiple
+     * lenses match (perhaps due to non-unique lens description provided, e.g.
+     * "Pentax SMC").
      *
-     * The matching algorithm works as follows: both user's description and the
-     * actual lens description are split into words. Words containing numbers
-     * are tried to be interpreted as either focal distance ranges or aperture
-     * ranges. After that word matching is done; a lens matches the description
-     * ONLY IF it contains all the words found in the description (including
-     * buzzwords e.g. IF IZ AL LD DI USM SDM etc). Order of the words does not
-     * matter. An additional check is done on the focal/aperture ranges, they
-     * must exactly match if they are specified.
+     * The matching algorithm works as follows: first the user description
+     * is tried to be interpreted according to several well-known lens naming
+     * schemes, so additional data like focal and aperture ranges are extracted
+     * if they are present. After that word matching is done; a lens matches
+     * the description ONLY IF it contains all the words found in the description
+     * (including buzzwords e.g. IF IZ AL LD DI USM SDM etc). Order of the words
+     * does not matter. An additional check is done on the focal/aperture ranges,
+     * they must exactly match if they are specified.
      * @param camera
      *     The camera (can be NULL if camera is unknown, or just certain
      *     fields in structure can be NULL). The algorithm will look for
@@ -975,6 +974,8 @@ struct LF_EXPORT lfDatabase
      *     sizes larger than the one used for calibration. Also camera
      *     mount is taken into account, the lenses with incompatible
      *     mounts will be filtered out.
+     * @param maker
+     *     Lens maker or NULL if not known.
      * @param model
      *     A human description of the lens model(-s).
      * @return
@@ -983,7 +984,8 @@ struct LF_EXPORT lfDatabase
      *     most-likely to least-likely order, e.g. the first returned
      *     value is the most likely match.
      */
-    const lfLens **FindLenses (const lfCamera *camera, const char *model) const;
+    const lfLens **FindLenses (
+        const lfCamera *camera, const char *maker, const char *model) const;
 
     /**
      * Find a set of lenses that fit certain criteria.
@@ -994,9 +996,9 @@ struct LF_EXPORT lfDatabase
      *     The Mounts field will be scanned for allowed mounts, if NULL
      *     any mounts are considered compatible.
      * @return
-     *     A list of lenses matching the search criteria or NULL if none.
-     *     Release memory with lf_free(). The list is ordered in the
-     *     most-likely to least-likely order, e.g. the first returned
+     *     A NULL-terminated list of lenses matching the search criteria
+     *     or NULL if none. Release memory with lf_free(). The list is ordered
+     *     in the most-likely to least-likely order, e.g. the first returned
      *     value is the most likely match.
      */
     const lfLens **FindLenses (const lfLens *lens) const;
@@ -1004,7 +1006,7 @@ struct LF_EXPORT lfDatabase
     /**
      * Retrieve a full list of lenses.
      * @return
-     *     An array containing all lenses loaded until now.
+     *     An NULL-terminated list containing all lenses loaded until now.
      *     The list is valid only until the lens database is modified.
      *     The returned pointer does not have to be freed.
      */
@@ -1098,9 +1100,10 @@ LF_EXPORT const lfCamera **lf_db_find_cameras (const lfDatabase *db,
 /** @sa lfDatabase::GetCameras */
 LF_EXPORT const lfCamera *const *lf_db_get_cameras (const lfDatabase *db);
 
-/** @sa lfDatabase::FindLenses(const lfCamera *, const char *) */
+/** @sa lfDatabase::FindLenses(const lfCamera *, const char *, const char *) */
 LF_EXPORT const lfLens **lf_db_find_lenses_hd (const lfDatabase *db,
                                                const lfCamera *camera,
+                                               const char *maker,
                                                const char *lens);
 
 /** @sa lfDatabase::FindLenses(const lfCamera *, const lfLens *) */

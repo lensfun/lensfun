@@ -11,4 +11,35 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Schneider-KREUZNACH</maker>
+        <model>D-XENON 1:3.5-5.6 18-55mm AL</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18" a="0.004593" b="-0.021008" c="0" />
+            <distortion model="ptlens" focal="21" a="0.00371" b="-0.014625" c="0" />
+            <distortion model="ptlens" focal="24" a="0" b="-0.004166" c="0" />
+            <distortion model="ptlens" focal="33" a="0" b="0.000528" c="0" />
+            <distortion model="ptlens" focal="55" a="0" b="0.003215" c="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Schneider-KREUZNACH</maker>
+        <model>D-XENON 1:4-5.6 50-200mm AL</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="50" a="0" b="-0.004038" c="0" />
+            <distortion model="ptlens" focal="63" a="0" b="0.001607" c="0" />
+            <distortion model="ptlens" focal="95" a="0" b="0.007697" c="0" />
+            <distortion model="ptlens" focal="125" a="0" b="0.007991" c="0" />
+            <distortion model="ptlens" focal="138" a="0" b="0.008036" c="0" />
+            <distortion model="ptlens" focal="160" a="0" b="0.007909" c="0" />
+            <distortion model="ptlens" focal="180" a="0" b="0.009293" c="0" />
+            <distortion model="ptlens" focal="200" a="0" b="0.007685" c="0" />
+        </calibration>
+    </lens>
+
 </lensdatabase>

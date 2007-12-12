@@ -17,6 +17,9 @@ void lf_free (void *data)
 
 const char *lf_mlstr_get (const lfMLstr str)
 {
+    if (!str)
+        return str;
+
     /* Get the current locale for messages */
     const char *lc_msg = setlocale (LC_MESSAGES, NULL);
     char lang [10];
@@ -219,9 +222,10 @@ int _lf_ptr_array_insert_unique (
     for (idx2 = idx + 1; idx2 < length && compare (root [idx2], item) == 0; idx2++)
         ;
 
-    for (int i = idx1 + 1; i < idx2; i++)
-        if (i != idx)
-            dest (g_ptr_array_index (array, i));
+    if (dest)
+        for (int i = idx1 + 1; i < idx2; i++)
+            if (i != idx)
+                dest (g_ptr_array_index (array, i));
 
     if (idx2 - idx - 1)
         g_ptr_array_remove_range (array, idx + 1, idx2 - idx - 1);
@@ -235,6 +239,9 @@ int _lf_ptr_array_find_sorted (
     const GPtrArray *array, void *item, GCompareFunc compare)
 {
     int length = array->len;
+    if (!length)
+      return -1;
+
     void **root = array->pdata;
 
     int l = 0, r = length - 1;
