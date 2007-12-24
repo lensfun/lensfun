@@ -18,7 +18,7 @@ lfLens::lfLens ()
     //RedCCI = 0;
     GreenCCI = 5;
     BlueCCI = 4;
-    Type = LF_RECTILINEAR;
+    Type = LF_UNKNOWN;
     CropFactor = 1.0;
 }
 
@@ -315,6 +315,10 @@ const char *lfLens::GetLensTypeDesc (lfLensType type, const char **details)
 {
     switch (type)
     {
+        case LF_UNKNOWN:
+            if (details)
+                *details = "";
+            return "Unknown";
         case LF_RECTILINEAR:
             if (details)
                 *details = "Ref: http://wiki.panotools.org/Rectilinear_Projection";
@@ -868,6 +872,10 @@ int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
 
     // Compare numeric fields first since that's easy.
 
+    if (pattern->Type != LF_UNKNOWN)
+        if (pattern->Type != match->Type)
+            return 0;
+
     if (pattern->CropFactor > 0.01 && pattern->CropFactor < match->CropFactor - 0.01)
         return 0;
 
@@ -904,6 +912,9 @@ int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
     if (match->Mounts)
     {
         int old_score = score;
+
+        if (compat_mounts && !compat_mounts [0])
+            compat_mounts = NULL;
 
         if (pattern->Mounts)
         {

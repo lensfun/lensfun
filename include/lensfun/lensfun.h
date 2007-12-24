@@ -499,6 +499,8 @@ C_TYPEDEF (struct, lfParameter)
  */
 enum lfLensType
 {
+    /** Unknown lens type */
+    LF_UNKNOWN,
     /** A rectilinear lens - 99% of all lenses are of this type */
     LF_RECTILINEAR,
     /**

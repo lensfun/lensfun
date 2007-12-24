@@ -318,7 +318,7 @@ int main (int argc, char **argv)
     lfDatabase *ldb = lf_db_new ();
     ldb->Load ();
 
-    const lfLens **lenses = ldb->FindLenses (NULL, opts.Lens);
+    const lfLens **lenses = ldb->FindLenses (NULL, NULL, opts.Lens);
     if (!lenses)
     {
         g_print ("Cannot find the lens `%s' in database\n", opts.Lens);

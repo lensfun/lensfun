@@ -209,9 +209,16 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
 
     switch (from)
     {
+        case LF_UNKNOWN:
+            // Should never happen
+            return false;
+
         case LF_RECTILINEAR:
             switch (to)
             {
+                case LF_UNKNOWN:
+                    // Should never happen
+                    return false;
                 case LF_RECTILINEAR:
                     // Nothing to do
                     return true;
@@ -233,6 +240,9 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
         case LF_FISHEYE:
             switch (to)
             {
+                case LF_UNKNOWN:
+                    // Should never happen
+                    return false;
                 case LF_RECTILINEAR:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_FishEye_Rect,
                                       500, tmp, sizeof (tmp));
@@ -254,6 +264,9 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
         case LF_PANORAMIC:
             switch (to)
             {
+                case LF_UNKNOWN:
+                    // Should never happen
+                    return false;
                 case LF_RECTILINEAR:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Panoramic_Rect,
                                       500, tmp, sizeof (tmp));
@@ -275,6 +288,9 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
         case LF_EQUIRECTANGULAR:
             switch (to)
             {
+                case LF_UNKNOWN:
+                    // Should never happen
+                    return false;
                 case LF_RECTILINEAR:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Rect,
                                       500, tmp, sizeof (tmp));

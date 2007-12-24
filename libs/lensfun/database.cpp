@@ -171,6 +171,7 @@ static void _xml_start_element (GMarkupParseContext *context,
         if (strcmp (ctx, "lensdatabase"))
             goto bad_ctx;
         pd->lens = new lfLens ();
+        pd->lens->Type = LF_RECTILINEAR;
         goto chk_no_attrs;
     }
     else if (!strcmp (element_name, "focal"))
