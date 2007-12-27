@@ -8,10 +8,6 @@ SYSLIBS.lensfun = GLIB_20
 INSTALL.TARGETS += lensfun
 INSTALL.HEADERS.lensfun$L = include/lensfun/lensfun.h
 
-# Additional rule to install header files
-#install-lensfun: 
-#	$(if $V,,@echo INSTALL $^ &&)$(call INSTALL,$^,$(CONF_INCLUDEDIR),0644)
-
 # For Posix systems we also will build the pkgconfig file
 ifeq ($(TARGET),posix)
 AUX += lensfun-pc

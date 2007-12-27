@@ -89,12 +89,12 @@ int main ()
     PrintCameras (cameras, ldb);
 
     g_print (">>> Looking for lenses 'pEntax 50-200 ED'\n");
-    const lfLens **lenses = ldb->FindLenses (NULL, "pEntax 50-200 ED");
+    const lfLens **lenses = ldb->FindLenses (NULL, NULL, "pEntax 50-200 ED");
     PrintLenses (lenses, ldb);
     lf_free (lenses);
 
     g_print (">>> Looking for 'Nikkor IF' lenses\n");
-    lenses = ldb->FindLenses (NULL, "Nikkor IF");
+    lenses = ldb->FindLenses (NULL, NULL, "Nikkor IF");
     PrintLenses (lenses, ldb);
 
     g_print (">>> Saving results into 'tfun-results.xml' ...\n");
