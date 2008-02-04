@@ -24,14 +24,54 @@ lfLens::lfLens ()
 
 lfLens::~lfLens ()
 {
-    g_free (Maker);
-    g_free (Model);
-    _lf_free_list ((void **)Mounts);
-    _lf_free_list ((void **)CalibDistortion);
-    _lf_free_list ((void **)CalibTCA);
-    _lf_free_list ((void **)CalibVignetting);
+    lf_free (Maker);
+    lf_free (Model);
+    _lf_list_free ((void **)Mounts);
+    _lf_list_free ((void **)CalibDistortion);
+    _lf_list_free ((void **)CalibTCA);
+    _lf_list_free ((void **)CalibVignetting);
 }
 
+lfLens &lfLens::operator = (const lfLens &other)
+{
+    lf_free (Maker);
+    Maker = lf_mlstr_dup (other.Maker);
+    lf_free (Model);
+    Model = lf_mlstr_dup (other.Model);
+    MinFocal = other.MinFocal;
+    MaxFocal = other.MaxFocal;
+    MinAperture = other.MinAperture;
+    MaxAperture = other.MaxAperture;
+
+    lf_free (Mounts); Mounts = NULL;
+    if (other.Mounts)
+        for (int i = 0; other.Mounts [i]; i++)
+                AddMount (other.Mounts [i]);
+
+    CenterX = other.CenterX;
+    CenterY = other.CenterY;
+    RedCCI = other.RedCCI;
+    GreenCCI = other.GreenCCI;
+    BlueCCI = other.BlueCCI;
+    CropFactor = other.CropFactor;
+    Type = other.Type;
+
+    lf_free (CalibDistortion); CalibDistortion = NULL;
+    if (other.CalibDistortion)
+        for (int i = 0; other.CalibDistortion [i]; i++)
+                AddCalibDistortion (other.CalibDistortion [i]);
+    lf_free (CalibTCA); CalibTCA = NULL;
+    if (other.CalibTCA)
+        for (int i = 0; other.CalibTCA [i]; i++)
+                AddCalibTCA (other.CalibTCA [i]);
+    lf_free (CalibVignetting); CalibVignetting = NULL;
+    if (other.CalibVignetting)
+        for (int i = 0; other.CalibVignetting [i]; i++)
+                AddCalibVignetting (other.CalibVignetting [i]);
+
+    return *this;
+}
+                                                    
 void lfLens::SetMaker (const char *val, const char *lang)
 {
     Maker = lf_mlstr_add (Maker, lang, val);
@@ -205,18 +245,18 @@ const char *lfLens::GetDistortionModelDesc (
 {
     static const lfParameter *param_none [] = { NULL };
 
-    static const lfParameter param_poly3_k1 = { "k1", -0.2, 0.2 };
+    static const lfParameter param_poly3_k1 = { "k1", -0.2, 0.2, 0.0 };
     static const lfParameter *param_poly3 [] = { &param_poly3_k1, NULL };
 
-    static const lfParameter param_poly5_k2 = { "k2", -0.2, 0.2 };
+    static const lfParameter param_poly5_k2 = { "k2", -0.2, 0.2, 0.0 };
     static const lfParameter *param_poly5 [] = { &param_poly3_k1, &param_poly5_k2, NULL };
 
-    static const lfParameter param_fov1_omega = { "omega", 0.0, 1.0 };
+    static const lfParameter param_fov1_omega = { "omega", 0.0, 1.0, 0.0 };
     static const lfParameter *param_fov1 [] = { &param_fov1_omega, NULL };
 
-    static const lfParameter param_ptlens_a = { "a", -0.2, 0.2 };
-    static const lfParameter param_ptlens_b = { "b", -0.2, 0.2 };
-    static const lfParameter param_ptlens_c = { "c", -0.2, 0.2 };
+    static const lfParameter param_ptlens_a = { "a", -0.2, 0.2, 0.0 };
+    static const lfParameter param_ptlens_b = { "b", -0.2, 0.2, 0.0 };
+    static const lfParameter param_ptlens_c = { "c", -0.2, 0.2, 0.0 };
     static const lfParameter *param_ptlens [] = {
         &param_ptlens_a, &param_ptlens_b, &param_ptlens_c, NULL };
 
@@ -264,38 +304,64 @@ const char *lfLens::GetDistortionModelDesc (
 
     if (details)
         *details = NULL;
+    if (params)
+        *params = NULL;
     return NULL;
 }
 
 const char *lfLens::GetTCAModelDesc (
     lfTCAModel model, const char **details, const lfParameter ***params)
 {
+    static const lfParameter *param_none [] = { NULL };
+
+    static const lfParameter param_linear_kr = { "kr", 0.8, 1.2, 1.0 };
+    static const lfParameter param_linear_kg = { "kg", 0.8, 1.2, 1.0 };
+    static const lfParameter param_linear_kb = { "kb", 0.8, 1.2, 1.0 };
+    static const lfParameter *param_linear [] =
+    { &param_linear_kr, &param_linear_kg, &param_linear_kb, NULL };
+
     switch (model)
     {
         case LF_TCA_MODEL_NONE:
             if (details)
                 *details = "No transversal chromatic aberration model";
+            if (params)
+                *params = param_none;
             return "None";
         case LF_TCA_MODEL_LINEAR:
             if (details)
                 *details = "Rd = Ru * k\n"
                     "Ref: http://cipa.icomos.org/fileadmin/papers/Torino2005/403.pdf";
+            if (params)
+                *params = param_linear;
             return "Linear";
     }
 
     if (details)
         *details = NULL;
+    if (params)
+        *params = NULL;
     return NULL;
 }
 
 const char *lfLens::GetVignettingModelDesc (
     lfVignettingModel model, const char **details, const lfParameter ***params)
 {
+    static const lfParameter *param_none [] = { NULL };
+
+    static const lfParameter param_pa_k1 = { "k1", -0.2, 0.2, 0.0 };
+    static const lfParameter param_pa_k2 = { "k2", -0.2, 0.2, 0.0 };
+    static const lfParameter param_pa_k3 = { "k3", -0.2, 0.2, 0.0 };
+    static const lfParameter *param_pa [] =
+    { &param_pa_k1, &param_pa_k2, &param_pa_k3, NULL };
+
     switch (model)
     {
         case LF_VIGNETTING_MODEL_NONE:
             if (details)
                 *details = "No vignetting model";
+            if (params)
+                *params = param_none;
             return "None";
         case LF_VIGNETTING_MODEL_PA:
             if (details)
@@ -303,11 +369,15 @@ const char *lfLens::GetVignettingModelDesc (
                     "(which is a more general variant of the cos^4 law):\n"
                     "c = 1 + k1 * R^2 + k2 * R^4 + k3 * R^6\n"
                     "Ref: http://hugin.sourceforge.net/tech/";
+            if (params)
+                *params = param_pa;
             return "6th order polynomial";
     }
 
     if (details)
         *details = "";
+    if (params)
+        *params = NULL;
     return NULL;
 }
 
@@ -1004,6 +1074,11 @@ lfLens *lf_lens_new ()
 void lf_lens_destroy (lfLens *lens)
 {
     delete lens;
+}
+
+void lf_lens_copy (lfLens *dest, const lfLens *source)
+{
+    *dest = *source;
 }
 
 void lf_lens_guess_parameters (lfLens *lens)

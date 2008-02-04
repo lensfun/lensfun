@@ -29,8 +29,8 @@ endef
 # $3 = full target file name)
 define MKIRULES.PKGCONFIG
 
-	$(if $V,,@echo INSTALL $3 &&)$$(call INSTALL,$3,\
-        $(call .INSTDIR,$1,$2,$(CONF_LIBDIR)pkgconfig/),0644)
+	$(if $V,,@echo INSTALL $3 to $(call .INSTDIR,$1,$2,$(CONF_LIBDIR)pkgconfig/) &&)\
+	$$(call INSTALL,$3,$(call .INSTDIR,$1,$2,$(CONF_LIBDIR)pkgconfig/),0644)
 endef
 
 # Dependency rules ($1 = dependency file, $2 = source file list,

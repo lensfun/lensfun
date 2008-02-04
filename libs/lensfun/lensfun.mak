@@ -13,6 +13,6 @@ ifeq ($(TARGET),posix)
 AUX += lensfun-pc
 TOOLKIT.lensfun-pc = PKGCONFIG
 TARGETS.lensfun-pc = lensfun.pc
-SRC.lensfun.pc := $(wildcard libs/lensfun/*.pc.in)
+SRC.lensfun.pc := $(wildcard libs/lensfun/*.pc.in) config.mak
 INSTALL.TARGETS += lensfun-pc
 endif

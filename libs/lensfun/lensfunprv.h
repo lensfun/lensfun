@@ -69,7 +69,7 @@ template<typename T> static inline T clamp (T x, T max)
  * @param list
  *     A NULL-terminated list of pointers
  */
-extern void _lf_free_list (void **list);
+extern void _lf_list_free (void **list);
 
 /**
  * Make a copy of given value into given variable using g_strdup,

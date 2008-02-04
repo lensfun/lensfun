@@ -7,8 +7,8 @@ MKDEPS.DATA = $1
 # $3 = full target file name)
 define MKIRULES.DATA
 
-	$(if $V,,@echo INSTALL $3 &&)$$(call INSTALL,$3,\
-        $(call .INSTDIR,$1,$2,$(CONF_DATADIR)),0644)
+	$(if $V,,@echo INSTALL $3 to $(call .INSTDIR,$1,$2,$(CONF_DATADIR)) &&)\
+	$$(call INSTALL,$3,$(call .INSTDIR,$1,$2,$(CONF_DATADIR)),0644)
 endef
 
 # Dependency rules ($1 = dependency file, $2 = source file list,

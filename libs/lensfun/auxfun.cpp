@@ -98,7 +98,23 @@ lfMLstr lf_mlstr_add (lfMLstr str, const char *lang, const char *trstr)
     return str;
 }
 
-void _lf_free_list (void **list)
+lfMLstr lf_mlstr_dup (const lfMLstr str)
+{
+    /* Find the length of multi-language string */
+    size_t str_len = 0;
+    if (str)
+    {
+        str_len = strlen (str) + 1;
+        while (str [str_len])
+            str_len += 1 + strlen (str + str_len + 1);
+    }
+    
+    gchar *ret = (char *)g_malloc (str_len);
+    memcpy (ret, str, str_len);
+    return ret;
+}
+
+void _lf_list_free (void **list)
 {
     int i;
 

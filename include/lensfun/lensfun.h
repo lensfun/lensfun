@@ -120,6 +120,15 @@ LF_EXPORT const char *lf_mlstr_get (const lfMLstr str);
  */
 LF_EXPORT lfMLstr lf_mlstr_add (lfMLstr str, const char *lang, const char *trstr);
 
+/**
+ * Create a complete copy of a multi-language string.
+ * @param str
+ *     The string to create a copy of
+ * @return
+ *     A new allocated multi-language string
+ */
+LF_EXPORT lfMLstr lf_mlstr_dup (const lfMLstr str);
+
 /** @} */
 
 /*----------------------------------------------------------------------------*/
@@ -151,6 +160,11 @@ struct LF_EXPORT lfMount
      * Initialize a new mount object. All fields are set to 0.
      */
     lfMount ();
+
+    /**
+     * Assignment operator
+     */
+    lfMount &operator = (const lfMount &other);
 
     /**
      * Destroy a mount object. All allocated fields are freed.
@@ -190,7 +204,7 @@ C_TYPEDEF (struct, lfMount)
  * @return
  *     A new empty mount object.
  * @sa
- *     lfMount::lfMount
+ *     lfMount::lfMount()
  */
 LF_EXPORT lfMount *lf_mount_new ();
 
@@ -200,9 +214,20 @@ LF_EXPORT lfMount *lf_mount_new ();
  * @param mount
  *     The mount object to destroy.
  * @sa
- *     lfMount::~lfMount
+ *     lfMount::~lfMount()
  */
 LF_EXPORT void lf_mount_destroy (lfMount *mount);
+
+/**
+ * Copy the data from one lfMount structure into another.
+ * @param dest
+ *     The destination object
+ * @param source
+ *     The source object
+ * @sa
+ *     lfMount::operator = (const lfMount &)
+ */
+LF_EXPORT void lf_mount_copy (lfMount *dest, const lfMount *source);
 
 /** @sa lfMount::Check */
 LF_EXPORT cbool lf_mount_check (lfMount *mount);
@@ -249,9 +274,19 @@ struct LF_EXPORT lfCamera
     lfCamera ();
 
     /**
+     * Copy constructor.
+     */
+    lfCamera (const lfCamera &other);
+
+    /**
      * Destroy a camera object. All allocated fields are freed.
      */
     ~lfCamera ();
+
+    /**
+     * Assignment operator
+     */
+    lfCamera &operator = (const lfCamera &other);
 
     /**
      * Add a string to camera maker. If lang is NULL, this replaces
@@ -319,6 +354,17 @@ LF_EXPORT lfCamera *lf_camera_new ();
  *     lfCamera::~lfCamera
  */
 LF_EXPORT void lf_camera_destroy (lfCamera *camera);
+
+/**
+ * Copy the data from one lfCamera structure into another.
+ * @param dest
+ *     The destination object
+ * @param source
+ *     The source object
+ * @sa
+ *     lfCamera::operator = (const lfCamera &)
+ */
+LF_EXPORT void lf_camera_copy (lfCamera *dest, const lfCamera *source);
 
 /** @sa lfCamera::Check */
 LF_EXPORT cbool lf_camera_check (lfCamera *camera);
@@ -404,7 +450,7 @@ enum lfTCAModel
     LF_TCA_MODEL_NONE,
     /**
      * Linear lateral chromatic aberrations model:
-     * Rd = Ru * k
+     * Rd(R) = Ru(R) * k1, Rd(B) = Ru(B) * k2
      * Ref: http://cipa.icomos.org/fileadmin/papers/Torino2005/403.pdf
      */
     LF_TCA_MODEL_LINEAR
@@ -490,6 +536,8 @@ struct lfParameter
     float Min;
     /** Maximal value that has sense */
     float Max;
+    /** Default value for the parameter */
+    float Default;
 };
 
 C_TYPEDEF (struct, lfParameter)
@@ -583,9 +631,19 @@ struct LF_EXPORT lfLens
     lfLens ();
 
     /**
+     * Copy constructor.
+     */
+    lfLens (const lfLens &other);
+
+    /**
      * Destroy this and all associated objects.
      */
     ~lfLens ();
+
+    /**
+     * Assignment operator
+     */
+    lfLens &operator = (const lfLens &other);
 
     /**
      * Add a string to camera maker. If lang is NULL, this replaces
@@ -779,6 +837,17 @@ LF_EXPORT lfLens *lf_lens_new ();
  *     lfLens::~lfLens
  */
 LF_EXPORT void lf_lens_destroy (lfLens *lens);
+
+/**
+ * Copy the data from one lfLens structure into another.
+ * @param dest
+ *     The destination object
+ * @param source
+ *     The source object
+ * @sa
+ *     lfLens::operator = (const lfCamera &)
+ */
+LF_EXPORT void lf_lens_copy (lfLens *dest, const lfLens *source);
 
 /** @sa lfLens::Check */
 LF_EXPORT cbool lf_lens_check (lfLens *lens);
@@ -1270,6 +1339,17 @@ typedef void (*lfModifyCoordFunc) (void *data, float *iocoord, int count);
  * must be applied in reverse order. While the library takes care to reverse
  * the steps which are grouped into a single stage, the application must
  * apply the stages themselves in reverse order.
+ *
+ * HOWEVER. Doing it in three stage is not memory efficient, and is prone to
+ * error accumulation because you have to interpolate pixels twice - once during
+ * stage 1 and once during stage 3. To avoid this, it is acceptable to do stages
+ * 1 & 3 in one step, provided that the changes made in stage 2 are applied
+ * to R,G,B channels separately, e.g. the output R from the stage 2 depends
+ * ONLY of the input R to the stage 2, same about G and B. This is true for
+ * vignetting correction, so we can apply stages in the order 2, (1+3).
+ * In this case the output R,G,B coordinates from stage 1 are feed directly
+ * into the ApplyGeometryDistortion() function, which will correct the R,G,B
+ * coordinates independently.
  */
 struct LF_EXPORT lfModifier
 {
@@ -1598,6 +1678,36 @@ struct LF_EXPORT lfModifier
     bool ApplyGeometryDistortion (float xu, float yu, int width, int height,
                                   float *res) const;
 
+    /**
+     * Apply stage 1 & 3 in one step. See the main comment to the lfModifier class.
+     * The undistorted R,G,B coordinates are computed for every pixel in a
+     * square block: (xu, yu), (xu+1, yu), ... , (xu + width - 1, yu),
+     * (xu, yu + 1), ..., (xu + width - 1, yu + height - 1).
+     *
+     * Returns the corrected coordinates separately for R/G/B channels
+     * The resulting coordinates are put into the output buffer
+     * sequentially, X and Y values.
+     *
+     * This routine has been designed to be safe to use in parallel from
+     * several threads.
+     * @param xu
+     *     The undistorted X coordinate of the start of the block of pixels.
+     * @param yu
+     *     The undistorted Y coordinate of the start of the block of pixels.
+     * @param width
+     *     The width of the block in pixels.
+     * @param height
+     *     The height of the block in pixels.
+     * @param res
+     *     A pointer to an output array which receives the respective X and Y
+     *     distorted coordinates for every pixel of the block. The size of
+     *     this array must be at least width*height*2 elements.
+     * @return
+     *     true if return buffer has been filled, false if nothing to do
+     */
+    bool ApplySubpixelGeometryDistortion (float xu, float yu, int width, int height,
+                                          float *res) const;
+
 protected:
     /* Prevent user from creating and destroying such objects */
     lfModifier () {}
@@ -1675,6 +1785,10 @@ LF_EXPORT cbool lf_modifier_apply_color_modification (
 
 /** @sa lfModifier::ApplyGeometryDistortion */
 LF_EXPORT cbool lf_modifier_apply_geometry_distortion (
+    lfModifier *modifier, float xu, float yu, int width, int height, float *res);
+
+/** @sa lfModifier::ApplySubpixelGeometryDistortion */
+LF_EXPORT cbool lf_modifier_apply_subpixel_geometry_distortion (
     lfModifier *modifier, float xu, float yu, int width, int height, float *res);
 
 /** @} */

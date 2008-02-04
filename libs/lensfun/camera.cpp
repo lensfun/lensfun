@@ -15,10 +15,23 @@ lfCamera::lfCamera ()
 
 lfCamera::~lfCamera ()
 {
-    g_free (Maker);
-    g_free (Model);
-    g_free (Variant);
-    g_free (Mount);
+    lf_free (Maker);
+    lf_free (Model);
+    lf_free (Variant);
+    lf_free (Mount);
+}
+
+lfCamera &lfCamera::operator = (const lfCamera &other)
+{
+    lf_free (Maker);
+    Maker = lf_mlstr_dup (other.Maker);
+    lf_free (Model);
+    Model = lf_mlstr_dup (other.Model);
+    lf_free (Variant);
+    Variant = lf_mlstr_dup (other.Variant);
+    _lf_setstr (&Mount, other.Mount);
+    CropFactor = other.CropFactor;
+    return *this;
 }
 
 void lfCamera::SetMaker (const char *val, const char *lang)
@@ -59,6 +72,11 @@ lfCamera *lf_camera_new ()
 void lf_camera_destroy (lfCamera *camera)
 {
     delete camera;
+}
+
+void lf_camera_copy (lfCamera *dest, const lfCamera *source)
+{
+    *dest = *source;
 }
 
 cbool lf_camera_check (lfCamera *camera)

@@ -25,7 +25,7 @@ bool lfModifier::AddColorCallbackVignetting (
 #define ADD_CALLBACK(func, format, type, prio) \
     case LF_PF_ ## format: \
         AddColorCallback ( \
-            (lfModifyColorFunc)(void (*)(void *, float, float, lf_##type *, int, int)) \
+            (lfModifyColorFunc)(void (*)(void *, float, float, type *, int, int)) \
             lfExtModifier::func, prio, tmp, 4 * sizeof (float)); \
         break;
 
@@ -38,11 +38,11 @@ bool lfModifier::AddColorCallbackVignetting (
             case LF_VIGNETTING_MODEL_PA:
                 switch (format)
                 {
-                    ADD_CALLBACK (ModifyColor_Vignetting_PA, U8, u8, 250);
-                    ADD_CALLBACK (ModifyColor_Vignetting_PA, U16, u16, 250);
-                    ADD_CALLBACK (ModifyColor_Vignetting_PA, U32, u32, 250);
-                    ADD_CALLBACK (ModifyColor_Vignetting_PA, F32, f32, 250);
-                    ADD_CALLBACK (ModifyColor_Vignetting_PA, F64, f64, 250);
+                    ADD_CALLBACK (ModifyColor_Vignetting_PA, U8, lf_u8, 250);
+                    ADD_CALLBACK (ModifyColor_Vignetting_PA, U16, lf_u16, 250);
+                    ADD_CALLBACK (ModifyColor_Vignetting_PA, U32, lf_u32, 250);
+                    ADD_CALLBACK (ModifyColor_Vignetting_PA, F32, lf_f32, 250);
+                    ADD_CALLBACK (ModifyColor_Vignetting_PA, F64, lf_f64, 250);
                     default:
                         return false;
                 }
@@ -56,11 +56,11 @@ bool lfModifier::AddColorCallbackVignetting (
             case LF_VIGNETTING_MODEL_PA:
                 switch (format)
                 {
-                    ADD_CALLBACK (ModifyColor_DeVignetting_PA, U8, u8, 750);
-                    ADD_CALLBACK (ModifyColor_DeVignetting_PA, U16, u16, 750);
-                    ADD_CALLBACK (ModifyColor_DeVignetting_PA, U32, u32, 750);
-                    ADD_CALLBACK (ModifyColor_DeVignetting_PA, F32, f32, 750);
-                    ADD_CALLBACK (ModifyColor_DeVignetting_PA, F64, f64, 750);
+                    ADD_CALLBACK (ModifyColor_DeVignetting_PA, U8, lf_u8, 750);
+                    ADD_CALLBACK (ModifyColor_DeVignetting_PA, U16, lf_u16, 750);
+                    ADD_CALLBACK (ModifyColor_DeVignetting_PA, U32, lf_u32, 750);
+                    ADD_CALLBACK (ModifyColor_DeVignetting_PA, F32, lf_f32, 750);
+                    ADD_CALLBACK (ModifyColor_DeVignetting_PA, F64, lf_f64, 750);
                     default:
                         return false;
                 }

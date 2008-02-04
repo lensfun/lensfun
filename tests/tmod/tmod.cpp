@@ -13,6 +13,10 @@
 #include <string.h>
 #include <time.h>
 
+/* Define this to apply stage 1 & 3 corrections in one step,
+   see main comment to the lfModifier class */
+#define COMBINE_13
+
 enum InterpolationAlg
 {
     InterpLinear,
@@ -78,7 +82,6 @@ static void DisplayUsage ()
     g_print ("  -D#   --distance=# Set subject distance at which image has been taken\n");
     g_print ("  -I#   --interpol=# Choose interpolation algorithm (linear, spline)\n");
     g_print ("  -o#   --output=#   Set file name for output image\n");
-    g_print ("  -M    --memeff     Memory-efficient algorithm (avoid large mem allocation)\n");
     g_print ("  -V    --version    Display program version and exit\n");
     g_print ("  -h    --help       Display this help text\n");
 }
@@ -125,9 +128,15 @@ static Image *ApplyModifier (int modflags, bool reverse, Image *img,
         for (unsigned y = 0; ok && y < img->height; y++)
             switch (step)
             {
+#ifdef COMBINE_13
+                case 2:
+                    /* TCA and geometry correction */
+                    ok = mod->ApplySubpixelGeometryDistortion (0.0, y, img->width, 1, pos);
+#else
                 case 0:
                     /* TCA correction */
                     ok = mod->ApplySubpixelDistortion (0.0, y, img->width, 1, pos);
+#endif
                     if (ok)
                     {
                         float *src = pos;
@@ -158,6 +167,7 @@ static Image *ApplyModifier (int modflags, bool reverse, Image *img,
                     imgdata += img->width * 4;
                     break;
 
+#ifndef COMBINE_13
                 case 2:
                     /* Distortion and geometry correction, scaling */
                     ok = mod->ApplyGeometryDistortion (0.0, y, newimg->width, 1, pos);
@@ -180,6 +190,7 @@ static Image *ApplyModifier (int modflags, bool reverse, Image *img,
                             }
                     }
                     break;
+#endif
             }
         // After TCA and distortion steps switch img and newimg.
         // This is crucial since newimg is now the input image
