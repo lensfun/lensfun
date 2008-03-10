@@ -871,6 +871,17 @@ LF_EXPORT const char *lf_get_vignetting_model_desc (
 LF_EXPORT const char *lf_get_lens_type_desc (
     enum lfLensType type, const char **details);
 
+/** @sa lfLens::InterpolateDistortion */
+LF_EXPORT cbool lf_interpolate_distortion (const lfLens *lens, float focal,
+    lfLensCalibDistortion *res);
+
+/** @sa lfLens::InterpolateTCA */
+LF_EXPORT cbool lf_interpolate_tca (const lfLens *lens, float focal, lfLensCalibTCA *res);
+
+/** @sa lfLens::InterpolateVignetting */
+LF_EXPORT cbool lf_interpolate_vignetting (const lfLens *lens, float focal, float aperture,
+    float distance, lfLensCalibVignetting *res);
+
 /** @} */
 
 /*----------------------------------------------------------------------------*/
@@ -1217,6 +1228,8 @@ enum
     LF_MODIFY_DISTORTION = 0x00000008,
     /** Convert image geometry */
     LF_MODIFY_GEOMETRY   = 0x00000010,
+    /** Additional resize of image */
+    LF_MODIFY_SCALE      = 0x00000020,
     /** Apply all possible corrections */
     LF_MODIFY_ALL        = ~0
 };

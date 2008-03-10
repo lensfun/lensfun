@@ -46,7 +46,7 @@ lfLens &lfLens::operator = (const lfLens &other)
     lf_free (Mounts); Mounts = NULL;
     if (other.Mounts)
         for (int i = 0; other.Mounts [i]; i++)
-                AddMount (other.Mounts [i]);
+            AddMount (other.Mounts [i]);
 
     CenterX = other.CenterX;
     CenterY = other.CenterY;
@@ -59,15 +59,15 @@ lfLens &lfLens::operator = (const lfLens &other)
     lf_free (CalibDistortion); CalibDistortion = NULL;
     if (other.CalibDistortion)
         for (int i = 0; other.CalibDistortion [i]; i++)
-                AddCalibDistortion (other.CalibDistortion [i]);
+            AddCalibDistortion (other.CalibDistortion [i]);
     lf_free (CalibTCA); CalibTCA = NULL;
     if (other.CalibTCA)
         for (int i = 0; other.CalibTCA [i]; i++)
-                AddCalibTCA (other.CalibTCA [i]);
+            AddCalibTCA (other.CalibTCA [i]);
     lf_free (CalibVignetting); CalibVignetting = NULL;
     if (other.CalibVignetting)
         for (int i = 0; other.CalibVignetting [i]; i++)
-                AddCalibVignetting (other.CalibVignetting [i]);
+            AddCalibVignetting (other.CalibVignetting [i]);
 
     return *this;
 }
@@ -412,24 +412,47 @@ const char *lfLens::GetLensTypeDesc (lfLensType type, const char **details)
     return NULL;
 }
 
+static bool cmp_distortion (const void *x1, const void *x2)
+{
+    const lfLensCalibDistortion *d1 = static_cast<const lfLensCalibDistortion *> (x1);
+    const lfLensCalibDistortion *d2 = static_cast<const lfLensCalibDistortion *> (x2);
+    return (d1->Focal == d2->Focal);
+}
+
 void lfLens::AddCalibDistortion (const lfLensCalibDistortion *dc)
 {
     void **x = (void **)CalibDistortion;
-    _lf_addobj (&x, dc, sizeof (*dc));
+    _lf_addobj (&x, dc, sizeof (*dc), cmp_distortion);
     CalibDistortion = (lfLensCalibDistortion **)x;
+}
+
+static bool cmp_tca (const void *x1, const void *x2)
+{
+    const lfLensCalibTCA *t1 = static_cast<const lfLensCalibTCA *> (x1);
+    const lfLensCalibTCA *t2 = static_cast<const lfLensCalibTCA *> (x2);
+    return (t1->Focal == t2->Focal);
 }
 
 void lfLens::AddCalibTCA (const lfLensCalibTCA *tcac)
 {
     void **x = (void **)CalibTCA;
-    _lf_addobj (&x, tcac, sizeof (*tcac));
+    _lf_addobj (&x, tcac, sizeof (*tcac), cmp_tca);
     CalibTCA = (lfLensCalibTCA **)x;
+}
+
+static bool cmp_vignetting (const void *x1, const void *x2)
+{
+    const lfLensCalibVignetting *v1 = static_cast<const lfLensCalibVignetting *> (x1);
+    const lfLensCalibVignetting *v2 = static_cast<const lfLensCalibVignetting *> (x2);
+    return (v1->Focal == v2->Focal) &&
+           (v1->Distance == v2->Distance) &&
+           (v1->Aperture == v2->Aperture);
 }
 
 void lfLens::AddCalibVignetting (const lfLensCalibVignetting *vc)
 {
     void **x = (void **)CalibVignetting;
-    _lf_addobj (&x, vc, sizeof (*vc));
+    _lf_addobj (&x, vc, sizeof (*vc), cmp_vignetting);
     CalibVignetting = (lfLensCalibVignetting **)x;
 }
 
@@ -497,8 +520,8 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
             dm = c->Model;
         else if (dm != c->Model)
         {
-            g_print ("WARNING: lens %s/%s has multiple distortion models defined\n",
-                     Maker, Model);
+            g_warning ("WARNING: lens %s/%s has multiple distortion models defined\n",
+                       Maker, Model);
             continue;
         }
 
@@ -565,8 +588,8 @@ bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
             tcam = c->Model;
         else if (tcam != c->Model)
         {
-            g_print ("WARNING: lens %s/%s has multiple TCA models defined\n",
-                     Maker, Model);
+            g_warning ("WARNING: lens %s/%s has multiple TCA models defined\n",
+                       Maker, Model);
             continue;
         }
 
@@ -688,7 +711,7 @@ bool lfLens::InterpolateVignetting (
     lfVignettingModel vm = LF_VIGNETTING_MODEL_NONE;
 
     float min_dist = 0.01;
-    for (uint i = 0; i < vc->len; i++)
+    for (guint i = 0; i < vc->len; i++)
     {
         lfLensCalibVignetting *c =
             (lfLensCalibVignetting *)g_ptr_array_index (vc, i);
@@ -698,8 +721,8 @@ bool lfLens::InterpolateVignetting (
             vm = c->Model;
         else if (vm != c->Model)
         {
-            g_print ("WARNING: lens %s/%s has multiple vignetting models defined\n",
-                     Maker, Model);
+            g_warning ("WARNING: lens %s/%s has multiple vignetting models defined\n",
+                       Maker, Model);
             continue;
         }
 
@@ -733,7 +756,7 @@ bool lfLens::InterpolateVignetting (
         float spline_dist [4] =  { FLT_MAX, FLT_MAX, 1.0, FLT_MAX };
 
         memset (&spline, 0, sizeof (spline));
-        for (uint j = 0; j < vc->len; j++)
+        for (guint j = 0; j < vc->len; j++)
         {
             if (j == i)
                 continue;
@@ -874,7 +897,7 @@ bool lfLens::InterpolateVignetting (
     }
 
 leave:
-    for (uint i = cvc; i < vc->len; i++)
+    for (guint i = cvc; i < vc->len; i++)
     {
         lfLensCalibVignetting *c =
             (lfLensCalibVignetting *)g_ptr_array_index (vc, i);
@@ -1112,4 +1135,21 @@ const char *lf_get_vignetting_model_desc (
 const char *lf_get_lens_type_desc (enum lfLensType type, const char **details)
 {
     return lfLens::GetLensTypeDesc (type, details);
+}
+
+cbool lf_interpolate_distortion (const lfLens *lens, float focal,
+    lfLensCalibDistortion *res)
+{
+    return lens->InterpolateDistortion (focal, *res);
+}
+
+cbool lf_interpolate_tca (const lfLens *lens, float focal, lfLensCalibTCA *res)
+{
+    return lens->InterpolateTCA (focal, *res);
+}
+
+cbool lf_interpolate_vignetting (const lfLens *lens, float focal, float aperture,
+    float distance, lfLensCalibVignetting *res)
+{
+    return lens->InterpolateVignetting (focal, aperture, distance, *res);
 }

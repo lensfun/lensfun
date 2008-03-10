@@ -137,16 +137,23 @@ void _lf_setstr (gchar **var, const gchar *val)
 
 void _lf_addstr (gchar ***var, const gchar *val)
 {
-    _lf_addobj ((void ***)var, val, strlen (val) + 1);
+    _lf_addobj ((void ***)var, val, strlen (val) + 1, NULL);
 }
 
-void _lf_addobj (void ***var, const void *val, size_t val_size)
+void _lf_addobj (void ***var, const void *val, size_t val_size,
+                 bool (*cmpf) (const void *, const void *))
 {
     int n = 0;
 
     if (*var)
         for (n = 0; (*var) [n]; n++)
-            ;
+            if (cmpf && cmpf (val, (*var) [n]))
+            {
+                g_free ((*var) [n]);
+                (*var) [n] = g_malloc (val_size);
+                memcpy ((*var) [n], val, val_size);
+                return;
+            }
 
     n++;
 

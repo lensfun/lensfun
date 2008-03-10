@@ -54,9 +54,10 @@ int lfModifier::Initialize (
             AddCoordCallbackGeometry (lens->Type, targeom, focal))
             oflags |= LF_MODIFY_GEOMETRY;
 
-    if (scale != 1.0)
+    if (flags & LF_MODIFY_SCALE &&
+        scale != 1.0)
         if (AddCoordCallbackScale (scale, reverse))
-            ;
+            oflags |= LF_MODIFY_SCALE;
 
     return oflags;
 }

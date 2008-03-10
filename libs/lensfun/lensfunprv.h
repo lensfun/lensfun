@@ -138,15 +138,21 @@ extern int _lf_ptr_array_find_sorted (
     const GPtrArray *array, void *item, GCompareFunc compare);
 
 /**
- * Add a object to a list of objects.
+ * Add a object to a list of objects. Accepts an optional pointer to
+ * a function that compares two values from the list, if function
+ * returns true the existing object is replaced with the new one.
  * @param var
  *     A pointer to an array of strings.
  * @param val
  *     The value to be added to the array.
  * @param val_size
  *     The size of the value in bytes.
+ * @param cmpf
+ *     An auxiliary function which, if not NULL, should return
+ *     true if two objects are similar or false if not.
  */
-extern void _lf_addobj (void ***var, const void *val, size_t val_size);
+extern void _lf_addobj (void ***var, const void *val, size_t val_size,
+    bool (*cmpf) (const void *, const void *));
 
 /**
  * Appends a formatted string to a dynamically-growing string

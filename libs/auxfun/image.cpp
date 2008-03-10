@@ -3,16 +3,12 @@
     Copyright (C) 2001 by Andrew Zabolotny
 */
 
-extern "C" {
+#include "image.h"
 #include <zlib.h>
 #include <png.h>
-#include <malloc.h>
-#include <unistd.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <math.h>
-}
-
-#include "image.h"
 
 Image::Image () : file (NULL), image (NULL)
 {

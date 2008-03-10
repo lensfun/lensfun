@@ -766,8 +766,8 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                     switch (ctca->Model)
                     {
                         case LF_TCA_MODEL_LINEAR:
-                            _lf_xml_printf (output, "model=\"linear\" k=\"%g\" />\n",
-                                            ctca->Terms [0]);
+                            _lf_xml_printf (output, "model=\"linear\" kr=\"%g\" kg=\"%g\" kb=\"%g\" />\n",
+                                            ctca->Terms [0], ctca->Terms [1], ctca->Terms [2]);
                             break;
                         default:
                             _lf_xml_printf (output, "model=\"none\" />\n");
