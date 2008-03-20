@@ -99,7 +99,7 @@ OPTIONS = [
     [ None, "libs",       "LIBS", "global LIBS; LIBS = optarg",
       "Additional libraries to link with" ],
     [ None, "target",     "PLATFORM", "set_target (optarg)",
-      "Target platform{.arch} (posix|windows){.(x86|x86_64)}" ],
+      "Target platform{.arch} (posix|windows|mac){.(x86|x86_64)}" ],
     [ None, "staticlibs", "YESNO", "global SHAREDLIBS; SHAREDLIBS = not parse_bool ('staticlibs', optarg)",
       "Build all libs as static, even if they are shared by default" ],
 ]
@@ -225,6 +225,10 @@ def start ():
         HOST = ["windows"]
         TARGET = ["windows"]
         DEVNULL = "nul"
+    elif os.name == "mac":
+        HOST = ["mac"]
+        TARGET = ["mac"]
+        DEVNULL = "/dev/null"
     else:
         print "Unknown operating system: " + os.name
         sys.exit (1)

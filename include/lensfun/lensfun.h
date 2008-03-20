@@ -882,6 +882,15 @@ LF_EXPORT cbool lf_interpolate_tca (const lfLens *lens, float focal, lfLensCalib
 LF_EXPORT cbool lf_interpolate_vignetting (const lfLens *lens, float focal, float aperture,
     float distance, lfLensCalibVignetting *res);
 
+/** @sa lfLens::AddCalibDistortion */
+LF_EXPORT void lf_add_calib_distortion (lfLens *lens, const lfLensCalibDistortion *dc);
+
+/** @sa lfLens::AddCalibTCA */
+LF_EXPORT void lf_add_calib_tca (lfLens *lens, const lfLensCalibTCA *tcac);
+
+/** @sa lfLens::AddCalibVignetting */
+LF_EXPORT void lf_add_calib_vignetting (lfLens *lens, const lfLensCalibVignetting *vc);
+
 /** @} */
 
 /*----------------------------------------------------------------------------*/

@@ -22,7 +22,11 @@ GCC.CPPFLAGS = -pipe -x c-header $(GCC.CFLAGS.DEF) $(GCC.CFLAGS.INC)
 GCC.LD ?= g++
 GCC.LDFLAGS = $(GCC.LDFLAGS.$(MODE))
 GCC.LDFLAGS.LIBS = $(LDLIBS) -lm
+ifeq ($(TARGET),mac)
+GCC.LDFLAGS.SHARED ?= $(GCC.CFLAGS.SHARED) -dynamiclib
+else
 GCC.LDFLAGS.SHARED ?= $(GCC.CFLAGS.SHARED) -shared
+endif
 
 GCC.LDFLAGS.release = -s
 GCC.LDFLAGS.debug = -gdwarf-2 -g3
@@ -41,7 +45,7 @@ XFNAME.GCC = $(addprefix $$(OUT),\
     $(patsubst %$E,%,\
     $(if $(findstring $L,$1),\
         $(if $(SHARED.$1),\
-            $(addprefix lib,$(patsubst %$L,%.so,$1)),\
+            $(addprefix lib,$(patsubst %$L,%$(XSO),$1)),\
             $(addprefix lib,$(patsubst %$L,%.a,$1))\
         ),\
     $1)\

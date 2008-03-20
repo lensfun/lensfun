@@ -1153,3 +1153,18 @@ cbool lf_interpolate_vignetting (const lfLens *lens, float focal, float aperture
 {
     return lens->InterpolateVignetting (focal, aperture, distance, *res);
 }
+
+void lf_add_calib_distortion (lfLens *lens, const lfLensCalibDistortion *dc)
+{
+    lens->AddCalibDistortion (dc);
+}
+
+void lf_add_calib_tca (lfLens *lens, const lfLensCalibTCA *tcac)
+{
+    lens->AddCalibTCA (tcac);
+}
+
+void lf_add_calib_vignetting (lfLens *lens, const lfLensCalibVignetting *vc)
+{
+    lens->AddCalibVignetting (vc);
+}
