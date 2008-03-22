@@ -105,7 +105,7 @@ static void free_callback_list (GPtrArray *arr)
         {
             if (d->data_size)
                 g_free (d->data);
-            g_free (d);
+            delete d;
         }
     }
     g_ptr_array_free (arr, TRUE);
@@ -156,8 +156,8 @@ void lf_modifier_destroy (lfModifier *modifier)
 
 int lf_modifier_initialize (
     lfModifier *modifier, const lfLens *lens, lfPixelFormat format,
-    float focal, float aperture, float distance, float scale,
-    lfLensType targeom, int flags, cbool reverse)
+    float focal, float aperture, float distance, float scale, lfLensType targeom,
+    int flags, cbool reverse)
 {
     return modifier->Initialize (lens, format, focal, aperture, distance,
                                  scale, targeom, flags, reverse);

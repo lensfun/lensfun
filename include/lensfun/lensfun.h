@@ -1260,6 +1260,54 @@ enum lfPixelFormat
 
 C_TYPEDEF (enum, lfPixelFormat)
 
+/** These constants define the role of every pixel component, four bits each */
+enum lfComponentRole
+{
+    /**
+     * This marks the end of the role list. It doesn't have to be specified
+     * explicitly, since LF_CR_X macros always pad the value with zeros
+     */
+    LF_CR_END = 0,
+    /**
+     * This value tells that what follows applies to next pixel.
+     * This can be used to define Bayer images, e.g. use
+     * LF_CR_3(LF_CR_RED, LF_CR_NEXT, LF_CR_GREEN) for even rows and
+     * LF_CR_3(LF_CR_GREEN, LF_CR_NEXT, LF_CR_BLUE) for odd rows.
+     */
+    LF_CR_NEXT,
+    /** This component has an unknown/doesn't matter role */
+    LF_CR_UNKNOWN,
+    /** This is the pixel intensity (grayscale) */
+    LF_CR_INTENSITY,
+    /** This is the Red pixel component */
+    LF_CR_RED,
+    /** This is the Green pixel component */
+    LF_CR_GREEN,
+    /** This is the Blue pixel component */
+    LF_CR_BLUE
+};
+
+C_TYPEDEF (enum, lfComponentRole)
+
+/** This macro defines a pixel format consisting of one component */
+#define LF_CR_1(a)              (LF_CR_ ## a)
+/** This macro defines a pixel format consisting of two components */
+#define LF_CR_2(a,b)            ((LF_CR_ ## a) | ((LF_CR_ ## b) << 4))
+/** This macro defines a pixel format consisting of three components */
+#define LF_CR_3(a,b,c)          ((LF_CR_ ## a) | ((LF_CR_ ## b) << 4) | \
+                                 ((LF_CR_ ## c) << 8))
+/** This macro defines a pixel format consisting of four components */
+#define LF_CR_4(a,b,c,d)        ((LF_CR_ ## a) | ((LF_CR_ ## b) << 4) | \
+                                 ((LF_CR_ ## c) << 8) | ((LF_CR_ ## d) << 12))
+/** This macro defines a pixel format consisting of five components */
+#define LF_CR_5(a,b,c,d,e)      ((LF_CR_ ## a) | ((LF_CR_ ## b) << 4) | \
+                                 ((LF_CR_ ## c) << 8) | ((LF_CR_ ## d) << 12) | \
+                                 ((LF_CR_ ## e) << 16))
+/** This macro defines a pixel format consisting of six components */
+#define LF_CR_6(a,b,c,d,e,f)    ((LF_CR_ ## a) | ((LF_CR_ ## b) << 4) | \
+                                 ((LF_CR_ ## c) << 8) | ((LF_CR_ ## d) << 12) | \
+                                 ((LF_CR_ ## e) << 16) | ((LF_CR_ ## e) << 20))
+
 /**
  * A callback function which modifies the separate coordinates for all color
  * components for every pixel in a strip,
@@ -1287,19 +1335,20 @@ typedef void (*lfSubpixelCoordFunc) (void *data, float *iocoord, int count);
  * @param y
  *     The Y coordinate of the pixel strip. This is a constant across
  *     all pixels of the strip.
- * @param rgb
- *     A pointer to RGB data. It is the responsability of the function
+ * @param pixels
+ *     A pointer to pixel data. It is the responsability of the function
  *     inserting the callback into the chain to provide a callback operating
  *     with the correct pixel format.
- * @param pixel_stride
- *     Bytes per pixel. The callback should use this to move from one pixel
- *     to next, since image may contain fields that should be left untouched
- *     (alpha channel, stencil etc).
+ * @param comp_role
+ *     The role of every pixel component. This is a bitfield, made by one
+ *     of the LF_CR_X macros which defines the roles of every pixel field.
+ *     For example, LF_CR_4(RED,GREEN,BLUE,UNKNOWN) will define a RGBA
+ *     (or RGBX) pixel format, and the UNKNOWN field will not be modified.
  * @param count
  *     Number of pixels to proceed.
  */
 typedef void (*lfModifyColorFunc) (void *data, float x, float y,
-                                   void *rgb, int pixel_stride, int count);
+                                   void *pixels, int comp_role, int count);
 
 /**
  * A callback function which modifies the coordinates of a strip of pixels.
@@ -1410,7 +1459,7 @@ struct LF_EXPORT lfModifier
      * @param lens
      *     The lens which aberrations you want to correct in a image.
      * @param format
-     *     Pixel format of your image
+     *     Pixel format of your image (bits per pixel component)
      * @param focal
      *     The focal length at which the image was taken (distortion,
      *     tca, vignetting).
@@ -1527,7 +1576,7 @@ struct LF_EXPORT lfModifier
      * @param model
      *     Lens vignetting model data.
      * @param format
-     *     The pixel format of the image to be corrected.
+     *     Pixel format of your image (bits per pixel component)
      * @param reverse
      *     If true, the reverse model will be applied, e.g. simulate
      *     a lens' vignetting on a clean image.
@@ -1648,8 +1697,9 @@ struct LF_EXPORT lfModifier
      * Image correction step 2: fix image colors.
      * This includes vignetting transform and CCI transform
      * (e.g. rectification of image colors).
-     * @param rgb
-     *     This points to three sequential values - R, G and B.
+     * @param pixels
+     *     This points to image pixels. The actual pixel format depends on both
+     *     pixel_format and comp_role arguments.
      *     The results are stored in place in the same format.
      * @param x
      *     The X coordinate of the corner of the block.
@@ -1659,17 +1709,20 @@ struct LF_EXPORT lfModifier
      *     The width of the image block in pixels.
      * @param height
      *     The height of the image block in pixels.
-     * @param pixel_stride
-     *     The size of a single pixel in bytes.
+     * @param comp_role
+     *     The role of every pixel component. This is a bitfield, made by one
+     *     of the LF_CR_X macros which defines the roles of every pixel field.
+     *     For example, LF_CR_4(RED,GREEN,BLUE,UNKNOWN) will define a RGBA
+     *     (or RGBX) pixel format, and the UNKNOWN field will not be modified.
      * @param row_stride
      *     The size of a image row in bytes. This can be actually different
-     *     from width * pixel_stride as some image formats use funny things
+     *     from width * pixel_width as some image formats use funny things
      *     like alignments, filler bytes etc.
      * @return
      *     true if return buffer has been altered, false if nothing to do
      */
-    bool ApplyColorModification (void *rgb, float x, float y, int width, int height,
-                                 int pixel_stride, int row_stride) const;
+    bool ApplyColorModification (void *pixels, float x, float y, int width, int height,
+                                 int comp_role, int row_stride) const;
 
     /**
      * Image correction step 3: apply the transforms on a block of pixel
@@ -1803,7 +1856,8 @@ LF_EXPORT cbool lf_modifier_apply_subpixel_distortion (
 
 /** @sa lfModifier::ApplyColorModification */
 LF_EXPORT cbool lf_modifier_apply_color_modification (
-    lfModifier *modifier, void *rgb, float x, float y, int width, int height, int pixel_stride, int row_stride);
+    lfModifier *modifier, void *pixels, float x, float y, int width, int height,
+    int comp_role, int row_stride);
 
 /** @sa lfModifier::ApplyGeometryDistortion */
 LF_EXPORT cbool lf_modifier_apply_geometry_distortion (

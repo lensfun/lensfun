@@ -110,10 +110,13 @@ static Image *ApplyModifier (int modflags, bool reverse, Image *img,
     // limitation of the testbed.
     newimg->Resize (img->width, img->height);
 
-
+#ifdef COMBINE_13
+    int lwidth = img->width * 2 * 3;
+#else
     int lwidth = img->width * 2;
     if (modflags & LF_MODIFY_TCA)
         lwidth *= 3;
+#endif
     float *pos = new float [lwidth];
 
     int step_start = reverse ? 2 : 0;
@@ -129,6 +132,10 @@ static Image *ApplyModifier (int modflags, bool reverse, Image *img,
             switch (step)
             {
 #ifdef COMBINE_13
+                case 0:
+                    ok = false;
+                    break;
+
                 case 2:
                     /* TCA and geometry correction */
                     ok = mod->ApplySubpixelGeometryDistortion (0.0, y, img->width, 1, pos);
@@ -163,7 +170,8 @@ static Image *ApplyModifier (int modflags, bool reverse, Image *img,
 
                 case 1:
                     /* Colour correction: vignetting and CCI */
-                    ok = mod->ApplyColorModification (imgdata, 0.0, y, img->width, 1, 4, 0);
+                    ok = mod->ApplyColorModification (imgdata, 0.0, y, img->width, 1,
+                        LF_CR_4 (RED, GREEN, BLUE, UNKNOWN), 0);
                     imgdata += img->width * 4;
                     break;
 
@@ -277,9 +285,11 @@ int main (int argc, char **argv)
                 opts.Inverse = true;
                 break;
             case 's':
+                opts.ModifyFlags |= LF_MODIFY_SCALE;
                 opts.Scale = _atof (optarg);
                 break;
             case 'S':
+                opts.ModifyFlags |= LF_MODIFY_SCALE;
                 opts.Scale = 0.0;
                 break;
             case'l':
@@ -372,8 +382,9 @@ int main (int argc, char **argv)
         g_print ("\b\b\b[%ux%u], processing", img->width, img->height);
         lfModifier *mod = lfModifier::Create (lens, opts.Crop, img->width, img->height);
         int modflags = mod->Initialize (
-            lens, LF_PF_U8, opts.Focal, opts.Aperture, opts.Distance,
-            opts.Scale, opts.TargetGeom, opts.ModifyFlags, opts.Inverse);
+            lens, LF_PF_U8, opts.Focal,
+            opts.Aperture, opts.Distance, opts.Scale, opts.TargetGeom,
+            opts.ModifyFlags, opts.Inverse);
 
         if (!mod)
         {

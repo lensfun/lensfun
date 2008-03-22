@@ -6,6 +6,7 @@
 #include "config.h"
 #include "lensfun.h"
 #include "lensfunprv.h"
+#include <math.h>
 
 void lfModifier::AddColorCallback (
     lfModifyColorFunc callback, int priority, void *data, size_t data_size)
@@ -19,18 +20,26 @@ void lfModifier::AddColorCallback (
 bool lfModifier::AddColorCallbackVignetting (
     lfLensCalibVignetting &model, lfPixelFormat format, bool reverse)
 {
-    float tmp [4];
+    float tmp [5];
     lfExtModifier *This = static_cast<lfExtModifier *> (this);
 
 #define ADD_CALLBACK(func, format, type, prio) \
     case LF_PF_ ## format: \
         AddColorCallback ( \
             (lfModifyColorFunc)(void (*)(void *, float, float, type *, int, int)) \
-            lfExtModifier::func, prio, tmp, 4 * sizeof (float)); \
+            lfExtModifier::func, prio, tmp, 5 * sizeof (float)); \
         break;
 
-    tmp [0] = This->NormScale;
-    memcpy (tmp + 1, model.Terms, 3 * sizeof (float));
+    memcpy (tmp, model.Terms, 3 * sizeof (float));
+
+    // Damn! Hugin uses two different "normalized" coordinate systems:
+    // for distortions it uses 1.0 = max(half width, half height) and
+    // for vignetting it uses 1.0 = half diagonal length. We have
+    // to compute a transition coefficient as we always work in
+    // the first coordinate system.
+    double ns = 2.0 / sqrt (square (This->Width) + square (This->Height));
+    tmp [3] = ns;
+    tmp [4] = ns / This->NormScale;
 
     if (reverse)
         switch (model.Model)
@@ -90,7 +99,7 @@ bool lfModifier::AddColorCallbackCCI (
 }
 
 bool lfModifier::ApplyColorModification (
-    void *rgb, float x, float y, int width, int height, int pixel_stride, int row_stride) const
+    void *pixels, float x, float y, int width, int height, int comp_role, int row_stride) const
 {
     const lfExtModifier *This = static_cast<const lfExtModifier *> (this);
 
@@ -107,91 +116,170 @@ bool lfModifier::ApplyColorModification (
         {
             lfColorCallbackData *cd =
                 (lfColorCallbackData *)g_ptr_array_index (This->ColorCallbacks, i);
-            cd->callback (cd->data, x, y, rgb, pixel_stride, width);
+            cd->callback (cd->data, x, y, pixels, comp_role, width);
         }
-        rgb = ((char *)rgb) + row_stride;
+        pixels = ((char *)pixels) + row_stride;
     }
 
     return true;
 }
 
+template<typename T>static T *apply_multiplier (T *pixels, double c, int &cr)
+{
+    for (;;)
+    {
+        switch (cr & 15)
+        {
+            case LF_CR_END:
+                return pixels;
+            case LF_CR_NEXT:
+                cr >>= 4;
+                return pixels;
+            case LF_CR_UNKNOWN:
+                break;
+            default:
+                *pixels = clamp (T (*pixels * c), T (0));
+                break;
+        }
+        pixels++;
+        cr >>= 4;
+    }
+    return pixels;
+}
+
+template<> static lf_u8 *apply_multiplier<lf_u8> (lf_u8 *pixels, double c, int &cr)
+{
+    // Use 20.12 fixed-point math
+    int c12 = int (c * 4096.0);
+    for (;;)
+    {
+        switch (cr & 15)
+        {
+            case LF_CR_END:
+                return pixels;
+            case LF_CR_NEXT:
+                cr >>= 4;
+                return pixels;
+            case LF_CR_UNKNOWN:
+                break;
+            default:
+                if ((cr & 15) > LF_CR_UNKNOWN)
+                    *pixels = clamp ((int (*pixels) * c12) >> 12, 0, 0xff);
+                break;
+        }
+        pixels++;
+        cr >>= 4;
+    }
+    return pixels;
+}
+
+template<> static lf_u16 *apply_multiplier<lf_u16> (lf_u16 *pixels, double c, int &cr)
+{
+    for (;;)
+    {
+        switch (cr & 15)
+        {
+            case LF_CR_END:
+                return pixels;
+            case LF_CR_NEXT:
+                cr >>= 4;
+                return pixels;
+            case LF_CR_UNKNOWN:
+                break;
+            default:
+                if ((cr & 15) > LF_CR_UNKNOWN)
+                    *pixels = clamp (lf_u16 (*pixels * c), lf_u16 (0), lf_u16 (0xffff));
+                break;
+        }
+        pixels++;
+        cr >>= 4;
+    }
+    return pixels;
+}
+
+template<> static lf_u32 *apply_multiplier<lf_u32> (lf_u32 *pixels, double c, int &cr)
+{
+    for (;;)
+    {
+        switch (cr & 15)
+        {
+            case LF_CR_END:
+                return pixels;
+            case LF_CR_NEXT:
+                cr >>= 4;
+                return pixels;
+            case LF_CR_UNKNOWN:
+                break;
+            default:
+                if ((cr & 15) > LF_CR_UNKNOWN)
+                    *pixels = clamp (lf_u32 (*pixels * c), lf_u32 (0), lf_u32 (0xffffffff));
+                break;
+        }
+        pixels++;
+        cr >>= 4;
+    }
+    return pixels;
+}
+
 template<typename T> void lfExtModifier::ModifyColor_Vignetting_PA (
-    void *data, float x, float y, T *rgb, int pixel_stride, int count)
+    void *data, float x, float y, T *pixels, int comp_role, int count)
 {
     float *param = (float *)data;
+
+    x *= param [4];
+    y *= param [4];
+
     // For faster computation we will compute r^2 here, and
     // further compute just the delta:
     // ((x+1)*(x+1)+y*y) - (x*x + y*y) = 2 * x + 1
+    // But since we work in a normalized coordinate system, a step of
+    // 1.0 pixels should be multiplied by NormScale, so it's really:
+    // ((x+ns)*(x+ns)+y*y) - (x*x + y*y) = 2 * ns * x + ns^2
     double r2 = x * x + y * y;
-    double d = param [0] * 2.0;
-    double d2 = param [0] * param [0];
+    double d1 = 2.0 * param [3];
+    double d2 = param [3] * param [3];
+
+    int cr = 0;
     while (count--)
     {
         double r4 = r2 * r2;
         double r6 = r4 * r2;
-        double c = 1.0 + param [1] * r2 + param [2] * r4 + param [3] * r6;
+        double c = 1.0 + param [0] * r2 + param [1] * r4 + param [2] * r6;
+        if (!cr)
+            cr = comp_role;
 
-        if (sizeof (T) <= 2)
-        {
-            // This branch is taken ONLY for lf_u8 and lf_u16
-            int c15 = int (c * 32768.0);
-            rgb [0] = clamp ((int (rgb [0]) * c15) >> 15, int ((1 << ((sizeof (T) * 8) & 15)) - 1));
-            rgb [1] = clamp ((int (rgb [1]) * c15) >> 15, int ((1 << ((sizeof (T) * 8) & 15)) - 1));
-            rgb [2] = clamp ((int (rgb [2]) * c15) >> 15, int ((1 << ((sizeof (T) * 8) & 15)) - 1));
-        }
-        else
-        {
-            rgb [0] = T (rgb [0] * c);
-            rgb [1] = T (rgb [1] * c);
-            rgb [2] = T (rgb [2] * c);
-        }
+        pixels = apply_multiplier<T> (pixels, c, cr);
 
-        rgb = (T *)(((char *)rgb) + pixel_stride);
-        r2 += d * x + d2;
-        x += param [0];
+        r2 += d1 * x + d2;
+        x += param [3];
     }
 }
 
 template<typename T> void lfExtModifier::ModifyColor_DeVignetting_PA (
-    void *data, float x, float y, T *rgb, int pixel_stride, int count)
+    void *data, float x, float y, T *pixels, int comp_role, int count)
 {
     float *param = (float *)data;
 
-    // For faster computation we will compute r^2 here, and
-    // further compute just the delta:
-    // ((x+1)*(x+1)+y*y) - (x*x + y*y) = 2 * x + 1
-    double r2 = x * x + y * y;
-    double d = param [0] * 2.0;
-    double d2 = param [0] * param [0];
+    x *= param [4];
+    y *= param [4];
 
+    double r2 = x * x + y * y;
+    double d1 = 2.0 * param [3];
+    double d2 = param [3] * param [3];
+
+    int cr = 0;
     while (count--)
     {
         double r4 = r2 * r2;
         double r6 = r4 * r2;
-        double c = 1.0 + param [1] * r2 + param [2] * r4 + param [3] * r6;
+        double c = 1.0 + param [0] * r2 + param [1] * r4 + param [2] * r6;
+        if (!cr)
+            cr = comp_role;
 
-        // Not pretty elegant, but we have to clamp uint8 and uint16,
-        // and don't have to clamp u32, f32 and f64 values.
-        if (sizeof (T) <= 2)
-        {
-            // This branch is taken ONLY for lf_u8 and lf_u16
-            // Use 17.15 fixed-point math; avoid losing the sign bit
-            int c15 = int (32768.0 / c);
-            rgb [0] = clamp ((int (rgb [0]) * c15) >> 15, int ((1 << ((sizeof (T) * 8) & 15)) - 1));
-            rgb [1] = clamp ((int (rgb [1]) * c15) >> 15, int ((1 << ((sizeof (T) * 8) & 15)) - 1));
-            rgb [2] = clamp ((int (rgb [2]) * c15) >> 15, int ((1 << ((sizeof (T) * 8) & 15)) - 1));
-        }
-        else
-        {
-            c = 1.0 / c;
-            rgb [0] = T (rgb [0] * c);
-            rgb [1] = T (rgb [1] * c);
-            rgb [2] = T (rgb [2] * c);
-        }
+        pixels = apply_multiplier<T> (pixels, 1.0 / c, cr);
 
-        rgb = (T *)(((char *)rgb) + pixel_stride);
-        r2 += d * x + d2;
-        x += param [0];
+        r2 += d1 * x + d2;
+        x += param [3];
     }
 }
 
@@ -219,7 +307,9 @@ cbool lf_modifier_add_color_callback_CCI (
 }
 
 cbool lf_modifier_apply_color_modification (
-    lfModifier *modifier, void *rgb, float x, float y, int width, int height, int pixel_stride, int row_stride)
+    lfModifier *modifier, void *pixels, float x, float y, int width, int height,
+    int comp_role, int row_stride)
 {
-    return modifier->ApplyColorModification (rgb, x, y, width, height, pixel_stride, row_stride);
+    return modifier->ApplyColorModification (
+        pixels, x, y, width, height, comp_role, row_stride);
 }

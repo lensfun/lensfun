@@ -160,7 +160,7 @@ float lfModifier::GetAutoScale (bool reverse)
 
             // If rd1 is very close to rd, this means our delta is too small
             // and we can hit the precision limit of the float format...
-            if (fabs (rd1 - rd) < 0.00001)
+            if (absolute (rd1 - rd) < 0.00001)
             {
                 dx *= 2;
                 continue;

@@ -27,11 +27,13 @@ typedef double lf_f64;
 class lfFuzzyStrCmp;
 
 /**
- * Return the absolute value of a floating-point number.
+ * Return the absolute value of a number.
  * @param x
- *     A floating-point number.
+ *     A number
+ * @return
+ *     The absolute value of x
  */
-static inline float fabs (float x)
+template<typename T> static inline T absolute (T x)
 {
     return (x < 0) ? -x : x;
 }
@@ -41,7 +43,7 @@ static inline float fabs (float x)
  * @param x
  *     A floating-point number.
  */
-static inline float fsqr (float x)
+template<typename T> static inline T square (T x)
 {
     return x * x;
 }
@@ -50,17 +52,35 @@ static inline float fsqr (float x)
  * Clamp a value between 0 and max.
  * @param x
  *     The number to clamp.
+ * @param min
+ *     The minimal value.
  * @param max
  *     The maximal value.
  * @return
  *     The clamped value.
  */
-template<typename T> static inline T clamp (T x, T max)
+template<typename T> static inline T clamp (T x, T min, T max)
 {
-    if (x < 0)
-        return 0;
+    if (x < min)
+        return min;
     else if (x > max)
         return max;
+    return x;
+}
+
+/**
+ * Clamp a value at given bottom boundary
+ * @param x
+ *     The number to clamp.
+ * @param min
+ *     The minimal value.
+ * @return
+ *     The clamped value.
+ */
+template<typename T> static inline T clamp (T x, T min)
+{
+    if (x < min)
+        return min;
     return x;
 }
 
@@ -459,9 +479,9 @@ struct lfExtModifier : public lfModifier
     static void ModifyCoord_Geom_ERect_Panoramic (void *data, float *iocoord, int count);
 
     template<typename T> static void ModifyColor_Vignetting_PA (
-        void *data, float x, float y, T *rgb, int pixel_stride, int count);
+        void *data, float x, float y, T *rgb, int comp_role, int count);
     template<typename T> static void ModifyColor_DeVignetting_PA (
-        void *data, float x, float y, T *rgb, int pixel_stride, int count);
+        void *data, float x, float y, T *rgb, int comp_role, int count);
 
     static void ModifyCoord_Scale (void *data, float *iocoord, int count);
 };

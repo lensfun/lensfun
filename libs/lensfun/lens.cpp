@@ -571,7 +571,7 @@ bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
     union
     {
         lfLensCalibTCA *spline [4];
-        void **spline_ptr;
+        void *spline_ptr [4];
     };
     float spline_dist [4] = { -FLT_MAX, -FLT_MAX, FLT_MAX, FLT_MAX };
     lfTCAModel tcam = LF_TCA_MODEL_NONE;
@@ -649,7 +649,7 @@ static float __vignetting_dist (
     float d1 = log (distance);
     float d2 = log (x.Distance);
 
-    return sqrt (fsqr (f2 - f1) + fsqr (a2 - a1) + fsqr (d2 - d1));
+    return sqrt (square (f2 - f1) + square (a2 - a1) + square (d2 - d1));
 }
 
 static void __vignetting_interp (
@@ -749,7 +749,7 @@ bool lfLens::InterpolateVignetting (
         union
         {
             lfLensCalibVignetting *spline [4];
-            void **spline_ptr;
+            void *spline_ptr [4];
         };
         // Don't pick up way off points
         float spline_rating [4] = { -10.0, -10.0, 1.0, 10.0 };
@@ -779,7 +779,7 @@ bool lfLens::InterpolateVignetting (
 
             // We will judge how good this point is for us by computing
             // the rating as the relation distance/cos(angle)^3
-            float dist = sqrt (fsqr (pxx * norm) + fsqr (pxy * norm) + fsqr (pxz * norm));
+            float dist = sqrt (square (pxx * norm) + square (pxy * norm) + square (pxz * norm));
             float rating = dist / (cs * cs * cs);
 
             if (rating >= -0.00001 && dist <= +0.00001)
