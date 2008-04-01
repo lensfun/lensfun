@@ -162,7 +162,7 @@ extern int _lf_ptr_array_find_sorted (
  * a function that compares two values from the list, if function
  * returns true the existing object is replaced with the new one.
  * @param var
- *     A pointer to an array of strings.
+ *     A pointer to an array of objects.
  * @param val
  *     The value to be added to the array.
  * @param val_size
@@ -173,6 +173,18 @@ extern int _lf_ptr_array_find_sorted (
  */
 extern void _lf_addobj (void ***var, const void *val, size_t val_size,
     bool (*cmpf) (const void *, const void *));
+
+/**
+ * Remove an object from a list of objects, freeing memory which was
+ * allocated by _lf_addobj().
+ * @param var
+ *     A pointer to an array of objects.
+ * @param idx
+ *     The index of the object to remove (zero-based).
+ * @return
+ *     false if idx is out of range.
+ */
+extern bool _lf_delobj (void ***var, int idx);
 
 /**
  * Appends a formatted string to a dynamically-growing string

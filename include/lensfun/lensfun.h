@@ -470,8 +470,8 @@ struct lfLensCalibTCA
     enum lfTCAModel Model;
     /** Focal distance at which this calibration data was taken (0 - unspecified) */
     float Focal;
-    /** The coefficients for TCA, dependent on model; separate for R, G and B */
-    float Terms [3];
+    /** The coefficients for TCA, dependent on model; separate for R and B */
+    float Terms [2];
 };
 
 C_TYPEDEF (struct, lfLensCalibTCA)
@@ -683,6 +683,13 @@ struct LF_EXPORT lfLens
     void AddCalibDistortion (const lfLensCalibDistortion *dc);
 
     /**
+     * Remove a calibration entry from the distortion calibration data.
+     * @param idx
+     *     The calibration data index (zero-based).
+     */
+    bool RemoveCalibDistortion (int idx);
+
+    /**
      * Add a new transversal chromatic aberration calibration structure
      * to the pool. The objects is copied, thus you can reuse it as soon as
      * this function returns.
@@ -692,6 +699,13 @@ struct LF_EXPORT lfLens
     void AddCalibTCA (const lfLensCalibTCA *tcac);
 
     /**
+     * Remove a calibration entry from the TCA calibration data.
+     * @param idx
+     *     The calibration data index (zero-based).
+     */
+    bool RemoveCalibTCA (int idx);
+
+    /**
      * Add a new vignetting calibration structure to the pool.
      * The objects is copied, thus you can reuse it as soon as
      * this function returns.
@@ -699,6 +713,13 @@ struct LF_EXPORT lfLens
      *     The vignetting calibration structure.
      */
     void AddCalibVignetting (const lfLensCalibVignetting *vc);
+
+    /**
+     * Remove a calibration entry from the vignetting calibration data.
+     * @param idx
+     *     The calibration data index (zero-based).
+     */
+    bool RemoveCalibVignetting (int idx);
 
     /**
      * This method fills some fields if they are missing but
@@ -872,24 +893,33 @@ LF_EXPORT const char *lf_get_lens_type_desc (
     enum lfLensType type, const char **details);
 
 /** @sa lfLens::InterpolateDistortion */
-LF_EXPORT cbool lf_interpolate_distortion (const lfLens *lens, float focal,
+LF_EXPORT cbool lf_lens_interpolate_distortion (const lfLens *lens, float focal,
     lfLensCalibDistortion *res);
 
 /** @sa lfLens::InterpolateTCA */
-LF_EXPORT cbool lf_interpolate_tca (const lfLens *lens, float focal, lfLensCalibTCA *res);
+LF_EXPORT cbool lf_lens_interpolate_tca (const lfLens *lens, float focal, lfLensCalibTCA *res);
 
 /** @sa lfLens::InterpolateVignetting */
-LF_EXPORT cbool lf_interpolate_vignetting (const lfLens *lens, float focal, float aperture,
+LF_EXPORT cbool lf_lens_interpolate_vignetting (const lfLens *lens, float focal, float aperture,
     float distance, lfLensCalibVignetting *res);
 
 /** @sa lfLens::AddCalibDistortion */
-LF_EXPORT void lf_add_calib_distortion (lfLens *lens, const lfLensCalibDistortion *dc);
+LF_EXPORT void lf_lens_add_calib_distortion (lfLens *lens, const lfLensCalibDistortion *dc);
+
+/** @sa lfLens::RemoveCalibDistortion */
+LF_EXPORT cbool lf_lens_remove_calib_distortion (lfLens *lens, int idx);
 
 /** @sa lfLens::AddCalibTCA */
-LF_EXPORT void lf_add_calib_tca (lfLens *lens, const lfLensCalibTCA *tcac);
+LF_EXPORT void lf_lens_add_calib_tca (lfLens *lens, const lfLensCalibTCA *tcac);
+
+/** @sa lfLens::RemoveCalibTCA */
+LF_EXPORT cbool lf_lens_remove_calib_tca (lfLens *lens, int idx);
 
 /** @sa lfLens::AddCalibVignetting */
-LF_EXPORT void lf_add_calib_vignetting (lfLens *lens, const lfLensCalibVignetting *vc);
+LF_EXPORT void lf_lens_add_calib_vignetting (lfLens *lens, const lfLensCalibVignetting *vc);
+
+/** @sa lfLens::RemoveCalibVignetting */
+LF_EXPORT cbool lf_lens_remove_calib_vignetting (lfLens *lens, int idx);
 
 /** @} */
 
@@ -1484,7 +1514,8 @@ struct LF_EXPORT lfModifier
      *     That is, you take a undistorted image at input and convert it so
      *     that it will look as if it would be a shot made with @a lens.
      * @return
-     *     A new image modifier object.
+     *     A set of LF_MODIFY_XXX flags in effect. This is the @a flags argument
+     *     with dropped bits for operations which are actually no-ops.
      */
     int Initialize (
         const lfLens *lens, lfPixelFormat format, float focal, float aperture,

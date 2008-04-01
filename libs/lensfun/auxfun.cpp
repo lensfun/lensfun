@@ -163,6 +163,23 @@ void _lf_addobj (void ***var, const void *val, size_t val_size,
     (*var) [n] = NULL;
 }
 
+bool _lf_delobj (void ***var, int idx)
+{
+    if (!(*var))
+        return false;
+
+    int len;
+    for (len = 0; (*var) [len]; len++)
+        ;
+    if (idx < 0 || idx >= len)
+        return false;
+
+    g_free ((*var) [idx]);
+    memmove (&(*var) [idx], &(*var) [idx + 1], (len - idx + 1) * sizeof (void *));
+    (*var) = (void **)g_realloc (*var, len * sizeof (void *));
+    return true;
+}
+
 void _lf_xml_printf (GString *output, char *format, ...)
 {
     va_list args;

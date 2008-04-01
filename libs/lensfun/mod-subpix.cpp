@@ -19,7 +19,7 @@ void lfModifier::AddSubpixelCallback (
 
 bool lfModifier::AddSubpixelCallbackTCA (lfLensCalibTCA &model, bool reverse)
 {
-    float tmp [3];
+    float tmp [2];
 
     if (reverse)
         switch (model.Model)

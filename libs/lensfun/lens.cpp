@@ -251,7 +251,7 @@ const char *lfLens::GetDistortionModelDesc (
     static const lfParameter param_poly5_k2 = { "k2", -0.2, 0.2, 0.0 };
     static const lfParameter *param_poly5 [] = { &param_poly3_k1, &param_poly5_k2, NULL };
 
-    static const lfParameter param_fov1_omega = { "omega", 0.0, 1.0, 0.0 };
+    static const lfParameter param_fov1_omega = { "omega", 0.0, 1.4, 0.0 };
     static const lfParameter *param_fov1 [] = { &param_fov1_omega, NULL };
 
     static const lfParameter param_ptlens_a = { "a", -0.2, 0.2, 0.0 };
@@ -315,10 +315,9 @@ const char *lfLens::GetTCAModelDesc (
     static const lfParameter *param_none [] = { NULL };
 
     static const lfParameter param_linear_kr = { "kr", 0.8, 1.2, 1.0 };
-    static const lfParameter param_linear_kg = { "kg", 0.8, 1.2, 1.0 };
     static const lfParameter param_linear_kb = { "kb", 0.8, 1.2, 1.0 };
     static const lfParameter *param_linear [] =
-    { &param_linear_kr, &param_linear_kg, &param_linear_kb, NULL };
+    { &param_linear_kr, &param_linear_kb, NULL };
 
     switch (model)
     {
@@ -349,9 +348,9 @@ const char *lfLens::GetVignettingModelDesc (
 {
     static const lfParameter *param_none [] = { NULL };
 
-    static const lfParameter param_pa_k1 = { "k1", -0.2, 0.2, 0.0 };
-    static const lfParameter param_pa_k2 = { "k2", -0.2, 0.2, 0.0 };
-    static const lfParameter param_pa_k3 = { "k3", -0.2, 0.2, 0.0 };
+    static const lfParameter param_pa_k1 = { "k1", -0.5, 0.5, 0.0 };
+    static const lfParameter param_pa_k2 = { "k2", -0.5, 0.5, 0.0 };
+    static const lfParameter param_pa_k3 = { "k3", -0.5, 0.5, 0.0 };
     static const lfParameter *param_pa [] =
     { &param_pa_k1, &param_pa_k2, &param_pa_k3, NULL };
 
@@ -421,9 +420,12 @@ static bool cmp_distortion (const void *x1, const void *x2)
 
 void lfLens::AddCalibDistortion (const lfLensCalibDistortion *dc)
 {
-    void **x = (void **)CalibDistortion;
-    _lf_addobj (&x, dc, sizeof (*dc), cmp_distortion);
-    CalibDistortion = (lfLensCalibDistortion **)x;
+    _lf_addobj ((void ***)&CalibDistortion, dc, sizeof (*dc), cmp_distortion);
+}
+
+bool lfLens::RemoveCalibDistortion (int idx)
+{
+    return _lf_delobj ((void ***)&CalibDistortion, idx);
 }
 
 static bool cmp_tca (const void *x1, const void *x2)
@@ -435,9 +437,12 @@ static bool cmp_tca (const void *x1, const void *x2)
 
 void lfLens::AddCalibTCA (const lfLensCalibTCA *tcac)
 {
-    void **x = (void **)CalibTCA;
-    _lf_addobj (&x, tcac, sizeof (*tcac), cmp_tca);
-    CalibTCA = (lfLensCalibTCA **)x;
+    _lf_addobj ((void ***)&CalibTCA, tcac, sizeof (*tcac), cmp_tca);
+}
+
+bool lfLens::RemoveCalibTCA (int idx)
+{
+    return _lf_delobj ((void ***)&CalibTCA, idx);
 }
 
 static bool cmp_vignetting (const void *x1, const void *x2)
@@ -451,9 +456,12 @@ static bool cmp_vignetting (const void *x1, const void *x2)
 
 void lfLens::AddCalibVignetting (const lfLensCalibVignetting *vc)
 {
-    void **x = (void **)CalibVignetting;
-    _lf_addobj (&x, vc, sizeof (*vc), cmp_vignetting);
-    CalibVignetting = (lfLensCalibVignetting **)x;
+    _lf_addobj ((void ***)&CalibVignetting, vc, sizeof (*vc), cmp_vignetting);
+}
+
+bool lfLens::RemoveCalibVignetting (int idx)
+{
+    return _lf_delobj ((void ***)&CalibVignetting, idx);
 }
 
 static int __insert_spline (void **spline, float *spline_dist, float dist, void *val)
@@ -1137,34 +1145,49 @@ const char *lf_get_lens_type_desc (enum lfLensType type, const char **details)
     return lfLens::GetLensTypeDesc (type, details);
 }
 
-cbool lf_interpolate_distortion (const lfLens *lens, float focal,
+cbool lf_lens_interpolate_distortion (const lfLens *lens, float focal,
     lfLensCalibDistortion *res)
 {
     return lens->InterpolateDistortion (focal, *res);
 }
 
-cbool lf_interpolate_tca (const lfLens *lens, float focal, lfLensCalibTCA *res)
+cbool lf_lens_interpolate_tca (const lfLens *lens, float focal, lfLensCalibTCA *res)
 {
     return lens->InterpolateTCA (focal, *res);
 }
 
-cbool lf_interpolate_vignetting (const lfLens *lens, float focal, float aperture,
+cbool lf_lens_interpolate_vignetting (const lfLens *lens, float focal, float aperture,
     float distance, lfLensCalibVignetting *res)
 {
     return lens->InterpolateVignetting (focal, aperture, distance, *res);
 }
 
-void lf_add_calib_distortion (lfLens *lens, const lfLensCalibDistortion *dc)
+void lf_lens_add_calib_distortion (lfLens *lens, const lfLensCalibDistortion *dc)
 {
     lens->AddCalibDistortion (dc);
 }
 
-void lf_add_calib_tca (lfLens *lens, const lfLensCalibTCA *tcac)
+cbool lf_lens_remove_calib_distortion (lfLens *lens, int idx)
+{
+    return lens->RemoveCalibDistortion (idx);
+}
+
+void lf_lens_add_calib_tca (lfLens *lens, const lfLensCalibTCA *tcac)
 {
     lens->AddCalibTCA (tcac);
 }
 
-void lf_add_calib_vignetting (lfLens *lens, const lfLensCalibVignetting *vc)
+cbool lf_lens_remove_calib_tca (lfLens *lens, int idx)
+{
+    return lens->RemoveCalibTCA (idx);
+}
+
+void lf_lens_add_calib_vignetting (lfLens *lens, const lfLensCalibVignetting *vc)
 {
     lens->AddCalibVignetting (vc);
+}
+
+cbool lf_lens_remove_calib_vignetting (lfLens *lens, int idx)
+{
+    return lens->RemoveCalibVignetting (idx);
 }
