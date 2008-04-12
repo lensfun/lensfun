@@ -846,7 +846,7 @@ const lfCamera **lfDatabase::FindCameras (const char *maker, const char *model) 
            __find_camera_compare (g_ptr_array_index (Cameras, idx2), &tc) == 0)
         ;
 
-    const lfCamera **ret = new const lfCamera *[idx2 - idx1 + 1];
+    const lfCamera **ret = g_new (const lfCamera *, idx2 - idx1 + 1);
     for (guint i = idx1; i < idx2; i++)
         ret [i - idx1] = (lfCamera *)g_ptr_array_index (Cameras, i);
     ret [idx2 - idx1] = NULL;
