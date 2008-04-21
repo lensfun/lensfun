@@ -420,12 +420,24 @@ static bool cmp_distortion (const void *x1, const void *x2)
 
 void lfLens::AddCalibDistortion (const lfLensCalibDistortion *dc)
 {
-    _lf_addobj ((void ***)&CalibDistortion, dc, sizeof (*dc), cmp_distortion);
+    // Avoid "dereferencing type-punned pointer will break strict-aliasing rules" warning
+    union
+    {
+        lfLensCalibDistortion ***cd;
+        void ***arr;
+    } x = { &CalibDistortion };
+    _lf_addobj (x.arr, dc, sizeof (*dc), cmp_distortion);
 }
 
 bool lfLens::RemoveCalibDistortion (int idx)
 {
-    return _lf_delobj ((void ***)&CalibDistortion, idx);
+    // Avoid "dereferencing type-punned pointer will break strict-aliasing rules" warning
+    union
+    {
+        lfLensCalibDistortion ***cd;
+        void ***arr;
+    } x = { &CalibDistortion };
+    return _lf_delobj (x.arr, idx);
 }
 
 static bool cmp_tca (const void *x1, const void *x2)
@@ -437,12 +449,24 @@ static bool cmp_tca (const void *x1, const void *x2)
 
 void lfLens::AddCalibTCA (const lfLensCalibTCA *tcac)
 {
-    _lf_addobj ((void ***)&CalibTCA, tcac, sizeof (*tcac), cmp_tca);
+    // Avoid "dereferencing type-punned pointer will break strict-aliasing rules" warning
+    union
+    {
+        lfLensCalibTCA ***ctca;
+        void ***arr;
+    } x = { &CalibTCA };
+    _lf_addobj (x.arr, tcac, sizeof (*tcac), cmp_tca);
 }
 
 bool lfLens::RemoveCalibTCA (int idx)
 {
-    return _lf_delobj ((void ***)&CalibTCA, idx);
+    // Avoid "dereferencing type-punned pointer will break strict-aliasing rules" warning
+    union
+    {
+        lfLensCalibTCA ***ctca;
+        void ***arr;
+    } x = { &CalibTCA };
+    return _lf_delobj (x.arr, idx);
 }
 
 static bool cmp_vignetting (const void *x1, const void *x2)
@@ -456,12 +480,24 @@ static bool cmp_vignetting (const void *x1, const void *x2)
 
 void lfLens::AddCalibVignetting (const lfLensCalibVignetting *vc)
 {
-    _lf_addobj ((void ***)&CalibVignetting, vc, sizeof (*vc), cmp_vignetting);
+    // Avoid "dereferencing type-punned pointer will break strict-aliasing rules" warning
+    union
+    {
+        lfLensCalibVignetting ***cv;
+        void ***arr;
+    } x = { &CalibVignetting };
+    _lf_addobj (x.arr, vc, sizeof (*vc), cmp_vignetting);
 }
 
 bool lfLens::RemoveCalibVignetting (int idx)
 {
-    return _lf_delobj ((void ***)&CalibVignetting, idx);
+    // Avoid "dereferencing type-punned pointer will break strict-aliasing rules" warning
+    union
+    {
+        lfLensCalibVignetting ***cv;
+        void ***arr;
+    } x = { &CalibVignetting };
+    return _lf_delobj (x.arr, idx);
 }
 
 static int __insert_spline (void **spline, float *spline_dist, float dist, void *val)
