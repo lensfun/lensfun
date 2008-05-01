@@ -28,7 +28,6 @@ int Image::lanczos_func_use = 0;
 Image::Image () :
     file (NULL), lanczos_func_in_use (false), image (NULL)
 {
-    lanczos_func_use++;
 }
 
 Image::~Image ()
@@ -67,6 +66,7 @@ void Image::Free ()
     {
         delete [] lanczos_func;
         lanczos_func = NULL;
+        lanczos_func_in_use = false;
     }
 }
 
