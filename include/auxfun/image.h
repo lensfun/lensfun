@@ -31,6 +31,47 @@ class Image
 {
     FILE *file;
     int filesize;
+    bool lanczos_func_in_use;
+    static float *lanczos_func;
+    static int lanczos_func_use;
+
+    unsigned char (*fGetR) (Image *This, float x, float y);
+    unsigned char (*fGetG) (Image *This, float x, float y);
+    unsigned char (*fGetB) (Image *This, float x, float y);
+    void (*fGet) (Image *This, RGBpixel &out, float x, float y);
+
+    // --- Nearest interpolation --- //
+
+    /// Get interpolated red value at given position
+    static unsigned char GetR_n (Image *This, float x, float y);
+    /// Get interpolated green value at given position
+    static unsigned char GetG_n (Image *This, float x, float y);
+    /// Get interpolated blue value at given position
+    static unsigned char GetB_n (Image *This, float x, float y);
+    /// Get interpolated pixel value at given position
+    static void Get_n (Image *This, RGBpixel &out, float x, float y);
+
+    // --- Linear interpolation --- //
+
+    /// Get interpolated red value at given position
+    static unsigned char GetR_b (Image *This, float x, float y);
+    /// Get interpolated green value at given position
+    static unsigned char GetG_b (Image *This, float x, float y);
+    /// Get interpolated blue value at given position
+    static unsigned char GetB_b (Image *This, float x, float y);
+    /// Get interpolated pixel value at given position
+    static void Get_b (Image *This, RGBpixel &out, float x, float y);
+
+    // --- Lanczos interpolation --- //
+
+    /// Get interpolated red value at given position
+    static unsigned char GetR_l (Image *This, float x, float y);
+    /// Get interpolated green value at given position
+    static unsigned char GetG_l (Image *This, float x, float y);
+    /// Get interpolated blue value at given position
+    static unsigned char GetB_l (Image *This, float x, float y);
+    /// Get interpolated pixel value at given position
+    static void Get_l (Image *This, RGBpixel &out, float x, float y);
 
 public:
     /// The actual image data
@@ -39,6 +80,16 @@ public:
     unsigned width, height;
     /// The transparent color
     RGBpixel transp;
+
+    enum InterpolationMethod
+    {
+        /// Nearest interpolation (very fast, very low quality)
+        I_NEAREST,
+        /// Bi-linear interpolation (fast, low quality)
+        I_BILINEAR,
+        /// Lanczos interpolation (slow, high quality)
+        I_LANCZOS
+    };
 
     /// Initialize the image object
     Image ();
@@ -60,27 +111,21 @@ public:
     /// Allocate a new image of given size
     void Resize (unsigned newwidth, unsigned newheight);
 
-    // --- Linear interpolation --- //
+    /// Initialize interpolation method
+    void InitInterpolation (InterpolationMethod method);
 
     /// Get interpolated red value at given position
-    unsigned char GetR_l (float x, float y);
+    unsigned char GetR (float x, float y)
+    { return fGetR (this, x, y); }
     /// Get interpolated green value at given position
-    unsigned char GetG_l (float x, float y);
+    unsigned char GetG (float x, float y)
+    { return fGetG (this, x, y); }
     /// Get interpolated blue value at given position
-    unsigned char GetB_l (float x, float y);
+    unsigned char GetB (float x, float y)
+    { return fGetB (this, x, y); }
     /// Get interpolated pixel value at given position
-    void Get_l (RGBpixel &out, float x, float y);
-
-    // --- Modified third order B-spline interpolation (A. Gotchev et al) --- //
-
-    /// Get interpolated red value at given position
-    unsigned char GetR_s (float x, float y);
-    /// Get interpolated green value at given position
-    unsigned char GetG_s (float x, float y);
-    /// Get interpolated blue value at given position
-    unsigned char GetB_s (float x, float y);
-    /// Get interpolated pixel value at given position
-    void Get_s (RGBpixel &out, float x, float y);
+    void Get (RGBpixel &out, float x, float y)
+    { fGet (this, out, x, y); }
 };
 
 #endif // __IMAGE_H__

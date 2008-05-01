@@ -12,16 +12,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <ctype.h>
 
 /* Define this to apply stage 1 & 3 corrections in one step,
    see main comment to the lfModifier class */
 #define COMBINE_13
-
-enum InterpolationAlg
-{
-    InterpLinear,
-    InterpSpline
-};
 
 static struct
 {
@@ -35,7 +30,7 @@ static struct
     float Focal;
     float Aperture;
     float Distance;
-    InterpolationAlg Interpolation;
+    Image::InterpolationMethod Interpolation;
     lfLensType TargetGeom;
 } opts =
 {
@@ -49,7 +44,7 @@ static struct
     0,
     0,
     1.0,
-    InterpLinear,
+    Image::I_NEAREST,
     LF_RECTILINEAR
 };
 
@@ -80,7 +75,7 @@ static void DisplayUsage ()
     g_print ("  -F#   --focal=#    Set focal distance at which image has been taken\n");
     g_print ("  -A#   --aperture=# Set aperture at which image has been taken\n");
     g_print ("  -D#   --distance=# Set subject distance at which image has been taken\n");
-    g_print ("  -I#   --interpol=# Choose interpolation algorithm (linear, spline)\n");
+    g_print ("  -I#   --interpol=# Choose interpolation algorithm (n[earest], b[ilinear], l[anczos])\n");
     g_print ("  -o#   --output=#   Set file name for output image\n");
     g_print ("  -V    --version    Display program version and exit\n");
     g_print ("  -h    --help       Display this help text\n");
@@ -128,6 +123,9 @@ static Image *ApplyModifier (int modflags, bool reverse, Image *img,
         RGBpixel *dst = newimg->image;
         char *imgdata = (char *)img->image;
         bool ok = true;
+
+        img->InitInterpolation (opts.Interpolation);
+
         for (unsigned y = 0; ok && y < img->height; y++)
             switch (step)
             {
@@ -147,24 +145,14 @@ static Image *ApplyModifier (int modflags, bool reverse, Image *img,
                     if (ok)
                     {
                         float *src = pos;
-                        if (opts.Interpolation == InterpLinear)
-                            for (unsigned x = 0; x < img->width; x++)
-                            {
-                                dst->red   = img->GetR_l (src [0], src [1]);
-                                dst->green = img->GetG_l (src [2], src [3]);
-                                dst->blue  = img->GetB_l (src [4], src [5]);
-                                src += 2 * 3;
-                                dst++;
-                            }
-                        else
-                            for (unsigned x = 0; x < img->width; x++)
-                            {
-                                dst->red   = img->GetR_s (src [0], src [1]);
-                                dst->green = img->GetG_s (src [2], src [3]);
-                                dst->blue  = img->GetB_s (src [4], src [5]);
-                                src += 2 * 3;
-                                dst++;
-                            }
+                        for (unsigned x = 0; x < img->width; x++)
+                        {
+                            dst->red   = img->GetR (src [0], src [1]);
+                            dst->green = img->GetG (src [2], src [3]);
+                            dst->blue  = img->GetB (src [4], src [5]);
+                            src += 2 * 3;
+                            dst++;
+                        }
                     }
                     break;
 
@@ -182,20 +170,12 @@ static Image *ApplyModifier (int modflags, bool reverse, Image *img,
                     if (ok)
                     {
                         float *src = pos;
-                        if (opts.Interpolation == InterpLinear)
-                            for (unsigned x = 0; x < img->width; x++)
-                            {
-                                img->Get_l (*dst, src [0], src [1]);
-                                src += 2;
-                                dst++;
-                            }
-                        else
-                            for (unsigned x = 0; x < img->width; x++)
-                            {
-                                img->Get_s (*dst, src [0], src [1]);
-                                src += 2;
-                                dst++;
-                            }
+                        for (unsigned x = 0; x < img->width; x++)
+                        {
+                            img->Get (*dst, src [0], src [1]);
+                            src += 2;
+                            dst++;
+                        }
                     }
                     break;
 #endif
@@ -214,6 +194,23 @@ static Image *ApplyModifier (int modflags, bool reverse, Image *img,
     delete [] pos;
     delete newimg;
     return img;
+}
+
+static bool smartstreq (const char *str, const char *pattern)
+{
+    const char *src = str;
+    while (*src)
+    {
+        char cs = toupper (*src++);
+        char cp = toupper (*pattern++);
+        if (!cs)
+            return (src != str);
+        if (!cp)
+            return false;
+        if (cs != cp)
+            return false;
+    }
+    return true;
 }
 
 int main (int argc, char **argv)
@@ -308,10 +305,12 @@ int main (int argc, char **argv)
                 opts.Distance = _atof (optarg);
                 break;
             case 'I':
-                if (!strcmp (optarg, "linear"))
-                    opts.Interpolation = InterpLinear;
-                else if (!strcmp (optarg, "spline"))
-                    opts.Interpolation = InterpSpline;
+                if (smartstreq (optarg, "nearest"))
+                    opts.Interpolation = Image::I_NEAREST;
+                else if (smartstreq (optarg, "bilinear"))
+                    opts.Interpolation = Image::I_BILINEAR;
+                else if (smartstreq (optarg, "lanczos"))
+                    opts.Interpolation = Image::I_LANCZOS;
                 else
                 {
                     g_print ("Unknown interpolation method `%s'\n", optarg);

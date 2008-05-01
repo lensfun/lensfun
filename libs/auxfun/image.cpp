@@ -10,8 +10,25 @@
 #include <unistd.h>
 #include <math.h>
 
-Image::Image () : file (NULL), image (NULL)
+// A support of 3 gives an overall sharper looking image, but
+// it is a) slower b) gives more sharpening artefacts
+#define LANCZOS_SUPPORT    2
+// Lanczos kernel is precomputed in a table with this resolution
+// The value below seems to be enough for HQ upscaling up to eight times
+#define LANCZOS_TABLE_RES  256
+
+template<typename T> static inline T square (T x)
 {
+    return x * x;
+}
+
+float *Image::lanczos_func = NULL;
+int Image::lanczos_func_use = 0;
+
+Image::Image () :
+    file (NULL), lanczos_func_in_use (false), image (NULL)
+{
+    lanczos_func_use++;
 }
 
 Image::~Image ()
@@ -44,10 +61,12 @@ void Image::Close ()
 
 void Image::Free ()
 {
-    if (image)
+    delete [] image;
+    image = NULL;
+    if (lanczos_func_in_use && !--lanczos_func_use)
     {
-        delete [] image;
-        image = NULL;
+        delete [] lanczos_func;
+        lanczos_func = NULL;
     }
 }
 
@@ -277,21 +296,115 @@ void Image::Resize (unsigned newwidth, unsigned newheight)
     image = new RGBpixel [(width = newwidth) * (height = newheight)];
 }
 
-// --- // Just linear interpolation // --- //
+void Image::InitInterpolation (InterpolationMethod method)
+{
+    switch (method)
+    {
+        case I_NEAREST:
+            fGetR = GetR_n;
+            fGetG = GetG_n;
+            fGetB = GetB_n;
+            fGet = Get_n;
+            break;
+        case I_BILINEAR:
+            fGetR = GetR_b;
+            fGetG = GetG_b;
+            fGetB = GetB_b;
+            fGet = Get_b;
+            break;
+        case I_LANCZOS:
+            fGetR = GetR_l;
+            fGetG = GetG_l;
+            fGetB = GetB_l;
+            fGet = Get_l;
 
-unsigned char Image::GetR_l (float x, float y)
+            if (!lanczos_func)
+            {
+                // Precompute the function for faster interpolation
+                lanczos_func = new float [LANCZOS_SUPPORT * LANCZOS_SUPPORT * LANCZOS_TABLE_RES];
+                for (int i = 0; i < LANCZOS_SUPPORT * LANCZOS_SUPPORT * LANCZOS_TABLE_RES; i++)
+                {
+                    float d = sqrt (float (i) / LANCZOS_TABLE_RES);
+                    if (d == 0.0)
+                        lanczos_func [i] = 1.0;
+                    else
+                        lanczos_func [i] =
+                            (LANCZOS_SUPPORT * sin (M_PI * d) *
+                             sin ((M_PI / LANCZOS_SUPPORT) * d)) /
+                            (M_PI * M_PI * d * d);
+                }
+            }
+            if (!lanczos_func_in_use)
+            {
+                lanczos_func_in_use = true;
+                lanczos_func_use++;
+            }
+            break;
+    }
+}
+
+// --- // Nearest interpolation // --- //
+
+unsigned char Image::GetR_n (Image *This, float x, float y)
+{
+    unsigned xi = unsigned (x + 0.5);
+    unsigned yi = unsigned (y + 0.5);
+    if (xi >= This->width || yi >= This->height)
+        return 0;
+
+    RGBpixel *p = This->image + yi * This->width + xi;
+    return p->red;
+}
+
+unsigned char Image::GetG_n (Image *This, float x, float y)
+{
+    unsigned xi = unsigned (x + 0.5);
+    unsigned yi = unsigned (y + 0.5);
+    if (xi >= This->width || yi >= This->height)
+        return 0;
+
+    RGBpixel *p = This->image + yi * This->width + xi;
+    return p->green;
+}
+
+unsigned char Image::GetB_n (Image *This, float x, float y)
+{
+    unsigned xi = unsigned (x + 0.5);
+    unsigned yi = unsigned (y + 0.5);
+    if (xi >= This->width || yi >= This->height)
+        return 0;
+
+    RGBpixel *p = This->image + yi * This->width + xi;
+    return p->blue;
+}
+
+void Image::Get_n (Image *This, RGBpixel &out, float x, float y)
+{
+    unsigned xi = unsigned (x + 0.5);
+    unsigned yi = unsigned (y + 0.5);
+    if (xi >= This->width || yi >= This->height)
+        return;
+
+    RGBpixel *p = This->image + yi * This->width + xi;
+    out = *p;
+}
+
+
+// --- // Bi-linear interpolation // --- //
+
+unsigned char Image::GetR_b (Image *This, float x, float y)
 {
     // linear interpolation
     unsigned xi = unsigned (x);
     unsigned yi = unsigned (y);
-    if (xi >= width || yi >= height)
+    if (xi >= This->width || yi >= This->height)
         return 0;
 
     unsigned dx = unsigned ((x - trunc (x)) * 256);
     unsigned dy = unsigned ((y - trunc (y)) * 256);
 
-    RGBpixel *p0 = image + yi * width + xi;
-    RGBpixel *p1 = p0 + width;
+    RGBpixel *p0 = This->image + yi * This->width + xi;
+    RGBpixel *p1 = p0 + This->width;
 
     unsigned k1, k2;
     k1 = 256 * p0 [0].red   + dx * (int (p0 [1].red  ) - int (p0 [0].red  ));
@@ -299,19 +412,19 @@ unsigned char Image::GetR_l (float x, float y)
     return (256 * k1 + dy * (k2 - k1)) >> 16;
 }
 
-unsigned char Image::GetG_l (float x, float y)
+unsigned char Image::GetG_b (Image *This, float x, float y)
 {
     // linear interpolation
     unsigned xi = int (x);
     unsigned yi = int (y);
-    if (xi >= width || yi >= height)
+    if (xi >= This->width || yi >= This->height)
         return 0;
 
     unsigned dx = unsigned ((x - trunc (x)) * 256);
     unsigned dy = unsigned ((y - trunc (y)) * 256);
 
-    RGBpixel *p0 = image + yi * width + xi;
-    RGBpixel *p1 = p0 + width;
+    RGBpixel *p0 = This->image + yi * This->width + xi;
+    RGBpixel *p1 = p0 + This->width;
 
     unsigned k1, k2;
     k1 = 256 * p0 [0].green + dx * (int (p0 [1].green) - int (p0 [0].green));
@@ -319,19 +432,19 @@ unsigned char Image::GetG_l (float x, float y)
     return (256 * k1 + dy * (k2 - k1)) >> 16;
 }
 
-unsigned char Image::GetB_l (float x, float y)
+unsigned char Image::GetB_b (Image *This, float x, float y)
 {
     // linear interpolation
     unsigned xi = int (x);
     unsigned yi = int (y);
-    if (xi >= width || yi >= height)
+    if (xi >= This->width || yi >= This->height)
         return 0;
 
     unsigned dx = unsigned ((x - trunc (x)) * 256);
     unsigned dy = unsigned ((y - trunc (y)) * 256);
 
-    RGBpixel *p0 = image + yi * width + xi;
-    RGBpixel *p1 = p0 + width;
+    RGBpixel *p0 = This->image + yi * This->width + xi;
+    RGBpixel *p1 = p0 + This->width;
 
     unsigned k1, k2;
     k1 = 256 * p0 [0].blue  + dx * (int (p0 [1].blue ) - int (p0 [0].blue ));
@@ -339,12 +452,12 @@ unsigned char Image::GetB_l (float x, float y)
     return (256 * k1 + dy * (k2 - k1)) >> 16;
 }
 
-void Image::Get_l (RGBpixel &out, float x, float y)
+void Image::Get_b (Image *This, RGBpixel &out, float x, float y)
 {
     // linear interpolation
     unsigned xi = unsigned (x);
     unsigned yi = unsigned (y);
-    if (xi >= width || yi >= height)
+    if (xi >= This->width || yi >= This->height)
     {
         out.red = out.green = out.blue = 0;
         return;
@@ -353,8 +466,8 @@ void Image::Get_l (RGBpixel &out, float x, float y)
     unsigned dx = unsigned ((x - trunc (x)) * 256);
     unsigned dy = unsigned ((y - trunc (y)) * 256);
 
-    RGBpixel *p0 = image + yi * width + xi;
-    RGBpixel *p1 = p0 + width;
+    RGBpixel *p0 = This->image + yi * This->width + xi;
+    RGBpixel *p1 = p0 + This->width;
 
     unsigned k1, k2;
 
@@ -371,33 +484,253 @@ void Image::Get_l (RGBpixel &out, float x, float y)
     out.blue = (256 * k1 + dy * (k2 - k1)) >> 16;
 }
 
-// --- // When I'll have a little time I'll implement here some
-// --- // cool interpolation algorithm. For now I have in mind
-// --- // the algorithm from the paper: A. Gotchev, J. Vesma,
-// --- // T. Saramäki, K. Egiazarian "MODIFIED B-SPLINE FUNCTIONS
-// --- // FOR EFFICIENT IMAGE INTERPOLATION". Another possibility
-// --- // is the well known Lanczos interpolation algorithm.
+// --- // Lanczos 2 interpolation // --- //
 
-unsigned char Image::GetR_s (float x, float y)
+unsigned char Image::GetR_l (Image *This, float x, float y)
 {
-    //@@notyet@@
-    return 0;
+    float xs = rint (x) - LANCZOS_SUPPORT;
+    float ys = rint (y) - LANCZOS_SUPPORT;
+    float xe = xs + LANCZOS_SUPPORT * 2;
+    float ye = ys + LANCZOS_SUPPORT * 2;
+
+    float norm = 0.0;
+    float sum = 0.0;
+    RGBpixel *img = This->image + (long (ys) * This->width + long (xs));
+
+    if (xs >= 0 && ys >= 0 && xe < This->width && ye < This->height)
+        for (; ys <= ye; ys += 1.0)
+        {
+            for (float xc = xs; xc <= xe; xc += 1.0, img++)
+            {
+                float d = square (x - xc) + square (y - ys);
+                if (d >= LANCZOS_SUPPORT * LANCZOS_SUPPORT)
+                    continue;
+
+                d = lanczos_func [int (d * LANCZOS_TABLE_RES)];
+                norm += d;
+                sum += d * img->red;
+            }
+            img += This->width - LANCZOS_SUPPORT * 2 - 1;
+        }
+    else
+    {
+        for (; ys <= ye; ys += 1.0)
+        {
+            if (ys < 0 || ys >= This->height)
+            {
+                img += This->width;
+                continue;
+            }
+
+            for (float xc = xs; xc <= xe; xc += 1.0, img++)
+            {
+                if (xc < 0 || xc >= This->width)
+                    continue;
+
+                float d = square (x - xc) + square (y - ys);
+                if (d >= LANCZOS_SUPPORT * LANCZOS_SUPPORT)
+                    continue;
+
+                d = lanczos_func [int (d * LANCZOS_TABLE_RES)];
+                norm += d;
+                sum += d * img->red;
+            }
+            img += This->width - LANCZOS_SUPPORT * 2 - 1;
+        }
+        if (norm == 0.0)
+            return 0;
+    }
+
+    int r = int (sum / norm);
+    return r > 255 ? 255 : r < 0 ? 0 : r;
 }
 
-unsigned char Image::GetG_s (float x, float y)
+unsigned char Image::GetG_l (Image *This, float x, float y)
 {
-    //@@notyet@@
-    return 0;
+    float xs = rint (x) - LANCZOS_SUPPORT;
+    float ys = rint (y) - LANCZOS_SUPPORT;
+    float xe = xs + LANCZOS_SUPPORT * 2;
+    float ye = ys + LANCZOS_SUPPORT * 2;
+
+    float norm = 0.0;
+    float sum = 0.0;
+    RGBpixel *img = This->image + (long (ys) * This->width + long (xs));
+
+    if (xs >= 0 && ys >= 0 && xe < This->width && ye < This->height)
+        for (; ys <= ye; ys += 1.0)
+        {
+            for (float xc = xs; xc <= xe; xc += 1.0, img++)
+            {
+                float d = square (x - xc) + square (y - ys);
+                if (d >= LANCZOS_SUPPORT * LANCZOS_SUPPORT)
+                    continue;
+
+                d = lanczos_func [int (d * LANCZOS_TABLE_RES)];
+                norm += d;
+                sum += d * img->green;
+            }
+            img += This->width - LANCZOS_SUPPORT * 2 - 1;
+        }
+    else
+    {
+        for (; ys <= ye; ys += 1.0)
+        {
+            if (ys < 0 || ys >= This->height)
+            {
+                img += This->width;
+                continue;
+            }
+
+            for (float xc = xs; xc <= xe; xc += 1.0, img++)
+            {
+                if (xc < 0 || xc >= This->width)
+                    continue;
+
+                float d = square (x - xc) + square (y - ys);
+                if (d >= LANCZOS_SUPPORT * LANCZOS_SUPPORT)
+                    continue;
+
+                d = lanczos_func [int (d * LANCZOS_TABLE_RES)];
+                norm += d;
+                sum += d * img->green;
+            }
+            img += This->width - LANCZOS_SUPPORT * 2 - 1;
+        }
+        if (norm == 0.0)
+            return 0;
+    }
+
+    int r = int (sum / norm);
+    return r > 255 ? 255 : r < 0 ? 0 : r;
 }
 
-unsigned char Image::GetB_s (float x, float y)
+unsigned char Image::GetB_l (Image *This, float x, float y)
 {
-    //@@notyet@@
-    return 0;
+    float xs = rint (x) - LANCZOS_SUPPORT;
+    float ys = rint (y) - LANCZOS_SUPPORT;
+    float xe = xs + LANCZOS_SUPPORT * 2;
+    float ye = ys + LANCZOS_SUPPORT * 2;
+
+    float norm = 0.0;
+    float sum = 0.0;
+    RGBpixel *img = This->image + (long (ys) * This->width + long (xs));
+
+    if (xs >= 0 && ys >= 0 && xe < This->width && ye < This->height)
+        for (; ys <= ye; ys += 1.0)
+        {
+            for (float xc = xs; xc <= xe; xc += 1.0, img++)
+            {
+                float d = square (x - xc) + square (y - ys);
+                if (d >= LANCZOS_SUPPORT * LANCZOS_SUPPORT)
+                    continue;
+
+                d = lanczos_func [int (d * LANCZOS_TABLE_RES)];
+                norm += d;
+                sum += d * img->blue;
+            }
+            img += This->width - LANCZOS_SUPPORT * 2 - 1;
+        }
+    else
+    {
+        for (; ys <= ye; ys += 1.0)
+        {
+            if (ys < 0 || ys >= This->height)
+            {
+                img += This->width;
+                continue;
+            }
+
+            for (float xc = xs; xc <= xe; xc += 1.0, img++)
+            {
+                if (xc < 0 || xc >= This->width)
+                    continue;
+
+                float d = square (x - xc) + square (y - ys);
+                if (d >= LANCZOS_SUPPORT * LANCZOS_SUPPORT)
+                    continue;
+
+                d = lanczos_func [int (d * LANCZOS_TABLE_RES)];
+                norm += d;
+                sum += d * img->blue;
+            }
+            img += This->width - LANCZOS_SUPPORT * 2 - 1;
+        }
+        if (norm == 0.0)
+            return 0;
+    }
+
+    int r = int (sum / norm);
+    return r > 255 ? 255 : r < 0 ? 0 : r;
 }
 
-void Image::Get_s (RGBpixel &out, float x, float y)
+void Image::Get_l (Image *This, RGBpixel &out, float x, float y)
 {
-    //@@notyet@@
-    out.Set (0, 0, 0);
+    float xs = rint (x) - LANCZOS_SUPPORT;
+    float ys = rint (y) - LANCZOS_SUPPORT;
+    float xe = xs + LANCZOS_SUPPORT * 2;
+    float ye = ys + LANCZOS_SUPPORT * 2;
+
+    float norm = 0.0;
+    float sumR = 0.0;
+    float sumG = 0.0;
+    float sumB = 0.0;
+    RGBpixel *img = This->image + (long (ys) * This->width + long (xs));
+
+    if (xs >= 0 && ys >= 0 && xe < This->width && ye < This->height)
+        for (; ys <= ye; ys += 1.0)
+        {
+            for (float xc = xs; xc <= xe; xc += 1.0, img++)
+            {
+                float d = square (x - xc) + square (y - ys);
+                if (d >= LANCZOS_SUPPORT * LANCZOS_SUPPORT)
+                    continue;
+
+                d = lanczos_func [int (d * LANCZOS_TABLE_RES)];
+                norm += d;
+                sumR += d * img->red;
+                sumG += d * img->green;
+                sumB += d * img->blue;
+            }
+            img += This->width - LANCZOS_SUPPORT * 2 - 1;
+        }
+    else
+    {
+        for (; ys <= ye; ys += 1.0)
+        {
+            if (ys < 0 || ys >= This->height)
+            {
+                img += This->width;
+                continue;
+            }
+
+            for (float xc = xs; xc <= xe; xc += 1.0, img++)
+            {
+                if (xc < 0 || xc >= This->width)
+                    continue;
+
+                float d = square (x - xc) + square (y - ys);
+                if (d >= LANCZOS_SUPPORT * LANCZOS_SUPPORT)
+                    continue;
+
+                d = lanczos_func [int (d * LANCZOS_TABLE_RES)];
+                norm += d;
+                sumR += d * img->red;
+                sumG += d * img->green;
+                sumB += d * img->blue;
+            }
+            img += This->width - LANCZOS_SUPPORT * 2 - 1;
+        }
+        if (norm == 0.0)
+        {
+            out.Set (0, 0, 0);
+            return;
+        }
+    }
+
+    int rR = int (sumR / norm);
+    int rG = int (sumG / norm);
+    int rB = int (sumB / norm);
+    out.Set (rR > 255 ? 255 : rR < 0 ? 0 : rR,
+             rG > 255 ? 255 : rG < 0 ? 0 : rG,
+             rB > 255 ? 255 : rB < 0 ? 0 : rB);
 }
