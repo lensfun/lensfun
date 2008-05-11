@@ -13,7 +13,7 @@
 static struct
 {
     const char *Program;
-    char *Output;
+    const char *Output;
 } opts =
 {
     NULL,

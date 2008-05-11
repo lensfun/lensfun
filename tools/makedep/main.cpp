@@ -68,9 +68,9 @@ int _debugmask;
 #endif
 
 char *ProgramName;
-char *ProgramVersion = "0.1.0";
+const char *ProgramVersion = "0.1.0";
 
-char *directives[] =
+const char *directives[] =
 {
     "if",
     "ifdef",
@@ -102,9 +102,9 @@ struct inclist maininclist;
 char *filelist[MAXFILES];
 char *includedirs[MAXDIRS + 1];
 char *notdotdot[MAXDIRS];
-char *objprefix = "";
-char *objsuffix = OBJSUFFIX;
-char *startat = "# DO NOT DELETE";
+const char *objprefix = "";
+const char *objsuffix = OBJSUFFIX;
+const char *startat = "# DO NOT DELETE";
 int width = 78;
 bool opt_append = false;
 bool opt_backup = false;
@@ -116,7 +116,7 @@ bool show_where_not = false;
 bool opt_warn_multiple = false;	/* Warn on multiple includes of same file */
 bool opt_sysincludes = false;
 
-void redirect (char *line, char *makefile);
+void redirect (const char *line, const char *makefile);
 
 static
 #ifdef SIGNALRETURNSINT
@@ -216,7 +216,7 @@ int main (int argc, char **argv)
     char *makefile = NULL;
     struct filepointer *filecontent;
     struct symtab *psymp = predefs;
-    char *endmarker = NULL;
+    const char *endmarker = NULL;
     char *defincdir = NULL;
     char **undeflist = NULL;
     int i, numundefs = 0;
@@ -796,7 +796,7 @@ int rename (char *from, char *to)
 }
 #endif /* USGISH */
 
-void redirect (char *line, char *makefile)
+void redirect (const char *line, const char *makefile)
 {
     struct stat st;
     FILE *fdin, *fdout;

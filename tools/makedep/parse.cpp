@@ -173,7 +173,7 @@ int deftype (char *line, struct filepointer *filep, struct inclist *file_red,
 
                 while (sym)
                 {
-                    p = (*sym)->s_value;
+                    p = (char *)(*sym)->s_value;
                     debug (3, ("%s : #includes SYMBOL %s = %s\n",
                                file->i_incstring,
                                (*sym)->s_name,
@@ -313,7 +313,7 @@ void define2 (const char *name, const char *val, struct inclist *file)
     {
         /* Fast inline binary search */
         register const char *s1;
-        register char *s2;
+        register const char *s2;
         register int middle = (first + last) / 2;
 
         /* Fast inline strchr() */
@@ -347,7 +347,7 @@ void define2 (const char *name, const char *val, struct inclist *file)
      just replace its s_value */
     if (sp != NULL)
     {
-        free ((*sp)->s_value);
+        free ((void *)(*sp)->s_value);
         (*sp)->s_value = copy (val);
         return;
     }
@@ -387,7 +387,7 @@ void define (char *def, struct inclist *file)
         eol--;
 
     if (eol <= val)
-        val = "1";
+        val = (char *)"1";
     else
         *eol = 0;
 
@@ -404,7 +404,7 @@ struct symtab **slookup (const char *symbol, struct inclist *file)
         {
             /* Fast inline binary search */
             register const char *s1;
-            register char *s2;
+            register const char *s2;
             register int middle = (first + last) / 2;
 
             /* Fast inline strchr() */
@@ -461,8 +461,8 @@ int merge2defines (struct inclist *file1, struct inclist *file2)
 
         while ((last1 >= first1) && (last2 >= first2))
         {
-            char *s1 = file1->i_defs[first1]->s_name;
-            char *s2 = file2->i_defs[first2]->s_name;
+            const char *s1 = file1->i_defs[first1]->s_name;
+            const char *s2 = file2->i_defs[first2]->s_name;
 
             if (strcmp (s1, s2) < 0)
                 i_defs[first++] = file1->i_defs[first1++];

@@ -1111,10 +1111,12 @@ int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
 
     // If maker is specified, check it using our patented _lf_strcmp(tm) technology
     if (pattern->Maker && match->Maker)
+    {
         if (_lf_strcmp (pattern->Maker, match->Maker) != 0)
             return 0; // Bah! different maker.
         else
             score += 10; // Good doggy, here's a cookie
+    }
 
     // And now the most complex part - compare models
     if (pattern->Model && match->Model)

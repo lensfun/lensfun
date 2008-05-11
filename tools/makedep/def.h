@@ -83,8 +83,8 @@ extern int	_debugmask;
 
 struct symtab
 {
-  char *s_name;
-  char *s_value;
+  const char *s_name;
+  const char *s_value;
 };
 
 /* possible i_flag */

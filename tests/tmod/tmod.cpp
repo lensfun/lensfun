@@ -21,7 +21,7 @@
 static struct
 {
     const char *Program;
-    char *Output;
+    const char *Output;
     int ModifyFlags;
     bool Inverse;
     const char *Lens;

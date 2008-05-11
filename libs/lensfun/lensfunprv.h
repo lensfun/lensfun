@@ -194,7 +194,7 @@ extern bool _lf_delobj (void ***var, int idx);
  * @param format
  *     The format string.
  */
-extern void _lf_xml_printf (GString *output, char *format, ...);
+extern void _lf_xml_printf (GString *output, const char *format, ...);
 
 /**
  * Output a multi-language value to output string.

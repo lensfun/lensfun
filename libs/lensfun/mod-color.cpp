@@ -124,7 +124,7 @@ bool lfModifier::ApplyColorModification (
     return true;
 }
 
-template<typename T>static T *apply_multiplier (T *pixels, double c, int &cr)
+template<typename T> T *apply_multiplier (T *pixels, double c, int &cr)
 {
     for (;;)
     {
@@ -147,7 +147,7 @@ template<typename T>static T *apply_multiplier (T *pixels, double c, int &cr)
     return pixels;
 }
 
-template<> static lf_u8 *apply_multiplier (lf_u8 *pixels, double c, int &cr)
+template<> lf_u8 *apply_multiplier (lf_u8 *pixels, double c, int &cr)
 {
     // Use 20.12 fixed-point math
     int c12 = int (c * 4096.0);
@@ -173,7 +173,7 @@ template<> static lf_u8 *apply_multiplier (lf_u8 *pixels, double c, int &cr)
     return pixels;
 }
 
-template<> static lf_u16 *apply_multiplier (lf_u16 *pixels, double c, int &cr)
+template<> lf_u16 *apply_multiplier (lf_u16 *pixels, double c, int &cr)
 {
     for (;;)
     {
@@ -197,7 +197,7 @@ template<> static lf_u16 *apply_multiplier (lf_u16 *pixels, double c, int &cr)
     return pixels;
 }
 
-template<> static lf_u32 *apply_multiplier (lf_u32 *pixels, double c, int &cr)
+template<> lf_u32 *apply_multiplier (lf_u32 *pixels, double c, int &cr)
 {
     for (;;)
     {

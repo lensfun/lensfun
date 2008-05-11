@@ -36,7 +36,7 @@ lfError lfDatabase::Load ()
 
     dirs [ndirs++] = HomeDataDir;
     if (CONF_DATADIR)
-        dirs [ndirs++] = CONF_DATADIR;
+        dirs [ndirs++] = (char *)CONF_DATADIR;
     int static_ndirs = ndirs;
     for (tmp = g_get_system_data_dirs (); ndirs < 10 && *tmp; tmp++)
         dirs [ndirs++] = g_build_filename (*tmp, CONF_PACKAGE, NULL);
@@ -459,6 +459,7 @@ static void _xml_text (GMarkupParseContext *context,
         goto leave;
 
     if (!strcmp (ctx, "name"))
+    {
         if (pd->mount)
             pd->mount->SetName (text, pd->lang);
         else
@@ -469,46 +470,61 @@ static void _xml_text (GMarkupParseContext *context,
                          int (text_len), text);
             goto leave;
         }
+    }
     else if (!strcmp (ctx, "maker"))
+    {
         if (pd->camera)
             pd->camera->SetMaker (text, pd->lang);
         else if (pd->lens)
             pd->lens->SetMaker (text, pd->lang);
         else
             goto bad_ctx;
+    }
     else if (!strcmp (ctx, "model"))
+    {
         if (pd->camera)
             pd->camera->SetModel (text, pd->lang);
         else if (pd->lens)
             pd->lens->SetModel (text, pd->lang);
         else
             goto bad_ctx;
+    }
     else if (!strcmp (ctx, "variant"))
+    {
         if (pd->camera)
             pd->camera->SetVariant (text, pd->lang);
         else
             goto bad_ctx;
+    }
     else if (!strcmp (ctx, "mount"))
+    {
         if (pd->camera)
             pd->camera->SetMount (text);
         else if (pd->lens)
             pd->lens->AddMount (text);
         else
             goto bad_ctx;
+    }
     else if (!strcmp (ctx, "compat"))
+    {
         if (pd->mount)
             pd->mount->AddCompat (text);
         else
             goto bad_ctx;
+    }
     else if (!strcmp (ctx, "cropfactor"))
+    {
         if (pd->camera)
             pd->camera->CropFactor = atof (text);
         else if (pd->lens)
             pd->lens->CropFactor = atof (text);
         else
             goto bad_ctx;
+    }
     else if (!strcmp (ctx, "type"))
+    {
         if (pd->lens)
+        {
             if (!_lf_strcmp (text, "rectilinear"))
                 pd->lens->Type = LF_RECTILINEAR;
             else if (!_lf_strcmp (text, "fisheye"))
@@ -525,8 +541,10 @@ static void _xml_text (GMarkupParseContext *context,
                              pd->camera ? pd->camera->Model : "???");
                 return;
             }
+        }
         else
             goto bad_ctx;
+    }
 
 leave:
     lf_free (pd->lang);
@@ -675,19 +693,23 @@ char *lfDatabase::Save (const lfMount *const *mounts,
             _lf_xml_printf_mlstr (output, "\t\t", "maker", lenses [i]->Maker);
             _lf_xml_printf_mlstr (output, "\t\t", "model", lenses [i]->Model);
             if (lenses [i]->MinFocal)
+            {
                 if (lenses [i]->MinFocal == lenses [i]->MaxFocal)
                     _lf_xml_printf (output, "\t\t<focal value=\"%g\" />\n",
                                     lenses [i]->MinFocal);
                 else
                     _lf_xml_printf (output, "\t\t<focal min=\"%g\" max=\"%g\" />\n",
                                     lenses [i]->MinFocal, lenses [i]->MaxFocal);
+            }
             if (lenses [i]->MinAperture)
+            {
                 if (lenses [i]->MinAperture == lenses [i]->MaxAperture)
                     _lf_xml_printf (output, "\t\t<aperture value=\"%g\" />\n",
                                     lenses [i]->MinAperture);
                 else
                     _lf_xml_printf (output, "\t\t<aperture min=\"%g\" max=\"%g\" />\n",
                                     lenses [i]->MinAperture, lenses [i]->MaxAperture);
+            }
 
             if (lenses [i]->Mounts)
                 for (j = 0; lenses [i]->Mounts [j]; j++)

@@ -180,7 +180,7 @@ bool _lf_delobj (void ***var, int idx)
     return true;
 }
 
-void _lf_xml_printf (GString *output, char *format, ...)
+void _lf_xml_printf (GString *output, const char *format, ...)
 {
     va_list args;
     va_start (args, format);
@@ -193,7 +193,7 @@ void _lf_xml_printf (GString *output, char *format, ...)
 }
 
 void _lf_xml_printf_mlstr (GString *output, const char *prefix,
-                                 const char *element, const lfMLstr val)
+                           const char *element, const lfMLstr val)
 {
     if (!val)
         return;
@@ -310,10 +310,12 @@ int _lf_ptr_array_find_sorted (
 int _lf_strcmp (const char *s1, const char *s2)
 {
     if (!s1)
+    {
         if (!s2)
             return 0;
         else
             return -1;
+    }
     if (!s2)
         return +1;
 
