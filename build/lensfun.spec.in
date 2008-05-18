@@ -1,11 +1,11 @@
 Summary: A photographic lens database and a library for accessing it
-Name: lensfun
-Version: 0.2.0
+Name: @PROJ@
+Version: @VERSION@
 Release: 1%{?dist}
 License: LGPL
 Group: System Environment/Libraries
-URL: http://lensfun.berlios.de
-Source: http://lensfun.berlios.de/%{name}-%{version}.tar.bz2
+URL: @HOMEPAGE@
+Source: @HOMEPAGE@/%{name}-%{version}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Provides: %{name}-devel = %{version}-%{release}
 BuildRequires: python doxygen
@@ -30,7 +30,7 @@ and colour contribution index of the lens.
 
 
 %package devel
-Summary: lensfun development files
+Summary: @PROJ@ development files
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 
@@ -43,9 +43,9 @@ that use the lensfun library/database.
 %prep
 %setup -n %{name}-%{version}
 ./configure \
-        --cflags="${CFLAGS:-%optflags}" \
-        --cxxflags="${CXXFLAGS:-%optflags}" \
- 	--prefix=%{_prefix} \
+	--cflags="${CFLAGS:-%optflags}" \
+	--cxxflags="${CXXFLAGS:-%optflags}" \
+	--prefix=%{_prefix} \
 	--bindir=%{_bindir} \
 	--sysconfdir=%{_sysconfdir} \
 	--datadir=%{_datadir}/lensfun \

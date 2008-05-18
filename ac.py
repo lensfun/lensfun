@@ -26,8 +26,8 @@ __all__ = [
     "check_program", "check_compile", "check_compile_and_link",
     "check_cflags", "check_header",
     "check_library", "pkgconfig_check_library",
-    "update_file", "write_to_file",
-    "abort_configure"
+    "update_file", "read_file", "write_file",
+    "abort_configure", "substmacros"
 ]
 
 # Default values for user-definable variables
@@ -491,10 +491,30 @@ def check_compile_and_link (srcf, outf, cflags = None, libs = None):
     return fd.close () == None
 
 
-def write_to_file (filename, content):
+def read_file (filename):
+    try:
+        fd = open (filename, "r")
+        content = fd.read ()
+        fd.close ()
+        return content
+    except IOError:
+        return None
+
+
+def write_file (filename, content):
     fd = open (filename, "w")
     fd.write (content)
     fd.close ()
+
+
+def update_file (filename, content):
+    old_content = read_file (filename)
+
+    if content != old_content:
+        print ("Updating file: " + filename);
+        write_file (filename, content)
+    else:
+        print ("Not changed: " + filename);
 
 
 def check_cflags (cflags, var, xcflags = ""):
@@ -504,7 +524,7 @@ def check_cflags (cflags, var, xcflags = ""):
     else:
         srcf = "conftest.cpp"
 
-    write_to_file (srcf, """
+    write_file (srcf, """
 int main () { }
 """);
 
@@ -564,7 +584,7 @@ def check_library (lib, reqversion = None, reqtext = None, version = None, cflag
 
     rc = False
 
-    write_to_file ("conftest.c", "int main () { return 0; }\n");
+    write_file ("conftest.c", "int main () { return 0; }\n");
 
     if check_compile_and_link ("conftest.c", "conftest" + EXE, cflags, libs):
         if version:
@@ -620,7 +640,7 @@ def pkgconfig_check_library (lib, reqversion, reqtext = None):
 def check_header (hdr, reqtext = None):
     rc = False
     check_started ("Checking for header file " + hdr)
-    write_to_file ("conftest.c", """
+    write_file ("conftest.c", """
 #include <%s>
 """ % hdr);
 
@@ -674,22 +694,6 @@ def check_program (name, prog, ver_regex, req_version, failifnot = False):
     return rc
 
 
-def update_file (filename, content):
-    try:
-        fd = open (filename, "r")
-        old_content = fd.read ()
-        fd.close ()
-    except:
-        old_content = None
-
-    if content != old_content:
-        print ("Updating file: " + filename);
-        write_to_file (filename, content)
-    else:
-        print ("Not changed: " + filename);
-    pass
-
-
 def pkgconfig (prog, args, lib = None):
     # Check if target overrides this library
     tmp_lib = lib
@@ -715,8 +719,11 @@ def pkgconfig (prog, args, lib = None):
 
     # Do not use pkg-config if cross-compiling
     if HOST != TARGET:
-        abort_configure ("PKGCONFIG does not define the compiler flags" + "\n" +
-                         "for " + tmp_lib + " and we cannot use pkg-config because we are cross-compiling.")
+        abort_configure (
+"""
+PKGCONFIG does not define the compiler flags
+for %s and we cannot use pkg-config because we are cross-compiling.
+""" % tmp_lib)
 
     cmd = prog;
     if lib:
@@ -735,3 +742,36 @@ def pkgconfig (prog, args, lib = None):
         return line
 
     return ""
+
+# Substitute macros like @NAME@ in given file and write the result
+# with substitutions to another file.
+# The macros are either taken from globals(), or are passed as argument.
+def substmacros (infile, outfile = None, macros = None):
+    if not outfile:
+        if infile.endswith (".in"):
+            outfile = infile [:-3]
+        else:
+            abort_configure (
+"""substitution failed:
+Cannot transform input file name `%s' into an ouput file name.
+It either has to end in  `.in' or output file name must be given explicitly.
+""" % (infile, infile))
+    if not macros:
+        macros = globals ()
+
+    content = read_file (infile)
+
+    rx = re.compile ("@([a-zA-Z0-9_]*)@")
+    sc = rx.split (content)
+    for x in range (1, len (sc), 2):
+        if macros.has_key (sc [x]):
+            sc [x] = macros [sc [x]]
+        else:
+            abort_configure (
+"""substitution failed:
+Macro @%s@ is used in `%s' but its value is undefined.
+""" % (sc [x], infile))
+
+    content = "".join (sc)
+
+    update_file (outfile, content)
