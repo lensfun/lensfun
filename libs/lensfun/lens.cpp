@@ -348,9 +348,9 @@ const char *lfLens::GetVignettingModelDesc (
 {
     static const lfParameter *param_none [] = { NULL };
 
-    static const lfParameter param_pa_k1 = { "k1", -0.5, 0.5, 0.0 };
-    static const lfParameter param_pa_k2 = { "k2", -0.5, 0.5, 0.0 };
-    static const lfParameter param_pa_k3 = { "k3", -0.5, 0.5, 0.0 };
+    static const lfParameter param_pa_k1 = { "k1", -0.5, 1.0, 0.0 };
+    static const lfParameter param_pa_k2 = { "k2", -0.5, 1.0, 0.0 };
+    static const lfParameter param_pa_k3 = { "k3", -0.5, 1.0, 0.0 };
     static const lfParameter *param_pa [] =
     { &param_pa_k1, &param_pa_k2, &param_pa_k3, NULL };
 

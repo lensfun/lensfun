@@ -124,7 +124,18 @@ bool lfModifier::ApplyColorModification (
     return true;
 }
 
-template<typename T> T *apply_multiplier (T *pixels, double c, int &cr)
+// Helper template to return the maximal value for a type.
+// By default returns 0.0, which means to not clamp by upper boundary.
+template<typename T>static inline double type_max (T x)
+{ return 0.0; }
+
+template<>static inline double type_max (lf_u16 x)
+{ return 65535.0; }
+
+template<>static inline double type_max (lf_u32 x)
+{ return 4294967295.0; }
+
+template<typename T>static inline T *apply_multiplier (T *pixels, double c, int &cr)
 {
     for (;;)
     {
@@ -138,7 +149,7 @@ template<typename T> T *apply_multiplier (T *pixels, double c, int &cr)
             case LF_CR_UNKNOWN:
                 break;
             default:
-                *pixels = clamp (T (*pixels * c), T (0));
+                *pixels = clampd<T> (*pixels * c, 0.0, type_max (T (0)));
                 break;
         }
         pixels++;
@@ -147,7 +158,8 @@ template<typename T> T *apply_multiplier (T *pixels, double c, int &cr)
     return pixels;
 }
 
-template<> lf_u8 *apply_multiplier (lf_u8 *pixels, double c, int &cr)
+// For lf_u8 pixel type do a more efficient arithmetic using fixed point
+template<>static inline  lf_u8 *apply_multiplier (lf_u8 *pixels, double c, int &cr)
 {
     // Use 20.12 fixed-point math
     int c12 = int (c * 4096.0);
@@ -164,55 +176,10 @@ template<> lf_u8 *apply_multiplier (lf_u8 *pixels, double c, int &cr)
                 break;
             default:
                 if ((cr & 15) > LF_CR_UNKNOWN)
-                    *pixels = clamp ((int (*pixels) * c12) >> 12, 0, 0xff);
-                break;
-        }
-        pixels++;
-        cr >>= 4;
-    }
-    return pixels;
-}
-
-template<> lf_u16 *apply_multiplier (lf_u16 *pixels, double c, int &cr)
-{
-    for (;;)
-    {
-        switch (cr & 15)
-        {
-            case LF_CR_END:
-                return pixels;
-            case LF_CR_NEXT:
-                cr >>= 4;
-                return pixels;
-            case LF_CR_UNKNOWN:
-                break;
-            default:
-                if ((cr & 15) > LF_CR_UNKNOWN)
-                    *pixels = clamp (lf_u16 (*pixels * c), lf_u16 (0), lf_u16 (0xffff));
-                break;
-        }
-        pixels++;
-        cr >>= 4;
-    }
-    return pixels;
-}
-
-template<> lf_u32 *apply_multiplier (lf_u32 *pixels, double c, int &cr)
-{
-    for (;;)
-    {
-        switch (cr & 15)
-        {
-            case LF_CR_END:
-                return pixels;
-            case LF_CR_NEXT:
-                cr >>= 4;
-                return pixels;
-            case LF_CR_UNKNOWN:
-                break;
-            default:
-                if ((cr & 15) > LF_CR_UNKNOWN)
-                    *pixels = clamp (lf_u32 (*pixels * c), lf_u32 (0), lf_u32 (0xffffffff));
+                {
+                    int r = (int (*pixels) * c12) >> 12;
+                    *pixels = (r > 0xff) ? 0xff : ((r < 0) ? 0 : r);
+                }
                 break;
         }
         pixels++;

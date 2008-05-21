@@ -49,39 +49,23 @@ template<typename T> static inline T square (T x)
 }
 
 /**
- * Clamp a value between 0 and max.
+ * Clamp a double value between 0 and max, then convert to given type.
  * @param x
  *     The number to clamp.
  * @param min
  *     The minimal value.
  * @param max
- *     The maximal value.
+ *     The maximal value. If equal to 0, no clamping by upper boundary is done.
  * @return
  *     The clamped value.
  */
-template<typename T> static inline T clamp (T x, T min, T max)
+template<typename T> static inline T clampd (double x, double min, double max)
 {
     if (x < min)
-        return min;
-    else if (x > max)
-        return max;
-    return x;
-}
-
-/**
- * Clamp a value at given bottom boundary
- * @param x
- *     The number to clamp.
- * @param min
- *     The minimal value.
- * @return
- *     The clamped value.
- */
-template<typename T> static inline T clamp (T x, T min)
-{
-    if (x < min)
-        return min;
-    return x;
+        return static_cast<T> (min);
+    else if (max != 0.0 && x > max)
+        return static_cast<T> (max);
+    return static_cast<T> (x);
 }
 
 /**
