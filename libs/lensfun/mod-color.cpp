@@ -103,14 +103,13 @@ bool lfModifier::ApplyColorModification (
 {
     const lfExtModifier *This = static_cast<const lfExtModifier *> (this);
 
-    if (This->ColorCallbacks->len <= 0)
+    if (This->ColorCallbacks->len <= 0 || height <= 0)
         return false; // nothing to do
 
     x = x * This->NormScale - This->CenterX;
     y = y * This->NormScale - This->CenterY;
-    float y_end = y + height * This->NormScale;
 
-    for (; y < y_end; y += This->NormScale)
+    for (; height; y += This->NormScale, height--)
     {
         for (int i = 0; i < (int)This->ColorCallbacks->len; i++)
         {

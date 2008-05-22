@@ -318,15 +318,14 @@ bool lfModifier::ApplyGeometryDistortion (
 {
     const lfExtModifier *This = static_cast<const lfExtModifier *> (this);
 
-    if (This->CoordCallbacks->len <= 0)
+    if (This->CoordCallbacks->len <= 0 || height <= 0)
         return false; // nothing to do
 
     // All callbacks work with normalized coordinates
     xu = xu * This->NormScale - This->CenterX;
     yu = yu * This->NormScale - This->CenterY;
-    float y_end = yu + height * This->NormScale;
 
-    for (float y = yu; y < y_end; y += This->NormScale)
+    for (float y = yu; height; y += This->NormScale, height--)
     {
         int i;
         float x = xu;
