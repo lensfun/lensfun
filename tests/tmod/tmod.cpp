@@ -255,6 +255,7 @@ int main (int argc, char **argv)
             case 'g':
                 opts.ModifyFlags |= LF_MODIFY_GEOMETRY;
                 if (optarg)
+                {
                     if (!strcasecmp (optarg, "rectilinear"))
                         opts.TargetGeom = LF_RECTILINEAR;
                     else if (!strcasecmp (optarg, "fisheye"))
@@ -268,6 +269,7 @@ int main (int argc, char **argv)
                         g_print ("Target lens geometry must be one of 'rectilinear', 'fisheye', 'panoramic', 'equirectangular'\n");
                         return -1;
                     }
+                }
                 break;
             case 't':
                 opts.ModifyFlags |= LF_MODIFY_TCA;
