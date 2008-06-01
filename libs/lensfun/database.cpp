@@ -747,7 +747,7 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                 for (j = 0; lenses [i]->CalibDistortion [j]; j++)
                 {
                     lfLensCalibDistortion *cd = lenses [i]->CalibDistortion [j];
-                
+
                     _lf_xml_printf (output, "\t\t\t<distortion focal=\"%g\" ",
                                     cd->Focal);
                     switch (cd->Model)
@@ -850,29 +850,75 @@ static gint __find_camera_compare (gconstpointer a, gconstpointer b)
 
 const lfCamera **lfDatabase::FindCameras (const char *maker, const char *model) const
 {
-    const GPtrArray *Cameras = static_cast<const lfExtDatabase *> (this)->Cameras;
+    if (maker && !*maker)
+        maker = NULL;
+    if (model && !*model)
+        model = NULL;
+
+    const GPtrArray *cameras = static_cast<const lfExtDatabase *> (this)->Cameras;
     lfCamera tc;
     tc.SetMaker (maker);
     tc.SetModel (model);
-    int idx = _lf_ptr_array_find_sorted (Cameras, &tc, __find_camera_compare);
+    int idx = _lf_ptr_array_find_sorted (cameras, &tc, __find_camera_compare);
     if (idx < 0)
         return NULL;
 
     guint idx1 = idx;
     while (idx1 > 0 &&
-           __find_camera_compare (g_ptr_array_index (Cameras, idx1 - 1), &tc) == 0)
+           __find_camera_compare (g_ptr_array_index (cameras, idx1 - 1), &tc) == 0)
         idx1--;
 
     guint idx2 = idx;
-    while (++idx2 < Cameras->len - 1 &&
-           __find_camera_compare (g_ptr_array_index (Cameras, idx2), &tc) == 0)
+    while (++idx2 < cameras->len - 1 &&
+           __find_camera_compare (g_ptr_array_index (cameras, idx2), &tc) == 0)
         ;
 
     const lfCamera **ret = g_new (const lfCamera *, idx2 - idx1 + 1);
     for (guint i = idx1; i < idx2; i++)
-        ret [i - idx1] = (lfCamera *)g_ptr_array_index (Cameras, i);
+        ret [i - idx1] = (lfCamera *)g_ptr_array_index (cameras, i);
     ret [idx2 - idx1] = NULL;
     return ret;
+}
+
+static gint _lf_compare_camera_score (gconstpointer a, gconstpointer b)
+{
+    lfCamera *i1 = (lfCamera *)a;
+    lfCamera *i2 = (lfCamera *)b;
+
+    return i2->Score - i1->Score;
+}
+
+const lfCamera **lfDatabase::FindCamerasExt (const char *maker, const char *model) const
+{
+    if (maker && !*maker)
+        maker = NULL;
+    if (model && !*model)
+        model = NULL;
+
+    const GPtrArray *cameras = static_cast<const lfExtDatabase *> (this)->Cameras;
+    GPtrArray *ret = g_ptr_array_new ();
+
+    lfFuzzyStrCmp fcmaker (maker);
+    lfFuzzyStrCmp fcmodel (model);
+
+    for (size_t i = 0; i < cameras->len - 1; i++)
+    {
+        lfCamera *dbcam = static_cast<lfCamera *> (g_ptr_array_index (cameras, i));
+        int score1 = 0, score2 = 0;
+        if ((!maker || (score1 = fcmaker.Compare (dbcam->Maker))) &&
+            (!model || (score2 = fcmodel.Compare (dbcam->Model))))
+        {
+            dbcam->Score = score1 + score2;
+            _lf_ptr_array_insert_sorted (ret, dbcam, _lf_compare_camera_score);
+        }
+    }
+
+    // Add a NULL to mark termination of the array
+    if (ret->len)
+        g_ptr_array_add (ret, NULL);
+
+    // Free the GPtrArray but not the actual list.
+    return (const lfCamera **) (g_ptr_array_free (ret, FALSE));
 }
 
 const lfCamera *const *lfDatabase::GetCameras () const
@@ -884,6 +930,11 @@ const lfCamera *const *lfDatabase::GetCameras () const
 const lfLens **lfDatabase::FindLenses (const lfCamera *camera,
                                        const char *maker, const char *model) const
 {
+    if (maker && !*maker)
+        maker = NULL;
+    if (model && !*model)
+        model = NULL;
+
     lfLens lens;
     lens.SetMaker (maker);
     lens.SetModel (model);
@@ -1049,6 +1100,12 @@ const lfCamera **lf_db_find_cameras (const lfDatabase *db,
                                      const char *maker, const char *model)
 {
     return db->FindCameras (maker, model);
+}
+
+const lfCamera **lf_db_find_cameras_ext (
+    const lfDatabase *db, const char *maker, const char *model)
+{
+    return db->FindCamerasExt (maker, model);
 }
 
 const lfCamera *const *lf_db_get_cameras (const lfDatabase *db)

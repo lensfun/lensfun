@@ -210,13 +210,21 @@ extern void _lf_xml_printf_mlstr (GString *output, const char *prefix,
 extern const char *_lf_get_distortion_model_id (lfDistortionModel model);
 
 /**
- * Extended strcmp() which doesn't segfault if one or both strings are NULL.
+ * Something like a very advanced strcmp().
+ * It doesn't segfault if one or both strings are NULL:
  * NULL is considered to be less than any string.
  * Actually this function does a fuzzy comparison of the strings,
  * ignoring spaces at both ends of the string, compressing multiple
  * spaces into one and ignoring character case.
  */
 extern int _lf_strcmp (const char *s1, const char *s2);
+
+/**
+ * Same as _lf_strcmp(), but compares a string with a multi-language
+ * string. If it equals any of the translations, 0 is returned, otherwise
+ * the result of strcmp() with the first (default) string is returned.
+ */
+extern int _lf_mlstrcmp (const char *s1, const lfMLstr s2);
 
 /**
  * Comparison function for mount sorting and finding.
@@ -312,17 +320,6 @@ extern int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
 extern double _lf_rt3 (double x);
 
 /**
- * Extract a sixth-order root from a number.
- * For some reason pow (x, 1.0/6.0) fails if x is negative, so
- * we have to use this wrapper.
- * @param x
- *     The number to extract the sixth-order root from.
- * @return
- *     The sixth-order root from x.
- */
-extern double _lf_rt6 (double x);
-
-/**
  * Google-in-your-pocket: a fuzzy string comparator.
  * This has been designed for comparing lens model names.
  * At construction the pattern is split into words and then the component
@@ -349,6 +346,18 @@ public:
      *     matched words.
      */
     int Compare (const char *match);
+
+    /**
+     * Compares the pattern with a multi-language string.
+     * This function returns the largest score as compared against
+     * every of the translated strings.
+     * @param match
+     *     The multi-language string to match against.
+     * @return
+     *     Returns a score in range 0-100, depending on the number of
+     *     matched words.
+     */
+    int Compare (const lfMLstr match);
 };
 
 /**

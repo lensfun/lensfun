@@ -6,8 +6,64 @@
 <lensdatabase>
 
     <mount>
-        <name>Generic</name>
+        <name>M42</name>
+        <compat>Generic</compat>
     </mount>
+
+    <mount>
+        <name>Generic</name>
+        <compat>Canon EF</compat>
+        <compat>Canon EF-S</compat>
+        <compat>Contax/Yashica</compat>
+        <compat>Nikon F</compat>
+        <compat>Nikon F AI</compat>
+        <compat>Nikon F AI-S</compat>
+        <compat>Nikon F AF</compat>
+        <compat>4/3 System</compat>
+        <compat>olympusE10</compat>
+        <compat>Pentax K</compat>
+        <compat>Pentax KA</compat>
+        <compat>Pentax KAF</compat>
+        <compat>Pentax KAF2</compat>
+        <compat>Sigma</compat>
+        <compat>Sony Alpha</compat>
+        <compat>M42</compat>
+    </mount>
+
+    <camera>
+        <maker>Generic</maker>
+        <model>Crop-factor 1.0</model>
+        <mount>Generic</mount>
+        <cropfactor>1.0</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Generic</maker>
+        <model>Crop-factor 1.1</model>
+        <mount>Generic</mount>
+        <cropfactor>1.1</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Generic</maker>
+        <model>Crop-factor 1.5</model>
+        <mount>Generic</mount>
+        <cropfactor>1.5</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Generic</maker>
+        <model>Crop-factor 1.6</model>
+        <mount>Generic</mount>
+        <cropfactor>1.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Generic</maker>
+        <model>Crop-factor 1.7</model>
+        <mount>Generic</mount>
+        <cropfactor>1.7</cropfactor>
+    </camera>
 
     <lens>
         <maker>Generic</maker>

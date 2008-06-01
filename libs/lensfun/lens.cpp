@@ -84,7 +84,8 @@ void lfLens::SetModel (const char *val, const char *lang)
 
 void lfLens::AddMount (const char *val)
 {
-    _lf_addstr (&Mounts, val);
+    if (val)
+        _lf_addstr (&Mounts, val);
 }
 
 static float _lf_parse_float (const char *model, const regmatch_t &match)
@@ -1112,7 +1113,7 @@ int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
     // If maker is specified, check it using our patented _lf_strcmp(tm) technology
     if (pattern->Maker && match->Maker)
     {
-        if (_lf_strcmp (pattern->Maker, match->Maker) != 0)
+        if (_lf_mlstrcmp (pattern->Maker, match->Maker) != 0)
             return 0; // Bah! different maker.
         else
             score += 10; // Good doggy, here's a cookie

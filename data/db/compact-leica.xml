@@ -7,17 +7,30 @@
 
     <camera>
         <maker>LEICA</maker>
+        <maker lang="en">Leica</maker>
         <model>DIGILUX 2</model>
+        <model lang="en">Digilux 2</model>
         <mount>leicaDigilux2</mount>
         <cropfactor>3.933</cropfactor>
     </camera>
 
     <camera>
         <maker>LEICA</maker>
+        <maker lang="en">Leica</maker>
         <model>D-LUX2</model>
-        <variant>D-LUX 2 (16:9)</variant>
+        <model lang="en">Digilux 2</model>
+        <variant>16:9</variant>
         <mount>panasonicLX1</mount>
         <cropfactor>4.45</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>LEICA</maker>
+        <maker lang="en">Leica</maker>
+        <model>DIGILUX 3</model>
+        <model lang="en">Digilux 3</model>
+        <mount>4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
     </camera>
 
     <lens>
@@ -42,12 +55,5 @@
             <distortion model="ptlens" focal="22.5" a="0" b="-0.003695" c="0.005038" />
         </calibration>
     </lens>
-
-    <camera>
-        <maker>LEICA</maker>
-        <model>DIGILUX 3</model>
-        <mount>4/3 System</mount>
-        <cropfactor>2.0</cropfactor>
-    </camera>
 
 </lensdatabase>

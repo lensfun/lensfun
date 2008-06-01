@@ -108,7 +108,7 @@ lfMLstr lf_mlstr_dup (const lfMLstr str)
         while (str [str_len])
             str_len += 1 + strlen (str + str_len + 1);
     }
-    
+
     gchar *ret = (char *)g_malloc (str_len);
     memcpy (ret, str, str_len);
     return ret;
@@ -309,6 +309,11 @@ int _lf_ptr_array_find_sorted (
 
 int _lf_strcmp (const char *s1, const char *s2)
 {
+    if (s1 && !*s1)
+        s1 = NULL;
+    if (s2 && !*s2)
+        s2 = NULL;
+
     if (!s1)
     {
         if (!s2)
@@ -356,11 +361,56 @@ skip_start_spaces_s2:
             continue;
         }
 
-        if ((!c1 && c2 == L' ') || (!c2 && c1 == L' '))
-            return 0; // strings are equal, ignore spaces at the end of one
+        if (!c2 && c1 == L' ')
+        {
+            // Check if first string contains spaces up to the end
+            while (g_unichar_isspace (g_utf8_get_char (s1)))
+                s1 = g_utf8_next_char (s1);
+            return *s1 ? +1 : 0;
+        }
+        if (!c1 && c2 == L' ')
+        {
+            // Check if second string contains spaces up to the end
+            while (g_unichar_isspace (g_utf8_get_char (s2)))
+                s2 = g_utf8_next_char (s2);
+            return *s2 ? -1 : 0;
+        }
 
         return c1 - c2;
     }
+}
+
+int _lf_mlstrcmp (const char *s1, const lfMLstr s2)
+{
+    if (!s1)
+    {
+        if (!s2)
+            return 0;
+        else
+            return -1;
+    }
+    if (!s2)
+        return +1;
+
+    const char *s2c = s2;
+    int ret = 0;
+    while (*s2c)
+    {
+        int res = _lf_strcmp (s1, s2c);
+        if (!res)
+            return 0;
+        if (s2c == s2)
+            ret = res;
+
+        // Skip the string
+        s2c = strchr (s2c, 0) + 1;
+        if (!*s2c)
+            break;
+        // Ignore the language descriptor
+        s2c = strchr (s2c, 0) + 1;
+    }
+
+    return ret;
 }
 
 float _lf_interpolate (float y1, float y2, float y3, float y4, float t)
@@ -440,8 +490,10 @@ void lfFuzzyStrCmp::Split (const char *str, GPtrArray *dest)
              tolower (*word) == 'f'))
             continue;
 
-        gchar *item = g_strndup (word, str - word);
-        _lf_ptr_array_insert_sorted (dest, item, (GCompareFunc)strcasecmp);
+        //gchar *item = g_strndup (word, str - word);
+        //_lf_ptr_array_insert_sorted (dest, item, (GCompareFunc)strcasecmp);
+        gchar *item = g_utf8_casefold (word, str - word);
+        _lf_ptr_array_insert_sorted (dest, item, (GCompareFunc)strcmp);
     }
 }
 
@@ -457,8 +509,7 @@ int lfFuzzyStrCmp::Compare (const char *match)
         const char *pattern_str = (char *)g_ptr_array_index (pattern_words, pi);
         for (; mi < match_words->len; mi++)
         {
-            int r = strcasecmp (pattern_str,
-                                (char *)g_ptr_array_index (match_words, mi));
+            int r = strcmp (pattern_str, (char *)g_ptr_array_index (match_words, mi));
 
             if (r == 0)
                 break;
@@ -478,7 +529,7 @@ int lfFuzzyStrCmp::Compare (const char *match)
             Free (match_words);
             return 0; // Found a word not present in pattern
         }
-        
+
         mi++;
     }
 
@@ -491,18 +542,38 @@ int lfFuzzyStrCmp::Compare (const char *match)
     return score;
 }
 
+int lfFuzzyStrCmp::Compare (const lfMLstr match)
+{
+    if (!match)
+        return 0;
+
+    const char *mc = match;
+    int ret = 0;
+    while (*mc)
+    {
+        int res = Compare (mc);
+        if (res > ret)
+        {
+            ret = res;
+            if (ret >= 100)
+                break;
+        }
+
+        // Skip the string
+        mc = strchr (mc, 0) + 1;
+        if (!*mc)
+            break;
+        // Ignore the language descriptor
+        mc = strchr (mc, 0) + 1;
+    }
+
+    return ret;
+}
+
 double _lf_rt3 (double x)
 {
     if (x < 0.0)
         return -pow (-x, 1.0 / 3.0);
     else
         return pow (x, 1.0 / 3.0);
-}
-
-double _lf_rt6 (double x)
-{
-    if (x < 0.0)
-        return -pow (-x, 1.0 / 6.0);
-    else
-        return pow (x, 1.0 / 6.0);
 }

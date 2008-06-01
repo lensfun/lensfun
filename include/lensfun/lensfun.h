@@ -266,6 +266,8 @@ struct LF_EXPORT lfCamera
     char *Mount;
     /** Camera crop factor (ex: 1.0). Must be defined. */
     float CropFactor;
+    /** Camera matching score, used while searching: not actually a camera parameter */
+    int Score;
 
 #ifdef __cplusplus
     /**
@@ -1052,16 +1054,46 @@ struct LF_EXPORT lfDatabase
 
     /**
      * Find a set of cameras that fit given criteria.
+     * The maker and model must be given (if possible) exactly as they are
+     * spelled in database, except that the library will compare
+     * case-insensitively and will compress spaces. This means that the
+     * database must contain camera maker/lens *exactly* how it is given
+     * in EXIF data, but you may add human-friendly translations of them
+     * using the multi-language string feature (including a translation
+     * to "en" to avoid displaying EXIF tags in user interface - they are
+     * often upper-case which looks ugly).
      * @param maker
      *     Camera maker (either from EXIF tags or from some other source).
+     *     The string is expected to be pure ASCII, since EXIF data does
+     *     not allow 8-bit data to be used.
      * @param model
      *     Camera model (either from EXIF tags or from some other source).
+     *     The string is expected to be pure ASCII, since EXIF data does
+     *     not allow 8-bit data to be used.
      * @return
      *     A NULL-terminated list of cameras matching the search criteria
      *     or NULL if none. Release return value with lf_free() (only the list
      *     of pointers, not the camera objects!).
      */
     const lfCamera **FindCameras (const char *maker, const char *model) const;
+
+    /**
+     * This function is somewhat similar to FindCameras(), but uses a
+     * different search algorithm. It will search all translations of camera
+     * maker and model, thus you may search for a user-entered camera even
+     * in a language different from English.
+     *
+     * This is a lot slower than FindCameras().
+     * @param maker
+     *     Camera maker. This can be any UTF-8 string.
+     * @param model
+     *     Camera model. This can be any UTF-8 string.
+     * @return
+     *     A NULL-terminated list of cameras matching the search criteria
+     *     or NULL if none. Release return value with lf_free() (only the list
+     *     of pointers, not the camera objects!).
+     */
+    const lfCamera **FindCamerasExt (const char *maker, const char *model) const;
 
     /**
      * Retrieve a full list of cameras.
@@ -1217,6 +1249,10 @@ LF_EXPORT char *lf_db_save (const lfMount *const *mounts,
 /** @sa lfDatabase::FindCameras */
 LF_EXPORT const lfCamera **lf_db_find_cameras (const lfDatabase *db,
                                                const char *maker, const char *model);
+
+/** @sa lfDatabase::FindCamerasExt */
+LF_EXPORT const lfCamera **lf_db_find_cameras_ext (
+    const lfDatabase *db, const char *maker, const char *model);
 
 /** @sa lfDatabase::GetCameras */
 LF_EXPORT const lfCamera *const *lf_db_get_cameras (const lfDatabase *db);
