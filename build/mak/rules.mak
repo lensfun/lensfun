@@ -228,20 +228,21 @@ DIST = $(CONF_PACKAGE)-$(CONF_VERSION).tar.bz2
 DISTEXTRA += build/ include/ GNUmakefile ac.py configure
 # Take care that $($x.dir) are targets, so we'll append a /
 DISTFILES = $(foreach x,$(GROUPS),$($x.dir)/) $(DISTEXTRA)
+DISTEXCLUDEPATH=$(if $(patsubst %/,,$1),! -path '$1',! -path '$(1:/=)' ! -path '$1*')
 
 dist: $(DIST)
 
 $(DIST): $(DISTFILES)
 	$(call MKDIR,$(@:.tar.bz2=))
-	find $^ ! -path '*/.svn*' -type f -print0 | \
+	find $^ -type f ! -path '*/.svn*' \
+		$(foreach x,$(GENFILES),$(call DISTEXCLUDEPATH,$x)) -print0 | \
 	xargs -0 cp -a --parents --target-directory=$(@:.tar.bz2=)
 	tar cjf $@ $(@:.tar.bz2=) --no-xattrs --no-anchored --numeric-owner --owner 0 --group 0
 	$(call RMDIR,$(@:.tar.bz2=))
 
 # Clean all non-distribution files
-DISTPATHPAT=$(if $(patsubst %/,,$1),! -path './$1',! -path './$(1:/=)' ! -path './$1*')
 distclean: cleangen $(DISTFILES)
 	$(call RMDIR,$(OUTBASE))
-	find . ! -path . ! -path '*/.svn*' \
-		$(foreach x,$(DISTFILES),$(call DISTPATHPAT,$x)) \
+	find * ! -path . ! -path '*/.svn*' \
+		$(foreach x,$(DISTFILES),$(call DISTEXCLUDEPATH,$x)) \
 		-print0 | xargs -0 rm -rf

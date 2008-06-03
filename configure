@@ -44,8 +44,10 @@ ac.add_config_mak ("CXXFLAGS", ac.CXXFLAGS)
 ac.add_config_mak ("LDFLAGS", ac.LDFLAGS)
 ac.add_config_mak ("LDLIBS", ac.LIBS)
 ac.add_config_mak ("MODE", ac.MODE)
+ac.add_config_mak ("GENFILES", "config.mak build/PKGBUILD " +
+    "build/lensfun.spec include/config.h")
 
-ac.update_file ("include/" + "config.h", "\n".join (ac.CONFIG_H) + "\n")
+ac.update_file ("include/config.h", "\n".join (ac.CONFIG_H) + "\n")
 ac.update_file ("config.mak", "\n".join (ac.CONFIG_MAK) + "\n")
 
 ac.substmacros ("build/PKGBUILD.in")
