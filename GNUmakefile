@@ -21,6 +21,9 @@ MODE ?= release
 # (only if the 'out/blah/' directory has been created, though)
 AUTODEP ?= $(if $(wildcard $(OUT)),1)
 
+# Extra files to include in distribution
+DISTEXTRA += README
+
 # Build tools if they aren't available
 ifndef MAKEDEP
 MAKEDEP = $(OUT)makedep$(EXE)

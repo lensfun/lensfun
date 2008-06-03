@@ -25,49 +25,66 @@ The C interface is a wrapper around the C++ classes.
 LICENSE
 -------
 
-The libraries which are part of this package are licensed under the terms of the
-GNU Lesser General Public License, version 3. Libraries are located under
-the subdirectory libs/ of the source package. A copy of the license is available
-in the file lgpl-3.0.txt which can be found in the source archive. You can read
-it here: http://www.gnu.org/licenses/lgpl-3.0.html
+The libraries which are part of this package are licensed under the terms
+of the GNU Lesser General Public License, version 3. Libraries are located
+under the subdirectory libs/ of the source package. A copy of the license
+is available in the file lgpl-3.0.txt which can be found in the source
+archive. You can read it here: http://www.gnu.org/licenses/lgpl-3.0.html
 
-Applications which are part of this package are licensed under the terms of the
-GNU General Public License, version 3. Applications are located under
-the apps/ subdirectory of the source package. A copy of the license can be found
-in the file gpl-3.0.txt which can be found in the source archive. You can read it
-here: http://www.gnu.org/licenses/gpl-3.0.html
+Applications which are part of this package are licensed under the terms
+of the GNU General Public License, version 3. Applications are located
+under the apps/ subdirectory of the source package. A copy of the license
+can be found in the file gpl-3.0.txt which can be found in the source
+archive. You can read it here: http://www.gnu.org/licenses/gpl-3.0.html
 
-Also the build system (the contents of the build/ subdirectory plus the ac.py file)
-is licensed under GPL v3.
+Also the build system (the contents of the build/ subdirectory plus the
+ac.py file) is licensed under GPL v3.
 
-Test programs and tools are put into public domain, unless explicitly specified
-otherwise in the header of the source files. Test programs are located under the
-tests/ subdirectory, and tools are located in tools/.
+Test programs and tools are put into public domain, unless explicitly
+specified otherwise in the header of the source files. Test programs
+are located under the tests/ subdirectory, and tools are located in tools/.
 
-The lens database is licensed under the Creative Commons Attribution-Share Alike 3.0
-license. The database is located under the data/ subdirectory of the source package.
-You can read it here: http://creativecommons.org/licenses/by-sa/
+The lens database is licensed under the Creative Commons Attribution-Share
+Alike 3.0 license. The database is located under the data/ subdirectory
+of the source package. You can read it here:
+http://creativecommons.org/licenses/by-sa/
 
 
-FURTHER DIRECTIONS
-------------------
+QUICK BUILDING AND INSTALL
+--------------------------
+
+For people that just want to quickly build and install the library and
+forget it, here goes a quick reference.
 
 To build the library, you must first configure the library and then
-build it, as usual. In order to successfully configure and build
-the project the following tools are more or less required:
+build/install it, as usual. In order to successfully configure and
+build the project the following tools are more or less required:
 
 	- Python to run the configure script.
 	- GNU Make 3.80 or later to run the (rather complex) makefiles.
 	- Doxygen in order to generate the library documentation.
-	- GLib 2.0 and later which is used for low-level I/O.
+	- GLib 2.0 and later which is used for low-level I/O and XML parsing.
 	- libpng is required to build and run test programs.
 
-Then type:
+First, configure it almost as usual when you use autoconf-based build systems:
 
-	./configure [--prefix=/usr] [...]
+	CFLAGS="..." CXXFLAGS="..." LDFLAGS="..." LIBS="..." \
+	./configure --prefix=... [--bindir, --libdir, --sysconfdir, ...] \
+		[--staticlibs (by default it builds shared libs)]
 
-almost as usual. This project does not use autoconf, but the configure
-script tries to mimic it. You can get a list of configure options by typing
+If all goes well, you now can enter:
+
+	make install
+
+This will build and install everything required for installation. No separate
+build step is required, it will work in just one step.
+
+
+BUILD SYSTEM IN DEPTH
+---------------------
+
+This project does not use autoconf, but the configure script tries to mimic
+it to some extent. You can see a list of configure options by typing:
 
 	./configure --help
 
@@ -85,8 +102,10 @@ If you're just going to build, install and forget it, your route is:
 The build system will automatically build just what's needed to be installed
 and then copy the resulting files to the appropiate subdirectories.
 
-If you're curious to see the full commands used while building, set the
-makefile variable "V" to 1, e.g:
+The build system hides the complexity of the commands run under macros like
+GCC.CC, GCC.LD and so on, to avoid cluttering the output and let you easily
+identify warnings and errors. However, if you're curious to see the full
+commands used while building, set the makefile variable "V" to 1, e.g:
 
 	make install V=1
 
@@ -98,10 +117,23 @@ LD_LIBRARY_PATH variable to the directory where the shared libraries
 are built.
 
 The build system allows quick switching between compiling in debug and
-release mode. You can choose the build mode by specifying a value to the
-MODE makefile variable, e.g:
+release mode. The default is release mode for those quick guys that just
+need to build lensfun as a dependency for something bigger. You can change
+the build mode by specifying a value to the MODE makefile variable, e.g:
 
 	make MODE=debug
+
+Another feature of the build system is that it uses a special tool called
+makedep to automatically build dependencies. If it is installed in your
+system, configure will detect and use that. If not, it will be automatically
+built and used. If you don't want this to happen, you must set the AUTODEP
+variable to 0:
+
+	make all AUTODEP=0
+
+These are the most important features so far. The build system currently
+lacks a complete documentation, but I hope the above info is enough to
+productively use it.
 
 
 DOCUMENTATION
