@@ -30,6 +30,10 @@ define NL
 endef
 # A comma
 COMMA=,
+# A empty
+EMPTY=
+# A space
+SPACE=$(EMPTY) $(EMPTY)
 # Useful macro to strip extension from a file
 NOSUFFIX=$(subst $(suffix $1),,$1)
 # This function should print its argument to the terminal
@@ -144,25 +148,13 @@ $(foreach x,$(GROUPS),$(eval install-$($x.dir): install-$($x)))
 # Installation directory for module $1 target $2, default value $3
 .INSTDIR = $(INSTALL_PREFIX)$(if $(INSTDIR.$2),$(INSTDIR.$2),$(if $(INSTDIR.$1),$(INSTDIR.$1),$3))
 
-# If this variable is strictly equal to 1, the dependencies will be built
-# Currently dependencies are not built if:
-# * AUTODEP is not 1
-# * Build goals contains the substring "install"
-# * Build goals contains the substring "clean"
-# * Build goals is equal to "dist"
-# * Build goal is empty
-BUILDDEP := $(strip $(AUTODEP) \
-	$(findstring install,$(MAKECMDGOALS)) \
-	$(findstring clean,$(MAKECMDGOALS)) \
-	$(if $(patsubst dist,,$(MAKECMDGOALS)),,no))
-
 # Okay, here goes the horror part :)
 # $1 - module name
 define RULES.MODULE
 .PHONY: $1
 $1: outdirs $(foreach 2,$(TARGETS.$1),$(call XFNAME.$(.TKNAME),$2))
 $(foreach 2,$(TARGETS.$1),$(if $(SRC.$2),
-ifeq ($(BUILDDEP),1)
+ifeq ($(AUTODEP),1)
 $(call MKDRULES.$(.TKNAME),$(OUT)deps/$2.dep,$(OUT)deps/.dir $(SRC.$1) $(SRC.$2),$1,$2)
 endif
 -include $(OUT)deps/$2.dep
