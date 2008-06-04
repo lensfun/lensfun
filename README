@@ -95,13 +95,6 @@ all test programs, type:
 
 	make tests
 
-If you're just going to build, install and forget it, your route is:
-
-	make install
-
-The build system will automatically build just what's needed to be installed
-and then copy the resulting files to the appropiate subdirectories.
-
 The build system hides the complexity of the commands run under macros like
 GCC.CC, GCC.LD and so on, to avoid cluttering the output and let you easily
 identify warnings and errors. However, if you're curious to see the full
@@ -143,6 +136,13 @@ The end-user documentation for the library can be built by issuing the
 command:
 
 	make docs
+
+Also you can read it online at any time by pointing your browser to:
+
+	http://lensfun.berlios.de/manual/
+
+The documentation on the site is updated every night from SVN, so it always
+contains the latest info on the library.
 
 
 CREDITS

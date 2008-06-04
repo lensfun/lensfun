@@ -315,8 +315,8 @@ const char *lfLens::GetTCAModelDesc (
 {
     static const lfParameter *param_none [] = { NULL };
 
-    static const lfParameter param_linear_kr = { "kr", 0.8, 1.2, 1.0 };
-    static const lfParameter param_linear_kb = { "kb", 0.8, 1.2, 1.0 };
+    static const lfParameter param_linear_kr = { "kr", 0.99, 1.01, 1.0 };
+    static const lfParameter param_linear_kb = { "kb", 0.99, 1.01, 1.0 };
     static const lfParameter *param_linear [] =
     { &param_linear_kr, &param_linear_kb, NULL };
 
