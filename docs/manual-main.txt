@@ -29,6 +29,7 @@ one lens gives "yellowish" images and another, say, "bluish").
     <ul>
     <li>@ref dbformat
     <li>@ref dbsearch
+    <li>@ref filldb
     </ul>
 <li>@ref programming
     <ul>
@@ -66,6 +67,12 @@ You can read it here: @ref cc-by-ca or
 
 
 @page credits Credits
+
+So far this is a solo project, so the only code contributor for now is:
+
+<ul>
+<li><b>Andrew Zabolotny</b> <zap@homelink.ru>
+</ul>
 
 The following people directly or indirectly contributed to the birth and growth
 of this library:
@@ -425,6 +432,87 @@ Now if you found more than one matching lens you must provide the user a choice.
 User chooses the exact lens that was used to make a shot. After that you can
 create a lfModifier object using lens data. Using this object the image
 may be modified according to user preferences.
+
+
+@page filldb Filling the database
+
+Earlier or later (usually earlier) you'll find out that your camera/lens is not
+in the database. Well, that's easy to fix, just add it to the database yourself! ;)
+
+As stated in the section @ref dbsearch, the library will look for xml database files
+in various subdirectories. The best place to put your own definitions into is
+~/.local/share/lensfun/. This directory is guaranteed to not be overwriten by
+library or even OS upgrades, so it's safe to keep them there.
+
+So now you just create a new file under ~/.local/share/lensfun/ -- with any name,
+but with the '.xml' extension:
+
+@code
+<lensdatabase>
+    ... put your definitions here ...
+</lensdatabase>
+@endcode
+
+and it will be automatically found and loaded at library initialization time,
+
+Of course, if you create new camera/lens definitions, I will be grateful if you
+send them to me so that I can include them in future releases of the database.
+
+<ul>
+<li>@ref addcamera
+</ul>
+
+
+@page addcamera Adding new cameras to the database
+
+Adding new cameras is very easy. You just have to know its crop factor, and the
+EXIF identification strings for this camera; that's all.
+
+If you don't know the crop factor, you can search in google for e.g.
+"Nikon D300 sensor size". Let's suppose you found out that your sensor size
+is 23.6 x 15.8mm. Now compute the length of the diagonal using Pythagora's theorem:
+
+@code
+    d = sqrt (23.6^2 + 15.8^2) = 28.4 mm
+@endcode
+
+Now you just divide the magic number 43.27 (the diagonal of a usual 35mm film frame)
+by the number you got:
+
+@code
+    crop = 43.27 / 28.4 = 1.52
+@endcode
+
+Usually the image from the sensor is a little cropped along every margin, so let's
+suppose it's exactly 1.5.
+
+Now you must find out the identification string for your camera from EXIF data.
+For this you can use the exiftool script:
+
+@code
+    $ exiftool blah.nef
+    ....
+    Make                            : NIKON CORPORATION
+    Camera Model Name               : NIKON D300
+    ....
+@endcode
+
+Now you can create a XML entry for your camera:
+
+@code
+    <camera>
+        <maker>NIKON CORPORATION</maker>
+        <maker lang="en">Nikon</maker>
+        <model>NIKON D300</model>
+        <model lang="en">D300</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.5</cropfactor>
+    </camera>
+@endcode
+
+Now add this definition to a XML database file along lensfun database
+search path and your camera will be detected and lensfun will work properly
+with images produced by it.
 
 
 @page samplecode Sample code
