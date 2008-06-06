@@ -15,7 +15,7 @@ ac.HOMEPAGE = "http://lensfun.berlios.de"
 ac.start ()
 
 # Check for tools
-ac.check_program ("GNU Make", "make --version", ".*?([0-9\.]+).*", "3.80", True)
+ac.check_program ("GNU Make", "make --version", ".*?([0-9\.]+).*", "3.81", True)
 if ac.check_program ("makedep", "makedep -V", ".*Version.*?([0-9\.]+).*", "0.1.0"):
     ac.add_config_mak ("MAKEDEP", "makedep")
     makedep = "yes"
