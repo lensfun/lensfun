@@ -1372,7 +1372,17 @@ C_TYPEDEF (enum, lfComponentRole)
 /** This macro defines a pixel format consisting of six components */
 #define LF_CR_6(a,b,c,d,e,f)    ((LF_CR_ ## a) | ((LF_CR_ ## b) << 4) | \
                                  ((LF_CR_ ## c) << 8) | ((LF_CR_ ## d) << 12) | \
-                                 ((LF_CR_ ## e) << 16) | ((LF_CR_ ## e) << 20))
+                                 ((LF_CR_ ## e) << 16) | ((LF_CR_ ## f) << 20))
+/** This macro defines a pixel format consisting of seven components */
+#define LF_CR_7(a,b,c,d,e,f,g)   ((LF_CR_ ## a) | ((LF_CR_ ## b) << 4) | \
+                                 ((LF_CR_ ## c) << 8) | ((LF_CR_ ## d) << 12) | \
+                                 ((LF_CR_ ## e) << 16) | ((LF_CR_ ## f) << 20) | \
+                                 ((LF_CR_ ## g) << 24))
+/** This macro defines a pixel format consisting of seven components */
+#define LF_CR_8(a,b,c,d,e,f,g,h) ((LF_CR_ ## a) | ((LF_CR_ ## b) << 4) | \
+                                 ((LF_CR_ ## c) << 8) | ((LF_CR_ ## d) << 12) | \
+                                 ((LF_CR_ ## e) << 16) | ((LF_CR_ ## f) << 20) | \
+                                 ((LF_CR_ ## g) << 24) | ((LF_CR_ ## h) << 28))
 
 /**
  * A callback function which modifies the separate coordinates for all color
