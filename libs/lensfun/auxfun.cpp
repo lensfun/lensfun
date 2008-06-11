@@ -438,11 +438,12 @@ float _lf_interpolate (float y1, float y2, float y3, float y4, float t)
 
 //------------------------// Fuzzy string matching //------------------------//
 
-lfFuzzyStrCmp::lfFuzzyStrCmp (const char *pattern)
+lfFuzzyStrCmp::lfFuzzyStrCmp (const char *pattern, bool allwords)
 {
     pattern_words = g_ptr_array_new ();
     match_words = g_ptr_array_new ();
     Split (pattern, pattern_words);
+    match_all_words = allwords;
 }
 
 lfFuzzyStrCmp::~lfFuzzyStrCmp ()
@@ -490,8 +491,6 @@ void lfFuzzyStrCmp::Split (const char *str, GPtrArray *dest)
              tolower (*word) == 'f'))
             continue;
 
-        //gchar *item = g_strndup (word, str - word);
-        //_lf_ptr_array_insert_sorted (dest, item, (GCompareFunc)strcasecmp);
         gchar *item = g_utf8_casefold (word, str - word);
         _lf_ptr_array_insert_sorted (dest, item, (GCompareFunc)strcmp);
     }
@@ -504,39 +503,66 @@ int lfFuzzyStrCmp::Compare (const char *match)
         return 0;
 
     size_t mi = 0;
+    int score = 0;
+
     for (size_t pi = 0; pi < pattern_words->len; pi++)
     {
         const char *pattern_str = (char *)g_ptr_array_index (pattern_words, pi);
+        int old_mi = mi;
+
         for (; mi < match_words->len; mi++)
         {
+            // Since we casefolded our strings at init time, we can
+            // use now a regular strcmp, which is way faster...
             int r = strcmp (pattern_str, (char *)g_ptr_array_index (match_words, mi));
 
             if (r == 0)
+            {
+                score++;
                 break;
+            }
 
             if (r < 0)
             {
-                // Since our arrays are sorted, if pattern word becomes
-                // "smaller" than next word from the match, this means
-                // there's no chance anymore to find it.
-                Free (match_words);
-                return 0;
+                if (match_all_words)
+                {
+                    // Since our arrays are sorted, if pattern word becomes
+                    // "smaller" than next word from the match, this means
+                    // there's no chance anymore to find it.
+                    Free (match_words);
+                    return 0;
+                }
+                else
+                {
+                    mi = old_mi - 1;
+                    break;
+                }
             }
         }
 
-        if (mi >= match_words->len)
+        if (match_all_words)
         {
-            Free (match_words);
-            return 0; // Found a word not present in pattern
-        }
+            if (mi >= match_words->len)
+            {
+                // Found a word not present in pattern
+                Free (match_words);
+                return 0;
+            }
 
-        mi++;
+            mi++;
+        }
+        else
+        {
+            if (mi >= match_words->len)
+                // Found a word not present in pattern
+                mi = old_mi;
+            else
+                mi++;
+        }
     }
 
-    // Allright, all words from pattern were found in the match.
-    // Compute the score.
+    score = (score * 100) / match_words->len;
 
-    int score = (pattern_words->len * 100) / match_words->len;
     Free (match_words);
 
     return score;

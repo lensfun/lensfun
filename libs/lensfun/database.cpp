@@ -888,7 +888,8 @@ static gint _lf_compare_camera_score (gconstpointer a, gconstpointer b)
     return i2->Score - i1->Score;
 }
 
-const lfCamera **lfDatabase::FindCamerasExt (const char *maker, const char *model) const
+const lfCamera **lfDatabase::FindCamerasExt (const char *maker, const char *model,
+                                             int sflags) const
 {
     if (maker && !*maker)
         maker = NULL;
@@ -898,8 +899,8 @@ const lfCamera **lfDatabase::FindCamerasExt (const char *maker, const char *mode
     const GPtrArray *cameras = static_cast<const lfExtDatabase *> (this)->Cameras;
     GPtrArray *ret = g_ptr_array_new ();
 
-    lfFuzzyStrCmp fcmaker (maker);
-    lfFuzzyStrCmp fcmodel (model);
+    lfFuzzyStrCmp fcmaker (maker, (sflags & LF_SEARCH_LOOSE) == 0);
+    lfFuzzyStrCmp fcmodel (model, (sflags & LF_SEARCH_LOOSE) == 0);
 
     for (size_t i = 0; i < cameras->len - 1; i++)
     {
@@ -928,7 +929,8 @@ const lfCamera *const *lfDatabase::GetCameras () const
 }
 
 const lfLens **lfDatabase::FindLenses (const lfCamera *camera,
-                                       const char *maker, const char *model) const
+                                       const char *maker, const char *model,
+                                       int sflags) const
 {
     if (maker && !*maker)
         maker = NULL;
@@ -943,7 +945,7 @@ const lfLens **lfDatabase::FindLenses (const lfCamera *camera,
     // Guess lens parameters from lens model name
     lens.GuessParameters ();
     lens.CropFactor = camera ? camera->CropFactor : 0.0;
-    return FindLenses (&lens);
+    return FindLenses (&lens, (sflags & LF_SEARCH_LOOSE) == 0);
 }
 
 static gint _lf_compare_lens_score (gconstpointer a, gconstpointer b)
@@ -980,13 +982,13 @@ static void _lf_add_compat_mounts (
         }
 }
 
-const lfLens **lfDatabase::FindLenses (const lfLens *lens) const
+const lfLens **lfDatabase::FindLenses (const lfLens *lens, int sflags) const
 {
     const GPtrArray *lenses = static_cast<const lfExtDatabase *> (this)->Lenses;
     GPtrArray *ret = g_ptr_array_new ();
     GPtrArray *mounts = g_ptr_array_new ();
 
-    lfFuzzyStrCmp fc (lens->Model);
+    lfFuzzyStrCmp fc (lens->Model, (sflags & LF_SEARCH_LOOSE) == 0);
 
     // Create a list of compatible mounts
     if (lens->Mounts)
@@ -1103,9 +1105,9 @@ const lfCamera **lf_db_find_cameras (const lfDatabase *db,
 }
 
 const lfCamera **lf_db_find_cameras_ext (
-    const lfDatabase *db, const char *maker, const char *model)
+    const lfDatabase *db, const char *maker, const char *model, int sflags)
 {
-    return db->FindCamerasExt (maker, model);
+    return db->FindCamerasExt (maker, model, sflags);
 }
 
 const lfCamera *const *lf_db_get_cameras (const lfDatabase *db)
@@ -1114,14 +1116,14 @@ const lfCamera *const *lf_db_get_cameras (const lfDatabase *db)
 }
 
 const lfLens **lf_db_find_lenses_hd (const lfDatabase *db, const lfCamera *camera,
-                                     const char *maker, const char *lens)
+                                     const char *maker, const char *lens, int sflags)
 {
-    return db->FindLenses (camera, maker, lens);
+    return db->FindLenses (camera, maker, lens, sflags);
 }
 
-const lfLens **lf_db_find_lenses (const lfDatabase *db, const lfLens *lens)
+const lfLens **lf_db_find_lenses (const lfDatabase *db, const lfLens *lens, int sflags)
 {
-    return db->FindLenses (lens);
+    return db->FindLenses (lens, sflags);
 }
 
 const lfLens *const *lf_db_get_lenses (const lfDatabase *db)

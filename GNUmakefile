@@ -20,7 +20,7 @@ MODE ?= release
 # We want to always build dependencies (no need for "make dep")
 # if we're going to build any of the libraries, tools, apps or tests,
 # but only if the 'out/blah/' directory has been created
-WANTDEPS := $(strip $(foreach g,$(MAKECMDGOALS), \
+WANTDEPS = $(strip $(foreach g,$(MAKECMDGOALS), \
     $(findstring $(SPACE)$g$(SPACE), all apps libs tools tests \
     $(APPS) $(LIBS) $(TOOLS) $(TESTS) )))
 AUTODEP ?= $(if $(wildcard $(OUT)),$(if $(WANTDEPS),1))

@@ -934,6 +934,19 @@ LF_EXPORT cbool lf_lens_remove_calib_vignetting (lfLens *lens, int idx);
  */
 
 /**
+ * Flags controlling the behavior of database searches.
+ */
+enum
+{
+    /**
+     * This flag selects a looser search algorithm resulting in more
+     * results (still sorted by score). If it is not present, all results
+     * where at least one of the input words is missing will be discarded.
+     */
+    LF_SEARCH_LOOSE
+};
+
+/**
  * A lens database object.
  *
  * This object contains a list of mounts, cameras and lenses through
@@ -1088,12 +1101,16 @@ struct LF_EXPORT lfDatabase
      *     Camera maker. This can be any UTF-8 string.
      * @param model
      *     Camera model. This can be any UTF-8 string.
+     * @param sflags
+     *     Additional flags influencing the search algorithm.
+     *     This is a combination of LF_SEARCH_XXX flags.
      * @return
      *     A NULL-terminated list of cameras matching the search criteria
      *     or NULL if none. Release return value with lf_free() (only the list
      *     of pointers, not the camera objects!).
      */
-    const lfCamera **FindCamerasExt (const char *maker, const char *model) const;
+    const lfCamera **FindCamerasExt (const char *maker, const char *model,
+                                     int sflags = 0) const;
 
     /**
      * Retrieve a full list of cameras.
@@ -1131,14 +1148,17 @@ struct LF_EXPORT lfDatabase
      *     Lens maker or NULL if not known.
      * @param model
      *     A human description of the lens model(-s).
+     * @param sflags
+     *     Additional flags influencing the search algorithm.
+     *     This is a combination of LF_SEARCH_XXX flags.
      * @return
      *     A list of lenses parsed from user description or NULL.
      *     Release memory with lf_free(). The list is ordered in the
      *     most-likely to least-likely order, e.g. the first returned
      *     value is the most likely match.
      */
-    const lfLens **FindLenses (
-        const lfCamera *camera, const char *maker, const char *model) const;
+    const lfLens **FindLenses (const lfCamera *camera, const char *maker,
+                               const char *model, int sflags = 0) const;
 
     /**
      * Find a set of lenses that fit certain criteria.
@@ -1148,13 +1168,16 @@ struct LF_EXPORT lfDatabase
      *     no lenses with crop factor less than that will be returned.
      *     The Mounts field will be scanned for allowed mounts, if NULL
      *     any mounts are considered compatible.
+     * @param sflags
+     *     Additional flags influencing the search algorithm.
+     *     This is a combination of LF_SEARCH_XXX flags.
      * @return
      *     A NULL-terminated list of lenses matching the search criteria
      *     or NULL if none. Release memory with lf_free(). The list is ordered
      *     in the most-likely to least-likely order, e.g. the first returned
      *     value is the most likely match.
      */
-    const lfLens **FindLenses (const lfLens *lens) const;
+    const lfLens **FindLenses (const lfLens *lens, int sflags = 0) const;
 
     /**
      * Retrieve a full list of lenses.
@@ -1247,25 +1270,24 @@ LF_EXPORT char *lf_db_save (const lfMount *const *mounts,
                             const lfLens *const *lenses);
 
 /** @sa lfDatabase::FindCameras */
-LF_EXPORT const lfCamera **lf_db_find_cameras (const lfDatabase *db,
-                                               const char *maker, const char *model);
+LF_EXPORT const lfCamera **lf_db_find_cameras (
+    const lfDatabase *db, const char *maker, const char *model);
 
 /** @sa lfDatabase::FindCamerasExt */
 LF_EXPORT const lfCamera **lf_db_find_cameras_ext (
-    const lfDatabase *db, const char *maker, const char *model);
+    const lfDatabase *db, const char *maker, const char *model, int sflags);
 
 /** @sa lfDatabase::GetCameras */
 LF_EXPORT const lfCamera *const *lf_db_get_cameras (const lfDatabase *db);
 
 /** @sa lfDatabase::FindLenses(const lfCamera *, const char *, const char *) */
-LF_EXPORT const lfLens **lf_db_find_lenses_hd (const lfDatabase *db,
-                                               const lfCamera *camera,
-                                               const char *maker,
-                                               const char *lens);
+LF_EXPORT const lfLens **lf_db_find_lenses_hd (
+    const lfDatabase *db, const lfCamera *camera, const char *maker,
+    const char *lens, int sflags);
 
 /** @sa lfDatabase::FindLenses(const lfCamera *, const lfLens *) */
-LF_EXPORT const lfLens **lf_db_find_lenses (const lfDatabase *db,
-                                            const lfLens *lens);
+LF_EXPORT const lfLens **lf_db_find_lenses (
+    const lfDatabase *db, const lfLens *lens, int sflags);
 
 /** @sa lfDatabase::GetLenses */
 LF_EXPORT const lfLens *const *lf_db_get_lenses (const lfDatabase *db);

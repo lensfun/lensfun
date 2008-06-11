@@ -329,12 +329,21 @@ class lfFuzzyStrCmp
 {
     GPtrArray *pattern_words;
     GPtrArray *match_words;
+    bool match_all_words;
 
     void Split (const char *str, GPtrArray *dest);
     void Free (GPtrArray *dest);
 
 public:
-    lfFuzzyStrCmp (const char *pattern);
+    /**
+     * @param pattern
+     *     The pattern which will be compared against a number of strings.
+     * @param allwords
+     *     If true, all words of the pattern must be present in the
+     *     target string. If not, a looser result will be accepted,
+     *     although this will be reflected in the match score.
+     */
+    lfFuzzyStrCmp (const char *pattern, bool allwords);
     ~lfFuzzyStrCmp ();
 
     /**
