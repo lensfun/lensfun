@@ -943,7 +943,7 @@ enum
      * results (still sorted by score). If it is not present, all results
      * where at least one of the input words is missing will be discarded.
      */
-    LF_SEARCH_LOOSE
+    LF_SEARCH_LOOSE = 1
 };
 
 /**
