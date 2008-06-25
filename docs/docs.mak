@@ -13,4 +13,4 @@ DESCRIPTION.readme = Readme file and licenses
 TARGETS.readme = README docs/lgpl-3.0.txt docs/gpl-3.0.txt docs/cc-by-sa-3.0.txt
 TOOLKIT.readme = DATA
 INSTALL.TARGETS += readme
-INSTDIR.readme = $(CONF_DOCSDIR)
+INSTDIR.readme = $(CONF_DOCDIR)

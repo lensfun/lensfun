@@ -23,8 +23,8 @@ endef
 # $3 = full target file name)
 define MKIRULES.DOXYGEN
 
-	$(if $V,,@echo INSTALLDIR $3 to $(call .INSTDIR,$1,$2,$(CONF_DOCSDIR)) &&)\
-	$$(call INSTALLDIR,$3,$(call .INSTDIR,$1,$2,$(CONF_DOCSDIR)),0644)
+	$(if $V,,@echo INSTALLDIR $3 to $(call .INSTDIR,$1,$2,$(CONF_HTMLDIR)) &&)\
+	$$(call INSTALLDIR,$3,$(call .INSTDIR,$1,$2,$(CONF_HTMLDIR)),0644)
 endef
 
 # Dependency rules ($1 = dependency file, $2 = source file list,

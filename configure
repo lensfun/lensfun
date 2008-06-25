@@ -61,5 +61,7 @@ print "Target directory for binaries:      " + ac.BINDIR
 print "Target directory for data files:    " + ac.DATADIR
 print "Target directory for libraries:     " + ac.LIBDIR
 print "Target directory for include files: " + ac.INCLUDEDIR
-print "Target directory for documentation: " + ac.DOCSDIR
+print "Target directory for documentation: " + ac.DOCDIR
+if ac.HTMLDIR != ac.DOCDIR:
+    print "Target directory for HTML manual:   " + ac.HTMLDIR
 print "-------------------------------------------------------------------"
