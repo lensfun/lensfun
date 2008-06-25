@@ -84,6 +84,8 @@ OPTIONS = [
       "Define the installation directory for include files" ],
     [ None, "libexecdir", "DIR",   "global LIBEXECDIR; LIBEXECDIR = optarg",
       "Define the installation for exectutable application components" ],
+    [ None, "docdir",    "DIR",   "global DOCSDIR; DOCSDIR = optarg",
+      "Define the installation directory for documentation files" ],
     [ "v",  "verbose",    None,    "global VERBOSE; VERBOSE = 1",
       "Display verbosely the detection process" ],
     [ None, "mode",       "MODE",  "global MODE; MODE = optarg",
