@@ -72,12 +72,22 @@ First, configure it almost as usual when you use autoconf-based build systems:
 	./configure --prefix=... [--bindir, --libdir, --sysconfdir, ...] \
 		[--staticlibs (by default it builds shared libs)]
 
+(see ./configure --help for a full list of configuration options).
+
 If all goes well, you now can enter:
 
 	make install
 
 This will build and install everything required for installation. No separate
 build step is required, it will work in just one step.
+
+If you have special requirements for installing some components into separate
+directories (like the Debian packages have special requirements for installing
+html manual into a directory different than --docdir), you may override the
+target directory for any submodule by specifying the value of a variable named
+INSTDIR.${module}, like this:
+
+	make install INSTDIR.manual=/usr/share/doc/lensfun-manual
 
 
 BUILD SYSTEM IN DEPTH

@@ -11,3 +11,6 @@ MKDIR = mkdir $1
 RM = $(foreach x,$1,del $(subst /,\,$x))
 # Recursively remove files from directory $1 by mask $2
 RRM = -del /q /s $(subst /,\,$1$2)
+
+SINGLE.INSTALL=echo Installing files on Windows is not supported
+SINGLE.INSTALLDIR=echo Installing directories on Windows is not supported

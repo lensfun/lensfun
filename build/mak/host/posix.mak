@@ -10,7 +10,7 @@ endef
 
 # $1 - directory, $2 - target dir, $3 - mode for files
 define SINGLE.INSTALLDIR
-	if [ ! -d $2 ]; then install -m 0755 -d $2; else rm -rf $2$(notdir $(1:/=)); fi
-	cp -drP $1 $2$(notdir $(1:/=))
-	find $2$(notdir $(1:/=)) -type f -print0 | xargs -0 chmod $3
+	if [ ! -d $2 ]; then install -m 0755 -d $2; fi
+	cp -drP $1* $2
+	find $2 -type f -print0 | xargs -0 chmod $3
 endef

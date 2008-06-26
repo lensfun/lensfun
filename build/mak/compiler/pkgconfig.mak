@@ -13,7 +13,6 @@ define LINK.PKGCONFIG
 	    -e "s,@CONF_LIBDIR@,$(CONF_LIBDIR),g" \
 	    -e "s,@CONF_INCLUDEDIR@,$(CONF_INCLUDEDIR),g" \
 	    -e "s,@CONF_DOCDIR@,$(CONF_DOCDIR),g" \
-	    -e "s,@CONF_HTMLDIR@,$(CONF_HTMLDIR),g" \
 	    -e "s,@CONF_LIBEXECDIR@,$(CONF_LIBEXECDIR),g" \
 	    $(PKGCONFIG.SED.$1) $(PKGCONFIG.SED.$2) \
 	    $< >$@

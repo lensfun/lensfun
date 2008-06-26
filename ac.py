@@ -44,7 +44,6 @@ SYSCONFDIR = None
 LIBDIR = None
 LIBEXECDIR = None
 DOCDIR = None
-HTMLDIR = None
 INCLUDEDIR = None
 VERBOSE = 0
 MODE = "release"
@@ -87,8 +86,6 @@ OPTIONS = [
       "Define the installation for exectutable application components" ],
     [ None, "docdir",    "DIR",   "global DOCDIR; DOCDIR = optarg",
       "Define the installation directory for documentation files" ],
-    [ None, "htmldir",    "DIR",   "global HTMLDIR; HTMLDIR = optarg",
-      "Define the directory for html files (default = same as docdir)" ],
     [ "v",  "verbose",    None,    "global VERBOSE; VERBOSE = 1",
       "Display verbosely the detection process" ],
     [ None, "mode",       "MODE",  "global MODE; MODE = optarg",
@@ -220,7 +217,7 @@ COMPILERS = {
 # Common initialization
 def start ():
     global HOST, TARGET, DEVNULL, EXE, TOOLKIT
-    global PREFIX, BINDIR, LIBDIR, SYSCONFDIR, DATADIR, DOCDIR, HTMLDIR
+    global PREFIX, BINDIR, LIBDIR, SYSCONFDIR, DATADIR, DOCDIR
     global INCLUDEDIR, LIBEXECDIR, SHAREDLIBS
     if os.name == "posix":
         HOST = ["posix"]
@@ -326,8 +323,6 @@ def start ():
         DATADIR = PREFIX + "/share/" + PROJ
     if not DOCDIR:
         DOCDIR = PREFIX + "/share/doc/" + PROJ + "-" + VERSION
-    if not HTMLDIR:
-        HTMLDIR = DOCDIR
     if not LIBDIR:
         if arch [-2:] == "64":
             LIBDIR = PREFIX + "/lib64"
@@ -353,8 +348,6 @@ def start ():
     add_config_mak ("CONF_INCLUDEDIR", INCLUDEDIR + '/')
     add_config_h ("CONF_DOCDIR", '"' + DOCDIR + '"')
     add_config_mak ("CONF_DOCDIR", DOCDIR + '/')
-    add_config_h ("CONF_HTMLDIR", '"' + HTMLDIR + '"')
-    add_config_mak ("CONF_HTMLDIR", HTMLDIR + '/')
     add_config_h ("CONF_LIBEXECDIR", '"' + LIBEXECDIR + '"')
     add_config_mak ("CONF_LIBEXECDIR", LIBEXECDIR + '/')
     if SHAREDLIBS:
