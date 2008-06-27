@@ -53,7 +53,7 @@ ac.update_file ("config.mak", "\n".join (ac.CONFIG_MAK) + "\n")
 ac.substmacros ("build/PKGBUILD.in")
 ac.substmacros ("build/lensfun.spec.in")
 
-print "-------------------------------------------------------------------"
+print "--------------------------------------------------------------------"
 print "Default build mode:                 " + ac.MODE
 print "Build doxygen documentation:        " + doxygen
 print "Use the pre-installed makedep:      " + makedep
@@ -62,4 +62,4 @@ print "Target directory for data files:    " + ac.DATADIR
 print "Target directory for libraries:     " + ac.LIBDIR
 print "Target directory for include files: " + ac.INCLUDEDIR
 print "Target directory for documentation: " + ac.DOCDIR
-print "-------------------------------------------------------------------"
+print "--------------------------------------------------------------------"

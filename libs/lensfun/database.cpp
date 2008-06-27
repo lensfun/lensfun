@@ -303,7 +303,7 @@ static void _xml_start_element (GMarkupParseContext *context,
 
         lfLensCalibTCA tcac;
         memset (&tcac, 0, sizeof (tcac));
-        tcac.Terms [0] = tcac.Terms [1] = tcac.Terms [2] = 1.0;
+        tcac.Terms [0] = tcac.Terms [1] = 1.0;
         for (i = 0; attribute_names [i]; i++)
             if (!strcmp (attribute_names [i], "model"))
             {
@@ -318,10 +318,8 @@ static void _xml_start_element (GMarkupParseContext *context,
                 tcac.Focal = atof (attribute_values [i]);
             else if (!strcmp (attribute_names [i], "kr"))
                 tcac.Terms [0] = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "kg"))
-                tcac.Terms [1] = atof (attribute_values [i]);
             else if (!strcmp (attribute_names [i], "kb"))
-                tcac.Terms [2] = atof (attribute_values [i]);
+                tcac.Terms [1] = atof (attribute_values [i]);
             else
                 goto unk_attr;
 
@@ -788,8 +786,8 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                     switch (ctca->Model)
                     {
                         case LF_TCA_MODEL_LINEAR:
-                            _lf_xml_printf (output, "model=\"linear\" kr=\"%g\" kg=\"%g\" kb=\"%g\" />\n",
-                                            ctca->Terms [0], ctca->Terms [1], ctca->Terms [2]);
+                            _lf_xml_printf (output, "model=\"linear\" kr=\"%g\" kb=\"%g\" />\n",
+                                            ctca->Terms [0], ctca->Terms [1]);
                             break;
                         default:
                             _lf_xml_printf (output, "model=\"none\" />\n");

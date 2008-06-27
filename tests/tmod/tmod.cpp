@@ -63,7 +63,7 @@ static void DisplayUsage ()
     g_print ("\nCommand-line options:\n\n");
     g_print ("  -d    --distortion Apply lens distortion\n");
     g_print ("  -g#   --geometry=# Convert image geometry to given (one of:\n");
-    g_print ("                     rectilinear, fisheye,panoramic,equirectangular)\n");
+    g_print ("                     rectilinear,fisheye,panoramic,equirectangular)\n");
     g_print ("  -t    --tca        Apply lens chromatic aberrations\n");
     g_print ("  -v    --vignetting Apply lens vignetting\n");
     g_print ("  -c    --cci        Apply lens Color Correction Index\n");
@@ -357,7 +357,7 @@ int main (int argc, char **argv)
     if (!opts.Aperture)
         opts.Aperture = lens->MinAperture;
 
-    g_print ("%sCorrecting image as taken by lens `%s/%s'\n"
+    g_print ("%sCorrecting image as taken by lens `%s, %s'\n"
              "    at crop factor %g, focal distance %g, aperture %g, distance %g\n",
              opts.Inverse ? "Inverse " : "", lens->Maker, lens->Model,
              opts.Crop, opts.Focal, opts.Aperture, opts.Distance);

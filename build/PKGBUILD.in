@@ -12,7 +12,7 @@ source=($pkgname-$pkgver.tar.bz2)
 
 build() {
   cd $srcdir/$pkgname-$pkgver
-  ./configure --prefix=/usr
+  ./configure --prefix=/usr --target=..generic
   make AUTODEP=0 lensfun manual || return 1
   make INSTALL_PREFIX=$pkgdir install || return 1
 }

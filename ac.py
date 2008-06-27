@@ -45,15 +45,9 @@ LIBDIR = None
 LIBEXECDIR = None
 DOCDIR = None
 INCLUDEDIR = None
-VERBOSE = 0
+VERBOSE = False
 MODE = "release"
 SHAREDLIBS = True
-
-COMPILER = os.getenv ("COMPILER", "gcc")
-CFLAGS = os.getenv ("CFLAGS", "")
-CXXFLAGS = os.getenv ("CXXFLAGS", "")
-LDFLAGS = os.getenv ("LDFLAGS", "")
-LIBS = os.getenv ("LIBS", "")
 
 CONFIG_H   = ["/* This file has been automatically generated: do not modify",
               "   as it will be overwritten next time you run configure! */",
@@ -86,7 +80,7 @@ OPTIONS = [
       "Define the installation for exectutable application components" ],
     [ None, "docdir",    "DIR",   "global DOCDIR; DOCDIR = optarg",
       "Define the installation directory for documentation files" ],
-    [ "v",  "verbose",    None,    "global VERBOSE; VERBOSE = 1",
+    [ "v",  "verbose",    None,    "global VERBOSE; VERBOSE = True",
       "Display verbosely the detection process" ],
     [ None, "mode",       "MODE",  "global MODE; MODE = optarg",
       "Use given compilation mode by default (debug|release)" ],
@@ -101,7 +95,9 @@ OPTIONS = [
     [ None, "libs",       "LIBS", "global LIBS; LIBS = optarg",
       "Additional libraries to link with" ],
     [ None, "target",     "PLATFORM", "set_target (optarg)",
-      "Target platform{.arch} (posix|windows|mac){.(x86|x86_64)}" ],
+      "Target platform{.arch}{.tune}, possible values:\n"\
+      "(posix|windows|mac){.(x86|x86_64)}{.(generic|i686|athlon|...)}\n"\
+      "If 'tune' is specified, code will be tuned for specific CPU" ],
     [ None, "staticlibs", "YESNO", "global SHAREDLIBS; SHAREDLIBS = not parse_bool ('staticlibs', optarg)",
       "Build all libs as static, even if they are shared by default" ],
 ]
@@ -122,6 +118,13 @@ ENVARS = [
 # -------------- # Abstract interface to different compilers # --------------
 
 class compiler_gcc:
+    sse_supported = [
+        "pentium3", "pentium3m", "pentium_m", "pentium4", "pentium4m",
+        "prescott", "nocona", "core2", "athlon", "athlon_tbird",
+        "athlon_4", "athlon_xp", "athlon_mp", "k8", "opteron",
+        "athlon64", "athlon_fx", "amdfam10"
+    ]
+
     def __init__ (self):
         # Find our compiler and linker
         self.CC = CC or "gcc"
@@ -130,7 +133,7 @@ class compiler_gcc:
         self.OBJ = ".o"
 
     def startup (self):
-        global CXXFLAGS
+        global CXXFLAGS, TARGET
 
         # Always use -fvisibility, if available, for shared libs
         # as suggested by gcc docs and mark exported symbols explicitly.
@@ -139,6 +142,14 @@ class compiler_gcc:
             add_config_h ("CONF_SYMBOL_VISIBILITY")
 
         check_cflags ("-Wno-non-virtual-dtor", "CXXFLAGS", "-Werror")
+        check_cflags ("-mtune=" + TARGET [2], "CFLAGS")
+        try:
+            self.sse_supported.index (TARGET [2])
+            if check_cflags ("-mfpmath=sse", "CFLAGS"):
+                add_config_h ("TUNE_SSE")
+        except:
+            pass
+
         add_config_mak ("GCC.CC", self.CC + " -c")
         add_config_mak ("GCC.CXX", self.CXX + " -c")
         add_config_mak ("GCC.LD", self.LD)
@@ -216,39 +227,15 @@ COMPILERS = {
 
 # Common initialization
 def start ():
-    global HOST, TARGET, DEVNULL, EXE, TOOLKIT
+    global HOST, TARGET, EXE, TOOLKIT
     global PREFIX, BINDIR, LIBDIR, SYSCONFDIR, DATADIR, DOCDIR
     global INCLUDEDIR, LIBEXECDIR, SHAREDLIBS
-    if os.name == "posix":
-        HOST = ["posix"]
-        TARGET = ["posix"]
-        DEVNULL = "/dev/null"
-    elif os.name == "nt":
-        HOST = ["windows"]
-        TARGET = ["windows"]
-        DEVNULL = "nul"
-    elif os.name == "mac":
-        HOST = ["mac"]
-        TARGET = ["mac"]
-        DEVNULL = "/dev/null"
-    else:
-        print "Unknown operating system: " + os.name
-        sys.exit (1)
 
-    arch = platform.machine ()
-    if arch [0] == "i" and arch [2:4] == "86" and arch [4:] == "":
-        arch = "x86"
-
-    HOST.append (arch)
-    TARGET.append (arch)
+    detect_platform ()
 
     # Read environment variables first
     for e in ENVARS:
-        command = "global " + e [0] + "; " + e [0] + " = os.getenv ('" + e [0] + "'"
-        if len (e) > 1 and e [1] != None:
-            command = command + ", '" + e [1] + "'"
-        command = command + ")"
-        exec command
+        globals () [e [0]] = os.getenv (e [0], e [1])
 
     # Parse command-line
     skip_opt = False
@@ -297,6 +284,9 @@ def start ():
 
         exec o [3]
 
+    # Print the host and target platforms
+    print "Compiling on host " + ".".join (HOST) + " for target " + ".".join (TARGET)
+
     # Now set target-specific defaults
     if TARGET [0] == "windows":
         EXE = ".exe"
@@ -310,10 +300,12 @@ def start ():
 
     add_config_h ("PLATFORM_" + TARGET [0].upper ())
     add_config_h ("ARCH_" + TARGET [1].upper ())
+    add_config_h ("TUNE_" + TARGET [2].upper ())
 
     add_config_mak ("HOST", HOST [0])
     add_config_mak ("TARGET", TARGET [0])
     add_config_mak ("ARCH", TARGET [1])
+    add_config_mak ("TUNE", TARGET [2])
 
     if not BINDIR:
         BINDIR = PREFIX + "/bin"
@@ -324,7 +316,7 @@ def start ():
     if not DOCDIR:
         DOCDIR = PREFIX + "/share/doc/" + PROJ + "-" + VERSION
     if not LIBDIR:
-        if arch [-2:] == "64":
+        if TARGET [1] [-2:] == "64":
             LIBDIR = PREFIX + "/lib64"
         else:
             LIBDIR = PREFIX + "/lib"
@@ -332,6 +324,14 @@ def start ():
         INCLUDEDIR = PREFIX + "/include"
     if not LIBEXECDIR:
         LIBEXECDIR = PREFIX + "/libexec/" + PROJ
+
+    # Instantiate the compiler-dependent class
+    TOOLKIT = COMPILERS.get (COMPILER);
+    if not TOOLKIT:
+        print "Unsupported compiler: " + COMPILER
+        sys.exit (1)
+    TOOLKIT = TOOLKIT ()
+    TOOLKIT.startup ()
 
     add_config_h ("CONF_COMPILER_" + COMPILER)
     add_config_h ("CONF_PREFIX", '"' + PREFIX + '"')
@@ -357,22 +357,53 @@ def start ():
         add_config_h ("CONF_SHAREDLIBS", "0")
         add_config_mak ("SHAREDLIBS", "")
 
-    # Instantiate the compiler-dependent class
-    TOOLKIT = COMPILERS.get (COMPILER);
-    if not TOOLKIT:
-        print "Unsupported compiler: " + COMPILER
+
+# Autodetect platform and architecture
+def detect_platform ():
+    global HOST, TARGET, DEVNULL
+
+    # for some reason os.name on MacOS is "posix", although Python docs
+    # say it should be "mac", so we detect Macs in a different way
+    if os.name == "mac" or platform.mac_ver () [0] != '':
+        HOST = ["mac"]
+        TARGET = ["mac"]
+        DEVNULL = "/dev/null"
+    elif os.name == "posix":
+        HOST = ["posix"]
+        TARGET = ["posix"]
+        DEVNULL = "/dev/null"
+    elif os.name == "nt":
+        HOST = ["windows"]
+        TARGET = ["windows"]
+        DEVNULL = "nul"
+    else:
+        print "Unknown operating system: " + os.name
         sys.exit (1)
-    TOOLKIT = TOOLKIT ()
-    TOOLKIT.startup ()
+
+    arch = platform.machine ()
+    if arch [0] == "i" and arch [2:4] == "86" and arch [4:] == "":
+        arch = "x86"
+
+    HOST.append (arch)
+    TARGET.append (arch)
+
+    cpu = platform.processor ().replace ("-", "_")
+    TARGET.append (cpu)
+
+    # HOST   contains ["platform", "arch"]
+    # TARGET contains ["platform", "arch", "tune"]
 
 
 # Set the target platform.arch for compilation
 def set_target (t):
     global TARGET
     t = t.split ('.')
-    TARGET [0] = t [0]
-    if len (t) > 1:
+    if t [0] != "":
+        TARGET [0] = t [0]
+    if len (t) > 1 and t [1] != "":
         TARGET [1] = t [1]
+    if len (t) > 2 and t [2] != "":
+        TARGET [2] = t [2]
 
 
 # Parse a boolean value
@@ -459,7 +490,7 @@ def add_config_mak (macro, val = "1"):
 
 
 def check_started (text):
-    print text.ljust (42), "...",
+    print text.ljust (64), "...",
 
 
 def check_finished (res):
@@ -471,7 +502,7 @@ def check_compile (srcf, outf, cflags = None):
 
     cmd = TOOLKIT.c_compile (srcf, outf, cflags)
     suffix = " >" + DEVNULL + " 2>&1"
-    if VERBOSE > 0:
+    if VERBOSE:
         suffix = ""
         print "\n#", cmd
 
@@ -485,7 +516,7 @@ def check_compile_and_link (srcf, outf, cflags = None, libs = None):
 
     cmd = TOOLKIT.comlink (srcf, outf, cflags, libs)
     suffix = " >" + DEVNULL + " 2>&1"
-    if VERBOSE > 0:
+    if VERBOSE:
         suffix = ""
         print "\n#", cmd
 
@@ -670,7 +701,7 @@ def check_program (name, prog, ver_regex, req_version, failifnot = False):
         line = fd.readline ().strip ()
         fd.close ()
 
-        if VERBOSE > 0:
+        if VERBOSE:
             print "\n# '" + prog + "' returned '" + line + "'"
 
         m = re.match (ver_regex, line)
@@ -720,7 +751,7 @@ def pkgconfig (prog, args, lib = None):
         return ""
 
     # Do not use pkg-config if cross-compiling
-    if HOST != TARGET:
+    if HOST [:1] != TARGET [:1]:
         abort_configure (
 """
 PKGCONFIG does not define the compiler flags
@@ -732,11 +763,11 @@ for %s and we cannot use pkg-config because we are cross-compiling.
         cmd = cmd + " " + lib
     suffix = " 2>" + DEVNULL
     cmd = cmd + " --" + args
-    if VERBOSE > 0:
+    if VERBOSE:
         suffix = ""
     fd = os.popen (cmd + suffix)
     line = " ".join (fd.readlines ()).strip ()
-    if VERBOSE > 0:
+    if VERBOSE:
         print "# '" + cmd + "' returned '" + line + "'"
     if fd.close () == None:
         if args == "exists":

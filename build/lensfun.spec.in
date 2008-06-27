@@ -51,7 +51,8 @@ that use the lensfun library/database.
 	--datadir=%{_datadir}/lensfun \
 	--libdir=%{_libdir} \
 	--includedir=%{_includedir} \
-	--libexecdir=%{_libexecdir}
+	--libexecdir=%{_libexecdir} \
+	--target=..generic
 
 %build
 make AUTODEP=0 %{?_smp_mflags} lensfun manual
