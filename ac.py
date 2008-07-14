@@ -285,7 +285,8 @@ def start ():
         exec o [3]
 
     # Print the host and target platforms
-    print "Compiling on host " + ".".join (HOST) + " for target " + ".".join (TARGET)
+    print "Compiling on host " + ".".join (HOST) + " for target " + \
+          ".".join (TARGET [:2]) + " (tune for " + TARGET [2] + ")"
 
     # Now set target-specific defaults
     if TARGET [0] == "windows":
@@ -362,23 +363,19 @@ def start ():
 def detect_platform ():
     global HOST, TARGET, DEVNULL
 
-    # for some reason os.name on MacOS is "posix", although Python docs
-    # say it should be "mac", so we detect Macs in a different way
-    if os.name == "mac" or platform.mac_ver () [0] != '':
-        HOST = ["mac"]
-        TARGET = ["mac"]
-        DEVNULL = "/dev/null"
-    elif os.name == "posix":
-        HOST = ["posix"]
-        TARGET = ["posix"]
-        DEVNULL = "/dev/null"
-    elif os.name == "nt":
+    if sys.platform [:3] == "win":
         HOST = ["windows"]
         TARGET = ["windows"]
         DEVNULL = "nul"
+    elif sys.platform [:6] == "darwin":
+        HOST = ["mac"]
+        TARGET = ["mac"]
+        DEVNULL = "/dev/null"
     else:
-        print "Unknown operating system: " + os.name
-        sys.exit (1)
+        # Default to POSIX
+        HOST = ["posix"]
+        TARGET = ["posix"]
+        DEVNULL = "/dev/null"
 
     arch = platform.machine ()
     if arch [0] == "i" and arch [2:4] == "86" and arch [4:] == "":
