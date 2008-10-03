@@ -79,7 +79,14 @@ If all goes well, you now can enter:
 	make install
 
 This will build and install everything required for installation. No separate
-build step is required, it will work in just one step.
+build step is required, it will work in just one step. If you want to install
+somewhere else, not to the directory given by --prefix, you can define a
+installation prefix:
+
+	make install INSTALL_PREFIX=/some/where
+
+also, for compatibility with GNU autotools, DESTDIR is also accepted as an
+alias for INSTALL_PREFIX.
 
 If you have special requirements for installing some components into separate
 directories (like the Debian packages have special requirements for installing

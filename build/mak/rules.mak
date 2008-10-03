@@ -54,6 +54,8 @@ TOUCH = touch $1
 INSTALL = $(foreach _,$1,$(call SINGLE.INSTALL,$_,$2,$3)$(NL))
 # How to install one or several directories
 INSTALLDIR = $(foreach _,$1,$(call SINGLE.INSTALLDIR,$_,$2,$3)$(NL))
+# Use DESTDIR as an alias for INSTALL_PREFIX 
+INSTALL_PREFIX ?= $(DESTDIR)
 
 # Pseudo-file-extensions (for cross-platform filenames)
 # For executable files:
