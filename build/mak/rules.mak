@@ -218,7 +218,7 @@ $(OUT)deps/.dir:
 
 # Build a distribution archive
 DIST = $(CONF_PACKAGE)-$(CONF_VERSION).tar.bz2
-DISTEXTRA += build/ include/ debian/ GNUmakefile ac.py configure
+DISTEXTRA += build/ include/ GNUmakefile ac.py configure
 # Take care that $($x.dir) are targets, so we'll append a /
 DISTFILES = $(foreach x,$(GROUPS),$($x.dir)/) $(DISTEXTRA)
 DISTEXCLUDEPATH=$(if $(patsubst %/,,$1),! -path '$1',! -path '$(1:/=)' ! -path '$1*')
