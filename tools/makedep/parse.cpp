@@ -32,7 +32,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-extern char *directives [];
+extern const char *directives [];
 extern struct inclist maininclist;
 
 int gobble (struct filepointer *filep, struct inclist *file, struct inclist *file_red)

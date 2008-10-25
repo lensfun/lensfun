@@ -9,6 +9,8 @@
 #include "config.h"
 #include "lensfun.h"
 #include "lensfunprv.h"
+
+#define _USE_MATH_DEFINES // f*k microsoft
 #include <math.h>
 
 // This epsilon is in image coordinate space, where 1.0 is
@@ -100,22 +102,22 @@ float lfModifier::GetAutoScale (bool reverse)
     // 5 6 7
     struct { float angle, dist; } edge [8];
 
-    edge [1].angle = atan2 (This->Height, This->Width);
+    edge [1].angle = atan2 (float (This->Height), float (This->Width));
     edge [3].angle = M_PI - edge [1].angle;
     edge [5].angle = M_PI + edge [1].angle;
     edge [7].angle = 2 * M_PI - edge [1].angle;
 
-    edge [0].angle = 0.0;
-    edge [2].angle = M_PI / 2.0;
-    edge [4].angle = M_PI;
-    edge [6].angle = M_PI * 3.0 / 2.0;
+    edge [0].angle = 0.0F;
+    edge [2].angle = float (M_PI / 2.0);
+    edge [4].angle = float (M_PI);
+    edge [6].angle = float (M_PI * 3.0 / 2.0);
 
     edge [1].dist = edge [3].dist = edge [5].dist = edge [7].dist =
-        sqrt (This->Width * This->Width + This->Height * This->Height) * 0.5 * This->NormScale;
+        sqrt (float (square (This->Width) + square (This->Height))) * 0.5 * This->NormScale;
     edge [0].dist = edge [4].dist = This->Width * 0.5 * This->NormScale;
     edge [2].dist = edge [6].dist = This->Height * 0.5 * This->NormScale;
 
-    float scale = 0.01;
+    float scale = 0.01F;
     for (int i = 0; i < 8; i++)
     {
         float angle = edge [i].angle;
@@ -127,7 +129,7 @@ float lfModifier::GetAutoScale (bool reverse)
         // We will use Newton's method for this, we have to find the
         // root of the equation: distance (distorted (x,y)) - dist = 0
         float ru = dist; // Initial approximation
-        float dx = 0.0001;
+        float dx = 0.0001F;
         for (int countdown = 50; ; countdown--)
         {
             float res [2];
@@ -602,7 +604,7 @@ void lfExtModifier::ModifyCoord_Geom_Rect_FishEye (void *data, float *iocoord, i
         float rho, theta = r * inv_dist;
 
         if (theta >= M_PI / 2.0)
-            rho = 1.6e16;
+            rho = 1.6e16F;
         else if (theta == 0.0)
             rho = 1.0;
         else

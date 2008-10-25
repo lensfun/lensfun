@@ -30,8 +30,8 @@
 #include <string.h>
 
 extern struct inclist inclist[MAXFILES], *inclistp;
-extern char *objprefix;
-extern char *objsuffix;
+extern const char *objprefix;
+extern const char *objsuffix;
 extern int width;
 extern bool opt_printed;
 extern bool opt_verbose;

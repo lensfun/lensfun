@@ -9,15 +9,15 @@ default: showhelp
 .SUFFIXES: .dep
 
 # Default groups of build targets
-GROUPS := APPS TOOLS TESTS LIBS DATA DOCS $(GROUPS)
+GROUPS := LIBS APPS TOOLS TESTS DATA DOCS $(GROUPS)
+LIBS.dir = libs
+LIBS.desc = Project libraries
 APPS.dir = apps
 APPS.desc = Application programs
 TOOLS.dir = tools
 TOOLS.desc = Miscelaneous tools
 TESTS.dir = tests
 TESTS.desc = Small programs for testing
-LIBS.dir = libs
-LIBS.desc = Project libraries
 DATA.dir = data
 DATA.desc = Project data files
 DOCS.dir = docs
@@ -94,6 +94,11 @@ include $(SUBMAKEFILES)
 
 # Separator line -- $-, that is :-)
 -=------------------------------------------------------------------------
+
+# Now disable all projects, which require non-existent SYSLIBS
+CHECK.SYSLIBS = $(if $(strip $(foreach y,$(foreach x,$1 $(TARGETS.$1),$(SYSLIBS.$x)),$(if $(HAVE_$y),,F))),,1)
+CHECK.PACKAGE = $(if $(strip $(call CHECK.SYSLIBS,$1)),$1)
+$(foreach x,$(GROUPS),$(eval $x=$(foreach y,$x,$(foreach z,$($y),$(call CHECK.PACKAGE,$z)))))
 
 # Show help for one group of targets:
 # $1 - Group base name,

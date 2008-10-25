@@ -13,12 +13,13 @@ int main ()
     const struct lfMount *const *mounts;
     const struct lfCamera *const *cameras;
     const struct lfLens *const *lenses;
+    struct lfDatabase *ldb;
     lfError e;
 
     /* Initialize locale in order to get translated names */
     setlocale (LC_ALL, "");
 
-    struct lfDatabase *ldb = lf_db_new ();
+    ldb = lf_db_new ();
     if (!ldb)
     {
         fprintf (stderr, "Failed to create database\n");

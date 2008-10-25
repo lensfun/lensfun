@@ -35,8 +35,12 @@ lfError lfDatabase::Load ()
     int ndirs = 0;
 
     dirs [ndirs++] = HomeDataDir;
-    if (CONF_DATADIR)
-        dirs [ndirs++] = (char *)CONF_DATADIR;
+#ifdef CONF_DATADIR
+    dirs [ndirs++] = (char *)CONF_DATADIR;
+#else
+    extern gchar *_lf_get_database_dir ();
+    dirs [ndirs++] = _lf_get_database_dir ();
+#endif
     int static_ndirs = ndirs;
     for (tmp = g_get_system_data_dirs (); ndirs < 10 && *tmp; tmp++)
         dirs [ndirs++] = g_build_filename (*tmp, CONF_PACKAGE, NULL);

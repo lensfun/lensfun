@@ -100,7 +100,7 @@ $(foreach _,$3 $(if $(SHARED.$2),$3.$(SHARED.$2) $3.$(basename $(basename $(SHAR
 $(if $(findstring $E,$2),
 	$(if $V,,@echo INSTALL $3 to $(call .INSTDIR,$1,$2,$(CONF_BINDIR)) &&)\
 	$$(call INSTALL,$3,$(call .INSTDIR,$1,$2,$(CONF_BINDIR)),0755))\
-$(if $(INSTALL.HEADERS.$2),\
+$(if $(INSTALL.HEADERS.$2),
 	$(if $V,,@echo INSTALL $(INSTALL.HEADERS.$2) to $(call .INSTDIR,$1,$2,$(CONF_INCLUDEDIR)) &&)\
 	$$(call INSTALL,$(INSTALL.HEADERS.$2),$(call .INSTDIR,$1,$2,$(CONF_INCLUDEDIR)),0644))
 endef

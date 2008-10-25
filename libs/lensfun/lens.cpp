@@ -168,8 +168,8 @@ static bool _lf_parse_lens_name (const char *model,
 
 void lfLens::GuessParameters ()
 {
-    float minf = INT_MAX, maxf = INT_MIN;
-    float mina = INT_MAX, maxa = INT_MIN;
+    float minf = float (INT_MAX), maxf = float (INT_MIN);
+    float mina = float (INT_MAX), maxa = float (INT_MIN);
 
     char *old_numeric = setlocale (LC_NUMERIC, "C");
 
@@ -246,18 +246,18 @@ const char *lfLens::GetDistortionModelDesc (
 {
     static const lfParameter *param_none [] = { NULL };
 
-    static const lfParameter param_poly3_k1 = { "k1", -0.2, 0.2, 0.0 };
+    static const lfParameter param_poly3_k1 = { "k1", -0.2F, 0.2F, 0.0F };
     static const lfParameter *param_poly3 [] = { &param_poly3_k1, NULL };
 
-    static const lfParameter param_poly5_k2 = { "k2", -0.2, 0.2, 0.0 };
+    static const lfParameter param_poly5_k2 = { "k2", -0.2F, 0.2F, 0.0F };
     static const lfParameter *param_poly5 [] = { &param_poly3_k1, &param_poly5_k2, NULL };
 
-    static const lfParameter param_fov1_omega = { "omega", 0.0, 1.4, 0.0 };
+    static const lfParameter param_fov1_omega = { "omega", 0.0F, 1.4F, 0.0F };
     static const lfParameter *param_fov1 [] = { &param_fov1_omega, NULL };
 
-    static const lfParameter param_ptlens_a = { "a", -0.2, 0.2, 0.0 };
-    static const lfParameter param_ptlens_b = { "b", -0.2, 0.2, 0.0 };
-    static const lfParameter param_ptlens_c = { "c", -0.2, 0.2, 0.0 };
+    static const lfParameter param_ptlens_a = { "a", -0.2F, 0.2F, 0.0F };
+    static const lfParameter param_ptlens_b = { "b", -0.2F, 0.2F, 0.0F };
+    static const lfParameter param_ptlens_c = { "c", -0.2F, 0.2F, 0.0F };
     static const lfParameter *param_ptlens [] = {
         &param_ptlens_a, &param_ptlens_b, &param_ptlens_c, NULL };
 
@@ -315,8 +315,8 @@ const char *lfLens::GetTCAModelDesc (
 {
     static const lfParameter *param_none [] = { NULL };
 
-    static const lfParameter param_linear_kr = { "kr", 0.99, 1.01, 1.0 };
-    static const lfParameter param_linear_kb = { "kb", 0.99, 1.01, 1.0 };
+    static const lfParameter param_linear_kr = { "kr", 0.99F, 1.01F, 1.0F };
+    static const lfParameter param_linear_kb = { "kb", 0.99F, 1.01F, 1.0F };
     static const lfParameter *param_linear [] =
     { &param_linear_kr, &param_linear_kb, NULL };
 
@@ -755,7 +755,7 @@ bool lfLens::InterpolateVignetting (
 
     lfVignettingModel vm = LF_VIGNETTING_MODEL_NONE;
 
-    float min_dist = 0.01;
+    float min_dist = 0.01F;
     for (guint i = 0; i < vc->len; i++)
     {
         lfLensCalibVignetting *c =

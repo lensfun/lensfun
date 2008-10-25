@@ -136,7 +136,7 @@ extern void inc_clean ();
 extern void included_by (struct inclist *ip, struct inclist *newfile);
 extern int deftype (char *line, struct filepointer *filep, struct inclist *file_red,
   struct inclist *file, int parse_it);
-extern int match (const char *str, char **list);
+extern int match (const char *str, const char **list);
 extern int zero_value (char *exp, struct filepointer *filep, struct inclist *file_red);
 extern int merge2defines (struct inclist *file1, struct inclist *file2);
 extern int cppsetup (char *line, struct filepointer *filep, struct inclist *inc);

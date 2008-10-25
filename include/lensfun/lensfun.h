@@ -1886,6 +1886,9 @@ protected:
     /* Prevent user from creating and destroying such objects */
     lfModifier () {}
     ~lfModifier () {}
+#elif defined _MSC_VER
+    /* Sucks, like always */
+    void *dummy;
 #endif
 };
 

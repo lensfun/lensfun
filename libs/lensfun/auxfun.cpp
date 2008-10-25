@@ -10,35 +10,56 @@
 #include <ctype.h>
 #include <math.h>
 
-void lf_free (void *data)
+static const char *_lf_get_lang ()
+{
+#ifndef LC_MESSAGES
+   /* Windows badly sucks, like always */
+#  define LC_MESSAGES LC_ALL
+#endif
+
+    static char lang [16];
+    static const char *last_locale = NULL;
+    const char *lc_msg = setlocale (LC_MESSAGES, NULL);
+
+    if (!lc_msg)
+        return strcpy (lang, "en");
+
+    if (lc_msg == last_locale)
+        return lang;
+
+    const char *u = strchr (lc_msg, '_');
+    if (!u || (size_t (u - lc_msg) >= sizeof (lang)))
+        return strcpy (lang, "en");
+
+    memcpy (lang, lc_msg, u - lc_msg);
+    lang [u - lc_msg] = 0;
+
+    /* On Windows we have "Russian" instead of "ru" and so on... :-( 
+     * Microsoft, like always, invents his own stuff, never heard of ISO 639-1
+     */
+    if (u - lc_msg > 2)
+    {
+        /* For now, just take the first two letters of language name. */
+        lang [0] = tolower (lang [0]);
+        lang [1] = tolower (lang [1]);
+        lang [2] = 0;
+    }
+
+    return lang;
+}
+
+LF_EXPORT void lf_free (void *data)
 {
     g_free (data);
 }
 
-const char *lf_mlstr_get (const lfMLstr str)
+LF_EXPORT const char *lf_mlstr_get (const lfMLstr str)
 {
     if (!str)
         return str;
 
     /* Get the current locale for messages */
-    const char *lc_msg = setlocale (LC_MESSAGES, NULL);
-    char lang [10];
-
-    if (lc_msg)
-    {
-        const char *u = strchr (lc_msg, '_');
-        if (!u || (size_t (u - lc_msg) >= sizeof (lang)))
-            lc_msg = NULL;
-        else
-        {
-            memcpy (lang, lc_msg, u - lc_msg);
-            lang [u - lc_msg] = 0;
-        }
-    }
-
-    if (!lc_msg)
-        strcpy (lang, "en");
-
+    const char *lang = _lf_get_lang ();
     /* Default value if no language matches */
     const char *def = str;
     /* Find the corresponding string in the lot */
@@ -57,7 +78,7 @@ const char *lf_mlstr_get (const lfMLstr str)
     return def;
 }
 
-lfMLstr lf_mlstr_add (lfMLstr str, const char *lang, const char *trstr)
+LF_EXPORT lfMLstr lf_mlstr_add (lfMLstr str, const char *lang, const char *trstr)
 {
     if (!trstr)
         return str;
@@ -98,7 +119,7 @@ lfMLstr lf_mlstr_add (lfMLstr str, const char *lang, const char *trstr)
     return str;
 }
 
-lfMLstr lf_mlstr_dup (const lfMLstr str)
+LF_EXPORT lfMLstr lf_mlstr_dup (const lfMLstr str)
 {
     /* Find the length of multi-language string */
     size_t str_len = 0;

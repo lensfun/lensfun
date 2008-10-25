@@ -187,13 +187,14 @@ class compiler_msvc:
         # Find our compiler and linker
         self.CC = CC or "cl.exe"
         self.CXX = CXX or "cl.exe"
-        self.LD = LD or  "link.exe"
+        self.LD = LD or "link.exe"
         self.OBJ = ".obj"
 
     def startup (self):
         add_config_mak ("MSVC.CC", self.CC + " -c")
         add_config_mak ("MSVC.CXX", self.CXX + " -c")
         add_config_mak ("MSVC.LD", self.LD)
+        add_config_h ("CONF_SYMBOL_VISIBILITY")
 
     def c_compile (self, srcf, outf, cflags):
         return self.CC + " -c " + srcf + " -Fo" + outf + " " + cflags;
@@ -213,7 +214,7 @@ class compiler_msvc:
     def linklib (self, library, path = None):
         tmp = ""
         if path:
-            tmp = "-libpath:" + path + " "
+            tmp = "-libpath:" + path.replace ('/', '\\\\') + " "
         return tmp + ".lib ".join (library.split ()) + ".lib"
 
 
@@ -256,7 +257,7 @@ def start ():
                     if optarg [:1] == '=' or len (opt) == len (o [1]):
                         opt_ok = True
                         optarg = optarg [1:]
-                        break       
+                        break
         elif opt [:1] == "-":
             opt = opt [1:]
             opt_short = True
@@ -308,22 +309,22 @@ def start ():
     add_config_mak ("ARCH", TARGET [1])
     add_config_mak ("TUNE", TARGET [2])
 
-    if not BINDIR:
+    if BINDIR is None:
         BINDIR = PREFIX + "/bin"
-    if not SYSCONFDIR:
+    if SYSCONFDIR is None:
         SYSCONFDIR = PREFIX + "/etc/" + PROJ
-    if not DATADIR:
+    if DATADIR is None:
         DATADIR = PREFIX + "/share/" + PROJ
-    if not DOCDIR:
+    if DOCDIR is None:
         DOCDIR = PREFIX + "/share/doc/" + PROJ + "-" + VERSION
-    if not LIBDIR:
+    if LIBDIR is None:
         if TARGET [1] [-2:] == "64":
             LIBDIR = PREFIX + "/lib64"
         else:
             LIBDIR = PREFIX + "/lib"
-    if not INCLUDEDIR:
+    if INCLUDEDIR is None:
         INCLUDEDIR = PREFIX + "/include"
-    if not LIBEXECDIR:
+    if LIBEXECDIR is None:
         LIBEXECDIR = PREFIX + "/libexec/" + PROJ
 
     # Instantiate the compiler-dependent class
@@ -335,22 +336,30 @@ def start ():
     TOOLKIT.startup ()
 
     add_config_h ("CONF_COMPILER_" + COMPILER)
-    add_config_h ("CONF_PREFIX", '"' + PREFIX + '"')
-    add_config_mak ("CONF_PREFIX", PREFIX + '/')
-    add_config_h ("CONF_BINDIR", '"' + BINDIR + '"')
-    add_config_mak ("CONF_BINDIR", BINDIR + '/')
-    add_config_h ("CONF_SYSCONFDIR", '"' + SYSCONFDIR + '"')
-    add_config_mak ("CONF_SYSCONFDIR", SYSCONFDIR + '/')
-    add_config_h ("CONF_DATADIR", '"' + DATADIR + '"')
-    add_config_mak ("CONF_DATADIR", DATADIR + '/')
-    add_config_h ("CONF_LIBDIR", '"' + LIBDIR + '"')
-    add_config_mak ("CONF_LIBDIR", LIBDIR + '/')
-    add_config_h ("CONF_INCLUDEDIR", '"' + INCLUDEDIR + '"')
-    add_config_mak ("CONF_INCLUDEDIR", INCLUDEDIR + '/')
-    add_config_h ("CONF_DOCDIR", '"' + DOCDIR + '"')
-    add_config_mak ("CONF_DOCDIR", DOCDIR + '/')
-    add_config_h ("CONF_LIBEXECDIR", '"' + LIBEXECDIR + '"')
-    add_config_mak ("CONF_LIBEXECDIR", LIBEXECDIR + '/')
+    if PREFIX != "":
+        add_config_h ("CONF_PREFIX", '"' + PREFIX + '"')
+        add_config_mak ("CONF_PREFIX", PREFIX + '/')
+    if BINDIR != "":
+        add_config_h ("CONF_BINDIR", '"' + BINDIR + '"')
+        add_config_mak ("CONF_BINDIR", BINDIR + '/')
+    if SYSCONFDIR != "":
+        add_config_h ("CONF_SYSCONFDIR", '"' + SYSCONFDIR + '"')
+        add_config_mak ("CONF_SYSCONFDIR", SYSCONFDIR + '/')
+    if DATADIR != "":
+        add_config_h ("CONF_DATADIR", '"' + DATADIR + '"')
+        add_config_mak ("CONF_DATADIR", DATADIR + '/')
+    if LIBDIR != "":
+        add_config_h ("CONF_LIBDIR", '"' + LIBDIR + '"')
+        add_config_mak ("CONF_LIBDIR", LIBDIR + '/')
+    if INCLUDEDIR != "":
+        add_config_h ("CONF_INCLUDEDIR", '"' + INCLUDEDIR + '"')
+        add_config_mak ("CONF_INCLUDEDIR", INCLUDEDIR + '/')
+    if DOCDIR != "":
+        add_config_h ("CONF_DOCDIR", '"' + DOCDIR + '"')
+        add_config_mak ("CONF_DOCDIR", DOCDIR + '/')
+    if LIBEXECDIR != "":
+        add_config_h ("CONF_LIBEXECDIR", '"' + LIBEXECDIR + '"')
+        add_config_mak ("CONF_LIBEXECDIR", LIBEXECDIR + '/')
     if SHAREDLIBS:
         add_config_h ("CONF_SHAREDLIBS", "1")
         add_config_mak ("SHAREDLIBS", "1")
@@ -378,7 +387,9 @@ def detect_platform ():
         DEVNULL = "/dev/null"
 
     arch = platform.machine ()
-    if arch [0] == "i" and arch [2:4] == "86" and arch [4:] == "":
+    # Python 2.5 on windows returns empty string here
+    if (arch == "") or \
+       (len (arch) >= 4 and arch [0] == "i" and arch [2:4] == "86" and arch [4:] == ""):
         arch = "x86"
 
     HOST.append (arch)
@@ -622,7 +633,8 @@ def check_library (lib, reqversion = None, reqtext = None, version = None, cflag
         else:
             check_finished ("OK")
         libid = make_identifier (lib)
-        add_config_h ("HAVE_LIB" + libid)
+        add_config_h ("HAVE_" + libid)
+        add_config_mak ("HAVE_" + libid, "1")
         if cflags and cflags != "":
             add_config_mak ("CFLAGS." + libid, cflags)
             add_config_mak ("CXXFLAGS." + libid, cflags)

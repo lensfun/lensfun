@@ -79,7 +79,7 @@ lfExtModifier::lfExtModifier (const lfLens *lens, float crop, int width, int hei
     Height = height;
 
     // Image "size"
-    float size = (width < height) ? width : height;
+    float size = float ((width < height) ? width : height);
 
     // Take crop factor into account
     if (lens && lens->CropFactor)

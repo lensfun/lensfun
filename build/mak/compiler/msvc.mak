@@ -16,8 +16,8 @@ MSVC.CXXFLAGS = $(MSVC.CFLAGS) $(CXXFLAGS)
 
 MSVC.LD ?= link.exe
 # Default subsystem in "console"; you can override it with LDFLAGS.your_module
-MSVC.LDFLAGS = -nologo -opt:ref -opt:icf -force:multiple -incremental:no \
-    -fullbuild -opt:nowin98 -subsystem:console $(MSVC.LDFLAGS.$(MODE)) $(LDFLAGS)
+MSVC.LDFLAGS = -incremental:no -fullbuild -opt:nowin98 -subsystem:console \
+    $(MSVC.LDFLAGS.$(MODE)) $(LDFLAGS)
 MSVC.LDFLAGS.LIBS = $(LDLIBS) advapi32.lib user32.lib
 MSVC.LDFLAGS.DLL = -dll $(MSVC.LDFLAGS)
 
@@ -44,8 +44,13 @@ else
 # Translate application/library pseudo-name into an actual file name
 XFNAME.MSVC = $(addprefix $$(OUT),\
     $(patsubst %$E,%.exe,\
-    $(patsubst %$D,%.dll,\
-    $(patsubst %$L,%.lib,$1))))
+    $(if $(findstring $L,$1),\
+        $(if $(SHARED.$1),\
+            $(patsubst %$L,%$(XSO),$1),\
+            $(patsubst %$L,%.lib,$1)\
+        ),\
+    $1)\
+))
 endif
 
 MKDEPS.MSVC = \
@@ -68,9 +73,10 @@ $(addsuffix %.obj,$(addprefix $$(OUT),$z)): $(addsuffix %.cpp,$z)
 endef
 
 LINK.MSVC.AR = $(MSVC.AR) $(MSVC.ARFLAGS) -out:$@ $^
-LINK.MSVC.EXEC = $(MSVC.LD) -out:$@ $(MSVC.LDFLAGS) $1 $^ $(MSVC.LDFLAGS.LIBS) $2
-LINK.MSVC.DLL = $(MSVC.LD) -out:$@ $(MSVC.LDFLAGS.DLL) $1 $(filter-out %.def,$^) \
-    $(if $(filter %.def,$^),-def:$(filter %.def,$^)) $(MSVC.LDFLAGS.LIBS) $2
+LINK.MSVC.EXEC = $(MSVC.LD) -out:$@ $(patsubst %.dll,%.lib,$^) $(MSVC.LDFLAGS) $1 $(MSVC.LDFLAGS.LIBS) $2
+LINK.MSVC.DLL = $(MSVC.LD) -out:$@ $(patsubst %.dll,%.lib,$(filter-out %.def,$^)) \
+    $(MSVC.LDFLAGS.DLL) $1 $(MSVC.LDFLAGS.LIBS) $2 \
+    $(if $(filter %.def,$^),-def:$(filter %.def,$^))
 
 # Linking rules ($1 = target, $2 = dependency list, $3 = module name,
 # $4 = target name)
@@ -78,8 +84,10 @@ define MKLRULES.MSVC
 $(if $(filter %.lib,$1),\
 $(filter %.lib,$1): $2
 	$(if $V,,@echo LINK.MSVC.AR $$@ &&)$$(LINK.MSVC.AR))
-$(if $(filter-out %.lib,$1),$(filter-out %.lib %.nls,$1): $2
-	$(if $V,,@echo LINK.MSVC.EXEC $$@ &&)$$(call LINK.MSVC.EXEC,$(LDFLAGS.$3) $(LDFLAGS.$4) $(call .SYSLIBS,LDLIBS,$3,$4),$(foreach z,$(LIBS.$3) $(LIBS.$4),$(call MSVC.LINKLIB,$z))))
+$(filter %.exe,$1): $2
+	$(if $V,,@echo LINK.MSVC.EXEC $$@ &&)$$(call LINK.MSVC.EXEC,$(LDFLAGS.$3) $(LDFLAGS.$4) $(call .SYSLIBS,LDLIBS,$3,$4),$(foreach z,$(LIBS.$3) $(LIBS.$4),$(call MSVC.LINKLIB,$z)))
+$(filter %.dll,$1): $2
+	$(if $V,,@echo LINK.MSVC.DLL $$@ &&)$$(call LINK.MSVC.DLL,$(LDFLAGS.$3) $(LDFLAGS.$4) $(call .SYSLIBS,LDLIBS,$3,$4),$(foreach z,$(LIBS.$3) $(LIBS.$4),$(call MSVC.LINKLIB,$z)))
 endef
 
 define MAKEDEP.MSVC

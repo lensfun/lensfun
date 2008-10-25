@@ -673,7 +673,7 @@ char *copy (const char *str)
     return (p);
 }
 
-int match (const char *str, char **list)
+int match (const char *str, const char **list)
 {
     register int i;
 
