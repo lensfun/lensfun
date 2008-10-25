@@ -97,6 +97,36 @@ INSTDIR.${module}, like this:
 	make install INSTDIR.manual=/usr/share/doc/lensfun-manual
 
 
+BUILDING FOR WINDOWS
+--------------------
+
+You have two choices to build the library for Windows: you build under Windows
+and you build under Linux using WINE. I prefer the later since I don't have
+Windows installed anywhere.
+
+In any case, building for Windows is quite a trick (like always). You will
+need Python (not if you're on WINE), glib binary and devel packages for Windows
+(download it from gtk homepage: http://www.gtk.org/download-windows.html)
+and a compiler (only MSVC, MinGW32 won't work so simple). You may use the free
+command-line MSVC that's available for download somewhere on Microsoft's site,
+like I do.
+
+If you're on WINE, you must run the following script before starting
+compilation:
+
+	. build/mak/msvc-wine.sh /path/to/msvc x
+
+This will set up the environment and PATH appropiately.
+
+Now to configure I recommend the following command line:
+
+	python configure --compiler=msvc --target=windows.x86 --mode=release \
+		--prefix= --bindir= --includedir= --libdir= --docdir= --datadir= \
+		--sysconfdir= --libexecdir=
+
+After that you may run make and build it.
+
+
 BUILD SYSTEM IN DEPTH
 ---------------------
 
