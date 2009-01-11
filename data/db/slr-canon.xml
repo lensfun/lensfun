@@ -794,7 +794,17 @@
 
     <lens>
         <maker>Canon</maker>
-        <model>Canon EF 50mm f/1.8 I and II</model>
+        <model>Canon EF 50mm f/1.8</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.3</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="50" a="-0.00016" b="-0.003951" c="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 50mm f/1.8 MkII</model>
         <mount>Canon EF</mount>
         <cropfactor>1.3</cropfactor>
         <calibration>
