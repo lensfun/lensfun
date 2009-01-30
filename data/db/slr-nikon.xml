@@ -365,6 +365,23 @@
 
     <lens>
         <maker>Nikon</maker>
+        <model>Nikkor 18-55mm f/3.5-5.6G AF-S DX VR</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18" a="0.000658776" b="-0.0150048" c="-0.00123339" />
+            <distortion model="ptlens" focal="20" a="0.0154927" b="-0.0685976" c="0.0638405" />
+            <distortion model="ptlens" focal="22" a="0.00163489" b="-0.0157578" c="0.0044202" />
+            <distortion model="ptlens" focal="24" a="0.0238367" b="-0.102409" c="0.124563" />
+            <distortion model="ptlens" focal="29" a="-5.82382e-05" b="0.0021913" c="-0.0142704" />
+            <distortion model="ptlens" focal="35" a="0.00346406" b="-0.0126111" c="0.013148" />
+            <distortion model="ptlens" focal="45" a="-0.000340008" b="-0.000412014" c="0.00561741" />
+            <distortion model="ptlens" focal="55" a="-0.000340008" b="-0.000412014" c="0.00561741" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
         <model>Nikkor 18-70mm f/3.5-4.5G ED-IF AF-S DX</model>
         <mount>Nikon F AF</mount>
         <cropfactor>1.5</cropfactor>
