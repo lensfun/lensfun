@@ -5,7 +5,7 @@
 GCC.CC ?= gcc -c
 GCC.CFLAGS = -pipe -Wall \
     $(GCC.CFLAGS.$(MODE)) $(GCC.CFLAGS.DEF) $(GCC.CFLAGS.INC) $(CFLAGS)
-GCC.CFLAGS.DEF =
+GCC.CFLAGS.DEF = $(CFLAGS.DEF)
 GCC.CFLAGS.INC = $(if $(DIR.INCLUDE.CXX),-I$(subst ;, -I,$(DIR.INCLUDE.CXX)))
 GCC.CFLAGS.SHARED ?= -fPIC
 
@@ -35,7 +35,7 @@ GCC.LINKLIB = $(if $(findstring $L,$1),,$(if $(findstring /,$1),$1,-l$1))
 
 MAKEDEP ?= makedep
 GCC.MDEP = $(MAKEDEP)
-GCC.MDEPFLAGS = -c -a -p'$$(OUT)' $(GCC.CFLAGS.DEF) $(GCC.CFLAGS.INC)
+GCC.MDEPFLAGS = -c -a -p'$$(OUT)' $(GCC.CFLAGS.DEF) $(GCC.CFLAGS.INC) $(MDEPFLAGS)
 
 GCC.AR = ar
 GCC.ARFLAGS = crs

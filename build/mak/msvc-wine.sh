@@ -20,7 +20,7 @@ export INCLUDE=$MSVC_PATH/include
 export LIB="`winepath -w $MSVC_PATH/lib`;`winepath -w $MSVC_PATH/gtk/bin`"
 export SDKDIR=$MSVC_PATH/gtk
 
-# The path where all DLLs (SDL.dll, OgreMain.dll etc) are
+# The path where additional DLLs are
 DLLPATH=`winepath -w $MSVC_PATH/gtk/bin`
 
 # The "//\\/\\\\" may be a bit scary, but it actually replaces every

@@ -6,6 +6,7 @@ MSVC.CC ?= cl.exe -c
 MSVC.CFLAGS = -nologo -W2 -Gs -MD -EHsc -D_M_IX86=1 -D_X86_=1 \
     $(MSVC.CFLAGS.$(MODE)) $(MSVC.CFLAGS.DEF) $(MSVC.CFLAGS.INC) $(CFLAGS)
 # -D_M_AMD64=1 -D_AMD64_=1
+MSVC.CFLAGS.DEF = $(CFLAGS.DEF)
 MSVC.CFLAGS.INC = $(if $(DIR.INCLUDE.CXX),-I$(subst ;, -I,$(DIR.INCLUDE.CXX)))
 
 MSVC.CFLAGS.release = -Oxys
@@ -35,7 +36,7 @@ MSVC.ARFLAGS = -nologo -machine:$(ARCH)
 
 MAKEDEP ?= makedep
 MSVC.MDEP = makedep -D_WIN32 -D_MSC_VER=6
-MSVC.MDEPFLAGS = -c -a -p'$$(OUT)' -o.obj $(MSVC.CFLAGS.DEF) $(MSVC.CFLAGS.INC)
+MSVC.MDEPFLAGS = -c -a -p'$$(OUT)' -o.obj $(MSVC.CFLAGS.DEF) $(MSVC.CFLAGS.INC) $(MDEPFLAGS)
 
 # Check for target architecture and don't allow compiling for unsupported archs
 ifeq ($(findstring /$(ARCH)/,/x86/),)
