@@ -5,4 +5,4 @@
 # OS-dependent extensions
 
 # Shared library filenames end in this
-XSO=.dylib
+SO=.dylib

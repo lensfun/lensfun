@@ -637,7 +637,6 @@ def check_library (lib, reqversion = None, reqtext = None, version = None, cflag
         add_config_mak ("HAVE_" + libid, "1")
         if cflags and cflags != "":
             add_config_mak ("CFLAGS." + libid, cflags)
-            add_config_mak ("CXXFLAGS." + libid, cflags)
         if libs and libs != "":
             add_config_mak ("LDLIBS." + libid, libs)
         rc = True

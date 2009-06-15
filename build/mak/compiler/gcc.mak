@@ -1,6 +1,6 @@
 # GNU compiler suite definitions
 
-.SUFFIXES: .c .cpp .o .a .pc .pc.in
+.SUFFIXES: .c .cpp .o .lo .a .pc .pc.in
 
 GCC.CC ?= gcc -c
 GCC.CFLAGS = -pipe -Wall \
@@ -33,8 +33,7 @@ GCC.LDFLAGS.debug = -gdwarf-2 -g3
 
 GCC.LINKLIB = $(if $(findstring $L,$1),,$(if $(findstring /,$1),$1,-l$1))
 
-MAKEDEP ?= makedep
-GCC.MDEP = $(MAKEDEP)
+GCC.MDEP = $(if $(MAKEDEP),$(MAKEDEP),makedep)
 GCC.MDEPFLAGS = -c -a -p'$$(OUT)' $(GCC.CFLAGS.DEF) $(GCC.CFLAGS.INC) $(MDEPFLAGS)
 
 GCC.AR = ar
@@ -45,16 +44,18 @@ XFNAME.GCC = $(addprefix $$(OUT),\
     $(patsubst %$E,%,\
     $(if $(findstring $L,$1),\
         $(if $(SHARED.$1),\
-            $(addprefix lib,$(patsubst %$L,%$(XSO),$1)),\
+            $(addprefix lib,$(patsubst %$L,%$(SO),$1)),\
             $(addprefix lib,$(patsubst %$L,%.a,$1))\
         ),\
     $1)\
 ))
 
 MKDEPS.GCC = \
-    $(patsubst %.c,%.o,\
-    $(patsubst %.cpp,%.o,\
-    $(call MKDEPS.DEFAULT,$1)))
+    $(patsubst %.c,$(if $(SHARED.$2),%.lo,%.o),\
+    $(patsubst %.cpp,$(if $(SHARED.$2),%.lo,%.o),\
+    $(patsubst %.asm,$(if $(SHARED.$2),%.lo,%.o),\
+    $(patsubst %.S,$(if $(SHARED.$2),%.lo,%.o),\
+    $(call MKDEPS.DEFAULT,$1)))))
 
 COMPILE.GCC.CXX  = $(GCC.CXX) -o $@ $(strip $(GCC.CXXFLAGS) $1) $<
 COMPILE.GCC.CC   = $(GCC.CC) -o $@ $(strip $(GCC.CFLAGS) $1) $<
@@ -63,11 +64,12 @@ COMPILE.GCC.CC   = $(GCC.CC) -o $@ $(strip $(GCC.CFLAGS) $1) $<
 # $3 = module name, $4 = target name)
 define MKCRULES.GCC
 $(if $(filter %.c,$1),$(foreach z,$2,
-$(addsuffix %.o,$(addprefix $$(OUT),$z)): $(addsuffix %.c,$z)
-	$(if $V,,@echo COMPILE.GCC.CC $$< &&)$$(call COMPILE.GCC.CC,$(CFLAGS.$3) $(CFLAGS.$4) $(if $(SHARED.$4),$(GCC.CFLAGS.SHARED)) $(call .SYSLIBS,CFLAGS,$3,$4))))
+$(addsuffix $(if $(SHARED.$4),%.lo,%.o),$(addprefix $$(OUT),$z)): $(addsuffix %.c,$z)
+	$(if $V,,@echo COMPILE.GCC.CC$(if $(SHARED.$4),.SHARED) $$< &&)$$(call COMPILE.GCC.CC,$(CFLAGS.$3) $(CFLAGS.$4) $(if $(SHARED.$4),$(GCC.CFLAGS.SHARED)) $(call .SYSLIBS,CFLAGS,$3,$4))))
 $(if $(filter %.cpp,$1),$(foreach z,$2,
-$(addsuffix %.o,$(addprefix $$(OUT),$z)): $(addsuffix %.cpp,$z)
-	$(if $V,,@echo COMPILE.GCC.CXX $$< &&)$$(call COMPILE.GCC.CXX,$(CXXFLAGS.$3) $(CXXFLAGS.$4) $(if $(SHARED.$4),$(GCC.CXXFLAGS.SHARED)) $(call .SYSLIBS,CXXFLAGS,$3,$4))))
+$(addsuffix $(if $(SHARED.$4),%.lo,%.o),$(addprefix $$(OUT),$z)): $(addsuffix %.cpp,$z)
+	$(if $V,,@echo COMPILE.GCC.CXX$(if $(SHARED.$4),.SHARED) $$< &&)$$(call COMPILE.GCC.CXX,$(CXXFLAGS.$3) $(CXXFLAGS.$4) $(if $(SHARED.$4),$(GCC.CXXFLAGS.SHARED)) $(call .SYSLIBS,CFLAGS,$3,$4))))
+$(GCC.EXTRA.MKCRULES)
 endef
 
 LINK.GCC.AR = $(GCC.AR) $(GCC.ARFLAGS) $@ $^
@@ -84,10 +86,11 @@ define MKLRULES.GCC
 $1: $2\
 $(if $(findstring $L,$4),\
 $(if $(SHARED.$4),
-	$(if $V,,@echo LINK.GCC.SO $$@ &&)$$(call LINK.GCC.SO,$(LDFLAGS.$3) $(LDFLAGS.$4) $(call .SYSLIBS,LDLIBS,$3,$4),$(foreach z,$(LIBS.$3) $(LIBS.$4),$(call GCC.LINKLIB,$z)),$4),
+	$(if $V,,@echo LINK.GCC.SHARED $$@ &&)$$(call LINK.GCC.SO,$(LDFLAGS.$3) $(LDFLAGS.$4) $(call .SYSLIBS,LDLIBS,$3,$4),$(foreach z,$(LIBS.$3) $(LIBS.$4),$(call GCC.LINKLIB,$z)),$4),
 	$(if $V,,@echo LINK.GCC.AR $$@ &&)$$(LINK.GCC.AR)))\
 $(if $(findstring $E,$4),
 	$(if $V,,@echo LINK.GCC.EXEC $$@ &&)$$(call LINK.GCC.EXEC,$(LDFLAGS.$3) $(LDFLAGS.$4) $(call .SYSLIBS,LDLIBS,$3,$4),$(foreach z,$(LIBS.$3) $(LIBS.$4),$(call GCC.LINKLIB,$z))))
+$(GCC.EXTRA.MKLRULES)
 endef
 
 # Install rules ($1 = module name, $2 = unexpanded target file,
@@ -116,4 +119,5 @@ endef
 define MKDRULES.GCC
 $1: $(MAKEDEP_DEP) $2
 	$(if $V,,@echo MAKEDEP.GCC $$@ &&)$$(call MAKEDEP.GCC,$(subst $(COMMA),$$(COMMA),$(CFLAGS.$3) $(CFLAGS.$4) $(CFLAGS)),$(subst $(COMMA),$$(COMMA),-D__cplusplus $(CXXFLAGS.$3) $(CXXFLAGS.$4) $(CXXFLAGS)))
+$(GCC.EXTRA.MKDRULES)
 endef

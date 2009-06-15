@@ -6,17 +6,25 @@ MKDEPS.DOXYGEN = $1
 # Our target is a directory under $(OUT)docs with the name of module
 XFNAME.DOXYGEN = $(addprefix $(OUT)docs/,$(subst $D,/,$(filter %$D,$1)))
 
+# If macro DOXYGEN.$(MODULE) is defined, it will be invoked after doxygen.
+# This is useful to copy additional LaTeX style files, pictures etc
+# to target directory, or even invoking make to build LaTeX documentation.
+# The arguments to the macro are:
+# $1 - module name
+# $2 - output directory
 define DOXYGEN
 	$(call MKDIR,$2)
-	sed -e 's,@CONF_VERSION@,$(CONF_VERSION),' \
-        -e 's,@OUT@,$2,' $1 | doxygen -
+	sed $1 \
+		-e 's,@CONF_VERSION@,$(CONF_VERSION),' \
+		-e 's,@OUT@,$2,' | doxygen -
+	$(if $(DOXYGEN.$3),$(call DOXYGEN.$3,$3,$2))
 endef
 
 # Linking rules ($1 = target, $2 = dependency list, $3 = module name,
 # $4 = target name)
 define MKLRULES.DOXYGEN
 $1: $2
-	$(if $V,,@echo DOXYGEN $$@ &&)$$(call DOXYGEN,$$(filter %.conf,$$^),$$@)
+	$(if $V,,@echo DOXYGEN $$@ &&)$$(call DOXYGEN,$$(filter %.conf,$$^),$$@,$4)
 endef
 
 # Install rules ($1 = module name, $2 = unexpanded target file,

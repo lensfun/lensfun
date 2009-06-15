@@ -34,8 +34,7 @@ MSVC.LINKLIB = $(if $(findstring $L,$1),,$(if $(findstring /,$1),$1,-l$1))
 MSVC.AR ?= link.exe -lib
 MSVC.ARFLAGS = -nologo -machine:$(ARCH)
 
-MAKEDEP ?= makedep
-MSVC.MDEP = makedep -D_WIN32 -D_MSC_VER=6
+MSVC.MDEP = $(if $(MAKEDEP),$(MAKEDEP),makedep) -D_WIN32 -D_MSC_VER=6
 MSVC.MDEPFLAGS = -c -a -p'$$(OUT)' -o.obj $(MSVC.CFLAGS.DEF) $(MSVC.CFLAGS.INC) $(MDEPFLAGS)
 
 # Check for target architecture and don't allow compiling for unsupported archs
@@ -47,7 +46,7 @@ XFNAME.MSVC = $(addprefix $$(OUT),\
     $(patsubst %$E,%.exe,\
     $(if $(findstring $L,$1),\
         $(if $(SHARED.$1),\
-            $(patsubst %$L,%$(XSO),$1),\
+            $(patsubst %$L,%$(SO),$1),\
             $(patsubst %$L,%.lib,$1)\
         ),\
     $1)\
@@ -70,7 +69,7 @@ $(addsuffix %.obj,$(addprefix $$(OUT),$z)): $(addsuffix %.c,$z)
 	$(if $V,,@echo COMPILE.MSVC.CC $$< &&)$$(call COMPILE.MSVC.CC,$(CFLAGS.$3) $(CFLAGS.$4) $(call .SYSLIBS,CFLAGS,$3,$4))))
 $(if $(filter %.cpp,$1),$(foreach z,$2,
 $(addsuffix %.obj,$(addprefix $$(OUT),$z)): $(addsuffix %.cpp,$z)
-	$(if $V,,@echo COMPILE.MSVC.CXX $$< &&)$$(call COMPILE.MSVC.CXX,$(CXXFLAGS.$3) $(CXXFLAGS.$4) $(call .SYSLIBS,CXXFLAGS,$3,$4))))
+	$(if $V,,@echo COMPILE.MSVC.CXX $$< &&)$$(call COMPILE.MSVC.CXX,$(CXXFLAGS.$3) $(CXXFLAGS.$4) $(call .SYSLIBS,CFLAGS,$3,$4))))
 endef
 
 LINK.MSVC.AR = $(MSVC.AR) $(MSVC.ARFLAGS) -out:$@ $^
