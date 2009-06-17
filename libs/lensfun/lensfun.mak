@@ -7,7 +7,7 @@ SHARED.lensfun$L = $(if $(SHAREDLIBS),$(CONF_VERSION))
 LIBS.lensfun = $(TARGETS.regex)
 SYSLIBS.lensfun = GLIB_20
 INSTALL.TARGETS += lensfun
-INSTALL.HEADERS.lensfun$L = include/lensfun/lensfun.h
+INSTALL.INCLUDE.lensfun$L = include/lensfun/lensfun.h
 # This is needed for regex.c
 CFLAGS.lensfun$L = -DHAVE_CONFIG_H
 

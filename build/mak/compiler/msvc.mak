@@ -34,7 +34,7 @@ MSVC.LINKLIB = $(if $(findstring $L,$1),,$(if $(findstring /,$1),$1,-l$1))
 MSVC.AR ?= link.exe -lib
 MSVC.ARFLAGS = -nologo -machine:$(ARCH)
 
-MSVC.MDEP = $(if $(MAKEDEP),$(MAKEDEP),makedep) -D_WIN32 -D_MSC_VER=6
+MSVC.MDEP = $(or $(MAKEDEP),makedep) -D_WIN32 -D_MSC_VER=6
 MSVC.MDEPFLAGS = -c -a -p'$$(OUT)' -o.obj $(MSVC.CFLAGS.DEF) $(MSVC.CFLAGS.INC) $(MDEPFLAGS)
 
 # Check for target architecture and don't allow compiling for unsupported archs

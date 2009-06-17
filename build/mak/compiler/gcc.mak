@@ -33,7 +33,7 @@ GCC.LDFLAGS.debug = -gdwarf-2 -g3
 
 GCC.LINKLIB = $(if $(findstring $L,$1),,$(if $(findstring /,$1),$1,-l$1))
 
-GCC.MDEP = $(if $(MAKEDEP),$(MAKEDEP),makedep)
+GCC.MDEP = $(or $(MAKEDEP),makedep)
 GCC.MDEPFLAGS = -c -a -p'$$(OUT)' $(GCC.CFLAGS.DEF) $(GCC.CFLAGS.INC) $(MDEPFLAGS)
 
 GCC.AR = ar
@@ -98,14 +98,14 @@ endef
 define MKIRULES.GCC
 $(if $(findstring $L,$2),\
 $(foreach _,$3 $(if $(SHARED.$2),$3.$(SHARED.$2) $3.$(basename $(basename $(SHARED.$2)))),
-	$(if $V,,@echo INSTALL $_ to $(call .INSTDIR,$1,$2,$(CONF_LIBDIR)) &&)\
-	$$(call INSTALL,$_,$(call .INSTDIR,$1,$2,$(CONF_LIBDIR)),$(if $(SHARED.$2),0755,0644))))\
+	$(if $V,,@echo INSTALL $_ to $(call .INSTDIR,$1,$2,LIB,$(CONF_LIBDIR)) &&)\
+	$$(call INSTALL,$_,$(call .INSTDIR,$1,$2,LIB,$(CONF_LIBDIR)),$(if $(SHARED.$2),0755,0644))))\
 $(if $(findstring $E,$2),
-	$(if $V,,@echo INSTALL $3 to $(call .INSTDIR,$1,$2,$(CONF_BINDIR)) &&)\
-	$$(call INSTALL,$3,$(call .INSTDIR,$1,$2,$(CONF_BINDIR)),0755))\
-$(if $(INSTALL.HEADERS.$2),
-	$(if $V,,@echo INSTALL $(INSTALL.HEADERS.$2) to $(call .INSTDIR,$1,$2,$(CONF_INCLUDEDIR)) &&)\
-	$$(call INSTALL,$(INSTALL.HEADERS.$2),$(call .INSTDIR,$1,$2,$(CONF_INCLUDEDIR)),0644))
+	$(if $V,,@echo INSTALL $3 to $(call .INSTDIR,$1,$2,BIN,$(CONF_BINDIR)) &&)\
+	$$(call INSTALL,$3,$(call .INSTDIR,$1,$2,BIN,$(CONF_BINDIR)),0755))\
+$(if $(INSTALL.INCLUDE.$2),
+	$(if $V,,@echo INSTALL $(INSTALL.INCLUDE.$2) to $(call .INSTDIR,$1,$2,INCLUDE,$(CONF_INCLUDEDIR)) &&)\
+	$$(call INSTALL,$(INSTALL.INCLUDE.$2),$(call .INSTDIR,$1,$2,INCLUDE,$(CONF_INCLUDEDIR)),0644))
 endef
 
 define MAKEDEP.GCC

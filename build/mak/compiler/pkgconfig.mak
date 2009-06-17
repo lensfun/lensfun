@@ -3,7 +3,7 @@
 XFNAME.PKGCONFIG = $(addprefix $$(OUT),$1)
 MKDEPS.PKGCONFIG = $1
 
-define LINK.PKGCONFIG
+define BUILD.PKGCONFIG
 	sed -e "s,@CONF_PACKAGE@,$(CONF_PACKAGE),g" \
 	    -e "s,@CONF_VERSION@,$(CONF_VERSION),g" \
 	    -e "s,@CONF_PREFIX@,$(CONF_PREFIX),g" \
@@ -22,15 +22,15 @@ endef
 # $3 = module name, $4 = unexpanded target name)
 define MKLRULES.PKGCONFIG
 $1: $2
-	$(if $V,,@echo SED $$@ &&)$$(call LINK.PKGCONFIG,$1,$3)
+	$(if $V,,@echo BUILD.PKGCONFIG $$@ &&)$$(call BUILD.PKGCONFIG,$1,$3)
 endef
 
 # Install rules ($1 = module name, $2 = unexpanded target file,
 # $3 = full target file name)
 define MKIRULES.PKGCONFIG
 
-	$(if $V,,@echo INSTALL $3 to $(call .INSTDIR,$1,$2,$(CONF_LIBDIR)pkgconfig/) &&)\
-	$$(call INSTALL,$3,$(call .INSTDIR,$1,$2,$(CONF_LIBDIR)pkgconfig/),0644)
+	$(if $V,,@echo INSTALL $3 to $(call .INSTDIR,$1,$2,PKGCONFIG,$(CONF_LIBDIR)pkgconfig/) &&)\
+	$$(call INSTALL,$3,$(call .INSTDIR,$1,$2,PKGCONFIG,$(CONF_LIBDIR)pkgconfig/),0644)
 endef
 
 # Dependency rules ($1 = dependency file, $2 = source file list,
