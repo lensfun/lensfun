@@ -166,9 +166,9 @@ void _lf_addobj (void ***var, const void *val, size_t val_size,
 {
     int n = 0;
 
-    if (*var)
+    if (*var && cmpf)
         for (n = 0; (*var) [n]; n++)
-            if (cmpf && cmpf (val, (*var) [n]))
+            if (cmpf (val, (*var) [n]))
             {
                 g_free ((*var) [n]);
                 (*var) [n] = g_malloc (val_size);

@@ -1487,7 +1487,7 @@ typedef void (*lfModifyCoordFunc) (void *data, float *iocoord, int count);
  * In the first stage - subpixel distortion - application corrects transversal
  * chromatic aberrations. For every target pixel coordinate the modifier will
  * return you three new coordinates: the first will tell you the coordinates
- * of the red component, second of the green, and third of the red component.
+ * of the red component, second of the green, and third of the blue component.
  * This operation requires building new image in a new allocated buffer:
  * you cannot modify the image in place, or bad things will happen.
  *
