@@ -56,6 +56,11 @@
     </mount>
 
     <mount>
+        <name>canonS5</name>
+        <compat>Generic</compat>
+    </mount>
+
+    <mount>
         <name>canonA610</name>
         <compat>Generic</compat>
     </mount>
@@ -602,6 +607,14 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon PowerShot S5 IS</model>
+        <model lang="en">PowerShot S5 IS</model>
+        <mount>canonS5</mount>
+        <cropfactor>6.0</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon PowerShot Pro90 IS</model>
         <model lang="en">PowerShot Pro90 IS</model>
         <mount>canonPro90</mount>
@@ -995,6 +1008,40 @@
             <distortion model="ptlens" focal="22.9" a="0" b="0.003074" c="0" />
             <distortion model="ptlens" focal="50.5" a="0" b="0.000264" c="0" />
             <distortion model="ptlens" focal="70" a="0" b="0" c="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Standard</model>
+        <mount>canonS5</mount>
+        <cropfactor>6.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="6" a="0.019347" b="-0.049194" c="0" />
+            <distortion model="ptlens" focal="6.7" a="0.014225" b="-0.033434" c="0" />
+            <distortion model="ptlens" focal="7.2" a="0.012654" b="-0.028234" c="0" />
+            <distortion model="ptlens" focal="7.6" a="0.011063" b="-0.022491" c="0" />
+            <distortion model="ptlens" focal="9" a="0.007561" b="-0.012771" c="0" />
+            <distortion model="ptlens" focal="11.6" a="0" b="0.004476" c="0" />
+            <distortion model="ptlens" focal="46.3" a="0" b="0" c="0" />
+            <distortion model="ptlens" focal="72" a="0" b="0" c="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>TC-DC58B</model>
+        <mount>canonS5</mount>
+        <cropfactor>6.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="16.4" a="0" b="0.01755" c="0" />
+            <distortion model="ptlens" focal="20.7" a="0" b="0.01163" c="0" />
+            <distortion model="ptlens" focal="26.8" a="0" b="0.008009" c="0" />
+            <distortion model="ptlens" focal="34.3" a="0" b="0.005827" c="0" />
+            <distortion model="ptlens" focal="40.3" a="0" b="0.003938" c="0" />
+            <distortion model="ptlens" focal="51.8" a="0" b="0.003021" c="0" />
+            <distortion model="ptlens" focal="64.7" a="0" b="0.003778" c="0" />
+            <distortion model="ptlens" focal="72" a="0" b="0.003404" c="0" />
         </calibration>
     </lens>
 
