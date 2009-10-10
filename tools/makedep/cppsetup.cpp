@@ -132,7 +132,7 @@ struct _parse_data
     const char *line;
 };
 
-static const char *my_if_errors (IfParser *ip, const char *cp, const char *expecting)
+static char *my_if_errors (IfParser *ip, const char *cp, const char *expecting)
 {
     struct _parse_data *pd = (struct _parse_data *) ip->data;
     int lineno = pd->filep->f_line;
@@ -178,7 +178,7 @@ static int my_eval_defined (IfParser *ip, const char *var, int len)
 
 #define isvarfirstletter(ccc) (isalpha(ccc) || (ccc) == '_')
 
-static long my_eval_variable (IfParser *ip, const char *var, int len)
+static long my_eval_variable (IfParser *ip, char *var, int len)
 {
     struct symtab **s;
     char *eol;
@@ -188,7 +188,7 @@ static long my_eval_variable (IfParser *ip, const char *var, int len)
         return 0;
     do
     {
-        var = (*s)->s_value;
+        var = const_cast <char *> ((*s)->s_value);
         if (!isvarfirstletter (*var))
             break;
         s = lookup_variable (ip, var, strlen (var));

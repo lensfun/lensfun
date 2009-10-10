@@ -33,6 +33,10 @@ bool lfModifier::AddSubpixelCallbackTCA (lfLensCalibTCA &model, bool reverse)
                 AddSubpixelCallback (lfExtModifier::ModifyCoord_TCA_Linear, 500,
                                      tmp, 2 * sizeof (float));
                 return true;
+
+            default:
+                // keep gcc 4.4+ happy
+                break;
         }
     else
         switch (model.Model)
@@ -50,6 +54,10 @@ bool lfModifier::AddSubpixelCallbackTCA (lfLensCalibTCA &model, bool reverse)
                 AddSubpixelCallback (lfExtModifier::ModifyCoord_UnTCA_Linear, 500,
                                      tmp, 2 * sizeof (float));
                 return true;
+
+            default:
+                // keep gcc 4.4+ happy
+                break;
         }
     return false;
 }

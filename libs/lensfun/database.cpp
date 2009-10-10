@@ -758,22 +758,26 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                             _lf_xml_printf (
                                 output, "model=\"poly3\" k1=\"%g\" />\n",
                                 cd->Terms [0]);
-                            break;;
+                            break;
+
                         case LF_DIST_MODEL_POLY5:
                             _lf_xml_printf (
                                 output, "model=\"poly5\" k1=\"%g\" k2=\"%g\" />\n",
                                 cd->Terms [0], cd->Terms [1]);
-                            break;;
+                            break;
+
                         case LF_DIST_MODEL_FOV1:
                             _lf_xml_printf (
                                 output, "model=\"fov1\" omega=\"%g\" />\n",
                                 cd->Terms [0]);
                             break;
+
                         case LF_DIST_MODEL_PTLENS:
                             _lf_xml_printf (
                                 output, "model=\"ptlens\" a=\"%g\" b=\"%g\" c=\"%g\" />\n",
                                 cd->Terms [0], cd->Terms [1], cd->Terms [2]);
                             break;
+
                         default:
                             _lf_xml_printf (output, "model=\"none\" />\n");
                             break;
@@ -793,6 +797,7 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                             _lf_xml_printf (output, "model=\"linear\" kr=\"%g\" kb=\"%g\" />\n",
                                             ctca->Terms [0], ctca->Terms [1]);
                             break;
+
                         default:
                             _lf_xml_printf (output, "model=\"none\" />\n");
                             break;
@@ -813,6 +818,7 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                             _lf_xml_printf (output, "model=\"pa\" k1=\"%g\" k2=\"%g\" k3=\"%g\" />\n",
                                             cv->Terms [0], cv->Terms [1], cv->Terms [2]);
                             break;
+
                         default:
                             _lf_xml_printf (output, "model=\"none\" />\n");
                             break;

@@ -40,11 +40,13 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                 tmp [0] = 1.0 / model.Terms [0];
                 AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly3, 750, tmp, sizeof (float));
                 break;
+
             case LF_DIST_MODEL_POLY5:
                 tmp [0] = model.Terms [0];
                 tmp [1] = model.Terms [1];
                 AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly5, 750, tmp, sizeof (float) * 2);
                 break;
+
             case LF_DIST_MODEL_FOV1:
                 if (!model.Terms [0])
                     return false;
@@ -52,12 +54,14 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                 tmp [1] = 2.0 * tan (model.Terms [0] / 2.0);
                 AddCoordCallback (lfExtModifier::ModifyCoord_Dist_FOV1, 750, tmp, sizeof (float) * 2);
                 break;
+
             case LF_DIST_MODEL_PTLENS:
                 tmp [0] = model.Terms [0];
                 tmp [1] = model.Terms [1];
                 tmp [2] = model.Terms [2];
                 AddCoordCallback (lfExtModifier::ModifyCoord_Dist_PTLens, 750, tmp, sizeof (float) * 2);
                 break;
+
             default:
                 return false;
         }
@@ -68,11 +72,13 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                 tmp [0] = model.Terms [0];
                 AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_Poly3, 250, tmp, sizeof (float));
                 break;
+
             case LF_DIST_MODEL_POLY5:
                 tmp [0] = model.Terms [0];
                 tmp [1] = model.Terms [1];
                 AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_Poly5, 250, tmp, sizeof (float) * 2);
                 break;
+
             case LF_DIST_MODEL_FOV1:
                 if (!model.Terms [0])
                     return false;
@@ -80,12 +86,14 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                 tmp [1] = 0.5 / tan (model.Terms [0] / 2.0);
                 AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_FOV1, 250, tmp, sizeof (float) * 2);
                 break;
+
             case LF_DIST_MODEL_PTLENS:
                 tmp [0] = model.Terms [0];
                 tmp [1] = model.Terms [1];
                 tmp [2] = model.Terms [2];
                 AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_PTLens, 250, tmp, sizeof (float) * 3);
                 break;
+
             default:
                 return false;
         }
@@ -221,21 +229,29 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
                 case LF_UNKNOWN:
                     // Should never happen
                     return false;
+
                 case LF_RECTILINEAR:
                     // Nothing to do
                     return false;
+
                 case LF_FISHEYE:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Rect_FishEye,
                                       500, tmp, sizeof (tmp));
                     return true;
+
                 case LF_PANORAMIC:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Rect_Panoramic,
                                       500, tmp, sizeof (tmp));
                     return true;
+
                 case LF_EQUIRECTANGULAR:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Rect_ERect,
                                       500, tmp, sizeof (tmp));
                     return true;
+
+                default:
+                    // keep gcc 4.4+ happy
+                    break;
             }
             break;
 
@@ -245,21 +261,29 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
                 case LF_UNKNOWN:
                     // Should never happen
                     return false;
+
                 case LF_RECTILINEAR:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_FishEye_Rect,
                                       500, tmp, sizeof (tmp));
                     return true;
+
                 case LF_FISHEYE:
                     // Nothing to do
                     return false;
+
                 case LF_PANORAMIC:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_FishEye_Panoramic,
                                       500, tmp, sizeof (tmp));
                     return true;
+
                 case LF_EQUIRECTANGULAR:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_FishEye_ERect,
                                       500, tmp, sizeof (tmp));
                     return true;
+
+                default:
+                    // keep gcc 4.4+ happy
+                    break;
             }
             break;
 
@@ -269,21 +293,29 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
                 case LF_UNKNOWN:
                     // Should never happen
                     return false;
+
                 case LF_RECTILINEAR:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Panoramic_Rect,
                                       500, tmp, sizeof (tmp));
                     return true;
+
                 case LF_FISHEYE:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Panoramic_FishEye,
                                       500, tmp, sizeof (tmp));
                     return true;
+
                 case LF_PANORAMIC:
                     // Nothing to do
                     return false;
+
                 case LF_EQUIRECTANGULAR:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Panoramic_ERect,
                                       500, tmp, sizeof (tmp));
                     return true;
+
+                default:
+                    // keep gcc 4.4+ happy
+                    break;
             }
             break;
 
@@ -293,21 +325,29 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
                 case LF_UNKNOWN:
                     // Should never happen
                     return false;
+
                 case LF_RECTILINEAR:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Rect,
                                       500, tmp, sizeof (tmp));
                     return true;
+
                 case LF_FISHEYE:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_FishEye,
                                       500, tmp, sizeof (tmp));
                     return true;
+
                 case LF_PANORAMIC:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Panoramic,
                                       500, tmp, sizeof (tmp));
                     return true;
+
                 case LF_EQUIRECTANGULAR:
                     // Nothing to do
                     return false;
+
+                default:
+                    // keep gcc 4.4+ happy
+                    break;
             }
             break;
     }

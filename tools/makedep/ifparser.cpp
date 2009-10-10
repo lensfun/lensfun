@@ -74,7 +74,7 @@
 #define SKIPSPACE(ccc) while (isspace(*ccc)) ccc++
 #define isvarfirstletter(ccc) (isalpha(ccc) || (ccc) == '_')
 
-static const char *parse_variable (IfParser *g, const char *cp, const char **varp)
+static char *parse_variable (IfParser *g, char *cp, char **varp)
 {
     SKIPSPACE (cp);
 
@@ -87,7 +87,7 @@ static const char *parse_variable (IfParser *g, const char *cp, const char **var
     return cp;
 }
 
-static const char *parse_number (IfParser *g, const char *cp, long *valp)
+static char *parse_number (IfParser *g, const char *cp, long *valp)
 {
     SKIPSPACE (cp);
 
@@ -102,7 +102,7 @@ static const char *parse_number (IfParser *g, const char *cp, long *valp)
     return endnum;
 }
 
-static const char *parse_character (const char *cp, long *valp)
+static char *parse_character (char *cp, long *valp)
 {
     char val;
 
@@ -158,9 +158,9 @@ static const char *parse_character (const char *cp, long *valp)
     return cp;
 }
 
-static const char *parse_value (IfParser *g, const char *cp, long *valp)
+static char *parse_value (IfParser *g, char *cp, long *valp)
 {
-    const char *var = NULL;
+    char *var = NULL;
 
     *valp = 0;
 
@@ -254,7 +254,7 @@ static const char *parse_value (IfParser *g, const char *cp, long *valp)
     return cp;
 }
 
-static const char *parse_product (IfParser *g, const char *cp, long *valp)
+static char *parse_product (IfParser *g, char *cp, long *valp)
 {
     long rightval;
 
@@ -281,7 +281,7 @@ static const char *parse_product (IfParser *g, const char *cp, long *valp)
     return cp;
 }
 
-static const char *parse_sum (IfParser *g, const char *cp, long *valp)
+static char *parse_sum (IfParser *g, char *cp, long *valp)
 {
     long rightval;
 
@@ -303,7 +303,7 @@ static const char *parse_sum (IfParser *g, const char *cp, long *valp)
     return cp;
 }
 
-static const char *parse_shift (IfParser *g, const char *cp, long *valp)
+static char *parse_shift (IfParser *g, char *cp, long *valp)
 {
     long rightval;
 
@@ -331,7 +331,7 @@ static const char *parse_shift (IfParser *g, const char *cp, long *valp)
     return cp;
 }
 
-static const char *parse_inequality (IfParser *g, const char *cp, long *valp)
+static char *parse_inequality (IfParser *g, char *cp, long *valp)
 {
     long rightval;
 
@@ -369,7 +369,7 @@ static const char *parse_inequality (IfParser *g, const char *cp, long *valp)
     return cp;
 }
 
-static const char *parse_equality (IfParser *g, const char *cp, long *valp)
+static char *parse_equality (IfParser *g, char *cp, long *valp)
 {
     long rightval;
 
@@ -395,7 +395,7 @@ static const char *parse_equality (IfParser *g, const char *cp, long *valp)
     return cp;
 }
 
-static const char *parse_band (IfParser *g, const char *cp, long *valp)
+static char *parse_band (IfParser *g, char *cp, long *valp)
 {
     long rightval;
 
@@ -415,7 +415,7 @@ static const char *parse_band (IfParser *g, const char *cp, long *valp)
     return cp;
 }
 
-static const char *parse_bxor (IfParser *g, const char *cp, long *valp)
+static char *parse_bxor (IfParser *g, char *cp, long *valp)
 {
     long rightval;
 
@@ -432,7 +432,7 @@ static const char *parse_bxor (IfParser *g, const char *cp, long *valp)
     return cp;
 }
 
-static const char *parse_bor (IfParser *g, const char *cp, long *valp)
+static char *parse_bor (IfParser *g, char *cp, long *valp)
 {
     long rightval;
 
@@ -452,7 +452,7 @@ static const char *parse_bor (IfParser *g, const char *cp, long *valp)
     return cp;
 }
 
-static const char *parse_land (IfParser *g, const char *cp, long *valp)
+static char *parse_land (IfParser *g, char *cp, long *valp)
 {
     long rightval;
 
@@ -471,7 +471,7 @@ static const char *parse_land (IfParser *g, const char *cp, long *valp)
     return cp;
 }
 
-static const char *parse_lor (IfParser *g, const char *cp, long *valp)
+static char *parse_lor (IfParser *g, char *cp, long *valp)
 {
     long rightval;
 
@@ -490,7 +490,7 @@ static const char *parse_lor (IfParser *g, const char *cp, long *valp)
     return cp;
 }
 
-static const char *parse_cond (IfParser *g, const char *cp, long *valp)
+static char *parse_cond (IfParser *g, char *cp, long *valp)
 {
     long trueval,
     falseval;
@@ -516,7 +516,7 @@ static const char *parse_cond (IfParser *g, const char *cp, long *valp)
  External Entry Points
  ****************************************************************************/
 
-const char *ParseIfExpression (IfParser *g, const char *cp, long *valp)
+char *ParseIfExpression (IfParser *g, char *cp, long *valp)
 {
     return parse_cond (g, cp, valp);
 }

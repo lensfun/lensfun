@@ -56,6 +56,7 @@ bool lfModifier::AddColorCallbackVignetting (
                         return false;
                 }
                 break;
+
             default:
                 return false;
         }
@@ -74,6 +75,7 @@ bool lfModifier::AddColorCallbackVignetting (
                         return false;
                 }
                 break;
+
             default:
                 return false;
         }
@@ -142,11 +144,14 @@ template<typename T>static inline T *apply_multiplier (T *pixels, double c, int 
         {
             case LF_CR_END:
                 return pixels;
+
             case LF_CR_NEXT:
                 cr >>= 4;
                 return pixels;
+
             case LF_CR_UNKNOWN:
                 break;
+
             default:
                 *pixels = clampd<T> (*pixels * c, 0.0, type_max (T (0)));
                 break;
@@ -168,11 +173,14 @@ template<>inline  lf_u8 *apply_multiplier (lf_u8 *pixels, double c, int &cr)
         {
             case LF_CR_END:
                 return pixels;
+
             case LF_CR_NEXT:
                 cr >>= 4;
                 return pixels;
+
             case LF_CR_UNKNOWN:
                 break;
+
             default:
                 if ((cr & 15) > LF_CR_UNKNOWN)
                 {

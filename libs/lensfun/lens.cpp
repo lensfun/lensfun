@@ -301,6 +301,10 @@ const char *lfLens::GetDistortionModelDesc (
             if (params)
                 *params = param_ptlens;
             return "PanoTools lens model";
+
+        default:
+            // keep gcc 4.4 happy
+            break;
     }
 
     if (details)
@@ -328,6 +332,7 @@ const char *lfLens::GetTCAModelDesc (
             if (params)
                 *params = param_none;
             return "None";
+
         case LF_TCA_MODEL_LINEAR:
             if (details)
                 *details = "Rd = Ru * k\n"
@@ -335,6 +340,10 @@ const char *lfLens::GetTCAModelDesc (
             if (params)
                 *params = param_linear;
             return "Linear";
+
+        default:
+            // keep gcc 4.4 happy
+            break;
     }
 
     if (details)
@@ -363,6 +372,7 @@ const char *lfLens::GetVignettingModelDesc (
             if (params)
                 *params = param_none;
             return "None";
+
         case LF_VIGNETTING_MODEL_PA:
             if (details)
                 *details = "Pablo D'Angelo vignetting model\n"
@@ -372,6 +382,10 @@ const char *lfLens::GetVignettingModelDesc (
             if (params)
                 *params = param_pa;
             return "6th order polynomial";
+
+        default:
+            // keep gcc 4.4 happy
+            break;
     }
 
     if (details)
@@ -389,22 +403,30 @@ const char *lfLens::GetLensTypeDesc (lfLensType type, const char **details)
             if (details)
                 *details = "";
             return "Unknown";
+
         case LF_RECTILINEAR:
             if (details)
                 *details = "Ref: http://wiki.panotools.org/Rectilinear_Projection";
             return "Rectilinear";
+
         case LF_FISHEYE:
             if (details)
                 *details = "Ref: http://wiki.panotools.org/Fisheye_Projection";
             return "Fish-Eye";
+
         case LF_PANORAMIC:
             if (details)
                 *details = "Ref: http://wiki.panotools.org/Cylindrical_Projection";
             return "Panoramic";
+
         case LF_EQUIRECTANGULAR:
             if (details)
                 *details = "Ref: http://wiki.panotools.org/Equirectangular_Projection";
             return "Equirectangular";
+
+        default:
+            // keep gcc 4.4 happy
+            break;
     }
 
     if (details)
@@ -839,14 +861,17 @@ bool lfLens::InterpolateVignetting (
                 case 0:
                     spline_dist [0] = dist;
                     break;
+
                 case 1:
                     spline_dist [0] = spline_dist [1];
                     spline_dist [1] = dist;
                     break;
+
                 case 2:
                     spline_dist [3] = spline_dist [2];
                     spline_dist [2] = dist;
                     break;
+
                 case 3:
                     spline_dist [3] = dist;
                     break;
@@ -1032,6 +1057,7 @@ int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
     {
         case -1:
             return 0;
+
         case +1:
             score += 10;
             break;
@@ -1041,6 +1067,7 @@ int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
     {
         case -1:
             return 0;
+
         case +1:
             score += 10;
             break;
