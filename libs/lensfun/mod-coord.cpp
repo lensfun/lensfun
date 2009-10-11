@@ -14,7 +14,7 @@
 #include <math.h>
 
 // This epsilon is in image coordinate space, where 1.0 is
-// half of the smallest image dimenstion (width or height)
+// half of the smallest image dimension (width or height)
 // adjusted for the lens calibration data/camera crop factors.
 #define NEWTON_EPS 0.00001
 
