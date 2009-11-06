@@ -127,7 +127,7 @@ LF_EXPORT lfMLstr lf_mlstr_dup (const lfMLstr str)
     {
         str_len = strlen (str) + 1;
         while (str [str_len])
-            str_len += 1 + strlen (str + str_len + 1);
+            str_len += 2 + strlen (str + str_len + 1);
     }
 
     gchar *ret = (char *)g_malloc (str_len);
