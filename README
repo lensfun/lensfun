@@ -126,6 +126,22 @@ Now to configure I recommend the following command line:
 
 After that you may run make and build it.
 
+If you use cross-platform MinGW32, configuring and building should be even simpler:
+
+export TKP=i686-pc-mingw32-
+export SDKDIR=/usr/i686-pc-mingw32/sys-root/mingw
+./configure --compiler=gcc --target=windows.x86 --mode=release \
+    --prefix= --bindir= --includedir= --libdir= --docdir= --datadir= \
+    --sysconfdir= --libexecdir= $*
+
+Just install the required libraries. On my system I had to install the following RPMs:
+
+	mingw32-gcc-c++
+	mingw32-libpng
+	mingw32-glib2
+
+Everything else was pulled in by dependencies.
+
 
 BUILD SYSTEM IN DEPTH
 ---------------------

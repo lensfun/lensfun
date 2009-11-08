@@ -64,7 +64,8 @@ if ac.pkgconfig_check_library ("libpng", "1.0"):
         print "Re-trying with another library name ..."
         ac.check_library ("zlib", None, None, None, "", ac.TOOLKIT.linklib ("zlib"))
 
-# On Windows we don't have regex.h, so use a copy from glibc instead.
+# On Windows we don't have regex.h, so use a open-source alternative instead.
+# One day we'll switch to regex library from GLib
 if not ac.check_header ("regex.h"):
     ac.add_config_mak ("NEED_REGEX")
 
