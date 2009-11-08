@@ -5,7 +5,6 @@
 
 #include "config.h"
 #include <windows.h>
-//#include <stdio.h>
 #include <glib/gstdio.h>
 
 #ifndef CONF_DATADIR
@@ -22,11 +21,11 @@ char *_lf_get_database_dir ()
 
     HMODULE h = GetModuleHandle ("lensfun.dll");
     if (!h)
-        return "";
+        return g_strdup ("");
 
     char buff [FILENAME_MAX];
     if (GetModuleFileName (h, buff, sizeof (buff)) <= 0)
-        return "";
+        return g_strdup ("");
 
     char *eos = strchr (buff, 0);
     while (eos > buff && eos [-1] != '/' && eos [-1] != ':' && eos [-1] != '\\')

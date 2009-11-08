@@ -27,7 +27,8 @@ __all__ = [
     "check_cflags", "check_header",
     "check_library", "pkgconfig_check_library",
     "update_file", "read_file", "write_file",
-    "abort_configure", "substmacros"
+    "abort_configure", "substmacros",
+    "get_config_h", "get_config_mak"
 ]
 
 # Default values for user-definable variables
@@ -49,12 +50,10 @@ VERBOSE = False
 MODE = "release"
 SHAREDLIBS = True
 
-CONFIG_H   = ["/* This file has been automatically generated: do not modify",
-              "   as it will be overwritten next time you run configure! */",
-              ""]
-CONFIG_MAK = ["# This file has been automatically generated: do not modify",
-              "# as it will be overwritten next time you run configure!",
-              ""]
+CONFIG_H = {}
+_CONFIG_H = []
+CONFIG_MAK = {}
+_CONFIG_MAK = []
 
 # pkg-config emulation for platforms without pkg-config
 # NOTE: This has precedence over the pkg-config program!
@@ -112,7 +111,9 @@ ENVARS = [
     [ "LIBS",     "",    "Additional libraries to link with" ],
     [ "CC",       None,  "Override the C compiler name/path" ],
     [ "CXX",      None,  "Override the C++ compiler name/path" ],
-    [ "LD",       None,  "Override the linker name/path" ]
+    [ "LD",       None,  "Override the linker name/path" ],
+    [ "AR",       None,  "Override the library manager name/path" ],
+    [ "TKP",      "",    "Toolkit prefix (prepended to CC, CXX, LD, AR)" ]
 ]
 
 # -------------- # Abstract interface to different compilers # --------------
@@ -127,9 +128,10 @@ class compiler_gcc:
 
     def __init__ (self):
         # Find our compiler and linker
-        self.CC = CC or "gcc"
-        self.CXX = CXX or "g++"
-        self.LD = LD or "g++"
+        self.CC = CC or (TKP + "gcc")
+        self.CXX = CXX or (TKP + "g++")
+        self.LD = LD or (TKP + "g++")
+        self.AR = AR or (TKP + "ar")
         self.OBJ = ".o"
 
     def startup (self):
@@ -153,6 +155,7 @@ class compiler_gcc:
         add_config_mak ("GCC.CC", self.CC + " -c")
         add_config_mak ("GCC.CXX", self.CXX + " -c")
         add_config_mak ("GCC.LD", self.LD)
+        add_config_mak ("GCC.AR", self.AR)
 
     def c_compile (self, srcf, outf, cflags):
         # Return the command to compile a C file
@@ -489,12 +492,38 @@ def remove (filename):
 
 def add_config_h (macro, val = "1"):
     global CONFIG_H
-    CONFIG_H.append ("#define %s %s" % (macro.strip (), val.strip ()))
+    macro = macro.strip ()
+    CONFIG_H [macro] = val.strip ()
+    _CONFIG_H.append (macro)
 
 
 def add_config_mak (macro, val = "1"):
     global CONFIG_MAK
-    CONFIG_MAK.append ("%s=%s" % (macro.strip (), val.strip ()))
+    macro = macro.strip ()
+    CONFIG_MAK [macro] = val.strip ()
+    _CONFIG_MAK.append (macro)
+
+
+def get_config_h (header = None):
+    v = header or \
+"""/* This file has been automatically generated: do not modify
+   as it will be overwritten next time you run configure! */
+
+"""
+    for x in _CONFIG_H:
+        v = v + "#define %s %s\n" % (x, CONFIG_H [x])
+    return v
+
+
+def get_config_mak (header = None):
+    v = header or \
+"""# This file has been automatically generated: do not modify
+# as it will be overwritten next time you run configure!
+
+"""
+    for x in _CONFIG_MAK:
+        v = v + "%s=%s\n" % (x, CONFIG_MAK [x])
+    return v
 
 
 def check_started (text):
@@ -678,14 +707,14 @@ def pkgconfig_check_library (lib, reqversion, reqtext = None):
     return check_library (lib, reqversion, reqtext, version, cflags, libs)
 
 
-def check_header (hdr, reqtext = None):
+def check_header (hdr, cflags = None, reqtext = None):
     rc = False
     check_started ("Checking for header file " + hdr)
     write_file ("conftest.c", """
 #include <%s>
 """ % hdr);
 
-    if check_compile ("conftest.c", "conftest" + TOOLKIT.OBJ):
+    if check_compile ("conftest.c", "conftest" + TOOLKIT.OBJ, cflags):
         check_finished ("OK")
         add_config_h ("HAVE_" + make_identifier (hdr))
         rc = True

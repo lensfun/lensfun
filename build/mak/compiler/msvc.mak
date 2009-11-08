@@ -43,10 +43,10 @@ XFNAME.MSVC = $(error Only the X86 architecture is currently supported by the MS
 else
 # Translate application/library pseudo-name into an actual file name
 XFNAME.MSVC = $(addprefix $$(OUT),\
-    $(patsubst %$E,%.exe,\
+    $(patsubst %$E,%$(_EX),\
     $(if $(findstring $L,$1),\
         $(if $(SHARED.$1),\
-            $(patsubst %$L,%$(SO),$1),\
+            $(addprefix $(SO_),$(patsubst %$L,%$(_SO),$1)),\
             $(patsubst %$L,%.lib,$1)\
         ),\
     $1)\
@@ -84,9 +84,9 @@ define MKLRULES.MSVC
 $(if $(filter %.lib,$1),\
 $(filter %.lib,$1): $2
 	$(if $V,,@echo LINK.MSVC.AR $$@ &&)$$(LINK.MSVC.AR))
-$(filter %.exe,$1): $2
+$(filter %$(_EX),$1): $2
 	$(if $V,,@echo LINK.MSVC.EXEC $$@ &&)$$(call LINK.MSVC.EXEC,$(LDFLAGS.$3) $(LDFLAGS.$4) $(call .SYSLIBS,LDLIBS,$3,$4),$(foreach z,$(LIBS.$3) $(LIBS.$4),$(call MSVC.LINKLIB,$z)))
-$(filter %.dll,$1): $2
+$(filter %$(_SO),$1): $2
 	$(if $V,,@echo LINK.MSVC.DLL $$@ &&)$$(call LINK.MSVC.DLL,$(LDFLAGS.$3) $(LDFLAGS.$4) $(call .SYSLIBS,LDLIBS,$3,$4),$(foreach z,$(LIBS.$3) $(LIBS.$4),$(call MSVC.LINKLIB,$z)))
 endef
 

@@ -5,4 +5,8 @@
 # OS-dependent extensions
 
 # Shared library filenames end in this
-SO=.dll
+_SO=.dll
+# Shared library filename prefix
+SO_=
+# Executables end in this
+_EX=.exe

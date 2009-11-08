@@ -5,4 +5,8 @@
 # OS-dependent extensions
 
 # Shared library filenames end in this
-SO=.so
+_SO = .so
+# Shared library filename prefix
+SO_ = lib
+# Executables end in this
+_EX =

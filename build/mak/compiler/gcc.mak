@@ -7,7 +7,9 @@ GCC.CFLAGS = -pipe -Wall \
     $(GCC.CFLAGS.$(MODE)) $(GCC.CFLAGS.DEF) $(GCC.CFLAGS.INC) $(CFLAGS)
 GCC.CFLAGS.DEF = $(CFLAGS.DEF)
 GCC.CFLAGS.INC = $(if $(DIR.INCLUDE.CXX),-I$(subst ;, -I,$(DIR.INCLUDE.CXX)))
+ifneq ($(TARGET),windows)
 GCC.CFLAGS.SHARED ?= -fPIC
+endif
 
 GCC.CFLAGS.release = -s -O3 -fomit-frame-pointer -funroll-loops
 GCC.CFLAGS.debug = -D__DEBUG__ -g
@@ -36,15 +38,15 @@ GCC.LINKLIB = $(if $(findstring $L,$1),,$(if $(findstring /,$1),$1,-l$1))
 GCC.MDEP = $(or $(MAKEDEP),makedep)
 GCC.MDEPFLAGS = -c -a -p'$$(OUT)' $(GCC.CFLAGS.DEF) $(GCC.CFLAGS.INC) $(MDEPFLAGS)
 
-GCC.AR = ar
+GCC.AR ?= ar
 GCC.ARFLAGS = crs
 
 # Translate application/library pseudo-name into an actual file name
 XFNAME.GCC = $(addprefix $$(OUT),\
-    $(patsubst %$E,%,\
+    $(patsubst %$E,%$(_EX),\
     $(if $(findstring $L,$1),\
         $(if $(SHARED.$1),\
-            $(addprefix lib,$(patsubst %$L,%$(SO),$1)),\
+            $(addprefix $(SO_),$(patsubst %$L,%$(_SO),$1)),\
             $(addprefix lib,$(patsubst %$L,%.a,$1))\
         ),\
     $1)\
@@ -74,11 +76,15 @@ endef
 
 LINK.GCC.AR = $(GCC.AR) $(GCC.ARFLAGS) $@ $^
 LINK.GCC.EXEC = $(GCC.LD) -o $@ $(GCC.LDFLAGS) $(LDFLAGS) $1 $^ $(GCC.LDFLAGS.LIBS) $(LDFLAGS.LIBS) $2
+ifeq ($(TARGET),windows)
+LINK.GCC.SO = $(GCC.LD) -o $@ -Wl,--out-implib,$@.a $(GCC.LDFLAGS.SHARED) $(GCC.LDFLAGS) $(LDFLAGS) $1 $^ $(GCC.LDFLAGS.LIBS) $(LDFLAGS.LIBS) $2
+else
 define LINK.GCC.SO
 	$(GCC.LD) -o $@.$(SHARED.$3) -Wl,"-soname=$(notdir $@).$(basename $(basename $(SHARED.$3)))" $(GCC.LDFLAGS.SHARED) $(GCC.LDFLAGS) $(LDFLAGS) $1 $^ $(GCC.LDFLAGS.LIBS) $(LDFLAGS.LIBS) $2
 	ln -fs $(notdir $@.$(SHARED.$3)) $@.$(basename $(basename $(SHARED.$3)))
 	ln -fs $(notdir $@.$(basename $(basename $(SHARED.$3)))) $@
 endef
+endif
 
 # Linking rules ($1 = target full filename, $2 = dependency list,
 # $3 = module name, $4 = unexpanded target name)
@@ -86,10 +92,10 @@ define MKLRULES.GCC
 $1: $2\
 $(if $(findstring $L,$4),\
 $(if $(SHARED.$4),
-	$(if $V,,@echo LINK.GCC.SHARED $$@ &&)$$(call LINK.GCC.SO,$(LDFLAGS.$3) $(LDFLAGS.$4) $(call .SYSLIBS,LDLIBS,$3,$4),$(foreach z,$(LIBS.$3) $(LIBS.$4),$(call GCC.LINKLIB,$z)),$4),
+	$(if $V,,@echo LINK.GCC.SHARED $$@ &&)$$(call LINK.GCC.SO,$(LDFLAGS.$3) $(LDFLAGS.$4),$(call .SYSLIBS,LDLIBS,$3,$4) $(foreach z,$(LIBS.$3) $(LIBS.$4),$(call GCC.LINKLIB,$z)),$4),
 	$(if $V,,@echo LINK.GCC.AR $$@ &&)$$(LINK.GCC.AR)))\
 $(if $(findstring $E,$4),
-	$(if $V,,@echo LINK.GCC.EXEC $$@ &&)$$(call LINK.GCC.EXEC,$(LDFLAGS.$3) $(LDFLAGS.$4) $(call .SYSLIBS,LDLIBS,$3,$4),$(foreach z,$(LIBS.$3) $(LIBS.$4),$(call GCC.LINKLIB,$z))))
+	$(if $V,,@echo LINK.GCC.EXEC $$@ &&)$$(call LINK.GCC.EXEC,$(LDFLAGS.$3) $(LDFLAGS.$4),$(call .SYSLIBS,LDLIBS,$3,$4) $(foreach z,$(LIBS.$3) $(LIBS.$4),$(call GCC.LINKLIB,$z))))
 $(GCC.EXTRA.MKLRULES)
 endef
 

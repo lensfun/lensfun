@@ -45,10 +45,10 @@ extern "C" {
  */
 
 #ifdef CONF_SYMBOL_VISIBILITY
-#   if defined CONF_COMPILER_gcc
-#       define LF_EXPORT    __attribute__((visibility("default")))
-#   elif defined CONF_COMPILER_msvc
+#   if defined PLATFORM_WINDOWS
 #       define LF_EXPORT    __declspec(dllexport)
+#   elif defined CONF_COMPILER_gcc
+#       define LF_EXPORT    __attribute__((visibility("default")))
 #   else
 #       error "I don't know how to change symbol visibility for your compiler"
 #   endif

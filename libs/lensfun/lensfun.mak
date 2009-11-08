@@ -8,8 +8,6 @@ LIBS.lensfun = $(TARGETS.regex)
 SYSLIBS.lensfun = GLIB_20
 INSTALL.TARGETS += lensfun
 INSTALL.INCLUDE.lensfun$L = include/lensfun/lensfun.h
-# This is needed for regex.c
-CFLAGS.lensfun$L = -DHAVE_CONFIG_H
 
 # For Posix systems we also will build the pkgconfig file
 ifeq ($(TARGET),posix)
