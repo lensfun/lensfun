@@ -320,9 +320,15 @@ def start ():
         DATADIR = PREFIX + "/share/" + PROJ
     if DOCDIR is None:
         DOCDIR = PREFIX + "/share/doc/" + PROJ + "-" + VERSION
+    # http://www.pathname.com/fhs/pub/fhs-2.3.html#LIB64
     if LIBDIR is None:
         if TARGET [1] [-2:] == "64":
             LIBDIR = PREFIX + "/lib64"
+            # Debian doesn't follow LFS in this regard
+            try:
+                os.stat (LIBDIR)
+            except:
+                LIBDIR = PREFIX + "/lib"
         else:
             LIBDIR = PREFIX + "/lib"
     if INCLUDEDIR is None:

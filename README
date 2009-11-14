@@ -60,30 +60,30 @@ To build the library, you must first configure the library and then
 build/install it, as usual. In order to successfully configure and
 build the project the following tools are more or less required:
 
-	- Python to run the configure script.
-	- GNU Make 3.80 or later to run the (rather complex) makefiles.
-	- Doxygen in order to generate the library documentation.
-	- GLib 2.0 and later which is used for low-level I/O and XML parsing.
-	- libpng is required to build and run test programs.
+    - Python to run the configure script.
+    - GNU Make 3.80 or later to run the (rather complex) makefiles.
+    - Doxygen in order to generate the library documentation.
+    - GLib 2.0 and later which is used for low-level I/O and XML parsing.
+    - libpng is required to build and run test programs.
 
 First, configure it almost as usual when you use autoconf-based build systems:
 
-	CFLAGS="..." CXXFLAGS="..." LDFLAGS="..." LIBS="..." \
-	./configure --prefix=... [--bindir, --libdir, --sysconfdir, ...] \
-		[--staticlibs (by default it builds shared libs)]
+        CFLAGS="..." CXXFLAGS="..." LDFLAGS="..." LIBS="..." \
+        ./configure --prefix=... [--bindir, --libdir, --sysconfdir, ...] \
+            [--staticlibs (by default it builds shared libs)]
 
 (see ./configure --help for a full list of configuration options).
 
 If all goes well, you now can enter:
 
-	make install
+        make install
 
 This will build and install everything required for installation. No separate
 build step is required, it will work in just one step. If you want to install
 somewhere else, not to the directory given by --prefix, you can define a
 installation prefix:
 
-	make install INSTALL_PREFIX=/some/where
+        make install INSTALL_PREFIX=/some/where
 
 also, for compatibility with GNU autotools, DESTDIR is also accepted as an
 alias for INSTALL_PREFIX.
@@ -94,7 +94,7 @@ html manual into a directory different than --docdir), you may override the
 target directory for any submodule by specifying the value of a variable named
 INSTDIR.${module}, like this:
 
-	make install INSTDIR.manual=/usr/share/doc/lensfun-manual
+        make install INSTDIR.manual=/usr/share/doc/lensfun-manual
 
 
 BUILDING FOR WINDOWS
@@ -102,45 +102,76 @@ BUILDING FOR WINDOWS
 
 You have two choices to build the library for Windows: you build under Windows
 and you build under Linux using WINE. I prefer the later since I don't have
-Windows installed anywhere.
+Windows installed anywhere. Also you can choose between MSVC and MinGW32
+compilers, native and cross-building is supported for both.
 
-In any case, building for Windows is quite a trick (like always). You will
-need Python (not if you're on WINE), glib binary and devel packages for Windows
-(download it from gtk homepage: http://www.gtk.org/download-windows.html)
-and a compiler (only MSVC, MinGW32 won't work so simple). You may use the free
-command-line MSVC that's available for download somewhere on Microsoft's site,
-like I do.
+In any case, building for Windows is quite a trick (like always). There are no
+hardcoded paths on Windows, like in Unix. However, if needed, using hard-coded
+paths is still possible (e.g. when using the MinGW32 cross-compiler on Unix,
+the prefix can be hardcoded to something like /usr/i686-pc-mingw32/sys-root/mingw).
+So both dynamic and static paths are supported for Windows builds.
 
-If you're on WINE, you must run the following script before starting
-compilation:
+To enable dynamic paths, you must define the respective static path to empty.
+For example, to make lensfun use dynamic paths (on supported platforms) you
+must use the --prefix="" --datadir="" configure command-line options so that
+CONF_DATADIR becomes undefined.
 
-	. build/mak/msvc-wine.sh /path/to/msvc x
 
-This will set up the environment and PATH appropiately.
+    with MSVC
+    ---------
 
-Now to configure I recommend the following command line:
+    You will need Python (native Unix python will work fine if cross-compiling),
+    glib binary and devel packages for Windows (download it from gtk homepage:
+    http://www.gtk.org/download-windows.html) and the MSVC compiler. You may use
+    the free command-line MSVC that's available for download somewhere on
+    Microsoft's site, like I do.
 
-	python configure --compiler=msvc --target=windows.x86 --mode=release \
-		--prefix= --bindir= --includedir= --libdir= --docdir= --datadir= \
-		--sysconfdir= --libexecdir=
+    If you're on WINE, you must run the following script before starting compilation:
 
-After that you may run make and build it.
+        . build/mak/msvc-wine.sh /path/to/msvc x
 
-If you use cross-platform MinGW32, configuring and building should be even simpler:
+    This will set up the environment and PATH appropiately.
 
-export TKP=i686-pc-mingw32-
-export SDKDIR=/usr/i686-pc-mingw32/sys-root/mingw
-./configure --compiler=gcc --target=windows.x86 --mode=release \
-    --prefix= --bindir= --includedir= --libdir= --docdir= --datadir= \
-    --sysconfdir= --libexecdir= $*
+    Now to configure I recommend the following command line:
 
-Just install the required libraries. On my system I had to install the following RPMs:
+        python configure --compiler=msvc --target=windows.x86 --mode=release \
+            --prefix= --bindir= --includedir= --libdir= --docdir= --datadir= \
+            --sysconfdir= --libexecdir=
+
+    After that you may run make and build it.
+
+
+    with MinGW32
+    ------------
+
+    For cross-compiling just install mingw32 and the required libraries.
+    On my system I had to install the following RPMs:
 
 	mingw32-gcc-c++
 	mingw32-libpng
 	mingw32-glib2
 
-Everything else was pulled in by dependencies.
+    Everything else was pulled in by dependencies.
+
+    Configuring and building is similar to MSVC builds:
+
+        export TKP=i686-pc-mingw32-
+        export SDKDIR=/usr/i686-pc-mingw32/sys-root/mingw
+        ./configure --compiler=gcc --target=windows.x86 --mode=release \
+            --prefix= --bindir= --includedir= --libdir= --docdir= --datadir= \
+            --sysconfdir= --libexecdir= $*
+
+    the TKP variable defines the compiler prefix to use (e.g. i686-pc-mingw32-gcc
+    instead of gcc, i686-pc-mingw32-g++ instead of g++ and so on). The SDKDIR
+    variable (just as for MSVC) will set the directory prefix where configure
+    will look for header files and libraries, because there's no pkg-config
+    on Windows.
+
+    To prepare a distribution it is recommended that you use the following
+    command line:
+
+        make install INSTALL_PREFIX=distr/ CONF_INCLUDEDIR=include/ \
+            CONF_LIBDIR=lib/ CONF_DATADIR=lib/lensfun/
 
 
 BUILD SYSTEM IN DEPTH

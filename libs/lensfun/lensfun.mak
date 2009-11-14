@@ -10,10 +10,12 @@ INSTALL.TARGETS += lensfun
 INSTALL.INCLUDE.lensfun$L = include/lensfun/lensfun.h
 
 # For Posix systems we also will build the pkgconfig file
-ifeq ($(TARGET),posix)
+ifneq ($(findstring /posix/,/$(TARGET)/)$(findstring /posix-windows/,/$(HOST)-$(TARGET)/),)
+ifdef $(CONF_LIBDIR)
 AUX += lensfun-pc
 TOOLKIT.lensfun-pc = PKGCONFIG
 TARGETS.lensfun-pc = lensfun.pc
 SRC.lensfun.pc := $(wildcard libs/lensfun/*.pc.in) config.mak
 INSTALL.TARGETS += lensfun-pc
+endif
 endif

@@ -99,11 +99,15 @@ $(if $(findstring $E,$4),
 $(GCC.EXTRA.MKLRULES)
 endef
 
+ifneq ($(TARGET),windows)
+LIBFILES.GCC = $(if $(SHARED.$1),$2.$(SHARED.$1) $2.$(basename $(basename $(SHARED.$1))))
+endif
+
 # Install rules ($1 = module name, $2 = unexpanded target file,
 # $3 = full target file name)
 define MKIRULES.GCC
 $(if $(findstring $L,$2),\
-$(foreach _,$3 $(if $(SHARED.$2),$3.$(SHARED.$2) $3.$(basename $(basename $(SHARED.$2)))),
+$(foreach _,$3 $(call LIBFILES.GCC,$2,$3),
 	$(if $V,,@echo INSTALL $_ to $(call .INSTDIR,$1,$2,LIB,$(CONF_LIBDIR)) &&)\
 	$$(call INSTALL,$_,$(call .INSTDIR,$1,$2,LIB,$(CONF_LIBDIR)),$(if $(SHARED.$2),0755,0644))))\
 $(if $(findstring $E,$2),
