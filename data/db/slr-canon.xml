@@ -56,6 +56,14 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon EOS-1D Mark II</model>
+        <model lang="en">EOS-1D Mark II</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.3</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon EOS-1D Mark II N</model>
         <model lang="en">EOS-1D Mark II N</model>
         <mount>Canon EF</mount>
@@ -64,17 +72,16 @@
 
     <camera>
         <maker>Canon</maker>
-        <model>Canon EOS-1D Mark II</model>
-        <model lang="en">EOS-1D Mark II</model>
+        <model>Canon EOS-1Ds Mark III</model>
+        <model lang="en">EOS-1Ds Mark III</model>
         <mount>Canon EF</mount>
-        <cropfactor>1.3</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <camera>
         <maker>Canon</maker>
-        <model>Canon EOS-1D Mark II</model>
-        <model lang="en">EOS-1D Mark II</model>
-        <variant>*</variant>
+        <model>Canon EOS-1D Mark III</model>
+        <model lang="en">EOS-1D Mark III</model>
         <mount>Canon EF</mount>
         <cropfactor>1.3</cropfactor>
     </camera>
@@ -97,8 +104,72 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon EOS DIGITAL REBEL XTi</model>
+        <model lang="en">EOS Digital Rebel XTi</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon EOS DIGITAL REBEL XS</model>
+        <model lang="en">EOS Digital Rebel XS</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon EOS DIGITAL REBEL XSi</model>
+        <model lang="en">EOS Digital Rebel XSi</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon EOS DIGITAL REBEL XTi</model>
+        <model lang="en">EOS Digital Rebel XTi</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon EOS DIGITAL REBEL XS</model>
+        <model lang="en">EOS Digital Rebel XS</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon EOS DIGITAL REBEL XSi</model>
+        <model lang="en">EOS Digital Rebel XSi</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon EOS DIGITAL REBEL</model>
         <model lang="en">EOS Digital Rebel</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon EOS REBEL T1i</model>
+        <model lang="en">EOS REBEL T1i</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon EOS REBEL T1i</model>
+        <model lang="en">EOS REBEL T1i</model>
         <mount>Canon EF-S</mount>
         <cropfactor>1.6</cropfactor>
     </camera>
@@ -140,7 +211,7 @@
         <maker>Canon</maker>
         <model>Canon EOS 450D</model>
         <model lang="en">EOS 450D</model>
-        <mount>Canon EF</mount>
+        <mount>Canon EF-S</mount>
         <cropfactor>1.6</cropfactor>
     </camera>
 
@@ -148,13 +219,13 @@
         <maker>Canon</maker>
         <model>Canon EOS 500D</model>
         <model lang="en">EOS 500D</model>
-        <mount>Canon EF</mount>
+        <mount>Canon EF-S</mount>
         <cropfactor>1.6</cropfactor>
     </camera>
 
     <camera>
         <maker>Canon</maker>
-        <model>Canon EOS 1000D DIGITAL</model>
+        <model>Canon EOS 1000D</model>
         <model lang="en">EOS 1000D</model>
         <mount>Canon EF-S</mount>
         <cropfactor>1.6</cropfactor>
@@ -371,6 +442,21 @@
             <distortion model="ptlens" focal="48" a="0" b="0.001543" c="-0.003821" />
             <distortion model="ptlens" focal="53" a="0" b="-0.001301" c="0.001515" />
             <distortion model="ptlens" focal="55" a="0" b="0.000426" c="-0.001817" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF-S 17-55mm f/2.8 IS USM</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="17" a="0.0160544" b="-0.0422842" c="0.00805163" />
+            <distortion model="ptlens" focal="20" a="0.0145107" b="-0.0318653" c="0.012966" />
+            <distortion model="ptlens" focal="23" a="0.0132784" b="-0.0244953" c="0.0194828" />
+            <distortion model="ptlens" focal="28" a="0.00120309" b="0.00979416" c="-0.00868762" />
+            <distortion model="ptlens" focal="35" a="-0.000341579" b="0.0108822" c="-0.00545481" />
+            <distortion model="ptlens" focal="55" a="0.00182321" b="0.00378863" c="0.00103256" />
         </calibration>
     </lens>
 
