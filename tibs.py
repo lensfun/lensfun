@@ -22,7 +22,7 @@ import re
 
 # Public interface
 __all__ = [
-    "start", "check_program", "add_config_h", "add_config_mak",
+    "start", "add_config_h", "add_config_mak",
     "check_program", "check_compile", "check_compile_and_link",
     "check_cflags", "check_header",
     "check_library", "pkgconfig_check_library",
@@ -84,7 +84,7 @@ OPTIONS = [
     [ None, "mode",       "MODE",  "global MODE; MODE = optarg",
       "Use given compilation mode by default (debug|release)" ],
     [ None, "compiler",   "COMP",  "global COMPILER; COMPILER = optarg",
-      "Use the respective compiler (supported: gcc|msvc)" ],
+      "Use the respective compiler (supported: GCC|MSVC)" ],
     [ None, "cflags",     "FLAGS", "global CFLAGS; CFLAGS = optarg",
       "Additional compiler flags for C" ],
     [ None, "cxxflags",   "FLAGS", "global CXXFLAGS; CXXFLAGS = optarg",
@@ -103,7 +103,7 @@ OPTIONS = [
 
 # Environment variables picked up: Name, Default value, Description
 ENVARS = [
-    [ "COMPILER", "gcc", "The compiler suite to use (default: @@@).\n"
+    [ "COMPILER", "GCC", "The compiler suite to use (default: @@@).\n"
                          "NOTE: a file named build/mak/$COMPILER.mak must exist!" ],
     [ "CFLAGS",   "",    "Additional compilation flags for C" ],
     [ "CXXFLAGS", "",    "Additional compilation flags for C++" ],
@@ -223,15 +223,20 @@ class compiler_msvc:
 
 # A list of supported compilers
 COMPILERS = {
-    "gcc":  lambda: compiler_gcc (),
-    "msvc": lambda: compiler_msvc (),
+    "GCC":  lambda: compiler_gcc (),
+    "MSVC": lambda: compiler_msvc (),
 }
 
 #-----------------------------------------------------------------------------#
 
 # Common initialization
 def start ():
-    global HOST, TARGET, EXE, TOOLKIT
+    """Start the autoconfiguring process. This includes searching the environment
+    for variables, parsing the command line, detecting host/target and compiler
+    and setting the base variables.
+    """
+
+    global HOST, TARGET, EXE, TOOLKIT, COMPILER
     global PREFIX, BINDIR, LIBDIR, SYSCONFDIR, DATADIR, DOCDIR
     global INCLUDEDIR, LIBEXECDIR, SHAREDLIBS
 
@@ -337,6 +342,7 @@ def start ():
         LIBEXECDIR = PREFIX + "/libexec/" + PROJ
 
     # Instantiate the compiler-dependent class
+    COMPILER = COMPILER.upper ();
     TOOLKIT = COMPILERS.get (COMPILER);
     if not TOOLKIT:
         print "Unsupported compiler: " + COMPILER
@@ -404,8 +410,10 @@ def detect_platform ():
     HOST.append (arch)
     TARGET.append (arch)
 
-    cpu = platform.processor ().replace ("-", "_")
-    TARGET.append (cpu)
+    cpu = platform.processor ()
+    if (not cpu) or (len (cpu) == 0):
+        cpu = platform.machine ()
+    TARGET.append (cpu.replace ("-", "_"))
 
     # HOST   contains ["platform", "arch"]
     # TARGET contains ["platform", "arch", "tune"]
@@ -497,14 +505,34 @@ def remove (filename):
 
 
 def add_config_h (macro, val = "1"):
-    global CONFIG_H
+    """Add a macro definition to config.h file. The contents of config.h is
+    accumulated during configure run in the tibs.CONFIG_H variable and finally
+    is written out with a tibs.update_file() call.
+
+    :Parameters:
+        `macro` : str
+            The name of the macro to define. Usually upper-case.
+        `val` : str
+            The value of the macro. If not specified, defaults to "1".
+    """
+    global CONFIG_H, _CONFIG_H
     macro = macro.strip ()
     CONFIG_H [macro] = val.strip ()
     _CONFIG_H.append (macro)
 
 
 def add_config_mak (macro, val = "1"):
-    global CONFIG_MAK
+    """Add a macro definition to config.mak file. The contents of config.mak is
+    accumulated during configure run in the tibs.CONFIG_MAK variable and finally
+    is written out with a tibs.update_file() call.
+
+    :Parameters:
+        `macro` : str
+            The name of the macro to define. Usually upper-case.
+        `val` : str
+            The value of the macro. If not specified, defaults to "1".
+    """
+    global CONFIG_MAK, _CONFIG_MAK
     macro = macro.strip ()
     CONFIG_MAK [macro] = val.strip ()
     _CONFIG_MAK.append (macro)
@@ -516,6 +544,7 @@ def get_config_h (header = None):
    as it will be overwritten next time you run configure! */
 
 """
+    global CONFIG_H, _CONFIG_H
     for x in _CONFIG_H:
         v = v + "#define %s %s\n" % (x, CONFIG_H [x])
     return v
@@ -527,6 +556,7 @@ def get_config_mak (header = None):
 # as it will be overwritten next time you run configure!
 
 """
+    global CONFIG_MAK, _CONFIG_MAK
     for x in _CONFIG_MAK:
         v = v + "%s=%s\n" % (x, CONFIG_MAK [x])
     return v
@@ -541,6 +571,16 @@ def check_finished (res):
 
 
 def check_compile (srcf, outf, cflags = None):
+    """Check if some file will compile with a exit code of 0.
+
+    :Parameters:
+        `srcf` : str
+            The source file name
+        `outf` : str
+            The output file name
+        `cflags` : str
+            Optional additional compiler flags
+    """
     cflags = cflags or ""
 
     cmd = TOOLKIT.c_compile (srcf, outf, cflags)
@@ -554,6 +594,18 @@ def check_compile (srcf, outf, cflags = None):
 
 
 def check_compile_and_link (srcf, outf, cflags = None, libs = None):
+    """Check if some file will compile and link with a exit code of 0.
+
+    :Parameters:
+        `srcf` : str
+            The source file name
+        `outf` : str
+            The output file name
+        `cflags` : str
+            Optional additional compiler flags
+        `libs` : str
+            Optional additional libraries to link with
+    """
     cflags = cflags or ""
     libs = libs or ""
 
@@ -568,6 +620,13 @@ def check_compile_and_link (srcf, outf, cflags = None, libs = None):
 
 
 def read_file (filename):
+    """Read a whole file into a variable.
+
+    :Parameters:
+        `filename` : str
+            The name of the file to read from
+    :Returns: the contents of the whole file in a string form.
+    """
     try:
         fd = open (filename, "r")
         content = fd.read ()
@@ -578,22 +637,60 @@ def read_file (filename):
 
 
 def write_file (filename, content):
+    """Write a string variable into a file.
+
+    :Parameters:
+        `filename` : str
+            The name of the file to write to
+        `content` : str
+            The content of the file
+    """
     fd = open (filename, "w")
     fd.write (content)
     fd.close ()
 
 
 def update_file (filename, content):
+    """Compare the content of a file with a variable, and if they differ,
+    write out the variable into the file. This can be used to update
+    a existing file with new content without unneedingly changing
+    timestamps if nothing changes.
+
+    :Parameters:
+        `filename` : str
+            The name of the file to write to
+        `content` : str
+            The new content to write to file
+    :Returns: True if content has changed, False if not
+    """
     old_content = read_file (filename)
 
     if content != old_content:
         print ("Updating file: " + filename);
         write_file (filename, content)
+        rc = True
     else:
         print ("Not changed: " + filename);
+        rc = False
+    return rc
 
 
 def check_cflags (cflags, var, xcflags = ""):
+    """Check if compiler supports certain flags. This is done by
+    creating a dummy source file and trying to compile it using
+    the requested flags.
+
+    :Parameters:
+        `cflags` : str
+            The compiler flags to check for
+        `var` : str
+            The name of the variable to append the flags to in the case
+            if the flags are supported (e.g. "CFLAGS", "CXXFLAGS" etc)
+        `xcflags` : str
+            Additional flags to use during test compilation. These won't
+            be appended to var.
+    :Returns: True if the flags are supported, False if not.
+    """
     check_started ("Checking if compiler supports " + cflags)
     if var == "CFLAGS":
         srcf = "conftest.c"
@@ -619,11 +716,31 @@ int main () { }
 
 
 def abort_configure (reqtext):
+    """Abort configuration process with a error message. The message
+    will look like:
+
+    Cannot build the project because ...
+
+    with ... being replaced by a string specified by the user.
+
+    :Parameters:
+        `reqtext` : str
+            The message explaining why the configure process is aborting.
+    """
     print "Cannot build the project because " + reqtext + "\n"
     sys.exit (1)
 
 
 def compare_version (version, req_version):
+    """Compare if a version number is greater or equal than another.
+
+    :Parameters:
+        `version` : str
+            The version which is checked
+        `req_version` : str
+            The minimally required version
+    :Returns: True if version fits the minimum requirements.
+    """
     v1 = re.split ('[.-]', version)
     v2 = re.split ('[.-]', req_version)
     for i in range (min (len (v1), len (v2))):
@@ -645,6 +762,26 @@ def check_lib_msg(lib, reqversion):
 
 
 def check_library (lib, reqversion = None, reqtext = None, version = None, cflags = None, libs = None):
+    """Check if certain library is available to the compiler.
+
+    :Parameters:
+        `lib` : str
+            The user-visible library name e.g. "Glib", "gnome libraries" and so on.
+        `reqversion` : str
+            If not None, the minimum required version of the library
+        `reqtext` : str
+            If this is not None in the event if library is not available a fatal error
+            message is printed and process aborts.
+        `version` : str
+            The version of the installed library. Usually passed in when you check
+            libraries with the pkgconfig_check_library method (the recommended way).
+        `cflags` : str
+            The cflags required to compiler a sample program using the library.
+        `libs` : str
+            The libraries required to link a sample program against the library.
+    :Returns: True if library is ok, False if not
+    """
+
     if not libs:
         libs = TOOLKIT.linklib (lib)
 
@@ -688,6 +825,17 @@ def check_library (lib, reqversion = None, reqtext = None, version = None, cflag
 
 
 def pkgconfig_check_library (lib, reqversion, reqtext = None):
+    """The easy way to check if a library is correctly installed and useable.
+
+    :Parameters:
+        `lib` : str
+            The library name for pkgconfig
+        `reqversion` : str
+            Minimally required version of the library
+        `reqtext` : str
+            The error message to print when the library is not found.
+    :Returns: True if library is ok, False if not
+    """
     global PROJ
 
     # First, check package for existence
@@ -714,6 +862,18 @@ def pkgconfig_check_library (lib, reqversion, reqtext = None):
 
 
 def check_header (hdr, cflags = None, reqtext = None):
+    """Check if a header file is available to the compiler. This is done
+    by creating a dummy source file and trying to compile it.
+
+    :Parameters:
+        `hdr` : str
+            The name of the header file to check for
+        `reqtext` : str
+            The message to print in the fatal error message when the header
+            file is not available. If it is None, the missing file is not
+            considered a fatal error.
+    :Returns: True if header file exists, False if not.
+    """
     rc = False
     check_started ("Checking for header file " + hdr)
     write_file ("conftest.c", """
@@ -736,23 +896,50 @@ def check_header (hdr, cflags = None, reqtext = None):
 
 
 def check_program (name, prog, ver_regex, req_version, failifnot = False):
+    """Check if some program is present, and if its version number is
+    sufficient.
+
+    :Parameters:
+        `name` : str
+            End-user program name (e.g. "make", "doxygen" etc).
+        `prog` : str
+            The command-line to run when checking for the program.
+            This includes any switches required to display version number
+            e.g. "make --version" and so on.
+        `var_regex` : str
+            The regular expression to select program version from the captured
+            output line. This could be something like ".*?([0-9\.]+).*".
+            The regex must match the whole line.
+        `req_version` : str
+            The minimal required version to fit
+        `failifnot` : bool
+            If True, tibs will print a error message and stop the configuration
+            process. Usually this means that the specified program is not optional
+            and it is impossible to build the project without it.
+    """
+
     check_started ("Checking for " + name + " >= " + req_version)
     rc = False
     version = None
     try:
         fd = os.popen (prog + " 2>&1")
-        line = fd.readline ().strip ()
+        lines = fd.readlines ()
         fd.close ()
 
-        if VERBOSE:
-            print "\n# '" + prog + "' returned '" + line + "'"
+        for line in lines:
+            line = line.strip ()
 
-        m = re.match (ver_regex, line)
+            if VERBOSE:
+                print "\n# '" + prog + "' returned '" + line + "'"
+
+            m = re.match (ver_regex, line)
+            if m:
+                version = m.group (1)
+                if not compare_version (version, req_version):
+                    raise
+                break
+
         if not m:
-            raise
-
-        version = m.group (1)
-        if not compare_version (version, req_version):
             raise
 
         check_finished (version + ", OK")
@@ -819,10 +1006,24 @@ for %s and we cannot use pkg-config because we are cross-compiling.
 
     return ""
 
-# Substitute macros like @NAME@ in given file and write the result
-# with substitutions to another file.
-# The macros are either taken from globals(), or are passed as argument.
 def substmacros (infile, outfile = None, macros = None):
+    """Substitute macros like @NAME@ in given file and write the result
+    with substitutions to another file.
+
+    The macros are either taken from globals(), or are passed as argument.
+
+    :Parameters:
+        `infile` : str
+            The input file name
+        `outfile` : str
+            The output file name, if None tibs expects infile to end with
+            '.in' in which case the suffix is removed and the result is
+            used as outfile.
+        `macros` : dict
+            A dictionary of macros names to replace, if None the normal
+            tibs variable names will be used (like CONF_PREFIX and so on).
+    :Returns: True if file content has changed, False if not
+    """
     if not outfile:
         if infile.endswith (".in"):
             outfile = infile [:-3]
@@ -836,6 +1037,11 @@ It either has to end in  `.in' or output file name must be given explicitly.
         macros = globals ()
 
     content = read_file (infile)
+    if not content:
+        abort_configure (
+"""the file `%s' does not exist or is empty.
+It is expected that it contains a template.
+""" % infile)
 
     rx = re.compile ("@([a-zA-Z0-9_]*)@")
     sc = rx.split (content)
@@ -850,4 +1056,4 @@ Macro @%s@ is used in `%s' but its value is undefined.
 
     content = "".join (sc)
 
-    update_file (outfile, content)
+    return update_file (outfile, content)

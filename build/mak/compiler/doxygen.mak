@@ -14,9 +14,9 @@ XFNAME.DOXYGEN = $(addprefix $(OUT)docs/,$(subst $D,/,$(filter %$D,$1)))
 # $2 - output directory
 define BUILD.DOXYGEN
 	$(call MKDIR,$2)
-	sed $1 \
-		-e 's,@CONF_VERSION@,$(CONF_VERSION),' \
-		-e 's,@OUT@,$2,' | doxygen -
+	sed -e 's,@CONF_VERSION@,$(CONF_VERSION),' \
+	    -e 's,@OUT@,$2,' \
+	    $1 | doxygen -
 	$(if $(DOXYGEN.$3),$(call DOXYGEN.$3,$3,$2))
 endef
 

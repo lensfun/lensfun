@@ -3,94 +3,94 @@
 # configure script for libLensFun
 #
 
-import ac
+import tibs
 
 # Define project name
-ac.PROJ = "lensfun"
+tibs.PROJ = "lensfun"
 # Define version number (major.minor.release)
-ac.VERSION = "0.2.4"
+tibs.VERSION = "0.2.4"
 # Project home page
-ac.HOMEPAGE = "http://lensfun.berlios.de"
+tibs.HOMEPAGE = "http://lensfun.berlios.de"
 
 # A directory where configure will find the required libs on systems
 # without pkg-config (e.g. windows) (only glib-2.0 needed so far)
-ac.OPTIONS.append (
+tibs.OPTIONS.append (
     [ None, "sdkdir", "DIR", "global SDKDIR; SDKDIR = optarg",
       "Specify the directory with additional libraries\n"
       "for platforms without pkg-config." ])
-ac.ENVARS.append (
+tibs.ENVARS.append (
     [ "SDKDIR", "./glib-2.0", "The directory for additional libraries (default: ./glib-2.0)" ])
 
-ac.start ()
+tibs.start ()
 
-if ac.TARGET [0] == "windows":
+if tibs.TARGET [0] == "windows":
     # On Windows we don't have pkg-config so we just have to hope
     # that user has a installed SDK somewhere where we can find it ...
-    ac.PKGCONFIG ["glib-2.0"] = {
+    tibs.PKGCONFIG ["glib-2.0"] = {
         "modversion": "2.0",
-        "cflags": ac.TOOLKIT.include (ac.SDKDIR + "/include/glib-2.0") + " " +
-                  ac.TOOLKIT.include (ac.SDKDIR + "/lib/glib-2.0/include"),
-        "libs": ac.TOOLKIT.linklib ("glib-2.0", ac.SDKDIR + "/lib")
+        "cflags": tibs.TOOLKIT.include (tibs.SDKDIR + "/include/glib-2.0") + " " +
+                  tibs.TOOLKIT.include (tibs.SDKDIR + "/lib/glib-2.0/include"),
+        "libs": tibs.TOOLKIT.linklib ("glib-2.0", tibs.SDKDIR + "/lib")
     }
-    ac.PKGCONFIG ["libpng"] = {
+    tibs.PKGCONFIG ["libpng"] = {
         "modversion": "1.0",
-        "cflags": ac.TOOLKIT.include (ac.SDKDIR + "/include"),
-        "libs": ac.TOOLKIT.linklib ("png", ac.SDKDIR + "/lib")
+        "cflags": tibs.TOOLKIT.include (tibs.SDKDIR + "/include"),
+        "libs": tibs.TOOLKIT.linklib ("png", tibs.SDKDIR + "/lib")
     }
 
 # Check for tools
-ac.check_program ("GNU Make", "make --version", ".*?([0-9\.]+).*", "3.81", True)
-if ac.check_program ("makedep", "makedep -V", ".*Version.*?([0-9\.]+).*", "0.1.0"):
-    ac.add_config_mak ("MAKEDEP", "makedep")
+tibs.check_program ("GNU Make", "make --version", ".*?([0-9\.]+).*", "3.81", True)
+if tibs.check_program ("makedep", "makedep -V", ".*Version.*?([0-9\.]+).*", "0.1.0"):
+    tibs.add_config_mak ("MAKEDEP", "makedep")
     makedep = "yes"
 else:
     makedep = "no"
 
-if ac.check_program ("Doxygen", "doxygen --version", "([0-9\.]+)", "1.5.0"):
-    ac.add_config_mak ("DOXYGEN", "doxygen")
+if tibs.check_program ("Doxygen", "doxygen --version", "([0-9\.]+)", "1.5.0"):
+    tibs.add_config_mak ("DOXYGEN", "doxygen")
     doxygen = "yes"
 else:
     doxygen = "no"
 
-ac.pkgconfig_check_library ("glib-2.0", "2.0",
+tibs.pkgconfig_check_library ("glib-2.0", "2.0",
     "this is the low-level library that libLensFun relies on")
-ac.check_header ("glib.h", ac.CONFIG_MAK ["CFLAGS.GLIB_20"],
+tibs.check_header ("glib.h", tibs.CONFIG_MAK ["CFLAGS.GLIB_20"],
     "this is the low-level library that libLensFun relies on")
 
-if ac.pkgconfig_check_library ("libpng", "1.0"):
+if tibs.pkgconfig_check_library ("libpng", "1.0"):
     # Check for zlib: first check for the standard libz.a name,
     # and then check for the bastard windoz's "zlib.lib".
-    if not ac.check_library ("zlib", None, None, None, "", ac.TOOLKIT.linklib ("z")):
+    if not tibs.check_library ("zlib", None, None, None, "", tibs.TOOLKIT.linklib ("z")):
         print "Re-trying with another library name ..."
-        ac.check_library ("zlib", None, None, None, "", ac.TOOLKIT.linklib ("zlib"))
+        tibs.check_library ("zlib", None, None, None, "", tibs.TOOLKIT.linklib ("zlib"))
 
 # On Windows we don't have regex.h, so use a open-source alternative instead.
 # One day we'll switch to regex library from GLib
-if not ac.check_header ("regex.h"):
-    ac.add_config_mak ("NEED_REGEX")
+if not tibs.check_header ("regex.h"):
+    tibs.add_config_mak ("NEED_REGEX")
 
-ac.add_config_mak ("TOOLKIT", ac.COMPILER.upper ())
-ac.add_config_mak ("CFLAGS", ac.CFLAGS)
-ac.add_config_mak ("CXXFLAGS", ac.CXXFLAGS)
-ac.add_config_mak ("LDFLAGS", ac.LDFLAGS)
-ac.add_config_mak ("LDLIBS", ac.LIBS)
-ac.add_config_mak ("MODE", ac.MODE)
-ac.add_config_mak ("GENFILES", "config.mak build/PKGBUILD " +
+tibs.add_config_mak ("TOOLKIT", tibs.COMPILER.upper ())
+tibs.add_config_mak ("CFLAGS", tibs.CFLAGS)
+tibs.add_config_mak ("CXXFLAGS", tibs.CXXFLAGS)
+tibs.add_config_mak ("LDFLAGS", tibs.LDFLAGS)
+tibs.add_config_mak ("LDLIBS", tibs.LIBS)
+tibs.add_config_mak ("MODE", tibs.MODE)
+tibs.add_config_mak ("GENFILES", "config.mak build/PKGBUILD " +
     "build/lensfun.spec include/config.h")
 
-ac.update_file ("include/config.h", ac.get_config_h ())
-ac.update_file ("config.mak", ac.get_config_mak ())
+tibs.update_file ("include/config.h", tibs.get_config_h ())
+tibs.update_file ("config.mak", tibs.get_config_mak ())
 
-ac.substmacros ("build/PKGBUILD.in")
-ac.substmacros ("build/lensfun.spec.in")
+tibs.substmacros ("build/PKGBUILD.in")
+tibs.substmacros ("build/lensfun.spec.in")
 
 print "--------------------------------------------------------------------"
-print "Default build mode:                 " + ac.MODE
+print "Default build mode:                 " + tibs.MODE
 print "Build doxygen documentation:        " + doxygen
 print "Use the pre-installed makedep:      " + makedep
-print "Target directory for binaries:      " + ac.BINDIR
-print "Target directory for data files:    " + ac.DATADIR
-print "Target directory for libraries:     " + ac.LIBDIR
-print "Target directory for include files: " + ac.INCLUDEDIR
-print "Target directory for documentation: " + ac.DOCDIR
+print "Target directory for binaries:      " + tibs.BINDIR
+print "Target directory for data files:    " + tibs.DATADIR
+print "Target directory for libraries:     " + tibs.LIBDIR
+print "Target directory for include files: " + tibs.INCLUDEDIR
+print "Target directory for documentation: " + tibs.DOCDIR
 print "--------------------------------------------------------------------"

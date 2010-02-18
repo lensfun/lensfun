@@ -6,7 +6,7 @@ GCC.CC ?= gcc -c
 GCC.CFLAGS = -pipe -Wall \
     $(GCC.CFLAGS.$(MODE)) $(GCC.CFLAGS.DEF) $(GCC.CFLAGS.INC) $(CFLAGS)
 GCC.CFLAGS.DEF = $(CFLAGS.DEF)
-GCC.CFLAGS.INC = $(if $(DIR.INCLUDE.CXX),-I$(subst ;, -I,$(DIR.INCLUDE.CXX)))
+GCC.CFLAGS.INC = $(if $(DIR.INCLUDE.C),-I$(subst :, -I,$(DIR.INCLUDE.C)))
 ifneq ($(TARGET),windows)
 GCC.CFLAGS.SHARED ?= -fPIC
 endif
@@ -24,11 +24,6 @@ GCC.CPPFLAGS = -pipe -x c-header $(GCC.CFLAGS.DEF) $(GCC.CFLAGS.INC)
 GCC.LD ?= g++
 GCC.LDFLAGS = $(GCC.LDFLAGS.$(MODE))
 GCC.LDFLAGS.LIBS = $(LDLIBS) -lm
-ifeq ($(TARGET),mac)
-GCC.LDFLAGS.SHARED ?= $(GCC.CFLAGS.SHARED) -dynamiclib
-else
-GCC.LDFLAGS.SHARED ?= $(GCC.CFLAGS.SHARED) -shared
-endif
 
 GCC.LDFLAGS.release = -s
 GCC.LDFLAGS.debug = -gdwarf-2 -g3
@@ -76,15 +71,20 @@ endef
 
 LINK.GCC.AR = $(GCC.AR) $(GCC.ARFLAGS) $@ $^
 LINK.GCC.EXEC = $(GCC.LD) -o $@ $(GCC.LDFLAGS) $(LDFLAGS) $1 $^ $(GCC.LDFLAGS.LIBS) $(LDFLAGS.LIBS) $2
-ifeq ($(TARGET),windows)
-LINK.GCC.SO = $(GCC.LD) -o $@ -Wl,--out-implib,$@.a $(GCC.LDFLAGS.SHARED) $(GCC.LDFLAGS) $(LDFLAGS) $1 $^ $(GCC.LDFLAGS.LIBS) $(LDFLAGS.LIBS) $2
-else
-define LINK.GCC.SO
-	$(GCC.LD) -o $@.$(SHARED.$3) -Wl,"-soname=$(notdir $@).$(basename $(basename $(SHARED.$3)))" $(GCC.LDFLAGS.SHARED) $(GCC.LDFLAGS) $(LDFLAGS) $1 $^ $(GCC.LDFLAGS.LIBS) $(LDFLAGS.LIBS) $2
+define LINK.GCC.SO.VER
+	$(GCC.LD) -o $@.$(SHARED.$3) $(call GCC.LDFLAGS.SHARED,$(notdir $@).$(basename $(basename $(SHARED.$3))),$(dir $@)) $(GCC.LDFLAGS) $(LDFLAGS) $1 $^ $(GCC.LDFLAGS.LIBS) $(LDFLAGS.LIBS) $2
 	ln -fs $(notdir $@.$(SHARED.$3)) $@.$(basename $(basename $(SHARED.$3)))
 	ln -fs $(notdir $@.$(basename $(basename $(SHARED.$3)))) $@
 endef
-endif
+define LINK.GCC.SO.NOVER
+	$(GCC.LD) -o $@ $(call GCC.LDFLAGS.SHARED,$(notdir $@),$(dir $@)) $(GCC.LDFLAGS) $(LDFLAGS) $1 $^ $(GCC.LDFLAGS.LIBS) $(LDFLAGS.LIBS) $2
+endef
+# If SHARED.$3 is a valid version number and target platform supports versioned
+# shared libraries, invokde LINK.GCC.SO.VER.
+# Otherwise create a non-versioned variant of the shared library
+define LINK.GCC.SO
+$(call LINK.GCC.SO.$(if $(call VALID_VERSION,$(SHARED.$3)),,NO)VER,$1,$2,$3)
+endef
 
 # Linking rules ($1 = target full filename, $2 = dependency list,
 # $3 = module name, $4 = unexpanded target name)
@@ -99,15 +99,11 @@ $(if $(findstring $E,$4),
 $(GCC.EXTRA.MKLRULES)
 endef
 
-ifneq ($(TARGET),windows)
-LIBFILES.GCC = $(if $(SHARED.$1),$2.$(SHARED.$1) $2.$(basename $(basename $(SHARED.$1))))
-endif
-
 # Install rules ($1 = module name, $2 = unexpanded target file,
 # $3 = full target file name)
 define MKIRULES.GCC
 $(if $(findstring $L,$2),\
-$(foreach _,$3 $(call LIBFILES.GCC,$2,$3),
+$(foreach _,$3 $(if $(call VALID_VERSION,$(SHARED.$2)),$3.$(basename $(basename $(SHARED.$2))) $3.$(SHARED.$2)),
 	$(if $V,,@echo INSTALL $_ to $(call .INSTDIR,$1,$2,LIB,$(CONF_LIBDIR)) &&)\
 	$$(call INSTALL,$_,$(call .INSTDIR,$1,$2,LIB,$(CONF_LIBDIR)),$(if $(SHARED.$2),0755,0644))))\
 $(if $(findstring $E,$2),
