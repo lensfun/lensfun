@@ -1068,4 +1068,37 @@
         <cropfactor>1.6</cropfactor>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon 28mm f/1.8 USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="28" a="0.018" b="-0.048" c="0.019" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon 135mm f/2.0L USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="135" a="-0.007" b="0.025" c="-0.019" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon 70-200mm f/4L IS USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="70" a="-0.012" b="0.037" c="-0.046" />
+            <distortion model="ptlens" focal="97" a="0.008" b="-0.025" c="0.028" />
+            <distortion model="ptlens" focal="127" a="0.001" b="0.004" c="-0.001" />
+            <distortion model="ptlens" focal="200" a="-0.005" b="0.032" c="-0.031" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
