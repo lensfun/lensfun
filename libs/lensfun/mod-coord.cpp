@@ -59,7 +59,7 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                 tmp [0] = model.Terms [0];
                 tmp [1] = model.Terms [1];
                 tmp [2] = model.Terms [2];
-                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_PTLens, 750, tmp, sizeof (float) * 2);
+                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_PTLens, 750, tmp, sizeof (float) * 3);
                 break;
 
             default:
@@ -205,7 +205,8 @@ bool lfModifier::AddCoordCallbackScale (float scale, bool reverse)
     }
 
     tmp [0] = reverse ? scale : 1.0 / scale;
-    AddCoordCallback (lfExtModifier::ModifyCoord_Scale, 100, tmp, sizeof (tmp));
+    int priority = reverse ? 900 : 100;
+    AddCoordCallback (lfExtModifier::ModifyCoord_Scale, priority, tmp, sizeof (tmp));
     return true;
 }
 

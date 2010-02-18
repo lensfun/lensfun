@@ -16,6 +16,21 @@
     </mount>
 
     <mount>
+        <name>canonG9</name>
+        <compat>Generic</compat>
+    </mount>
+
+    <mount>
+        <name>canonG11</name>
+        <compat>Generic</compat>
+    </mount>
+
+    <mount>
+        <name>canonG11</name>
+        <compat>Generic</compat>
+    </mount>
+
+    <mount>
         <name>canonSD500</name>
         <compat>Generic</compat>
     </mount>
@@ -86,6 +101,11 @@
     </mount>
 
     <mount>
+        <name>canonPro70</name>
+        <compat>Generic</compat>
+    </mount>
+
+    <mount>
         <name>canonSD200</name>
         <compat>Generic</compat>
     </mount>
@@ -95,12 +115,35 @@
         <compat>Generic</compat>
     </mount>
 
+    <mount>
+        <name>canonSX1</name>
+        <compat>Generic</compat>
+    </mount>
+
+    <mount>
+        <name>canonS90</name>
+        <compat>Generic</compat>
+    </mount>
+
+    <mount>
+        <name>canonD2000C</name>
+        <compat>Generic</compat>
+    </mount>
+
     <camera>
         <maker>Canon</maker>
         <model>Canon PowerShot Pro1</model>
         <model lang="en">PowerShot Pro1</model>
         <mount>canonPro1</mount>
         <cropfactor>3.933</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot Pro70</model>
+        <model lang="en">PowerShot Pro70</model>
+        <mount>canonPro70</mount>
+        <cropfactor>5.47</cropfactor>
     </camera>
 
     <camera>
@@ -141,6 +184,30 @@
         <model lang="en">PowerShot G1</model>
         <mount>canonG1</mount>
         <cropfactor>4.843</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot G9</model>
+        <model lang="en">PowerShot G9</model>
+        <mount>canonG9</mount>
+        <cropfactor>4.605</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot G10</model>
+        <model lang="en">PowerShot G10</model>
+        <mount>canonG10</mount>
+        <cropfactor>4.605</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot G11</model>
+        <model lang="en">PowerShot G11</model>
+        <mount>canonG11</mount>
+        <cropfactor>4.605</cropfactor>
     </camera>
 
     <camera>
@@ -621,6 +688,38 @@
         <cropfactor>5.28</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon DIGITAL IXUS 80 IS</model>
+        <model lang="en">Canon DIGITAL IXUS 80 IS</model>
+        <mount>canonIxus80IS</mount>
+        <cropfactor>6.1</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot SX1 IS</model>
+        <model lang="en">Canon PowerShot SX1 IS</model>
+        <mount>canonSX1</mount>
+        <cropfactor>5.5</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot S90</model>
+        <model lang="en">Canon PowerShot S90</model>
+        <mount>canonS90</mount>
+        <cropfactor>4.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>EOS D2000C</model>
+        <model lang="en">Canon EOS D2000C</model>
+        <mount>canonD2000C</mount>
+        <cropfactor>1.6</cropfactor>
+    </camera>
+
     <lens>
         <maker>Canon</maker>
         <model>Standard</model>
@@ -1042,6 +1141,21 @@
             <distortion model="ptlens" focal="51.8" a="0" b="0.003021" c="0" />
             <distortion model="ptlens" focal="64.7" a="0" b="0.003778" c="0" />
             <distortion model="ptlens" focal="72" a="0" b="0.003404" c="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Standard</model>
+        <mount>canonIxus80IS</mount>
+        <cropfactor>5.9</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="6.2" a="-0.032" b="0.125" c="-0.188" />
+            <distortion model="ptlens" focal="7.2" a="0.047" b="-0.154" c="0.140" />
+            <distortion model="ptlens" focal="8.3" a="-0.340" b="1.135" c="-1.264" />
+            <distortion model="ptlens" focal="9.7" a="0.025" b="-0.087" c="0.085" />
+            <distortion model="ptlens" focal="11.6" a="0.099" b="-0.302" c="0.288" />
+            <distortion model="ptlens" focal="18.6" a="0.054" b="-0.169" c="0.179" />
         </calibration>
     </lens>
 
