@@ -1,5 +1,11 @@
 # Rules for building pkgconfig files from templates
 
+ifdef CONF_LIBDIR
+# Try to guess here if target supports pkgconfig
+# - Any POSIX platform
+# - Cross-compiling on a POSIX target for WINDOWS (mingw32)
+ifneq ($(findstring /posix/,/$(TARGET)/)$(findstring /posix-windows/,/$(HOST)-$(TARGET)/),)
+
 XFNAME.PKGCONFIG = $(addprefix $$(OUT),$1)
 MKDEPS.PKGCONFIG = $1
 
@@ -38,3 +44,6 @@ endef
 define MKDRULES.PKGCONFIG
 .PHONY: $1
 endef
+
+endif
+endif
