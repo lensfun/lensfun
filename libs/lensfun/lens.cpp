@@ -12,6 +12,98 @@
 #include <locale.h>
 #include <math.h>
 
+static struct
+{
+    const char *regex;
+    guchar matchidx [4];
+    bool compiled;
+    regex_t rex;
+} lens_name_regex [] =
+{
+    {
+        // 1:[min aperture]-[max aperture] [min focal]-[max focal]mm
+        "[[:space:]]+1:([0-9.]+)(-[0-9.]+)?[[:space:]]+([0-9.]+)(-[0-9.]+)?(mm)?",
+        { 3, 4, 1, 2 },
+        false
+    },
+    {
+        // [min aperture]-[max aperture]/[min focal]-[max focal]
+        "([0-9.]+)(-[0-9.]+)?[[:space:]]*/[[:space:]]*([0-9.]+)(-[0-9.]+)?",
+        { 3, 4, 1, 2 },
+        false
+    },
+    {
+        // [min focal]-[max focal]mm f/[min aperture]-[max aperture]
+        "([0-9.]+)(-[0-9.]+)?(mm)?[[:space:]]+(f/?)?([0-9.]+)(-[0-9.]+)?",
+        { 1, 2, 5, 6 },
+        false
+    }
+};
+
+static float _lf_parse_float (const char *model, const regmatch_t &match)
+{
+    char tmp [100];
+    const char *src = model + match.rm_so;
+    int len = match.rm_eo - match.rm_so;
+
+    // Skip '-' since it's not a minus sign but rather the separator
+    if (*src == '-')
+        src++, len--;
+    strncpy (tmp, src, len);
+    tmp [len] = 0;
+
+    return atof (tmp);
+}
+
+static bool _lf_parse_lens_name (const char *model,
+                                 float &minf, float &maxf,
+                                 float &mina, float &maxa)
+{
+    if (!model)
+        return false;
+
+    for (size_t i = 0; i < ARRAY_LEN (lens_name_regex); i++)
+    {
+        if (!lens_name_regex [i].compiled)
+        {
+            regcomp (&lens_name_regex [i].rex, lens_name_regex [i].regex,
+                     REG_EXTENDED | REG_ICASE);
+            lens_name_regex [i].compiled = true;
+        }
+
+        regmatch_t matches [10];
+        if (regexec (&lens_name_regex [i].rex, model, 10, matches, 0))
+            continue;
+
+        guchar *matchidx = lens_name_regex [i].matchidx;
+        if (matches [matchidx [0]].rm_so != -1)
+            minf = _lf_parse_float (model, matches [matchidx [0]]);
+        if (matches [matchidx [1]].rm_so != -1)
+            maxf = _lf_parse_float (model, matches [matchidx [1]]);
+        if (matches [matchidx [2]].rm_so != -1)
+            mina = _lf_parse_float (model, matches [matchidx [2]]);
+        if (matches [matchidx [3]].rm_so != -1)
+            maxa = _lf_parse_float (model, matches [matchidx [3]]);
+        return true;
+    }
+
+    return false;
+}
+
+static void _lf_free_lens_regex ()
+{
+    for (size_t i = 0; i < ARRAY_LEN (lens_name_regex); i++)
+        if (lens_name_regex [i].compiled)
+        {
+            regfree (&lens_name_regex [i].rex);
+            lens_name_regex [i].compiled = false;
+        }
+}
+
+//------------------------------------------------------------------------//
+
+static int _lf_lens_regex_refs = 0;
+
 lfLens::lfLens ()
 {
     memset (this, 0, sizeof (*this));
@@ -20,6 +112,7 @@ lfLens::lfLens ()
     BlueCCI = 4;
     Type = LF_UNKNOWN;
     CropFactor = 1.0;
+    _lf_lens_regex_refs++;
 }
 
 lfLens::~lfLens ()
@@ -30,6 +123,8 @@ lfLens::~lfLens ()
     _lf_list_free ((void **)CalibDistortion);
     _lf_list_free ((void **)CalibTCA);
     _lf_list_free ((void **)CalibVignetting);
+    if (!--_lf_lens_regex_refs)
+        _lf_free_lens_regex ();
 }
 
 lfLens &lfLens::operator = (const lfLens &other)
@@ -71,7 +166,7 @@ lfLens &lfLens::operator = (const lfLens &other)
 
     return *this;
 }
-                                                    
+
 void lfLens::SetMaker (const char *val, const char *lang)
 {
     Maker = lf_mlstr_add (Maker, lang, val);
@@ -86,84 +181,6 @@ void lfLens::AddMount (const char *val)
 {
     if (val)
         _lf_addstr (&Mounts, val);
-}
-
-static float _lf_parse_float (const char *model, const regmatch_t &match)
-{
-    char tmp [100];
-    const char *src = model + match.rm_so;
-    int len = match.rm_eo - match.rm_so;
-
-    // Skip '-' since it's not a minus sign but rather the separator
-    if (*src == '-')
-        src++, len--;
-    strncpy (tmp, src, len);
-    tmp [len] = 0;
-
-    return atof (tmp);
-}
-
-static bool _lf_parse_lens_name (const char *model,
-                                 float &minf, float &maxf,
-                                 float &mina, float &maxa)
-{
-    static struct
-    {
-        const char *regex;
-        guchar matchidx [4];
-        bool compiled;
-        regex_t rex;
-    } lens_name_regex [] =
-    {
-        {
-            // 1:[min aperture]-[max aperture] [min focal]-[max focal]mm
-            "[[:space:]]+1:([0-9.]+)(-[0-9.]+)?[[:space:]]+([0-9.]+)(-[0-9.]+)?(mm)?",
-            { 3, 4, 1, 2 },
-            false
-        },
-        {
-            // [min aperture]-[max aperture]/[min focal]-[max focal]
-            "([0-9.]+)(-[0-9.]+)?[[:space:]]*/[[:space:]]*([0-9.]+)(-[0-9.]+)?",
-            { 3, 4, 1, 2 },
-            false
-        },
-        {
-            // [min focal]-[max focal]mm f/[min aperture]-[max aperture]
-            "([0-9.]+)(-[0-9.]+)?(mm)?[[:space:]]+(f/?)?([0-9.]+)(-[0-9.]+)?",
-            { 1, 2, 5, 6 },
-            false
-        }
-    };
-
-    if (!model)
-        return false;
-
-    for (size_t i = 0; i < ARRAY_LEN (lens_name_regex); i++)
-    {
-        if (!lens_name_regex [i].compiled)
-        {
-            regcomp (&lens_name_regex [i].rex, lens_name_regex [i].regex,
-                     REG_EXTENDED | REG_ICASE);
-            lens_name_regex [i].compiled = true;
-        }
-
-        regmatch_t matches [10];
-        if (regexec (&lens_name_regex [i].rex, model, 10, matches, 0))
-            continue;
-
-        guchar *matchidx = lens_name_regex [i].matchidx;
-        if (matches [matchidx [0]].rm_so != -1)
-            minf = _lf_parse_float (model, matches [matchidx [0]]);
-        if (matches [matchidx [1]].rm_so != -1)
-            maxf = _lf_parse_float (model, matches [matchidx [1]]);
-        if (matches [matchidx [2]].rm_so != -1)
-            mina = _lf_parse_float (model, matches [matchidx [2]]);
-        if (matches [matchidx [3]].rm_so != -1)
-            maxa = _lf_parse_float (model, matches [matchidx [3]]);
-        return true;
-    }
-
-    return false;
 }
 
 void lfLens::GuessParameters ()

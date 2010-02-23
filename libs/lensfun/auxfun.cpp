@@ -128,6 +128,8 @@ LF_EXPORT lfMLstr lf_mlstr_dup (const lfMLstr str)
         str_len = strlen (str) + 1;
         while (str [str_len])
             str_len += 2 + strlen (str + str_len + 1);
+        /* Reserve space for the last - closing - zero */
+        str_len++;
     }
 
     gchar *ret = (char *)g_malloc (str_len);
@@ -171,17 +173,18 @@ void _lf_addobj (void ***var, const void *val, size_t val_size,
             if (cmpf && cmpf (val, (*var) [n]))
             {
                 g_free ((*var) [n]);
-                (*var) [n] = g_malloc (val_size);
-                memcpy ((*var) [n], val, val_size);
+                goto alloc_copy;
                 return;
             }
 
     n++;
 
     (*var) = (void **)g_realloc (*var, (n + 1) * sizeof (void *));
-    (*var) [n - 1] = g_malloc (val_size);
-    memcpy ((*var) [n - 1], val, val_size);
-    (*var) [n] = NULL;
+    (*var) [n--] = NULL;
+
+alloc_copy:
+    (*var) [n] = g_malloc (val_size);
+    memcpy ((*var) [n], val, val_size);
 }
 
 bool _lf_delobj (void ***var, int idx)
@@ -196,7 +199,7 @@ bool _lf_delobj (void ***var, int idx)
         return false;
 
     g_free ((*var) [idx]);
-    memmove (&(*var) [idx], &(*var) [idx + 1], (len - idx + 1) * sizeof (void *));
+    memmove (&(*var) [idx], &(*var) [idx + 1], (len - idx) * sizeof (void *));
     (*var) = (void **)g_realloc (*var, len * sizeof (void *));
     return true;
 }
