@@ -1080,7 +1080,27 @@ int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
             break;
     }
 
+    switch (_lf_compare_num (pattern->MaxFocal, match->MaxFocal))
+    {
+        case -1:
+            return 0;
+
+        case +1:
+            score += 10;
+            break;
+    }
+
     switch (_lf_compare_num (pattern->MinAperture, match->MinAperture))
+    {
+        case -1:
+            return 0;
+
+        case +1:
+            score += 10;
+            break;
+    }
+
+    switch (_lf_compare_num (pattern->MaxAperture, match->MaxAperture))
     {
         case -1:
             return 0;
