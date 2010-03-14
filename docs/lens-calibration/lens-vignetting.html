@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<link rel="stylesheet" type="text/css" href="docs.css">
+<title>Calculating lens transversal chromatic aberration</title>
+</head>
+<body>
+
+<h1>Calculating lens vignetting</h1>
+
+<p>Creating a vignetting model is a <b>very</b> tedious task. The problem is that
+vignetting depends not only on the focal distance, like TCA and distortion.
+It also depends on aperture and distance to subject. This makes the number
+of test shots required for a good vignetting model grow exponentially.
+</p>
+
+<p>Hugin uses the following equation for modelling lens vignetting:
+</p>
+
+<pre>
+Cd = Cs * (1 + k1 * R^2 + k2 * R^4 + k3 * R^6)
+</pre>
+
+<p>(where 'Cd' is destination (resulting) color and Cs is the source color
+component (does not matter - red, green or blue)).
+</p>
+
+<p>The good news is that Hugin can automatically compute the k1, k2 and k3
+parameters. The bad news is that you'll have to use at least two (I have used
+three) shots for every focal/aperture/distance triplet and you'll have to
+align them correctly first (e.g. compute the distortion parameters
+as described in section <a href="lens-distortion.html">Calculating lens distortion</a>.
+If the images won't be aligned (check this with the "preview" button), the
+vignetting parameters computed will be absolutely bogus.
+</p>
+
+<p>Now after you align the images properly, go to the "Exposure" tab and select the
+following parameters for optimization:
+</p>
+
+<img src="vign-hugin-exposure.png" />
+
+<p>As in the case with distortion, make sure that parameters that we don't need
+are set to their default values. If this is not the case, switch to the respective
+tab and rectify that.
+</p>
+
+<p>Press "Optimize now!" and if all goes well, you'll get the computed
+k1, k2 and k3 parameters. Pick them up on the "Camera and lens" -> "Photometric"
+tab and insert into the database. Repeat the above steps for every set of
+test shots you got. In my case I got something like this:
+</p>
+
+<pre>
+&lt;lens&gt;
+    &lt;maker&gt;Pentax&lt;/maker&gt;
+    &lt;model&gt;SMC PENTAX DA 12-24mm F/4 ED AL IF&lt;/model&gt;
+    &lt;mount&gt;Pentax KAF2&lt;/mount&gt;
+    &lt;cropfactor&gt;1.5&lt;/cropfactor&gt;
+    &lt;calibration&gt;
+        &lt;distortion model="poly3" focal="12" k1="-0.01919" /&gt;
+        &lt;distortion model="poly3" focal="15" k1="-0.00774" /&gt;
+        &lt;distortion model="poly3" focal="18" k1="-0.00345" /&gt;
+        &lt;distortion model="poly3" focal="21" k1="-0.00199" /&gt;
+        &lt;distortion model="poly3" focal="24" k1="0.00061" /&gt;
+        &lt;tca model="poly3" focal="12" br="0.0000916" vr="0.9999904" bb="-0.0002397" vb="1.0006490" /&gt;
+        &lt;tca model="poly3" focal="15" br="0.0001253" vr="0.9999184" bb="-0.0002858" vb="1.0008241" /&gt;
+        &lt;tca model="poly3" focal="18" br="0.0001204" vr="0.9999075" bb="-0.0001990" vb="1.0006258" /&gt;
+        &lt;tca model="poly3" focal="21" br="0.0001063" vr="0.9999562" bb="-0.0001477" vb="1.0005692" /&gt;
+        &lt;tca model="poly3" focal="24" br="0.0000982" vr="1.0000005" bb="-0.0001137" vb="1.0004136" /&gt;
+        &lt;vignetting model="pa" focal="12" aperture="4.5" distance="100" k1="-0.19267" k2="0.09379" k3="-0.38938" /&gt;
+        &lt;vignetting model="pa" focal="15" aperture="4.5" distance="100" k1="-0.08756" k2="-0.28192" k3="0.06908" /&gt;
+        &lt;vignetting model="pa" focal="18" aperture="4.5" distance="100" k1="-0.05982" k2="-0.45748" k3="0.25039" /&gt;
+        &lt;vignetting model="pa" focal="21" aperture="4.5" distance="100" k1="-0.28874" k2="-0.06687" k3="0.09488" /&gt;
+        &lt;vignetting model="pa" focal="24" aperture="4.5" distance="100" k1="-0.44227" k2="0.2599" k3="-0.09436" /&gt;
+    &lt;/calibration&gt;
+&lt;/lens&gt;
+</pre>
+
+</body>
+</html>

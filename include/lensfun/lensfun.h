@@ -505,7 +505,7 @@ enum lfVignettingModel
     /**
      * Pablo D'Angelo vignetting model
      * (which is a more general variant of the cos^4 law):
-     * c = 1 + k1 * R^2 + k2 * R^4 + k3 * R^6
+     * Cd = Cs * (1 + k1 * R^2 + k2 * R^4 + k3 * R^6)
      * Ref: http://hugin.sourceforge.net/tech/
      */
     LF_VIGNETTING_MODEL_PA
