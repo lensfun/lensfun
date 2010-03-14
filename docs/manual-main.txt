@@ -525,31 +525,34 @@ you might try to find out the mathematical model for the distortion of the lens.
 Finally, you might try to find out the vignetting and transversal chromatic
 aberration parameters of the lens and get a complete lens description in database.
 
-Let's look at a simple lens description first.
+A simple lens database entry would look something like:
 
 @code
     <lens>
         <maker>Pentax</maker>
-        <model>SMC Pentax DA 16-45mm f/4.0 ED AL</model>
+        <model>SMC PENTAX DA 12-24mm F/4 ED AL IF</model>
         <mount>Pentax KAF2</mount>
     </lens>
 @endcode
 
-The above code just tells us that there exist a lens called
-"SMC Pentax DA 16-45mm f/4.0 ED AL" manufactured by Pentax and it uses the
+The above code just tells lensfun that there exist a lens called
+"SMC PENTAX DA 12-24mm F/4 ED AL IF" manufactured by Pentax and it uses the
 Pentax KAF2 mount. This is not very useful except to make user happy that
 there's at least one other person in the world owning his lens.
 
-Now to make the lens description really useful we have to find out the
-mathematical model of its distortions and fill them in the database.
+A better lens database entry would contain at least some data about how to
+correct lens distortion. This data can be calculated from test shots.
+Some special program should be used for this, or you could try to manually
+adjust the coefficients until you get decent results.
 
-@section calclensdist Calculating lens distortion
+Computing math model coefficients for distortion, tca, vignetting is a separate
+very complex matter. It is out of the scope of this manual to give even a
+short brief about this. There's a tutorial on lensfun site that will teach you
+how to create a complete lens entry using just a single tool - the wonderful Hugin.
 
-
-@section calclenstca Calculating lens transversal chromatic aberration (TCA)
-
-
-@section calclensvign Calculating lens vignetting
+@see lfDistortionModel
+@see lfTCAModel
+@see lfVignettingModel
 
 
 @page samplecode Sample code
