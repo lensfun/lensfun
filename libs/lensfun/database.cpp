@@ -965,7 +965,7 @@ const lfLens **lfDatabase::FindLenses (const lfCamera *camera,
     // Guess lens parameters from lens model name
     lens.GuessParameters ();
     lens.CropFactor = camera ? camera->CropFactor : 0.0;
-    return FindLenses (&lens, (sflags & LF_SEARCH_LOOSE) == 0);
+    return FindLenses (&lens, sflags);
 }
 
 static gint _lf_compare_lens_score (gconstpointer a, gconstpointer b)

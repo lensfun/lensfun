@@ -585,7 +585,7 @@ int lfFuzzyStrCmp::Compare (const char *match)
         }
     }
 
-    score = (score * 100) / match_words->len;
+    score = (score * 100) / pattern_words->len;
 
     Free (match_words);
 
