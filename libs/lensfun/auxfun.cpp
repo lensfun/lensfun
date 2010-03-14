@@ -523,7 +523,7 @@ void lfFuzzyStrCmp::Split (const char *str, GPtrArray *dest)
 int lfFuzzyStrCmp::Compare (const char *match)
 {
     Split (match, match_words);
-    if (!match_words->len)
+    if (!match_words->len || !pattern_words->len)
         return 0;
 
     size_t mi = 0;
