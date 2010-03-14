@@ -431,7 +431,7 @@ struct lfLensCalibDistortion
     enum lfDistortionModel Model;
     /** Focal distance at which this calibration data was taken (0 - unspecified) */
     float Focal;
-    /** Distortion coefficients, dependent on model (a,b,c; k1,k2,k3 or omega) */
+    /** Distortion coefficients, dependent on model (a,b,c; k1,k2 or omega) */
     float Terms [3];
 };
 

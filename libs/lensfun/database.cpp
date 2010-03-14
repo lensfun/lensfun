@@ -286,8 +286,7 @@ static void _xml_start_element (GMarkupParseContext *context,
             else if (!strcmp (attribute_names [i], "b") ||
                      !strcmp (attribute_names [i], "k2"))
                 dc.Terms [1] = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "c") ||
-                     !strcmp (attribute_names [i], "k3"))
+            else if (!strcmp (attribute_names [i], "c"))
                 dc.Terms [2] = atof (attribute_values [i]);
             else
             {

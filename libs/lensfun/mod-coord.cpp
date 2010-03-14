@@ -33,13 +33,13 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                 if (!model.Terms [0])
                     return false;
                 tmp [0] = 1.0 / model.Terms [0];
-                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly3, 750, tmp, sizeof (float));
+                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly3, 750,
+                                  tmp, sizeof (float));
                 break;
 
             case LF_DIST_MODEL_POLY5:
-                tmp [0] = model.Terms [0];
-                tmp [1] = model.Terms [1];
-                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly5, 750, tmp, sizeof (float) * 2);
+                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly5, 750,
+                                  model.Terms, sizeof (float) * 2);
                 break;
 
             case LF_DIST_MODEL_FOV1:
@@ -47,14 +47,13 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                     return false;
                 tmp [0] = 1.0 / model.Terms [0];
                 tmp [1] = 2.0 * tan (model.Terms [0] / 2.0);
-                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_FOV1, 750, tmp, sizeof (float) * 2);
+                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_FOV1, 750,
+                                  tmp, sizeof (float) * 2);
                 break;
 
             case LF_DIST_MODEL_PTLENS:
-                tmp [0] = model.Terms [0];
-                tmp [1] = model.Terms [1];
-                tmp [2] = model.Terms [2];
-                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_PTLens, 750, tmp, sizeof (float) * 3);
+                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_PTLens, 750,
+                                  model.Terms, sizeof (float) * 3);
                 break;
 
             default:
@@ -64,14 +63,13 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
         switch (model.Model)
         {
             case LF_DIST_MODEL_POLY3:
-                tmp [0] = model.Terms [0];
-                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_Poly3, 250, tmp, sizeof (float));
+                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_Poly3, 250,
+                                  model.Terms, sizeof (float));
                 break;
 
             case LF_DIST_MODEL_POLY5:
-                tmp [0] = model.Terms [0];
-                tmp [1] = model.Terms [1];
-                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_Poly5, 250, tmp, sizeof (float) * 2);
+                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_Poly5, 250,
+                                  model.Terms, sizeof (float) * 2);
                 break;
 
             case LF_DIST_MODEL_FOV1:
@@ -83,10 +81,8 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                 break;
 
             case LF_DIST_MODEL_PTLENS:
-                tmp [0] = model.Terms [0];
-                tmp [1] = model.Terms [1];
-                tmp [2] = model.Terms [2];
-                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_PTLens, 250, tmp, sizeof (float) * 3);
+                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_PTLens, 250,
+                                  model.Terms, sizeof (float) * 3);
                 break;
 
             default:
