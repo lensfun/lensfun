@@ -315,15 +315,27 @@ static void _xml_start_element (GMarkupParseContext *context,
                     tcac.Model = LF_TCA_MODEL_NONE;
                 else if (!strcmp (attribute_values [i], "linear"))
                     tcac.Model = LF_TCA_MODEL_LINEAR;
+                else if (!strcmp (attribute_values [i], "poly3"))
+                    tcac.Model = LF_TCA_MODEL_POLY3;
                 else
                     goto bad_attr;
             }
             else if (!strcmp (attribute_names [i], "focal"))
                 tcac.Focal = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "kr"))
+            else if (!strcmp (attribute_names [i], "kr") ||
+                     !strcmp (attribute_names [i], "vr"))
                 tcac.Terms [0] = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "kb"))
+            else if (!strcmp (attribute_names [i], "kb") ||
+                     !strcmp (attribute_names [i], "vb"))
                 tcac.Terms [1] = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "cr"))
+                tcac.Terms [2] = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "cb"))
+                tcac.Terms [3] = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "br"))
+                tcac.Terms [4] = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "bb"))
+                tcac.Terms [5] = atof (attribute_values [i]);
             else
                 goto unk_attr;
 

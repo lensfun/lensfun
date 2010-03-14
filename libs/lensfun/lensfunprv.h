@@ -13,6 +13,11 @@
 #define ARRAY_LEN(a)         (sizeof (a) / sizeof (a [0]))
 #define cbool                int
 
+// This epsilon is in image coordinate space, where 1.0 is
+// half of the smallest image dimension (width or height)
+// adjusted for the lens calibration data/camera crop factors.
+#define NEWTON_EPS 0.00001
+
 /** The type of a 8-bit pixel */
 typedef unsigned char lf_u8;
 /** The type of a 16-bit pixel */
@@ -309,17 +314,6 @@ extern int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
                                    lfFuzzyStrCmp *fuzzycmp, const char **compat_mounts);
 
 /**
- * Extract a third-order root from a number.
- * For some reason pow (x, 1.0/3.0) fails if x is negative, so
- * we have to use this wrapper.
- * @param x
- *     The number to extract the third-order root from.
- * @return
- *     The third-order root from x.
- */
-extern double _lf_rt3 (double x);
-
-/**
  * Google-in-your-pocket: a fuzzy string comparator.
  * This has been designed for comparing lens model names.
  * At construction the pattern is split into words and then the component
@@ -469,6 +463,8 @@ struct lfExtModifier : public lfModifier
 
     static void ModifyCoord_TCA_Linear (void *data, float *iocoord, int count);
     static void ModifyCoord_UnTCA_Linear (void *data, float *iocoord, int count);
+    static void ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count);
+    static void ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int count);
 
     static void ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int count);
     static void ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count);

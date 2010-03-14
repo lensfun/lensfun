@@ -460,6 +460,7 @@ send them to me so that I can include them in future releases of the database.
 
 <ul>
 <li>@ref addcamera
+<li>@ref addlens
 </ul>
 
 
@@ -513,6 +514,42 @@ Now you can create a XML entry for your camera:
 Now add this definition to a XML database file along lensfun database
 search path and your camera will be detected and lensfun will work properly
 with images produced by it.
+
+
+@page addlens Adding new lenses to the database
+
+There are several levels of detalization you can use when adding a new lens
+into the database. First, you could just add the basic identification information
+to the database, just to let the database know that such a lens exist. Then,
+you might try to find out the mathematical model for the distortion of the lens.
+Finally, you might try to find out the vignetting and transversal chromatic
+aberration parameters of the lens and get a complete lens description in database.
+
+Let's look at a simple lens description first.
+
+@code
+    <lens>
+        <maker>Pentax</maker>
+        <model>SMC Pentax DA 16-45mm f/4.0 ED AL</model>
+        <mount>Pentax KAF2</mount>
+    </lens>
+@endcode
+
+The above code just tells us that there exist a lens called
+"SMC Pentax DA 16-45mm f/4.0 ED AL" manufactured by Pentax and it uses the
+Pentax KAF2 mount. This is not very useful except to make user happy that
+there's at least one other person in the world owning his lens.
+
+Now to make the lens description really useful we have to find out the
+mathematical model of its distortions and fill them in the database.
+
+@section calclensdist Calculating lens distortion
+
+
+@section calclenstca Calculating lens transversal chromatic aberration (TCA)
+
+
+@section calclensvign Calculating lens vignetting
 
 
 @page samplecode Sample code

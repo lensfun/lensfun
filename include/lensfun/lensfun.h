@@ -452,10 +452,19 @@ enum lfTCAModel
     LF_TCA_MODEL_NONE,
     /**
      * Linear lateral chromatic aberrations model:
-     * Rd(R) = Ru(R) * k1, Rd(B) = Ru(B) * k2
+     * Rd(R) = Ru(R) * kr
+     * Rd(B) = Ru(B) * kb
      * Ref: http://cipa.icomos.org/fileadmin/papers/Torino2005/403.pdf
      */
-    LF_TCA_MODEL_LINEAR
+    LF_TCA_MODEL_LINEAR,
+
+    /**
+     * Third order polynomial:
+     * Rd(R) = Ru(R)^3 * br + Ru(R)^2 * cr + Ru(R) * vr
+     * Rd(B) = Ru(B)^3 * bb + Ru(B)^2 * cb + Ru(B) * vb
+     * Ref: http://wiki.panotools.org/Tca_correct
+     */
+    LF_TCA_MODEL_POLY3
 };
 
 C_TYPEDEF (enum, lfTCAModel)
@@ -473,7 +482,7 @@ struct lfLensCalibTCA
     /** Focal distance at which this calibration data was taken (0 - unspecified) */
     float Focal;
     /** The coefficients for TCA, dependent on model; separate for R and B */
-    float Terms [2];
+    float Terms [6];
 };
 
 C_TYPEDEF (struct, lfLensCalibTCA)
@@ -1575,8 +1584,8 @@ struct LF_EXPORT lfModifier
      * @param flags
      *     A set of flags (se LF_MODIFY_XXX) telling which distortions
      *     you want corrected. A value of LF_MODIFY_ALL orders correction
-     *     of everything possible. If the LF_MODIFY_REVERSE flag is set,
-     *     the object is prepared for a reverse modification.
+     *     of everything possible (will enable all correction models
+     *     present in lens description).
      * @param reverse
      *     If this parameter is true, a reverse transform will be prepared.
      *     That is, you take a undistorted image at input and convert it so

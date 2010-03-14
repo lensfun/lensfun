@@ -33,7 +33,7 @@ bool lfModifier::AddColorCallbackVignetting (
     memcpy (tmp, model.Terms, 3 * sizeof (float));
 
     // Damn! Hugin uses two different "normalized" coordinate systems:
-    // for distortions it uses 1.0 = max(half width, half height) and
+    // for distortions it uses 1.0 = min(half width, half height) and
     // for vignetting it uses 1.0 = half diagonal length. We have
     // to compute a transition coefficient as we always work in
     // the first coordinate system.

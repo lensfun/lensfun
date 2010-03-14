@@ -13,11 +13,6 @@
 #define _USE_MATH_DEFINES // f*k microsoft
 #include <math.h>
 
-// This epsilon is in image coordinate space, where 1.0 is
-// half of the smallest image dimension (width or height)
-// adjusted for the lens calibration data/camera crop factors.
-#define NEWTON_EPS 0.00001
-
 void lfModifier::AddCoordCallback (
     lfModifyCoordFunc callback, int priority, void *data, size_t data_size)
 {
@@ -410,6 +405,8 @@ void lfExtModifier::ModifyCoord_Scale (void *data, float *iocoord, int count)
 
 void lfExtModifier::ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int count)
 {
+    const float inv_k1 = *(float *)data;
+
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
@@ -418,40 +415,31 @@ void lfExtModifier::ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int coun
         if (ru == 0.0)
             continue;
 
-#if 0
-        // Works for positive k1 only, for negative it creates complex numbers
-        float b = *(float *)data;
-        float c = -b * ru;
-
-        float _u = sqrt (c * c / 4.0 + b * b * b / 27.0);
-        float u = _lf_rt3 (c / 2.0 + _u);
-        if (u == 0.0)
-            u = _lf_rt3 (c / 2.0 - _u);
-
-        float rd = b / (3.0 * u) - u;
-#else
-        float c = *(float *)data;
-        float d = -c * ru;
+        float ru_div_k1 = ru * inv_k1;
 
         // Use Newton's method to avoid dealing with complex numbers
         // When carefully tuned this works almost as fast as Cardano's
         // method (and we don't use complex numbers in it, which is
         // required for a full solution!)
+        //
+        // Original function: Ru = k1 * Rd^3 + Rd
+        // Target function:   k1 * Rd^3 + Rd - Ru = 0
+        // Divide by k1:      R2^3 + Rd/k1 - Ru/k1 = 0
+        // Derivative:        3 * Rd^2 + 1/k1
         double rd = ru;
         for (int step = 0; ; step++)
         {
-            double frd = rd * rd * rd + c * rd + d;
+            double frd = rd * rd * rd + rd * inv_k1 - ru_div_k1;
             if (frd >= -NEWTON_EPS && frd < NEWTON_EPS)
                 break;
             if (step > 5)
                 // Does not converge, no real solution in this area?
                 goto next_pixel;
 
-            rd -= frd / (3 * rd * rd + c);
+            rd -= frd / (3 * rd * rd + inv_k1);
         }
         if (rd < 0.0)
             continue; // Negative radius does not make sense at all
-#endif
 
         rd /= ru;
         iocoord [0] = x * rd;
@@ -471,10 +459,10 @@ void lfExtModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int co
     {
         const float x = iocoord [0];
         const float y = iocoord [1];
-        float r2 = x * x + y * y;
+        const float poly2 = 1.0 + k1 * (x * x + y * y);
 
-        iocoord [0] = x * (1.0 + k1 * r2);
-        iocoord [1] = y * (1.0 + k1 * r2);
+        iocoord [0] = x * poly2;
+        iocoord [1] = y * poly2;
     }
 }
 
@@ -529,11 +517,11 @@ void lfExtModifier::ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int co
     {
         const float x = iocoord [0];
         const float y = iocoord [1];
-        float r2 = x * x + y * y;
-        float r4 = r2 * r2;
+        const float r2 = x * x + y * y;
+        const float poly4 = (1.0 + k1 * r2 + k2 * r2 * r2);
 
-        iocoord [0] = x * (1.0 + k1 * r2 + k2 * r4);
-        iocoord [1] = y * (1.0 + k1 * r2 + k2 * r4);
+        iocoord [0] = x * poly4;
+        iocoord [1] = y * poly4;
     }
 }
 
@@ -626,9 +614,10 @@ void lfExtModifier::ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int c
         const float y = iocoord [1];
         const float r2 = x * x + y * y;
         const float r = sqrt (r2);
+        const float poly3 = a * r2 * r + b * r2 + c * r + 1.0;
 
-        iocoord [0] = x * (a * r2 * r + b * r2 + c * r + 1);
-        iocoord [1] = y * (a * r2 * r + b * r2 + c * r + 1);
+        iocoord [0] = x * poly3;
+        iocoord [1] = y * poly3;
     }
 }
 

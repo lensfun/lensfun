@@ -619,11 +619,3 @@ int lfFuzzyStrCmp::Compare (const lfMLstr match)
 
     return ret;
 }
-
-double _lf_rt3 (double x)
-{
-    if (x < 0.0)
-        return -pow (-x, 1.0 / 3.0);
-    else
-        return pow (x, 1.0 / 3.0);
-}
