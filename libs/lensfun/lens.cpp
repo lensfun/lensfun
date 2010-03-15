@@ -343,14 +343,15 @@ const char *lfLens::GetTCAModelDesc (
 
     static const lfParameter param_poly3_br = { "br", -0.01F, 0.01F, 0.0F };
     static const lfParameter param_poly3_cr = { "cr", -0.01F, 0.01F, 0.0F };
-    static const lfParameter param_poly3_vr = { "vr", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_poly3_vr = { "vr",  0.99F, 1.01F, 1.0F };
     static const lfParameter param_poly3_bb = { "bb", -0.01F, 0.01F, 0.0F };
     static const lfParameter param_poly3_cb = { "cb", -0.01F, 0.01F, 0.0F };
-    static const lfParameter param_poly3_vb = { "vb", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_poly3_vb = { "vb",  0.99F, 1.01F, 1.0F };
     static const lfParameter *param_poly3 [] =
     {
-        &param_poly3_br, &param_poly3_cr, &param_poly3_vr,
-        &param_poly3_bb, &param_poly3_cb, &param_poly3_vb,
+        &param_poly3_vr, &param_poly3_vb,
+        &param_poly3_cr, &param_poly3_cb,
+        &param_poly3_br, &param_poly3_bb,
         NULL
     };
 
