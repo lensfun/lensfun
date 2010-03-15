@@ -341,6 +341,19 @@ const char *lfLens::GetTCAModelDesc (
     static const lfParameter *param_linear [] =
     { &param_linear_kr, &param_linear_kb, NULL };
 
+    static const lfParameter param_poly3_br = { "br", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_poly3_cr = { "cr", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_poly3_vr = { "vr", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_poly3_bb = { "bb", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_poly3_cb = { "cb", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_poly3_vb = { "vb", -0.01F, 0.01F, 0.0F };
+    static const lfParameter *param_poly3 [] =
+    {
+        &param_poly3_br, &param_poly3_cr, &param_poly3_vr,
+        &param_poly3_bb, &param_poly3_cb, &param_poly3_vb,
+        NULL
+    };
+
     switch (model)
     {
         case LF_TCA_MODEL_NONE:
@@ -352,11 +365,19 @@ const char *lfLens::GetTCAModelDesc (
 
         case LF_TCA_MODEL_LINEAR:
             if (details)
-                *details = "Rd = Ru * k\n"
+                *details = "Cd = Cs * k\n"
                     "Ref: http://cipa.icomos.org/fileadmin/papers/Torino2005/403.pdf";
             if (params)
                 *params = param_linear;
             return "Linear";
+
+        case LF_TCA_MODEL_POLY3:
+            if (details)
+                *details = "Cd = Cs^3 * b + Cs^2 * c + Cs * v\n"
+                    "Ref: http://wiki.panotools.org/Tca_correct";
+            if (params)
+                *params = param_poly3;
+            return "3rd order polynomial";
 
         default:
             // keep gcc 4.4 happy

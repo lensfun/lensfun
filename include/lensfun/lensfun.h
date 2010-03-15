@@ -452,16 +452,16 @@ enum lfTCAModel
     LF_TCA_MODEL_NONE,
     /**
      * Linear lateral chromatic aberrations model:
-     * Rd(R) = Ru(R) * kr
-     * Rd(B) = Ru(B) * kb
+     * Cd(R) = Cs(R) * kr
+     * Cd(B) = Cs(B) * kb
      * Ref: http://cipa.icomos.org/fileadmin/papers/Torino2005/403.pdf
      */
     LF_TCA_MODEL_LINEAR,
 
     /**
      * Third order polynomial:
-     * Rd(R) = Ru(R)^3 * br + Ru(R)^2 * cr + Ru(R) * vr
-     * Rd(B) = Ru(B)^3 * bb + Ru(B)^2 * cb + Ru(B) * vb
+     * Cd(R) = Cs(R)^3 * br + Cs(R)^2 * cr + Cs(R) * vr
+     * Cd(B) = Cs(B)^3 * bb + Cs(B)^2 * cb + Cs(B) * vb
      * Ref: http://wiki.panotools.org/Tca_correct
      */
     LF_TCA_MODEL_POLY3
