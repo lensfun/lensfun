@@ -178,7 +178,8 @@ template<>inline lf_u8 *apply_multiplier (lf_u8 *pixels, double c, int &cr)
 {
     // Use 20.12 fixed-point math. That leaves 11 bits (factor 2048)  as max multiplication
     int c12 = int (c * 4096.0);
-    c12 = (c12 > (2047 << 12)) ? (2047 << 12) : c12;
+    if (c12 > (2047 << 12))
+        c12 = 2047 << 12;
 
     for (;;)
     {
@@ -212,8 +213,9 @@ template<>inline lf_u8 *apply_multiplier (lf_u8 *pixels, double c, int &cr)
 template<>inline lf_u16 *apply_multiplier (lf_u16 *pixels, double c, int &cr)
 {
     // Use 22.10 fixed-point math. That leaves 6 bits (factor 32)  as max multiplication
-    int c10 = int(c * 1024.0);
-    c10 = (c10 > (31<<10)) ? (31<<10) : c10;
+    int c10 = int (c * 1024.0);
+    if (c10 > (31 << 10))
+        c10 = 31 << 10;
 
     for (;;)
     {
