@@ -20,6 +20,12 @@ tibs.OPTIONS.append (
       "for platforms without pkg-config." ])
 tibs.ENVARS.append (
     [ "SDKDIR", "./glib-2.0", "The directory for additional libraries (default: ./glib-2.0)" ])
+# Add a option to set/disable vectorization instructions
+tibs.OPTIONS.append (
+    [ None, "vectorization", "MODE", "global VECTORIZATION; VECTORIZATION = optarg",
+      "Compile with vectorization instruction set (if supported)\n"
+      "or disable vectorization ('sse4','sse3','sse2','sse','')." ])
+tibs.VECTORIZATION = "yes";
 
 tibs.start ()
 
@@ -68,6 +74,18 @@ if tibs.pkgconfig_check_library ("libpng", "1.0"):
 # One day we'll switch to regex library from GLib
 if not tibs.check_header ("regex.h"):
     tibs.add_config_mak ("NEED_REGEX")
+
+# Check for CPU vectorization feature enable flags
+if tibs.VECTORIZATION.upper () == "YES":
+    if (tibs.TARGET [1] == "x86") or (tibs.TARGET [1] == "x86_64"):
+        tibs.VECTORIZATION = ["sse2", "sse"]
+
+if type (tibs.VECTORIZATION) == str:
+    tibs.VECTORIZATION = tibs.VECTORIZATION.split (",");
+
+for flag in tibs.VECTORIZATION:
+    if len (flag) and tibs.check_cflags ("-m" + flag, "CFLAGS"):
+        break
 
 tibs.add_config_mak ("TOOLKIT", tibs.COMPILER.upper ())
 tibs.add_config_mak ("CFLAGS", tibs.CFLAGS)

@@ -474,7 +474,10 @@ struct lfExtModifier : public lfModifier
     static void ModifyCoord_UnDist_FOV1 (void *data, float *iocoord, int count);
     static void ModifyCoord_Dist_PTLens (void *data, float *iocoord, int count);
     static void ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int count);
-
+#if defined(__SSE__)
+    static void ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int count);
+    static void ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int count);
+#endif
     static void ModifyCoord_Geom_Rect_FishEye (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_Rect_Panoramic (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_Rect_ERect (void *data, float *iocoord, int count);
@@ -487,6 +490,14 @@ struct lfExtModifier : public lfModifier
     static void ModifyCoord_Geom_ERect_Rect (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_ERect_FishEye (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_ERect_Panoramic (void *data, float *iocoord, int count);
+#if defined(__SSE2__)
+    static void ModifyColor_DeVignetting_PA_SSE2 (
+      void *data, float _x, float _y, lf_u16 *pixels, int comp_role, int count);
+    static void ModifyColor_DeVignetting_PA_SSE2_aligned (
+      void *data, float _x, float _y, lf_u16 *pixels, int comp_role, int count);
+    static void ModifyColor_DeVignetting_PA_Select (
+      void *data, float x, float y, lf_u16 *pixels, int comp_role, int count);
+#endif
 
     template<typename T> static void ModifyColor_Vignetting_PA (
         void *data, float x, float y, T *rgb, int comp_role, int count);

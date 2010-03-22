@@ -36,5 +36,5 @@ MAKEDEP = $(OUT)makedep$(EXE)
 MAKEDEP_DEP = $(MAKEDEP)
 endif
 
-DIR.TIBS = build/mak
+DIR.TIBS = build/tibs
 include $(DIR.TIBS)/rules.mak

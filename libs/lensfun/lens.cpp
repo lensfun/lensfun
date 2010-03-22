@@ -1049,9 +1049,11 @@ gint _lf_lens_compare (gconstpointer a, gconstpointer b)
     if (cmp != 0)
         return cmp;
 
-    cmp = int ((i1->MaxAperture - i2->MaxAperture) * 100);
-    if (cmp != 0)
-        return cmp;
+    // MaxAperture is usually not given in database...
+    // so it's a guessed value, often incorrect.
+    //cmp = int ((i1->MaxAperture - i2->MaxAperture) * 100);
+    //if (cmp != 0)
+    //    return cmp;
 
     return int ((i1->CropFactor - i2->CropFactor) * 100);
 }
@@ -1122,10 +1124,12 @@ int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
             break;
     }
 
+    // MaxAperture is usually not given in database...
+    // so it's a guessed value, often incorrect.
     switch (_lf_compare_num (pattern->MaxAperture, match->MaxAperture))
     {
-        case -1:
-            return 0;
+        //case -1:
+        //    return 0;
 
         case +1:
             score += 10;
