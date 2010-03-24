@@ -102,18 +102,19 @@ $(error Incorrect value for the MODE variable: $(MODE))
 endif
 
 # Include host-dependent definitions
-include $(DIR.TIBS)/host/$(HOST).mak
+SUBMAKEFILES += $(wildcard $(DIR.TIBS)/host/$(HOST).mak)
 # Include target-dependent definitions
-include $(DIR.TIBS)/target/$(TARGET).mak
+SUBMAKEFILES += $(wildcard $(DIR.TIBS)/target/$(TARGET).mak)
 
 # Expand a target name into an actual file name ($1 - source file, $2 - target)
 MKDEPS.DEFAULT = $(addprefix $$(OUT),$1)
 # Call the appropiate MKDEPS macro ($1 - toolkit, $2 - source file, $3 - target)
 MKDEPS = $(call MKDEPS.$(if $(MKDEPS.$1),$1,DEFAULT),$2,$3)
-# Now includue the definitions for all known compilers
-include $(wildcard $(DIR.TIBS)/compiler/*.mak)
-# And finally include submakefiles for all modules
+# Includue the definitions for all known compilers
+SUBMAKEFILES += $(wildcard $(DIR.TIBS)/compiler/*.mak)
+# And also submakefiles for all modules
 SUBMAKEFILES += $(foreach x,$(GROUPS),$(wildcard $($x.dir)/*.mak $($x.dir)/*/*.mak))
+# Now actually parse the submakefiles
 include $(SUBMAKEFILES)
 
 # Separator line -- $-, that is :-)
@@ -183,6 +184,8 @@ $(foreach x,$(GROUPS),$(eval install-$($x.dir): install-$($x)))
 # 'type' can be one of "BIN", "LIB", "INCLUDE", "DOC", "PKGCONFIG" and a few others
 # (look in the .mak file for the respective toolkit).
 .INSTDIR = $(INSTALL_PREFIX)$(or $(INSTDIR.$3.$2),$(INSTDIR.$3.$1),$(INSTDIR.$2),$(INSTDIR.$1),$4)
+# Return the target file mode for module $1 target $2, default value $3
+.INSTMODE = $(or $(INSTMODE.$1),$(INSTMODE.$2),$3)
 
 # Okay, here goes the horror part :)
 # $1 - module name

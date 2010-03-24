@@ -14,6 +14,11 @@ endif
 GCC.CFLAGS.release = -s -O3 -fomit-frame-pointer -funroll-loops
 GCC.CFLAGS.debug = -D__DEBUG__ -g
 
+ifeq ($(ARCH),arm)
+# ARM gcc is known to generate wrong code with -O3
+GCC.CFLAGS.release := $(subst -O3,-O2,$(GCC.CFLAGS.release))
+endif
+
 GCC.CXX ?= g++ -c
 GCC.CXXFLAGS = $(GCC.CFLAGS) $(CXXFLAGS)
 GCC.CXXFLAGS.SHARED = $(GCC.CFLAGS.SHARED)
@@ -92,10 +97,10 @@ define MKLRULES.GCC
 $1: $2\
 $(if $(findstring $L,$4),\
 $(if $(SHARED.$4),
-	$(if $V,,@echo LINK.GCC.SHARED $$@ &&)$$(call LINK.GCC.SO,$(LDFLAGS.$3) $(LDFLAGS.$4),$(call .SYSLIBS,LDLIBS,$3,$4) $(foreach z,$(LIBS.$3) $(LIBS.$4),$(call GCC.LINKLIB,$z)),$4),
+	$(if $V,,@echo LINK.GCC.SHARED $$@ &&)$$(call LINK.GCC.SO,$(subst $(COMMA),$$(COMMA),$(LDFLAGS.$3) $(LDFLAGS.$4)),$(call .SYSLIBS,LDLIBS,$3,$4) $(foreach z,$(LIBS.$3) $(LIBS.$4),$(call GCC.LINKLIB,$z)),$4),
 	$(if $V,,@echo LINK.GCC.AR $$@ &&)$$(LINK.GCC.AR)))\
 $(if $(findstring $E,$4),
-	$(if $V,,@echo LINK.GCC.EXEC $$@ &&)$$(call LINK.GCC.EXEC,$(LDFLAGS.$3) $(LDFLAGS.$4),$(call .SYSLIBS,LDLIBS,$3,$4) $(foreach z,$(LIBS.$3) $(LIBS.$4),$(call GCC.LINKLIB,$z))))
+	$(if $V,,@echo LINK.GCC.EXEC $$@ &&)$$(call LINK.GCC.EXEC,$(subst $(COMMA),$$(COMMA),$(LDFLAGS.$3) $(LDFLAGS.$4)),$(call .SYSLIBS,LDLIBS,$3,$4) $(foreach z,$(LIBS.$3) $(LIBS.$4),$(call GCC.LINKLIB,$z))))
 $(GCC.EXTRA.MKLRULES)
 endef
 
@@ -105,25 +110,25 @@ define MKIRULES.GCC
 $(if $(findstring $L,$2),\
 $(foreach _,$3 $(if $(call VALID_VERSION,$(SHARED.$2)),$3.$(basename $(basename $(SHARED.$2))) $3.$(SHARED.$2)),
 	$(if $V,,@echo INSTALL $_ to $(call .INSTDIR,$1,$2,LIB,$(CONF_LIBDIR)) &&)\
-	$$(call INSTALL,$_,$(call .INSTDIR,$1,$2,LIB,$(CONF_LIBDIR)),$(if $(SHARED.$2),0755,0644))))\
+	$$(call INSTALL,$_,$(call .INSTDIR,$1,$2,LIB,$(CONF_LIBDIR)),$(call .INSTMODE,$1,$2,$(if $(SHARED.$2),0755,0644)))))\
 $(if $(findstring $E,$2),
 	$(if $V,,@echo INSTALL $3 to $(call .INSTDIR,$1,$2,BIN,$(CONF_BINDIR)) &&)\
-	$$(call INSTALL,$3,$(call .INSTDIR,$1,$2,BIN,$(CONF_BINDIR)),0755))\
+	$$(call INSTALL,$3,$(call .INSTDIR,$1,$2,BIN,$(CONF_BINDIR)),$(call .INSTMODE,$1,$2,0755)))\
 $(if $(INSTALL.INCLUDE.$2),
 	$(if $V,,@echo INSTALL $(INSTALL.INCLUDE.$2) to $(call .INSTDIR,$1,$2,INCLUDE,$(CONF_INCLUDEDIR)) &&)\
-	$$(call INSTALL,$(INSTALL.INCLUDE.$2),$(call .INSTDIR,$1,$2,INCLUDE,$(CONF_INCLUDEDIR)),0644))
+	$$(call INSTALL,$(INSTALL.INCLUDE.$2),$(call .INSTDIR,$1,$2,INCLUDE,$(CONF_INCLUDEDIR)),$(call .INSTMODE,$1,$2,0644)))
 endef
 
 define MAKEDEP.GCC
 	$(call RM,$@)
-	$(if $(filter %.c,$^),$(GCC.MDEP) $(strip $(GCC.MDEPFLAGS) $(filter -D%,$1) $(filter -I%,$1)) -f $@ $(filter %.c,$^))
-	$(if $(filter %.cpp,$^),$(GCC.MDEP) $(strip $(GCC.MDEPFLAGS) $(filter -D%,$2) $(filter -I%,$2)) -f $@ $(filter %.cpp,$^))
+	$(if $(filter %.c,$^),$(GCC.MDEP) $(strip $(GCC.MDEPFLAGS) $(filter -D%,$1) $(filter -I%,$1)) -o$3 -f $@ $(filter %.c,$^))
+	$(if $(filter %.cpp,$^),$(GCC.MDEP) $(strip $(GCC.MDEPFLAGS) $(filter -D%,$2) $(filter -I%,$2)) -o$3 -f $@ $(filter %.cpp,$^))
 endef
 
 # Dependency rules ($1 = dependency file, $2 = source file list,
 # $3 = module name, $4 = target name)
 define MKDRULES.GCC
 $1: $(MAKEDEP_DEP) $2
-	$(if $V,,@echo MAKEDEP.GCC $$@ &&)$$(call MAKEDEP.GCC,$(subst $(COMMA),$$(COMMA),$(CFLAGS.$3) $(CFLAGS.$4) $(CFLAGS)),$(subst $(COMMA),$$(COMMA),-D__cplusplus $(CXXFLAGS.$3) $(CXXFLAGS.$4) $(CXXFLAGS)))
+	$(if $V,,@echo MAKEDEP.GCC $$@ &&)$$(call MAKEDEP.GCC,$(subst $(COMMA),$$(COMMA),$(CFLAGS.$3) $(CFLAGS.$4) $(CFLAGS)),$(subst $(COMMA),$$(COMMA),-D__cplusplus $(CXXFLAGS.$3) $(CXXFLAGS.$4) $(CXXFLAGS)),$(if $(SHARED.$4),.lo,.o))
 $(GCC.EXTRA.MKDRULES)
 endef
