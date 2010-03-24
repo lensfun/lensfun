@@ -119,13 +119,6 @@ ENVARS = [
 # -------------- # Abstract interface to different compilers # --------------
 
 class compiler_gcc:
-    sse_supported = [
-        "pentium3", "pentium3m", "pentium_m", "pentium4", "pentium4m",
-        "prescott", "nocona", "core2", "athlon", "athlon_tbird",
-        "athlon_4", "athlon_xp", "athlon_mp", "k8", "opteron",
-        "athlon64", "athlon_fx", "amdfam10"
-    ]
-
     def __init__ (self):
         # Find our compiler and linker
         self.CC = CC or (TKP + "gcc")
@@ -145,12 +138,6 @@ class compiler_gcc:
 
         check_cflags ("-Wno-non-virtual-dtor", "CXXFLAGS", "-Werror")
         check_cflags ("-mtune=" + TARGET [2], "CFLAGS")
-        try:
-            self.sse_supported.index (TARGET [2])
-            if check_cflags ("-mfpmath=sse", "CFLAGS"):
-                add_config_h ("TUNE_SSE")
-        except:
-            pass
 
         add_config_mak ("GCC.CC", self.CC + " -c")
         add_config_mak ("GCC.CXX", self.CXX + " -c")
@@ -293,6 +280,13 @@ def start ():
 
         exec o [3]
 
+    # Autodetect tune CPU, if required
+    if TARGET [2] == "auto":
+        cpu = platform.processor ()
+        if (not cpu) or (len (cpu) == 0):
+            cpu = platform.machine ()
+        TARGET [2] = cpu.replace ("-", "_")
+
     # Print the host and target platforms
     print "Compiling on host " + ".".join (HOST) + " for target " + \
           ".".join (TARGET [:2]) + " (tune for " + TARGET [2] + ")"
@@ -410,10 +404,12 @@ def detect_platform ():
     HOST.append (arch)
     TARGET.append (arch)
 
-    cpu = platform.processor ()
-    if (not cpu) or (len (cpu) == 0):
-        cpu = platform.machine ()
-    TARGET.append (cpu.replace ("-", "_"))
+    # Earlier code here would automatically tune for host processor.
+    # This is not good for package maintainers, since the machine on which
+    # packages are built aren't related in any way to machines, on which
+    # users will run the binary packages. So we'll stick to generic tuning
+    # by default, and autodetect if user requires "auto" tuning.
+    TARGET.append (platform.machine ())
 
     # HOST   contains ["platform", "arch"]
     # TARGET contains ["platform", "arch", "tune"]
@@ -692,7 +688,7 @@ def check_cflags (cflags, var, xcflags = ""):
     :Returns: True if the flags are supported, False if not.
     """
     check_started ("Checking if compiler supports " + cflags)
-    if var == "CFLAGS":
+    if var.endswith ("CFLAGS"):
         srcf = "conftest.c"
     else:
         srcf = "conftest.cpp"
@@ -703,6 +699,8 @@ int main () { }
 
     if check_compile (srcf, "conftest" + TOOLKIT.OBJ, cflags + " " + xcflags):
         check_finished ("Yes")
+        if not var in globals ():
+            globals () [var] = "";
         if globals () [var] != "":
             globals () [var] += " "
         globals () [var] += cflags

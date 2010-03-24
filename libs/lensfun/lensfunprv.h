@@ -313,6 +313,27 @@ extern float _lf_interpolate (float y1, float y2, float y3, float y4, float t);
 extern int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
                                    lfFuzzyStrCmp *fuzzycmp, const char **compat_mounts);
 
+enum
+{
+    LF_CPU_FLAG_MMX             = 0x00000001,
+    LF_CPU_FLAG_SSE             = 0x00000002,
+    LF_CPU_FLAG_CMOV            = 0x00000004,
+    LF_CPU_FLAG_3DNOW           = 0x00000008,
+    LF_CPU_FLAG_3DNOW_EXT       = 0x00000010,
+    LF_CPU_FLAG_AMD_ISSE        = 0x00000020,
+    LF_CPU_FLAG_SSE2            = 0x00000040,
+    LF_CPU_FLAG_SSE3            = 0x00000080,
+    LF_CPU_FLAG_SSSE3           = 0x00000100,
+    LF_CPU_FLAG_SSE4_1          = 0x00000200,
+    LF_CPU_FLAG_SSE4_2          = 0x00000400
+};
+
+/**
+ * Detect supported CPU features (used for runtime selection of accelerated
+ * functions for specific architecture extensions).
+ */
+extern guint _lf_detect_cpu_features ();
+
 /**
  * Google-in-your-pocket: a fuzzy string comparator.
  * This has been designed for comparing lens model names.
@@ -474,7 +495,7 @@ struct lfExtModifier : public lfModifier
     static void ModifyCoord_UnDist_FOV1 (void *data, float *iocoord, int count);
     static void ModifyCoord_Dist_PTLens (void *data, float *iocoord, int count);
     static void ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int count);
-#if defined(__SSE__)
+#ifdef VECTORIZATION_SSE
     static void ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int count);
     static void ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int count);
 #endif
@@ -490,7 +511,7 @@ struct lfExtModifier : public lfModifier
     static void ModifyCoord_Geom_ERect_Rect (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_ERect_FishEye (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_ERect_Panoramic (void *data, float *iocoord, int count);
-#if defined(__SSE2__)
+#if VECTORIZATION_SSE2
     static void ModifyColor_DeVignetting_PA_SSE2 (
       void *data, float _x, float _y, lf_u16 *pixels, int comp_role, int count);
     static void ModifyColor_DeVignetting_PA_SSE2_aligned (

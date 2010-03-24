@@ -9,6 +9,13 @@ SYSLIBS.lensfun = GLIB_20
 INSTALL.TARGETS += lensfun
 INSTALL.INCLUDE.lensfun$L = include/lensfun/lensfun.h
 
+ifdef VECTORIZATION_SSE
+$(OUT)libs/lensfun/mod-coord-sse.%: CFLAGS += $(VECTORIZATION_SSE)
+endif
+ifdef VECTORIZATION_SSE2
+$(OUT)libs/lensfun/mod-color-sse2.%: CFLAGS += $(VECTORIZATION_SSE2)
+endif
+
 # For Posix systems we also will build the pkgconfig file
 AUX += lensfun-pc
 TOOLKIT.lensfun-pc = PKGCONFIG

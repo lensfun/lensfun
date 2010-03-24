@@ -22,9 +22,9 @@ tibs.ENVARS.append (
     [ "SDKDIR", "./glib-2.0", "The directory for additional libraries (default: ./glib-2.0)" ])
 # Add a option to set/disable vectorization instructions
 tibs.OPTIONS.append (
-    [ None, "vectorization", "MODE", "global VECTORIZATION; VECTORIZATION = optarg",
-      "Compile with vectorization instruction set (if supported)\n"
-      "or disable vectorization ('sse4','sse3','sse2','sse','')." ])
+    [ None, "vectorization", "L", "global VECTORIZATION; VECTORIZATION = optarg",
+      "Compile with vectorization instruction set (if supported) or\n"
+      "disable vectorization (a list like 'SSE4,SSE2,SSE' or empty)." ])
 tibs.VECTORIZATION = "yes";
 
 tibs.start ()
@@ -76,16 +76,23 @@ if not tibs.check_header ("regex.h"):
     tibs.add_config_mak ("NEED_REGEX")
 
 # Check for CPU vectorization feature enable flags
-if tibs.VECTORIZATION.upper () == "YES":
+if tibs.VECTORIZATION.strip ().upper () == "YES":
     if (tibs.TARGET [1] == "x86") or (tibs.TARGET [1] == "x86_64"):
-        tibs.VECTORIZATION = ["sse2", "sse"]
+        tibs.VECTORIZATION = ["SSE", "SSE2"]
 
 if type (tibs.VECTORIZATION) == str:
-    tibs.VECTORIZATION = tibs.VECTORIZATION.split (",");
+    tibs.VECTORIZATION = tibs.VECTORIZATION.strip ().upper ().split (",");
 
+CFLAGS_V = { "SSE" : "-msse", "SSE2" : "-msse2" }
 for flag in tibs.VECTORIZATION:
-    if len (flag) and tibs.check_cflags ("-m" + flag, "CFLAGS"):
-        break
+    if not len (flag):
+        continue
+    if not flag in CFLAGS_V:
+        tibs.abort_configure ("user requested vectorization\n" \
+            "for instruction set `%s', which is not supported" % flag);
+    if (not CFLAGS_V [flag]) or tibs.check_cflags (CFLAGS_V [flag], "V_CFLAGS"):
+        tibs.add_config_h ("VECTORIZATION_" + flag);
+        tibs.add_config_mak ("VECTORIZATION_" + flag, CFLAGS_V [flag]);
 
 tibs.add_config_mak ("TOOLKIT", tibs.COMPILER.upper ())
 tibs.add_config_mak ("CFLAGS", tibs.CFLAGS)
