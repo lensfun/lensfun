@@ -5,7 +5,7 @@
 
 #include "config.h"
 
-#ifdef __SSE2__
+#ifdef VECTORIZATION_SSE2
 
 #include "lensfun.h"
 #include "lensfunprv.h"

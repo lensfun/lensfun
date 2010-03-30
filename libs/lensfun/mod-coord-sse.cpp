@@ -8,7 +8,7 @@
 
 #include "config.h"
 
-#ifdef __SSE__
+#ifdef VECTORIZATION_SSE
 
 #include "lensfun.h"
 #include "lensfunprv.h"
