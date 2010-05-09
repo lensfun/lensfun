@@ -25,17 +25,13 @@
 guint _lf_detect_cpu_features ()
 {
 #define cpuid(cmd) \
-    asm ( \
-        "push %%"R_BX"\n" \
+    __asm volatile ( \
         "cpuid\n" \
-        "pop %%"R_BX"\n" \
        : "=a" (ax), "=c" (cx),  "=d" (dx) \
-       : "0" (cmd))
+       : "0" (cmd) \
+       : R_BX)
 
-    register __SIZE_TYPE__ ax asm (R_AX);
-    register __SIZE_TYPE__ bx asm (R_BX);
-    register __SIZE_TYPE__ dx asm (R_DX);
-    register __SIZE_TYPE__ cx asm (R_CX);
+    __SIZE_TYPE__ ax, cx, dx, tmp;
     static GStaticMutex lock = G_STATIC_MUTEX_INIT;
     static guint cpuflags = -1;
 
@@ -45,7 +41,7 @@ guint _lf_detect_cpu_features ()
         cpuflags = 0;
 
         /* Test cpuid presence by checking bit 21 of eflags */
-        asm (
+        __asm volatile (
             "pushf\n"
             "pop     %0\n"
             "mov     %0, %1\n"
@@ -57,7 +53,7 @@ guint _lf_detect_cpu_features ()
             "cmp     %0, %1\n"
             "setne   %%al\n"
             "movzb   %%al, %0\n"
-            : "=r" (ax), "=r" (bx));
+            : "=r" (ax), "=r" (tmp));
 
         if (ax)
         {
@@ -88,12 +84,12 @@ guint _lf_detect_cpu_features ()
                     cpuflags |= LF_CPU_FLAG_SSE4_2;
             }
 
-            /* Is there extensions */
+            /* Are there extensions? */
             cpuid (0x80000000);
 
             if (ax)
             {
-                /* Request for extensions */
+                /* Ask extensions */
                 cpuid (0x80000001);
 
                 if (dx & 0x80000000)
@@ -110,14 +106,6 @@ guint _lf_detect_cpu_features ()
     return cpuflags;
 
 #undef cpuid
-}
-
-#else
-
-guint
-rs_detect_cpu_features()
-{
-    return 0;
 }
 
 #endif /* __i386__ || __x86_64__ */

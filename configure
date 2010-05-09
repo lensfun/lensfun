@@ -118,4 +118,5 @@ print "Target directory for data files:    " + tibs.DATADIR
 print "Target directory for libraries:     " + tibs.LIBDIR
 print "Target directory for include files: " + tibs.INCLUDEDIR
 print "Target directory for documentation: " + tibs.DOCDIR
+print "Use vector instruction set(-s):     " + ", ".join (x for x in tibs.VECTORIZATION)
 print "--------------------------------------------------------------------"
