@@ -26,10 +26,11 @@ guint _lf_detect_cpu_features ()
 {
 #define cpuid(cmd) \
     __asm volatile ( \
+        "push %%"R_BX"\n" \
         "cpuid\n" \
+        "pop %%"R_BX"\n" \
        : "=a" (ax), "=c" (cx),  "=d" (dx) \
-       : "0" (cmd) \
-       : R_BX)
+       : "0" (cmd))
 
     __SIZE_TYPE__ ax, cx, dx, tmp;
     static GStaticMutex lock = G_STATIC_MUTEX_INIT;
