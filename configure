@@ -8,7 +8,7 @@ import tibs
 # Define project name
 tibs.PROJ = "lensfun"
 # Define version number (major.minor.release)
-tibs.VERSION = "0.2.5"
+tibs.VERSION = "0.2.5.1"
 # Project home page
 tibs.HOMEPAGE = "http://lensfun.berlios.de"
 
@@ -94,8 +94,12 @@ for flag in tibs.VECTORIZATION:
         tibs.add_config_h ("VECTORIZATION_" + flag);
         tibs.add_config_mak ("VECTORIZATION_" + flag, CFLAGS_V [flag]);
 
+# Tell lensfun it's meant to be a static library
 if not tibs.SHAREDLIBS:
     tibs.add_config_h ("CONF_LENSFUN_STATIC");
+
+# Add a macro to know we're compiling lensfun, not a client library
+tibs.add_config_h ("CONF_LENSFUN_INTERNAL")
 
 tibs.add_config_mak ("TOOLKIT", tibs.COMPILER.upper ())
 tibs.add_config_mak ("CFLAGS", tibs.CFLAGS)
@@ -109,6 +113,7 @@ tibs.add_config_mak ("GENFILES", "config.mak build/PKGBUILD " +
 tibs.update_file ("include/config.h", tibs.get_config_h ())
 tibs.update_file ("config.mak", tibs.get_config_mak ())
 
+tibs.substmacros ("include/lensfun/lensfun.h.in")
 tibs.substmacros ("build/PKGBUILD.in")
 tibs.substmacros ("build/lensfun.spec.in")
 

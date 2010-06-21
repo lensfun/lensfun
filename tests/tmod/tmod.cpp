@@ -3,7 +3,6 @@
 */
 
 #include "lensfun.h"
-#include "config.h"
 #include "image.h"
 #include <glib.h>
 #include <locale.h>
@@ -50,11 +49,11 @@ static struct
 
 static void DisplayVersion ()
 {
-    g_print ("lensfun version %s: test image modifier routines\n", CONF_VERSION);
+    g_print ("lensfun version %d.%d.%d: test image modifier routines\n",
+        LF_VERSION_MAJOR, LF_VERSION_MINOR, LF_VERSION_MICRO);
     g_print ("Copyright (C) 2007 Andrew Zabolotny\n\n");
     g_print ("For distribution rules and conditions of use see the file\n");
     g_print ("COPYING which is part of the distribution.\n");
-
 }
 
 static void DisplayUsage ()

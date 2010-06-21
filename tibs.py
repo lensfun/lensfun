@@ -226,6 +226,7 @@ def start ():
     global HOST, TARGET, EXE, TOOLKIT, COMPILER
     global PREFIX, BINDIR, LIBDIR, SYSCONFDIR, DATADIR, DOCDIR
     global INCLUDEDIR, LIBEXECDIR, SHAREDLIBS
+    global VERSION_MAJOR, VERSION_MINOR, VERSION_MICRO, VERSION_BUGFIX
 
     detect_platform ()
 
@@ -375,6 +376,21 @@ def start ():
     else:
         add_config_h ("CONF_SHAREDLIBS", "0")
         add_config_mak ("SHAREDLIBS", "")
+
+    # Split version number into major/minor/micro/bugfix
+    v = VERSION.split ('.')
+    VERSION_MAJOR = '0'
+    VERSION_MINOR = '0'
+    VERSION_MICRO = '0'
+    VERSION_BUGFIX = '0'
+    if len (v) > 0:
+        VERSION_MAJOR = v [0]
+    if len (v) > 1:
+        VERSION_MINOR = v [1]
+    if len (v) > 2:
+        VERSION_MICRO = v [2]
+    if len (v) > 3:
+        VERSION_BUGFIX = v [3]
 
 
 # Autodetect platform and architecture

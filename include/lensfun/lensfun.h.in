@@ -44,6 +44,17 @@ extern "C" {
  * @{
  */
 
+/// Major library version number
+#define LF_VERSION_MAJOR	@VERSION_MAJOR@
+/// Minor library version number
+#define LF_VERSION_MINOR	@VERSION_MINOR@
+/// Library micro version number
+#define LF_VERSION_MICRO	@VERSION_MICRO@
+/// Library bugfix number
+#define LF_VERSION_BUGFIX	@VERSION_BUGFIX@
+/// Full library version
+#define LF_VERSION	((LF_VERSION_MAJOR << 24) | (LF_VERSION_MINOR << 16) | (LF_VERSION_MICRO << 8) | LF_VERSION_BUGFIX)
+
 #if defined CONF_LENSFUN_STATIC
 /// This macro expands to an appropiate symbol visibility declaration
 #   define LF_EXPORT
@@ -57,7 +68,7 @@ extern "C" {
 #           error "I don't know how to change symbol visibility for your compiler"
 #       endif
 #   else
-#       if defined PLATFORM_WINDOWS
+#       if defined PLATFORM_WINDOWS || defined _MSC_VER
 #           define LF_EXPORT    __declspec(dllimport)
 #       else
 #           define LF_EXPORT
