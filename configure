@@ -94,6 +94,9 @@ for flag in tibs.VECTORIZATION:
         tibs.add_config_h ("VECTORIZATION_" + flag);
         tibs.add_config_mak ("VECTORIZATION_" + flag, CFLAGS_V [flag]);
 
+if not tibs.SHAREDLIBS:
+    tibs.add_config_h ("CONF_LENSFUN_STATIC");
+
 tibs.add_config_mak ("TOOLKIT", tibs.COMPILER.upper ())
 tibs.add_config_mak ("CFLAGS", tibs.CFLAGS)
 tibs.add_config_mak ("CXXFLAGS", tibs.CXXFLAGS)

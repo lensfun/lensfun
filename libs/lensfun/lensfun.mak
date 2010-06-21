@@ -22,3 +22,4 @@ TOOLKIT.lensfun-pc = PKGCONFIG
 TARGETS.lensfun-pc = lensfun.pc
 SRC.lensfun.pc := $(wildcard libs/lensfun/*.pc.in) config.mak
 INSTALL.TARGETS += lensfun-pc
+PKGCONFIG.SED.lensfun-pc = -e "s,@CONF_LENSFUN_STATIC@,$(if $(SHAREDLIBS),,-DCONF_LENSFUN_STATIC),g"

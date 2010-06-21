@@ -44,20 +44,24 @@ extern "C" {
  * @{
  */
 
-#ifdef CONF_SYMBOL_VISIBILITY
-#   if defined PLATFORM_WINDOWS
-#       define LF_EXPORT    __declspec(dllexport)
-#   elif defined CONF_COMPILER_GCC
-#       define LF_EXPORT    __attribute__((visibility("default")))
-#   else
-#       error "I don't know how to change symbol visibility for your compiler"
-#   endif
+#if defined CONF_LENSFUN_STATIC
+/// This macro expands to an appropiate symbol visibility declaration
+#   define LF_EXPORT
 #else
-#   if defined CONF_COMPILER_MSVC
-#       define LF_EXPORT    __declspec(dllimport)
+#   ifdef CONF_SYMBOL_VISIBILITY
+#       if defined PLATFORM_WINDOWS
+#           define LF_EXPORT    __declspec(dllexport)
+#       elif defined CONF_COMPILER_GCC
+#           define LF_EXPORT    __attribute__((visibility("default")))
+#       else
+#           error "I don't know how to change symbol visibility for your compiler"
+#       endif
 #   else
-        /// This macro expands to an appropiate symbol visibility declaration
-#       define LF_EXPORT
+#       if defined PLATFORM_WINDOWS
+#           define LF_EXPORT    __declspec(dllimport)
+#       else
+#           define LF_EXPORT
+#       endif
 #   endif
 #endif
 
