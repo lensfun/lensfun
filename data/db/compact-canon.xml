@@ -16,12 +16,17 @@
     </mount>
 
     <mount>
+        <name>canonG7</name>
+        <compat>Generic</compat>
+    </mount>
+
+    <mount>
         <name>canonG9</name>
         <compat>Generic</compat>
     </mount>
 
     <mount>
-        <name>canonG11</name>
+        <name>canonG10</name>
         <compat>Generic</compat>
     </mount>
 
@@ -183,6 +188,14 @@
         <model>Canon PowerShot G1</model>
         <model lang="en">PowerShot G1</model>
         <mount>canonG1</mount>
+        <cropfactor>4.843</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot G7</model>
+        <model lang="en">PowerShot G7</model>
+        <mount>canonG7</mount>
         <cropfactor>4.843</cropfactor>
     </camera>
 
