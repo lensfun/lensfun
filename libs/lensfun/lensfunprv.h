@@ -511,7 +511,7 @@ struct lfExtModifier : public lfModifier
     static void ModifyCoord_Geom_ERect_Rect (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_ERect_FishEye (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_ERect_Panoramic (void *data, float *iocoord, int count);
-#if VECTORIZATION_SSE2
+#ifdef VECTORIZATION_SSE2
     static void ModifyColor_DeVignetting_PA_SSE2 (
       void *data, float _x, float _y, lf_u16 *pixels, int comp_role, int count);
     static void ModifyColor_DeVignetting_PA_SSE2_aligned (

@@ -273,7 +273,7 @@ Possible embedded elements:
 <dt>\<type\>string\</type\>
     Lens type. This is one of: "rectilinear", "fisheye", "panoramic", "equirectangular".
 <dt>\<focal min="number" max="number" value="number" /\>
-<dd>Lens focal distance. This can be either a single value for a fixed-focal length
+<dd>Lens focal length. This can be either a single value for a fixed-focal length
     lens, or a "min-max" range in the case of a zoom lens.
 <dt>\<aperture min="number" max="number" value="number" /\>
 <dd>Lens aperture. This can be either a single value for a fixed-aperture
@@ -296,7 +296,7 @@ Possible embedded elements:
 </dl>
 
 Library recognizes several ways to specify lens parameters directly
-in lens model name. The first way to specify lens focal distance and
+in lens model name. The first way to specify lens focal length and
 aperture range is "[min focal]-[max focal]mm f/[min aperture]-[max aperture]"
 where the "mm" and "f/" are totally optional. For primes the 'max'
 values may be omited. Examples:
@@ -316,9 +316,9 @@ Another pattern for lens parameters is
 </ul>
 
 If you encode lens parameters directly in the lens name, you may omit the
-@<focal@> and @<aperture@> elements. Also if the range of focal distances is
+@<focal@> and @<aperture@> elements. Also if the range of focal lengths is
 missing both from lens name and there's no @<focal@> element, the library
-tries to guess the range of focal distances from the @<calibration@> section.
+tries to guess the range of focal lengths from the @<calibration@> section.
 
 Note the @<type@> lens element. This declares the lens geometry. Most lenses are
 rectilinear, so this is the default value if a @<type@> element is missing. However,
@@ -334,14 +334,14 @@ Possible embedded elements:
 <dl>
 <dt>\<distortion focal="number" model="name" k1="number" k2="number" k3="number" omega="number" a="number" b="number" c="number" /\>
 <dd>Declares the image distortion model for this lens. Distortion is specific for every
-    focal distance, so you can declare multiple distortion entries with different focal
+    focal length, so you can declare multiple distortion entries with different focal
     values; the library will interpolate the parameters for intermediate focal lengths.
     @see lfDistortionModel
 <dt>\<tca focal="number" model="name" kr="number" kb="number" /\>
 <dd>Declares the Transversal Chromatic Aberrations model for this lens.
     @see lfTCAModel
 <dt>\<vignetting focal="number" aperture="number" distance="number" model="name" k1="number" k2="number" k3="number" /\>
-<dd>Declares the vignetting model for this lens at given focal distance, given aperture
+<dd>Declares the vignetting model for this lens at given focal length, given aperture
     and given distance to subject. This kind of calibration requires relatively many
     sample points since it depends on three variables.
     @see lfVignettingModel

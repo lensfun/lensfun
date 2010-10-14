@@ -195,7 +195,7 @@ void lfLens::GuessParameters ()
 
     if (!MinAperture || !MinFocal)
     {
-        // Try to find out the range of focal distance using calibration data
+        // Try to find out the range of focal lengths using calibration data
         if (CalibDistortion)
             for (int i = 0; CalibDistortion [i]; i++)
             {

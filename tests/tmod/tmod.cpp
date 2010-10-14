@@ -71,7 +71,7 @@ static void DisplayUsage ()
     g_print ("  -s#   --scale=#    Apply additional scale on the image\n");
     g_print ("  -l#   --lens=#     Use calibration data for this lens\n");
     g_print ("  -C#   --crop=#     Set camera crop factor\n");
-    g_print ("  -F#   --focal=#    Set focal distance at which image has been taken\n");
+    g_print ("  -F#   --focal=#    Set focal length at which image has been taken\n");
     g_print ("  -A#   --aperture=# Set aperture at which image has been taken\n");
     g_print ("  -D#   --distance=# Set subject distance at which image has been taken\n");
     g_print ("  -I#   --interpol=# Choose interpolation algorithm (n[earest], b[ilinear], l[anczos])\n");
@@ -357,7 +357,7 @@ int main (int argc, char **argv)
         opts.Aperture = lens->MinAperture;
 
     g_print ("%sCorrecting image as taken by lens `%s, %s'\n"
-             "    at crop factor %g, focal distance %g, aperture %g, distance %g\n",
+             "    at crop factor %g, focal length %g, aperture %g, distance %g\n",
              opts.Inverse ? "Inverse " : "", lens->Maker, lens->Model,
              opts.Crop, opts.Focal, opts.Aperture, opts.Distance);
 

@@ -400,7 +400,7 @@ LF_EXPORT cbool lf_camera_check (lfCamera *camera);
 /**
  * The lensdb library implements several lens distortion models.
  * This enum lists them. Distortion usually heavily depends on the
- * focal distance, but does not depend on the aperture.
+ * focal length, but does not depend on the aperture.
  *
  * For a popular explanation of lens distortion see
  * http://www.vanwalree.com/optics/distortion.html
@@ -437,14 +437,14 @@ C_TYPEDEF (enum, lfDistortionModel)
 
 /**
  * Lens distortion calibration data. Lens distortion depends only
- * of focal distance. The library will interpolate the coefficients
- * values if data for the exact focal distance is not available.
+ * of focal length. The library will interpolate the coefficients
+ * values if data for the exact focal length is not available.
  */
 struct lfLensCalibDistortion
 {
     /** The type of distortion model used */
     enum lfDistortionModel Model;
-    /** Focal distance at which this calibration data was taken (0 - unspecified) */
+    /** Focal length at which this calibration data was taken (0 - unspecified) */
     float Focal;
     /** Distortion coefficients, dependent on model (a,b,c; k1,k2 or omega) */
     float Terms [3];
@@ -455,7 +455,7 @@ C_TYPEDEF (struct, lfLensCalibDistortion)
 /**
  * The lensdb library supports several models for lens lateral
  * chromatic aberrations (also called transversal chromatic
- * aberrations, TCA). TCAs depend on focal distance, but does not
+ * aberrations, TCA). TCAs depend on focal length, but does not
  * depend of the aperture.
  *
  * For a popular explanation of chromatic aberrations see
@@ -486,15 +486,15 @@ C_TYPEDEF (enum, lfTCAModel)
 
 /**
  * Laterlal chromatic aberrations calibration data. Chromatic aberrations
- * depend on focal distance and aperture value. The library will interpolate
- * the coefficients if data for the exact focal distance and aperture value
- * is not available with priority for a more exact focal distance.
+ * depend on focal length and aperture value. The library will interpolate
+ * the coefficients if data for the exact focal length and aperture value
+ * is not available with priority for a more exact focal length.
  */
 struct lfLensCalibTCA
 {
     /** The lateral chromatic aberration model used */
     enum lfTCAModel Model;
-    /** Focal distance at which this calibration data was taken (0 - unspecified) */
+    /** Focal length at which this calibration data was taken (0 - unspecified) */
     float Focal;
     /** The coefficients for TCA, dependent on model; separate for R and B */
     float Terms [6];
@@ -508,7 +508,7 @@ C_TYPEDEF (struct, lfLensCalibTCA)
  * can be generalized for all lenses of a certain type; mechanical
  * vignetting is out of the scope of this library.
  *
- * Vignetting is dependent on both focal distance and aperture.
+ * Vignetting is dependent on both focal length and aperture.
  *
  * For a popular explanation of vignetting see
  * http://www.vanwalree.com/optics/vignetting.html
@@ -529,17 +529,17 @@ enum lfVignettingModel
 C_TYPEDEF (enum, lfVignettingModel)
 
 /**
- * Lens vignetting calibration data. Vignetting depends on focal distance,
+ * Lens vignetting calibration data. Vignetting depends on focal length,
  * aperture and distance to subject. The library will interpolate
- * the coefficients if data for the exact focal distance, aperture
+ * the coefficients if data for the exact focal length, aperture
  * and distance-to-subject is not available, trying first to match
- * the exact focal distance, then the aperture.
+ * the exact focal length, then the aperture.
  */
 struct lfLensCalibVignetting
 {
     /** The lens vignetting model used */
     enum lfVignettingModel Model;
-    /** Focal distance at which this calibration data was taken (0 - unspecified) */
+    /** Focal length at which this calibration data was taken (0 - unspecified) */
     float Focal;
     /** Aperture at which this calibration data was taken (0 - unspecified) */
     float Aperture;
@@ -609,13 +609,13 @@ struct LF_EXPORT lfLens
     lfMLstr Maker;
     /** Lens model (ex: "Zoom-Rolleinar") */
     lfMLstr Model;
-    /** Minimum focal distance, mm (ex: 35). */
+    /** Minimum focal length, mm (ex: 35). */
     float MinFocal;
-    /** Maximum focal distance, mm (ex: 105). Can be equal to MinFocal. */
+    /** Maximum focal length, mm (ex: 105). Can be equal to MinFocal. */
     float MaxFocal;
-    /** Aperture at minimum focal distance (ex: 3.5). */
+    /** Aperture at minimum focal length (ex: 3.5). */
     float MinAperture;
-    /** Aperture at maximum focal distance (ex: 4.3). Can be equal to MinAperture. */
+    /** Aperture at maximum focal length (ex: 4.3). Can be equal to MinAperture. */
     float MaxAperture;
     /** Available mounts (NULL-terminated list) (ex: { "QBM", NULL }) */
     char **Mounts;
@@ -750,7 +750,7 @@ struct LF_EXPORT lfLens
     /**
      * This method fills some fields if they are missing but
      * can be derived from other fields. This includes such non-obvious
-     * parameters like the range of focal distances or the range
+     * parameters like the range of focal lengths or the range
      * of apertures, which can be derived from lens named (which is
      * intelligently parsed) or from the list of calibrations.
      */
@@ -832,7 +832,7 @@ struct LF_EXPORT lfLens
     /**
      * Interpolate lens geometry distortion data for given focal length.
      * @param focal
-     *     The focal distance at which we need geometry distortion parameters.
+     *     The focal length at which we need geometry distortion parameters.
      * @param res
      *     The resulting interpolated model.
      */
@@ -841,21 +841,21 @@ struct LF_EXPORT lfLens
     /**
      * Interpolate lens TCA calibration data for given focal length.
      * @param focal
-     *     The focal distance at which we need TCA parameters.
+     *     The focal length at which we need TCA parameters.
      * @param res
      *     The resulting interpolated model.
      */
     bool InterpolateTCA (float focal, lfLensCalibTCA &res) const;
 
     /**
-     * Interpolate lens vignetting model parameters for given focal distance,
-     * aperture and focus distance.
+     * Interpolate lens vignetting model parameters for given focal length,
+     * aperture and subject distance.
      * @param focal
-     *     The focal distance for which we need vignetting parameters.
+     *     The focal length for which we need vignetting parameters.
      * @param aperture
      *     The aperture value for which we need vignetting parameters.
      * @param distance
-     *     The focus distance for which we need vignetting parameters.
+     *     The subject distance for which we need vignetting parameters.
      * @param res
      *     The resulting interpolated model.
      */
@@ -1748,7 +1748,7 @@ struct LF_EXPORT lfModifier
      * @param to
      *     The lens model for target image.
      * @param focal
-     *     Lens focal distance.
+     *     Lens focal length.
      * @return
      *     True if a library has a callback for given from->to conversion.
      */
