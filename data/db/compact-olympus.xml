@@ -56,11 +56,6 @@
     </mount>
 
     <mount>
-        <name>olympusEP1</name>
-        <compat>Generic</compat>
-    </mount>
-
-    <mount>
         <name>olympusSP350</name>
         <compat>Generic</compat>
     </mount>
@@ -224,14 +219,6 @@
         <model>Stylus Epic</model>
         <mount>olympusEpic</mount>
         <cropfactor>1.0</cropfactor>
-    </camera>
-
-    <camera>
-        <maker>OLYMPUS IMAGING CORP.</maker>
-        <maker lang="en">Olympus</maker>
-        <model>E-P1</model>
-        <mount>olympusEP1</mount>
-        <cropfactor>2.0</cropfactor>
     </camera>
 
     <camera>
@@ -474,27 +461,5 @@
             <distortion model="ptlens" focal="35" a="-0.01247" b="0.027098" c="0" />
         </calibration>
     </lens>
-
-<lens>
-    <maker>Olympus</maker>
-    <model>Olympus Zuiko Digital ED 14-42mm F3.5-5.6</model>
-    <mount>olympusEP1</mount>
-    <cropfactor>1.94</cropfactor>
-    <calibration>
-        <distortion model="poly3" focal="14" k1="-0.079" />
-        <distortion model="poly3" focal="18" k1="-0.036" />
-        <distortion model="poly3" focal="25" k1="0.0004" />
-        <distortion model="poly3" focal="30" k1="0.013" />
-        <distortion model="poly3" focal="35" k1="0.014" />
-        <distortion model="poly3" focal="42" k1="0.012" />
-        <tca model="poly3" focal="14" br="0.0002632" vr="1.0002908" bb="-0.0003817" vb="1.0" />
-        <tca model="poly3" focal="18" br="-0.0000326" vr="1.0004544" bb="-0.0003189" vb="1.0007081" />
-        <tca model="poly3" focal="25" br="-0.0001613" vr="1.0005611" bb="-0.0001126" vb="1.0004058" />
-        <tca model="poly3" focal="30" br="-0.0002418" vr="1.0006295" bb="-0.0000052" vb="1.0002145" />
-        <tca model="poly3" focal="35" br="-0.0002539" vr="1.0006484" bb="0.0000470" vb="1.0000846" />
-        <tca model="poly3" focal="42" br="-0.0002029" vr="1.0006187" bb="0.0001236" vb="0.9999271" />
-
-    </calibration>
-</lens>
 
 </lensdatabase>
