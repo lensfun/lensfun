@@ -1101,4 +1101,19 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF-S 17-55mm f/2.8 IS USM</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+        <calibration>
+            <distortion model="poly3" focal="17" k1="-0.01500" />
+            <distortion model="poly3" focal="20" k1="-0.00100" />
+            <distortion model="poly3" focal="24" k1="+0.00000" />
+            <distortion model="poly3" focal="28" k1="+0.01000" />
+            <distortion model="poly3" focal="35" k1="+0.02000" />
+            <distortion model="poly3" focal="55" k1="+0.02000" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
