@@ -56,6 +56,8 @@
         <cropfactor>2.0</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="20" a="0.00789316" b="-0.04009" c="0.00949904" />
+            <!-- Alternative model from http://xraynaudphotos.free.fr/lensfun.php -->
+            <!-- distortion model="ptlens" focal="20" a="-0.0160" b="-0.0470" c="-0.0140" -->
             <vignetting model="pa" focal="20" aperture="1.7" distance="100" k1="-1.18453" k2="1.18468" k3="-0.77676" />
             <vignetting model="pa" focal="20" aperture="2.0" distance="100" k1="-0.50428" k2="-0.46084" k3="0.38333" />
             <vignetting model="pa" focal="20" aperture="2.5" distance="100" k1="-0.02049" k2="-1.00156" k3="0.54046" />
