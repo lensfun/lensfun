@@ -896,7 +896,7 @@ def check_header (hdr, cflags = None, reqtext = None):
 
     if check_compile ("conftest.c", "conftest" + TOOLKIT.OBJ, cflags):
         check_finished ("OK")
-        add_config_h ("HAVE_" + make_identifier (hdr))
+        add_config_h ("HAVE_" + make_identifier (hdr.replace (".", "_")))
         rc = True
     else:
         check_finished ("NOT FOUND")

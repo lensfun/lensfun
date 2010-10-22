@@ -98,6 +98,9 @@ for flag in tibs.VECTORIZATION:
 if not tibs.SHAREDLIBS:
     tibs.add_config_h ("CONF_LENSFUN_STATIC");
 
+# Check for <endian.h>
+tibs.check_header ("endian.h")
+
 # Add a macro to know we're compiling lensfun, not a client library
 tibs.add_config_h ("CONF_LENSFUN_INTERNAL")
 

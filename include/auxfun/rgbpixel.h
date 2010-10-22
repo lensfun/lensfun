@@ -19,8 +19,30 @@
 #ifndef __RGBPIXEL_H__
 #define __RGBPIXEL_H__
 
+#include "config.h"
+
+#ifdef HAVE_ENDIAN_H
+#  include <endian.h>
+#endif
+
+#ifndef __LITTLE_ENDIAN
+#  define __LITTLE_ENDIAN 1234
+#endif
+#ifndef __BIG_ENDIAN
+#  define __BIG_ENDIAN 4321
+#endif
+#if !defined __BYTE_ORDER
+#  if defined _HOST_BIG_ENDIAN || defined __BIG_ENDIAN__ || defined WORDS_BIGENDIAN || defined __sgi__ || defined __sgi || defined __powerpc__ || defined sparc || defined __ppc__ || defined __s390__ || defined __s390x__
+#    define __BYTE_ORDER __BIG_ENDIAN
+#  else
+#    define __BYTE_ORDER __LITTLE_ENDIAN
+#  endif
+#else
+#  define __BYTE_ORDER __LITTLE_ENDIAN
+#endif
+
 // For optimized performance, we sometimes handle all R/G/B values simultaneously
-#ifdef __BIG_ENDIAN__
+#if __BYTE_ORDER == __BIG_ENDIAN
 #  define RGB_MASK 0xffffff00
 #else
 #  define RGB_MASK 0x00ffffff
