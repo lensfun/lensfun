@@ -17,7 +17,6 @@
 
     <mount>
         <name>panasonicLX3</name>
-        <compat>Generic</compat>
     </mount>
 
     <mount>
@@ -96,10 +95,33 @@
     <camera>
         <maker>Panasonic</maker>
         <model>DMC-LX3</model>
-        <variant>16:9</variant>
         <variant>4:3</variant>
-        <mount>panasonicLX3</mount>
-        <cropfactor>4.33</cropfactor>
+        <mount>PanasonicLX3</mount>
+        <cropfactor>4.7</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Panasonic</maker>
+        <model>DMC-LX3</model>
+        <variant>16:9</variant>
+        <mount>PanasonicLX3</mount>
+        <cropfactor>5.7528</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Panasonic</maker>
+        <model>DMC-LX3</model>
+        <variant>3:2</variant>
+        <mount>PanasonicLX3</mount>
+        <cropfactor>5.1</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Panasonic</maker>
+        <model>DMC-LX3</model>
+        <variant>1:1</variant>
+        <mount>PanasonicLX3</mount>
+        <cropfactor>4.7</cropfactor>
     </camera>
 
     <camera>
@@ -269,23 +291,25 @@
 
     <lens>
         <maker>Leica</maker>
-        <model>Standard</model>
+        <model>LX3</model>
         <mount>panasonicLX3</mount>
-        <cropfactor>4.33</cropfactor>
+        <focal min="5.1" max="12.8" />
+        <aperture min="2.0" max="8.0" />
+        <cropfactor>4.7</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="5.1"   a="0.0053"   b="-0.0382" c="0" />
-            <distortion model="ptlens" focal="5.4"   a="0.002"    b="-0.027"  c="-0.005" />
-            <distortion model="ptlens" focal="5.9"   a="0.001"    b="-0.022"  c="-0.004" />
-            <distortion model="ptlens" focal="6.3"   a="0.0007"   b="-0.021"  c="-0.001" />
-            <distortion model="ptlens" focal="6.8"   a="0.0007"   b="-0.018"  c="0" />
-            <distortion model="ptlens" focal="7.4"   a="0.0005"   b="-0.014"  c="0" />
-            <distortion model="ptlens" focal="7.9"   a="0.00031"  b="-0.013"  c="0" />
-            <distortion model="ptlens" focal="8.8"   a="0.00007"  b="-0.01"   c="0" />
-            <distortion model="ptlens" focal="9.3"   a="0.00007"  b="-0.0087" c="0" />
-            <distortion model="ptlens" focal="10.2"  a="0.00007"  b="-0.0082" c="0" />
-            <distortion model="ptlens" focal="11.1"  a="0.00006"  b="-0.0076" c="0" />
-            <distortion model="ptlens" focal="12.1"  a="0.00005"  b="-0.0059" c="0" />
-            <distortion model="ptlens" focal="12.8" a="-0.00002"  b="-0.0058" c="0" />
+            <distortion model="ptlens" focal="5.1" a="-0.003959" b="0.004736" c="-0.081302" />
+            <distortion model="ptlens" focal="5.4" a="-0.005553" b="0.009049" c="-0.077906" />
+            <distortion model="ptlens" focal="5.9" a="0.011732" b="-0.066315" c="0.029221" />
+            <distortion model="ptlens" focal="6.3" a="-0.008619" b="0.017573" c="-0.069065" />
+            <distortion model="ptlens" focal="6.8" a="-0.012256" b="0.036251" c="-0.088407" />
+            <distortion model="ptlens" focal="7.4" a="0.009106" b="-0.048429" c="0.022523" />
+            <distortion model="ptlens" focal="7.9" a="0.000603" b="-0.027831" c="0.020523" />
+            <distortion model="ptlens" focal="8.8" a="-0.018814" b="0.059370" c="-0.092180" />
+            <distortion model="ptlens" focal="9.3" a="-0.001016" b="-0.010300" c="-0.001994" />
+            <distortion model="ptlens" focal="10.2" a="-0.017673" b="0.055682" c="-0.082869" />
+            <distortion model="ptlens" focal="11.1" a="-0.011262" b="0.038785" c="-0.068040" />
+            <distortion model="ptlens" focal="12.1" a="-0.011262" b="0.038785" c="-0.068040" />
+            <distortion model="ptlens" focal="12.8" a="-0.011262" b="0.038785" c="-0.068040" />
         </calibration>
     </lens>
 
