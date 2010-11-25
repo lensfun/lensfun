@@ -790,6 +790,20 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon EF 70-300mm f/4-5.6 IS USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.6</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="300" a="-0.00012" b="0.00556" c="-0.00398" />
+            <distortion model="ptlens" focal="200" a="-0.00466" b="0.01801" c="-0.01557" />
+            <distortion model="ptlens" focal="135" a="-0.00371" b="0.01433" c="-0.01464" />
+            <distortion model="ptlens" focal="100" a="0" b="-0.00091" c="0" />
+            <distortion model="ptlens" focal="70" a="0" b="-0.00371" c="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon EF 75-300mm f/4-5.6 IS USM</model>
         <mount>Canon EF</mount>
         <cropfactor>1.6</cropfactor>
