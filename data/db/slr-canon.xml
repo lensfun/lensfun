@@ -1088,6 +1088,13 @@
         <model>Canon EF-S 55-250 f/4-5.6 IS</model>
         <mount>Canon EF</mount>
         <cropfactor>1.6</cropfactor>
+        <calibration> <!-- data gathered by Spoilerhead 2010 <spoilerhead@gmail.com> using hugin-->
+            <distortion model="ptlens" focal="55" a="-0.000303056" b="-0.00581537" c="-0.00237143" /> <!-- 15 shots-->
+            <distortion model="ptlens" focal="70" a="-0.000520255" b="2.86405e-05" c="0.00286934" />  <!-- 21 shots -->
+            <distortion model="ptlens" focal="100" a="0.00268582" b="-0.00578304" c="0.00718748" />   <!-- 17-->
+            <distortion model="ptlens" focal="135" a="0.00120309" b="0.00979416" c="-0.00868762" />    <!-- 15 -->
+            <distortion model="ptlens" focal="250" a="-0.00226069" b="0.0111545" c="-0.00536676" />    <!-- 18 -->
+        </calibration>
     </lens>
 
     <lens>

@@ -986,4 +986,35 @@
         </calibration>
     </lens>
 
+    <lens> <!-- http://developer.berlios.de/patch/index.php?func=detailpatch&patch_id=3047&group_id=9034 -->
+        <maker>Nikon</maker>
+        <model>Nikkor 50mm f/1.8D</model>
+        <mount>Nikon F AF</mount>
+        <focal>50</focal>
+        <aperture>1.8-22</aperture>
+        <type>rectilinear</type>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="50.0" a="-0.00255" b="0.00841" c="-0.01107" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikkor 18-105mm f/3.5-5.6G ED</model>
+        <mount>Nikon F AF</mount>
+        <focal>18-105</focal>
+        <aperture>3.5-22</aperture>
+        <type>rectilinear</type>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18.0" a="0.00529" b="-0.02091" c="-0.01697" />
+            <distortion model="ptlens" focal="25.0" a="0.01542" b="-0.03457" c="0.02371" />
+            <distortion model="ptlens" focal="35.0" a="0.00716" b="-0.00354" c="0.00352" />
+            <distortion model="ptlens" focal="50.0" a="0.00477" b="-0.00182" c="0.00982" />
+            <distortion model="ptlens" focal="75.0" a="-0.0024" b="0.02231" c="-0.01516" />
+            <distortion model="ptlens" focal="105.0" a="0.00392" b="-0.00253" c="0.01061" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
