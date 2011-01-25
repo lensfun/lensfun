@@ -94,7 +94,7 @@ bool Image::LoadPNG ()
 
     png_init_io (png, file);
 
-    if (setjmp (png->jmpbuf))
+    if (setjmp (png_jmpbuf(png)))
         // If we get here, we had a problem reading the file
         goto nomem;
 
@@ -157,7 +157,7 @@ bool Image::LoadPNG ()
     row_pointers = new png_bytep [Height];
 
     if (!row_pointers
-        || setjmp (png->jmpbuf))             // Set a new exception handler
+        || setjmp (png_jmpbuf(png)))             // Set a new exception handler
     {
         delete [] row_pointers;
     nomem:
@@ -214,7 +214,7 @@ bool Image::SavePNG (const char *fName)
     }
 
     /* Catch processing errors */
-    if (setjmp(png->jmpbuf))
+    if (setjmp(png_jmpbuf(png)))
         /* If we get here, we had a problem writing the file */
         goto error2;
 
@@ -272,10 +272,6 @@ bool Image::SavePNG (const char *fName)
 
     /* It is REQUIRED to call this to finish writing the rest of the file */
     png_write_end (png, info);
-
-    /* if you malloced the palette, free it here */
-    if (info->palette)
-        free (info->palette);
 
     /* clean up after the write, and free any memory allocated */
     png_destroy_write_struct (&png, &info);
