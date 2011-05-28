@@ -49,6 +49,13 @@
         <cropfactor>2.0</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Panasonic</maker>
+        <model>DMC-G2</model>
+        <mount>4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+    </camera>
+
     <lens>
         <maker>Panasonic</maker>
         <model>LUMIX G 20/F1.7</model>
@@ -65,6 +72,36 @@
             <vignetting model="pa" focal="20" aperture="4.0" distance="100" k1="-0.09156" k2="-0.56989" k3="0.38586" />
             <vignetting model="pa" focal="20" aperture="5.0" distance="100" k1="-0.13452" k2="-0.46186" k3="0.32235" />
             <tca model="poly3" focal="20" br="-0.0001356" vr="1.0004113" bb="-0.0000369" vb="1.0002529" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Panasonic</maker>
+        <model>LUMIX G VARIO 14-42/F3.5-5.6</model>
+        <mount>4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="14" a="0.040" b="-0.121" c="0.038" />
+            <distortion model="ptlens" focal="20" a="0.020" b="-0.060" c="0.035" />
+            <distortion model="ptlens" focal="29" a="0.013" b="-0.029" c="0.016" />
+            <distortion model="ptlens" focal="36" a="0.015" b="-0.034" c="0.032" />
+            <distortion model="ptlens" focal="42" a="0.003" b="-0.001" c="0.002" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Panasonic</maker>
+        <model>LUMIX G VARIO 45-200mm F4.0-5.6</model>
+        <mount>4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="45" a="-0.001" b="0.003" c="-0.03" />
+            <distortion model="ptlens" focal="56" a="0.003" b="-0.006" c="0.08" />
+            <distortion model="ptlens" focal="61" a="0.004" b="-0.003" c="0.04" />
+            <distortion model="ptlens" focal="103" a="-0.001" b="0.007" c="0.002" />
+            <distortion model="ptlens" focal="144" a="-0.005" b="0.023" c="-0.015" />
+            <distortion model="ptlens" focal="180" a="-0.003" b="0.020" c="-0.017" />
+            <distortion model="ptlens" focal="200" a="0.004" b="-0.007" c="0.012" />
         </calibration>
     </lens>
 
