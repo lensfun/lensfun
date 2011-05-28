@@ -67,7 +67,7 @@ if tibs.pkgconfig_check_library ("libpng", "1.0"):
     # Check for zlib: first check for the standard libz.a name,
     # and then check for the bastard windoz's "zlib.lib".
     if not tibs.check_library ("zlib", None, None, None, "", tibs.TOOLKIT.linklib ("z")):
-        print "Re-trying with another library name ..."
+        print ("Re-trying with another library name ...")
         tibs.check_library ("zlib", None, None, None, "", tibs.TOOLKIT.linklib ("zlib"))
 
 # On Windows we don't have regex.h, so use a open-source alternative instead.
@@ -120,14 +120,14 @@ tibs.substmacros ("include/lensfun/lensfun.h.in")
 tibs.substmacros ("build/PKGBUILD.in")
 tibs.substmacros ("build/lensfun.spec.in")
 
-print "--------------------------------------------------------------------"
-print "Default build mode:                 " + tibs.MODE
-print "Build doxygen documentation:        " + doxygen
-print "Use the pre-installed makedep:      " + makedep
-print "Target directory for binaries:      " + tibs.BINDIR
-print "Target directory for data files:    " + tibs.DATADIR
-print "Target directory for libraries:     " + tibs.LIBDIR
-print "Target directory for include files: " + tibs.INCLUDEDIR
-print "Target directory for documentation: " + tibs.DOCDIR
-print "Use vector instruction set(-s):     " + ", ".join (x for x in tibs.VECTORIZATION)
-print "--------------------------------------------------------------------"
+print ("--------------------------------------------------------------------")
+print ("Default build mode:                 " + tibs.MODE)
+print ("Build doxygen documentation:        " + doxygen)
+print ("Use the pre-installed makedep:      " + makedep)
+print ("Target directory for binaries:      " + tibs.BINDIR)
+print ("Target directory for data files:    " + tibs.DATADIR)
+print ("Target directory for libraries:     " + tibs.LIBDIR)
+print ("Target directory for include files: " + tibs.INCLUDEDIR)
+print ("Target directory for documentation: " + tibs.DOCDIR)
+print ("Use vector instruction set(-s):     " + ", ".join (x for x in tibs.VECTORIZATION))
+print ("--------------------------------------------------------------------")

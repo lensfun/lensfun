@@ -263,23 +263,23 @@ def start ():
                     break
 
         if not opt_ok:
-            print "Unknown command-line option: '" + opt + "'"
+            print ("Unknown command-line option: '" + opt + "'")
             sys.exit (1)
 
         # Check if option needs argument
         if o [2] and opt_short:
             if optidx >= len (sys.argv):
-                print "Option '" + opt + "' needs an argument"
+                print ("Option '" + opt + "' needs an argument")
                 sys.exit (1)
 
             skip_opt = True
             optarg = sys.argv [optidx + 1]
 
         if not o [2] and optarg:
-            print "Option '" + opt + "' does not accept an argument"
+            print ("Option '" + opt + "' does not accept an argument")
             sys.exit (1)
 
-        exec o [3]
+        exec (o [3])
 
     # Autodetect tune CPU, if required
     if TARGET [2] == "auto":
@@ -289,8 +289,8 @@ def start ():
         TARGET [2] = cpu.replace ("-", "_")
 
     # Print the host and target platforms
-    print "Compiling on host " + ".".join (HOST) + " for target " + \
-          ".".join (TARGET [:2]) + " (tune for " + TARGET [2] + ")"
+    print ("Compiling on host " + ".".join (HOST) + " for target " + \
+          ".".join (TARGET [:2]) + " (tune for " + TARGET [2] + ")")
 
     # Now set target-specific defaults
     if TARGET [0] == "windows":
@@ -340,7 +340,7 @@ def start ():
     COMPILER = COMPILER.upper ();
     TOOLKIT = COMPILERS.get (COMPILER);
     if not TOOLKIT:
-        print "Unsupported compiler: " + COMPILER
+        print ("Unsupported compiler: " + COMPILER)
         sys.exit (1)
     TOOLKIT = TOOLKIT ()
     TOOLKIT.startup ()
@@ -451,16 +451,16 @@ def parse_bool (o, t):
         return True;
     elif t == "no" or t == "off" or t == "disable" or t == "false":
         return False;
-    print "Invalid argument to --%s given: `%s'" % (o, t);
-    print "Must be one of (yes|on|enable|true) or (no|off|disable|false)";
+    print ("Invalid argument to --%s given: `%s'" % (o, t));
+    print ("Must be one of (yes|on|enable|true) or (no|off|disable|false)");
     sys.exit (1)
 
 # Build and print the help/usage text
 def help ():
-    print """
+    print ("""
 This script configures this project to build on your operating system.
 The following switches are available:
-"""
+""")
 
     lines = []
     maxlen = 0
@@ -489,18 +489,18 @@ The following switches are available:
             maxlen = len (left)
 
     for o in lines:
-        print o [0].ljust (maxlen) + o [1].replace ("\n", "\n" + "".ljust (maxlen))
+        print (o [0].ljust (maxlen) + o [1].replace ("\n", "\n" + "".ljust (maxlen)))
 
-    print """
+    print ("""
 The following environment variables are automatically picked up:
-"""
+""")
     for o in ENVARS:
         if len (o) > 2 and o [2]:
             left = ("    " + o [0]).ljust (maxlen)
             desc = o [2]
             if o [1]:
                 desc = desc.replace ("@@@", o [1])
-            print left + desc.replace ("\n", "\n" + "".ljust (maxlen))
+            print (left + desc.replace ("\n", "\n" + "".ljust (maxlen)))
 
     sys.exit (1)
 
@@ -575,11 +575,11 @@ def get_config_mak (header = None):
 
 
 def check_started (text):
-    print text.ljust (64), "...",
+    sys.stdout.write (text.ljust (64) + " ...")
 
 
 def check_finished (res):
-    print res
+    print (res)
 
 
 def check_compile (srcf, outf, cflags = None):
@@ -599,7 +599,7 @@ def check_compile (srcf, outf, cflags = None):
     suffix = " >" + DEVNULL + " 2>&1"
     if VERBOSE:
         suffix = ""
-        print "\n#", cmd
+        print ("\n#", cmd)
 
     fd = os.popen (cmd + suffix)
     return fd.close () == None
@@ -625,7 +625,7 @@ def check_compile_and_link (srcf, outf, cflags = None, libs = None):
     suffix = " >" + DEVNULL + " 2>&1"
     if VERBOSE:
         suffix = ""
-        print "\n#", cmd
+        print ("\n#", cmd)
 
     fd = os.popen (cmd + suffix)
     return fd.close () == None
@@ -741,7 +741,7 @@ def abort_configure (reqtext):
         `reqtext` : str
             The message explaining why the configure process is aborting.
     """
-    print "Cannot build the project because " + reqtext + "\n"
+    print ("Cannot build the project because " + reqtext + "\n")
     sys.exit (1)
 
 
@@ -804,7 +804,7 @@ def check_library (lib, reqversion = None, reqtext = None, version = None, cflag
     if reqversion:
         if not compare_version (version, reqversion):
             check_finished ("FAILED")
-            print "\nVersion %s of the library is required, but found version %s" % (reqversion, version)
+            print ("\nVersion %s of the library is required, but found version %s" % (reqversion, version))
             if reqtext:
                 abort_configure (reqtext)
             return False
@@ -833,7 +833,7 @@ def check_library (lib, reqversion = None, reqtext = None, version = None, cflag
     remove ("conftest" + TOOLKIT.OBJ)
     remove ("conftest" + EXE)
     if not rc and reqtext:
-        print "\nThis library is required to build %s," % PROJ
+        print ("\nThis library is required to build %s," % PROJ)
         abort_configure (reqtext)
     return rc
 
@@ -859,7 +859,7 @@ def pkgconfig_check_library (lib, reqversion, reqtext = None):
         check_finished ("NOT FOUND")
 
         if reqtext:
-            print "\nThis library is required to build %s," % PROJ
+            print ("\nThis library is required to build %s," % PROJ)
             abort_configure (reqtext)
 
         return False
@@ -904,7 +904,7 @@ def check_header (hdr, cflags = None, reqtext = None):
     remove ("conftest.c")
     remove ("conftest" + TOOLKIT.OBJ)
     if not rc and reqtext:
-        print "\nThis header file is required to build %s," % PROJ
+        print ("\nThis header file is required to build %s," % PROJ)
         abort_configure (reqtext)
     return rc
 
@@ -944,7 +944,7 @@ def check_program (name, prog, ver_regex, req_version, failifnot = False):
             line = line.strip ()
 
             if VERBOSE:
-                print "\n# '" + prog + "' returned '" + line + "'"
+                print ("\n# '" + prog + "' returned '" + line + "'")
 
             m = re.match (ver_regex, line)
             if m:
@@ -965,7 +965,7 @@ def check_program (name, prog, ver_regex, req_version, failifnot = False):
             check_finished ("FAILED")
 
     if not rc and failifnot:
-        print "\n" + name + " version " + req_version + " and above is required to build this project"
+        print ("\n" + name + " version " + req_version + " and above is required to build this project")
         sys.exit (1)
 
     return rc
@@ -1012,7 +1012,7 @@ for %s and we cannot use pkg-config because we are cross-compiling.
     fd = os.popen (cmd + suffix)
     line = " ".join (fd.readlines ()).strip ()
     if VERBOSE:
-        print "# '" + cmd + "' returned '" + line + "'"
+        print ("# '" + cmd + "' returned '" + line + "'")
     if fd.close () == None:
         if args == "exists":
             return True
@@ -1060,7 +1060,7 @@ It is expected that it contains a template.
     rx = re.compile ("@([a-zA-Z0-9_]*)@")
     sc = rx.split (content)
     for x in range (1, len (sc), 2):
-        if macros.has_key (sc [x]):
+        if sc [x] in macros:
             sc [x] = macros [sc [x]]
         else:
             abort_configure (
