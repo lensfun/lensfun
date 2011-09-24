@@ -124,7 +124,39 @@
     <camera>
         <maker>OLYMPUS CORPORATION</maker>
         <maker lang="en">Olympus</maker>
+        <model>E-P3</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>OLYMPUS CORPORATION</maker>
+        <maker lang="en">Olympus</maker>
         <model>E-PL1</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>OLYMPUS CORPORATION</maker>
+        <maker lang="en">Olympus</maker>
+        <model>E-PL2</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>OLYMPUS CORPORATION</maker>
+        <maker lang="en">Olympus</maker>
+        <model>E-PL3</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>OLYMPUS CORPORATION</maker>
+        <maker lang="en">Olympus</maker>
+        <model>E-PM1</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2.0</cropfactor>
     </camera>
@@ -284,6 +316,17 @@
 
     <lens>
         <maker>Olympus</maker>
+        <model>Olympus M.Zuiko Digital 17mm F2.8 Pancake</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <calibration>
+            <distortion model="poly3" focal="17" k1="-0.110" />
+            <tca model="poly3" focal="17" br="-0.0002" vr="1.00045" bb="0.0003" vb="1.0002" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Olympus</maker>
         <model>Standard</model>
         <mount>olympusE10</mount>
         <cropfactor>3.933</cropfactor>
@@ -363,17 +406,6 @@
         <cropfactor>3.933</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="36" a="0" b="-0.001085" c="0" />
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Olympus</maker>
-        <model>Olympus M.Zuiko Digital 17mm F2.8 Pancake</model>
-        <mount>Micro 4/3 System</mount>
-        <cropfactor>2.0</cropfactor>
-        <calibration>
-            <distortion model="poly3" focal="17" k1="-0.110" />
-            <tca model="poly3" focal="17" br="-0.0002" vr="1.00045" bb="0.0003" vb="1.0002" />
         </calibration>
     </lens>
 
