@@ -1,0 +1,33 @@
+<!--
+MIL stands for Mirrorless Interchangeable Lens, see
+http://en.wikipedia.org/wiki/Mirrorless_interchangeable-lens_camera
+-->
+<lensdatabase>
+    <mount>
+        <name>Samsung NX</name>
+        <name lang="en">Samsung NX</name>
+        <compat>Generic</compat>
+        <compat>Pentax K</compat>
+    </mount>
+
+    <camera>
+        <maker>SAMSUNG</maker>
+        <maker lang="en">Samsung</maker>
+        <model>NX100</model>
+         <model lang="en">NX100</model>
+        <mount>Samsung NX</mount>
+        <cropfactor>1.54</cropfactor>
+    </camera>
+
+    <lens>
+        <maker>Samsung</maker>
+        <model>Samsung 20-50mm F3.5-5.6 Compact Zoom</model>
+        <mount>Samsung NX</mount>
+        <cropfactor>1.54</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="20" a="0.027" b="-0.076" c="0.018" />
+            <!-- <distortion model="poly3" focal="12" k1="-0.015" /> -->
+        </calibration>
+    </lens>
+
+</lensdatabase>
