@@ -1,0 +1,105 @@
+<lensdatabase>
+
+    <mount>
+        <name>Micro 4/3 System</name>
+        <compat>M42</compat>
+        <compat>Generic</compat>
+    </mount>
+
+    <camera>
+        <maker>OLYMPUS CORPORATION</maker>
+        <maker lang="en">Olympus</maker>
+        <model>E-P1</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>OLYMPUS CORPORATION</maker>
+        <maker lang="en">Olympus</maker>
+        <model>E-P2</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>OLYMPUS CORPORATION</maker>
+        <maker lang="en">Olympus</maker>
+        <model>E-P3</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>OLYMPUS CORPORATION</maker>
+        <maker lang="en">Olympus</maker>
+        <model>E-PL1</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>OLYMPUS CORPORATION</maker>
+        <maker lang="en">Olympus</maker>
+        <model>E-PL1s</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>OLYMPUS CORPORATION</maker>
+        <maker lang="en">Olympus</maker>
+        <model>E-PL2</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>OLYMPUS CORPORATION</maker>
+        <maker lang="en">Olympus</maker>
+        <model>E-PL3</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>OLYMPUS CORPORATION</maker>
+        <maker lang="en">Olympus</maker>
+        <model>E-PM1</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+    </camera>
+
+    <lens>
+        <maker>Olympus</maker>
+        <model>Olympus M.Zuiko Digital ED 14-42mm F3.5-5.6</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <calibration>
+            <distortion model="poly3" focal="14" k1="-0.079" />
+            <distortion model="poly3" focal="18" k1="-0.036" />
+            <distortion model="poly3" focal="25" k1="0.0004" />
+            <distortion model="poly3" focal="30" k1="0.013" />
+            <distortion model="poly3" focal="35" k1="0.014" />
+            <distortion model="poly3" focal="42" k1="0.012" />
+            <tca model="poly3" focal="14" br="0.0002632" vr="1.0002908" bb="-0.0003817" vb="1.0" />
+            <tca model="poly3" focal="18" br="-0.0000326" vr="1.0004544" bb="-0.0003189" vb="1.0007081" />
+            <tca model="poly3" focal="25" br="-0.0001613" vr="1.0005611" bb="-0.0001126" vb="1.0004058" />
+            <tca model="poly3" focal="30" br="-0.0002418" vr="1.0006295" bb="-0.0000052" vb="1.0002145" />
+            <tca model="poly3" focal="35" br="-0.0002539" vr="1.0006484" bb="0.0000470" vb="1.0000846" />
+            <tca model="poly3" focal="42" br="-0.0002029" vr="1.0006187" bb="0.0001236" vb="0.9999271" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Olympus</maker>
+        <model>Olympus M.Zuiko Digital 17mm F2.8 Pancake</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <calibration>
+             <distortion model="ptlens" focal="17" a="0.00835" b="-0.04149" c="-0.0022" />
+             <tca model="poly3" focal="17" br="-0.0004492" vr="1.0016410" bb="0.0005749" vb="0.9989794" />
+        </calibration>
+    </lens>
+
+</lensdatabase>

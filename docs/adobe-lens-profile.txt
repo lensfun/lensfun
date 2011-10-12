@@ -1,0 +1,43 @@
+I've had some success converting lens distortion parameters from Adobe format
+to Lensfun format.
+
+The main complication is the difference in coordinate system. This is described
+in the Adobe lens model doco, and I go through the details in this thread:
+http://forums.adobe.com/message/3382077
+
+Here's how the conversion looks for the 2-parameter Adobe model, which maps
+nicely onto the lensfun poly5 model (assuming a 4:3 aspect ratio):
+
+k1, k2 and FocalLength (aka stCamera:FocalLengthX) all come from the LCP file
+k1', k2' are the lensfun poly5 parameters
+
+amax = 0.5 * (1 / FocalLength)
+atol = (4/3)/(amax * (1 + k1 * amax ^ 2 + k2 * amax ^ 4))
+k1' = k1 / (atol*atol)
+k2' = k2 / (atol^4)
+
+[here's some R code that calculates my example:
+http://ouabain.org/lensfun/fit-adobe-lensfun.R ]
+
+An example LCP file: http://ouabain.org/lensfun/DMC-GF1.lcp
+The converted lensfun parameters:
+http://ouabain.org/lensfun/slr-panasonic-local.xml
+
+I compared the results of the two profiles (in Adobe Lightroom and rawstudio
+for lensfun), and they match well:
+
+Lightroom: http://ouabain.org/lensfun/p1010547-lr.jpg
+Lensfun: http://ouabain.org/lensfun/p1010547-lensfun.jpg
+difference: http://ouabain.org/lensfun/p1010547-diff.jpg
+
+[n.b. to calculate the difference, I first scaled down the Lensfun output, because
+there is a difference in the final scale/crop between Lightroom and rawstudio]
+
+Original raw file here: http://ouabain.org/lensfun/p1010547.rw2.bz2
+
+[for the Lightroom conversion, I first used dcraw to generate a 16-bit linear
+TIFF, rather than let Lightroom convert the RW2 file directly -- otherwise Lightroom
+will apply the 'standard' correction for this micro-4/3 lens]
+
+I'll have a look at the chromatic aberration and vignetting parameters next,
+and if that goes well try to write a generic LCP to lensfun converter.
