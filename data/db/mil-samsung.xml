@@ -13,8 +13,35 @@ http://en.wikipedia.org/wiki/Mirrorless_interchangeable-lens_camera
     <camera>
         <maker>SAMSUNG</maker>
         <maker lang="en">Samsung</maker>
+        <model>NX10</model>
+         <model lang="en">NX10</model>
+        <mount>Samsung NX</mount>
+        <cropfactor>1.54</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>SAMSUNG</maker>
+        <maker lang="en">Samsung</maker>
+        <model>NX11</model>
+         <model lang="en">NX11</model>
+        <mount>Samsung NX</mount>
+        <cropfactor>1.54</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>SAMSUNG</maker>
+        <maker lang="en">Samsung</maker>
         <model>NX100</model>
          <model lang="en">NX100</model>
+        <mount>Samsung NX</mount>
+        <cropfactor>1.54</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>SAMSUNG</maker>
+        <maker lang="en">Samsung</maker>
+        <model>NX200</model>
+         <model lang="en">NX200</model>
         <mount>Samsung NX</mount>
         <cropfactor>1.54</cropfactor>
     </camera>
@@ -25,8 +52,12 @@ http://en.wikipedia.org/wiki/Mirrorless_interchangeable-lens_camera
         <mount>Samsung NX</mount>
         <cropfactor>1.54</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="20" a="0.027" b="-0.076" c="0.018" />
-            <!-- <distortion model="poly3" focal="12" k1="-0.015" /> -->
+            <distortion model="ptlens" focal="20" a="0.01347" b="-0.05952" c="0.01561" />
+            <distortion model="ptlens" focal="24" a="0.00549" b="-0.03312" c="0.00984" />
+            <distortion model="ptlens" focal="28" a="0.01064" b="-0.04256" c="0.03338" />
+            <distortion model="ptlens" focal="35" a="-0.001" b="-0.00843" c="0.02713" />
+            <distortion model="ptlens" focal="45" a="0.00716" b="-0.0379" c="0.06902" />
+            <distortion model="ptlens" focal="50" a="-0.02119" b="0.06813" c="-0.06118" />
         </calibration>
     </lens>
 
