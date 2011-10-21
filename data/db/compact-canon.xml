@@ -36,6 +36,11 @@
     </mount>
 
     <mount>
+        <name>canonG12</name>
+        <compat>Generic</compat>
+    </mount>
+
+    <mount>
         <name>canonSD500</name>
         <compat>Generic</compat>
     </mount>
@@ -226,6 +231,14 @@
         <model lang="en">PowerShot G11</model>
         <mount>canonG11</mount>
         <cropfactor>4.605</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot G12</model>
+        <model lang="en">PowerShot G12</model>
+        <mount>canonG12</mount>
+        <cropfactor>4.63</cropfactor>
     </camera>
 
     <camera>
@@ -839,6 +852,23 @@
             <distortion model="ptlens" focal="12.5" a="0" b="0.001899" c="0" />
             <distortion model="ptlens" focal="18.781" a="0" b="0.003174" c="0" />
             <distortion model="ptlens" focal="21" a="0" b="0.003938" c="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Standard</model>
+        <mount>canonG12</mount>
+        <cropfactor>4.63</cropfactor>
+        <calibration>
+            <distortion model="poly5" focal="6.1" k1="-0.030571633" k2="0.004658548" />
+            <distortion model="poly5" focal="8.108" k1="-0.015375784" k2="0.001669650" />
+            <distortion model="poly5" focal="12.074" k1="-0.010041248" k2="-0.001118356" />
+            <distortion model="poly5" focal="18.098" k1="-0.002054377" k2="0.000011075" />
+            <distortion model="poly5" focal="30.5" k1="-0.000323237" k2="-0.000346917" />
+            <tca model="poly3" focal="6.1" br="-0.0002616" vr="1.0007448" bb="-0.0000455" vb="1.0003314" />
+            <tca model="poly3" focal="10.8" br="-0.0000003" vr="1.0004612" bb="0.0000253" vb="1.0001464" />
+            <tca model="poly3" focal="30.5" br="0.0000326" vr="0.9996400" bb="-0.0003242" vb="1.0008367" />
         </calibration>
     </lens>
 

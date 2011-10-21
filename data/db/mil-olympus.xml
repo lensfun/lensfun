@@ -93,6 +93,25 @@
 
     <lens>
         <maker>Olympus</maker>
+        <model>Olympus M.Zuiko Digital ED 14-42mm F3.5-5.6 L</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <calibration>
+            <tca model="poly3" focal="14" br="0.0000600" vr="1.0001242" bb="-0.0002995" vb="1.0007041" />
+            <tca model="poly3" focal="18" br="0.0001267" vr="1.0000281" bb="-0.0001852" vb="1.0007117" />
+            <tca model="poly3" focal="25" br="-0.0000200" vr="1.0001315" bb="0.0001459" vb="1.0002999" />
+            <tca model="poly3" focal="35" br="-0.0001014" vr="1.0002742" bb="0.0000318" vb="1.0002395" />
+            <tca model="poly3" focal="42" br="-0.0001526" vr="1.0004259" bb="0.0001596" vb="1.0000256" />
+            <distortion model="ptlens" focal="13.56" a="0.10558" b="-0.3175" c="0.19816" />
+            <distortion model="ptlens" focal="16.49" a="0.0738" b="-0.25191" c="0.21409" />
+            <distortion model="ptlens" focal="24.40" a="-0.01895" b="0.05672" c="-0.05355" />
+            <distortion model="ptlens" focal="34.28" a="0.00451" b="-0.00716" c="0.02727" />
+            <distortion model="ptlens" focal="41.01" a="-0.00173" b="0.01774" c="0.00339" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Olympus</maker>
         <model>Olympus M.Zuiko Digital 17mm F2.8 Pancake</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2.0</cropfactor>

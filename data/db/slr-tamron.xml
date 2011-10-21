@@ -26,6 +26,26 @@
 
     <lens>
         <maker>Tamron</maker>
+        <model>Tamron 17-50mm f/2.8 XR Di II LD</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Pentax KAF</mount>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="17" a="0.02667" b="-0.07161" c="0.02012" />
+            <distortion model="ptlens" focal="24" a="0.02791" b="-0.08057" c="0.07132" />
+            <distortion model="ptlens" focal="35" a="-0.01098" b="0.0448" c="-0.04755" />
+            <distortion model="ptlens" focal="50" a="-0.00372" b="0.01796" c="-0.01334" />
+            <tca model="poly3" focal="17" br="0.0000205" vr="1.0005975" bb="-0.0001325" vb="1.0008428" />
+            <tca model="poly3" focal="24" br="-0.0000073" vr="1.0004585" bb="-0.0000382" vb="1.0004269" />
+            <tca model="poly3" focal="35" br="-0.0000351" vr="1.0002419" bb="-0.0000228" vb="1.0001575" />
+            <tca model="poly3" focal="50" br="-0.0000294" vr="1.0000100" bb="-0.0000149" vb="0.9999915" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Tamron</maker>
         <model>Tamron 18-200mm f/3.5-6.3 XR Di II LD</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>

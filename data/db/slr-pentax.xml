@@ -201,6 +201,30 @@
 
     <lens>
         <maker>Pentax</maker>
+        <model>SMC PENTAX DA 12-24mm F/4 ED AL IF</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="poly3" focal="12" k1="-0.01919" />
+            <distortion model="poly3" focal="15" k1="-0.00774" />
+            <distortion model="poly3" focal="18" k1="-0.00345" />
+            <distortion model="poly3" focal="21" k1="-0.00199" />
+            <distortion model="poly3" focal="24" k1="0.00061" />
+            <tca model="poly3" focal="12" br="0.0000916" vr="0.9999904" bb="-0.0002397" vb="1.0006490" />
+            <tca model="poly3" focal="15" br="0.0001253" vr="0.9999184" bb="-0.0002858" vb="1.0008241" />
+            <tca model="poly3" focal="18" br="0.0001204" vr="0.9999075" bb="-0.0001990" vb="1.0006258" />
+            <tca model="poly3" focal="21" br="0.0001063" vr="0.9999562" bb="-0.0001477" vb="1.0005692" />
+            <tca model="poly3" focal="24" br="0.0000982" vr="1.0000005" bb="-0.0001137" vb="1.0004136" />
+            <vignetting model="pa" focal="12" aperture="4.5" distance="100" k1="-0.19267" k2="0.09379" k3="-0.38938" />
+            <vignetting model="pa" focal="15" aperture="4.5" distance="100" k1="-0.08756" k2="-0.28192" k3="0.06908" />
+            <vignetting model="pa" focal="18" aperture="4.5" distance="100" k1="-0.05982" k2="-0.45748" k3="0.25039" />
+            <vignetting model="pa" focal="21" aperture="4.5" distance="100" k1="-0.28874" k2="-0.06687" k3="0.09488" />
+            <vignetting model="pa" focal="24" aperture="4.5" distance="100" k1="-0.44227" k2="0.2599" k3="-0.09436" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
         <model>SMC Pentax DA 16-45mm f/4.0 ED AL</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.5</cropfactor>
@@ -250,25 +274,22 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>SMC PENTAX DA 12-24mm F/4 ED AL IF</model>
+        <model>SMC PENTAX DA 55-300mm F/4-5.8 ED</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
-            <distortion model="poly3" focal="12" k1="-0.01919" />
-            <distortion model="poly3" focal="15" k1="-0.00774" />
-            <distortion model="poly3" focal="18" k1="-0.00345" />
-            <distortion model="poly3" focal="21" k1="-0.00199" />
-            <distortion model="poly3" focal="24" k1="0.00061" />
-            <tca model="poly3" focal="12" br="0.0000916" vr="0.9999904" bb="-0.0002397" vb="1.0006490" />
-            <tca model="poly3" focal="15" br="0.0001253" vr="0.9999184" bb="-0.0002858" vb="1.0008241" />
-            <tca model="poly3" focal="18" br="0.0001204" vr="0.9999075" bb="-0.0001990" vb="1.0006258" />
-            <tca model="poly3" focal="21" br="0.0001063" vr="0.9999562" bb="-0.0001477" vb="1.0005692" />
-            <tca model="poly3" focal="24" br="0.0000982" vr="1.0000005" bb="-0.0001137" vb="1.0004136" />
-            <vignetting model="pa" focal="12" aperture="4.5" distance="100" k1="-0.19267" k2="0.09379" k3="-0.38938" />
-            <vignetting model="pa" focal="15" aperture="4.5" distance="100" k1="-0.08756" k2="-0.28192" k3="0.06908" />
-            <vignetting model="pa" focal="18" aperture="4.5" distance="100" k1="-0.05982" k2="-0.45748" k3="0.25039" />
-            <vignetting model="pa" focal="21" aperture="4.5" distance="100" k1="-0.28874" k2="-0.06687" k3="0.09488" />
-            <vignetting model="pa" focal="24" aperture="4.5" distance="100" k1="-0.44227" k2="0.2599" k3="-0.09436" />
+            <distortion model="ptlens" focal="55" a="-0.00518" b="0.01937" c="-0.02824" />
+            <distortion model="ptlens" focal="70" a="-0.00835" b="0.03291" c="-0.03127" />
+            <distortion model="ptlens" focal="100" a="-0.00192" b="0.0237" c="-0.02643" />
+            <distortion model="ptlens" focal="135" a="0.00299" b="0.00061" c="0.01078" />
+            <distortion model="ptlens" focal="210" a="-0.00376" b="0.02149" c="-0.01102" />
+            <distortion model="ptlens" focal="300" a="0.00076" b="0.00759" c="-0.00349" />
+            <tca model="poly3" focal="55" br="0.0000246" vr="1.0000974" bb="-0.0001380" vb="1.0004061" />
+            <tca model="poly3" focal="70" br="0.00003" vr="0.99993" bb="-0.00013" vb="1.00017" />
+            <tca model="poly3" focal="100" br="0.0000716" vr="0.9996644" bb="-0.0002294" vb="1.0001925" />
+            <tca model="poly3" focal="135" br="0.0000352" vr="0.9996857" bb="-0.0001704" vb="0.9999750" />
+            <tca model="poly3" focal="210" br="0.0000202" vr="0.9993629" bb="-0.0000804" vb="0.9992342" />
+            <tca model="poly3" focal="300" br="-0.0002627" vr="0.9998441" bb="-0.0002958" vb="0.9995492" />
         </calibration>
     </lens>
 

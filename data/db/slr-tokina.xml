@@ -54,6 +54,23 @@
 
     <lens>
         <maker>Tokina</maker>
+        <model>Tokina 80-200mm f/4.5-5.6 SZ-X</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="80" a="-0.01761" b="0.06433" c="-0.07566" />
+            <distortion model="ptlens" focal="110" a="-0.01579" b="0.05909" c="-0.06129" />
+            <distortion model="ptlens" focal="200" a="-0.01328" b="0.04681" c="-0.03935" />
+            <tca model="poly3" focal="80" br="0.0000351" vr="0.9998083" bb="-0.0000109" vb="0.9998991" />
+            <tca model="poly3" focal="110" br="-0.0000155" vr="0.9999253" bb="-0.0000348" vb="0.9994977" />
+            <tca model="poly3" focal="200" br="-0.0000075" vr="0.9993965" bb="-0.0000782" vb="0.9994524" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Tokina</maker>
         <model>Tokina 17mm f/3.5 AT-X AF PRO</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
