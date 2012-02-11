@@ -181,4 +181,53 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tamron</maker>
+        <model>Tamron 35-70mm F/3.5 CF MACRO</model>
+        <mount>Nikon F</mount>
+        <mount>Pentax K</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="poly3" focal="35" k1="-0.00768" />
+            <distortion model="ptlens" focal="40" a="0.0012" b="-0.00676" c="0.00204" />
+            <distortion model="ptlens" focal="50" a="-0.00143" b="0.00459" c="-0.00465" />
+            <distortion model="poly3" focal="70" k1="0.00233" />	    
+	        <tca model="poly3" focal="35" br="-0.00004" vr="1.00018" bb="0.00007" vb="0.999835" />
+	        <tca model="poly3" focal="40" br="-0.00003" vr="1.00011" bb="0.000021" vb="0.999909" />
+            <tca model="poly3" focal="50" br="-0.0000088" vr="1.0000432" bb="0.0000117" vb="0.9999312" />
+            <tca model="poly3" focal="70" br="-0.0000079" vr="1.0000614" bb="-0.0000911" vb="1.000192" />
+            <vignetting model="pa" focal="40" aperture="11" distance="1000" k1="-0.11121" k2="0.08366" k3="-0.10313" />
+            <vignetting model="pa" focal="35" aperture="11" distance="1000" k1="-0.07601" k2="0.00922" k3="-0.04755" />
+	        <vignetting model="pa" focal="70" aperture="11" distance="1000" k1="-0.25218" k2="0.278" k3="-0.15618" />
+            <vignetting model="pa" focal="50" aperture="11" distance="1000" k1="-0.21197" k2="-0.08795" k3="0.07518" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Tamron</maker>
+        <model>Tamron AF70-300mm F/4-5.6 LD MACRO</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Pentax KAF2</mount>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+	        <distortion model="ptlens" focal="70" a="0.00168" b="-0.00649" c="0.0021" />
+ 	        <distortion model="ptlens" focal="100" a="-0.00287" b="0.01075" c="-0.00716" />
+	        <distortion model="ptlens" focal="133" a="0.00404" b="-0.0061" c="0.00845" />
+	        <distortion model="ptlens" focal="180" a="0.0" b="0.00388" c="0.0" />
+	        <distortion model="ptlens" focal="300" a="0.0" b="0.00442" c="0.0" />
+            <tca model="poly3" focal="70" br="-0.0000487" vr="1.0002053" bb="0.0000352" vb="0.9998612" />
+            <tca model="poly3" focal="100" br="-0.0000402" vr="1.0000889" bb="0.0000026" vb="0.9998133" />
+            <tca model="poly3" focal="133" br="-0.0000210" vr="0.9999776" bb="0.0000067" vb="0.9998469" />
+            <tca model="poly3" focal="180" br="-0.0000139" vr="0.9998566" bb="0.0000295" vb="0.999785" />
+            <tca model="poly3" focal="300" br="-0.000011" vr="0.9996417" bb="0.000022" vb="0.9998125" />
+            <vignetting model="pa" focal="70" aperture="11" distance="1000" k1="-0.05486" k2="0.04427" k3="-0.01908" />
+            <vignetting model="pa" focal="100" aperture="11" distance="1000" k1="-0.07719" k2="0.13209" k3="-0.09579" />
+            <vignetting model="pa" focal="133" aperture="11" distance="1000" k1="-0.05807" k2="0.07773" k3="-0.05601" />
+            <vignetting model="pa" focal="180" aperture="11" distance="1000" k1="-0.03723" k2="0.02431" k3="-0.02236" />
+            <vignetting model="pa" focal="300" aperture="11" distance="1000" k1="-0.03866" k2="0.05966" k3="-0.04464" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
