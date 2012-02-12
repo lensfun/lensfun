@@ -79,7 +79,11 @@ void lfExtModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int
     ModifyCoord_Dist_PTLens (data, &iocoord [loop_count * 2], remain);
 }
 
+#if defined (_MSC_VER)
+typedef size_t uintptr_t;
+#else
 typedef __SIZE_TYPE__ uintptr_t;
+#endif
 
 void lfExtModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int count)
 {

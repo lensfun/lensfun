@@ -11,9 +11,16 @@
 #include "lensfunprv.h"
 #include <emmintrin.h>
 
-static gint _15_bit_epi32[4] __attribute__ ((aligned (16))) =
+#if defined (_MSC_VER)
+#define PREFIX_ALIGN __declspec(align(16)) 
+#define SUFFIX_ALIGN
+#else
+#define PREFIX_ALIGN
+#define SUFFIX_ALIGN __attribute__ ((aligned (16)))
+#endif
+static PREFIX_ALIGN gint _15_bit_epi32[4] SUFFIX_ALIGN =
 { 32768, 32768, 32768, 32768 };
-static guint _16_bit_sign[4] __attribute__ ((aligned (16))) =
+static PREFIX_ALIGN guint _16_bit_sign[4] SUFFIX_ALIGN =
 { 0x80008000, 0x80008000, 0x80008000, 0x80008000 };
 
 void lfExtModifier::ModifyColor_DeVignetting_PA_SSE2 (
@@ -232,7 +239,11 @@ void lfExtModifier::ModifyColor_DeVignetting_PA_SSE2_aligned (
             &pixels [loop_count * 4], comp_role, count);
 }
 
+#if defined (_MSC_VER)
+typedef size_t uintptr_t;
+#else
 typedef __SIZE_TYPE__ uintptr_t;
+#endif
 
 void lfExtModifier::ModifyColor_DeVignetting_PA_Select (
     void *data, float x, float y, lf_u16 *pixels, int comp_role, int count)

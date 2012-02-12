@@ -375,6 +375,63 @@ static void _xml_start_element (GMarkupParseContext *context,
 
         pd->lens->AddCalibVignetting (&vc);
     }
+    else if (!strcmp (element_name, "crop"))
+    {
+        if (!ctx || strcmp (ctx, "calibration"))
+            goto bad_ctx;
+
+        lfLensCalibCrop lcc;
+        memset (&lcc, 0, sizeof (lcc));
+        for (i = 0; attribute_names [i]; i++)
+            if (!strcmp (attribute_names [i], "focal"))
+                lcc.Focal = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "mode"))
+            {
+                if (!strcmp (attribute_values [i], "no_crop"))
+                    lcc.CropMode = LF_NO_CROP;
+                else if (!strcmp (attribute_values [i], "crop_rectangle"))
+                    lcc.CropMode = LF_CROP_RECTANGLE;
+                else if (!strcmp (attribute_values [i], "crop_circle"))
+                    lcc.CropMode = LF_CROP_CIRCLE;
+                else
+                {
+                    goto bad_attr;
+                }
+            }
+            else if (!strcmp (attribute_names [i], "left"))
+                lcc.Crop [0] = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "right"))
+                lcc.Crop [1] = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "top"))
+                lcc.Crop [2] = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "bottom"))
+                lcc.Crop [3] = atof (attribute_values [i]);
+            else
+            {
+                goto unk_attr;
+            }
+
+        pd->lens->AddCalibCrop(&lcc);
+    }
+    else if (!strcmp (element_name, "field_of_view"))
+    {
+        if (!ctx || strcmp (ctx, "calibration"))
+            goto bad_ctx;
+
+        lfLensCalibFov lcf;
+        memset (&lcf, 0, sizeof (lcf));
+        for (i = 0; attribute_names [i]; i++)
+            if (!strcmp (attribute_names [i], "focal"))
+                lcf.Focal = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "fov"))
+                lcf.FieldOfView = atof (attribute_values [i]);
+            else
+            {
+                goto unk_attr;
+            }
+
+        pd->lens->AddCalibFov(&lcf);
+    }
     /* Handle multi-language strings */
     else if (!strcmp (element_name, "maker") ||
              !strcmp (element_name, "model") ||
@@ -547,6 +604,14 @@ static void _xml_text (GMarkupParseContext *context,
                 pd->lens->Type = LF_PANORAMIC;
             else if (!_lf_strcmp (text, "equirectangular"))
                 pd->lens->Type = LF_EQUIRECTANGULAR;
+            else if (!_lf_strcmp (text, "orthographic"))
+                pd->lens->Type = LF_FISHEYE_ORTHOGRAPHIC;
+            else if (!_lf_strcmp (text, "stereographic"))
+                pd->lens->Type = LF_FISHEYE_STEREOGRAPHIC;
+            else if (!_lf_strcmp (text, "equisolid"))
+                pd->lens->Type = LF_FISHEYE_EQUISOLID;
+            else if (!_lf_strcmp (text, "fisheye_thoby"))
+                pd->lens->Type = LF_FISHEYE_THOBY;
             else
             {
                 g_set_error (error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
@@ -735,6 +800,10 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                                 lenses [i]->Type == LF_FISHEYE ? "fisheye" :
                                 lenses [i]->Type == LF_PANORAMIC ? "panoramic" :
                                 lenses [i]->Type == LF_EQUIRECTANGULAR ? "equirectangular" :
+                                lenses [i]->Type == LF_FISHEYE_ORTHOGRAPHIC ? "orthographic" :
+                                lenses [i]->Type == LF_FISHEYE_STEREOGRAPHIC ? "stereographic" :
+                                lenses [i]->Type == LF_FISHEYE_EQUISOLID ? "equisolid" :
+                                lenses [i]->Type == LF_FISHEYE_THOBY ? "fisheye_thoby" :
                                 "rectilinear");
 
             if (lenses [i]->CenterX || lenses [i]->CenterY)
@@ -753,7 +822,8 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                             lenses [i]->CropFactor);
 
             if (lenses [i]->CalibDistortion || lenses [i]->CalibTCA ||
-                lenses [i]->CalibVignetting)
+                lenses [i]->CalibVignetting || lenses [i]->CalibCrop || 
+                lenses [i]->CalibFov )
                 g_string_append (output, "\t\t<calibration>\n");
 
             if (lenses [i]->CalibDistortion)
@@ -838,8 +908,53 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                 }
             }
 
+            if (lenses [i]->CalibCrop)
+            {
+                for (j = 0; lenses [i]->CalibCrop [j]; j++)
+                {
+                    lfLensCalibCrop *lcc = lenses [i]->CalibCrop [j];
+
+                    _lf_xml_printf (output, "\t\t\t<crop focal=\"%g\" ",
+                                    lcc->Focal);
+                    switch (lcc->CropMode)
+                    {
+                        case LF_CROP_RECTANGLE:
+                            _lf_xml_printf (
+                                output, "mode=\"crop_rectangle\" left=\"%g\" right=\"%g\" top=\"%g\" bottom=\"%g\" />\n",
+                                lcc->Crop [0], lcc->Crop [1], lcc->Crop [2], lcc->Crop [3]);
+                            break;
+
+                        case LF_CROP_CIRCLE:
+                            _lf_xml_printf (
+                                output, "mode=\"crop_circle\" left=\"%g\" right=\"%g\" top=\"%g\" bottom=\"%g\" />\n",
+                                lcc->Crop [0], lcc->Crop [1], lcc->Crop [2], lcc->Crop [3]);
+                            break;
+
+                        case LF_NO_CROP:
+                        default:
+                            _lf_xml_printf (output, "mode=\"no_crop\" />\n");
+                            break;
+                    }
+                }
+            }
+
+            if (lenses [i]->CalibFov)
+            {
+                for (j = 0; lenses [i]->CalibFov [j]; j++)
+                {
+                    lfLensCalibFov *lcf = lenses [i]->CalibFov [j];
+
+                    if(lcf->FieldOfView>0)
+                    {
+                        _lf_xml_printf (output, "\t\t\t<field_of_view focal=\"%g\" fov=\"%g\" />\n",
+                            lcf->Focal, lcf->FieldOfView);
+                    };
+                }
+            }
+
             if (lenses [i]->CalibDistortion || lenses [i]->CalibTCA ||
-                lenses [i]->CalibVignetting)
+                lenses [i]->CalibVignetting || lenses [i]->CalibCrop ||
+                lenses [i]->CalibFov )
                 g_string_append (output, "\t\t</calibration>\n");
 
             g_string_append (output, "\t</lens>\n\n");

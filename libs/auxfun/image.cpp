@@ -7,8 +7,24 @@
 #include <zlib.h>
 #include <png.h>
 #include <stdlib.h>
+#ifdef _MSC_VER
+#define _USE_MATH_DEFINES 1
+#include <math.h>
+
+float rint(float x)
+{
+     return floor(x + 0.5f);
+}
+
+float trunc (float x)
+{
+  return (((x) < 0) ? ceil((x)) : floor((x)));
+} 
+#define unlink _unlink
+#else
 #include <unistd.h>
 #include <math.h>
+#endif
 
 // A support of 3 gives an overall sharper looking image, but
 // it is a) slower b) gives more sharpening artefacts

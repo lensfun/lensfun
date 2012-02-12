@@ -271,7 +271,7 @@ Possible embedded elements:
 <dd>Lens variant. Sometimes there are several variants of the same lens which
     even sometimes differs in parameters.
 <dt>\<type\>string\</type\>
-    Lens type. This is one of: "rectilinear", "fisheye", "panoramic", "equirectangular".
+    Lens type. This is one of: "rectilinear", "fisheye", "panoramic", "equirectangular", "orthographic", "stereographic", "equisolid", "fisheye_thoby".
 <dt>\<focal min="number" max="number" value="number" /\>
 <dd>Lens focal length. This can be either a single value for a fixed-focal length
     lens, or a "min-max" range in the case of a zoom lens.
@@ -345,6 +345,17 @@ Possible embedded elements:
     and given distance to subject. This kind of calibration requires relatively many
     sample points since it depends on three variables.
     @see lfVignettingModel
+<dt>\<crop focal="number" mode="name" left="number" right="number" top="number" bottom="number" /\>
+<dd>Declares the image crop for this lens. Crop can be specific for every
+    focal length, so you can declare multiple crop entries with different focal
+    values; the library will interpolate the parameters for intermediate focal lengths.
+    @see lfCropMode
+<dt>\<field_of_view focal="number" fov="number" /\>
+<dd>Declares the real field of view for this lens. Field of view is specific for every
+    focal length, so you can declare multiple field of view entries with different focal
+    values; the library will interpolate the parameters for intermediate focal lengths.
+    Especially helpful for fisheye lenses where the field of view differs from the 
+    value calculated from the (nominal) focal length.
 </dl>
 
 @page dbsearch How database files are found and loaded

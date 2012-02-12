@@ -17,6 +17,12 @@
    see main comment to the lfModifier class */
 #define COMBINE_13
 
+#if defined(_MSC_VER)
+#define strcasecmp _stricmp
+#define snprintf _snprintf
+#define strtof (float)strtod
+#endif 
+
 static struct
 {
     const char *Program;

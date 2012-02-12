@@ -1,0 +1,23 @@
+IF(WIN32)
+  SET(COMMON_LIBS getopt)
+ENDIF()
+
+ADD_EXECUTABLE(example example/example.c)
+TARGET_LINK_LIBRARIES(example lensfun ${COMMON_LIBS})
+
+ADD_EXECUTABLE(tfun tfun/tfun.cpp)
+TARGET_LINK_LIBRARIES(tfun lensfun ${COMMON_LIBS})
+
+ADD_EXECUTABLE(trwxml trwxml/trwxml.cpp)
+TARGET_LINK_LIBRARIES(trwxml lensfun ${COMMON_LIBS})
+
+INSTALL(TARGETS example tfun trwxml DESTINATION ${BINDIR})
+
+IF(BUILD_AUXFUN)
+ADD_EXECUTABLE(tmod tmod/tmod.cpp)
+TARGET_LINK_LIBRARIES(tmod lensfun auxfun ${COMMON_LIBS} ${PNG_LIBRARY} ${ZLIB_LIBRARY})
+INSTALL(TARGETS tmod DESTINATION ${BINDIR})
+ENDIF()
+
+
+

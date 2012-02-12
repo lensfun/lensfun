@@ -552,6 +552,61 @@ struct lfLensCalibVignetting
 C_TYPEDEF (struct, lfLensCalibVignetting)
 
 /**
+ *  Different crop modes
+ */
+enum lfCropMode
+{
+    /** no crop at all */
+    LF_NO_CROP,
+    /** use a rectangular crop */
+    LF_CROP_RECTANGLE,
+    /** use a circular crop, e.g. for circular fisheye images */
+    LF_CROP_CIRCLE
+};
+
+C_TYPEDEF(enum, lfCropMode)
+
+/**
+ *  Struct to save image crop, which can depend on the focal length
+ */
+struct lfLensCalibCrop
+{
+    /** Focal length at which this calibration data was taken (0 - unspecified) */
+    float Focal;
+    /** crop mode which should be applied to image to get rid of black borders */
+    enum lfCropMode CropMode;
+    /** @brief Crop coordinates, relative to image corresponding image dimension 
+     *
+     *  Crop goes left - 0, right - 1, top - 2, bottom - 3 
+     *  Left/right refers always to long side (width in landscape mode), 
+     *  top bottom to short side (height in landscape).
+     *  Also negative values are allowed for cropping of fisheye images,
+     *  where the crop circle can extend above the image border.
+     */
+    float Crop [4];
+};
+
+C_TYPEDEF (struct, lfLensCalibCrop)
+
+/**
+ *  Struct to save calibrated field of view, which can depends on the focal length
+ */
+struct lfLensCalibFov
+{
+    /** Focal length at which this calibration data was taken (0 - unspecified) */
+    float Focal;
+    /** @brief Field of view for given images
+     * 
+     *  Especially for fisheye images the field of view calculated from the (EXIF) focal
+     *  length differs slightly from the real field of view. The real field of view can be 
+     *  stored in this field 
+     */
+    float FieldOfView;
+};
+
+C_TYPEDEF (struct, lfLensCalibFov)
+
+/**
  * This structure describes a single parameter for some lens model.
  */
 struct lfParameter
@@ -588,7 +643,15 @@ enum lfLensType
      * Equirectangular (not that there are such lenses, but useful
      * to convert images TO this type, especially fish-eye images.
      */
-    LF_EQUIRECTANGULAR
+    LF_EQUIRECTANGULAR,
+    /** orthographic fisheye */
+    LF_FISHEYE_ORTHOGRAPHIC,
+    /** stereographic fisheye */
+    LF_FISHEYE_STEREOGRAPHIC,
+    /** equisolid fisheye */
+    LF_FISHEYE_EQUISOLID,
+    /** fisheye Thoby (for Nikkor 10.5) */
+    LF_FISHEYE_THOBY
 };
 
 C_TYPEDEF (enum, lfLensType)
@@ -647,6 +710,10 @@ struct LF_EXPORT lfLens
     lfLensCalibTCA **CalibTCA;
     /** Lens vignetting calibration data, NULL-terminated (unsorted) */
     lfLensCalibVignetting **CalibVignetting;
+    /** Crop data, NULL-terminated (unsorted) */
+    lfLensCalibCrop **CalibCrop;
+    /** Field of view calibration data, NULL-terminated (unsorted) */
+    lfLensCalibFov **CalibFov;
     /** Lens matching score, used while searching: not actually a lens parameter */
     int Score;
 
@@ -748,6 +815,38 @@ struct LF_EXPORT lfLens
     bool RemoveCalibVignetting (int idx);
 
     /**
+     * Add a new lens crop structure to the pool.
+     * The objects is copied, thus you can reuse it as soon as
+     * this function returns.
+     * @param cc 
+     *     The lens crop structure.
+     */
+    void AddCalibCrop (const lfLensCalibCrop *cc);
+
+    /**
+     * Remove a lens crop entry from the lens crop structure.
+     * @param idx
+     *     The lens crop data index (zero-based).
+     */
+    bool RemoveCalibCrop (int idx);
+
+    /**
+     * Add a new lens fov structure to the pool.
+     * The objects is copied, thus you can reuse it as soon as
+     * this function returns.
+     * @param cf
+     *     The lens fov structure.
+     */
+    void AddCalibFov (const lfLensCalibFov *cf);
+
+    /**
+     * Remove a field of view  entry from the lens fov structure.
+     * @param idx
+     *     The lens information data index (zero-based).
+     */
+    bool RemoveCalibFov (int idx);
+
+    /**
      * This method fills some fields if they are missing but
      * can be derived from other fields. This includes such non-obvious
      * parameters like the range of focal lengths or the range
@@ -817,6 +916,24 @@ struct LF_EXPORT lfLens
         lfVignettingModel model, const char **details, const lfParameter ***params);
 
     /**
+     * Get the human-readable crop name and the descriptions
+     * of the parameters required by this model.
+     * @param mode
+     *     The crop mode.
+     * @param details
+     *     If not NULL, this string will be set to a more detailed (technical)
+     *     description of the model. This string may contain newlines.
+     * @param params
+     *     If not NULL, this variable will be set to a pointer to an array
+     *     of lfParameter structures, every structure describes a model
+     *     parameter. The list is NULL-terminated.
+     * @return
+     *     A short name of the distortion model or NULL if model is unknown.
+     */
+    static const char *GetCropDesc (
+        lfCropMode mode, const char **details, const lfParameter ***params);
+
+    /**
      * Get the human-readable lens type name and a short description of this
      * lens type.
      * @param type
@@ -861,6 +978,24 @@ struct LF_EXPORT lfLens
      */
     bool InterpolateVignetting (
         float focal, float aperture, float distance, lfLensCalibVignetting &res) const;
+
+    /**
+     * Interpolate lens crop data for given focal length.
+     * @param focal
+     *     The focal length at which we need image parameters.
+     * @param res
+     *     The resulting interpolated information data.
+     */
+    bool InterpolateCrop (float focal, lfLensCalibCrop &res) const;
+
+    /**
+     * Interpolate lens fov data for given focal length.
+     * @param focal
+     *     The focal length at which we need image parameters.
+     * @param res
+     *     The resulting interpolated information data.
+     */
+    bool InterpolateFov (float focal, lfLensCalibFov &res) const;
 #endif
 };
 
@@ -914,6 +1049,10 @@ LF_EXPORT const char *lf_get_tca_model_desc (
 LF_EXPORT const char *lf_get_vignetting_model_desc (
     enum lfVignettingModel model, const char **details, const lfParameter ***params);
 
+/** @sa lfLens::GetCropDesc */
+LF_EXPORT const char *lf_get_crop_desc (
+    enum lfCropMode mode, const char **details, const lfParameter ***params);
+
 /** @sa lfLens::GetLensTypeDesc */
 LF_EXPORT const char *lf_get_lens_type_desc (
     enum lfLensType type, const char **details);
@@ -928,6 +1067,14 @@ LF_EXPORT cbool lf_lens_interpolate_tca (const lfLens *lens, float focal, lfLens
 /** @sa lfLens::InterpolateVignetting */
 LF_EXPORT cbool lf_lens_interpolate_vignetting (const lfLens *lens, float focal, float aperture,
     float distance, lfLensCalibVignetting *res);
+
+/** @sa lfLens::InterpolateCrop */
+LF_EXPORT cbool lf_lens_interpolate_crop (const lfLens *lens, float focal,
+    lfLensCalibCrop *res);
+
+/** @sa lfLens::InterpolateFov */
+LF_EXPORT cbool lf_lens_interpolate_fov (const lfLens *lens, float focal,
+    lfLensCalibFov *res);
 
 /** @sa lfLens::AddCalibDistortion */
 LF_EXPORT void lf_lens_add_calib_distortion (lfLens *lens, const lfLensCalibDistortion *dc);
@@ -946,6 +1093,18 @@ LF_EXPORT void lf_lens_add_calib_vignetting (lfLens *lens, const lfLensCalibVign
 
 /** @sa lfLens::RemoveCalibVignetting */
 LF_EXPORT cbool lf_lens_remove_calib_vignetting (lfLens *lens, int idx);
+
+/** @sa lfLens::AddCalibCrop */
+LF_EXPORT void lf_lens_add_calib_crop (lfLens *lens, const lfLensCalibCrop *cc);
+
+/** @sa lfLens::RemoveCalibCrop */
+LF_EXPORT cbool lf_lens_remove_calib_crop (lfLens *lens, int idx);
+
+/** @sa lfLens::AddCalibFov */
+LF_EXPORT void lf_lens_add_calib_fov (lfLens *lens, const lfLensCalibFov *cf);
+
+/** @sa lfLens::RemoveCalibFov */
+LF_EXPORT cbool lf_lens_remove_calib_fov (lfLens *lens, int idx);
 
 /** @} */
 

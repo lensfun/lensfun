@@ -22,12 +22,22 @@
 #include "rgbpixel.h"
 #include <stdio.h>
 
+#if defined (_MSC_VER) && !defined(CONF_LENSFUN_STATIC)
+#if defined auxfun_EXPORTS
+#define AF_EXPORT __declspec(dllexport)
+#else
+#define AF_EXPORT __declspec(dllimport)
+#endif
+#else
+#define AF_EXPORT
+#endif
+
 /**
  * This class represents an image object.
  * It provides loading/saving from a PNG file functionality (through libPNG),
  * the rest was cut off ;-)
  */
-class Image
+class AF_EXPORT Image
 {
     FILE *file;
     int filesize;
