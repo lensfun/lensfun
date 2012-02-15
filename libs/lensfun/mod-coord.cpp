@@ -353,6 +353,18 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
                     // keep gcc 4.4+ happy
                     break;
             }
+            case LF_FISHEYE_ORTHOGRAPHIC:
+                // XXX: Fall-through
+
+            case LF_FISHEYE_STEREOGRAPHIC:
+                // XXX: Fall-through
+
+            case LF_FISHEYE_EQUISOLID:
+                // XXX: Fall-through
+
+            case LF_FISHEYE_THOBY:
+                // XXX: Fall-through
+
             break;
     }
 
