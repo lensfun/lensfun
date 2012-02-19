@@ -1,8 +1,9 @@
-
+IF(NOT WIN32)
 INCLUDE(FindPkgConfig)
 PKG_SEARCH_MODULE( GLIB2 REQUIRED glib-2.0 )
+ENDIF()
 
-IF ( NOT GLIB2_FOUND AND NOT PKG_CONFIG_FOUND )
+IF ( WIN32 OR (NOT GLIB2_FOUND AND NOT PKG_CONFIG_FOUND))
     FIND_PATH(GLIB2_GLIB2CONFIG_INCLUDE_PATH
         NAMES glibconfig.h
         PATHS
@@ -10,8 +11,8 @@ IF ( NOT GLIB2_FOUND AND NOT PKG_CONFIG_FOUND )
           /usr/lib
           /usr/lib64
           /opt/local/lib
+          ${GLIB2_BASE_DIR}/lib
           ${CMAKE_LIBRARY_PATH}
-          ${GLIB22_BASE_DIR}/lib
         PATH_SUFFIXES glib-2.0/include
     )
 
@@ -22,7 +23,7 @@ IF ( NOT GLIB2_FOUND AND NOT PKG_CONFIG_FOUND )
             /usr/local/include
             /usr/include
             /opt/local/include
-            ${GLIB22_BASE_DIR}/include
+            ${GLIB2_BASE_DIR}/include
         PATH_SUFFIXES gtk-2.0 glib-2.0 glib20 
     )
 
@@ -33,7 +34,7 @@ IF ( NOT GLIB2_FOUND AND NOT PKG_CONFIG_FOUND )
             /usr/lib
             /usr/lib64
             /opt/local/lib
-            ${GLIB22_BASE_DIR}/lib
+            ${GLIB2_BASE_DIR}/lib
     )
     
     IF(GLIB2_GLIB2CONFIG_INCLUDE_PATH AND GLIB2_INCLUDE_DIRS AND GLIB2_LIBRARIES)
@@ -46,10 +47,10 @@ IF ( NOT GLIB2_FOUND AND NOT PKG_CONFIG_FOUND )
         SET( GLIB2_FOUND 0)
     ENDIF()    
     
-ENDIF ( NOT GLIB2_FOUND AND NOT PKG_CONFIG_FOUND )
+ENDIF ()
 
 #INCLUDE( FindPackageHandleStandardArgs )
-#FIND_PACKAGE_HANDLE_STANDARD_ARGS( GLIB22 DEFAULT_MSG GLIB22_GLIB2_LIBRARY GLIB22_GLIB2CONFIG_INCLUDE_PATH GLIB22_GLIB2_INCLUDE_PATH )
+#FIND_PACKAGE_HANDLE_STANDARD_ARGS( GLIB2 DEFAULT_MSG GLIB2_LIBRARIES GLIB2_GLIB2CONFIG_INCLUDE_PATH GLIB2_GLIB2_INCLUDE_PATH )
 
 IF (NOT GLIB2_FOUND AND GLIB2_FIND_REQUIRED)
         MESSAGE(FATAL_ERROR "Could not find glib2")
