@@ -644,7 +644,9 @@ lfError lfDatabase::Load (const char *errcontext, const char *data, size_t data_
     lfExtDatabase *This = static_cast<lfExtDatabase *> (this);
 
     /* Temporarily drop numeric format to "C" */
-    char *old_numeric = setlocale (LC_NUMERIC, "C");
+    char *old_numeric = setlocale (LC_NUMERIC, NULL);
+    old_numeric = strdup(old_numeric);
+    setlocale(LC_NUMERIC,"C");
 
     /* eek! GPtrArray does not have a method to insert a pointer
      into middle of the array... We have to remove the trailing
@@ -681,6 +683,7 @@ lfError lfDatabase::Load (const char *errcontext, const char *data, size_t data_
 
     /* Restore numeric format */
     setlocale (LC_NUMERIC, old_numeric);
+    free(old_numeric);
 
     return e;
 }
@@ -730,6 +733,11 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                         const lfCamera *const *cameras,
                         const lfLens *const *lenses)
 {
+    /* Temporarily drop numeric format to "C" */
+    char *old_numeric = setlocale (LC_NUMERIC, NULL);
+    old_numeric = strdup(old_numeric);
+    setlocale(LC_NUMERIC,"C");
+
     int i, j;
     GString *output = g_string_sized_new (1024);
 
@@ -961,6 +969,10 @@ char *lfDatabase::Save (const lfMount *const *mounts,
         }
 
     g_string_append (output, "</lensdatabase>\n");
+
+    /* Restore numeric format */
+    setlocale (LC_NUMERIC, old_numeric);
+    free(old_numeric);
 
     return g_string_free (output, FALSE);
 }

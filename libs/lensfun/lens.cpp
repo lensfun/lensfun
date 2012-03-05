@@ -123,6 +123,8 @@ lfLens::~lfLens ()
     _lf_list_free ((void **)CalibDistortion);
     _lf_list_free ((void **)CalibTCA);
     _lf_list_free ((void **)CalibVignetting);
+    _lf_list_free ((void **)CalibCrop);
+    _lf_list_free ((void **)CalibFov);
     if (!--_lf_lens_regex_refs)
         _lf_free_lens_regex ();
 }
@@ -163,6 +165,14 @@ lfLens &lfLens::operator = (const lfLens &other)
     if (other.CalibVignetting)
         for (int i = 0; other.CalibVignetting [i]; i++)
             AddCalibVignetting (other.CalibVignetting [i]);
+    lf_free (CalibCrop); CalibCrop = NULL;
+    if (other.CalibCrop)
+        for (int i = 0; other.CalibCrop [i]; i++)
+            AddCalibCrop (other.CalibCrop [i]);
+    lf_free (CalibFov); CalibFov = NULL;
+    if (other.CalibFov)
+        for (int i = 0; other.CalibFov [i]; i++)
+            AddCalibFov (other.CalibFov [i]);
 
     return *this;
 }
@@ -188,7 +198,9 @@ void lfLens::GuessParameters ()
     float minf = float (INT_MAX), maxf = float (INT_MIN);
     float mina = float (INT_MAX), maxa = float (INT_MIN);
 
-    char *old_numeric = setlocale (LC_NUMERIC, "C");
+    char *old_numeric = setlocale (LC_NUMERIC, NULL);
+    old_numeric = strdup(old_numeric);
+    setlocale(LC_NUMERIC,"C");
 
     if (!MinAperture || !MinFocal)
         _lf_parse_lens_name (Model, minf, maxf, mina, maxa);
@@ -228,6 +240,25 @@ void lfLens::GuessParameters ()
                 if (a > maxa)
                     maxa = a;
             }
+        if (CalibCrop)
+            for (int i=0; CalibCrop [i]; i++)
+            {
+                float f = CalibCrop [i] ->Focal;
+                if (f < minf)
+                    minf = f;
+                if (f > maxf)
+                    maxf = f;
+            }
+        if (CalibFov)
+            for (int i=0; CalibFov [i]; i++)
+            {
+                float f = CalibFov [i] ->Focal;
+                if (f < minf)
+                    minf = f;
+                if (f > maxf)
+                    maxf = f;
+            }
+
     }
 
     if (minf != INT_MAX && !MinFocal)
@@ -245,6 +276,7 @@ void lfLens::GuessParameters ()
         MaxAperture = MinAperture;
 
     setlocale (LC_NUMERIC, old_numeric);
+    free(old_numeric);
 }
 
 bool lfLens::Check ()
@@ -440,9 +472,9 @@ const char *lfLens::GetCropDesc (
     static const lfParameter *param_none [] = { NULL };
 
     static const lfParameter param_crop_left = { "left", -1.0F, 1.0F, 0.0F };
-    static const lfParameter param_crop_right = { "right", -1.0F, 1.0F, 0.0F };
+    static const lfParameter param_crop_right = { "right", 0.0F, 2.0F, 0.0F };
     static const lfParameter param_crop_top = { "top", -1.0F, 1.0F, 0.0F };
-    static const lfParameter param_crop_bottom = { "bottom", -1.0F, 1.0F, 0.0F };
+    static const lfParameter param_crop_bottom = { "bottom", 0.0F, 2.0F, 0.0F };
     static const lfParameter *param_crop [] = { &param_crop_left, &param_crop_right, &param_crop_top, &param_crop_bottom, NULL };
 
     switch (mode)
