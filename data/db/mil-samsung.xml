@@ -40,6 +40,15 @@ http://en.wikipedia.org/wiki/Mirrorless_interchangeable-lens_camera
     <camera>
         <maker>SAMSUNG</maker>
         <maker lang="en">Samsung</maker>
+        <model>NX20</model>
+         <model lang="en">NX20</model>
+        <mount>Samsung NX</mount>
+        <cropfactor>1.54</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>SAMSUNG</maker>
+        <maker lang="en">Samsung</maker>
         <model>NX200</model>
          <model lang="en">NX200</model>
         <mount>Samsung NX</mount>
@@ -58,6 +67,16 @@ http://en.wikipedia.org/wiki/Mirrorless_interchangeable-lens_camera
             <distortion model="ptlens" focal="35" a="-0.001" b="-0.00843" c="0.02713" />
             <distortion model="ptlens" focal="45" a="0.00716" b="-0.0379" c="0.06902" />
             <distortion model="ptlens" focal="50" a="-0.02119" b="0.06813" c="-0.06118" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Samsung</maker>
+        <model>Samsung 30mm F2 Pancake</model>
+        <mount>Samsung NX</mount>
+        <cropfactor>1.54</cropfactor>
+        <calibration>
+            <distortion model="poly3" focal="30" k1="-0.00596" />
         </calibration>
     </lens>
 

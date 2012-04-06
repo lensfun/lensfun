@@ -15,6 +15,14 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon EOS 5D Mark III</model>
+        <model lang="en">EOS 5D Mark III</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon EOS 5D Mark II</model>
         <model lang="en">EOS 5D Mark II</model>
         <mount>Canon EF</mount>
@@ -152,6 +160,14 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon EOS DIGITAL REBEL T3</model>
+        <model lang="en">EOS Digital Rebel T3</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon EOS DIGITAL REBEL XSi</model>
         <model lang="en">EOS Digital Rebel XSi</model>
         <mount>Canon EF-S</mount>
@@ -233,6 +249,22 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon EOS 550D</model>
+        <model lang="en">EOS 550D</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon EOS 600D</model>
+        <model lang="en">EOS 600D</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon EOS 1000D</model>
         <model lang="en">EOS 1000D</model>
         <mount>Canon EF-S</mount>
@@ -241,8 +273,32 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon EOS 1100D</model>
+        <model lang="en">EOS 1100D</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon EOS Kiss Digital N</model>
         <model lang="en">EOS Kiss Digital N</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon EOS Kiss Digital F</model>
+        <model lang="en">EOS Kiss Digital F</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon EOS Kiss Digital X50</model>
+        <model lang="en">EOS Kiss Digital X50</model>
         <mount>Canon EF-S</mount>
         <cropfactor>1.6</cropfactor>
     </camera>
@@ -259,6 +315,14 @@
         <maker>Canon</maker>
         <model>Canon EOS 7D</model>
         <model lang="en">EOS 7D</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon EOS 60D</model>
+        <model lang="en">EOS 60D</model>
         <mount>Canon EF-S</mount>
         <cropfactor>1.6</cropfactor>
     </camera>
@@ -337,14 +401,6 @@
         <maker>Kodak</maker>
         <model>DCS520C</model>
         <mount>Canon EF</mount>
-        <cropfactor>1.6</cropfactor>
-    </camera>
-
-    <camera>
-        <maker>Canon</maker>
-        <model>Canon EOS 550D</model>
-        <model lang="en">EOS 550D</model>
-        <mount>Canon EF-S</mount>
         <cropfactor>1.6</cropfactor>
     </camera>
 
@@ -468,6 +524,35 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF-S 18-55mm f/3.5-5.6 III</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18" a="0.00029" b="-0.00065" c="-0.04054" />
+            <distortion model="ptlens" focal="20" a="0.00913" b="-0.024255" c="-0.02326" />
+            <distortion model="ptlens" focal="21" a="0.0219" b="-0.05865" c="0.01747" />
+            <distortion model="ptlens" focal="24" a="0.02945" b="-0.07112" c="0.02358" />
+            <distortion model="ptlens" focal="27" a="-0.00225" b="0.00421" c="-0.02519" />
+            <distortion model="ptlens" focal="28" a="0.00888" b="-0.02851" c="0.00655" />
+            <distortion model="ptlens" focal="29" a="-0.00423" b="0.01103" c="-0.02517" />
+            <distortion model="ptlens" focal="30" a="-0.02064" b="0.0652" c="-0.07411" />
+            <distortion model="ptlens" focal="33" a="0.00378" b="-0.00627" c="-0.00869" />
+            <distortion model="ptlens" focal="34" a="0.00579" b="-0.01787" c="0.00697" />
+            <distortion model="ptlens" focal="36" a="0.00139" b="0.00016" c="-0.00891" />
+            <distortion model="ptlens" focal="37" a="-0.01074" b="0.01955" c="0.00324" />
+            <distortion model="ptlens" focal="40" a="-0.00209" b="-0.00426" c="-0.01103" />
+            <distortion model="ptlens" focal="41" a="-0.00308" b="0.01968" c="-0.03451" />
+            <distortion model="ptlens" focal="43" a="-0.00935" b="0.02372" c="-0.03174" />
+            <distortion model="ptlens" focal="44" a="0.00283" b="0.00211" c="-0.01406" />
+            <distortion model="ptlens" focal="47" a="-0.01247" b="0.03006" c="-0.01156" />
+            <distortion model="ptlens" focal="49" a="0.00841" b="-0.04436" c="0.06329" />
+            <distortion model="ptlens" focal="53" a="0.00359" b="-0.01264" c="0.01563" />
+            <distortion model="ptlens" focal="55" a="-0.0117" b="0.03217" c="-0.02069" />
+        </calibration>
+    </lens>
+    
     <lens>
         <maker>Canon</maker>
         <model>Canon EF-S 17-55mm f/2.8 IS USM</model>
@@ -661,6 +746,26 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon EF 35-105mm f/4.5-5.6</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.6</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="35" a="-0.00202" b="0.00115" c="-0.00877" />
+            <distortion model="ptlens" focal="48" a="0.00206" b="-0.00395" c="0.00411" />
+            <distortion model="ptlens" focal="57" a="-0.00649" b="0.02493" c="-0.01898" />
+            <distortion model="ptlens" focal="62" a="-0.01071" b="0.01858" c="0.00875" />
+            <distortion model="ptlens" focal="68" a="-0.02787" b="0.07826" c="-0.05368" />
+            <distortion model="ptlens" focal="72" a="-0.03351" b="0.12504" c="-0.14162" />
+            <distortion model="ptlens" focal="76" a="0.00385" b="-0.0011" c="-0.00351" />
+            <distortion model="ptlens" focal="80" a="0.01832" b="-0.05905" c="0.07657" />
+            <distortion model="ptlens" focal="87" a="-0.03411" b="0.14077" c="-0.17993" />
+            <distortion model="ptlens" focal="98" a="0.0103" b="-0.03257" c="0.02861" />
+            <distortion model="ptlens" focal="105" a="0.03329" b="-0.012513" c="0.16021" />
+        </calibration>
+    </lens>
+    
+    <lens>
+        <maker>Canon</maker>
         <model>Canon EF 35-135mm f/4-5.6 USM</model>
         <mount>Canon EF</mount>
         <cropfactor>1.6</cropfactor>
@@ -810,6 +915,35 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 75-300mm f/4-5.6 III</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.6</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="75" a="0.47796" b="-0.98871" c="0.74143" />
+            <distortion model="ptlens" focal="80" a="0.73577" b="-1.35909" c="0.82695" />
+            <distortion model="ptlens" focal="85" a="0.18115" b="-0.23959" c="0.18792" />
+            <distortion model="ptlens" focal="90" a="0.86117" b="-1.83099" c="1.24221" />
+            <distortion model="ptlens" focal="95" a="1.1097" b="-2.53267" c="1.80147" />
+            <distortion model="ptlens" focal="100" a="0.69157" b="-1.62711" c="1.19887" />
+            <distortion model="ptlens" focal="105" a="0.26436" b="-0.64004" c="0.49201" />
+            <distortion model="ptlens" focal="110" a="0.29814" b="-0.72389" c="0.55478" />
+            <distortion model="ptlens" focal="125" a="0.14326" b="-0.39549" c="0.34747" />
+            <distortion model="ptlens" focal="130" a="0.06614" b="-0.16946" c="0.14396" />
+            <distortion model="ptlens" focal="135" a="0.09381" b="-0.23171" c="0.18154" />
+            <distortion model="ptlens" focal="140" a="0.00267" b="-0.01604" c="0.02513" />
+            <distortion model="ptlens" focal="155" a="-0.00101" b="0.01422" c="-0.0204" />
+            <distortion model="ptlens" focal="160" a="-0.09721" b="0.28794" c="-0.28178" />
+            <distortion model="ptlens" focal="180" a="0.00049" b="-0.01582" c="0.01736" />
+            <distortion model="ptlens" focal="200" a="-0.00084" b="0.01896" c="-0.01011" />
+            <distortion model="ptlens" focal="240" a="0.04928" b="-0.11522" c="0.02023" />
+            <distortion model="ptlens" focal="255" a="0.02046" b="-0.05515" c="0.05526" />
+            <distortion model="ptlens" focal="280" a="-0.00732" b="0.01809" c="-0.00273" />
+            <distortion model="ptlens" focal="300" a="-0.00709" b="0.03947" c="-0.05006" />
+        </calibration>
+    </lens>
+    
     <lens>
         <maker>Canon</maker>
         <model>Canon EF 75-300mm f/4-5.6 IS USM</model>
