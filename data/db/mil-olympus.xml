@@ -4,6 +4,7 @@
         <name>Micro 4/3 System</name>
         <compat>M42</compat>
         <compat>Generic</compat>
+        <compat>4/3 System</compat>
     </mount>
 
     <camera>
@@ -80,7 +81,7 @@
 
     <lens>
         <maker>Olympus</maker>
-        <model>Olympus M.Zuiko Digital ED 14-42mm F3.5-5.6</model>
+        <model>OLYMPUS M.14-42mm F3.5-5.6</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2.0</cropfactor>
         <calibration>
@@ -101,7 +102,7 @@
 
     <lens>
         <maker>Olympus</maker>
-        <model>Olympus M.Zuiko Digital ED 14-42mm F3.5-5.6 L</model>
+        <model>OLYMPUS M.14-42mm F3.5-5.6 L</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2.0</cropfactor>
         <calibration>
@@ -120,7 +121,61 @@
 
     <lens>
         <maker>Olympus</maker>
-        <model>Olympus M.Zuiko Digital 17mm F2.8 Pancake</model>
+	<model>OLYMPUS M.14-42mm F3.5-5.6 II</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="14" a="0.018" b="-0.074" c="0.014" />
+            <distortion model="ptlens" focal="18" a="0.011" b="-0.048" c="0.021" />
+            <distortion model="ptlens" focal="25" a="0.0" b="-0.012" c="0.008" />
+            <distortion model="ptlens" focal="30" a="0.007" b="-0.015" c="0.003" />
+            <distortion model="ptlens" focal="35" a="0.007" b="-0.021" c="0.018" />
+            <distortion model="ptlens" focal="42" a="-0.001" b="0.008" c="-0.010" />
+            <tca model="poly3" focal="14" br="0.0000882" vr="1.0001828" bb="0.0002104" vb="1.0004280"/>
+            <tca model="poly3" focal="18" br="0.0000087" vr="1.0000985" bb="-0.0001260" vb="1.0002535"/>
+            <tca model="poly3" focal="25" br="-0.0000210" vr="1.0001388" bb="-0.0001294" vb="1.0005537"/>
+            <tca model="poly3" focal="30" br="-0.0000429" vr="1.0002040" bb="0.0000872" vb="1.0002187"/>
+            <tca model="poly3" focal="35" br="-0.0001262" vr="1.0003653" bb="-0.0000270" vb="1.0003605"/>
+            <tca model="poly3" focal="42" br="-0.0000752" vr="1.0003152" bb="-0.0000213" vb="1.0001196"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Olympus</maker>
+        <model>OLYMPUS M.14-42mm F3.5-5.6 II R</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="14" a="0.018" b="-0.074" c="0.014" />
+            <distortion model="ptlens" focal="18" a="0.011" b="-0.048" c="0.021" />
+            <distortion model="ptlens" focal="25" a="0.0" b="-0.012" c="0.008" />
+            <distortion model="ptlens" focal="30" a="0.007" b="-0.015" c="0.003" />
+            <distortion model="ptlens" focal="35" a="0.007" b="-0.021" c="0.018" />
+            <distortion model="ptlens" focal="42" a="-0.001" b="0.008" c="-0.010" />
+            <tca model="poly3" focal="14" br="0.0000882" vr="1.0001828" bb="0.0002104" vb="1.0004280"/>
+            <tca model="poly3" focal="18" br="0.0000087" vr="1.0000985" bb="-0.0001260" vb="1.0002535"/>
+            <tca model="poly3" focal="25" br="-0.0000210" vr="1.0001388" bb="-0.0001294" vb="1.0005537"/>
+            <tca model="poly3" focal="30" br="-0.0000429" vr="1.0002040" bb="0.0000872" vb="1.0002187"/>
+            <tca model="poly3" focal="35" br="-0.0001262" vr="1.0003653" bb="-0.0000270" vb="1.0003605"/>
+            <tca model="poly3" focal="42" br="-0.0000752" vr="1.0003152" bb="-0.0000213" vb="1.0001196"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Olympus</maker>
+        <model>OLYMPUS M.12mm F2.0</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <focal value="12" />
+        <calibration>
+            <distortion model="ptlens" focal="12" a="-0.005" b="-0.016" c="-0.014" />
+            <tca model="poly3" focal="12" br="0.0000749" vr="1.0001239" bb="0.0000350" vb="1.0000181" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Olympus</maker>
+        <model>OLYMPUS M.17mm F2.8</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2.0</cropfactor>
         <calibration>
