@@ -34,7 +34,7 @@ static struct
     },
     {
         // [min focal]-[max focal]mm f/[min aperture]-[max aperture]
-        "([0-9.]+)(-[0-9.]+)?(mm)?[[:space:]]+(f/?)?([0-9.]+)(-[0-9.]+)?",
+        "([0-9]+[0-9.]*)(-[0-9]+[0-9.]*)?(mm)?[[:space:]]+(f/?)?([0-9.]+)(-[0-9.]+)?",
         { 1, 2, 5, 6 },
         false
     }
