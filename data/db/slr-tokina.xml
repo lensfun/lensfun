@@ -41,6 +41,10 @@
         <mount>Nikon F AF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
+            <distortion model="ptlens" focal="11" a="-0.024" b="-0.002" c="0.005" />
+            <distortion model="ptlens" focal="12" a="0.000" b="-0.042" c="0.041" />
+            <distortion model="ptlens" focal="13" a="-0.003" b="-0.023" c="0.018" />
+            <distortion model="ptlens" focal="14" a="0.003" b="-0.033" c="0.033" />
             <distortion model="ptlens" focal="16" a="0.001" b="-0.023" c="0.021" />
         </calibration>
     </lens>
