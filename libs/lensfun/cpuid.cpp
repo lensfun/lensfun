@@ -19,41 +19,41 @@ guint _lf_detect_cpu_features ()
     {
         cpuflags = 0;
 
-        int CPUInfo[4] = {-1};
-        __cpuid(CPUInfo,0);
+        int CPUInfo [4] = {-1};
+        __cpuid (CPUInfo, 0);
         /* Are there are standard features? */
-        if (CPUInfo[0]>=1)
+        if (CPUInfo [0] >= 1)
         {
             /* Get the standard level */
-            __cpuid(CPUInfo,1);
-            if (CPUInfo[3] & 0x800000)
+            __cpuid (CPUInfo, 1);
+            if (CPUInfo [3] & 0x800000)
                 cpuflags |= LF_CPU_FLAG_MMX;
-            if (CPUInfo[3] & 0x2000000)
+            if (CPUInfo [3] & 0x2000000)
                 cpuflags |= LF_CPU_FLAG_SSE;
-            if (CPUInfo[3] & 0x4000000)
+            if (CPUInfo [3] & 0x4000000)
                 cpuflags |= LF_CPU_FLAG_SSE2;
-            if(CPUInfo[3] & 0x8000)
+            if (CPUInfo [3] & 0x8000)
                 cpuflags |= LF_CPU_FLAG_CMOV;
-            if(CPUInfo[2] & 0x1)
+            if (CPUInfo [2] & 0x1)
                 cpuflags |= LF_CPU_FLAG_SSE3;
-            if (CPUInfo[2] & 0x200)
+            if (CPUInfo [2] & 0x200)
                 cpuflags |= LF_CPU_FLAG_SSSE3;
-            if (CPUInfo[2] & 0x80000)
+            if (CPUInfo [2] & 0x80000)
                 cpuflags |= LF_CPU_FLAG_SSE4_1;
-            if (CPUInfo[2] & 0x100000)
+            if (CPUInfo [2] & 0x100000)
                 cpuflags |= LF_CPU_FLAG_SSE4_2;
 
             /* Are there extensions? */
-            __cpuid(CPUInfo, 0x80000000);
-            if(CPUInfo[0]>=1)
+            __cpuid (CPUInfo, 0x80000000);
+            if (CPUInfo [0] >= 1)
             {
                 /* ask extensions */
-                __cpuid(CPUInfo, 0x80000001);
-                if (CPUInfo[3] & 0x80000000)
+                __cpuid (CPUInfo, 0x80000001);
+                if (CPUInfo [3] & 0x80000000)
                     cpuflags |= LF_CPU_FLAG_3DNOW;
-                if (CPUInfo[3] & 0x40000000)
+                if (CPUInfo [3] & 0x40000000)
                     cpuflags |= LF_CPU_FLAG_3DNOW_EXT;
-                if (CPUInfo[3] & 0x00400000)
+                if (CPUInfo [3] & 0x00400000)
                     cpuflags |= LF_CPU_FLAG_AMD_ISSE;
             };
         };

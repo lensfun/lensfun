@@ -411,7 +411,7 @@ static void _xml_start_element (GMarkupParseContext *context,
                 goto unk_attr;
             }
 
-        pd->lens->AddCalibCrop(&lcc);
+        pd->lens->AddCalibCrop (&lcc);
     }
     else if (!strcmp (element_name, "field_of_view"))
     {
@@ -430,7 +430,7 @@ static void _xml_start_element (GMarkupParseContext *context,
                 goto unk_attr;
             }
 
-        pd->lens->AddCalibFov(&lcf);
+        pd->lens->AddCalibFov (&lcf);
     }
     /* Handle multi-language strings */
     else if (!strcmp (element_name, "maker") ||
@@ -952,7 +952,7 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                 {
                     lfLensCalibFov *lcf = lenses [i]->CalibFov [j];
 
-                    if(lcf->FieldOfView>0)
+                    if (lcf->FieldOfView>0)
                     {
                         _lf_xml_printf (output, "\t\t\t<field_of_view focal=\"%g\" fov=\"%g\" />\n",
                             lcf->Focal, lcf->FieldOfView);

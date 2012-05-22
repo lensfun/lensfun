@@ -199,8 +199,8 @@ void lfLens::GuessParameters ()
     float mina = float (INT_MAX), maxa = float (INT_MIN);
 
     char *old_numeric = setlocale (LC_NUMERIC, NULL);
-    old_numeric = strdup(old_numeric);
-    setlocale(LC_NUMERIC,"C");
+    old_numeric = strdup (old_numeric);
+    setlocale (LC_NUMERIC,"C");
 
     if (!MinAperture || !MinFocal)
         _lf_parse_lens_name (Model, minf, maxf, mina, maxa);
@@ -243,7 +243,7 @@ void lfLens::GuessParameters ()
         if (CalibCrop)
             for (int i=0; CalibCrop [i]; i++)
             {
-                float f = CalibCrop [i] ->Focal;
+                float f = CalibCrop [i]->Focal;
                 if (f < minf)
                     minf = f;
                 if (f > maxf)
@@ -252,7 +252,7 @@ void lfLens::GuessParameters ()
         if (CalibFov)
             for (int i=0; CalibFov [i]; i++)
             {
-                float f = CalibFov [i] ->Focal;
+                float f = CalibFov [i]->Focal;
                 if (f < minf)
                     minf = f;
                 if (f > maxf)
@@ -276,7 +276,7 @@ void lfLens::GuessParameters ()
         MaxAperture = MinAperture;
 
     setlocale (LC_NUMERIC, old_numeric);
-    free(old_numeric);
+    free (old_numeric);
 }
 
 bool lfLens::Check ()
@@ -1273,7 +1273,7 @@ bool lfLens::InterpolateFov (float focal, lfLensCalibFov &res) const
     }
 
     //no valid data found
-    if(counter==0)
+    if (counter==0)
         return false;
 
     if (!spline [1] || !spline [2])

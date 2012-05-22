@@ -11,14 +11,14 @@
 #define _USE_MATH_DEFINES 1
 #include <math.h>
 
-float rint(float x)
+float rint (float x)
 {
-     return floor(x + 0.5f);
+     return floor (x + 0.5f);
 }
 
 float trunc (float x)
 {
-  return (((x) < 0) ? ceil((x)) : floor((x)));
+  return (((x) < 0) ? ceil ((x)) : floor ((x)));
 } 
 #define unlink _unlink
 #else
