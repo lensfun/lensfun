@@ -89,6 +89,41 @@
 
     <lens>
         <maker>Tamron</maker>
+        <model>Tamron AF 18-250mm F3.5-6.3 Di II LD Aspherical [IF] MACRO</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Pentax KAF</mount>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18" a="0.020360" b="-0.059050" c="0" />
+            <distortion model="ptlens" focal="20" a="0.020770" b="-0.052400" c="0" />
+            <distortion model="ptlens" focal="23" a="0.016230" b="-0.032540" c="0" />
+            <distortion model="ptlens" focal="29" a="0.012160" b="-0.015480" c="0" />
+            <distortion model="ptlens" focal="35" a="0" b="0.037550" c="-0" />
+            <distortion model="ptlens" focal="47" a="0" b="0.033220" c="-0" />
+            <distortion model="ptlens" focal="70" a="0" b="0.017510" c="-0.014350" />
+            <distortion model="ptlens" focal="100" a="0" b="0.018700" c="-0.018810" />
+            <distortion model="ptlens" focal="120" a="0" b="0.018400" c="-0.019970" />
+            <distortion model="ptlens" focal="155" a="0" b="0.009580" c="-0.002450" />
+            <distortion model="ptlens" focal="200" a="0" b="0.001230" c="0.013960" />
+            <distortion model="ptlens" focal="250" a="0" b="-0.000110" c="0.008560" />
+            <tca model="poly3" focal="18" br="0.0000455" cr="0.0001324" vr="1.0003247" bb="-0.0002737" cb="0.0006098" vb="1.0000266" />
+            <tca model="poly3" focal="23.1" br="-0.0000830" cr="0.0002635" vr="1.0002333" bb="-0.0001797" cb="0.0007033" vb="0.9999820" />
+            <tca model="poly3" focal="26.9" br="-0.0003871" cr="0.0008622" vr="0.9999533" bb="-0.0001398" cb="0.0006987" vb="0.9999226" />
+            <tca model="poly3" focal="29.4" br="-0.0003218" cr="0.0007089" vr="0.9999775" bb="0.0001630" cb="-0.0000255" vb="1.0003434" />
+            <tca model="poly3" focal="35" br="-0.0001337" cr="0.0002671" vr="1.0000620" bb="-0.0000737" cb="0.0004179" vb="1.0001761" />
+            <tca model="poly3" focal="55" br="-0.0000006" cr="-0.0000747" vr="1.0000795" bb="-0.0000202" cb="0.0002275" vb="1.0002342" />
+            <tca model="poly3" focal="70" br="-0.0000020" cr="-0.0000449" vr="0.9999473" bb="-0.0002686" cb="0.0006367" vb="1.0000025" />
+            <tca model="poly3" focal="100" br="0.0000928" cr="-0.0002755" vr="0.9998440" bb="-0.0001632" cb="0.0002535" vb="1.0000525" />
+            <tca model="poly3" focal="142.5" br="0.0001761" cr="-0.0004582" vr="0.9996290" bb="-0.0003233" cb="0.0005660" vb="0.9996693" />
+            <tca model="poly3" focal="220" br="0.0001387" cr="-0.0004467" vr="0.9993390" bb="0.0000952" cb="-0.0001185" vb="0.9997363" />
+            <tca model="poly3" focal="250" br="0.0005417" cr="-0.0013082" vr="0.9997014" bb="-0.0007442" cb="0.0015463" vb="0.9988026" />
+        </calibration>
+    </lens> 
+
+    <lens>
+        <maker>Tamron</maker>
         <model>Tamron 19-35mm f/3.5-4.5</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
