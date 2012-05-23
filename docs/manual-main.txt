@@ -271,7 +271,8 @@ Possible embedded elements:
 <dd>Lens variant. Sometimes there are several variants of the same lens which
     even sometimes differs in parameters.
 <dt>\<type\>string\</type\>
-    Lens type. This is one of: "rectilinear", "fisheye", "panoramic", "equirectangular", "orthographic", "stereographic", "equisolid", "fisheye_thoby".
+<dd>Lens type. This is one of: "rectilinear", "fisheye", "panoramic", 
+    "equirectangular", "orthographic", "stereographic", "equisolid", "fisheye_thoby".
 <dt>\<focal min="number" max="number" value="number" /\>
 <dd>Lens focal length. This can be either a single value for a fixed-focal length
     lens, or a "min-max" range in the case of a zoom lens.
