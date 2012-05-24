@@ -199,7 +199,7 @@ void lfLens::GuessParameters ()
     float mina = float (INT_MAX), maxa = float (INT_MIN);
 
     char *old_numeric = setlocale (LC_NUMERIC, NULL);
-    old_numeric = strdup    (old_numeric);
+    old_numeric = strdup (old_numeric);
     setlocale (LC_NUMERIC,"C");
 
     if (!MinAperture || !MinFocal)
