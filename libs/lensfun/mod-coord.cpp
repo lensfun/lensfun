@@ -221,23 +221,18 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
     tmp [0] = focal / 12.0;
     tmp [1] = 1.0 / tmp [0];
 
+    if(from == to)
+        return false;
+    if(from == LF_UNKNOWN)
+        return false;
+    if(to == LF_UNKNOWN)
+        return false;
+    // handle special cases
     switch (from)
     {
-        case LF_UNKNOWN:
-            // Should never happen
-            return false;
-
         case LF_RECTILINEAR:
             switch (to)
             {
-                case LF_UNKNOWN:
-                    // Should never happen
-                    return false;
-
-                case LF_RECTILINEAR:
-                    // Nothing to do
-                    return false;
-
                 case LF_FISHEYE:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Rect_FishEye,
                                       500, tmp, sizeof (tmp));
@@ -262,18 +257,10 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
         case LF_FISHEYE:
             switch (to)
             {
-                case LF_UNKNOWN:
-                    // Should never happen
-                    return false;
-
                 case LF_RECTILINEAR:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_FishEye_Rect,
                                       500, tmp, sizeof (tmp));
                     return true;
-
-                case LF_FISHEYE:
-                    // Nothing to do
-                    return false;
 
                 case LF_PANORAMIC:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_FishEye_Panoramic,
@@ -294,10 +281,6 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
         case LF_PANORAMIC:
             switch (to)
             {
-                case LF_UNKNOWN:
-                    // Should never happen
-                    return false;
-
                 case LF_RECTILINEAR:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Panoramic_Rect,
                                       500, tmp, sizeof (tmp));
@@ -307,10 +290,6 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Panoramic_FishEye,
                                       500, tmp, sizeof (tmp));
                     return true;
-
-                case LF_PANORAMIC:
-                    // Nothing to do
-                    return false;
 
                 case LF_EQUIRECTANGULAR:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Panoramic_ERect,
@@ -326,10 +305,6 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
         case LF_EQUIRECTANGULAR:
             switch (to)
             {
-                case LF_UNKNOWN:
-                    // Should never happen
-                    return false;
-
                 case LF_RECTILINEAR:
                     AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Rect,
                                       500, tmp, sizeof (tmp));
@@ -345,30 +320,84 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
                                       500, tmp, sizeof (tmp));
                     return true;
 
-                case LF_EQUIRECTANGULAR:
-                    // Nothing to do
-                    return false;
-
                 default:
                     // keep gcc 4.4+ happy
                     break;
             }
-            case LF_FISHEYE_ORTHOGRAPHIC:
-                // XXX: Fall-through
+    };
 
-            case LF_FISHEYE_STEREOGRAPHIC:
-                // XXX: Fall-through
-
-            case LF_FISHEYE_EQUISOLID:
-                // XXX: Fall-through
-
-            case LF_FISHEYE_THOBY:
-                // XXX: Fall-through
-
+    //convert from input projection to target projection via equirectangular projection
+    switch(to)
+    {
+        case LF_RECTILINEAR:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Rect,
+                                500, tmp, sizeof (tmp));
             break;
-    }
-
-    return false;
+        case LF_FISHEYE:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_FishEye,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_PANORAMIC:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Panoramic,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_FISHEYE_ORTHOGRAPHIC:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Orthographic,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_FISHEYE_STEREOGRAPHIC:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Stereographic,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_FISHEYE_EQUISOLID:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Equisolid,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_FISHEYE_THOBY:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Thoby,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_EQUIRECTANGULAR:
+        default:
+            //nothing to do
+            break;
+    };
+    switch(from)
+    {
+        case LF_RECTILINEAR:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Rect_ERect,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_FISHEYE:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_FishEye_ERect,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_PANORAMIC:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Panoramic_ERect,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_FISHEYE_ORTHOGRAPHIC:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Orthographic_ERect,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_FISHEYE_STEREOGRAPHIC:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Stereographic_ERect,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_FISHEYE_EQUISOLID:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Equisolid_ERect,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_FISHEYE_THOBY:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Thoby_ERect,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_EQUIRECTANGULAR:
+        default:
+            //nothing to do
+            break;
+    };
+    return true;
 }
 
 bool lfModifier::ApplyGeometryDistortion (
@@ -886,6 +915,234 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Panoramic (void *data, float *iocoord
         iocoord [1] = dist * atan (y * inv_dist);
     }
 }
+
+void lfExtModifier::ModifyCoord_Geom_ERect_Orthographic (void *data, float *iocoord, int count)
+{
+    const float dist = ((float *)data) [0];
+    const float inv_dist = ((float *)data) [1];
+
+    for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
+    {
+        float x = iocoord [0];
+        float y = iocoord [1];
+
+        double theta = asin (sqrt(x * x + y * y) * inv_dist);
+        double phi   = atan2 (y, x);
+
+        double s = (theta == 0.0) ? inv_dist : (sin (theta) / (theta * dist) );
+
+        double vx = cos (theta);
+        double vy = s * dist * theta * cos (phi);
+
+        iocoord [0] = dist * atan2 (vy, vx);
+        iocoord [1] = dist * atan (s * dist * theta * sin (phi) / sqrt (vx * vx + vy * vy));
+    }
+};
+
+void lfExtModifier::ModifyCoord_Geom_Orthographic_ERect (void *data, float *iocoord, int count)
+{
+    const float dist = ((float *)data) [0];
+    const float inv_dist = ((float *)data) [1];
+
+    for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
+    {
+        float x = iocoord [0];
+        float y = iocoord [1];
+
+        double phi   = x * inv_dist;
+        double theta = -y * inv_dist + M_PI / 2;
+        if (theta < 0)
+        {
+            theta = -theta;
+            phi += M_PI;
+        }
+        if (theta > M_PI)
+        {
+            theta = 2 * M_PI - theta;
+            phi += M_PI;
+        }
+
+        double s  = sin (theta);
+        double vx = s * sin (phi); //  y' -> x
+        double vy = cos (theta);   //  z' -> y
+
+        theta = atan2 (sqrt (vx * vx + vy * vy), s * cos (phi));
+        phi   = atan2 (vy, vx);
+        double rho  = dist * sin (theta);
+        iocoord [0] = rho * cos (phi);
+        iocoord [1] = rho * sin (phi);
+     }
+};
+
+#define EPSLN   1.0e-10
+
+void lfExtModifier::ModifyCoord_Geom_ERect_Stereographic (void *data, float *iocoord, int count)
+{
+    const float dist = ((float *)data) [0];
+    const float inv_dist = ((float *)data) [1];
+    for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
+    {
+        float x = iocoord [0] * inv_dist;
+        float y = iocoord [1] * inv_dist;
+
+        double rh = sqrt (x * x + y * y);
+        double c  = 2.0 * atan (rh / 2.0);
+        double sinc = sin (c);
+        double cosc = cos (c);
+
+        iocoord [0] = 0;
+        if(fabs (rh) <= EPSLN)
+        {
+            iocoord [1] = 1.6e16F;
+        }
+        else
+        {
+            iocoord [1] = asin (y * sinc / rh) * dist;
+            if((fabs (cosc) >= EPSLN) || (fabs (x) >= EPSLN))
+            {
+                iocoord [0] = atan2 (x * sinc, cosc * rh) * dist;
+            }
+            else
+            {
+                iocoord [0] = 1.6e16F;
+            };
+        };
+    };
+};
+
+void lfExtModifier::ModifyCoord_Geom_Stereographic_ERect (void *data, float *iocoord, int count)
+{
+    const float dist = ((float *)data) [0];
+    const float inv_dist = ((float *)data) [1];
+
+    for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
+    {
+        float lon = iocoord [0] * inv_dist;
+        float lat = iocoord [1] * inv_dist;
+
+        double cosphi = cos (lat);
+        double ksp = dist * 2.0 / (1.0 + cosphi * cos (lon));
+
+        iocoord [0] = ksp * cosphi * sin (lon);
+        iocoord [1] = ksp * sin (lat);
+    }
+};
+
+void lfExtModifier::ModifyCoord_Geom_ERect_Equisolid (void *data, float *iocoord, int count)
+{
+    const float dist = ((float *)data) [0];
+    const float inv_dist = ((float *)data) [1];
+    for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
+    {
+        float x = iocoord [0];
+        float y = iocoord [1];
+
+        double rho = sqrt (x * x + y * y);
+        double theta = 2.0 * asin (rho * inv_dist / 2.0);
+        double phi = atan2 (y, x);
+        double s = (theta == 0.0) ? inv_dist : (sin (theta) / (dist * theta));
+
+        double vx = cos (theta);
+        double vy = s * dist * theta * cos (phi);
+
+        iocoord [0] = dist * atan2 (vy, vx);
+        iocoord [1] = dist * atan (s * dist * theta * sin (phi) / sqrt (vx * vx + vy * vy));
+    };
+};
+
+void lfExtModifier::ModifyCoord_Geom_Equisolid_ERect (void *data, float *iocoord, int count)
+{
+    const float dist = ((float *)data) [0];
+    const float inv_dist = ((float *)data) [1];
+    for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
+    {
+        float x = iocoord [0];
+        float y = iocoord [1];
+
+        double lambda = iocoord [0] / dist;
+        double phi = iocoord [1] /dist;
+
+        if (fabs (cos(phi) * cos(lambda) + 1.0) <= EPSLN)
+        {
+            iocoord [0] = 1.6e16F;
+            iocoord [1] = 1.6e16F;
+        }
+        else
+        {
+            double k1 = sqrt (2.0 / (1 + cos(phi) * cos(lambda)));
+
+            iocoord [0] = dist * k1 * cos (phi) * sin (lambda);
+            iocoord [1] = dist * k1 * sin (phi);
+        };
+    };
+};
+
+#define THOBY_K1_PARM 1.47F
+#define THOBY_K2_PARM 0.713F
+
+void lfExtModifier::ModifyCoord_Geom_ERect_Thoby (void *data, float *iocoord, int count)
+{
+    const float dist = ((float *)data) [0];
+    const float inv_dist = ((float *)data) [1];
+    for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
+    {
+        float x = iocoord [0];
+        float y = iocoord [1];
+
+        double rho = sqrt (x * x + y * y) * inv_dist;
+        if(rho<-THOBY_K1_PARM || rho > THOBY_K1_PARM)
+        {
+            iocoord [0] = 1.6e16F;
+            iocoord [1] = 1.6e16F;
+        }
+        else
+        {
+            double theta = asin (rho / THOBY_K1_PARM) / THOBY_K2_PARM;
+            double phi   = atan2 (y, x);
+            double s     = (theta == 0.0) ? inv_dist : (sin (theta) / (dist * theta) );
+
+            double vx = cos (theta);
+            double vy = s * dist * theta * cos (phi);
+
+            iocoord [0] = dist * atan2 (vy, vx);
+            iocoord [1] = dist * atan (s * dist * theta * sin (phi) / sqrt (vx * vx + vy * vy));
+        };
+    };
+};
+
+void lfExtModifier::ModifyCoord_Geom_Thoby_ERect (void *data, float *iocoord, int count)
+{
+    const float dist = ((float *)data) [0];
+    const float inv_dist = ((float *)data) [1];
+    for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
+    {
+        float x = iocoord [0];
+        float y = iocoord [1];
+
+        double phi = x * inv_dist;
+        double theta = -y * inv_dist + M_PI / 2;
+        if (theta < 0)
+        {
+            theta = -theta;
+            phi += M_PI;
+        }
+        if (theta > M_PI)
+        {
+            theta = 2 * M_PI - theta;
+            phi += M_PI;
+        }
+
+        double s  = sin (theta);
+        double vx = s * sin (phi); //  y' -> x
+        double vy = cos (theta);   //  z' -> y
+        theta = atan2 (sqrt (vx * vx + vy * vy), s * cos (phi));
+        phi   = atan2 (vy, vx);
+        double rho = THOBY_K1_PARM * dist * sin (theta * THOBY_K2_PARM);
+
+        iocoord [0] = rho * cos (phi);
+        iocoord [1] = rho * sin (phi);
+    };
+};
 
 //---------------------------// The C interface //---------------------------//
 

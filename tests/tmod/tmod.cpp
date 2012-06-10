@@ -68,7 +68,8 @@ static void DisplayUsage ()
     g_print ("\nCommand-line options:\n\n");
     g_print ("  -d    --distortion Apply lens distortion\n");
     g_print ("  -g#   --geometry=# Convert image geometry to given (one of:\n");
-    g_print ("                     rectilinear,fisheye,panoramic,equirectangular)\n");
+    g_print ("                     rectilinear,fisheye,panoramic,equirectangular,\n");
+    g_print ("                     orthographic, stereographic, equisolid, thoby)\n");
     g_print ("  -t    --tca        Apply lens chromatic aberrations\n");
     g_print ("  -v    --vignetting Apply lens vignetting\n");
     g_print ("  -c    --cci        Apply lens Color Correction Index\n");
@@ -269,9 +270,17 @@ int main (int argc, char **argv)
                         opts.TargetGeom = LF_PANORAMIC;
                     else if (!strcasecmp (optarg, "equirectangular"))
                         opts.TargetGeom = LF_EQUIRECTANGULAR;
+                    else if (!strcasecmp (optarg, "orthographic"))
+                        opts.TargetGeom = LF_FISHEYE_ORTHOGRAPHIC;
+                    else if (!strcasecmp (optarg, "stereographic"))
+                        opts.TargetGeom = LF_FISHEYE_STEREOGRAPHIC;
+                    else if (!strcasecmp (optarg, "equisolid"))
+                        opts.TargetGeom = LF_FISHEYE_EQUISOLID;
+                    else if (!strcasecmp (optarg, "thoby"))
+                        opts.TargetGeom = LF_FISHEYE_THOBY;
                     else
                     {
-                        g_print ("Target lens geometry must be one of 'rectilinear', 'fisheye', 'panoramic', 'equirectangular'\n");
+                        g_print ("Target lens geometry must be one of 'rectilinear', 'fisheye', 'panoramic', 'equirectangular'\n'orthographic', 'stereographic', 'equisolid', 'thoby'\n");
                         return -1;
                     }
                 }
