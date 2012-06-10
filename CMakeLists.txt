@@ -11,8 +11,8 @@ project(lensfun)
 # version
 SET(VERSION_MAJOR 0)
 SET(VERSION_MINOR 2)
-SET(VERSION_MICRO 5)
-SET(VERSION_BUGFIX 1)
+SET(VERSION_MICRO 6)
+SET(VERSION_BUGFIX 0)
 
 # check if some include are available
 INCLUDE(CheckIncludeFiles)
