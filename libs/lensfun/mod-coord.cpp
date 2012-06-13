@@ -324,6 +324,13 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
                     // keep gcc 4.4+ happy
                     break;
             }
+        case LF_FISHEYE_ORTHOGRAPHIC:
+        case LF_FISHEYE_STEREOGRAPHIC:
+        case LF_FISHEYE_EQUISOLID:
+        case LF_FISHEYE_THOBY:
+        case LF_UNKNOWN:
+        default:
+            break;
     };
 
     //convert from input projection to target projection via equirectangular projection
@@ -1053,14 +1060,10 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Equisolid (void *data, float *iocoord
 void lfExtModifier::ModifyCoord_Geom_Equisolid_ERect (void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [0];
-    const float inv_dist = ((float *)data) [1];
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        float x = iocoord [0];
-        float y = iocoord [1];
-
         double lambda = iocoord [0] / dist;
-        double phi = iocoord [1] /dist;
+        double phi = iocoord [1] / dist;
 
         if (fabs (cos(phi) * cos(lambda) + 1.0) <= EPSLN)
         {
