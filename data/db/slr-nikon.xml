@@ -408,7 +408,24 @@
             <distortion model="ptlens" focal="24" a="-0.007101" b="0.018378" c="0" />
         </calibration>
     </lens>
-
+    
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikkor 16-85mm f/3.5-5.6G AF-S ED VR DX</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="16" a="0.0199837" b="-0.0681903" c="0.0388181" />
+            <distortion model="ptlens" focal="18" a="0.0101226" b="-0.0323001" c="0.00392398" />
+            <distortion model="ptlens" focal="20" a="0.00337762" b="-0.0059244" c="-0.0160513" />
+            <distortion model="ptlens" focal="22" a="-0.00565925" b="0.0323698" c="-0.0738213" />
+            <distortion model="ptlens" focal="24" a="0.00498966" b="-0.0163608" c="0.011626" />
+            <distortion model="ptlens" focal="35" a="0.00452151" b="-0.0101545" c="0.00874731" />
+            <distortion model="ptlens" focal="50" a="0.00822439" b="-0.0246265" c="0.0257984" />
+            <distortion model="ptlens" focal="85" a="-0.00473509" b="0.0253574" c="-0.0342333" />
+        </calibration>
+    </lens>
+    
     <lens>
         <maker>Nikon</maker>
         <model>Nikkor 17-35mm f/2.8 ED-AFS</model>
@@ -511,6 +528,43 @@
 
     <lens>
         <maker>Nikon</maker>
+        <model>Nikon AF-S DX VR Zoom-Nikkor 18-105mm f/3.5-5.6G ED</model>
+        <mount>Nikon F AF</mount>
+        <focal>18-105</focal>
+        <aperture>3.5-22</aperture>
+        <type>rectilinear</type>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18.0" a="0.00529" b="-0.02091" c="-0.01697" />
+            <distortion model="ptlens" focal="25.0" a="0.01542" b="-0.03457" c="0.02371" />
+            <distortion model="ptlens" focal="35.0" a="0.00716" b="-0.00354" c="0.00352" />
+            <distortion model="ptlens" focal="50.0" a="0.00477" b="-0.00182" c="0.00982" />
+            <distortion model="ptlens" focal="75.0" a="-0.0024" b="0.02231" c="-0.01516" />
+            <distortion model="ptlens" focal="105.0" a="0.00392" b="-0.00253" c="0.01061" />
+        </calibration>
+    </lens>    
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikkor 18-135mm f/3.5-5.6G IF-ED AF-S DX</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18" a="0.010516" b="-0.033415" c="0.000000" />
+            <distortion model="ptlens" focal="20" a="0.013430" b="-0.028560" c="0.000000" />
+            <distortion model="ptlens" focal="28" a="0.010740" b="-0.007090" c="0.000000" />
+            <distortion model="ptlens" focal="32" a="0.000000" b="0.013840" c="0.002600" />
+            <distortion model="ptlens" focal="40" a="0.000000" b="0.022370" c="-0.026420" />
+            <distortion model="ptlens" focal="48" a="0.000000" b="-0.006420" c="0.019040" />
+            <distortion model="ptlens" focal="58" a="0.000000" b="0.023710" c="-0.031210" />
+            <distortion model="ptlens" focal="85" a="0.000000" b="0.010900" c="-0.007660" />
+            <distortion model="ptlens" focal="105" a="0.000000" b="-0.000450" c="0.013550" />
+            <distortion model="ptlens" focal="135" a="0.000000" b="0.027500" c="-0.043800" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
         <model>Nikkor 18-200mm f/3.5-5.6 G ED-IF AF-S VR DX</model>
         <mount>Nikon F AF</mount>
         <cropfactor>1.5</cropfactor>
@@ -607,6 +661,24 @@
             <distortion model="ptlens" focal="200" a="0" b="0.007103" c="0" />
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikkor 28-300mm f/3.5-5.6G ED VR AF-S</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="28" a="0" b="-0.02406" c="0" />
+            <distortion model="ptlens" focal="32" a="0" b="-0.01294" c="0" />
+            <distortion model="ptlens" focal="34" a="0" b="-0.00517" c="0" />
+            <distortion model="ptlens" focal="36" a="0" b="-0.00147" c="0" />
+            <distortion model="ptlens" focal="50" a="0" b="0.00848" c="0" />
+            <distortion model="ptlens" focal="70" a="0" b="0.01241" c="0" />
+            <distortion model="ptlens" focal="105" a="0" b="0.01124" c="0" />
+            <distortion model="ptlens" focal="200" a="0" b="0.00807" c="0" />
+            <distortion model="ptlens" focal="300" a="0" b="0.00904" c="0" />
+        </calibration>
+    </lens>    
 
     <lens>
         <maker>Nikon</maker>
@@ -871,7 +943,17 @@
             <distortion model="ptlens" focal="35" a="0" b="-0.005" c="0" />
         </calibration>
     </lens>
-
+    
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon Nikkor 35mm f/1.8G AF-S DX</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="35" a="-0.00899" b="0.02507" c="-0.04009" />
+        </calibration>
+    </lens>
+    
     <lens>
         <maker>Nikon</maker>
         <model>Nikkor 35mm f/2.0D AF</model>
@@ -911,6 +993,19 @@
             <distortion model="ptlens" focal="50" a="0" b="-0.0025" c="0" />
         </calibration>
     </lens>
+    
+    <lens> <!-- http://developer.berlios.de/patch/index.php?func=detailpatch&patch_id=3047&group_id=9034 -->
+        <maker>Nikon</maker>
+        <model>Nikon AF Nikkor 50mm f/1.8D</model>
+        <mount>Nikon F AF</mount>
+        <focal>50</focal>
+        <aperture>1.8-22</aperture>
+        <type>rectilinear</type>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="50.0" a="-0.00255" b="0.00841" c="-0.01107" />
+        </calibration>
+    </lens>    
 
     <lens>
         <maker>Nikon</maker>
@@ -1009,84 +1104,6 @@
         <cropfactor>1.5</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="500" a="0" b="0.001" c="0" />
-        </calibration>
-    </lens>
-
-
-    <lens>
-        <maker>Nikon</maker>
-        <model>Nikkor 16-85mm f/3.5-5.6G AF-S ED VR DX</model>
-        <mount>Nikon F AF</mount>
-        <cropfactor>1.5</cropfactor>
-        <calibration>
-            <distortion model="ptlens" focal="16" a="0.0199837" b="-0.0681903" c="0.0388181" />
-            <distortion model="ptlens" focal="18" a="0.0101226" b="-0.0323001" c="0.00392398" />
-            <distortion model="ptlens" focal="20" a="0.00337762" b="-0.0059244" c="-0.0160513" />
-            <distortion model="ptlens" focal="22" a="-0.00565925" b="0.0323698" c="-0.0738213" />
-            <distortion model="ptlens" focal="24" a="0.00498966" b="-0.0163608" c="0.011626" />
-            <distortion model="ptlens" focal="35" a="0.00452151" b="-0.0101545" c="0.00874731" />
-            <distortion model="ptlens" focal="50" a="0.00822439" b="-0.0246265" c="0.0257984" />
-            <distortion model="ptlens" focal="85" a="-0.00473509" b="0.0253574" c="-0.0342333" />
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Nikon</maker>
-        <model>Nikkor 18-135mm f/3.5-5.6G IF-ED AF-S DX</model>
-        <mount>Nikon F AF</mount>
-        <cropfactor>1.5</cropfactor>
-        <calibration>
-            <distortion model="ptlens" focal="18" a="0.010516" b="-0.033415" c="0.000000" />
-            <distortion model="ptlens" focal="20" a="0.013430" b="-0.028560" c="0.000000" />
-            <distortion model="ptlens" focal="28" a="0.010740" b="-0.007090" c="0.000000" />
-            <distortion model="ptlens" focal="32" a="0.000000" b="0.013840" c="0.002600" />
-            <distortion model="ptlens" focal="40" a="0.000000" b="0.022370" c="-0.026420" />
-            <distortion model="ptlens" focal="48" a="0.000000" b="-0.006420" c="0.019040" />
-            <distortion model="ptlens" focal="58" a="0.000000" b="0.023710" c="-0.031210" />
-            <distortion model="ptlens" focal="85" a="0.000000" b="0.010900" c="-0.007660" />
-            <distortion model="ptlens" focal="105" a="0.000000" b="-0.000450" c="0.013550" />
-            <distortion model="ptlens" focal="135" a="0.000000" b="0.027500" c="-0.043800" />
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Nikon</maker>
-        <model>Nikon Nikkor 35mm f/1.8G AF-S DX</model>
-        <mount>Nikon F AF</mount>
-        <cropfactor>1.5</cropfactor>
-        <calibration>
-            <distortion model="ptlens" focal="35" a="-0.00899" b="0.02507" c="-0.04009" />
-        </calibration>
-    </lens>
-
-    <lens> <!-- http://developer.berlios.de/patch/index.php?func=detailpatch&patch_id=3047&group_id=9034 -->
-        <maker>Nikon</maker>
-        <model>Nikon AF Nikkor 50mm f/1.8D</model>
-        <mount>Nikon F AF</mount>
-        <focal>50</focal>
-        <aperture>1.8-22</aperture>
-        <type>rectilinear</type>
-        <cropfactor>1.5</cropfactor>
-        <calibration>
-            <distortion model="ptlens" focal="50.0" a="-0.00255" b="0.00841" c="-0.01107" />
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Nikon</maker>
-        <model>Nikon AF-S DX VR Zoom-Nikkor 18-105mm f/3.5-5.6G ED</model>
-        <mount>Nikon F AF</mount>
-        <focal>18-105</focal>
-        <aperture>3.5-22</aperture>
-        <type>rectilinear</type>
-        <cropfactor>1.5</cropfactor>
-        <calibration>
-            <distortion model="ptlens" focal="18.0" a="0.00529" b="-0.02091" c="-0.01697" />
-            <distortion model="ptlens" focal="25.0" a="0.01542" b="-0.03457" c="0.02371" />
-            <distortion model="ptlens" focal="35.0" a="0.00716" b="-0.00354" c="0.00352" />
-            <distortion model="ptlens" focal="50.0" a="0.00477" b="-0.00182" c="0.00982" />
-            <distortion model="ptlens" focal="75.0" a="-0.0024" b="0.02231" c="-0.01516" />
-            <distortion model="ptlens" focal="105.0" a="0.00392" b="-0.00253" c="0.01061" />
         </calibration>
     </lens>
 

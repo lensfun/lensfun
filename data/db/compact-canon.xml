@@ -41,11 +41,6 @@
     </mount>
 
     <mount>
-        <name>canonSD500</name>
-        <compat>Generic</compat>
-    </mount>
-
-    <mount>
         <name>canonA510</name>
         <compat>Generic</compat>
     </mount>
@@ -116,11 +111,6 @@
     </mount>
 
     <mount>
-        <name>canonSD200</name>
-        <compat>Generic</compat>
-    </mount>
-
-    <mount>
         <name>canonA80</name>
         <compat>Generic</compat>
     </mount>
@@ -132,6 +122,21 @@
 
     <mount>
         <name>canonS90</name>
+        <compat>Generic</compat>
+    </mount>
+
+    <mount>
+        <name>canonSD200</name>
+        <compat>Generic</compat>
+    </mount>    
+    
+    <mount>
+        <name>canonSD500</name>
+        <compat>Generic</compat>
+    </mount>    
+
+    <mount>
+        <name>canonSD950</name>
         <compat>Generic</compat>
     </mount>
 
@@ -248,6 +253,14 @@
         <mount>canonSD500</mount>
         <cropfactor>4.8</cropfactor>
     </camera>
+        
+     <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot SD950 IS</model>
+        <model lang="en">PowerShot SD950 IS</model>
+        <mount>canonSD950</mount>
+        <cropfactor>4.7</cropfactor>
+    </camera>    
 
     <camera>
         <maker>Canon</maker>
@@ -887,6 +900,20 @@
             <distortion model="ptlens" focal="23.1" a="0" b="0.000834" c="0" />
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Canon</maker>
+        <model>Standard</model>
+        <mount>canonSD950</mount>
+        <cropfactor>4.7</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="7.7" a="0" b="-0.01427" c="0" />
+            <distortion model="ptlens" focal="11.45" a="0" b="-0.00828" c="0" />
+            <distortion model="ptlens" focal="13.68" a="0" b="-0.00693" c="0" />
+            <distortion model="ptlens" focal="19.55" a="0" b="-0.00304" c="0" />
+            <distortion model="ptlens" focal="28.5" a="0" b="-0.00073" c="0" />
+        </calibration>
+    </lens>    
 
     <lens>
         <maker>Canon</maker>
