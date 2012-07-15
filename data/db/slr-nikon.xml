@@ -408,6 +408,25 @@
             <distortion model="ptlens" focal="24" a="-0.007101" b="0.018378" c="0" />
         </calibration>
     </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikkor 16-35mm f/4G ED-AFS VR</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="16" a="0.015" b="-0.08" c="0.067" />
+            <distortion model="ptlens" focal="20" a="0.013" b="-0.149" c="0.148" />
+            <distortion model="ptlens" focal="24" a="0.023" b="-0.076" c="0.078" />
+            <distortion model="ptlens" focal="28" a="-0.089" b="0.222" c="-0.176" />
+            <distortion model="ptlens" focal="35" a="-0.016" b="0.057" c="-0.048" />
+            <tca model="poly3" focal="16" br="0.0000014" vr="0.9999959" bb="0.0000008" vb="0.9999910" />
+            <tca model="poly3" focal="20" br="-0.0000247" vr="1.0000177" bb="-0.0000517" vb="1.0000583" />
+            <tca model="poly3" focal="24" br="-0.0000082" vr="0.9999821" bb="-0.0000450" vb="1.0000369" />
+            <tca model="poly3" focal="28" br="0.0000122" vr="0.9999531" bb="-0.0000058" vb="0.9999931" />
+            <tca model="poly3" focal="35" br="-0.0000239" vr="1.0000166" bb="-0.0000398" vb="1.0000519" />
+        </calibration>
+    </lens>
     
     <lens>
         <maker>Nikon</maker>
