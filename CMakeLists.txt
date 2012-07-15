@@ -74,7 +74,7 @@ ENDIF()
  
 # define destination dirs (relative to prefix)
 SET(BINDIR bin)
-SET(LIBDIR lib)
+SET(LIBDIR lib${LIB_SUFFIX})
 SET(INCLUDEDIR include)
 SET(DATADIR share/lensfun)
 SET(DOCDIR share/doc/lensfun-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX})
