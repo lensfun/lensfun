@@ -40,8 +40,8 @@ HDR_STACK_REMAPPED_PREFIX={output_filename}_hdr_
 HDR_STACK_REMAPPED_PREFIX_SHELL={output_filename}_hdr_
 LDR_EXPOSURE_REMAPPED_PREFIX={output_filename}_exposure_layers_
 LDR_EXPOSURE_REMAPPED_PREFIX_SHELL={output_filename}_exposure_layers_
-PROJECT_FILE={working_directory}/vignetting_with_control_points.pto
-PROJECT_FILE_SHELL={working_directory}/vignetting_with_control_points.pto
+PROJECT_FILE={working_directory}/vignetting.pto
+PROJECT_FILE_SHELL={working_directory}/vignetting.pto
 LDR_BLENDED={output_filename}.tif
 LDR_BLENDED_SHELL={output_filename}.tif
 LDR_STACKED_BLENDED={output_filename}_fused.tif
@@ -190,7 +190,7 @@ info :
 	@echo 'Output options'
 	@echo '==========================================================================='
 	@echo 'Hugin Version: 2011.4.0.cf9be9344356'
-	@echo 'Project file: {working_directory}/vignetting_with_control_points.pto'
+	@echo 'Project file: {working_directory}/vignetting.pto'
 	@echo 'Output prefix: {output_filename}'
 	@echo 'Projection: Equirectangular (2)'
 	@echo 'Field of view: 360 x 180'
