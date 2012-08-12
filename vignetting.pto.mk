@@ -31,7 +31,7 @@ ENBLEND_HDR_COMP=
 HDRMERGE_OPTS=-m avg -c
 ENFUSE_OPTS= -w
 EXIFTOOL_COPY_ARGS=-ImageDescription -Make -Model -Artist -WhitePoint -Copyright -GPS:all -DateTimeOriginal -CreateDate -UserComment -ColorSpace -OwnerName -SerialNumber
-EXIFTOOL_INFO_ARGS='-Software=Hugin' '-UserComment<$${{UserComment}}&\#xa;Projection: Equirectangular (2)&\#xa;FOV: 360 x 180&\#xa;Ev: 10.29' -f
+EXIFTOOL_INFO_ARGS='-Software=Hugin' '-UserComment<$${{UserComment}}&\#xa;Projection: Equirectangular (2)&\#xa;FOV: 360 x 180' -f
 
 # the output panorama
 LDR_REMAPPED_PREFIX={output_filename}
@@ -40,8 +40,8 @@ HDR_STACK_REMAPPED_PREFIX={output_filename}_hdr_
 HDR_STACK_REMAPPED_PREFIX_SHELL={output_filename}_hdr_
 LDR_EXPOSURE_REMAPPED_PREFIX={output_filename}_exposure_layers_
 LDR_EXPOSURE_REMAPPED_PREFIX_SHELL={output_filename}_exposure_layers_
-PROJECT_FILE={working_directory}{output_filename}.pto
-PROJECT_FILE_SHELL={working_directory}{output_filename}.pto
+PROJECT_FILE={working_directory}/vignetting_with_control_points.pto
+PROJECT_FILE_SHELL={working_directory}/vignetting_with_control_points.pto
 LDR_BLENDED={output_filename}.tif
 LDR_BLENDED_SHELL={output_filename}.tif
 LDR_STACKED_BLENDED={output_filename}_fused.tif
@@ -52,16 +52,16 @@ HDR_BLENDED={output_filename}_hdr.exr
 HDR_BLENDED_SHELL={output_filename}_hdr.exr
 
 # first input image
-INPUT_IMAGE_1={working_directory}{input_filenames.0}.tiff
-INPUT_IMAGE_1_SHELL={working_directory}{input_filenames.0}.tiff
+INPUT_IMAGE_1={working_directory}/{input_filenames[0]}.tiff
+INPUT_IMAGE_1_SHELL={working_directory}/{input_filenames[0]}.tiff
 
 # all input images
-INPUT_IMAGES={working_directory}{input_filenames.0}.tiff\
-{working_directory}{input_filenames.1}.tiff\
-{working_directory}{input_filenames.2}.tiff
-INPUT_IMAGES_SHELL={working_directory}{input_filenames.0}.tiff\
-{working_directory}{input_filenames.1}.tiff\
-{working_directory}{input_filenames.2}.tiff
+INPUT_IMAGES={working_directory}/{input_filenames[0]}.tiff\
+{working_directory}/{input_filenames[1]}.tiff\
+{working_directory}/{input_filenames[2]}.tiff
+INPUT_IMAGES_SHELL={working_directory}/{input_filenames[0]}.tiff\
+{working_directory}/{input_filenames[1]}.tiff\
+{working_directory}/{input_filenames[2]}.tiff
 
 # remapped images
 LDR_LAYERS={output_filename}0000.tif\
@@ -190,7 +190,7 @@ info :
 	@echo 'Output options'
 	@echo '==========================================================================='
 	@echo 'Hugin Version: 2011.4.0.cf9be9344356'
-	@echo 'Project file: {working_directory}{output_filename}.pto'
+	@echo 'Project file: {working_directory}/vignetting_with_control_points.pto'
 	@echo 'Output prefix: {output_filename}'
 	@echo 'Projection: Equirectangular (2)'
 	@echo 'Field of view: 360 x 180'
@@ -205,42 +205,42 @@ info :
 	@echo '==========================================================================='
 	@echo 'Number of images in project file: 3'
 	@echo 'Number of active images: 3'
-	@echo 'Image 0: {working_directory}{input_filenames.0}.tiff'
+	@echo 'Image 0: {working_directory}/{input_filenames[0]}.tiff'
 	@echo 'Image 0: Size 6024x4024, Exposure: 10.29'
-	@echo 'Image 1: {working_directory}{input_filenames.1}.tiff'
+	@echo 'Image 1: {working_directory}/{input_filenames[1]}.tiff'
 	@echo 'Image 1: Size 6024x4024, Exposure: 10.29'
-	@echo 'Image 2: {working_directory}{input_filenames.2}.tiff'
+	@echo 'Image 2: {working_directory}/{input_filenames[2]}.tiff'
 	@echo 'Image 2: Size 6024x4024, Exposure: 10.29'
 
 # Rules for ordinary TIFF_m and hdr output
 
-{output_filename}0000.tif : {working_directory}{input_filenames.0}.tiff $(PROJECT_FILE) 
+{output_filename}0000.tif : {working_directory}/{input_filenames[0]}.tiff $(PROJECT_FILE) 
 	$(NONA) $(NONA_OPTS) $(NONA_LDR_REMAPPED_COMP) -r ldr -m TIFF_m -o $(LDR_REMAPPED_PREFIX_SHELL) -i 0 $(PROJECT_FILE_SHELL)
 
-{output_filename}_hdr_0000.exr : {working_directory}{input_filenames.0}.tiff $(PROJECT_FILE) 
+{output_filename}_hdr_0000.exr : {working_directory}/{input_filenames[0]}.tiff $(PROJECT_FILE) 
 	$(NONA) $(NONA_OPTS) -r hdr -m EXR_m -o $(HDR_STACK_REMAPPED_PREFIX_SHELL) -i 0 $(PROJECT_FILE_SHELL)
 
-{output_filename}0001.tif : {working_directory}{input_filenames.1}.tiff $(PROJECT_FILE) 
+{output_filename}0001.tif : {working_directory}/{input_filenames[1]}.tiff $(PROJECT_FILE) 
 	$(NONA) $(NONA_OPTS) $(NONA_LDR_REMAPPED_COMP) -r ldr -m TIFF_m -o $(LDR_REMAPPED_PREFIX_SHELL) -i 1 $(PROJECT_FILE_SHELL)
 
-{output_filename}_hdr_0001.exr : {working_directory}{input_filenames.1}.tiff $(PROJECT_FILE) 
+{output_filename}_hdr_0001.exr : {working_directory}/{input_filenames[1]}.tiff $(PROJECT_FILE) 
 	$(NONA) $(NONA_OPTS) -r hdr -m EXR_m -o $(HDR_STACK_REMAPPED_PREFIX_SHELL) -i 1 $(PROJECT_FILE_SHELL)
 
-{output_filename}0002.tif : {working_directory}{input_filenames.2}.tiff $(PROJECT_FILE) 
+{output_filename}0002.tif : {working_directory}/{input_filenames[2]}.tiff $(PROJECT_FILE) 
 	$(NONA) $(NONA_OPTS) $(NONA_LDR_REMAPPED_COMP) -r ldr -m TIFF_m -o $(LDR_REMAPPED_PREFIX_SHELL) -i 2 $(PROJECT_FILE_SHELL)
 
-{output_filename}_hdr_0002.exr : {working_directory}{input_filenames.2}.tiff $(PROJECT_FILE) 
+{output_filename}_hdr_0002.exr : {working_directory}/{input_filenames[2]}.tiff $(PROJECT_FILE) 
 	$(NONA) $(NONA_OPTS) -r hdr -m EXR_m -o $(HDR_STACK_REMAPPED_PREFIX_SHELL) -i 2 $(PROJECT_FILE_SHELL)
 
 # Rules for exposure layer output
 
-{output_filename}_exposure_layers_0000.tif : {working_directory}{input_filenames.0}.tiff $(PROJECT_FILE) 
+{output_filename}_exposure_layers_0000.tif : {working_directory}/{input_filenames[0]}.tiff $(PROJECT_FILE) 
 	$(NONA) $(NONA_OPTS) $(NONA_LDR_REMAPPED_COMP) -r ldr -e 10.2928 -m TIFF_m -o $(LDR_EXPOSURE_REMAPPED_PREFIX_SHELL) -i 0 $(PROJECT_FILE_SHELL)
 
-{output_filename}_exposure_layers_0001.tif : {working_directory}{input_filenames.1}.tiff $(PROJECT_FILE) 
+{output_filename}_exposure_layers_0001.tif : {working_directory}/{input_filenames[1]}.tiff $(PROJECT_FILE) 
 	$(NONA) $(NONA_OPTS) $(NONA_LDR_REMAPPED_COMP) -r ldr -e 10.2928 -m TIFF_m -o $(LDR_EXPOSURE_REMAPPED_PREFIX_SHELL) -i 1 $(PROJECT_FILE_SHELL)
 
-{output_filename}_exposure_layers_0002.tif : {working_directory}{input_filenames.2}.tiff $(PROJECT_FILE) 
+{output_filename}_exposure_layers_0002.tif : {working_directory}/{input_filenames[2]}.tiff $(PROJECT_FILE) 
 	$(NONA) $(NONA_OPTS) $(NONA_LDR_REMAPPED_COMP) -r ldr -e 10.2928 -m TIFF_m -o $(LDR_EXPOSURE_REMAPPED_PREFIX_SHELL) -i 2 $(PROJECT_FILE_SHELL)
 
 # Rules for LDR and HDR stack merging, a rule for each stack
