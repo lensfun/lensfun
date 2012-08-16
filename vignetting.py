@@ -3,7 +3,7 @@
 
 from __future__ import unicode_literals, division, absolute_import
 
-import subprocess, glob, os
+import subprocess, glob, os, re
 
 
 images = {}
@@ -37,15 +37,36 @@ for basename in basenames[1:]:
                             "\nOnly found: ", triplets[-1])
 
 
+database_entries = {}
 working_directory = os.getcwd()
 
 for triplet in triplets:
+    exif_data = images[triplet[0]]
+    exif_data = (exif_data["Lens Model"], exif_data["Focal Length"].partition(".0 mm")[0], exif_data["Aperture"])
+    output_filename = "--".join(exif_data).replace(" ", "_")
     with open("vignetting.pto", "w") as outfile:
         outfile.write(open("/home/bronger/src/vignetting/vignetting.pto").read().format(input_filenames=triplet))
     for name in ["first", "second"]:
         with open("vignetting_{0}.pto.mk".format(name), "w") as outfile:
             outfile.write(open("/home/bronger/src/vignetting/vignetting_{0}.pto.mk".format(name)).read().format(
-                    input_filenames=triplet, output_filename="{triplet[0]}-{triplet[2]}".format(triplet=triplet),
-                    working_directory=working_directory))
+                    input_filenames=triplet, output_filename=output_filename, working_directory=working_directory))
     subprocess.check_call(["make", "--makefile", "vignetting_first.pto.mk"])
     subprocess.check_call(["make", "--makefile", "vignetting_second.pto.mk"])
+    database_entries[exif_data] = re.search(r" Vb([-.0-9]+) Vc([-.0-9]+) Vd([-.0-9]+) ", open("vignetting.pto"). \
+                                                readlines()[7]).groups()
+    for filename in ["vignetting_first.pto.mk", "vignetting_second.pto.mk", "vignetting.pto"] + \
+            ["{0}{1}.tif".format(output_filename, suffix) for suffix in ["0000", "0001", "0002", ""]]:
+        os.remove(filename)
+
+
+outfile = open("lensfun.xml", "a")
+
+current_lens = None
+for configuration in sorted(database_entries):
+    lens, focal_length, aperture = configuration
+    if lens != current_lens:
+        outfile.write("\n\n{0}:\n\n".format(lens))
+        current_lens = lens
+    outfile.write("""<vignetting model="pa" focal="{focal_length}" aperture="{aperture}" distance="45" """
+                  """k1="{vignetting[0]}" k2="{vignetting[1]}" k3="{vignetting[2]}" />\n""".format(
+            focal_length=focal_length, aperture=aperture, vignetting=database_entries[configuration]))
