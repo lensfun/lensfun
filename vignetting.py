@@ -55,7 +55,7 @@ for triplet in triplets:
     database_entries[exif_data] = re.search(r" Vb([-.0-9]+) Vc([-.0-9]+) Vd([-.0-9]+) ", open("vignetting.pto"). \
                                                 readlines()[7]).groups()
     for filename in ["vignetting_first.pto.mk", "vignetting_second.pto.mk", "vignetting.pto"] + \
-            ["{0}{1}.tif".format(output_filename, suffix) for suffix in ["0000", "0001", "0002", ""]]:
+            ["{0}{1}.tif".format(output_filename, suffix) for suffix in ["0000", "0001", "0002"]]:
         os.remove(filename)
 
 
