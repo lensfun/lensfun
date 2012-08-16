@@ -19,7 +19,11 @@ all : $(PROJECT)
 	@echo 'Searching for vertical lines...'
 	$(LINEFIND) -o $(PROJECT_SHELL) $(PROJECT_SHELL)
 	$(CHECKPTO) $(PROJECT_SHELL)
+	ptovariable --positions --view --barrel $(PROJECT_SHELL)
 	@echo 'Optimise project...'
-	$(AUTOOPTIMISER) -a -m -l -s -o $(PROJECT_SHELL) $(PROJECT_SHELL)
+	$(AUTOOPTIMISER) -n -m -l -s -o $(PROJECT_SHELL) $(PROJECT_SHELL)
+	ptovariable --vignetting --response --exposure $(PROJECT_SHELL)
+	@echo 'Optimise photometric parameters...'
+	vig_optimize -p 10000 -o $(PROJECT_SHELL) $(PROJECT_SHELL)
 	@echo 'Setting output options...'
 	$(PANO_MODIFY) --canvas=70%% --crop=AUTO -o $(PROJECT_SHELL) $(PROJECT_SHELL)
