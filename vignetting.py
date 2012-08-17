@@ -27,8 +27,8 @@ three images which belong to one mini-panorama.  They should heavily overlap
 very same manual exposure settings in quick sequence.  The motive should be at
 least 10m away.
 
-Take tripletts for at least five focal length settings of zoom lenses, and for
-each focal length, one triplett for four aperture settings.  Thus, 5x4x3 = 60
+Take triplets for at least five focal length settings of zoom lenses, and for
+each focal length, one triplet for four aperture settings.  Thus, 5x4x3 = 60
 pictures for zoom lenses, and 4x3 = 12 pictures for primes.
 """
 
@@ -89,8 +89,7 @@ sensor_diagonal = 43.27 / crop_factor
 
 for filename in sys.argv[1:]:
     basename = filename[:-4]
-    output_lines = subprocess.check_output(["exiftool", "-lensmodel", "-focallength", "-aperture",
-                                            "-imagewidth", "-imageheight", filename]).splitlines()
+    output_lines = subprocess.check_output(["exiftool", "-lensmodel", "-focallength", "-aperture", filename]).splitlines()
     exif_data = {}
     for line in output_lines:
         key, value = line.split(":", 1)
@@ -98,6 +97,19 @@ for filename in sys.argv[1:]:
         value = value.strip()
         exif_data[key] = value
     images[basename] = exif_data
+
+def get_image_size(filename):
+    output_lines = subprocess.check_output(["exiftool", "-imagewidth", "-imageheight", filename]).splitlines()
+    exif_data = {}
+    for line in output_lines:
+        key, value = line.split(":", 1)
+        key = key.strip()
+        value = value.strip()
+        if key == "Image Width":
+            width = int(value)
+        elif key == "Image Height":
+            height = int(value)
+    return width, height
 
 basenames = sorted(images)
 triplets = [[basenames[0]]]
@@ -122,14 +134,19 @@ working_directory = os.getcwd()
 pto_path = os.path.join(working_directory, "vignetting.pto")
 
 for triplet in triplets:
-    exif_data = images[triplet[0]]
-    width, height = int(exif_data["Image Width"]), int(exif_data["Image Height"])
-    width, height = width // 4, height // 4
     processes = [(subprocess.Popen(["dcraw", "-T", filename + ".ARW"]), filename)
                  for filename in triplet if not os.path.exists(filename + ".tiff")]
     for process, filename in processes:
         assert process.wait() == 0
+        width, height = get_image_size(filename + ".tiff")
+        width, height = width // 4, height // 4
         subprocess.check_call(["convert", filename + ".tiff", "-scale", "{0}x{1}".format(width, height), filename + ".tiff"])
+    try:
+        width, height
+    except NameError:
+        width, height = get_image_size(triplet[0] + ".tiff")
+        width, height = width // 4, height // 4
+    exif_data = images[triplet[0]]
     exif_data = (exif_data["Lens Model"], exif_data["Focal Length"].partition(".0 mm")[0], exif_data["Aperture"])
     output_filename = "--".join(exif_data).replace(" ", "_")
     with open(pto_path, "w") as outfile:
