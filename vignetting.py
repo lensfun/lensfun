@@ -14,7 +14,7 @@ from scipy.optimize.minpack import leastsq
 
 python ~/src/vignetting.py *.RAW
 
-You should call this program within the directory with the RAW files.  You have
+You must call this program within the directory with the RAW files.  You have
 to have installed Python 2.7, ScipPy, NumPy, Hugin, ptovariable, ImageMagick,
 and dcraw.  The result is a file called ``lensfun.xml`` which contains the XML
 snippets ready to be copied into the Lensfun database file.
@@ -33,6 +33,56 @@ pictures for zoom lenses, and 4x3 = 12 pictures for primes.
 """
 
 crop_factor = 1.5
+
+
+pto_file_contents = """# hugin project file
+#hugin_ptoversion 2
+p f2 w3000 h1500 v360  E10.2928 R0 n"TIFF_m c:LZW r:CROP"
+m g1 i0 f0 m2 p0.00784314
+
+# image lines
+#-hugin  cropFactor=1.5
+i w{width} h{height} f0 v73.7060715691069 Ra0 Rb0 Rc0 Rd0 Re0 Eev10.2927816680626 Er1 Eb1 r0 p0 y0 TrX0 TrY0 TrZ0 j0 a0 b0 c0 d0 e0 g0 t0 Va1 Vb0 Vc0 Vd0 Vx0 Vy0  Vm5 n"{input_filenames[0]}.tiff"
+#-hugin  cropFactor=1.5
+i w{width} h{height} f0 v=0 Ra=0 Rb=0 Rc=0 Rd=0 Re=0 Eev10.2927816680626 Er1 Eb1 r0 p0 y0 TrX0 TrY0 TrZ0 j0 a=0 b=0 c=0 d=0 e=0 g=0 t=0 Va=0 Vb=0 Vc=0 Vd=0 Vx=0 Vy=0  Vm5 n"{input_filenames[1]}.tiff"
+#-hugin  cropFactor=1.5
+i w{width} h{height} f0 v=0 Ra=0 Rb=0 Rc=0 Rd=0 Re=0 Eev10.2927816680626 Er1 Eb1 r0 p0 y0 TrX0 TrY0 TrZ0 j0 a=0 b=0 c=0 d=0 e=0 g=0 t=0 Va=0 Vb=0 Vc=0 Vd=0 Vx=0 Vy=0  Vm5 n"{input_filenames[2]}.tiff"
+
+
+# specify variables that should be optimized
+v r1
+v p1
+v y1
+v r2
+v p2
+v y2
+v
+
+
+# control points
+
+#hugin_optimizeReferenceImage 0
+#hugin_blender enblend
+#hugin_remapper nona
+#hugin_enblendOptions 
+#hugin_enfuseOptions 
+#hugin_hdrmergeOptions -m avg -c
+#hugin_outputLDRBlended true
+#hugin_outputLDRLayers false
+#hugin_outputLDRExposureRemapped false
+#hugin_outputLDRExposureLayers false
+#hugin_outputLDRExposureBlended false
+#hugin_outputLDRExposureLayersFused false
+#hugin_outputHDRBlended false
+#hugin_outputHDRLayers false
+#hugin_outputHDRStacks false
+#hugin_outputLayersCompression LZW
+#hugin_outputImageType tif
+#hugin_outputImageTypeCompression LZW
+#hugin_outputJPEGQuality 90
+#hugin_outputImageTypeHDR exr
+#hugin_outputImageTypeHDRCompression LZW
+"""
 
 images = {}
 sensor_diagonal = 43.27 / crop_factor
@@ -82,9 +132,8 @@ for triplet in triplets:
         subprocess.check_call(["convert", filename + ".tiff", "-scale", "{0}x{1}".format(width, height), filename + ".tiff"])
     exif_data = (exif_data["Lens Model"], exif_data["Focal Length"].partition(".0 mm")[0], exif_data["Aperture"])
     output_filename = "--".join(exif_data).replace(" ", "_")
-    with open("vignetting.pto", "w") as outfile:
-        outfile.write(open("/home/bronger/src/vignetting/vignetting.pto").read().format(
-                input_filenames=triplet, width=width, height=height))
+    with open(pto_path, "w") as outfile:
+        pto_file_contents.format(input_filenames=triplet, width=width, height=height))
     subprocess.check_call(["cpfind", "--sieve1width", "20",  "--sieve1height", "20",
                            "--sieve2width", "10",  "--sieve2height", "10", "-o", pto_path, pto_path])
     subprocess.check_call(["cpclean", "-o", pto_path, pto_path])
