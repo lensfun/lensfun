@@ -49,6 +49,7 @@ for triplet in triplets:
                  for filename in triplet if not os.path.exists(filename + ".tiff")]
     for process in processes:
         assert process.wait() == 0
+        subprocess.check_call(["convert", filename + ".tiff", "-scale", "1506x1006", filename + ".tiff"])
     exif_data = images[triplet[0]]
     exif_data = (exif_data["Lens Model"], exif_data["Focal Length"].partition(".0 mm")[0], exif_data["Aperture"])
     output_filename = "--".join(exif_data).replace(" ", "_")
