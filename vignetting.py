@@ -4,6 +4,8 @@
 from __future__ import unicode_literals, division, absolute_import
 
 import subprocess, glob, os, os.path, re, time
+import numpy
+from scipy.optimize.minpack import leastsq
 
 
 images = {}
