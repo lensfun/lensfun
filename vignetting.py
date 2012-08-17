@@ -145,7 +145,6 @@ for triplet in triplets:
         width, height
     except NameError:
         width, height = get_image_size(triplet[0] + ".tiff")
-        width, height = width // 4, height // 4
     exif_data = images[triplet[0]]
     exif_data = (exif_data["Lens Model"], exif_data["Focal Length"].partition(".0 mm")[0], exif_data["Aperture"])
     output_filename = "--".join(exif_data).replace(" ", "_")
