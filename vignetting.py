@@ -45,9 +45,9 @@ working_directory = os.getcwd()
 pto_path = os.path.join(working_directory, "vignetting.pto")
 
 for triplet in triplets:
-    processes = [subprocess.Popen(["dcraw", "-T", filename + ".ARW"])
+    processes = [(subprocess.Popen(["dcraw", "-T", filename + ".ARW"]), filename)
                  for filename in triplet if not os.path.exists(filename + ".tiff")]
-    for process in processes:
+    for process, filename in processes:
         assert process.wait() == 0
         subprocess.check_call(["convert", filename + ".tiff", "-scale", "1506x1006", filename + ".tiff"])
     exif_data = images[triplet[0]]
