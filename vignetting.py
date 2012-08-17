@@ -133,7 +133,7 @@ for triplet in triplets:
     exif_data = (exif_data["Lens Model"], exif_data["Focal Length"].partition(".0 mm")[0], exif_data["Aperture"])
     output_filename = "--".join(exif_data).replace(" ", "_")
     with open(pto_path, "w") as outfile:
-        pto_file_contents.format(input_filenames=triplet, width=width, height=height)
+        outfile.write(pto_file_contents.format(input_filenames=triplet, width=width, height=height))
     subprocess.check_call(["cpfind", "--sieve1width", "20",  "--sieve1height", "20",
                            "--sieve2width", "10",  "--sieve2height", "10", "-o", pto_path, pto_path])
     subprocess.check_call(["cpclean", "-o", pto_path, pto_path])
