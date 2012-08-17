@@ -3,15 +3,17 @@
 
 from __future__ import unicode_literals, division, absolute_import
 
-import subprocess, glob, os, os.path, re, time
+import subprocess, os, os.path, re, time, sys
 import numpy
 from scipy.optimize.minpack import leastsq
 
 
-images = {}
-sensor_diagonal = 30.15
+crop_factor = 1.5
 
-for filename in glob.glob("*.ARW"):
+images = {}
+sensor_diagonal = 43.27 / crop_factor
+
+for filename in sys.argv[1:]:
     basename = filename[:-4]
     output_lines = subprocess.check_output(["exiftool", "-lensmodel", "-focallength", "-aperture",
                                             "-imagewidth", "-imageheight", filename]).splitlines()
