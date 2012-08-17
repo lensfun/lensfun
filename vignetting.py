@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+# Copyright 2012 Torsten Bronger <bronger@physik.rwth-aachen.de>
+# This file is in the Public Domain.
 
 from __future__ import unicode_literals, division, absolute_import
 
@@ -7,6 +10,27 @@ import subprocess, os, os.path, re, time, sys
 import numpy
 from scipy.optimize.minpack import leastsq
 
+"""Synopsis:
+
+python ~/src/vignetting.py *.RAW
+
+You should call this program within the directory with the RAW files.  You have
+to have installed Python 2.7, ScipPy, NumPy, Hugin, ptovariable, ImageMagick,
+and dcraw.  The result is a file called ``lensfun.xml`` which contains the XML
+snippets ready to be copied into the Lensfun database file.
+
+Set the variable `crop_factor` in this script correctly.
+
+The filenames of the RAW files must, if sorted alphabetically, form groups of
+three images which belong to one mini-panorama.  They should heavily overlap
+(the two outmost should share half of their size).  Shoot each triplet with the
+very same manual exposure settings in quick sequence.  The motive should be at
+least 10m away.
+
+Take tripletts for at least five focal length settings of zoom lenses, and for
+each focal length, one triplett for four aperture settings.  Thus, 5x4x3 = 60
+pictures for zoom lenses, and 4x3 = 12 pictures for primes.
+"""
 
 crop_factor = 1.5
 
