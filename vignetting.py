@@ -73,6 +73,7 @@ for triplet in triplets:
         result_parameters = re.search(r" Vb([-.0-9]+) Vc([-.0-9]+) Vd([-.0-9]+) ", open(process_pto_path). \
                                           readlines()[7]).groups()
         vignetting_data.append((float(result_parameters[0]), result_parameters, process_pto_path))
+    vignetting_data.sort()
     best_vignetting_data = vignetting_data[len(vignetting_data) // 2]
     database_entries[exif_data] = best_vignetting_data[1]
     print "Vignetting data:", database_entries[exif_data], [data[1] for data in vignetting_data]
