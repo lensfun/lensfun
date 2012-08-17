@@ -3,7 +3,7 @@
 
 from __future__ import unicode_literals, division, absolute_import
 
-import subprocess, glob, os, os.path, re
+import subprocess, glob, os, os.path, re, time
 
 
 images = {}
@@ -60,13 +60,15 @@ for triplet in triplets:
     subprocess.check_call(["autooptimiser", "-n", "-l", "-s", "-o", pto_path, pto_path])
     subprocess.check_call(["ptovariable", "--vignetting", "--response", pto_path])
     current_pto = open(pto_path).read()
+    number_of_vig_processes = 5
     processes = []
-    for i in range(5):
+    for i in range(number_of_vig_processes):
         process_pto_path = "{0}.{1}.pto".format(pto_path[:-4], i)
         with open(process_pto_path, "w") as pto_file:
             pto_file.write(current_pto)
         processes.append((subprocess.Popen(["vig_optimize", "-p", "100000", "-o", process_pto_path, process_pto_path],
                                            stdout=subprocess.PIPE), process_pto_path))
+        time.sleep(3)
     vignetting_data = []
     for process, process_pto_path in processes:
         assert process.wait() == 0
@@ -76,7 +78,7 @@ for triplet in triplets:
     vignetting_data.sort()
     best_vignetting_data = vignetting_data[len(vignetting_data) // 2]
     database_entries[exif_data] = best_vignetting_data[1]
-    print "Vignetting data:", database_entries[exif_data], [data[1] for data in vignetting_data]
+    print "Vignetting data:", database_entries[exif_data]#, [data[1][0] for data in vignetting_data]
     os.rename(best_vignetting_data[2], pto_path)
     for i, current_data in enumerate(vignetting_data):
         if i != len(vignetting_data) // 2:
