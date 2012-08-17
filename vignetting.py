@@ -65,17 +65,18 @@ for triplet in triplets:
         process_pto_path = "{0}.{1}.pto".format(pto_path[:-4], i)
         with open(process_pto_path, "w") as pto_file:
             pto_file.write(current_pto)
-        processes.append(subprocess.Popen(["vig_optimize", "-p", "100000", "-o", process_pto_path, process_pto_path],
-                                          stdout=subprocess.PIPE))
+        processes.append((subprocess.Popen(["vig_optimize", "-p", "100000", "-o", process_pto_path, process_pto_path],
+                                           stdout=subprocess.PIPE), process_pto_path))
     vignetting_data = []
-    for i in range(5):
-        process_pto_path = "{0}.{1}.pto".format(pto_path[:-4], i)
-        assert processes[i].wait() == 0
+    for process, process_pto_path in processes:
+        assert process.wait() == 0
         result_parameters = re.search(r" Vb([-.0-9]+) Vc([-.0-9]+) Vd([-.0-9]+) ", open(process_pto_path). \
                                           readlines()[7]).groups()
-        vignetting_data.append((float(result_parameters[0]), result_parameters))
-    database_entries[exif_data] = vignetting_data[len(vignetting_data) // 2 + 2][1]
+        vignetting_data.append((float(result_parameters[0]), result_parameters, process_pto_path))
+    best_vignetting_data = vignetting_data[len(vignetting_data) // 2 + 2]
+    database_entries[exif_data] = best_vignetting_data[1]
     print database_entries[exif_data], vignetting_data
+    os.rename(best_vignetting_data[2], pto_path)
     subprocess.check_call(["pano_modify", "--canvas=70%", "--crop=AUTO", "-o", pto_path, pto_path])
     subprocess.check_call(["make", "--makefile", "vignetting_second.pto.mk"])
     database_entries[exif_data] = re.search(r" Vb([-.0-9]+) Vc([-.0-9]+) Vd([-.0-9]+) ", open("vignetting.pto"). \
