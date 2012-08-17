@@ -45,6 +45,9 @@ working_directory = os.getcwd()
 pto_path = os.path.join(working_directory, "vignetting.pto")
 
 for triplet in triplets:
+    processes = [subprocess.Popen(["dcraw", "-T", filename]) for filename in triplet if not os.path.exists(filename)]
+    for process in processes:
+        assert process.wait() == 0
     exif_data = images[triplet[0]]
     exif_data = (exif_data["Lens Model"], exif_data["Focal Length"].partition(".0 mm")[0], exif_data["Aperture"])
     output_filename = "--".join(exif_data).replace(" ", "_")
@@ -128,8 +131,9 @@ for configuration in sorted(database_entries):
     outfile.write("""<vignetting model="pa" focal="{focal_length}" aperture="{aperture}" distance="45" """
                   """k1="{vignetting[0]}" k2="{vignetting[1]}" k3="{vignetting[2]}" />\n""".format(
             focal_length=focal_length, aperture=aperture, vignetting=vignetting))
-    for nd, distance in [(0.9, 1.0), (1.8, 2.0), (3.0, 2.8), (3.9, 4.0), (5.7, 5.7)]:
-        k1, k2, k3 = get_nd_parameters(vignetting[0], vignetting[1], vignetting[2], nd, float(focal_length), sensor_diagonal)
-        outfile.write("""<vignetting model="pa" focal="{focal_length}" aperture="{aperture}" distance="{distance}" """
-                      """k1="{k1}" k2="{k2}" k3="{k3}" />\n""".format(
-                focal_length=focal_length, aperture=aperture, distance=distance, k1=k1, k2=k2, k3=k3))
+    # for nd, distance in [(0.9, 1.0), (1.8, 2.0), (3.0, 2.8), (3.9, 4.0), (5.7, 5.7)]:
+    #     k1, k2, k3 = get_nd_parameters(vignetting[0], vignetting[1], vignetting[2], nd, float(focal_length),
+    #                                    sensor_diagonal)
+    #     outfile.write("""<vignetting model="pa" focal="{focal_length}" aperture="{aperture}" distance="{distance}" """
+    #                   """k1="{k1}" k2="{k2}" k3="{k3}" />\n""".format(
+    #             focal_length=focal_length, aperture=aperture, distance=distance, k1=k1, k2=k2, k3=k3))
