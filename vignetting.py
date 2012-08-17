@@ -213,7 +213,7 @@ def get_nd_parameters(k1, k2, k3, nd, focal_length, sensor_diagonal):
     return leastsq(error_function, [k1, k2, k3], args=(x, y_total))[0]
 
 
-outfile = open("lensfun.xml", "a")
+outfile = open("lensfun.xml", "w")
 
 current_lens = None
 for configuration in sorted(database_entries):
