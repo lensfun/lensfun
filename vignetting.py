@@ -46,6 +46,7 @@ for triplet in triplets:
     output_filename = "--".join(exif_data).replace(" ", "_")
     with open("vignetting.pto", "w") as outfile:
         outfile.write(open("/home/bronger/src/vignetting/vignetting.pto").read().format(input_filenames=triplet))
+    # FixMe: The second makefile should be replaced with a pto2mk call.
     for name in ["first", "second"]:
         with open("vignetting_{0}.pto.mk".format(name), "w") as outfile:
             outfile.write(open("/home/bronger/src/vignetting/vignetting_{0}.pto.mk".format(name)).read().format(
