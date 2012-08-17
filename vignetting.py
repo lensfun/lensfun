@@ -10,7 +10,9 @@ import subprocess, os, os.path, re, time, sys
 import numpy
 from scipy.optimize.minpack import leastsq
 
-"""Synopsis:
+"""Lens vignetting calibration for the Lensfun library.
+
+Synopsis:
 
 python ~/src/vignetting.py *.RAW
 
