@@ -3,7 +3,7 @@
 
 from __future__ import unicode_literals, division, absolute_import
 
-import subprocess, glob, os, re
+import subprocess, glob, os, os.path, re
 
 
 images = {}
@@ -39,6 +39,7 @@ for basename in basenames[1:]:
 
 database_entries = {}
 working_directory = os.getcwd()
+pto_path = os.path.join(working_directory, "vignetting.pto")
 
 for triplet in triplets:
     exif_data = images[triplet[0]]
@@ -46,16 +47,23 @@ for triplet in triplets:
     output_filename = "--".join(exif_data).replace(" ", "_")
     with open("vignetting.pto", "w") as outfile:
         outfile.write(open("/home/bronger/src/vignetting/vignetting.pto").read().format(input_filenames=triplet))
-    # FixMe: The second makefile should be replaced with a pto2mk call.
-    for name in ["first", "second"]:
-        with open("vignetting_{0}.pto.mk".format(name), "w") as outfile:
-            outfile.write(open("/home/bronger/src/vignetting/vignetting_{0}.pto.mk".format(name)).read().format(
-                    input_filenames=triplet, output_filename=output_filename, working_directory=working_directory))
-    subprocess.check_call(["make", "--makefile", "vignetting_first.pto.mk"])
+    # FixMe: The makefile should be replaced with a pto2mk call.
+    with open("vignetting_second.pto.mk", "w") as outfile:
+        outfile.write(open("/home/bronger/src/vignetting/vignetting_second.pto.mk").read().format(
+                input_filenames=triplet, output_filename=output_filename, working_directory=working_directory))
+    subprocess.check_call(["icpfind", "-o", pto_path, pto_path])
+    subprocess.check_call(["cpclean", "-o", pto_path, pto_path])
+    subprocess.check_call(["linefind", "-o", pto_path, pto_path])
+    subprocess.check_call(["checkpto", pto_path])
+    subprocess.check_call(["ptovariable", "--positions", "--view", "--barrel", pto_path])
+    subprocess.check_call(["autooptimiser", "-n", "-m", "-l", "-s", "-o", pto_path, pto_path])
+    subprocess.check_call(["ptovariable", "--vignetting", "--response", "--exposure", pto_path])
+    subprocess.check_call(["vig_optimize", "-p", "100000", "-o", pto_path, pto_path])
+    subprocess.check_call(["pano_modify", "--canvas=70%", "--crop=AUTO", "-o", pto_path, pto_path])
     subprocess.check_call(["make", "--makefile", "vignetting_second.pto.mk"])
     database_entries[exif_data] = re.search(r" Vb([-.0-9]+) Vc([-.0-9]+) Vd([-.0-9]+) ", open("vignetting.pto"). \
                                                 readlines()[7]).groups()
-    for filename in ["vignetting_first.pto.mk", "vignetting_second.pto.mk", "vignetting.pto"] + \
+    for filename in ["vignetting_second.pto.mk", "vignetting.pto"] + \
             ["{0}{1}.tif".format(output_filename, suffix) for suffix in ["0000", "0001", "0002"]]:
         os.remove(filename)
 
