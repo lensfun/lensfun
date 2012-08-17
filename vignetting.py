@@ -11,9 +11,10 @@ from scipy.optimize.minpack import leastsq
 images = {}
 sensor_diagonal = 30.15
 
-for filename in [u"DSC03230.ARW", u"DSC03231.ARW", u"DSC03232.ARW"]: #glob.glob("*.ARW"):
+for filename in glob.glob("*.ARW"):
     basename = filename[:-4]
-    output_lines = subprocess.check_output(["exiftool", "-lensmodel", "-focallength", "-aperture", filename]).splitlines()
+    output_lines = subprocess.check_output(["exiftool", "-lensmodel", "-focallength", "-aperture",
+                                            "-imagewidth", "-imageheight", filename]).splitlines()
     exif_data = {}
     for line in output_lines:
         key, value = line.split(":", 1)
@@ -45,16 +46,19 @@ working_directory = os.getcwd()
 pto_path = os.path.join(working_directory, "vignetting.pto")
 
 for triplet in triplets:
+    exif_data = images[triplet[0]]
+    width, height = int(exif_data["Image Width"]), int(exif_data["Image Height"])
+    width, height = width // 4, height // 4
     processes = [(subprocess.Popen(["dcraw", "-T", filename + ".ARW"]), filename)
                  for filename in triplet if not os.path.exists(filename + ".tiff")]
     for process, filename in processes:
         assert process.wait() == 0
-        subprocess.check_call(["convert", filename + ".tiff", "-scale", "1506x1006", filename + ".tiff"])
-    exif_data = images[triplet[0]]
+        subprocess.check_call(["convert", filename + ".tiff", "-scale", "{0}x{1}".format(width, height), filename + ".tiff"])
     exif_data = (exif_data["Lens Model"], exif_data["Focal Length"].partition(".0 mm")[0], exif_data["Aperture"])
     output_filename = "--".join(exif_data).replace(" ", "_")
     with open("vignetting.pto", "w") as outfile:
-        outfile.write(open("/home/bronger/src/vignetting/vignetting.pto").read().format(input_filenames=triplet))
+        outfile.write(open("/home/bronger/src/vignetting/vignetting.pto").read().format(
+                input_filenames=triplet, width=width, height=height))
     subprocess.check_call(["cpfind", "--sieve1width", "20",  "--sieve1height", "20",
                            "--sieve2width", "10",  "--sieve2height", "10", "-o", pto_path, pto_path])
     subprocess.check_call(["cpclean", "-o", pto_path, pto_path])
