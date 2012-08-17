@@ -7,6 +7,7 @@ import subprocess, glob, os, os.path, re, time
 
 
 images = {}
+sensor_diagonal = 30.15
 
 for filename in [u"DSC03230.ARW", u"DSC03231.ARW", u"DSC03232.ARW"]: #glob.glob("*.ARW"):
     basename = filename[:-4]
@@ -43,7 +44,8 @@ pto_path = os.path.join(working_directory, "vignetting.pto")
 
 for triplet in triplets:
     exif_data = images[triplet[0]]
-    exif_data = (exif_data["Lens Model"], exif_data["Focal Length"].partition(".0 mm")[0], exif_data["Aperture"])
+    exif_data = (exif_data["Lens Model"],
+                 float(exif_data["Focal Length"].partition(".0 mm")[0]), float(exif_data["Aperture"]))
     output_filename = "--".join(exif_data).replace(" ", "_")
     with open("vignetting.pto", "w") as outfile:
         outfile.write(open("/home/bronger/src/vignetting/vignetting.pto").read().format(input_filenames=triplet))
@@ -93,14 +95,42 @@ for triplet in triplets:
         os.remove(filename)
 
 
+def error_function(p, x, y):
+    k1, k2, k3 = p
+    fitted_values = 1 + k1 * x**2 + k2 * x**4 + k3 * x**6
+    difference = y - fitted_values
+    result = []
+    for value, fitted_y in zip(difference, fitted_values):
+        if fitted_y < 0.01:
+            result.append(10 * value)
+        if value < 0:
+            result.append(value)
+        else:
+            result.append(3.3 * value)
+    return numpy.array(result)
+
+def get_nd_parameters(k1, k2, k3, nd, focal_length, sensor_diagonal):
+    x = numpy.arange(0, 1, 0.001)
+    y_vig = 1 + k1_vig * x**2 + k2_vig * x**4 + k3_vig * x**6
+    y_filter = 10**(nd * (1 - numpy.sqrt(1 + x**2 / (2 * focal_length / sensor_diagonal)**2)))
+    y_total = y_vig * y_filter
+    return leastsq(error_function, [k1, k2, k3], args=(x, y_total))[0]
+
+
 outfile = open("lensfun.xml", "a")
 
 current_lens = None
 for configuration in sorted(database_entries):
     lens, focal_length, aperture = configuration
+    vignetting = database_entries[configuration]
     if lens != current_lens:
         outfile.write("\n\n{0}:\n\n".format(lens))
         current_lens = lens
     outfile.write("""<vignetting model="pa" focal="{focal_length}" aperture="{aperture}" distance="45" """
                   """k1="{vignetting[0]}" k2="{vignetting[1]}" k3="{vignetting[2]}" />\n""".format(
-            focal_length=focal_length, aperture=aperture, vignetting=database_entries[configuration]))
+            focal_length=focal_length, aperture=aperture, vignetting=vignetting))
+    for nd, distance in [(0.9, 1.0), (1.8, 2.0), (3.0, 2.8), (3.9, 4.0), (5.7, 5.7)]:
+        k1, k2, k3 = get_nd_parameters(vignetting[0], vignetting[1], vignetting[2], nd, focal_length, sensor_diagonal)
+        outfile.write("""<vignetting model="pa" focal="{focal_length}" aperture="{aperture}" distance="{distance}" """
+                      """k1="{k1}" k2="{k2}" k3="{k3}" />\n""".format(
+                focal_length=focal_length, aperture=aperture, distance=distance, k1=k1, k2=k2, k3=k3))
