@@ -89,8 +89,6 @@ for triplet in triplets:
             os.remove(current_data[1])
     subprocess.check_call(["pano_modify", "--canvas=70%", "--crop=AUTO", "-o", pto_path, pto_path])
     subprocess.check_call(["make", "--makefile", "vignetting_second.pto.mk"])
-    database_entries[exif_data] = re.search(r" Vb([-.0-9]+) Vc([-.0-9]+) Vd([-.0-9]+) ", open("vignetting.pto"). \
-                                                readlines()[7]).groups()
     for filename in ["vignetting_second.pto.mk", "vignetting.pto"] + \
             ["{0}{1}.tif".format(output_filename, suffix) for suffix in ["0000", "0001", "0002"]]:
         os.remove(filename)
