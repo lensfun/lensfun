@@ -112,7 +112,7 @@ def error_function(p, x, y):
 
 def get_nd_parameters(k1, k2, k3, nd, focal_length, sensor_diagonal):
     x = numpy.arange(0, 1, 0.001)
-    y_vig = 1 + k1_vig * x**2 + k2_vig * x**4 + k3_vig * x**6
+    y_vig = 1 + k1 * x**2 + k2 * x**4 + k3 * x**6
     y_filter = 10**(nd * (1 - numpy.sqrt(1 + x**2 / (2 * focal_length / sensor_diagonal)**2)))
     y_total = y_vig * y_filter
     return leastsq(error_function, [k1, k2, k3], args=(x, y_total))[0]
