@@ -73,10 +73,13 @@ for triplet in triplets:
         result_parameters = re.search(r" Vb([-.0-9]+) Vc([-.0-9]+) Vd([-.0-9]+) ", open(process_pto_path). \
                                           readlines()[7]).groups()
         vignetting_data.append((float(result_parameters[0]), result_parameters, process_pto_path))
-    best_vignetting_data = vignetting_data[len(vignetting_data) // 2 + 2]
+    best_vignetting_data = vignetting_data[len(vignetting_data) // 2 + 1]
     database_entries[exif_data] = best_vignetting_data[1]
-    print database_entries[exif_data], vignetting_data
+    print "Vignetting data:", database_entries[exif_data], [data[1] for data in vignetting_data]
     os.rename(best_vignetting_data[2], pto_path)
+    for i, current_data in vignetting_data:
+        if i != len(vignetting_data) // 2 + 1:
+            os.remove(current_data[2])
     subprocess.check_call(["pano_modify", "--canvas=70%", "--crop=AUTO", "-o", pto_path, pto_path])
     subprocess.check_call(["make", "--makefile", "vignetting_second.pto.mk"])
     database_entries[exif_data] = re.search(r" Vb([-.0-9]+) Vc([-.0-9]+) Vd([-.0-9]+) ", open("vignetting.pto"). \
