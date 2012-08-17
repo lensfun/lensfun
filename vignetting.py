@@ -54,10 +54,6 @@ for triplet in triplets:
     output_filename = "--".join(exif_data).replace(" ", "_")
     with open("vignetting.pto", "w") as outfile:
         outfile.write(open("/home/bronger/src/vignetting/vignetting.pto").read().format(input_filenames=triplet))
-    # FixMe: The makefile should be replaced with a pto2mk call.
-    with open("vignetting_second.pto.mk", "w") as outfile:
-        outfile.write(open("/home/bronger/src/vignetting/vignetting_second.pto.mk").read().format(
-                input_filenames=triplet, output_filename=output_filename, working_directory=working_directory))
     subprocess.check_call(["cpfind", "--sieve1width", "20",  "--sieve1height", "20",
                            "--sieve2width", "10",  "--sieve2height", "10", "-o", pto_path, pto_path])
     subprocess.check_call(["cpclean", "-o", pto_path, pto_path])
@@ -92,8 +88,9 @@ for triplet in triplets:
         if i != len(vignetting_data) // 2:
             os.remove(current_data[1])
     subprocess.check_call(["pano_modify", "--canvas=70%", "--crop=AUTO", "-o", pto_path, pto_path])
-    subprocess.check_call(["make", "--makefile", "vignetting_second.pto.mk"])
-    for filename in ["vignetting_second.pto.mk", "vignetting.pto"] + \
+    subprocess.check_call(["pto2mk", "-o", "vignetting.pto.mk", "-p", output_filename, pto_path])
+    subprocess.check_call(["make", "--makefile", "vignetting.pto.mk"])
+    for filename in ["vignetting.pto.mk", "vignetting.pto"] + \
             ["{0}{1}.tif".format(output_filename, suffix) for suffix in ["0000", "0001", "0002"]]:
         os.remove(filename)
 
