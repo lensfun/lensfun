@@ -45,6 +45,11 @@
         <compat>Generic</compat>
     </mount>
 
+    <mount>
+        <name>sonyRX100</name>
+        <compat>Generic</compat>
+    </mount>
+
     <camera>
         <maker>SONY</maker>
         <maker lang="en">Sony</maker>
@@ -244,6 +249,13 @@
         <mount>sonyS60</mount>
         <cropfactor>6.5</cropfactor>
     </camera>
+    
+    <camera>
+        <maker>Sony</maker>
+        <model>DSC-RX100</model>
+        <mount>sonyRX100</mount>
+        <cropfactor>2.73</cropfactor>
+    </camera>      
 
     <lens>
         <maker>Carl Zeiss</maker>
@@ -699,4 +711,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>RX100</model>
+        <focal value="10.4" />
+        <mount>sonyRX100</mount>
+        <cropfactor>2.73</cropfactor>
+        <calibration>
+            <distortion focal="10.4" model="ptlens" a="0.00836" b="-0.05316" c="-0.02788" />
+            <distortion focal="12.8" model="ptlens" a="0.00891" b="-0.06095" c="0.02196" />
+            <distortion focal="14.9" model="ptlens" a="-0.00571" b="0.00909" c="-0.06449" />
+            <distortion focal="16.6" model="ptlens" a="-0.00428" b="-0.01113" c="0.0042" />
+            <distortion focal="19.1" model="ptlens" a="0.00523" b="-0.03743" c="0.03369" />
+            <distortion focal="20.4" model="ptlens" a="-0.00312" b="-0.00368" c="-0.0036" />
+            <distortion focal="23.3" model="ptlens" a="-0.00222" b="-0.00843" c="0.01379" />
+            <distortion focal="25" model="ptlens" a="-0.00565" b="0.0037" c="0.00318" />
+            <distortion focal="26.9" model="ptlens" a="-0.00245" b="-0.00859" c="0.01924" />
+            <distortion focal="28.8" model="ptlens" a="-0.00842" b="0.0158" c="-0.01114" />
+            <distortion focal="33.2" model="ptlens" a="-0.01065" b="0.02132" c="-0.01154" />
+            <distortion focal="37.1" model="ptlens" a="0.00226" b="-0.02401" c="0.0397" />
+        </calibration>
+    </lens>
 </lensdatabase>
