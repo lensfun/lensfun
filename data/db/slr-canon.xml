@@ -609,8 +609,13 @@
             <distortion model="ptlens" focal="41" a="-0.00694" b="0.02694" c="-0.03595" />
             <distortion model="ptlens" focal="46" a="-0.01908" b="0.07131" c="-0.08927" />
             <distortion model="ptlens" focal="55" a="-0.00098" b="0.01803" c="-0.04704" />
+            <tca model="poly3" focal="18" br="-0.0000920" vr="1.0002970" bb="0.0000982" vb="0.9999149"/>
+            <tca model="poly3" focal="24" br="0.0000221" vr="1.0001910" bb="0.0000350" vb="0.9999440"/>
+            <tca model="poly3" focal="35" br="-0.0000353" vr="1.0002159" bb="0.0000109" vb="1.0000923"/>
+            <tca model="poly3" focal="55" br="-0.0000040" vr="0.9999122" bb="0.0000987" vb="1.0002719"/>            
         </calibration>
     </lens>
+    
     <lens>
         <maker>Canon</maker>
         <model>Canon EF-S 18-55mm f/3.5-5.6 III</model>
@@ -1189,6 +1194,17 @@
         <cropfactor>1.3</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="50" a="-0.00016" b="-0.003951" c="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 50mm f/1.8 II</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.6</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="50" a="0.00099" b="-0.00582" c="0.00498"/>
+            <tca model="poly3" focal="50" br="-0.0000133" vr="1.0001567" bb="-0.0000082" vb="0.9999807"/>
         </calibration>
     </lens>
 
