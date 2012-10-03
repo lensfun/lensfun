@@ -520,7 +520,40 @@
             <distortion model="ptlens" focal="40" a="0.00464" b="-0.003826" c="0" />
         </calibration>
     </lens>
-
+    
+     <!-- Lens is in database twice. 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF-S 17-55mm f/2.8 IS USM</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+        <calibration>
+            <distortion model="poly3" focal="17" k1="-0.01500" />
+            <distortion model="poly3" focal="20" k1="-0.00100" />
+            <distortion model="poly3" focal="24" k1="+0.00000" />
+            <distortion model="poly3" focal="28" k1="+0.01000" />
+            <distortion model="poly3" focal="35" k1="+0.02000" />
+            <distortion model="poly3" focal="55" k1="+0.02000" />
+        </calibration>
+    </lens>
+    -->
+   
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF-S 17-55mm f/2.8 IS USM</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="17" a="0.0160544" b="-0.0422842" c="0.00805163" />
+            <distortion model="ptlens" focal="20" a="0.0145107" b="-0.0318653" c="0.012966" />
+            <distortion model="ptlens" focal="23" a="0.0132784" b="-0.0244953" c="0.0194828" />
+            <distortion model="ptlens" focal="28" a="0.00120309" b="0.00979416" c="-0.00868762" />
+            <distortion model="ptlens" focal="35" a="-0.000341579" b="0.0108822" c="-0.00545481" />
+            <distortion model="ptlens" focal="55" a="0.00182321" b="0.00378863" c="0.00103256" />
+        </calibration>
+    </lens>
+   
+       
     <lens>
         <maker>Canon</maker>
         <model>Canon EF-S 17-85mm f/4-5.6 IS USM</model>
@@ -565,6 +598,21 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon EF-S 18-55mm f/3.5-5.6 IS II</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18" a="0.02504" b="-0.06883" c="0.01502" />
+            <distortion model="ptlens" focal="24" a="0.0203" b="-0.06514" c="0.04768" />
+            <distortion model="ptlens" focal="29" a="0.00854" b="-0.01505" c="-0.00639" />
+            <distortion model="ptlens" focal="35" a="-0.01582" b="0.04918" c="-0.05313" />
+            <distortion model="ptlens" focal="41" a="-0.00694" b="0.02694" c="-0.03595" />
+            <distortion model="ptlens" focal="46" a="-0.01908" b="0.07131" c="-0.08927" />
+            <distortion model="ptlens" focal="55" a="-0.00098" b="0.01803" c="-0.04704" />
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Canon</maker>
         <model>Canon EF-S 18-55mm f/3.5-5.6 III</model>
         <mount>Canon EF-S</mount>
         <cropfactor>1.6</cropfactor>
@@ -589,21 +637,6 @@
             <distortion model="ptlens" focal="49" a="0.00841" b="-0.04436" c="0.06329" />
             <distortion model="ptlens" focal="53" a="0.00359" b="-0.01264" c="0.01563" />
             <distortion model="ptlens" focal="55" a="-0.0117" b="0.03217" c="-0.02069" />
-        </calibration>
-    </lens>
-    
-    <lens>
-        <maker>Canon</maker>
-        <model>Canon EF-S 17-55mm f/2.8 IS USM</model>
-        <mount>Canon EF-S</mount>
-        <cropfactor>1.6</cropfactor>
-        <calibration>
-            <distortion model="ptlens" focal="17" a="0.0160544" b="-0.0422842" c="0.00805163" />
-            <distortion model="ptlens" focal="20" a="0.0145107" b="-0.0318653" c="0.012966" />
-            <distortion model="ptlens" focal="23" a="0.0132784" b="-0.0244953" c="0.0194828" />
-            <distortion model="ptlens" focal="28" a="0.00120309" b="0.00979416" c="-0.00868762" />
-            <distortion model="ptlens" focal="35" a="-0.000341579" b="0.0108822" c="-0.00545481" />
-            <distortion model="ptlens" focal="55" a="0.00182321" b="0.00378863" c="0.00103256" />
         </calibration>
     </lens>
 
@@ -922,6 +955,19 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon 70-200mm f/4L IS USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="70" a="-0.012" b="0.037" c="-0.046" />
+            <distortion model="ptlens" focal="97" a="0.008" b="-0.025" c="0.028" />
+            <distortion model="ptlens" focal="127" a="0.001" b="0.004" c="-0.001" />
+            <distortion model="ptlens" focal="200" a="-0.005" b="0.032" c="-0.031" />
+        </calibration>
+    </lens>
+    
     <lens>
         <maker>Canon</maker>
         <model>Canon EF 70-300mm f/4.5-5.6 DO IS USM</model>
@@ -1290,48 +1336,5 @@
         </calibration>
     </lens>
 
-    <lens>
-        <maker>Canon</maker>
-        <model>Canon 70-200mm f/4L IS USM</model>
-        <mount>Canon EF</mount>
-        <cropfactor>1.0</cropfactor>
-        <calibration>
-            <distortion model="ptlens" focal="70" a="-0.012" b="0.037" c="-0.046" />
-            <distortion model="ptlens" focal="97" a="0.008" b="-0.025" c="0.028" />
-            <distortion model="ptlens" focal="127" a="0.001" b="0.004" c="-0.001" />
-            <distortion model="ptlens" focal="200" a="-0.005" b="0.032" c="-0.031" />
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Canon</maker>
-        <model>Canon EF-S 17-55mm f/2.8 IS USM</model>
-        <mount>Canon EF-S</mount>
-        <cropfactor>1.6</cropfactor>
-        <calibration>
-            <distortion model="poly3" focal="17" k1="-0.01500" />
-            <distortion model="poly3" focal="20" k1="-0.00100" />
-            <distortion model="poly3" focal="24" k1="+0.00000" />
-            <distortion model="poly3" focal="28" k1="+0.01000" />
-            <distortion model="poly3" focal="35" k1="+0.02000" />
-            <distortion model="poly3" focal="55" k1="+0.02000" />
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Canon</maker>
-        <model>Canon EF-S 18-55mm f/3.5-5.6 IS II</model>
-        <mount>Canon EF-S</mount>
-        <cropfactor>1.6</cropfactor>
-        <calibration>
-            <distortion model="ptlens" focal="18" a="0.02504" b="-0.06883" c="0.01502" />
-            <distortion model="ptlens" focal="24" a="0.0203" b="-0.06514" c="0.04768" />
-            <distortion model="ptlens" focal="29" a="0.00854" b="-0.01505" c="-0.00639" />
-            <distortion model="ptlens" focal="35" a="-0.01582" b="0.04918" c="-0.05313" />
-            <distortion model="ptlens" focal="41" a="-0.00694" b="0.02694" c="-0.03595" />
-            <distortion model="ptlens" focal="46" a="-0.01908" b="0.07131" c="-0.08927" />
-            <distortion model="ptlens" focal="55" a="-0.00098" b="0.01803" c="-0.04704" />
-        </calibration>
-    </lens>
 
 </lensdatabase>
