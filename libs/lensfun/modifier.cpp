@@ -75,8 +75,9 @@ lfExtModifier::lfExtModifier (const lfLens *lens, float crop, int width, int hei
     ColorCallbacks = g_ptr_array_new ();
     CoordCallbacks = g_ptr_array_new ();
 
-    Width = width;
-    Height = height;
+    // Avoid divide overflows on singular cases
+    Width = (width >= 2 ? width : 2);
+    Height = (height >= 2 ? height : 2);
 
     // Image "size"
     float size = float ((width < height) ? width : height);
@@ -85,11 +86,11 @@ lfExtModifier::lfExtModifier (const lfLens *lens, float crop, int width, int hei
     if (lens && lens->CropFactor)
         size *= crop / lens->CropFactor;
 
-    // The scale to transform {-size/2 .. 0 .. size/2} to {-1 .. 0 .. +1}
-    NormScale = 2.0 / size;
+    // The scale to transform {-size/2 .. 0 .. size/2-1} to {-1 .. 0 .. +1}
+    NormScale = 2.0 / (size - 1);
 
-    // The scale to transform {-1 .. 0 .. +1} to {-size/2 .. 0 .. size/2}
-    NormUnScale = size  * 0.5;
+    // The scale to transform {-1 .. 0 .. +1} to {-size/2 .. 0 .. size/2-1}
+    NormUnScale = (size - 1) * 0.5;
 
     // Geometric lens center in normalized coordinates
     CenterX = width / size + (lens ? lens->CenterX : 0.0);
