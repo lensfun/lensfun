@@ -6,7 +6,7 @@
 # below to point to your lensfun database.
 #
  
-XMLDir = "/usr/share/lensfun/"
+XMLDir = "../../data/db/"
 
 ###################################################################################
 
@@ -94,21 +94,21 @@ for xmlfile in XMLFileList:
                                     
 
 # print html
-print ("<h1>SLR Lenses</h1>")
+print ("<p><b>SLR Lenses</b></p>")
 for maker in sorted(SLRDict.keys()):
-                print ("<h2>"+maker+"</h2>")
+                print ("<br/><p><b>"+maker+"</b></p>")
                 for  model in sorted(SLRDict[maker]):
                         print(model + "<br />")
 print ("<br /><br />\n\n")
-print ("<h1>Mirrorless</h1>")
+print ("<p><b>Mirrorless</b></p>")
 for maker in sorted(MirrorlessDict.keys()):
-                print ("<h2>"+maker+"</h2>")
+                print ("<br/><p><b>"+maker+"</b></p>")
                 for  model in sorted(MirrorlessDict[maker]):
                         print(model + "<br />")
 
 print ("<br /><br />\n\n")
-print ("<h1>Compact Cameras</h1>")
+print ("<p><b>Compact Cameras</b></p>")
 for maker in sorted(CompactCamDict.keys()):
-                print ("<h2>"+maker+"</h2>")
+                print ("<br/><p><b>"+maker+"</b></p>")
                 for  model in sorted(CompactCamDict[maker]):
                         print(model + "<br />")
