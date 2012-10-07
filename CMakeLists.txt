@@ -80,10 +80,16 @@ SET(DATADIR share/lensfun)
 SET(DOCDIR share/doc/lensfun-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX})
 
 IF(WIN32)
-  SET(PLATFORM_WINDOWS 1)
-  # install into place in build-dir
-  SET(CMAKE_INSTALL_PREFIX "${SOURCE_BASE_DIR}/lensfun" CACHE PATH "Install prefix for lensfun" FORCE)
+  # install into place in build-dir  
+  SET(LENSFUN_INSTALL_PREFIX "${SOURCE_BASE_DIR}/lensfun" CACHE PATH "Install prefix for lensfun")    
+ELSE()
+  SET(LENSFUN_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE PATH "Install prefix for lensfun")    
+ENDIF()
+SET(CMAKE_INSTALL_PREFIX "${LENSFUN_INSTALL_PREFIX}" CACHE INTERNAL "" FORCE)
 
+IF(WIN32)
+  SET(PLATFORM_WINDOWS 1)  
+  
   IF (MSVC)
     IF(BUILD_STATIC)
       # compile everything for the static C runtime
@@ -165,6 +171,7 @@ IF(BUILD_AUXFUN)
 ENDIF()
 MESSAGE(STATUS "Build with support for SSE: ${BUILD_FOR_SSE}")
 MESSAGE(STATUS "Build with support for SSE2: ${BUILD_FOR_SSE2}")
+MESSAGE(STATUS "Install prefix: ${LENSFUN_INSTALL_PREFIX}")
 MESSAGE(STATUS "\nUsing: ")
 MESSAGE(STATUS "GLIB2 include dir: ${GLIB2_INCLUDE_DIRS}")
 MESSAGE(STATUS "GLIB2 library: ${GLIB2_LIBRARIES}")

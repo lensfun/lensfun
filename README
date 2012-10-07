@@ -254,6 +254,7 @@ Enter the build directory and run make/make install as usual
 
 The following CMake options can be set (defaults are upper case):
 
+    - DLENSFUN_INSTALL_PREFIX=/USR/LOCAL install prefix 
     - DBUILD_STATIC=OFF|on build static or shared lib
     - DBUILD_TESTS=off|ON build also the test programs
     - DBUILD_AUXFUN=OFF|on build also the auxfun lib and the tmod test program
