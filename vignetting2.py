@@ -10,11 +10,12 @@ import subprocess, os.path, sys, multiprocessing, math
 import numpy, PythonMagick
 from scipy.optimize.minpack import leastsq
 
-"""Lens vignetting calibration for the Lensfun library.
+"""Lens vignetting calibration for the Lensfun library
+(http://lensfun.berlios.de/).
 
 Synopsis:
 
-python ~/src/vignetting.py *.RAW
+python vignetting.py *.RAW
 
 You must call this program within the directory with the RAW files.  You have
 to have installed Python 2.7, ScipPy, NumPy, ImageMagick, PythonMagick,
