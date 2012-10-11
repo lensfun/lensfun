@@ -22,11 +22,14 @@ dcraw.  The result is a file called ``lensfun.xml`` which contains the XML
 snippets ready to be copied into the Lensfun database file.
 
 Take pictures for at least five focal length settings of zoom lenses, and for
-each focal length, one triplet for four aperture settings.  Thus, 5x4 = 20
-pictures for zoom lenses, and 4 pictures for primes.
+each focal length, take four aperture settings.  Thus, 5x4 = 20 pictures for
+zoom lenses, and 4 pictures for primes.  At least.
 
-Choose wisely whether you want to have D-R optimisation or vignetting
-correction on or off when taking the sample pictures.
+Choose wisely whether you want to have e.g. D-R optimisation or vignetting
+correction on or off when taking the sample pictures.  (Believe it or not, for
+the NEX-7, it's sensful to base anti-vignetting data on camera-corrected
+images.)  If it is unusual, document what you did in the lensfun file that you
+sumbit to the lensfun project.
 
 """
 
@@ -35,7 +38,8 @@ images = {}
 pool = multiprocessing.Pool()
 
 for filename in sys.argv[1:]:
-    pool.apply_async(subprocess.check_call, [["dcraw", "-4", "-T", filename]])
+    if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
+        pool.apply_async(subprocess.check_call, [["dcraw", "-4", "-T", filename]])
     output_lines = subprocess.check_output(["exiftool", "-lensmodel", "-focallength", "-aperture", filename]).splitlines()
     exif_data = {}
     for line in output_lines:
@@ -53,8 +57,9 @@ working_directory = os.getcwd()
 
 for filename in sorted(images):
     exif_data = images[filename]
-    exif_data = (exif_data["Lens Model"], exif_data["Focal Length"].partition(".0 mm")[0], exif_data["Aperture"])
-    output_filename = "--".join(exif_data).replace(" ", "_")
+    exif_data = (exif_data["Lens Model"], float(exif_data["Focal Length"].partition(".0 mm")[0]),
+                 float(exif_data["Aperture"]))
+    output_filename = "{0}--{1}--{2}".format(*exif_data).replace(" ", "_")
 
     image = PythonMagick.Image(os.path.splitext(filename)[0] + b".tiff")
     width, height = int(round(image.size().width() / 24)), int(round(image.size().height() / 24))
@@ -66,18 +71,25 @@ for filename in sorted(images):
         for y in range(height):
             radii.append(math.hypot(x - width // 2, y - height // 2) / half_diagonal)
             intensities.append(image.pixelColor(x, y).intensity())
-    with open("{0}-all_points.dat".format(output_filename), "w") as outfile:
+    all_points_filename = "{0}-all_points.dat".format(output_filename)
+    with open(all_points_filename, "w") as outfile:
         for radius, intensity in zip(radii, intensities):
             outfile.write("{0} {1}\n".format(radius, intensity))
     bin_width = 10
     number_of_bins = int(half_diagonal / bin_width) + 1
     bins = [[] for i in range(number_of_bins)]
     for radius, intensity in zip(radii, intensities):
+        # The zeroth and the last bin are only half bins which means that their
+        # means are skewed.  But this is okay: For the zeroth, the curve is
+        # supposed to be horizontal anyway, and for the last, it underestimates
+        # the vignetting at the rim which is a good thing (too much of
+        # correction is bad).
         bin_index = int(round(radius * (number_of_bins - 1)))
         bins[bin_index].append(intensity)
     radii = [i / (number_of_bins - 1) for i in range(number_of_bins)]
     intensities = [sum(bin) / len(bin) for bin in bins]
-    with open("{0}-bins.dat".format(output_filename), "w") as outfile:
+    bins_filename = "{0}-bins.dat".format(output_filename)
+    with open(bins_filename, "w") as outfile:
         for radius, intensity in zip(radii, intensities):
             outfile.write("{0} {1}\n".format(radius, intensity))
     radii, intensities = numpy.array(radii), numpy.array(intensities)
@@ -88,6 +100,11 @@ for filename in sorted(images):
     A, k1, k2, k3 = leastsq(lambda p, x, y: y - fit_function(x, *p), [30000, -0.3, 0, 0], args=(radii, intensities))[0]
     database_entries[exif_data] = (k1, k2, k3)
 
+    open("{0}.gp".format(output_filename), "w").write("""set grid
+set title "{6}, {7} mm, f/{8}"
+plot "{0}" with dots title "samples", "{1}" with linespoints lw 4 title "average", \
+     {2} * (1 + ({3}) * x**2 + ({4}) * x**4 + ({5}) * x**6) title "fit"
+pause -1""".format(all_points_filename, bins_filename, A, k1, k2, k3, *exif_data))
 
 outfile = open("lensfun.xml", "w")
 
