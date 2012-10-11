@@ -15,7 +15,7 @@ from scipy.optimize.minpack import leastsq
 
 Synopsis:
 
-python vignetting.py *.RAW
+python vignetting2.py *.RAW
 
 You must call this program within the directory with the RAW files.  You have
 to have installed Python 2.7, ScipPy, NumPy, ImageMagick, PythonMagick,
