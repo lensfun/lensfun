@@ -17,9 +17,9 @@ Synopsis:
 python ~/src/vignetting.py *.RAW
 
 You must call this program within the directory with the RAW files.  You have
-to have installed Python 2.7, ScipPy, NumPy, ImageMagick, PythonMagick, and
-dcraw.  The result is a file called ``lensfun.xml`` which contains the XML
-snippets ready to be copied into the Lensfun database file.
+to have installed Python 2.7, ScipPy, NumPy, ImageMagick, PythonMagick,
+exiftool, and dcraw.  The result is a file called ``lensfun.xml`` which
+contains the XML snippets ready to be copied into the Lensfun database file.
 
 Take pictures for at least five focal length settings of zoom lenses, and for
 each focal length, take four aperture settings.  Thus, 5x4 = 20 pictures for
