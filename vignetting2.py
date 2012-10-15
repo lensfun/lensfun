@@ -84,7 +84,8 @@ for filename in sorted(images):
     output_filename = "{0}--{1}--{2}".format(*exif_data).replace(" ", "_")
 
     image = PythonMagick.Image(os.path.splitext(filename)[0] + b".tiff")
-    width, height = int(round(image.size().width() / 24)), int(round(image.size().height() / 24))
+    width = 250
+    height = int(round(image.size().height() / image.size().width() * width))
     image.sample(b"!{0}x{1}".format(width, height))
     width, height = image.size().width(), image.size().height()
     half_diagonal = math.hypot(width // 2, height // 2)
