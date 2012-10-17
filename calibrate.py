@@ -36,13 +36,15 @@ class Lens(object):
         <model>{1}</model>
         <mount>{2}</mount>
         <cropfactor>{3}</cropfactor>
-{4}        <calibration>
-""".format(self.maker, self.name, self.mount, self.cropfactor, self.type_line))
-        for line in self.calibration_lines:
-            outfile.write("            {0}\n".format(line))
-        outfile.write("""        </calibration>
-    </lens>
-""")
+""".format(self.maker, self.name, self.mount, self.cropfactor))
+        if self.type_:
+            outfile.write("        <type>{0}</type>\n".format(self.type_))
+        if self.calibration_lines:
+            outfile.write("        <calibration>\n")
+            for line in self.calibration_lines:
+                outfile.write("            {0}\n".format(line))
+            outfile.write("        </calibration>\n")
+        outfile.write("    </lens>\n")
 
 
 lens_line_pattern = re.compile(
