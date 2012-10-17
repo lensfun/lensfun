@@ -106,7 +106,7 @@ database_entries = {}
 working_directory = os.getcwd()
 
 for exif_data, filepaths in images.items():
-    output_filename = "{0}--{1}--{2}".format(*exif_data).replace(" ", "_")
+    output_filename = "{0}--{1}--{2}--{3}".format(*exif_data).replace(" ", "_")
 
     radii, intensities = [], []
     for filepath in filepaths:
@@ -173,13 +173,13 @@ outfile = open("lensfun.xml", "w")
 
 current_lens = None
 for configuration in sorted(database_entries):
-    lens, focal_length, aperture = configuration
+    lens, focal_length, aperture, distance = configuration
     vignetting = database_entries[configuration]
     if lens != current_lens:
         outfile.write("\n\n{0}:\n\n".format(lens))
         current_lens = lens
     if distance == float("inf"):
         distance = 1000
-    outfile.write("""<vignetting model="pa" focal="{focal_length}" aperture="{aperture}" distance="45" """
+    outfile.write("""<vignetting model="pa" focal="{focal_length}" aperture="{aperture}" distance="{distance}" """
                   """k1="{vignetting[0]}" k2="{vignetting[1]}" k3="{vignetting[2]}" />\n""".format(
-            focal_length=focal_length, aperture=aperture, vignetting=vignetting))
+                      focal_length=focal_length, aperture=aperture, vignetting=vignetting, distance=distance))
