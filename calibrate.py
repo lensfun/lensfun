@@ -56,10 +56,6 @@ project.
 """
 
 
-raw_extension = "ARW"
-create_distance_range = False
-
-
 @contextlib.contextmanager
 def chdir(dirname=None):
     curdir = os.getcwd()
@@ -177,10 +173,12 @@ with chdir("tca"):
 
 images = {}
 pool = multiprocessing.Pool()
+distances = set()
 
 for vignetting_directory in glob.glob("vignetting*"):
     distance = float(vignetting_directory.partition("_")[2] or "inf")
     assert distance == float("inf") or distance < 1000
+    distances.add(distance)
     with chdir(vignetting_directory):
         for filename in find_raw_files():
             if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
@@ -245,17 +243,14 @@ plot "{0}" with dots title "samples", "{1}" with linespoints lw 4 title "average
 pause -1""".format(all_points_filename, bins_filename, A, k1, k2, k3, *exif_data))
 
 
-if create_distance_range:
-    distance_configurations = {}
-    for configuration in vignetting_db_entries:
-        configuration, distance = configuration[:3], configuration[3]
-        distance_configurations.setdefault(configuration, []).append(distance)
-    for configuration, distances in distance_configurations.items():
-        if len(distances) == 1 and distances[0] > 10:
-            # If only one distance was measured and at more than 10m, insert it
-            # twice at 10m and ∞, so that the whole range is covered.
-            vignetting = vignetting_db_entries.pop(tuple(configuration + (distances[0],)))
-            vignetting_db_entries[10] = vignetting_db_entries[tuple(configuration + (float("inf"),))] = vignetting
+if len(distances) == 1 and distances[0] > 10:
+    # If only one distance was measured and at more than 10m, insert it
+    # twice at 10m and ∞, so that the whole range is covered.
+    new_vignetting_db_entries = {}
+    for configuration, vignetting in vignetting_db_entries.items():
+        new_vignetting_db_entries[tuple(configuration[:3] + (10,))] = \
+            new_vignetting_db_entries[tuple(configuration[:3] + (float("inf"),))] = vignetting
+    vignetting_db_entries = new_vignetting_db_entries
 
 
 for configuration in sorted(vignetting_db_entries):
