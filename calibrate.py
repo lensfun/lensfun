@@ -73,8 +73,14 @@ def detect_exif_data(filename):
             key = key.strip()
             value = value.strip()
             exif_data[key] = value
-        exif_data = (exif_data["Lens Model"], float(exif_data["Focal Length"].partition(".0 mm")[0]),
-                     float(exif_data["Aperture"]))
+        try:
+            exif_data = (exif_data["Lens Model"], float(exif_data["Focal Length"].partition(".0 mm")[0]),
+                         float(exif_data["Aperture"]))
+        except KeyError:
+            print("""Some EXIF data is missing in your RAW files.  You have to
+rename them accoring to the scheme "Lens_name--16mm--1.4.RAW
+(Use your RAW file extension of course.)  Abort.""")
+            sys.exit()
     return exif_data
 
 
