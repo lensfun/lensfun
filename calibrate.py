@@ -10,51 +10,6 @@ import subprocess, os.path, sys, multiprocessing, math, re, contextlib, glob
 import numpy, PythonMagick
 from scipy.optimize.minpack import leastsq
 
-"""Lens vignetting calibration for the Lensfun library
-(http://lensfun.berlios.de/).
-
-Synopsis:
-
-python vignetting2.py *.RAW
-
-You must call this program within the directory with the RAW files.  You have
-to have installed Python 2.7, ScipPy, NumPy, ImageMagick, PythonMagick,
-exiftool, and dcraw.  The result is a file called ``lensfun.xml`` which
-contains the XML snippets ready to be copied into the Lensfun database file.
-
-Take pictures for at least five focal length settings of zoom lenses, and for
-each focal length, take four aperture settings.  Thus, 5x4 = 20 pictures for
-zoom lenses, and 4 pictures for primes.  At least.
-
-Use e.g. translucent milk glass as a diffusor, lay it on the camera lens (shoot
-upwards), and illuminate your ceiling uniformly.  Or any equivalent setup.
-Never put a light source close to the diffusor!  The diffusor should not take
-away more light than 3 stops (factor 8 in exposure time), and not less than 1.7
-stops (factor 3.2 in exposure time).  But don't take a picture of a white wall
-without a diffusor in front of the lens.  Probably it won't be uniformly
-illuminated.
-
-Make sure that the camera doesn't see any fine-grained details in the diffusor.
-I took paper instead of milk glass -- it works but you see its texture with
-higher f numbers.
-
-Focus plane doesn't matter for my lenses, but your milage may vary.  Anyway,
-this script exports a fixed focal (dummy) distance of 45m.
-
-You can check the fits with the Gnuplot files.  For example,
-
-    gnuplot E_16mm_F2.8--16.0--22.0.gp
-
-shows you the vignetting calibration for the "E 16mm" lens, 16mm, f/22.
-
-Choose wisely whether you want to have e.g. D-R optimisation or vignetting
-correction on or off when taking the sample pictures.  (Believe it or not, for
-the NEX-7, it's sensful to use camera-corrected images.)  If it is unusual,
-document what you did in the Lensfun file that you sumbit to the Lensfun
-project.
-
-"""
-
 
 @contextlib.contextmanager
 def chdir(dirname=None):
@@ -85,6 +40,9 @@ class Lens(object):
 """.format(self.maker, self.name, self.mount, self.cropfactor, self.type_line))
         for line in self.calibration_lines:
             outfile.write("            {0}\n".format(line))
+        outfile.write("""        </calibration>
+    </lens>
+""")
 
 
 lens_line_pattern = re.compile(
