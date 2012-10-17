@@ -78,7 +78,7 @@ def detect_exif_data(filename):
                          float(exif_data["Aperture"]))
         except KeyError:
             print("""Some EXIF data is missing in your RAW files.  You have to
-rename them accoring to the scheme "Lens_name--16mm--1.4.RAW
+rename them according to the scheme "Lens_name--16mm--1.4.RAW
 (Use your RAW file extension of course.)  Abort.""")
             sys.exit()
     return exif_data
