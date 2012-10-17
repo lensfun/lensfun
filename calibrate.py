@@ -30,7 +30,7 @@ test_program("dcraw", "dcraw")
 test_program("tca_correct", "hugin-tools")
 test_program("exiftool", "libimage-exiftool-perl")
 if missing_packages:
-    print("The following packages are missing (Ubuntu packages, names may differ on other systems):\n    {0}\nAbort.\n".
+    print("The following packages are missing (Ubuntu packages, names may differ on other systems):\n    {0}\nAbort.".
           format("  ".join(missing_packages)))
     sys.exit()
 
@@ -76,19 +76,26 @@ lens_line_pattern = re.compile(
 distortion_line_pattern = re.compile(r"\s*distortion\((?P<focal_length>[.0-9]+)mm\)\s*=\s*"
                                      r"(?P<a>[-.0-9]+)\s*,\s*(?P<b>[-.0-9]+)\s*,\s*(?P<c>[-.0-9]+)")
 lenses = {}
-for line in open("lenses.txt"):
-    line = line.strip()
-    if not line.startswith("#"):
-        match = lens_line_pattern.match(line)
-        if match:
-            data = match.groupdict()
-            current_lens = Lens(data["name"], data["maker"], data["mount"], data["cropfactor"], data["type"])
-            lenses[data["name"]] = current_lens
-        else:
-            match = distortion_line_pattern.match(line)
-            assert match
-            current_lens.calibration_lines.append(
-                """<distortion model="ptlens" focal="{0}" a="{1}" b="{2}" c="{3}" />""".format(*match.groups()))
+try:
+    for linenumber, original_line in enumerate(open("lenses.txt")):
+        linenumber += 1
+        line = original_line.strip()
+        if not line.startswith("#"):
+            match = lens_line_pattern.match(line)
+            if match:
+                data = match.groupdict()
+                current_lens = Lens(data["name"], data["maker"], data["mount"], data["cropfactor"], data["type"])
+                lenses[data["name"]] = current_lens
+            else:
+                match = distortion_line_pattern.match(line)
+                if not match:
+                    print("Invalid line {0} in lenses.txt:\n{1}Abort.".format(linenumber, original_line))
+                    sys.exit()
+                current_lens.calibration_lines.append(
+                    """<distortion model="ptlens" focal="{0}" a="{1}" b="{2}" c="{3}" />""".format(*match.groups()))
+except IOError:
+    print("Could not read lenses.txt.  Abort.")
+    sys.exit()
 
 
 filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)$")
