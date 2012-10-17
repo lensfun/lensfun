@@ -244,8 +244,8 @@ pause -1""".format(all_points_filename, bins_filename, A, k1, k2, k3, *exif_data
 
 
 if len(distances) == 1 and distances[0] > 10:
-    # If only one distance was measured and at more than 10m, insert it
-    # twice at 10m and ∞, so that the whole range is covered.
+    # If only one distance was measured and at more than 10m, insert it twice
+    # at 10m and ∞, so that the whole range is covered.
     new_vignetting_db_entries = {}
     for configuration, vignetting in vignetting_db_entries.items():
         new_vignetting_db_entries[tuple(configuration[:3] + (10,))] = \
