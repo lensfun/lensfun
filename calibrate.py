@@ -71,7 +71,7 @@ filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm-
 
 def detect_exif_data(filename):
     exif_data = {}
-    match = filename_pattern.match(os.path.splitext(filename)[0])
+    match = filepath_pattern.match(os.path.splitext(filename)[0])
     if match:
         exif_data = (match.group("lens_model").replace("_", " "), float(match.group("focal_length")),
                      float(match.group("aperture")), distance)
@@ -84,7 +84,7 @@ def detect_exif_data(filename):
             value = value.strip()
             exif_data[key] = value
         exif_data = (exif_data["Lens Model"], float(exif_data["Focal Length"].partition(".0 mm")[0]),
-                     float(exif_data["Aperture"]), distance)
+                     float(exif_data["Aperture"]))
     return exif_data
 
 
@@ -94,8 +94,8 @@ raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "
 def find_raw_files():
     result = []
     for file_extension in raw_file_extensions:
-        result.extend(glob.glob("*." + raw_extension))
-        result.extend(glob.glob("*." + raw_extension.upper()))
+        result.extend(glob.glob("*." + file_extension))
+        result.extend(glob.glob("*." + file_extension.upper()))
     return result
 
 
@@ -108,9 +108,9 @@ def calculate_tca(filename):
     tiff_filename = os.path.splitext(filename)[0] + b".tiff"
     if not os.path.exists(tiff_filename):
         subprocess.check_call(["dcraw", "-4", "-T", filename])
-    output = subprocess.check_output("tca_correct", "-o", "bv", tiff_filename).splitlines()[-1].strip()
+    output = subprocess.check_output(["tca_correct", "-o", "bv", tiff_filename]).splitlines()[-1].strip()
     with open(filename + ".tca", "w") as outfile:
-        outfile.write("{0}\n{1}\n{2}\n".format(exif_data["Lens Model"], exif_data["Focal Length"], output))
+        outfile.write("{0}\n{1}\n{2}\n".format(exif_data[0], exif_data[1], output))
 
 if os.path.exists("tca"):
     with chdir("tca"):
@@ -120,13 +120,19 @@ if os.path.exists("tca"):
         pool.close()
         pool.join()
         for filename in find_raw_files():
-            lens_name, focal_length, tca_output = [line.strip() for line in open(filename + ".tca").splitlines()]
+            filename = filename + ".tca"
+            lens_name, focal_length, tca_output = [line.strip() for line in open(filename).readlines()]
             data = re.match(
                 r"-r [.0]+:(?P<br>[-.0-9]+):[.0]+:(?P<vr>[-.0-9]+) -b [.0]+:(?P<bb>[-.0-9]+):[.0]+:(?P<vb>[-.0-9]+)",
                 tca_output).groupdict()
-            lenses[lens_name].calibration_lines.append(
-                """<tca model="poly3" focal="{0}" br="{1}" vr="{2}" bb="{3}" vb="{4}" />""".format(
-                    focal_length, data["br"], data["vr"], data["bb"], data["vb"]))
+            try:
+                lenses[lens_name].calibration_lines.append(
+                    """<tca model="poly3" focal="{0}" br="{1}" vr="{2}" bb="{3}" vb="{4}" />""".format(
+                        focal_length, data["br"], data["vr"], data["bb"], data["vb"]))
+            except KeyError:
+                print("""Lens "{0}" not found in lenses.txt.  Abort.""".format(lens_name))
+                sys.exit()
+            os.remove(filename)
 
 
 #
@@ -145,7 +151,7 @@ for vignetting_directory in glob.glob("vignetting*"):
         for filename in find_raw_files():
             if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
                 pool.apply_async(subprocess.check_call, [["dcraw", "-4", "-T", filename]])
-            exif_data = detect_exif_data(filename)
+            exif_data = detect_exif_data(filename) + (distance,)
             images.setdefault(exif_data, []).append(os.path.join(vignetting_directory, filename))
 pool.close()
 pool.join()
@@ -159,7 +165,7 @@ for exif_data, filepaths in images.items():
 
     radii, intensities = [], []
     for filepath in filepaths:
-        image = PythonMagick.Image(os.path.splitext(filepath)[0] + b".tiff")
+        image = PythonMagick.Image(str(os.path.splitext(filepath)[0] + ".tiff"))
         width = 250
         height = int(round(image.size().height() / image.size().width() * width))
         image.sample(b"!{0}x{1}".format(width, height))
@@ -205,7 +211,7 @@ plot "{0}" with dots title "samples", "{1}" with linespoints lw 4 title "average
 pause -1""".format(all_points_filename, bins_filename, A, k1, k2, k3, *exif_data))
 
 
-if len(distances) == 1 and distances[0] > 10:
+if len(distances) == 1 and list(distances)[0] > 10:
     # If only one distance was measured and at more than 10m, insert it twice
     # at 10m and ∞, so that the whole range is covered.
     new_vignetting_db_entries = {}
@@ -220,10 +226,14 @@ for configuration in sorted(vignetting_db_entries):
     vignetting = vignetting_db_entries[configuration]
     if distance == float("inf"):
         distance = 1000
-    lenses[lens].calibration_lines.append(
-        """<vignetting model="pa" focal="{focal_length}" aperture="{aperture}" distance="{distance}" """
-        """k1="{vignetting[0]}" k2="{vignetting[1]}" k3="{vignetting[2]}" />""".format(
-            focal_length=focal_length, aperture=aperture, vignetting=vignetting, distance=distance))
+    try:
+        lenses[lens].calibration_lines.append(
+            """<vignetting model="pa" focal="{focal_length}" aperture="{aperture}" distance="{distance}" """
+            """k1="{vignetting[0]}" k2="{vignetting[1]}" k3="{vignetting[2]}" />""".format(
+                focal_length=focal_length, aperture=aperture, vignetting=vignetting, distance=distance))
+    except KeyError:
+        print("""Lens "{0}" not found in lenses.txt.  Abort.""".format(lens_name))
+        sys.exit()
 
 
 outfile = open("lensfun.xml", "w")
