@@ -239,7 +239,7 @@ for exif_data, filepaths in images.items():
     vignetting_db_entries[exif_data] = (k1, k2, k3)
 
     open("{0}.gp".format(output_filename), "w").write("""set grid
-set title "{6}, {7} mm, f/{8}"
+set title "{6}, {7} mm, f/{8}, {9} m"
 plot "{0}" with dots title "samples", "{1}" with linespoints lw 4 title "average", \
      {2} * (1 + ({3}) * x**2 + ({4}) * x**4 + ({5}) * x**6) title "fit"
 pause -1""".format(all_points_filename, bins_filename, A, k1, k2, k3, *exif_data))
