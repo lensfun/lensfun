@@ -71,6 +71,50 @@ def chdir(dirname=None):
         os.chdir(curdir)
 
 
+class Lens(object):
+
+    def __init__(self, name, maker, mount, cropfactor, type_):
+        self.name, self.maker, self.mount, self.cropfactor, self.type_ = name, maker, mount, cropfactor, type_
+        self.calibration_lines = []
+
+    def write(self, outfile):
+        type_line = "        <type>{0}</type>\n".format(self.type_) if self.type_ else ""
+        outfile.write("""
+    <lens>
+        <maker>{0}</maker>
+        <model>{1}</model>
+        <mount>{2}</mount>
+        <cropfactor>{3}</cropfactor>
+{4}        <calibration>
+""".format(self.maker, self.name, self.mount, self.cropfactor, self.type_line))
+        for line in self.calibration_lines:
+            outfile.write("            {0}\n".format(line))
+
+
+lens_line_pattern = re.compile(
+    r"(?P<name>.+):\s*(?P<maker>.+)\s*,\s*(?P<mount>.+)\s*,\s*(?P<cropfactor>.+)(\s*,\s*(?P<type>.+))?")
+distortion_line_pattern = re.compile(r"\s*distortion\((?P<focal_length>[.0-9]+)mm\)\s*=\s*"
+                                     r"(?P<a>[-.0-9]+)\s*,\s*(?P<b>[-.0-9]+)\s*,\s*(?P<c>[-.0-9]+)")
+lenses = {}
+for line in open("lenses.txt"):
+    line = line.strip()
+    if not line.startswith("#"):
+        match = lens_line_pattern.match(line)
+        if match:
+            data = match.groupdict()
+            current_lens = Lens(data["name"], data["maker"], data["mount"], data["cropfactor"], data["type"])
+            lenses[data["name"]] = current_lens
+        else:
+            match = distortion_line_pattern.match(line)
+            assert match
+            current_lens.calibration_lines.append(
+                """<distortion model="ptlens" focal="{0}" a="{1}" b="{2}" c="{3}" />""".format(*match.groups()))
+
+
+#
+# Vignetting
+#
+
 images = {}
 pool = multiprocessing.Pool()
 filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)$")
@@ -102,7 +146,7 @@ pool.close()
 pool.join()
 
 
-database_entries = {}
+vignetting_db_entries = {}
 working_directory = os.getcwd()
 
 for exif_data, filepaths in images.items():
@@ -147,7 +191,7 @@ for exif_data, filepaths in images.items():
         return A * (1 + k1 * radius**2 + k2 * radius**4 + k3 * radius**6)
 
     A, k1, k2, k3 = leastsq(lambda p, x, y: y - fit_function(x, *p), [30000, -0.3, 0, 0], args=(radii, intensities))[0]
-    database_entries[exif_data] = (k1, k2, k3)
+    vignetting_db_entries[exif_data] = (k1, k2, k3)
 
     open("{0}.gp".format(output_filename), "w").write("""set grid
 set title "{6}, {7} mm, f/{8}"
@@ -158,28 +202,28 @@ pause -1""".format(all_points_filename, bins_filename, A, k1, k2, k3, *exif_data
 
 if create_distance_range:
     distance_configurations = {}
-    for configuration in database_entries:
+    for configuration in vignetting_db_entries:
         configuration, distance = configuration[:3], configuration[3]
         distance_configurations.setdefault(configuration, []).append(distance)
     for configuration, distances in distance_configurations.items():
         if len(distances) == 1 and distances[0] > 10:
             # If only one distance was measured and at more than 10m, insert it
             # twice at 10m and ∞, so that the whole range is covered.
-            vignetting = database_entries.pop(tuple(configuration + (distances[0],)))
-            database_entries[10] = database_entries[tuple(configuration + (float("inf"),))] = vignetting
+            vignetting = vignetting_db_entries.pop(tuple(configuration + (distances[0],)))
+            vignetting_db_entries[10] = vignetting_db_entries[tuple(configuration + (float("inf"),))] = vignetting
 
 
-outfile = open("lensfun.xml", "w")
-
-current_lens = None
-for configuration in sorted(database_entries):
+for configuration in sorted(vignetting_db_entries):
     lens, focal_length, aperture, distance = configuration
-    vignetting = database_entries[configuration]
-    if lens != current_lens:
-        outfile.write("\n\n{0}:\n\n".format(lens))
-        current_lens = lens
+    vignetting = vignetting_db_entries[configuration]
     if distance == float("inf"):
         distance = 1000
-    outfile.write("""<vignetting model="pa" focal="{focal_length}" aperture="{aperture}" distance="{distance}" """
-                  """k1="{vignetting[0]}" k2="{vignetting[1]}" k3="{vignetting[2]}" />\n""".format(
-                      focal_length=focal_length, aperture=aperture, vignetting=vignetting, distance=distance))
+    lenses[lens].calibration_lines.append(
+        """<vignetting model="pa" focal="{focal_length}" aperture="{aperture}" distance="{distance}" """
+        """k1="{vignetting[0]}" k2="{vignetting[1]}" k3="{vignetting[2]}" />""".format(
+            focal_length=focal_length, aperture=aperture, vignetting=vignetting, distance=distance)))
+
+
+outfile = open("lensfun.xml")
+for lens in lenses.values():
+    lens.write(outfile)
