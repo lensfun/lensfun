@@ -6,7 +6,7 @@
 
 from __future__ import unicode_literals, division, absolute_import
 
-import subprocess, os.path, sys, multiprocessing, math, re, contextlib
+import subprocess, os.path, sys, multiprocessing, math, re, contextlib, glob
 import numpy, PythonMagick
 from scipy.optimize.minpack import leastsq
 
@@ -152,19 +152,21 @@ def calculate_tca(filename):
     with open(filename + ".tca", "w") as outfile:
         outfile.write("{0}\n{1}\n{2}\n".format(exif_data["Lens Model"], exif_data["Focal Length"], output))
 
-with chdir("tca"):
-    pool = multiprocessing.Pool()
-    for filename in find_raw_files():
-        pool.apply_async(calculate_tca, [filename])
-    pool.close()
-    pool.join()
-    for filename in find_raw_files():
-        lens_name, focal_length, tca_output = [line.strip() for line in open(filename + ".tca").splitlines()]
-        data = re.match(r"-r [.0]+:(?P<br>[-.0-9]+):[.0]+:(?P<vr>[-.0-9]+) -b [.0]+:(?P<bb>[-.0-9]+):[.0]+:(?P<vb>[-.0-9]+)",
-                        tca_output).groupdict()
-        lenses[lens_name].calibration_lines.append(
-            """<tca model="poly3" focal="{0}" br="{1}" vr="{2}" bb="{3}" vb="{4}" />""".format(
-                focal_length, data["br"], data["vr"], data["bb"], data["vb"]))
+if os.path.exists("tca"):
+    with chdir("tca"):
+        pool = multiprocessing.Pool()
+        for filename in find_raw_files():
+            pool.apply_async(calculate_tca, [filename])
+        pool.close()
+        pool.join()
+        for filename in find_raw_files():
+            lens_name, focal_length, tca_output = [line.strip() for line in open(filename + ".tca").splitlines()]
+            data = re.match(
+                r"-r [.0]+:(?P<br>[-.0-9]+):[.0]+:(?P<vr>[-.0-9]+) -b [.0]+:(?P<bb>[-.0-9]+):[.0]+:(?P<vb>[-.0-9]+)",
+                tca_output).groupdict()
+            lenses[lens_name].calibration_lines.append(
+                """<tca model="poly3" focal="{0}" br="{1}" vr="{2}" bb="{3}" vb="{4}" />""".format(
+                    focal_length, data["br"], data["vr"], data["bb"], data["vb"]))
 
 
 #
@@ -261,9 +263,9 @@ for configuration in sorted(vignetting_db_entries):
     lenses[lens].calibration_lines.append(
         """<vignetting model="pa" focal="{focal_length}" aperture="{aperture}" distance="{distance}" """
         """k1="{vignetting[0]}" k2="{vignetting[1]}" k3="{vignetting[2]}" />""".format(
-            focal_length=focal_length, aperture=aperture, vignetting=vignetting, distance=distance)))
+            focal_length=focal_length, aperture=aperture, vignetting=vignetting, distance=distance))
 
 
-outfile = open("lensfun.xml")
+outfile = open("lensfun.xml", "w")
 for lens in lenses.values():
     lens.write(outfile)
