@@ -153,19 +153,23 @@ def calculate_tca(filename):
     if not os.path.exists(tiff_filename):
         subprocess.check_call(["dcraw", "-4", "-T", filename])
     output = subprocess.check_output("tca_correct", "-o", "bv", tiff_filename).splitlines()[-1].strip()
-    data = re.match(r"-r [.0]+:(?P<br>[-.0-9]+):[.0]+:(?P<vr>[-.0-9]+) -b [.0]+:(?P<bb>[-.0-9]+):[.0]+:(?P<vb>[-.0-9]+)",
-                    output).groupdict()
-    lenses[exif_data["Lens Model"]].calibration_lines.append(
-        """<tca model="poly3" focal="{0}" br="{1}" vr="{2}" bb="{3}" vb="{4}" />""".format(
-            exif_data["Focal Length"], data["br"], data["vr"], data["bb"], data["vb"]))
-    
+    with open(filename + ".tca", "w") as outfile:
+        outfile.write("{0}\n{1}\n{2}\n".format(exif_data["Lens Model"], exif_data["Focal Length"], output))
+
 with chdir("tca"):
     pool = multiprocessing.Pool()
     for filename in find_raw_files():
         pool.apply_async(calculate_tca, [filename])
     pool.close()
     pool.join()
-    
+    for filename in find_raw_files():
+        lens_name, focal_length, tca_output = [line.strip() for line in open(filename + ".tca").splitlines()]
+        data = re.match(r"-r [.0]+:(?P<br>[-.0-9]+):[.0]+:(?P<vr>[-.0-9]+) -b [.0]+:(?P<bb>[-.0-9]+):[.0]+:(?P<vb>[-.0-9]+)",
+                        tca_output).groupdict()
+        lenses[lens_name].calibration_lines.append(
+            """<tca model="poly3" focal="{0}" br="{1}" vr="{2}" bb="{3}" vb="{4}" />""".format(
+                focal_length, data["br"], data["vr"], data["bb"], data["vb"]))
+
 
 #
 # Vignetting
