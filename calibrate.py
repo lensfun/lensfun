@@ -111,36 +111,77 @@ for line in open("lenses.txt"):
                 """<distortion model="ptlens" focal="{0}" a="{1}" b="{2}" c="{3}" />""".format(*match.groups()))
 
 
+filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)$")
+
+def detect_exif_data(filename):
+    exif_data = {}
+    match = filename_pattern.match(os.path.splitext(filename)[0])
+    if match:
+        exif_data = (match.group("lens_model").replace("_", " "), float(match.group("focal_length")),
+                     float(match.group("aperture")), distance)
+    else:
+        output_lines = subprocess.check_output(
+            ["exiftool", "-lensmodel", "-focallength", "-aperture", filename]).splitlines()
+        for line in output_lines:
+            key, value = line.split(":", 1)
+            key = key.strip()
+            value = value.strip()
+            exif_data[key] = value
+        exif_data = (exif_data["Lens Model"], float(exif_data["Focal Length"].partition(".0 mm")[0]),
+                     float(exif_data["Aperture"]), distance)
+    return exif_data
+
+
+raw_file_extensions = [".3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf", "fff",
+                       "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx", "pxn", "r3d",
+                       "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f"]
+def find_raw_files():
+    result = []
+    for file_extension in raw_file_extensions:
+        result.extend(glob.glob("*." + raw_extension))
+        result.extend(glob.glob("*." + raw_extension.upper()))
+    return result
+
+
+#
+# TCA correction
+#
+
+def calculate_tca(filename):
+    exif_data = detect_exif_data(filename)
+    tiff_filename = os.path.splitext(filename)[0] + b".tiff"
+    if not os.path.exists(tiff_filename):
+        subprocess.check_call(["dcraw", "-4", "-T", filename])
+    output = subprocess.check_output("tca_correct", "-o", "bv", tiff_filename).splitlines()[-1].strip()
+    data = re.match(r"-r [.0]+:(?P<br>[-.0-9]+):[.0]+:(?P<vr>[-.0-9]+) -b [.0]+:(?P<bb>[-.0-9]+):[.0]+:(?P<vb>[-.0-9]+)",
+                    output).groupdict()
+    lenses[exif_data["Lens Model"]].calibration_lines.append(
+        """<tca model="poly3" focal="{0}" br="{1}" vr="{2}" bb="{3}" vb="{4}" />""".format(
+            exif_data["Focal Length"], data["br"], data["vr"], data["bb"], data["vb"]))
+    
+with chdir("tca"):
+    pool = multiprocessing.Pool()
+    for filename in find_raw_files():
+        pool.apply_async(calculate_tca, [filename])
+    pool.close()
+    pool.join()
+    
+
 #
 # Vignetting
 #
 
 images = {}
 pool = multiprocessing.Pool()
-filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)$")
 
 for vignetting_directory in glob.glob("vignetting*"):
     distance = float(vignetting_directory.partition("_")[2] or "inf")
     assert distance == float("inf") or distance < 1000
     with chdir(vignetting_directory):
-        for filename in glob.glob("*." + raw_extension):
+        for filename in find_raw_files():
             if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
                 pool.apply_async(subprocess.check_call, [["dcraw", "-4", "-T", filename]])
-            exif_data = {}
-            match = filename_pattern.match(os.path.splitext(filename)[0])
-            if match:
-                exif_data = (match.group("lens_model").replace("_", " "), float(match.group("focal_length")),
-                             float(match.group("aperture")), distance)
-            else:
-                output_lines = subprocess.check_output(
-                    ["exiftool", "-lensmodel", "-focallength", "-aperture", filename]).splitlines()
-                for line in output_lines:
-                    key, value = line.split(":", 1)
-                    key = key.strip()
-                    value = value.strip()
-                    exif_data[key] = value
-                exif_data = (exif_data["Lens Model"], float(exif_data["Focal Length"].partition(".0 mm")[0]),
-                             float(exif_data["Aperture"]), distance)
+            exif_data = detect_exif_data(filename)
             images.setdefault(exif_data, []).append(os.path.join(vignetting_directory, filename))
 pool.close()
 pool.join()
