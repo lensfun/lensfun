@@ -6,9 +6,33 @@
 
 from __future__ import unicode_literals, division, absolute_import
 
+missing_packages = set()
+
 import subprocess, os.path, sys, multiprocessing, math, re, contextlib, glob
-import numpy, PythonMagick
-from scipy.optimize.minpack import leastsq
+try:
+    import numpy
+except ImportError:
+    missing_packages.add("python-numpy")
+try:
+    import PythonMagick
+except ImportError:
+    missing_packages.add("python-pythonmagick")
+try:
+    from scipy.optimize.minpack import leastsq
+except ImportError:
+    missing_packages.add("python-scipy")
+def test_program(program, package_name):
+    try:
+        subprocess.call([program], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    except OSError:
+        missing_packages.add(package_name)
+test_program("dcraw", "dcraw")
+test_program("tca_correct", "hugin-tools")
+test_program("exiftool", "libimage-exiftool-perl")
+if missing_packages:
+    print("The following packages are missing (Ubuntu packages, names may differ on other systems):\n    {0}\nAbort.\n".
+          format("  ".join(missing_packages)))
+    sys.exit()
 
 
 @contextlib.contextmanager
