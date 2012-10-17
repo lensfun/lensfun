@@ -46,6 +46,38 @@ def chdir(dirname=None):
         os.chdir(curdir)
 
 
+raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf", "fff",
+                       "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx", "pxn", "r3d",
+                       "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f"]
+def find_raw_files():
+    result = []
+    for file_extension in raw_file_extensions:
+        result.extend(glob.glob("*." + file_extension))
+        result.extend(glob.glob("*." + file_extension.upper()))
+    return result
+
+
+filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)$")
+
+def detect_exif_data(filename):
+    exif_data = {}
+    match = filepath_pattern.match(os.path.splitext(filename)[0])
+    if match:
+        exif_data = (match.group("lens_model").replace("_", " "), float(match.group("focal_length")),
+                     float(match.group("aperture")), distance)
+    else:
+        output_lines = subprocess.check_output(
+            ["exiftool", "-lensmodel", "-focallength", "-aperture", filename]).splitlines()
+        for line in output_lines:
+            key, value = line.split(":", 1)
+            key = key.strip()
+            value = value.strip()
+            exif_data[key] = value
+        exif_data = (exif_data["Lens Model"], float(exif_data["Focal Length"].partition(".0 mm")[0]),
+                     float(exif_data["Aperture"]))
+    return exif_data
+
+
 class Lens(object):
 
     def __init__(self, name, maker, mount, cropfactor, type_):
@@ -94,40 +126,32 @@ try:
                 current_lens.calibration_lines.append(
                     """<distortion model="ptlens" focal="{0}" a="{1}" b="{2}" c="{3}" />""".format(*match.groups()))
 except IOError:
-    print("Could not read lenses.txt.  Abort.")
+    focal_lengths = {}
+    def browse_directory(directory):
+        if os.path.exists(directory):
+            with chdir(directory):
+                for filename in find_raw_files():
+                    exif_data = detect_exif_data(filename)
+                    focal_lengths.setdefault(exif_data[0], set()).add(exif_data[1])
+    browse_directory("distortion")
+    browse_directory("tca")
+    for directory in glob.glob("vignetting*"):
+        browse_directory(directory)
+    with open("lenses.txt", "w") as outfile:
+        if focal_lengths:
+            outfile.write("""# For suggestions for <maker> and <mount> see <http://goo.gl/BSARX>.
+# Omit <type> for rectilinear lenses.
+""")
+            for lens_name, lenghts in focal_lengths.items():
+                outfile.write("\n{0}: <maker>, <mount>, <cropfator>, <type>\n".format(lens_name))
+                for length in sorted(lengths):
+                    outfile.write("distortion({0}mm) = , , \n".format(length))
+        else:
+            outfile.write("""# No RAW images found.  Please have a look at
+# http://wilson.homeunix.com/lens_calibration_tutorial/
+""")
+    print("I wrote a template lenses.txt.  Please fill this file with proper information.  Abort.")
     sys.exit()
-
-
-filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)$")
-
-def detect_exif_data(filename):
-    exif_data = {}
-    match = filepath_pattern.match(os.path.splitext(filename)[0])
-    if match:
-        exif_data = (match.group("lens_model").replace("_", " "), float(match.group("focal_length")),
-                     float(match.group("aperture")), distance)
-    else:
-        output_lines = subprocess.check_output(
-            ["exiftool", "-lensmodel", "-focallength", "-aperture", filename]).splitlines()
-        for line in output_lines:
-            key, value = line.split(":", 1)
-            key = key.strip()
-            value = value.strip()
-            exif_data[key] = value
-        exif_data = (exif_data["Lens Model"], float(exif_data["Focal Length"].partition(".0 mm")[0]),
-                     float(exif_data["Aperture"]))
-    return exif_data
-
-
-raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf", "fff",
-                       "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx", "pxn", "r3d",
-                       "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f"]
-def find_raw_files():
-    result = []
-    for file_extension in raw_file_extensions:
-        result.extend(glob.glob("*." + file_extension))
-        result.extend(glob.glob("*." + file_extension.upper()))
-    return result
 
 
 #
