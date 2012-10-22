@@ -167,6 +167,21 @@ except IOError:
 
 
 #
+# Distortion
+#
+
+pool = multiprocessing.Pool()
+
+if os.path.exists("distortion"):
+    with chdir("distortion"):
+        for filename in find_raw_files():
+            if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
+                pool.apply_async(subprocess.check_call, [["dcraw", "-T", "-w", filename]])
+pool.close()
+pool.join()
+
+
+#
 # TCA correction
 #
 
