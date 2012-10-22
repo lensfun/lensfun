@@ -155,7 +155,7 @@ except IOError:
 # Omit <type> for rectilinear lenses.
 """)
             for lens_name in lens_names_by_focal_length:
-                outfile.write("\n{0}: <maker>, <mount>, <cropfator>, <type>\n".format(lens_name))
+                outfile.write("\n{0}: <maker>, <mount>, <cropfactor>, <type>\n".format(lens_name))
                 for length in sorted(focal_lengths[lens_name]):
                     outfile.write("distortion({0}mm) = , , \n".format(length))
         else:
@@ -223,7 +223,7 @@ for vignetting_directory in glob.glob("vignetting*"):
     with chdir(vignetting_directory):
         for filename in find_raw_files():
             if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
-                pool.apply_async(subprocess.check_call, [["dcraw", "-4", "-T", "-M", "-o", "0", filename]])
+                pool.apply_async(subprocess.check_call, [["dcraw", "-4", "-h", "-T", "-M", "-o", "0", filename]])
             exif_data = detect_exif_data(filename) + (distance,)
             if numpy.isnan(exif_data[1]):
                 print("Abort.")
