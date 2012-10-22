@@ -143,14 +143,16 @@ except IOError:
     browse_directory("tca")
     for directory in glob.glob("vignetting*"):
         browse_directory(directory)
+    lens_names_by_focal_length = sorted((min(lengths), lens_name) for lens_name, lengths in focal_lengths.items())
+    lens_names_by_focal_length = [item[1] for item in lens_names_by_focal_length]
     with open("lenses.txt", "w") as outfile:
         if focal_lengths:
             outfile.write("""# For suggestions for <maker> and <mount> see <http://goo.gl/BSARX>.
 # Omit <type> for rectilinear lenses.
 """)
-            for lens_name, lenghts in focal_lengths.items():
+            for lens_name in lens_names_by_focal_length:
                 outfile.write("\n{0}: <maker>, <mount>, <cropfator>, <type>\n".format(lens_name))
-                for length in sorted(lengths):
+                for length in sorted(focal_lengths[lens_name]):
                     outfile.write("distortion({0}mm) = , , \n".format(length))
         else:
             outfile.write("""# No RAW images found.  Please have a look at

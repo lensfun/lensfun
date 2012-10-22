@@ -9,6 +9,7 @@ from __future__ import unicode_literals, division, absolute_import
 import subprocess, os.path, sys, multiprocessing, math
 import numpy, PythonMagick
 from scipy.optimize.minpack import leastsq
+from scipy.interpolate import interp1d
 
 """Lens vignetting calibration for the Lensfun library
 (http://lensfun.berlios.de/).
@@ -76,6 +77,7 @@ pool.join()
 
 database_entries = {}
 working_directory = os.getcwd()
+all_decays = []
 
 for filename in sorted(images):
     exif_data = images[filename]
@@ -111,6 +113,8 @@ for filename in sorted(images):
         bins[bin_index].append(intensity)
     radii = [i / (number_of_bins - 1) for i in range(number_of_bins)]
     intensities = [sum(bin) / len(bin) for bin in bins]
+    vignetting_curve = interp1d(radii, intensities, "quadratic")
+    all_decays.append(vignetting_curve(0.1) / vignetting_curve(0.9))
     bins_filename = "{0}-bins.dat".format(output_filename)
     with open(bins_filename, "w") as outfile:
         for radius, intensity in zip(radii, intensities):
@@ -128,6 +132,9 @@ set title "{6}, {7} mm, f/{8}"
 plot "{0}" with dots title "samples", "{1}" with linespoints lw 4 title "average", \
      {2} * (1 + ({3}) * x**2 + ({4}) * x**4 + ({5}) * x**6) title "fit"
 pause -1""".format(all_points_filename, bins_filename, A, k1, k2, k3, *exif_data))
+
+mu, sigma = numpy.mean(all_decays), numpy.std(all_decays)
+print "relative fall-off: {0:.3} +/- {1:.2}%".format(mu, sigma / mu * 100), all_decays
 
 outfile = open("lensfun.xml", "w")
 
