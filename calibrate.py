@@ -79,8 +79,9 @@ def detect_exif_data(filename):
         except KeyError:
             print("""Some EXIF data is missing in your RAW files.  You have to
 rename them according to the scheme "Lens_name--16mm--1.4.RAW
-(Use your RAW file extension of course.)  Abort.""")
-            sys.exit()
+(Use your RAW file extension of course.)""")
+            # I cannot sys.exit() because it may run in a child process.
+            exif_data = ("Unknown", float("nan"), float("nan"))
     return exif_data
 
 
@@ -138,6 +139,9 @@ except IOError:
             with chdir(directory):
                 for filename in find_raw_files():
                     exif_data = detect_exif_data(filename)
+                    if numpy.isnan(exif_data[1]):
+                        print("Abort.")
+                        sys.exit()
                     focal_lengths.setdefault(exif_data[0], set()).add(exif_data[1])
     browse_directory("distortion")
     browse_directory("tca")
@@ -168,10 +172,13 @@ except IOError:
 
 def calculate_tca(filename):
     exif_data = detect_exif_data(filename)
-    tiff_filename = os.path.splitext(filename)[0] + b".tiff"
-    if not os.path.exists(tiff_filename):
-        subprocess.check_call(["dcraw", "-4", "-T", "-o", "0", "-M", filename])
-    output = subprocess.check_output(["tca_correct", "-o", "bv", tiff_filename]).splitlines()[-1].strip()
+    if not numpy.isnan(exif_data[1]):
+        tiff_filename = os.path.splitext(filename)[0] + b".tiff"
+        if not os.path.exists(tiff_filename):
+            subprocess.check_call(["dcraw", "-4", "-T", "-o", "0", "-M", filename])
+        output = subprocess.check_output(["tca_correct", "-o", "bv", tiff_filename]).splitlines()[-1].strip()
+    else:
+        output = "<nothing>"
     with open(filename + ".tca", "w") as outfile:
         outfile.write("{0}\n{1}\n{2}\n".format(exif_data[0], exif_data[1], output))
 
@@ -185,6 +192,9 @@ if os.path.exists("tca"):
         for filename in find_raw_files():
             filename = filename + ".tca"
             lens_name, focal_length, tca_output = [line.strip() for line in open(filename).readlines()]
+            if numpy.isnan(focal_length):
+                print("Abort.")
+                sys.exit()
             data = re.match(
                 r"-r [.0]+:(?P<br>[-.0-9]+):[.0]+:(?P<vr>[-.0-9]+) -b [.0]+:(?P<bb>[-.0-9]+):[.0]+:(?P<vb>[-.0-9]+)",
                 tca_output).groupdict()
@@ -215,6 +225,9 @@ for vignetting_directory in glob.glob("vignetting*"):
             if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
                 pool.apply_async(subprocess.check_call, [["dcraw", "-4", "-T", "-M", "-o", "0", filename]])
             exif_data = detect_exif_data(filename) + (distance,)
+            if numpy.isnan(exif_data[1]):
+                print("Abort.")
+                sys.exit()
             images.setdefault(exif_data, []).append(os.path.join(vignetting_directory, filename))
 pool.close()
 pool.join()
