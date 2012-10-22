@@ -114,15 +114,16 @@ class Lens(object):
 # Generation TIFFs from distortion RAWs
 #
 
-pool = multiprocessing.Pool()
 
 if os.path.exists("distortion"):
     with chdir("distortion"):
+        pool = multiprocessing.Pool()
         for filename in find_raw_files():
             if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
-                pool.apply_async(subprocess.check_call, [["dcraw", "-T", "-w", filename]])
-pool.close()
-pool.join()
+                pool.apply_async(subprocess.call, [["dcraw", "-T", "-w", filename]])
+#                subprocess.check_call(["dcraw", "-T", "-w", filename])
+        pool.close()
+        pool.join()
 
 
 lens_line_pattern = re.compile(
@@ -134,7 +135,7 @@ try:
     for linenumber, original_line in enumerate(open("lenses.txt")):
         linenumber += 1
         line = original_line.strip()
-        if not line.startswith("#"):
+        if line and not line.startswith("#"):
             match = lens_line_pattern.match(line)
             if match:
                 data = match.groupdict()
@@ -195,8 +196,9 @@ def calculate_tca(filename):
     if not numpy.isnan(exif_data[1]):
         tiff_filename = os.path.splitext(filename)[0] + b".tiff"
         if not os.path.exists(tiff_filename):
-            subprocess.check_call(["dcraw", "-4", "-T", "-o", "0", "-M", filename])
-        output = subprocess.check_output(["tca_correct", "-o", "bv", tiff_filename]).splitlines()[-1].strip()
+            subprocess.call(["dcraw", "-4", "-T", "-o", "0", "-M", filename])
+        output = subprocess.check_output(["tca_correct", "-o", "bv", tiff_filename], stderr=subprocess.PIPE). \
+                 splitlines()[-1].strip()
     else:
         output = "<nothing>"
     with open(filename + ".tca", "w") as outfile:
@@ -212,7 +214,7 @@ if os.path.exists("tca"):
         for filename in find_raw_files():
             filename = filename + ".tca"
             lens_name, focal_length, tca_output = [line.strip() for line in open(filename).readlines()]
-            if numpy.isnan(focal_length):
+            if numpy.isnan(float(focal_length)):
                 print("Abort.")
                 sys.exit()
             data = re.match(
@@ -233,7 +235,6 @@ if os.path.exists("tca"):
 #
 
 images = {}
-pool = multiprocessing.Pool()
 distances = set()
 
 for vignetting_directory in glob.glob("vignetting*"):
@@ -241,16 +242,17 @@ for vignetting_directory in glob.glob("vignetting*"):
     assert distance == float("inf") or distance < 1000
     distances.add(distance)
     with chdir(vignetting_directory):
+        pool = multiprocessing.Pool()
         for filename in find_raw_files():
             if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
-                pool.apply_async(subprocess.check_call, [["dcraw", "-4", "-h", "-T", "-M", "-o", "0", filename]])
+                pool.apply_async(subprocess.call, [["dcraw", "-4", "-h", "-T", "-M", "-o", "0", filename]])
             exif_data = detect_exif_data(filename) + (distance,)
             if numpy.isnan(exif_data[1]):
                 print("Abort.")
                 sys.exit()
             images.setdefault(exif_data, []).append(os.path.join(vignetting_directory, filename))
-pool.close()
-pool.join()
+        pool.close()
+        pool.join()
 
 
 vignetting_db_entries = {}
