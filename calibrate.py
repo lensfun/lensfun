@@ -168,7 +168,7 @@ def calculate_tca(filename):
     exif_data = detect_exif_data(filename)
     tiff_filename = os.path.splitext(filename)[0] + b".tiff"
     if not os.path.exists(tiff_filename):
-        subprocess.check_call(["dcraw", "-4", "-T", filename])
+        subprocess.check_call(["dcraw", "-4", "-T", "-o", "0", "-M", filename])
     output = subprocess.check_output(["tca_correct", "-o", "bv", tiff_filename]).splitlines()[-1].strip()
     with open(filename + ".tca", "w") as outfile:
         outfile.write("{0}\n{1}\n{2}\n".format(exif_data[0], exif_data[1], output))
@@ -211,7 +211,7 @@ for vignetting_directory in glob.glob("vignetting*"):
     with chdir(vignetting_directory):
         for filename in find_raw_files():
             if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
-                pool.apply_async(subprocess.check_call, [["dcraw", "-4", "-T", filename]])
+                pool.apply_async(subprocess.check_call, [["dcraw", "-4", "-T", "-M", "-o", "0", filename]])
             exif_data = detect_exif_data(filename) + (distance,)
             images.setdefault(exif_data, []).append(os.path.join(vignetting_directory, filename))
 pool.close()
