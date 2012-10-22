@@ -110,6 +110,21 @@ class Lens(object):
         outfile.write("    </lens>\n")
 
 
+#
+# Generation TIFFs from distortion RAWs
+#
+
+pool = multiprocessing.Pool()
+
+if os.path.exists("distortion"):
+    with chdir("distortion"):
+        for filename in find_raw_files():
+            if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
+                pool.apply_async(subprocess.check_call, [["dcraw", "-T", "-w", filename]])
+pool.close()
+pool.join()
+
+
 lens_line_pattern = re.compile(
     r"(?P<name>.+):\s*(?P<maker>.+)\s*,\s*(?P<mount>.+)\s*,\s*(?P<cropfactor>.+)(\s*,\s*(?P<type>.+))?")
 distortion_line_pattern = re.compile(r"\s*distortion\((?P<focal_length>[.0-9]+)mm\)\s*=\s*"
@@ -164,21 +179,6 @@ except IOError:
 """)
     print("I wrote a template lenses.txt.  Please fill this file with proper information.  Abort.")
     sys.exit()
-
-
-#
-# Distortion
-#
-
-pool = multiprocessing.Pool()
-
-if os.path.exists("distortion"):
-    with chdir("distortion"):
-        for filename in find_raw_files():
-            if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
-                pool.apply_async(subprocess.check_call, [["dcraw", "-T", "-w", filename]])
-pool.close()
-pool.join()
 
 
 #
