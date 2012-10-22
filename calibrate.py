@@ -328,5 +328,7 @@ for configuration in sorted(vignetting_db_entries):
 
 
 outfile = open("lensfun.xml", "w")
+outfile.write("<lensdatabase>\n")
 for lens in lenses.values():
     lens.write(outfile)
+outfile.write("\n</lensdatabase>\n")
