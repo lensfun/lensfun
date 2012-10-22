@@ -192,17 +192,19 @@ except IOError:
 #
 
 def calculate_tca(filename):
-    exif_data = detect_exif_data(filename)
-    if not numpy.isnan(exif_data[1]):
-        tiff_filename = os.path.splitext(filename)[0] + b".tiff"
-        if not os.path.exists(tiff_filename):
-            subprocess.call(["dcraw", "-4", "-T", "-o", "0", "-M", filename])
-        output = subprocess.check_output(["tca_correct", "-o", "bv", tiff_filename], stderr=subprocess.PIPE). \
-                 splitlines()[-1].strip()
-    else:
-        output = "<nothing>"
-    with open(filename + ".tca", "w") as outfile:
-        outfile.write("{0}\n{1}\n{2}\n".format(exif_data[0], exif_data[1], output))
+    tca_filename = filename + ".tca"
+    if not os.path.exists(tca_filename):
+        exif_data = detect_exif_data(filename)
+        if not numpy.isnan(exif_data[1]):
+            tiff_filename = os.path.splitext(filename)[0] + b".tiff"
+            if not os.path.exists(tiff_filename):
+                subprocess.call(["dcraw", "-4", "-T", "-o", "0", "-M", filename])
+            output = subprocess.check_output(["tca_correct", "-o", "bv", tiff_filename], stderr=subprocess.PIPE). \
+                     splitlines()[-1].strip()
+        else:
+            output = "<nothing>"
+        with open(tca_filename, "w") as outfile:
+            outfile.write("{0}\n{1}\n{2}\n".format(exif_data[0], exif_data[1], output))
 
 if os.path.exists("tca"):
     with chdir("tca"):
@@ -227,7 +229,6 @@ if os.path.exists("tca"):
             except KeyError:
                 print("""Lens "{0}" not found in lenses.txt.  Abort.""".format(lens_name))
                 sys.exit()
-            os.remove(filename)
 
 
 #
