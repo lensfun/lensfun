@@ -145,8 +145,13 @@ try:
                 if not match:
                     print("Invalid line {0} in lenses.txt:\n{1}Abort.".format(linenumber, original_line))
                     sys.exit()
-                current_lens.calibration_lines.append(
-                    """<distortion model="ptlens" focal="{0}" a="{1}" b="{2}" c="{3}" />""".format(*match.groups()))
+                data = match.groups()
+                if data[2] is None:
+                    current_lens.calibration_lines.append(
+                        """<distortion model="poly3" focal="{0}" k1="{1}" />""".format(*data))
+                else:
+                    current_lens.calibration_lines.append(
+                        """<distortion model="ptlens" focal="{0}" a="{1}" b="{2}" c="{3}" />""".format(*data))
 except IOError:
     focal_lengths = {}
     def browse_directory(directory):
