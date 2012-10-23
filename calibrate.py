@@ -8,7 +8,7 @@ from __future__ import unicode_literals, division, absolute_import
 
 missing_packages = set()
 
-import subprocess, os.path, sys, multiprocessing, math, re, contextlib, glob
+import subprocess, os.path, sys, multiprocessing, math, re, contextlib, glob, codecs
 try:
     import numpy
 except ImportError:
@@ -303,11 +303,14 @@ for exif_data, filepaths in images.items():
     A, k1, k2, k3 = leastsq(lambda p, x, y: y - fit_function(x, *p), [30000, -0.3, 0, 0], args=(radii, intensities))[0]
     vignetting_db_entries[exif_data] = (k1, k2, k3)
 
-    open("{0}.gp".format(output_filename), "w").write("""set grid
+    lens_name, focal_length, aperture, distance = exif_data
+    if distance == float("inf"):
+        distance = "∞"
+    codecs.open("{0}.gp".format(output_filename), "w", encoding="utf-8").write("""set grid
 set title "{6}, {7} mm, f/{8}, {9} m"
 plot "{0}" with dots title "samples", "{1}" with linespoints lw 4 title "average", \
      {2} * (1 + ({3}) * x**2 + ({4}) * x**4 + ({5}) * x**6) title "fit"
-pause -1""".format(all_points_filename, bins_filename, A, k1, k2, k3, *exif_data))
+pause -1""".format(all_points_filename, bins_filename, A, k1, k2, k3, lens_name, focal_length, aperture, distance))
 
 
 if len(distances) == 1 and list(distances)[0] > 10:
