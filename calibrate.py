@@ -157,11 +157,10 @@ try:
                 current_lens.add_focal_length(float(data[0]))
                 if data[2] is None:
                     current_lens.calibration_lines.append(
-                        """<distortion model="poly3" focal="{0}" k1="{1:.4}" />""".format(data[0], float(data[1])))
+                        """<distortion model="poly3" focal="{0}" k1="{1}" />""".format(data[0], data[1]))
                 else:
                     current_lens.calibration_lines.append(
-                        """<distortion model="ptlens" focal="{0}" a="{1:.4}" b="{2:.4}" c="{3:.4}" />""".format(
-                            data[0], float(data[1]), float(data[2]), float(data[3])))
+                        """<distortion model="ptlens" focal="{0}" a="{1}" b="{2}" c="{3}" />""".format(*data))
 except IOError:
     focal_lengths = {}
     def browse_directory(directory):
@@ -235,8 +234,8 @@ if os.path.exists("tca"):
                 tca_output).groupdict()
             try:
                 calibration_lines.setdefault(lens_name, []).append((focal_length, 
-                    """<tca model="poly3" focal="{0:g}" br="{1:.4}" vr="{2}" bb="{3:.4}" vb="{4}" />""".format(
-                        focal_length, float(data["br"]), float(data["vr"]), float(data["bb"]), float(data["vb"]))))
+                    """<tca model="poly3" focal="{0:g}" br="{1}" vr="{2}" bb="{3}" vb="{4}" />""".format(
+                        focal_length, data["br"], data["vr"], data["bb"], data["vb"])))
             except KeyError:
                 print("""Lens "{0}" not found in lenses.txt.  Abort.""".format(lens_name))
                 sys.exit()
@@ -344,7 +343,7 @@ for configuration in sorted(vignetting_db_entries):
     try:
         lenses[lens].calibration_lines.append(
             """<vignetting model="pa" focal="{focal_length}" aperture="{aperture}" distance="{distance}" """
-            """k1="{vignetting[0]:.4}" k2="{vignetting[1]:.4}" k3="{vignetting[2]:.4}" />""".format(
+            """k1="{vignetting[0]:.4f}" k2="{vignetting[1]:.4f}" k3="{vignetting[2]:.4f}" />""".format(
                 focal_length=focal_length, aperture=aperture, vignetting=vignetting, distance=distance))
     except KeyError:
         print("""Lens "{0}" not found in lenses.txt.  Abort.""".format(lens_name))
