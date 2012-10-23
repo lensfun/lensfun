@@ -154,13 +154,14 @@ try:
                     print("Invalid line {0} in lenses.txt:\n{1}Abort.".format(linenumber, original_line))
                     sys.exit()
                 data = match.groups()
-                current_lens.add_focal_length(float(data[0]))
+                data[0] = float(data[0])
+                current_lens.add_focal_length(data[0])
                 if data[2] is None:
                     current_lens.calibration_lines.append(
-                        """<distortion model="poly3" focal="{0}" k1="{1}" />""".format(data[0], data[1]))
+                        """<distortion model="poly3" focal="{0:g}" k1="{1}" />""".format(data[0], data[1]))
                 else:
                     current_lens.calibration_lines.append(
-                        """<distortion model="ptlens" focal="{0}" a="{1}" b="{2}" c="{3}" />""".format(*data))
+                        """<distortion model="ptlens" focal="{0:g}" a="{1}" b="{2}" c="{3}" />""".format(*data))
 except IOError:
     focal_lengths = {}
     def browse_directory(directory):
@@ -342,7 +343,7 @@ for configuration in sorted(vignetting_db_entries):
         distance = 1000
     try:
         lenses[lens].calibration_lines.append(
-            """<vignetting model="pa" focal="{focal_length}" aperture="{aperture}" distance="{distance}" """
+            """<vignetting model="pa" focal="{focal_length:g}" aperture="{aperture:g}" distance="{distance:g}" """
             """k1="{vignetting[0]:.4f}" k2="{vignetting[1]:.4f}" k3="{vignetting[2]:.4f}" />""".format(
                 focal_length=focal_length, aperture=aperture, vignetting=vignetting, distance=distance))
     except KeyError:
