@@ -90,7 +90,14 @@ class Lens(object):
     def __init__(self, name, maker, mount, cropfactor, type_):
         self.name, self.maker, self.mount, self.cropfactor, self.type_ = name, maker, mount, cropfactor, type_
         self.calibration_lines = []
+        self.minimal_focal_length = float("inf")
 
+    def add_focal_length(self, focal_length):
+        self.minimal_focal_length = min(self.minimal_focal_length, focal_length)
+
+    def __lt__(self, other):
+        return self.minimal_focal_length < other.minimal_focal_length
+        
     def write(self, outfile):
         type_line = "        <type>{0}</type>\n".format(self.type_) if self.type_ else ""
         outfile.write("""
@@ -147,6 +154,7 @@ try:
                     print("Invalid line {0} in lenses.txt:\n{1}Abort.".format(linenumber, original_line))
                     sys.exit()
                 data = match.groups()
+                current_lens.add_focal_length(float(data[0]))
                 if data[2] is None:
                     current_lens.calibration_lines.append(
                         """<distortion model="poly3" focal="{0}" k1="{1:.4}" />""".format(data[0], float(data[1])))
@@ -345,6 +353,6 @@ for configuration in sorted(vignetting_db_entries):
 
 outfile = open("lensfun.xml", "w")
 outfile.write("<lensdatabase>\n")
-for lens in lenses.values():
+for lens in sorted(lenses.values()):
     lens.write(outfile)
 outfile.write("\n</lensdatabase>\n")
