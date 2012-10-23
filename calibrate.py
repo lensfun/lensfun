@@ -153,7 +153,7 @@ try:
                 if not match:
                     print("Invalid line {0} in lenses.txt:\n{1}Abort.".format(linenumber, original_line))
                     sys.exit()
-                data = match.groups()
+                data = list(match.groups())
                 data[0] = float(data[0])
                 current_lens.add_focal_length(data[0])
                 if data[2] is None:
