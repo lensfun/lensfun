@@ -278,8 +278,7 @@ for exif_data, filepaths in images.items():
     with open(all_points_filename, "w") as outfile:
         for radius, intensity in zip(radii, intensities):
             outfile.write("{0} {1}\n".format(radius, intensity))
-    bin_width = 10
-    number_of_bins = int(half_diagonal / bin_width) + 1
+    number_of_bins = 16
     bins = [[] for i in range(number_of_bins)]
     for radius, intensity in zip(radii, intensities):
         # The zeroth and the last bin are only half bins which means that their
