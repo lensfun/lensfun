@@ -214,22 +214,27 @@ if os.path.exists("tca"):
             pool.apply_async(calculate_tca, [filename])
         pool.close()
         pool.join()
+        calibration_lines = {}
         for filename in find_raw_files():
             filename = filename + ".tca"
             lens_name, focal_length, tca_output = [line.strip() for line in open(filename).readlines()]
-            if numpy.isnan(float(focal_length)):
+            focal_length = float(focal_length)
+            if numpy.isnan(focal_length):
                 print("Abort.")
                 sys.exit()
             data = re.match(
                 r"-r [.0]+:(?P<br>[-.0-9]+):[.0]+:(?P<vr>[-.0-9]+) -b [.0]+:(?P<bb>[-.0-9]+):[.0]+:(?P<vb>[-.0-9]+)",
                 tca_output).groupdict()
             try:
-                lenses[lens_name].calibration_lines.append(
-                    """<tca model="poly3" focal="{0}" br="{1:.4}" vr="{2}" bb="{3:.4}" vb="{4}" />""".format(
-                        focal_length, float(data["br"]), float(data["vr"]), float(data["bb"]), float(data["vb"])))
+                calibration_lines.setdefault(lens_name, []).append((focal_length, 
+                    """<tca model="poly3" focal="{0:g}" br="{1:.4}" vr="{2}" bb="{3:.4}" vb="{4}" />""".format(
+                        focal_length, float(data["br"]), float(data["vr"]), float(data["bb"]), float(data["vb"]))))
             except KeyError:
                 print("""Lens "{0}" not found in lenses.txt.  Abort.""".format(lens_name))
                 sys.exit()
+        for lens_name, lines in calibration_lines.items():
+            lines.sort()
+            lenses[lens_name].calibration_lines.extend(line[1] for line in lines)
 
 
 #
