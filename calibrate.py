@@ -27,6 +27,7 @@ def test_program(program, package_name):
     except OSError:
         missing_packages.add(package_name)
 test_program("dcraw", "dcraw")
+test_program("convert", "imagemagick")
 test_program("tca_correct", "hugin-tools")
 test_program("exiftool", "libimage-exiftool-perl")
 if missing_packages:
@@ -64,7 +65,7 @@ def detect_exif_data(filename):
     match = filepath_pattern.match(os.path.splitext(filename)[0])
     if match:
         exif_data = (match.group("lens_model").replace("_", " "), float(match.group("focal_length")),
-                     float(match.group("aperture")), distance)
+                     float(match.group("aperture")))
     else:
         output_lines = subprocess.check_output(
             ["exiftool", "-lensmodel", "-focallength", "-aperture", filename]).splitlines()
@@ -134,7 +135,7 @@ if os.path.exists("distortion"):
 
 
 lens_line_pattern = re.compile(
-    r"(?P<name>.+):\s*(?P<maker>.+)\s*,\s*(?P<mount>.+)\s*,\s*(?P<cropfactor>.+)(\s*,\s*(?P<type>.+))?")
+    r"(?P<name>.+):\s*(?P<maker>[^,]+)\s*,\s*(?P<mount>[^,]+)\s*,\s*(?P<cropfactor>[^,]+)(\s*,\s*(?P<type>[^,]+))?")
 distortion_line_pattern = re.compile(r"\s*distortion\((?P<focal_length>[.0-9]+)mm\)\s*=\s*"
                                      r"(?P<a>[-.0-9]+)(?:\s*,\s*(?P<b>[-.0-9]+)\s*,\s*(?P<c>[-.0-9]+))?")
 lenses = {}
