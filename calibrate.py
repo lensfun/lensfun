@@ -47,9 +47,18 @@ def chdir(dirname=None):
         os.chdir(curdir)
 
 
+def generate_raw_conversion_call(filename, dcraw_options):
+    basename, extension = os.path.splitext(filename)
+    extension = extension[1:]
+    if extension.lower() in ["jpg", "tif"]:
+        return ["convert", filename, basename + ".tiff"]
+    else:
+        return ["dcraw", "-T"] + dcraw_options + [filename]
+
+
 raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf", "fff",
                        "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx", "pxn", "r3d",
-                       "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f"]
+                       "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f", "jpg", "tif"]
 def find_raw_files():
     result = []
     for file_extension in raw_file_extensions:
@@ -74,6 +83,7 @@ def detect_exif_data(filename):
             key = key.strip()
             value = value.strip()
             exif_data[key] = value
+        print exif_data
         try:
             exif_data = (exif_data["Lens Model"], float(exif_data["Focal Length"].partition("mm")[0]),
                          float(exif_data["Aperture"]))
@@ -128,7 +138,7 @@ if os.path.exists("distortion"):
         pool = multiprocessing.Pool()
         for filename in find_raw_files():
             if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
-                pool.apply_async(subprocess.call, [["dcraw", "-T", "-w", filename]])
+                pool.apply_async(subprocess.call, [generate_raw_conversion_call(filename, ["-w"])])
 #                subprocess.check_call(["dcraw", "-T", "-w", filename])
         pool.close()
         pool.join()
@@ -208,7 +218,7 @@ def calculate_tca(filename):
         if not numpy.isnan(exif_data[1]):
             tiff_filename = os.path.splitext(filename)[0] + b".tiff"
             if not os.path.exists(tiff_filename):
-                subprocess.call(["dcraw", "-4", "-T", "-o", "0", "-M", filename])
+                subprocess.call(generate_raw_conversion_call(filename, ["-4", "-o", "0", "-M"]))
             output = subprocess.check_output(["tca_correct", "-o", "bv", tiff_filename], stderr=subprocess.PIPE). \
                      splitlines()[-1].strip()
         else:
@@ -260,7 +270,7 @@ for vignetting_directory in glob.glob("vignetting*"):
         pool = multiprocessing.Pool()
         for filename in find_raw_files():
             if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
-                pool.apply_async(subprocess.call, [["dcraw", "-4", "-h", "-T", "-M", "-o", "0", filename]])
+                pool.apply_async(subprocess.call, [generate_raw_conversion_call(filename, ["-4", "-h", "-M", "-o", "0"])])
             exif_data = detect_exif_data(filename) + (distance,)
             if numpy.isnan(exif_data[1]):
                 print("Abort.")
