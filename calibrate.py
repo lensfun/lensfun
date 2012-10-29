@@ -67,7 +67,7 @@ def find_raw_files():
     return result
 
 
-filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)$")
+filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)")
 missing_lens_model_warning_printed = False
 
 def detect_exif_data(filename):
