@@ -68,8 +68,10 @@ def find_raw_files():
 
 
 filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)$")
+missing_lens_model_warning_printed = False
 
 def detect_exif_data(filename):
+    global missing_lens_model_warning_printed
     exif_data = {}
     match = filepath_pattern.match(os.path.splitext(filename)[0])
     if match:
@@ -83,13 +85,19 @@ def detect_exif_data(filename):
             key = key.strip()
             value = value.strip()
             exif_data[key] = value
-        print exif_data
+        if "Lens Model" not in exif_data:
+            exif_data["Lens Model"] = "Standard"
+            if not missing_lens_model_warning_printed:
+                print("""I couldn't detect the lens model name and assumed "Standard".
+For cameras without interchangable lenses, this may be correct.
+However, this fails if this directory contains data of different undetectable lenses.""")
+                missing_lens_model_warning_printed = True
         try:
             exif_data = (exif_data["Lens Model"], float(exif_data["Focal Length"].partition("mm")[0]),
                          float(exif_data["Aperture"]))
         except KeyError:
             print("""Some EXIF data is missing in your RAW files.  You have to
-rename them according to the scheme "Lens_name--16mm--1.4.RAW
+rename them according to the scheme "Lens_name--16mm--1.4.RAW"
 (Use your RAW file extension of course.)""")
             # I cannot sys.exit() because it may run in a child process.
             exif_data = ("Unknown", float("nan"), float("nan"))
