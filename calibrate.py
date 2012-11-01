@@ -90,7 +90,8 @@ def detect_exif_data(filename):
             if not missing_lens_model_warning_printed:
                 print("""I couldn't detect the lens model name and assumed "Standard".
 For cameras without interchangable lenses, this may be correct.
-However, this fails if this directory contains data of different undetectable lenses.""")
+However, this fails if this directory contains data of different undetectable lenses.
+A newer version of exiftool (if available) may help.""")
                 missing_lens_model_warning_printed = True
         try:
             exif_data = (exif_data["Lens Model"], float(exif_data["Focal Length"].partition("mm")[0]),
