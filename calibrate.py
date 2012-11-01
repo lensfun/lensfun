@@ -288,13 +288,8 @@ for vignetting_directory in glob.glob("vignetting*"):
         pool.close()
         pool.join()
 
-
-vignetting_db_entries = {}
-working_directory = os.getcwd()
-
-for exif_data, filepaths in images.items():
+def evaluate_image_set(exif_data, filepaths):
     output_filename = "{0}--{1}--{2}--{3}".format(*exif_data).replace(" ", "_")
-
     radii, intensities = [], []
     for filepath in filepaths:
         image = PythonMagick.Image(str(os.path.splitext(filepath)[0] + ".tiff"))
@@ -327,6 +322,24 @@ for exif_data, filepaths in images.items():
     with open(bins_filename, "w") as outfile:
         for radius, intensity in zip(radii, intensities):
             outfile.write("{0} {1}\n".format(radius, intensity))
+
+pool = multiprocessing.Pool()
+for exif_data, filepaths in images.items():
+    pool.apply_async(evaluate_image_set, [exif_data, filepaths])
+pool.close()
+pool.join()
+
+vignetting_db_entries = {}
+
+for exif_data in images:
+    output_filename = "{0}--{1}--{2}--{3}".format(*exif_data).replace(" ", "_")
+    bins_filename = "{0}-bins.dat".format(output_filename)
+    all_points_filename = "{0}-all_points.dat".format(output_filename)
+    radii, intensities = [], []
+    for line in open(bins_filename):
+        radius, intensity = line.split()
+        radii.append(float(radius))
+        intensities.append(float(intensity))
     radii, intensities = numpy.array(radii), numpy.array(intensities)
 
     def fit_function(radius, A, k1, k2, k3):
