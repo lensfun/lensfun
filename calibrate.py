@@ -8,7 +8,7 @@ from __future__ import unicode_literals, division, absolute_import
 
 missing_packages = set()
 
-import subprocess, os.path, sys, multiprocessing, math, re, contextlib, glob, codecs, struct
+import subprocess, os.path, sys, multiprocessing, math, re, contextlib, glob, codecs, struct, json
 try:
     import numpy
 except ImportError:
@@ -43,64 +43,6 @@ def chdir(dirname=None):
         os.chdir(curdir)
 
 
-def generate_raw_conversion_call(filename, dcraw_options):
-    basename, extension = os.path.splitext(filename)
-    extension = extension[1:]
-    if extension.lower() in ["jpg", "tif"]:
-        return ["convert", filename, basename + ".tiff"]
-    else:
-        return ["dcraw", "-T"] + dcraw_options + [filename]
-
-
-raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf", "fff",
-                       "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx", "pxn", "r3d",
-                       "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f", "jpg", "tif"]
-def find_raw_files():
-    result = []
-    for file_extension in raw_file_extensions:
-        result.extend(glob.glob("*." + file_extension))
-        result.extend(glob.glob("*." + file_extension.upper()))
-    return result
-
-
-filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)")
-missing_lens_model_warning_printed = False
-
-def detect_exif_data(filename):
-    global missing_lens_model_warning_printed
-    exif_data = {}
-    match = filepath_pattern.match(os.path.splitext(filename)[0])
-    if match:
-        exif_data = (match.group("lens_model").replace("_", " "), float(match.group("focal_length")),
-                     float(match.group("aperture")))
-    else:
-        output_lines = subprocess.check_output(
-            ["exiftool", "-lensmodel", "-focallength", "-aperture", filename]).splitlines()
-        for line in output_lines:
-            key, value = line.split(":", 1)
-            key = key.strip()
-            value = value.strip()
-            exif_data[key] = value
-        if "Lens Model" not in exif_data:
-            exif_data["Lens Model"] = "Standard"
-            if not missing_lens_model_warning_printed:
-                print("""I couldn't detect the lens model name and assumed "Standard".
-For cameras without interchangable lenses, this may be correct.
-However, this fails if this directory contains data of different undetectable lenses.
-A newer version of exiftool (if available) may help.""")
-                missing_lens_model_warning_printed = True
-        try:
-            exif_data = (exif_data["Lens Model"], float(exif_data["Focal Length"].partition("mm")[0]),
-                         float(exif_data["Aperture"]))
-        except KeyError:
-            print("""Some EXIF data is missing in your RAW files.  You have to
-rename them according to the scheme "Lens_name--16mm--1.4.RAW"
-(Use your RAW file extension of course.)""")
-            # I cannot sys.exit() because it may run in a child process.
-            exif_data = ("Unknown", float("nan"), float("nan"))
-    return exif_data
-
-
 class Lens(object):
 
     def __init__(self, name, maker, mount, cropfactor, type_):
@@ -133,10 +75,94 @@ class Lens(object):
         outfile.write("    </lens>\n")
 
 
+def generate_raw_conversion_call(filename, dcraw_options):
+    basename, extension = os.path.splitext(filename)
+    extension = extension[1:]
+    if extension.lower() in ["jpg", "tif"]:
+        return ["convert", filename, basename + ".tiff"]
+    else:
+        return ["dcraw", "-T"] + dcraw_options + [filename]
+
+
+raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf", "fff",
+                       "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx", "pxn", "r3d",
+                       "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f", "jpg", "tif"]
+def find_raw_files():
+    result = []
+    for file_extension in raw_file_extensions:
+        result.extend(glob.glob("*." + file_extension))
+        result.extend(glob.glob("*." + file_extension.upper()))
+    return result
+
+
+#
+# Collect EXIF data
+#
+
+file_exif_data = {}
+filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)")
+missing_lens_model_warning_printed = False
+exiftool_candidates = []
+
+def browse_directory(directory):
+    if os.path.exists(directory):
+        with chdir(directory):
+            for filename in find_raw_files():
+                full_filename = os.path.join(directory, filename)
+                match = filepath_pattern.match(os.path.splitext(filename)[0])
+                if match:
+                    file_exif_data[full_filename] = \
+                        (match.group("lens_model").replace("_", " "), float(match.group("focal_length")),
+                         float(match.group("aperture")))
+                else:
+                    exiftool_candidates.append(full_filename)
+browse_directory("distortion")
+browse_directory("tca")
+for directory in glob.glob("vignetting*"):
+    browse_directory(directory)
+candidates_per_group = len(exiftool_candidates) // multiprocessing.cpu_count() + 1
+candidate_groups = []
+while exiftool_candidates:
+    candidate_group = exiftool_candidates[:candidates_per_group]
+    if candidate_group:
+        candidate_groups.append(candidate_group)
+    del exiftool_candidates[:candidates_per_group]
+def call_exiftool(candidate_group):
+    data = json.loads(subprocess.check_output(
+        ["exiftool", "-j", "-lensmodel", "-focallength", "-aperture"] + candidate_group, stderr=subprocess.PIPE))
+    return dict((single_data["SourceFile"], (single_data.get("LensModel"),
+                                             float(single_data.get("FocalLength", "nan").partition("mm")[0]),
+                                             single_data.get("Aperture", float("nan"))))
+                for single_data in data)
+pool = multiprocessing.Pool()
+for group_exif_data in pool.map(call_exiftool, candidate_groups):
+    file_exif_data.update(group_exif_data)
+pool.close()
+pool.join()
+for filename in list(file_exif_data):  # list() because I change the dict during iteration
+    lens_model, focal_length, aperture = file_exif_data[filename]
+    if not lens_model:
+        lens_model = "Standard"
+        if not missing_lens_model_warning_printed:
+            print(filename + ":")
+            print("""I couldn't detect the lens model name and assumed "Standard".
+For cameras without interchangable lenses, this may be correct.
+However, this fails if there is data of different undetectable lenses.
+A newer version of exiftool (if available) may help.
+(This message is printed only once.)\n""")
+            missing_lens_model_warning_printed = True
+        file_exif_data[filename] = (lens_model, focal_length, aperture)
+    if numpy.isnan(focal_length) or numpy.isnan(aperture):
+        print(filename + ":")
+        print("""Aperture and/or focal length EXIF data is missing in this RAW file.
+You have to rename them according to the scheme "Lens_name--16mm--1.4.RAW"
+(Use your RAW file extension of course.)  Abort.""")
+        sys.exit()
+
+
 #
 # Generation TIFFs from distortion RAWs
 #
-
 
 if os.path.exists("distortion"):
     with chdir("distortion"):
@@ -148,6 +174,10 @@ if os.path.exists("distortion"):
         pool.close()
         pool.join()
 
+
+#
+# Parse/generate lenses.txt
+#
 
 lens_line_pattern = re.compile(
     r"(?P<name>.+):\s*(?P<maker>[^,]+)\s*,\s*(?P<mount>[^,]+)\s*,\s*(?P<cropfactor>[^,]+)(\s*,\s*(?P<type>[^,]+))?")
@@ -180,19 +210,8 @@ try:
                         """<distortion model="ptlens" focal="{0:g}" a="{1}" b="{2}" c="{3}" />""".format(*data))
 except IOError:
     focal_lengths = {}
-    def browse_directory(directory):
-        if os.path.exists(directory):
-            with chdir(directory):
-                for filename in find_raw_files():
-                    exif_data = detect_exif_data(filename)
-                    if numpy.isnan(exif_data[1]):
-                        print("Abort.")
-                        sys.exit()
-                    focal_lengths.setdefault(exif_data[0], set()).add(exif_data[1])
-    browse_directory("distortion")
-    browse_directory("tca")
-    for directory in glob.glob("vignetting*"):
-        browse_directory(directory)
+    for exif_data in file_exif_data.values():
+        focal_lengths.setdefault(exif_data[0], set()).add(exif_data[1])
     lens_names_by_focal_length = sorted((min(lengths), lens_name) for lens_name, lengths in focal_lengths.items())
     lens_names_by_focal_length = [item[1] for item in lens_names_by_focal_length]
     with open("lenses.txt", "w") as outfile:
@@ -219,7 +238,7 @@ except IOError:
 def calculate_tca(filename):
     tca_filename = filename + ".tca"
     if not os.path.exists(tca_filename):
-        exif_data = detect_exif_data(filename)
+        exif_data = file_exif_data[os.path.join("tca", filename)]
         if not numpy.isnan(exif_data[1]):
             tiff_filename = os.path.splitext(filename)[0] + b".tiff"
             if not os.path.exists(tiff_filename):
@@ -276,7 +295,7 @@ for vignetting_directory in glob.glob("vignetting*"):
         for filename in find_raw_files():
             if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
                 pool.apply_async(subprocess.call, [generate_raw_conversion_call(filename, ["-4", "-h", "-M", "-o", "0"])])
-            exif_data = detect_exif_data(filename) + (distance,)
+            exif_data = file_exif_data[os.path.join(vignetting_directory, filename)] + (distance,)
             if numpy.isnan(exif_data[1]):
                 print("Abort.")
                 sys.exit()
