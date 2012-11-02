@@ -8,15 +8,11 @@ from __future__ import unicode_literals, division, absolute_import
 
 missing_packages = set()
 
-import subprocess, os.path, sys, multiprocessing, math, re, contextlib, glob, codecs
+import subprocess, os.path, sys, multiprocessing, math, re, contextlib, glob, codecs, struct
 try:
     import numpy
 except ImportError:
     missing_packages.add("python-numpy")
-try:
-    import PythonMagick
-except ImportError:
-    missing_packages.add("python-pythonmagick")
 try:
     from scipy.optimize.minpack import leastsq
 except ImportError:
@@ -293,16 +289,30 @@ def evaluate_image_set(exif_data, filepaths):
     output_filename = "{0}--{1}--{2}--{3}".format(*exif_data).replace(" ", "_")
     radii, intensities = [], []
     for filepath in filepaths:
-        image = PythonMagick.Image(str(os.path.splitext(filepath)[0] + ".tiff"))
-        width = 250
-        height = int(round(image.size().height() / image.size().width() * width))
-        image.sample(b"!{0}x{1}".format(width, height))
-        width, height = image.size().width(), image.size().height()
+        image_data = subprocess.check_output(
+            ["convert", os.path.splitext(filepath)[0] + ".tiff", "-set", "colorspace", "RGB", "-resize", "250", "pgm:-"],
+            stderr=subprocess.PIPE)
+        width, height = None, None
+        header_size = 0
+        for i, line in enumerate(image_data.splitlines(True)):
+            header_size += len(line)
+            if i == 0:
+                assert line == b"P5\n"
+            else:
+                line = line.partition(b"#")[0].strip()
+                if line:
+                    if not width:
+                        width, height = line.split()
+                        width, height = int(width), int(height)
+                    else:
+                        assert line == b"65535"
+                        break
         half_diagonal = math.hypot(width // 2, height // 2)
-        for x in range(width):
-            for y in range(height):
-                radii.append(math.hypot(x - width // 2, y - height // 2) / half_diagonal)
-                intensities.append(image.pixelColor(x, y).intensity())
+        image_data = struct.unpack(b"!{0}s{1}H".format(header_size, width * height), image_data)[1:]
+        for i, intensity in enumerate(image_data):
+            y, x = divmod(i, width)
+            radii.append(math.hypot(x - width // 2, y - height // 2) / half_diagonal)
+            intensities.append(intensity)
     all_points_filename = "{0}-all_points.dat".format(output_filename)
     with open(all_points_filename, "w") as outfile:
         for radius, intensity in zip(radii, intensities):
