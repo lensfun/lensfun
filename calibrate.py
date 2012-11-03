@@ -301,10 +301,9 @@ def evaluate_image_set(exif_data, filepaths):
     gnuplot_filename = "{0}.gp".format(output_filename)
     try:
         gnuplot_line = codecs.open(gnuplot_filename, encoding="utf-8").readlines()[3]
-        print gnuplot_line
-        match = re.match(r'     [-.0-9]+ \* \(1 \+ \((?P<k1>[-.0-9]+)\) \* x\*\*2 \+ \((?P<k2>[-.0-9]+)\) \* x\*\*4 \+ '
-                         r'\((?P<k3>[-.0-9]+)\) \* x\*\*6\) title "fit"', gnuplot_line)
-        k1, k2, k3 = match.groups()
+        match = re.match(r'     [-e.0-9]+ \* \(1 \+ \((?P<k1>[-e.0-9]+)\) \* x\*\*2 \+ \((?P<k2>[-e.0-9]+)\) \* x\*\*4 \+ '
+                         r'\((?P<k3>[-e.0-9]+)\) \* x\*\*6\) title "fit"', gnuplot_line)
+        k1, k2, k3 = [float(k) for k in match.groups()]
     except IOError:
         radii, intensities = [], []
         for filepath in filepaths:
