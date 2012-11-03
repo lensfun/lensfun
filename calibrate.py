@@ -170,7 +170,6 @@ if os.path.exists("distortion"):
         for filename in find_raw_files():
             if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
                 pool.apply_async(subprocess.call, [generate_raw_conversion_call(filename, ["-w"])])
-#                subprocess.check_call(["dcraw", "-T", "-w", filename])
         pool.close()
         pool.join()
 
