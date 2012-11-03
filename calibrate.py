@@ -304,6 +304,8 @@ for vignetting_directory in glob.glob("vignetting*"):
         pool.close()
         pool.join()
 
+vignetting_db_entries = {}
+
 def evaluate_image_set(exif_data, filepaths):
     output_filename = "{0}--{1}--{2}--{3}".format(*exif_data).replace(" ", "_")
     radii, intensities = [], []
@@ -352,31 +354,12 @@ def evaluate_image_set(exif_data, filepaths):
     with open(bins_filename, "w") as outfile:
         for radius, intensity in zip(radii, intensities):
             outfile.write("{0} {1}\n".format(radius, intensity))
-
-pool = multiprocessing.Pool()
-for exif_data, filepaths in images.items():
-    pool.apply_async(evaluate_image_set, [exif_data, filepaths])
-pool.close()
-pool.join()
-
-vignetting_db_entries = {}
-
-for exif_data in images:
-    output_filename = "{0}--{1}--{2}--{3}".format(*exif_data).replace(" ", "_")
-    bins_filename = "{0}-bins.dat".format(output_filename)
-    all_points_filename = "{0}-all_points.dat".format(output_filename)
-    radii, intensities = [], []
-    for line in open(bins_filename):
-        radius, intensity = line.split()
-        radii.append(float(radius))
-        intensities.append(float(intensity))
     radii, intensities = numpy.array(radii), numpy.array(intensities)
 
     def fit_function(radius, A, k1, k2, k3):
         return A * (1 + k1 * radius**2 + k2 * radius**4 + k3 * radius**6)
 
     A, k1, k2, k3 = leastsq(lambda p, x, y: y - fit_function(x, *p), [30000, -0.3, 0, 0], args=(radii, intensities))[0]
-    vignetting_db_entries[exif_data] = (k1, k2, k3)
 
     lens_name, focal_length, aperture, distance = exif_data
     if distance == float("inf"):
@@ -386,7 +369,16 @@ set title "{6}, {7} mm, f/{8}, {9} m"
 plot "{0}" with dots title "samples", "{1}" with linespoints lw 4 title "average", \
      {2} * (1 + ({3}) * x**2 + ({4}) * x**4 + ({5}) * x**6) title "fit"
 pause -1""".format(all_points_filename, bins_filename, A, k1, k2, k3, lens_name, focal_length, aperture, distance))
+    return (k1, k2, k3)
 
+pool = multiprocessing.Pool()
+results = {}
+for exif_data, filepaths in images.items():
+    results[exif_data] = pool.apply_async(evaluate_image_set, [exif_data, filepaths])
+for exif_data, result in results.items():
+    vignetting_db_entries[exif_data] = result.get()
+pool.close()
+pool.join()
 
 new_vignetting_db_entries = {}
 for configuration, vignetting in vignetting_db_entries.items():
