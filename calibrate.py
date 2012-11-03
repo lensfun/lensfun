@@ -298,52 +298,59 @@ vignetting_db_entries = {}
 
 def evaluate_image_set(exif_data, filepaths):
     output_filename = "{0}--{1}--{2}--{3}".format(*exif_data).replace(" ", "_")
-    radii, intensities = [], []
-    for filepath in filepaths:
-        image_data = subprocess.check_output(
-            ["convert", os.path.splitext(filepath)[0] + ".tiff", "-set", "colorspace", "RGB", "-resize", "250", "pgm:-"],
-            stderr=subprocess.PIPE)
-        width, height = None, None
-        header_size = 0
-        for i, line in enumerate(image_data.splitlines(True)):
-            header_size += len(line)
-            if i == 0:
-                assert line == b"P5\n"
-            else:
-                line = line.partition(b"#")[0].strip()
-                if line:
-                    if not width:
-                        width, height = line.split()
-                        width, height = int(width), int(height)
-                    else:
-                        assert line == b"65535"
-                        break
-        half_diagonal = math.hypot(width // 2, height // 2)
-        image_data = struct.unpack(b"!{0}s{1}H".format(header_size, width * height), image_data)[1:]
-        for i, intensity in enumerate(image_data):
-            y, x = divmod(i, width)
-            radii.append(math.hypot(x - width // 2, y - height // 2) / half_diagonal)
-            intensities.append(intensity)
     all_points_filename = "{0}-all_points.dat".format(output_filename)
-    with open(all_points_filename, "w") as outfile:
-        for radius, intensity in zip(radii, intensities):
-            outfile.write("{0} {1}\n".format(radius, intensity))
-    number_of_bins = 16
-    bins = [[] for i in range(number_of_bins)]
-    for radius, intensity in zip(radii, intensities):
-        # The zeroth and the last bin are only half bins which means that their
-        # means are skewed.  But this is okay: For the zeroth, the curve is
-        # supposed to be horizontal anyway, and for the last, it underestimates
-        # the vignetting at the rim which is a good thing (too much of
-        # correction is bad).
-        bin_index = int(round(radius * (number_of_bins - 1)))
-        bins[bin_index].append(intensity)
-    radii = [i / (number_of_bins - 1) for i in range(number_of_bins)]
-    intensities = [sum(bin) / len(bin) for bin in bins]
     bins_filename = "{0}-bins.dat".format(output_filename)
-    with open(bins_filename, "w") as outfile:
+    try:
+        radii, intensities = [], []
+        for line in open(bins_filename):
+            radius, intensity = line.split()
+            radii.append(float(radius))
+            intensities.append(float(intensity))
+    except IOError:
+        radii, intensities = [], []
+        for filepath in filepaths:
+            image_data = subprocess.check_output(
+                ["convert", os.path.splitext(filepath)[0] + ".tiff", "-set", "colorspace", "RGB", "-resize", "250", "pgm:-"],
+                stderr=subprocess.PIPE)
+            width, height = None, None
+            header_size = 0
+            for i, line in enumerate(image_data.splitlines(True)):
+                header_size += len(line)
+                if i == 0:
+                    assert line == b"P5\n"
+                else:
+                    line = line.partition(b"#")[0].strip()
+                    if line:
+                        if not width:
+                            width, height = line.split()
+                            width, height = int(width), int(height)
+                        else:
+                            assert line == b"65535"
+                            break
+            half_diagonal = math.hypot(width // 2, height // 2)
+            image_data = struct.unpack(b"!{0}s{1}H".format(header_size, width * height), image_data)[1:]
+            for i, intensity in enumerate(image_data):
+                y, x = divmod(i, width)
+                radii.append(math.hypot(x - width // 2, y - height // 2) / half_diagonal)
+                intensities.append(intensity)
+        with open(all_points_filename, "w") as outfile:
+            for radius, intensity in zip(radii, intensities):
+                outfile.write("{0} {1}\n".format(radius, intensity))
+        number_of_bins = 16
+        bins = [[] for i in range(number_of_bins)]
         for radius, intensity in zip(radii, intensities):
-            outfile.write("{0} {1}\n".format(radius, intensity))
+            # The zeroth and the last bin are only half bins which means that their
+            # means are skewed.  But this is okay: For the zeroth, the curve is
+            # supposed to be horizontal anyway, and for the last, it underestimates
+            # the vignetting at the rim which is a good thing (too much of
+            # correction is bad).
+            bin_index = int(round(radius * (number_of_bins - 1)))
+            bins[bin_index].append(intensity)
+        radii = [i / (number_of_bins - 1) for i in range(number_of_bins)]
+        intensities = [sum(bin) / len(bin) for bin in bins]
+        with open(bins_filename, "w") as outfile:
+            for radius, intensity in zip(radii, intensities):
+                outfile.write("{0} {1}\n".format(radius, intensity))
     radii, intensities = numpy.array(radii), numpy.array(intensities)
 
     def fit_function(radius, A, k1, k2, k3):
@@ -358,7 +365,8 @@ def evaluate_image_set(exif_data, filepaths):
 set title "{6}, {7} mm, f/{8}, {9} m"
 plot "{0}" with dots title "samples", "{1}" with linespoints lw 4 title "average", \
      {2} * (1 + ({3}) * x**2 + ({4}) * x**4 + ({5}) * x**6) title "fit"
-pause -1""".format(all_points_filename, bins_filename, A, k1, k2, k3, lens_name, focal_length, aperture, distance))
+pause -1
+""".format(all_points_filename, bins_filename, A, k1, k2, k3, lens_name, focal_length, aperture, distance))
     return (k1, k2, k3)
 
 pool = multiprocessing.Pool()
