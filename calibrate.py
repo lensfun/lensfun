@@ -298,14 +298,13 @@ vignetting_db_entries = {}
 
 def evaluate_image_set(exif_data, filepaths):
     output_filename = "{0}--{1}--{2}--{3}".format(*exif_data).replace(" ", "_")
-    all_points_filename = "{0}-all_points.dat".format(output_filename)
-    bins_filename = "{0}-bins.dat".format(output_filename)
+    gnuplot_filename = "{0}.gp".format(output_filename)
     try:
-        radii, intensities = [], []
-        for line in open(bins_filename):
-            radius, intensity = line.split()
-            radii.append(float(radius))
-            intensities.append(float(intensity))
+        gnuplot_line = codecs.open(gnuplot_filename, encoding="utf-8").readlines()[3]
+        print gnuplot_line
+        match = re.match(r'     [-.0-9]+ \* \(1 \+ \((?P<k1>[-.0-9]+)\) \* x\*\*2 \+ \((?P<k2>[-.0-9]+)\) \* x\*\*4 \+ '
+                         r'\((?P<k3>[-.0-9]+)\) \* x\*\*6\) title "fit"', gnuplot_line)
+        k1, k2, k3 = match.groups()
     except IOError:
         radii, intensities = [], []
         for filepath in filepaths:
@@ -333,6 +332,7 @@ def evaluate_image_set(exif_data, filepaths):
                 y, x = divmod(i, width)
                 radii.append(math.hypot(x - width // 2, y - height // 2) / half_diagonal)
                 intensities.append(intensity)
+        all_points_filename = "{0}-all_points.dat".format(output_filename)
         with open(all_points_filename, "w") as outfile:
             for radius, intensity in zip(radii, intensities):
                 outfile.write("{0} {1}\n".format(radius, intensity))
@@ -348,25 +348,27 @@ def evaluate_image_set(exif_data, filepaths):
             bins[bin_index].append(intensity)
         radii = [i / (number_of_bins - 1) for i in range(number_of_bins)]
         intensities = [sum(bin) / len(bin) for bin in bins]
+        bins_filename = "{0}-bins.dat".format(output_filename)
         with open(bins_filename, "w") as outfile:
             for radius, intensity in zip(radii, intensities):
                 outfile.write("{0} {1}\n".format(radius, intensity))
-    radii, intensities = numpy.array(radii), numpy.array(intensities)
+        radii, intensities = numpy.array(radii), numpy.array(intensities)
 
-    def fit_function(radius, A, k1, k2, k3):
-        return A * (1 + k1 * radius**2 + k2 * radius**4 + k3 * radius**6)
+        def fit_function(radius, A, k1, k2, k3):
+            return A * (1 + k1 * radius**2 + k2 * radius**4 + k3 * radius**6)
 
-    A, k1, k2, k3 = leastsq(lambda p, x, y: y - fit_function(x, *p), [30000, -0.3, 0, 0], args=(radii, intensities))[0]
+        A, k1, k2, k3 = leastsq(lambda p, x, y: y - fit_function(x, *p), [30000, -0.3, 0, 0], args=(radii, intensities))[0]
 
-    lens_name, focal_length, aperture, distance = exif_data
-    if distance == float("inf"):
-        distance = "∞"
-    codecs.open("{0}.gp".format(output_filename), "w", encoding="utf-8").write("""set grid
+        lens_name, focal_length, aperture, distance = exif_data
+        if distance == float("inf"):
+            distance = "∞"
+        codecs.open(gnuplot_filename, "w", encoding="utf-8").write("""set grid
 set title "{6}, {7} mm, f/{8}, {9} m"
-plot "{0}" with dots title "samples", "{1}" with linespoints lw 4 title "average", \
+plot "{0}" with dots title "samples", "{1}" with linespoints lw 4 title "average", \\
      {2} * (1 + ({3}) * x**2 + ({4}) * x**4 + ({5}) * x**6) title "fit"
 pause -1
 """.format(all_points_filename, bins_filename, A, k1, k2, k3, lens_name, focal_length, aperture, distance))
+
     return (k1, k2, k3)
 
 pool = multiprocessing.Pool()
