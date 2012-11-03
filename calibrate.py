@@ -239,14 +239,11 @@ def calculate_tca(filename):
     tca_filename = filename + ".tca"
     if not os.path.exists(tca_filename):
         exif_data = file_exif_data[os.path.join("tca", filename)]
-        if not numpy.isnan(exif_data[1]):
-            tiff_filename = os.path.splitext(filename)[0] + b".tiff"
-            if not os.path.exists(tiff_filename):
-                subprocess.call(generate_raw_conversion_call(filename, ["-4", "-o", "0", "-M"]))
-            output = subprocess.check_output(["tca_correct", "-o", "bv", tiff_filename], stderr=subprocess.PIPE). \
-                     splitlines()[-1].strip()
-        else:
-            output = "<nothing>"
+        tiff_filename = os.path.splitext(filename)[0] + b".tiff"
+        if not os.path.exists(tiff_filename):
+            subprocess.call(generate_raw_conversion_call(filename, ["-4", "-o", "0", "-M"]))
+        output = subprocess.check_output(["tca_correct", "-o", "bv", tiff_filename], stderr=subprocess.PIPE). \
+                 splitlines()[-1].strip()
         with open(tca_filename, "w") as outfile:
             outfile.write("{0}\n{1}\n{2}\n".format(exif_data[0], exif_data[1], output))
 
@@ -262,9 +259,6 @@ if os.path.exists("tca"):
             filename = filename + ".tca"
             lens_name, focal_length, tca_output = [line.strip() for line in open(filename).readlines()]
             focal_length = float(focal_length)
-            if numpy.isnan(focal_length):
-                print("Abort.")
-                sys.exit()
             data = re.match(
                 r"-r [.0]+:(?P<br>[-.0-9]+):[.0]+:(?P<vr>[-.0-9]+) -b [.0]+:(?P<bb>[-.0-9]+):[.0]+:(?P<vb>[-.0-9]+)",
                 tca_output).groupdict()
@@ -296,9 +290,6 @@ for vignetting_directory in glob.glob("vignetting*"):
             if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
                 pool.apply_async(subprocess.call, [generate_raw_conversion_call(filename, ["-4", "-h", "-M", "-o", "0"])])
             exif_data = file_exif_data[os.path.join(vignetting_directory, filename)] + (distance,)
-            if numpy.isnan(exif_data[1]):
-                print("Abort.")
-                sys.exit()
             distances_per_triplett.setdefault(exif_data[:3], set()).add(distance)
             images.setdefault(exif_data, []).append(os.path.join(vignetting_directory, filename))
         pool.close()
