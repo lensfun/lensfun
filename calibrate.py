@@ -19,7 +19,7 @@ except ImportError:
     missing_packages.add("python-scipy")
 def test_program(program, package_name):
     try:
-        subprocess.call([program], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        subprocess.check_output([program], stderr=subprocess.PIPE)
     except OSError:
         missing_packages.add(package_name)
 test_program("dcraw", "dcraw")
