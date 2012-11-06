@@ -8,7 +8,7 @@ from __future__ import unicode_literals, division, absolute_import
 
 missing_packages = set()
 
-import subprocess, os.path, sys, multiprocessing, math, re, contextlib, glob, codecs, struct, json
+import subprocess, os, os.path, sys, multiprocessing, math, re, contextlib, glob, codecs, struct, json
 try:
     import numpy
 except ImportError:
@@ -19,7 +19,7 @@ except ImportError:
     missing_packages.add("python-scipy")
 def test_program(program, package_name):
     try:
-        subprocess.check_output([program], stderr=subprocess.PIPE)
+        subprocess.call([program], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
     except OSError:
         missing_packages.add(package_name)
 test_program("dcraw", "dcraw")
@@ -129,7 +129,7 @@ while exiftool_candidates:
     del exiftool_candidates[:candidates_per_group]
 def call_exiftool(candidate_group):
     data = json.loads(subprocess.check_output(
-        ["exiftool", "-j", "-lensmodel", "-focallength", "-aperture"] + candidate_group, stderr=subprocess.PIPE))
+        ["exiftool", "-j", "-lensmodel", "-focallength", "-aperture"] + candidate_group, stderr=open(os.devnull, "w")))
     return dict((single_data["SourceFile"], (single_data.get("LensModel"),
                                              float(single_data.get("FocalLength", "nan").partition("mm")[0]),
                                              single_data.get("Aperture", float("nan"))))
@@ -241,7 +241,7 @@ def calculate_tca(filename):
         tiff_filename = os.path.splitext(filename)[0] + b".tiff"
         if not os.path.exists(tiff_filename):
             subprocess.call(generate_raw_conversion_call(filename, ["-4", "-o", "0", "-M"]))
-        output = subprocess.check_output(["tca_correct", "-o", "bv", tiff_filename], stderr=subprocess.PIPE). \
+        output = subprocess.check_output(["tca_correct", "-o", "bv", tiff_filename], stderr=open(os.devnull, "w")). \
                  splitlines()[-1].strip()
         with open(tca_filename, "w") as outfile:
             outfile.write("{0}\n{1}\n{2}\n".format(exif_data[0], exif_data[1], output))
@@ -309,7 +309,7 @@ def evaluate_image_set(exif_data, filepaths):
         for filepath in filepaths:
             image_data = subprocess.check_output(
                 ["convert", os.path.splitext(filepath)[0] + ".tiff", "-set", "colorspace", "RGB", "-resize", "250", "pgm:-"],
-                stderr=subprocess.PIPE)
+                stderr=open(os.devnull, "w"))
             width, height = None, None
             header_size = 0
             for i, line in enumerate(image_data.splitlines(True)):
