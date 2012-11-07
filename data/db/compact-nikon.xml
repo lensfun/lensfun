@@ -60,21 +60,25 @@
         <compat>Generic</compat>
     </mount>
 
+    <mount>
+        <name>nikon60</name>
+        <compat>Generic</compat>
+    </mount>
+
+    <camera>
+        <maker>NIKON</maker>
+        <maker lang="en">Nikon</maker>
+        <model>COOLPIX P60</model>
+        <mount>nikon60</mount>
+        <cropfactor>5.62</cropfactor>
+    </camera>
+
     <camera>
         <maker>NIKON</maker>
         <maker lang="en">Nikon</maker>
         <model>E8800</model>
         <variant>CP8800</variant>
         <mount>nikon8800</mount>
-        <cropfactor>3.933</cropfactor>
-    </camera>
-
-    <camera>
-        <maker>NIKON</maker>
-        <maker lang="en">Nikon</maker>
-        <model>E8400</model>
-        <variant>CP8400</variant>
-        <mount>nikon8400</mount>
         <cropfactor>3.933</cropfactor>
     </camera>
 
@@ -210,6 +214,15 @@
         <model>COOLPIX P6000</model>
         <mount>nikonP6000</mount>
         <cropfactor>4.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>NIKON</maker>
+        <maker lang="en">Nikon</maker>
+        <model>E8400</model>
+        <variant>CP8400</variant>
+        <mount>nikon8400</mount>
+        <cropfactor>3.933</cropfactor>
     </camera>
 
     <lens>
@@ -582,5 +595,23 @@
             <distortion model="ptlens" focal="21" a="0" b="0.0116" c="0" />
         </calibration>
     </lens>
-
+    
+    <lens>
+        <maker>Nikon</maker>
+        <model>Standard</model>
+        <mount>nikon60</mount>
+        <cropfactor>5.62</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="6.4" a="0.01144" b="-0.05486" c="0.02864" />
+            <distortion model="ptlens" focal="7.5" a="0.01046" b="-0.03608" c="0.01364" />
+            <distortion model="ptlens" focal="8.8" a="0.01059" b="-0.03248" c="0.01726" />
+            <distortion model="ptlens" focal="10.4" a="0.01115" b="-0.02963" c="0.01704" />
+            <distortion model="ptlens" focal="12.2" a="-0.00319" b="0.01344" c="-0.01893" />
+            <distortion model="ptlens" focal="16.8" a="-0.00414" b="0.01633" c="-0.01256" />
+            <distortion model="ptlens" focal="23.2" a="0.00325" b="0.00014" c="-0.00351" />
+            <distortion model="ptlens" focal="32" a="0.01901" b="-0.04013" c="0.02487" />
+            <!-- TCA and vignetting doesn't matter for this camera. -->
+        </calibration>
+    </lens>
+    
 </lensdatabase>
