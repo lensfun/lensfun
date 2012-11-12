@@ -129,8 +129,9 @@ while exiftool_candidates:
     del exiftool_candidates[:candidates_per_group]
 def call_exiftool(candidate_group):
     data = json.loads(subprocess.check_output(
-        ["exiftool", "-j", "-lensmodel", "-focallength", "-aperture"] + candidate_group, stderr=open(os.devnull, "w")))
-    return dict((single_data["SourceFile"], (single_data.get("LensModel"),
+        ["exiftool", "-j", "-lensmodel", "-focallength", "-aperture", "-lensid"] + candidate_group,
+        stderr=open(os.devnull, "w")))
+    return dict((single_data["SourceFile"], (single_data.get("LensModel") or single_data.get("LensID"),
                                              float(single_data.get("FocalLength", "nan").partition("mm")[0]),
                                              single_data.get("Aperture", float("nan"))))
                 for single_data in data)
