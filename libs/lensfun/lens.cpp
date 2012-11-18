@@ -894,7 +894,7 @@ bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
 }
 
 static float __vignetting_dist (
-    const lfLens *l, lfLensCalibVignetting &x, float focal, float aperture, float distance)
+    const lfLens *l, const lfLensCalibVignetting &x, float focal, float aperture, float distance)
 {
     // translate every value to linear scale and normalize
     // approximatively to range 0..1
@@ -906,29 +906,12 @@ static float __vignetting_dist (
         f1 /= df;
         f2 /= df;
     }
-    float a1 = log (aperture) / 2.77258872223978123766;   // log(16)
-    float a2 = log (x.Aperture) / 2.77258872223978123766; // log(16)
-    float d1 = log (distance);
-    float d2 = log (x.Distance);
+    float a1 = 8.0 / aperture;
+    float a2 = 8.0 / x.Aperture;
+    float d1 = 0.1 / distance;
+    float d2 = 0.1 / x.Distance;
 
     return sqrt (square (f2 - f1) + square (a2 - a1) + square (d2 - d1));
-}
-
-static void __vignetting_interp (
-    lfLensCalibVignetting **spline, lfLensCalibVignetting &res, float t)
-{
-    res.Focal = _lf_interpolate (
-        spline [0] ? spline [0]->Focal : FLT_MAX,
-        spline [1]->Focal, spline [2]->Focal,
-        spline [3] ? spline [3]->Focal : FLT_MAX, t);
-    res.Aperture = _lf_interpolate (
-        spline [0] ? spline [0]->Aperture : FLT_MAX,
-        spline [1]->Aperture, spline [2]->Aperture,
-        spline [3] ? spline [3]->Aperture : FLT_MAX, t);
-    res.Distance = _lf_interpolate (
-        spline [0] ? spline [0]->Distance : FLT_MAX,
-        spline [1]->Distance, spline [2]->Distance,
-        spline [3] ? spline [3]->Distance : FLT_MAX, t);
 }
 
 bool lfLens::InterpolateVignetting (
@@ -937,50 +920,26 @@ bool lfLens::InterpolateVignetting (
     if (!CalibVignetting)
         return false;
 
-    /* This is a pretty complex problem, despite its apparent simplicity.
-     * What we have is to find the intensity of a 3D force field in given
-     * point (let's call it p) determined by coordinates (X=focal,
-     * Y=aperture, Z=distance). For this we have a lot of measurements
-     * (e.g. calibration data) taken at other random points with their
-     * own X/Y/Z coordinates.
-     *
-     * We must find the line that intersects at least two calibration
-     * points and comes as close to the interpolation point as possible.
-     * Even better if we find 4 such points, in this case we can approximate
-     * by a real spline instead of doing linear interpolation.
-     *
-     * We will do this as follows. For every point find the other points
-     * on the line that intersects this point and the point p. We need
-     * just four points: two on one side of p, and two on other side of it.
-     * Then build a Hermit spline that passes through these four points.
-     * Finally, compute a estimate of the "quality" of this spline, which
-     * is made of: total spline length (the shorter is spline, the higher
-     * is quality), how close the resulting X,Y,Z is to our target.
-     * When we get a estimate of a high enough quality, we return
-     * the found point to the caller.
-     *
-     * Otherwise, the found point is added to the pool and the loop goes
-     * over and over again.
-     */
-
-    bool rc = false;
-
-    GPtrArray *vc = g_ptr_array_new ();
-    int cvc;
-    for (cvc = 0; CalibVignetting [cvc]; cvc++)
-        g_ptr_array_add (vc, CalibVignetting [cvc]);
-
     lfVignettingModel vm = LF_VIGNETTING_MODEL_NONE;
+    res.Focal = focal;
+    res.Aperture = aperture;
+    res.Distance = distance;
+    for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
+        res.Terms [i] = 0;
 
-    float min_dist = 0.01F;
-    for (guint i = 0; i < vc->len; i++)
+    float total_weighting = 0;
+    const float power = 3.5;
+
+    float smallest_interpolation_distance = FLT_MAX;
+    for (int i = 0; CalibVignetting [i]; i++)
     {
-        lfLensCalibVignetting *c =
-            (lfLensCalibVignetting *)g_ptr_array_index (vc, i);
-
+        const lfLensCalibVignetting* c = CalibVignetting [i];
         // Take into account just the first encountered lens model
         if (vm == LF_VIGNETTING_MODEL_NONE)
+	    {
             vm = c->Model;
+	        res.Model = vm;
+        } 
         else if (vm != c->Model)
         {
             g_warning ("WARNING: lens %s/%s has multiple vignetting models defined\n",
@@ -988,188 +947,29 @@ bool lfLens::InterpolateVignetting (
             continue;
         }
 
-        //                    __
-        // Compute the vector pc
-        float pcx = c->Focal - focal;
-        float pcy = c->Aperture - aperture;
-        float pcz = c->Distance - distance;
-        float norm = sqrt (pcx * pcx + pcy * pcy + pcz * pcz);
-
-        // If c == p, return it without any interpolation
-        if (norm < 0.0001)
-        {
-            res = *c;
-            rc = true;
-            goto leave;
-        }
-
-        norm = 1.0 / norm;
-        pcx *= norm;
-        pcy *= norm;
-        pcz *= norm;
-
-        union
-        {
-            lfLensCalibVignetting *spline [4];
-            void *spline_ptr [4];
-        };
-        // Don't pick up way off points
-        float spline_rating [4] = { -10.0, -10.0, 1.0, 10.0 };
-        float spline_dist [4] =  { FLT_MAX, FLT_MAX, 1.0, FLT_MAX };
-
-        memset (&spline, 0, sizeof (spline));
-        for (guint j = 0; j < vc->len; j++)
-        {
-            if (j == i)
-                continue;
-
-            lfLensCalibVignetting *x =
-                (lfLensCalibVignetting *)g_ptr_array_index (vc, j);
-
-            //                      __
-            // Calculate the vector px and bring it to same scale
-            float pxx = x->Focal - focal;
-            float pxy = x->Aperture - aperture;
-            float pxz = x->Distance - distance;
-            float norm2 = 1.0 / sqrt (pxx * pxx + pxy * pxy + pxz * pxz);
-
-            //                                                      __     __
-            // Compute the cosinus of the angle between the vectors px and pc
-            float cs = (pxx * pcx + pxy * pcy + pxz * pcz) * norm2;
-            if (cs > -0.01 && cs < +0.01)
-                continue; // +-90 degrees
-
-            // We will judge how good this point is for us by computing
-            // the rating as the relation distance/cos(angle)^3
-            float dist = sqrt (square (pxx * norm) + square (pxy * norm) + square (pxz * norm));
-            float rating = dist / (cs * cs * cs);
-
-            if (rating >= -0.00001 && dist <= +0.00001)
-            {
-                res = *x;
-                rc = true;
-                goto leave;
-            }
-
-            switch (__insert_spline (spline_ptr, spline_rating, rating, x))
-            {
-                case 0:
-                    spline_dist [0] = dist;
-                    break;
-
-                case 1:
-                    spline_dist [0] = spline_dist [1];
-                    spline_dist [1] = dist;
-                    break;
-
-                case 2:
-                    spline_dist [3] = spline_dist [2];
-                    spline_dist [2] = dist;
-                    break;
-
-                case 3:
-                    spline_dist [3] = dist;
-                    break;
-            }
-        }
-
-        // If we have found no points for the spline, drop
-        if (!spline [1] || !spline [2])
-            continue;
-
-        // Sort the spline points according to the real distance
-        // between p and the points, not by "rating".
-        if (spline_dist [0] < spline_dist [1])
-        {
-            lfLensCalibVignetting *tmp = spline [0];
-            spline [0] = spline [1];
-            spline [1] = tmp;
-            float tmpf = spline_dist [0];
-            spline_dist [0] = spline_dist [1];
-            spline_dist [1] = tmpf;
-        }
-        if (spline_dist [3] < spline_dist [2])
-        {
-            lfLensCalibVignetting *tmp = spline [2];
-            spline [2] = spline [3];
-            spline [3] = tmp;
-            float tmpf = spline_dist [2];
-            spline_dist [2] = spline_dist [3];
-            spline_dist [3] = tmpf;
-        }
-
-        // Interpolate a new point given four spline points
-        // For this we have to find first the 't' parameter
-        // in the range 0..1 which gives the closest to p point
-        lfLensCalibVignetting m;
-        float t = 0.5;
-        float w = 0.25;
-
-        while (w > 0.001)
-        {
-            __vignetting_interp (spline, m, t);
-            float md = __vignetting_dist (this, m, focal, aperture, distance);
-            if (md < 0.01)
-                break;
-
-            lfLensCalibVignetting m1;
-            __vignetting_interp (spline, m1, t + 0.01);
-            float md1 = __vignetting_dist (this, m1, focal, aperture, distance);
-
-            if (md1 > md)
-                t -= w;
-            else
-                t += w;
-            w /= 2;
-        }
-
-        for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
-            m.Terms [i] = _lf_interpolate (
-                spline [0] ? spline [0]->Terms [i] : FLT_MAX,
-                spline [1]->Terms [i], spline [2]->Terms [i],
-                spline [3] ? spline [3]->Terms [i] : FLT_MAX, t);
-
-        m.Model = vm;
-        m.Focal = _lf_interpolate (
-            spline [0] ? spline [0]->Focal : FLT_MAX,
-            spline [1]->Focal, spline [2]->Focal,
-            spline [3] ? spline [3]->Focal : FLT_MAX, t);
-        m.Aperture = _lf_interpolate (
-            spline [0] ? spline [0]->Aperture : FLT_MAX,
-            spline [1]->Aperture, spline [2]->Aperture,
-            spline [3] ? spline [3]->Aperture : FLT_MAX, t);
-        m.Distance = _lf_interpolate (
-            spline [0] ? spline [0]->Distance : FLT_MAX,
-            spline [1]->Distance, spline [2]->Distance,
-            spline [3] ? spline [3]->Distance : FLT_MAX, t);
-
-        // If interpolated point is close enough, take it
-        float dist = __vignetting_dist (this, m, focal, aperture, distance);
-        // 0.005 is a carefully manually crafted value ;-D
-        if (dist < 0.005)
-        {
-            res = m;
-            rc = true;
-            goto leave;
-        }
-        if (dist < min_dist)
-        {
-            res = m;
-            rc = true;
-        }
-
-        g_ptr_array_add (vc, new lfLensCalibVignetting (m));
+	    float interpolation_distance = __vignetting_dist (this, *c, focal, aperture, distance);
+	    if (interpolation_distance < 0.0001) {
+	        res = *c;
+	        return true;
+	    }
+	    
+	    smallest_interpolation_distance = fmin(smallest_interpolation_distance, interpolation_distance);
+	    float weighting = abs (1.0 / pow (interpolation_distance, power));
+	    for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
+	        res.Terms [i] += weighting * c->Terms [i];
+	    total_weighting += weighting;
     }
-
-leave:
-    for (guint i = cvc; i < vc->len; i++)
+    
+    if (smallest_interpolation_distance > 1)
+        return false;
+    
+    if (total_weighting > 0 && smallest_interpolation_distance < FLT_MAX)
     {
-        lfLensCalibVignetting *c =
-            (lfLensCalibVignetting *)g_ptr_array_index (vc, i);
-        delete c;
-    }
-    g_ptr_array_free (vc, TRUE);
-    return rc;
+	    for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
+	        res.Terms [i] /= total_weighting;
+	    return true;
+    } else 
+        return false;
 }
 
 bool lfLens::InterpolateCrop (float focal, lfLensCalibCrop &res) const
