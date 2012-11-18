@@ -205,28 +205,6 @@
         <cropfactor>1.5</cropfactor>
     </camera>
 
-    <!-- That one is done on a cropi 1.5 cam. It should be replaced by a calibration with full format -->
-    <lens>
-        <maker>Sony</maker>
-        <model>Sony 50 mm F1.4 SAL 50F14</model>
-        <mount>Sony Alpha</mount>
-        <cropfactor>1.5</cropfactor>
-        <calibration>
-            <distortion model="poly5" focal="50" k1="-0.003782"  k2="-0.000003" />
-
-            <tca model="poly3" focal="50" br="-0.0000170" vr="1.0002353" bb="0.0000836" vb="0.9996309" />
-
-            <vignetting model="pa" focal="50.000000" aperture="1.400000" distance="5.000000" k1="-0.301317" k2="0.131668" k3="-0.068295" />
-            <vignetting model="pa" focal="50.000000" aperture="2.000000" distance="5.000000" k1="-0.094064" k2="0.183463" k3="-0.160173" />
-            <vignetting model="pa" focal="50.000000" aperture="2.800000" distance="5.000000" k1="-0.046364" k2="0.024316" k3="-0.014513" />
-            <vignetting model="pa" focal="50.000000" aperture="3.500000" distance="5.000000" k1="-0.062148" k2="0.049874" k3="-0.019353" />
-            <vignetting model="pa" focal="50.000000" aperture="5.000000" distance="5.000000" k1="-0.070057" k2="0.065284" k3="-0.036651" />
-            <vignetting model="pa" focal="50.000000" aperture="8.000000" distance="5.000000" k1="-0.059283" k2="0.024786" k3="-0.003931" />
-            <vignetting model="pa" focal="50.000000" aperture="16.000000" distance="5.000000" k1="-0.072308" k2="0.080953" k3="-0.051882" />
-            <vignetting model="pa" focal="50.000000" aperture="22.000000" distance="5.000000" k1="-0.080270" k2="0.101158" k3="-0.067876" />
-        </calibration>
-    </lens>
-
     <lens>
         <maker>Sony</maker>
         <model>Sony AF DT 16-105 mm F3.5-5.6 |Sony AF DT 55-200mm</model>
@@ -311,6 +289,75 @@
             <vignetting model="pa" focal="105" aperture="22" distance="5" k1="-0.108959" k2="0.161971" k3="-0.093471" />
             <vignetting model="pa" focal="105" aperture="32" distance="5" k1="-0.133615" k2="0.270073" k3="-0.183446" />
             <vignetting model="pa" focal="105" aperture="36" distance="5" k1="-0.150555" k2="0.308926" k3="-0.206299" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>Sony DT 18-55mm F3.5-5.6 SAM SAL 1855</model>
+    	<mount>Sony Alpha</mount>
+	    <type>rectilinear</type>
+    	<focal min="18" max="55" />
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="poly3" focal="18" k1="-0.01644" />
+            <distortion model="poly3" focal="24" k1="-0.00711" />
+            <distortion model="poly3" focal="35" k1="-0.00156" />
+	        <distortion model="poly3" focal="55" k1="0.00022" />
+            <tca model="poly3" focal="18" br="0,0002383" cr="-0,0002026" vr="1,000005" bb="-0,0000326" cb="-0,0002833" vb="1,0005781" />
+            <tca model="poly3" focal="24" br="0,0001333" cr="-0,0000849" vr="0,9999687" bb="-0,0002544" cb="0,0002858" vb="1,0002966" />
+            <tca model="poly3" focal="28" br="0,0000818" cr="-0,0000641" vr="0,999984" bb="-0,0002708" cb="0,0004174" vb="1,0001424" />
+            <tca model="poly3" focal="35" br="0,0000722" cr="-0,0001022" vr="1,000016" bb="-0,0001064" cb="0,0000633" vb="1,000208" />
+            <tca model="poly3" focal="55" br="0,0000018" cr="0,000005" vr="1,0000062" bb="-0,0000538" cb="0,0001139" vb="1,000009" />
+	        <vignetting model="pa" focal="18" aperture="3.5" distance="8" k1="-0.07471" k2="-1.06505" k3="0.49526" />
+	        <vignetting model="pa" focal="18" aperture="4.5" distance="8" k1="-0.047204" k2="-0.3346" k3="-0.31317" />
+	        <vignetting model="pa" focal="18" aperture="5.6" distance="8" k1="-0.27732" k2="0.18407" k3="0.60019" />
+	        <vignetting model="pa" focal="24" aperture="4"   distance="8" k1="-0.34756" k2="-2.15042" k3="0.29237" />
+	        <vignetting model="pa" focal="24" aperture="5.6" distance="8" k1="-0.48086" k2="-0.2996" k3="-0.25975" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>Sony AF DT 55-200mm F4-5.6 SAM</model>
+	    <mount>Sony Alpha</mount>
+	    <type>rectilinear</type>
+	    <focal min="55" max="200" />
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="poly3" focal="55" k1="-0.00346" />
+            <distortion model="poly3" focal="70" k1="0.00586" />
+            <distortion model="poly3" focal="100" k1="0.01073" />
+            <distortion model="poly3" focal="135" k1="0.00952" />
+            <distortion model="poly3" focal="200" k1="0.00871" />
+	        <tca model="poly3" focal="55" br="0.0000101" vr="1.0001643" bb="0.0001108" vb="0.9999451" />
+	        <tca model="poly3" focal="70" br="-0.0000150" vr="1.0001222" bb="0.0000510" vb="0.9998586" />
+	        <tca model="poly3" focal="100" br="-0.0000128" vr="0.9998724" bb="-0.0000023" vb="0.9997716" />
+	        <tca model="poly3" focal="135" br="-0.0000979" vr="0.9998131" bb="-0.0001018" vb="0.9997999" />
+	        <tca model="poly3" focal="200" br="-0.0001877" vr="0.9997167" bb="-0.0000221" vb="0.9996858" />
+        </calibration>
+    </lens>
+
+
+    <!-- That one is done on a cropi 1.5 cam. It should be replaced by a calibration with full format -->
+    <lens>
+        <maker>Sony</maker>
+        <model>Sony 50 mm F1.4 SAL 50F14</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="poly5" focal="50" k1="-0.003782"  k2="-0.000003" />
+
+            <tca model="poly3" focal="50" br="-0.0000170" vr="1.0002353" bb="0.0000836" vb="0.9996309" />
+
+            <vignetting model="pa" focal="50.000000" aperture="1.400000" distance="5.000000" k1="-0.301317" k2="0.131668" k3="-0.068295" />
+            <vignetting model="pa" focal="50.000000" aperture="2.000000" distance="5.000000" k1="-0.094064" k2="0.183463" k3="-0.160173" />
+            <vignetting model="pa" focal="50.000000" aperture="2.800000" distance="5.000000" k1="-0.046364" k2="0.024316" k3="-0.014513" />
+            <vignetting model="pa" focal="50.000000" aperture="3.500000" distance="5.000000" k1="-0.062148" k2="0.049874" k3="-0.019353" />
+            <vignetting model="pa" focal="50.000000" aperture="5.000000" distance="5.000000" k1="-0.070057" k2="0.065284" k3="-0.036651" />
+            <vignetting model="pa" focal="50.000000" aperture="8.000000" distance="5.000000" k1="-0.059283" k2="0.024786" k3="-0.003931" />
+            <vignetting model="pa" focal="50.000000" aperture="16.000000" distance="5.000000" k1="-0.072308" k2="0.080953" k3="-0.051882" />
+            <vignetting model="pa" focal="50.000000" aperture="22.000000" distance="5.000000" k1="-0.080270" k2="0.101158" k3="-0.067876" />
         </calibration>
     </lens>
 
