@@ -69,6 +69,11 @@
         <name>olympusSP560uz</name>
         <compat>Generic</compat>
     </mount>
+    
+    <mount>
+        <name>olympusxz1</name>
+        <compat>Generic</compat>
+    </mount>
 
     <camera>
         <maker>OLYMPUS CORPORATION</maker>
@@ -243,6 +248,14 @@
         <model>SP560UZ</model>
         <mount>olympusSP560</mount>
         <cropfactor>5.8</cropfactor>
+    </camera>
+    
+    <camera>
+        <maker>OLYMPUS IMAGING CORP.</maker>
+        <maker lang="en">Olympus</maker>
+        <model>XZ-1</model>
+        <mount>olympusxz1</mount>
+        <cropfactor>4.68</cropfactor>
     </camera>
 
     <lens>
@@ -462,4 +475,30 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Olympus</maker>
+        <model>Standard</model>
+        <mount>olympusxz1</mount>
+        <cropfactor>4.68</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="6" a="0.01604" b="-0.05047" c="0" />
+            <distortion model="ptlens" focal="6.5" a="0.01062" b="-0.03568" c="0" />
+            <distortion model="ptlens" focal="6.9" a="0.01005" b="-0.032" c="0" />
+            <distortion model="ptlens" focal="7.4" a="0.0093" b="-0.02656" c="0" />
+            <distortion model="ptlens" focal="8.2" a="0.0054" b="-0.01759" c="0" />
+            <distortion model="ptlens" focal="9" a="0.0039" b="-0.01169" c="0" />
+            <distortion model="ptlens" focal="9.9" a="0.00681" b="-0.01404" c="0" />
+            <distortion model="ptlens" focal="10.8" a="0.00403" b="-0.00779" c="0" />
+            <distortion model="ptlens" focal="11.8" a="0.00045" b="-0.00198" c="0" />
+            <distortion model="ptlens" focal="12.9" a="-0.00279" b="0.00569" c="0" />
+            <distortion model="ptlens" focal="14.1" a="0.00656" b="-0.01053" c="0" />
+            <distortion model="ptlens" focal="15.3" a="0.00245" b="-0.00075" c="0" />
+            <distortion model="ptlens" focal="16.6" a="0.00104" b="0.00264" c="0" />
+            <distortion model="ptlens" focal="18.2" a="0.00146" b="0.00052" c="0" />
+            <distortion model="ptlens" focal="19.8" a="0.00166" b="0.00164" c="0" />
+            <distortion model="ptlens" focal="21.6" a="0.00064" b="0.00348" c="0" />
+            <distortion model="ptlens" focal="24" a="0.00074" b="0.0032" c="0" />
+        </calibration>
+    </lens>
+    
 </lensdatabase>
