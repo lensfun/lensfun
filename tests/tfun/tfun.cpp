@@ -4,7 +4,31 @@
 
 #include "lensfun.h"
 #include <glib.h>
+#include <getopt.h>
 #include <locale.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+static void DisplayVersion ()
+{
+    g_print ("lensfun version %d.%d.%d: test database search routines\n",
+        LF_VERSION_MAJOR, LF_VERSION_MINOR, LF_VERSION_MICRO);
+    g_print ("Copyright (C) 2007 Andrew Zabolotny\n\n");
+    g_print ("For distribution rules and conditions of use see the file\n");
+    g_print ("COPYING which is part of the distribution.\n");
+}
+
+static void DisplayUsage ()
+{
+    DisplayVersion ();
+    g_print ("\nIf no options are given, some standard tests will be run.\n");    
+    g_print ("Command-line options:\n\n");
+    g_print ("  -L#   --lens=#     Use calibration data for this lens\n");
+    g_print ("  -m#   --max=#      Limit the amount results\n");
+    g_print ("  -f    --fuzzy      More fuzzy search algorithm\n");
+    g_print ("  -V    --version    Display program version and exit\n");
+    g_print ("  -h    --help       Display this help text\n");
+}
 
 static void PrintMount (const lfMount *mount)
 {
@@ -41,72 +65,144 @@ static void PrintLens (const lfLens *lens, const lfDatabase *ldb)
             g_print ("\tMount: %s\n", lf_db_mount_name (ldb, lens->Mounts [j]));
 }
 
-static void PrintCameras (const lfCamera **cameras, const lfDatabase *ldb)
+static void PrintCameras (const lfCamera **cameras, const lfDatabase *ldb, int maxEntries=-1)
 {
     if (cameras)
         for (int i = 0; cameras [i]; i++)
         {
             g_print ("--- camera %d: ---\n", i + 1);
             PrintCamera (cameras [i], ldb);
+            if ((maxEntries > 0) && (i>=maxEntries-1))
+                break;
         }
     else
         g_print ("\t- failed\n");
 }
 
-static void PrintLenses (const lfLens **lenses, const lfDatabase *ldb)
+static void PrintLenses (const lfLens **lenses, const lfDatabase *ldb, int maxEntries=-1)
 {
     if (lenses)
         for (int i = 0; lenses [i]; i++)
         {
             g_print ("--- lens %d, score %d: ---\n", i + 1, lenses [i]->Score);
             PrintLens (lenses [i], ldb);
+            if ((maxEntries > 0) && (i>=maxEntries-1))
+                break;
         }
     else
         g_print ("\t- failed\n");
 }
 
-int main ()
+
+int main (int argc, char **argv)
 {
+
+    static struct option long_options[] =
+    {
+        {"lens", required_argument, NULL, 'L'},
+        {"max", required_argument, NULL, 'm'},
+        {"fuzzy", no_argument, NULL, 'f'},
+        {"help", no_argument, NULL, 'h'},
+        {"version", no_argument, NULL, 'V'},
+        {0, 0, 0, 0}
+    };
+
+    static struct
+    {
+        int         maxResults;
+        bool        fuzzySearch;
+        const char  *Lens;
+    } opts =
+    {
+        -1,
+        0,
+        NULL,
+    };
+    
     setlocale (LC_ALL, "");
+
+    int c;
+    while ((c = getopt_long (argc, argv, "L:m:fhV", long_options, NULL)) != EOF)
+    {
+        switch (c)
+        {
+            case'L':
+                opts.Lens = optarg;
+                break;    
+            case 'm':
+                opts.maxResults = atoi(optarg);
+                break;
+            case 'f':
+                opts.fuzzySearch = LF_SEARCH_LOOSE;
+                break;
+            case 'V':
+                DisplayVersion ();
+                return 0;
+            default:
+                return -1;
+        }
+    }
+
+
 
     lfDatabase *ldb = lf_db_new ();
     ldb->Load ();
 
-    g_print (">>> Looking for mount 'pEnTaX K' ...\n");
-    const lfMount *mount = ldb->FindMount ("pEnTaX K");
-    if (mount)
-        PrintMount (mount);
+    
+    // if no arguments are passed, do standard tests
+    if (argc==1)
+    {
+        g_print (">>> Looking for mount 'pEnTaX K' ...\n");
+        const lfMount *mount = ldb->FindMount ("pEnTaX K");
+        if (mount)
+            PrintMount (mount);
+        else
+            g_print ("\t- failed\n");
+
+        g_print (">>> Looking for camera 'sOnY CyBeRsHoT' ...\n");
+        const lfCamera **cameras = ldb->FindCameras ("sOnY", "CyBeRsHoT");
+        PrintCameras (cameras, ldb);
+        lf_free (cameras);
+
+        g_print (">>> Looking for Zenit cameras ...\n");
+        cameras = ldb->FindCameras ("KMZ", NULL);
+        PrintCameras (cameras, ldb);
+
+        g_print (">>> Looking for lenses 'pEntax 50-200 ED'\n");
+        const lfLens **lenses = ldb->FindLenses (NULL, NULL, "pEntax 50-200 ED");
+        PrintLenses (lenses, ldb);
+        lf_free (lenses);
+
+        g_print (">>> Looking for 'Nikkor IF' lenses\n");
+        lenses = ldb->FindLenses (NULL, NULL, "Nikkor IF");
+        PrintLenses (lenses, ldb);
+
+        g_print (">>> Saving results into 'tfun-results.xml' ...\n");
+        const lfMount *mounts [2] = { mount, NULL };
+        lfError e = ldb->Save ("tfun-results.xml", mounts, cameras, lenses);
+        if (e == LF_NO_ERROR)
+            g_print ("\t- success\n");
+        else
+            g_print ("\t- failed, error code %d\n", e);
+
+        lf_free (cameras);
+        lf_free (lenses);
+    }
     else
-        g_print ("\t- failed\n");
-
-    g_print (">>> Looking for camera 'sOnY CyBeRsHoT' ...\n");
-    const lfCamera **cameras = ldb->FindCameras ("sOnY", "CyBeRsHoT");
-    PrintCameras (cameras, ldb);
-    lf_free (cameras);
-
-    g_print (">>> Looking for Zenit cameras ...\n");
-    cameras = ldb->FindCameras ("KMZ", NULL);
-    PrintCameras (cameras, ldb);
-
-    g_print (">>> Looking for lenses 'pEntax 50-200 ED'\n");
-    const lfLens **lenses = ldb->FindLenses (NULL, NULL, "pEntax 50-200 ED");
-    PrintLenses (lenses, ldb);
-    lf_free (lenses);
-
-    g_print (">>> Looking for 'Nikkor IF' lenses\n");
-    lenses = ldb->FindLenses (NULL, NULL, "Nikkor IF");
-    PrintLenses (lenses, ldb);
-
-    g_print (">>> Saving results into 'tfun-results.xml' ...\n");
-    const lfMount *mounts [2] = { mount, NULL };
-    lfError e = ldb->Save ("tfun-results.xml", mounts, cameras, lenses);
-    if (e == LF_NO_ERROR)
-        g_print ("\t- success\n");
-    else
-        g_print ("\t- failed, error code %d\n", e);
-
-    lf_free (cameras);
-    lf_free (lenses);
+    {
+        if (opts.Lens == NULL)
+        {
+            g_print ("No lens name is given\n");
+            DisplayUsage();
+            return -1;
+        }
+        g_print (">>> Looking for lens '%s' %d\n", opts.Lens, opts.fuzzySearch);
+        const lfLens **lenses = ldb->FindLenses (NULL, NULL, opts.Lens, opts.fuzzySearch);
+        PrintLenses (lenses, ldb, opts.maxResults);
+        lf_free (lenses);
+    
+    
+    }
 
     ldb->Destroy ();
     return 0;
