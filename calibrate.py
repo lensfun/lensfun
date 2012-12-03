@@ -405,7 +405,7 @@ for configuration in sorted(vignetting_db_entries):
             """k1="{vignetting[0]:.4f}" k2="{vignetting[1]:.4f}" k3="{vignetting[2]:.4f}" />""".format(
                 focal_length=focal_length, aperture=aperture, vignetting=vignetting, distance=distance))
     except KeyError:
-        print("""Lens "{0}" not found in lenses.txt.  Abort.""".format(lens_name))
+        print("""Lens "{0}" not found in lenses.txt.  Abort.""".format(lens))
         sys.exit()
 
 
