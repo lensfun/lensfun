@@ -135,6 +135,9 @@ int main (int argc, char **argv)
             case 'f':
                 opts.fuzzySearch = LF_SEARCH_LOOSE;
                 break;
+            case 'h':
+                DisplayUsage();
+                return 0;
             case 'V':
                 DisplayVersion ();
                 return 0;
@@ -194,6 +197,7 @@ int main (int argc, char **argv)
         {
             g_print ("No lens name is given\n");
             DisplayUsage();
+            ldb->Destroy ();
             return -1;
         }
         g_print (">>> Looking for lens '%s' %d\n", opts.Lens, opts.fuzzySearch);
