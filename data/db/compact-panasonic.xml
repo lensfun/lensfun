@@ -20,6 +20,10 @@
     </mount>
 
     <mount>
+        <name>panasonicLX5</name>
+    </mount>
+
+    <mount>
         <name>panasonicFZ30</name>
         <compat>Generic</compat>
     </mount>
@@ -122,6 +126,14 @@
         <variant>1:1</variant>
         <mount>PanasonicLX3</mount>
         <cropfactor>4.7</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Panasonic</maker>
+        <model>DMC-LX5</model>
+        <variant>4:3</variant>
+        <mount>panasonicLX5</mount>
+        <cropfactor>4.71</cropfactor>
     </camera>
 
     <camera>
@@ -312,6 +324,29 @@
             <distortion model="ptlens" focal="12.8" a="-0.011262" b="0.038785" c="-0.068040" />
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Leica</maker>
+        <model>Standard</model>
+        <focal min="5.1" max="19.2" />
+        <aperture min="2.0" max="8.0" />
+        <mount>panasonicLX5</mount>
+        <cropfactor>4.71</cropfactor>
+	    <calibration>
+		    <distortion focal="5.1" model="ptlens" a="0.03955" b="-0.16355" c="0.11864" />
+		    <field_of_view focal="5.1" fov="71.5277" />
+		    <distortion focal="6" model="ptlens" a="0.02451" b="-0.08952" c="0.03353" />
+		    <field_of_view focal="6" fov="63.388" />
+		    <distortion focal="7.5" model="ptlens" a="0.00853" b="-0.03409" c="0.00531" />
+		    <field_of_view focal="7.5" fov="52.5764" />
+		    <distortion focal="10.7" model="ptlens" a="0.00594" b="-0.02024" c="0.0042" />
+		    <field_of_view focal="10.7" fov="38.1962" />
+		    <distortion focal="14.9" model="ptlens" a="0.00141" b="-0.00799" c="0.00152" />
+		    <field_of_view focal="14.9" fov="27.7549" />
+		    <distortion focal="19.2" model="ptlens" a="0.00095" b="-0.00297" c="-0.00298" />
+		    <field_of_view focal="19.2" fov="21.7521" />
+	    </calibration>
+	</lens>    
 
     <lens>
         <maker>Leica</maker>
