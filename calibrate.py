@@ -288,7 +288,9 @@ for vignetting_directory in glob.glob("vignetting*"):
         pool = multiprocessing.Pool()
         for filename in find_raw_files():
             if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
-                pool.apply_async(subprocess.call, [generate_raw_conversion_call(filename, ["-4", "-h", "-M", "-o", "0"])])
+                # FixMe: restore "-h" option once dcraw stops generating
+                # semitransparent TIFFs then.
+                pool.apply_async(subprocess.call, [generate_raw_conversion_call(filename, ["-4", "-M", "-o", "0"])])
             exif_data = file_exif_data[os.path.join(vignetting_directory, filename)] + (distance,)
             distances_per_triplett.setdefault(exif_data[:3], set()).add(distance)
             images.setdefault(exif_data, []).append(os.path.join(vignetting_directory, filename))
