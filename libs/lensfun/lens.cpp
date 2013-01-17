@@ -322,7 +322,7 @@ const char *lfLens::GetDistortionModelDesc (
 
         case LF_DIST_MODEL_POLY3:
             if (details)
-                *details = "Ru = Rd * (1 + k1 * Rd^2)\n"
+                *details = "Ru = Rd * (1 - k1 + k1 * Rd^2)\n"
                     "Ref: http://www.imatest.com/docs/distortion.html";
             if (params)
                 *params = param_poly3;
@@ -346,7 +346,7 @@ const char *lfLens::GetDistortionModelDesc (
 
         case LF_DIST_MODEL_PTLENS:
             if (details)
-                *details = "Ru = Rd * (a * Rd^3 + b * Rd^2 + c * Rd + 1)\n"
+                *details = "Ru = Rd * (a * Rd^3 + b * Rd^2 + c * Rd + 1 - (a + b + c))\n"
                     "Ref: http://wiki.panotools.org/Lens_correction_model";
             if (params)
                 *params = param_ptlens;

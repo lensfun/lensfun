@@ -23,6 +23,7 @@ void lfExtModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int
   __m128 c = _mm_set_ps1 (param [2]);
   __m128 very_small = _mm_set_ps1 (1e-15);
   __m128 one = _mm_set_ps1 (1.0f);
+  __m128 d = _mm_sub_ps (one, _mm_add_ps (a, _mm_add_ps (b, c)));
 
   // SSE Loop processes 4 pixels/loop
   int loop_count = count / 4;
@@ -41,10 +42,10 @@ void lfExtModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int
     __m128 rd = ru;
     for (int step = 0; step < 4; step++)
     {
-      // frd = rd * (a * rd² * rd + b * rd² + c * rd + 1.0) - ru
+      // frd = rd * (a * rd^2 * rd + b * rd^2 + c * rd + d) - ru
       __m128 rd_sq =  _mm_mul_ps (rd, rd);
       __m128 frd = _mm_mul_ps (_mm_mul_ps (a, rd), rd_sq);
-      __m128 t = _mm_add_ps (_mm_mul_ps (b, rd_sq), _mm_add_ps (one, _mm_mul_ps (c, rd)));
+      __m128 t = _mm_add_ps (_mm_mul_ps (b, rd_sq), _mm_add_ps (d, _mm_mul_ps (c, rd)));
       frd = _mm_sub_ps (_mm_mul_ps (_mm_add_ps (t, frd), rd), ru);
 
       // This is most likely faster than loading form L1 cache
@@ -52,9 +53,9 @@ void lfExtModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int
       __m128 three = _mm_add_ps (one, two);
       __m128 four = _mm_add_ps (two, two);
 
-      // corr =  4 * a * rd * rd² + 3 * b * rd² + 2 * c * rd + 1.0
+      // corr =  4 * a * rd * rd^2 + 3 * b * rd^2 + 2 * c * rd + d
       __m128 corr = _mm_mul_ps (c, rd);
-      corr = _mm_add_ps (one, _mm_add_ps (corr, corr));
+      corr = _mm_add_ps (d, _mm_add_ps (corr, corr));
       t = _mm_mul_ps (rd_sq, _mm_mul_ps (three, b));
       corr = _mm_add_ps (corr, _mm_mul_ps (_mm_mul_ps (rd, rd_sq), _mm_mul_ps (four, a)));
       corr = _mm_rcp_ps (_mm_add_ps (corr, t));
@@ -89,11 +90,11 @@ void lfExtModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, i
 {
   float *param = (float *)data;
 
-  // Ru = Rd * (a * Rd^3 + b * Rd^2 + c * Rd + 1)
+  // Ru = Rd * (a * Rd^3 + b * Rd^2 + c * Rd + d)
   __m128 a = _mm_set_ps1 (param [0]);
   __m128 b = _mm_set_ps1 (param [1]);
   __m128 c = _mm_set_ps1 (param [2]);
-  __m128 one = _mm_set_ps1 (1.0f);
+  __m128 d = _mm_sub_ps (_mm_set_ps1 (1.0f), _mm_add_ps (a, _mm_add_ps (b, c)));
   int aligned = !((uintptr_t)(iocoord)&0xf);
 
   // SSE Loop processes 4 pixels/loop
@@ -108,11 +109,11 @@ void lfExtModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, i
       __m128 r2 = _mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y));
       __m128 r = _mm_rcp_ps (_mm_rsqrt_ps (r2));
 
-      // Calculate poly3 = a * r2 * r + b * r2 + c * r + 1.0;
+      // Calculate poly3 = a * r2 * r + b * r2 + c * r + d;
       __m128 t = _mm_mul_ps (r2, b);
       __m128 poly3 = _mm_mul_ps (_mm_mul_ps (a, r2), r);
       t = _mm_add_ps (t, _mm_mul_ps (r, c));
-      poly3 = _mm_add_ps (t, _mm_add_ps (poly3, one));
+      poly3 = _mm_add_ps (t, _mm_add_ps (poly3, d));
       _mm_store_ps (&iocoord [8 * i], _mm_mul_ps (poly3, c0));
       _mm_store_ps (&iocoord [8 * i + 4], _mm_mul_ps (poly3, c1));
     }
@@ -126,11 +127,11 @@ void lfExtModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, i
       __m128 r2 = _mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y));
       __m128 r = _mm_rcp_ps (_mm_rsqrt_ps (r2));
 
-      // Calculate poly3 = a * r2 * r + b * r2 + c * r + 1.0;
+      // Calculate poly3 = a * r2 * r + b * r2 + c * r + d;
       __m128 poly3 = _mm_mul_ps (_mm_mul_ps (a, r2), r);
       __m128 t = _mm_mul_ps (r2, b);
       poly3 = _mm_add_ps (poly3, _mm_mul_ps (r, c));
-      poly3 = _mm_add_ps (poly3, _mm_add_ps (t, one));
+      poly3 = _mm_add_ps (poly3, _mm_add_ps (t, d));
       _mm_storeu_ps (&iocoord [8 * i], _mm_mul_ps (poly3, c0));
       _mm_storeu_ps (&iocoord [8 * i + 4], _mm_mul_ps (poly3, c1));
     }

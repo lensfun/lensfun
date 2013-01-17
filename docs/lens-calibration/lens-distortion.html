@@ -16,14 +16,14 @@ lfDistortionModel type. For our needs we'll use just two models: the "ptlens" mo
 which is a fourth-order polynomial:
 </p>
 
-<pre>Ru = a * Rd^4 + b * Rd^3 + c * Rd^2 + Rd</pre>
+<pre>Ru = a * Rd^4 + b * Rd^3 + c * Rd^2 + (1 - a - b - c) * Rd</pre>
 
 <p>(here Rd is the radius of the distorted pixel, Ru is the radius of the undistorted
 pixel). Another useful model is the "poly3" model, which is a simplified 3rd order
 polynomial:
 </p>
 
-<pre>Ru = k1 * Rd^3 + Rd</pre>
+<pre>Ru = k1 * Rd^3 + (1 - k1) * Rd</pre>
 
 <p>If you pay attention you can see that poly3 is a simplified variant of the ptlens
 model, with a=0, b=k1 and c=0. Thus, poly3 is suitable for lenses with more predictable

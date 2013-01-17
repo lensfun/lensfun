@@ -411,7 +411,7 @@ enum lfDistortionModel
     LF_DIST_MODEL_NONE,
     /**
      * 3rd order polynomial model:
-     * Ru = Rd * (1 + k1 * Rd^2)
+     * Ru = Rd * (1 - k1 + k1 * Rd^2)
      * Ref: http://www.imatest.com/docs/distortion.html
      */
     LF_DIST_MODEL_POLY3,
@@ -428,7 +428,7 @@ enum lfDistortionModel
     LF_DIST_MODEL_FOV1,
     /**
      * PTLens rectilinear:
-     * Ru = Rd * (a * Rd^3 + b * Rd^2 + c * Rd + 1)
+     * Ru = Rd * (a * Rd^3 + b * Rd^2 + c * Rd + 1 - a - b - c)
      */
     LF_DIST_MODEL_PTLENS,
 };
