@@ -16,7 +16,7 @@ lfDistortionModel type. For our needs we'll use just two models: the "ptlens" mo
 which is a fourth-order polynomial:
 </p>
 
-<pre>Ru = a * Rd^4 + b * Rd^3 + c * Rd + Rd</pre>
+<pre>Ru = a * Rd^4 + b * Rd^3 + c * Rd^2 + Rd</pre>
 
 <p>(here Rd is the radius of the distorted pixel, Ru is the radius of the undistorted
 pixel). Another useful model is the "poly3" model, which is a simplified 3rd order
@@ -32,19 +32,20 @@ results (which means that your lens distortion can not be approximated with a si
 3rd-order polynomial).
 </p>
 
-<p>As Pentax 12-24 is a very linear lens with very little distortion (for its wide angle),
+<p>As Pentax 12&ndash;24 is a very linear lens with very little distortion (for its wide angle),
 we'll use the poly3 model here. Computing the ptlens model coefficients is almost as
 simple, you'll just have to click more checkboxes in Hugin :)
 </p>
 
 <p>So we now will run Hugin and load several images we made at one focal length
-(three to be precise). Now switch to the "Control points" page, select image 0
-on left, image 1 on right and make at least 10 quality control points. Try to place
-points in high-contrast places like corners and edges. Use only "normal" control
-points, don't mark horizontal and vertical lines as we aren't going to make
-a panorama anyway. Try to pick points spreaded around the whole image, and don't
-forget to put points in at least two corners of the shot. Here's a example of
-how a good distribution of control points looks:
+(three to be precise) at a distance of at least 8 metres. Now switch to the
+"Control points" page, select image 0 on left, image 1 on right and make at
+least 10 quality control points. Try to place points in high-contrast places
+like corners and edges. Use only "normal" control points, don't mark horizontal
+and vertical lines as we aren't going to make a panorama anyway. Try to pick
+points spreaded around the whole image, and don't forget to put points in at
+least two corners of the shot. Here's a example of how a good distribution of
+control points looks:
 </p>
 
 <img src="dist-hugin-controlpoints.jpg" />

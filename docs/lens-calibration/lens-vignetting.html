@@ -12,8 +12,14 @@
 <p>Creating a vignetting model is a <b>very</b> tedious task. The problem is that
 vignetting depends not only on the focal length, like TCA and distortion.
 It also depends on aperture and distance to subject. This makes the number
-of test shots required for a good vignetting model grow exponentially.
+of test shots required for a good vignetting model grow exponentially.  The
+TIFFs used must be in the sensor's linear RGB colour space.  For example, if
+you use dcraw, call it like this:
 </p>
+
+<pre>
+dcraw -4 -o 0 -M myimage.RAW
+</pre>
 
 <p>Hugin uses the following equation for modelling lens vignetting:
 </p>

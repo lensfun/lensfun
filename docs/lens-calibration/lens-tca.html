@@ -32,10 +32,16 @@ all of the parameters for correcting TCA, and will do that based on a single ima
 This tool is called tca_correct.
 </p>
 
-<p>So, you just take a sample image (make sure it has a lot of high-contrast objects
-on it, for example you could make a photo of a newspaper or something like that).
-It would be better to use a flash here.
+<p>So, you just take a sample image at a distance of at least 8 metres (make
+sure it has a lot of high-contrast objects on it, for example you could make a
+photo of a white building with dark windows or something like that).  Then 
+generate a TIFF with the sensor's original linear RGB colour space.  For
+example, if you use dcraw, call it like this:
 </p>
+
+<pre>
+dcraw -4 -o 0 -M myimage.RAW
+</pre>
 
 <p>Now just run tca_correct on it like this:
 </p>

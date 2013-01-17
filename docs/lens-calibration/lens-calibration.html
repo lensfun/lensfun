@@ -10,13 +10,13 @@
 
 <p>Often I'm asked how to add new lenses to the databases, and how to evaluate the
 distortion, tca and vignetting lens parameters for a particular lens.
-A few years ago I had no answer to these questions - there was some commercial
+A few years ago I had no answer to these questions &ndash; there was some commercial
 software available which could compute some of these parameters, but I had no
 access to it so I had no idea what it can and what can't do.
 </p>
 
 <p>But in the later years the Hugin open-source program have evolved, so now it
-covers most of the functionality that lensfun can use. In fact, it was a oncoming
+covers most of the functionality that lensfun can use. In fact, it was an oncoming
 traffic, as lensfun was also modified to be more compatible with Hugin models.
 So today it is possible to create a complete lens database entry using just
 Hugin and the tools which are part of the Hugin package.
@@ -70,15 +70,22 @@ lens name we'll create our first lens entry:
 model of its distortions and fill them in the database. For this we'll need a few test
 shots made with the lens you're trying to model (if it is a zoom lens, make several
 series of shots at several intermediate focal lengths including the extremes). Also,
-you will need Hugin - the best tool for automatic dealing with image distortions I know.
+you will need Hugin &ndash; the best tool for automatic dealing with image distortions I know.
 In fact, Hugin will do most of the calibration work for us; our task is to feed the
 correct data and click the correct buttons :)
 </p>
 
+<p>There exists also a
+shorter <a href="http://wilson.homeunix.com/lens_calibration_tutorial/">tutorial
+for LensFun calibration</a>.  It is not as comprehensive regarding the
+theoretical background.  But it includes a free command-line program that
+automates most of what is explained here.</p>
+
 <p>In my case I've used the Samsung GX20 body (crop factor 1.5, 14 megapixels).
-I made three panoramic test shots (turning 5-10 degrees after every shot) at focal
+I made three panoramic test shots (turning 5&ndash;10 degrees after every shot) at focal
 lengths of 12, 15, 18, 21 and 24 mm, thus in the end I've got 15 test shots.
-All raw files were developed to 8-bit tiffs.
+All raw files were developed to TIFFs.  For TCA and vignetting calibration,
+these TIFFs must be in the sensor's linear RGB colour space.
 </p>
 
 <p>When making test shots for computing distortion, choose the aperture that makes
@@ -94,7 +101,7 @@ the model to fit the shot made with other camera with possibly other crop factor
 
 <p>For example, if a model is made with a crop factor of 1.0, it can be used with
 shots made with another camera with a crop factor of 1.5, but lensfun will have
-to scale the coordinates accordingly. On the other hand, if model was made
+to scale the coordinates accordingly. On the other hand, if the model was made
 for a crop factor of 1.5, it is not a very good idea to use this model for shots
 made with another camera with a crop factor of, say, 1.1, because the math model
 was verified only for the smaller portion of the image in the center. However,
