@@ -445,6 +445,14 @@ User chooses the exact lens that was used to make a shot. After that you can
 create a lfModifier object using lens data. Using this object the image
 may be modified according to user preferences.
 
+LensFun transformations -- at least those involving TCA and vignetting
+correction -- must be applied to linear RGB data in the sensor's original
+colour space. Linear RGB can only be retrieved from RAW files, as JPEG files from 
+most cameras already have colour transfromations applied. This is very important. If you do e.g. 
+TCA correction on sRGB data, the colour fringes are still visible.  And if you do 
+vignetting correction after a gamma has been applied, the corners probably will look too
+bright.  So make sure that LensFun comes early enough in your processing chain.
+
 
 @page filldb Filling the database
 
