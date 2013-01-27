@@ -2,6 +2,29 @@
 
     <lens>
         <maker>Tamron</maker>
+	    <model>Tamron SP AF 10-24mm F/3.5-4.5 Di II LD Aspherical IF</model>
+	    <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Pentax KAF</mount>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="poly3" focal="10" k1="-0.02452" />
+            <distortion model="poly3" focal="12" k1="-0.03732" />
+            <distortion model="poly3" focal="15" k1="-0.023" />
+            <distortion model="poly3" focal="17" k1="-0.01204" />
+            <distortion model="poly3" focal="24" k1="-0.00673" />
+            <tca model="poly3" focal="10" br="-0.0010404" cr="0.0020275" vr="0.9995749" bb="0.0009303" cb="-0.0018018" vb="1.0010352" />
+            <tca model="poly3" focal="12" br="-0.0007314" cr="0.002109" vr="0.9993352" bb="0.0004953" cb="-0.0011687" vb="1.0007539" />
+            <tca model="poly3" focal="15" br="-0.0001484" cr="0.000925" vr="0.9997811" bb="0.0001986" cb="-0.0006209" vb="1.0005421" />
+            <tca model="poly3" focal="17" br="0.0005667" cr="-0.0006233" vr="1.0004042" bb="0.0000267" cb="-0.000269" vb="1.0004302" />
+            <tca model="poly3" focal="18" br="0.0002315" cr="-0.0001694" vr="1.0002462" bb="-0.0000242" cb="-0.0001424" vb="1.000351" />
+            <tca model="poly3" focal="24" br="0.00027" cr="-0.0002972" vr="1.0002846" bb="-0.0000645" cb="-0.0000806" vb="1.0003365" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Tamron</maker>
         <model>Tamron 17-35mm f/2.8-4 Di LD</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
