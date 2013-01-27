@@ -35,6 +35,11 @@
         <compat>Generic</compat>
     </mount>
 
+    <mount>
+        <name>fujiF200exr</name>
+        <compat>Generic</compat>
+    </mount>
+
     <camera>
         <maker>FUJIFILM</maker>
         <maker lang="en">Fujifilm</maker>
@@ -178,6 +183,14 @@
         <model>FinePix2800ZOOM</model>
         <mount>fuji2800</mount>
         <cropfactor>6.3333333</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>FUJIFILM</maker>
+        <maker lang="en">Fujifilm</maker>
+        <model>FinePix F200EXR</model>
+        <mount>fujiF200exr</mount>
+        <cropfactor>4.341</cropfactor>
     </camera>
 
     <lens>
@@ -608,6 +621,21 @@
             <distortion model="ptlens" focal="35.8" a="0" b="0" c="0.024963" />
             <distortion model="ptlens" focal="35.9" a="0" b="0" c="0.024982" />
             <distortion model="ptlens" focal="36" a="0" b="0" c="0.025" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fuji</maker>
+        <model>Standard</model>
+        <mount>fujiF200exr</mount>
+        <cropfactor>4.341</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="6.4" a="0.01564" b="-0.04677" c="0.01961" />
+            <distortion model="ptlens" focal="8.1" a="-0.00375" b="0.0034" c="-0.01065" />
+            <distortion model="ptlens" focal="13" a="-0.00638" b="0.01208" c="-0.01137" />
+            <distortion model="ptlens" focal="16" a="-0.00790" b="0.02297" c="-0.02505" />
+            <distortion model="ptlens" focal="25" a="-0.00176" b="0.00648" c="-0.00065" />
+            <distortion model="ptlens" focal="32" a="-0.00962" b="0.02592" c="-0.01447" />
         </calibration>
     </lens>
 
