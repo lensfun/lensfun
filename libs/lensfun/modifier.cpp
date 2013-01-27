@@ -47,11 +47,17 @@ int lfModifier::Initialize (
                 oflags |= LF_MODIFY_DISTORTION;
     }
 
+    // Multiply focal length by lens crop for geometry modifications as these use a different
+    // coordinate system. Usually the pixel coordinates are divided by lens crop and scaled by
+    // camera crop. Geometry modification coordinates are only scaled by camera crop. So multiplying
+    // focal length by lens crop compensates this.
+    double focal_with_lens_crop = lens && lens->CropFactor ? focal * lens->CropFactor : focal;
+
     if (flags & LF_MODIFY_GEOMETRY &&
         lens->Type != targeom)
         if (reverse ?
-            AddCoordCallbackGeometry (targeom, lens->Type, focal) :
-            AddCoordCallbackGeometry (lens->Type, targeom, focal))
+            AddCoordCallbackGeometry (targeom, lens->Type, focal_with_lens_crop) :
+            AddCoordCallbackGeometry (lens->Type, targeom, focal_with_lens_crop))
             oflags |= LF_MODIFY_GEOMETRY;
 
     if (flags & LF_MODIFY_SCALE &&

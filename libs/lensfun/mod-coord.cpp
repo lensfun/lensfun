@@ -33,12 +33,12 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                 if (!model.Terms [0])
                     return false;
                 tmp [0] = 1.0 / model.Terms [0];
-                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly3, 750,
+                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly3, 250,
                                   tmp, sizeof (float));
                 break;
 
             case LF_DIST_MODEL_POLY5:
-                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly5, 750,
+                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly5, 250,
                                   model.Terms, sizeof (float) * 2);
                 break;
 
@@ -47,18 +47,18 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                     return false;
                 tmp [0] = 1.0 / model.Terms [0];
                 tmp [1] = 2.0 * tan (model.Terms [0] / 2.0);
-                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_FOV1, 750,
+                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_FOV1, 250,
                                   tmp, sizeof (float) * 2);
                 break;
 
             case LF_DIST_MODEL_PTLENS:
 #ifdef VECTORIZATION_SSE
                 if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Dist_PTLens_SSE, 750,
+                    AddCoordCallback (lfExtModifier::ModifyCoord_Dist_PTLens_SSE, 250,
                                       model.Terms, sizeof (float) * 3);
                 else
 #endif
-                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_PTLens, 750,
+                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_PTLens, 250,
                                   model.Terms, sizeof (float) * 3);
                 break;
 
@@ -69,12 +69,12 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
         switch (model.Model)
         {
             case LF_DIST_MODEL_POLY3:
-                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_Poly3, 250,
+                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_Poly3, 750,
                                   model.Terms, sizeof (float));
                 break;
 
             case LF_DIST_MODEL_POLY5:
-                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_Poly5, 250,
+                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_Poly5, 750,
                                   model.Terms, sizeof (float) * 2);
                 break;
 
@@ -83,17 +83,17 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                     return false;
                 tmp [0] = model.Terms [0];
                 tmp [1] = 0.5 / tan (model.Terms [0] / 2.0);
-                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_FOV1, 250, tmp, sizeof (float) * 2);
+                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_FOV1, 750, tmp, sizeof (float) * 2);
                 break;
 
             case LF_DIST_MODEL_PTLENS:
 #ifdef VECTORIZATION_SSE
                 if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
-                    AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_PTLens_SSE, 250,
+                    AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_PTLens_SSE, 750,
                                       model.Terms, sizeof (float) * 3);
                 else
 #endif
-                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_PTLens, 250,
+                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_PTLens, 750,
                                   model.Terms, sizeof (float) * 3);
                 break;
 

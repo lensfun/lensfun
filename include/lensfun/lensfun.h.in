@@ -1887,8 +1887,8 @@ struct LF_EXPORT lfModifier
 
     /**
      * Add the stock lens distortion correcting callback into the chain.
-     * The distortion correction callback always has a fixed priority of 250
-     * when rectifying a image and 750 on reverse transform.
+     * The distortion correction callback always has a fixed priority of 750
+     * when rectifying a image and 250 on reverse transform.
      * @param model
      *     Lens distortion model data.
      * @param reverse
