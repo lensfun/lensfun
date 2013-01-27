@@ -66,6 +66,7 @@
         <mount>Canon EF-S</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
+        <mount>4/3 System</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="10" a="-0.017985" b="0.026145" c="0" />
@@ -99,6 +100,7 @@
         <model>Sigma 15-30mm f/3.5-4.5 EX DG</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
+        <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <cropfactor>1.6</cropfactor>
@@ -120,6 +122,7 @@
         <model>Sigma 17-35mm f/2.8-4 EX DG</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
+        <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <cropfactor>1.5</cropfactor>
@@ -137,6 +140,7 @@
         <model>Sigma 17-70mm f/2.8-4.5 DC Macro</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
+        <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <cropfactor>1.6</cropfactor>
@@ -195,6 +199,7 @@
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
+        <mount>4/3 System</mount>
         <cropfactor>1.6</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="18" a="0.018244" b="-0.048901" c="0" />
@@ -216,6 +221,26 @@
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
+        <mount>4/3 System</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18" a="0.028249" b="-0.061326" c="0" />
+            <distortion model="ptlens" focal="26" a="0.008998" b="-0.008014" c="0" />
+            <distortion model="ptlens" focal="38" a="0.004437" b="0.005654" c="0" />
+            <distortion model="ptlens" focal="60" a="0" b="0.011257" c="0" />
+            <distortion model="ptlens" focal="100" a="0" b="0.011071" c="0" />
+            <distortion model="ptlens" focal="125" a="0" b="0.010822" c="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 18-125mm f/3.5-5.6 (3.3-5.6) DC</model>
+        <mount>Sigma SA</mount>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Pentax KAF</mount>
+        <mount>4/3 System</mount>
         <cropfactor>1.6</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="18" a="0.02211" b="-0.050462" c="0" />
@@ -227,24 +252,6 @@
             <distortion model="ptlens" focal="87" a="0" b="0.011008" c="0" />
             <distortion model="ptlens" focal="109" a="0" b="0.01145" c="0" />
             <distortion model="ptlens" focal="125" a="0" b="0.009078" c="0" />
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Sigma</maker>
-        <model>Sigma 18-125mm f/3.5-5.6 (3.3-5.6) DC</model>
-        <mount>Sigma SA</mount>
-        <mount>Canon EF</mount>
-        <mount>Nikon F AF</mount>
-        <mount>Pentax KAF</mount>
-        <cropfactor>1.5</cropfactor>
-        <calibration>
-            <distortion model="ptlens" focal="18" a="0.028249" b="-0.061326" c="0" />
-            <distortion model="ptlens" focal="26" a="0.008998" b="-0.008014" c="0" />
-            <distortion model="ptlens" focal="38" a="0.004437" b="0.005654" c="0" />
-            <distortion model="ptlens" focal="60" a="0" b="0.011257" c="0" />
-            <distortion model="ptlens" focal="100" a="0" b="0.011071" c="0" />
-            <distortion model="ptlens" focal="125" a="0" b="0.010822" c="0" />
         </calibration>
     </lens>
 
@@ -291,7 +298,9 @@
     <lens>
         <maker>Sigma</maker>
         <model>Sigma 18-200mm f/3.5-6.3 II DC OS HSM</model>
+        <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
         <cropfactor>1.6</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="18" a="0.02199" b="-0.06697" c="0.0302"/>
@@ -317,6 +326,7 @@
         <model>Sigma 24-70mm f/2.8 EX DG Macro</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
+        <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <cropfactor>1.6</cropfactor>
@@ -356,6 +366,7 @@
         <model>Sigma 28-300mm f/3.5-6.3 Macro ASP IF</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
+        <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <cropfactor>1.5</cropfactor>
@@ -376,8 +387,10 @@
         <model>Sigma 50-500mm f/4-6.3 EX DG HSM</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
+        <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
+        <mount>4/3 System</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="50" a="0" b="-0.00059" c="0" />
@@ -397,7 +410,6 @@
         <model>Sigma 50-500mm F/4.5-6.3 DG OS HSM</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
-        <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <mount>Sony Alpha</mount>
@@ -421,6 +433,7 @@
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
+        <mount>4/3 System</mount>
         <cropfactor>1.6</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="55" a="0" b="-0.004366" c="0" />
@@ -440,6 +453,7 @@
         <model>Sigma 70-300mm f/4-5.6 APO Macro Super II</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
+        <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <cropfactor>1.6</cropfactor>
@@ -465,9 +479,9 @@
         <model>Sigma 70-300mm F4-5.6 DL Macro</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
+        <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
-        <mount>Sony Alpha</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="70" a="-0.00291" b="0.00834" c="-0.00971" />
@@ -539,6 +553,7 @@
         <model>Sigma 14mm f/2.8 EX</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
+        <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <cropfactor>1.0</cropfactor>
@@ -552,6 +567,7 @@
         <model>Sigma 14mm f/3.5 EX</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
+        <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <cropfactor>1.5</cropfactor>
@@ -565,6 +581,7 @@
         <model>Sigma 20mm f/1.8 EX DG</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
+        <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <cropfactor>1.0</cropfactor>
@@ -578,6 +595,7 @@
         <model>Sigma 28mm f/1.8 EX DG</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
+        <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <cropfactor>1.5</cropfactor>
@@ -591,8 +609,10 @@
         <model>Sigma 30mm f/1.4 EX DC HSM</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
+        <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
+        <mount>4/3 System</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="30" a="0.003926" b="-0.013819" c="0" />
@@ -605,6 +625,8 @@
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <mount>4/3 System</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="50" a="-0.008" b="0.012" c="-0.002" />
@@ -618,6 +640,7 @@
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Sony Alpha</mount>
+        <mount>4/3 System</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="50" a="0.00055" b="-0.00799" c="0.00993" />
