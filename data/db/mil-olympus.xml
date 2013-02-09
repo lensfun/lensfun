@@ -97,6 +97,68 @@
 
     <lens>
         <maker>Olympus</maker>
+        <model>OLYMPUS M.12mm F2.0</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <focal value="12" />
+        <calibration>
+            <distortion model="ptlens" focal="12" a="-0.005" b="-0.016" c="-0.014" />
+            <tca model="poly3" focal="12" br="0.0000749" vr="1.0001239" bb="0.0000350" vb="1.0000181" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Olympus</maker>
+        <model>OLYMPUS M.12-50mm F3.5-6.3</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="12" a="0.00331" b="-0.03343" c="-0.00683" />
+            <distortion model="ptlens" focal="15" a="0.00521" b="-0.02919" c="0.00519" />
+            <distortion model="ptlens" focal="18" a="-0.00075" b="-0.00029" c="-0.01458" />
+            <distortion model="ptlens" focal="22" a="0.0006" b="-0.00075" c="-0.00843" />
+            <distortion model="ptlens" focal="26" a="-0.00059" b="0.00449" c="-0.01271" />
+            <distortion model="ptlens" focal="30" a="0.00128" b="-0.00365" c="0.0029" />
+            <distortion model="ptlens" focal="35" a="0.00046" b="0.00124" c="-0.0013" />
+            <distortion model="ptlens" focal="40" a="0.01662" b="-0.0539" c="0.06353" />
+            <distortion model="ptlens" focal="45" a="0.00827" b="-0.02519" c="0.0347" />
+            <distortion model="ptlens" focal="50" a="-0.0063" b="0.02983" c="-0.02886" />
+            <tca model="poly3" focal="12" br="0.0002153" vr="1.0006397" bb="-0.0001625" vb="1.0003859" />
+            <tca model="poly3" focal="12" br="0.0002549" vr="1.0005804" bb="-0.0001694" vb="1.0004041" />
+            <tca model="poly3" focal="12" br="0.0002567" vr="1.0005732" bb="-0.0001771" vb="1.0004148" />
+            <tca model="poly3" focal="15" br="0.0000901" vr="1.0004739" bb="-0.0000734" vb="1.0004506" />
+            <tca model="poly3" focal="15" br="0.0001052" vr="1.0004582" bb="-0.0000700" vb="1.0004424" />
+            <tca model="poly3" focal="15" br="0.0001196" vr="1.0004310" bb="-0.0000908" vb="1.0004670" />
+            <tca model="poly3" focal="18" br="0.0001710" vr="1.0002351" bb="-0.0000676" vb="1.0003208" />
+            <tca model="poly3" focal="18" br="0.0001998" vr="1.0001989" bb="-0.0000551" vb="1.0002972" />
+            <tca model="poly3" focal="18" br="0.0002004" vr="1.0001907" bb="-0.0000672" vb="1.0003084" />
+            <tca model="poly3" focal="22" br="0.0002187" vr="1.0001159" bb="-0.0001002" vb="1.0002496" />
+            <tca model="poly3" focal="22" br="0.0002200" vr="1.0001153" bb="-0.0000944" vb="1.0002600" />
+            <tca model="poly3" focal="22" br="0.0002222" vr="1.0001016" bb="-0.0001145" vb="1.0002688" />
+            <tca model="poly3" focal="26" br="0.0002792" vr="0.9999735" bb="-0.0001156" vb="1.0003080" />
+            <tca model="poly3" focal="26" br="0.0002939" vr="0.9999418" bb="-0.0000956" vb="1.0002767" />
+            <tca model="poly3" focal="26" br="0.0002973" vr="0.9999405" bb="-0.0001146" vb="1.0002992" />
+            <tca model="poly3" focal="30" br="0.0002072" vr="0.9998717" bb="-0.0001749" vb="1.0004954" />
+            <tca model="poly3" focal="30" br="0.0002495" vr="0.9998295" bb="-0.0001372" vb="1.0004401" />
+            <tca model="poly3" focal="30" br="0.0002527" vr="0.9998374" bb="-0.0001661" vb="1.0004878" />
+            <tca model="poly3" focal="35" br="0.0001735" vr="0.9997893" bb="-0.0002156" vb="1.0006502" />
+            <tca model="poly3" focal="35" br="0.0001856" vr="0.9997740" bb="-0.0002036" vb="1.0005955" />
+            <tca model="poly3" focal="35" br="0.0002013" vr="0.9997600" bb="-0.0002229" vb="1.0006799" />
+            <tca model="poly3" focal="40" br="0.0001250" vr="0.9998265" bb="-0.0002366" vb="1.0006687" />
+            <tca model="poly3" focal="40" br="0.0001359" vr="0.9998189" bb="-0.0002446" vb="1.0006998" />
+            <tca model="poly3" focal="40" br="0.0001907" vr="0.9997482" bb="-0.0002707" vb="1.0007475" />
+            <tca model="poly3" focal="45" br="0.0001734" vr="0.9997963" bb="-0.0002222" vb="1.0006242" />
+            <tca model="poly3" focal="45" br="0.0001800" vr="0.9997888" bb="-0.0002076" vb="1.0005887" />
+            <tca model="poly3" focal="45" br="0.0001942" vr="0.9997736" bb="-0.0002343" vb="1.0006603" />
+            <tca model="poly3" focal="50" br="0.0001414" vr="0.9998089" bb="-0.0002393" vb="1.0005384" />
+            <tca model="poly3" focal="50" br="0.0001516" vr="0.9998080" bb="-0.0002719" vb="1.0005789" />
+            <tca model="poly3" focal="50" br="0.0001784" vr="0.9997785" bb="-0.0002152" vb="1.0004737" />
+        </calibration>
+    </lens>
+
+
+    <lens>
+        <maker>Olympus</maker>
         <model>OLYMPUS M.14-42mm F3.5-5.6</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2.0</cropfactor>
@@ -174,18 +236,6 @@
             <tca model="poly3" focal="30" br="-0.0000429" vr="1.0002040" bb="0.0000872" vb="1.0002187"/>
             <tca model="poly3" focal="35" br="-0.0001262" vr="1.0003653" bb="-0.0000270" vb="1.0003605"/>
             <tca model="poly3" focal="42" br="-0.0000752" vr="1.0003152" bb="-0.0000213" vb="1.0001196"/>
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Olympus</maker>
-        <model>OLYMPUS M.12mm F2.0</model>
-        <mount>Micro 4/3 System</mount>
-        <cropfactor>2.0</cropfactor>
-        <focal value="12" />
-        <calibration>
-            <distortion model="ptlens" focal="12" a="-0.005" b="-0.016" c="-0.014" />
-            <tca model="poly3" focal="12" br="0.0000749" vr="1.0001239" bb="0.0000350" vb="1.0000181" />
         </calibration>
     </lens>
 
