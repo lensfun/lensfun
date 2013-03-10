@@ -241,26 +241,25 @@ First enter the lensfun root folder and create a build directory.
     cd lensfun
     mkdir cmake_build
 
-Then run CMake to configure your sources and create the build files
-
-    cmake cmake_build .
-    
-Enter the build directory and run make/make install as usual
+Enter the build directory and run CMake to configure your sources and create the build files
 
     cd cmake_build
+    cmake ..
+    
+Run make/make install as usual
     
     make
     make install
 
 The following CMake options can be set (defaults are upper case):
 
-    - DLENSFUN_INSTALL_PREFIX=/USR/LOCAL install prefix 
-    - DBUILD_STATIC=OFF|on build static or shared lib
-    - DBUILD_TESTS=off|ON build also the test programs
-    - DBUILD_AUXFUN=OFF|on build also the auxfun lib and the tmod test program
-    - DBUILD_FOR_SSE=OFF|on build with SSE optimisation
-    - DBUILD_FOR_SSE2=OFF|on build with SSE2 optimisaiton
-    - DBUILD_DOC=OFF|on build documentation
+    -DLENSFUN_INSTALL_PREFIX=/USR/LOCAL install prefix 
+    -DBUILD_STATIC=OFF|on build static or shared lib
+    -DBUILD_TESTS=off|ON build also the test programs
+    -DBUILD_AUXFUN=OFF|on build also the auxfun lib and the tmod test program
+    -DBUILD_FOR_SSE=OFF|on build with SSE optimisation
+    -DBUILD_FOR_SSE2=OFF|on build with SSE2 optimisaiton
+    -DBUILD_DOC=OFF|on build documentation
 
 You can also build packages with cmake:
 

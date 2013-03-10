@@ -73,11 +73,14 @@ IF(BUILD_STATIC)
 ENDIF()
  
 # define destination dirs (relative to prefix)
-SET(BINDIR bin)
-SET(LIBDIR lib${LIB_SUFFIX})
-SET(INCLUDEDIR include)
-SET(DATADIR share/lensfun)
-SET(DOCDIR share/doc/lensfun-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX})
+SET(BINDIR bin CACHE PATH "Directory for library example programs")
+SET(LIBDIR lib${LIB_SUFFIX} CACHE PATH "Directory for library itself")
+SET(INCLUDEDIR include CACHE PATH "Directory for library header files")
+SET(DATADIR share/lensfun CACHE PATH "Directory for library data files")
+
+IF(BUILD_DOC)
+  SET(DOCDIR share/doc/lensfun-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX} CACHE PATH "Directory to put library documentation in")
+ENDIF(BUILD_DOC)
 
 IF(WIN32)
   # install into place in build-dir  

@@ -12,12 +12,12 @@ CONFIGURE_FILE(doxyfile.in.cmake ${DOXYFILE} @ONLY)
 
 # now build documentation
 ADD_CUSTOM_TARGET(doc
+  ALL
   COMMAND "${DOXYGEN_EXECUTABLE}"
-  DEPENDS doxyfile.in.cmake manual-main.txt ../include/lensfun/lensfun.h.in
+  DEPENDS "${DOXYFILE}" manual-main.txt ../include/lensfun/lensfun.h.in
   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
   COMMENT "Building documentation with doxygen"
 )
 
 # install documentation  
-FILE(GLOB doc_files "${CMAKE_DOC_OUT}/*.*")
-INSTALL(FILES ${doc_files} DESTINATION ${DOCDIR})
+INSTALL(DIRECTORY ${CMAKE_DOC_OUT}/ DESTINATION ${DOCDIR})
