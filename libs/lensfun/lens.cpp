@@ -955,7 +955,7 @@ bool lfLens::InterpolateVignetting (
 	    }
 	    
 	    smallest_interpolation_distance = std::min(smallest_interpolation_distance, interpolation_distance);
-	    float weighting = abs (1.0 / pow (interpolation_distance, power));
+	    float weighting = fabs (1.0 / pow (interpolation_distance, power));
 	    for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
 	        res.Terms [i] += weighting * c->Terms [i];
 	    total_weighting += weighting;
