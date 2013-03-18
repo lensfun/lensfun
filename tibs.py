@@ -35,8 +35,8 @@ __all__ = [
 
 # Project name
 PROJ = "Unknown"
-# Version number (major.minor.release)
-VERSION = "0.0.0"
+# Version number (major.minor.release.bugfix)
+VERSION = "0.0.0.0"
 
 PREFIX = "/usr/local"
 BINDIR = None

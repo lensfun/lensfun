@@ -30,7 +30,6 @@ GCC.LD ?= g++
 GCC.LDFLAGS = $(GCC.LDFLAGS.$(MODE))
 GCC.LDFLAGS.LIBS = $(LDLIBS) -lm
 
-GCC.LDFLAGS.release = -s
 GCC.LDFLAGS.debug = -gdwarf-2 -g3
 
 GCC.LINKLIB = $(if $(findstring $L,$1),,$(if $(findstring /,$1),$1,-l$1))
@@ -77,15 +76,15 @@ endef
 LINK.GCC.AR = $(GCC.AR) $(GCC.ARFLAGS) $@ $^
 LINK.GCC.EXEC = $(GCC.LD) -o $@ $(GCC.LDFLAGS) $(LDFLAGS) $1 $^ $(GCC.LDFLAGS.LIBS) $(LDFLAGS.LIBS) $2
 define LINK.GCC.SO.VER
-	$(GCC.LD) -o $@.$(SHARED.$3) $(call GCC.LDFLAGS.SHARED,$(notdir $@).$(basename $(basename $(SHARED.$3))),$(dir $@)) $(GCC.LDFLAGS) $(LDFLAGS) $1 $^ $(GCC.LDFLAGS.LIBS) $(LDFLAGS.LIBS) $2
-	ln -fs $(notdir $@.$(SHARED.$3)) $@.$(basename $(basename $(SHARED.$3)))
-	ln -fs $(notdir $@.$(basename $(basename $(SHARED.$3)))) $@
+	$(GCC.LD) -o $@.$(SHARED.$3) $(call GCC.LDFLAGS.SHARED,$(notdir $@).$(basename $(basename $(basename $(SHARED.$3)))),$(dir $@)) $(GCC.LDFLAGS) $(LDFLAGS) $1 $^ $(GCC.LDFLAGS.LIBS) $(LDFLAGS.LIBS) $2
+	ln -fs $(notdir $@.$(SHARED.$3)) $@.$(basename $(basename $(basename $(SHARED.$3))))
+	ln -fs $(notdir $@.$(basename $(basename $(basename $(SHARED.$3))))) $@
 endef
 define LINK.GCC.SO.NOVER
 	$(GCC.LD) -o $@ $(call GCC.LDFLAGS.SHARED,$(notdir $@),$(dir $@)) $(GCC.LDFLAGS) $(LDFLAGS) $1 $^ $(GCC.LDFLAGS.LIBS) $(LDFLAGS.LIBS) $2
 endef
 # If SHARED.$3 is a valid version number and target platform supports versioned
-# shared libraries, invokde LINK.GCC.SO.VER.
+# shared libraries, invoke LINK.GCC.SO.VER.
 # Otherwise create a non-versioned variant of the shared library
 define LINK.GCC.SO
 $(call LINK.GCC.SO.$(if $(call VALID_VERSION,$(SHARED.$3)),,NO)VER,$1,$2,$3)
@@ -108,7 +107,7 @@ endef
 # $3 = full target file name)
 define MKIRULES.GCC
 $(if $(findstring $L,$2),\
-$(foreach _,$3 $(if $(call VALID_VERSION,$(SHARED.$2)),$3.$(basename $(basename $(SHARED.$2))) $3.$(SHARED.$2)),
+$(foreach _,$3 $(if $(call VALID_VERSION,$(SHARED.$2)),$3.$(basename $(basename $(basename $(SHARED.$2)))) $3.$(SHARED.$2)),
 	$(if $V,,@echo INSTALL $_ to $(call .INSTDIR,$1,$2,LIB,$(CONF_LIBDIR)) &&)\
 	$$(call INSTALL,$_,$(call .INSTDIR,$1,$2,LIB,$(CONF_LIBDIR)),$(call .INSTMODE,$1,$2,$(if $(SHARED.$2),0755,0644)))))\
 $(if $(findstring $E,$2),

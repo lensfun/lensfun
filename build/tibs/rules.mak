@@ -68,8 +68,8 @@ RMDIR = rm -rf $1
 CP = cp $1 $2
 # How to set the last modification date on a file to current
 TOUCH = touch $1
-# Check if version is valid (e.g. matches NUMBER.NUMBER(.NUMBER)?) on Unices, not valid on others
-VALID_VERSION = $(if $1,$(if $(findstring /$(TARGET)/,/posix/mac/),$(if $(shell echo $1 | sed -e 's/[0-9 ]\+\.[0-9 ]\+\(\.[0-9 ]\+\)\?//'),,T)))
+# Check if version is valid (e.g. matches NUMBER.NUMBER(.NUMBER(.NUMBER)?)?) on Unices, not valid on others
+VALID_VERSION = $(if $1,$(if $(findstring /$(TARGET)/,/posix/mac/),$(if $(shell echo $1 | sed -e 's/[0-9 ]\+\.[0-9 ]\+\(\.[0-9 ]\+\(\.[0-9 ]\+\)\?\+\)\?//'),,T)))
 # How to install one or several files
 INSTALL = $(foreach _,$1,$(call SINGLE.INSTALL,$_,$2,$3)$(NL))
 # How to install one or several directories
