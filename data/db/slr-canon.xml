@@ -893,6 +893,20 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon EF-S 55-250 f/4-5.6 IS</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.6</cropfactor>
+        <calibration> <!-- data gathered by Spoilerhead 2010 <spoilerhead@gmail.com> using hugin-->
+            <distortion model="ptlens" focal="55" a="-0.000303056" b="-0.00581537" c="-0.00237143" /> <!-- 15 shots-->
+            <distortion model="ptlens" focal="70" a="-0.000520255" b="2.86405e-05" c="0.00286934" />  <!-- 21 shots -->
+            <distortion model="ptlens" focal="100" a="0.00268582" b="-0.00578304" c="0.00718748" />   <!-- 17-->
+            <distortion model="ptlens" focal="135" a="0.00120309" b="0.00979416" c="-0.00868762" />    <!-- 15 -->
+            <distortion model="ptlens" focal="250" a="-0.00226069" b="0.0111545" c="-0.00536676" />    <!-- 18 -->
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon EF 70-200mm f/2.8L IS USM</model>
         <mount>Canon EF</mount>
         <cropfactor>1.0</cropfactor>
@@ -930,6 +944,22 @@
             <distortion model="ptlens" focal="220" a="0" b="-0.006125" c="0" />
             <distortion model="ptlens" focal="245" a="0" b="-0.004999" c="0" />
             <distortion model="ptlens" focal="280" a="0" b="-0.004683" c="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 70-200mm f/2.8L IS II USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="70" a="0.00109" b="-0.01393" c="0.00917" />
+            <distortion model="ptlens" focal="88" a="0.00034" b="-0.00584" c="0.00243" />
+            <distortion model="ptlens" focal="102" a="0.00261" b="-0.00765" c="0.00252" />
+            <distortion model="ptlens" focal="120" a="0.00426" b="-0.0109" c="0.00708" />
+            <distortion model="ptlens" focal="135" a="0.00091" b="0.00263" c="-0.00627" />
+            <distortion model="ptlens" focal="160" a="-0.00014" b="0.00502" c="-0.00361" />
+            <distortion model="ptlens" focal="200" a="0.00255" b="-0.00438" c="0.01481" />
         </calibration>
     </lens>
 
@@ -1155,6 +1185,16 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon 28mm f/1.8 USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="28" a="0.018" b="-0.048" c="0.019" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon EF 28mm f/2.8</model>
         <mount>Canon EF</mount>
         <cropfactor>1.6</cropfactor>
@@ -1180,6 +1220,16 @@
         <cropfactor>1.0</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="35" a="0.007768" b="-0.018685" c="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 50mm f/1.2L USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="50" a="0.00476" b="-0.01688" c="0.00748" />
         </calibration>
     </lens>
 
@@ -1276,11 +1326,31 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon EF 100mm f/2.8L Macro IS USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="100" a="0.00406" b="-0.01754" c="0.02944" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon EF 100mm f/2.8 Macro</model>
         <mount>Canon EF</mount>
         <cropfactor>1.6</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="100" a="-0.001558" b="0.004225" c="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon 135mm f/2.0L USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="135" a="-0.007" b="0.025" c="-0.019" />
         </calibration>
     </lens>
 
@@ -1293,6 +1363,17 @@
             <distortion model="ptlens" focal="135" a="0.001266" b="0.001782" c="0" />
         </calibration>
     </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 200mm f/2.8L USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="200" a="0.00082" b="-0.00169" c="0.01111" />
+        </calibration>
+    </lens>
+
 
     <lens>
         <maker>Canon</maker>
@@ -1324,6 +1405,8 @@
         </calibration>
     </lens>
 
+
+
     <lens>
         <maker>Canon</maker>
         <model>Canon TS-E 90mm f/2.8</model>
@@ -1334,39 +1417,8 @@
         </calibration>
     </lens>
 
-    <lens>
-        <maker>Canon</maker>
-        <model>Canon EF-S 55-250 f/4-5.6 IS</model>
-        <mount>Canon EF</mount>
-        <cropfactor>1.6</cropfactor>
-        <calibration> <!-- data gathered by Spoilerhead 2010 <spoilerhead@gmail.com> using hugin-->
-            <distortion model="ptlens" focal="55" a="-0.000303056" b="-0.00581537" c="-0.00237143" /> <!-- 15 shots-->
-            <distortion model="ptlens" focal="70" a="-0.000520255" b="2.86405e-05" c="0.00286934" />  <!-- 21 shots -->
-            <distortion model="ptlens" focal="100" a="0.00268582" b="-0.00578304" c="0.00718748" />   <!-- 17-->
-            <distortion model="ptlens" focal="135" a="0.00120309" b="0.00979416" c="-0.00868762" />    <!-- 15 -->
-            <distortion model="ptlens" focal="250" a="-0.00226069" b="0.0111545" c="-0.00536676" />    <!-- 18 -->
-        </calibration>
-    </lens>
 
-    <lens>
-        <maker>Canon</maker>
-        <model>Canon 28mm f/1.8 USM</model>
-        <mount>Canon EF</mount>
-        <cropfactor>1.0</cropfactor>
-        <calibration>
-            <distortion model="ptlens" focal="28" a="0.018" b="-0.048" c="0.019" />
-        </calibration>
-    </lens>
 
-    <lens>
-        <maker>Canon</maker>
-        <model>Canon 135mm f/2.0L USM</model>
-        <mount>Canon EF</mount>
-        <cropfactor>1.0</cropfactor>
-        <calibration>
-            <distortion model="ptlens" focal="135" a="-0.007" b="0.025" c="-0.019" />
-        </calibration>
-    </lens>
 
 
 </lensdatabase>
