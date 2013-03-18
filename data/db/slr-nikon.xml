@@ -246,6 +246,15 @@
     <camera>
         <maker>NIKON CORPORATION</maker>
         <maker lang="en">Nikon</maker>
+        <model>NIKON D7100</model>
+        <model lang="en">D7100</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.5</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>NIKON CORPORATION</maker>
+        <maker lang="en">Nikon</maker>
         <model>NIKON D1</model>
         <model lang="en">D1</model>
         <mount>Nikon F AF</mount>
@@ -567,8 +576,8 @@
         <maker>Nikon</maker>
         <model>Nikon AF-S DX VR Zoom-Nikkor 18-105mm f/3.5-5.6G ED</model>
         <mount>Nikon F AF</mount>
-        <focal>18-105</focal>
-        <aperture>3.5-22</aperture>
+        <focal min="18" max="105" />
+        <aperture min="3.5" max="22" />
         <type>rectilinear</type>
         <cropfactor>1.5</cropfactor>
         <calibration>
@@ -1035,8 +1044,8 @@
         <maker>Nikon</maker>
         <model>Nikon AF Nikkor 50mm f/1.8D</model>
         <mount>Nikon F AF</mount>
-        <focal>50</focal>
-        <aperture>1.8-22</aperture>
+        <focal value="50" />
+        <aperture min="1.8" max="22" />
         <type>rectilinear</type>
         <cropfactor>1.5</cropfactor>
         <calibration>

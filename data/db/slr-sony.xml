@@ -292,6 +292,28 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>Sony DT 16-50mm F2.8 SSM</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="16" a="0.0313950" b="-0.0812810" c="0.0164699" />
+            <distortion model="ptlens" focal="17" a="0.0264456" b="-0.0659419" c="0.0065271" />
+            <distortion model="ptlens" focal="18" a="0.0269712" b="-0.0687339" c="0.0198162" />
+            <distortion model="ptlens" focal="20" a="0.0226641" b="-0.0556216" c="0.0106769" />
+            <distortion model="ptlens" focal="22" a="0.0132067" b="-0.0314146" c="0.0071973" />
+            <distortion model="ptlens" focal="24" a="0.0056959" b="-0.0077006" c="0.0122191" />
+            <distortion model="ptlens" focal="26" a="0.0055174" b="-0.0074034" c="-0.0107297" />
+            <distortion model="ptlens" focal="28" a="0.0058777" b="-0.0106156" c="-0.0023575" />
+            <distortion model="ptlens" focal="30" a="0.0021962" b="0.0003911" c="-0.0113694" />
+            <distortion model="ptlens" focal="35" a="-0.0029164" b="0.0102165" c="-0.0138367" />
+            <distortion model="ptlens" focal="40" a="-0.0022428" b="-0.0097886" c="-0.0112101" />
+            <distortion model="ptlens" focal="45" a="-0.0042728" b="0.0196205" c="-0.0251080" />
+            <distortion model="ptlens" focal="50" a="-0.0036411" b="0.0132272" c="-0.0130181" />
+        </calibration>
+    </lens>
+
     <!--can be removed in future releases as it is superseded by a probably better profile below. 
         just keeping this as a backup for a while  -->
     <!--lens>        
