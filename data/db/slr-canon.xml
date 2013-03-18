@@ -893,7 +893,7 @@
 
     <lens>
         <maker>Canon</maker>
-        <model>Canon EF-S 55-250 f/4-5.6 IS</model>
+        <model>Canon EF-S 55-250mm f/4-5.6 IS</model>
         <mount>Canon EF</mount>
         <cropfactor>1.6</cropfactor>
         <calibration> <!-- data gathered by Spoilerhead 2010 <spoilerhead@gmail.com> using hugin-->
@@ -902,6 +902,11 @@
             <distortion model="ptlens" focal="100" a="0.00268582" b="-0.00578304" c="0.00718748" />   <!-- 17-->
             <distortion model="ptlens" focal="135" a="0.00120309" b="0.00979416" c="-0.00868762" />    <!-- 15 -->
             <distortion model="ptlens" focal="250" a="-0.00226069" b="0.0111545" c="-0.00536676" />    <!-- 18 -->
+            <tca model="poly3" focal="55" br="0.0001058" vr="1.0000402" bb="-0.0001107" vb="1.0002220" />
+            <tca model="poly3" focal="70" br="0.0000486" vr="1.0000622" bb="-0.0000826" vb="1.0001793" />
+            <tca model="poly3" focal="100" br="0.0000227" vr="0.9999711" bb="-0.0000374" vb="1.0000907" />
+            <tca model="poly3" focal="135" br="0.0000114" vr="0.9999012" bb="-0.0000123" vb="1.0000019" />
+            <tca model="poly3" focal="250" br="0.0000067" vr="0.9998026" bb="-0.0000349" vb="0.9999041" />
         </calibration>
     </lens>
 
