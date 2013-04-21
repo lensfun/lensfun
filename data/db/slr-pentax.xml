@@ -293,6 +293,154 @@
 
     <lens>
         <maker>Pentax</maker>
+        <model>SMC Pentax DA L 18-55mm f/3.5-5.6</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18" a="0.00117" b="-0.01707" c="-0.00529" />
+            <distortion model="ptlens" focal="24" a="0" b="-0.0071" c="0" />
+            <distortion model="ptlens" focal="35" a="0" b="0.0002" c="0" />
+            <distortion model="ptlens" focal="42.5" a="0.00291" b="-0.00765" c="0.00808" />
+            <distortion model="ptlens" focal="55" a="0" b="0.00333" c="0" />
+            <vignetting model="pa" focal="18" aperture="11" distance="1000" k1="-0.26538" k2="0.5437" k3="-0.51036" />
+            <vignetting model="pa" focal="24" aperture="11" distance="1000" k1="-0.08271" k2="0.02282" k3="-0.04481" />
+            <vignetting model="pa" focal="35" aperture="11" distance="1000" k1="-0.05666" k2="0.02789" k3="-0.01283" />
+            <vignetting model="pa" focal="42.5" aperture="11" distance="1000" k1="-0.03675" k2="0.01041" k3="-0.00479" />
+            <vignetting model="pa" focal="55" aperture="11" distance="1000" k1="-0.07077" k2="0.07738" k3="-0.04494" />
+            <tca model="poly3" focal="18" br="0.0000246" vr="1.0008065" bb="0.00025" vb="0.9998" />
+            <tca model="poly3" focal="24" br="0.00004" vr="1.00056" bb="0.00024" vb="0.9999" />
+            <tca model="poly3" focal="35" br="0.00001" vr="1.000127" bb="0.000022" vb="1.0001" />
+            <tca model="poly3" focal="42.5" br="0.000084" vr="1.0000218" bb="-0.0000375" vb="1.0000794" />
+            <tca model="poly3" focal="55" br="0.0000165" vr="0.99999" bb="-0.0000538" vb="1.0000742" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>PENTAX</maker>
+        <model>smc PENTAX-DA 18-55mm F3.5-5.6 AL WR</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18" a="0.01335" b="-0.04723" c="0.02086" />
+            <distortion model="ptlens" focal="23.1" a="0.00661" b="-0.02435" c="0.01004" />
+            <distortion model="ptlens" focal="28.1" a="0.00284" b="-0.00551" c="-0.0061" />
+            <distortion model="ptlens" focal="37.5" a="-0.00268" b="0.00861" c="-0.00565" />
+            <distortion model="ptlens" focal="42.5" a="0.00025" b="0.00247" c="-0.00182" />
+            <distortion model="ptlens" focal="55" a="0.00071" b="0.00057" c="0.00481" />
+            <tca model="poly3" focal="18" br="-0.0001372" vr="1.0007557" bb="0.0000782" vb="0.9999286" />
+            <tca model="poly3" focal="18" br="-0.0001440" vr="1.0007660" bb="0.0000880" vb="0.9999157" />
+            <tca model="poly3" focal="18" br="-0.0001506" vr="1.0009070" bb="0.0001677" vb="0.9998234" />
+            <tca model="poly3" focal="18" br="-0.0001750" vr="1.0008773" bb="0.0001118" vb="0.9998886" />
+            <tca model="poly3" focal="18" br="-0.0001755" vr="1.0009435" bb="0.0001675" vb="0.9998249" />
+            <tca model="poly3" focal="23.1" br="-0.0000913" vr="1.0006518" bb="0.0001042" vb="0.9999483" />
+            <tca model="poly3" focal="23.1" br="-0.0000950" vr="1.0006570" bb="0.0001151" vb="0.9999357" />
+            <tca model="poly3" focal="26.2" br="-0.0000496" vr="1.0003769" bb="0.0000072" vb="1.0000781" />
+            <tca model="poly3" focal="28.1" br="-0.0000057" vr="1.0003676" bb="0.0000552" vb="1.0000001" />
+            <tca model="poly3" focal="32.5" br="0.0000248" vr="1.0002094" bb="-0.0000015" vb="1.0000721" />
+            <tca model="poly3" focal="37.5" br="0.0000312" vr="1.0001768" bb="-0.0000128" vb="0.9999995" />
+            <tca model="poly3" focal="42.5" br="0.0000237" vr="1.0001103" bb="-0.0000313" vb="1.0000069" />
+            <tca model="poly3" focal="42.5" br="0.0000284" vr="1.0001411" bb="-0.0000171" vb="0.9999667" />
+            <tca model="poly3" focal="55" br="-0.0000088" vr="1.0001134" bb="0.0000106" vb="0.9999101" />
+            <tca model="poly3" focal="55" br="-0.0000114" vr="1.0001156" bb="0.0000172" vb="0.9999106" />
+            <tca model="poly3" focal="55" br="0.0000193" vr="1.0001092" bb="-0.0000000" vb="0.9998871" />
+            <tca model="poly3" focal="55" br="0.0000317" vr="1.0000958" bb="0.0000118" vb="0.9998816" />
+            <vignetting model="pa" focal="18" aperture="3.5" distance="0.25" k1="-0.5281" k2="-0.5422" k3="0.4168" />
+            <vignetting model="pa" focal="18" aperture="3.5" distance="1000" k1="-0.4609" k2="-0.7272" k3="0.5617" />
+            <vignetting model="pa" focal="18" aperture="4.5" distance="10" k1="-0.2056" k2="-0.9233" k3="0.5627" />
+            <vignetting model="pa" focal="18" aperture="4.5" distance="1000" k1="-0.2056" k2="-0.9233" k3="0.5627" />
+            <vignetting model="pa" focal="18" aperture="5" distance="0.25" k1="-0.2576" k2="-0.5723" k3="0.2665" />
+            <vignetting model="pa" focal="18" aperture="5.6" distance="10" k1="-0.2809" k2="-0.2994" k3="0.0404" />
+            <vignetting model="pa" focal="18" aperture="5.6" distance="1000" k1="-0.2809" k2="-0.2994" k3="0.0404" />
+            <vignetting model="pa" focal="18" aperture="7.1" distance="0.25" k1="-0.4691" k2="0.3354" k3="-0.3851" />
+            <vignetting model="pa" focal="18" aperture="8" distance="10" k1="-0.4828" k2="0.4576" k3="-0.4579" />
+            <vignetting model="pa" focal="18" aperture="8" distance="1000" k1="-0.4828" k2="0.4576" k3="-0.4579" />
+            <vignetting model="pa" focal="18" aperture="10" distance="0.25" k1="-0.5710" k2="0.6335" k3="-0.5060" />
+            <vignetting model="pa" focal="18" aperture="22" distance="0.25" k1="-0.4740" k2="0.1812" k3="-0.0413" />
+            <vignetting model="pa" focal="18" aperture="22" distance="1000" k1="-0.4238" k2="0.0931" k3="0.0117" />
+            <vignetting model="pa" focal="24.4" aperture="4" distance="0.25" k1="-0.3716" k2="-0.7308" k3="0.5379" />
+            <vignetting model="pa" focal="24.4" aperture="4" distance="1000" k1="-0.3282" k2="-0.8336" k3="0.6009" />
+            <vignetting model="pa" focal="24.4" aperture="5.6" distance="0.25" k1="-0.3151" k2="0.1493" k3="-0.1858" />
+            <vignetting model="pa" focal="24.4" aperture="5.6" distance="1000" k1="-0.2824" k2="0.0834" k3="-0.1526" />
+            <vignetting model="pa" focal="24.4" aperture="7.1" distance="10" k1="-0.3295" k2="0.2088" k3="-0.1640" />
+            <vignetting model="pa" focal="24.4" aperture="7.1" distance="1000" k1="-0.3295" k2="0.2088" k3="-0.1640" />
+            <vignetting model="pa" focal="24.4" aperture="8" distance="0.25" k1="-0.3386" k2="0.1627" k3="-0.0775" />
+            <vignetting model="pa" focal="24.4" aperture="9" distance="10" k1="-0.2816" k2="0.0108" k3="0.0353" />
+            <vignetting model="pa" focal="24.4" aperture="9" distance="1000" k1="-0.2816" k2="0.0108" k3="0.0353" />
+            <vignetting model="pa" focal="24.4" aperture="11" distance="0.25" k1="-0.3184" k2="0.0826" k3="-0.0034" />
+            <vignetting model="pa" focal="24.4" aperture="13" distance="10" k1="-0.2776" k2="-0.0099" k3="0.0554" />
+            <vignetting model="pa" focal="24.4" aperture="13" distance="1000" k1="-0.2776" k2="-0.0099" k3="0.0554" />
+            <vignetting model="pa" focal="24.4" aperture="22" distance="10" k1="-0.2868" k2="0.0077" k3="0.0452" />
+            <vignetting model="pa" focal="24.4" aperture="22" distance="1000" k1="-0.2868" k2="0.0077" k3="0.0452" />
+            <vignetting model="pa" focal="24.4" aperture="29" distance="0.25" k1="-0.3367" k2="0.1198" k3="-0.0267" />
+            <vignetting model="pa" focal="24.4" aperture="29" distance="1000" k1="-0.2755" k2="0.0089" k3="0.0409" />
+            <vignetting model="pa" focal="35" aperture="4.5" distance="0.25" k1="-0.8683" k2="0.8449" k3="-0.4290" />
+            <vignetting model="pa" focal="35" aperture="4.5" distance="1000" k1="-0.8083" k2="0.7058" k3="-0.3560" />
+            <vignetting model="pa" focal="35" aperture="6.3" distance="0.25" k1="-0.1840" k2="0.0280" k3="-0.0638" />
+            <vignetting model="pa" focal="35" aperture="6.3" distance="1000" k1="-0.1620" k2="-0.0033" k3="-0.0406" />
+            <vignetting model="pa" focal="35" aperture="8" distance="10" k1="-0.1710" k2="-0.0044" k3="0.0292" />
+            <vignetting model="pa" focal="35" aperture="8" distance="1000" k1="-0.1710" k2="-0.0044" k3="0.0292" />
+            <vignetting model="pa" focal="35" aperture="9" distance="0.25" k1="-0.2228" k2="0.1188" k3="-0.0436" />
+            <vignetting model="pa" focal="35" aperture="10" distance="10" k1="-0.1678" k2="-0.0095" k3="0.0323" />
+            <vignetting model="pa" focal="35" aperture="10" distance="1000" k1="-0.1678" k2="-0.0095" k3="0.0323" />
+            <vignetting model="pa" focal="35" aperture="13" distance="0.25" k1="-0.2337" k2="0.1526" k3="-0.0683" />
+            <vignetting model="pa" focal="35" aperture="32" distance="0.25" k1="-0.2843" k2="0.2684" k3="-0.1417" />
+            <vignetting model="pa" focal="35" aperture="32" distance="1000" k1="-0.2018" k2="0.0702" k3="-0.0174" />
+            <vignetting model="pa" focal="47.5" aperture="5.6" distance="0.25" k1="-0.7973" k2="0.6968" k3="-0.2860" />
+            <vignetting model="pa" focal="47.5" aperture="8" distance="0.25" k1="-0.1196" k2="-0.0810" k3="-0.0139" />
+            <vignetting model="pa" focal="47.5" aperture="9" distance="0.25" k1="-0.1910" k2="0.1532" k3="-0.1149" />
+            <vignetting model="pa" focal="47.5" aperture="11" distance="0.25" k1="-0.1745" k2="0.0635" k3="-0.0075" />
+            <vignetting model="pa" focal="47.5" aperture="16" distance="0.25" k1="-0.1837" k2="0.0723" k3="-0.0059" />
+            <vignetting model="pa" focal="47.5" aperture="32" distance="10" k1="-0.1783" k2="0.1006" k3="-0.0421" />
+            <vignetting model="pa" focal="47.5" aperture="32" distance="1000" k1="-0.1783" k2="0.1006" k3="-0.0421" />
+            <vignetting model="pa" focal="47.5" aperture="40" distance="0.25" k1="-0.2496" k2="0.2218" k3="-0.0956" />
+            <vignetting model="pa" focal="47.5" aperture="40" distance="1000" k1="-0.1828" k2="0.1129" k3="-0.0506" />
+            <vignetting model="pa" focal="55" aperture="5.6" distance="0.25" k1="-0.6843" k2="0.4937" k3="-0.1732" />
+            <vignetting model="pa" focal="55" aperture="5.6" distance="1000" k1="-0.6731" k2="0.4889" k3="-0.1775" />
+            <vignetting model="pa" focal="55" aperture="8" distance="0.25" k1="-0.0285" k2="-0.5030" k3="0.2810" />
+            <vignetting model="pa" focal="55" aperture="8" distance="1000" k1="-0.0107" k2="-0.4980" k3="0.2650" />
+            <vignetting model="pa" focal="55" aperture="10" distance="0.25" k1="-0.1616" k2="0.1161" k3="-0.1142" />
+            <vignetting model="pa" focal="55" aperture="11" distance="10" k1="-0.1306" k2="0.0466" k3="-0.0324" />
+            <vignetting model="pa" focal="55" aperture="11" distance="1000" k1="-0.1306" k2="0.0466" k3="-0.0324" />
+            <vignetting model="pa" focal="55" aperture="13" distance="0.25" k1="-0.1488" k2="0.0273" k3="0.0133" />
+            <vignetting model="pa" focal="55" aperture="16" distance="0.25" k1="-0.1449" k2="0.0118" k3="0.0245" />
+            <vignetting model="pa" focal="55" aperture="16" distance="1000" k1="-0.1099" k2="-0.0250" k3="0.0301" />
+            <vignetting model="pa" focal="55" aperture="40" distance="0.25" k1="-0.2083" k2="0.1109" k3="-0.0162" />
+            <vignetting model="pa" focal="55" aperture="40" distance="1000" k1="-0.1585" k2="0.0524" k3="0.0008" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>SMC PENTAX DA 18-135mm F/3.5-5.6 ED AL [IF] DC WR</model>
+        <mount>Pentax K</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="poly3"  focal="18" k1="-0.02615" />
+            <distortion model="poly3"  focal="24" k1="-0.00343" />
+            <distortion model="ptlens" focal="36" a="0.01095" b="-0.01774" c="0.01645" />
+            <distortion model="poly3"  focal="53" k1="0.00971" />
+            <distortion model="ptlens" focal="68" a="-0.00032" b="0.00979" c="-0.00265" />
+            <distortion model="poly3"  focal="100" k1="0.00771" />
+            <distortion model="poly3"  focal="135" k1="0.00701" />
+            <tca model="poly3" focal="18" br="0.0001" vr="1.00017" bb="0.00005" vb="1.00048" />
+            <tca model="poly3" focal="24" br="0.000" vr="1.00013" bb="0.0001" vb="1.000223" />
+            <tca model="poly3" focal="36" br="-0.000019" vr="1.00003" bb="-0.00005" vb="1.00023" />
+            <tca model="poly3" focal="53" br="0.0000" vr="0.9999" bb="-0.00005" vb="1.0001" />
+            <tca model="poly3" focal="68" br="0.000" vr="0.9998" bb="-0.00005" vb="1.0000" />
+            <tca model="poly3" focal="100" br="-0.00015" vr="0.99955" bb="-0.00005" vb="0.99996" />
+            <tca model="poly3" focal="135" br="-0.0004" vr="0.9994" bb="-0.00007" vb="0.99991" />
+            <vignetting model="pa" focal="18" aperture="11" distance="1000" k1="-0.0932" k2="0.02721" k3="-0.0432" />
+            <vignetting model="pa" focal="24" aperture="11" distance="1000" k1="-0.12861" k2="0.09689" k3="-0.05551" />
+            <vignetting model="pa" focal="36" aperture="11" distance="1000" k1="-0.14874" k2="0.19321" k3="-0.12757" />
+            <vignetting model="pa" focal="53" aperture="11" distance="1000" k1="-0.05186" k2="-0.06742" k3="0.05663" />
+            <vignetting model="pa" focal="68" aperture="11" distance="1000" k1="-0.11324" k2="0.21297" k3="-0.19382" />
+            <vignetting model="pa" focal="100" aperture="11" distance="1000" k1="-0.10339" k2="0.24899" k3="-0.28571" />
+            <vignetting model="pa" focal="135" aperture="11" distance="1000" k1="-0.16882" k2="0.35516" k3="-0.28791" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
         <model>SMC Pentax DA 50-200mm f/4-5.6 DA ED</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.5</cropfactor>
@@ -330,14 +478,25 @@
     </lens>
 
     <lens>
-        <maker>Pentax</maker>
-        <model>SMC PENTAX DA 40mm F/2.8 Limited</model>
+        <maker>PENTAX</maker>
+        <model>smc PENTAX-DA 15mm F4 ED AL Limited</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
-            <distortion model="poly3" focal="40" k1="-0.00384" />
-            <tca model="poly3" focal="40" br="-0.0000230" vr="1.0001421" bb="0.0000150" vb="0.9999150" />
-            <vignetting model="pa" focal="40" aperture="11" distance="1000" k1="-0.17248" k2="0.21247" k3="-0.13119" />
+            <distortion model="ptlens" focal="15" a="0.00305" b="0.00418" c="-0.01276" />
+            <tca model="poly3" focal="15" br="-0.0000314" vr="1.0005721" bb="0.0000869" vb="0.9999889" />
+            <tca model="poly3" focal="15" br="-0.0000370" vr="1.0005702" bb="0.0000869" vb="0.9999918" />
+            <tca model="poly3" focal="15" br="-0.0001275" vr="1.0006628" bb="0.0000063" vb="1.0000738" />
+            <vignetting model="pa" focal="15" aperture="4" distance="0.18" k1="-0.5838" k2="-0.1163" k3="0.1375" />
+            <vignetting model="pa" focal="15" aperture="4" distance="1000" k1="-0.5817" k2="-0.4431" k3="0.3722" />
+            <vignetting model="pa" focal="15" aperture="5.6" distance="0.18" k1="-0.4834" k2="0.3429" k3="-0.2120" />
+            <vignetting model="pa" focal="15" aperture="5.6" distance="1000" k1="-0.5629" k2="0.5126" k3="-0.3451" />
+            <vignetting model="pa" focal="15" aperture="8" distance="0.18" k1="-0.4770" k2="0.2792" k3="-0.1004" />
+            <vignetting model="pa" focal="15" aperture="8" distance="1000" k1="-0.5111" k2="0.2703" k3="-0.0816" />
+            <vignetting model="pa" focal="15" aperture="11" distance="0.18" k1="-0.4775" k2="0.2770" k3="-0.0985" />
+            <vignetting model="pa" focal="15" aperture="11" distance="1000" k1="-0.5117" k2="0.2676" k3="-0.0796" />
+            <vignetting model="pa" focal="15" aperture="22" distance="0.18" k1="-0.4794" k2="0.2759" k3="-0.0990" />
+            <vignetting model="pa" focal="15" aperture="22" distance="1000" k1="-0.5126" k2="0.2608" k3="-0.0756" />
         </calibration>
     </lens>
 
@@ -350,6 +509,43 @@
             <distortion model="poly3" focal="30" k1="-0.00537" />
             <tca model="poly3" focal="30" br="0.0000083" vr="1.0002" bb="0.00008" vb="0.99976" />
             <vignetting model="pa" focal="30" aperture="11" distance="1000" k1="-0.36804" k2="0.318" k3="-0.18433" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>SMC PENTAX DA 40mm F/2.8 Limited</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="poly3" focal="40" k1="-0.00384" />
+            <tca model="poly3" focal="40" br="-0.0000230" vr="1.0001421" bb="0.0000150" vb="0.9999150" />
+            <vignetting model="pa" focal="40" aperture="11" distance="1000" k1="-0.17248" k2="0.21247" k3="-0.13119" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>PENTAX</maker>
+        <model>smc PENTAX-FA 43mm F1.9 Limited</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="43" a="-0.00469" b="0.01317" c="-0" />
+            <tca model="poly3" focal="43" br="-0.0000002" vr="1.0004216" bb="0.0000154" vb="0.9996758" />
+            <tca model="poly3" focal="43" br="-0.0000052" vr="1.0003816" bb="0.0000293" vb="0.9997198" />
+            <tca model="poly3" focal="43" br="-0.0000240" vr="1.0003765" bb="0.0000283" vb="0.9997431" />
+            <tca model="poly3" focal="43" br="0.0000277" vr="1.0003967" bb="-0.0000121" vb="0.9997040" />
+            <tca model="poly3" focal="43" br="0.0000411" vr="1.0003521" bb="0.0000012" vb="0.9996986" />
+            <vignetting model="pa" focal="43" aperture="1.9" distance="0.45" k1="-0.6622" k2="0.4306" k3="-0.1437" />
+            <vignetting model="pa" focal="43" aperture="1.9" distance="1000" k1="-0.8815" k2="0.7667" k3="-0.3234" />
+            <vignetting model="pa" focal="43" aperture="2.8" distance="0.45" k1="-0.1673" k2="0.0212" k3="0.0073" />
+            <vignetting model="pa" focal="43" aperture="2.8" distance="1000" k1="-0.2041" k2="0.0207" k3="0.0152" />
+            <vignetting model="pa" focal="43" aperture="4" distance="0.45" k1="-0.1679" k2="0.0215" k3="0.0114" />
+            <vignetting model="pa" focal="43" aperture="4" distance="1000" k1="-0.2129" k2="0.0349" k3="0.0118" />
+            <vignetting model="pa" focal="43" aperture="5.6" distance="0.45" k1="-0.1754" k2="0.0408" k3="-0.0015" />
+            <vignetting model="pa" focal="43" aperture="5.6" distance="1000" k1="-0.2232" k2="0.0558" k3="-0.0010" />
+            <vignetting model="pa" focal="43" aperture="22" distance="0.45" k1="-0.2472" k2="0.1832" k3="-0.0817" />
+            <vignetting model="pa" focal="43" aperture="22" distance="1000" k1="-0.2885" k2="0.1864" k3="-0.0748" />
         </calibration>
     </lens>
 
@@ -378,6 +574,31 @@
     </lens>
 
     <lens>
+        <maker>PENTAX</maker>
+        <model>smc PENTAX-D FA Macro 100mm F2.8 WR</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="100" a="0" b="00484" c="-0.01993" />
+            <tca model="poly3" focal="100" br="0.0000044" vr="0.9999354" bb="-0.0000404" vb="0.9997796" />
+            <tca model="poly3" focal="100" br="0.0000051" vr="0.9999355" bb="-0.0000111" vb="0.9997510" />
+            <tca model="poly3" focal="100" br="0.0000135" vr="0.9999237" bb="0.0000050" vb="0.9997609" />
+            <tca model="poly3" focal="100" br="0.0000160" vr="0.9999237" bb="0.0000027" vb="0.9998788" />
+            <tca model="poly3" focal="100" br="0.0000167" vr="0.9998977" bb="0.0000079" vb="0.9998621" />
+            <vignetting model="pa" focal="100" aperture="2.8" distance="0.3" k1="-0.0519" k2="-0.0004" k3="0.0078" />
+            <vignetting model="pa" focal="100" aperture="2.8" distance="1000" k1="-0.6568" k2="0.6101" k3="-0.2619" />
+            <vignetting model="pa" focal="100" aperture="4" distance="0.3" k1="-0.0530" k2="0.0032" k3="0.0058" />
+            <vignetting model="pa" focal="100" aperture="4" distance="1000" k1="-0.0160" k2="-0.4279" k3="0.2562" />
+            <vignetting model="pa" focal="100" aperture="5.6" distance="0.3" k1="-0.0558" k2="0.0059" k3="0.0055" />
+            <vignetting model="pa" focal="100" aperture="5.6" distance="1000" k1="-0.0952" k2="-0.0017" k3="0.0219" />
+            <vignetting model="pa" focal="100" aperture="8" distance="0.3" k1="-0.0639" k2="0.0263" k3="-0.0075" />
+            <vignetting model="pa" focal="100" aperture="8" distance="1000" k1="-0.1030" k2="0.0156" k3="0.0117" />
+            <vignetting model="pa" focal="100" aperture="32" distance="0.3" k1="-0.0485" k2="-0.0204" k3="0.0258" />
+            <vignetting model="pa" focal="100" aperture="32" distance="1000" k1="-0.1224" k2="0.0565" k3="-0.0130" />
+        </calibration>
+    </lens>
+
+    <lens>
         <maker>Pentax</maker>
         <model>SMC PENTAX M 150mm F/3.5</model>
         <mount>Pentax K</mount>
@@ -386,60 +607,6 @@
             <distortion model="poly3" focal="150" k1="0.00133" />
             <tca model="poly3" focal="150" br="-0.00001" vr="0.9999" bb="-0.00005" vb="1.00007" />
             <vignetting model="pa" focal="150" aperture="11" distance="1000" k1="-0.45436" k2="0.68491" k3="-0.48506" />
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Pentax</maker>
-        <model>SMC Pentax DA L 18-55mm f/3.5-5.6</model>
-        <mount>Pentax KAF2</mount>
-        <cropfactor>1.5</cropfactor>
-        <calibration>
-            <distortion model="ptlens" focal="18" a="0.00117" b="-0.01707" c="-0.00529" />
-            <distortion model="ptlens" focal="24" a="0" b="-0.0071" c="0" />
-            <distortion model="ptlens" focal="35" a="0" b="0.0002" c="0" />
-            <distortion model="ptlens" focal="42.5" a="0.00291" b="-0.00765" c="0.00808" />
-            <distortion model="ptlens" focal="55" a="0" b="0.00333" c="0" />
-            <vignetting model="pa" focal="18" aperture="11" distance="1000" k1="-0.26538" k2="0.5437" k3="-0.51036" />
-            <vignetting model="pa" focal="24" aperture="11" distance="1000" k1="-0.08271" k2="0.02282" k3="-0.04481" />
-            <vignetting model="pa" focal="35" aperture="11" distance="1000" k1="-0.05666" k2="0.02789" k3="-0.01283" />
-            <vignetting model="pa" focal="42.5" aperture="11" distance="1000" k1="-0.03675" k2="0.01041" k3="-0.00479" />
-            <vignetting model="pa" focal="55" aperture="11" distance="1000" k1="-0.07077" k2="0.07738" k3="-0.04494" />
-            <tca model="poly3" focal="18" br="0.0000246" vr="1.0008065" bb="0.00025" vb="0.9998" />
-            <tca model="poly3" focal="24" br="0.00004" vr="1.00056" bb="0.00024" vb="0.9999" />
-            <tca model="poly3" focal="35" br="0.00001" vr="1.000127" bb="0.000022" vb="1.0001" />
-            <tca model="poly3" focal="42.5" br="0.000084" vr="1.0000218" bb="-0.0000375" vb="1.0000794" />
-            <tca model="poly3" focal="55" br="0.0000165" vr="0.99999" bb="-0.0000538" vb="1.0000742" />
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Pentax</maker>
-        <model>SMC PENTAX DA 18-135mm F/3.5-5.6 ED AL [IF] DC WR</model>
-        <mount>Pentax K</mount>
-        <cropfactor>1.5</cropfactor>
-        <calibration>
-            <distortion model="poly3"  focal="18" k1="-0.02615" />
-            <distortion model="poly3"  focal="24" k1="-0.00343" />
-            <distortion model="ptlens" focal="36" a="0.01095" b="-0.01774" c="0.01645" />
-            <distortion model="poly3"  focal="53" k1="0.00971" />
-            <distortion model="ptlens" focal="68" a="-0.00032" b="0.00979" c="-0.00265" />
-            <distortion model="poly3"  focal="100" k1="0.00771" />
-            <distortion model="poly3"  focal="135" k1="0.00701" />
-            <tca model="poly3" focal="18" br="0.0001" vr="1.00017" bb="0.00005" vb="1.00048" />
-            <tca model="poly3" focal="24" br="0.000" vr="1.00013" bb="0.0001" vb="1.000223" />
-            <tca model="poly3" focal="36" br="-0.000019" vr="1.00003" bb="-0.00005" vb="1.00023" />
-            <tca model="poly3" focal="53" br="0.0000" vr="0.9999" bb="-0.00005" vb="1.0001" />
-            <tca model="poly3" focal="68" br="0.000" vr="0.9998" bb="-0.00005" vb="1.0000" />
-            <tca model="poly3" focal="100" br="-0.00015" vr="0.99955" bb="-0.00005" vb="0.99996" />
-            <tca model="poly3" focal="135" br="-0.0004" vr="0.9994" bb="-0.00007" vb="0.99991" />
-            <vignetting model="pa" focal="18" aperture="11" distance="1000" k1="-0.0932" k2="0.02721" k3="-0.0432" />
-            <vignetting model="pa" focal="24" aperture="11" distance="1000" k1="-0.12861" k2="0.09689" k3="-0.05551" />
-            <vignetting model="pa" focal="36" aperture="11" distance="1000" k1="-0.14874" k2="0.19321" k3="-0.12757" />
-            <vignetting model="pa" focal="53" aperture="11" distance="1000" k1="-0.05186" k2="-0.06742" k3="0.05663" />
-            <vignetting model="pa" focal="68" aperture="11" distance="1000" k1="-0.11324" k2="0.21297" k3="-0.19382" />
-            <vignetting model="pa" focal="100" aperture="11" distance="1000" k1="-0.10339" k2="0.24899" k3="-0.28571" />
-            <vignetting model="pa" focal="135" aperture="11" distance="1000" k1="-0.16882" k2="0.35516" k3="-0.28791" />
         </calibration>
     </lens>
 
