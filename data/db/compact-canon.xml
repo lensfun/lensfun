@@ -917,6 +917,32 @@
         <mount>CanonG1X</mount>
         <cropfactor>1.85</cropfactor>
         <calibration>
+            <distortion model="ptlens" focal="15.1" a="0.00048" b="-0.0332" c="-0.05149" />
+            <distortion model="ptlens" focal="17.0" a="0.00081" b="-0.02913" c="-0.03657" />
+            <distortion model="ptlens" focal="19.56" a="0.01803" b="-0.06927" c="0.014" />
+            <distortion model="ptlens" focal="21.3" a="-0.001127" b="-0.001957" c="-0.005056" />
+            <distortion model="ptlens" focal="22.45" a="0.04317" b="-0.09935" c="0.03411" />
+            <distortion model="ptlens" focal="29.3" a="-0.01981" b="0.03978" c="-0.03657" />
+            <distortion model="ptlens" focal="31.92" a="-0.04093" b="0.10365" c="-0.08171" />
+            <distortion model="ptlens" focal="41.88" a="-0.01251" b="0.02732" c="-0.02112" />
+            <distortion model="ptlens" focal="51.33" a="-0.00187" b="-0.00664" c="0.01155" />
+            <distortion model="ptlens" focal="60.4" a="-0.00854" b="0.01168" c="-0.00657" />
+            <tca model="poly3" focal="15.1" br="-0.0001342" vr="1.0000807" bb="-0.0002196" vb="1.0003494" />
+            <tca model="poly3" focal="18.6" br="-0.0001530" vr="1.0002444" bb="0.0002246" vb="1.0000649" />
+            <tca model="poly3" focal="27.8" br="-0.0001638" vr="1.0003579" bb="-0.0000102" vb="1.0000196" />
+            <tca model="poly3" focal="39.1" br="-0.0001589" vr="1.0002615" bb="-0.0001130" vb="1.0000930" />
+            <tca model="poly3" focal="51.8" br="-0.0000189" vr="1.0000769" bb="-0.0002135" vb="1.0000094" />
+            <tca model="poly3" focal="60.4" br="0.0000465" vr="0.9998852" bb="-0.0002431" vb="0.9999720" />
+        </calibration>
+    </lens>
+
+    <!-- Old G1X profile, can be removed soon. New one above should be more accurate -->
+    <!--lens>
+        <maker>Canon</maker>
+        <model>Standard</model>
+        <mount>CanonG1X</mount>
+        <cropfactor>1.85</cropfactor>
+        <calibration>
             <distortion model="ptlens" focal="15.1" a="0.01389" b="-0.0632" c="-0.03599" />
             <distortion model="ptlens" focal="22.9" a="0.00964" b="-0.04936" c="0.03423" />
             <distortion model="ptlens" focal="32.5" a="0.00047" b="-0.01424" c="0.02027" />
@@ -931,7 +957,7 @@
             <tca model="poly3" focal="53.4" br="0.0000996" vr="0.9997218" bb="-0.0001098" vb="1.0001592" />
             <tca model="poly3" focal="60.4" br="0.0000722" vr="0.9996755" bb="-0.0001249" vb="1.0002491" />
         </calibration>
-    </lens>
+    </lens-->
 
    <lens>
         <maker>Canon</maker>
