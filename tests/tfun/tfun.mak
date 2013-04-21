@@ -4,4 +4,7 @@ TARGETS.tfun = tfun$E
 SRC.tfun$E = $(wildcard tests/tfun/*.cpp)
 
 LIBS.tfun = lensfun$L
+ifdef NEED_REGEX
+LIBS.tfun += regex$L
+endif
 SYSLIBS.tfun = GLIB_20

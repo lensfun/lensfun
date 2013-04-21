@@ -392,6 +392,7 @@ def start ():
     if len (v) > 3:
         VERSION_BUGFIX = v [3]
 
+    add_config_mak ("CONF_LIB_VERSION", VERSION_MAJOR + '.' + VERSION_MINOR + '.' + VERSION_MICRO)
 
 # Autodetect platform and architecture
 def detect_platform ():

@@ -13,5 +13,8 @@ SRC.example$E = $(wildcard tests/example/*.c)
 CXXFLAGS.example = -DTEST
 # The libraries this application depends on
 LIBS.example = lensfun$L
+ifdef NEED_REGEX
+LIBS.example += regex$L
+endif
 # Link this example against these system libraries (detected by configure)
 SYSLIBS.example = GLIB_20

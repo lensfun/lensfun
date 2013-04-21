@@ -2,5 +2,5 @@ Name: lensfun
 Description: A photographic lens database and access library
 Version: @CONF_VERSION@
 Requires: glib-2.0
-Libs: -L@CONF_LIBDIR@ -llensfun
+Libs: -L@CONF_LIBDIR@ -llensfun @NEED_REGEX@
 Cflags: -I@CONF_INCLUDEDIR@ @CONF_LENSFUN_STATIC@
