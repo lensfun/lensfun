@@ -298,6 +298,33 @@
     <lens>
         <maker>Sigma</maker>
         <model>Sigma 18-200mm f/3.5-6.3 II DC OS HSM</model>
+        <mount>Sigma</mount>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18" a="0.00427" b="-0.0189" c="0.0199" />
+            <distortion model="ptlens" focal="29" a="-0.00878" b="0.04582" c="-0.04997" />
+            <distortion model="ptlens" focal="33" a="-0.015" b="0.0433" c="-0.02646" />
+            <distortion model="ptlens" focal="53" a="0.004" b="0.01572" c="-0.01989" />
+            <distortion model="ptlens" focal="73" a="-0.002" b="0.00731" c="0.00191" />
+            <distortion model="ptlens" focal="120" a="0.00862" b="-0.0111" c="0.01151" />
+            <distortion model="ptlens" focal="200" a="-0.00027" b="0.01069" c="-0.0044" />
+            <tca model="poly3" focal="18" br="-0.0005080" vr="1.0000355" bb="0.0007723" vb="1.0003445" />
+            <tca model="poly3" focal="29" br="-0.0001485" vr="1.0000892" bb="-0.0001011" vb="1.0000511" />
+            <tca model="poly3" focal="33" br="-0.0012735" vr="0.9996817" bb="-0.0015426" vb="0.9995056" />
+            <tca model="poly3" focal="53" br="-0.0007872" vr="0.9997973" bb="-0.0023220" vb="0.9992620" />
+            <tca model="poly3" focal="73" br="0.0005988" vr="1.0002021" bb="-0.0029494" vb="0.9990878" />
+            <tca model="poly3" focal="140" br="0.0016138" vr="1.0003730" bb="-0.0011673" vb="0.9997042" />
+            <tca model="poly3" focal="200" br="0.0013865" vr="1.0003137" bb="-0.0000482" vb="0.9999454" />
+        </calibration>
+    </lens>
+
+    <!-- new profile above is said to be more accurate. below one may be removed in future. -->
+    <!--lens>
+        <maker>Sigma</maker>
+        <model>Sigma 18-200mm f/3.5-6.3 II DC OS HSM</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
@@ -319,7 +346,7 @@
             <tca model="poly3" focal="120" br="-0.0001589" vr="0.9997609" bb="0.0001706" vb="1.0003043"/>
             <tca model="poly3" focal="200" br="-0.0002666" vr="0.9997012" bb="0.0002502" vb="1.0001707"/>
         </calibration>
-    </lens>
+    </lens-->
 
     <lens>
         <maker>Sigma</maker>
@@ -616,6 +643,7 @@
         <cropfactor>1.5</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="30" a="0.003926" b="-0.013819" c="0" />
+            <tca model="poly3" focal="30" br="-0.0000193" vr="1.0004990" bb="0.0000694" vb="0.9998978" />
         </calibration>
     </lens>
 
