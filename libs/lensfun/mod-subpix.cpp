@@ -139,18 +139,18 @@ bool lfModifier::ApplySubpixelGeometryDistortion (
             out += 6;
         }
 
-        for (i = 0; i < (int)This->SubpixelCallbacks->len; i++)
-        {
-            lfSubpixelCallbackData *cd =
-                (lfSubpixelCallbackData *)g_ptr_array_index (This->SubpixelCallbacks, i);
-            cd->callback (cd->data, res, width);
-        }
-
         for (i = 0; i < (int)This->CoordCallbacks->len; i++)
         {
             lfCoordCallbackData *cd =
                 (lfCoordCallbackData *)g_ptr_array_index (This->CoordCallbacks, i);
             cd->callback (cd->data, res, width * 3);
+        }
+
+        for (i = 0; i < (int)This->SubpixelCallbacks->len; i++)
+        {
+            lfSubpixelCallbackData *cd =
+                (lfSubpixelCallbackData *)g_ptr_array_index (This->SubpixelCallbacks, i);
+            cd->callback (cd->data, res, width);
         }
 
         // Convert normalized coordinates back into natural coordiates
