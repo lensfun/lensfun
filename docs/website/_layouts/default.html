@@ -1,0 +1,18 @@
+{% include header.html %}
+<body>
+
+<div id="container">
+{% include top-navigation.html %}
+{% include navigation.html %}
+
+<div id="content">
+    <h1>{{page.title}}</h1>
+
+    {{ content }}
+</div>
+
+<br style="clear:both"/>
+
+</body>
+
+{% include footer.html %}

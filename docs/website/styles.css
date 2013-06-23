@@ -1,0 +1,108 @@
+body {
+  width:90%;
+  background:#181818;
+  color:#b0b0b0;
+  font:10pt Verdana, DejaVu Sans, Arial;
+  padding:0px;
+  margin:0px auto;
+  padding:2em;
+  margin-top: 3em;
+  text-align:left;
+}
+
+#logo {
+  margin-bottom:0em;
+  margin-left:6em;
+}
+
+#navigation {
+  padding:5px;
+  font-size: 120%;
+  color: white;
+  width: 12em;
+  float: left;
+  margin-right: 1em;
+  margin-bottom: 1em;
+}
+
+#navigation ul {
+  margin: 0; padding: 0;
+}
+
+#navigation li {
+  list-style: none;
+  border-left: 0.1em solid white;
+  margin: 0; padding: 0;
+  padding-left:0.2em;
+  margin-bottom: 0.5em;
+}
+
+#navigation .active {
+  color: #74A0DA;
+}
+
+#top-navigation {
+  margin-bottom: 1em;
+}
+
+#top-navigation ul {
+  margin: 0; padding: 0;
+}
+
+#top-navigation li {
+  float:right;
+  list-style: none;
+  margin: 0; 
+  padding:0;
+  padding-right: 0.5em;
+  margin-left:1.3em;
+  border-right: 0.1em solid white;
+}
+
+#container {
+  width: 70em;
+}
+
+#content {
+  padding:1em;
+  float:right;
+  width:50em;
+  background: rgb(45, 45, 45);
+}
+
+#footer {
+  margin-top: 1em;
+  font-size: 80%;
+  float: right;
+}
+
+.news-title {
+  color: white;
+}
+
+.news {
+  margin-bottom: 3em;
+}
+
+#berlios-badge {
+  margin-top: 3em;
+  font:10pt Verdana, DejaVu Sans, Arial;
+}
+
+a:link {
+  background:transparent;
+  text-decoration:none;  
+  color:#ffffff;
+}
+a:visited {
+  background:transparent;
+  color:#ffffff;
+}
+a:hover {
+  background:transparent;
+  color:#74A0DA;
+}
+a:active {
+  background:transparent;
+  color:#ffffff;
+}
