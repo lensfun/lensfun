@@ -687,4 +687,37 @@
         </calibration>
     </lens>
 
+    <lens>
+	    <maker>Sigma</maker>
+	    <model>SIGMA 150mm F2.8 MACRO HSM</model>
+	    <focal value="150" />
+	    <aperture min="2.8" max="22" />
+        <mount>4/3 System</mount>
+	    <cropfactor>2</cropfactor>
+	    <calibration>
+	        <distortion focal="150" model="ptlens" a="-0.00472839" b="0.0149475" c="-0.0142996" />
+            <tca model="poly3" focal="150" br="-0.0000907" vr="1.0002304" bb="-0.0000342" vb="0.9999827" />
+	        <vignetting model="pa" focal="150" aperture="2.8" distance="0.38" k1="-0.0056" k2="-0.1198" k3="0.0358" />
+            <vignetting model="pa" focal="150" aperture="2.8" distance="0.7" k1="-0.1310" k2="-0.1905" k3="0.1496" />
+            <vignetting model="pa" focal="150" aperture="2.8" distance="2" k1="-0.5020" k2="0.4247" k3="-0.1839" />
+            <vignetting model="pa" focal="150" aperture="2.8" distance="1000" k1="-0.4838" k2="0.3738" k3="-0.1584" />
+            <vignetting model="pa" focal="150" aperture="4" distance="0.38" k1="-0.0487" k2="0.0384" k3="-0.0292" />
+            <vignetting model="pa" focal="150" aperture="4" distance="0.7" k1="-0.0352" k2="0.0438" k3="-0.0358" />
+            <vignetting model="pa" focal="150" aperture="4" distance="2" k1="-0.0247" k2="0.0366" k3="-0.0823" />
+            <vignetting model="pa" focal="150" aperture="4" distance="1000" k1="0.0485" k2="-0.2792" k3="0.1142" />
+            <vignetting model="pa" focal="150" aperture="5.6" distance="0.38" k1="-0.0600" k2="0.0608" k3="-0.0440" />
+            <vignetting model="pa" focal="150" aperture="5.6" distance="0.7" k1="-0.0385" k2="0.0515" k3="-0.0384" />
+            <vignetting model="pa" focal="150" aperture="5.6" distance="2" k1="-0.0307" k2="0.0334" k3="-0.0251" />
+            <vignetting model="pa" focal="150" aperture="5.6" distance="1000" k1="-0.0314" k2="0.0251" k3="-0.0182" />
+            <vignetting model="pa" focal="150" aperture="8" distance="0.38" k1="-0.0684" k2="0.0714" k3="-0.0493" />
+            <vignetting model="pa" focal="150" aperture="8" distance="0.7" k1="-0.0439" k2="0.0702" k3="-0.0532" />
+            <vignetting model="pa" focal="150" aperture="8" distance="2" k1="-0.0368" k2="0.0535" k3="-0.0399" />
+            <vignetting model="pa" focal="150" aperture="8" distance="1000" k1="-0.0340" k2="0.0338" k3="-0.0251" />
+            <vignetting model="pa" focal="150" aperture="22" distance="0.38" k1="-0.0755" k2="0.0678" k3="-0.0464" />
+            <vignetting model="pa" focal="150" aperture="22" distance="0.7" k1="-0.0346" k2="0.0554" k3="-0.0481" />
+            <vignetting model="pa" focal="150" aperture="22" distance="2" k1="-0.0400" k2="0.0672" k3="-0.0514" />
+            <vignetting model="pa" focal="150" aperture="22" distance="1000" k1="-0.0357" k2="0.0411" k3="-0.0325" />
+	    </calibration>
+    </lens>
+
 </lensdatabase>

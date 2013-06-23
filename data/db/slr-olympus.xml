@@ -199,6 +199,39 @@
     </lens>
 
     <lens>
+	    <maker>Olympus</maker>
+	    <model>Zuiko Digital 35mm f/3.5 Macro</model>
+	    <focal value="35" />
+	    <aperture min="3.5" max="22" />
+        <mount>4/3 System</mount>
+	    <cropfactor>2</cropfactor>
+	    <calibration>
+	        <distortion focal="35" model="ptlens" a="-0.00226197" b="0.00228625" c="-0.00756547" />
+            <tca model="poly3" focal="35" br="-0.0000953" vr="1.0002105" bb="-0.0000137" vb="1.0000230" />
+            <vignetting model="pa" focal="35" aperture="3.5" distance="0.146" k1="-0.0315" k2="-0.3900" k3="0.2375" />
+            <vignetting model="pa" focal="35" aperture="3.5" distance="0.3" k1="-0.0648" k2="-0.1207" k3="-0.0010" />
+            <vignetting model="pa" focal="35" aperture="3.5" distance="0.9" k1="-0.1379" k2="0.0285" k3="-0.0643" />
+            <vignetting model="pa" focal="35" aperture="3.5" distance="1000" k1="-0.1887" k2="0.0391" k3="-0.0420" />
+            <vignetting model="pa" focal="35" aperture="4" distance="0.146" k1="0.0181" k2="-0.2089" k3="0.0596" />
+            <vignetting model="pa" focal="35" aperture="4" distance="0.3" k1="-0.1297" k2="0.1533" k3="-0.1323" />
+            <vignetting model="pa" focal="35" aperture="4" distance="0.9" k1="-0.1246" k2="0.0741" k3="-0.0450" />
+            <vignetting model="pa" focal="35" aperture="4" distance="1000" k1="-0.1571" k2="0.0589" k3="-0.0179" />
+            <vignetting model="pa" focal="35" aperture="5.6" distance="0.146" k1="-0.0541" k2="0.0385" k3="-0.0280" />
+            <vignetting model="pa" focal="35" aperture="5.6" distance="0.3" k1="-0.1127" k2="0.0588" k3="-0.0289" />
+            <vignetting model="pa" focal="35" aperture="5.6" distance="0.9" k1="-0.1202" k2="0.0395" k3="-0.0119" />
+            <vignetting model="pa" focal="35" aperture="5.6" distance="1000" k1="-0.1589" k2="0.0410" k3="0.0029" />
+            <vignetting model="pa" focal="35" aperture="8" distance="0.146" k1="-0.0510" k2="0.0293" k3="-0.0231" />
+            <vignetting model="pa" focal="35" aperture="8" distance="0.3" k1="-0.1092" k2="0.0506" k3="-0.0265" />
+            <vignetting model="pa" focal="35" aperture="8" distance="0.9" k1="-0.1144" k2="0.0211" k3="-0.0006" />
+            <vignetting model="pa" focal="35" aperture="8" distance="1000" k1="-0.1545" k2="0.0208" k3="0.0166" />
+            <vignetting model="pa" focal="35" aperture="22" distance="0.146" k1="-0.0532" k2="0.0389" k3="-0.0320" />
+            <vignetting model="pa" focal="35" aperture="22" distance="0.3" k1="-0.1032" k2="0.0350" k3="-0.0216" />
+            <vignetting model="pa" focal="35" aperture="22" distance="0.9" k1="-0.0993" k2="-0.0253" k3="0.0264" />
+            <vignetting model="pa" focal="35" aperture="22" distance="1000" k1="-0.1450" k2="-0.0149" k3="0.0368" />
+        </calibration>
+    </lens>
+
+    <lens>
         <maker>Olympus</maker>
         <model>Zuiko Digital 40-150mm f/3.5-4.5</model>
         <mount>4/3 System</mount>
