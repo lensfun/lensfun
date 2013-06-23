@@ -1,0 +1,37 @@
+<lensdatabase>
+
+   <lens>
+	    <maker>Samyang</maker>
+	    <model>Samyang 7.5mm F/3.5 UMC Fish-eye MFT</model>
+	    <focal value="7.5" />
+	    <aperture min="3.5" max="22" />
+	    <mount>Micro 4/3 System</mount>
+	    <type>fisheye</type>
+	    <cropfactor>2</cropfactor>
+	    <calibration>
+	        <distortion focal="7.5" model="ptlens" a="-0.0133116" b="0.00822383" c="-0.0180619" />
+            <tca model="poly3" focal="7.5" br="-0.0001120" vr="1.0003181" bb="0.0000315" vb="0.9999183" />
+            <vignetting model="pa" focal="7.5" aperture="3.5" distance="0.09" k1="-0.6898" k2="0.5629" k3="-0.2798" />
+            <vignetting model="pa" focal="7.5" aperture="3.5" distance="0.18" k1="-1.0041" k2="1.6690" k3="-0.9910" />
+            <vignetting model="pa" focal="7.5" aperture="3.5" distance="0.54" k1="-1.0954" k2="1.8097" k3="-1.0871" />
+            <vignetting model="pa" focal="7.5" aperture="3.5" distance="1000" k1="-1.1157" k2="1.9882" k3="-1.2723" />
+            <vignetting model="pa" focal="7.5" aperture="4" distance="0.09" k1="-0.6381" k2="0.4763" k3="-0.2415" />
+            <vignetting model="pa" focal="7.5" aperture="4" distance="0.18" k1="-0.8935" k2="1.3156" k3="-0.7649" />
+            <vignetting model="pa" focal="7.5" aperture="4" distance="0.54" k1="-1.0314" k2="1.6246" k3="-0.9735" />
+            <vignetting model="pa" focal="7.5" aperture="4" distance="1000" k1="-1.1245" k2="2.0645" k3="-1.3261" />
+            <vignetting model="pa" focal="7.5" aperture="5.6" distance="0.09" k1="-0.7704" k2="1.0367" k3="-0.6094" />
+            <vignetting model="pa" focal="7.5" aperture="5.6" distance="0.18" k1="-1.0225" k2="1.7532" k3="-0.9869" />
+            <vignetting model="pa" focal="7.5" aperture="5.6" distance="0.54" k1="-1.1394" k2="2.0518" k3="-1.2608" />
+            <vignetting model="pa" focal="7.5" aperture="5.6" distance="1000" k1="-1.2338" k2="2.5227" k3="-1.6312" />
+            <vignetting model="pa" focal="7.5" aperture="8" distance="0.09" k1="-0.8748" k2="1.2274" k3="-0.6025" />
+            <vignetting model="pa" focal="7.5" aperture="8" distance="0.18" k1="-0.9885" k2="1.6290" k3="-0.8701" />
+            <vignetting model="pa" focal="7.5" aperture="8" distance="0.54" k1="-0.9302" k2="1.1116" k3="-0.4253" />
+            <vignetting model="pa" focal="7.5" aperture="8" distance="1000" k1="-0.9312" k2="1.1169" k3="-0.4030" />
+            <vignetting model="pa" focal="7.5" aperture="22" distance="0.09" k1="-0.8023" k2="0.9555" k3="-0.4032" />
+            <vignetting model="pa" focal="7.5" aperture="22" distance="0.18" k1="-0.9166" k2="1.2514" k3="-0.6183" />
+            <vignetting model="pa" focal="7.5" aperture="22" distance="0.54" k1="-0.9866" k2="1.2614" k3="-0.5698" />
+            <vignetting model="pa" focal="7.5" aperture="22" distance="1000" k1="-1.0589" k2="1.5841" k3="-0.8397" />
+	    </calibration>
+    </lens>
+
+</lensdatabase>
