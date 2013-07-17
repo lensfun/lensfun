@@ -7,6 +7,16 @@
         <compat>Generic</compat>
     </mount>
 
+    <mount>
+	    <name>Minolta MC</name>
+	    <compat>Micro 4/3 System</compat>
+	    <compat>4/3 System</compat>
+	    <compat>Samsung NX</compat>
+	    <compat>Sony E</compat>
+	    <compat>Nikon CX</compat>
+	    <compat>Generic</compat>
+    </mount>
+
     <camera>
         <maker>KONICA MINOLTA</maker>
         <maker lang="en">Konica Minolta</maker>
@@ -100,6 +110,39 @@
         <cropfactor>1.5</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="20" a="0.005548" b="-0.022552" c="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Minolta</maker>
+        <model>Minolta MC Rokkor-PG 50mm 1:1.4</model>
+	    <focal value="50" />
+	    <aperture min="1.4" max="16"/>
+        <mount>Minolta MC</mount>
+        <cropfactor>2.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="50" a="-0.000767655" b="-0.000599186" c="-0.00129564" />
+            <tca model="poly3" focal="50" br="-0.0000228" vr="1.0001644" bb="0.0000253" vb="0.9999662" />
+            <vignetting model="pa" focal="50" aperture="1.4" distance="0.5" k1="-0.3237" k2="-0.0259" k3="0.0674" />
+            <vignetting model="pa" focal="50" aperture="1.4" distance="1" k1="-0.5441" k2="0.3605" k3="-0.1449" />
+            <vignetting model="pa" focal="50" aperture="1.4" distance="5" k1="-0.6492" k2="0.5567" k3="-0.2587" />
+            <vignetting model="pa" focal="50" aperture="1.4" distance="1000" k1="-0.6618" k2="0.5776" k3="-0.2716" />
+            <vignetting model="pa" focal="50" aperture="2" distance="0.5" k1="-0.0745" k2="0.0154" k3="-0.0235" />
+            <vignetting model="pa" focal="50" aperture="2" distance="1" k1="-0.0841" k2="0.0065" k3="-0.0149" />
+            <vignetting model="pa" focal="50" aperture="2" distance="5" k1="-0.0960" k2="0.0202" k3="-0.0271" />
+            <vignetting model="pa" focal="50" aperture="2" distance="1000" k1="-0.0951" k2="0.0091" k3="-0.0168" />
+            <vignetting model="pa" focal="50" aperture="2.8" distance="0.5" k1="-0.0815" k2="0.0216" k3="-0.0162" />
+            <vignetting model="pa" focal="50" aperture="2.8" distance="1" k1="-0.0896" k2="0.0113" k3="-0.0080" />
+            <vignetting model="pa" focal="50" aperture="2.8" distance="5" k1="-0.1024" k2="0.0179" k3="-0.0097" />
+            <vignetting model="pa" focal="50" aperture="2.8" distance="1000" k1="-0.1016" k2="0.0095" k3="-0.0039" />
+            <vignetting model="pa" focal="50" aperture="4" distance="0.5" k1="-0.0775" k2="0.0023" k3="0.0004" />
+            <vignetting model="pa" focal="50" aperture="4" distance="1" k1="-0.0974" k2="0.0184" k3="-0.0079" />
+            <vignetting model="pa" focal="50" aperture="4" distance="5" k1="-0.1077" k2="0.0272" k3="-0.0133" />
+            <vignetting model="pa" focal="50" aperture="4" distance="1000" k1="-0.1162" k2="0.0261" k3="-0.0105" />
+            <vignetting model="pa" focal="50" aperture="16" distance="0.5" k1="-0.1133" k2="0.0437" k3="-0.0170" />
+            <vignetting model="pa" focal="50" aperture="16" distance="1" k1="-0.1576" k2="0.0858" k3="-0.0295" />
+            <vignetting model="pa" focal="50" aperture="16" distance="5" k1="-0.1854" k2="0.1322" k3="-0.0545" />
+            <vignetting model="pa" focal="50" aperture="16" distance="1000" k1="-0.2034" k2="0.1667" k3="-0.0748" />
         </calibration>
     </lens>
 
