@@ -1,0 +1,12 @@
+{% extends "calibration/base.html" %}
+
+{% block content %}
+<h1>Upload calibration pictures</h1>
+
+<form enctype="multipart/form-data" method="post">
+  <table border="1">
+    {{ upload }}
+  </table>
+  <p><input type="submit"/></p>
+</form>
+{% endblock %}
