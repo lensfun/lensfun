@@ -73,22 +73,22 @@ os.remove(filepath)
 raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf",
                        "fff", "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx",
                        "pxn", "r3d", "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f", "jpg", "tif"]
-exiftool_candidates = []
+raw_files = []
 for root, __, filenames in os.walk(directory):
     for filename in filenames:
         if os.path.splitext(filename)[1].lower()[1:] in raw_file_extensions:
-            exiftool_candidates.append(os.path.join(root, filename))
-candidates_per_group = len(exiftool_candidates) // multiprocessing.cpu_count() + 1
-candidate_groups = []
+            raw_files.append(os.path.join(root, filename))
+raw_files_per_group = len(raw_files) // multiprocessing.cpu_count() + 1
+raw_file_groups = []
 file_exif_data = {}
-while exiftool_candidates:
-    candidate_group = exiftool_candidates[:candidates_per_group]
-    if candidate_group:
-        candidate_groups.append(candidate_group)
-    del exiftool_candidates[:candidates_per_group]
-def call_exiftool(candidate_group):
+while raw_files:
+    raw_file_group = raw_files[:raw_files_per_group]
+    if raw_file_group:
+        raw_file_groups.append(raw_file_group)
+    del raw_files[:raw_files_per_group]
+def call_exiftool(raw_file_group):
     data = json.loads(subprocess.check_output(
-        ["exiftool", "-j", "-make", "-model", "-lensmodel", "-focallength", "-aperture", "-lensid"] + candidate_group,
+        ["exiftool", "-j", "-make", "-model", "-lensmodel", "-focallength", "-aperture", "-lensid"] + raw_file_group,
         stderr=open(os.devnull, "w")).decode("utf-8"))
     return dict((single_data["SourceFile"], (
         single_data.get("Make"),
@@ -98,7 +98,7 @@ def call_exiftool(candidate_group):
         float(single_data["Aperture"]) if "Aperture" in single_data else None))
                 for single_data in data)
 pool = multiprocessing.Pool()
-for group_exif_data in pool.map(call_exiftool, candidate_groups):
+for group_exif_data in pool.map(call_exiftool, raw_file_groups):
     file_exif_data.update(group_exif_data)
 pool.close()
 pool.join()
