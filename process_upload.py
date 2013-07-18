@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import sys, os, subprocess, json, re, multiprocessing, smtplib
+"""Important: for this program to work, the directory
+/var/cache/apache2/calibrate must be writable for www-data!
+
+"""
+
+import hashlib, sys, os, subprocess, json, re, multiprocessing, smtplib
 from email.mime.text import MIMEText
 
 filepath = sys.argv[1]
 directory = os.path.abspath(os.path.dirname(filepath))
+cache_dir = os.path.join("/var/cache/apache2/calibrate", os.path.basename(directory))
 email_address = json.load(open(os.path.join(directory, "originator.json")))
 
 def send_email(to, subject, body):
@@ -137,5 +143,23 @@ for filepath, exif_data in file_exif_data.items():
         os.rename(filepath, os.path.join(os.path.dirname(filepath), "{}--{}mm--{}_{}".format(
             exif_lens_model.replace("/", "__").replace(" ", "_"), exif_focal_length, exif_aperture, filename)))
     else:
-        missing_data.append((filename, exif_lens_model, exif_focal_length, exif_aperture))
+        missing_data.append((filepath, exif_lens_model, exif_focal_length, exif_aperture))
+
+if missing_data:
+    try:
+        os.makedirs(cache_dir)
+    except FileExistsError:
+        pass
+    def generate_thumbnail(raw_filepath):
+        hash_ = hashlib.sha1()
+        hash_.update(raw_filepath)
+        out_filepath = os.path.join(cache_dir, hash_.hexdigest() + ".jpeg")
+        dcraw = subprocess.Popen(["dcraw", "-h", "-T", "-c", raw_filepath], stdout=subprocess.PIPE)
+        subprocess.Popen(["convert", "-", "-resize", "262144@", out_filepath], stdin=dcraw.stdout).wait()
+    pool = multiprocessing.Pool()
+    pool.map(generate_thumbnail, [data[0] for data in missing_data])
+    pool.close()
+    pool.join()
+
+
 write_result_and_exit(errors, missing_data)
