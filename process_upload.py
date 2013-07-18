@@ -136,7 +136,7 @@ if missing_data:
         pass
     def generate_thumbnail(raw_filepath):
         hash_ = hashlib.sha1()
-        hash_.update(raw_filepath)
+        hash_.update(raw_filepath.encode("utf-8"))
         out_filepath = os.path.join(cache_dir, hash_.hexdigest() + ".jpeg")
         dcraw = subprocess.Popen(["dcraw", "-h", "-T", "-c", raw_filepath], stdout=subprocess.PIPE)
         subprocess.Popen(["convert", "-", "-resize", "262144@", out_filepath], stdin=dcraw.stdout).wait()
