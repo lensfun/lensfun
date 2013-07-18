@@ -55,10 +55,8 @@ Torsten Bronger, aquisgrana, europa vetus
                                   or http://bronger-jmp.appspot.com
 """.format(email_address, directory))
 
-def write_result_and_exit(errors, missing_data=[]):
-    if isinstance(errors, str):
-        errors = [errors]
-    result = (errors, missing_data)
+def write_result_and_exit(error, missing_data=[]):
+    result = (error, missing_data)
     json.dump(result, open(os.path.join(directory, "result.json"), "w"), ensure_ascii=True)
     if any(result):
         send_error_email()
@@ -119,31 +117,17 @@ else:
 if not file_exif_data:
     write_result_and_exit("No images found in archive.")
 
-errors = []
 missing_data = []
 filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)")
 for filepath, exif_data in file_exif_data.items():
     filename = os.path.basename(filepath)
     exif_lens_model, exif_focal_length, exif_aperture = exif_data[2:]
-    match = filepath_pattern.match(os.path.splitext(os.path.basename(filepath))[0])
-    if match:
-        filename_lens_model, filename_focal_length, filename_aperture = \
-            match.group("lens_model").replace("__", "/").replace("_", " "), float(match.group("focal_length")), \
-            float(match.group("aperture"))
-        if exif_lens_model and exif_lens_model != filename_lens_model:
-            errors.append("{}: Lens model name in file name ({}) doesn't match EXIF data ({}).".format(
-                filename, filename_lens_model, exif_lens_model))
-        if exif_focal_length and exif_focal_length != filename_focal_length:
-            errors.append("{}: Focal length in file name ({}) doesn't match EXIF data ({}).".format(
-                filename, filename_focal_length, exif_focal_length))
-        if exif_aperture and exif_aperture != filename_aperture:
-            errors.append("{}: Aperture in file name ({}) doesn't match EXIF data ({}).".format(
-                filename, filename_aperture, exif_aperture))
-    elif exif_lens_model and exif_focal_length and exif_aperture:
-        os.rename(filepath, os.path.join(os.path.dirname(filepath), "{}--{}mm--{}_{}".format(
-            exif_lens_model.replace("/", "__").replace(" ", "_"), exif_focal_length, exif_aperture, filename)))
-    else:
-        missing_data.append((filepath, exif_lens_model, exif_focal_length, exif_aperture))
+    if not filepath_pattern.match(os.path.splitext(os.path.basename(filepath))[0]):
+        if exif_lens_model and exif_focal_length and exif_aperture:
+            os.rename(filepath, os.path.join(os.path.dirname(filepath), "{}--{}mm--{}_{}".format(
+                exif_lens_model.replace("/", "__").replace(" ", "_"), exif_focal_length, exif_aperture, filename)))
+        else:
+            missing_data.append((filepath, exif_lens_model, exif_focal_length, exif_aperture))
 
 if missing_data:
     try:
@@ -162,4 +146,4 @@ if missing_data:
     pool.join()
 
 
-write_result_and_exit(errors, missing_data)
+write_result_and_exit(None, missing_data)
