@@ -12,6 +12,9 @@ import django.http
 from django.utils.encoding import iri_to_uri
 
 
+upload_directory = "/mnt/media/raws/Kalibration/uploads"
+
+
 class HttpResponseSeeOther(django.http.HttpResponse):
     """Response class for HTTP 303 redirects.  Unfortunately, Django does the
     same wrong thing as most other web frameworks: it knows only one type of
@@ -77,7 +80,7 @@ def store_upload(uploaded_file, email_address):
     hash_.update(str(uploaded_file.size))
     hash_.update(email_address)
     id_ = email_address.partition("@")[0] + "_" + hash_.hexdigest()
-    directory = os.path.join("/mnt/media/raws/Kalibration/uploads", id_)
+    directory = os.path.join(upload_directory, id_)
     shutil.rmtree(directory, ignore_errors=True)
     os.makedirs(directory)
     with open(os.path.join(directory, "originator.json"), "w") as outfile:
@@ -90,7 +93,7 @@ def store_upload(uploaded_file, email_address):
     return id_
 
 class UploadForm(forms.Form):
-    compressed_file = forms.FileField(label="Package with RAW files")
+    compressed_file = forms.FileField(label="Archive with RAW files")
     email_address = forms.EmailField(label="Your email address")
 
     def clean_compressed_file(self):
@@ -109,15 +112,47 @@ def upload(request):
         upload_form = UploadForm()
     return render(request, "calibration/upload.html", {"title": "Calibration images upload", "upload": upload_form})
 
+class ExifForm(forms.Form):
+    lens_model_name = forms.CharField(max_length=255, label="lens model name")
+    focal_length = forms.DecimalField(min_value=0.01, max_digits=4, decimal_places=1, label="focal length",
+                                      help_text="in mm")
+    aperture = forms.DecimalField(min_value=0.01, max_digits=4, decimal_places=1, label="f-stop number")
+
+    def __init__(self, missing_data, *args, **kwargs):
+        super(ExifForm, self).__init__(*args, **kwargs)
+
 def show_issues(request, id_):
-    pass
+    directory = os.path.join(upload_directory, id_)
+    if not os.path.exists(os.path.join(directory, "originator.json")):
+        raise django.http.Http404
+    try:
+        error, missing_data = json.load(open(os.path.join(directory, "result.json")))
+    except IOError:
+        return render(request, "calibration/pending.html")
+    if error:
+        return render(request, "calibration/error.html", {"error": error})
+    elif not missing_data:
+        return render(request, "calibration/success.html")
+    filepaths = [os.path.relpath(data[0], directory) for data in missing_data]
+    thumbnails = []
+    for data in missing_data:
+        hash_ = hashlib.sha1()
+        hash_.update(data[0].encode("utf-8"))
+        thumbnails.append("/calibration/thumbnails/{0}/{1}".format(id_, hash_.hexdigest()))
+    if request.method == "POST":
+        exif_forms = [ExifForm(data, request.POST) for data in missing_data]
+        pass
+    else:
+        exif_forms = [ExifForm(data) for data in missing_data]
+    return render(request, "calibration/missing_exif.html", {"images": sorted(zip(filepaths, thumbnails, exif_forms))})
 
 def thumbnail(request, id_, hash_):
     filepath = os.path.join("/var/cache/apache2/calibrate", id_, hash_ + ".jpeg")
-#    filepath = os.path.join("/tmp/calibrate", id_, hash_ + ".jpeg")
+    filepath = os.path.join("/tmp/calibrate", id_, hash_ + ".jpeg")
     if not os.path.exists(filepath):
-        raise django.http.Http404
+        raise django.http.Http404(filepath)
     response = django.http.HttpResponse()
+#    response.write(open(filepath, "rb").read())
     response["X-Sendfile"] = filepath
     response["Content-Type"] = mimetypes.guess_type(filepath)[0] or "application/octet-stream"
     response["Content-Length"] = os.path.getsize(filepath)

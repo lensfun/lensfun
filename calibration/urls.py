@@ -7,5 +7,5 @@ from django.conf.urls import patterns, include, url
 urlpatterns = patterns("calibration.views",
                        (r"^$", "upload"),
                        (r"^results/(?P<id_>.+)", "show_issues"),
-                       (r"^thumbnails/(?P<id_>[^/]+)/(?P<hash_>.+)", "thumbnail"),
+                       (r"^thumbnails/(?P<id_>.+?)/(?P<hash_>[0-9a-f]+)", "thumbnail"),
 )

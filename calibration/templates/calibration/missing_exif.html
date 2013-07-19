@@ -1,0 +1,24 @@
+{% extends "calibration/base.html" %}
+
+{% block content %}
+<h1>Missing EXIF data</h1>
+
+<p>Some RAWs in your upload could not be fully tagged with EXIF data.  Please
+  complete the missing data manually.</p>
+
+<form method="post">
+  {% for raw_file_path, thumbnail_url, exif in images %}
+    <hr style="clear: both"/>
+    <img style="float: right; margin: 1ex 0pt 2ex 1em" src="{{ thumbnail_url }}"/>
+    <p stype="margin-bottom: 5ex">{{ raw_file_path }}</p>
+    <table>
+      <tbody style="vertical-align: top">
+        {{ exif }}
+      </tbody>
+    </table>
+  {% endfor %}
+  <hr style="clear: both"/>
+  <p><input type="submit"/></p>
+</form>
+
+{% endblock %}
