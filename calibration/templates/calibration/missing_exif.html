@@ -6,6 +6,9 @@
 <p>Some RAWs in your upload could not be fully tagged with EXIF data.  Please
   complete the missing data manually.</p>
 
+<p><strong>Note:</strong> Whenever you leave a field empty, the respective
+  value of the preceding image is used.</p>
+
 <form method="post">
   {% for raw_file_path, thumbnail_url, exif in images %}
     <hr style="clear: both"/>

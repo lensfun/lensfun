@@ -123,7 +123,8 @@ class UploadForm(forms.Form):
 
     def clean_compressed_file(self):
         compressed_file = self.cleaned_data["compressed_file"]
-        if compressed_file.content_type not in ["application/zip", "application/x-tar"]:
+        normalized_name = compressed_file.name.lower()
+        if not normalized_name.endswith(".tar.gz") and not normalized_name.endswith(".zip"):
             raise ValidationError("Uploaded file must be ZIP or gzip-ped tarball.")
         return compressed_file
 
