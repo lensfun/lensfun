@@ -39,7 +39,7 @@ Thank you!
 Torsten Bronger, aquisgrana, europa vetus
                    Jabber ID: torsten.bronger@jabber.rwth-aachen.de
                                   or http://bronger-jmp.appspot.com
-""".format("http://wilson.homeunix.com/calibration/" + os.path.basename(directory)))
+""".format("http://wilson.homeunix.com/calibration/results/" + os.path.basename(directory)))
 
 def send_success_email():
     send_email("Torsten Bronger <bronger@physik.rwth-aachen.de>", "Neue Kalibrationsdaten von " + email_address,
@@ -139,7 +139,7 @@ if missing_data:
         hash_.update(raw_filepath.encode("utf-8"))
         out_filepath = os.path.join(cache_dir, hash_.hexdigest() + ".jpeg")
         dcraw = subprocess.Popen(["dcraw", "-h", "-T", "-c", raw_filepath], stdout=subprocess.PIPE)
-        subprocess.Popen(["convert", "-", "-resize", "262144@", out_filepath], stdin=dcraw.stdout).wait()
+        subprocess.Popen(["convert", "-", "-resize", "131072@", out_filepath], stdin=dcraw.stdout).wait()
     pool = multiprocessing.Pool()
     pool.map(generate_thumbnail, [data[0] for data in missing_data])
     pool.close()

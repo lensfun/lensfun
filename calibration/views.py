@@ -4,6 +4,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import hashlib, os, subprocess, json, shutil, mimetypes, smtplib
+from email.MIMEText import MIMEText
 import django.forms as forms
 from django.shortcuts import render
 from django.forms.util import ValidationError
@@ -195,7 +196,6 @@ def show_issues(request, id_):
 
 def thumbnail(request, id_, hash_):
     filepath = os.path.join("/var/cache/apache2/calibrate", id_, hash_ + ".jpeg")
-    filepath = os.path.join("/tmp/calibrate", id_, hash_ + ".jpeg")
     if not os.path.exists(filepath):
         raise django.http.Http404(filepath)
     response = django.http.HttpResponse()
