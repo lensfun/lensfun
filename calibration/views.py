@@ -3,7 +3,7 @@
 
 from __future__ import absolute_import, unicode_literals
 
-import hashlib, os, subprocess, json, shutil, mimetypes
+import hashlib, os, subprocess, json, shutil, mimetypes, smtplib
 import django.forms as forms
 from django.shortcuts import render
 from django.forms.util import ValidationError
@@ -27,6 +27,31 @@ class HttpResponseSeeOther(django.http.HttpResponse):
     def __init__(self, redirect_to):
         super(HttpResponseSeeOther, self).__init__()
         self["Location"] = iri_to_uri(redirect_to)
+
+
+def send_email(to, subject, body):
+    message = MIMEText(body.encode("iso-8859-1"), _charset = "iso-8859-1")
+    me = "Torsten Bronger <bronger@physik.rwth-aachen.de>"
+    message["Subject"] = subject
+    message["From"] = me
+    message["To"] = to
+    smtp_connection = smtplib.SMTP_SSL("***REMOVED***")
+    smtp_connection.login("***REMOVED***", "***REMOVED***")
+    smtp_connection.sendmail(me, [to], message.as_string())
+
+def send_success_email(email_address, id_):
+    send_email("Torsten Bronger <bronger@physik.rwth-aachen.de>", "Neue Kalibrationsdaten von " + email_address,
+               """Hallöchen!
+
+Es liegen neue Kalibrationsdaten von {} vor, siehe
+
+    {}
+
+-- 
+Torsten Bronger, aquisgrana, europa vetus
+                   Jabber ID: torsten.bronger@jabber.rwth-aachen.de
+                                  or http://bronger-jmp.appspot.com
+               """.format(email_address, os.path.join("/home/bronger/raws/Kalibration/uploads", id_)))
 
 
 def spawn_daemon(path_to_executable, *args):
@@ -118,17 +143,26 @@ class ExifForm(forms.Form):
                                       help_text="in mm")
     aperture = forms.DecimalField(min_value=0.01, max_digits=4, decimal_places=1, label="f-stop number")
 
-    def __init__(self, missing_data, *args, **kwargs):
+    def __init__(self, missing_data, first, *args, **kwargs):
         super(ExifForm, self).__init__(*args, **kwargs)
+        self.fields["lens_model_name"].widget.attrs["size"] = 60
+        self.fields["lens_model_name"].initial, self.fields["focal_length"].initial, self.fields["aperture"].initial = \
+            missing_data[1:]
+        if not first:
+            for fieldname in ["lens_model_name", "focal_length", "aperture"]:
+                self.fields[fieldname].required = False
 
 def show_issues(request, id_):
     directory = os.path.join(upload_directory, id_)
-    if not os.path.exists(os.path.join(directory, "originator.json")):
+    try:
+        email_address = json.load(open(os.path.join(directory, "originator.json")))
+    except IOError:
         raise django.http.Http404
     try:
         error, missing_data = json.load(open(os.path.join(directory, "result.json")))
     except IOError:
         return render(request, "calibration/pending.html")
+    missing_data.sort()
     if error:
         return render(request, "calibration/error.html", {"error": error})
     elif not missing_data:
@@ -140,11 +174,23 @@ def show_issues(request, id_):
         hash_.update(data[0].encode("utf-8"))
         thumbnails.append("/calibration/thumbnails/{0}/{1}".format(id_, hash_.hexdigest()))
     if request.method == "POST":
-        exif_forms = [ExifForm(data, request.POST) for data in missing_data]
-        pass
+        exif_forms = [ExifForm(data, i==0, request.POST, prefix=str(i)) for i, data in enumerate(missing_data)]
+        if all([exif_form.is_valid() for exif_form in exif_forms]):
+            for data, exif_form in zip(missing_data, exif_forms):
+                lens_model_name = exif_form.cleaned_data["lens_model_name"] or lens_model_name
+                focal_length = exif_form.cleaned_data["focal_length"] or focal_length
+                aperture = exif_form.cleaned_data["aperture"] or aperture
+                filepath = data[0]
+                filename = os.path.basename(filepath)
+                os.rename(filepath, os.path.join(os.path.dirname(filepath), "{}--{}mm--{}_{}".format(
+                    lens_model_name.replace("/", "__").replace(" ", "_"), focal_length, aperture, filename)))
+            json.dump((None, []), open(os.path.join(directory, "result.json"), "w"), ensure_ascii=True)
+            shutil.rmtree("/var/cache/apache2/calibrate/" + id_)
+            send_success_email(email_address, id_)
+            return render(request, "calibration/success.html")
     else:
-        exif_forms = [ExifForm(data) for data in missing_data]
-    return render(request, "calibration/missing_exif.html", {"images": sorted(zip(filepaths, thumbnails, exif_forms))})
+        exif_forms = [ExifForm(data, i==0, prefix=str(i)) for i, data in enumerate(missing_data)]
+    return render(request, "calibration/missing_exif.html", {"images": zip(filepaths, thumbnails, exif_forms)})
 
 def thumbnail(request, id_, hash_):
     filepath = os.path.join("/var/cache/apache2/calibrate", id_, hash_ + ".jpeg")
@@ -152,7 +198,6 @@ def thumbnail(request, id_, hash_):
     if not os.path.exists(filepath):
         raise django.http.Http404(filepath)
     response = django.http.HttpResponse()
-#    response.write(open(filepath, "rb").read())
     response["X-Sendfile"] = filepath
     response["Content-Type"] = mimetypes.guess_type(filepath)[0] or "application/octet-stream"
     response["Content-Length"] = os.path.getsize(filepath)
