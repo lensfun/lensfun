@@ -68,6 +68,8 @@ extension = os.path.splitext(filepath)[1].lower()
 try:
     if extension == ".gz":
         subprocess.check_call(["tar", "--directory", directory, "-xzf", filepath])
+    elif extension == ".bz2":
+        subprocess.check_call(["tar", "--directory", directory, "-xjf", filepath])
     elif extension == ".zip":
         subprocess.check_call(["unzip", filepath, "-d", directory])
 except subprocess.CalledProcessError:
