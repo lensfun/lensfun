@@ -93,13 +93,16 @@ while raw_files:
         raw_file_groups.append(raw_file_group)
     del raw_files[:raw_files_per_group]
 def call_exiftool(raw_file_group):
+    def normalize_lens_model_name(name):
+        return None if name and "unknown" in name.lower() else name
     data = json.loads(subprocess.check_output(
-        ["exiftool", "-j", "-make", "-model", "-lensmodel", "-focallength", "-aperture", "-lensid"] + raw_file_group,
+        ["exiftool", "-j", "-make", "-model", "-lensmodel", "-focallength", "-aperture", "-lensid", "-lenstype"]
+        + raw_file_group,
         stderr=open(os.devnull, "w")).decode("utf-8"))
     return dict((single_data["SourceFile"], (
         single_data.get("Make"),
         single_data.get("Model"),
-        single_data.get("LensModel") or single_data.get("LensID"),
+        normalize_lens_model_name(single_data.get("LensID") or single_data.get("LensModel") or single_data.get("LensType")),
         float(single_data["FocalLength"].partition("mm")[0]) if "FocalLength" in single_data else None,
         float(single_data["Aperture"]) if "Aperture" in single_data else None))
                 for single_data in data)
