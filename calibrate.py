@@ -25,11 +25,16 @@ def test_program(program, package_name):
 test_program("dcraw", "dcraw")
 test_program("convert", "imagemagick")
 test_program("tca_correct", "hugin-tools")
-test_program("exiftool", "libimage-exiftool-perl")
+test_program("exiv2", "exiv2")
 if missing_packages:
     print("The following packages are missing (Ubuntu packages, names may differ on other systems):\n    {0}\nAbort.".
           format("  ".join(missing_packages)))
     sys.exit()
+try:
+    dcraw_version = float(subprocess.Popen(["dcraw"], stdout=subprocess.PIPE).communicate()[0].splitlines()[1].
+                          rpartition("v")[2])
+except:
+    dcraw_version = 0
 
 
 @contextlib.contextmanager
@@ -102,7 +107,7 @@ def find_raw_files():
 file_exif_data = {}
 filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)")
 missing_lens_model_warning_printed = False
-exiftool_candidates = []
+exiv2_candidates = []
 
 def browse_directory(directory):
     if os.path.exists(directory):
@@ -115,29 +120,39 @@ def browse_directory(directory):
                         (match.group("lens_model").replace("__", "/").replace("_", " "), float(match.group("focal_length")),
                          float(match.group("aperture")))
                 else:
-                    exiftool_candidates.append(full_filename)
+                    exiv2_candidates.append(full_filename)
 browse_directory("distortion")
 browse_directory("tca")
 for directory in glob.glob("vignetting*"):
     browse_directory(directory)
-candidates_per_group = len(exiftool_candidates) // multiprocessing.cpu_count() + 1
+candidates_per_group = len(exiv2_candidates) // multiprocessing.cpu_count() + 1
 candidate_groups = []
-while exiftool_candidates:
-    candidate_group = exiftool_candidates[:candidates_per_group]
+while exiv2_candidates:
+    candidate_group = exiv2_candidates[:candidates_per_group]
     if candidate_group:
         candidate_groups.append(candidate_group)
-    del exiftool_candidates[:candidates_per_group]
-def call_exiftool(candidate_group):
-    data = json.loads(subprocess.check_output(
-        ["exiftool", "-j", "-lensmodel", "-focallength", "-aperture", "-lensid", "-lenstype"] + candidate_group,
-        stderr=open(os.devnull, "w")))
-    return dict((single_data["SourceFile"], (single_data.get("LensID") or single_data.get("LensModel") or
-                                             single_data.get("LensType"),
-                                             float(single_data.get("FocalLength", "nan").partition("mm")[0]),
-                                             single_data.get("Aperture", float("nan"))))
-                for single_data in data)
+    del exiv2_candidates[:candidates_per_group]
+def call_exiv2(candidate_group):
+    lines = subprocess.check_output(
+        ["exiv2", "-g", "Exif.Photo.LensModel", "-g", "Exif.Photo.FocalLength", "-g", "Exif.Photo.FNumber"]
+        + candidate_group,
+        stderr=open(os.devnull, "w"))
+    result = {}
+    for line in lines:
+        filename, data = line.split("  Exif.Photo.")
+        fieldname, __, __, field_value = data.split(None, 3)
+        exif_data = result.setdefault(filename, [None, float("nan"), float("nan")])
+        if fieldname == "LensModel":
+            exif_data[0] = field_value
+        elif fieldname == "FocalLength":
+            exif_data[1] = float(field_value.partition("mm")[0])
+        elif fieldname == "FNumber":
+            exif_data[2] = float(field_value.partition("F")[2])
+    for filename, exif_data in result.copy().items():
+        result[filename] = tuple(exif_data)
+    return result
 pool = multiprocessing.Pool()
-for group_exif_data in pool.map(call_exiftool, candidate_groups):
+for group_exif_data in pool.map(call_exiv2, candidate_groups):
     file_exif_data.update(group_exif_data)
 pool.close()
 pool.join()
@@ -150,7 +165,7 @@ for filename in list(file_exif_data):  # list() because I change the dict during
             print("""I couldn't detect the lens model name and assumed "Standard".
 For cameras without interchangable lenses, this may be correct.
 However, this fails if there is data of different undetectable lenses.
-A newer version of exiftool (if available) may help.
+A newer version of exiv2 (if available) may help.
 (This message is printed only once.)\n""")
             missing_lens_model_warning_printed = True
         file_exif_data[filename] = (lens_model, focal_length, aperture)
@@ -291,9 +306,9 @@ for vignetting_directory in glob.glob("vignetting*"):
         pool = multiprocessing.Pool()
         for filename in find_raw_files():
             if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
-                # FixMe: restore "-h" option once dcraw stops generating
-                # semitransparent TIFFs then.
-                pool.apply_async(subprocess.call, [generate_raw_conversion_call(filename, ["-4", "-M", "-o", "0"])])
+                h_option = [] if 8.99 < dcraw_version < 9.18 else ["-h"]
+                pool.apply_async(subprocess.call,
+                                 [generate_raw_conversion_call(filename, ["-4", "-M", "-o", "0"] + h_option)])
             exif_data = file_exif_data[os.path.join(vignetting_directory, filename)] + (distance,)
             distances_per_triplett.setdefault(exif_data[:3], set()).add(distance)
             images.setdefault(exif_data, []).append(os.path.join(vignetting_directory, filename))
@@ -314,7 +329,8 @@ def evaluate_image_set(exif_data, filepaths):
         radii, intensities = [], []
         for filepath in filepaths:
             image_data = subprocess.check_output(
-                ["convert", os.path.splitext(filepath)[0] + ".tiff", "-set", "colorspace", "RGB", "-resize", "250", "pgm:-"],
+                ["convert", os.path.splitext(filepath)[0] +
+                 ".tiff", "-set", "colorspace", "RGB", "-resize", "250", "pgm:-"],
                 stderr=open(os.devnull, "w"))
             width, height = None, None
             header_size = 0
