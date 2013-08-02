@@ -81,7 +81,7 @@ def generate_raw_conversion_call(filename, dcraw_options):
     if extension.lower() in ["jpg", "tif"]:
         return ["convert", filename, basename + ".tiff"]
     else:
-        return ["dcraw", "-T"] + dcraw_options + [filename]
+        return ["dcraw", "-T", "-t", "0"] + dcraw_options + [filename]
 
 
 raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf", "fff",
@@ -129,9 +129,10 @@ while exiftool_candidates:
     del exiftool_candidates[:candidates_per_group]
 def call_exiftool(candidate_group):
     data = json.loads(subprocess.check_output(
-        ["exiftool", "-j", "-lensmodel", "-focallength", "-aperture", "-lensid"] + candidate_group,
+        ["exiftool", "-j", "-lensmodel", "-focallength", "-aperture", "-lensid", "-lenstype"] + candidate_group,
         stderr=open(os.devnull, "w")))
-    return dict((single_data["SourceFile"], (single_data.get("LensModel") or single_data.get("LensID"),
+    return dict((single_data["SourceFile"], (single_data.get("LensID") or single_data.get("LensModel") or
+                                             single_data.get("LensType"),
                                              float(single_data.get("FocalLength", "nan").partition("mm")[0]),
                                              single_data.get("Aperture", float("nan"))))
                 for single_data in data)
@@ -221,6 +222,8 @@ except IOError:
 """)
             for lens_name in lens_names_by_focal_length:
                 outfile.write("\n{0}: <maker>, <mount>, <cropfactor>, <type>\n".format(lens_name))
+                # FixMe: Only generate focal lengths that are available for
+                # *distortion*.
                 for length in sorted(focal_lengths[lens_name]):
                     outfile.write("distortion({0}mm) = , , \n".format(length))
         else:
