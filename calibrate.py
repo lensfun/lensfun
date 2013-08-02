@@ -8,7 +8,7 @@ from __future__ import unicode_literals, division, absolute_import
 
 missing_packages = set()
 
-import subprocess, os, os.path, sys, multiprocessing, math, re, contextlib, glob, codecs, struct, json
+import subprocess, os, os.path, sys, multiprocessing, math, re, contextlib, glob, codecs, struct
 try:
     import numpy
 except ImportError:
@@ -35,6 +35,7 @@ try:
                           rpartition("v")[2])
 except:
     dcraw_version = 0
+h_option = [] if 8.99 < dcraw_version < 9.18 else ["-h"]
 
 
 @contextlib.contextmanager
@@ -133,14 +134,16 @@ while exiv2_candidates:
         candidate_groups.append(candidate_group)
     del exiv2_candidates[:candidates_per_group]
 def call_exiv2(candidate_group):
-    lines = subprocess.check_output(
-        ["exiv2", "-g", "Exif.Photo.LensModel", "-g", "Exif.Photo.FocalLength", "-g", "Exif.Photo.FNumber"]
-        + candidate_group,
-        stderr=open(os.devnull, "w"))
+    exiv2_process = subprocess.Popen(
+        ["exiv2", "-PEkt", "-g", "Exif.Photo.LensModel", "-g", "Exif.Photo.FocalLength", "-g", "Exif.Photo.FNumber"]
+        + candidate_group, stdout=subprocess.PIPE)
+    lines = exiv2_process.communicate()[0].splitlines()
+    assert exiv2_process.returncode in [0, 253]
     result = {}
     for line in lines:
-        filename, data = line.split("  Exif.Photo.")
-        fieldname, __, __, field_value = data.split(None, 3)
+        filename, data = line.split("Exif.Photo.")
+        filename = filename.rstrip()
+        fieldname, field_value = data.split(None, 1)
         exif_data = result.setdefault(filename, [None, float("nan"), float("nan")])
         if fieldname == "LensModel":
             exif_data[0] = field_value
@@ -259,7 +262,7 @@ def calculate_tca(filename):
         exif_data = file_exif_data[os.path.join("tca", filename)]
         tiff_filename = os.path.splitext(filename)[0] + b".tiff"
         if not os.path.exists(tiff_filename):
-            subprocess.call(generate_raw_conversion_call(filename, ["-4", "-o", "0", "-M"]))
+            subprocess.check_call(generate_raw_conversion_call(filename, ["-4", "-o", "0", "-M"]))
         output = subprocess.check_output(["tca_correct", "-o", "bv", tiff_filename], stderr=open(os.devnull, "w")). \
                  splitlines()[-1].strip()
         with open(tca_filename, "w") as outfile:
@@ -303,17 +306,10 @@ for vignetting_directory in glob.glob("vignetting*"):
     distance = float(vignetting_directory.partition("_")[2] or "inf")
     assert distance == float("inf") or distance < 1000
     with chdir(vignetting_directory):
-        pool = multiprocessing.Pool()
         for filename in find_raw_files():
-            if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
-                h_option = [] if 8.99 < dcraw_version < 9.18 else ["-h"]
-                pool.apply_async(subprocess.call,
-                                 [generate_raw_conversion_call(filename, ["-4", "-M", "-o", "0"] + h_option)])
             exif_data = file_exif_data[os.path.join(vignetting_directory, filename)] + (distance,)
             distances_per_triplett.setdefault(exif_data[:3], set()).add(distance)
             images.setdefault(exif_data, []).append(os.path.join(vignetting_directory, filename))
-        pool.close()
-        pool.join()
 
 vignetting_db_entries = {}
 
@@ -328,9 +324,10 @@ def evaluate_image_set(exif_data, filepaths):
     except IOError:
         radii, intensities = [], []
         for filepath in filepaths:
+            dcraw_process = subprocess.Popen(generate_raw_conversion_call(filepath, ["-4", "-M", "-o", "0", "-c"] + h_option),
+                                             stdout=subprocess.PIPE)
             image_data = subprocess.check_output(
-                ["convert", os.path.splitext(filepath)[0] +
-                 ".tiff", "-set", "colorspace", "RGB", "-resize", "250", "pgm:-"],
+                ["convert", "tiff:-", "-set", "colorspace", "RGB", "-resize", "250", "pgm:-"], stdin=dcraw_process.stdout,
                 stderr=open(os.devnull, "w"))
             width, height = None, None
             header_size = 0
