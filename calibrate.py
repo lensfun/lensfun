@@ -143,6 +143,9 @@ def call_exiv2(candidate_group):
     for line in lines:
         filename, data = line.split("Exif.Photo.")
         filename = filename.rstrip()
+        if not filename:
+            assert len(candidate_group) == 1
+            filename = candidate_group[0]
         fieldname, field_value = data.split(None, 1)
         exif_data = result.setdefault(filename, [None, float("nan"), float("nan")])
         if fieldname == "LensModel":
