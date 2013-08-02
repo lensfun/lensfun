@@ -92,22 +92,40 @@ while raw_files:
     if raw_file_group:
         raw_file_groups.append(raw_file_group)
     del raw_files[:raw_files_per_group]
-def call_exiftool(raw_file_group):
-    def normalize_lens_model_name(name):
-        return None if name and "unknown" in name.lower() else name
-    data = json.loads(subprocess.check_output(
-        ["exiftool", "-j", "-make", "-model", "-lensmodel", "-focallength", "-aperture", "-lensid", "-lenstype"]
-        + raw_file_group,
-        stderr=open(os.devnull, "w")).decode("utf-8"))
-    return dict((single_data["SourceFile"], (
-        single_data.get("Make"),
-        single_data.get("Model"),
-        normalize_lens_model_name(single_data.get("LensID") or single_data.get("LensModel") or single_data.get("LensType")),
-        float(single_data["FocalLength"].partition("mm")[0]) if "FocalLength" in single_data else None,
-        float(single_data["Aperture"]) if "Aperture" in single_data else None))
-                for single_data in data)
+def call_exiv2(raw_file_group):
+    exiv2_process = subprocess.Popen(
+        ["exiv2", "-PEkt", "-g", "Exif.Image.Make", "-g", "Exif.Image.Model",
+         "-g", "Exif.Photo.LensModel", "-g", "Exif.Photo.FocalLength", "-g", "Exif.Photo.FNumber"]
+        + raw_file_group, stdout=subprocess.PIPE)
+    lines = exiv2_process.communicate()[0].decode("utf-8").splitlines()
+    assert exiv2_process.returncode in [0, 253]
+    result = {}
+    for line in lines:
+        if "Exif.Photo." in line:
+            filename, data = line.split("Exif.Photo.")
+        else:
+            filename, data = line.split("Exif.Image.")
+        filename = filename.rstrip()
+        if not filename:
+            assert len(raw_file_group) == 1
+            filename = raw_file_group[0]
+        fieldname, field_value = data.split(None, 1)
+        exif_data = result.setdefault(filename, [None, None, None, float("nan"), float("nan")])
+        if fieldname == "Make":
+            exif_data[0] = field_value
+        elif fieldname == "Model":
+            exif_data[1] = field_value
+        elif fieldname == "LensModel":
+            exif_data[2] = field_value
+        elif fieldname == "FocalLength":
+            exif_data[3] = float(field_value.partition("mm")[0])
+        elif fieldname == "FNumber":
+            exif_data[4] = float(field_value.partition("F")[2])
+    for filename, exif_data in result.copy().items():
+        result[filename] = tuple(exif_data)
+    return result
 pool = multiprocessing.Pool()
-for group_exif_data in pool.map(call_exiftool, raw_file_groups):
+for group_exif_data in pool.map(call_exiv2, raw_file_groups):
     file_exif_data.update(group_exif_data)
 pool.close()
 pool.join()
