@@ -1546,8 +1546,33 @@
         </calibration>
     </lens>
 
-
-
-
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF-S 18-135mm f/3.5-5.6 IS</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.6</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18" a="0.04464" b="-0.15487" c="0.13016" />
+            <distortion model="ptlens" focal="19" a="0.02996" b="-0.08814" c="0.06037" />
+            <distortion model="ptlens" focal="22" a="0.03415" b="-0.09989" c="0.08629" />
+            <distortion model="ptlens" focal="24" a="0.01991" b="-0.04847" c="0.03528" />
+            <distortion model="ptlens" focal="29" a="0.02032" b="-0.05313" c="0.05651" />
+            <distortion model="ptlens" focal="35" a="0.00632" b="-0.00789" c="0.01784" />
+            <distortion model="ptlens" focal="41" a="0.00424" b="-0.00522" c="0.0221" />
+            <distortion model="ptlens" focal="48" a="-0.00698" b="0.03031" c="-0.01303" />
+            <distortion model="ptlens" focal="50" a="0.00469" b="-0.01695" c="0.042" />
+            <distortion model="ptlens" focal="85" a="-0.00269" b="0.01092" c="0.00887" />
+            <distortion model="ptlens" focal="135" a="0.00367" b="-0.00835" c="0.02183" />
+            <tca model="poly3" focal="18" br="-0.0001730" vr="1.0009746" bb="0.0001366" vb="0.9997877" />
+            <tca model="poly3" focal="19" br="-0.0001469" vr="1.0008595" bb="0.0000849" vb="0.9998491" />
+            <tca model="poly3" focal="21" br="-0.0000978" vr="1.0007549" bb="0.0000682" vb="0.9998856" />
+            <tca model="poly3" focal="24" br="-0.0000912" vr="1.0006334" bb="0.0000658" vb="0.9999068" />
+            <tca model="poly3" focal="28" br="-0.0000969" vr="1.0004872" bb="0.0000395" vb="0.9999687" />
+            <tca model="poly3" focal="35" br="-0.0000454" vr="1.0002680" bb="0.0000255" vb="1.0000265" />
+            <tca model="poly3" focal="50" br="0.0000013" vr="0.9999972" bb="-0.0000138" vb="1.0001329" />
+            <tca model="poly3" focal="85" br="0.0000476" vr="0.9997585" bb="-0.0000551" vb="1.0000792" />
+            <tca model="poly3" focal="135" br="0.0000789" vr="0.9996590" bb="-0.0000630" vb="0.9998623" />
+        </calibration>
+    </lens>
 
 </lensdatabase>

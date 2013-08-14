@@ -1,12 +1,37 @@
 <lensdatabase>
 
+    <mount>
+        <name>SigmaDP1</name>
+        <compat>Generic</compat>
+    </mount>
+
+    <mount>
+        <name>SigmaDP1M</name>
+        <compat>Generic</compat>
+    </mount>
+
+    <mount>
+        <name>SigmaDP2</name>
+        <compat>Generic</compat>
+    </mount>
+
+    <mount>
+        <name>SigmaDP2M</name>
+        <compat>Generic</compat>
+    </mount>
+
+    <mount>
+        <name>SigmaDP3M</name>
+        <compat>Generic</compat>
+    </mount>
+
     <camera>
         <maker>SIGMA</maker>
         <maker lang="en">Sigma</maker>
         <model>SIGMA DP1</model>
         <model lang="en">DP1</model>
         <mount>SigmaDP1</mount>
-        <cropfactor>1.7</cropfactor>
+        <cropfactor>1.739</cropfactor>
     </camera>
 
     <camera>
@@ -15,7 +40,7 @@
         <model>SIGMA DP1 Merrill</model>
         <model lang="en">DP1 Merrill</model>
         <mount>SigmaDP1M</mount>
-        <cropfactor>1.5</cropfactor>
+        <cropfactor>1.531</cropfactor>
     </camera>
 
     <camera>
@@ -24,7 +49,7 @@
         <model>SIGMA DP1S</model>
         <model lang="en">DP1S</model>
         <mount>SigmaDP1</mount>
-        <cropfactor>1.7</cropfactor>
+        <cropfactor>1.739</cropfactor>
     </camera>
 
     <camera>
@@ -33,7 +58,7 @@
         <model>SIGMA DP1X</model>
         <model lang="en">DP1X</model>
         <mount>SigmaDP1</mount>
-        <cropfactor>1.7</cropfactor>
+        <cropfactor>1.739</cropfactor>
     </camera>
 
     <camera>
@@ -42,7 +67,7 @@
         <model>SIGMA DP2</model>
         <model lang="en">DP2</model>
         <mount>SigmaDP2</mount>
-        <cropfactor>1.7</cropfactor>
+        <cropfactor>1.739</cropfactor>
     </camera>
 
     <camera>
@@ -51,7 +76,7 @@
         <model>SIGMA DP2 Merrill</model>
         <model lang="en">DP2 Merrill</model>
         <mount>SigmaDP2M</mount>
-        <cropfactor>1.5</cropfactor>
+        <cropfactor>1.531</cropfactor>
     </camera>
 
     <camera>
@@ -60,7 +85,7 @@
         <model>SIGMA DP2S</model>
         <model lang="en">DP2S</model>
         <mount>SigmaDP2</mount>
-        <cropfactor>1.7</cropfactor>
+        <cropfactor>1.739</cropfactor>
     </camera>
 
     <camera>
@@ -69,7 +94,7 @@
         <model>SIGMA DP2X</model>
         <model lang="en">DP2X</model>
         <mount>SigmaDP2</mount>
-        <cropfactor>1.7</cropfactor>
+        <cropfactor>1.739</cropfactor>
     </camera>
 
     <camera>
@@ -78,7 +103,18 @@
         <model>SIGMA DP3 Merrill</model>
         <model lang="en">DP3 Merrill</model>
         <mount>SigmaDP3M</mount>
-        <cropfactor>1.5</cropfactor>
+        <cropfactor>1.531</cropfactor>
     </camera>
+
+    <lens>
+        <maker>SIGMA</maker>
+        <maker lang="en">Sigma</maker>
+        <model>Standard</model>
+        <mount>SigmaDP2</mount>
+        <cropfactor>1.739</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="24.2" a="0.00558" b="-0.01995" c="0.00605" />
+        </calibration>
+    </lens>
 
 </lensdatabase>

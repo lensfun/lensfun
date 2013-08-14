@@ -1277,4 +1277,15 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S Nikkor 85mm f/1.8G</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="85" a="-0.00079" b="0.00341" c="-0.00179" />
+            <tca model="poly3" focal="85" br="-0.0000076" vr="0.9999780" bb="0.0000002" vb="0.9999216" />
+        </calibration>
+    </lens>
+
 </lensdatabase>

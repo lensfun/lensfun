@@ -245,7 +245,7 @@
         <model>Canon PowerShot G11</model>
         <model lang="en">PowerShot G11</model>
         <mount>canonG11</mount>
-        <cropfactor>4.605</cropfactor>
+        <cropfactor>4.554</cropfactor>
     </camera>
 
     <camera>
@@ -1330,6 +1330,28 @@
             <distortion model="ptlens" focal="18.9" a="-0.002" b="0.02" c="-0.027" />
             <distortion model="ptlens" focal="25" a="-0.004" b="0.013" c="-0.009" />
             <distortion model="ptlens" focal="44.4" a="0.002" b="0.008" c="-0.005" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Standard</model>
+        <mount>canonG11</mount>
+        <cropfactor>4.554</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="6.1" a="0.01606" b="-0.0393" c="-0.0167" />
+            <distortion model="ptlens" focal="6.8" a="0.01748" b="-0.04705" c="0.00205" />
+            <distortion model="ptlens" focal="7.4" a="0.01142" b="-0.03243" c="-0.00035" />
+            <distortion model="ptlens" focal="8.1" a="0.00543" b="-0.01716" c="-0.0055" />
+            <distortion model="ptlens" focal="8.9" a="0.02055" b="-0.07109" c="0.0607" />
+            <distortion model="ptlens" focal="9.8" a="0.00921" b="-0.03151" c="0.01933" />
+            <distortion model="ptlens" focal="10.8" a="0.01856" b="-0.06136" c="0.05221" />
+            <distortion model="ptlens" focal="12.1" a="0.00658" b="-0.01928" c="0.00538" />
+            <distortion model="ptlens" focal="13.8" a="0.00985" b="-0.03216" c="0.02499" />
+            <distortion model="ptlens" focal="18.1" a="-0.00766" b="-0.00228" c="0.03218" />
+            <distortion model="ptlens" focal="21.5" a="0.01669" b="-0.05429" c="0.04885" />
+            <distortion model="ptlens" focal="25" a="0.01337" b="-0.04578" c="0.04414" />
+            <distortion model="ptlens" focal="30.5" a="-0.00269" b="0.00762" c="-0.00738" />
         </calibration>
     </lens>
 

@@ -56,6 +56,11 @@
     </mount>
 
     <mount>
+        <name>nikonP330</name>
+        <compat>Generic</compat>
+    </mount>
+
+    <mount>
         <name>nikonP6000</name>
         <compat>Generic</compat>
     </mount>
@@ -206,6 +211,14 @@
         <variant>CP950</variant>
         <mount>nikon950</mount>
         <cropfactor>5.408</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>NIKON</maker>
+        <maker lang="en">Nikon</maker>
+        <model>COOLPIX P330</model>
+        <mount>nikonP330</mount>
+        <cropfactor>4.706</cropfactor>
     </camera>
 
     <camera>
@@ -614,4 +627,27 @@
         </calibration>
     </lens>
     
+    <lens>
+        <maker>Nikon</maker>
+        <model>Standard</model>
+        <mount>nikonP330</mount>
+        <cropfactor>4.706</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="5.1" a="0.0176" b="-0.07831" c="-0.03885" />
+            <distortion model="ptlens" focal="6" a="0.01418" b="-0.06625" c="-0.02427" />
+            <distortion model="ptlens" focal="7.5" a="0.00127" b="-0.01984" c="-0.02692" />
+            <distortion model="ptlens" focal="10.7" a="-0.00235" b="0.00566" c="-0.03388" />
+            <distortion model="ptlens" focal="18.2" b="-0.00243" />
+            <distortion model="ptlens" focal="22.4" b="-0.00077" />
+            <distortion model="ptlens" focal="25.5" b="0.00023" />
+            <tca model="poly3" focal="5.1" br="0.0005094" vr="0.9997604" bb="-0.0007459" vb="1.0013662" />
+            <tca model="poly3" focal="6" br="0.0003130" vr="0.9998362" bb="-0.0006603" vb="1.0013404" />
+            <tca model="poly3" focal="7.5" br="0.0001122" vr="0.9999132" bb="-0.0004930" vb="1.0013154" />
+            <tca model="poly3" focal="10.7" br="0.0000194" vr="0.9999687" bb="-0.0003203" vb="1.0011665" />
+            <tca model="poly3" focal="18.2" br="-0.0000083" vr="1.0001021" bb="-0.0000163" vb="1.0004001" />
+            <tca model="poly3" focal="22.4" br="-0.0000270" vr="1.0001445" bb="-0.0000302" vb="1.0002259" />
+            <tca model="poly3" focal="25.5" br="0.0000262" vr="1.0000900" bb="-0.0000026" vb="1.0001305" />
+        </calibration>
+    </lens>
+
 </lensdatabase>

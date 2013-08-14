@@ -40,6 +40,11 @@
         <compat>Generic</compat>
     </mount>
 
+    <mount>
+        <name>fujix100s</name>
+        <compat>Generic</compat>
+    </mount>
+
     <camera>
         <maker>FUJIFILM</maker>
         <maker lang="en">Fujifilm</maker>
@@ -191,6 +196,14 @@
         <model>FinePix F200EXR</model>
         <mount>fujiF200exr</mount>
         <cropfactor>4.341</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>FUJIFILM</maker>
+        <maker lang="en">Fujifilm</maker>
+        <model>X100S</model>
+        <mount>fujix100s</mount>
+        <cropfactor>1.523</cropfactor>
     </camera>
 
     <lens>
@@ -636,6 +649,17 @@
             <distortion model="ptlens" focal="16" a="-0.00790" b="0.02297" c="-0.02505" />
             <distortion model="ptlens" focal="25" a="-0.00176" b="0.00648" c="-0.00065" />
             <distortion model="ptlens" focal="32" a="-0.00962" b="0.02592" c="-0.01447" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fuji</maker>
+        <model>Standard</model>
+        <mount>fujix100s</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="23" a="0.02159" b="-0.0618" c="0.04364" />
+            <tca model="poly3" focal="23" br="-0.0001543" vr="1.0006122" bb="0.0001753" vb="0.9996422" />
         </calibration>
     </lens>
 
