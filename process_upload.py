@@ -125,6 +125,10 @@ def call_exiv2(raw_file_group):
         elif fieldname == "FNumber":
             exif_data[4] = float(field_value.partition("F")[2])
     for filename, exif_data in result.copy().items():
+        if not exif_data[2]:
+            camera_model = exif_data[1] and exif_data[1].lower() or ""
+            if "powershot" in camera_model or "coolpix" in camera_model or "dsc" in camera_model:
+                exif_data[2] = "Standard"
         result[filename] = tuple(exif_data)
     return result
 pool = multiprocessing.Pool()
@@ -164,8 +168,11 @@ if missing_data:
         hash_ = hashlib.sha1()
         hash_.update(raw_filepath.encode("utf-8"))
         out_filepath = os.path.join(cache_dir, hash_.hexdigest() + ".jpeg")
-        dcraw = subprocess.Popen(["dcraw", "-h", "-T", "-c", raw_filepath], stdout=subprocess.PIPE)
-        subprocess.Popen(["convert", "-", "-resize", "131072@", out_filepath], stdin=dcraw.stdout).wait()
+        if os.path.splitext(raw_filepath)[1].lower() in [".jpeg", ".jpg"]:
+            subprocess.Popen(["convert", raw_filepath, "-resize", "131072@", out_filepath]).wait()
+        else:
+            dcraw = subprocess.Popen(["dcraw", "-h", "-T", "-c", raw_filepath], stdout=subprocess.PIPE)
+            subprocess.Popen(["convert", "-", "-resize", "131072@", out_filepath], stdin=dcraw.stdout).wait()
     pool = multiprocessing.Pool()
     pool.map(generate_thumbnail, [data[0] for data in missing_data])
     pool.close()
