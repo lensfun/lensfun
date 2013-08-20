@@ -39,7 +39,7 @@ Thank you!
 Torsten Bronger, aquisgrana, europa vetus
                    Jabber ID: torsten.bronger@jabber.rwth-aachen.de
                                   or http://bronger-jmp.appspot.com
-""".format("http://wilson.homeunix.com/calibration/results/" + os.path.basename(directory)))
+""".format("http://wilson.bronger.org/calibration/results/" + os.path.basename(directory)))
 
 def send_success_email():
     send_email("Torsten Bronger <bronger@physik.rwth-aachen.de>", "Neue Kalibrationsdaten von " + email_address,
@@ -134,14 +134,14 @@ pool.close()
 pool.join()
 
 
+if not file_exif_data:
+    write_result_and_exit("No images found in archive.")
+
 cameras = set(exif_data[:2] for exif_data in file_exif_data.values())
 if len(cameras) != 1:
     write_result_and_exit("Multiple camera models found.")
 else:
     camera = cameras.pop()
-
-if not file_exif_data:
-    write_result_and_exit("No images found in archive.")
 
 missing_data = []
 filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)")
