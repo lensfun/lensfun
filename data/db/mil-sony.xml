@@ -100,7 +100,7 @@
         <mount>Sony E</mount>
         <cropfactor>1.534</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="16" a="0.04359" b="-0.10483" c="0.04408" />
+            <distortion model="ptlens" focal="16" a="0.01701" b="-0.02563" c="-0.0052" />
             <tca model="poly3" focal="16" br="-0.0003027" vr="1.0010272" bb="0.0003454" vb="0.9993952" />
             <vignetting model="pa" focal="16" aperture="2.8" distance="0.25" k1="-1.8891" k2="1.7993" k3="-0.7326" />
             <vignetting model="pa" focal="16" aperture="2.8" distance="0.4" k1="-1.9392" k2="1.8889" k3="-0.7764" />
@@ -364,6 +364,8 @@
         <cropfactor>1.534</cropfactor>
         <type>fisheye</type>
         <calibration>
+            <field_of_view focal="10" fov="135.12" />
+            <distortion model="ptlens" focal="10" a="-0.03545" b="0.08332" c="-0.03802" />
             <tca model="poly3" focal="16" br="-0.0003212" vr="1.0013837" bb="0.0004205" vb="0.9993395" />
             <vignetting model="pa" focal="16" aperture="2.8" distance="0.1" k1="-1.9395" k2="1.9128" k3="-0.8406" />
             <vignetting model="pa" focal="16" aperture="2.8" distance="1000" k1="-2.0049" k2="1.9673" k3="-0.8164" />
@@ -375,6 +377,17 @@
             <vignetting model="pa" focal="16" aperture="5.6" distance="1000" k1="-1.3561" k2="0.7952" k3="-0.2269" />
             <vignetting model="pa" focal="16" aperture="22" distance="0.1" k1="-1.3680" k2="0.8384" k3="-0.2824" />
             <vignetting model="pa" focal="16" aperture="22" distance="1000" k1="-1.4021" k2="0.8099" k3="-0.2069" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>VCL-ECU1 ultra wide converter</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="12" a="0.04359" b="-0.10483" c="0.04408" />
+            <tca model="poly3" focal="12" br="-0.0004381" vr="1.0013270" bb="0.0003951" vb="0.9993238" />
         </calibration>
     </lens>
 
