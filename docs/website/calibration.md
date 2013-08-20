@@ -11,7 +11,8 @@ Please send your profiles to ## sebastian_kraft AT gmx DOT de ## so they can be 
 
 Lens calibration tutorials:
 
-* <a href="http://wilson.homeunix.com/lens_calibration_tutorial/" target="_blank">Torsten Bronger's tutorial and supporting python scripts</a>
+* <a href="http://wilson.bronger.org/lens_calibration_tutorial/" target="_blank">Torsten Bronger's tutorial and supporting python scripts</a>
 * <a href="http://libregraphicsworld.org/blog/entry/creating-lens-distorsion-models-with-hugin-lens-calibrator" target="_blank">Hugin's lens calibrator tool</a>
 * <a href="/calibration-tutorial/lens-calibration.html" target="_blank">Original lensfun tutorial on this website</a>
 
+Alternatively, you can upload your calibration pictures at <a href="http://wilson.bronger.org/calibration" target="_blank">Bronger's calibration service</a> and leave the rest to him.
