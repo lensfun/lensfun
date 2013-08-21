@@ -129,6 +129,14 @@ def call_exiv2(raw_file_group):
             camera_model = exif_data[1] and exif_data[1].lower() or ""
             if "powershot" in camera_model or "coolpix" in camera_model or "dsc" in camera_model:
                 exif_data[2] = "Standard"
+            else:
+                # Fallback to Exiftool
+                data = json.loads(subprocess.check_output(
+                    ["exiftool", "-j", "-lensmodel", "-lensid", "-lenstype", filename],
+                    stderr=open(os.devnull, "w")).decode("utf-8"))[0]
+                exiftool_lens_model = data.get("LensID") or data.get("LensModel") or data.get("LensType")
+                if exiftool_lens_model and "unknown" not in exiftool_lens_model.lower():
+                    exif_data[2] = exiftool_lens_model
         result[filename] = tuple(exif_data)
     return result
 pool = multiprocessing.Pool()
