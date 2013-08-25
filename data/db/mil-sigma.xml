@@ -1,0 +1,23 @@
+<lensdatabase>
+
+    <lens>
+        <maker>Sigma</maker>
+        <!-- The actual name is "Sigma 30mm F2.8 EX DN".  The following is the exiv2 name on the NEX-C3. -->
+        <model>E 30mm F2.8</model>
+        <mount>Sony E</mount>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with NEX-C3 -->
+            <distortion model="poly3" focal="30" k1="-0.00329" />
+            <tca model="poly3" focal="30" br="-0.0000696" vr="1.0003379" bb="0.0001188" vb="0.9998102" />
+            <vignetting model="pa" focal="30" aperture="2.8" distance="10" k1="-0.7946" k2="0.5729" k3="-0.1713" />
+            <vignetting model="pa" focal="30" aperture="2.8" distance="1000" k1="-0.7946" k2="0.5729" k3="-0.1713" />
+            <vignetting model="pa" focal="30" aperture="4" distance="10" k1="-0.3097" k2="-0.3089" k3="0.2307" />
+            <vignetting model="pa" focal="30" aperture="4" distance="1000" k1="-0.3097" k2="-0.3089" k3="0.2307" />
+            <vignetting model="pa" focal="30" aperture="5.6" distance="10" k1="-0.6172" k2="0.5891" k3="-0.2868" />
+            <vignetting model="pa" focal="30" aperture="5.6" distance="1000" k1="-0.6172" k2="0.5891" k3="-0.2868" />
+        </calibration>
+    </lens>
+
+</lensdatabase>

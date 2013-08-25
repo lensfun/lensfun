@@ -997,6 +997,7 @@
         <!-- FixMe: Must be 1.523 instead -->
         <cropfactor>1.5</cropfactor>
         <calibration>
+            <!-- Taken with Nikon D7000 -->
             <distortion model="ptlens" focal="17" a="0.03046" b="-0.085" c="0.04461" />
             <distortion model="ptlens" focal="20" a="0.01724" b="-0.04004" c="0.01079" />
             <distortion model="ptlens" focal="24" a="0.01936" b="-0.05404" c="0.04106" />
@@ -1020,6 +1021,7 @@
         <mount>Pentax KAF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
+            <!-- Taken with Nikon D800 -->
             <distortion model="ptlens" focal="35" a="0.00542" b="-0.01856" c="0.017" />
             <tca model="poly3" focal="35" br="-0.0000475" vr="1.0001547" bb="0.0000608" vb="0.9999185" />
         </calibration>
@@ -1035,8 +1037,34 @@
         <cropfactor>1.5</cropfactor>
         <type>equisolid</type>
         <calibration>
+            <!-- Taken with Nikon D5100 -->
             <distortion model="ptlens" focal="8" a="-0.18485" b="0.5218" c="-0.42534" />
             <tca model="linear" focal="8" kr="1.0006" kb="1.0004" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 8-16mm f/4.5-5.6mm DC HSM</model>
+        <mount>Sigma SA</mount>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Pentax KAF</mount>
+        <mount>Sony Alpha</mount>
+        <!-- FixMe: Actually cropfactor 1.613 -->
+        <cropfactor>1.6</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 50D -->
+            <distortion model="ptlens" focal="8" a="0.02364" b="-0.13856" c="0.19092" />
+            <distortion model="ptlens" focal="10" a="-0.00766" b="0.00319" c="0.00208" />
+            <distortion model="ptlens" focal="12" a="-0.00826" b="-0.00321" c="0.04216" />
+            <distortion model="ptlens" focal="13" a="-0.00831" b="0.02128" c="-0.00924" />
+            <distortion model="ptlens" focal="16" b="0.0033" />
+            <tca model="poly3" focal="8" br="0.0000456" vr="1.0000029" bb="-0.0000656" vb="1.0001880" />
+            <tca model="poly3" focal="10" vr="1.0002" vb="1" />
+            <tca model="poly3" focal="12" vr="1.0002" vb="1" />
+            <tca model="poly3" focal="13" br="0.0000404" vr="1.0000986" bb="-0.0000936" vb="1.0001406" />
+            <tca model="poly3" focal="16" br="0.0000285" vr="1.0001326" bb="-0.0000943" vb="1.0001116" />
         </calibration>
     </lens>
 
