@@ -722,22 +722,21 @@
     <lens>
         <maker>Sigma</maker>
         <model>Sigma 55-200mm f/4-5.6 DC</model>
-        <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
-        <mount>Pentax KAF</mount>
+        <mount>Pentax KAF2</mount>
         <mount>4/3 System</mount>
-        <cropfactor>1.6</cropfactor>
+        <!-- FixMe: Actually cropfactor 1.531 -->
+        <cropfactor>1.5</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="55" a="0" b="-0.004366" c="0" />
-            <distortion model="ptlens" focal="59" a="0" b="-0.002076" c="0" />
-            <distortion model="ptlens" focal="67" a="0" b="0.000422" c="0" />
-            <distortion model="ptlens" focal="72" a="0" b="0.002204" c="0" />
-            <distortion model="ptlens" focal="78" a="0" b="0.004926" c="0" />
-            <distortion model="ptlens" focal="94" a="0" b="0.0063" c="0" />
-            <distortion model="ptlens" focal="112" a="0" b="0.007639" c="0" />
-            <distortion model="ptlens" focal="147" a="0" b="0.007139" c="0" />
-            <distortion model="ptlens" focal="200" a="0" b="0.008176" c="0" />
+            <!-- Taken with Pentax *ist DL -->
+            <distortion model="poly3" focal="55" k1="-0.00341" />
+            <distortion model="poly3" focal="73" k1="0.00308" />
+            <distortion model="poly3" focal="85" k1="0.00606" />
+            <distortion model="poly3" focal="103" k1="0.00766" />
+            <distortion model="poly3" focal="123" k1="0.0072" />
+            <distortion model="poly3" focal="160" k1="0.00643" />
+            <distortion model="poly3" focal="200" k1="0.00594" />
         </calibration>
     </lens>
 
