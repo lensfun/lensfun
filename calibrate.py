@@ -249,7 +249,7 @@ except IOError:
                     outfile.write("distortion({0}mm) = , , \n".format(length))
         else:
             outfile.write("""# No RAW images found.  Please have a look at
-# http://wilson.homeunix.com/lens_calibration_tutorial/
+# http://wilson.bronger.org/lens_calibration_tutorial/
 """)
     print("I wrote a template lenses.txt.  Please fill this file with proper information.  Abort.")
     sys.exit()
