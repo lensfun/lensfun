@@ -628,4 +628,55 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc PENTAX-DA 35mm F2.4 AL</model>
+        <mount>Pentax KAF2</mount>
+        <!-- FixMe: Actually cropfactor 1.522 -->
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-30 -->
+            <distortion model="poly3" focal="35" k1="-0.0038" />
+            <tca model="poly3" focal="35" vr="1.0003130" vb="0.9998969" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc PENTAX-DA* 50-135mm F2.8 ED [IF] SDM</model>
+        <mount>Pentax KAF2</mount>
+        <!-- FixMe: Actually cropfactor 1.522 -->
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-30 -->
+            <distortion model="poly3" focal="50" k1="-0.00786" />
+            <distortion model="poly3" focal="63" k1="-0.00367" />
+            <distortion model="poly3" focal="70" k1="0.00052" />
+            <distortion model="poly3" focal="75" k1="-0.00155" />
+            <distortion model="poly3" focal="95" k1="0.00337" />
+            <distortion model="poly3" focal="108" k1="0.00464" />
+            <distortion model="poly3" focal="135" k1="0.00586" />
+            <tca model="poly3" focal="50" vr="1.0003343" vb="0.9998633" />
+            <tca model="poly3" focal="63" vr="1.0001639" vb="0.9999264" />
+            <tca model="poly3" focal="70" vr="1.0000366" vb="0.9999579" />
+            <tca model="poly3" focal="75" vr="1.0000653" vb="0.9999403" />
+            <tca model="poly3" focal="95" vr="0.9999718" vb="0.9998939" />
+            <tca model="poly3" focal="108" vr="0.9999556" vb="0.9998626" />
+            <tca model="poly3" focal="135" vr="0.9999410" vb="0.9996804" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc PENTAX-FA 50mm F1.4</model>
+        <mount>Pentax KAF2</mount>
+        <!-- FixMe: Actually cropfactor 1.522 -->
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-30 -->
+            <distortion model="poly3" focal="50" k1="-0.00203" />
+            <tca model="poly3" focal="50" vr="1.0002324" vb="0.9997591" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
