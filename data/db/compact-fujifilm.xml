@@ -45,6 +45,11 @@
         <compat>Generic</compat>
     </mount>
 
+    <mount>
+        <name>fujix10</name>
+        <compat>Generic</compat>
+    </mount>
+
     <camera>
         <maker>FUJIFILM</maker>
         <maker lang="en">Fujifilm</maker>
@@ -204,6 +209,14 @@
         <model>X100S</model>
         <mount>fujix100s</mount>
         <cropfactor>1.523</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>FUJIFILM</maker>
+        <maker lang="en">Fujifilm</maker>
+        <model>X10</model>
+        <mount>fujix10</mount>
+        <cropfactor>3.93</cropfactor>
     </camera>
 
     <lens>
@@ -660,6 +673,25 @@
         <calibration>
             <distortion model="ptlens" focal="23" a="0.02159" b="-0.0618" c="0.04364" />
             <tca model="poly3" focal="23" br="-0.0001543" vr="1.0006122" bb="0.0001753" vb="0.9996422" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fuji</maker>
+        <model>Standard</model>
+        <mount>fujix10</mount>
+        <cropfactor>3.93</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="7.1" a="0.02972" b="-0.09564" c="0.0155" />
+            <distortion model="ptlens" focal="8.9" a="0.02083" b="-0.07255" c="0.03871" />
+            <distortion model="ptlens" focal="12.2" a="0.01649" b="-0.03788" c="0.01562" />
+            <distortion model="ptlens" focal="19.5" a="0.00142" b="0.01461" c="-0.01538" />
+            <distortion model="ptlens" focal="28.4" a="0" b="0.00718" c="0" />
+            <tca model="poly3" focal="7.1" vr="1.0007" vb="1.00012" />
+            <tca model="poly3" focal="8.9" vr="1.00046" vb="0.99992" />
+            <tca model="poly3" focal="12.2" vr="1.00043" vb="1.00008" />
+            <tca model="poly3" focal="19.5" />
+            <tca model="poly3" focal="28.4" vr="0.9998" vb="0.9996" />
         </calibration>
     </lens>
 
