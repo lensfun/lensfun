@@ -163,7 +163,8 @@ for filepath, exif_data in file_exif_data.items():
     if not filepath_pattern.match(os.path.splitext(os.path.basename(filepath))[0]):
         if exif_lens_model and exif_focal_length and exif_aperture:
             os.rename(filepath, os.path.join(os.path.dirname(filepath), "{}--{}mm--{}_{}".format(
-                exif_lens_model.replace("/", "__").replace(" ", "_"), exif_focal_length, exif_aperture, filename)))
+                exif_lens_model.replace("/", "__").replace(" ", "_").replace("*", "++"),
+                exif_focal_length, exif_aperture, filename)))
         else:
             missing_data.append((filepath, exif_lens_model, exif_focal_length, exif_aperture))
 
