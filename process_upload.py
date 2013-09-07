@@ -112,7 +112,11 @@ def call_exiv2(raw_file_group):
         if not filename:
             assert len(raw_file_group) == 1
             filename = raw_file_group[0]
-        fieldname, field_value = data.split(None, 1)
+        try:
+            fieldname, field_value = data.split(None, 1)
+        except ValueError:
+            # Field value was empty
+            continue
         exif_data = result.setdefault(filename, [None, None, None, float("nan"), float("nan")])
         if fieldname == "Make":
             exif_data[0] = field_value
