@@ -96,7 +96,7 @@ def call_exiv2(raw_file_group):
     exiv2_process = subprocess.Popen(
         ["exiv2", "-PEkt", "-g", "Exif.Image.Make", "-g", "Exif.Image.Model",
          "-g", "Exif.Photo.LensModel", "-g", "Exif.Photo.FocalLength", "-g", "Exif.Photo.FNumber",
-         "-g", "Exif.NikonLd2.LensIDNumber"]
+         "-g", "Exif.NikonLd2.LensIDNumber", "-g", "Exif.CanonCs.LensType"]
         + raw_file_group, stdout=subprocess.PIPE)
     lines = exiv2_process.communicate()[0].decode("utf-8").splitlines()
     assert exiv2_process.returncode in [0, 253]
@@ -108,6 +108,8 @@ def call_exiv2(raw_file_group):
             filename, data = line.split("Exif.Image.")
         elif "Exif.NikonLd2." in line:
             filename, data = line.split("Exif.NikonLd2.")
+        elif "Exif.CanonCs." in line:
+            filename, data = line.split("Exif.CanonCs.")
         filename = filename.rstrip()
         if not filename:
             assert len(raw_file_group) == 1
@@ -122,7 +124,9 @@ def call_exiv2(raw_file_group):
             exif_data[0] = field_value
         elif fieldname == "Model":
             exif_data[1] = field_value
-        elif fieldname in ["LensModel", "LensIDNumber"]:
+        elif fieldname == "LensModel" and not exif_data[2]:
+            exif_data[2] = field_value
+        elif fieldname in ["LensIDNumber", "LensType"]:
             exif_data[2] = field_value
         elif fieldname == "FocalLength":
             exif_data[3] = float(field_value.partition("mm")[0])
