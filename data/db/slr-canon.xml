@@ -117,7 +117,7 @@
         <model>Canon EOS-1D Mark IV</model>
         <model lang="en">EOS-1D Mark IV</model>
         <mount>Canon EF</mount>
-        <cropfactor>1.1</cropfactor>
+        <cropfactor>1.3</cropfactor>
     </camera>
 
     <camera>
@@ -126,6 +126,14 @@
         <model lang="en">EOS-1D</model>
         <mount>Canon EF</mount>
         <cropfactor>1.3</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon EOS-1D X</model>
+        <model lang="en">EOS-1D X</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <camera>
@@ -1572,6 +1580,16 @@
             <tca model="poly3" focal="50" br="0.0000013" vr="0.9999972" bb="-0.0000138" vb="1.0001329" />
             <tca model="poly3" focal="85" br="0.0000476" vr="0.9997585" bb="-0.0000551" vb="1.0000792" />
             <tca model="poly3" focal="135" br="0.0000789" vr="0.9996590" bb="-0.0000630" vb="0.9998623" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 85mm f/1.2L II USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="poly3" focal="85" k1="-0.00412" />
         </calibration>
     </lens>
 
