@@ -255,7 +255,7 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>SMC PENTAX DA 12-24mm F/4 ED AL IF</model>
+        <model>SMC PENTAX DA 12-24mm f/4 ED AL IF</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
@@ -335,7 +335,7 @@
 
     <lens>
         <maker>PENTAX</maker>
-        <model>smc PENTAX-DA 18-55mm F3.5-5.6 AL WR</model>
+        <model>smc PENTAX-DA 18-55mm f/3.5-5.6 AL WR</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
@@ -429,7 +429,7 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>SMC PENTAX DA 18-135mm F/3.5-5.6 ED AL [IF] DC WR</model>
+        <model>SMC PENTAX DA 18-135mm f/3.5-5.6 ED AL [IF] DC WR</model>
         <mount>Pentax K</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
@@ -476,7 +476,7 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>SMC PENTAX DA 55-300mm F/4-5.8 ED</model>
+        <model>SMC PENTAX DA 55-300mm f/4-5.8 ED</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
@@ -520,7 +520,7 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>SMC PENTAX K 30mm F/2.8</model>
+        <model>SMC PENTAX K 30mm f/2.8</model>
         <mount>Pentax K</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
@@ -532,7 +532,7 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>SMC PENTAX DA 40mm F/2.8 Limited</model>
+        <model>SMC PENTAX DA 40mm f/2.8 Limited</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
@@ -544,7 +544,7 @@
 
     <lens>
         <maker>PENTAX</maker>
-        <model>smc PENTAX-FA 43mm F1.9 Limited</model>
+        <model>smc PENTAX-FA 43mm f/1.9 Limited</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
@@ -569,7 +569,7 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>Takumar 135mm F/2.5 Bayonet</model>
+        <model>Takumar 135mm f/2.5 Bayonet</model>
         <mount>Pentax K</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
@@ -581,7 +581,7 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>SMC PENTAX M 50mm F/2</model>
+        <model>SMC PENTAX M 50mm f/2</model>
         <mount>Pentax K</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
@@ -593,7 +593,7 @@
 
     <lens>
         <maker>PENTAX</maker>
-        <model>smc PENTAX-D FA Macro 100mm F2.8 WR</model>
+        <model>smc PENTAX-D FA Macro 100mm f/2.8 WR</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
@@ -618,7 +618,7 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>SMC PENTAX M 150mm F/3.5</model>
+        <model>SMC PENTAX M 150mm f/3.5</model>
         <mount>Pentax K</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
@@ -630,7 +630,7 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>smc PENTAX-DA 35mm F2.4 AL</model>
+        <model>smc PENTAX-DA 35mm f/2.4 AL</model>
         <mount>Pentax KAF2</mount>
         <!-- FixMe: Actually cropfactor 1.522 -->
         <cropfactor>1.5</cropfactor>
@@ -643,7 +643,7 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>smc PENTAX-DA* 50-135mm F2.8 ED [IF] SDM</model>
+        <model>smc PENTAX-DA* 50-135mm f/2.8 ED [IF] SDM</model>
         <mount>Pentax KAF2</mount>
         <!-- FixMe: Actually cropfactor 1.522 -->
         <cropfactor>1.5</cropfactor>
@@ -668,7 +668,7 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>smc PENTAX-FA 50mm F1.4</model>
+        <model>smc PENTAX-FA 50mm f/1.4</model>
         <mount>Pentax KAF2</mount>
         <!-- FixMe: Actually cropfactor 1.522 -->
         <cropfactor>1.5</cropfactor>
@@ -676,6 +676,18 @@
             <!-- Taken with Pentax K-30 -->
             <distortion model="poly3" focal="50" k1="-0.00203" />
             <tca model="poly3" focal="50" vr="1.0002324" vb="0.9997591" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc PENTAX-DA 21mm f/3.2 AL Limited</model>
+        <mount>Pentax KAF2</mount>
+        <!-- FixMe: Actually cropfactor 1.522 -->
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-5 -->
+            <distortion model="poly3" focal="21" k1="-0.01388" />
         </calibration>
     </lens>
 
