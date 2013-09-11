@@ -1067,4 +1067,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 10-20mm f/3.5 EX DC HSM</model>
+        <mount>Canon EF</mount>
+        <!-- FixMe: Actually cropfactor 1.613 -->
+        <cropfactor>1.6</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 7D -->
+            <distortion model="ptlens" focal="10" a="0.02278" b="-0.0794" c="0.05484" />
+            <distortion model="ptlens" focal="12" a="0" b="-0.00643" c="0" />
+            <distortion model="ptlens" focal="15" a="0" b="0.00016" c="0" />
+            <distortion model="ptlens" focal="17" a="0.00645" b="-0.01179" c="0.00284" />
+            <distortion model="ptlens" focal="20" a="0" b="0.00321" c="0" />
+            <tca model="poly3" focal="10" br="0.0002606" vr="1.0001530" bb="-0.0001349" vb="1.0002823" />
+            <tca model="poly3" focal="12" br="0.0001459" vr="0.9999845" bb="-0.0001436" vb="1.0004044" />
+            <tca model="poly3" focal="15" br="0.0000907" vr="0.9999725" bb="-0.0001845" vb="1.0005339" />
+            <tca model="poly3" focal="17" br="0.0000683" vr="1.0000128" bb="-0.0001434" vb="1.0003791" />
+            <tca model="poly3" focal="20" br="0.0001555" vr="0.9999808" bb="-0.0001463" vb="1.0003311" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
