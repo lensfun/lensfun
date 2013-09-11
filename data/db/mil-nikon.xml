@@ -64,4 +64,48 @@
         <cropfactor>2.7</cropfactor>
     </camera>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>1 NIKKOR VR 10-30mm f/3.5-5.6</model>
+        <mount>Nikon CX</mount>
+        <!-- FixMe: Actually cropfactor 2.727 -->
+        <cropfactor>2.7</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon 1 J1 -->
+            <distortion model="ptlens" focal="10" a="0.00625" b="-0.02807" c="0.01012" />
+            <distortion model="ptlens" focal="14" a="0" b="-0.00506" c="0" />
+            <distortion model="ptlens" focal="18.2" a="0" b="-0.00166" c="0" />
+            <distortion model="ptlens" focal="20.3" a="0" b="-0.0012" c="0" />
+            <distortion model="ptlens" focal="23.6" a="0" b="-0.00026" c="0" />
+            <distortion model="ptlens" focal="30" a="0" b="0.00046" c="0" />
+            <tca model="poly3" focal="10" vr="1.0002498" vb="1.0002093" />
+            <tca model="poly3" focal="14" vr="1.0001798" vb="1.0001781" />
+            <tca model="poly3" focal="18.2" vr="1.0001406" vb="1.0001690" />
+            <tca model="poly3" focal="20.3" vr="1.0001429" vb="1.0001581" />
+            <tca model="poly3" focal="23.6" vr="1.0001309" vb="1.0001345" />
+            <tca model="poly3" focal="30" vr="1.0001281" vb="1.0000955" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>1 NIKKOR VR 30-110mm f/3.8-5.6</model>
+        <mount>Nikon CX</mount>
+        <!-- FixMe: Actually cropfactor 2.727 -->
+        <cropfactor>2.7</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon 1 J1 -->
+            <distortion model="poly3" focal="30" k1="-0.01024" />
+            <distortion model="poly3" focal="39.8" k1="0.00097" />
+            <distortion model="poly3" focal="59.4" k1="0.00573" />
+            <distortion model="poly3" focal="80.1" k1="0.00556" />
+            <distortion model="poly3" focal="110" k1="0.00532" />
+            <tca model="poly3" focal="30" vr="1.0000704" vb="1.0001468" />
+            <tca model="poly3" focal="39.8" vr="1.0000811" vb="1.0000224" />
+            <tca model="poly3" focal="59.4" vr="0.9999867" vb="0.9999353" />
+            <tca model="poly3" focal="80.1" vr="0.9999499" vb="0.9998968" />
+            <tca model="poly3" focal="110" vr="0.9998706" vb="0.9998498" />
+        </calibration>
+    </lens>
+
 </lensdatabase>

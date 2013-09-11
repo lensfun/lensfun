@@ -1304,4 +1304,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S Zoom-Nikkor 14-24mm f/2.8G ED</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D700 -->
+            <distortion model="poly3" focal="14" k1="-0.01343" />
+            <distortion model="poly3" focal="16" k1="-0.00853" />
+            <distortion model="poly3" focal="18" k1="-0.00354" />
+            <distortion model="poly3" focal="20" k1="-0.00084" />
+            <distortion model="poly3" focal="22" k1="0.00035" />
+            <distortion model="poly3" focal="24" k1="0.00088" />
+            <tca model="poly3" focal="14" br="0.0000628" vr="1.0001266" bb="-0.0000429" vb="1.0001134" />
+            <tca model="poly3" focal="16" br="0.0001160" vr="1.0000512" bb="-0.0000490" vb="1.0001245" />
+            <tca model="poly3" focal="18" br="0.0000802" vr="1.0000736" bb="-0.0000670" vb="1.0001496" />
+            <tca model="poly3" focal="20" br="0.0001132" vr="1.0000380" bb="-0.0000470" vb="1.0001205" />
+            <tca model="poly3" focal="22" br="0.0000941" vr="1.0000766" bb="-0.0000508" vb="1.0001177" />
+            <tca model="poly3" focal="24" br="0.0000737" vr="1.0001211" bb="-0.0000343" vb="1.0000684" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
