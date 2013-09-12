@@ -127,8 +127,7 @@ def call_exiv2(raw_file_group):
         elif fieldname == "Model":
             exif_data[1] = field_value
         elif fieldname in ["LensIDNumber", "LensType", "LensModel"]:
-            if not exif_data[2] or "Canon" in line or "Nikon" in line:
-                # Give vendor fields higher priority
+            if not exif_data[2] or len(field_value) > len(exif_data[2]):
                 exif_data[2] = field_value
         elif fieldname == "FocalLength":
             exif_data[3] = float(field_value.partition("mm")[0])
