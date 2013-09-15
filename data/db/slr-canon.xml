@@ -1558,8 +1558,10 @@
         <maker>Canon</maker>
         <model>Canon EF-S 18-135mm f/3.5-5.6 IS</model>
         <mount>Canon EF-S</mount>
+        <!-- FixMe: Actually cropfactor 1.613 -->
         <cropfactor>1.6</cropfactor>
         <calibration>
+            <!-- Taken with Canon EOS 60D -->
             <distortion model="ptlens" focal="18" a="0.04464" b="-0.15487" c="0.13016" />
             <distortion model="ptlens" focal="19" a="0.02996" b="-0.08814" c="0.06037" />
             <distortion model="ptlens" focal="22" a="0.03415" b="-0.09989" c="0.08629" />
@@ -1589,6 +1591,7 @@
         <mount>Canon EF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
+            <!-- Taken with Canon EOS-1D X -->
             <distortion model="poly3" focal="85" k1="-0.00412" />
         </calibration>
     </lens>

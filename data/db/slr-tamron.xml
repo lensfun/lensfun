@@ -143,7 +143,7 @@
             <tca model="poly3" focal="220" br="0.0001387" cr="-0.0004467" vr="0.9993390" bb="0.0000952" cb="-0.0001185" vb="0.9997363" />
             <tca model="poly3" focal="250" br="0.0005417" cr="-0.0013082" vr="0.9997014" bb="-0.0007442" cb="0.0015463" vb="0.9988026" />
         </calibration>
-    </lens> 
+    </lens>
 
     <lens>
         <maker>Tamron</maker>
@@ -267,7 +267,7 @@
             <distortion model="poly3" focal="35" k1="-0.00768" />
             <distortion model="ptlens" focal="40" a="0.0012" b="-0.00676" c="0.00204" />
             <distortion model="ptlens" focal="50" a="-0.00143" b="0.00459" c="-0.00465" />
-            <distortion model="poly3" focal="70" k1="0.00233" />	    
+            <distortion model="poly3" focal="70" k1="0.00233" />
 	        <tca model="poly3" focal="35" br="-0.00004" vr="1.00018" bb="0.00007" vb="0.999835" />
 	        <tca model="poly3" focal="40" br="-0.00003" vr="1.00011" bb="0.000021" vb="0.999909" />
             <tca model="poly3" focal="50" br="-0.0000088" vr="1.0000432" bb="0.0000117" vb="0.9999312" />
@@ -305,12 +305,12 @@
             <vignetting model="pa" focal="300" aperture="11" distance="1000" k1="-0.03866" k2="0.05966" k3="-0.04464" />
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Tamron</maker>
         <model>Tamron SP 70-300mm F4-5.6 Di VC USD</model>
         <mount>Canon EF</mount>
-        <mount>Nikon F AF</mount>        
+        <mount>Nikon F AF</mount>
         <mount>Sony Alpha</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
@@ -322,5 +322,27 @@
             <distortion model="ptlens" focal="300" a="0.002" b="0.001" c="0.007" />
         </calibration>
     </lens>
-    
+
+    <lens>
+        <maker>Tamron</maker>
+        <model>Tamron AF 18-270mm f/3.5-6.3 Di II VC PZD</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <!-- FixMe: Actually cropfactor 1.613 -->
+        <cropfactor>1.6</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS 550D -->
+            <distortion model="ptlens" focal="18" a="0.01861" b="-0.05313" c="-0.00391" />
+            <distortion model="ptlens" focal="25" a="0.01981" b="-0.05231" c="0.03436" />
+            <distortion model="ptlens" focal="33" a="0.01589" b="-0.03236" c="0.03109" />
+            <distortion model="ptlens" focal="35" a="0.01503" b="-0.02899" c="0.03321" />
+            <distortion model="ptlens" focal="46" a="0.00509" b="0.00394" c="0.00394" />
+            <distortion model="ptlens" focal="76" a="0.00322" b="0.00008" c="0.01944" />
+            <distortion model="ptlens" focal="85" a="0.01472" b="-0.04063" c="0.0667" />
+            <distortion model="ptlens" focal="142" a="0.00302" b="0.01586" c="-0.03011" />
+            <distortion model="ptlens" focal="270" a="-0.00126" b="0.02251" c="-0.0319" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
