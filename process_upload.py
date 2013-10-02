@@ -103,25 +103,25 @@ def call_exiv2(raw_file_group):
     result = {}
     for line in lines:
         if "Exif.Photo." in line:
-            filename, data = line.split("Exif.Photo.")
+            filepath, data = line.split("Exif.Photo.")
         elif "Exif.Image." in line:
-            filename, data = line.split("Exif.Image.")
+            filepath, data = line.split("Exif.Image.")
         elif "Exif.NikonLd2." in line:
-            filename, data = line.split("Exif.NikonLd2.")
+            filepath, data = line.split("Exif.NikonLd2.")
         elif "Exif.CanonCs." in line:
-            filename, data = line.split("Exif.CanonCs.")
+            filepath, data = line.split("Exif.CanonCs.")
         elif "Exif.Canon." in line:
-            filename, data = line.split("Exif.Canon.")
-        filename = filename.rstrip()
-        if not filename:
+            filepath, data = line.split("Exif.Canon.")
+        filepath = filepath.rstrip()
+        if not filepath:
             assert len(raw_file_group) == 1
-            filename = raw_file_group[0]
+            filepath = raw_file_group[0]
         try:
             fieldname, field_value = data.split(None, 1)
         except ValueError:
             # Field value was empty
             continue
-        exif_data = result.setdefault(filename, [None, None, None, float("nan"), float("nan")])
+        exif_data = result.setdefault(filepath, [None, None, None, float("nan"), float("nan")])
         if fieldname == "Make":
             exif_data[0] = field_value
         elif fieldname == "Model":
@@ -133,7 +133,7 @@ def call_exiv2(raw_file_group):
             exif_data[3] = float(field_value.partition("mm")[0])
         elif fieldname == "FNumber":
             exif_data[4] = float(field_value.partition("F")[2])
-    for filename, exif_data in result.copy().items():
+    for filepath, exif_data in result.copy().items():
         if not exif_data[2]:
             camera_model = exif_data[1] and exif_data[1].lower() or ""
             if "powershot" in camera_model or "coolpix" in camera_model or "dsc" in camera_model:
@@ -141,12 +141,12 @@ def call_exiv2(raw_file_group):
             else:
                 # Fallback to Exiftool
                 data = json.loads(subprocess.check_output(
-                    ["exiftool", "-j", "-lensmodel", "-lensid", "-lenstype", filename],
+                    ["exiftool", "-j", "-lensmodel", "-lensid", "-lenstype", filepath],
                     stderr=open(os.devnull, "w")).decode("utf-8"))[0]
                 exiftool_lens_model = data.get("LensID") or data.get("LensModel") or data.get("LensType")
                 if exiftool_lens_model and "unknown" not in exiftool_lens_model.lower():
                     exif_data[2] = exiftool_lens_model
-        result[filename] = tuple(exif_data)
+        result[filepath] = tuple(exif_data)
     return result
 pool = multiprocessing.Pool()
 for group_exif_data in pool.map(call_exiv2, raw_file_groups):
