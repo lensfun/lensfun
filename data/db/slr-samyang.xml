@@ -11,4 +11,21 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang 500mm f/6.3 MC IF Mirror Lens</model>
+        <mount>T2</mount>
+        <focal value="500" />
+        <aperture value="6.3" />
+        <!-- FixMe: Actually cropfactor 1.534 -->
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <!-- Taken with NEX-7 -->
+            <distortion model="poly3" focal="500" k1="0" />
+            <tca model="linear" focal="500" kr="1" kb="1" />
+            <vignetting model="pa" focal="500" aperture="6.3" distance="10" k1="-0.7756" k2="0.8291" k3="-0.3723" />
+            <vignetting model="pa" focal="500" aperture="6.3" distance="1000" k1="-0.7756" k2="0.8291" k3="-0.3723" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
