@@ -781,4 +781,16 @@
 	    </calibration>
     </lens>
 
+    <lens>
+        <maker>Panasonic</maker>
+        <model>Leica DG Summilux 25/f1.4</model>
+	<mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <calibration>
+            <!-- Taken with Olympus OMD E-M5 -->
+            <distortion model="ptlens" focal="25" a="-0.00305" b="-0.01088" c="-0.00658" />
+            <tca model="poly3" focal="25" br="-0.0000700" vr="1.0002675" bb="0.0001262" vb="0.9998339" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
