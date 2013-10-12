@@ -1125,6 +1125,7 @@
         <cropfactor>1.5</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="35" a="0.003" b="-0.017" c="0.005" />
+            <tca model="linear" focal="35" kr="1.0003" kb="1.0003" />
         </calibration>
     </lens>
     
