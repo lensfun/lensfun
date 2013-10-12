@@ -107,4 +107,16 @@ http://en.wikipedia.org/wiki/Mirrorless_interchangeable-lens_camera
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Samsung</maker>
+        <model>Samsung 16mm f/2.4</model>
+        <mount>Samsung NX</mount>
+        <cropfactor>1.54</cropfactor>
+        <calibration>
+            <!-- Taken with Samsung NX10 -->
+            <distortion model="ptlens" focal="16" a="0.00013" b="-0.00589" c="-0.04838" />
+            <tca model="poly3" focal="16" br="-0.0000770" vr="1.0006160" bb="0.0001654" vb="0.9997845" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
