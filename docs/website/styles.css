@@ -60,13 +60,13 @@ body {
 }
 
 #container {
-  width: 70em;
+  width: 75em;
 }
 
 #content {
   padding:1em;
   float:right;
-  width:50em;
+  width:55em;
   background: rgb(45, 45, 45);
 }
 
@@ -87,6 +87,19 @@ body {
 #berlios-badge {
   margin-top: 3em;
   font:10pt Verdana, DejaVu Sans, Arial;
+}
+
+table {
+    border: 1px solid gray;
+    border-collapse: collapse;
+}
+
+table th {
+    padding: 0.3em;
+}
+
+table td {
+    padding: 0.3em;
 }
 
 a:link {
