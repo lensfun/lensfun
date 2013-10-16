@@ -385,6 +385,29 @@
     <lens>
         <maker>Leica</maker>
         <model>Standard</model>
+        <mount>panasonicFZ28</mount>
+	    <focal min="4.8" max="86.4"/> 
+	    <aperture min="2.8" max="4.4"/> 
+        <cropfactor>5.6</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="4.8" a="0.0151051047088923" b="-0.0590418104126213"  c="0.0522404604411257" />
+            <distortion model="ptlens" focal="5.5" a="0.0097263708023807" b="-0.0404126502555069" c="0.0356794326344223" />
+            <distortion model="ptlens" focal="6.1" a="0.00545155030636666" b="-0.0210447640238848" c="0.0157982485686123" />
+            <distortion model="ptlens" focal="6.9" a="0.00545155030636666" b="-0.0210447640238848" c="0.0157982485686123" />
+            <distortion model="ptlens" focal="8.2" a="0.00252217796060456" b="0.00406258888297525" c="-0.00902488977450724" />
+            <distortion model="ptlens" focal="8.2" a="0.0136046055037993" b="-0.0241186263472487" c="0.0125418235034799" />
+            <distortion model="ptlens" focal="9.0" a="0.0137599637728544" b="-0.0250948730402496" c="0.0160544859044301" />
+            <distortion model="ptlens" focal="11.9" a="0.000337392416435729" b="0.0100459086335183" c="-0.00994856944375364" />
+            <distortion model="ptlens" focal="14.4" a="0.000732769598129668" b="0.00515254826530127" c="-0.00686539554143091" />
+            <distortion model="ptlens" focal="14.9" a="0.00584048075864842" b="-0.0108398840906803" c="0.0100244102797433" />
+            <distortion model="ptlens" focal="20.8" a="0.00028294704124076" b="0.000670293694980388" c="-0.0011265790621693" />
+            <distortion model="ptlens" focal="25.2" a="-0.00259970212897242" b="0.00799923834974951" c="-0.0091582160365622" />
+       </calibration>
+   </lens>
+
+    <lens>
+        <maker>Leica</maker>
+        <model>Standard</model>
         <mount>panasonicFZ30</mount>
         <cropfactor>4.73</cropfactor>
         <calibration>

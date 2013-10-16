@@ -345,4 +345,42 @@
         </calibration>
     </lens>
 
+    <lens>
+	    <maker>Tamron</maker>
+	    <model>TAMRON SP AF 90mm f/2.8 (172E)</model>
+	    <focal value="90" />
+	    <aperture value="2.8" />
+	    <aperture>2.8-32</aperture>
+	    <mount>Nikon F AF</mount>
+        <mount>Canon EF</mount>
+        <mount>Pentax KAF2</mount>
+        <mount>Sony Alpha</mount>
+	    <cropfactor>1.5</cropfactor>
+	    <calibration>
+	        <distortion focal="90" model="ptlens" a="-0.00126953" b="0.00404399" c="-0.0027782" />
+            <tca model="poly3" focal="90" br="-0.0000152" vr="1.0000471" bb="-0.0000061" vb="0.9998509" />
+            <vignetting model="pa" focal="90" aperture="2.8" distance="0.29" k1="0.0414" k2="-0.1677" k3="0.1199" />
+            <vignetting model="pa" focal="90" aperture="2.8" distance="0.6" k1="-0.0576" k2="-0.2887" k3="0.2065" />
+            <vignetting model="pa" focal="90" aperture="2.8" distance="1.5" k1="-0.2170" k2="-0.0857" k3="0.1121" />
+            <vignetting model="pa" focal="90" aperture="2.8" distance="1000" k1="-0.2146" k2="-0.1791" k3="0.1820" />
+            <vignetting model="pa" focal="90" aperture="4" distance="0.29" k1="-0.0298" k2="-0.0754" k3="0.0582" />
+            <vignetting model="pa" focal="90" aperture="4" distance="0.6" k1="-0.0172" k2="-0.2229" k3="0.1321" />
+            <vignetting model="pa" focal="90" aperture="4" distance="1.5" k1="-0.1334" k2="-0.1854" k3="0.1342" />
+            <vignetting model="pa" focal="90" aperture="4" distance="1000" k1="-0.1590" k2="-0.2373" k3="0.1870" />
+            <vignetting model="pa" focal="90" aperture="5.6" distance="0.29" k1="-0.0117" k2="-0.0517" k3="0.0491" />
+            <vignetting model="pa" focal="90" aperture="5.6" distance="0.6" k1="0.0148" k2="-0.1274" k3="0.0910" />
+            <vignetting model="pa" focal="90" aperture="5.6" distance="1.5" k1="0.0117" k2="-0.1416" k3="0.0988" />
+            <vignetting model="pa" focal="90" aperture="5.6" distance="1000" k1="0.0290" k2="-0.1878" k3="0.1275" />
+            <vignetting model="pa" focal="90" aperture="8" distance="0.29" k1="-0.0197" k2="-0.0350" k3="0.0395" />
+            <vignetting model="pa" focal="90" aperture="8" distance="0.6" k1="-0.0280" k2="-0.0312" k3="0.0299" />
+            <vignetting model="pa" focal="90" aperture="8" distance="1.5" k1="-0.0190" k2="-0.0579" k3="0.0448" />
+            <vignetting model="pa" focal="90" aperture="8" distance="1000" k1="-0.0084" k2="-0.0916" k3="0.0666" />
+            <vignetting model="pa" focal="90" aperture="32" distance="0.29" k1="-0.0394" k2="0.0075" k3="0.0130" />
+            <vignetting model="pa" focal="90" aperture="32" distance="0.6" k1="-0.1223" k2="0.1561" k3="-0.0806" />
+            <vignetting model="pa" focal="90" aperture="32" distance="1.5" k1="-0.0777" k2="0.0766" k3="-0.0380" />
+            <vignetting model="pa" focal="90" aperture="32" distance="1000" k1="-0.0557" k2="0.0276" k3="-0.0118" />
+	        <field_of_view focal="90" fov="15.1702" />
+	    </calibration>
+    </lens>
+
 </lensdatabase>
