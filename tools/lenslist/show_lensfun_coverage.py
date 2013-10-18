@@ -8,6 +8,8 @@ import re
 import argparse
 
 #======================================================================
+# Function and class definitions
+#----------------------------------------------------------------------
 
 #----------------------------------------------------------------------
 def find_best(root, tagname):
@@ -62,13 +64,17 @@ class Lens:
 #======================================================================
 
 
+
 #======================================================================
+# Main routine
+#----------------------------------------------------------------------
 
 # set up the commandline parser and define some arguemnts
 parser = argparse.ArgumentParser(description='Create a list of all cameras and lenses in the lensfun database.')
 parser.add_argument('db_path', metavar='DB_PATH', help='path to the lensfun database', default='/usr/share/lensfun/', nargs='?')
 parser.add_argument('-s', dest='svn', action='store_true', help='download current database from subversion repository')
-parser.add_argument('-t', dest='table_only', action='store_true', help='pure html table without surrounding html header and description')
+parser.add_argument('-t', dest='table_only', action='store_true', help='pure table/list without surrounding header and description')
+parser.add_argument('-m', dest='markdown', action='store_true', help='output markdown instead of HTML')
 parser.add_argument('-o', dest='outfile', action='store', help='output filename and path', default='./lensfun_coverage.html')
 
 cmdline_args = vars(parser.parse_args())
@@ -108,35 +114,68 @@ lenses.sort(key=lambda Lens: Lens.maker.lower())
 # finally write the table into the output file
 outfile = open(cmdline_args['outfile'], "w")
 
-if cmdline_args['table_only'] == False:
-    outfile.write("<html><head><title>LensFun's coverage</title></head><body><h1>LensFun coverage</h1><h2>Lenses (count: {})</h2>"
-              "<p>This table was generated on {} from current LensFun sources.  Your LensFun version may be older, resulting in "
-              "less coverage.  If your lens is not included, see</p><ul><li><a href='/calibration'>Upload calibration pictures</a>"
-              "</li><li><a href='lens_calibration_tutorial/'>Lens calibration for LensFun</a></li></ul>".format(
-                  len(lenses), datetime.date.today()))
+#----------------------------------------------------------------------
+# write HTML table or markdown formatted list
+if cmdline_args['markdown'] == False:
 
-outfile.write("<table border='1'><thead><tr><th>manufacturer</th><th>model</th><th>crop</th><th>distortion</th><th>TCA</th>"
-              "<th>vignetting</th></tr></thead><tbody>")
-number_of_makers = 0
-previous_maker = None
+    #----------------------------------------------------------------------
+    # HTML table
+    if cmdline_args['table_only'] == False:
+        outfile.write("<html><head><title>LensFun's coverage</title></head><body><h1>LensFun coverage</h1><h2>Lenses (count: {})</h2>"
+                  "<p>This table was generated on {} from current LensFun sources.  Your LensFun version may be older, resulting in "
+                  "less coverage.  If your lens is not included, see</p><ul><li><a href='/calibration'>Upload calibration pictures</a>"
+                  "</li><li><a href='lens_calibration_tutorial/'>Lens calibration for LensFun</a></li></ul>\n".format(
+                      len(lenses), datetime.date.today()))
 
-for lens in lenses:
-    if lens.maker.lower() != previous_maker:
-        number_of_makers += 1
+    outfile.write("<table border='1'><thead><tr><th>manufacturer</th><th>model</th><th>crop</th><th>distortion</th><th>TCA</th>"
+                  "<th>vignetting</th></tr></thead><tbody>\n")
+    number_of_makers = 0
+    previous_maker = None
 
-    outfile.write("""<tr{}><td>{}</td><td>{}</td><td>{}</td><td{}</td><td{}</td><td{}</td></tr>""".format(
-        ' style="background-color: #eeeeee"' if number_of_makers % 2 else "",
-        lens.maker if lens.maker.lower() != previous_maker else "", lens.model, lens.crop or "?",
-        print_x(lens.distortion), print_x(lens.tca), print_x(lens.vignetting)))
-    previous_maker = lens.maker.lower()
+    for lens in lenses:
+        if lens.maker.lower() != previous_maker:
+            number_of_makers += 1
 
-outfile.write("</tbody></table><h2>Cameras</h2><p>Note that new camera models can be added very easily.  "
+        outfile.write("""<tr{}><td>{}</td><td>{}</td><td>{}</td><td{}</td><td{}</td><td{}</td></tr>\n""".format(
+            ' style="background-color: #eeeeee"' if number_of_makers % 2 else "",
+            lens.maker if lens.maker.lower() != previous_maker else "", lens.model, lens.crop or "?",
+            print_x(lens.distortion), print_x(lens.tca), print_x(lens.vignetting)))
+        previous_maker = lens.maker.lower()
+
+    outfile.write("</tbody></table><h2>Cameras</h2><p>Note that new camera models can be added very easily.  "
               "Contact the LensFun maintainers for this.</p>")
 
-for maker, cameras in sorted(Camera.camera_makers.items()):
-    outfile.write("<p><strong>{}</strong>: {}</p>".format(maker, ", ".join(sorted(cameras))))
+    for maker, cameras in sorted(Camera.camera_makers.items()):
+        outfile.write("<p><strong>{}</strong>: {}</p>".format(maker, ", ".join(sorted(cameras))))
 
-if cmdline_args['table_only'] == False:
-    outfile.write("</body></html>")
+    if cmdline_args['table_only'] == False:
+        outfile.write("</body></html>")
+else:
+
+    #----------------------------------------------------------------------
+    # Markdown list
+
+    if cmdline_args['table_only'] == False:
+        outfile.write("= LensFun's coverage = \n\n == Lenses (count: {}) ==\n\n"
+                  "This list was generated on {} from current LensFun sources.  Your LensFun version may be older, resulting in "
+                  "less coverage.  \nIf your lens is not included, see \n\n* <a href='/calibration'>Upload calibration pictures</a>\n"
+                  "* <a href='lens_calibration_tutorial/'>Lens calibration for LensFun</a>\n\n".format(
+                      len(lenses), datetime.date.today()))
+
+    number_of_makers = 0
+    previous_maker = None
+
+    for lens in lenses:
+        if lens.maker.lower() != previous_maker:
+            number_of_makers += 1
+
+        if lens.maker.lower() != previous_maker:
+            outfile.write("\n== {} ==\n\n".format(lens.maker))
+
+        outfile.write("* {} ({}, {}/{}/{})\n".format(lens.model, lens.crop or "?",
+            "D" if lens.distortion else "-", 
+            "T" if lens.tca else "-",
+            "V" if lens.vignetting else "-"))
+        previous_maker = lens.maker.lower()
 
 outfile.close()
