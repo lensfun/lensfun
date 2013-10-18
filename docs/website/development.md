@@ -13,6 +13,7 @@ The build system is based on CMake. There is also a proprietary python based sys
 
     cd lensfun/
     mkdir cmake_build
+    cd cmake_build/
     cmake ../
 
 Beneath many other files this should have created a Makefile that can now be used to compile and install by
