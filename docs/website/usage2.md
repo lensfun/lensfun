@@ -12,6 +12,7 @@ So far you can use Lensfun with the following applications:
 * <a href="http://www.darktable.org/" target="_blank">Darktable</a> RAW processor and photo workflow software similar to Adobe Lightroom
 * <a href="http://rawstudio.org/" target="_blank">Rawstudio</a> another raw processor
 * <a href="http://digikam.org/" target="_blank">Digikam/Kipi</a> image management application, supports Lensfun via Kipi-Plugin
-* <a href="http://lensfun.sebastiankraft.net/" target="_blank">GimpLensfun</a> GIMP plugin
+* <a href="http://seebk.github.io/GIMP-Lensfun/" target="_blank">GimpLensfun</a> GIMP plugin
+* <a href="http://photivo.org/" target="_blank">Photivo</a> Photo processor application
 
 
