@@ -129,4 +129,28 @@ http://en.wikipedia.org/wiki/Mirrorless_interchangeable-lens_camera
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Samsung</maker>
+        <model>Samsung Zoom 18-55mm f/3.5-5.6 OIS</model>
+        <mount>Samsung NX</mount>
+        <cropfactor>1.54</cropfactor>
+        <calibration>
+            <!-- Taken with Samsung NX300 -->
+            <distortion model="ptlens" focal="18" a="0.01917" b="-0.0495" c="-0.00128" />
+            <distortion model="ptlens" focal="24" a="0.01457" b="-0.03302" c="0.01717" />
+            <distortion model="ptlens" focal="29" a="0.00579" b="-0.00789" c="0.00912" />
+            <distortion model="ptlens" focal="35" a="0.01159" b="-0.02243" c="0.02113" />
+            <distortion model="ptlens" focal="40" a="0" b="0.01092" c="0" />
+            <distortion model="ptlens" focal="45" a="0" b="0.01095" c="0" />
+            <distortion model="ptlens" focal="55" a="0" b="0.01144" c="0" />
+            <tca model="poly3" focal="18" vr="1.0007" vb="0.9999" />
+            <tca model="poly3" focal="24" vr="1.0006" vb="0.9996" />
+            <tca model="poly3" focal="29" vr="1.0004" vb="0.9999" />
+            <tca model="poly3" focal="35" vr="1.0006" vb="0.9998" />
+            <tca model="poly3" focal="40" vr="1.0003" vb="0.9999" />
+            <tca model="poly3" focal="45" vr="1.0003" vb="0.9997" />
+            <tca model="poly3" focal="55" vr="1.0002" vb="0.9996" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
