@@ -98,10 +98,12 @@ def call_exiv2(raw_file_group):
          "-g", "Exif.Photo.LensModel", "-g", "Exif.Photo.FocalLength", "-g", "Exif.Photo.FNumber",
          "-g", "Exif.NikonLd2.LensIDNumber", "-g", "Exif.CanonCs.LensType", "-g", "Exif.Canon.LensModel"]
         + raw_file_group, stdout=subprocess.PIPE)
-    lines = exiv2_process.communicate()[0].decode("utf-8").splitlines()
+    lines = exiv2_process.communicate()[0].splitlines()
     assert exiv2_process.returncode in [0, 253]
     result = {}
     for line in lines:
+        # Sometimes, values have trailing rubbish
+        line = line.partition(b"\x00")[0].decode("utf-8")
         if "Exif.Photo." in line:
             filepath, data = line.split("Exif.Photo.")
         elif "Exif.Image." in line:
