@@ -1,0 +1,28 @@
+<lensdatabase>
+
+    <lens>
+        <!-- Also update copy at "Carl Zeiss Distagon T* 2,8/21 ZE" below. -->
+        <maker>Zeiss</maker>
+        <model>Carl Zeiss Distagon T* 2,8/21 ZF.2</model>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D800E -->
+            <distortion model="ptlens" focal="21" a="0.03083" b="-0.0633" c="0.01093" />
+            <tca model="linear" focal="21" kr="1.0001" kb="1.0001" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <!-- Also update copy at "Carl Zeiss Distagon T* 2,8/21 ZF.2" above. -->
+        <maker>Zeiss</maker>
+        <model>Carl Zeiss Distagon T* 2,8/21 ZE</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="21" a="0.03083" b="-0.0633" c="0.01093" />
+            <tca model="linear" focal="21" kr="1.0001" kb="1.0001" />
+        </calibration>
+    </lens>
+
+</lensdatabase>
