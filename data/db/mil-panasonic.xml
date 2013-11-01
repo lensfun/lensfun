@@ -793,4 +793,20 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Panasonic</maker>
+        <model>LUMIX G VARIO 35-100 f/2.8</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <calibration>
+            <!-- Taken with Olympus OMD E-M5 -->
+            <distortion model="poly3" focal="35" k1="-0.02122" />
+            <distortion model="poly3" focal="42" k1="-0.01741" />
+            <distortion model="poly3" focal="50" k1="-0.01282" />
+            <distortion model="poly3" focal="60" k1="-0.00907" />
+            <distortion model="poly3" focal="80" k1="-0.00599" />
+            <distortion model="poly3" focal="100" k1="-0.00245" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
