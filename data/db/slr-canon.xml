@@ -1151,7 +1151,7 @@
 
     <lens>
         <maker>Canon</maker>
-        <model>Canon 70-200mm f/4L IS USM</model>
+        <model>Canon EF 70-200mm f/4L IS USM</model>
         <mount>Canon EF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
@@ -1299,7 +1299,7 @@
 
     <lens>
         <maker>Canon</maker>
-        <model>Canon 28mm f/1.8 USM</model>
+        <model>Canon EF 28mm f/1.8 USM</model>
         <mount>Canon EF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
@@ -1636,6 +1636,23 @@
         <calibration>
             <!-- Taken with Canon EOS-1D X -->
             <distortion model="poly3" focal="85" k1="-0.00412" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF-S 18-135mm f/3.5-5.6 IS STM</model>
+        <mount>Canon EF-S</mount>
+        <!-- FixMe: Actually cropfactor 1.613 -->
+        <cropfactor>1.6</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS-650D -->
+            <distortion model="ptlens" focal="18" a="0.01902" b="-0.05009" c="-0.0067" />
+            <distortion model="ptlens" focal="24" a="0.02182" b="-0.05987" c="0.04459" />
+            <distortion model="ptlens" focal="35" a="0.00521" b="-0.00299" c="0.00091" />
+            <distortion model="ptlens" focal="50" a="-0.00078" b="0.0111" c="-0.00193" />
+            <distortion model="ptlens" focal="85" a="-0.0114" b="0.04561" c="-0.0336" />
+            <distortion model="ptlens" focal="135" a="-0.00247" b="0.02547" c="-0.02858" />
         </calibration>
     </lens>
 
