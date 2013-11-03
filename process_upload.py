@@ -96,7 +96,8 @@ def call_exiv2(raw_file_group):
     exiv2_process = subprocess.Popen(
         ["exiv2", "-PEkt", "-g", "Exif.Image.Make", "-g", "Exif.Image.Model",
          "-g", "Exif.Photo.LensModel", "-g", "Exif.Photo.FocalLength", "-g", "Exif.Photo.FNumber",
-         "-g", "Exif.NikonLd2.LensIDNumber", "-g", "Exif.CanonCs.LensType", "-g", "Exif.Canon.LensModel"]
+         "-g", "Exif.NikonLd2.LensIDNumber", "-g", "Exif.NikonLd3.LensIDNumber", "-g", "Exif.CanonCs.LensType",
+         "-g", "Exif.Canon.LensModel"]
         + raw_file_group, stdout=subprocess.PIPE)
     lines = exiv2_process.communicate()[0].splitlines()
     assert exiv2_process.returncode in [0, 253]
@@ -110,6 +111,8 @@ def call_exiv2(raw_file_group):
             filepath, data = line.split("Exif.Image.")
         elif "Exif.NikonLd2." in line:
             filepath, data = line.split("Exif.NikonLd2.")
+        elif "Exif.NikonLd3." in line:
+            filepath, data = line.split("Exif.NikonLd3.")
         elif "Exif.CanonCs." in line:
             filepath, data = line.split("Exif.CanonCs.")
         elif "Exif.Canon." in line:
