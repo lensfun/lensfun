@@ -1336,4 +1336,29 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 17-70mm F2.8-4 DC Macro OS HSM</model>
+        <mount>Nikon F AF</mount>
+        <mount>Sigma SA</mount>
+        <mount>Canon EF</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Pentax KAF</mount>
+        <!-- FixMe: Actually cropfactor 1.523 -->
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D90 -->
+            <distortion model="ptlens" focal="17" a="0.01587" b="-0.03928" c="-0.00282" />
+            <distortion model="ptlens" focal="19" a="0.02927" b="-0.09256" c="0.08464" />
+            <distortion model="ptlens" focal="21" a="0.03571" b="-0.10663" c="0.09304" />
+            <distortion model="ptlens" focal="24" a="0.02701" b="-0.09229" c="0.10835" />
+            <distortion model="ptlens" focal="28" a="0.01642" b="-0.0481" c="0.05279" />
+	    <!-- lens was decentred -->
+            <distortion model="ptlens" focal="35" a="-0.00095" b="0.01248" c="-0.00171" />
+	    <!-- lens was decentred -->
+            <distortion model="ptlens" focal="50" a="0.0082" b="-0.01866" c="0.02391" />
+            <distortion model="ptlens" focal="70" a="-0.01251" b="0.05374" c="-0.05675" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
