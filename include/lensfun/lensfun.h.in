@@ -444,7 +444,7 @@ struct lfLensCalibDistortion
 {
     /** The type of distortion model used */
     enum lfDistortionModel Model;
-    /** Focal length at which this calibration data was taken (0 - unspecified) */
+    /** Focal length in mm at which this calibration data was taken */
     float Focal;
     /** Distortion coefficients, dependent on model (a,b,c; k1,k2 or omega) */
     float Terms [3];
@@ -494,7 +494,7 @@ struct lfLensCalibTCA
 {
     /** The lateral chromatic aberration model used */
     enum lfTCAModel Model;
-    /** Focal length at which this calibration data was taken (0 - unspecified) */
+    /** Focal length in mm at which this calibration data was taken */
     float Focal;
     /** The coefficients for TCA, dependent on model; separate for R and B */
     float Terms [6];
@@ -508,7 +508,8 @@ C_TYPEDEF (struct, lfLensCalibTCA)
  * can be generalized for all lenses of a certain type; mechanical
  * vignetting is out of the scope of this library.
  *
- * Vignetting is dependent on both focal length and aperture.
+ * Vignetting is dependent on focal length and aperture.  There is
+ * also a slight dependence on focus distance.
  *
  * For a popular explanation of vignetting see
  * http://www.vanwalree.com/optics/vignetting.html
@@ -529,21 +530,20 @@ enum lfVignettingModel
 C_TYPEDEF (enum, lfVignettingModel)
 
 /**
- * Lens vignetting calibration data. Vignetting depends on focal length,
- * aperture and distance to subject. The library will interpolate
- * the coefficients if data for the exact focal length, aperture
- * and distance-to-subject is not available, trying first to match
- * the exact focal length, then the aperture.
+ * Lens vignetting calibration data. Vignetting depends on focal
+ * length, aperture and focus distance. The library will interpolate
+ * the coefficients if data for the exact focal length, aperture, and
+ * focus distance is not available.
  */
 struct lfLensCalibVignetting
 {
     /** The lens vignetting model used */
     enum lfVignettingModel Model;
-    /** Focal length at which this calibration data was taken (0 - unspecified) */
+    /** Focal length in mm at which this calibration data was taken */
     float Focal;
-    /** Aperture at which this calibration data was taken (0 - unspecified) */
+    /** Aperture (f-number) at which this calibration data was taken */
     float Aperture;
-    /** Distance to subject (important only for vignetting) */
+    /** Focus distance in meters */
     float Distance;
     /** Lens vignetting model coefficients (depending on model) */
     float Terms [3];
@@ -571,7 +571,7 @@ C_TYPEDEF(enum, lfCropMode)
  */
 struct lfLensCalibCrop
 {
-    /** Focal length at which this calibration data was taken (0 - unspecified) */
+    /** Focal length in mm at which this calibration data was taken */
     float Focal;
     /** crop mode which should be applied to image to get rid of black borders */
     enum lfCropMode CropMode;
@@ -593,7 +593,7 @@ C_TYPEDEF (struct, lfLensCalibCrop)
  */
 struct lfLensCalibFov
 {
-    /** Focal length at which this calibration data was taken (0 - unspecified) */
+    /** Focal length in mm at which this calibration data was taken */
     float Focal;
     /** @brief Field of view for given images
      * 
@@ -676,9 +676,9 @@ struct LF_EXPORT lfLens
     float MinFocal;
     /** Maximum focal length, mm (ex: 105). Can be equal to MinFocal. */
     float MaxFocal;
-    /** Aperture at minimum focal length (ex: 3.5). */
+    /** Aperture (f-number) at minimum focal length (ex: 3.5). */
     float MinAperture;
-    /** Aperture at maximum focal length (ex: 4.3). Can be equal to MinAperture. */
+    /** Aperture (f-number) at maximum focal length (ex: 4.3). Can be equal to MinAperture. */
     float MaxAperture;
     /** Available mounts (NULL-terminated list) (ex: { "QBM", NULL }) */
     char **Mounts;
@@ -949,7 +949,7 @@ struct LF_EXPORT lfLens
     /**
      * Interpolate lens geometry distortion data for given focal length.
      * @param focal
-     *     The focal length at which we need geometry distortion parameters.
+     *     The focal length in mm at which we need geometry distortion parameters.
      * @param res
      *     The resulting interpolated model.
      */
@@ -958,7 +958,7 @@ struct LF_EXPORT lfLens
     /**
      * Interpolate lens TCA calibration data for given focal length.
      * @param focal
-     *     The focal length at which we need TCA parameters.
+     *     The focal length in mm at which we need TCA parameters.
      * @param res
      *     The resulting interpolated model.
      */
@@ -966,13 +966,14 @@ struct LF_EXPORT lfLens
 
     /**
      * Interpolate lens vignetting model parameters for given focal length,
-     * aperture and subject distance.
+     * aperture, and focus distance.
      * @param focal
-     *     The focal length for which we need vignetting parameters.
+     *     The focal length in mm for which we need vignetting parameters.
      * @param aperture
-     *     The aperture value for which we need vignetting parameters.
+     *     The aperture (f-number) for which we need vignetting parameters.
      * @param distance
-     *     The subject distance for which we need vignetting parameters.
+     *     The focus distance in meters (distance > 0) for which we need
+     *     vignetting parameters.
      * @param res
      *     The resulting interpolated model.
      */
@@ -982,7 +983,7 @@ struct LF_EXPORT lfLens
     /**
      * Interpolate lens crop data for given focal length.
      * @param focal
-     *     The focal length at which we need image parameters.
+     *     The focal length in mm at which we need image parameters.
      * @param res
      *     The resulting interpolated information data.
      */
@@ -991,7 +992,7 @@ struct LF_EXPORT lfLens
     /**
      * Interpolate lens fov data for given focal length.
      * @param focal
-     *     The focal length at which we need image parameters.
+     *     The focal length in mm at which we need image parameters.
      * @param res
      *     The resulting interpolated information data.
      */
@@ -1734,20 +1735,25 @@ struct LF_EXPORT lfModifier
      * plan to correct just a part of the image.
      *
      * The modifier object will be set up to rectify all aberrations
-     * found in the lens description. Make sure the focal length and aperture
-     * value are correct, otherwise the modifier may pick up wrong model
-     * parameters!
+     * found in the lens description. Make sure the focal length,
+     * aperture, and focus distance are correct in order to ensure
+     * proper rectification.
+     *
+     * Aperture and focus distance are only used for vignetting
+     * correction. Because the dependence of vignetting on focus
+     * distance is very small, and it is usually not available in EXIF
+     * data, you may give an approximative value here.  If you really
+     * do not know, as a last resort, use "1000" as a default value.
      * @param lens
      *     The lens which aberrations you want to correct in a image.
      * @param format
      *     Pixel format of your image (bits per pixel component)
      * @param focal
-     *     The focal length at which the image was taken (distortion,
-     *     tca, vignetting).
+     *     The focal length in mm at which the image was taken.
      * @param aperture
-     *     The aperture at which the image was taken (vignetting).
+     *     The aperture (f-number) at which the image was taken.
      * @param distance
-     *     The approximative distance-to-subject (vignetting).
+     *     The approximative focus distance in meters (distance > 0).
      * @param scale
      *     An additional scale factor to be applied onto the image
      *     (1.0 - no scaling; 0.0 - automatic scaling).
@@ -1907,7 +1913,7 @@ struct LF_EXPORT lfModifier
      * @param to
      *     The lens model for target image.
      * @param focal
-     *     Lens focal length.
+     *     Lens focal length in mm.
      * @return
      *     True if a library has a callback for given from->to conversion.
      */
