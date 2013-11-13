@@ -340,6 +340,22 @@
     </lens>
 
     <lens>
+            <maker>Panasonic</maker>
+            <model>LUMIX G VARIO 14-42/F3.5-5.6 II</model>
+            <focal min="14" max="42" />
+            <aperture min="3.5" max="5.6" />
+            <mount>Micro 4/3 System</mount>
+            <cropfactor>2</cropfactor>
+            <calibration>
+                    <distortion focal="14" model="ptlens" a="0.0225278" b="-0.0802366" c="0.00964907" />
+                    <distortion focal="18" model="ptlens" a="0.0429574" b="-0.140955" c="0.102005" />
+                    <distortion focal="25" model="ptlens" a="0.0136782" b="-0.0405175" c="0.0293264" />
+                    <distortion focal="35" model="ptlens" a="0.00177402" b="0.00379145" c="-0.000383617" />
+                    <distortion focal="42" model="ptlens" a="-0.00198101" b="0.0153511" c="-0.00974301" />
+            </calibration>
+    </lens>
+
+    <lens>
 	    <maker>Panasonic</maker>
 	    <model>LUMIX G VARIO PZ 14-42 f/3.5-5.6 + GWC1 0.79x</model>
 	    <focal min="14" max="42" />
