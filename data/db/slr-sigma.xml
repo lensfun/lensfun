@@ -1346,7 +1346,7 @@
 
     <lens>
         <maker>Sigma</maker>
-        <model>Sigma 17-70mm F2.8-4 DC Macro OS HSM</model>
+        <model>Sigma 17-70mm f/2.8-4 DC Macro OS HSM</model>
         <mount>Nikon F AF</mount>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
@@ -1366,6 +1366,25 @@
 	    <!-- lens was decentred -->
             <distortion model="ptlens" focal="50" a="0.0082" b="-0.01866" c="0.02391" />
             <distortion model="ptlens" focal="70" a="-0.01251" b="0.05374" c="-0.05675" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 70-200mm f/2.8 EX DG Macro HSM II</model>
+        <mount>Sigma SA</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <tca model="poly3" focal="70"  br="-0.0000832" vr="0.9997100" bb="0.0000141"  vb="1.0006182" />
+            <tca model="poly3" focal="83"  br="0.0000026"  vr="0.9994386" bb="-0.0000353" vb="1.0010066" />
+            <tca model="poly3" focal="98"  br="-0.0000087" vr="0.9993624" bb="-0.0000411" vb="1.0009973" />
+            <tca model="poly3" focal="110" br="-0.0000002" vr="0.9993278" bb="-0.0000172" vb="1.0008935" />
+            <tca model="poly3" focal="135" br="0.0000194"  vr="0.9986927" bb="0.0000294"  vb="1.0008344" />
+            <tca model="poly3" focal="155" br="-0.0000206" vr="0.9991794" bb="0.0000447"  vb="1.0007796" />
+            <tca model="poly3" focal="200" br=".0000687"   vr="0.9987294" bb="-0.0000727" vb="1.0005835" />
         </calibration>
     </lens>
 
