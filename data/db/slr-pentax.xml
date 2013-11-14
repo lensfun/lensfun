@@ -616,8 +616,33 @@
     </lens>
 
     <lens>
+        <!-- This is a copy of the smc Pentax-DA L 55-300mm f/4-5.8 ED below.
+             Please keep in sync. -->
         <maker>Pentax</maker>
         <model>smc Pentax-DA 55-300mm f/4-5.8 ED</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="55" a="-0.00518" b="0.01937" c="-0.02824" />
+            <distortion model="ptlens" focal="70" a="-0.00835" b="0.03291" c="-0.03127" />
+            <distortion model="ptlens" focal="100" a="-0.00192" b="0.0237" c="-0.02643" />
+            <distortion model="ptlens" focal="135" a="0.00299" b="0.00061" c="0.01078" />
+            <distortion model="ptlens" focal="210" a="-0.00376" b="0.02149" c="-0.01102" />
+            <distortion model="ptlens" focal="300" a="0.00076" b="0.00759" c="-0.00349" />
+            <tca model="poly3" focal="55" br="0.0000246" vr="1.0000974" bb="-0.0001380" vb="1.0004061" />
+            <tca model="poly3" focal="70" br="0.00003" vr="0.99993" bb="-0.00013" vb="1.00017" />
+            <tca model="poly3" focal="100" br="0.0000716" vr="0.9996644" bb="-0.0002294" vb="1.0001925" />
+            <tca model="poly3" focal="135" br="0.0000352" vr="0.9996857" bb="-0.0001704" vb="0.9999750" />
+            <tca model="poly3" focal="210" br="0.0000202" vr="0.9993629" bb="-0.0000804" vb="0.9992342" />
+            <tca model="poly3" focal="300" br="-0.0002627" vr="0.9998441" bb="-0.0002958" vb="0.9995492" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <!-- This is a copy of the smc Pentax-DA 55-300mm f/4-5.8 ED above.
+             Please keep in sync. -->
+        <maker>Pentax</maker>
+        <model>smc Pentax-DA L 55-300mm f/4-5.8 ED</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
