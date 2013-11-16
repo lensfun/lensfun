@@ -548,11 +548,11 @@ int lfFuzzyStrCmp::Compare (const char *match)
 
             if (r < 0)
             {
+                // Since our arrays are sorted, if pattern word becomes
+                // "smaller" than next word from the match, this means
+                // there's no chance anymore to find it.
                 if (match_all_words)
                 {
-                    // Since our arrays are sorted, if pattern word becomes
-                    // "smaller" than next word from the match, this means
-                    // there's no chance anymore to find it.
                     Free (match_words);
                     return 0;
                 }
@@ -568,7 +568,7 @@ int lfFuzzyStrCmp::Compare (const char *match)
         {
             if (mi >= match_words->len)
             {
-                // Found a word not present in pattern
+                // Found a word not present in match
                 Free (match_words);
                 return 0;
             }
@@ -578,14 +578,14 @@ int lfFuzzyStrCmp::Compare (const char *match)
         else
         {
             if (mi >= match_words->len)
-                // Found a word not present in pattern
+                // Found a word not present in match
                 mi = old_mi;
             else
                 mi++;
         }
     }
 
-    score = (score * 100) / pattern_words->len;
+    score = (score * 200) / (pattern_words->len + match_words->len);
 
     Free (match_words);
 
