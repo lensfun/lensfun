@@ -13,12 +13,6 @@ char *_lf_get_database_dir ()
 {
     static gchar *dir = NULL;
 
-    if (dir)
-    {
-        g_free (dir);
-        dir = NULL;
-    }
-
     HMODULE h = GetModuleHandle ("lensfun.dll");
     if (!h)
         return g_strdup ("");
