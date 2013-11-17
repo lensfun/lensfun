@@ -35,16 +35,54 @@ lfError lfDatabase::Load ()
     int ndirs = 0;
 
     dirs [ndirs++] = HomeDataDir;
+    int static_ndirs = ndirs;
+
 #ifdef CONF_DATADIR
-    dirs [ndirs++] = (char *)CONF_DATADIR;
+    /* check if there is a database in /var/lib/CONF_PACKAGE/
+       and omit CONF_DATADIR if files are present in this directory */
+    gchar *var_dirname = g_build_filename ("/var/lib", CONF_PACKAGE, NULL);
+    GDir *var_dir = g_dir_open (var_dirname, 0, NULL);
+    if (var_dir && g_dir_read_name (var_dir))
+        dirs [ndirs++] = var_dirname;
+    else
+    {
+        g_free (var_dirname);
+        dirs [ndirs++] = (char *)CONF_DATADIR;
+        static_ndirs = ndirs;
+    }
+    if (var_dir)
+        g_dir_close (var_dir);
 #else
+    /* database location specific for windows based OS */
     extern gchar *_lf_get_database_dir ();
     dirs [ndirs++] = _lf_get_database_dir ();
 #endif
-    int static_ndirs = ndirs;
-    for (tmp = g_get_system_data_dirs (); ndirs < 10 && *tmp; tmp++)
-        dirs [ndirs++] = g_build_filename (*tmp, CONF_PACKAGE, NULL);
 
+    /* add all system data directories, check for duplicates */
+    for (tmp = g_get_system_data_dirs (); ndirs < 10 && *tmp; tmp++)
+    {
+        char *current_dir = g_build_filename (*tmp, CONF_PACKAGE, NULL);
+        if (current_dir && (strcmp(current_dir, CONF_DATADIR)))
+        {
+            for (int i = 0; i < ndirs; i++)
+            {
+                if (!strcmp(dirs [i], current_dir))
+                {
+                    g_free (current_dir);
+                    current_dir = NULL;
+                    break;
+                }
+            }
+            dirs [ndirs++] = current_dir;
+        }
+        else
+        {
+            g_free (current_dir);
+            current_dir = NULL;
+        }            
+    }
+
+    /* load database xml files from all directories */
     while (ndirs > 0)
     {
         ndirs--;
@@ -72,7 +110,7 @@ lfError lfDatabase::Load ()
             g_dir_close (dir);
         }
 
-        /* Free all paths except the first one which is held in db struct */
+        /* Free only paths that were allocated */
         if (ndirs >= static_ndirs)
             g_free (dirs [ndirs]);
     }
