@@ -55,6 +55,11 @@
         <compat>Generic</compat>
     </mount>
 
+    <mount>
+        <name>fujif770exr</name>
+        <compat>Generic</compat>
+    </mount>
+
     <camera>
         <maker>FUJIFILM</maker>
         <maker lang="en">Fujifilm</maker>
@@ -230,6 +235,14 @@
         <model>FinePix HS20EXR</model>
         <mount>fujihs20exr</mount>
         <cropfactor>5.71</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>FUJIFILM</maker>
+        <maker lang="en">Fujifilm</maker>
+        <model>FinePix F770EXR</model>
+        <mount>fujif770exr</mount>
+        <cropfactor>5.43</cropfactor>
     </camera>
 
     <lens>
@@ -746,6 +759,27 @@
             <tca model="poly3" focal="59" br="-0.0001059" vr="0.9999289" bb="0.0001135" vb="0.9996203" />
             <tca model="poly3" focal="84.1" br="-0.0001983" vr="0.9999666" bb="0.0000523" vb="0.9996942" />
             <tca model="poly3" focal="126" br="0.0000220" vr="0.9994784" bb="0.0001868" vb="0.9993445" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>FUJIFILM</maker>
+        <model>Standard</model>
+        <mount>fujif770exr</mount>
+        <cropfactor>5.43</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="4.6" a="0.01272" b="-0.05766" c="-0.00271" />
+            <distortion model="ptlens" focal="9.2" a="0.0079" b="-0.00036" c="0.00893" />
+            <distortion model="ptlens" focal="19.1" a="-0.02764" b="0.10049" c="-0.08307" />
+            <distortion model="ptlens" focal="36.3" a="-0.01688" b="0.04463" c="-0.02165" />
+            <distortion model="ptlens" focal="60.4" a="-0.01809" b="0.02613" c="0.00016" />
+            <distortion model="ptlens" focal="92" a="-0.01825" b="0.02645" c="-0.01387" />
+            <tca model="poly3" focal="4.6" vr="1.0004912" vb="1.0002067" />
+            <tca model="poly3" focal="9.2" vr="1.0002420" vb="1.0001037" />
+            <tca model="poly3" focal="19.1" vr="1.0000862" vb="1.0000509" />
+            <tca model="poly3" focal="36.3" vr="0.9999841" vb="0.9999159" />
+            <tca model="poly3" focal="60.4" vr="0.9999076" vb="0.9999219" />
+            <tca model="poly3" focal="92" vr="0.999" vb="0.999" />
         </calibration>
     </lens>
 
