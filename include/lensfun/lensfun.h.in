@@ -1323,7 +1323,7 @@ struct LF_EXPORT lfDatabase
      * @param camera
      *     The camera (can be NULL if camera is unknown, or just certain
      *     fields in structure can be NULL). The algorithm will look for
-     *     a lens with crop factor not less than of given camera, since
+     *     a lens with crop factor not larger than of given camera, since
      *     the mathematical models of the lens can be incorrect for sensor
      *     sizes larger than the one used for calibration. Also camera
      *     mount is taken into account, the lenses with incompatible
@@ -1349,7 +1349,7 @@ struct LF_EXPORT lfDatabase
      * @param lens
      *     The approximative lense. Uncertain fields may be NULL.
      *     The "CropFactor" field defines the minimal value for crop factor;
-     *     no lenses with crop factor less than that will be returned.
+     *     no lenses with crop factor larger than that will be returned.
      *     The Mounts field will be scanned for allowed mounts, if NULL
      *     any mounts are considered compatible.
      * @param sflags
