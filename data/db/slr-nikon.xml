@@ -1561,4 +1561,21 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S VR Zoom-Nikkor 70-200mm f/4G IF-ED</model>
+        <model lang="en">Nikkor AF-S 70-200mm f/4G VR IF-ED</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D800 -->
+            <distortion model="poly3" focal="70" k1="-0.00849" />
+            <distortion model="poly3" focal="86" k1="-0.00295" />
+            <distortion model="poly3" focal="102" k1="0.00234" />
+            <distortion model="poly3" focal="130" k1="0.00663" />
+            <distortion model="poly3" focal="170" k1="0.00789" />
+            <distortion model="poly3" focal="200" k1="0.00789" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
