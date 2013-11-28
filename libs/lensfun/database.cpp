@@ -1141,6 +1141,14 @@ static gint _lf_compare_lens_score (gconstpointer a, gconstpointer b)
     return i2->Score - i1->Score;
 }
 
+static gint _lf_compare_lens_focal (gconstpointer a, gconstpointer b)
+{
+    lfLens *i1 = (lfLens *)a;
+    lfLens *i2 = (lfLens *)b;
+
+    return i1->MinFocal - i2->MinFocal;
+}
+
 static void _lf_add_compat_mounts (
     const lfDatabase *This, const lfLens *lens, GPtrArray *mounts, char *mount)
 {
@@ -1182,6 +1190,7 @@ const lfLens **lfDatabase::FindLenses (const lfLens *lens, int sflags) const
     g_ptr_array_add (mounts, NULL);
 
     int score;
+    const bool sort_and_uniquify = (sflags & LF_SEARCH_SORT_AND_UNIQUIFY) != 0;
     for (size_t i = 0; i < lenses->len - 1; i++)
     {
         lfLens *dblens = static_cast<lfLens *> (g_ptr_array_index (lenses, i));
@@ -1189,7 +1198,22 @@ const lfLens **lfDatabase::FindLenses (const lfLens *lens, int sflags) const
             lens, dblens, &fc, (const char **)mounts->pdata)) > 0)
         {
             dblens->Score = score;
-            _lf_ptr_array_insert_sorted (ret, dblens, _lf_compare_lens_score);
+            if (sort_and_uniquify) {
+                bool already = false;
+                for (size_t i = 0; i < ret->len; i++)
+                {
+                    const lfLens *previous_lens = static_cast<lfLens *> (g_ptr_array_index (ret, i));
+                    if (!_lf_strcmp (previous_lens->Model, dblens->Model))
+                    {
+                        already = true;
+                        break;
+                    }
+                }
+                if (!already)
+                    _lf_ptr_array_insert_sorted (ret, dblens, _lf_compare_lens_focal);
+            }
+            else
+                _lf_ptr_array_insert_sorted (ret, dblens, _lf_compare_lens_score);
         }
     }
 

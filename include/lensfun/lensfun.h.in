@@ -1127,7 +1127,13 @@ enum
      * results (still sorted by score). If it is not present, all results
      * where at least one of the input words is missing will be discarded.
      */
-    LF_SEARCH_LOOSE = 1
+    LF_SEARCH_LOOSE = 1,
+    /**
+     * This flag makes LensFun to sort the results by focal length, and
+     * remove all double lens names.  This is meant to be used to create a
+     * list presented to the user to pick a lens.
+     */
+    LF_SEARCH_SORT_AND_UNIQUIFY = 2
 };
 
 /**
