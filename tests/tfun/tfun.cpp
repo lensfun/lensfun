@@ -56,6 +56,7 @@ static void PrintLens (const lfLens *lens, const lfDatabase *ldb)
              lf_mlstr_get (lens->Maker),
              lf_mlstr_get (lens->Model));
     g_print ("\tCrop factor: %g\n", lens->CropFactor);
+    g_print ("\tAspect ratio: %g\n", lens->AspectRatio);
     g_print ("\tFocal: %g-%g\n", lens->MinFocal, lens->MaxFocal);
     g_print ("\tAperture: %g-%g\n", lens->MinAperture, lens->MaxAperture);
     g_print ("\tCenter: %g,%g\n", lens->CenterX, lens->CenterY);

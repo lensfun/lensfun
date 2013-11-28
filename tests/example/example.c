@@ -62,6 +62,7 @@ int main ()
             lf_mlstr_get (lenses [i]->Maker),
             lf_mlstr_get (lenses [i]->Model));
         g_print ("\tCrop factor: %g\n", lenses [i]->CropFactor);
+        g_print ("\tAspect ratio: %g\n", lenses [i]->AspectRatio);
         g_print ("\tFocal: %g-%g\n", lenses [i]->MinFocal, lenses [i]->MaxFocal);
         g_print ("\tAperture: %g-%g\n", lenses [i]->MinAperture, lenses [i]->MaxAperture);
         g_print ("\tCenter: %g,%g\n", lenses [i]->CenterX, lenses [i]->CenterY);

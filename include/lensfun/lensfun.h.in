@@ -702,6 +702,8 @@ struct LF_EXPORT lfLens
     float BlueCCI;
     /** Crop factor at which calibration measurements were taken. */
     float CropFactor;
+    /** Aspect ratio of the images used for calibration measurements. */
+    float AspectRatio;
     /** Lens type */
     lfLensType Type;
     /** Lens distortion calibration data, NULL-terminated (unsorted) */

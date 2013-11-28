@@ -288,6 +288,12 @@ Possible embedded elements:
     on another camera with a different crop factor. Generally it is advised to use
     a camera with maximal crop factor for this lens, because the models may become
     imprecise for crop factors smaller than the one used for models.
+<dt>\<aspect-ratio\>number\</aspect-ratio\>
+<dd>This is the aspect ratio of the camera with which all shots for computing
+    distortion models were made.  It is the ratio of the longer edge to the
+    shorter edge.  LensFun needs the aspect ratio internally for correct
+    application of the distortion parameters.  You may give is as a real number
+    or as a ratio with a colon like "4:3".  It defaults to 1.5 or 3:2.
 <dt>\<cci r="number" g="number" b="number" /\>
 <dd>The Colour Contribution Index of the lens, as defined by ISO 6728-83.
     Unfortunately, for now this data is unused as I couldn't find the respective

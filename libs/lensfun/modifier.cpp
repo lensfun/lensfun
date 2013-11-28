@@ -87,10 +87,17 @@ lfExtModifier::lfExtModifier (const lfLens *lens, float crop, int width, int hei
 
     // Image "size"
     float size = float ((width < height) ? width : height);
+    float image_aspect_ratio = (width < height) ? float (height) / float (width) :
+        float (width) / float (height);
 
     // Take crop factor into account
     if (lens && lens->CropFactor)
         size *= crop / lens->CropFactor;
+
+    // Take aspect ratio into account
+    if (lens && lens->AspectRatio)
+        size *= sqrt ((image_aspect_ratio * image_aspect_ratio + 1) /
+                      (lens->AspectRatio * lens->AspectRatio + 1));
 
     // The scale to transform {-size/2 .. 0 .. size/2-1} to {-1 .. 0 .. +1}
     NormScale = 2.0 / (size - 1);

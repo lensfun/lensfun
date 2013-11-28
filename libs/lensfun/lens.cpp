@@ -152,6 +152,7 @@ lfLens &lfLens::operator = (const lfLens &other)
     GreenCCI = other.GreenCCI;
     BlueCCI = other.BlueCCI;
     CropFactor = other.CropFactor;
+    AspectRatio = other.AspectRatio;
     Type = other.Type;
 
     lf_free (CalibDistortion); CalibDistortion = NULL;
@@ -285,7 +286,8 @@ bool lfLens::Check ()
     GuessParameters ();
 
     if (!Model || !Mounts ||
-        MinFocal > MaxFocal || MinAperture > MaxAperture)
+        MinFocal > MaxFocal || MinAperture > MaxAperture ||
+        !isfinite(AspectRatio) || AspectRatio < 1)
         return false;
 
     return true;
@@ -1141,7 +1143,11 @@ gint _lf_lens_compare (gconstpointer a, gconstpointer b)
     //if (cmp != 0)
     //    return cmp;
 
-    return int ((i1->CropFactor - i2->CropFactor) * 100);
+    cmp = int ((i1->CropFactor - i2->CropFactor) * 100);
+    if (cmp != 0)
+        return cmp;
+
+    return int ((i1->AspectRatio - i2->AspectRatio) * 100);
 }
 
 static int _lf_compare_num (float a, float b)
@@ -1216,6 +1222,16 @@ int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
     {
         //case -1:
         //    return 0;
+
+        case +1:
+            score += 10;
+            break;
+    }
+
+    switch (_lf_compare_num (pattern->AspectRatio, match->AspectRatio))
+    {
+        case -1:
+            return 0;
 
         case +1:
             score += 10;

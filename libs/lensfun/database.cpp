@@ -215,6 +215,7 @@ static void _xml_start_element (GMarkupParseContext *context,
             goto bad_ctx;
         pd->lens = new lfLens ();
         pd->lens->Type = LF_RECTILINEAR;
+        pd->lens->AspectRatio = 1.5;
         goto chk_no_attrs;
     }
     else if (!strcmp (element_name, "focal"))
@@ -483,7 +484,8 @@ static void _xml_start_element (GMarkupParseContext *context,
                 goto unk_attr;
     }
     else if (!strcmp (element_name, "compat") ||
-             !strcmp (element_name, "cropfactor"))
+             !strcmp (element_name, "cropfactor") ||
+             !strcmp (element_name, "aspect-ratio"))
         goto chk_no_attrs;
     else
         g_set_error (error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
@@ -627,6 +629,19 @@ static void _xml_text (GMarkupParseContext *context,
             pd->camera->CropFactor = atof (text);
         else if (pd->lens)
             pd->lens->CropFactor = atof (text);
+        else
+            goto bad_ctx;
+    }
+    else if (!strcmp (ctx, "aspect-ratio"))
+    {
+        if (pd->lens)
+        {
+            const char *colon = strpbrk (text, ":");
+            if (colon)
+                pd->lens->AspectRatio = atof (text) / atof (colon + 1);
+            else
+                pd->lens->AspectRatio = atof (text);
+        }
         else
             goto bad_ctx;
     }
@@ -866,6 +881,8 @@ char *lfDatabase::Save (const lfMount *const *mounts,
 
             _lf_xml_printf (output, "\t\t<cropfactor>%g</cropfactor>\n",
                             lenses [i]->CropFactor);
+            _lf_xml_printf (output, "\t\t<aspect-ratio>%g</aspect-ratio>\n",
+                            lenses [i]->AspectRatio);
 
             if (lenses [i]->CalibDistortion || lenses [i]->CalibTCA ||
                 lenses [i]->CalibVignetting || lenses [i]->CalibCrop || 
