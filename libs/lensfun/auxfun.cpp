@@ -90,7 +90,7 @@ LF_EXPORT lfMLstr lf_mlstr_add (lfMLstr str, const char *lang, const char *trstr
     {
         str_len = strlen (str) + 1;
         while (str [str_len])
-            str_len += 1 + strlen (str + str_len + 1);
+            str_len += 1 + strlen (str + str_len);
     }
 
     if (!lang)
