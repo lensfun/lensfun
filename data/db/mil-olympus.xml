@@ -483,4 +483,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Olympus</maker>
+        <model>Olympus M.40-150mm f/4.0-5.6 R</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="poly3" focal="40" k1="-0.01246" />
+            <distortion model="poly3" focal="45" k1="-0.01017" />
+            <distortion model="poly3" focal="49" k1="-0.00887" />
+            <distortion model="poly3" focal="58" k1="-0.00466" />
+            <distortion model="poly3" focal="70" k1="-0.0008" />
+            <distortion model="poly3" focal="85" k1="0.00099" />
+            <distortion model="poly3" focal="102" k1="0.00206" />
+            <distortion model="poly3" focal="114" k1="0.00409" />
+            <distortion model="poly3" focal="123" k1="0.00465" />
+            <distortion model="poly3" focal="138" k1="0.00293" />
+            <distortion model="poly3" focal="150" k1="0.00365" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
