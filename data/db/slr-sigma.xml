@@ -1377,6 +1377,7 @@
         <mount>Nikon F AF</mount>
         <mount>Sony Alpha</mount>
         <mount>Pentax KAF2</mount>
+        <mount>Canon EF</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
             <tca model="poly3" focal="70"  br="-0.0000832" vr="0.9997100" bb="0.0000141"  vb="1.0006182" />
@@ -1386,6 +1387,24 @@
             <tca model="poly3" focal="135" br="0.0000194"  vr="0.9986927" bb="0.0000294"  vb="1.0008344" />
             <tca model="poly3" focal="155" br="-0.0000206" vr="0.9991794" bb="0.0000447"  vb="1.0007796" />
             <tca model="poly3" focal="200" br=".0000687"   vr="0.9987294" bb="-0.0000727" vb="1.0005835" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 10mm f/2.8 EX DC Fisheye HSM</model>
+        <model lang="de">Sigma 10mm f/2.8 EX DC Fischauge HSM</model>
+        <mount>Sigma SA</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Pentax KAF2</mount>
+        <mount>Canon EF</mount>
+        <!-- FixMe: Actually cropfactor 1.618 -->
+        <cropfactor>1.6</cropfactor>
+        <type>equisolid</type>
+        <calibration>
+            <!-- Taken with Canon EOS 450D -->
+            <distortion model="ptlens" focal="10" a="0.01165" b="-0.04879" c="0.09652" />
         </calibration>
     </lens>
 
