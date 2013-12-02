@@ -125,6 +125,7 @@
         <model>Olympus M.12mm f/2.0</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
         <focal value="12" />
         <calibration>
             <distortion model="ptlens" focal="12" a="-0.005" b="-0.016" c="-0.014" />
@@ -137,6 +138,7 @@
         <model>Olympus M.12-50mm f/3.5-6.3</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <distortion model="ptlens" focal="12" a="0.00331" b="-0.03343" c="-0.00683" />
             <distortion model="ptlens" focal="15" a="0.00521" b="-0.02919" c="0.00519" />
@@ -187,6 +189,7 @@
         <model>Olympus M.14-42mm f/3.5-5.6</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <distortion model="poly3" focal="14" k1="-0.079" />
             <distortion model="poly3" focal="18" k1="-0.036" />
@@ -208,6 +211,7 @@
         <model>Olympus M.14-42mm f/3.5-5.6 L</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <tca model="poly3" focal="14" br="0.0000600" vr="1.0001242" bb="-0.0002995" vb="1.0007041" />
             <tca model="poly3" focal="18" br="0.0001267" vr="1.0000281" bb="-0.0001852" vb="1.0007117" />
@@ -227,6 +231,7 @@
 	<model>Olympus M.14-42mm f/3.5-5.6 II</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <distortion model="ptlens" focal="14" a="0.018" b="-0.074" c="0.014" />
             <distortion model="ptlens" focal="18" a="0.011" b="-0.048" c="0.021" />
@@ -248,6 +253,7 @@
         <model>Olympus M.14-42mm f/3.5-5.6 II R</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <distortion model="ptlens" focal="14" a="0.018" b="-0.074" c="0.014" />
             <distortion model="ptlens" focal="18" a="0.011" b="-0.048" c="0.021" />
@@ -271,6 +277,7 @@
 	    <aperture min="4" max="22" />
 	    <mount>Micro 4/3 System</mount>
 	    <cropfactor>2</cropfactor>
+            <aspect-ratio>4:3</aspect-ratio>
 	    <calibration>
 	        <distortion focal="14" model="ptlens" a="0.0188691" b="-0.0734975" c="0.0114623" />
             <distortion focal="25" model="ptlens" a="-0.0101877" b="0.0257528" c="-0.0226344" />
@@ -420,6 +427,7 @@
         <model>Olympus M.17mm f/2.8</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
         <calibration>
              <distortion model="ptlens" focal="17" a="0.00835" b="-0.04149" c="-0.0022" />
              <tca model="poly3" focal="17" br="-0.0004492" vr="1.0016410" bb="0.0005749" vb="0.9989794" />
@@ -433,6 +441,7 @@
 	    <aperture min="1.8" max="22" />
         <mount>Micro 4/3 System</mount>
         <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <distortion model="ptlens" focal="45" a="0.00149954" b="-0.0023693" c="0.00382496" />
             <tca model="poly3" focal="45" br="-0.0000129" vr="1.0001904" bb="0.0000108" vb="0.9999203" />
@@ -466,6 +475,7 @@
         <model>Olympus M.17mm f/1.8</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <!-- Taken with Olympus E-M5 -->
             <distortion model="ptlens" focal="17" a="0.01989" b="-0.09761" c="0.07461" />
