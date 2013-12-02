@@ -73,7 +73,8 @@ lfError lfDatabase::Load ()
                     break;
                 }
             }
-            dirs [ndirs++] = current_dir;
+            if (current_dir)
+                dirs [ndirs++] = current_dir;
         }
         else
         {
