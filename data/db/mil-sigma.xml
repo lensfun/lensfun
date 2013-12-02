@@ -20,4 +20,30 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 30mm f/2.8 EX DN</model>
+        <mount>Sony E</mount>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with OMD E-M5 -->
+            <distortion model="poly3" focal="30" k1="-0.00454" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 19mm f/2.8 EX DN</model>
+        <mount>Sony E</mount>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with OMD E-M5 -->
+            <distortion model="ptlens" focal="19" a="0.00475" b="-0.01706" c="0.00298" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
