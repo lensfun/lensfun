@@ -86,32 +86,34 @@ lfExtModifier::lfExtModifier (const lfLens *lens, float crop, int width, int hei
     Height = (height >= 2 ? height : 2);
 
     // Image "size"
-    float size = float ((width < height) ? width : height);
+    float size = float ((Width < Height) ? Width : Height);
 
+    float coordinate_correction = 1;
     // Take crop factor into account
     if (lens && lens->CropFactor)
-        size *= crop / lens->CropFactor;
+        coordinate_correction *= crop / lens->CropFactor;
 
     // Take aspect ratio into account
     // FixMe: Checking for "Standard" here is provisional as long as we haven't
     // set the aspect ratio for all "Standard" lenses properly in the database.
     if (lens && strcmp(lens->Model, "Standard") && lens->AspectRatio)
     {
-        float image_aspect_ratio = (width < height) ?
-            float (height) / float (width) : float (width) / float (height);
-        size *= sqrt ((image_aspect_ratio * image_aspect_ratio + 1) /
-                      (lens->AspectRatio * lens->AspectRatio + 1));
+        float image_aspect_ratio = (Width < Height) ?
+            float (Height) / float (Width) : float (Width) / float (Height);
+        coordinate_correction *=
+            sqrt ((image_aspect_ratio * image_aspect_ratio + 1) /
+                  (lens->AspectRatio * lens->AspectRatio + 1));
     }
 
     // The scale to transform {-size/2 .. 0 .. size/2-1} to {-1 .. 0 .. +1}
-    NormScale = 2.0 / (size - 1);
+    NormScale = 2.0 / (size - 1) / coordinate_correction;
 
     // The scale to transform {-1 .. 0 .. +1} to {-size/2 .. 0 .. size/2-1}
-    NormUnScale = (size - 1) * 0.5;
+    NormUnScale = (size - 1) * 0.5 * coordinate_correction;
 
     // Geometric lens center in normalized coordinates
-    CenterX = width / size + (lens ? lens->CenterX : 0.0);
-    CenterY = height / size + (lens ? lens->CenterY : 0.0);
+    CenterX = Width / size / coordinate_correction + (lens ? lens->CenterX : 0.0);
+    CenterY = Height / size / coordinate_correction + (lens ? lens->CenterY : 0.0);
 }
 
 static void free_callback_list (GPtrArray *arr)
