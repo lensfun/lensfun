@@ -129,7 +129,7 @@ def get_database_elements():
                                        float(calibration_element.attrib["aperture"]) == aperture and \
                                        float(calibration_element.attrib["distance"]) == distance:
                                         vignetting_element = calibration_element
-    for path in [".", os.path.expanduser("~/.local/share/lensfun"), "/usr/share/lensfun", "/usr/local/share/lensfun"]:
+    for path in [os.path.expanduser("~/.local/share/lensfun"), "/usr/share/lensfun", "/usr/local/share/lensfun"]:
         crawl_directory(path)
     if lens_element is None:
         print("Lens model name not found.")
