@@ -18,7 +18,7 @@ for correcting images based on detailed knowledge of lens properties
 and calibration data. Right now lensfun is designed to correct distortion,
 transversal (also known as lateral) chromatic aberrations, vignetting
 and colour contribution of the lens (e.g. when sometimes people says
-one lens gives "yellowish" images and another, say, "bluish").
+one lens gives “yellowish” images and another, say, “bluish”).
 
 @section contents Contents
 
@@ -68,10 +68,16 @@ You can read it here: @ref cc-by-ca or
 
 @page credits Credits
 
-So far this is a solo project, so the only code contributor for now is:
+This project was contrived by <b>Andrew Zabolotny</b>, who developed all
+features present in LensFun.  Later, when Andrew had no time anymore for
+regular releases, <b>Sebastian Kraft</b> took over maintenance.  The following
+people contributed code:
 
 <ul>
-<li><b>Andrew Zabolotny</b> <zap@homelink.ru>
+<li><b>Niels Kristian Bech Jensen</b>
+<li><b>Pascal de Bruijn</b>
+<li><b>Thomas Modes</b>
+<li><b>Torsten Bronger</b>
 </ul>
 
 The following people directly or indirectly contributed to the birth and growth
@@ -83,7 +89,7 @@ of this library:
 <li><b>The whole PanoTools team:</b> for all math and knowledge I have borrowed
     from PanoTools.
     <ul>
-    <li><b>Helmut Dersch</b> - The father of most (all?) open-source panorama creation tools.
+    <li><b>Helmut Dersch</b> – The father of most (all?) open-source panorama creation tools.
     <li><b>Daniel M. German</b>
     <li><b>Kevin Kratzke</b>
     <li><b>Rik Littlefield</b>
@@ -103,9 +109,9 @@ The original PTLens database format has been replaced by a new XML-based format.
 A single XML file can contain entries for mounts, cameras and lenses.
 The whole file contents are enclosed in a @<lensdatabase@> element.
 
-The database is made of multiple XML files, conventionally split by manufacturer
-and camera type. Compact and SLR cameras/lenses are split apart for easier
-maintainance.
+The database is made of multiple XML files, conventionally split by
+manufacturer and camera type. Compact, SLR, and mirrorless cameras/lenses are
+split apart for easier maintainance.
 
 Database contains three kinds of objects: @b mounts, @b cameras and @b lenses.
 
@@ -114,7 +120,7 @@ also have a list of mounts assigned, because lenses often come in several varian
 with different mounts. Finally, every @b mount has assigned a list of compatible mounts,
 so if your camera has mount B which is compatible with mount A, you can list all the
 lenses that come either with mounts A or B. However, there are various custom adapters
-that can be used to connect lenses to bodies with "incompatible" mounts, so the
+that can be used to connect lenses to bodies with “incompatible” mounts, so the
 application in any case must provide a mean to choose from the whole list in
 addition to filtering lenses by mount.
 
@@ -162,8 +168,8 @@ much what is what, as the format is pretty much self-documenting.
         <model>SMC Pentax M 50mm f/1.4</model>
         <mount>Pentax K</mount>
         <cropfactor>1.0</cropfactor>
-        <focal>50</focal>
-        <aperture>1.4-22</aperture>
+        <focal value="50" />
+        <aperture min="1.4" max="22" />
         <type>rectilinear</type>
         <calibration>
             <!-- WARNING: this calibration data is completely bogus :) -->
@@ -172,10 +178,10 @@ much what is what, as the format is pretty much self-documenting.
     </lens>
 
     <camera>
-        <maker>PENTAX Corporation</maker>
-        <model>PENTAX K10</model>
+        <maker>Pentax</maker>
+        <model>Pentax K10D</model>
         <mount>Pentax KAF2</mount>
-        <cropfactor>1.5</cropfactor>
+        <cropfactor>1.531</cropfactor>
     </camera>
 
 </lensdatabase>
@@ -192,12 +198,12 @@ name for camera which is different from the value put in EXIF
 data. For example:
 
 @code
-<maker>KONICA MINOLTA</maker>
+<maker>Konica Minolta Camera, Inc.</maker>
 <maker lang="en">Konica Minolta</maker>
 <maker lang="ru">Коника Минольта</maker>
 @endcode
 
-The value without a "lang" attribute is always used for identification,
+The value without a “lang” attribute is always used for identification,
 but GUI may use the translated string for display. If no language matches,
 and an "en" translation is present, it is used. And only if there's no
 native translation and there's no "en" translation, the no-language
@@ -225,12 +231,19 @@ Pentax K so you can insert K lenses into a KAF2 camera) or there exists mount ad
 which permit to install lenses with such mounts into this mount. Note that the
 compatibility is unidirectional, e.g. in the above example it doesn't say that you
 can insert Pentax KAF2 lenses into a Pentax K camera; if you need a two-way
-compatibility, declare it both ways. Also the "compatibility" is restricted
+compatibility, declare it both ways. Also the “compatibility” is restricted
 in the sense that if mount A is compatible with mount B (e.g. you can put B lenses
 on an A camera), and mount B is compatible with mount C, this does not neccessarily
 mean that mount A is compatible with mount C. Recursion doesn't work here, this is
 a design decision. If you need to make mount A compatible with mount C, declare it
 so explicitely.
+
+Things are slightly complicated with mirrorless systems because they are
+adaptable to virtually any non-mirrorless system.  In order to avoid too many
+useless entries in the lens selection lists for mirrorless mounts, only
+important compatibilities should be included into LensFun's official database
+(e.g. Sony Alpha on Sony E).  The user can override this easily in their local
+database files, adding compatibilities for all mounts they have adaptors for.
 </dl>
 
 @page el_camera Declaring cameras: \<camera\>
@@ -240,9 +253,11 @@ Possible embedded elements:
 <dt>\<maker\>string\</maker\>
 <dd>Camera maker. This must be specified \b exactly as it is specified in
     camera EXIF data to allow for automatic recognition of the camera.
+    Upper and lower case doesn't matter, though.
 <dt>\<model\>string\</model\>
 <dd>Camera model. This must be specified \b exactly as it is specified in
     camera EXIF data to allow for automatic recognition of the camera.
+    Upper and lower case doesn't matter, though.
 <dt>\<variant\>string\</variant\>
 <dd>Camera variant. Sometimes makers create several cameras without changing
     EXIF information. Unfortunately, camera variant cannot be automatically
@@ -253,7 +268,8 @@ Possible embedded elements:
     on this camera, use the \<compat\> element in mount declaration.
 <dt>\<cropfactor\>number\</cropfactor\>
 <dd>Camera crop factor. This is the ratio between the standard film frame diagonal
-(36x24mm) and camera sensor diagonal.
+(36x24mm) and camera sensor diagonal.  Be accurate here.  For example, no APS-C
+camera really has crop factor 1.5.
 </dl>
 
 @page el_lens Declaring lenses: \<lens\>
@@ -261,18 +277,27 @@ Possible embedded elements:
 Possible embedded elements:
 <dl>
 <dt>\<maker\>string\</maker\>
-<dd>Lens maker. This must be specified \b exactly as it is returned by
-    EXIF reading libraries to allow for automatic recognition of the lens.
+<dd>Lens maker.
 <dt>\<model\>string\</model\>
-<dd>Lens model. This must be specified \b exactly as it is returned by
-    EXIF reading libraries to allow for automatic recognition of the lens.
-    See below for extended information about the model name field.
+<dd>Lens model. This must be specified exactly as it is returned by EXIF
+    reading libraries to allow for automatic recognition of the lens. However,
+    upper and lower case doesn't matter, neither does the ordering of the
+    “words” in the lens model name.  A “word” in LensFun interpretation is a
+    sequence of characters of the same type (lensfun senses three character
+    types: digits, punctuation characters and all others). Words made of single
+    punctuation characters are ignored. Also, as a special exception, the word
+    consisting of a single “f” is ignored too. So, “[IF]” is really split into
+    three words – “[”, “IF”, “]”, and then first and last words are discarded.
+    Accordingly, “smc PENTAX-DA 12-24mm F4 ED AL [IF]” is split into “smc”,
+    “pentax”, “da”, “12”, “24”, “mm”, “4”, “ED”, “AL”, “IF”.   Have a look at
+    other lenses of the same manufacturer for the naming conventions.  See
+    below for further information about the parsing of the model name field.
 <dt>\<variant\>string\</variant\>
 <dd>Lens variant. Sometimes there are several variants of the same lens which
     even sometimes differs in parameters.
 <dt>\<type\>string\</type\>
-<dd>Lens type. This is one of: "rectilinear", "fisheye", "panoramic", 
-    "equirectangular", "orthographic", "stereographic", "equisolid", "fisheye_thoby".
+<dd>Lens type. This is one of: “rectilinear", “fisheye”, “panoramic”, 
+    “equirectangular”, “orthographic”, “stereographic”, “equisolid”, “fisheye_thoby”.
 <dt>\<focal min="number" max="number" value="number" /\>
 <dd>Lens focal length in mm. This can be either a single value for a fixed-focal length
     lens, or a minimum and maximum value in the case of a zoom lens.
@@ -293,7 +318,7 @@ Possible embedded elements:
     distortion models were made.  It is the ratio of the longer edge to the
     shorter edge.  LensFun needs the aspect ratio internally for correct
     application of the distortion parameters.  You may give is as a real number
-    or as a ratio with a colon like "4:3".  It defaults to 1.5 or 3:2.
+    or as a ratio with a colon like “4:3”.  It defaults to 1.5 or 3:2.
 <dt>\<cci r="number" g="number" b="number" /\>
 <dd>The Colour Contribution Index of the lens, as defined by ISO 6728-83.
     Unfortunately, for now this data is unused as I couldn't find the respective
@@ -304,8 +329,8 @@ Possible embedded elements:
 
 Library recognizes several ways to specify lens parameters directly
 in lens model name. The first way to specify lens focal length and
-aperture range is "[min focal]-[max focal]mm f/[min aperture]-[max aperture]"
-where the "mm" and "f/" are totally optional. For primes the 'max'
+aperture range is “[min focal]-[max focal]mm f/[min aperture]-[max aperture]”
+where the “mm” and “f/” are totally optional. For primes the 'max'
 values may be omited. Examples:
 
 <ul>
@@ -315,7 +340,7 @@ values may be omited. Examples:
 </ul>
 
 Another pattern for lens parameters is
-"[min aperture]-[max aperture]/[min focal]-[max focal]". Examples:
+“[min aperture]-[max aperture]/[min focal]-[max focal]”. Examples:
 
 <ul>
 <li>2.8-3.5/25-45
@@ -345,12 +370,15 @@ Possible embedded elements:
     values; the library will interpolate the parameters for intermediate focal lengths.
     @see lfDistortionModel
 <dt>\<tca focal="number" model="name" kr="number" kb="number" /\>
-<dd>Declares the Transversal Chromatic Aberrations model for this lens.
+<dd>Declares the Transversal Chromatic Aberrations model for this lens,
+    depending on focal length.  The library will interpolate the parameters for
+    intermediate focal lengths.
     @see lfTCAModel
 <dt>\<vignetting focal="number" aperture="number" distance="number" model="name" k1="number" k2="number" k3="number" /\>
 <dd>Declares the vignetting model for this lens at given focal length (in mm), given aperture (as f-number),
     and given distance to subject in focus (in meters). This kind of calibration requires relatively many
-    sample points since it depends on three variables.
+    sample points since it depends on three variables.  The library will
+    interpolate the parameters for between the sample points if necessary.
     @see lfVignettingModel
 <dt>\<crop focal="number" mode="name" left="number" right="number" top="number" bottom="number" /\>
 <dd>Declares the image crop for this lens. Crop can be specific for every
@@ -377,14 +405,16 @@ lfDatabase::Load() with no parameters. This method searches for all available
 XML files and loads them, ignoring files with errors.
 
 The main place where lensfun looks for database files are the directories
-returned by the gtk function g_get_system_data_dirs(). This is (usually) the
-@b /usr/share/lensfun/ subdirectory (the part after /usr/share/ is configurable
-at library compilation time) and also the @b /usr/local/share/lensfun/ directory
-for system-local files. On Windows this is something like
-"C:\Documents and Settings\%User%\something" but I'm not sure exactly :-).
+returned by the gtk function g_get_system_data_dirs(). This is (usually) the @b
+/usr/share/lensfun/ subdirectory (the part after /usr/share/ is configurable at
+library compilation time) and also the @b /usr/local/share/lensfun/ directory
+for system-local files.  A special exception is /var/lib/lensfun: If this
+directory exists, it is searched instead of /usr/{local/}share/lensfun.  On
+Windows, this is something like “C:\Documents and Settings\%User%\something” but
+I'm not sure exactly :-).
 
 After that the user's home directory is searched too, as returned by
-g_get_user_data_dir() with "lensfun" appended as well. On my system this is
+g_get_user_data_dir() with “lensfun” appended as well. On my system this is
 <b>/home/user/.local/share/lensfun</b>. The exact path to the user-specific
 directory can be found in the variable lfDatabase::HomeDataDir.
 
@@ -496,7 +526,7 @@ Adding new cameras is very easy. You just have to know its crop factor, and the
 EXIF identification strings for this camera; that's all.
 
 If you don't know the crop factor, you can search in google for e.g.
-"Nikon D300 sensor size". Let's suppose you found out that your sensor size
+“Nikon D300 sensor size”. Let's suppose you found out that your sensor size
 is 23.6 x 15.8mm. Now compute the length of the diagonal using Pythagora's theorem:
 
 @code
@@ -507,20 +537,17 @@ Now you just divide the magic number 43.27 (the diagonal of a usual 35mm film fr
 by the number you got:
 
 @code
-    crop = 43.27 / 28.4 = 1.52
+    crop = 43.27 / 28.4 = 1.523
 @endcode
 
-Usually the image from the sensor is a little cropped along every margin, so let's
-suppose it's exactly 1.5.
-
 Now you must find out the identification string for your camera from EXIF data.
-For this you can use the exiftool script:
+For this you can use the exiv2 script:
 
 @code
-    $ exiftool blah.nef
+    $ exiv2 blah.nef
     ....
-    Make                            : NIKON CORPORATION
-    Camera Model Name               : NIKON D300
+    Camera make     : NIKON CORPORATION
+    Camera model    : NIKON D300
     ....
 @endcode
 
@@ -528,12 +555,12 @@ Now you can create a XML entry for your camera:
 
 @code
     <camera>
-        <maker>NIKON CORPORATION</maker>
+        <maker>Nikon Corporation</maker>
         <maker lang="en">Nikon</maker>
-        <model>NIKON D300</model>
+        <model>Nikon D300</model>
         <model lang="en">D300</model>
         <mount>Nikon F AF</mount>
-        <cropfactor>1.5</cropfactor>
+        <cropfactor>1.523</cropfactor>
     </camera>
 @endcode
 
@@ -560,13 +587,13 @@ A simple lens database entry would look something like:
 @code
     <lens>
         <maker>Pentax</maker>
-        <model>SMC PENTAX DA 12-24mm F/4 ED AL IF</model>
+        <model>smc Pentax-DA 12-24mm f/4 ED AL IF</model>
         <mount>Pentax KAF2</mount>
     </lens>
 @endcode
 
 The above code just tells lensfun that there exist a lens called
-"SMC PENTAX DA 12-24mm F/4 ED AL IF" manufactured by Pentax and it uses the
+“smc Pentax-DA 12-24mm f/4 ED AL IF” manufactured by Pentax and it uses the
 Pentax KAF2 mount. This is not very useful except to make user happy that
 there's at least one other person in the world owning his lens.
 
@@ -578,7 +605,7 @@ adjust the coefficients until you get decent results.
 Computing math model coefficients for distortion, tca, vignetting is a separate
 very complex matter. It is out of the scope of this manual to give even a
 short brief about this. There's a tutorial on lensfun site that will teach you
-how to create a complete lens entry using just a single tool - the wonderful Hugin.
+how to create a complete lens entry using just a single tool – the wonderful Hugin.
 
 <ul>
 <li>@ref el_lens
