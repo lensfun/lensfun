@@ -88,6 +88,7 @@ parser.add_argument("--aspect-ratio", type=float, default=1.5, help="The resulti
 parser.add_argument("--portrait", action="store_true",
                     help="Whether the resulting bitmap should be in portrait orientation.  Default: landscape")
 parser.add_argument("--outfile", default="testimage.tiff", help="Path to the output file.  Default: testimage.tiff")
+parser.add_argument("--db-path", help="Path to the database.  If not given, look in the same places as LensFun.")
 parser.add_argument("--no-vignetting", dest="vignetting", action="store_false",
                     help="Supresses simulation of vignetting.  *Much* faster.")
 args = parser.parse_args()
@@ -100,11 +101,13 @@ width, aspect_ratio, portrait = args.width, args.aspect_ratio, args.portrait
 def get_database_elements():
     lens_element = camera_element = None
     distortion_element = vignetting_element = tca_element = None
+    files_found = False
     def crawl_directory(dirpath):
-        nonlocal lens_element, camera_element, distortion_element, vignetting_element, tca_element
+        nonlocal lens_element, camera_element, distortion_element, vignetting_element, tca_element, files_found
         for root, __, filenames in os.walk(dirpath):
             for filename in filenames:
                 if filename.endswith(".xml"):
+                    files_found = True
                     tree = ElementTree.parse(os.path.join(root, filename)).getroot()
                     for element in tree:
                         if camera_element is None and \
@@ -129,8 +132,13 @@ def get_database_elements():
                                        float(calibration_element.attrib["aperture"]) == aperture and \
                                        float(calibration_element.attrib["distance"]) == distance:
                                         vignetting_element = calibration_element
-    for path in [os.path.expanduser("~/.local/share/lensfun"), "/usr/share/lensfun", "/usr/local/share/lensfun"]:
+    paths_search_list = [args.db_path] if args.db_path else \
+                        [os.path.expanduser("~/.local/share/lensfun"), "/usr/share/lensfun", "/usr/local/share/lensfun"]
+    for path in paths_search_list:
         crawl_directory(path)
+    if not files_found:
+        print("No XML files found.")
+        sys.exit(1)
     if lens_element is None:
         print("Lens model name not found.")
         sys.exit(1)
