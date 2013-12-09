@@ -16,29 +16,27 @@
         <maker>Leica</maker>
         <model>D-LUX2</model>
         <model lang="en">Digilux 2</model>
-        <variant>16:9</variant>
         <mount>panasonicLX1</mount>
         <cropfactor>4.45</cropfactor>
+        <!-- aspect ratio 16:9 -->
     </camera>
 
     <camera>
         <maker>Leica</maker>
         <model>D-LUX 4</model>
         <model lang="en">Digilux 4</model>
-        <variant>16:9</variant>
-        <variant>4:3</variant>
-        <mount>panasonicLX3</mount>
+        <mount>panasonicLX4</mount>
         <cropfactor>4.33</cropfactor>
+        <!-- aspect ratio 4:3 -->
     </camera>
 
     <camera>
         <maker>Leica</maker>
         <model>D-LUX 3</model>
         <model lang="en">Digilux 3</model>
-        <variant>16:9</variant>
-        <variant>4:3</variant>
         <mount>panasonicLX3</mount>
         <cropfactor>4.33</cropfactor>
+        <!-- aspect ratio 16:9 -->
     </camera>
 
     <lens>
@@ -46,6 +44,7 @@
         <model>Standard</model>
         <mount>leicaDigilux2</mount>
         <cropfactor>3.933</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <distortion model="ptlens" focal="7" a="0" b="0.009873" c="-0.057763" />
             <distortion model="ptlens" focal="7.6" a="0" b="0.003123" c="-0.039833" />
