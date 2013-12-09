@@ -215,7 +215,16 @@
 
     <camera>
         <maker>Pentax</maker>
-        <model>Pentax K2000</model>
+        <model>PENTAX K3</model>
+        <model lang="en">K3</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.5</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>PENTAX</maker>
+        <maker lang="en">Pentax</maker>
+        <model>PENTAX K2000</model>
         <model lang="en">K2000</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.5</cropfactor>
@@ -339,9 +348,19 @@
 	        <distortion focal="45" model="ptlens" a="0.00340219" b="-0.0072762" c="0.00763624" />
 	        <distortion focal="55" model="ptlens" a="-0.000442312" b="0.00460551" c="-0.00158524" />
             <tca model="poly3" focal="18" br="-0.0000871" vr="1.0004828" bb="-0.0000263" vb="1.0001433" />
+            <tca model="poly3" focal="20" br="-0.0006746" cr="0.0017899" vr="0.9997634" bb="0.0007446" cb="-0.0011695" vb="1.0005314" />
+            <tca model="poly3" focal="21" br="-0.0012575" cr="0.0022420" vr="1.0000624" bb="-0.0004657" cb="0.0009917" vb="0.9995849" />
+            <tca model="poly3" focal="23" br="0.0008593" cr="-0.0018130" vr="1.0014264" bb="-0.0004830" cb="0.0011743" vb="0.9995325" />
             <tca model="poly3" focal="24" br="-0.0000122" vr="1.0002181" bb="0.0000383" vb="1.0002671" />
+            <tca model="poly3" focal="26" br="-0.0000261" cr="0.0001475" vr="1.0003238" bb="0.0002433" cb="-0.0002405" vb="1.0002520" />
+            <tca model="poly3" focal="28" br="-0.0000056" cr="-0.0000342" vr="1.0004965" bb="0.0001311" cb="-0.0001193" vb="1.0003247" />
+            <tca model="poly3" focal="31" br="-0.0000110" cr="0.0001737" vr="1.0001522" bb="-0.0004369" cb="0.0009840" vb="0.9997737" />
+            <tca model="poly3" focal="33" br="-0.0004712" cr="0.0008834" vr="0.9998863" bb="-0.0000441" cb="0.0002601" vb="1.0007441" />
             <tca model="poly3" focal="35" br="-0.0000093" vr="1.0001056" bb="-0.0000299" vb="1.0001859" />
+            <tca model="poly3" focal="38" br="-0.0002914" cr="0.0006529" vr="0.9998320" bb="0.0002885" cb="-0.0004075" vb="1.0007491" />
+            <tca model="poly3" focal="40" br="0.0000435" cr="0.0000393" vr="1.0000392" bb="0.0000098" cb="-0.0001665" vb="1.0002437" />
             <tca model="poly3" focal="43" br="-0.0000113" vr="1.0001417" bb="0.0000241" vb="1.0000489" />
+            <tca model="poly3" focal="50" br="-0.0001694" cr="0.0004921" vr="0.9997155" bb="0.0000873" cb="-0.0000946" vb="1.0002636" />
             <tca model="poly3" focal="55" br="-0.0000059" vr="1.0000907" bb="0.0000077" vb="0.9999907" />
             <vignetting model="pa" focal="18" aperture="3.5" distance="0.25" k1="-0.1755" k2="-1.3129" k3="0.8855" />
             <vignetting model="pa" focal="18" aperture="3.5" distance="0.6" k1="-0.1680" k2="-1.2909" k3="0.8623" />
@@ -828,7 +847,14 @@
         <calibration>
             <!-- Taken with Pentax K-30 -->
             <distortion model="poly3" focal="50" k1="-0.00203" />
-            <tca model="poly3" focal="50" vr="1.0002324" vb="0.9997591" />
+            <tca model="poly3" focal="50" br="-0.0000488" cr="0.0001144" vr="1.0005239" bb="0.0001427" cb="-0.0002953" vb="0.9994200" />
+            <vignetting model="pa" focal="50" aperture="1.4" k1="-0.75531" k2="0.64285" k3="-0.26061" />
+            <vignetting model="pa" focal="50" aperture="2.0" k1="-0.06676" k2="-0.04799" k3="0.02031" />
+            <vignetting model="pa" focal="50" aperture="5.6" k1="-0.15783" k2="0.15089" k3="-0.01524" />
+            <vignetting model="pa" focal="50" aperture="8" k1="-0.1018" k2="-0.00066" k3="0.06612" />
+            <vignetting model="pa" focal="50" aperture="11" k1="-0.00027" k2="-0.25301" k3="0.20985" />
+            <vignetting model="pa" focal="50" aperture="16" k1="-0.13985" k2="0.13367" k3="-0.03586" />
+            <vignetting model="pa" focal="50" aperture="22" k1="-0.05391" k2="-0.06313" k3="0.11027" />
         </calibration>
     </lens>
 
@@ -841,6 +867,21 @@
         <calibration>
             <!-- Taken with Pentax K-5 -->
             <distortion model="poly3" focal="21" k1="-0.01388" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>SMC Pentax FA 28mm f/2.8 AL</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+              <tca model="poly3" focal="28.0" br="0.0000578" cr="-0.0001581" vr="1.0005750" bb="-0.0000046" cb="0.0001367" vb="0.9996466" />
+              <distortion model="poly3" focal="28" k1="-0.00843" />
+              <vignetting model="pa" focal="28" aperture="11" distance="100" k1="-0.38602" k2="1.0657" k3="-0.86036" />
+              <vignetting model="pa" focal="28" aperture="8" distance="100" k1="-0.41027" k2="0.96832" k3="-0.79405" />
+              <vignetting model="pa" focal="28" aperture="5.6" distance="100" k1="-0.38055" k2="1.06408" k3="-0.92936" />
+              <vignetting model="pa" focal="28" aperture="2.8" distance="100" k1="-0.87866" k2="1.00009" k3="-0.5801" />
         </calibration>
     </lens>
 
