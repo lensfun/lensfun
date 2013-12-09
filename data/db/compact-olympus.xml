@@ -79,6 +79,7 @@
         <maker>Olympus Corporation</maker>
         <maker lang="en">Olympus</maker>
         <model>C8080WZ</model>
+        <model lang="en">C-8080 Wide Zoom</model>
         <mount>olympus8080</mount>
         <cropfactor>3.933</cropfactor>
     </camera>
@@ -87,7 +88,19 @@
         <maker>Olympus Imaging Corp.</maker>
         <maker lang="en">Olympus</maker>
         <model>u-miniD,Stylus V</model>
-        <variant>Stylus Verve S</variant>
+        <model lang="en">µ-mini Digital</model>
+        <mount>olympusStylusV</mount>
+        <cropfactor>6.0</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Olympus Imaging Corp.</maker>
+        <maker lang="en">Olympus</maker>
+        <model>u-miniD,Stylus V</model>
+        <model lang="en">Stylus Verve Digital</model>
+        <!-- The following line is necessary so that LensFun regards this as an
+             enry of its own. -->
+        <variant>variant of the µ-mini Digital</variant>
         <mount>olympusStylusV</mount>
         <cropfactor>6.0</cropfactor>
     </camera>
@@ -96,6 +109,7 @@
         <maker>Olympus Imaging Corp.</maker>
         <maker lang="en">Olympus</maker>
         <model>C70Z,C7000Z</model>
+        <model lang="en">C-70 Zoom, C-7000 Zoom</model>
         <mount>olympus7000</mount>
         <cropfactor>4.8</cropfactor>
     </camera>
@@ -104,6 +118,7 @@
         <maker>Olympus Optical Co.,Ltd</maker>
         <maker lang="en">Olympus</maker>
         <model>C4100Z,C4000Z</model>
+        <model lang="en">C-4000 Zoom, C-4100 Zoom</model>
         <mount>olympus4000</mount>
         <cropfactor>4.92</cropfactor>
     </camera>
@@ -112,6 +127,19 @@
         <maker>Olympus Optical Co.,Ltd</maker>
         <maker lang="en">Olympus</maker>
         <model>X-2,C-50Z</model>
+        <model lang="en">X-2</model>
+        <mount>olympusC50</mount>
+        <cropfactor>4.9</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Olympus Optical Co.,Ltd</maker>
+        <maker lang="en">Olympus</maker>
+        <model>X-2,C-50Z</model>
+        <model lang="en">C-50 Zoom</model>
+        <!-- The following line is necessary so that LensFun regards this as an
+             enry of its own. -->
+        <variant>variant of the X-2</variant>
         <mount>olympusC50</mount>
         <cropfactor>4.9</cropfactor>
     </camera>
@@ -120,6 +148,7 @@
         <maker>Olympus Optical Co.,Ltd</maker>
         <maker lang="en">Olympus</maker>
         <model>C750UZ</model>
+        <model lang="en">C-750 Ultra Zoom</model>
         <mount>olympus750</mount>
         <cropfactor>6.03</cropfactor>
     </camera>
@@ -128,6 +157,7 @@
         <maker>Olympus Optical Co.,Ltd</maker>
         <maker lang="en">Olympus</maker>
         <model>C730UZ</model>
+        <model lang="en">C-730 Ultra Zoom</model>
         <mount>olympus700</mount>
         <cropfactor>6.52</cropfactor>
     </camera>
@@ -136,6 +166,7 @@
         <maker>Olympus Optical Co.,Ltd</maker>
         <maker lang="en">Olympus</maker>
         <model>C700UZ</model>
+        <model lang="en">C-700 Ultra Zoom</model>
         <mount>olympus700</mount>
         <cropfactor>6.52</cropfactor>
     </camera>
@@ -144,6 +175,7 @@
         <maker>Olympus Imaging Corp.</maker>
         <maker lang="en">Olympus</maker>
         <model>C7070WZ</model>
+        <model lang="en">C-7070 Wide Zoom</model>
         <mount>olympus5060</mount>
         <cropfactor>4.930</cropfactor>
     </camera>
@@ -152,6 +184,7 @@
         <maker>Olympus Corporation</maker>
         <maker lang="en">Olympus</maker>
         <model>C5060WZ</model>
+        <model lang="en">C-5060 Wide Zoom</model>
         <mount>olympus5060</mount>
         <cropfactor>4.930</cropfactor>
     </camera>
@@ -160,6 +193,7 @@
         <maker>Olympus Optical Co.,Ltd</maker>
         <maker lang="en">Olympus</maker>
         <model>C5050Z</model>
+        <model lang="en">C-5050 Zoom</model>
         <mount>olympus2040</mount>
         <cropfactor>4.930</cropfactor>
     </camera>
@@ -168,6 +202,7 @@
         <maker>Olympus Optical Co.,Ltd</maker>
         <maker lang="en">Olympus</maker>
         <model>C4040Z</model>
+        <model lang="en">C-4040 Zoom</model>
         <mount>olympus2040</mount>
         <cropfactor>4.930</cropfactor>
     </camera>
@@ -176,6 +211,7 @@
         <maker>Olympus Optical Co.,Ltd</maker>
         <maker lang="en">Olympus</maker>
         <model>C3040Z</model>
+        <model lang="en">C-3040 Zoom</model>
         <mount>olympus2040</mount>
         <cropfactor>4.930</cropfactor>
     </camera>
@@ -184,6 +220,7 @@
         <maker>Olympus Optical Co.,Ltd</maker>
         <maker lang="en">Olympus</maker>
         <model>C2040Z</model>
+        <model lang="en">C-2040 Zoom</model>
         <mount>olympus2040</mount>
         <cropfactor>4.930</cropfactor>
     </camera>
@@ -192,6 +229,19 @@
         <maker>Olympus Optical Co.,Ltd</maker>
         <maker lang="en">Olympus</maker>
         <model>C860L,D360L</model>
+        <model lang="en">C-860L</model>
+        <mount>olympusC860</mount>
+        <cropfactor>6.563</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Olympus Optical Co.,Ltd</maker>
+        <maker lang="en">Olympus</maker>
+        <model>C860L,D360L</model>
+        <model lang="en">D-360L</model>
+        <!-- The following line is necessary so that LensFun regards this as an
+             enry of its own. -->
+        <variant>variant of the C-860L</variant>
         <mount>olympusC860</mount>
         <cropfactor>6.563</cropfactor>
     </camera>
@@ -199,6 +249,7 @@
     <camera>
         <maker>Olympus</maker>
         <model>mju-II</model>
+        <model lang="en">µ-II</model>
         <mount>olympusEpic</mount>
         <cropfactor>1.0</cropfactor>
     </camera>
@@ -214,6 +265,7 @@
         <maker>Olympus Imaging Corp.</maker>
         <maker lang="en">Olympus</maker>
         <model>SP350</model>
+        <model lang="en">SP-350</model>
         <mount>olympusSP350</mount>
         <cropfactor>4.8</cropfactor>
     </camera>
@@ -222,6 +274,7 @@
         <maker>Olympus Imaging Corp.</maker>
         <maker lang="en">Olympus</maker>
         <model>SP500UZ</model>
+        <model lang="en">SP-500 Ultra Zoom</model>
         <mount>olympusSP500</mount>
         <cropfactor>6.0</cropfactor>
     </camera>
@@ -230,6 +283,7 @@
         <maker>Olympus Imaging Corp.</maker>
         <maker lang="en">Olympus</maker>
         <model>SP560UZ</model>
+        <model lang="en">SP-560 Ultra Zoom</model>
         <mount>olympusSP560</mount>
         <cropfactor>5.8</cropfactor>
     </camera>
