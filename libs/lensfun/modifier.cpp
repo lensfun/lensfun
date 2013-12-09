@@ -94,9 +94,7 @@ lfExtModifier::lfExtModifier (const lfLens *lens, float crop, int width, int hei
         coordinate_correction *= crop / lens->CropFactor;
 
     // Take aspect ratio into account
-    // FixMe: Checking for "Standard" here is provisional as long as we haven't
-    // set the aspect ratio for all "Standard" lenses properly in the database.
-    if (lens && strcmp(lens->Model, "Standard") && lens->AspectRatio)
+    if (lens && lens->AspectRatio)
     {
         float image_aspect_ratio = (Width < Height) ?
             float (Height) / float (Width) : float (Width) / float (Height);
