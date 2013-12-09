@@ -944,6 +944,13 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                                             ctca->Terms [0], ctca->Terms [1]);
                             break;
 
+                        case LF_TCA_MODEL_POLY3:
+                            _lf_xml_printf (output, "model=\"poly3\" vr=\"%g\" vb=\"%g\" "
+                                            "cr=\"%g\" cb=\"%g\" br=\"%g\" bb=\"%g\" />\n",
+                                            ctca->Terms [0], ctca->Terms [1], ctca->Terms [2],
+                                            ctca->Terms [3], ctca->Terms [4], ctca->Terms [5]);
+                            break;
+
                         default:
                             _lf_xml_printf (output, "model=\"none\" />\n");
                             break;
