@@ -843,4 +843,37 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Panasonic</maker>
+        <model>LUMIX G VARIO 12-35 f/2.8</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Olympus OMD E-M5 -->
+            <distortion model="ptlens" focal="12" a="0.03626" b="-0.10638" c="0.01966" />
+            <distortion model="ptlens" focal="14" a="0.02827" b="-0.0854" c="0.03073" />
+            <distortion model="ptlens" focal="16" a="0.01689" b="-0.05145" c="0.01488" />
+            <distortion model="ptlens" focal="18" a="0.01148" b="-0.02851" c="-0.00308" />
+            <distortion model="ptlens" focal="20" a="0.01696" b="-0.04944" c="0.03292" />
+            <distortion model="ptlens" focal="22" a="0.00991" b="-0.02582" c="0.01252" />
+            <distortion model="ptlens" focal="25" a="0.00656" b="-0.01302" c="0.00572" />
+            <distortion model="ptlens" focal="28" a="0.00728" b="-0.01959" c="0.02348" />
+            <distortion model="ptlens" focal="30" a="0.00348" b="-0.0034" c="0.00414" />
+            <distortion model="ptlens" focal="32" a="0.00427" b="-0.00676" c="0.01112" />
+            <distortion model="ptlens" focal="35" a="0.00938" b="-0.02043" c="0.02524" />
+            <tca model="poly3" focal="12" vr="1.0003736" vb="1.0000643" />
+            <tca model="poly3" focal="14" vr="1.0003255" vb="1.0000556" />
+            <tca model="poly3" focal="16" vr="1.0003447" vb="1.0000236" />
+            <tca model="poly3" focal="18" vr="1.0003571" vb="1.0000159" />
+            <tca model="poly3" focal="20" vr="1.0002871" vb="1.0000087" />
+            <tca model="poly3" focal="22" vr="1.0002596" vb="0.9999957" />
+            <tca model="poly3" focal="25" vr="1.0002534" vb="1.0000103" />
+            <tca model="poly3" focal="28" vr="1.0001711" vb="0.9999986" />
+            <tca model="poly3" focal="30" vr="1.0001151" vb="1.0000065" />
+            <tca model="poly3" focal="32" vr="1.0000555" vb="1.0000802" />
+            <tca model="poly3" focal="35" vr="1" vb="1.0003" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
