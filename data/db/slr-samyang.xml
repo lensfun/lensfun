@@ -2,6 +2,7 @@
     <lens>
         <maker>Samyang</maker>
         <model>Samyang 8mm f/3.5 Fish-Eye CS</model>
+        <model lang="de">Samyang 8mm f/3.5 Fischauge CS</model>
         <mount>Pentax KAF</mount>
         <mount>Canon EF</mount>
         <mount>Nikon F AI</mount>
@@ -11,10 +12,15 @@
         <mount>4/3 System</mount>
         <mount>Micro 4/3 System</mount>
         <mount>Samsung NX</mount>
+        <!-- FixMe: Actually cropfactor 1.534 -->
         <cropfactor>1.5</cropfactor>
+        <type>stereographic</type>
         <calibration>
+            <!-- Taken with some APS-C Pentax probably. -->
             <tca model="poly3" focal="8" br="-0.0007764" cr="0.0013798" vr="1.0000228" 
                                          bb="-0.0002711" cb="0.0008531" vb="0.9998496" />
+            <!-- Taken with Nikon D7100 -->
+            <distortion model="ptlens" focal="8" a="0.04098" b="-0.15413" c="0.11977" />
         </calibration>
     </lens>
 
