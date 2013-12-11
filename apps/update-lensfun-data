@@ -1,0 +1,133 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""This program fetches the latest version of the LensFun database from the
+Internet and places it on the local system.  This way, the user can update the
+database conveniently.  Unfortunately, we have to take into account that the
+SVN database may have a too new format for the locally installed LensFun.
+Then, it may fetch backports of the database from other URLs.
+
+This program must be called with root privileges.  It stores the new database
+in `/var/lib/lensfun`.
+
+The repository of databases resides at a base URL.  Below that URL, there is
+the file versions.json.  It contains a list with three elements.  The first is
+the database timestamp, the second is a list of available version numbers, and
+the third is a list of strings which represents further alternative base URLs
+to look at.  So, the file may contain the following::
+
+    [1386797501, [1, 2, 3], ["http://wilson.bronger.org/"]]
+
+All URLs must end with a slash.  For every version number, there must be a file
+called version_<versionnumber>.tar.bz2.  So in our case, there must be the
+files
+
+::
+
+    version_1.tar.bz
+    version_2.tar.bz
+    version_3.tar.bz
+
+in the same directory as versions.json.  These tar balls contain the LensFun
+database with the given timestamp and version.
+
+The timestamps are the number of seconds since the Epoch as an int.
+
+
+Diagnostics:
+
+Status code 0 -- successful
+            1 -- no suitable download location found
+            2 -- missing root priviledges
+
+Note that these exit codes mean that one can easily check whether a newer
+version of the database is available by calling the program *without* root
+privileges.  An exit code of 1 means that no newer database is available, an
+exit code of 2 means that there is a newer version.
+
+"""
+
+import urllib.request, shutil, sys, os, getpass, time, calendar, tarfile, json
+
+
+def seconds_since_epoch():
+    return calendar.timegm(time.gmtime())
+
+
+def detect_local_timestamp():
+    for path in ["/var/lib/", "/usr/local/share/", "/usr/share/"]:
+        filepath = path + "lensfun/timestamp.txt"
+        if os.path.exists(filepath):
+            return int(open(filepath).read())
+    return 0
+local_timestamp = detect_local_timestamp()
+
+
+def suitable_version(version):
+    return version == 1
+
+
+class Location:
+
+    def __init__(self, base_url, version, timestamp):
+        self.base_url, self.version, self.timestamp = base_url, version, timestamp
+
+    def __lt__(self, other):
+        if not suitable_version(self.version):
+            return True
+        if not other:
+            return False
+        if not suitable_version(other.version):
+            return False
+        return (self.version, self.timestamp) < (other.version, other.timestamp)
+
+    def extract(self):
+        tar = tarfile.open(fileobj=urllib.request.urlopen(self.base_url + "version_{}.tar.bz2".format(self.version)), mode="r|*")
+        tar.extractall("/var/lib/lensfun")
+        tar.close()
+
+
+seen_urls = set()
+locations = set()
+
+def read_location(base_url):
+    if base_url not in seen_urls and len(seen_urls) < 50:
+        seen_urls.add(base_url)
+        print("Reading {} …".format(base_url + "versions.json"))
+        try:
+            response = urllib.request.urlopen(base_url + "versions.json")
+        except (urllib.error.HTTPError, ValueError):
+            print("  Error: URL could not be opened.")
+        else:
+            try:
+                timestamp, versions, alternatives = json.loads(response.read().decode("utf-8"))
+                timestamp = int(timestamp)
+                versions = [int(version) for version in versions]
+            except (ValueError, TypeError):
+                print("  Error: Invalid data received.")
+            else:
+                if timestamp > local_timestamp:
+                    for version in versions:
+                        if suitable_version(version):
+                            locations.add(Location(base_url, version, timestamp))
+                for base_url in alternatives:
+                    read_location(base_url)
+
+read_location("http://lensfun.berlios.de/db/")
+read_location("http://wilson.bronger.org/lensfun-db/")
+
+if not locations:
+    print("Fatal: No download location found or no newer database available.")
+    sys.exit(1)
+best_location = max(locations)
+
+
+if sys.platform != "win32" and getpass.getuser() != "root":
+    print("Fatal: Root privileges needed for updating the database.")
+    sys.exit(2)
+
+shutil.rmtree("/var/lib/lensfun", ignore_errors=True)
+os.makedirs("/var/lib/lensfun")
+best_location.extract()
+open("/var/lib/lensfun/timestamp.txt", "w").write(str(best_location.timestamp))
+print("Successfully updated database.")
