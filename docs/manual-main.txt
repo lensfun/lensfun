@@ -410,8 +410,8 @@ returned by the gtk function g_get_system_data_dirs(). This is (usually) the @b
 library compilation time) and also the @b /usr/local/share/lensfun/ directory
 for system-local files.  A special exception is /var/lib/lensfun: If this
 directory exists, it is searched instead of /usr/{local/}share/lensfun.  On
-Windows, this is something like “C:\Documents and Settings\%User%\something” but
-I'm not sure exactly :-).
+Windows, this is something like “C:\\Documents and
+Settings\\\%User\%\\something” but I'm not sure exactly :-).
 
 After that the user's home directory is searched too, as returned by
 g_get_user_data_dir() with “lensfun” appended as well. On my system this is
