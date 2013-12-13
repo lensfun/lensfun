@@ -762,10 +762,14 @@ def compare_version (version, req_version):
         try:
             if long (v1 [i]) < long (v2 [i]):
                 return False
+            if long (v1 [i]) > long (v2 [i]):
+                return True
         except:
             # Perhaps we have a version tail like .rc1 etc
             if v1 [i] < v2 [i]:
                 return False
+            if v1 [i] > v2 [i]:
+                return True
     return True
 
 
