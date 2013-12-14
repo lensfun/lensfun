@@ -121,7 +121,7 @@
 
     <lens>
 	    <maker>Panasonic</maker>
-	    <model>LUMIX G 14 f/2.5</model>
+	    <model>Lumix G 14 f/2.5</model>
 	    <focal value="14" />
 	    <aperture min="2.5" max="22" />
 	    <mount>Micro 4/3 System</mount>
@@ -155,7 +155,7 @@
 
     <lens>
 	    <maker>Panasonic</maker>
-	    <model>LUMIX G 14 f/2.5 + GWC1 0.79x</model>
+	    <model>Lumix G 14 f/2.5 + GWC1 0.79x</model>
 	    <focal value="14" />
 	    <aperture min="2.5" max="22"/>
 	    <mount>Micro 4/3 System</mount>
@@ -189,7 +189,7 @@
 
     <lens>
 	    <maker>Panasonic</maker>
-	    <model>LUMIX G 20 f/1.7</model>
+	    <model>Lumix G 20 f/1.7</model>
 	    <focal value="20" />
 	    <aperture min="1.7" max="16" />
 	    <mount>Micro 4/3 System</mount>
@@ -873,6 +873,19 @@
             <tca model="poly3" focal="30" vr="1.0001151" vb="1.0000065" />
             <tca model="poly3" focal="32" vr="1.0000555" vb="1.0000802" />
             <tca model="poly3" focal="35" vr="1" vb="1.0003" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Panasonic</maker>
+        <model>Lumix G 20 f/1.7 II</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with DMC-GX7 -->
+            <distortion model="ptlens" focal="20" a="0.01169" b="-0.0533" c="0.02618" />
+            <tca model="poly3" focal="20" vr="1.0002" vb="1.0002" />
         </calibration>
     </lens>
 
