@@ -482,22 +482,22 @@ struct lfExtModifier : public lfModifier
     /// A list of pixel coordinate modifier callbacks.
     GPtrArray *CoordCallbacks;
 
-    static void ModifyCoord_TCA_Linear (void *data, float *iocoord, int count);
     static void ModifyCoord_UnTCA_Linear (void *data, float *iocoord, int count);
-    static void ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count);
+    static void ModifyCoord_TCA_Linear (void *data, float *iocoord, int count);
     static void ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int count);
+    static void ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count);
 
-    static void ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int count);
     static void ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count);
-    static void ModifyCoord_Dist_Poly5 (void *data, float *iocoord, int count);
+    static void ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int count);
     static void ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int count);
-    static void ModifyCoord_Dist_FOV1 (void *data, float *iocoord, int count);
+    static void ModifyCoord_Dist_Poly5 (void *data, float *iocoord, int count);
     static void ModifyCoord_UnDist_FOV1 (void *data, float *iocoord, int count);
-    static void ModifyCoord_Dist_PTLens (void *data, float *iocoord, int count);
+    static void ModifyCoord_Dist_FOV1 (void *data, float *iocoord, int count);
     static void ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int count);
+    static void ModifyCoord_Dist_PTLens (void *data, float *iocoord, int count);
 #ifdef VECTORIZATION_SSE
-    static void ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int count);
     static void ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int count);
+    static void ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int count);
 #endif
     static void ModifyCoord_Geom_Rect_FishEye (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_Rect_Panoramic (void *data, float *iocoord, int count);

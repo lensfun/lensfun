@@ -34,12 +34,12 @@ bool lfModifier::AddSubpixelCallbackTCA (lfLensCalibTCA &model, bool reverse)
                         return false;
                     tmp [i] = 1.0 / model.Terms [i];
                 }
-                AddSubpixelCallback (lfExtModifier::ModifyCoord_TCA_Linear, 500,
+                AddSubpixelCallback (lfExtModifier::ModifyCoord_UnTCA_Linear, 500,
                                      tmp, 2 * sizeof (float));
                 return true;
 
             case LF_TCA_MODEL_POLY3:
-                AddSubpixelCallback (lfExtModifier::ModifyCoord_TCA_Poly3, 500,
+                AddSubpixelCallback (lfExtModifier::ModifyCoord_UnTCA_Poly3, 500,
                                      model.Terms, 6 * sizeof (float));
                 return true;
 
@@ -54,12 +54,12 @@ bool lfModifier::AddSubpixelCallbackTCA (lfLensCalibTCA &model, bool reverse)
                 break;
 
             case LF_TCA_MODEL_LINEAR:
-                AddSubpixelCallback (lfExtModifier::ModifyCoord_UnTCA_Linear, 500,
+                AddSubpixelCallback (lfExtModifier::ModifyCoord_TCA_Linear, 500,
                                      model.Terms, 2 * sizeof (float));
                 return true;
 
             case LF_TCA_MODEL_POLY3:
-                AddSubpixelCallback (lfExtModifier::ModifyCoord_UnTCA_Poly3, 500,
+                AddSubpixelCallback (lfExtModifier::ModifyCoord_TCA_Poly3, 500,
                                      model.Terms, 6 * sizeof (float));
                 return true;
 
@@ -165,21 +165,6 @@ bool lfModifier::ApplySubpixelGeometryDistortion (
     return true;
 }
 
-void lfExtModifier::ModifyCoord_TCA_Linear (void *data, float *iocoord, int count)
-{
-    float *param = (float *)data;
-    float k_r = param [0];
-    float k_b = param [1];
-
-    for (float *end = iocoord + count * 2 * 3; iocoord < end; iocoord += 6)
-    {
-        iocoord [0] *= k_r;
-        iocoord [1] *= k_r;
-        iocoord [4] *= k_b;
-        iocoord [5] *= k_b;
-    }
-}
-
 void lfExtModifier::ModifyCoord_UnTCA_Linear (void *data, float *iocoord, int count)
 {
     float *param = (float *)data;
@@ -195,7 +180,22 @@ void lfExtModifier::ModifyCoord_UnTCA_Linear (void *data, float *iocoord, int co
     }
 }
 
-void lfExtModifier::ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_TCA_Linear (void *data, float *iocoord, int count)
+{
+    float *param = (float *)data;
+    float k_r = param [0];
+    float k_b = param [1];
+
+    for (float *end = iocoord + count * 2 * 3; iocoord < end; iocoord += 6)
+    {
+        iocoord [0] *= k_r;
+        iocoord [1] *= k_r;
+        iocoord [4] *= k_b;
+        iocoord [5] *= k_b;
+    }
+}
+
+void lfExtModifier::ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int count)
 {
     const float *param = (float *)data;
     const float vr = param [0];
@@ -274,7 +274,7 @@ next_subpixel_b:;
     }
 }
 
-void lfExtModifier::ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count)
 {
     // Rd = Ru * (b * Ru^2 + c * Ru + v)
     const float *param = (float *)data;

@@ -33,12 +33,12 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                 if (!model.Terms [0])
                     return false;
                 tmp [0] = 1.0 / model.Terms [0];
-                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly3, 250,
+                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_Poly3, 250,
                                   tmp, sizeof (float));
                 break;
 
             case LF_DIST_MODEL_POLY5:
-                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly5, 250,
+                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_Poly5, 250,
                                   model.Terms, sizeof (float) * 2);
                 break;
 
@@ -47,18 +47,18 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                     return false;
                 tmp [0] = 1.0 / model.Terms [0];
                 tmp [1] = 2.0 * tan (model.Terms [0] / 2.0);
-                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_FOV1, 250,
+                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_FOV1, 250,
                                   tmp, sizeof (float) * 2);
                 break;
 
             case LF_DIST_MODEL_PTLENS:
 #ifdef VECTORIZATION_SSE
                 if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Dist_PTLens_SSE, 250,
+                    AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_PTLens_SSE, 250,
                                       model.Terms, sizeof (float) * 3);
                 else
 #endif
-                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_PTLens, 250,
+                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_PTLens, 250,
                                   model.Terms, sizeof (float) * 3);
                 break;
 
@@ -69,12 +69,12 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
         switch (model.Model)
         {
             case LF_DIST_MODEL_POLY3:
-                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_Poly3, 750,
+                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly3, 750,
                                   model.Terms, sizeof (float));
                 break;
 
             case LF_DIST_MODEL_POLY5:
-                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_Poly5, 750,
+                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly5, 750,
                                   model.Terms, sizeof (float) * 2);
                 break;
 
@@ -83,17 +83,17 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                     return false;
                 tmp [0] = model.Terms [0];
                 tmp [1] = 0.5 / tan (model.Terms [0] / 2.0);
-                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_FOV1, 750, tmp, sizeof (float) * 2);
+                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_FOV1, 750, tmp, sizeof (float) * 2);
                 break;
 
             case LF_DIST_MODEL_PTLENS:
 #ifdef VECTORIZATION_SSE
                 if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
-                    AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_PTLens_SSE, 750,
+                    AddCoordCallback (lfExtModifier::ModifyCoord_Dist_PTLens_SSE, 750,
                                       model.Terms, sizeof (float) * 3);
                 else
 #endif
-                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_PTLens, 750,
+                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_PTLens, 750,
                                   model.Terms, sizeof (float) * 3);
                 break;
 
@@ -459,7 +459,7 @@ void lfExtModifier::ModifyCoord_Scale (void *data, float *iocoord, int count)
     }
 }
 
-void lfExtModifier::ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count)
 {
     const float inv_k1 = *(float *)data;
     const float one_minus_k1_div_k1 = (1 - 1.0 / inv_k1) * inv_k1;
@@ -507,7 +507,7 @@ void lfExtModifier::ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int coun
     }
 }
 
-void lfExtModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int count)
 {
     // Rd = Ru * (1 - k1 + k1 * Ru^2)
     const float k1 = *(float *)data;
@@ -524,7 +524,7 @@ void lfExtModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int co
     }
 }
 
-void lfExtModifier::ModifyCoord_Dist_Poly5 (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int count)
 {
     float *param = (float *)data;
     float k1 = param [0];
@@ -564,7 +564,7 @@ void lfExtModifier::ModifyCoord_Dist_Poly5 (void *data, float *iocoord, int coun
     }
 }
 
-void lfExtModifier::ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Dist_Poly5 (void *data, float *iocoord, int count)
 {
     float *param = (float *)data;
     // Rd = Ru * (1 + k1 * Ru^2 + k2 * Ru^4)
@@ -583,7 +583,7 @@ void lfExtModifier::ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int co
     }
 }
 
-void lfExtModifier::ModifyCoord_Dist_FOV1 (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_UnDist_FOV1 (void *data, float *iocoord, int count)
 {
     float *param = (float *)data;
     // Ru = (1 / omega) * arctan (2 * Rd * tan (omega / 2))
@@ -600,7 +600,7 @@ void lfExtModifier::ModifyCoord_Dist_FOV1 (void *data, float *iocoord, int count
     }
 }
 
-void lfExtModifier::ModifyCoord_UnDist_FOV1 (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Dist_FOV1 (void *data, float *iocoord, int count)
 {
     float *param = (float *)data;
     // Rd = tg (Ru * omega) / (2 * tg (omega/2))
@@ -618,7 +618,7 @@ void lfExtModifier::ModifyCoord_UnDist_FOV1 (void *data, float *iocoord, int cou
         }
 }
 
-void lfExtModifier::ModifyCoord_Dist_PTLens (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int count)
 {
     float *param = (float *)data;
     float a = param [0];
@@ -659,7 +659,7 @@ void lfExtModifier::ModifyCoord_Dist_PTLens (void *data, float *iocoord, int cou
     }
 }
 
-void lfExtModifier::ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Dist_PTLens (void *data, float *iocoord, int count)
 {
     float *param = (float *)data;
     // Rd = Ru * (a * Ru^3 + b * Ru^2 + c * Ru + d)

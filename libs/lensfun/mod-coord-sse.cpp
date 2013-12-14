@@ -14,7 +14,7 @@
 #include "lensfunprv.h"
 #include <xmmintrin.h>
 
-void lfExtModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int count)
 {
   float *param = (float *)data;
 
@@ -77,7 +77,7 @@ void lfExtModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int
   loop_count *= 4;
   int remain = count - loop_count;
   if (remain) 
-    ModifyCoord_Dist_PTLens (data, &iocoord [loop_count * 2], remain);
+    ModifyCoord_UnDist_PTLens (data, &iocoord [loop_count * 2], remain);
 }
 
 #if defined (_MSC_VER)
@@ -86,7 +86,7 @@ typedef size_t uintptr_t;
 typedef __SIZE_TYPE__ uintptr_t;
 #endif
 
-void lfExtModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int count)
 {
   float *param = (float *)data;
 
@@ -139,7 +139,7 @@ void lfExtModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, i
   loop_count *= 4;
   int remain = count - loop_count;
   if (remain)
-    ModifyCoord_UnDist_PTLens (data, &iocoord [loop_count * 2], remain);
+    ModifyCoord_Dist_PTLens (data, &iocoord [loop_count * 2], remain);
 }
 
 #endif
