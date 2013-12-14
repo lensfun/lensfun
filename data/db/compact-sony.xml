@@ -50,6 +50,11 @@
         <compat>Generic</compat>
     </mount>
 
+    <mount>
+        <name>sonyHX300</name>
+        <compat>Generic</compat>
+    </mount>
+
     <camera>
         <maker>Sony</maker>
         <model>DSC-R1</model>
@@ -233,6 +238,13 @@
         <cropfactor>2.73</cropfactor>
     </camera>      
 
+    <camera>
+        <maker>Sony</maker>
+        <model>DSC-HX300</model>
+        <mount>sonyHX300</mount>
+        <cropfactor>5.58</cropfactor>
+    </camera>
+    
     <lens>
         <maker>Carl Zeiss</maker>
         <model>Standard</model>
@@ -734,6 +746,22 @@
             <distortion focal="28.8" model="ptlens" a="-0.00842" b="0.0158" c="-0.01114" />
             <distortion focal="33.2" model="ptlens" a="-0.01065" b="0.02132" c="-0.01154" />
             <distortion focal="37.1" model="ptlens" a="0.00226" b="-0.02401" c="0.0397" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>Standard</model>
+        <focal min="4.3" max="215" />
+        <mount>sonyHX300</mount>
+        <cropfactor>5.58</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- The camera already corrects very well.  So this refers to the
+                 JPEGs.  The camera cannot produce RAWs.  JPEGs for calibration
+                 (if really requested) has bronger@physik.rwth-aachen.de. -->
+            <distortion focal="4.3" model="poly3" k1="0" />
+            <distortion focal="215" model="poly3" k1="0" />
         </calibration>
     </lens>
 </lensdatabase>
