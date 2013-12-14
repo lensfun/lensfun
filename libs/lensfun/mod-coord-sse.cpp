@@ -90,7 +90,7 @@ void lfExtModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, i
 {
   float *param = (float *)data;
 
-  // Ru = Rd * (a * Rd^3 + b * Rd^2 + c * Rd + d)
+  // Rd = Ru * (a * Ru^3 + b * Ru^2 + c * Ru + d)
   __m128 a = _mm_set_ps1 (param [0]);
   __m128 b = _mm_set_ps1 (param [1]);
   __m128 c = _mm_set_ps1 (param [2]);

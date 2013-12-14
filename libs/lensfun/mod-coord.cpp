@@ -479,10 +479,10 @@ void lfExtModifier::ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int coun
         // method (and we don't use complex numbers in it, which is
         // required for a full solution!)
         //
-        // Original function: Ru = k1 * Rd^3 + (1 - k1) * Rd
-        // Target function:   k1 * Rd^3 + (1 - k1) * Rd - Ru = 0
-        // Divide by k1:      Rd^3 + Rd * (1 - k1)/k1 - Ru/k1 = 0
-        // Derivative:        3 * Rd^2 + (1 - k1)/k1
+        // Original function: Rd = k1 * Ru^3 + (1 - k1) * Ru
+        // Target function:   k1 * Ru^3 + (1 - k1) * Ru - Rd = 0
+        // Divide by k1:      Ru^3 + Ru * (1 - k1)/k1 - Rd/k1 = 0
+        // Derivative:        3 * Ru^2 + (1 - k1)/k1
         double rd = ru;
         for (int step = 0; ; step++)
         {
@@ -509,7 +509,7 @@ void lfExtModifier::ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int coun
 
 void lfExtModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count)
 {
-    // Ru = Rd * (1 - k1 + k1 * Rd^2)
+    // Rd = Ru * (1 - k1 + k1 * Ru^2)
     const float k1 = *(float *)data;
     const float one_minus_k1 = 1.0 - k1;
 
@@ -567,7 +567,7 @@ void lfExtModifier::ModifyCoord_Dist_Poly5 (void *data, float *iocoord, int coun
 void lfExtModifier::ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int count)
 {
     float *param = (float *)data;
-    // Ru = Rd * (1 + k1 * Rd^2 + k2 * Rd^4)
+    // Rd = Ru * (1 + k1 * Ru^2 + k2 * Ru^4)
     const float k1 = param [0];
     const float k2 = param [1];
 
@@ -586,7 +586,7 @@ void lfExtModifier::ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int co
 void lfExtModifier::ModifyCoord_Dist_FOV1 (void *data, float *iocoord, int count)
 {
     float *param = (float *)data;
-    // Rd = (1 / omega) * arctan (2 * Ru * tan (omega / 2))
+    // Ru = (1 / omega) * arctan (2 * Rd * tan (omega / 2))
     float c1 = param [0];
     float c2 = param [1];
 
@@ -603,7 +603,7 @@ void lfExtModifier::ModifyCoord_Dist_FOV1 (void *data, float *iocoord, int count
 void lfExtModifier::ModifyCoord_UnDist_FOV1 (void *data, float *iocoord, int count)
 {
     float *param = (float *)data;
-    // Ru = tg (Rd * omega) / (2 * tg (omega/2))
+    // Rd = tg (Ru * omega) / (2 * tg (omega/2))
     float omega = param [0];
     float dconst = param [1];
 
@@ -662,7 +662,7 @@ void lfExtModifier::ModifyCoord_Dist_PTLens (void *data, float *iocoord, int cou
 void lfExtModifier::ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int count)
 {
     float *param = (float *)data;
-    // Ru = Rd * (a * Rd^3 + b * Rd^2 + c * Rd + d)
+    // Rd = Ru * (a * Ru^3 + b * Ru^2 + c * Ru + d)
     const float a = param [0];
     const float b = param [1];
     const float c = param [2];

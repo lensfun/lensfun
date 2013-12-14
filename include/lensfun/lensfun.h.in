@@ -411,24 +411,24 @@ enum lfDistortionModel
     LF_DIST_MODEL_NONE,
     /**
      * 3rd order polynomial model:
-     * Ru = Rd * (1 - k1 + k1 * Rd^2)
+     * Rd = Ru * (1 - k1 + k1 * Ru^2)
      * Ref: http://www.imatest.com/docs/distortion.html
      */
     LF_DIST_MODEL_POLY3,
     /**
      * 5th order polynomial model:
-     * Ru = Rd * (1 + k1 * Rd^2 + k2 * Rd^4)
+     * Rd = Ru * (1 + k1 * Ru^2 + k2 * Ru^4)
      */
     LF_DIST_MODEL_POLY5,
     /**
      * Field-of-view lens model:
-     * Ru = tg (Rd * omega) / (2 * tg (omega/2))
+     * Rd = tg (Ru * omega) / (2 * tg (omega/2))
      * Ref: http://hal.inria.fr/docs/00/26/72/47/PDF/distcalib.pdf
      */
     LF_DIST_MODEL_FOV1,
     /**
      * PTLens rectilinear:
-     * Ru = Rd * (a * Rd^3 + b * Rd^2 + c * Rd + 1 - a - b - c)
+     * Rd = Ru * (a * Ru^3 + b * Ru^2 + c * Ru + 1 - a - b - c)
      */
     LF_DIST_MODEL_PTLENS,
 };
@@ -467,16 +467,16 @@ enum lfTCAModel
     LF_TCA_MODEL_NONE,
     /**
      * Linear lateral chromatic aberrations model:
-     * Cd(R) = Cs(R) * kr
-     * Cd(B) = Cs(B) * kb
-     * Ref: http://cipa.icomos.org/fileadmin/papers/Torino2005/403.pdf
+     * Rd(R) = Ru(R) * kr
+     * Rd(B) = Ru(B) * kb
+     * Ref: http://cipa.icomos.org/fileadmin/template/doc/TURIN/403.pdf
      */
     LF_TCA_MODEL_LINEAR,
 
     /**
      * Third order polynomial:
-     * Cd(R) = Cs(R)^3 * br + Cs(R)^2 * cr + Cs(R) * vr
-     * Cd(B) = Cs(B)^3 * bb + Cs(B)^2 * cb + Cs(B) * vb
+     * Rd(R) = Ru(R)^3 * br + Ru(R)^2 * cr + Ru(R) * vr
+     * Rd(B) = Ru(B)^3 * bb + Ru(B)^2 * cb + Ru(B) * vb
      * Ref: http://wiki.panotools.org/Tca_correct
      */
     LF_TCA_MODEL_POLY3

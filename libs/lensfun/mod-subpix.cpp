@@ -216,12 +216,12 @@ void lfExtModifier::ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count
         if (ru == 0.0)
             goto next_subpixel_r;
 
-        // Original equation: Ru = b * Rd^3 + c * Rd^2 + v * Rd
-        // We have Ru, need to find Rd. We will use Newton's method
+        // Original equation: Rd = b * Ru^3 + c * Ru^2 + v * Ru
+        // We have Rd, need to find Ru. We will use Newton's method
         // for finding the root of the equation:
         //
-        // Target function: b * Rd^3 + c * Rd^2 + v * Rd - Ru = 0
-        // Derivative:      3 * b * Rd^2 + 2 * c * Rd + v
+        // Target function: b * Ru^3 + c * Ru^2 + v * Ru - Rd = 0
+        // Derivative:      3 * b * Ru^2 + 2 * c * Ru + v
         rd = ru;
         for (int step = 0; ; step++)
         {
@@ -276,7 +276,7 @@ next_subpixel_b:;
 
 void lfExtModifier::ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int count)
 {
-    // Ru = Rd * (b * Rd^2 + c * Rd + v)
+    // Rd = Ru * (b * Ru^2 + c * Ru + v)
     const float *param = (float *)data;
     const float vr = param [0];
     const float vb = param [1];

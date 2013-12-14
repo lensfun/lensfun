@@ -324,7 +324,7 @@ const char *lfLens::GetDistortionModelDesc (
 
         case LF_DIST_MODEL_POLY3:
             if (details)
-                *details = "Ru = Rd * (1 - k1 + k1 * Rd^2)\n"
+                *details = "Rd = Ru * (1 - k1 + k1 * Ru^2)\n"
                     "Ref: http://www.imatest.com/docs/distortion.html";
             if (params)
                 *params = param_poly3;
@@ -332,7 +332,7 @@ const char *lfLens::GetDistortionModelDesc (
 
         case LF_DIST_MODEL_POLY5:
             if (details)
-                *details = "Ru = Rd * (1 + k1 * Rd^2 + k2 * Rd^4)\n"
+                *details = "Rd = Ru * (1 + k1 * Ru^2 + k2 * Ru^4)\n"
                     "Ref: http://www.imatest.com/docs/distortion.html";
             if (params)
                 *params = param_poly5;
@@ -340,15 +340,15 @@ const char *lfLens::GetDistortionModelDesc (
 
         case LF_DIST_MODEL_FOV1:
             if (details)
-                *details = "Ru = tg (Rd * omega) / (2 * tg (omega/2))\n"
-                    "Ref: ftp://ftp-sop.inria.fr/chir/publis/devernay-faugeras:01.pdf";
+                *details = "Rd = tg (Ru * omega) / (2 * tg (omega/2))\n"
+                    "Ref: http://hal.inria.fr/docs/00/26/72/47/PDF/distcalib.pdf";
             if (params)
                 *params = param_fov1;
             return "1st-order field-of-view";
 
         case LF_DIST_MODEL_PTLENS:
             if (details)
-                *details = "Ru = Rd * (a * Rd^3 + b * Rd^2 + c * Rd + 1 - (a + b + c))\n"
+                *details = "Rd = Ru * (a * Ru^3 + b * Ru^2 + c * Ru + 1 - (a + b + c))\n"
                     "Ref: http://wiki.panotools.org/Lens_correction_model";
             if (params)
                 *params = param_ptlens;
