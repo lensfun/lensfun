@@ -208,12 +208,12 @@ void lfExtModifier::ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count
     for (float *end = iocoord + count * 2 * 3; iocoord < end; iocoord += 6)
     {
         float x, y;
-        double ru, rd, rd2;
+        double rd, ru, ru2;
 
         x = iocoord [0];
         y = iocoord [1];
-        ru = sqrt (x * x + y * y);
-        if (ru == 0.0)
+        rd = sqrt (x * x + y * y);
+        if (rd == 0.0)
             goto next_subpixel_r;
 
         // Original equation: Rd = b * Ru^3 + c * Ru^2 + v * Ru
@@ -222,53 +222,53 @@ void lfExtModifier::ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count
         //
         // Target function: b * Ru^3 + c * Ru^2 + v * Ru - Rd = 0
         // Derivative:      3 * b * Ru^2 + 2 * c * Ru + v
-        rd = ru;
+        ru = rd;
         for (int step = 0; ; step++)
         {
-            rd2 = rd * rd;
-            double frd = br * rd2 * rd + cr * rd2 + vr * rd - ru;
-            if (frd >= -NEWTON_EPS && frd < NEWTON_EPS)
+            ru2 = ru * ru;
+            double fru = br * ru2 * ru + cr * ru2 + vr * ru - rd;
+            if (fru >= -NEWTON_EPS && fru < NEWTON_EPS)
                 break;
             if (step > 5)
                 // Does not converge, no real solution in this area?
                 goto next_subpixel_r;
 
-            rd -= frd / (3 * br * rd2 + 2 * cr * rd + vr);
+            ru -= fru / (3 * br * ru2 + 2 * cr * ru + vr);
         }
         // Negative radius does not make sense at all
-        if (rd > 0.0)
+        if (ru > 0.0)
         {
-            rd /= ru;
-            iocoord [0] = x * rd;
-            iocoord [1] = y * rd;
+            ru /= rd;
+            iocoord [0] = x * ru;
+            iocoord [1] = y * ru;
         }
 next_subpixel_r:
 
         x = iocoord [4];
         y = iocoord [5];
-        ru = sqrt (x * x + y * y);
-        if (ru == 0.0)
+        rd = sqrt (x * x + y * y);
+        if (rd == 0.0)
             goto next_subpixel_b;
 
-        rd = ru;
+        ru = rd;
         for (int step = 0; ; step++)
         {
-            rd2 = rd * rd;
-            double frd = bb * rd2 * rd + cb * rd2 + vb * rd - ru;
-            if (frd >= -NEWTON_EPS && frd < NEWTON_EPS)
+            ru2 = ru * ru;
+            double fru = bb * ru2 * ru + cb * ru2 + vb * ru - rd;
+            if (fru >= -NEWTON_EPS && fru < NEWTON_EPS)
                 break;
             if (step > 5)
                 // Does not converge, no real solution in this area?
                 goto next_subpixel_b;
 
-            rd -= frd / (3 * bb * rd2 + 2 * cb * rd + vb);
+            ru -= fru / (3 * bb * ru2 + 2 * cb * ru + vb);
         }
         // Negative radius does not make sense at all
-        if (rd > 0.0)
+        if (ru > 0.0)
         {
-            rd /= ru;
-            iocoord [4] = x * rd;
-            iocoord [5] = y * rd;
+            ru /= rd;
+            iocoord [4] = x * ru;
+            iocoord [5] = y * ru;
         }
 next_subpixel_b:;
     }
@@ -285,22 +285,22 @@ void lfExtModifier::ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int cou
     const float br = param [4];
     const float bb = param [5];
 
-    float x, y, r2, poly2;
+    float x, y, ru2, poly2;
     // Optimize for the case when c == 0 (avoid two square roots per pixel)
     if (cr == 0.0 && cb == 0.0)
         for (float *end = iocoord + count * 2 * 3; iocoord < end; iocoord += 6)
         {
             x = iocoord [0];
             y = iocoord [1];
-            r2 = x * x + y * y;
-            poly2 = br * r2 + vr;
+            ru2 = x * x + y * y;
+            poly2 = br * ru2 + vr;
             iocoord [0] = x * poly2;
             iocoord [1] = y * poly2;
 
             x = iocoord [4];
             y = iocoord [5];
-            r2 = x * x + y * y;
-            poly2 = bb * r2 + vb;
+            ru2 = x * x + y * y;
+            poly2 = bb * ru2 + vb;
             iocoord [4] = x * poly2;
             iocoord [5] = y * poly2;
         }
@@ -309,15 +309,15 @@ void lfExtModifier::ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int cou
         {
             x = iocoord [0];
             y = iocoord [1];
-            r2 = x * x + y * y;
-            poly2 = br * r2 + cr * sqrt (r2) + vr;
+            ru2 = x * x + y * y;
+            poly2 = br * ru2 + cr * sqrt (ru2) + vr;
             iocoord [0] = x * poly2;
             iocoord [1] = y * poly2;
 
             x = iocoord [4];
             y = iocoord [5];
-            r2 = x * x + y * y;
-            poly2 = bb * r2 + cb * sqrt (r2) + vb;
+            ru2 = x * x + y * y;
+            poly2 = bb * ru2 + cb * sqrt (ru2) + vb;
             iocoord [4] = x * poly2;
             iocoord [5] = y * poly2;
         }

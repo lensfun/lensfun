@@ -468,11 +468,11 @@ void lfExtModifier::ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int coun
     {
         float x = iocoord [0];
         float y = iocoord [1];
-        double ru = sqrt (x * x + y * y);
-        if (ru == 0.0)
+        double rd = sqrt (x * x + y * y);
+        if (rd == 0.0)
             continue;
 
-        float ru_div_k1 = ru * inv_k1;
+        float rd_div_k1 = rd * inv_k1;
 
         // Use Newton's method to avoid dealing with complex numbers
         // When carefully tuned this works almost as fast as Cardano's
@@ -483,24 +483,24 @@ void lfExtModifier::ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int coun
         // Target function:   k1 * Ru^3 + (1 - k1) * Ru - Rd = 0
         // Divide by k1:      Ru^3 + Ru * (1 - k1)/k1 - Rd/k1 = 0
         // Derivative:        3 * Ru^2 + (1 - k1)/k1
-        double rd = ru;
+        double ru = rd;
         for (int step = 0; ; step++)
         {
-            double frd = rd * rd * rd + rd * one_minus_k1_div_k1 - ru_div_k1;
-            if (frd >= -NEWTON_EPS && frd < NEWTON_EPS)
+            double fru = ru * ru * ru + ru * one_minus_k1_div_k1 - rd_div_k1;
+            if (fru >= -NEWTON_EPS && fru < NEWTON_EPS)
                 break;
             if (step > 5)
                 // Does not converge, no real solution in this area?
                 goto next_pixel;
 
-            rd -= frd / (3 * rd * rd + one_minus_k1_div_k1);
+            ru -= fru / (3 * ru * ru + one_minus_k1_div_k1);
         }
-        if (rd < 0.0)
+        if (ru < 0.0)
             continue; // Negative radius does not make sense at all
 
-        rd /= ru;
-        iocoord [0] = x * rd;
-        iocoord [1] = y * rd;
+        ru /= rd;
+        iocoord [0] = x * ru;
+        iocoord [1] = y * ru;
 
     next_pixel:
         ;
@@ -534,30 +534,30 @@ void lfExtModifier::ModifyCoord_Dist_Poly5 (void *data, float *iocoord, int coun
     {
         float x = iocoord [0];
         float y = iocoord [1];
-        double ru = sqrt (x * x + y * y);
-        if (ru == 0.0)
+        double rd = sqrt (x * x + y * y);
+        if (rd == 0.0)
             continue;
 
         // Use Newton's method
-        double rd = ru;
+        double ru = rd;
         for (int step = 0; ; step++)
         {
-            double rd2 = rd * rd;
-            double frd = rd * (1.0 + k1 * rd2 + k2 * rd2 * rd2) - ru;
-            if (frd >= -NEWTON_EPS && frd < NEWTON_EPS)
+            double ru2 = ru * ru;
+            double fru = ru * (1.0 + k1 * ru2 + k2 * ru2 * ru2) - rd;
+            if (fru >= -NEWTON_EPS && fru < NEWTON_EPS)
                 break;
             if (step > 5)
                 // Does not converge, no real solution in this area?
                 goto next_pixel;
 
-            rd -= frd / (1.0 + 3 * k1 * rd2 + 5 * k2 * rd2 * rd2);
+            ru -= fru / (1.0 + 3 * k1 * ru2 + 5 * k2 * ru2 * ru2);
         }
-        if (rd < 0.0)
+        if (ru < 0.0)
             continue; // Negative radius does not make sense at all
 
-        rd /= ru;
-        iocoord [0] = x * rd;
-        iocoord [1] = y * rd;
+        ru /= rd;
+        iocoord [0] = x * ru;
+        iocoord [1] = y * ru;
 
     next_pixel:
         ;
@@ -575,8 +575,8 @@ void lfExtModifier::ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int co
     {
         const float x = iocoord [0];
         const float y = iocoord [1];
-        const float r2 = x * x + y * y;
-        const float poly4 = (1.0 + k1 * r2 + k2 * r2 * r2);
+        const float ru2 = x * x + y * y;
+        const float poly4 = (1.0 + k1 * ru2 + k2 * ru2 * ru2);
 
         iocoord [0] = x * poly4;
         iocoord [1] = y * poly4;
@@ -630,29 +630,29 @@ void lfExtModifier::ModifyCoord_Dist_PTLens (void *data, float *iocoord, int cou
     {
         float x = iocoord [0];
         float y = iocoord [1];
-        double ru = sqrt (x * x + y * y);
-        if (ru == 0.0)
+        double rd = sqrt (x * x + y * y);
+        if (rd == 0.0)
             continue;
 
         // Use Newton's method
-        double rd = ru;
+        double ru = rd;
         for (int step = 0; ; step++)
         {
-            double frd = rd * (a * rd * rd * rd + b * rd * rd + c * rd + d) - ru;
-            if (frd >= -NEWTON_EPS && frd < NEWTON_EPS)
+            double fru = ru * (a * ru * ru * ru + b * ru * ru + c * ru + d) - rd;
+            if (fru >= -NEWTON_EPS && fru < NEWTON_EPS)
                 break;
             if (step > 5)
                 // Does not converge, no real solution in this area?
                 goto next_pixel;
 
-            rd -= frd / (4 * a * rd * rd * rd + 3 * b * rd * rd + 2 * c * rd + d);
+            ru -= fru / (4 * a * ru * ru * ru + 3 * b * ru * ru + 2 * c * ru + d);
         }
-        if (rd < 0.0)
+        if (ru < 0.0)
             continue; // Negative radius does not make sense at all
 
-        rd /= ru;
-        iocoord [0] = x * rd;
-        iocoord [1] = y * rd;
+        ru /= rd;
+        iocoord [0] = x * ru;
+        iocoord [1] = y * ru;
 
     next_pixel:
         ;
@@ -672,9 +672,9 @@ void lfExtModifier::ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int c
     {
         const float x = iocoord [0];
         const float y = iocoord [1];
-        const float r2 = x * x + y * y;
-        const float r = sqrtf (r2);
-        const float poly3 = a * r2 * r + b * r2 + c * r + d;
+        const float ru2 = x * x + y * y;
+        const float r = sqrtf (ru2);
+        const float poly3 = a * ru2 * r + b * ru2 + c * r + d;
 
         iocoord [0] = x * poly3;
         iocoord [1] = y * poly3;

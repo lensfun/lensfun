@@ -34,42 +34,42 @@ void lfExtModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int
     __m128 c1 = _mm_loadu_ps (&iocoord[8*i+4]);
     __m128 x = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (2, 0, 2, 0));
     __m128 y = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (3, 1, 3, 1));
-    __m128 ru = _mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y));
+    __m128 rd = _mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y));
 
     // We don't check for zero, but set it to a very small value instead
-    ru = _mm_max_ps (ru, very_small);
-    ru = _mm_rcp_ps (_mm_rsqrt_ps (ru));
-    __m128 rd = ru;
+    rd = _mm_max_ps (rd, very_small);
+    rd = _mm_rcp_ps (_mm_rsqrt_ps (rd));
+    __m128 ru = rd;
     for (int step = 0; step < 4; step++)
     {
-      // frd = rd * (a * rd^2 * rd + b * rd^2 + c * rd + d) - ru
-      __m128 rd_sq =  _mm_mul_ps (rd, rd);
-      __m128 frd = _mm_mul_ps (_mm_mul_ps (a, rd), rd_sq);
-      __m128 t = _mm_add_ps (_mm_mul_ps (b, rd_sq), _mm_add_ps (d, _mm_mul_ps (c, rd)));
-      frd = _mm_sub_ps (_mm_mul_ps (_mm_add_ps (t, frd), rd), ru);
+      // fru = ru * (a * ru^2 * ru + b * ru^2 + c * ru + d) - rd
+      __m128 ru_sq =  _mm_mul_ps (ru, ru);
+      __m128 fru = _mm_mul_ps (_mm_mul_ps (a, ru), ru_sq);
+      __m128 t = _mm_add_ps (_mm_mul_ps (b, ru_sq), _mm_add_ps (d, _mm_mul_ps (c, ru)));
+      fru = _mm_sub_ps (_mm_mul_ps (_mm_add_ps (t, fru), ru), rd);
 
       // This is most likely faster than loading form L1 cache
       __m128 two = _mm_add_ps (one, one);
       __m128 three = _mm_add_ps (one, two);
       __m128 four = _mm_add_ps (two, two);
 
-      // corr =  4 * a * rd * rd^2 + 3 * b * rd^2 + 2 * c * rd + d
-      __m128 corr = _mm_mul_ps (c, rd);
+      // corr =  4 * a * ru * ru^2 + 3 * b * ru^2 + 2 * c * ru + d
+      __m128 corr = _mm_mul_ps (c, ru);
       corr = _mm_add_ps (d, _mm_add_ps (corr, corr));
-      t = _mm_mul_ps (rd_sq, _mm_mul_ps (three, b));
-      corr = _mm_add_ps (corr, _mm_mul_ps (_mm_mul_ps (rd, rd_sq), _mm_mul_ps (four, a)));
+      t = _mm_mul_ps (ru_sq, _mm_mul_ps (three, b));
+      corr = _mm_add_ps (corr, _mm_mul_ps (_mm_mul_ps (ru, ru_sq), _mm_mul_ps (four, a)));
       corr = _mm_rcp_ps (_mm_add_ps (corr, t));
 
-      // rd -= frd * corr
-      rd = _mm_sub_ps (rd, _mm_mul_ps (frd, corr));
+      // ru -= fru * corr
+      ru = _mm_sub_ps (ru, _mm_mul_ps (fru, corr));
     }
     // We don't check for zero, but set it to a very small value instead
-    rd = _mm_max_ps (rd, very_small);
+    ru = _mm_max_ps (ru, very_small);
 
-    // rd /= ru
-    rd = _mm_mul_ps (rd, _mm_rcp_ps(ru));
-    c0 = _mm_mul_ps (c0, rd);
-    c1 = _mm_mul_ps (c1, rd);
+    // ru /= rd
+    ru = _mm_mul_ps (ru, _mm_rcp_ps(rd));
+    c0 = _mm_mul_ps (c0, ru);
+    c1 = _mm_mul_ps (c1, ru);
     _mm_storeu_ps (&iocoord [8 * i], c0);
     _mm_storeu_ps (&iocoord [8 * i + 4], c1);
   }
@@ -106,13 +106,13 @@ void lfExtModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, i
       __m128 c1 = _mm_load_ps (&iocoord [8 * i + 4]);
       __m128 x = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (2, 0, 2, 0));
       __m128 y = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (3, 1, 3, 1));
-      __m128 r2 = _mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y));
-      __m128 r = _mm_rcp_ps (_mm_rsqrt_ps (r2));
+      __m128 ru2 = _mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y));
+      __m128 ru = _mm_rcp_ps (_mm_rsqrt_ps (ru2));
 
-      // Calculate poly3 = a * r2 * r + b * r2 + c * r + d;
-      __m128 t = _mm_mul_ps (r2, b);
-      __m128 poly3 = _mm_mul_ps (_mm_mul_ps (a, r2), r);
-      t = _mm_add_ps (t, _mm_mul_ps (r, c));
+      // Calculate poly3 = a * ru2 * ru + b * ru2 + c * ru + d;
+      __m128 t = _mm_mul_ps (ru2, b);
+      __m128 poly3 = _mm_mul_ps (_mm_mul_ps (a, ru2), ru);
+      t = _mm_add_ps (t, _mm_mul_ps (ru, c));
       poly3 = _mm_add_ps (t, _mm_add_ps (poly3, d));
       _mm_store_ps (&iocoord [8 * i], _mm_mul_ps (poly3, c0));
       _mm_store_ps (&iocoord [8 * i + 4], _mm_mul_ps (poly3, c1));
@@ -124,13 +124,13 @@ void lfExtModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, i
       __m128 c1 = _mm_loadu_ps (&iocoord [8 * i + 4]);
       __m128 x = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (2, 0, 2, 0));
       __m128 y = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (3, 1, 3, 1));
-      __m128 r2 = _mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y));
-      __m128 r = _mm_rcp_ps (_mm_rsqrt_ps (r2));
+      __m128 ru2 = _mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y));
+      __m128 ru = _mm_rcp_ps (_mm_rsqrt_ps (ru2));
 
-      // Calculate poly3 = a * r2 * r + b * r2 + c * r + d;
-      __m128 poly3 = _mm_mul_ps (_mm_mul_ps (a, r2), r);
-      __m128 t = _mm_mul_ps (r2, b);
-      poly3 = _mm_add_ps (poly3, _mm_mul_ps (r, c));
+      // Calculate poly3 = a * ru2 * ru + b * ru2 + c * ru + d;
+      __m128 poly3 = _mm_mul_ps (_mm_mul_ps (a, ru2), ru);
+      __m128 t = _mm_mul_ps (ru2, b);
+      poly3 = _mm_add_ps (poly3, _mm_mul_ps (ru, c));
       poly3 = _mm_add_ps (poly3, _mm_add_ps (t, d));
       _mm_storeu_ps (&iocoord [8 * i], _mm_mul_ps (poly3, c0));
       _mm_storeu_ps (&iocoord [8 * i + 4], _mm_mul_ps (poly3, c1));
