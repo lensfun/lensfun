@@ -411,24 +411,34 @@ enum lfDistortionModel
     LF_DIST_MODEL_NONE,
     /**
      * 3rd order polynomial model:
-     * Rd = Ru * (1 - k1 + k1 * Ru^2)
+     *
+     * \f[r_d = r_u \cdot (1 - k_1 + k_1 r_u^2)\f]
+     * The corresponding XML attribute is called “k1”.  It defaults to 0.
      * Ref: http://www.imatest.com/docs/distortion.html
      */
     LF_DIST_MODEL_POLY3,
     /**
      * 5th order polynomial model:
-     * Rd = Ru * (1 + k1 * Ru^2 + k2 * Ru^4)
+     *
+     * \f[r_d = r_u \cdot (1 + k_1 r_u^2 + k_2 r_u^4)\f]
+     * The corresponding XML attributes are called “k1” and “k2”.  They default
+     * to 0.
      */
     LF_DIST_MODEL_POLY5,
     /**
      * Field-of-view lens model:
-     * Rd = tg (Ru * omega) / (2 * tg (omega/2))
+     *
+     * \f[r_d = \frac{\tan(r_u \omega)}{2 \tan(\omega/2)}\f]
+     * The corresponding XML attribute is called “omega”.  It defaults to 0.
      * Ref: http://hal.inria.fr/docs/00/26/72/47/PDF/distcalib.pdf
      */
     LF_DIST_MODEL_FOV1,
     /**
      * PTLens rectilinear:
-     * Rd = Ru * (a * Ru^3 + b * Ru^2 + c * Ru + 1 - a - b - c)
+     *
+     * \f[r_d = r_u \cdot (a r_u^3 + b r_u^2 + c r_u + 1 - a - b - c)\f]
+     * The corresponding XML attributes are called “a”, “b”, and “c”.  They
+     * default to 0.
      */
     LF_DIST_MODEL_PTLENS,
 };
@@ -467,16 +477,26 @@ enum lfTCAModel
     LF_TCA_MODEL_NONE,
     /**
      * Linear lateral chromatic aberrations model:
-     * Rd(R) = Ru(R) * kr
-     * Rd(B) = Ru(B) * kb
+     *
+     * \f[\begin{aligned}
+     * r_{d,R} &= r_{u,R} k_R \\
+     * r_{d,B} &= r_{u,B} k_B
+     * \end{aligned}\f]
+     * The corresponding XML attributes are called “kr” and “kb”.  They default
+     * to 1.
      * Ref: http://cipa.icomos.org/fileadmin/template/doc/TURIN/403.pdf
      */
     LF_TCA_MODEL_LINEAR,
 
     /**
      * Third order polynomial:
-     * Rd(R) = Ru(R)^3 * br + Ru(R)^2 * cr + Ru(R) * vr
-     * Rd(B) = Ru(B)^3 * bb + Ru(B)^2 * cb + Ru(B) * vb
+     *
+     * \f[\begin{aligned}
+     * r_{d,R} &= r_{u,R} \cdot (b_R r_{u,R}^2 + c_R r_{u,R} + v_R) \\
+     * r_{d,B} &= r_{u,B} \cdot (b_B r_{u,B}^2 + c_B r_{u,B} + v_B)
+     * \end{aligned}\f]
+     * The corresponding XML attributes are called “br”, “cr”,
+     * “vr”, “bb”, “cb”, and “vb”.  vr and vb default to 1, the rest to 0.
      * Ref: http://wiki.panotools.org/Tca_correct
      */
     LF_TCA_MODEL_POLY3
@@ -520,8 +540,11 @@ enum lfVignettingModel
     LF_VIGNETTING_MODEL_NONE,
     /**
      * Pablo D'Angelo vignetting model
-     * (which is a more general variant of the cos^4 law):
-     * Cd = Cs * (1 + k1 * R^2 + k2 * R^4 + k3 * R^6)
+     * (which is a more general variant of the \f$\cos^4\f$ law):
+     *
+     * \f[C_d = C_s \cdot (1 + k_1 r^2 + k_2 r^4 + k_3 r^6)\f]
+     * The corresponding XML attributes are called “k1”, “k2”, and “k3”.  They
+     * default to 0.
      * Ref: http://hugin.sourceforge.net/tech/
      */
     LF_VIGNETTING_MODEL_PA
@@ -611,7 +634,7 @@ C_TYPEDEF (struct, lfLensCalibFov)
  */
 struct lfParameter
 {
-    /** Parameter name (something like 'k', 'k3', 'omega' etc. */
+    /** Parameter name (something like 'k', 'k3', 'omega' etc.) */
     const char *Name;
     /** Minimal value that has sense */
     float Min;
@@ -1666,9 +1689,9 @@ typedef void (*lfModifyCoordFunc) (void *data, float *iocoord, int count);
  *
  * The normal order of applying a lens correction on a image is:
  * <ul>
- * <li>Fix chromatic aberrations (TCA)
  * <li>Fix lens vignetting
  * <li>Fix lens colour contribution
+ * <li>Fix chromatic aberrations (TCA)
  * <li>Fix lens distortion
  * <li>Fix lens geometry
  * <li>Scale the image
@@ -1676,21 +1699,21 @@ typedef void (*lfModifyCoordFunc) (void *data, float *iocoord, int count);
  *
  * This process is divided into three stages.
  *
- * In the first stage - subpixel distortion - application corrects transversal
- * chromatic aberrations. For every target pixel coordinate the modifier will
- * return you three new coordinates: the first will tell you the coordinates
- * of the red component, second of the green, and third of the blue component.
- * This operation requires building new image in a new allocated buffer:
- * you cannot modify the image in place, or bad things will happen.
- *
- * Then the colors of the image pixels are fixed (vignetting and colour
- * contribution). You pass a pointer to your pixel data, and it will be
+ * In the first stage, the colors of the image pixels are fixed (vignetting and
+ * colour contribution). You pass a pointer to your pixel data, and it will be
  * modified in place.
+ *
+ * Then, in the subpixel distortion stage, application corrects transversal
+ * chromatic aberrations. For every target pixel coordinate the modifier will
+ * return you three new coordinates: the first will tell you the coordinates of
+ * the red component, second of the green, and third of the blue component.
+ * This operation requires building new image in a new allocated buffer: you
+ * cannot modify the image in place, or bad things will happen.
  *
  * And finally, the distortions introduced by the lens are removed
  * (distortion and geometry), and an additional scaling factor is applied
  * if required. This again requires copying the image, but you can use
- * the same buffers as in stage one, just in reverse order.
+ * the same buffers as in stage two, just in reverse order.
  *
  * Of course, you can skip some stages of the process, e.g. if you, for
  * example, don't want to change a fisheye image to a rectilinear you
@@ -1702,15 +1725,12 @@ typedef void (*lfModifyCoordFunc) (void *data, float *iocoord, int count);
  * apply the stages themselves in reverse order.
  *
  * HOWEVER. Doing it in three stage is not memory efficient, and is prone to
- * error accumulation because you have to interpolate pixels twice - once during
- * stage 1 and once during stage 3. To avoid this, it is acceptable to do stages
- * 1 & 3 in one step, provided that the changes made in stage 2 are applied
- * to R,G,B channels separately, e.g. the output R from the stage 2 depends
- * ONLY of the input R to the stage 2, same about G and B. This is true for
- * vignetting correction, so we can apply stages in the order 2, (1+3).
- * In this case the output R,G,B coordinates from stage 1 are feed directly
- * into the ApplyGeometryDistortion() function, which will correct the R,G,B
- * coordinates independently.
+ * error accumulation because you have to interpolate pixels twice - once
+ * during stage 2 and once during stage 3. To avoid this, it is sensful to do
+ * stages 2 & 3 in one step.  In this case the output R,G,B coordinates from
+ * stage 2 are feed directly into the ApplyGeometryDistortion() function, which
+ * will correct the R,G,B coordinates further, treating the colour channels
+ * equally.
  */
 struct LF_EXPORT lfModifier
 {

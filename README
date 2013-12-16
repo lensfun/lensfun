@@ -15,8 +15,7 @@ and search for specific things in it, but also provides a set of
 algorithms for correcting images based on detailed knowledge of
 lens properties. Right now lensfun is designed to correct
 distortion, transversal (also known as lateral) chromatic aberrations,
-vignetting and colour contribution of the lens (e.g. when sometimes
-people says one lens gives "yellowish" images and another, say, "bluish").
+and vignetting.
 
 The interface is defined both using C++ style and plain C.
 The C interface is a wrapper around the C++ classes.
@@ -39,8 +38,6 @@ of the GNU General Public License, version 3. Applications are located
 under the apps/ subdirectory of the source package. A copy of the license
 can be found in the file gpl-3.0.txt which can be found in the source
 archive. You can read it here: http://www.gnu.org/licenses/gpl-3.0.html
-(note: there are no apps currently in lensfun, so this paragraph applies
-to yet-to-be-written Great Future Applications).
 
 Also the build system (the contents of the build/ subdirectory plus the
 ac.py file) is licensed under GPL v3.
@@ -313,6 +310,7 @@ THANKS:
 Also I would like to thank the people that made valuable contributions to lensfun:
 	Niels Kristian Bech Jensen
 	Pascal de Bruijn
+	Thomas Modes
 	Torsten Bronger
 
 And of course great thanks to all the people sending profiles for the database. 
