@@ -400,7 +400,10 @@ LF_EXPORT cbool lf_camera_check (lfCamera *camera);
 /**
  * The lensdb library implements several lens distortion models.
  * This enum lists them. Distortion usually heavily depends on the
- * focal length, but does not depend on the aperture.
+ * focal length, but does not depend on the aperture.  In the following,
+ * \f$r_d\f$ refers to the distorted radius (normalised distance to image
+ * center), and \f$r_u\f$ refers to the undistorted, corrected radius.  See
+ * section \ref actualorder for further information.
  *
  * For a popular explanation of lens distortion see
  * http://www.vanwalree.com/optics/distortion.html
@@ -426,10 +429,11 @@ enum lfDistortionModel
      */
     LF_DIST_MODEL_POLY5,
     /**
-     * Field-of-view lens model:
+     * Field-of-view lens model (as of 2013, not used in lensfun's database):
      *
      * \f[r_d = \frac{\tan(r_u \omega)}{2 \tan(\omega/2)}\f]
-     * The corresponding XML attribute is called “omega”.  It defaults to 0.
+     * The corresponding XML attribute is called “omega”.  It defaults to 0,
+     * however, this value is considered invalid by lensfun.
      * Ref: http://hal.inria.fr/docs/00/26/72/47/PDF/distcalib.pdf
      */
     LF_DIST_MODEL_FOV1,
@@ -466,7 +470,10 @@ C_TYPEDEF (struct, lfLensCalibDistortion)
  * The lensdb library supports several models for lens lateral
  * chromatic aberrations (also called transversal chromatic
  * aberrations, TCA). TCAs depend on focal length, but does not
- * depend of the aperture.
+ * depend of the aperture.  In the following,
+ * \f$r_d\f$ refers to the distorted radius (normalised distance to image
+ * center), and \f$r_u\f$ refers to the undistorted, corrected radius.  See
+ * section \ref actualorder for further information.
  *
  * For a popular explanation of chromatic aberrations see
  * http://www.vanwalree.com/optics/chromatic.html
@@ -529,7 +536,9 @@ C_TYPEDEF (struct, lfLensCalibTCA)
  * vignetting is out of the scope of this library.
  *
  * Vignetting is dependent on focal length and aperture.  There is
- * also a slight dependence on focus distance.
+ * also a slight dependence on focus distance.  In the following,
+ * \f$C_d\f$ refers to the corrected destination image pixel brightness, and
+ * \f$C_s\f$ refers to the uncorrected source image pixel brightness.
  *
  * For a popular explanation of vignetting see
  * http://www.vanwalree.com/optics/vignetting.html
@@ -647,33 +656,39 @@ struct lfParameter
 C_TYPEDEF (struct, lfParameter)
 
 /**
- * Lens type. 
+ * Lens type.  See \ref changeofprojection for further information.
  */
 enum lfLensType
 {
     /** Unknown lens type */
     LF_UNKNOWN,
-    /** A rectilinear lens - 99% of all lenses are of this type */
+    /** Rectilinear lens – 99% of all lenses are of this type */
     LF_RECTILINEAR,
     /**
-     * Fisheye lens
+     * Equidistant fisheye,
      * Ref: http://wiki.panotools.org/Fisheye_Projection
      */
     LF_FISHEYE,
-    /** Panoramic (cylindrical) */
+    /**
+     * Panoramic (cylindrical); not that there are such lenses, but useful
+     * to convert images \a to this type, especially fish-eye images.
+     */
     LF_PANORAMIC,
     /**
-     * Equirectangular (not that there are such lenses, but useful
-     * to convert images TO this type, especially fish-eye images.
+     * Equirectangular; not that there are such lenses, but useful
+     * to convert images \a to this type, especially fish-eye images.
      */
     LF_EQUIRECTANGULAR,
-    /** orthographic fisheye */
+    /** Orthographic fisheye */
     LF_FISHEYE_ORTHOGRAPHIC,
-    /** stereographic fisheye */
+    /** Stereographic fisheye */
     LF_FISHEYE_STEREOGRAPHIC,
-    /** equisolid fisheye */
+    /** Equisolid fisheye */
     LF_FISHEYE_EQUISOLID,
-    /** fisheye Thoby (for Nikkor 10.5) */
+    /**
+     * Fisheye as measured by Thoby (for Nikkor 10.5).
+     * Ref: http://michel.thoby.free.fr/Blur_Panorama/Nikkor10-5mm_or_Sigma8mm/Sigma_or_Nikkor/Comparison_Short_Version_Eng.html
+     */
     LF_FISHEYE_THOBY
 };
 

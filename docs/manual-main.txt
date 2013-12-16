@@ -376,33 +376,37 @@ Possible embedded elements:
 <dt>\<distortion focal="number" model="name" k1="number" k2="number" k3="number" omega="number" a="number" b="number" c="number" /\>
 <dd>Declares the image distortion model for this lens. Distortion is specific for every
     focal length (in mm), so you can declare multiple distortion entries with different focal
-    values; the library will interpolate the parameters for intermediate focal lengths.
+    values; the library will interpolate the parameters for intermediate focal
+    lengths.  The model name may be "none", "poly3", "poly5", "fov1", or "ptlens".
     @see lfDistortionModel
 <dt>\<tca focal="number" model="name" kr="number" kb="number" /\>
 <dd>Declares the Transversal Chromatic Aberrations model for this lens,
     depending on focal length.  The library will interpolate the parameters for
-    intermediate focal lengths.
+    intermediate focal lengths.  The model name may be "none", "linear",
+    or "poly3".
     @see lfTCAModel
 <dt>\<vignetting focal="number" aperture="number" distance="number" model="name" k1="number" k2="number" k3="number" /\>
 <dd>Declares the vignetting model for this lens at given focal length (in mm), given aperture (as f-number),
     and given distance to subject in focus (in meters). This kind of calibration requires relatively many
     sample points since it depends on three variables.  The library will
-    interpolate the parameters for between the sample points if necessary.
+    interpolate the parameters for between the sample points if necessary.  The
+    model name may be "none" or "pa".
     @see lfVignettingModel
 <dt>\<crop focal="number" mode="name" left="number" right="number" top="number" bottom="number" /\>
 <dd>Declares the image crop for this lens. Crop can be specific for every
     focal length (in mm), so you can declare multiple crop entries with different focal
-    values; the library will interpolate the parameters for intermediate focal lengths.
+    values; the library will interpolate the parameters for intermediate focal
+    lengths.  The mode name may be "no_crop", "crop_rectangle", or "crop_circle".
     @see lfCropMode
 <dt>\<field_of_view focal="number" fov="number" /\>
-<dd>Declares the real field of view for this lens. Field of view is specific for every
+<dd>Declares the real field of view (in degrees) for this lens. Field of view is specific for every
     focal length (in mm), so you can declare multiple field of view entries with different focal
     values; the library will interpolate the parameters for intermediate
     focal lengths.  The field of view results from the focal length and
     the type of the lens, so this parameter seems to be redundant.
     However, the nominal focal length may not be exact, and for some
     applications (e.g. panorama stitching), it must be exact.  So in a
-    way, this is an accurate version of the focal length.
+    way, this is an accurate representation of the focal length.
 </dl>
 
 @page dbsearch How database files are found and loaded
@@ -488,17 +492,17 @@ Mathematically speaking, a perfect lens follows a well-defined
 projection (in other places also called “lens type” or “geometry”),
 like:
 
-\f[\begin{aligned}
+@f[\begin{aligned}
 r &= 2f\sin(\theta/2) &\text{equisolid} \\
 r &= f\theta &\text{equidistant} \\
 r &= 2f\tan(\theta/2) &\text{stereographic} \\
 r &= f\sin(\theta) &\text{orthographic} \\
 r &= f\tan(\theta) &\text{rectilinear}
 \end{aligned}
-\f]
+@f]
 
-Here, \f$\theta\f$ is the angle between the incoming ray of light and
-the optical axis, \f$f\f$ is the focal length, and \f$r\f$ is the
+Here, @f$\theta@f$ is the angle between the incoming ray of light and
+the optical axis, @f$f@f$ is the focal length, and @f$r@f$ is the
 distance of the resulting dot on the sensor from the sensor center.
 
 You see, the rectilinear projection is just one of many.  And all of
@@ -537,9 +541,9 @@ source image (the RAW file), and you can do a simple pixel lookup there,
 possibly with interpolation.  This way, you find all pixel values for
 your rectified image efficiently and accurately.
 
-However, if you perform pixel lookup this way, things happen the other
-way round as explained in the section before because you follow the path
-through the image manipulations the reverse way:
+However, if you perform pixel lookup this way, things happen the other way
+round compared to the section before, because you follow the path through the
+image manipulations the reverse way:
 
 <ol>
 <li>scaling
@@ -549,11 +553,19 @@ through the image manipulations the reverse way:
 <li>devignetting
 </ol>
 
-In reality, devignetting is performed first, independently of all other
-operations.  Then, you do the coordinate-changing operations from
-scaling to anti-TCA.  Lensfun can do this in one function call.
-Finally, you do a lookup on the vignetting-corrected RAW data, using the
-new coordinates.
+This reverse order is the reason why the formulae for distortion models in
+::lfDistortionModel map the \a undistorted coordinate to the \a distorted
+coordinate.  This seems to be wrong at first because we want to undistort after
+all.  But given how undistortion is actually done, it makes sense.  The same is
+true for ::lfTCAModel.
+
+
+In reality, devignetting is performed first nevertheless, because it can be
+separated from all other operations, by calling
+lfModifier::ApplyColorModification.  Then, you do the coordinate-transforming
+operations from scaling to anti-TCA.  Lensfun can do this in one function call
+with lfModifier::ApplySubpixelGeometryDistortion.  Finally, you do a lookup on
+the vignetting-corrected RAW data, using the transformed coordinates.
 
 
 @page programming Using this library in your programs
@@ -661,18 +673,18 @@ EXIF identification strings for this camera; that's all.
 
 If you don't know the crop factor, you can search in google for e.g.
 “Nikon D300 sensor size”. Let's suppose you found out that your sensor size
-is 23.6 x 15.8mm. Now compute the length of the diagonal using Pythagora's theorem:
+is 23.6 × 15.8mm. Now compute the length of the diagonal using Pythagora's theorem:
 
-@verbatim
-    d = sqrt (23.6^2 + 15.8^2) = 28.4 mm
-@endverbatim
+@f[
+    d = \sqrt{23.6^2 + 15.8^2}\,\mathrm{mm} = 28.4\,\mathrm{mm}
+@f]
 
 Now you just divide the magic number 43.27 (the diagonal of a usual 35mm film frame)
 by the number you got:
 
-@verbatim
-    crop = 43.27 / 28.4 = 1.523
-@endverbatim
+@f[
+    \mathrm{cropfactor} = \frac{43.27}{28.4} = 1.523
+@f]
 
 Now you must find out the identification string for your camera from EXIF data.
 For this you can use the exiv2 script:
