@@ -1624,7 +1624,7 @@ C_TYPEDEF (enum, lfComponentRole)
 /**
  * A callback function which modifies the separate coordinates for all color
  * components for every pixel in a strip,
- * This kind of callbacks are used in the first stage of image modification.
+ * This kind of callbacks are used in the second stage of image modification.
  * @param data
  *     A opaque pointer to some data.
  * @param iocoord
@@ -1639,7 +1639,7 @@ typedef void (*lfSubpixelCoordFunc) (void *data, float *iocoord, int count);
 
 /**
  * A callback function which modifies the colors of a strip of pixels
- * This kind of callbacks are used in the second stage of image modification.
+ * This kind of callbacks are used in the first stage of image modification.
  * @param data
  *     A opaque pointer to some data.
  * @param x
@@ -1979,38 +1979,7 @@ struct LF_EXPORT lfModifier
     float GetAutoScale (bool reverse);
 
     /**
-     * Image correction stage 1: apply subpixel distortions.
-     * The undistorted R,G,B coordinates are computed for every pixel in a
-     * square block: (xu, yu), (xu+1, yu), ... , (xu + width - 1, yu),
-     * (xu, yu + 1), ..., (xu + width - 1, yu + height - 1).
-     *
-     * Returns the corrected coordinates separately for R/G/B channels
-     * The resulting coordinates are put into the output buffer
-     * sequentially, X and Y values.
-     *
-     * This routine has been designed to be safe to use in parallel from
-     * several threads.
-     * @param xu
-     *     The undistorted X coordinate of the start of the block of pixels.
-     * @param yu
-     *     The undistorted Y coordinate of the start of the block of pixels.
-     * @param width
-     *     The width of the block in pixels.
-     * @param height
-     *     The height of the block in pixels.
-     * @param res
-     *     A pointer to an output array which receives the respective X and Y
-     *     distorted coordinates of the red, green and blue channels for
-     *     every pixel of the block. The size of this array must be
-     *     at least width*height*2*3 elements.
-     * @return
-     *     true if return buffer has been filled, false if nothing to do
-     */
-    bool ApplySubpixelDistortion (float xu, float yu, int width, int height,
-                                  float *res) const;
-
-    /**
-     * Image correction step 2: fix image colors.
+     * Image correction step 1: fix image colors.
      * This includes vignetting transform and CCI transform
      * (e.g. rectification of image colors).
      * @param pixels
@@ -2039,6 +2008,37 @@ struct LF_EXPORT lfModifier
      */
     bool ApplyColorModification (void *pixels, float x, float y, int width, int height,
                                  int comp_role, int row_stride) const;
+
+    /**
+     * Image correction stage 2: apply subpixel distortions.
+     * The undistorted R,G,B coordinates are computed for every pixel in a
+     * square block: (xu, yu), (xu+1, yu), ... , (xu + width - 1, yu),
+     * (xu, yu + 1), ..., (xu + width - 1, yu + height - 1).
+     *
+     * Returns the corrected coordinates separately for R/G/B channels
+     * The resulting coordinates are put into the output buffer
+     * sequentially, X and Y values.
+     *
+     * This routine has been designed to be safe to use in parallel from
+     * several threads.
+     * @param xu
+     *     The undistorted X coordinate of the start of the block of pixels.
+     * @param yu
+     *     The undistorted Y coordinate of the start of the block of pixels.
+     * @param width
+     *     The width of the block in pixels.
+     * @param height
+     *     The height of the block in pixels.
+     * @param res
+     *     A pointer to an output array which receives the respective X and Y
+     *     distorted coordinates of the red, green and blue channels for
+     *     every pixel of the block. The size of this array must be
+     *     at least width*height*2*3 elements.
+     * @return
+     *     true if return buffer has been filled, false if nothing to do
+     */
+    bool ApplySubpixelDistortion (float xu, float yu, int width, int height,
+                                  float *res) const;
 
     /**
      * Image correction step 3: apply the transforms on a block of pixel
@@ -2070,7 +2070,7 @@ struct LF_EXPORT lfModifier
                                   float *res) const;
 
     /**
-     * Apply stage 1 & 3 in one step. See the main comment to the lfModifier class.
+     * Apply stage 2 & 3 in one step. See the main comment to the lfModifier class.
      * The undistorted R,G,B coordinates are computed for every pixel in a
      * square block: (xu, yu), (xu+1, yu), ... , (xu + width - 1, yu),
      * (xu, yu + 1), ..., (xu + width - 1, yu + height - 1).
