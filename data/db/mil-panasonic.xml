@@ -230,11 +230,11 @@
 	    <cropfactor>2</cropfactor>
             <aspect-ratio>4:3</aspect-ratio>
 	    <calibration>
-	        <distortion focal="14" model="ptlens" a="0.0143556" b="-0.0749276" c="0.00791831" />
-	        <distortion focal="18" model="ptlens" a="0.0178423" b="-0.0489859" c="-0.00250207" />
-	        <distortion focal="25" model="ptlens" a="0.0304634" b="-0.0790615" c="0.0446911" />
-	        <distortion focal="35" model="ptlens" a="0.0197351" b="-0.0412857" c="0.0264783" />
-	        <distortion focal="42" model="ptlens" a="0.00785081" b="-0.002968" c="-0.00395351" />
+                <distortion model="ptlens" focal="14" a="0.02565" b="-0.08842" c="0.01461" />
+                <distortion model="ptlens" focal="19" a="0.01209" b="-0.03965" c="0.00339" />
+                <distortion model="ptlens" focal="26" a="0.00118" b="0.00765" c="-0.03503" />
+                <distortion model="ptlens" focal="33" a="0.00329" b="0.01434" c="-0.03376" />
+                <distortion model="ptlens" focal="42" a="0.01352" b="-0.01628" c="0.00739" />
             <tca model="poly3" focal="14" br="0.0000399" vr="0.9999729" bb="-0.0002503" vb="1.0005586" />
             <tca model="poly3" focal="18" br="-0.0000110" vr="1.0000205" bb="-0.0002269" vb="1.0005124" />
             <tca model="poly3" focal="25" br="-0.0000027" vr="1.0000210" bb="-0.0001025" vb="1.0003060" />
