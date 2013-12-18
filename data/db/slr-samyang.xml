@@ -63,4 +63,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang 35mm f/1.4 AS UMC</model>
+        <!-- This model is really only available for Nikon.  For the other
+             brands, the 35/1.4 may have different characteristics. -->
+        <mount>Nikon F AI</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D800 -->
+            <distortion model="ptlens" focal="35" a="0.00331" b="-0.0171" c="0.00274" />
+        </calibration>
+    </lens>
+
 </lensdatabase>

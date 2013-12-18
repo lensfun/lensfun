@@ -1402,4 +1402,93 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 10mm f/2.8 EX DC Fisheye HSM</model>
+        <model lang="de">Sigma 10mm f/2.8 EX DC Fischauge HSM</model>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Pentax KAF2</mount>
+        <mount>Canon EF</mount>
+        <!-- FixMe: Actually cropfactor 1.523 -->
+        <cropfactor>1.5</cropfactor>
+        <type>fisheye</type>
+        <calibration>
+            <!-- Taken with Nikon D200 -->
+           <distortion model="ptlens" focal="10" a="0.00057" b="-0.02738" c="0.00014" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 100-300mm f/4 APO EX DG HSM</model>
+        <mount>Sigma SA</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Pentax KAF2</mount>
+        <mount>Canon EF</mount>
+        <!-- FixMe: Actually cropfactor 1.523 -->
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D200 -->
+            <distortion model="ptlens" focal="100" a="0.00007" b="-0.0008" c="-0.00001" />
+            <distortion model="ptlens" focal="137" a="-0.00066" b="0.00279" c="-0.00217" />
+            <distortion model="ptlens" focal="196" a="-0.00028" b="0.00292" c="-0.0011" />
+            <distortion model="ptlens" focal="254" a="-0.00029" b="0.00366" c="-0.00198" />
+            <distortion model="ptlens" focal="300" a="0.00081" b="0.0001" c="0.002" />
+
+            <vignetting model="pa" focal="100" aperture="4.0" distance="100" k1="-0.3155" k2="0.2954" k3="-0.15596" />
+            <vignetting model="pa" focal="100" aperture="5.6" distance="100" k1="0.16981" k2="-0.60469" k3="0.37843" />
+            <vignetting model="pa" focal="100" aperture="8.0" distance="100" k1="0.01921" k2="-0.01703" k3="0.00141" />
+
+            <vignetting model="pa" focal="137" aperture="4.0" distance="100" k1="-0.24029" k2="0.21036" k3="-0.11008" />
+            <vignetting model="pa" focal="137" aperture="5.6" distance="100" k1="0.02429" k2="-0.13049" k3="0.05237" />
+            <vignetting model="pa" focal="137" aperture="8.0" distance="100" k1="0.03889" k2="-0.09327" k3="0.06447" />
+
+            <vignetting model="pa" focal="196" aperture="4.0" distance="100" k1="-0.19474" k2="0.15132" k3="-0.08183" />
+            <vignetting model="pa" focal="196" aperture="5.6" distance="100" k1="-0.02985" k2="0.08378" k3="-0.10544" />
+            <vignetting model="pa" focal="196" aperture="8.0" distance="100" k1="-0.0340" k2="0.04936" k3="-0.03488" />
+
+            <vignetting model="pa" focal="254" aperture="4.0" distance="100" k1="-0.1021" k2="-0.1678" k3="0.09927" />
+            <vignetting model="pa" focal="254" aperture="5.6" distance="100" k1="0.10468" k2="-0.39925" k3="0.18583" />
+            <vignetting model="pa" focal="254" aperture="8.0" distance="100" k1="-0.13138" k2="0.34017" k3="-0.27443" />
+
+            <vignetting model="pa" focal="300" aperture="4.0" distance="100" k1="-0.20833" k2="-0.21414" k3="0.26428" />
+            <vignetting model="pa" focal="300" aperture="5.6" distance="100" k1="-0.03272" k2="-0.35374" k3="0.22915" />
+            <vignetting model="pa" focal="300" aperture="8.0" distance="100" k1="-0.0888" k2="0.13017" k3="-0.06867" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 50-150mm f/2.8 APO EX DC HSM II</model>
+        <mount>Sigma SA</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Pentax KAF2</mount>
+        <mount>Canon EF</mount>
+        <!-- FixMe: Actually cropfactor 1.523 -->
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D200 -->
+            <distortion model="ptlens" focal="50" a="0.00143" b="-0.0113" c="0.00788" />
+            <distortion model="ptlens" focal="75" a="0.00207" b="-0.00519" c="0.0052" />
+            <distortion model="ptlens" focal="105" a="0.00115" b="0.00265" c="0.00031" />
+            <distortion model="ptlens" focal="150" a="0.00072" b="0.00631" c="-0.00073" />
+            <vignetting model="pa" focal="50" aperture="2.8" distance="100" k1="-0.3469" k2="0.34748" k3="-0.2902" />
+            <vignetting model="pa" focal="50" aperture="4.0" distance="100" k1="-0.0702" k2="0.38516" k3="-0.44561" />
+            <vignetting model="pa" focal="50" aperture="5.6" distance="100" k1="-0.07583" k2="0.32289" k3="-0.27317" />
+            <vignetting model="pa" focal="75" aperture="2.8" distance="100" k1="-0.2858" k2="0.29719" k3="-0.25336" />
+            <vignetting model="pa" focal="75" aperture="4.0" distance="100" k1="-0.01767" k2="0.21834" k3="-0.25478" />
+            <vignetting model="pa" focal="75" aperture="5.6" distance="100" k1="0.02044" k2="-0.01582" k3="0.00834" />
+            <vignetting model="pa" focal="105" aperture="2.8" distance="100" k1="-0.10172" k2="-0.3325" k3="0.10147" />
+            <vignetting model="pa" focal="105" aperture="4.0" distance="100" k1="0.06624" k2="-0.05579" k3="-0.20602" />
+            <vignetting model="pa" focal="105" aperture="5.6" distance="100" k1="-0.0853" k2="0.40954" k3="-0.44304" />
+            <vignetting model="pa" focal="150" aperture="2.8" distance="100" k1="-0.65999" k2="0.58565" k3="-0.31284" />
+            <vignetting model="pa" focal="150" aperture="4.0" distance="100" k1="0.10953" k2="-0.77165" k3="0.45448" />
+            <vignetting model="pa" focal="150" aperture="5.6" distance="100" k1="-0.0087" k2="0.12197" k3="-0.29994" />
+            <vignetting model="pa" focal="150" aperture="8.0" distance="100" k1="-0.0864" k2="0.39283" k3="-0.41541" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
