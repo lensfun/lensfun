@@ -336,7 +336,7 @@ extern guint _lf_detect_cpu_features ();
 
 /**
  * Google-in-your-pocket: a fuzzy string comparator.
- * This has been designed for comparing lens model names.
+ * This has been designed for comparing lens and camera model names.
  * At construction the pattern is split into words and then the component
  * words from target are matched against them.
  */
@@ -353,6 +353,7 @@ public:
     /**
      * @param pattern
      *     The pattern which will be compared against a number of strings.
+     *     This is typically what was found in the EXIF data.
      * @param allwords
      *     If true, all words of the pattern must be present in the
      *     target string. If not, a looser result will be accepted,
@@ -364,10 +365,14 @@ public:
     /**
      * Fuzzy compare the pattern with a string.
      * @param match
-     *     The string to match against.
+     *     The string to match against.  This is typically taken from the
+     *     Lensfun database.
      * @return
-     *     Returns a score in range 0-100, depending on the number of
-     *     matched words.
+     *     Returns a score in range 0-100.  If the match succedes, this score
+     *     is the number of matched words divided by the mean word count of
+     *     pattern and string, given as a percentage.  If it fails, it is 0.
+     *     It fails if no words could be matched, of if allwords was set to
+     *     true and one word in pattern could not be found in match.
      */
     int Compare (const char *match);
 
@@ -376,10 +381,16 @@ public:
      * This function returns the largest score as compared against
      * every of the translated strings.
      * @param match
-     *     The multi-language string to match against.
+     *     The multi-language string to match against.  This is typically taken
+     *     from the Lensfun database.
      * @return
-     *     Returns a score in range 0-100, depending on the number of
-     *     matched words.
+     *     Returns the maximal score in range 0-100.  For every component of
+     *     the multi-language string, a score is computed: If the match
+     *     succedes, the score is the number of matched words divided by the
+     *     mean word count of pattern and string, given as a percentage.  If it
+     *     fails, it is 0.  It fails if no words could be matched, of if
+     *     allwords was set to true and one word in pattern could not be found
+     *     in match.
      */
     int Compare (const lfMLstr match);
 };

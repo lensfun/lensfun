@@ -1698,6 +1698,11 @@ typedef void (*lfModifyCoordFunc) (void *data, float *iocoord, int count);
  * a lens object, which contains a set of correction models, and
  * create a modifier object from it.
  *
+ * Normally, you will create an instance with lfModifier::Create and initilise
+ * immediately it with lfModifier::Initialize, passing a valid lens object in
+ * both cases.  Users of the plain C interface will use lf_modifier_new() and
+ * lf_modifier_initialize() instead.
+ *
  * Every image modification has a corresponding inverse function,
  * e.g. the library allows both to correct lens distortions and to
  * simulate lens characteristics.

@@ -559,6 +559,9 @@ coordinate.  This seems to be wrong at first because we want to undistort after
 all.  But given how undistortion is actually done, it makes sense.  The same is
 true for ::lfTCAModel.
 
+Note that in the sequence \a scaling → <em>change of projection</em> → \a
+undistortion → <em>anti-TCA</em>, the resulting coordinates of the previous
+step are the input coordinates for the respective next step.
 
 In reality, devignetting is performed first nevertheless, because it can be
 separated from all other operations, by calling
