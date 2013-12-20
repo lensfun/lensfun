@@ -1,0 +1,263 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""This program allows the user to add further mount compatibilities to
+Lensfun.  This way, the number of default mount compatibilities can be kept
+low, while users who own adapters can add those to their local installation.
+Especially mirrorless systems can use all SLR lenses, so the lens lists to
+choose from would become very long.
+
+The program can be used non-interactively (passing arguments on the command
+line) and interactively, where the program asks you questions and takes your
+input.
+
+For example, you own a Sony NEX-7 and have bought an adapter to use A-mount
+lenses with it.  Thus, you start this program.  The program asks for a camera
+model name.  You enter "NEX-7".  Then, you get a list of possible mounts,
+together with numbers.  In this list, it says::
+
+     32)  Sony Alpha
+
+So, you enter "32 <RETURN>".  That's it.  Lensfun now offerst also A-mount
+lenses for E-mount cameras (all, by the way, not only for the NEX-7).
+
+Diagnostics:
+
+Status code 0 -- successful
+            1 -- invalid command line arguments
+            2 -- error in interactive mode
+"""
+
+import os, sys, argparse
+from xml.etree import ElementTree
+
+local_xml_filepath = os.path.expanduser("~/.local/share/lensfun/_mounts.xml")
+
+parser = argparse.ArgumentParser(description="Add mount compatibilities (adapters) to Lensfun's database.")
+parser.add_argument("--maker", help="Exact camera manufacturer name.")
+parser.add_argument("--model", help="Exact camera model name.")
+parser.add_argument("--mount", help="Exact mount name to add as an adapter for camera mount.")
+parser.add_argument("--remove-local-mount-config", action="store_true",
+                    help="Remove all local changes to the mount compatibility configuration made through this program.")
+args = parser.parse_args()
+if args.maker and not args.model or args.model and not args.maker:
+    print("ERROR: The options --maker and --camera must be passed together.")
+    sys.exit(1)
+if args.remove_local_mount_config:
+    if args.maker or args.model or args.mount:
+        print("ERROR: If the option --remove-local-mount-config is given, it must be the only one.")
+        sys.exit(1)
+
+def default_name(element, tag_name):
+    """Returns the untranslated string in the tag `tag_name`, which is a
+    sub-element of `element`.  This is useful if you need the e.g. definitive
+    model name of a camera in order to use it as a key.
+    """
+    for child in element.findall(tag_name):
+        if "lang" not in child.attrib:
+            return child.text
+
+def fancy_name(element, tag_name):
+    """Returns the English version of the string in the tag `tag_name`, which is a
+    sub-element of `element`.  If not available, take the untranslated version.
+    """
+    for child in element.findall(tag_name):
+        if child.attrib.get("lang") == "en":
+            return child.text
+    return default_name(element, tag_name)
+
+def normalize_camera_name(name):
+    return name.lower().translate(str.maketrans("", "", " ,.:-+*/()[]"))
+
+def indent(root, level=0):
+    """Pretty-print an XML tree by indentation."""
+    i = "\n" + level * "    "
+    if len(root):
+        if not root.text or not root.text.strip():
+            root.text = i + "    "
+        if not root.tail or not root.tail.strip():
+            root.tail = i
+        for root in root:
+            indent(root, level + 1)
+        if not root.tail or not root.tail.strip():
+            root.tail = i
+    else:
+        if level and (not root.tail or not root.tail.strip()):
+            root.tail = i
+
+
+class Mount:
+    """Normally, all data structures in this program are just strings or mappings
+    or lists of strings.  Even compatibility mounts are only represented by
+    their name.  However, for the main list of mounts, we have to store more of
+    them.  Therefore, this is a class.
+    """
+    def __init__(self, name, fixed_lens=False):
+        self.name, self.fixed_lens = name, fixed_lens
+        self.compatible_mounts = set()
+
+def read_database():
+    """Read the database of Lensfun.  Note that also the local configuration –
+    including the ``_mounts.xml`` file – is read.
+
+    It returns the cameras as a mapping from the (maker, model) tuple to the
+    mount name, the `makers_and_models` mapping which maps so-called “loose”
+    camera names to (maker, model) tuples, and the mounts as a mapping from
+    mount names to `Mount` objects.
+
+    “Loose” camera names are brutally normalised to that partial string
+    matching can be easily done against user input.  In particular, everything
+    is lowercase and all punctuation and spacing is removed.
+    """
+    cameras = {}
+    makers_and_models = {}
+    mounts = {}
+    if os.path.exists("/var/lib/lensfun"):
+        paths = ["/var/lib/lensfun", os.path.expanduser("~/.local/share/lensfun")]
+    else:
+        paths = ["/usr/share/lensfun", "/usr/local/share/lensfun", os.path.expanduser("~/.local/share/lensfun")]
+    for path in paths:
+        if os.path.exists(path):
+            for root, __, filenames in os.walk(path):
+                for filename in filenames:
+                    if filename.endswith("xml"):
+                        filepath = os.path.join(root, filename)
+                        tree = ElementTree.parse(filepath)
+                        for mount in tree.findall("mount"):
+                            name = default_name(mount, "name")
+                            try:
+                                fixed_lens = mounts[name].fixed_lens
+                            except KeyError:
+                                fixed_lens = filename.startswith("compact") or name in ["olympusE10"]
+                            mounts[name] = Mount(name, fixed_lens)
+                            for compatible_mount in mount.findall("compat"):
+                                mounts[name].compatible_mounts.add(compatible_mount.text)
+                        for camera in tree.findall("camera"):
+                            loose_name = normalize_camera_name(fancy_name(camera, "maker") + fancy_name(camera, "model"))
+                            maker_and_model = default_name(camera, "maker"), default_name(camera, "model")
+                            makers_and_models[loose_name] = maker_and_model
+                            mount = default_name(camera, "mount")
+                            cameras[maker_and_model] = mount
+                            mounts.setdefault(mount, Mount(mount, filename.startswith("compact") or mount in ["olympusE10"]))
+    return mounts, makers_and_models, cameras
+
+def find_mount_groups(mounts):
+    """A “mount group” is a set of mount names that are fully compatible to
+    every other one in the group.  This way, we can offer the user to add all
+    Nikon lenses in one go to their camera mount, no matter whether the Nikon
+    lens is Nikon F, Nikon F AI-S, etc.  Remember that mount compatibilities
+    are not transitive in Lensfun.
+    """
+    groups = set()
+    for mount in mounts.values():
+        if mount.name != "Generic":
+            mutually_compatibles = {mount.name}
+            for compatible_mount in mount.compatible_mounts:
+                try:
+                    reverse_compatibles = mounts[compatible_mount].compatible_mounts
+                except KeyError:
+                    continue
+                if compatible_mount != "Generic" and mount.name in reverse_compatibles:
+                    mutually_compatibles.add(compatible_mount)
+            if len(mutually_compatibles) > 1:
+                groups.add(frozenset(mutually_compatibles))
+    return groups
+
+def find_to_mount(cameras, makers_and_models):
+    """The `to_mount` is the camera mount, i.e. the mount *to* which we want to
+    adapt.
+    """
+    if args.model:
+        try:
+            return cameras[args.maker, args.model]
+        except KeyError:
+            print("ERROR: Camera model not found in database.")
+            sys.exit(1)
+    else:
+        camera_name = normalize_camera_name(input("Enter camera model name (or part of it): "))
+        hits = []
+        for loose_name, maker_and_model in makers_and_models.items():
+            if camera_name in loose_name:
+                hits.append(maker_and_model)
+        if not hits:
+            print("ERROR: No cameras with this name found.")
+            sys.exit(2)
+        elif len(hits) > 1:
+            hits.sort()
+            for i, maker_and_model in enumerate(hits, 1):
+                print("{:3d})  {} {}".format(i, *maker_and_model))
+            try:
+                number = int(input("Enter number: "))
+                maker_and_model = hits[number - 1]
+            except (ValueError, IndexError, EOFError):
+                print("ERROR: Invalid input.")
+                sys.exit(2)
+        else:
+            maker_and_model = hits[0]
+        return cameras[maker_and_model]
+
+def find_from_mounts(mounts, groups):
+    """The `from_mount` is the lenses' mount, i.e. the mount *from* which we want
+    to adapt.  It may be a set of mounts in case of a mount group.
+    """
+    if args.mount:
+        if args.mount not in mounts:
+            print("ERROR: Mount name not found in database.")
+            sys.exit(1)
+        return {args.mount}
+    else:
+        from_candidates = []
+        for from_candidate in [(mount.name, {mount.name}) for mount in mounts.values() if not mount.fixed_lens] + \
+            [(", ".join(sorted(group)) + " (all together)", group) for group in groups]:
+            for mount in from_candidate[1]:
+                if mount not in mounts[to_mount].compatible_mounts | {to_mount}:
+                    break
+            else:
+                continue
+            from_candidates.append(from_candidate)
+
+        from_candidates.sort()
+        for i, mount_data in enumerate(from_candidates, 1):
+            print("{:3d})  {}".format(i, mount_data[0]))
+        try:
+            number = int(input("Enter number: "))
+            from_mounts = from_candidates[number - 1][1]
+        except (ValueError, IndexError, EOFError):
+            print("ERROR: Invalid input.")
+            sys.exit(2)
+        return from_mounts
+
+def write_xml_file(to_mount, from_mounts, mounts):
+    """We write the ``_mounts.xml`` file rather non-invasive, i.e. we touch only
+    the mount we want to change.  Either we change it, or we add it.
+    """
+    try:
+        tree = ElementTree.parse(local_xml_filepath)
+    except (OSError, ElementTree.ParseError):
+        tree = ElementTree.ElementTree(ElementTree.Element("lensdatabase"))
+    for mount in tree.findall("mount"):
+        if default_name(mount, "name") == to_mount:
+            for compatible_mount in mount.findall("compat"):
+                mount.remove(compatible_mount)
+            break
+    else:
+        mount = ElementTree.SubElement(tree.getroot(), "mount")
+        ElementTree.SubElement(mount, "name").text = to_mount
+    for compatible_mount in mounts[to_mount].compatible_mounts:
+        ElementTree.SubElement(mount, "compat").text = compatible_mount
+    indent(tree.getroot())
+    tree.write(local_xml_filepath)
+
+
+if args.remove_local_mount_config:
+    try:
+        os.remove(local_xml_filepath)
+    except OSError:
+        pass
+else:
+    mounts, makers_and_models, cameras = read_database()
+    mount_groups = find_mount_groups(mounts)
+    to_mount = find_to_mount(cameras, makers_and_models)
+    from_mounts = find_from_mounts(mounts, mount_groups)
+    mounts[to_mount].compatible_mounts.update(from_mounts)
+    write_xml_file(to_mount, from_mounts, mounts)
