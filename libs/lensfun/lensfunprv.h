@@ -32,7 +32,7 @@ typedef double lf_f64;
 class lfFuzzyStrCmp;
 
 /**
- * Return the absolute value of a number.
+ * @brief Return the absolute value of a number.
  * @param x
  *     A number
  * @return
@@ -44,7 +44,7 @@ template<typename T> static inline T absolute (T x)
 }
 
 /**
- * Return the square of the argument.
+ * @brief Return the square of the argument.
  * @param x
  *     A floating-point number.
  */
@@ -54,7 +54,7 @@ template<typename T> static inline T square (T x)
 }
 
 /**
- * Clamp a double value between 0 and max, then convert to given type.
+ * @brief Clamp a double value between 0 and max, then convert to given type.
  * @param x
  *     The number to clamp.
  * @param min
@@ -74,14 +74,14 @@ template<typename T> static inline T clampd (double x, double min, double max)
 }
 
 /**
- * Free a list of pointers.
+ * @brief Free a list of pointers.
  * @param list
  *     A NULL-terminated list of pointers
  */
 extern void _lf_list_free (void **list);
 
 /**
- * Make a copy of given value into given variable using g_strdup,
+ * @brief Make a copy of given value into given variable using g_strdup,
  * freeing the old value if defined.
  * @param var
  *     The variable to copy value into
@@ -91,7 +91,7 @@ extern void _lf_list_free (void **list);
 extern void _lf_setstr (gchar **var, const gchar *val);
 
 /**
- * Add a string to the end of a string list.
+ * @brief Add a string to the end of a string list.
  * @param var
  *     A pointer to an array of strings.
  * @param val
@@ -100,7 +100,8 @@ extern void _lf_setstr (gchar **var, const gchar *val);
 extern void _lf_addstr (gchar ***var, const gchar *val);
 
 /**
- * Insert a item into a GPtrArray, keeping the array sorted.
+ * @brief Insert a item into a GPtrArray, keeping the array sorted.
+ *
  * This method assumes that the array is already sorted, so
  * function uses a binary search algorithm.
  * Returns the index at which the item as inserted.
@@ -117,8 +118,8 @@ extern int _lf_ptr_array_insert_sorted (
     GPtrArray *array, void *item, GCompareFunc compare);
 
 /**
- * Same as _lf_ptr_array_insert_sorted(), but if array contains
- * a item equal to the inserted one, the new item overrides the old.
+ * @brief Insert a item into a GPtrArray, keeping the array sorted.  If array
+ * contains a item equal to the inserted one, the new item overrides the old.
  * @param array
  *     The array of pointers to similar items.
  * @param item
@@ -134,7 +135,8 @@ extern int _lf_ptr_array_insert_unique (
     GPtrArray *array, void *item, GCompareFunc compare, GDestroyNotify dest);
 
 /**
- * Find a item in a sorted array.
+ * @brief Find a item in a sorted array.
+ *
  * The function uses a binary search algorithm.
  * @param array
  *     The array of pointers to similar items.
@@ -147,7 +149,9 @@ extern int _lf_ptr_array_find_sorted (
     const GPtrArray *array, void *item, GCompareFunc compare);
 
 /**
- * Add a object to a list of objects. Accepts an optional pointer to
+ * @brief Add a object to a list of objects.
+ *
+ * Accepts an optional pointer to
  * a function that compares two values from the list, if function
  * returns true the existing object is replaced with the new one.
  * @param var
@@ -164,7 +168,7 @@ extern void _lf_addobj (void ***var, const void *val, size_t val_size,
     bool (*cmpf) (const void *, const void *));
 
 /**
- * Remove an object from a list of objects, freeing memory which was
+ * @brief Remove an object from a list of objects, freeing memory which was
  * allocated by _lf_addobj().
  * @param var
  *     A pointer to an array of objects.
@@ -176,7 +180,7 @@ extern void _lf_addobj (void ***var, const void *val, size_t val_size,
 extern bool _lf_delobj (void ***var, int idx);
 
 /**
- * Appends a formatted string to a dynamically-growing string
+ * @brief Appends a formatted string to a dynamically-growing string
  * using g_markup_printf_escaped() internally.
  * @param output
  *     The output array.
@@ -186,7 +190,7 @@ extern bool _lf_delobj (void ***var, int idx);
 extern void _lf_xml_printf (GString *output, const char *format, ...);
 
 /**
- * Output a multi-language value to output string.
+ * @brief Output a multi-language value to output string.
  *
  * Outputs a number of lines which looks like:
  *
@@ -208,14 +212,15 @@ extern void _lf_xml_printf_mlstr (GString *output, const char *prefix,
                                   const char *element, const lfMLstr val);
 
 /**
- * Get the XML id of the given distortion model
+ * @brief Get the XML id of the given distortion model
  * @param model
  *     The model.
  */
 extern const char *_lf_get_distortion_model_id (lfDistortionModel model);
 
 /**
- * Something like a very advanced strcmp().
+ * @brief Something like a very advanced strcmp().
+ *
  * It doesn't segfault if one or both strings are NULL:
  * NULL is considered to be less than any string.
  * Actually this function does a fuzzy comparison of the strings,
@@ -225,14 +230,16 @@ extern const char *_lf_get_distortion_model_id (lfDistortionModel model);
 extern int _lf_strcmp (const char *s1, const char *s2);
 
 /**
- * Same as _lf_strcmp(), but compares a string with a multi-language
- * string. If it equals any of the translations, 0 is returned, otherwise
+ * @brief Same as _lf_strcmp(), but compares a string with a multi-language
+ * string.
+ *
+ * If it equals any of the translations, 0 is returned, otherwise
  * the result of strcmp() with the first (default) string is returned.
  */
 extern int _lf_mlstrcmp (const char *s1, const lfMLstr s2);
 
 /**
- * Comparison function for mount sorting and finding.
+ * @brief Comparison function for mount sorting and finding.
  * @param a
  *     A pointer to first lfMount object.
  * @param b
@@ -243,7 +250,7 @@ extern int _lf_mlstrcmp (const char *s1, const lfMLstr s2);
 extern gint _lf_mount_compare (gconstpointer a, gconstpointer b);
 
 /**
- * Comparison function for camera sorting and finding.
+ * @brief Comparison function for camera sorting and finding.
  * @param a
  *     A pointer to first lfCamera object.
  * @param b
@@ -254,7 +261,7 @@ extern gint _lf_mount_compare (gconstpointer a, gconstpointer b);
 extern gint _lf_camera_compare (gconstpointer a, gconstpointer b);
 
 /**
- * Comparison function for lens sorting and finding.
+ * @brief Comparison function for lens sorting and finding.
  * @param a
  *     A pointer to first lfLens object.
  * @param b
@@ -265,7 +272,8 @@ extern gint _lf_camera_compare (gconstpointer a, gconstpointer b);
 extern gint _lf_lens_compare (gconstpointer a, gconstpointer b);
 
 /**
- * Get a interpolated value.
+ * @brief Get a interpolated value.
+ *
  * Currently this uses a kind of Catmull-Rom splines with linear
  * interpolation at the ends, allowing for non-evenly spaced values
  * and handling the extreme cases correctly (the one at the start
@@ -288,7 +296,8 @@ extern gint _lf_lens_compare (gconstpointer a, gconstpointer b);
 extern float _lf_interpolate (float y1, float y2, float y3, float y4, float t);
 
 /**
- * Compare a lens with a pattern and return a matching score.
+ * @brief Compare a lens with a pattern and return a matching score.
+ *
  * The comparison is quasi-intelligent: the order of words in a name
  * does not matter; the more words from match are present in the pattern,
  * the higher is score. Numeric parameters have to coincide or not be specified
@@ -329,13 +338,14 @@ enum
 };
 
 /**
- * Detect supported CPU features (used for runtime selection of accelerated
+ * @brief Detect supported CPU features (used for runtime selection of accelerated
  * functions for specific architecture extensions).
  */
 extern guint _lf_detect_cpu_features ();
 
 /**
- * Google-in-your-pocket: a fuzzy string comparator.
+ * @brief Google-in-your-pocket: a fuzzy string comparator.
+ *
  * This has been designed for comparing lens and camera model names.
  * At construction the pattern is split into words and then the component
  * words from target are matched against them.
@@ -363,7 +373,7 @@ public:
     ~lfFuzzyStrCmp ();
 
     /**
-     * Fuzzy compare the pattern with a string.
+     * @brief Fuzzy compare the pattern with a string.
      * @param match
      *     The string to match against.  This is typically taken from the
      *     Lensfun database.
@@ -377,7 +387,8 @@ public:
     int Compare (const char *match);
 
     /**
-     * Compares the pattern with a multi-language string.
+     * @brief Compares the pattern with a multi-language string.
+     *
      * This function returns the largest score as compared against
      * every of the translated strings.
      * @param match
@@ -396,7 +407,9 @@ public:
 };
 
 /**
- * The real Database class, with some additional data fields
+ * @brief The real Database class.
+ *
+ * It contains some additional data fields
  * which must not be seen from the application at all (even
  * private members don't qualify because we will have to include
  * glib.h from lens.h and that's something we want to hide).
@@ -465,11 +478,8 @@ struct lfColorCallbackData : public lfCallbackData
 };
 
 /**
- * This is the extended lfModifier class, with implementation details
+ * @brief This is the extended lfModifier class, with implementation details
  * hidden from the public header file.
- *
- * The order of image correction is always this: Un-TCA, Un-distort,
- * Un-vignette and finally Un-CCI.
  */
 struct lfExtModifier : public lfModifier
 {

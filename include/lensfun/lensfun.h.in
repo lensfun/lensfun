@@ -41,7 +41,7 @@ extern "C" {
 
 /**
  * @defgroup Auxiliary Auxiliary definitions and functions
- * These functions will help handling basic structures of the library.
+ * @brief These functions will help handling basic structures of the library.
  * @{
  */
 
@@ -112,7 +112,9 @@ C_TYPEDEF (enum, lfError)
 LF_EXPORT void lf_free (void *data);
 
 /**
- * Get a string corresponding to current locale from a multi-language string.
+ * @brief Get a string corresponding to current locale from a multi-language
+ * string.
+ *
  * Current locale is determined from LC_MESSAGES category at the time of
  * the call, e.g. if you change LC_MESSAGES at runtime, next calls to
  * lf_mlstr_get() will return the string for the new locale.
@@ -120,7 +122,8 @@ LF_EXPORT void lf_free (void *data);
 LF_EXPORT const char *lf_mlstr_get (const lfMLstr str);
 
 /**
- * Add a new translated string to a multi-language string.
+ * @brief Add a new translated string to a multi-language string.
+ *
  * This uses realloc() so returned value may differ from input.
  * @param str
  *     The string to append to. Can be NULL.
@@ -137,7 +140,8 @@ LF_EXPORT const char *lf_mlstr_get (const lfMLstr str);
 LF_EXPORT lfMLstr lf_mlstr_add (lfMLstr str, const char *lang, const char *trstr);
 
 /**
- * Create a complete copy of a multi-language string.
+ * @brief Create a complete copy of a multi-language string.
+ *
  * @param str
  *     The string to create a copy of
  * @return
@@ -151,13 +155,13 @@ LF_EXPORT lfMLstr lf_mlstr_dup (const lfMLstr str);
 
 /**
  * @defgroup Mount Structures and functions for camera mounts
- * These structures and functions allow to define and examine
+ * @brief These structures and functions allow to define and examine
  * the properties of camera mounts.
  * @{
  */
 
 /**
- * This structure contains everything specific to a camera mount.
+ * @brief This structure contains everything specific to a camera mount.
  *
  * Objects of this type are usually retrieved from the database
  * by using queries (see lfDatabase::FindMount() / lf_db_find_mount()),
@@ -173,7 +177,7 @@ struct LF_EXPORT lfMount
 
 #ifdef __cplusplus
     /**
-     * Initialize a new mount object. All fields are set to 0.
+     * @brief Initialize a new mount object. All fields are set to 0.
      */
     lfMount ();
 
@@ -183,13 +187,15 @@ struct LF_EXPORT lfMount
     lfMount &operator = (const lfMount &other);
 
     /**
-     * Destroy a mount object. All allocated fields are freed.
+     * @brief Destroy a mount object. All allocated fields are freed.
      */
     ~lfMount ();
 
     /**
-     * Add a string to mount name. If lang is NULL, this replaces
-     * the default value, otherwise a new language value is appended.
+     * @brief Add a string to mount name.
+     *
+     * If lang is NULL, this replaces the default value, otherwise a new
+     * language value is appended.
      * @param val
      *     The new value for the Name field.
      * @param lang
@@ -198,14 +204,14 @@ struct LF_EXPORT lfMount
     void SetName (const char *val, const char *lang = NULL);
 
     /**
-     * Add a mount name to the list of compatible mounts.
+     * @brief Add a mount name to the list of compatible mounts.
      * @param val
      *     The identifier of the compatible mount.
      */
     void AddCompat (const char *val);
 
     /**
-     * Check if a mount object is valid.
+     * @brief Check if a mount object is valid.
      * @return
      *     true if required fields are ok.
      */
@@ -216,7 +222,7 @@ struct LF_EXPORT lfMount
 C_TYPEDEF (struct, lfMount)
 
 /**
- * Create a new mount object.
+ * @brief Create a new mount object.
  * @return
  *     A new empty mount object.
  * @sa
@@ -225,7 +231,8 @@ C_TYPEDEF (struct, lfMount)
 LF_EXPORT lfMount *lf_mount_new ();
 
 /**
- * Destroy a lfMount object.
+ * @brief Destroy a lfMount object.
+ * 
  * This is equivalent to C++ "delete mount".
  * @param mount
  *     The mount object to destroy.
@@ -235,7 +242,7 @@ LF_EXPORT lfMount *lf_mount_new ();
 LF_EXPORT void lf_mount_destroy (lfMount *mount);
 
 /**
- * Copy the data from one lfMount structure into another.
+ * @brief Copy the data from one lfMount structure into another.
  * @param dest
  *     The destination object
  * @param source
@@ -254,14 +261,13 @@ LF_EXPORT cbool lf_mount_check (lfMount *mount);
 
 /**
  * @defgroup Camera Structures and functions for cameras
- * These structures and functions allow to define and examine
+ * @brief These structures and functions allow to define and examine
  * the properties of a camera model.
  * @{
  */
 
 /**
- * Camera data.
- * Unknown fields are set to NULL.
+ * @brief Camera data.  Unknown fields are set to NULL.
  *
  * The Maker and Model fields must be filled EXACTLY as they appear in
  * the EXIF data, since this is the only means to detect camera automatically.
@@ -272,22 +278,22 @@ LF_EXPORT cbool lf_mount_check (lfMount *mount);
  */
 struct LF_EXPORT lfCamera
 {
-    /** Camera maker (ex: "Rollei") -- same as in EXIF */
+    /** @brief Camera maker (ex: "Rollei") -- same as in EXIF */
     lfMLstr Maker;
-    /** Model name (ex: "Rolleiflex SL35") -- same as in EXIF */
+    /** @brief Model name (ex: "Rolleiflex SL35") -- same as in EXIF */
     lfMLstr Model;
-    /** Camera variant. Some cameras use same EXIF id for different models */
+    /** @brief Camera variant. Some cameras use same EXIF id for different models */
     lfMLstr Variant;
-    /** Camera mount type (ex: "QBM") */
+    /** @brief Camera mount type (ex: "QBM") */
     char *Mount;
-    /** Camera crop factor (ex: 1.0). Must be defined. */
+    /** @brief Camera crop factor (ex: 1.0). Must be defined. */
     float CropFactor;
-    /** Camera matching score, used while searching: not actually a camera parameter */
+    /** @brief Camera matching score, used while searching: not actually a camera parameter */
     int Score;
 
 #ifdef __cplusplus
     /**
-     * Initialize a new camera object. All fields are set to 0.
+     * @brief Initialize a new camera object. All fields are set to 0.
      */
     lfCamera ();
 
@@ -297,7 +303,7 @@ struct LF_EXPORT lfCamera
     lfCamera (const lfCamera &other);
 
     /**
-     * Destroy a camera object. All allocated fields are freed.
+     * @brief Destroy a camera object. All allocated fields are freed.
      */
     ~lfCamera ();
 
@@ -307,8 +313,10 @@ struct LF_EXPORT lfCamera
     lfCamera &operator = (const lfCamera &other);
 
     /**
-     * Add a string to camera maker. If lang is NULL, this replaces
-     * the default value, otherwise a new language value is appended.
+     * @brief Add a string to camera maker.
+     * 
+     * If lang is NULL, this replaces the default value, otherwise a new
+     * language value is appended.
      * @param val
      *     The new value for the Maker field.
      * @param lang
@@ -317,8 +325,10 @@ struct LF_EXPORT lfCamera
     void SetMaker (const char *val, const char *lang = NULL);
 
     /**
-     * Add a string to camera model. If lang is NULL, this replaces
-     * the default value, otherwise a new language value is appended.
+     * @brief Add a string to camera model.
+     *
+     * If lang is NULL, this replaces the default value, otherwise a new
+     * language value is appended.
      * @param val
      *     The new value for the Model field.
      * @param lang
@@ -327,8 +337,10 @@ struct LF_EXPORT lfCamera
     void SetModel (const char *val, const char *lang = NULL);
 
     /**
-     * Add a string to camera variant. If lang is NULL, this replaces
-     * the default value, otherwise a new language value is appended.
+     * @brief Add a string to camera variant.
+     *
+     * If lang is NULL, this replaces the default value, otherwise a new
+     * language value is appended.
      * @param val
      *     The new value for the Variant field.
      * @param lang
@@ -337,14 +349,14 @@ struct LF_EXPORT lfCamera
     void SetVariant (const char *val, const char *lang = NULL);
 
     /**
-     * Set the value for camera Mount.
+     * @brief Set the value for camera Mount.
      * @param val
      *     The new value for Mount.
      */
     void SetMount (const char *val);
 
     /**
-     * Check if a camera object is valid.
+     * @brief Check if a camera object is valid.
      * @return
      *     true if the required fields are ok.
      */
@@ -355,7 +367,7 @@ struct LF_EXPORT lfCamera
 C_TYPEDEF (struct, lfCamera)
 
 /**
- * Create a new camera object.
+ * @brief Create a new camera object.
  * @return
  *     A new empty camera object.
  * @sa
@@ -364,7 +376,8 @@ C_TYPEDEF (struct, lfCamera)
 LF_EXPORT lfCamera *lf_camera_new ();
 
 /**
- * Destroy a lfCamera object.
+ * @brief Destroy a lfCamera object.
+ *
  * This is equivalent to C++ "delete camera".
  * @param camera
  *     The camera object to destroy.
@@ -374,7 +387,7 @@ LF_EXPORT lfCamera *lf_camera_new ();
 LF_EXPORT void lf_camera_destroy (lfCamera *camera);
 
 /**
- * Copy the data from one lfCamera structure into another.
+ * @brief Copy the data from one lfCamera structure into another.
  * @param dest
  *     The destination object
  * @param source
@@ -393,28 +406,30 @@ LF_EXPORT cbool lf_camera_check (lfCamera *camera);
 
 /**
  * @defgroup Lens Structures and functions for lenses
- * These structures and functions allow to define and examine
+ * @brief These structures and functions allow to define and examine
  * the properties of a lens.
  * @{
  */
 
 /**
- * The lensdb library implements several lens distortion models.
- * This enum lists them. Distortion usually heavily depends on the
- * focal length, but does not depend on the aperture.  In the following,
- * \f$r_d\f$ refers to the distorted radius (normalised distance to image
- * center), and \f$r_u\f$ refers to the undistorted, corrected radius.  See
- * section \ref actualorder for further information.
+ * @brief The lensdb library implements several lens distortion models.
+ * This enum lists them.
+ *
+ * Distortion usually heavily depends on the focal length, but does not depend
+ * on the aperture.  In the following, \f$r_d\f$ refers to the distorted radius
+ * (normalised distance to image center), and \f$r_u\f$ refers to the
+ * undistorted, corrected radius.  See section \ref actualorder for further
+ * information.
  *
  * For a popular explanation of lens distortion see
  * http://www.vanwalree.com/optics/distortion.html
  */
 enum lfDistortionModel
 {
-    /** Distortion parameters are unknown */
+    /** @brief Distortion parameters are unknown */
     LF_DIST_MODEL_NONE,
     /**
-     * 3rd order polynomial model:
+     * @brief 3rd order polynomial model.
      *
      * \f[r_d = r_u \cdot (1 - k_1 + k_1 r_u^2)\f]
      * The corresponding XML attribute is called “k1”.  It defaults to 0.
@@ -422,7 +437,7 @@ enum lfDistortionModel
      */
     LF_DIST_MODEL_POLY3,
     /**
-     * 5th order polynomial model:
+     * @brief 5th order polynomial model.
      *
      * \f[r_d = r_u \cdot (1 + k_1 r_u^2 + k_2 r_u^4)\f]
      * The corresponding XML attributes are called “k1” and “k2”.  They default
@@ -430,7 +445,7 @@ enum lfDistortionModel
      */
     LF_DIST_MODEL_POLY5,
     /**
-     * Field-of-view lens model (as of 2013, not used in lensfun's database):
+     * @brief Field-of-view lens model (as of 2013, not used in lensfun's database).
      *
      * \f[r_d = \frac{\tan(r_u \omega)}{2 \tan(\omega/2)}\f]
      * The corresponding XML attribute is called “omega”.  It defaults to 0,
@@ -439,7 +454,7 @@ enum lfDistortionModel
      */
     LF_DIST_MODEL_FOV1,
     /**
-     * PTLens rectilinear:
+     * @brief PTLens rectilinear.
      *
      * \f[r_d = r_u \cdot (a r_u^3 + b r_u^2 + c r_u + 1 - a - b - c)\f]
      * The corresponding XML attributes are called “a”, “b”, and “c”.  They
@@ -451,40 +466,42 @@ enum lfDistortionModel
 C_TYPEDEF (enum, lfDistortionModel)
 
 /**
- * Lens distortion calibration data. Lens distortion depends only
- * of focal length. The library will interpolate the coefficients
- * values if data for the exact focal length is not available.
+ * @brief Lens distortion calibration data.
+
+ * Lens distortion depends only of focal length. The library will interpolate
+ * the coefficients values if data for the exact focal length is not available.
  */
 struct lfLensCalibDistortion
 {
-    /** The type of distortion model used */
+    /** @brief The type of distortion model used */
     enum lfDistortionModel Model;
-    /** Focal length in mm at which this calibration data was taken */
+    /** @brief Focal length in mm at which this calibration data was taken */
     float Focal;
-    /** Distortion coefficients, dependent on model (a,b,c; k1,k2 or omega) */
+    /** @brief Distortion coefficients, dependent on model (a,b,c; k1,k2; or omega) */
     float Terms [3];
 };
 
 C_TYPEDEF (struct, lfLensCalibDistortion)
 
 /**
- * The lensdb library supports several models for lens lateral
+ * @brief The lensdb library supports several models for lens lateral
  * chromatic aberrations (also called transversal chromatic
- * aberrations, TCA). TCAs depend on focal length, but does not
- * depend of the aperture.  In the following,
- * \f$r_d\f$ refers to the distorted radius (normalised distance to image
- * center), and \f$r_u\f$ refers to the undistorted, corrected radius.  See
- * section \ref actualorder for further information.
+ * aberrations, TCA).
+ *
+ * TCAs depend on focal length, but does not depend of the aperture.  In the
+ * following, \f$r_d\f$ refers to the distorted radius (normalised distance to
+ * image center), and \f$r_u\f$ refers to the undistorted, corrected radius.
+ * See section \ref actualorder for further information.
  *
  * For a popular explanation of chromatic aberrations see
  * http://www.vanwalree.com/optics/chromatic.html
  */
 enum lfTCAModel
 {
-    /** No TCA correction data is known */
+    /** @brief No TCA correction data is known */
     LF_TCA_MODEL_NONE,
     /**
-     * Linear lateral chromatic aberrations model:
+     * @brief Linear lateral chromatic aberrations model.
      *
      * \f[\begin{aligned}
      * r_{d,R} &= r_{u,R} k_R \\
@@ -497,7 +514,7 @@ enum lfTCAModel
     LF_TCA_MODEL_LINEAR,
 
     /**
-     * Third order polynomial:
+     * @brief Third order polynomial.
      *
      * \f[\begin{aligned}
      * r_{d,R} &= r_{u,R} \cdot (b_R r_{u,R}^2 + c_R r_{u,R} + v_R) \\
@@ -513,28 +530,31 @@ enum lfTCAModel
 C_TYPEDEF (enum, lfTCAModel)
 
 /**
- * Laterlal chromatic aberrations calibration data. Chromatic aberrations
- * depend on focal length and aperture value. The library will interpolate
- * the coefficients if data for the exact focal length and aperture value
- * is not available with priority for a more exact focal length.
+ * @brief Laterlal chromatic aberrations calibration data.
+ *
+ * Chromatic aberrations depend on focal length and aperture value. The library
+ * will interpolate the coefficients if data for the exact focal length and
+ * aperture value is not available with priority for a more exact focal length.
  */
 struct lfLensCalibTCA
 {
-    /** The lateral chromatic aberration model used */
+    /** @brief The lateral chromatic aberration model used */
     enum lfTCAModel Model;
-    /** Focal length in mm at which this calibration data was taken */
+    /** @brief Focal length in mm at which this calibration data was taken */
     float Focal;
-    /** The coefficients for TCA, dependent on model; separate for R and B */
+    /** @brief The coefficients for TCA, dependent on model; separate for R and B */
     float Terms [6];
 };
 
 C_TYPEDEF (struct, lfLensCalibTCA)
 
 /**
- * The lensdb library supports several models for lens vignetting
- * correction. We focus on optical and natural vignetting since they
- * can be generalized for all lenses of a certain type; mechanical
- * vignetting is out of the scope of this library.
+ * @brief The lensdb library supports several models for lens vignetting
+ * correction.
+ *
+ * We focus on optical and natural vignetting since they can be generalized for
+ * all lenses of a certain type; mechanical vignetting is out of the scope of
+ * this library.
  *
  * Vignetting is dependent on focal length and aperture.  There is
  * also a slight dependence on focus distance.  In the following,
@@ -546,11 +566,11 @@ C_TYPEDEF (struct, lfLensCalibTCA)
  */
 enum lfVignettingModel
 {
-    /** No vignetting correction data is known */
+    /** @brief No vignetting correction data is known */
     LF_VIGNETTING_MODEL_NONE,
     /**
-     * Pablo D'Angelo vignetting model
-     * (which is a more general variant of the \f$\cos^4\f$ law):
+     * @brief Pablo D'Angelo vignetting model
+     * (which is a more general variant of the \f$\cos^4\f$ law).
      *
      * \f[C_d = C_s \cdot (1 + k_1 r^2 + k_2 r^4 + k_3 r^6)\f]
      * The corresponding XML attributes are called “k1”, “k2”, and “k3”.  They
@@ -563,50 +583,51 @@ enum lfVignettingModel
 C_TYPEDEF (enum, lfVignettingModel)
 
 /**
- * Lens vignetting calibration data. Vignetting depends on focal
- * length, aperture and focus distance. The library will interpolate
- * the coefficients if data for the exact focal length, aperture, and
- * focus distance is not available.
+ * @brief Lens vignetting calibration data.
+ *
+ * Vignetting depends on focal length, aperture and focus distance. The library
+ * will interpolate the coefficients if data for the exact focal length,
+ * aperture, and focus distance is not available.
  */
 struct lfLensCalibVignetting
 {
-    /** The lens vignetting model used */
+    /** @brief The lens vignetting model used */
     enum lfVignettingModel Model;
-    /** Focal length in mm at which this calibration data was taken */
+    /** @brief Focal length in mm at which this calibration data was taken */
     float Focal;
-    /** Aperture (f-number) at which this calibration data was taken */
+    /** @brief Aperture (f-number) at which this calibration data was taken */
     float Aperture;
-    /** Focus distance in meters */
+    /** @brief Focus distance in meters */
     float Distance;
-    /** Lens vignetting model coefficients (depending on model) */
+    /** @brief Lens vignetting model coefficients (depending on model) */
     float Terms [3];
 };
 
 C_TYPEDEF (struct, lfLensCalibVignetting)
 
 /**
- *  Different crop modes
+ *  @brief Different crop modes
  */
 enum lfCropMode
 {
-    /** no crop at all */
+    /** @brief no crop at all */
     LF_NO_CROP,
-    /** use a rectangular crop */
+    /** @brief use a rectangular crop */
     LF_CROP_RECTANGLE,
-    /** use a circular crop, e.g. for circular fisheye images */
+    /** @brief use a circular crop, e.g. for circular fisheye images */
     LF_CROP_CIRCLE
 };
 
 C_TYPEDEF(enum, lfCropMode)
 
 /**
- *  Struct to save image crop, which can depend on the focal length
+ *  @brief Struct to save image crop, which can depend on the focal length
  */
 struct lfLensCalibCrop
 {
-    /** Focal length in mm at which this calibration data was taken */
+    /** @brief Focal length in mm at which this calibration data was taken */
     float Focal;
-    /** crop mode which should be applied to image to get rid of black borders */
+    /** @brief crop mode which should be applied to image to get rid of black borders */
     enum lfCropMode CropMode;
     /** @brief Crop coordinates, relative to image corresponding image dimension 
      *
@@ -622,7 +643,7 @@ struct lfLensCalibCrop
 C_TYPEDEF (struct, lfLensCalibCrop)
 
 /**
- *  Struct to save calibrated field of view, which can depends on the focal length
+ *  @brief Struct to save calibrated field of view, which can depends on the focal length
  */
 struct lfLensCalibFov
 {
@@ -640,54 +661,63 @@ struct lfLensCalibFov
 C_TYPEDEF (struct, lfLensCalibFov)
 
 /**
- * This structure describes a single parameter for some lens model.
+ * @brief This structure describes a single parameter for some lens model.
  */
 struct lfParameter
 {
-    /** Parameter name (something like 'k', 'k3', 'omega' etc.) */
+    /** @brief Parameter name (something like 'k', 'k3', 'omega' etc.) */
     const char *Name;
-    /** Minimal value that has sense */
+    /** @brief Minimal value that has sense */
     float Min;
-    /** Maximal value that has sense */
+    /** @brief Maximal value that has sense */
     float Max;
-    /** Default value for the parameter */
+    /** @brief Default value for the parameter */
     float Default;
 };
 
 C_TYPEDEF (struct, lfParameter)
 
 /**
- * Lens type.  See \ref changeofprojection for further information.
+ * @brief Lens type.  See \ref changeofprojection for further information.
  */
 enum lfLensType
 {
-    /** Unknown lens type */
+    /** @brief Unknown lens type */
     LF_UNKNOWN,
-    /** Rectilinear lens – 99% of all lenses are of this type */
+    /** @brief Rectilinear lens
+     *
+     * Straight lines remain stright; 99% of all lenses are of this type.
+     */
     LF_RECTILINEAR,
     /**
-     * Equidistant fisheye,
+     * @brief Equidistant fisheye
+     *
      * Ref: http://wiki.panotools.org/Fisheye_Projection
      */
     LF_FISHEYE,
     /**
-     * Panoramic (cylindrical); not that there are such lenses, but useful
-     * to convert images \a to this type, especially fish-eye images.
+     * @brief Panoramic (cylindrical)
+     *
+     * Not that there are such lenses, but useful to convert images \a to this
+     * type, especially fish-eye images.
      */
     LF_PANORAMIC,
     /**
-     * Equirectangular; not that there are such lenses, but useful
-     * to convert images \a to this type, especially fish-eye images.
+     * @brief Equirectangular
+     *
+     * Not that there are such lenses, but useful to convert images \a to this
+     * type, especially fish-eye images.
      */
     LF_EQUIRECTANGULAR,
-    /** Orthographic fisheye */
+    /** @brief Orthographic fisheye */
     LF_FISHEYE_ORTHOGRAPHIC,
-    /** Stereographic fisheye */
+    /** @brief Stereographic fisheye */
     LF_FISHEYE_STEREOGRAPHIC,
-    /** Equisolid fisheye */
+    /** @brief Equisolid fisheye */
     LF_FISHEYE_EQUISOLID,
     /**
-     * Fisheye as measured by Thoby (for Nikkor 10.5).
+     * @brief Fisheye as measured by Thoby (for Nikkor 10.5).
+     *
      * Ref: http://michel.thoby.free.fr/Blur_Panorama/Nikkor10-5mm_or_Sigma8mm/Sigma_or_Nikkor/Comparison_Short_Version_Eng.html
      */
     LF_FISHEYE_THOBY
@@ -696,7 +726,7 @@ enum lfLensType
 C_TYPEDEF (enum, lfLensType)
 
 /**
- * Lens data.
+ * @brief Lens data.
  * Unknown fields are set to NULL or 0.
  *
  * To create a new lens object, use the lfLens::Create() or lf_lens_new()
@@ -760,7 +790,7 @@ struct LF_EXPORT lfLens
 
 #ifdef __cplusplus
     /**
-     * Create a new lens object, initializing all fields to default values.
+     * @brief Create a new lens object, initializing all fields to default values.
      */
     lfLens ();
 
@@ -770,7 +800,7 @@ struct LF_EXPORT lfLens
     lfLens (const lfLens &other);
 
     /**
-     * Destroy this and all associated objects.
+     * @brief Destroy this and all associated objects.
      */
     ~lfLens ();
 
@@ -780,8 +810,10 @@ struct LF_EXPORT lfLens
     lfLens &operator = (const lfLens &other);
 
     /**
-     * Add a string to camera maker. If lang is NULL, this replaces
-     * the default value, otherwise a new language value is appended.
+     * @brief Add a string to camera maker.
+     *
+     * If lang is NULL, this replaces the default value, otherwise a new
+     * language value is appended.
      * @param val
      *     The new value for the Maker field.
      * @param lang
@@ -790,8 +822,10 @@ struct LF_EXPORT lfLens
     void SetMaker (const char *val, const char *lang = NULL);
 
     /**
-     * Add a string to camera model. If lang is NULL, this replaces
-     * the default value, otherwise a new language value is appended.
+     * @brief Add a string to camera model.
+     *
+     * If lang is NULL, this replaces the default value, otherwise a new
+     * language value is appended.
      * @param val
      *     The new value for the Model field.
      * @param lang
@@ -800,15 +834,17 @@ struct LF_EXPORT lfLens
     void SetModel (const char *val, const char *lang = NULL);
 
     /**
-     * Add a new mount type to this lens. This is not a multi-language
-     * string, this it's just plain replaced.
+     * @brief Add a new mount type to this lens.
+     *
+     * This is not a multi-language string, this it's just plain replaced.
      * @param val
      *     The new value to add to the Mounts array.
      */
     void AddMount (const char *val);
 
     /**
-     * Add a new distortion calibration structure to the pool.
+     * @brief Add a new distortion calibration structure to the pool.
+     *
      * The objects is copied, thus you can reuse it as soon as
      * this function returns.
      * @param dc
@@ -817,15 +853,17 @@ struct LF_EXPORT lfLens
     void AddCalibDistortion (const lfLensCalibDistortion *dc);
 
     /**
-     * Remove a calibration entry from the distortion calibration data.
+     * @brief Remove a calibration entry from the distortion calibration data.
      * @param idx
      *     The calibration data index (zero-based).
      */
     bool RemoveCalibDistortion (int idx);
 
     /**
-     * Add a new transversal chromatic aberration calibration structure
-     * to the pool. The objects is copied, thus you can reuse it as soon as
+     * @brief Add a new transversal chromatic aberration calibration structure
+     * to the pool.
+     *
+     * The objects is copied, thus you can reuse it as soon as
      * this function returns.
      * @param tcac
      *     The transversal chromatic aberration calibration structure.
@@ -833,14 +871,15 @@ struct LF_EXPORT lfLens
     void AddCalibTCA (const lfLensCalibTCA *tcac);
 
     /**
-     * Remove a calibration entry from the TCA calibration data.
+     * @brief Remove a calibration entry from the TCA calibration data.
      * @param idx
      *     The calibration data index (zero-based).
      */
     bool RemoveCalibTCA (int idx);
 
     /**
-     * Add a new vignetting calibration structure to the pool.
+     * @brief Add a new vignetting calibration structure to the pool.
+     *
      * The objects is copied, thus you can reuse it as soon as
      * this function returns.
      * @param vc
@@ -849,14 +888,15 @@ struct LF_EXPORT lfLens
     void AddCalibVignetting (const lfLensCalibVignetting *vc);
 
     /**
-     * Remove a calibration entry from the vignetting calibration data.
+     * @brief Remove a calibration entry from the vignetting calibration data.
      * @param idx
      *     The calibration data index (zero-based).
      */
     bool RemoveCalibVignetting (int idx);
 
     /**
-     * Add a new lens crop structure to the pool.
+     * @brief Add a new lens crop structure to the pool.
+     *
      * The objects is copied, thus you can reuse it as soon as
      * this function returns.
      * @param cc 
@@ -865,14 +905,15 @@ struct LF_EXPORT lfLens
     void AddCalibCrop (const lfLensCalibCrop *cc);
 
     /**
-     * Remove a lens crop entry from the lens crop structure.
+     * @brief Remove a lens crop entry from the lens crop structure.
      * @param idx
      *     The lens crop data index (zero-based).
      */
     bool RemoveCalibCrop (int idx);
 
     /**
-     * Add a new lens fov structure to the pool.
+     * @brief Add a new lens fov structure to the pool.
+     *
      * The objects is copied, thus you can reuse it as soon as
      * this function returns.
      * @param cf
@@ -881,30 +922,31 @@ struct LF_EXPORT lfLens
     void AddCalibFov (const lfLensCalibFov *cf);
 
     /**
-     * Remove a field of view  entry from the lens fov structure.
+     * @brief Remove a field of view  entry from the lens fov structure.
      * @param idx
      *     The lens information data index (zero-based).
      */
     bool RemoveCalibFov (int idx);
 
     /**
-     * This method fills some fields if they are missing but
-     * can be derived from other fields. This includes such non-obvious
-     * parameters like the range of focal lengths or the range
-     * of apertures, which can be derived from lens named (which is
-     * intelligently parsed) or from the list of calibrations.
+     * @brief This method fills some fields if they are missing but
+     * can be derived from other fields.
+     *
+     * This includes such non-obvious parameters like the range of focal
+     * lengths or the range of apertures, which can be derived from lens named
+     * (which is intelligently parsed) or from the list of calibrations.
      */
     void GuessParameters ();
 
     /**
-     * Check if a lens object is valid.
+     * @brief Check if a lens object is valid.
      * @return
      *     true if the required fields are ok.
      */
     bool Check ();
 
     /**
-     * Get the human-readable distortion model name and the descriptions
+     * @brief Get the human-readable distortion model name and the descriptions
      * of the parameters required by this model.
      * @param model
      *     The model.
@@ -921,7 +963,7 @@ struct LF_EXPORT lfLens
     static const char *GetDistortionModelDesc (
         lfDistortionModel model, const char **details, const lfParameter ***params);
     /**
-     * Get the human-readable transversal chromatic aberrations model name
+     * @brief Get the human-readable transversal chromatic aberrations model name
      * and the descriptions of the parameters required by this model.
      * @param model
      *     The model.
@@ -939,7 +981,7 @@ struct LF_EXPORT lfLens
         lfTCAModel model, const char **details, const lfParameter ***params);
 
     /**
-     * Get the human-readable vignetting model name and the descriptions
+     * @brief Get the human-readable vignetting model name and the descriptions
      * of the parameters required by this model.
      * @param model
      *     The model.
@@ -957,7 +999,7 @@ struct LF_EXPORT lfLens
         lfVignettingModel model, const char **details, const lfParameter ***params);
 
     /**
-     * Get the human-readable crop name and the descriptions
+     * @brief Get the human-readable crop name and the descriptions
      * of the parameters required by this model.
      * @param mode
      *     The crop mode.
@@ -975,7 +1017,7 @@ struct LF_EXPORT lfLens
         lfCropMode mode, const char **details, const lfParameter ***params);
 
     /**
-     * Get the human-readable lens type name and a short description of this
+     * @brief Get the human-readable lens type name and a short description of this
      * lens type.
      * @param type
      *     Lens type.
@@ -988,7 +1030,7 @@ struct LF_EXPORT lfLens
     static const char *GetLensTypeDesc (lfLensType type, const char **details);
 
     /**
-     * Interpolate lens geometry distortion data for given focal length.
+     * @brief Interpolate lens geometry distortion data for given focal length.
      * @param focal
      *     The focal length in mm at which we need geometry distortion parameters.
      * @param res
@@ -997,7 +1039,7 @@ struct LF_EXPORT lfLens
     bool InterpolateDistortion (float focal, lfLensCalibDistortion &res) const;
 
     /**
-     * Interpolate lens TCA calibration data for given focal length.
+     * @brief Interpolate lens TCA calibration data for given focal length.
      * @param focal
      *     The focal length in mm at which we need TCA parameters.
      * @param res
@@ -1006,7 +1048,7 @@ struct LF_EXPORT lfLens
     bool InterpolateTCA (float focal, lfLensCalibTCA &res) const;
 
     /**
-     * Interpolate lens vignetting model parameters for given focal length,
+     * @brief Interpolate lens vignetting model parameters for given focal length,
      * aperture, and focus distance.
      * @param focal
      *     The focal length in mm for which we need vignetting parameters.
@@ -1022,7 +1064,7 @@ struct LF_EXPORT lfLens
         float focal, float aperture, float distance, lfLensCalibVignetting &res) const;
 
     /**
-     * Interpolate lens crop data for given focal length.
+     * @brief Interpolate lens crop data for given focal length.
      * @param focal
      *     The focal length in mm at which we need image parameters.
      * @param res
@@ -1031,7 +1073,7 @@ struct LF_EXPORT lfLens
     bool InterpolateCrop (float focal, lfLensCalibCrop &res) const;
 
     /**
-     * Interpolate lens fov data for given focal length.
+     * @brief Interpolate lens fov data for given focal length.
      * @param focal
      *     The focal length in mm at which we need image parameters.
      * @param res
@@ -1044,7 +1086,7 @@ struct LF_EXPORT lfLens
 C_TYPEDEF (struct, lfLens)
 
 /**
- * Create a new lens object.
+ * @brief Create a new lens object.
  * @return
  *     A new empty lens object.
  * @sa
@@ -1053,7 +1095,8 @@ C_TYPEDEF (struct, lfLens)
 LF_EXPORT lfLens *lf_lens_new ();
 
 /**
- * Destroy a lfLens object.
+ * @brief Destroy a lfLens object.
+ *
  * This is equivalent to C++ "delete lens".
  * @param lens
  *     The lens object to destroy.
@@ -1063,7 +1106,7 @@ LF_EXPORT lfLens *lf_lens_new ();
 LF_EXPORT void lf_lens_destroy (lfLens *lens);
 
 /**
- * Copy the data from one lfLens structure into another.
+ * @brief Copy the data from one lfLens structure into another.
  * @param dest
  *     The destination object
  * @param source
@@ -1154,12 +1197,12 @@ LF_EXPORT cbool lf_lens_remove_calib_fov (lfLens *lens, int idx);
 
 /**
  * @defgroup Database Database functions
- * Create, destroy and search database for objects.
+ * @brief Create, destroy and search database for objects.
  * @{
  */
 
 /**
- * Flags controlling the behavior of database searches.
+ * @brief Flags controlling the behavior of database searches.
  */
 enum
 {
@@ -1178,7 +1221,7 @@ enum
 };
 
 /**
- * A lens database object.
+ * @brief A lens database object.
  *
  * This object contains a list of mounts, cameras and lenses through
  * which you can search. The objects are loaded from XML files
@@ -1201,22 +1244,22 @@ enum
  */
 struct LF_EXPORT lfDatabase
 {
-    /** Home lens database directory (something like "~/.local/share/lensfun") */
+    /** @brief Home lens database directory (something like "~/.local/share/lensfun") */
     char *HomeDataDir;
 
 #ifdef __cplusplus
     /**
-     * Create a new empty database object.
+     * @brief Create a new empty database object.
      */
     static lfDatabase *Create ();
 
     /**
-     * Destroy the database object and free all loaded data.
+     * @brief Destroy the database object and free all loaded data.
      */
     void Destroy ();
 
     /**
-     * Load the whole lens database.
+     * @brief Load the whole lens database.
      * 
      * This calls lf_load_file() for all XML files found in usual places
      * (first /usr/share/lensdb/ then ~/.lensdb/).
@@ -1226,9 +1269,10 @@ struct LF_EXPORT lfDatabase
     lfError Load ();
 
     /**
-     * Load just a specific XML file. If the loaded file contains the
-     * specification of a camera/lens that's already in memory, it
-     * overrides that data.
+     * @brief Load just a specific XML file.
+     *
+     * If the loaded file contains the specification of a camera/lens that's
+     * already in memory, it overrides that data.
      * @param filename
      *     The name of a XML file to load. Note that lensdb does not support
      *     the full XML specification as it uses the glib's simple XML parser,
@@ -1239,7 +1283,8 @@ struct LF_EXPORT lfDatabase
     lfError Load (const char *filename);
 
     /**
-     * Load a set of camera/lenses from a memory array.
+     * @brief Load a set of camera/lenses from a memory array.
+     *
      * This is the lowest-level loading function.
      * @param errcontext
      *     The error context to be displayed in error messages
@@ -1254,7 +1299,7 @@ struct LF_EXPORT lfDatabase
     lfError Load (const char *errcontext, const char *data, size_t data_size);
 
     /**
-     * Save the whole database to a file.
+     * @brief Save the whole database to a file.
      * @param filename
      *     The file name to write the XML stream into.
      * @return
@@ -1263,7 +1308,7 @@ struct LF_EXPORT lfDatabase
     lfError Save (const char *filename) const;
 
     /**
-     * Save a set of camera and lens descriptions to a file.
+     * @brief Save a set of camera and lens descriptions to a file.
      * @param filename
      *     The file name to write the XML stream into.
      * @param mounts
@@ -1281,7 +1326,7 @@ struct LF_EXPORT lfDatabase
                   const lfLens *const *lenses) const;
 
     /**
-     * Save a set of camera and lens descriptions into a memory array.
+     * @brief Save a set of camera and lens descriptions into a memory array.
      * @param mounts
      *     A list of mounts to be written to the file. Can be NULL.
      * @param cameras
@@ -1297,7 +1342,8 @@ struct LF_EXPORT lfDatabase
                        const lfLens *const *lenses);
 
     /**
-     * Find a set of cameras that fit given criteria.
+     * @brief Find a set of cameras that fit given criteria.
+     *
      * The maker and model must be given (if possible) exactly as they are
      * spelled in database, except that the library will compare
      * case-insensitively and will compress spaces. This means that the
@@ -1322,10 +1368,11 @@ struct LF_EXPORT lfDatabase
     const lfCamera **FindCameras (const char *maker, const char *model) const;
 
     /**
-     * This function is somewhat similar to FindCameras(), but uses a
-     * different search algorithm. It will search all translations of camera
-     * maker and model, thus you may search for a user-entered camera even
-     * in a language different from English.
+     * @brief Searches all translations of camera maker and model.
+     *
+     * Thus, you may search for a user-entered camera even in a language
+     * different from English.  This function is somewhat similar to
+     * FindCameras(), but uses a different search algorithm.
      *
      * This is a lot slower than FindCameras().
      * @param maker
@@ -1344,7 +1391,7 @@ struct LF_EXPORT lfDatabase
                                      int sflags = 0) const;
 
     /**
-     * Retrieve a full list of cameras.
+     * @brief Retrieve a full list of cameras.
      * @return
      *     An NULL-terminated list containing all cameras loaded until now.
      *     The list is valid only until the lens database is modified.
@@ -1353,11 +1400,12 @@ struct LF_EXPORT lfDatabase
     const lfCamera *const *GetCameras () const;
 
     /**
-     * Parse a human-friendly lens description (ex: "smc PENTAX-F 35-105mm F4-5.6"
+     * @brief Parse a human-friendly lens description (ex: "smc PENTAX-F 35-105mm F4-5.6"
      * or "SIGMA AF 28-300 F3.5-5.6 DL IF") and return a list of lfLens'es which
-     * are matching this description. Multiple lenses may be returned if multiple
-     * lenses match (perhaps due to non-unique lens description provided, e.g.
-     * "Pentax SMC").
+     * are matching this description.
+     *
+     * Multiple lenses may be returned if multiple lenses match (perhaps due to
+     * non-unique lens description provided, e.g.  "Pentax SMC").
      *
      * The matching algorithm works as follows: first the user description
      * is tried to be interpreted according to several well-known lens naming
@@ -1392,7 +1440,7 @@ struct LF_EXPORT lfDatabase
                                const char *model, int sflags = 0) const;
 
     /**
-     * Find a set of lenses that fit certain criteria.
+     * @brief Find a set of lenses that fit certain criteria.
      * @param lens
      *     The approximative lense. Uncertain fields may be NULL.
      *     The "CropFactor" field defines the minimal value for crop factor;
@@ -1411,7 +1459,7 @@ struct LF_EXPORT lfDatabase
     const lfLens **FindLenses (const lfLens *lens, int sflags = 0) const;
 
     /**
-     * Retrieve a full list of lenses.
+     * @brief Retrieve a full list of lenses.
      * @return
      *     An NULL-terminated list containing all lenses loaded until now.
      *     The list is valid only until the lens database is modified.
@@ -1420,7 +1468,7 @@ struct LF_EXPORT lfDatabase
     const lfLens *const *GetLenses () const;
 
     /**
-     * Return the lfMount structure given the (basic) mount name.
+     * @brief Return the lfMount structure given the (basic) mount name.
      * @param mount
      *     The basic mount name.
      * @return
@@ -1429,7 +1477,7 @@ struct LF_EXPORT lfDatabase
     const lfMount *FindMount (const char *mount) const;
 
     /**
-     * Get the name of a mount in current locale.
+     * @brief Get the name of a mount in current locale.
      * @param mount
      *     The basic mount name.
      * @return
@@ -1438,7 +1486,7 @@ struct LF_EXPORT lfDatabase
     const char *MountName (const char *mount) const;
 
     /**
-     * Retrieve a full list of mounts.
+     * @brief Retrieve a full list of mounts.
      * @return
      *     An array containing all mounts loaded until now.
      *     The list is valid only until the mount database is modified.
@@ -1456,7 +1504,8 @@ protected:
 C_TYPEDEF (struct, lfDatabase)
 
 /**
- * Create a new empty database object.
+ * @brief Create a new empty database object.
+ *
  * Usually the application will want to do this at startup,
  * after which it would be a good idea to call lf_db_load().
  * @return
@@ -1467,7 +1516,8 @@ C_TYPEDEF (struct, lfDatabase)
 LF_EXPORT lfDatabase *lf_db_new (void);
 
 /**
- * Destroy the database object.
+ * @brief Destroy the database object.
+ *
  * This is the only way to correctly destroy the database object.
  * @param db
  *     The database to destroy.
@@ -1538,12 +1588,12 @@ LF_EXPORT const lfMount *const *lf_db_get_mounts (const lfDatabase *db);
 
 /**
  * @defgroup Correction Image correction
- * This group of functions will allow you to apply a image transform
+ * @brief This group of functions will allow you to apply a image transform
  * that will correct some lens defects.
  * @{
  */
 
-/** A list of bitmask flags used for ordering various image corrections */
+/** @brief A list of bitmask flags used for ordering various image corrections */
 enum
 {
     /** Correct (or apply) lens transversal chromatic aberrations */
@@ -1562,7 +1612,7 @@ enum
     LF_MODIFY_ALL        = ~0
 };
 
-/** A list of pixel formats supported by internal colour callbacks */
+/** @brief A list of pixel formats supported by internal colour callbacks */
 enum lfPixelFormat
 {
     /** Unsigned 8-bit R,G,B */
@@ -1579,7 +1629,7 @@ enum lfPixelFormat
 
 C_TYPEDEF (enum, lfPixelFormat)
 
-/** These constants define the role of every pixel component, four bits each */
+/** @brief These constants define the role of every pixel component, four bits each */
 enum lfComponentRole
 {
     /**
@@ -1608,38 +1658,39 @@ enum lfComponentRole
 
 C_TYPEDEF (enum, lfComponentRole)
 
-/** This macro defines a pixel format consisting of one component */
+/** @brief This macro defines a pixel format consisting of one component */
 #define LF_CR_1(a)              (LF_CR_ ## a)
-/** This macro defines a pixel format consisting of two components */
+/** @brief This macro defines a pixel format consisting of two components */
 #define LF_CR_2(a,b)            ((LF_CR_ ## a) | ((LF_CR_ ## b) << 4))
-/** This macro defines a pixel format consisting of three components */
+/** @brief This macro defines a pixel format consisting of three components */
 #define LF_CR_3(a,b,c)          ((LF_CR_ ## a) | ((LF_CR_ ## b) << 4) | \
                                  ((LF_CR_ ## c) << 8))
-/** This macro defines a pixel format consisting of four components */
+/** @brief This macro defines a pixel format consisting of four components */
 #define LF_CR_4(a,b,c,d)        ((LF_CR_ ## a) | ((LF_CR_ ## b) << 4) | \
                                  ((LF_CR_ ## c) << 8) | ((LF_CR_ ## d) << 12))
-/** This macro defines a pixel format consisting of five components */
+/** @brief This macro defines a pixel format consisting of five components */
 #define LF_CR_5(a,b,c,d,e)      ((LF_CR_ ## a) | ((LF_CR_ ## b) << 4) | \
                                  ((LF_CR_ ## c) << 8) | ((LF_CR_ ## d) << 12) | \
                                  ((LF_CR_ ## e) << 16))
-/** This macro defines a pixel format consisting of six components */
+/** @brief This macro defines a pixel format consisting of six components */
 #define LF_CR_6(a,b,c,d,e,f)    ((LF_CR_ ## a) | ((LF_CR_ ## b) << 4) | \
                                  ((LF_CR_ ## c) << 8) | ((LF_CR_ ## d) << 12) | \
                                  ((LF_CR_ ## e) << 16) | ((LF_CR_ ## f) << 20))
-/** This macro defines a pixel format consisting of seven components */
+/** @brief This macro defines a pixel format consisting of seven components */
 #define LF_CR_7(a,b,c,d,e,f,g)   ((LF_CR_ ## a) | ((LF_CR_ ## b) << 4) | \
                                  ((LF_CR_ ## c) << 8) | ((LF_CR_ ## d) << 12) | \
                                  ((LF_CR_ ## e) << 16) | ((LF_CR_ ## f) << 20) | \
                                  ((LF_CR_ ## g) << 24))
-/** This macro defines a pixel format consisting of seven components */
+/** @brief This macro defines a pixel format consisting of seven components */
 #define LF_CR_8(a,b,c,d,e,f,g,h) ((LF_CR_ ## a) | ((LF_CR_ ## b) << 4) | \
                                  ((LF_CR_ ## c) << 8) | ((LF_CR_ ## d) << 12) | \
                                  ((LF_CR_ ## e) << 16) | ((LF_CR_ ## f) << 20) | \
                                  ((LF_CR_ ## g) << 24) | ((LF_CR_ ## h) << 28))
 
 /**
- * A callback function which modifies the separate coordinates for all color
- * components for every pixel in a strip,
+ * @brief A callback function which modifies the separate coordinates for all color
+ * components for every pixel in a strip.
+ *
  * This kind of callbacks are used in the second stage of image modification.
  * @param data
  *     A opaque pointer to some data.
@@ -1654,7 +1705,8 @@ C_TYPEDEF (enum, lfComponentRole)
 typedef void (*lfSubpixelCoordFunc) (void *data, float *iocoord, int count);
 
 /**
- * A callback function which modifies the colors of a strip of pixels
+ * @brief A callback function which modifies the colors of a strip of pixels
+ *
  * This kind of callbacks are used in the first stage of image modification.
  * @param data
  *     A opaque pointer to some data.
@@ -1680,7 +1732,8 @@ typedef void (*lfModifyColorFunc) (void *data, float x, float y,
                                    void *pixels, int comp_role, int count);
 
 /**
- * A callback function which modifies the coordinates of a strip of pixels.
+ * @brief A callback function which modifies the coordinates of a strip of pixels.
+ *
  * This kind of callbacks are used in third stage of image modification.
  * @param data
  *     A opaque pointer to some data.
@@ -1693,7 +1746,9 @@ typedef void (*lfModifyColorFunc) (void *data, float x, float y,
 typedef void (*lfModifyCoordFunc) (void *data, float *iocoord, int count);
 
 /**
- * A modifier object contains optimized data required to rectify a image.
+ * @brief A modifier object contains optimized data required to rectify a
+ * image.
+ *
  * You can either create an empty modifier object and then enable the
  * required modification functions individually, or you can take
  * a lens object, which contains a set of correction models, and
@@ -1745,19 +1800,20 @@ typedef void (*lfModifyCoordFunc) (void *data, float *iocoord, int count);
  * the steps which are grouped into a single stage, the application must
  * apply the stages themselves in reverse order.
  *
- * HOWEVER. Doing it in three stage is not memory efficient, and is prone to
+ * HOWEVER. Doing it in three stages is not memory efficient, and is prone to
  * error accumulation because you have to interpolate pixels twice - once
  * during stage 2 and once during stage 3. To avoid this, it is sensful to do
  * stages 2 & 3 in one step.  In this case the output R,G,B coordinates from
- * stage 2 are feed directly into the ApplyGeometryDistortion() function, which
- * will correct the R,G,B coordinates further, treating the colour channels
- * equally.
+ * stage 2, which treats the colour channels equally, are fed directly into
+ * stage 3, which will correct the R,G,B coordinates further.
+ * ApplySubpixelGeometryDistortion() does this in a convenient fashion.
  */
 struct LF_EXPORT lfModifier
 {
 #ifdef __cplusplus
     /**
-     * Create a empty image modifier object.
+     * @brief Create a empty image modifier object.
+     *
      * Before using the returned object you must add the required
      * modifier callbacks (see methods AddXXXCallback below).
      * @param lens
@@ -1779,7 +1835,8 @@ struct LF_EXPORT lfModifier
     static lfModifier *Create (const lfLens *lens, float crop, int width, int height);
 
     /**
-     * Initialize the process of correcting aberrations in a image.
+     * @brief Initialize the process of correcting aberrations in a image.
+     *
      * You must provide the original image width/height even if you
      * plan to correct just a part of the image.
      *
@@ -1828,13 +1885,14 @@ struct LF_EXPORT lfModifier
         float distance, float scale, lfLensType targeom, int flags, bool reverse);
 
     /**
-     * Destroy the modifier object.
+     * @brief Destroy the modifier object.
+     *
      * This is the only correct way to destroy a lfModifier object.
      */
     void Destroy ();
 
     /**
-     * Add a user-defined callback to the coordinate correction chain.
+     * @brief Add a user-defined callback to the coordinate correction chain.
      * @param callback
      *     The callback to be called for every strip of pixels.
      * @param priority
@@ -1853,7 +1911,7 @@ struct LF_EXPORT lfModifier
                            void *data, size_t data_size);
 
     /**
-     * Add a user-defined callback to the subpixel coordinate
+     * @brief Add a user-defined callback to the subpixel coordinate
      * rectification chain.
      * @param callback
      *     The callback to be called for every strip of pixels.
@@ -1873,7 +1931,7 @@ struct LF_EXPORT lfModifier
                               void *data, size_t data_size);
 
     /**
-     * Add a user-defined callback to the color modification chain.
+     * @brief Add a user-defined callback to the color modification chain.
      * @param callback
      *     The callback to be called for every strip of pixels.
      * @param priority
@@ -1892,7 +1950,8 @@ struct LF_EXPORT lfModifier
                            void *data, size_t data_size);
 
     /**
-     * Add the stock TCA correcting callback into the chain.
+     * @brief Add the stock TCA correcting callback into the chain.
+     *
      * The TCA correction callback always has a fixed priority of 500.
      * The behaviour is undefined if you'll add more than one TCA
      * correction callback to a modifier.
@@ -1907,7 +1966,7 @@ struct LF_EXPORT lfModifier
     bool AddSubpixelCallbackTCA (lfLensCalibTCA &model, bool reverse = false);
 
     /**
-     * Add the stock lens vignetting correcting callback into the chain.
+     * @brief Add the stock lens vignetting correcting callback into the chain.
      * The vignetting correction callback always has a fixed priority of
      * 250 when rectifying a image or 750 when doing reverse transform.
      * @param model
@@ -1924,7 +1983,8 @@ struct LF_EXPORT lfModifier
                                      bool reverse = false);
 
     /**
-     * Add the stock CCI correcting callback into the chain.
+     * @brief Add the stock CCI correcting callback into the chain.
+     *
      * The CCI correction callback always has a fixed priority of 750 when
      * rectifying a image and 250 on reverse transform.
      * @param lens
@@ -1941,7 +2001,8 @@ struct LF_EXPORT lfModifier
                               bool reverse = false);
 
     /**
-     * Add the stock lens distortion correcting callback into the chain.
+     * @brief Add the stock lens distortion correcting callback into the chain.
+     *
      * The distortion correction callback always has a fixed priority of 750
      * when rectifying a image and 250 on reverse transform.
      * @param model
@@ -1955,7 +2016,9 @@ struct LF_EXPORT lfModifier
     bool AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool reverse = false);
 
     /**
-     * Add the stock lens geometry rectification callback into the chain.
+     * @brief Add the stock lens geometry rectification callback into the
+     * chain.
+     *
      * The geometry correction callback always has a fixed priority of 500.
      * @param from
      *     The lens model for source image.
@@ -1969,7 +2032,8 @@ struct LF_EXPORT lfModifier
     bool AddCoordCallbackGeometry (lfLensType from, lfLensType to, float focal);
 
     /**
-     * Add the stock image scaling callback into the chain.
+     * @brief Add the stock image scaling callback into the chain.
+     *
      * The scaling callback always has a fixed priority of 100.
      * Note that scaling should be always the first operation to perform
      * no matter if we're doing a forward or reverse transform.
@@ -1986,7 +2050,8 @@ struct LF_EXPORT lfModifier
     bool AddCoordCallbackScale (float scale, bool reverse = false);
 
     /**
-     * Compute the automatic scale factor for the image.
+     * @brief Compute the automatic scale factor for the image.
+     *
      * This expects that all coordinate distortion callbacks are already
      * set up and working. The function will try at its best to find a
      * scale value that will ensure that no pixels with coordinates out
@@ -2000,7 +2065,8 @@ struct LF_EXPORT lfModifier
     float GetAutoScale (bool reverse);
 
     /**
-     * Image correction step 1: fix image colors.
+     * @brief Image correction step 1: fix image colors.
+     *
      * This includes vignetting transform and CCI transform
      * (e.g. rectification of image colors).
      * @param pixels
@@ -2031,10 +2097,44 @@ struct LF_EXPORT lfModifier
                                  int comp_role, int row_stride) const;
 
     /**
-     * Image correction stage 2: apply subpixel distortions.
+     * @brief Image correction step 2: apply the transforms on a block of pixel
+     * coordinates.
+     *
+     * The undistorted coordinates are computed for every pixel in a
+     * rectangular block: \f$(x_u, y_u), (x_u+1, y_u), \ldots, (x_u +
+     * \mathrm{width} - 1, y_u), (x_u, y_u + 1), \ldots, (x_u + \mathrm{width}
+     * - 1, y_u + \mathrm{height} - 1)\f$.
+     *
+     * The corrected coordinates are put into the output buffer
+     * sequentially, X and Y values.
+     *
+     * This routine has been designed to be safe to use in parallel from
+     * several threads.
+     * @param xu
+     *     The undistorted X coordinate of the start of the block of pixels.
+     * @param yu
+     *     The undistorted Y coordinate of the start of the block of pixels.
+     * @param width
+     *     The width of the block in pixels.
+     * @param height
+     *     The height of the block in pixels.
+     * @param res
+     *     A pointer to an output array which receives the respective X and Y
+     *     distorted coordinates for every pixel of the block. The size of
+     *     this array must be at least width*height*2 elements.
+     * @return
+     *     true if return buffer has been filled, false if nothing to do
+     */
+    bool ApplyGeometryDistortion (float xu, float yu, int width, int height,
+                                  float *res) const;
+
+    /**
+     * @brief Image correction step 3: apply subpixel distortions.
+     *
      * The undistorted R,G,B coordinates are computed for every pixel in a
-     * square block: (xu, yu), (xu+1, yu), ... , (xu + width - 1, yu),
-     * (xu, yu + 1), ..., (xu + width - 1, yu + height - 1).
+     * square block: \f$(x_u, y_u), (x_u+1, y_u), \ldots, (x_u +
+     * \mathrm{width} - 1, y_u), (x_u, y_u + 1), \ldots, (x_u + \mathrm{width}
+     * - 1, y_u + \mathrm{height} - 1)\f$.
      *
      * Returns the corrected coordinates separately for R/G/B channels
      * The resulting coordinates are put into the output buffer
@@ -2062,39 +2162,12 @@ struct LF_EXPORT lfModifier
                                   float *res) const;
 
     /**
-     * Image correction step 3: apply the transforms on a block of pixel
-     * coordinates. The undistorted coordinates are computed for every pixel
-     * in a rectangular block: (xu, yu), (xu+1, yu), ... , (xu + width - 1, yu),
-     * (xu, yu + 1), ..., (xu + width - 1, yu + height - 1).
+     * @brief Apply stage 2 & 3 in one step.
      *
-     * The corrected coordinates are put into the output buffer
-     * sequentially, X and Y values.
-     *
-     * This routine has been designed to be safe to use in parallel from
-     * several threads.
-     * @param xu
-     *     The undistorted X coordinate of the start of the block of pixels.
-     * @param yu
-     *     The undistorted Y coordinate of the start of the block of pixels.
-     * @param width
-     *     The width of the block in pixels.
-     * @param height
-     *     The height of the block in pixels.
-     * @param res
-     *     A pointer to an output array which receives the respective X and Y
-     *     distorted coordinates for every pixel of the block. The size of
-     *     this array must be at least width*height*2 elements.
-     * @return
-     *     true if return buffer has been filled, false if nothing to do
-     */
-    bool ApplyGeometryDistortion (float xu, float yu, int width, int height,
-                                  float *res) const;
-
-    /**
-     * Apply stage 2 & 3 in one step. See the main comment to the lfModifier class.
-     * The undistorted R,G,B coordinates are computed for every pixel in a
-     * square block: (xu, yu), (xu+1, yu), ... , (xu + width - 1, yu),
-     * (xu, yu + 1), ..., (xu + width - 1, yu + height - 1).
+     * See the main comment to the lfModifier class.  The undistorted (R, G, B)
+     * coordinates are computed for every pixel in a square block: \f$(x_u,
+     * y_u), (x_u+1, y_u), \ldots, (x_u + \mathrm{width} - 1, y_u), (x_u, y_u +
+     * 1), \ldots, (x_u + \mathrm{width} - 1, y_u + \mathrm{height} - 1)\f$.
      *
      * Returns the corrected coordinates separately for R/G/B channels
      * The resulting coordinates are put into the output buffer
@@ -2113,7 +2186,7 @@ struct LF_EXPORT lfModifier
      * @param res
      *     A pointer to an output array which receives the respective X and Y
      *     distorted coordinates for every pixel of the block. The size of
-     *     this array must be at least width*height*2 elements.
+     *     this array must be at least width*height*2*3 elements.
      * @return
      *     true if return buffer has been filled, false if nothing to do
      */
