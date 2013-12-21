@@ -25,6 +25,11 @@ lenses, for example from fisheye into rectilinear.
 <ul>
 <li>@ref license
 <li>@ref credits
+<li>Command line programs
+    <ul>
+    <li>@ref update-lensfun-data
+    <li>@ref lensfun-add-adapter
+    </ul>
 <li>@ref database
     <ul>
     <li>@ref dbformat
@@ -104,6 +109,56 @@ of this library:
 </ul>
 
 Also I would like to thank all the people sending profiles for the database. 
+
+
+@page update-lensfun-data Updating lensfun's database: update‑lensfun‑data
+
+New lenses and cameras arrive at lensfun every week.  So, it is desirable to
+update your copy of lensfun's database to stay up-to-date.  In particular, if
+you have sent calibration pictures to Torsten's calibration service, you must
+update your local lensfun database after the calibration in order to be able to
+use the new calibrations.
+
+For this purpose, there exists a simple command-line tool called
+“update‑lensfun‑data”.  If you call it (it doesn't need parameters), just wait
+for a second and the database is updated.  It will report whether an update was
+necessary.
+
+However, if an update is necessary, the program needs root privileges.  So call
+the program with “sudo update‑lensfun‑data” and enter your root password.
+There exists a second version of the programm called “g‑update‑lensfun‑data”.
+It will let you enter the root password – if new data is available – in a neat
+window.  This version is especially useful for GUI programs, which can call it
+in the background.
+
+If a calling program just wants to know whether an update is necessary, it
+should call update‑lensfun‑data without root privileges and check its return
+code: A return code of 1 means that no newer database is available, a return
+code of 2 means that there is a newer version.
+
+
+@page lensfun-add-adapter Adding mount adapters: lensfun‑add‑adapter
+
+Lensfun contains information about lens mounts of cameras and available mounts
+for lens models.  This way, the calling application can offer the user a list
+with lenses that fit on their camera in order to pick one.  Otherwise, you
+would see *all* lenses every time.  This can be pretty overwhelming.
+
+But if you bought an adapter for another mount system, you would want to see
+lenses of that mount system listed for your camera.  So, you must tell lensfun
+somehow that you own the adapter.  You can do so by calling
+lensfun‑add‑adapter.
+
+The easiest way to use it is to call it with no parameters.
+lensfun‑add‑adapter will then enter an interactive mode.  First you have to
+enter your camera model.  lensfun‑add‑adapter will use that to determine the
+destination mount.  In particular, the extended lens lists will show up for
+every camera with that mount, not just the one you entered.  Then, you have to
+select the mount of the lenses you can now put on your camera, using the
+adapter.  That's it.
+
+You can also use lensfun‑add‑adapter to reset your adapter configuration.  Call
+it with the ‑‑help paremeter to see all functions.
 
 
 @page database Lens database
@@ -244,10 +299,11 @@ so explicitely.
 Things are slightly complicated with mirrorless systems because they are
 adaptable to virtually any non-mirrorless system.  In order to avoid too many
 useless entries in the lens selection lists for mirrorless mounts, only
-important compatibilities should be included into lensfun's official database
-(e.g. Sony Alpha on Sony E).  The user can override this easily in their local
-database files, adding compatibilities for all mounts they have adaptors for.
-</dl>
+important (e.g. because only few native lenses yet exist) compatibilities
+should be included into lensfun's official database (e.g. Canon EF on Canon M).
+The user can override this easily in their local database files, adding
+compatibilities for all mounts they have adaptors for, see @ref
+lensfun-add-adapter.</dl>
 
 @page el_camera Declaring cameras: \<camera\>
 
