@@ -1764,14 +1764,32 @@ typedef void (*lfModifyCoordFunc) (void *data, float *iocoord, int count);
  * simulate lens characteristics.
  *
  * The normal order of applying a lens correction on a image is:
- * <ul>
+ * <ol>
  * <li>Fix lens vignetting
  * <li>Fix lens colour contribution
  * <li>Fix chromatic aberrations (TCA)
  * <li>Fix lens distortion
  * <li>Fix lens geometry
  * <li>Scale the image
- * </ul>
+ * </ol>
+ *
+ * This is the theoretical order.  But in reality, when using this library, the
+ * order is reversed (see \ref corrections for an explanation):
+ *
+ * <ol>
+ * <li>Color<ol>
+ * <li>Fix lens colour contribution
+ * <li>Fix lens vignetting
+ * </ol>
+ * <li>Coordinates<ol>
+ * <li>Scale the image
+ * <li>Fix lens geometry
+ * <li>Fix lens distortion
+ * </ol>
+ * <li>Subpixel coordinates<ol>
+ * <li>Fix chromatic aberrations (TCA)
+ * </ol>
+ * </ol>
  *
  * This process is divided into three stages.
  *
@@ -1779,17 +1797,17 @@ typedef void (*lfModifyCoordFunc) (void *data, float *iocoord, int count);
  * colour contribution). You pass a pointer to your pixel data, and it will be
  * modified in place.
  *
- * Then, in the subpixel distortion stage, application corrects transversal
- * chromatic aberrations. For every target pixel coordinate the modifier will
- * return you three new coordinates: the first will tell you the coordinates of
- * the red component, second of the green, and third of the blue component.
- * This operation requires building new image in a new allocated buffer: you
- * cannot modify the image in place, or bad things will happen.
+ * Then, the distortions introduced by the lens are removed (distortion and
+ * geometry), and an additional scaling factor is applied if required.  This
+ * operation requires building new image in a new allocated buffer: you cannot
+ * modify the image in place, or bad things will happen.
  *
- * And finally, the distortions introduced by the lens are removed
- * (distortion and geometry), and an additional scaling factor is applied
- * if required. This again requires copying the image, but you can use
- * the same buffers as in stage two, just in reverse order.
+ * And finally, in the subpixel distortion stage, application corrects
+ * transversal chromatic aberrations. For every target pixel coordinate the
+ * modifier will return you three new coordinates: the first will tell you the
+ * coordinates of the red component, second of the green, and third of the blue
+ * component. This again requires copying the image, but you can use the same
+ * buffers as in stage two, just in reverse order.
  *
  * Of course, you can skip some stages of the process, e.g. if you, for
  * example, don't want to change a fisheye image to a rectilinear you
