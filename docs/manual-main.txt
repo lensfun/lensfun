@@ -278,6 +278,11 @@ format of the data within elements.
 
 @page el_mount Describing camera mounts: \<mount\>
 
+Add \<mount\> element only for mounts for interchangeable lenses.  If the lens
+is fixed (mostly a compact camera), a \<mount\> element for it may be declared
+locally by the user (see \ref lensfun-add-adapter), but it should not be in the
+core database.
+
 Possible embedded elements:
 <dl>
 <dt>\<name\>string\</name\>
