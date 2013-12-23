@@ -18,14 +18,14 @@ together with numbers.  In this list, it says::
 
      32)  Sony Alpha
 
-So, you enter "32 <RETURN>".  That's it.  Lensfun now offerst also A-mount
+So, you enter "32 <RETURN>".  That's it.  Lensfun now offers also A-mount
 lenses for E-mount cameras (all, by the way, not only for the NEX-7).
 
 Diagnostics:
 
 Status code 0 -- successful
             1 -- invalid command line arguments
-            2 -- error in interactive mode
+            2 -- invalid input in interactive mode
 """
 
 import os, sys, argparse

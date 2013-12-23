@@ -1,0 +1,10 @@
+The man pages are created from restructuredText files (extension .rst).  So
+please do not edit the man pages (extension .1).  Edit the rst files instead an
+call
+
+    rst2man xxx.1.rst > xxx.1
+
+rst2man is part of the package python3-docutils.
+
+The .1 file are included for convenience into the repository.  They may be
+removed someday, possiby along with this README file.
