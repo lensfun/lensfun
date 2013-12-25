@@ -10,7 +10,6 @@
 lfCamera::lfCamera ()
 {
     memset (this, 0, sizeof (*this));
-    CropFactor = 1.0;
 }
 
 lfCamera::~lfCamera ()
@@ -56,7 +55,7 @@ void lfCamera::SetMount (const char *val)
 
 bool lfCamera::Check ()
 {
-    if (!Maker || !Model || !Mount)
+    if (!Maker || !Model || !Mount || CropFactor <= 0)
         return false;
 
     return true;

@@ -4,12 +4,13 @@ title: Release 0.2.9
 layout: default
 ---
 
-Last update: SVN rev. 405
+Last update: SVN rev. 408
 
 * Streamlined the names of Nikkor lenses so that auto-detection works better
 * Fixed names of Sony Coolpix cameras
 * Comprehensive update of Lensfun's documentation
 * Lens lists may now be sorted by focal length
+* The <cropfactor> tag is now mandatory for <camera> and <lens> in the database files
 * Added command line tool "update-lensfun-data" for updating the database
 * Added command line tool "lensfun-add-adapter" for managing mount compatibilities
 * Removed compatibility of Four Third on Micro Four Third

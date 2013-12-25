@@ -769,7 +769,7 @@ struct LF_EXPORT lfLens
     float GreenCCI;
     /** Blue component of lens CCI */
     float BlueCCI;
-    /** Crop factor at which calibration measurements were taken. */
+    /** Crop factor at which calibration measurements were taken.  Must be defined. */
     float CropFactor;
     /** Aspect ratio of the images used for calibration measurements. */
     float AspectRatio;

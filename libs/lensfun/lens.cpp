@@ -112,7 +112,6 @@ lfLens::lfLens ()
     GreenCCI = 5;
     BlueCCI = 4;
     Type = LF_UNKNOWN;
-    CropFactor = 1.0;
     _lf_lens_regex_refs++;
 }
 
@@ -285,7 +284,7 @@ bool lfLens::Check ()
 {
     GuessParameters ();
 
-    if (!Model || !Mounts ||
+    if (!Model || !Mounts || CropFactor <= 0 ||
         MinFocal > MaxFocal || MinAperture > MaxAperture ||
         !isfinite(AspectRatio) || AspectRatio < 1)
         return false;
