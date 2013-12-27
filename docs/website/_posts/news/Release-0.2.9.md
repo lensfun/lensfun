@@ -4,7 +4,7 @@ title: Release 0.2.9
 layout: default
 ---
 
-Last update: SVN rev. 408
+Last update: SVN rev. 412
 
 * Streamlined the names of Nikkor lenses so that auto-detection works better
 * Fixed names of Sony Coolpix cameras
@@ -18,7 +18,9 @@ Last update: SVN rev. 408
 
 New/updated data for:
 
+* Canon EF 24-105mm f/4L IS USM
 * Canon EF 70-200mm f/2.8L IS II USM
+* Canon EF 70-200mm f/4L IS USM
 * Canon EF 100mm f/2.8L Macro IS USM
 * Nikkor 16-85mm f/3.5-5.6G AF-S ED VR DX
 * Nikkor AF-S 18-55mm f/3.5-5.6G DX VR
