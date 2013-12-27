@@ -90,7 +90,7 @@ extern "C" {
  */
 typedef char *lfMLstr;
 
-/** liblensdb error codes: negative codes are -errno, positive are here */
+/** liblensfun error codes: negative codes are -errno, positive are here */
 enum lfError
 {
     /** No error occured */
@@ -269,12 +269,12 @@ LF_EXPORT cbool lf_mount_check (lfMount *mount);
 /**
  * @brief Camera data.  Unknown fields are set to NULL.
  *
- * The Maker and Model fields must be filled EXACTLY as they appear in
- * the EXIF data, since this is the only means to detect camera automatically.
- * Some different cameras (e.g. Sony Cybershot) are using same EXIF id info
- * for different models, in which case the Variant field should contain
- * the exact model name, but, alas, we cannot automatically choose between
- * such "twin" cameras.
+ * The Maker and Model fields must be filled EXACTLY as they appear in the EXIF
+ * data, since this is the only means to detect camera automatically
+ * (upper/lowercase is not important, though).  Some different cameras
+ * (e.g. Sony Cybershot) are using same EXIF id info for different models, in
+ * which case the Variant field should contain the exact model name, but, alas,
+ * we cannot automatically choose between such "twin" cameras.
  */
 struct LF_EXPORT lfCamera
 {
@@ -412,7 +412,7 @@ LF_EXPORT cbool lf_camera_check (lfCamera *camera);
  */
 
 /**
- * @brief The lensdb library implements several lens distortion models.
+ * @brief The lensfun library implements several lens distortion models.
  * This enum lists them.
  *
  * Distortion usually heavily depends on the focal length, but does not depend
@@ -484,7 +484,7 @@ struct lfLensCalibDistortion
 C_TYPEDEF (struct, lfLensCalibDistortion)
 
 /**
- * @brief The lensdb library supports several models for lens lateral
+ * @brief The lensfun library supports several models for lens lateral
  * chromatic aberrations (also called transversal chromatic
  * aberrations, TCA).
  *
@@ -549,7 +549,7 @@ struct lfLensCalibTCA
 C_TYPEDEF (struct, lfLensCalibTCA)
 
 /**
- * @brief The lensdb library supports several models for lens vignetting
+ * @brief The lensfun library supports several models for lens vignetting
  * correction.
  *
  * We focus on optical and natural vignetting since they can be generalized for
@@ -1262,7 +1262,7 @@ struct LF_EXPORT lfDatabase
      * @brief Load the whole lens database.
      * 
      * This calls lf_load_file() for all XML files found in usual places
-     * (first /usr/share/lensdb/ then ~/.lensdb/).
+     * (first /usr/share/lensfun/ then ~/.local/share/lensfun/).
      * @return
      *     LF_NO_ERROR or a error code.
      */
@@ -1274,7 +1274,7 @@ struct LF_EXPORT lfDatabase
      * If the loaded file contains the specification of a camera/lens that's
      * already in memory, it overrides that data.
      * @param filename
-     *     The name of a XML file to load. Note that lensdb does not support
+     *     The name of a XML file to load. Note that lensfun does not support
      *     the full XML specification as it uses the glib's simple XML parser,
      *     so advanced XML features are not available.
      * @return

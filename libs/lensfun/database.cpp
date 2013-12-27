@@ -32,14 +32,17 @@ lfError lfDatabase::Load ()
 {
     gchar *dirs [10];
     const gchar *const *tmp;
+    // counts the length of dirs
     int ndirs = 0;
 
     dirs [ndirs++] = HomeDataDir;
+    /* static_ndirs is the index in dirs from where the strings are allocated
+     * by lensfun rather than other libraries. */
     int static_ndirs = ndirs;
 
 #ifdef CONF_DATADIR
-    /* check if there is a database in /var/lib/CONF_PACKAGE/
-       and omit CONF_DATADIR if files are present in this directory */
+    /* check if there is a database in /var/lib/CONF_PACKAGE/ and omit
+     * CONF_DATADIR if files are present in this directory */
     gchar *var_dirname = g_build_filename ("/var/lib", CONF_PACKAGE, NULL);
     GDir *var_dir = g_dir_open (var_dirname, 0, NULL);
     if (var_dir && g_dir_read_name (var_dir))
@@ -58,7 +61,9 @@ lfError lfDatabase::Load ()
     dirs [ndirs++] = _lf_get_database_dir ();
 #endif
 
-    /* add all system data directories, check for duplicates */
+    /* add all system data directories, check for duplicates, and that
+     * CONF_DATADIR is not among them (so that an existing /var/lib/lensfun is
+     * not overridden again) */
     for (tmp = g_get_system_data_dirs (); ndirs < 10 && *tmp; tmp++)
     {
         char *current_dir = g_build_filename (*tmp, CONF_PACKAGE, NULL);
@@ -215,6 +220,9 @@ static void _xml_start_element (GMarkupParseContext *context,
         if (!ctx || strcmp (ctx, "lensdatabase"))
             goto bad_ctx;
         pd->lens = new lfLens ();
+        // Set default values for lens database entries.  This way, they are
+        // still 0 (aka "unknown") for dummy lfLens instances created ad hoc
+        // for search matching.
         pd->lens->Type = LF_RECTILINEAR;
         pd->lens->AspectRatio = 1.5;
         goto chk_no_attrs;

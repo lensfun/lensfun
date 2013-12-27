@@ -240,6 +240,9 @@ extern int _lf_mlstrcmp (const char *s1, const lfMLstr s2);
 
 /**
  * @brief Comparison function for mount sorting and finding.
+ *
+ * Since this function is used when reading the database, it effectively
+ * enforces the primary key for mounts, which is their Name.
  * @param a
  *     A pointer to first lfMount object.
  * @param b
@@ -251,6 +254,10 @@ extern gint _lf_mount_compare (gconstpointer a, gconstpointer b);
 
 /**
  * @brief Comparison function for camera sorting and finding.
+ *
+ * Since this function is used when reading the database, it effectively
+ * enforces the primary key for cameras, which is the combination of the
+ * attributes Maker, Model, and Variant.
  * @param a
  *     A pointer to first lfCamera object.
  * @param b
@@ -262,6 +269,11 @@ extern gint _lf_camera_compare (gconstpointer a, gconstpointer b);
 
 /**
  * @brief Comparison function for lens sorting and finding.
+ *
+ * Since this function is used when reading the database, it effectively
+ * enforces the primary key for lenses, which is the combination of the
+ * attributes Maker, Model, all mounts, MinFocal, MaxFocal, MinAperture,
+ * CropFactor and AspectRatio.
  * @param a
  *     A pointer to first lfLens object.
  * @param b
@@ -272,7 +284,7 @@ extern gint _lf_camera_compare (gconstpointer a, gconstpointer b);
 extern gint _lf_lens_compare (gconstpointer a, gconstpointer b);
 
 /**
- * @brief Get a interpolated value.
+ * @brief Get an interpolated value.
  *
  * Currently this uses a kind of Catmull-Rom splines with linear
  * interpolation at the ends, allowing for non-evenly spaced values

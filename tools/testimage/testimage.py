@@ -77,7 +77,7 @@ parser = argparse.ArgumentParser(description="Generate test images for LensFun."
 parser.add_argument("lens_model_name", metavar="lens", help="Lens model name.  Must match an entry in LensFun's database exactly.")
 parser.add_argument("camera_model_name", metavar="camera",
                     help="Camera model name.  Must match an entry in LensFun's database exactly.")
-parser.add_argument("focal_length", metavar="focal length", type=float,
+parser.add_argument("focal_length", type=float,
                     help="Focal length in mm.  Must match an entry in LensFun's database exactly, no interpolation is done.")
 parser.add_argument("aperture", type=float,
                     help="Aperture in f-stops.  Must match an entry in LensFun's database exactly, no interpolation is done.")

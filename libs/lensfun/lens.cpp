@@ -107,6 +107,10 @@ static int _lf_lens_regex_refs = 0;
 
 lfLens::lfLens ()
 {
+    // Defaults for attributes are "unknown" (mostly 0).  Otherwise, ad hoc
+    // lfLens instances used for searches could not be matched against database
+    // lenses easily.  If you need defaults for database tags, set them when
+    // reading the database.
     memset (this, 0, sizeof (*this));
     //RedCCI = 0;
     GreenCCI = 5;
@@ -929,6 +933,8 @@ bool lfLens::InterpolateVignetting (
     for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
         res.Terms [i] = 0;
 
+    // Use http://en.wikipedia.org/wiki/Inverse_distance_weighting with
+    // p = 3.5.
     float total_weighting = 0;
     const float power = 3.5;
 

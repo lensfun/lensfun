@@ -9,6 +9,10 @@
 
 lfMount::lfMount ()
 {
+    // Defaults for attributes are "unknown" (mostly 0).  Otherwise, ad hoc
+    // lfLens instances used for searches could not be matched against database
+    // lenses easily.  If you need defaults for database tags, set them when
+    // reading the database.
     memset (this, 0, sizeof (*this));
 }
 
