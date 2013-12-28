@@ -1179,7 +1179,11 @@ static gint _lf_compare_lens_focal (gconstpointer a, gconstpointer b)
     lfLens *i1 = (lfLens *)a;
     lfLens *i2 = (lfLens *)b;
 
-    return i1->MinFocal - i2->MinFocal;
+    if (i1->MinFocal < i2->MinFocal) return -1;
+    if (i1->MinFocal > i2->MinFocal) return 1;
+    if (i1->MaxFocal < i2->MaxFocal) return -1;
+    if (i1->MaxFocal > i2->MaxFocal) return 1;
+    return 0;
 }
 
 static void _lf_add_compat_mounts (
