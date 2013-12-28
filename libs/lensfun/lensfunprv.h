@@ -268,6 +268,39 @@ extern gint _lf_mount_compare (gconstpointer a, gconstpointer b);
 extern gint _lf_camera_compare (gconstpointer a, gconstpointer b);
 
 /**
+ * @brief Comparison helper function for lens sorting and finding.
+ *
+ * This function compares the numerical parameters of the lenses: MinFocal,
+ * MaxFocal, and MinAperture, in this order.  Since it is not meant to be used
+ * as a sorting key function directly, it doesn't take generic pointers as
+ * parameters.  Instead, it is supposed to be used by such sorting key
+ * functions like _lf_lens_compare.
+ * @param i1
+ *     A pointer to first lfLens object.
+ * @param i2
+ *     A pointer to second lfLens object.
+ * @return
+ *     Positive if i1 > i2, negative if i1 < i2, zero if they are equal.
+ */
+extern gint _lf_lens_parameters_compare (const lfLens *i1, const lfLens *i2);
+
+/**
+ * @brief Comparison helper function for lens sorting and finding.
+ *
+ * This function compares the names of the lenses: Maker and Model, in this
+ * order.  Since it is not meant to be used as a sorting key function directly,
+ * it doesn't take generic pointers as parameters.  Instead, it is supposed to
+ * be used by such sorting key functions like _lf_lens_compare.
+ * @param i1
+ *     A pointer to first lfLens object.
+ * @param i2
+ *     A pointer to second lfLens object.
+ * @return
+ *     Positive if i1 > i2, negative if i1 < i2, zero if they are equal.
+ */
+extern gint _lf_lens_name_compare (const lfLens *i1, const lfLens *i2);
+
+/**
  * @brief Comparison function for lens sorting and finding.
  *
  * Since this function is used when reading the database, it effectively

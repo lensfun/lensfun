@@ -1176,14 +1176,16 @@ static gint _lf_compare_lens_score (gconstpointer a, gconstpointer b)
 
 static gint _lf_compare_lens_focal (gconstpointer a, gconstpointer b)
 {
+    // Actually, we not only sort by focal length, but by MinFocal, MaxFocal,
+    // MinAperature, Maker, and Model -- in this order of priorities.
     lfLens *i1 = (lfLens *)a;
     lfLens *i2 = (lfLens *)b;
 
-    if (i1->MinFocal < i2->MinFocal) return -1;
-    if (i1->MinFocal > i2->MinFocal) return 1;
-    if (i1->MaxFocal < i2->MaxFocal) return -1;
-    if (i1->MaxFocal > i2->MaxFocal) return 1;
-    return 0;
+    int cmp = _lf_lens_parameters_compare (i1, i2);
+    if (cmp != 0)
+        return cmp;
+
+    return _lf_lens_name_compare (i1, i2);
 }
 
 static void _lf_add_compat_mounts (

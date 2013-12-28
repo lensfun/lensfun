@@ -1109,28 +1109,9 @@ bool lfLens::InterpolateFov (float focal, lfLensCalibFov &res) const
     return true;
 }
 
-gint _lf_lens_compare (gconstpointer a, gconstpointer b)
+gint _lf_lens_parameters_compare (const lfLens *i1, const lfLens *i2)
 {
-    int i;
-    lfLens *i1 = (lfLens *)a;
-    lfLens *i2 = (lfLens *)b;
-
-    int cmp = _lf_strcmp (i1->Maker, i2->Maker);
-    if (cmp != 0)
-        return cmp;
-
-    cmp = _lf_strcmp (i1->Model, i2->Model);
-    if (cmp != 0)
-        return cmp;
-
-    for (i = 0; i1->Mounts [i] || i2->Mounts [i]; i++)
-    {
-        cmp = _lf_strcmp (i1->Mounts [i], i2->Mounts [i]);
-        if (cmp != 0)
-            return cmp;
-    }
-
-    cmp = int ((i1->MinFocal - i2->MinFocal) * 100);
+    int cmp = int ((i1->MinFocal - i2->MinFocal) * 100);
     if (cmp != 0)
         return cmp;
 
@@ -1138,15 +1119,40 @@ gint _lf_lens_compare (gconstpointer a, gconstpointer b)
     if (cmp != 0)
         return cmp;
 
-    cmp = int ((i1->MinAperture - i2->MinAperture) * 100);
-    if (cmp != 0)
-        return cmp;
+    return int ((i1->MinAperture - i2->MinAperture) * 100);
 
     // MaxAperture is usually not given in database...
     // so it's a guessed value, often incorrect.
-    //cmp = int ((i1->MaxAperture - i2->MaxAperture) * 100);
-    //if (cmp != 0)
-    //    return cmp;
+}
+
+gint _lf_lens_name_compare (const lfLens *i1, const lfLens *i2)
+{
+    int cmp = _lf_strcmp (i1->Maker, i2->Maker);
+    if (cmp != 0)
+        return cmp;
+
+    return _lf_strcmp (i1->Model, i2->Model);
+}
+
+gint _lf_lens_compare (gconstpointer a, gconstpointer b)
+{
+    lfLens *i1 = (lfLens *)a;
+    lfLens *i2 = (lfLens *)b;
+
+    int cmp = _lf_lens_name_compare (i1, i2);
+    if (cmp != 0)
+        return cmp;
+
+    for (int i = 0; i1->Mounts [i] || i2->Mounts [i]; i++)
+    {
+        cmp = _lf_strcmp (i1->Mounts [i], i2->Mounts [i]);
+        if (cmp != 0)
+            return cmp;
+    }
+
+    cmp = _lf_lens_parameters_compare (i1, i2);
+    if (cmp != 0)
+        return cmp;
 
     cmp = int ((i1->CropFactor - i2->CropFactor) * 100);
     if (cmp != 0)
