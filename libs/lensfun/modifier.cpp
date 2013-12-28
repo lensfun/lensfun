@@ -47,17 +47,11 @@ int lfModifier::Initialize (
                 oflags |= LF_MODIFY_DISTORTION;
     }
 
-    // Multiply focal length by lens crop for geometry modifications as these use a different
-    // coordinate system. Usually the pixel coordinates are divided by lens crop and scaled by
-    // camera crop. Geometry modification coordinates are only scaled by camera crop. So multiplying
-    // focal length by lens crop compensates this.
-    double focal_with_lens_crop = lens && lens->CropFactor ? focal * lens->CropFactor : focal;
-
     if (flags & LF_MODIFY_GEOMETRY &&
         lens->Type != targeom)
         if (reverse ?
-            AddCoordCallbackGeometry (targeom, lens->Type, focal_with_lens_crop) :
-            AddCoordCallbackGeometry (lens->Type, targeom, focal_with_lens_crop))
+            AddCoordCallbackGeometry (targeom, lens->Type, focal) :
+            AddCoordCallbackGeometry (lens->Type, targeom, focal))
             oflags |= LF_MODIFY_GEOMETRY;
 
     if (flags & LF_MODIFY_SCALE &&
@@ -88,19 +82,29 @@ lfExtModifier::lfExtModifier (const lfLens *lens, float crop, int width, int hei
     // Image "size"
     float size = float ((Width < Height) ? Width : Height);
 
+    // In NormalizedInMillimeters, we un-do all factors of
+    // coordinate_correction that refer to the calibration sensor because
+    // NormalizedInMillimeters refers only to the image sensor.
+    NormalizedInMillimeters = sqrt(36.0*36.0 + 24.0*24.0) / 2.0;
     float coordinate_correction = 1;
     // Take crop factor into account
-    if (lens && lens->CropFactor)
+    if (lens && lens->CropFactor) {
         coordinate_correction *= crop / lens->CropFactor;
+        NormalizedInMillimeters /= lens->CropFactor;
+    }
 
     // Take aspect ratio into account
     if (lens && lens->AspectRatio)
     {
         float image_aspect_ratio = (Width < Height) ?
             float (Height) / float (Width) : float (Width) / float (Height);
+        float image_aspect_ratio_correction =
+            sqrt (image_aspect_ratio * image_aspect_ratio + 1);
+        float calibration_aspect_ratio_correction =
+            sqrt (lens->AspectRatio * lens->AspectRatio + 1);
         coordinate_correction *=
-            sqrt ((image_aspect_ratio * image_aspect_ratio + 1) /
-                  (lens->AspectRatio * lens->AspectRatio + 1));
+            image_aspect_ratio_correction / calibration_aspect_ratio_correction;
+        NormalizedInMillimeters /= calibration_aspect_ratio_correction;
     }
 
     // The scale to transform {-size/2 .. 0 .. size/2-1} to {-1 .. 0 .. +1}

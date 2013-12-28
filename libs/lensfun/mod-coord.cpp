@@ -215,10 +215,9 @@ bool lfModifier::AddCoordCallbackScale (float scale, bool reverse)
 
 bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float focal)
 {
+    lfExtModifier *This = static_cast<lfExtModifier *> (this);
     float tmp [2];
-    // The magic "12" is half of 36mm frame height
-    // (which is 1.0 in our normalized coordinates)
-    tmp [0] = focal / 12.0;
+    tmp [0] = focal / This->NormalizedInMillimeters;
     tmp [1] = 1.0 / tmp [0];
 
     if(from == to)

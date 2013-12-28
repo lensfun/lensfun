@@ -540,6 +540,9 @@ struct lfExtModifier : public lfModifier
     double CenterX, CenterY;
     /// The coefficients for conversion to and from normalized coords
     double NormScale, NormUnScale;
+    /// Factor to transform from normalized into absolute coords (mm).  Needed
+    /// for geometry transformation.
+    double NormalizedInMillimeters;
 
     /// A list of subpixel coordinate modifier callbacks.
     GPtrArray *SubpixelCallbacks;
