@@ -114,8 +114,8 @@ lfExtModifier::lfExtModifier (const lfLens *lens, float crop, int width, int hei
     NormUnScale = (size - 1) * 0.5 * coordinate_correction;
 
     // Geometric lens center in normalized coordinates
-    CenterX = Width / size / coordinate_correction + (lens ? lens->CenterX : 0.0);
-    CenterY = Height / size / coordinate_correction + (lens ? lens->CenterY : 0.0);
+    CenterX = (Width / size + (lens ? lens->CenterX : 0.0)) / coordinate_correction;
+    CenterY = (Height / size + (lens ? lens->CenterY : 0.0)) / coordinate_correction;
 }
 
 static void free_callback_list (GPtrArray *arr)
