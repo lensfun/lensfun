@@ -46,4 +46,19 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 60mm f/2.8 DN</model>
+        <mount>Sony E</mount>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with OMD E-M5 -->
+            <distortion model="poly3" focal="60" k1="0.00275" />
+            <!-- No measurable TCA -->
+            <tca model="poly3" focal="60" />
+        </calibration>
+    </lens>
+
 </lensdatabase>

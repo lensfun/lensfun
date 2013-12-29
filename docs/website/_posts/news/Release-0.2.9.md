@@ -57,6 +57,7 @@ New interchangeable lenses:
 * Sigma 19mm f/2.8 EX DN
 * Sigma 30mm f/2.8 EX DN
 * Sigma 50-150mm f/2.8 APO EX DC HSM II
+* Sigma 60mm f/2.8 DN
 * Sigma 70-200mm f/2.8 EX DG Macro HSM II
 * Sigma 100-300mm f/4 APO EX DG HSM
 * Tamron 18-200mm f/3.5-6.3 XR Di II LD
