@@ -69,6 +69,61 @@ void lfModifier::Destroy ()
 
 //---------------------------------------------------------------------------//
 
+/*
+  About coordinate systems in lensfun
+
+  Lensfun uses three coordinate systems.  In all of them, the centre of the
+  image is the origin.  There is a single coordinate "r" which is the distance
+  from the origin.
+
+  (1) For scaling, distortion, and TCA correction, the so-called "normalised"
+      coordinate system is used.  r = 1 is the middle of the long edge, in
+      other words, the half height of the image (in landscape mode).
+
+  (2) For vignetting, r = 1 is the corner of the image.
+
+  (3) For geometry transformation, the unit length is the focal length.
+
+  The constructor lfExtModifier::lfExtModifier is the central method that
+  handles the coordinate systems.  It does so by providing the scaling factors
+  between them: NormScale (and NormUnScale = 1/NormScale),
+  NormalizedInMillimeters, and AspectRatioCorrection.
+
+  Have a look at lfModifier::ApplySubpixelGeometryDistortion to see the
+  coordinate systems (1) and (3) in action.  First, the original pixel
+  coordinates are converted into (1) by multiplying by NormScale.  Then,
+  scaling, geometry transformation, un-distortion, and un-TCA are performed, in
+  this order.  Remember that this means that the coordinates are *distorted*,
+  to make a proper lookup in the uncorrected, original bitmap.  For this to
+  work, the coordinates are finally divided by NormScale again.  Done.
+
+  But the devil is in the details.  Geometry transformation has to happen in
+  (3), so for only this step, all coordinates are scaled by focal /
+  NormalizedInMillimeters in lfModifier::AddCoordCallbackGeometry.  Moreover,
+  it is important to see that the conversion into (1) is pretty irrelevant.
+  (It is performed for that the resulting image is not ridiculously small; but
+  this could also be achieved with proper auto-scaling.)  Instead, really
+  critical is only the *back-transformation* from (1) into the pixel coordinate
+  system of the uncorrected, original bitmap.  This must be exactly correct.
+  Otherwise, the strength of correction does not match with the position in the
+  picture, and the correction cannot work.
+
+  And then there is vignetting.  All callbacks work in (1), and vignetting,
+  being the only colour modification so far, also gets its coordinates in (1).
+  Thus, lfModifier::AddColorCallbackVignetting appends two more floats to the
+  array of vignetting parameters for conversion into (2).
+
+  Sometimes, a calibration is used that was made with another sensor size,
+  i.e. different crop factor and/or aspect ratio.  Then, coordinate_correction
+  in the following routine is different from 1.  It maps coordinates from (1)
+  of the image sensor to (1) of the calibration sensor.  It is a product of
+  three components: Converting to (2) of the image sensor, scaling by the ratio
+  of the cropfactors to (2) of the calibration sensor, and finally converting
+  to (1) of the calibration sensor.  The detour via (2) is necessary because
+  crop factors are defined by the sensor diagonal, as is (2).
+
+*/
+
 lfExtModifier::lfExtModifier (const lfLens *lens, float crop, int width, int height)
 {
     SubpixelCallbacks = g_ptr_array_new ();
