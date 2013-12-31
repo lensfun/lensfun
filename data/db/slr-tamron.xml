@@ -2,8 +2,8 @@
 
     <lens>
         <maker>Tamron</maker>
-	    <model>Tamron SP AF 10-24mm f/3.5-4.5 Di II LD Aspherical IF</model>
-	    <mount>Canon EF</mount>
+        <model>Tamron SP AF 10-24mm f/3.5-4.5 Di II LD Aspherical (IF)</model>
+        <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <mount>Sony Alpha</mount>
@@ -25,7 +25,7 @@
 
     <lens>
         <maker>Tamron</maker>
-        <model>Tamron 17-35mm f/2.8-4 Di LD</model>
+        <model>Tamron SP AF 17-35mm f/2.8-4 Di LD Aspherical (IF)</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
@@ -49,7 +49,7 @@
 
     <lens>
         <maker>Tamron</maker>
-        <model>Tamron SP AF 17-50mm f/2.8 XR Di II LD Aspherical IF</model>
+        <model>Tamron SP AF 17-50mm f/2.8 XR Di II LD Aspherical (IF)</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
@@ -69,7 +69,7 @@
 
     <lens>
         <maker>Tamron</maker>
-        <model>Tamron 18-200mm f/3.5-6.3 XR Di II LD</model>
+        <model>Tamron AF 18-200mm f/3.5-6.3 XR Di II LD Aspherical (IF) Macro</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
@@ -90,7 +90,7 @@
 
     <lens>
         <maker>Tamron</maker>
-        <model>Tamron 18-200mm f/3.5-6.3 XR Di II LD</model>
+        <model>Tamron AF 18-200mm f/3.5-6.3 XR Di II LD Aspherical (IF) Macro</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
@@ -112,7 +112,7 @@
 
     <lens>
         <maker>Tamron</maker>
-        <model>Tamron AF 18-250mm f/3.5-6.3 Di II LD Aspherical IF Macro</model>
+        <model>Tamron AF 18-250mm f/3.5-6.3 Di II LD Aspherical (IF) Macro</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
@@ -147,7 +147,7 @@
 
     <lens>
         <maker>Tamron</maker>
-        <model>Tamron 19-35mm f/3.5-4.5</model>
+        <model>Tamron AF 19-35mm f/3.5-4.5</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
@@ -180,7 +180,7 @@
 
     <lens>
         <maker>Tamron</maker>
-        <model>Tamron SP 24-135mm f/3.5-5.6 AD</model>
+        <model>Tamron SP AF 24-135mm f/3.5-5.6 AD Aspherical (IF) Macro</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
@@ -201,7 +201,7 @@
 
     <lens>
         <maker>Tamron</maker>
-        <model>Tamron SP AF 28-75mm f/2.8 XR Di (A09)</model>
+        <model>Tamron SP AF 28-75mm f/2.8 XR Di LD Aspherical (IF) Macro</model>
         <model lang="en">Tamron SP AF 28-75mm f/2.8 XR Di</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
@@ -220,7 +220,7 @@
 
     <lens>
         <maker>Tamron</maker>
-        <model>Tamron SP 28-105mm f/2.8 LD IF</model>
+        <model>Tamron SP AF 28-105mm f/2.8 LD Aspherical IF</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
@@ -240,7 +240,7 @@
 
     <lens>
         <maker>Tamron</maker>
-        <model>Tamron 28-300mm f/3.5-6.3 XR Di LD</model>
+        <model>Tamron AF 28-300mm f/3.5-6.3 XR Di LD Aspherical (IF)</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
@@ -260,6 +260,7 @@
 
     <lens>
         <maker>Tamron</maker>
+        <!-- Very old manual lens, so don't look for real EXIF names. -->
         <model>Tamron 35-70mm f/3.5 CF Macro</model>
         <mount>Nikon F</mount>
         <mount>Pentax K</mount>
@@ -269,31 +270,31 @@
             <distortion model="ptlens" focal="40" a="0.0012" b="-0.00676" c="0.00204" />
             <distortion model="ptlens" focal="50" a="-0.00143" b="0.00459" c="-0.00465" />
             <distortion model="poly3" focal="70" k1="0.00233" />
-	        <tca model="poly3" focal="35" br="-0.00004" vr="1.00018" bb="0.00007" vb="0.999835" />
-	        <tca model="poly3" focal="40" br="-0.00003" vr="1.00011" bb="0.000021" vb="0.999909" />
+            <tca model="poly3" focal="35" br="-0.00004" vr="1.00018" bb="0.00007" vb="0.999835" />
+            <tca model="poly3" focal="40" br="-0.00003" vr="1.00011" bb="0.000021" vb="0.999909" />
             <tca model="poly3" focal="50" br="-0.0000088" vr="1.0000432" bb="0.0000117" vb="0.9999312" />
             <tca model="poly3" focal="70" br="-0.0000079" vr="1.0000614" bb="-0.0000911" vb="1.000192" />
             <vignetting model="pa" focal="40" aperture="11" distance="1000" k1="-0.11121" k2="0.08366" k3="-0.10313" />
             <vignetting model="pa" focal="35" aperture="11" distance="1000" k1="-0.07601" k2="0.00922" k3="-0.04755" />
-	        <vignetting model="pa" focal="70" aperture="11" distance="1000" k1="-0.25218" k2="0.278" k3="-0.15618" />
+            <vignetting model="pa" focal="70" aperture="11" distance="1000" k1="-0.25218" k2="0.278" k3="-0.15618" />
             <vignetting model="pa" focal="50" aperture="11" distance="1000" k1="-0.21197" k2="-0.08795" k3="0.07518" />
         </calibration>
     </lens>
 
     <lens>
         <maker>Tamron</maker>
-        <model>Tamron AF 70-300mm f/4-5.6 LD Macro</model>
+        <model>Tamron AF 70-300mm f/4-5.6 LD Macro 1:2</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF2</mount>
         <mount>Sony Alpha</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
-	        <distortion model="ptlens" focal="70" a="0.00168" b="-0.00649" c="0.0021" />
- 	        <distortion model="ptlens" focal="100" a="-0.00287" b="0.01075" c="-0.00716" />
-	        <distortion model="ptlens" focal="133" a="0.00404" b="-0.0061" c="0.00845" />
-	        <distortion model="ptlens" focal="180" a="0.0" b="0.00388" c="0.0" />
-	        <distortion model="ptlens" focal="300" a="0.0" b="0.00442" c="0.0" />
+            <distortion model="ptlens" focal="70" a="0.00168" b="-0.00649" c="0.0021" />
+            <distortion model="ptlens" focal="100" a="-0.00287" b="0.01075" c="-0.00716" />
+            <distortion model="ptlens" focal="133" a="0.00404" b="-0.0061" c="0.00845" />
+            <distortion model="ptlens" focal="180" a="0.0" b="0.00388" c="0.0" />
+            <distortion model="ptlens" focal="300" a="0.0" b="0.00442" c="0.0" />
             <tca model="poly3" focal="70" br="-0.0000487" vr="1.0002053" bb="0.0000352" vb="0.9998612" />
             <tca model="poly3" focal="100" br="-0.0000402" vr="1.0000889" bb="0.0000026" vb="0.9998133" />
             <tca model="poly3" focal="133" br="-0.0000210" vr="0.9999776" bb="0.0000067" vb="0.9998469" />
@@ -347,18 +348,17 @@
     </lens>
 
     <lens>
-	    <maker>Tamron</maker>
-	    <model>Tamron SP AF 90mm f/2.8 (172E)</model>
-	    <model lang="en">Tamron SP AF 90mm f/2.8</model>
-	    <focal value="90" />
-	    <aperture min="2.8" max="32"/>
-	    <mount>Nikon F AF</mount>
+            <maker>Tamron</maker>
+            <model>Tamron SP AF 90mm f/2.8 Di Macro 1:1</model>
+            <focal value="90" />
+            <aperture min="2.8" max="32"/>
+            <mount>Nikon F AF</mount>
         <mount>Canon EF</mount>
         <mount>Pentax KAF2</mount>
         <mount>Sony Alpha</mount>
-	    <cropfactor>1.5</cropfactor>
-	    <calibration>
-	        <distortion focal="90" model="ptlens" a="-0.00126953" b="0.00404399" c="-0.0027782" />
+            <cropfactor>1.5</cropfactor>
+            <calibration>
+                <distortion focal="90" model="ptlens" a="-0.00126953" b="0.00404399" c="-0.0027782" />
             <tca model="poly3" focal="90" br="-0.0000152" vr="1.0000471" bb="-0.0000061" vb="0.9998509" />
             <vignetting model="pa" focal="90" aperture="2.8" distance="0.29" k1="0.0414" k2="-0.1677" k3="0.1199" />
             <vignetting model="pa" focal="90" aperture="2.8" distance="0.6" k1="-0.0576" k2="-0.2887" k3="0.2065" />
@@ -380,8 +380,8 @@
             <vignetting model="pa" focal="90" aperture="32" distance="0.6" k1="-0.1223" k2="0.1561" k3="-0.0806" />
             <vignetting model="pa" focal="90" aperture="32" distance="1.5" k1="-0.0777" k2="0.0766" k3="-0.0380" />
             <vignetting model="pa" focal="90" aperture="32" distance="1000" k1="-0.0557" k2="0.0276" k3="-0.0118" />
-	        <field_of_view focal="90" fov="15.1702" />
-	    </calibration>
+            <field_of_view focal="90" fov="15.1702" />
+            </calibration>
     </lens>
 
 </lensdatabase>
