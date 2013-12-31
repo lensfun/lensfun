@@ -55,10 +55,10 @@ def seconds_since_epoch():
 
 
 def detect_local_timestamp():
-    for path in ["/var/lib/", "/usr/local/share/", "/usr/share/"]:
-        filepath = path + "lensfun/timestamp.txt"
-        if os.path.exists(filepath):
-            return int(open(filepath).read())
+    try:
+        return int(open("/var/lib/lensfun/timestamp.txt").read())
+    except (FileNotFoundError, ValueError):
+        pass
     return 0
 local_timestamp = detect_local_timestamp()
 
