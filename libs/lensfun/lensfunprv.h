@@ -543,6 +543,9 @@ struct lfExtModifier : public lfModifier
     /// Factor to transform from normalized into absolute coords (mm).  Needed
     /// for geometry transformation.
     double NormalizedInMillimeters;
+    /// Used for conversion from distortion to vignetting coordinate system of
+    /// the calibration sensor
+    double AspectRatioCorrection;
 
     /// A list of subpixel coordinate modifier callbacks.
     GPtrArray *SubpixelCallbacks;

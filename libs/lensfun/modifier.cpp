@@ -136,41 +136,38 @@ lfExtModifier::lfExtModifier (const lfLens *lens, float crop, int width, int hei
 
     // Image "size"
     float size = float ((Width < Height) ? Width : Height);
+    float image_aspect_ratio = (Width < Height) ?
+        float (Height) / float (Width) : float (Width) / float (Height);
+
+    float calibration_cropfactor;
+    if (lens)
+    {
+        calibration_cropfactor = lens->CropFactor;
+        AspectRatioCorrection = sqrt (lens->AspectRatio * lens->AspectRatio + 1);
+    }
+    else
+        AspectRatioCorrection = calibration_cropfactor = NAN;
+
+    float coordinate_correction =
+        1.0 / sqrt (image_aspect_ratio * image_aspect_ratio + 1) *
+        calibration_cropfactor / crop *
+        AspectRatioCorrection;
 
     // In NormalizedInMillimeters, we un-do all factors of
     // coordinate_correction that refer to the calibration sensor because
-    // NormalizedInMillimeters refers only to the image sensor.
-    NormalizedInMillimeters = sqrt(36.0*36.0 + 24.0*24.0) / 2.0;
-    float coordinate_correction = 1;
-    // Take crop factor into account
-    if (lens && lens->CropFactor) {
-        coordinate_correction *= crop / lens->CropFactor;
-        NormalizedInMillimeters /= lens->CropFactor;
-    }
-
-    // Take aspect ratio into account
-    if (lens && lens->AspectRatio)
-    {
-        float image_aspect_ratio = (Width < Height) ?
-            float (Height) / float (Width) : float (Width) / float (Height);
-        float image_aspect_ratio_correction =
-            sqrt (image_aspect_ratio * image_aspect_ratio + 1);
-        float calibration_aspect_ratio_correction =
-            sqrt (lens->AspectRatio * lens->AspectRatio + 1);
-        coordinate_correction *=
-            image_aspect_ratio_correction / calibration_aspect_ratio_correction;
-        NormalizedInMillimeters /= calibration_aspect_ratio_correction;
-    }
+    // NormalizedInMillimeters is supposed to transform to image coordinates.
+    NormalizedInMillimeters = sqrt(36.0*36.0 + 24.0*24.0) / 2.0 /
+        AspectRatioCorrection / calibration_cropfactor;
 
     // The scale to transform {-size/2 .. 0 .. size/2-1} to {-1 .. 0 .. +1}
-    NormScale = 2.0 / (size - 1) / coordinate_correction;
+    NormScale = 2.0 / (size - 1) * coordinate_correction;
 
     // The scale to transform {-1 .. 0 .. +1} to {-size/2 .. 0 .. size/2-1}
-    NormUnScale = (size - 1) * 0.5 * coordinate_correction;
+    NormUnScale = (size - 1) * 0.5 / coordinate_correction;
 
     // Geometric lens center in normalized coordinates
-    CenterX = (Width / size + (lens ? lens->CenterX : 0.0)) / coordinate_correction;
-    CenterY = (Height / size + (lens ? lens->CenterY : 0.0)) / coordinate_correction;
+    CenterX = (Width / size + (lens ? lens->CenterX : 0.0)) * coordinate_correction;
+    CenterY = (Height / size + (lens ? lens->CenterY : 0.0)) * coordinate_correction;
 }
 
 static void free_callback_list (GPtrArray *arr)

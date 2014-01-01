@@ -35,9 +35,8 @@ bool lfModifier::AddColorCallbackVignetting (
     // for vignetting it uses 1.0 = half diagonal length. We have
     // to compute a transition coefficient as lfModifier works in
     // the first coordinate system.
-    double ns = 2.0 / sqrt (float (square (This->Width) + square (This->Height)));
-    tmp [3] = ns;
-    tmp [4] = ns / This->NormScale;
+    tmp [3] = This->NormScale / This->AspectRatioCorrection;
+    tmp [4] = 1.0 / This->AspectRatioCorrection;
 
     if (reverse)
         switch (model.Model)
