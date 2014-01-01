@@ -153,6 +153,18 @@ typedef struct
     size_t stack_depth;
 } lfParserData;
 
+static bool __chk_no_attrs(const gchar *element_name, const gchar **attribute_names,
+                           GError **error)
+{
+    if (attribute_names [0])
+    {
+        g_set_error (error, G_MARKUP_ERROR, G_MARKUP_ERROR_UNKNOWN_ATTRIBUTE,
+                     "The <%s> element cannot have any attributes!\n", element_name);
+        return false;
+    }
+    return true;
+}
+
 static void _xml_start_element (GMarkupParseContext *context,
                                 const gchar         *element_name,
                                 const gchar        **attribute_names,
@@ -185,12 +197,17 @@ static void _xml_start_element (GMarkupParseContext *context,
             return;
         }
 
-    chk_no_attrs:
-        if (attribute_names [0])
+        int version = 1;
+        for (i = 0; attribute_names [i]; i++)
+            if (!strcmp (attribute_names [i], "version"))
+                version = atoi (attribute_values [i]);
+            else
+                goto bad_attr;
+        if (version > LF_MAX_DATABASE_VERSION)
         {
-            g_set_error (error, G_MARKUP_ERROR, G_MARKUP_ERROR_UNKNOWN_ATTRIBUTE,
-                         "The <%s> element cannot have any attributes!\n",
-                         element_name);
+            g_set_error (error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
+                         "Database version is %d, but supported is only %d!\n",
+                         version, LF_MAX_DATABASE_VERSION);
             return;
         }
     }
@@ -199,12 +216,14 @@ static void _xml_start_element (GMarkupParseContext *context,
         if (ctx && !strcmp (ctx, "lensdatabase"))
         {
             pd->mount = new lfMount ();
-            goto chk_no_attrs;
+            if (!__chk_no_attrs(element_name, attribute_names, error)) return;
         }
         else if (ctx &&
                  (!strcmp (ctx, "camera") ||
                   !strcmp (ctx, "lens")))
-            goto chk_no_attrs;
+        {
+            if (!__chk_no_attrs(element_name, attribute_names, error)) return;
+        }
         else
             goto bad_ctx;
     }
@@ -213,7 +232,7 @@ static void _xml_start_element (GMarkupParseContext *context,
         if (!ctx || strcmp (ctx, "lensdatabase"))
             goto bad_ctx;
         pd->camera = new lfCamera ();
-        goto chk_no_attrs;
+        if (!__chk_no_attrs(element_name, attribute_names, error)) return;
     }
     else if (!strcmp (element_name, "lens"))
     {
@@ -225,7 +244,7 @@ static void _xml_start_element (GMarkupParseContext *context,
         // for search matching.
         pd->lens->Type = LF_RECTILINEAR;
         pd->lens->AspectRatio = 1.5;
-        goto chk_no_attrs;
+        if (!__chk_no_attrs(element_name, attribute_names, error)) return;
     }
     else if (!strcmp (element_name, "focal"))
     {
@@ -289,13 +308,13 @@ static void _xml_start_element (GMarkupParseContext *context,
     {
         if (!ctx || strcmp (ctx, "lens") || !pd->lens)
             goto bad_ctx;
-        goto chk_no_attrs;
+        if (!__chk_no_attrs(element_name, attribute_names, error)) return;
     }
     else if (!strcmp (element_name, "calibration"))
     {
         if (!ctx || strcmp (ctx, "lens"))
             goto bad_ctx;
-        goto chk_no_attrs;
+        if (!__chk_no_attrs(element_name, attribute_names, error)) return;
     }
     else if (!strcmp (element_name, "distortion"))
     {
@@ -495,7 +514,9 @@ static void _xml_start_element (GMarkupParseContext *context,
     else if (!strcmp (element_name, "compat") ||
              !strcmp (element_name, "cropfactor") ||
              !strcmp (element_name, "aspect-ratio"))
-        goto chk_no_attrs;
+    {
+        if (!__chk_no_attrs(element_name, attribute_names, error)) return;
+    }
     else
         g_set_error (error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
                      "Unknown element <%s>!\n", element_name);
