@@ -11,10 +11,10 @@
 #include <intrin.h>
 guint _lf_detect_cpu_features ()
 {
-    static GStaticMutex lock = G_STATIC_MUTEX_INIT;
+    static GMutex lock;
     static guint cpuflags = -1;
 
-    g_static_mutex_lock (&lock);
+    g_mutex_lock (&lock);
     if (cpuflags == (guint)-1)
     {
         cpuflags = 0;
@@ -58,23 +58,23 @@ guint _lf_detect_cpu_features ()
             };
         };
     };
-    g_static_mutex_unlock (&lock);
+    g_mutex_unlock (&lock);
 
     return cpuflags;
 };
 #else
 #if defined (__i386__) || defined (__x86_64__)
 
-#if defined (__i386__)
-#  define R_AX	"eax"
-#  define R_BX	"ebx"
-#  define R_CX	"ecx"
-#  define R_DX	"edx"
-#elif defined (__x86_64__)
+#ifdef __x86_64__
 #  define R_AX	"rax"
 #  define R_BX	"rbx"
 #  define R_CX	"rcx"
 #  define R_DX	"rdx"
+#else
+#  define R_AX	"eax"
+#  define R_BX	"ebx"
+#  define R_CX	"ecx"
+#  define R_DX	"edx"
 #endif
 
 // Borrowed from RawStudio
@@ -88,11 +88,16 @@ guint _lf_detect_cpu_features ()
        : "=a" (ax), "=c" (cx),  "=d" (dx) \
        : "0" (cmd))
 
-    __SIZE_TYPE__ ax, cx, dx, tmp;
-    static GStaticMutex lock = G_STATIC_MUTEX_INIT;
+#ifdef __x86_64__
+    guint64 ax, cx, dx, tmp;
+#else
+    guint32 ax, cx, dx, tmp;
+#endif
+
+    static GMutex lock;
     static guint cpuflags = -1;
 
-    g_static_mutex_lock (&lock);
+    g_mutex_lock (&lock);
     if (cpuflags == (guint)-1)
     {
         cpuflags = 0;
@@ -158,7 +163,7 @@ guint _lf_detect_cpu_features ()
             }
         }
     }
-    g_static_mutex_unlock (&lock);
+    g_mutex_unlock (&lock);
 
     return cpuflags;
 
