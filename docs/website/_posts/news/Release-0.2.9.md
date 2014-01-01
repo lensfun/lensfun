@@ -67,6 +67,7 @@ New interchangeable lenses:
 
 New compact cameras:
 
+* Canon PowerShot SX220 HS
 * Fujifilm FinePix F770EXR
 * Fujifilm FinePix HS20EXR
 * Panasonic Lumix DMC-LX7

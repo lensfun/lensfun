@@ -646,6 +646,14 @@
         <cropfactor>5.62</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot SX220 HS</model>
+        <model lang="en">PowerShot SX220 HS</model>
+        <mount>canonSX220HS</mount>
+        <cropfactor>5.6</cropfactor>
+    </camera>
+
     <lens>
         <maker>Canon</maker>
         <model>Standard</model>
@@ -1284,6 +1292,54 @@
             <tca model="poly3" focal="38.1" br="-0.0000047" vr="0.9998767" bb="-0.0000423" vb="0.9999487" />
             <tca model="poly3" focal="47.4" br="-0.0000220" vr="0.9998718" bb="-0.0000519" vb="0.9999109" />
             <tca model="poly3" focal="60" br="-0.0000047" vr="0.9997923" bb="-0.0000699" vb="0.9998986" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Standard (CHDK's DNG)</model>
+        <mount>canonSX220HS</mount>
+        <cropfactor>5.6</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="5" a="0.02746" b="-0.1202" c="0.01599" />
+            <distortion model="ptlens" focal="5.6" a="0.02357" b="-0.10154" c="0.00125" />
+            <distortion model="ptlens" focal="6.1" a="0.01844" b="-0.08194" c="0.00145" />
+            <distortion model="ptlens" focal="7" a="0.01068" b="-0.05292" c="-0.00089" />
+            <distortion model="ptlens" focal="9.2" a="0.00078" b="-0.01168" c="-0.01592" />
+            <distortion model="ptlens" focal="11.5" a="0.00335" b="-0.01376" c="-0.00191" />
+            <distortion model="ptlens" focal="14.7" a="0.00628" b="-0.02587" c="0.02812" />
+            <distortion model="ptlens" focal="27.2" a="0.00104" b="-0.00722" c="0.01207" />
+            <distortion model="ptlens" focal="49.2" a="0.00194" b="-0.01058" c="0.01279" />
+            <distortion model="ptlens" focal="70" a="-0.00025" b="0.00848" c="-0.00985" />
+            <tca model="poly3" focal="5" vr="1.00035" vb="1.00052" />
+            <tca model="poly3" focal="5.6" vr="1.00044" vb="1.00053" />
+            <tca model="poly3" focal="6.1" vr="1.0003" vb="1.0003" />
+            <tca model="poly3" focal="7" vr="1.0005" vb="1.0005" />
+            <tca model="poly3" focal="9.2" vr="1.0005" vb="1.0004" />
+            <tca model="poly3" focal="11.5" vr="1.0005" vb="1.0002" />
+            <tca model="poly3" focal="14.7" vr="1.0005" vb="1.0001" />
+            <tca model="poly3" focal="27.2" vr="1.0003" vb="0.9996" />
+            <tca model="poly3" focal="49.2" vr="1.0000" vb="0.9990" />
+            <tca model="poly3" focal="70" vr="0.9996" vb="0.9986" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Standard</model>
+        <mount>canonSX220HS</mount>
+        <cropfactor>5.6</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="poly3" focal="5" k1="-0.00538" />
+            <distortion model="poly3" focal="5.6" k1="-0.01139" />
+            <distortion model="poly3" focal="6.1" k1="-0.01057" />
+            <distortion model="poly3" focal="8.5" k1="-0.00697" />
+            <distortion model="poly3" focal="17.3" k1="-0.00102" />
+            <distortion model="poly3" focal="27.2" k1="-0.00042" />
+            <distortion model="poly3" focal="49.2" k1="-0.00202" />
+            <distortion model="poly3" focal="70" k1="0.0042" />
         </calibration>
     </lens>
 
