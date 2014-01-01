@@ -1174,7 +1174,7 @@ static gint _lf_compare_lens_score (gconstpointer a, gconstpointer b)
     return i2->Score - i1->Score;
 }
 
-static gint _lf_compare_lens_focal (gconstpointer a, gconstpointer b)
+static gint _lf_compare_lens_details (gconstpointer a, gconstpointer b)
 {
     // Actually, we not only sort by focal length, but by MinFocal, MaxFocal,
     // MinAperature, Maker, and Model -- in this order of priorities.
@@ -1249,7 +1249,7 @@ const lfLens **lfDatabase::FindLenses (const lfLens *lens, int sflags) const
                     }
                 }
                 if (!already)
-                    _lf_ptr_array_insert_sorted (ret, dblens, _lf_compare_lens_focal);
+                    _lf_ptr_array_insert_sorted (ret, dblens, _lf_compare_lens_details);
             }
             else
                 _lf_ptr_array_insert_sorted (ret, dblens, _lf_compare_lens_score);
