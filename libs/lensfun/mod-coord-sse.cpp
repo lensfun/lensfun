@@ -142,4 +142,48 @@ void lfExtModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int
     ModifyCoord_Dist_PTLens (data, &iocoord [loop_count * 2], remain);
 }
 
+void lfExtModifier::ModifyCoord_Dist_Poly3_SSE (void *data, float *iocoord, int count)
+{
+  float *param = (float *)data;
+
+  // Rd = Ru * (d + k1 * Ru^2),  d = 1 - k1
+  __m128 k1 = _mm_set_ps1 (param [0]);
+  __m128 d = _mm_sub_ps (_mm_set_ps1 (1.0f), k1);
+  int aligned = !((uintptr_t)(iocoord)&0xf);
+
+  // SSE Loop processes 4 pixels/loop
+  int loop_count = count / 4;
+  if (aligned)
+    for (int i = 0; i < loop_count ; i++)
+    {
+      __m128 c0 = _mm_load_ps (&iocoord [8 * i]);
+      __m128 c1 = _mm_load_ps (&iocoord [8 * i + 4]);
+      __m128 x = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (2, 0, 2, 0));
+      __m128 y = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (3, 1, 3, 1));
+
+      // Calculate poly3 = k1 * ru * ru + d;
+      __m128 poly3 = _mm_add_ps (_mm_mul_ps (_mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y)), k1), d);
+      _mm_store_ps (&iocoord [8 * i], _mm_mul_ps (poly3, c0));
+      _mm_store_ps (&iocoord [8 * i + 4], _mm_mul_ps (poly3, c1));
+    }
+  else
+    for (int i = 0; i < loop_count ; i++)
+    {
+      __m128 c0 = _mm_loadu_ps (&iocoord [8 * i]);
+      __m128 c1 = _mm_loadu_ps (&iocoord [8 * i + 4]);
+      __m128 x = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (2, 0, 2, 0));
+      __m128 y = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (3, 1, 3, 1));
+
+      // Calculate poly3 = k1 * ru * ru + d;
+      __m128 poly3 = _mm_add_ps (_mm_mul_ps (_mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y)), k1), d);
+      _mm_storeu_ps (&iocoord [8 * i], _mm_mul_ps (poly3, c0));
+      _mm_storeu_ps (&iocoord [8 * i + 4], _mm_mul_ps (poly3, c1));
+    }
+
+  loop_count *= 4;
+  int remain = count - loop_count;
+  if (remain)
+    ModifyCoord_Dist_Poly3 (data, &iocoord [loop_count * 2], remain);
+}
+
 #endif

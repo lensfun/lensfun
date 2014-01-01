@@ -69,6 +69,12 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
         switch (model.Model)
         {
             case LF_DIST_MODEL_POLY3:
+#ifdef VECTORIZATION_SSE
+                if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
+                    AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly3_SSE, 750,
+                                      model.Terms, sizeof (float));
+                else
+#endif
                 AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly3, 750,
                                   model.Terms, sizeof (float));
                 break;
