@@ -1218,7 +1218,7 @@ MATHJAX_EXTENSIONS     =
 # The MATHJAX_CODEFILE tag can be used to specify a file with javascript
 # pieces of code that will be used on startup of the MathJax code.
 
-MATHJAX_CODEFILE       = docs/mathjaxConfiguration.js
+MATHJAX_CODEFILE       = @CMAKE_SOURCE_DIR@/docs/mathjaxConfiguration.js
 
 # When the SEARCHENGINE tag is enabled doxygen will generate a search box
 # for the HTML output. The underlying search engine uses javascript
