@@ -76,6 +76,7 @@ except subprocess.CalledProcessError:
     write_result_and_exit("I could not unpack your file.  Was it really a .tar.gz or ZIP file?")
 os.remove(filepath)
 
+invalid_lens_model_name_pattern = re.compile(r"\(\d+\)$")
 raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf",
                        "fff", "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx",
                        "pxn", "r3d", "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f", "jpg", "jpeg"]
@@ -134,7 +135,7 @@ def call_exiv2(raw_file_group):
         elif fieldname == "Model":
             exif_data[1] = field_value
         elif fieldname in ["LensIDNumber", "LensType", "LensModel", "Lens"]:
-            if not exif_data[2] or len(field_value) > len(exif_data[2]):
+            if (not exif_data[2] or len(field_value) > len(exif_data[2])) and not invalid_lens_model_name_pattern.match(field_value):
                 exif_data[2] = field_value
         elif fieldname == "FocalLength":
             exif_data[3] = float(field_value.partition("mm")[0])
