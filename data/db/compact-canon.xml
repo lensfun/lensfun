@@ -119,14 +119,14 @@
         <mount>canonSD500</mount>
         <cropfactor>4.8</cropfactor>
     </camera>
-        
+
      <camera>
         <maker>Canon</maker>
         <model>Canon PowerShot SD950 IS</model>
         <model lang="en">PowerShot SD950 IS</model>
         <mount>canonSD950</mount>
         <cropfactor>4.7</cropfactor>
-    </camera>    
+    </camera>
 
     <camera>
         <maker>Canon</maker>
@@ -456,16 +456,16 @@
 
     <camera>
         <maker>Canon</maker>
-        <model>Canon PowerShot A620</model>
-        <model lang="en">PowerShot A620</model>
+        <model>Canon PowerShot A610</model>
+        <model lang="en">PowerShot A610</model>
         <mount>canonA610</mount>
         <cropfactor>4.8</cropfactor>
     </camera>
 
     <camera>
         <maker>Canon</maker>
-        <model>Canon PowerShot A610</model>
-        <model lang="en">PowerShot A610</model>
+        <model>Canon PowerShot A620</model>
+        <model lang="en">PowerShot A620</model>
         <mount>canonA610</mount>
         <cropfactor>4.8</cropfactor>
     </camera>
@@ -651,6 +651,14 @@
         <model>Canon PowerShot SX220 HS</model>
         <model lang="en">PowerShot SX220 HS</model>
         <mount>canonSX220HS</mount>
+        <cropfactor>5.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot SX230 HS</model>
+        <model lang="en">PowerShot SX230 HS</model>
+        <mount>canonSX230HS</mount>
         <cropfactor>5.6</cropfactor>
     </camera>
 
@@ -841,7 +849,7 @@
             <distortion model="ptlens" focal="23.1" a="0" b="0.000834" c="0" />
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Canon</maker>
         <model>Standard</model>
@@ -855,7 +863,7 @@
             <distortion model="ptlens" focal="19.55" a="0" b="-0.00304" c="0" />
             <distortion model="ptlens" focal="28.5" a="0" b="-0.00073" c="0" />
         </calibration>
-    </lens>    
+    </lens>
 
     <lens>
         <maker>Canon</maker>
@@ -1299,6 +1307,7 @@
         <maker>Canon</maker>
         <model>Standard (CHDK's DNG)</model>
         <mount>canonSX220HS</mount>
+        <mount>canonSX230HS</mount>
         <cropfactor>5.6</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
