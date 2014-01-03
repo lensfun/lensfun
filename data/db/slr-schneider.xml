@@ -15,7 +15,8 @@
         <maker>Schneider</maker>
         <model>D-Xenon 1:3.5-5.6 18-55mm AL</model>
         <mount>Pentax KAF2</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="18" a="0.004593" b="-0.021008" c="0" />
             <distortion model="ptlens" focal="21" a="0.00371" b="-0.014625" c="0" />
@@ -29,7 +30,8 @@
         <maker>Schneider</maker>
         <model>D-Xenon 1:4-5.6 50-200mm AL</model>
         <mount>Pentax KAF2</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="50" a="0" b="-0.004038" c="0" />
             <distortion model="ptlens" focal="63" a="0" b="0.001607" c="0" />

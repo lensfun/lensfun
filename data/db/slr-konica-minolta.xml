@@ -19,35 +19,36 @@
         <maker>Konica Minolta</maker>
         <model>Maxxum 5D</model>
         <mount>Minolta AF</mount>
-        <cropfactor>1.5</cropfactor>
+        <cropfactor>1.531</cropfactor>
     </camera>
 
     <camera>
         <maker>Konica Minolta</maker>
         <model>Dynax 5D</model>
         <mount>Minolta AF</mount>
-        <cropfactor>1.5</cropfactor>
+        <cropfactor>1.531</cropfactor>
     </camera>
 
     <camera>
         <maker>Konica Minolta</maker>
         <model>Maxxum 7D</model>
         <mount>Minolta AF</mount>
-        <cropfactor>1.5</cropfactor>
+        <cropfactor>1.522</cropfactor>
     </camera>
 
     <camera>
         <maker>Konica Minolta</maker>
         <model>Dynax 7D</model>
         <mount>Minolta AF</mount>
-        <cropfactor>1.5</cropfactor>
+        <cropfactor>1.522</cropfactor>
     </camera>
 
     <lens>
         <maker>Konica Minolta</maker>
         <model>KM 24-105mm f/3.5-4.5 AF D</model>
         <mount>Minolta AF</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of Konica-Minolta APS-C cameras -->
+        <cropfactor>1.526</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="24" a="0.004504" b="-0.01756" c="0" />
             <distortion model="ptlens" focal="28" a="0" b="-0.001188" c="0" />
@@ -65,7 +66,8 @@
         <maker>Konica Minolta</maker>
         <model>KM 28-100mm f/3.5-5.6 AF D</model>
         <mount>Minolta AF</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of Konica-Minolta APS-C cameras -->
+        <cropfactor>1.526</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="28" a="0.005155" b="-0.020044" c="0" />
             <distortion model="ptlens" focal="35" a="0.005248" b="-0.012857" c="0" />
@@ -80,7 +82,8 @@
         <maker>Konica Minolta</maker>
         <model>KM 80-200mm f/2.8</model>
         <mount>Minolta AF</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of Konica-Minolta APS-C cameras -->
+        <cropfactor>1.526</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="80" a="0" b="-0.004374" c="0" />
             <distortion model="ptlens" focal="90" a="0" b="-0.002544" c="0" />
@@ -97,7 +100,8 @@
         <maker>Konica Minolta</maker>
         <model>KM 20mm f/2.8</model>
         <mount>Minolta AF</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of Konica-Minolta APS-C cameras -->
+        <cropfactor>1.526</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="20" a="0.005548" b="-0.022552" c="0" />
         </calibration>

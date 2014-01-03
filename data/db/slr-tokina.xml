@@ -20,7 +20,8 @@
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Sony Alpha</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="11" a="-0.00574" b="-0.00115" c="0.0022" />
             <distortion model="ptlens" focal="12" a="-0.00494" b="-0.00187" c="0.00464" />
@@ -108,7 +109,8 @@
         <model>Tokina 12-24mm f/4 AT-X 124 AF Pro DX</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="12" a="-0.005227" b="0.0018" c="0" />
             <distortion model="ptlens" focal="14" a="-0.003321" b="0.00043" c="0" />
@@ -125,7 +127,8 @@
         <model>Tokina 19-35mm f/3.5-4.5 AF 193</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
-        <cropfactor>1.6</cropfactor>
+        <!-- Average crop factor of Canon APS-C cameras -->
+        <cropfactor>1.611</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="19" a="0" b="-0.005476" c="-0.022162" />
             <distortion model="ptlens" focal="22" a="0" b="-0.003238" c="-0.017549" />
@@ -144,7 +147,8 @@
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
-        <cropfactor>1.6</cropfactor>
+        <!-- Average crop factor of Canon APS-C cameras -->
+        <cropfactor>1.611</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="28" a="0" b="-0.006412" c="0" />
             <distortion model="ptlens" focal="30" a="0" b="-0.005104" c="0" />
@@ -162,7 +166,8 @@
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="80" a="-0.01761" b="0.06433" c="-0.07566" />
             <distortion model="ptlens" focal="110" a="-0.01579" b="0.05909" c="-0.06129" />
@@ -178,7 +183,8 @@
         <model>Tokina 17mm f/3.5 AT-X 17 AF Pro</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="17" a="0" b="-0.012125" c="0" />
         </calibration>
@@ -189,7 +195,8 @@
         <model>Tokina 17mm f/3.5 AT-X 17 AF Pro</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
-        <cropfactor>1.6</cropfactor>
+        <!-- Average crop factor of Canon APS-C cameras -->
+        <cropfactor>1.611</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="17" a="0" b="-0.004083" c="-0.015672" />
         </calibration>
@@ -204,7 +211,8 @@
         <mount>Minolta M</mount>
         <mount>Olympus OM</mount>
         <mount>Nikon F AI</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <focal value="500" />
         <aperture value="8" />
         <calibration>

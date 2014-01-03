@@ -12,7 +12,7 @@
         <model>Sigma SD1</model>
         <model lang="en">SD1</model>
         <mount>Sigma SA</mount>
-        <cropfactor>1.5</cropfactor>
+        <cropfactor>1.500</cropfactor>
     </camera>
 
     <camera>
@@ -20,7 +20,7 @@
         <model>Sigma SD1 Merrill</model>
         <model lang="en">SD1 Merrill</model>
         <mount>Sigma SA</mount>
-        <cropfactor>1.5</cropfactor>
+        <cropfactor>1.500</cropfactor>
     </camera>
 
     <camera>
@@ -28,7 +28,7 @@
         <model>Sigma SD9</model>
         <model lang="en">SD9</model>
         <mount>Sigma SA</mount>
-        <cropfactor>1.7</cropfactor>
+        <cropfactor>1.739</cropfactor>
     </camera>
 
     <camera>
@@ -36,7 +36,7 @@
         <model>Sigma SD10</model>
         <model lang="en">SD10</model>
         <mount>Sigma SA</mount>
-        <cropfactor>1.7</cropfactor>
+        <cropfactor>1.739</cropfactor>
     </camera>
 
     <camera>
@@ -44,7 +44,7 @@
         <model>Sigma SD14</model>
         <model lang="en">SD14</model>
         <mount>Sigma SA</mount>
-        <cropfactor>1.7</cropfactor>
+        <cropfactor>1.739</cropfactor>
     </camera>
 
     <camera>
@@ -52,7 +52,7 @@
         <model>Sigma SD15</model>
         <model lang="en">SD15</model>
         <mount>Sigma SA</mount>
-        <cropfactor>1.7</cropfactor>
+        <cropfactor>1.739</cropfactor>
     </camera>
 
     <lens>
@@ -63,7 +63,8 @@
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <mount>4/3 System</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="10" a="-0.017985" b="0.026145" c="0" />
             <distortion model="ptlens" focal="12" a="-0.008171" b="0.018035" c="0" />
@@ -83,7 +84,8 @@
         <mount>Pentax KAF2</mount>
         <mount>Sony Alpha</mount>
         <mount>4/3 System</mount>
-	    <cropfactor>1.5</cropfactor>
+	    <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
 	    <calibration>
 	        <distortion focal="10" model="ptlens" a="-0.0284207" b="0.0674528" c="-0.0484386" />
 	        <distortion focal="12" model="ptlens" a="-0.0230294" b="0.0734247" c="-0.0568826" />
@@ -219,7 +221,8 @@
         <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
-        <cropfactor>1.6</cropfactor>
+        <!-- Average crop factor of Canon APS-C cameras -->
+        <cropfactor>1.611</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="15" a="0.009928" b="-0.033322" c="0" />
             <distortion model="ptlens" focal="17" a="0.006714" b="-0.023166" c="0" />
@@ -241,7 +244,8 @@
         <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="17" a="0.007263" b="-0.02454" c="0" />
             <distortion model="ptlens" focal="20" a="0.006421" b="-0.021536" c="0" />
@@ -259,7 +263,8 @@
         <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
-        <cropfactor>1.6</cropfactor>
+        <!-- Average crop factor of Canon APS-C cameras -->
+        <cropfactor>1.611</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="17" a="0.019088" b="-0.048894" c="0" />
             <distortion model="ptlens" focal="19" a="0.010938" b="-0.030356" c="0" />
@@ -279,7 +284,8 @@
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="18" a="0.012979" b="-0.036394" c="0" />
             <distortion model="ptlens" focal="23" a="0.007147" b="-0.017687" c="0" />
@@ -296,7 +302,8 @@
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
-        <cropfactor>1.6</cropfactor>
+        <!-- Average crop factor of Canon APS-C cameras -->
+        <cropfactor>1.611</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="18" a="0.011366" b="-0.034328" c="0" />
             <distortion model="ptlens" focal="21" a="0.006142" b="-0.017401" c="0" />
@@ -316,7 +323,8 @@
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <mount>4/3 System</mount>
-        <cropfactor>1.6</cropfactor>
+        <!-- Average crop factor of Canon APS-C cameras -->
+        <cropfactor>1.611</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="18" a="0.018244" b="-0.048901" c="0" />
             <distortion model="ptlens" focal="20" a="0.013163" b="-0.038177" c="0" />
@@ -338,7 +346,8 @@
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <mount>4/3 System</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="18" a="0.028249" b="-0.061326" c="0" />
             <distortion model="ptlens" focal="26" a="0.008998" b="-0.008014" c="0" />
@@ -357,7 +366,8 @@
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <mount>4/3 System</mount>
-        <cropfactor>1.6</cropfactor>
+        <!-- Average crop factor of Canon APS-C cameras -->
+        <cropfactor>1.611</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="18" a="0.02211" b="-0.050462" c="0" />
             <distortion model="ptlens" focal="23" a="0.016565" b="-0.027307" c="0" />
@@ -378,7 +388,8 @@
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="18" a="0.027521" b="-0.063244" c="0" />
             <distortion model="ptlens" focal="22" a="0.016154" b="-0.029806" c="0" />
@@ -400,7 +411,8 @@
         <mount>Canon EF</mount>
         <mount>Pentax KAF2</mount>
         <mount>Sony Alpha</mount>
-	    <cropfactor>1.5</cropfactor>
+	    <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
 	    <calibration>
 	        <distortion focal="18" model="ptlens" a="0.0228732" b="-0.0665251" c="0.0172122" />
 	        <distortion focal="26" model="ptlens" a="0.018288" b="-0.0421043" c="0.0335132" />
@@ -577,7 +589,8 @@
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="18" a="0.00427" b="-0.0189" c="0.0199" />
             <distortion model="ptlens" focal="29" a="-0.00878" b="0.04582" c="-0.04997" />
@@ -605,7 +618,8 @@
         <mount>Canon EF</mount>
         <mount>Pentax KAF2</mount>
         <mount>Sony Alpha</mount>
-	    <cropfactor>1.5</cropfactor>
+	    <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
 	    <calibration>
 	        <distortion focal="24" model="ptlens" a="0.00598105" b="-0.0230051" c="0.00638311" />
 	        <distortion focal="28" model="ptlens" a="0.00558326" b="-0.0188843" c="0.00805504" />
@@ -750,7 +764,8 @@
         <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
-        <cropfactor>1.6</cropfactor>
+        <!-- Average crop factor of Canon APS-C cameras -->
+        <cropfactor>1.611</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="24" a="0" b="-0.006096" c="0" />
             <distortion model="ptlens" focal="30" a="0" b="-0.001546" c="0" />
@@ -790,7 +805,8 @@
         <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="28" a="0" b="-0.009837" c="-0.008234" />
             <distortion model="ptlens" focal="34" a="0" b="-0.004678" c="0.000517" />
@@ -812,7 +828,8 @@
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <mount>4/3 System</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="50" a="0" b="-0.00059" c="0" />
             <distortion model="ptlens" focal="72" a="0" b="0.004149" c="0" />
@@ -854,8 +871,7 @@
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF2</mount>
         <mount>4/3 System</mount>
-        <!-- FixMe: Actually cropfactor 1.531 -->
-        <cropfactor>1.5</cropfactor>
+        <cropfactor>1.531</cropfactor>
         <calibration>
             <!-- Taken with Pentax *ist DL -->
             <distortion model="poly3" focal="55" k1="-0.00341" />
@@ -876,7 +892,8 @@
         <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
-        <cropfactor>1.6</cropfactor>
+        <!-- Average crop factor of Canon APS-C cameras -->
+        <cropfactor>1.611</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="70" a="0.002522" b="-0.005913" c="0" />
             <distortion model="ptlens" focal="81" a="-0.000431" b="0.003404" c="0" />
@@ -902,7 +919,8 @@
         <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="70" a="-0.00291" b="0.00834" c="-0.00971" />
             <distortion model="ptlens" focal="100" a="-0.00296" b="0.0116" c="-0.00449" />
@@ -1079,7 +1097,8 @@
         <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="14" a="0.013209" b="-0.036529" c="0" />
         </calibration>
@@ -1107,7 +1126,8 @@
         <mount>Minolta AF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="28" a="0.002854" b="-0.010067" c="0" />
         </calibration>
@@ -1122,7 +1142,8 @@
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <mount>4/3 System</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="30" a="0.003926" b="-0.013819" c="0" />
             <tca model="poly3" focal="30" br="-0.0000193" vr="1.0004990" bb="0.0000694" vb="0.9998978" />
@@ -1153,7 +1174,8 @@
         <mount>Sony Alpha</mount>
         <mount>Pentax KAF</mount>
         <mount>4/3 System</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="50" a="0.00055" b="-0.00799" c="0.00993" />
             <vignetting model="pa" focal="50" aperture="1.4" distance="10" k1="-0.5491" k2="0.2293" k3="-0.0540" />
@@ -1213,8 +1235,7 @@
         <mount>Canon EF</mount>
         <mount>Pentax KAF2</mount>
         <mount>Sony Alpha</mount>
-        <!-- FixMe: Must be 1.523 instead -->
-        <cropfactor>1.5</cropfactor>
+        <cropfactor>1.523</cropfactor>
         <calibration>
             <!-- Taken with Nikon D7000 -->
             <distortion model="ptlens" focal="17" a="0.03046" b="-0.085" c="0.04461" />
@@ -1267,8 +1288,7 @@
         <mount>Nikon F AF</mount>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
-        <!-- FixMe: Must be 1.523 instead -->
-        <cropfactor>1.5</cropfactor>
+        <cropfactor>1.523</cropfactor>
         <type>equisolid</type>
         <calibration>
             <!-- Taken with Nikon D5100 -->
@@ -1285,8 +1305,7 @@
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <mount>Sony Alpha</mount>
-        <!-- FixMe: Actually cropfactor 1.613 -->
-        <cropfactor>1.6</cropfactor>
+        <cropfactor>1.613</cropfactor>
         <calibration>
             <!-- Taken with Canon 50D -->
             <distortion model="ptlens" focal="8" a="0.02364" b="-0.13856" c="0.19092" />
@@ -1310,8 +1329,7 @@
         <mount>Canon EF-S</mount>
         <mount>Sony Alpha</mount>
         <mount>Pentax KAF</mount>
-        <!-- FixMe: Actually cropfactor 1.613 -->
-        <cropfactor>1.6</cropfactor>
+        <cropfactor>1.613</cropfactor>
         <calibration>
             <!-- Taken with Canon 7D -->
             <distortion model="ptlens" focal="10" a="0.02278" b="-0.0794" c="0.05484" />
@@ -1335,8 +1353,7 @@
         <mount>Canon EF</mount>
         <mount>Sony Alpha</mount>
         <mount>Pentax KAF</mount>
-        <!-- FixMe: Actually cropfactor 1.523 -->
-        <cropfactor>1.5</cropfactor>
+        <cropfactor>1.523</cropfactor>
         <calibration>
             <!-- Taken with Nikon D90 -->
             <distortion model="ptlens" focal="17" a="0.01587" b="-0.03928" c="-0.00282" />
@@ -1360,7 +1377,8 @@
         <mount>Sony Alpha</mount>
         <mount>Pentax KAF2</mount>
         <mount>Canon EF</mount>
-        <cropfactor>1.5</cropfactor>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <tca model="poly3" focal="70"  br="-0.0000832" vr="0.9997100" bb="0.0000141"  vb="1.0006182" />
             <tca model="poly3" focal="83"  br="0.0000026"  vr="0.9994386" bb="-0.0000353" vb="1.0010066" />
@@ -1381,8 +1399,7 @@
         <mount>Sony Alpha</mount>
         <mount>Pentax KAF2</mount>
         <mount>Canon EF</mount>
-        <!-- FixMe: Actually cropfactor 1.618 -->
-        <cropfactor>1.6</cropfactor>
+        <cropfactor>1.622</cropfactor>
         <type>equisolid</type>
         <calibration>
             <!-- Taken with Canon EOS 450D -->
@@ -1398,8 +1415,7 @@
         <mount>Sony Alpha</mount>
         <mount>Pentax KAF2</mount>
         <mount>Canon EF</mount>
-        <!-- FixMe: Actually cropfactor 1.523 -->
-        <cropfactor>1.5</cropfactor>
+        <cropfactor>1.523</cropfactor>
         <type>fisheye</type>
         <calibration>
             <!-- Taken with Nikon D200 -->
@@ -1415,8 +1431,7 @@
         <mount>Sony Alpha</mount>
         <mount>Pentax KAF2</mount>
         <mount>Canon EF</mount>
-        <!-- FixMe: Actually cropfactor 1.523 -->
-        <cropfactor>1.5</cropfactor>
+        <cropfactor>1.523</cropfactor>
         <calibration>
             <!-- Taken with Nikon D200 -->
             <distortion model="ptlens" focal="100" a="0.00007" b="-0.0008" c="-0.00001" />
@@ -1455,8 +1470,7 @@
         <mount>Sony Alpha</mount>
         <mount>Pentax KAF2</mount>
         <mount>Canon EF</mount>
-        <!-- FixMe: Actually cropfactor 1.523 -->
-        <cropfactor>1.5</cropfactor>
+        <cropfactor>1.523</cropfactor>
         <calibration>
             <!-- Taken with Nikon D200 -->
             <distortion model="ptlens" focal="50" a="0.00143" b="-0.0113" c="0.00788" />
