@@ -95,13 +95,15 @@ class Mount:
     def __init__(self, name, fixed_lens=False):
         self.name, self.fixed_lens = name, fixed_lens
         self.compatible_mounts = set()
+    def __str__(self):
+        return self.name
 
 def read_database():
     """Read the database of Lensfun.  Note that also the local configuration –
     including the ``_mounts.xml`` file – is read.
 
     It returns the cameras as a mapping from the (maker, model) tuple to the
-    mount name, the `makers_and_models` mapping which maps so-called “loose”
+    mount object, the `makers_and_models` mapping which maps so-called “loose”
     camera names to (maker, model) tuples, and the mounts as a mapping from
     mount names to `Mount` objects.
 
@@ -139,6 +141,8 @@ def read_database():
                             mount = default_name(camera, "mount")
                             cameras[maker_and_model] = mount
                             mounts.setdefault(mount, Mount(mount, filename.startswith("compact") or mount in ["olympusE10"]))
+    for maker_and_model, mount_name in cameras.items():
+        cameras[maker_and_model] = mounts[mount_name]
     return mounts, makers_and_models, cameras
 
 def find_mount_groups(mounts):
@@ -196,7 +200,7 @@ def find_to_mount(cameras, makers_and_models):
             maker_and_model = hits[0]
         return cameras[maker_and_model]
 
-def find_from_mounts(mounts, groups):
+def find_from_mounts(mounts, groups, to_mount):
     """The `from_mount` is the lenses' mount, i.e. the mount *from* which we want
     to adapt.  It may be a set of mounts in case of a mount group.
     """
@@ -210,7 +214,7 @@ def find_from_mounts(mounts, groups):
         for from_candidate in [(mount.name, {mount.name}) for mount in mounts.values() if not mount.fixed_lens] + \
             [(", ".join(sorted(group)) + " (all together)", group) for group in groups]:
             for mount in from_candidate[1]:
-                if mount not in mounts[to_mount].compatible_mounts | {to_mount}:
+                if mount not in to_mount.compatible_mounts | {to_mount.name}:
                     break
             else:
                 continue
@@ -236,14 +240,14 @@ def write_xml_file(to_mount, from_mounts, mounts):
     except (OSError, ElementTree.ParseError):
         tree = ElementTree.ElementTree(ElementTree.Element("lensdatabase"))
     for mount in tree.findall("mount"):
-        if default_name(mount, "name") == to_mount:
+        if default_name(mount, "name") == to_mount.name:
             for compatible_mount in mount.findall("compat"):
                 mount.remove(compatible_mount)
             break
     else:
         mount = ElementTree.SubElement(tree.getroot(), "mount")
-        ElementTree.SubElement(mount, "name").text = to_mount
-    for compatible_mount in mounts[to_mount].compatible_mounts:
+        ElementTree.SubElement(mount, "name").text = to_mount.name
+    for compatible_mount in sorted(to_mount.compatible_mounts):
         ElementTree.SubElement(mount, "compat").text = compatible_mount
     indent(tree.getroot())
     tree.write(local_xml_filepath)
@@ -258,6 +262,10 @@ else:
     mounts, makers_and_models, cameras = read_database()
     mount_groups = find_mount_groups(mounts)
     to_mount = find_to_mount(cameras, makers_and_models)
-    from_mounts = find_from_mounts(mounts, mount_groups)
-    mounts[to_mount].compatible_mounts.update(from_mounts)
+    if to_mount.fixed_lens:
+        from_mounts = {"Generic"}
+    else:
+        from_mounts = find_from_mounts(mounts, mount_groups, to_mount)
+    to_mount.compatible_mounts.update(from_mounts)
     write_xml_file(to_mount, from_mounts, mounts)
+    print("Made {} lenses mountable to {}.".format(" / ".join(from_mounts), to_mount))
