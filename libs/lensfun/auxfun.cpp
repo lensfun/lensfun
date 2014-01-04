@@ -509,10 +509,11 @@ void lfFuzzyStrCmp::Split (const char *str, GPtrArray *dest)
             while (*str && !isspace (*str) && !isdigit (*str) && !ispunct (*str))
                 str++;
 
-        // Skip solitary symbols
-        if ((str - word == 1) &&
-            (*word == '/' || *word == '-' || *word == '(' || *word == ')' ||
-             tolower (*word) == 'f'))
+        // Skip solitary symbols, including a single letter "f", except for "+"
+        // and "*", which sometimes occur in lens model names as important
+        // characters
+        if (str - word == 1 && (ispunct (*word) || tolower (*word) == 'f')
+            && *word != '*' && *word != '+')
             continue;
 
         gchar *item = g_utf8_casefold (word, str - word);
