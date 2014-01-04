@@ -748,9 +748,9 @@ struct LF_EXPORT lfLens
     float MinFocal;
     /** Maximum focal length, mm (ex: 105). Can be equal to MinFocal. */
     float MaxFocal;
-    /** Aperture (f-number) at minimum focal length (ex: 3.5). */
+    /** Smallest f-number possible (ex: 3.5). */
     float MinAperture;
-    /** Aperture (f-number) at maximum focal length (ex: 4.3). Can be equal to MinAperture. */
+    /** Biggest f-number possible (ex: 22). Can be equal to MinAperture. */
     float MaxAperture;
     /** Available mounts (NULL-terminated list) (ex: { "QBM", NULL }) */
     char **Mounts;

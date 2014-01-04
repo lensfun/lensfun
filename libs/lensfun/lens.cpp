@@ -16,7 +16,7 @@
 static struct
 {
     const char *regex;
-    guchar matchidx [4];
+    guchar matchidx [3];
     bool compiled;
     regex_t rex;
 } lens_name_regex [] =
@@ -24,19 +24,19 @@ static struct
     {
         // 1:[min aperture]-[max aperture] [min focal]-[max focal]mm
         "[[:space:]]+1:([0-9.]+)(-[0-9.]+)?[[:space:]]+([0-9.]+)(-[0-9.]+)?(mm)?",
-        { 3, 4, 1, 2 },
+        { 3, 4, 1 },
         false
     },
     {
         // [min aperture]-[max aperture]/[min focal]-[max focal]
         "([0-9.]+)(-[0-9.]+)?[[:space:]]*/[[:space:]]*([0-9.]+)(-[0-9.]+)?",
-        { 3, 4, 1, 2 },
+        { 3, 4, 1 },
         false
     },
     {
         // [min focal]-[max focal]mm f/[min aperture]-[max aperture]
         "([0-9]+[0-9.]*)(-[0-9]+[0-9.]*)?(mm)?[[:space:]]+(f/?)?([0-9.]+)(-[0-9.]+)?",
-        { 1, 2, 5, 6 },
+        { 1, 2, 5 },
         false
     }
 };
@@ -58,7 +58,7 @@ static float _lf_parse_float (const char *model, const regmatch_t &match)
 
 static bool _lf_parse_lens_name (const char *model,
                                  float &minf, float &maxf,
-                                 float &mina, float &maxa)
+                                 float &mina)
 {
     if (!model)
         return false;
@@ -83,8 +83,6 @@ static bool _lf_parse_lens_name (const char *model,
             maxf = _lf_parse_float (model, matches [matchidx [1]]);
         if (matches [matchidx [2]].rm_so != -1)
             mina = _lf_parse_float (model, matches [matchidx [2]]);
-        if (matches [matchidx [3]].rm_so != -1)
-            maxa = _lf_parse_float (model, matches [matchidx [3]]);
         return true;
     }
 
@@ -205,10 +203,10 @@ void lfLens::GuessParameters ()
 
     char *old_numeric = setlocale (LC_NUMERIC, NULL);
     old_numeric = strdup (old_numeric);
-    setlocale (LC_NUMERIC,"C");
+    setlocale (LC_NUMERIC, "C");
 
     if (!MinAperture || !MinFocal)
-        _lf_parse_lens_name (Model, minf, maxf, mina, maxa);
+        _lf_parse_lens_name (Model, minf, maxf, mina);
 
     if (!MinAperture || !MinFocal)
     {
@@ -277,8 +275,6 @@ void lfLens::GuessParameters ()
 
     if (!MaxFocal)
         MaxFocal = MinFocal;
-    if (!MaxAperture)
-        MaxAperture = MinAperture;
 
     setlocale (LC_NUMERIC, old_numeric);
     free (old_numeric);
@@ -289,8 +285,8 @@ bool lfLens::Check ()
     GuessParameters ();
 
     if (!Model || !Mounts || CropFactor <= 0 ||
-        MinFocal > MaxFocal || MinAperture > MaxAperture ||
-        !isfinite(AspectRatio) || AspectRatio < 1)
+        MinFocal > MaxFocal || (MaxAperture && MinAperture > MaxAperture) ||
+        !isfinite (AspectRatio) || AspectRatio < 1)
         return false;
 
     return true;
@@ -1229,12 +1225,10 @@ int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
             break;
     }
 
-    // MaxAperture is usually not given in database...
-    // so it's a guessed value, often incorrect.
     switch (_lf_compare_num (pattern->MaxAperture, match->MaxAperture))
     {
-        //case -1:
-        //    return 0;
+        case -1:
+            return 0;
 
         case +1:
             score += 10;

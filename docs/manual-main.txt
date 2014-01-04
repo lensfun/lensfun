@@ -373,8 +373,9 @@ Possible embedded elements:
 <dd>Lens focal length in mm. This can be either a single value for a fixed-focal length
     lens, or a minimum and maximum value in the case of a zoom lens.
 <dt>\<aperture min="number" max="number" value="number" /\>
-<dd>Lens aperture as the f-number. This can be either a single value for a fixed-focal length
-    lens, or the aperture at the minimum and maximum focal length in the case of a zoom lens.
+<dd>Lens aperture as the f-number. This can be either a single value for a fixed-aperture
+    lens (very rare), or the minimal and maximal possible f-stop number for
+    this lens (over the whole zoom range for a zoom lens).
 <dt>\<mount\>string\</mount\>
 <dd>Lens mount. There can be multiple \<mount\> entries if the same lens is manufactured
     with several mounts, or it has a variable mount (e.g. Tamron Adaptall).
@@ -425,10 +426,14 @@ Another pattern for lens parameters is
 <li>4.5/300
 </ul>
 
-If you encode lens parameters directly in the lens name, you may omit the
-@<focal@> and @<aperture@> elements. Also if the range of focal lengths is
-missing both from lens name and there's no @<focal@> element, the library
-tries to guess the range of focal lengths from the @<calibration@> section.
+(Note that â€œmax apertureâ€ refers here to the minimal f-stop number at the
+maximal focal length of a zoom lens.  Its value is ignored by lensfun.  As
+explained above, lensfun only stores the minimal and maximal possible f-stop
+number of the lens, not matter at which focal length, e.g. 3.5â€“32.)
+
+Moreover, the library finds missing min/max values for focal length and
+aperture by looking at the range of these parameters in the @<calibration@>
+section.
 
 
 @page elem_calibration Lens calibration data format
