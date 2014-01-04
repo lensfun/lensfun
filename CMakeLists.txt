@@ -35,6 +35,7 @@ OPTION(BUILD_AUXFUN "Build auxfun library (requires libpng)" OFF)
 OPTION(BUILD_FOR_SSE "Build with support for SSE" ON)
 OPTION(BUILD_FOR_SSE2 "Build with support for SSE2" ON)
 OPTION(BUILD_DOC "Build documentation with doxygen" OFF)
+OPTION(INSTALL_HELPER_SCRIPTS "Install various helper scripts" ON)
 
 IF(BUILD_FOR_SSE)
   SET(VECTORIZATION_SSE 1)
@@ -73,10 +74,18 @@ IF(BUILD_STATIC)
 ENDIF()
  
 # define destination dirs (relative to prefix)
-SET(BINDIR share/lensfun/bin CACHE PATH "Directory for library example programs")
+SET(BINDIR share/lensfun/bin CACHE PATH "Directory for test and example programs")
 SET(LIBDIR lib${LIB_SUFFIX} CACHE PATH "Directory for library itself")
 SET(INCLUDEDIR include CACHE PATH "Directory for library header files")
 SET(DATADIR share/lensfun CACHE PATH "Directory for library data files")
+
+IF(INSTALL_HELPER_SCRIPTS)
+  SET(SCRIPTDIR share/lensfun/scripts CACHE PATH "Directory for helper scripts")
+  FILE(GLOB HELPER_SCRIPTS apps/*)
+  INSTALL(FILES ${HELPER_SCRIPTS}
+          PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_EXECUTE WORLD_EXECUTE 
+          DESTINATION ${SCRIPTDIR})
+ENDIF(INSTALL_HELPER_SCRIPTS)
 
 IF(BUILD_DOC)
   SET(DOCDIR share/doc/lensfun-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX} CACHE PATH "Directory to put library documentation in")
