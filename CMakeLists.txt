@@ -30,10 +30,10 @@ ENDIF()
 
 # options controlling the build process
 OPTION(BUILD_STATIC "Build static library" OFF)
-OPTION(BUILD_TESTS "Build test programs" ON)
+OPTION(BUILD_TESTS "Build test programs" OFF)
 OPTION(BUILD_AUXFUN "Build auxfun library (requires libpng)" OFF)
-OPTION(BUILD_FOR_SSE "Build with support for SSE" OFF)
-OPTION(BUILD_FOR_SSE2 "Build with support for SSE2" OFF)
+OPTION(BUILD_FOR_SSE "Build with support for SSE" ON)
+OPTION(BUILD_FOR_SSE2 "Build with support for SSE2" ON)
 OPTION(BUILD_DOC "Build documentation with doxygen" OFF)
 
 IF(BUILD_FOR_SSE)
@@ -73,7 +73,7 @@ IF(BUILD_STATIC)
 ENDIF()
  
 # define destination dirs (relative to prefix)
-SET(BINDIR bin CACHE PATH "Directory for library example programs")
+SET(BINDIR share/lensfun/bin CACHE PATH "Directory for library example programs")
 SET(LIBDIR lib${LIB_SUFFIX} CACHE PATH "Directory for library itself")
 SET(INCLUDEDIR include CACHE PATH "Directory for library header files")
 SET(DATADIR share/lensfun CACHE PATH "Directory for library data files")
@@ -130,7 +130,7 @@ ADD_SUBDIRECTORY(libs)
 
 # include example programs
 IF(BUILD_TESTS)
-ADD_SUBDIRECTORY(tests)
+  ADD_SUBDIRECTORY(tests)
 ENDIF()
 
 # install include files
@@ -152,11 +152,11 @@ IF(BUILD_DOC)
 ENDIF()
 
 IF(WIN32 AND NOT BUILD_STATIC)
-FIND_FILE(GLIB2_DLL 
-          NAMES glib-2.dll glib-2-vs9.dll
-          PATHS "${GLIB2_BASE_DIR}/bin"
-          NO_SYSTEM_ENVIRONMENT_PATH)
-INSTALL(FILES ${GLIB2_DLL} DESTINATION ${BINDIR})
+  FIND_FILE(GLIB2_DLL 
+            NAMES glib-2.dll glib-2-vs9.dll
+            PATHS "${GLIB2_BASE_DIR}/bin"
+            NO_SYSTEM_ENVIRONMENT_PATH)
+  INSTALL(FILES ${GLIB2_DLL} DESTINATION ${BINDIR})
 ENDIF()
 
 # print some information
@@ -198,26 +198,26 @@ SET(CPACK_SOURCE_GENERATOR "TGZ;TBZ2")
 SET(CPACK_PACKAGE_CONTACT "zap@homelink.ru")
 SET(CPACK_SET_DESTDIR "ON")
 IF(BUILD_AUXFUN)
-SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libglib2.0-0 (>=2.0.0), libpng (>=1.0), zlib (>=1.0)")
+  SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libglib2.0-0 (>=2.0.0), libpng (>=1.0), zlib (>=1.0)")
 ELSE()
-SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libglib2.0-0 (>=2.0.0)")
+  SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libglib2.0-0 (>=2.0.0)")
 ENDIF()
 
 IF(CPACK_BINARY_DEB)
-    # workaround to set correct debian package name
-    SET(CPACK_DEBIAN_PACKAGE_NAME "liblensfun${VERSION_MAJOR}")
-    string(TOLOWER "${CPACK_DEBIAN_PACKAGE_NAME}" CPACK_PACKAGE_NAME_LOWERCASE)
-    find_program(DPKG_PROGRAM dpkg DOC "dpkg program of Debian-based systems")
-    if(DPKG_PROGRAM)
-        execute_process(
-            COMMAND ${DPKG_PROGRAM} --print-architecture
-            OUTPUT_VARIABLE CPACK_DEBIAN_PACKAGE_ARCHITECTURE
-            OUTPUT_STRIP_TRAILING_WHITESPACE
-        )
-        set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME_LOWERCASE}_${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX}_${CPACK_DEBIAN_PACKAGE_ARCHITECTURE}")
-    else(DPKG_PROGRAM)
-        set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME_LOWERCASE}_${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX}_${CMAKE_SYSTEM_NAME}")
-    endif(DPKG_PROGRAM)
+  # workaround to set correct debian package name
+  SET(CPACK_DEBIAN_PACKAGE_NAME "liblensfun${VERSION_MAJOR}")
+  STRING(TOLOWER "${CPACK_DEBIAN_PACKAGE_NAME}" CPACK_PACKAGE_NAME_LOWERCASE)
+  FIND_PROGRAM(DPKG_PROGRAM dpkg DOC "dpkg program of Debian-based systems")
+  if(DPKG_PROGRAM)
+      EXECUTE_PROCESS(
+          COMMAND ${DPKG_PROGRAM} --print-architecture
+          OUTPUT_VARIABLE CPACK_DEBIAN_PACKAGE_ARCHITECTURE
+          OUTPUT_STRIP_TRAILING_WHITESPACE
+      )
+      SET(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME_LOWERCASE}_${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX}_${CPACK_DEBIAN_PACKAGE_ARCHITECTURE}")
+  else(DPKG_PROGRAM)
+      SET(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME_LOWERCASE}_${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX}_${CMAKE_SYSTEM_NAME}")
+  endif(DPKG_PROGRAM)
 ENDIF(CPACK_BINARY_DEB)
 
 INCLUDE(CPack)

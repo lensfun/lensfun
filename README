@@ -231,14 +231,16 @@ productively use it.
 BUILDING WITH CMAKE
 -------------------
 
-Alternatively to the python based build system above you can also build lensfun using CMake.
+Alternatively to the python based build system above you can also build lensfun 
+using CMake.
 
 First enter the lensfun root folder and create a build directory.
 
     cd lensfun
     mkdir cmake_build
 
-Enter the build directory and run CMake to configure your sources and create the build files
+Enter the build directory and run CMake to configure your sources and create 
+the build files
 
     cd cmake_build
     cmake ..
@@ -252,16 +254,23 @@ The following CMake options can be set (defaults are upper case):
 
     -DLENSFUN_INSTALL_PREFIX=/USR/LOCAL install prefix 
     -DBUILD_STATIC=OFF|on build static or shared lib
-    -DBUILD_TESTS=off|ON build also the test programs
+    -DBUILD_TESTS=OFF|on build also the test programs
     -DBUILD_AUXFUN=OFF|on build also the auxfun lib and the tmod test program
-    -DBUILD_FOR_SSE=OFF|on build with SSE optimisation
-    -DBUILD_FOR_SSE2=OFF|on build with SSE2 optimisaiton
+    -DBUILD_FOR_SSE=off|ON build with SSE optimisation
+    -DBUILD_FOR_SSE2=off|ON build with SSE2 optimisaiton
     -DBUILD_DOC=OFF|on build documentation
 
 You can also build packages with cmake:
 
     Add -DCPACK_BINARY_DEB:BOOL=ON or -DCPACK_BINARY_RPM:BOOL=ON to the
     command line and then "make package". (But this is not extensively tested.)
+
+Please note that running cmake again does NOT reset all options to default or 
+reconfigure all variables. To restart with a clean configuration delete all files
+in your cmake_build folder.
+
+If you prefer setting the configuration with a GUI or want to get an extensive 
+overview of all available settings and cache values run cmake-gui.
 
 
 DOCUMENTATION
