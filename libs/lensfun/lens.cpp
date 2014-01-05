@@ -1193,7 +1193,9 @@ int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
     else if (pattern->CropFactor >= match->CropFactor * 1.01)
         score += 10;
     else if (pattern->CropFactor >= match->CropFactor)
-        score += 2;
+        score += 5;
+    else if (pattern->CropFactor >= match->CropFactor * 0.96)
+        score += 3;
 
     switch (_lf_compare_num (pattern->MinFocal, match->MinFocal))
     {
