@@ -1210,15 +1210,22 @@ LF_EXPORT cbool lf_lens_remove_calib_fov (lfLens *lens, int idx);
 enum
 {
     /**
-     * This flag selects a looser search algorithm resulting in more
-     * results (still sorted by score). If it is not present, all results
-     * where at least one of the input words is missing will be discarded.
+     * @brief This flag selects a looser search algorithm resulting in
+     * more results (still sorted by score).
+     *
+     * If it is not present, all results where at least one of the input
+     * words is missing will be discarded.
      */
     LF_SEARCH_LOOSE = 1,
     /**
-     * This flag makes LensFun to sort the results by focal length, and
-     * remove all double lens names.  This is meant to be used to create a
-     * list presented to the user to pick a lens.
+     * @brief This flag makes LensFun to sort the results by focal
+     * length, and remove all double lens names.
+     *
+     * If a lens has entries for different crop factors, the only best
+     * match is included into the result.  This is meant to be used to
+     * create a list presented to the user to pick a lens.  Or, to
+     * lookup a lens for which you know maker and model exactly, and to
+     * check whether the result list really contains only one element.
      */
     LF_SEARCH_SORT_AND_UNIQUIFY = 2
 };
