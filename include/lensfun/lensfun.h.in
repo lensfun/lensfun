@@ -1844,11 +1844,13 @@ struct LF_EXPORT lfModifier
      *
      * Before using the returned object you must add the required
      * modifier callbacks (see methods AddXXXCallback below).
+     *
+     * You must provide the original image width/height even if you
+     * plan to correct just a part of the image.
+     *
      * @param lens
-     *     The center shift for all modifications from this lens object
-     *     will be used. If NULL, CenterX == CenterY == 0.0. Also the
-     *     lens crop factor together with camera crop factor for all
-     *     distortions.
+     *     For all modifications, the crop factor, aspect ratio, and
+     *     center shift of this lens will be used.
      * @param crop
      *     The crop factor for current camera. The distortion models will
      *     take this into account if lens models were measured on a camera
@@ -1865,9 +1867,6 @@ struct LF_EXPORT lfModifier
     /**
      * @brief Initialize the process of correcting aberrations in a image.
      *
-     * You must provide the original image width/height even if you
-     * plan to correct just a part of the image.
-     *
      * The modifier object will be set up to rectify all aberrations
      * found in the lens description. Make sure the focal length,
      * aperture, and focus distance are correct in order to ensure
@@ -1880,6 +1879,8 @@ struct LF_EXPORT lfModifier
      * do not know, as a last resort, use "1000" as a default value.
      * @param lens
      *     The lens which aberrations you want to correct in a image.
+     *     It should be the same lens object as the one passed to
+     *     lfModifier::Create.
      * @param format
      *     Pixel format of your image (bits per pixel component)
      * @param focal
