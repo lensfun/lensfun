@@ -1221,11 +1221,12 @@ enum
      * @brief This flag makes LensFun to sort the results by focal
      * length, and remove all double lens names.
      *
-     * If a lens has entries for different crop factors, the only best
-     * match is included into the result.  This is meant to be used to
-     * create a list presented to the user to pick a lens.  Or, to
-     * lookup a lens for which you know maker and model exactly, and to
-     * check whether the result list really contains only one element.
+     * If a lens has entries for different crop factors/aspect ratios,
+     * the only best match is included into the result.  This is meant
+     * to be used to create a list presented to the user to pick a lens.
+     * Or, to lookup a lens for which you know maker and model exactly,
+     * and to check whether the result list really contains only one
+     * element.
      */
     LF_SEARCH_SORT_AND_UNIQUIFY = 2
 };
