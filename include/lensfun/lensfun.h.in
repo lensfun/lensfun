@@ -173,7 +173,11 @@ LF_EXPORT lfMLstr lf_mlstr_dup (const lfMLstr str);
  */
 struct LF_EXPORT lfMount
 {
-    /** Camera mount name */
+    /** @brief Camera mount name.
+     *
+     * Mount names for fixed-lens cameras -- and only they -- must start with a
+     * lower case letter.
+     */
     lfMLstr Name;
     /** A list of compatible mounts */
     char **Compat;
