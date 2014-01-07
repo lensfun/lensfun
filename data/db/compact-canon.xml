@@ -654,6 +654,14 @@
         <cropfactor>5.6</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot A720 IS</model>
+        <model lang="en">PowerShot A720 IS</model>
+        <mount>canonA720IS</mount>
+        <cropfactor>6.03</cropfactor>
+    </camera>
+
     <lens>
         <maker>Canon</maker>
         <model>Standard</model>
@@ -1341,6 +1349,22 @@
             <distortion model="poly3" focal="27.2" k1="-0.00042" />
             <distortion model="poly3" focal="49.2" k1="-0.00202" />
             <distortion model="poly3" focal="70" k1="0.0042" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Standard</model>
+        <mount>canonA720IS</mount>
+        <cropfactor>6.03</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="5.8" a="0.02218" b="-0.07779" c="0.05524" />
+            <distortion model="ptlens" focal="6.4" a="0.01639" b="-0.0598" c="0.04786" />
+            <distortion model="ptlens" focal="7.1" a="0.01223" b="-0.04113" c="0.02913" />
+            <distortion model="ptlens" focal="11.5" a="0.0015" b="-0.00506" c="0.00807" />
+            <distortion model="ptlens" focal="26.7" a="-0.00758" b="0.02306" c="-0.02099" />
+            <distortion model="ptlens" focal="34.8" a="-0.00352" b="0.01759" c="-0.01439" />
         </calibration>
     </lens>
 
