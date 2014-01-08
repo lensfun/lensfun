@@ -51,8 +51,9 @@ def chdir(dirname=None):
 
 class Lens(object):
 
-    def __init__(self, name, maker, mount, cropfactor, type_):
-        self.name, self.maker, self.mount, self.cropfactor, self.type_ = name, maker, mount, cropfactor, type_
+    def __init__(self, name, maker, mount, cropfactor, aspect_ratio, type_):
+        self.name, self.maker, self.mount, self.cropfactor, self.aspect_ratio, self.type_ = \
+                    name, maker, mount, cropfactor, aspect_ratio, type_
         self.calibration_lines = []
         self.minimal_focal_length = float("inf")
 
@@ -73,6 +74,8 @@ class Lens(object):
 """.format(self.maker, self.name, self.mount, self.cropfactor))
         if self.type_:
             outfile.write("        <type>{0}</type>\n".format(self.type_))
+        if self.aspect_ratio and self.aspect_ratio != "3:2":
+            outfile.write("        <aspect-ratio>{0}</aspect-ratio>\n".format(self.aspect_ratio))
         if self.calibration_lines:
             outfile.write("        <calibration>\n")
             for line in self.calibration_lines:
@@ -202,7 +205,8 @@ if os.path.exists("distortion"):
 #
 
 lens_line_pattern = re.compile(
-    r"(?P<name>.+):\s*(?P<maker>[^,]+)\s*,\s*(?P<mount>[^,]+)\s*,\s*(?P<cropfactor>[^,]+)(\s*,\s*(?P<type>[^,]+))?")
+    r"(?P<name>.+):\s*(?P<maker>[^,]+)\s*,\s*(?P<mount>[^,]+)\s*,\s*(?P<cropfactor>[^,]+)"
+    r"(\s*,\s*(?P<aspect_ratio>\d+:\d+))?(\s*,\s*(?P<type>[^,]+))?")
 distortion_line_pattern = re.compile(r"\s*distortion\((?P<focal_length>[.0-9]+)mm\)\s*=\s*"
                                      r"(?P<a>[-.0-9]+)(?:\s*,\s*(?P<b>[-.0-9]+)\s*,\s*(?P<c>[-.0-9]+))?")
 lenses = {}
@@ -214,7 +218,8 @@ try:
             match = lens_line_pattern.match(line)
             if match:
                 data = match.groupdict()
-                current_lens = Lens(data["name"], data["maker"], data["mount"], data["cropfactor"], data["type"])
+                current_lens = Lens(data["name"], data["maker"], data["mount"], data["cropfactor"],
+                                    data["aspect_ratio"], data["type"])
                 lenses[data["name"]] = current_lens
             else:
                 match = distortion_line_pattern.match(line)
@@ -239,10 +244,11 @@ except IOError:
     with open("lenses.txt", "w") as outfile:
         if focal_lengths:
             outfile.write("""# For suggestions for <maker> and <mount> see <http://goo.gl/BSARX>.
+# <aspect-ratio> is optional and by default 3:2.
 # Omit <type> for rectilinear lenses.
 """)
             for lens_name in lens_names_by_focal_length:
-                outfile.write("\n{0}: <maker>, <mount>, <cropfactor>, <type>\n".format(lens_name))
+                outfile.write("\n{0}: <maker>, <mount>, <cropfactor>, <aspect-ratio>, <type>\n".format(lens_name))
                 # FixMe: Only generate focal lengths that are available for
                 # *distortion*.
                 for length in sorted(focal_lengths[lens_name]):
