@@ -1493,4 +1493,20 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 105mm f/2.8 EX DG OS HSM Macro</model>
+        <mount>Nikon F AF</mount>
+        <mount>Sigma SA</mount>
+        <mount>Canon EF</mount>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D7000 -->
+            <distortion model="poly3" focal="105" k1="-0.00027" />
+            <!-- There isn't really any -->
+            <tca model="poly3" focal="105" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
