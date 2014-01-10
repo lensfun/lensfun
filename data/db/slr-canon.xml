@@ -2440,4 +2440,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF-S 15-85mm f/3.5-5.6 IS USM</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.613</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 550D -->
+            <distortion model="ptlens" focal="15" a="0.0184" b="-0.03224" c="-0.03581" />
+            <distortion model="ptlens" focal="17" a="0.02912" b="-0.08348" c="0.0641" />
+            <distortion model="ptlens" focal="18" a="0.02432" b="-0.06148" c="0.03995" />
+            <distortion model="ptlens" focal="19" a="0.01682" b="-0.04154" c="0.03783" />
+            <distortion model="ptlens" focal="21" a="0.01432" b="-0.03294" c="0.03046" />
+            <distortion model="ptlens" focal="22" a="0.00798" b="-0.01214" c="0.01256" />
+            <distortion model="ptlens" focal="24" a="0.00993" b="-0.01948" c="0.02317" />
+            <distortion model="ptlens" focal="35" a="0.00161" b="-0.00086" c="0.01326" />
+            <distortion model="ptlens" focal="50" a="0.0042" b="-0.00871" c="0.01862" />
+            <distortion model="ptlens" focal="70" a="0.00378" b="-0.0078" c="0.01051" />
+            <distortion model="ptlens" focal="85" a="0.00118" b="-0.00081" c="0.00592" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
