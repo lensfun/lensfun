@@ -14,11 +14,6 @@ automatic.
 
 Note that this script also creates a database with version 0.  This is not
 really needed but it is a good test.
-
-Also note that this program sets a "version" attribute for versions >= 1,
-although this attribute is not yet supported in LensFun.  If its proposal is
-rejected, this code must be removed here.
-
 """
 
 import glob, os, subprocess, calendar, json, re, time, tarfile, io, argparse, shutil
