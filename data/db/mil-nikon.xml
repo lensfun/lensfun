@@ -116,4 +116,28 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>1 Nikkor AW 11-27.5mm f/3.5-5.6</model>
+        <mount>Nikon CX</mount>
+        <cropfactor>2.727</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon 1 AW1 -->
+            <distortion model="ptlens" focal="11" a="0.0108" b="-0.04366" c="0.01672" />
+            <distortion model="ptlens" focal="14" a="0.00707" b="-0.03017" c="0.01789" />
+            <distortion model="ptlens" focal="16.1" a="0.00422" b="-0.01878" c="0.01041" />
+            <distortion model="ptlens" focal="18.2" a="0.00176" b="-0.01145" c="0.00993" />
+            <distortion model="ptlens" focal="21" a="0.00225" b="-0.01094" c="0.01183" />
+            <distortion model="ptlens" focal="23.6" a="0.00121" b="-0.00499" c="0.00367" />
+            <distortion model="ptlens" focal="27.5" a="0.00158" b="-0.00591" c="0.00483" />
+            <tca model="poly3" focal="11" br="0.0000054" vr="1.0002237" bb="0.0000092" vb="1.0000626" />
+            <tca model="poly3" focal="14" br="-0.0000744" vr="1.0002354" bb="0.0000058" vb="1.0000739" />
+            <tca model="poly3" focal="16.1" br="-0.0000501" vr="1.0001925" bb="0.0000057" vb="1.0000790" />
+            <tca model="poly3" focal="18.2" br="-0.0000541" vr="1.0001661" bb="-0.0000100" vb="1.0000806" />
+            <tca model="poly3" focal="21" br="-0.0000300" vr="1.0001514" bb="0.0000051" vb="1.0000838" />
+            <tca model="poly3" focal="23.6" br="-0.0000236" vr="1.0001017" bb="0.0000001" vb="1.0000574" />
+            <tca model="poly3" focal="27.5" br="-0.0000339" vr="1.0001351" bb="-0.0000011" vb="1.0000496" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
