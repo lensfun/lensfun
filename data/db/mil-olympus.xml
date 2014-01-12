@@ -504,4 +504,27 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Olympus</maker>
+        <model>Olympus M.9-18mm f/4.0-5.6</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with OMD E-M5 -->
+            <distortion model="ptlens" focal="9" a="-0.00243" b="-0.05248" c="0.0576" />
+            <distortion model="ptlens" focal="10" a="-0.01843" b="0.00876" c="0.00143" />
+            <distortion model="ptlens" focal="13" a="-0.00767" b="0.0044" c="0.00695" />
+            <distortion model="ptlens" focal="14" a="-0.00643" b="0.0062" c="0.0044" />
+            <distortion model="ptlens" focal="16" a="-0.0036" b="0.00137" c="0.00803" />
+            <distortion model="ptlens" focal="18" a="0.0014" b="-0.00822" c="0.01145" />
+            <tca model="poly3" focal="9" br="0.0002967" vr="1.0001617" bb="-0.0001941" vb="1.0002941" />
+            <tca model="poly3" focal="10" br="0.0003830" vr="1.0000787" bb="-0.0002023" vb="1.0003066" />
+            <tca model="poly3" focal="13" br="0.0004065" vr="0.9999052" bb="-0.0002830" vb="1.0004586" />
+            <tca model="poly3" focal="14" br="0.0003393" vr="0.9999490" bb="-0.0002826" vb="1.0004648" />
+            <tca model="poly3" focal="16" br="0.0002626" vr="1.0000189" bb="-0.0002668" vb="1.0004628" />
+            <tca model="poly3" focal="18" br="0.0002269" vr="1.0000589" bb="-0.0002144" vb="1.0003623" />
+        </calibration>
+    </lens>
+
 </lensdatabase>

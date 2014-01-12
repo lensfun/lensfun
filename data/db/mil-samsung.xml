@@ -139,7 +139,20 @@
         <mount>Samsung NX</mount>
         <cropfactor>1.54</cropfactor>
         <calibration>
-            <distortion model="poly3" focal="45" k1="-0.01172" />
+            <!-- Taken with Samsung NX11 -->
+            <distortion model="poly3" focal="45" k1="-0.00974" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Samsung</maker>
+        <model>Samsung NX 20mm f/2.8 Pancake</model>
+        <mount>Samsung NX</mount>
+        <cropfactor>1.54</cropfactor>
+        <calibration>
+            <!-- Taken with Samsung NX11 -->
+            <distortion model="ptlens" focal="20" a="0.0065" b="-0.03633" c="0.00495" />
+            <tca model="poly3" focal="20" br="-0.0001595" vr="1.0006749" bb="0.0001657" vb="0.9996819" />
         </calibration>
     </lens>
 
