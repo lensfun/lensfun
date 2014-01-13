@@ -619,7 +619,7 @@
         <model>Canon PowerShot S90</model>
         <model lang="en">PowerShot S90</model>
         <mount>canonS90</mount>
-        <cropfactor>4.6</cropfactor>
+        <cropfactor>4.67</cropfactor>
     </camera>
 
     <camera>
@@ -1210,6 +1210,25 @@
             <distortion model="ptlens" focal="9.7" a="0.025" b="-0.087" c="0.085" />
             <distortion model="ptlens" focal="11.6" a="0.099" b="-0.302" c="0.288" />
             <distortion model="ptlens" focal="18.6" a="0.054" b="-0.169" c="0.179" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Standard</model>
+        <mount>canonS90</mount>
+        <cropfactor>4.67</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="6" a="0.01801" b="-0.09667" c="0.02041" />
+            <distortion model="ptlens" focal="7.5" a="0.00793" b="-0.0524" c="-0.00156" />
+            <distortion model="ptlens" focal="10.7" a="-0.01274" b="0.02428" c="-0.04366" />
+            <distortion model="ptlens" focal="18.2" a="0.02233" b="-0.0766" c="0.07502" />
+            <distortion model="ptlens" focal="22.5" a="-0.00256" b="0.01016" c="-0.01643" />
+            <tca model="poly3" focal="6" br="0.0004594" vr="0.9997919" bb="-0.0004823" vb="1.0009686" />
+            <tca model="poly3" focal="7.5" br="0.0002156" vr="0.9998923" bb="-0.0003540" vb="1.0009066" />
+            <tca model="poly3" focal="10.7" br="0.0000737" vr="1.0000337" bb="-0.0001950" vb="1.0005510" />
+            <tca model="poly3" focal="18.2" br="0.0000189" vr="1.0001247" bb="-0.0000461" vb="1.0001230" />
+            <tca model="poly3" focal="22.5" br="-0.0000520" vr="1.0003164" bb="-0.0000220" vb="1.0000067" />
         </calibration>
     </lens>
 
