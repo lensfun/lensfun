@@ -67,11 +67,15 @@ lfError lfDatabase::Load ()
     for (tmp = g_get_system_data_dirs (); ndirs < 10 && *tmp; tmp++)
     {
         char *current_dir = g_build_filename (*tmp, CONF_PACKAGE, NULL);
-        if (current_dir && (strcmp(current_dir, CONF_DATADIR)))
+#ifdef CONF_DATADIR
+        if (current_dir && (strcmp (current_dir, CONF_DATADIR)))
+#else
+        if (current_dir)
+#endif
         {
             for (int i = 0; i < ndirs; i++)
             {
-                if (!strcmp(dirs [i], current_dir))
+                if (!strcmp (dirs [i], current_dir))
                 {
                     g_free (current_dir);
                     current_dir = NULL;
