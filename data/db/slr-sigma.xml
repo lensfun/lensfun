@@ -382,31 +382,11 @@
     </lens>
 
     <lens>
-        <maker>Sigma</maker>
-        <model>Sigma 18-200mm f/3.5-6.3 DC</model>
-        <mount>Sigma SA</mount>
-        <mount>Canon EF</mount>
-        <mount>Nikon F AF</mount>
-        <mount>Pentax KAF</mount>
-        <!-- Average crop factor of non-Canon APS-C cameras -->
-        <cropfactor>1.53</cropfactor>
-        <calibration>
-            <distortion model="ptlens" focal="18" a="0.027521" b="-0.063244" c="0" />
-            <distortion model="ptlens" focal="22" a="0.016154" b="-0.029806" c="0" />
-            <distortion model="ptlens" focal="26" a="0.014824" b="-0.025689" c="0" />
-            <distortion model="ptlens" focal="34" a="0.011421" b="-0.011743" c="0" />
-            <distortion model="ptlens" focal="46" a="0" b="0.014338" c="0" />
-            <distortion model="ptlens" focal="78" a="0" b="0.009621" c="0" />
-            <distortion model="ptlens" focal="135" a="0" b="0.012591" c="0" />
-            <distortion model="ptlens" focal="200" a="0" b="0.011133" c="0" />
-        </calibration>
-    </lens>
-
-    <lens>
 	    <maker>Sigma</maker>
 	    <model>Sigma 18-200mm f/3.5-6.3 DC</model>
 	    <focal min="18" max="200" />
 	    <aperture min="3.5" max="40" />
+        <mount>Sigma SA</mount>
 	    <mount>Nikon F AF</mount>
         <mount>Canon EF</mount>
         <mount>Pentax KAF2</mount>
