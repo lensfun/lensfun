@@ -96,7 +96,7 @@ class Converter:
         root = tree.getroot()
         if self.to_version == 0:
             if "version" in root.attrib:
-                root.attrib["version"]
+                del root.attrib["version"]
         else:
             root.attrib["version"] = str(self.to_version)
         
