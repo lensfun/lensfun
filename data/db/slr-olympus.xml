@@ -145,7 +145,7 @@
 
     <lens>
         <maker>Olympus</maker>
-        <model>Olympus Zuiko Digital 7-14mm f/4.0</model>
+        <model>Olympus Zuiko Digital ED 7-14mm f/4.0</model>
         <mount>4/3 System</mount>
         <cropfactor>2.0</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
@@ -635,8 +635,28 @@
     </lens>
 
     <lens>
+        <!-- Also update copy with "SWD" below. -->
         <maker>Olympus</maker>
-        <model>Olympus Zuiko Digital 50-200mm f/2.8-3.5</model>
+        <model>Olympus Zuiko Digital ED 50-200mm f/2.8-3.5</model>
+        <mount>4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="50" a="0" b="-0.005194" c="0" />
+            <distortion model="ptlens" focal="62" a="0" b="-0.002175" c="0" />
+            <distortion model="ptlens" focal="69" a="0" b="0" c="0" />
+            <distortion model="ptlens" focal="83" a="0" b="0.001879" c="0" />
+            <distortion model="ptlens" focal="101" a="0" b="0.00369" c="0" />
+            <distortion model="ptlens" focal="130" a="0" b="0.004293" c="0" />
+            <distortion model="ptlens" focal="158" a="0" b="0.004686" c="0" />
+            <distortion model="ptlens" focal="200" a="0" b="0.003465" c="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <!-- Also update copy without "SWD" above. -->
+        <maker>Olympus</maker>
+        <model>Olympus Zuiko Digital ED 50-200mm f/2.8-3.5 SWD</model>
         <mount>4/3 System</mount>
         <cropfactor>2.0</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
@@ -654,7 +674,7 @@
 
     <lens>
         <maker>Olympus</maker>
-        <model>Olympus Zuiko Digital 50mm f/2.0 Macro</model>
+        <model>Olympus Zuiko Digital ED 50mm f/2.0 Macro</model>
         <mount>4/3 System</mount>
         <cropfactor>2.0</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
