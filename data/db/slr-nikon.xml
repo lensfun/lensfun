@@ -1706,4 +1706,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S DX Nikkor 10-24mm f/3.5-4.5G ED</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.558</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D3100 -->
+            <distortion model="ptlens" focal="10" a="0.0054" b="-0.04682" c="0.05708" />
+            <distortion model="ptlens" focal="12" a="-0.00189" b="-0.01666" c="0.03458" />
+            <distortion model="ptlens" focal="15" a="-0.00516" b="0.00567" c="0.01351" />
+            <distortion model="ptlens" focal="18" a="-0.0069" b="0.02453" c="-0.02009" />
+            <distortion model="ptlens" focal="20" a="-0.00605" b="0.02554" c="-0.02419" />
+            <distortion model="ptlens" focal="24" a="0.00279" b="-0.00922" c="0.01907" />
+            <tca model="poly3" focal="10" vr="1.00043" vb="1.00014" />
+            <tca model="poly3" focal="12" vr="1.00047" vb="1" />
+            <tca model="poly3" focal="15" vr="1.00030" vb="1" />
+            <tca model="poly3" focal="18" vr="1.00020" vb="1" />
+            <tca model="poly3" focal="20" vr="1.00020" vb="1" />
+            <tca model="poly3" focal="24" vr="1.00016" vb="1" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
