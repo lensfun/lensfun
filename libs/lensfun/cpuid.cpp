@@ -11,10 +11,16 @@
 #include <intrin.h>
 guint _lf_detect_cpu_features ()
 {
-    static GMutex lock;
     static guint cpuflags = -1;
+#if defined(GLIB_CHECK_VERSION) && GLIB_CHECK_VERSION(2,32,0)
+    static GMutex lock;
 
     g_mutex_lock (&lock);
+#else
+    static GStaticMutex lock = G_STATIC_MUTEX_INIT;
+
+    g_static_mutex_lock (&lock);
+#endif
     if (cpuflags == (guint)-1)
     {
         cpuflags = 0;
@@ -58,7 +64,11 @@ guint _lf_detect_cpu_features ()
             };
         };
     };
+#if defined(GLIB_CHECK_VERSION) && GLIB_CHECK_VERSION(2,32,0)
     g_mutex_unlock (&lock);
+#else
+    g_static_mutex_unlock (&lock);
+#endif
 
     return cpuflags;
 };
@@ -94,10 +104,16 @@ guint _lf_detect_cpu_features ()
     guint32 ax, cx, dx, tmp;
 #endif
 
-    static GMutex lock;
     static guint cpuflags = -1;
+#if defined(GLIB_CHECK_VERSION) && GLIB_CHECK_VERSION(2,32,0)
+    static GMutex lock;
 
     g_mutex_lock (&lock);
+#else
+    static GStaticMutex lock = G_STATIC_MUTEX_INIT; 
+
+    g_static_mutex_lock (&lock);
+#endif
     if (cpuflags == (guint)-1)
     {
         cpuflags = 0;
@@ -163,7 +179,11 @@ guint _lf_detect_cpu_features ()
             }
         }
     }
+#if defined(GLIB_CHECK_VERSION) && GLIB_CHECK_VERSION(2,32,0)
     g_mutex_unlock (&lock);
+#else
+    g_static_mutex_unlock (&lock);
+#endif
 
     return cpuflags;
 
