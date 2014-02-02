@@ -388,10 +388,6 @@ Possible embedded elements:
     shorter edge.  lensfun needs the aspect ratio internally for correct
     application of the distortion parameters.  You may give is as a real number
     or as a ratio with a colon like “4:3”.  It defaults to 1.5 or 3:2.
-<dt>\<cci r="number" g="number" b="number" /\>
-<dd>The Colour Contribution Index of the lens, as defined by ISO 6728-83.
-    Unfortunately, for now this data is unused as I couldn't find the respective
-    standard (they are sold for 30 euros or more).
 <dt>\<center x="number" y="number" /\>
 <dd>The decentering of the lens, i.e. the offset of its optical axis
     from the center of the viewframe. “x” denotes the offset in

@@ -770,12 +770,6 @@ struct LF_EXPORT lfLens
     float CenterX;
     /** The vertical shift of all lens distortions. (0,0) for geometric center */
     float CenterY;
-    /** Lens colour contribution index (ISO/CCI, ISO 6728:1983). Default 0/5/4 */
-    float RedCCI;
-    /** Green component of lens CCI */
-    float GreenCCI;
-    /** Blue component of lens CCI */
-    float BlueCCI;
     /** Crop factor at which calibration measurements were taken.  Must be defined. */
     float CropFactor;
     /** Aspect ratio of the images used for calibration measurements. */
@@ -1615,8 +1609,7 @@ enum
     LF_MODIFY_TCA        = 0x00000001,
     /** Correct (or apply) lens vignetting */
     LF_MODIFY_VIGNETTING = 0x00000002,
-    /** Correct (or apply) lens color contribution index */
-    LF_MODIFY_CCI        = 0x00000004,
+    /* Value 0x00000004 is deprecated. */
     /** Correct (or apply) lens distortion */
     LF_MODIFY_DISTORTION = 0x00000008,
     /** Convert image geometry */
@@ -1781,7 +1774,6 @@ typedef void (*lfModifyCoordFunc) (void *data, float *iocoord, int count);
  * The normal order of applying a lens correction on a image is:
  * <ol>
  * <li>Fix lens vignetting
- * <li>Fix lens colour contribution
  * <li>Fix chromatic aberrations (TCA)
  * <li>Fix lens distortion
  * <li>Fix lens geometry
@@ -1793,7 +1785,6 @@ typedef void (*lfModifyCoordFunc) (void *data, float *iocoord, int count);
  *
  * <ol>
  * <li>Color<ol>
- * <li>Fix lens colour contribution
  * <li>Fix lens vignetting
  * </ol>
  * <li>Coordinates<ol>
@@ -1808,9 +1799,9 @@ typedef void (*lfModifyCoordFunc) (void *data, float *iocoord, int count);
  *
  * This process is divided into three stages.
  *
- * In the first stage, the colors of the image pixels are fixed (vignetting and
- * colour contribution). You pass a pointer to your pixel data, and it will be
- * modified in place.
+ * In the first stage, the colors of the image pixels are fixed
+ * (vignetting). You pass a pointer to your pixel data, and it will be modified
+ * in place.
  *
  * Then, the distortions introduced by the lens are removed (distortion and
  * geometry), and an additional scaling factor is applied if required.  This
@@ -2017,24 +2008,6 @@ struct LF_EXPORT lfModifier
                                      bool reverse = false);
 
     /**
-     * @brief Add the stock CCI correcting callback into the chain.
-     *
-     * The CCI correction callback always has a fixed priority of 750 when
-     * rectifying a image and 250 on reverse transform.
-     * @param lens
-     *     The lens for which CCI is to be corrected.
-     * @param format
-     *     The pixel format of the image to be corrected.
-     * @param reverse
-     *     If true, the reverse model will be applied, e.g. simulate
-     *     a lens' CCI on a clean image.
-     * @return
-     *     True if CCI model is valid and the callback was added to chain.
-     */
-    bool AddColorCallbackCCI (const lfLens *lens, lfPixelFormat format,
-                              bool reverse = false);
-
-    /**
      * @brief Add the stock lens distortion correcting callback into the chain.
      *
      * The distortion correction callback always has a fixed priority of 750
@@ -2101,8 +2074,7 @@ struct LF_EXPORT lfModifier
     /**
      * @brief Image correction step 1: fix image colors.
      *
-     * This includes vignetting transform and CCI transform
-     * (e.g. rectification of image colors).
+     * This currently is only vignetting transform.
      * @param pixels
      *     This points to image pixels. The actual pixel format depends on both
      *     pixel_format and comp_role arguments.
@@ -2274,11 +2246,6 @@ LF_EXPORT cbool lf_modifier_add_subpixel_callback_TCA (
 /** @sa lfModifier::AddColorCallbackVignetting */
 LF_EXPORT cbool lf_modifier_add_color_callback_vignetting (
     lfModifier *modifier, lfLensCalibVignetting *model,
-    lfPixelFormat format, cbool reverse);
-
-/** @sa lfModifier::AddColorCallbackCCI */
-LF_EXPORT cbool lf_modifier_add_color_callback_CCI (
-    lfModifier *modifier, const lfLens *lens,
     lfPixelFormat format, cbool reverse);
 
 /** @sa lfModifier::AddCoordCallbackDistortion */

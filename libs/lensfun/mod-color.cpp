@@ -117,21 +117,6 @@ bool lfModifier::AddColorCallbackVignetting (
     return true;
 }
 
-/**
- * Uh-oh... I was not able to find the standard describing how exactly
- * CCI is computed or even what exactly it means. This is ISO 6728-83
- * or alternatively GOST R 50678-94 (Russian equivalent standard).
- * Perhaps even CCI might be removed from lensfun at one point in future
- * if there won't be enough interest in it and the standards information
- * couldn't be gathered.
- */
-bool lfModifier::AddColorCallbackCCI (
-    const lfLens *lens, lfPixelFormat format, bool reverse)
-{
-    (void)lens; (void)format; (void)reverse;
-    return false;
-}
-
 bool lfModifier::ApplyColorModification (
     void *pixels, float x, float y, int width, int height, int comp_role, int row_stride) const
 {
@@ -351,13 +336,6 @@ cbool lf_modifier_add_color_callback_vignetting (
     lfPixelFormat format, cbool reverse)
 {
     return modifier->AddColorCallbackVignetting (*model, format, reverse);
-}
-
-cbool lf_modifier_add_color_callback_CCI (
-    lfModifier *modifier, const lfLens *lens,
-    lfPixelFormat format, cbool reverse)
-{
-    return modifier->AddColorCallbackCCI (lens, format, reverse);
 }
 
 cbool lf_modifier_apply_color_modification (

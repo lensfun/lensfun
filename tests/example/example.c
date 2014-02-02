@@ -66,7 +66,6 @@ int main ()
         g_print ("\tFocal: %g-%g\n", lenses [i]->MinFocal, lenses [i]->MaxFocal);
         g_print ("\tAperture: %g-%g\n", lenses [i]->MinAperture, lenses [i]->MaxAperture);
         g_print ("\tCenter: %g,%g\n", lenses [i]->CenterX, lenses [i]->CenterY);
-        g_print ("\tCCI: %g/%g/%g\n", lenses [i]->RedCCI, lenses [i]->GreenCCI, lenses [i]->BlueCCI);
         if (lenses [i]->Mounts)
             for (j = 0; lenses [i]->Mounts [j]; j++)
                 g_print ("\tMount: %s\n", lf_db_mount_name (ldb, lenses [i]->Mounts [j]));

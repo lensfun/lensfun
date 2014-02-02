@@ -293,21 +293,6 @@ static void _xml_start_element (GMarkupParseContext *context,
             else
                 goto bad_attr;
     }
-    else if (!strcmp (element_name, "cci"))
-    {
-        if (!ctx || strcmp (ctx, "lens") || !pd->lens)
-            goto bad_ctx;
-
-        for (i = 0; attribute_names [i]; i++)
-            if (!strcmp (attribute_names [i], "red"))
-                pd->lens->RedCCI = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "green"))
-                pd->lens->GreenCCI = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "blue"))
-                pd->lens->BlueCCI = atof (attribute_values [i]);
-            else
-                goto bad_attr;
-    }
     else if (!strcmp (element_name, "type"))
     {
         if (!ctx || strcmp (ctx, "lens") || !pd->lens)
@@ -904,14 +889,6 @@ char *lfDatabase::Save (const lfMount *const *mounts,
             if (lenses [i]->CenterX || lenses [i]->CenterY)
                 _lf_xml_printf (output, "\t\t<center x=\"%g\" y=\"%g\" />\n",
                                 lenses [i]->CenterX, lenses [i]->CenterY);
-
-            if (lenses [i]->RedCCI != 0 ||
-                lenses [i]->GreenCCI != 5 ||
-                lenses [i]->BlueCCI != 4)
-                _lf_xml_printf (output, "\t\t<cci red=\"%g\" green=\"%g\" blue=\"%g\" />\n",
-                                lenses [i]->RedCCI,
-                                lenses [i]->GreenCCI,
-                                lenses [i]->BlueCCI);
 
             _lf_xml_printf (output, "\t\t<cropfactor>%g</cropfactor>\n",
                             lenses [i]->CropFactor);

@@ -72,7 +72,6 @@ static void DisplayUsage ()
     g_print ("                     orthographic, stereographic, equisolid, thoby)\n");
     g_print ("  -t    --tca        Apply lens chromatic aberrations\n");
     g_print ("  -v    --vignetting Apply lens vignetting\n");
-    g_print ("  -c    --cci        Apply lens Color Correction Index\n");
     g_print ("  -i    --inverse    Inverse correction of the image (e.g. simulate\n");
     g_print ("                     lens distortions instead of correcting them)\n");
     g_print ("  -s#   --scale=#    Apply additional scale on the image\n");
@@ -163,7 +162,7 @@ static Image *ApplyModifier (int modflags, bool reverse, Image *img,
                     break;
 
                 case 1:
-                    /* Colour correction: vignetting and CCI */
+                    /* Colour correction: vignetting */
                     ok = mod->ApplyColorModification (imgdata, 0.0, y, img->width, 1,
                         LF_CR_4 (RED, GREEN, BLUE, UNKNOWN), 0);
                     imgdata += img->width * 4;
@@ -228,7 +227,6 @@ int main (int argc, char **argv)
         {"geometry", optional_argument, NULL, 'g'},
         {"tca", no_argument, NULL, 't'},
         {"vignetting", no_argument, NULL, 'v'},
-        {"cci", no_argument, NULL, 'c'},
         {"inverse", no_argument, NULL, 'i'},
         {"scale", required_argument, NULL, 's'},
         {"autoscale", no_argument, NULL, 'S'},
@@ -290,9 +288,6 @@ int main (int argc, char **argv)
                 break;
             case 'v':
                 opts.ModifyFlags |= LF_MODIFY_VIGNETTING;
-                break;
-            case 'c':
-                opts.ModifyFlags |= LF_MODIFY_CCI;
                 break;
             case 'i':
                 opts.Inverse = true;
@@ -412,8 +407,6 @@ int main (int argc, char **argv)
             g_print ("[tca]");
         if (modflags & LF_MODIFY_VIGNETTING)
             g_print ("[vign]");
-        if (modflags & LF_MODIFY_CCI)
-            g_print ("[cci]");
         if (modflags & LF_MODIFY_DISTORTION)
             g_print ("[dist]");
         if (modflags & LF_MODIFY_GEOMETRY)

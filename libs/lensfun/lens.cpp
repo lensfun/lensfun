@@ -110,9 +110,6 @@ lfLens::lfLens ()
     // lenses easily.  If you need defaults for database tags, set them when
     // reading the database.
     memset (this, 0, sizeof (*this));
-    //RedCCI = 0;
-    GreenCCI = 5;
-    BlueCCI = 4;
     Type = LF_UNKNOWN;
     _lf_lens_regex_refs++;
 }
@@ -149,9 +146,6 @@ lfLens &lfLens::operator = (const lfLens &other)
 
     CenterX = other.CenterX;
     CenterY = other.CenterY;
-    RedCCI = other.RedCCI;
-    GreenCCI = other.GreenCCI;
-    BlueCCI = other.BlueCCI;
     CropFactor = other.CropFactor;
     AspectRatio = other.AspectRatio;
     Type = other.Type;

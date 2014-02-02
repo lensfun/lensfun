@@ -35,10 +35,6 @@ int lfModifier::Initialize (
                 oflags |= LF_MODIFY_VIGNETTING;
     }
 
-    if (flags & LF_MODIFY_CCI)
-        if (AddColorCallbackCCI (lens, format, reverse))
-            oflags |= LF_MODIFY_CCI;
-
     if (flags & LF_MODIFY_DISTORTION)
     {
         lfLensCalibDistortion lcd;

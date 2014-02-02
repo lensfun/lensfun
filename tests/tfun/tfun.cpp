@@ -60,7 +60,6 @@ static void PrintLens (const lfLens *lens, const lfDatabase *ldb)
     g_print ("\tFocal: %g-%g\n", lens->MinFocal, lens->MaxFocal);
     g_print ("\tAperture: %g-%g\n", lens->MinAperture, lens->MaxAperture);
     g_print ("\tCenter: %g,%g\n", lens->CenterX, lens->CenterY);
-    g_print ("\tCCI: %g/%g/%g\n", lens->RedCCI, lens->GreenCCI, lens->BlueCCI);
     if (lens->Mounts)
         for (int j = 0; lens->Mounts [j]; j++)
             g_print ("\tMount: %s\n", lf_db_mount_name (ldb, lens->Mounts [j]));
