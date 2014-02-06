@@ -1779,4 +1779,21 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S DX Nikkor 55-300mm f/4.5-5.6G ED VR</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <distortion model="poly3" focal="55" k1="-0.00476" />
+            <distortion model="poly3" focal="70" k1="0.00214" />
+            <distortion model="poly3" focal="80" k1="0.00586" />
+            <distortion model="poly3" focal="102" k1="0.00753" />
+            <distortion model="poly3" focal="120" k1="0.01046" />
+            <distortion model="poly3" focal="210" k1="0.00842" />
+            <distortion model="poly3" focal="240" k1="0.0078" />
+            <distortion model="poly3" focal="300" k1="0.0052" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
