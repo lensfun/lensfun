@@ -221,4 +221,29 @@
         </calibration>
       </lens>
 
+    <lens>
+        <maker>Tokina</maker>
+        <model>Tokina AF 16-28mm f/2.8 AT-X Pro SD FX</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 5D Mark III -->
+            <distortion model="poly3" focal="16" k1="-0.00888" />
+            <distortion model="poly3" focal="18" k1="-0.00572" />
+            <distortion model="poly3" focal="19" k1="-0.00426" />
+            <distortion model="poly3" focal="21" k1="-0.00249" />
+            <distortion model="poly3" focal="22" k1="-0.00113" />
+            <distortion model="poly3" focal="25" k1="-0.00033" />
+            <distortion model="poly3" focal="28" k1="0.00034" />
+            <tca model="poly3" focal="16" br="0.0000409" vr="1.0000971" bb="0.0000302" vb="1.0000925" />
+            <tca model="poly3" focal="18" br="0.0000510" vr="1.0000552" bb="-0.0000165" vb="1.0001691" />
+            <tca model="poly3" focal="19" br="0.0000587" vr="1.0000284" bb="-0.0000346" vb="1.0001799" />
+            <tca model="poly3" focal="21" br="0.0000502" vr="1.0000214" bb="-0.0000335" vb="1.0001829" />
+            <tca model="poly3" focal="22" br="0.0000416" vr="1.0000146" bb="-0.0000435" vb="1.0002136" />
+            <tca model="poly3" focal="25" br="0.0000520" vr="0.9999853" bb="-0.0000232" vb="1.0001969" />
+            <tca model="poly3" focal="28" br="0.0000373" vr="0.9999960" bb="-0.0000421" vb="1.0002272" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
