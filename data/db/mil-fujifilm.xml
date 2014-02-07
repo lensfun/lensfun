@@ -35,4 +35,27 @@
         <cropfactor>1.529</cropfactor>
     </camera>
 
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>XF18-55mmF2.8-4 R LM OIS</model>
+        <model lang="en">XF 18-55mm f/2.8-4 R LM OIS</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with X-E1 -->
+            <distortion model="ptlens" focal="18" a="0.02808" b="-0.10604" c="0.07041" />
+            <distortion model="ptlens" focal="22.3" a="0.01298" b="-0.03695" c="0.01899" />
+            <distortion model="ptlens" focal="27.7" a="0.03709" b="-0.11695" c="0.1187" />
+            <distortion model="ptlens" focal="35.8" a="0.02942" b="-0.08799" c="0.09673" />
+            <distortion model="ptlens" focal="44.4" a="0.00611" b="-0.00562" c="0.0159" />
+            <distortion model="ptlens" focal="55" a="0.00491" b="-0.00114" c="0.01427" />
+            <tca model="poly3" focal="18" br="-0.0001885" vr="1.0006600" bb="0.0001738" vb="0.9998316" />
+            <tca model="poly3" focal="22.3" br="-0.0001934" vr="1.0004668" bb="0.0002412" vb="0.9997719" />
+            <tca model="poly3" focal="27.7" br="-0.0001630" vr="1.0003388" bb="0.0001984" vb="0.9997897" />
+            <tca model="poly3" focal="35.8" br="-0.0001699" vr="1.0002943" bb="0.0001666" vb="0.9997469" />
+            <tca model="poly3" focal="44.4" br="-0.0001304" vr="1.0002094" bb="0.0001355" vb="0.9996474" />
+            <tca model="poly3" focal="55" br="-0.0001185" vr="1.0001664" bb="0.0001695" vb="0.9993813" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
