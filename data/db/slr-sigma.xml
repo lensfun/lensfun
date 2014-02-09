@@ -1467,9 +1467,15 @@
         <mount>Sony Alpha</mount>
         <mount>Pentax KAF2</mount>
         <mount>Canon EF</mount>
-        <!-- Average crop factor of non-Canon APS-C cameras -->
-        <cropfactor>1.53</cropfactor>
+        <cropfactor>1.526</cropfactor>
         <calibration>
+            <!-- Taken with Pentax K-5 -->
+            <distortion model="poly3" focal="70" k1="-0.00323" />
+            <distortion model="poly3" focal="88" k1="-0.00161" />
+            <distortion model="poly3" focal="105" k1="-0.00007" />
+            <distortion model="poly3" focal="135" k1="0.00284" />
+            <distortion model="poly3" focal="200" k1="0.00517" />
+            <!-- Taken with unknown APS-C camera -->
             <tca model="poly3" focal="70"  br="-0.0000832" vr="0.9997100" bb="0.0000141"  vb="1.0006182" />
             <tca model="poly3" focal="83"  br="0.0000026"  vr="0.9994386" bb="-0.0000353" vb="1.0010066" />
             <tca model="poly3" focal="98"  br="-0.0000087" vr="0.9993624" bb="-0.0000411" vb="1.0009973" />
