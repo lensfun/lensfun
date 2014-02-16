@@ -305,7 +305,7 @@ extern gint _lf_lens_name_compare (const lfLens *i1, const lfLens *i2);
  *
  * Since this function is used when reading the database, it effectively
  * enforces the primary key for lenses, which is the combination of the
- * attributes Maker, Model, all mounts, and CropFactor.
+ * attributes Maker, Model, and CropFactor.
  * @param a
  *     A pointer to first lfLens object.
  * @param b

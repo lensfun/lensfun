@@ -24,8 +24,7 @@ def check_primary_keys_uniqueness(roots):
     lenses, mounts, cameras = set(), set(), set()
     for root in roots:
         for element in root.findall("lens"):
-            lens_mounts = frozenset(normalize_string(mount.text) for mount in element.findall("mount"))
-            lens = (name(element, "maker"), name(element, "model"), lens_mounts, float(element.find("cropfactor").text))
+            lens = (name(element, "maker"), name(element, "model"), float(element.find("cropfactor").text))
             if lens in lenses:
                 print("Double primary key for lens!  {}".format(lens))
             else:

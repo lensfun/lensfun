@@ -1133,13 +1133,6 @@ gint _lf_lens_compare (gconstpointer a, gconstpointer b)
     if (cmp != 0)
         return cmp;
 
-    for (int i = 0; i1->Mounts [i] || i2->Mounts [i]; i++)
-    {
-        cmp = _lf_strcmp (i1->Mounts [i], i2->Mounts [i]);
-        if (cmp != 0)
-            return cmp;
-    }
-
     return int ((i1->CropFactor - i2->CropFactor) * 100);
 }
 
