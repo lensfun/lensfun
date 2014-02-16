@@ -1140,15 +1140,7 @@ gint _lf_lens_compare (gconstpointer a, gconstpointer b)
             return cmp;
     }
 
-    cmp = _lf_lens_parameters_compare (i1, i2);
-    if (cmp != 0)
-        return cmp;
-
-    cmp = int ((i1->CropFactor - i2->CropFactor) * 100);
-    if (cmp != 0)
-        return cmp;
-
-    return int ((i1->AspectRatio - i2->AspectRatio) * 100);
+    return int ((i1->CropFactor - i2->CropFactor) * 100);
 }
 
 static int _lf_compare_num (float a, float b)

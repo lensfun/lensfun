@@ -1244,8 +1244,7 @@ const lfLens **lfDatabase::FindLenses (const lfLens *lens, int sflags) const
                 for (size_t i = 0; i < ret->len; i++)
                 {
                     const lfLens *previous_lens = static_cast<lfLens *> (g_ptr_array_index (ret, i));
-                    if (!_lf_strcmp (previous_lens->Maker, dblens->Maker) &&
-                        !_lf_strcmp (previous_lens->Model, dblens->Model))
+                    if (!_lf_lens_name_compare (previous_lens, dblens))
                     {
                         if (dblens->Score > previous_lens->Score)
                             ret->pdata[i] = dblens;
