@@ -1796,6 +1796,14 @@
             <distortion model="poly3" focal="210" k1="0.00842" />
             <distortion model="poly3" focal="240" k1="0.0078" />
             <distortion model="poly3" focal="300" k1="0.0052" />
+            <tca model="poly3" focal="55" br="0.0000449" vr="1.0001027" bb="-0.0000593" vb="1.0001628" />
+            <tca model="poly3" focal="72" br="-0.0000018" vr="1.0000297" bb="-0.0000243" vb="1.0000969" />
+            <tca model="poly3" focal="85" br="-0.0000032" vr="0.9999327" bb="-0.0000219" vb="1.0001070" />
+            <tca model="poly3" focal="105" br="-0.0000110" vr="0.9998510" bb="-0.0000130" vb="1.0000502" />
+            <tca model="poly3" focal="120" br="-0.0000439" vr="0.9998686" bb="-0.0000061" vb="0.9999919" />
+            <tca model="poly3" focal="180" br="-0.0000425" vr="0.9996593" bb="-0.0000118" vb="0.9999718" />
+            <tca model="poly3" focal="240" br="-0.0000727" vr="0.9996030" bb="0.0000511" vb="0.9997629" />
+            <tca model="poly3" focal="300" br="-0.0000846" vr="0.9995954" bb="0.0000817" vb="0.9996456" />
         </calibration>
     </lens>
 
