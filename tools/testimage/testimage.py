@@ -383,6 +383,7 @@ class Image:
 
     def create_grid(self, distortion, projection, tca_red, tca_blue):
         full_frame_diagonal = sqrt(36**2 + 24**2)
+        # FixMe: One should use the FOV to calculate the actual focal length here.
         diagonal_by_focal_length = full_frame_diagonal / 2 / camera_cropfactor / focal_length
         def apply_lens_projection(x, y):
             r_vignetting = sqrt(x**2 + y**2) / self.aspect_ratio_correction

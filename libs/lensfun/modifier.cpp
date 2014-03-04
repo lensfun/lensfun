@@ -45,10 +45,13 @@ int lfModifier::Initialize (
 
     if (flags & LF_MODIFY_GEOMETRY &&
         lens->Type != targeom)
+    {
+        float actual_focal_length = GetActualFocalLength (lens, focal);
         if (reverse ?
-            AddCoordCallbackGeometry (targeom, lens->Type, focal) :
-            AddCoordCallbackGeometry (lens->Type, targeom, focal))
+            AddCoordCallbackGeometry (targeom, lens->Type, actual_focal_length) :
+            AddCoordCallbackGeometry (lens->Type, targeom, actual_focal_length))
             oflags |= LF_MODIFY_GEOMETRY;
+    }
 
     if (flags & LF_MODIFY_SCALE &&
         scale != 1.0)
@@ -56,6 +59,44 @@ int lfModifier::Initialize (
             oflags |= LF_MODIFY_SCALE;
 
     return oflags;
+}
+
+float lfModifier::GetActualFocalLength (const lfLens *lens, float focal)
+{
+    lfExtModifier *This = static_cast<lfExtModifier *> (this);
+    lfLensCalibFov fov_raw;
+    if (lens && lens->InterpolateFov (focal, fov_raw))
+    {
+        float fov = fov_raw.FieldOfView * M_PI / 180.0;
+        float half_width_in_millimeters = This->NormalizedInMillimeters * lens->AspectRatio;
+        // See also SrcPanoImage::calcFocalLength in Hugin.
+        switch (lens->Type)
+        {
+            case LF_UNKNOWN:
+                return focal;
+
+            case LF_RECTILINEAR:
+                return half_width_in_millimeters / tan (fov / 2.0);
+
+            case LF_FISHEYE:
+            case LF_PANORAMIC:
+            case LF_EQUIRECTANGULAR:
+                return half_width_in_millimeters / (fov / 2.0);
+
+            case LF_FISHEYE_ORTHOGRAPHIC:
+                return half_width_in_millimeters / sin (fov / 2.0);
+
+            case LF_FISHEYE_STEREOGRAPHIC:
+                return half_width_in_millimeters / (2 * tan (fov / 4.0));
+
+            case LF_FISHEYE_EQUISOLID:
+                return half_width_in_millimeters / (2 * sin (fov / 4.0));
+
+            case LF_FISHEYE_THOBY:
+                return half_width_in_millimeters / (1.47 * sin (0.713 * fov / 2.0));
+        }
+    }
+    return focal;
 }
 
 void lfModifier::Destroy ()

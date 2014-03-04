@@ -459,14 +459,15 @@ Possible embedded elements:
     lengths.  The mode name may be "no_crop", "crop_rectangle", or "crop_circle".
     @see lfCropMode
 <dt>\<field_of_view focal="number" fov="number" /\>
-<dd>Declares the real field of view (in degrees) for this lens. Field of view is specific for every
-    focal length (in mm), so you can declare multiple field of view entries with different focal
-    values; the library will interpolate the parameters for intermediate
-    focal lengths.  The field of view results from the focal length and
-    the type of the lens, so this parameter seems to be redundant.
+<dd>Declares the horizontal field of view (in degrees) for this lens, after
+    having applied undistortion. Field of view is specific for every focal
+    length (in mm), so you can declare multiple field of view entries with
+    different focal values; the library will interpolate the parameters for
+    intermediate focal lengths.  The field of view results from the focal
+    length and the type of the lens, so this parameter seems to be redundant.
     However, the nominal focal length may not be exact, and for some
-    applications (e.g. panorama stitching), it must be exact.  So in a
-    way, this is an accurate representation of the focal length.
+    applications (e.g. panorama stitching), it must be exact.  So in a way,
+    this is an accurate representation of the focal length.
 </dl>
 
 @page dbsearch How database files are found and loaded

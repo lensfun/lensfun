@@ -2199,6 +2199,28 @@ struct LF_EXPORT lfModifier
     bool ApplySubpixelGeometryDistortion (float xu, float yu, int width, int height,
                                           float *res) const;
 
+private:
+    /**
+     * @brief Calculate the focal length from the measured field-of-view
+     * (FOV).
+     *
+     * Returns the actual focal length (in contrast to the nominal focal length
+     * given in the "focal" attribute in the XML files).  It is needed for
+     * accurate geometry transformations, e.g. from fisheye to rectilinear.  If
+     * there is no FOV data available, the nominal focal length is returned as
+     * a fallback.
+     *
+     * @param lens
+     *     The lens for which the focal length should be returned.
+     * @param focal
+     *     The nominal focal length for which the actual focal length should be
+     *     returned.
+     * @return
+     *     the actual focal length, or, if no FOV data is included into the
+     *     calibration, the given nominal focal length
+     */
+    float GetActualFocalLength (const lfLens *lens, float focal);
+
 protected:
     /* Prevent user from creating and destroying such objects */
     lfModifier () {}
