@@ -1637,7 +1637,9 @@ enum lfPixelFormat
 
 C_TYPEDEF (enum, lfPixelFormat)
 
-/** @brief These constants define the role of every pixel component, four bits each */
+/** @brief These constants define the role of every pixel component, four bits
+ * each.  "pixel" refers here to a set of values which share the same (x, y)
+ * coordinates. */
 enum lfComponentRole
 {
     /**
@@ -1689,7 +1691,7 @@ C_TYPEDEF (enum, lfComponentRole)
                                  ((LF_CR_ ## c) << 8) | ((LF_CR_ ## d) << 12) | \
                                  ((LF_CR_ ## e) << 16) | ((LF_CR_ ## f) << 20) | \
                                  ((LF_CR_ ## g) << 24))
-/** @brief This macro defines a pixel format consisting of seven components */
+/** @brief This macro defines a pixel format consisting of eight components */
 #define LF_CR_8(a,b,c,d,e,f,g,h) ((LF_CR_ ## a) | ((LF_CR_ ## b) << 4) | \
                                  ((LF_CR_ ## c) << 8) | ((LF_CR_ ## d) << 12) | \
                                  ((LF_CR_ ## e) << 16) | ((LF_CR_ ## f) << 20) | \
@@ -1734,7 +1736,7 @@ typedef void (*lfSubpixelCoordFunc) (void *data, float *iocoord, int count);
  *     For example, LF_CR_4(RED,GREEN,BLUE,UNKNOWN) will define a RGBA
  *     (or RGBX) pixel format, and the UNKNOWN field will not be modified.
  * @param count
- *     Number of pixels to proceed.
+ *     Number of pixels to process.
  */
 typedef void (*lfModifyColorFunc) (void *data, float x, float y,
                                    void *pixels, int comp_role, int count);

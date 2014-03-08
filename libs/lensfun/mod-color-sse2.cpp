@@ -250,6 +250,7 @@ void lfExtModifier::ModifyColor_DeVignetting_PA_Select (
 {
     int cr = comp_role;
 
+    /* SSE2 is only used if there are four components per pixel. */
     if (((cr & 15) > LF_CR_NEXT) &&
         (((cr >> 4) & 15) > LF_CR_NEXT) &&
         (((cr >> 8) & 15) > LF_CR_NEXT) &&
