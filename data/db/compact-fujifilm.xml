@@ -162,6 +162,13 @@
         <cropfactor>5.43</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Fujifilm</maker>
+        <model>FinePix S5600</model>
+        <mount>fujiS5600</mount>
+        <cropfactor>6.03</cropfactor>
+    </camera>
+
     <lens>
         <maker>Fujifilm</maker>
         <model>FinePix F11 &amp; compatibles (Standard)</model>
@@ -736,6 +743,26 @@
             <tca model="poly3" focal="36.3" vr="0.9999841" vb="0.9999159" />
             <tca model="poly3" focal="60.4" vr="0.9999076" vb="0.9999219" />
             <tca model="poly3" focal="92" vr="0.999" vb="0.999" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>FinePix S5600</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>fujiS5600</mount>
+        <cropfactor>6.03</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="poly3" focal="6.3" k1="-0.01437" />
+            <distortion model="poly3" focal="6.9" k1="-0.00883" />
+            <distortion model="poly3" focal="7.5" k1="-0.005619" />
+            <distortion model="poly3" focal="9" k1="0.00042" />
+            <distortion model="poly3" focal="16.7" k1="0.00266" />
+            <distortion model="poly3" focal="21.6" k1="0.00156" />
+            <distortion model="poly3" focal="28.6" k1="0.00094" />
+            <distortion model="poly3" focal="63" k1="0.00021" />
         </calibration>
     </lens>
 
