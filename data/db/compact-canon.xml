@@ -678,6 +678,14 @@
         <cropfactor>4.62</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot A640</model>
+        <model lang="en">PowerShot A640</model>
+        <mount>canonA640</mount>
+        <cropfactor>4.79</cropfactor>
+    </camera>
+
     <lens>
         <maker>Canon</maker>
         <model>Canon PowerShot Pro1 &amp; compatibles (Standard)</model>
@@ -1480,6 +1488,24 @@
             <distortion model="ptlens" focal="11.5" a="0.0015" b="-0.00506" c="0.00807" />
             <distortion model="ptlens" focal="26.7" a="-0.00758" b="0.02306" c="-0.02099" />
             <distortion model="ptlens" focal="34.8" a="-0.00352" b="0.01759" c="-0.01439" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon PowerShot A640 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>canonA640</mount>
+        <cropfactor>4.79</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="7.3" a="0.02127" b="-0.05684" c="0.0111" />
+            <distortion model="ptlens" focal="8.5" a="0.01234" b="-0.03216" c="-0.00418" />
+            <distortion model="ptlens" focal="9.6" a="0.00595" b="-0.01344" c="-0.01032" />
+            <distortion model="ptlens" focal="10.8" a="0.01574" b="-0.04867" c="0.03964" />
+            <distortion model="ptlens" focal="12.6" a="0" b="0.00126" c="0" />
+            <distortion model="ptlens" focal="29.2" a="0" b="0.00432" c="0" />
         </calibration>
     </lens>
 
