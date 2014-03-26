@@ -899,4 +899,19 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-DA* 16-50mm f/2.8 ED AL IF SDM</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.526</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-5 II -->
+            <distortion model="ptlens" focal="16" a="0.02994" b="-0.08352" c="0.03371" />
+            <distortion model="ptlens" focal="19" a="0.02558" b="-0.07384" c="0.04704" />
+            <distortion model="ptlens" focal="28" a="0.00607" b="-0.01352" c="0.01649" />
+            <distortion model="ptlens" focal="34" a="0" b="0.00495" c="0" />
+            <distortion model="ptlens" focal="50" a="0" b="0.00588" c="0" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
