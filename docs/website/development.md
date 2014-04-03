@@ -5,20 +5,18 @@ layout: default
 weight: 6
 ---
 
-The source code is available from a subversion repository hosted at Berlios. You can checkout the current head revision by
+The source code is available from a git repository hosted at Sourceforge. You can check out the current head revision by
 
-    svn checkout svn://svn.berlios.de/lensfun/trunk lensfun
+        >$ git clone http://git.code.sf.net/p/lensfun/code lensfun-code
 
-The build system is based on CMake. There is also a proprietary python based system which is not developed anymore and thus it's not recommended to use it. Enter the lensfun folder and create the CMake build directory.
+The build system is based on CMake. There is also a proprietary Python based system which is not developed anymore and thus is not recommended to use. Enter the lensfun folder and create the CMake build directory:
 
-    cd lensfun/
-    mkdir cmake_build
-    cd cmake_build/
-    cmake ../
+        >$ cd lensfun-code/
+        >$ mkdir cmake_build
+        >$ cd cmake_build/
+        >$ cmake ../
 
-Beneath many other files this should have created a Makefile that can now be used to compile and install by
+Beneath many other files this should have created a Makefile that can now be used to compile and install as usual with
 
-    make
-    make install
-
-
+        >$ make
+        >$ make install
