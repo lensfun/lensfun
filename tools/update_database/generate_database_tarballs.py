@@ -5,7 +5,7 @@
 
 This program is intended to run as a cronjob, and possibly be run as needed.
 It creates a versions.json file and tarballs in the given output directory.  If
-desired, it also pushes its content to berlios.de.
+desired, it also pushes its content to sourceforge.de.
 
 If a new database version is created in LensFun, you must add a new `Converter`
 class.  Simply use `From1to0` as a starting point.  You prepend the decorator
@@ -25,7 +25,7 @@ root = "/tmp/"
 parser = argparse.ArgumentParser(description="Generate tar balls of the LensFun database, also for older versions.")
 parser.add_argument("output_path", help="Directory where to put the XML files.  They are put in the db/ subdirectory.  "
                     "It needn't exist yet.")
-parser.add_argument("--upload", action="store_true", help="Upload the files to Berlios, too.")
+parser.add_argument("--upload", action="store_true", help="Upload the files to Sourceforge, too.")
 args = parser.parse_args()
 
 
@@ -33,7 +33,7 @@ class XMLFile:
 
     def __init__(self, filepath):
         self.filepath = filepath
-        self.tree = ElementTree.parse(os.path.join(root, "lensfun-svn/data/db", filepath))
+        self.tree = ElementTree.parse(os.path.join(root, "lensfun-git/data/db", filepath))
 
     @staticmethod
     def indent(tree, level=0):
@@ -63,28 +63,26 @@ class XMLFile:
 
 def fetch_xml_files():
     try:
-        os.chdir(root + "lensfun-svn")
+        os.chdir(root + "lensfun-git")
     except FileNotFoundError:
         os.chdir(root)
-        subprocess.check_output(["svn", "checkout", "svn://svn.berlios.de/lensfun/trunk", "lensfun-svn"])
+        subprocess.check_output(["git", "clone", "git://git.code.sf.net/p/lensfun/code", "lensfun-git"])
     else:
-        subprocess.check_output(["svn", "update"])
-    os.chdir(root + "lensfun-svn/data/db")
+        subprocess.check_output(["git", "pull"])
+    os.chdir(root + "lensfun-git/data/db")
     xml_files = set()
-    xml_filepaths = glob.glob("*.xml")
-    for filename in xml_filepaths:
-        xml_files.add(XMLFile(filename))
     timestamp = 0
-    for line in subprocess.check_output(["svn", "info"] + xml_filepaths, env={"LANG": "C"}).decode("utf-8").splitlines():
-        match = timestamp_pattern.match(line)
-        if match:
-            current_timestamp = calendar.timegm(time.strptime(match.group(1), "%Y-%m-%d %H:%M:%S"))
-            sign, hours, minutes = match.group(2), int(match.group(3)), int(match.group(4))
-            offset = hours * 3600 + minutes * 60
-            if sign == "-":
-                offset -= 1
-            current_timestamp -= offset
-            timestamp = max(timestamp, current_timestamp)
+    for filename in glob.glob("*.xml"):
+        xml_files.add(XMLFile(filename))
+        line = subprocess.check_output(["git", "log", "-1", '--format=%ad', "--date=iso", "--", filename]).decode("utf-8")
+        iso_timestamp, __, iso_timezone = line.rpartition(" ")
+        current_timestamp = calendar.timegm(time.strptime(iso_timestamp, "%Y-%m-%d %H:%M:%S"))
+        sign, hours, minutes = iso_timezone[0], int(iso_timezone[1:3]), int(iso_timezone[3:5])
+        offset = hours * 3600 + minutes * 60
+        if sign == "-":
+            offset -= 1
+        current_timestamp -= offset
+        timestamp = max(timestamp, current_timestamp)
     return xml_files, timestamp
 xml_files, timestamp = fetch_xml_files()
 
@@ -156,6 +154,4 @@ while True:
 json.dump(metadata, open(os.path.join(output_path, "versions.json"), "w"))
 if args.upload:
     subprocess.check_call(["rsync", "-a", "--delete", output_path if output_path.endswith("/") else output_path + "/",
-                           "shell.berlios.de:/home/groups/lensfun/htdocs/db"])
-    subprocess.check_call(["ssh", "shell.berlios.de", "chgrp --recursive lensfun /home/groups/lensfun/htdocs/db ; "
-                           "chmod --recursive g+w /home/groups/lensfun/htdocs/db"])
+                           "web.sourceforge.net:/home/project-web/lensfun/htdocs/db"])

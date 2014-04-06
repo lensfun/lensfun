@@ -90,7 +90,7 @@ Exit status:
 REPORTING BUGS
 ====================
 
-Report bugs at <http://developer.berlios.de/bugs/?group_id=9034>.
+Report bugs at <https://sourceforge.net/p/lensfun/tickets/>.
 
 COPYRIGHT
 =============

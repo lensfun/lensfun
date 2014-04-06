@@ -4,7 +4,7 @@
 """This program fetches the latest version of the LensFun database from the
 Internet and places it on the local system.  This way, the user can update the
 database conveniently.  Unfortunately, we have to take into account that the
-SVN database may have a too new format for the locally installed LensFun.
+Git database may have a too new format for the locally installed LensFun.
 Then, it may fetch backports of the database from other URLs.
 
 This program must be called with root privileges.  It stores the new database
@@ -113,7 +113,7 @@ def read_location(base_url):
                 for base_url in alternatives:
                     read_location(base_url)
 
-read_location("http://lensfun.berlios.de/db/")
+read_location("http://lensfun.sourceforge.net/db/")
 read_location("http://wilson.bronger.org/lensfun-db/")
 
 if not locations:

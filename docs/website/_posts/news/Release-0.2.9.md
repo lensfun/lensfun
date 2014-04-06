@@ -4,7 +4,7 @@ title: Release 0.2.9
 layout: default
 ---
 
-Last update: SVN rev. 487
+Last update: Git commit 40d5bd8311bcdbd9367174f3f5c10ebe2ea19ff9
 
 * Streamlined the names of Nikkor, Tamron, Tokina, Panasonic, Leica, Olympus,
   and Sigma lenses so that auto-detection works better
