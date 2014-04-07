@@ -6,6 +6,7 @@ import subprocess, os, glob, datetime, tempfile, argparse
 from xml.etree import ElementTree
 import re
 import argparse
+import shutil
 
 #======================================================================
 # Function and class definitions
@@ -72,7 +73,7 @@ class Lens:
 # set up the commandline parser and define some arguemnts
 parser = argparse.ArgumentParser(description='Create a list of all cameras and lenses in the lensfun database.')
 parser.add_argument('db_path', metavar='DB_PATH', help='path to the lensfun database', default='/usr/share/lensfun/', nargs='?')
-parser.add_argument('-s', dest='svn', action='store_true', help='download current database from subversion repository')
+parser.add_argument('-g', dest='git', action='store_true', help='use current database from git repository')
 parser.add_argument('-t', dest='table_only', action='store_true', help='pure table/list without surrounding header and description')
 parser.add_argument('-m', dest='markdown', action='store_true', help='output markdown instead of HTML')
 parser.add_argument('-o', dest='outfile', action='store', help='output filename and path', default='./lensfun_coverage.html')
@@ -80,17 +81,16 @@ parser.add_argument('-o', dest='outfile', action='store', help='output filename 
 cmdline_args = vars(parser.parse_args())
 
 
-# decide wether to get the most up to date database from svn or use the locally installed database
-if cmdline_args['svn']==True:
+# decide wether to get the most up to date database from git or use the locally installed database
+if cmdline_args['git']==True:
     XmlDBPath = os.path.join(tempfile.gettempdir(), "lensfun")
-    print("Lensfun database is retrieved directly from SVN")
-    if not os.path.isdir(XmlDBPath):
-        subprocess.check_output(["svn", "checkout", "svn://svn.berlios.de/lensfun/trunk/data/db", XmlDBPath])
-    else:
-        subprocess.check_output(["svn", "update"])
+    print("~ Lensfun database is retrieved directly from git")
+    if os.path.isdir(XmlDBPath):
+        shutil.rmtree(XmlDBPath)
+    subprocess.check_output(["git", "clone", "http://git.code.sf.net/p/lensfun/code", XmlDBPath])
 else:
     XmlDBPath = cmdline_args['db_path']
-    print("Lensfun database is searched in "+XmlDBPath)
+    print("~ Lensfun database is searched in "+XmlDBPath)
 
 # parse the database create a list of camera and lens objects
 cameras, lenses = [], []
@@ -179,3 +179,4 @@ else:
         previous_maker = lens.maker.lower()
 
 outfile.close()
+print("~ List of lenses was written to "+cmdline_args['outfile'])
