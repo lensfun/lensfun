@@ -221,6 +221,14 @@
         <cropfactor>4.68</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Olympus Imaging Corp.</maker>
+        <maker lang="en">Olympus</maker>
+        <model>Stylus 1</model>
+        <mount>olympusStylus1</mount>
+        <cropfactor>4.67</cropfactor>
+    </camera>
+
     <lens>
         <maker>Olympus</maker>
         <model>C8080WZ &amp; compatibles (Standard)</model>
@@ -505,7 +513,7 @@
             <distortion model="ptlens" focal="19.8" a="0.00166" b="0.00164" c="0" />
             <distortion model="ptlens" focal="21.6" a="0.00064" b="0.00348" c="0" />
             <distortion model="ptlens" focal="24" a="0.00074" b="0.0032" c="0" />
-			<vignetting model="pa" focal="6" aperture="1.8" distance="10" k1="-0.2032" k2="-0.2235" k3="-0.0230" />
+            <vignetting model="pa" focal="6" aperture="1.8" distance="10" k1="-0.2032" k2="-0.2235" k3="-0.0230" />
             <vignetting model="pa" focal="6" aperture="1.8" distance="1000" k1="-0.2032" k2="-0.2235" k3="-0.0230" />
             <vignetting model="pa" focal="6" aperture="2.8" distance="10" k1="-0.1922" k2="-0.0942" k3="0.0504" />
             <vignetting model="pa" focal="6" aperture="2.8" distance="1000" k1="-0.1922" k2="-0.0942" k3="0.0504" />
@@ -558,4 +566,33 @@
         </calibration>
     </lens>
     
+    <lens>
+        <maker>Olympus</maker>
+        <model>Stylus 1 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>olympusStylus1</mount>
+        <cropfactor>4.67</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="6" a="-0.00245" b="-0.00755" c="-0.06886" />
+            <distortion model="ptlens" focal="7.4" a="0.02154" b="-0.07222" c="0.02781" />
+            <distortion model="ptlens" focal="9.8" a="0" b="-0.00026" c="0" />
+            <distortion model="ptlens" focal="12" a="0" b="0.00868" c="0" />
+            <distortion model="ptlens" focal="17.8" a="0" b="0.01546" c="0" />
+            <distortion model="ptlens" focal="35" a="0" b="0.01915" c="0" />
+            <distortion model="ptlens" focal="64.3" a="0" b="0.01865" c="0" />
+            <tca model="poly3" focal="6" br="-0.0000115" vr="1.0005629" bb="0.0000971" vb="0.9999294" />
+            <tca model="poly3" focal="7.4" br="-0.0000325" vr="1.0005431" bb="0.0000828" vb="0.9999069" />
+            <tca model="poly3" focal="9.8" br="-0.0000787" vr="1.0005433" bb="0.0000792" vb="0.9999241" />
+            <tca model="poly3" focal="12" br="-0.0001483" vr="1.0004799" bb="0.0000771" vb="0.9999224" />
+            <tca model="poly3" focal="14.5" br="-0.0001035" vr="1.0003665" bb="0.0000667" vb="0.9999654" />
+            <tca model="poly3" focal="17.8" br="-0.0001415" vr="1.0003736" bb="0.0000348" vb="1.0000034" />
+            <tca model="poly3" focal="19.6" br="-0.0000649" vr="1.0002254" bb="0.0000194" vb="1.0000348" />
+            <tca model="poly3" focal="35" br="0.0000169" vr="0.9998975" bb="-0.0000098" vb="1.0000255" />
+            <tca model="poly3" focal="51.4" br="0.0000277" vr="0.9998371" bb="-0.0000071" vb="1.0000043" />
+            <tca model="poly3" focal="64.3" br="0.0000729" vr="0.9996827" bb="0.0000264" vb="0.9998948" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
