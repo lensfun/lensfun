@@ -46,10 +46,10 @@ int lfModifier::Initialize (
     if (flags & LF_MODIFY_GEOMETRY &&
         lens->Type != targeom)
     {
-        float actual_focal_length = GetActualFocalLength (lens, focal);
+        float real_focal_length = GetRealFocalLength (lens, focal);
         if (reverse ?
-            AddCoordCallbackGeometry (targeom, lens->Type, actual_focal_length) :
-            AddCoordCallbackGeometry (lens->Type, targeom, actual_focal_length))
+            AddCoordCallbackGeometry (targeom, lens->Type, real_focal_length) :
+            AddCoordCallbackGeometry (lens->Type, targeom, real_focal_length))
             oflags |= LF_MODIFY_GEOMETRY;
     }
 
@@ -61,9 +61,11 @@ int lfModifier::Initialize (
     return oflags;
 }
 
-float lfModifier::GetActualFocalLength (const lfLens *lens, float focal)
+float lfModifier::GetRealFocalLength (const lfLens *lens, float focal)
 {
     lfExtModifier *This = static_cast<lfExtModifier *> (this);
+    lfLensCalibRealFocal real_focal;
+    if (lens && lens->InterpolateRealFocal (focal, real_focal)) return real_focal.RealFocal;
     lfLensCalibFov fov_raw;
     if (lens && lens->InterpolateFov (focal, fov_raw))
     {

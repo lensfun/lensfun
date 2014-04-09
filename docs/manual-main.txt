@@ -479,6 +479,18 @@ Possible embedded elements:
     f(1-a-b-c),&\text{for PTLens model}\\
     f(1-k_1),&\text{for Poly3 model}\\
     f,&\text{for Poly5 and FOV1 models}\end{array}\right.@f]
+<dt>\<real-focal-length focal="number" real-focal="number" /\>
+<dd>When Lensfun speaks of “focal length”, the *nominal* focal length from the
+    EXIF data or the gravure on the lens barrel is meant.  In particular, this
+    is what belongs in all "focal" attributes.  However, especially for fisheye
+    lenses, the real focal length generally differs from that nominal focal
+    length.  With “real focal length” I mean the focal length in the <a
+    href="http://en.wikipedia.org/wiki/Paraxial_approximation">paraxial
+    approximation</a>.  Note that Hugin (as of 2014) implements the calculation
+    of the real focal length <a
+    href="http://article.gmane.org/gmane.comp.misc.ptx/34865">wrongly</a>.  You
+    have to multiply Hugin's value by @f$1-a-b-c@f$ to get the real focal
+    length.
 </dl>
 
 @page dbsearch How database files are found and loaded

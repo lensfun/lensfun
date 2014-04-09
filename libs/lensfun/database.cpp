@@ -488,6 +488,25 @@ static void _xml_start_element (GMarkupParseContext *context,
 
         pd->lens->AddCalibFov (&lcf);
     }
+    else if (!strcmp (element_name, "real-focal-length"))
+    {
+        if (!ctx || strcmp (ctx, "calibration"))
+            goto bad_ctx;
+
+        lfLensCalibRealFocal lcf;
+        memset (&lcf, 0, sizeof (lcf));
+        for (i = 0; attribute_names [i]; i++)
+            if (!strcmp (attribute_names [i], "focal"))
+                lcf.Focal = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "real-focal"))
+                lcf.RealFocal = atof (attribute_values [i]);
+            else
+            {
+                goto unk_attr;
+            }
+
+        pd->lens->AddCalibRealFocal (&lcf);
+    }
     /* Handle multi-language strings */
     else if (!strcmp (element_name, "maker") ||
              !strcmp (element_name, "model") ||
@@ -897,7 +916,7 @@ char *lfDatabase::Save (const lfMount *const *mounts,
 
             if (lenses [i]->CalibDistortion || lenses [i]->CalibTCA ||
                 lenses [i]->CalibVignetting || lenses [i]->CalibCrop || 
-                lenses [i]->CalibFov )
+                lenses [i]->CalibFov || lenses [i]->CalibRealFocal)
                 g_string_append (output, "\t\t<calibration>\n");
 
             if (lenses [i]->CalibDistortion)
@@ -1033,9 +1052,23 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                 }
             }
 
+            if (lenses [i]->CalibRealFocal)
+            {
+                for (j = 0; lenses [i]->CalibRealFocal [j]; j++)
+                {
+                    lfLensCalibRealFocal *lcf = lenses [i]->CalibRealFocal [j];
+
+                    if (lcf->RealFocal>0)
+                    {
+                        _lf_xml_printf (output, "\t\t\t<real-focal-length focal=\"%g\" real-focal=\"%g\" />\n",
+                            lcf->Focal, lcf->RealFocal);
+                    };
+                }
+            }
+
             if (lenses [i]->CalibDistortion || lenses [i]->CalibTCA ||
                 lenses [i]->CalibVignetting || lenses [i]->CalibCrop ||
-                lenses [i]->CalibFov )
+                lenses [i]->CalibFov || lenses [i]->CalibRealFocal)
                 g_string_append (output, "\t\t</calibration>\n");
 
             g_string_append (output, "\t</lens>\n\n");
