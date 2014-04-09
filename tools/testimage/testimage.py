@@ -100,10 +100,11 @@ width, aspect_ratio, portrait = args.width, args.aspect_ratio, args.portrait
 
 def get_database_elements():
     lens_element = camera_element = None
-    distortion_element = vignetting_element = tca_element = None
+    distortion_element = tca_element = vignetting_element = real_focal_length_element = fov_element = None
     files_found = False
     def crawl_directory(dirpath):
-        nonlocal lens_element, camera_element, distortion_element, vignetting_element, tca_element, files_found
+        nonlocal lens_element, camera_element, distortion_element, tca_element, vignetting_element, real_focal_length_element, \
+            fov_element, files_found
         for root, __, filenames in os.walk(dirpath):
             for filename in filenames:
                 if filename.endswith(".xml"):
@@ -132,6 +133,12 @@ def get_database_elements():
                                        float(calibration_element.attrib["aperture"]) == aperture and \
                                        float(calibration_element.attrib["distance"]) == distance:
                                         vignetting_element = calibration_element
+                                    elif calibration_element.tag == "real-focal-length" and \
+                                       float(calibration_element.attrib["focal"]) == focal_length:
+                                        real_focal_length_element = calibration_element
+                                    elif calibration_element.tag == "field_of_view" and \
+                                       float(calibration_element.attrib["focal"]) == focal_length:
+                                        fov_element = calibration_element
     paths_search_list = [args.db_path] if args.db_path else \
                         [os.path.expanduser("~/.local/share/lensfun"), "/usr/share/lensfun", "/usr/local/share/lensfun"]
     for path in paths_search_list:
@@ -145,9 +152,10 @@ def get_database_elements():
     if camera_element is None:
         print("Camera model name not found.")
         sys.exit(1)
-    return lens_element, camera_element, distortion_element, vignetting_element, tca_element
+    return lens_element, camera_element, distortion_element, tca_element, vignetting_element, real_focal_length_element, fov_element
 
-lens_element, camera_element, distortion_element, vignetting_element, tca_element = get_database_elements()
+lens_element, camera_element, distortion_element, tca_element, vignetting_element, real_focal_length_element, fov_element = \
+        get_database_elements()
 
 
 camera_cropfactor = float(camera_element.find("cropfactor").text)
