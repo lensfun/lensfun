@@ -10,4 +10,15 @@
         <compat>Generic</compat>
     </mount>
 
+    <lens>
+        <maker>CCTV Movie Lens</maker>
+        <model>HD-MC 35mm/F1.6</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <calibration>
+            <distortion model="poly3" focal="35" k1="-0.0055" />
+            <tca model="poly3" focal="35" br="-0.0001764" vr="1.0005429" bb="0.0000786" vb="1.0008622" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
