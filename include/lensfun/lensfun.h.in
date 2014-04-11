@@ -436,7 +436,8 @@ enum lfDistortionModel
     /** @brief Distortion parameters are unknown */
     LF_DIST_MODEL_NONE,
     /**
-     * @brief 3rd order polynomial model.
+     * @brief 3rd order polynomial model, which is a subset of the PTLens
+     * model.
      *
      * \f[r_d = r_u \cdot (1 - k_1 + k_1 r_u^2)\f]
      * The corresponding XML attribute is called “k1”.  It defaults to 0.
@@ -461,7 +462,7 @@ enum lfDistortionModel
      */
     LF_DIST_MODEL_FOV1,
     /**
-     * @brief PTLens rectilinear.
+     * @brief PTLens model, which is also used by Hugin.
      *
      * \f[r_d = r_u \cdot (a r_u^3 + b r_u^2 + c r_u + 1 - a - b - c)\f]
      * The corresponding XML attributes are called “a”, “b”, and “c”.  They
