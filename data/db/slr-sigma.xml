@@ -833,6 +833,25 @@
 
     <lens>
         <maker>Sigma</maker>
+        <model>Sigma 24-70mm f/2.8 IF EX DG HSM</model>
+        <mount>Sigma SA</mount>
+        <mount>Canon EF</mount>
+        <mount>Minolta AF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1.526</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-30 -->
+            <distortion model="ptlens" focal="24" a="-0.00125" b="-0.00574" c="-0.00426" />
+            <distortion model="ptlens" focal="27" a="-0.00953" b="0.02092" c="-0.02295" />
+            <distortion model="ptlens" focal="35" a="-0.0011" b="0.00117" c="-0.0029" />
+            <distortion model="ptlens" focal="48" a="0.00383" b="-0.01224" c="0.01544" />
+            <distortion model="ptlens" focal="70" a="-0.00141" b="0.00991" c="-0.00803" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
         <model>Sigma 28-70mm f/2.8 EX DG</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
