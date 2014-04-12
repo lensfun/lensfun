@@ -47,6 +47,18 @@ int lfModifier::Initialize (
         lens->Type != targeom)
     {
         float real_focal_length = GetRealFocalLength (lens, focal);
+        /* Take into account that the Hugin models (Poly3, PTLens), use a wrong
+         * focal length (see the thread
+         * http://thread.gmane.org/gmane.comp.misc.ptx/34865).
+         */
+        lfLensCalibDistortion res;
+        if (lens->InterpolateDistortion(focal, res))
+        {
+            if (res.Model == LF_DIST_MODEL_POLY3)
+                real_focal_length /= 1 - res.Terms[0];
+            else if (res.Model == LF_DIST_MODEL_PTLENS)
+                real_focal_length /= 1 - res.Terms[0] - res.Terms[1] - res.Terms[2];
+        }
         if (reverse ?
             AddCoordCallbackGeometry (targeom, lens->Type, real_focal_length) :
             AddCoordCallbackGeometry (lens->Type, targeom, real_focal_length))
@@ -71,6 +83,7 @@ float lfModifier::GetRealFocalLength (const lfLens *lens, float focal)
     {
         float fov = fov_raw.FieldOfView * M_PI / 180.0;
         float half_width_in_millimeters = This->NormalizedInMillimeters * lens->AspectRatio;
+        float result;
         // See also SrcPanoImage::calcFocalLength in Hugin.
         switch (lens->Type)
         {
@@ -78,25 +91,44 @@ float lfModifier::GetRealFocalLength (const lfLens *lens, float focal)
                 return focal;
 
             case LF_RECTILINEAR:
-                return half_width_in_millimeters / tan (fov / 2.0);
+                result = half_width_in_millimeters / tan (fov / 2.0);
+                break;
 
             case LF_FISHEYE:
             case LF_PANORAMIC:
             case LF_EQUIRECTANGULAR:
-                return half_width_in_millimeters / (fov / 2.0);
+                result = half_width_in_millimeters / (fov / 2.0);
+                break;
 
             case LF_FISHEYE_ORTHOGRAPHIC:
-                return half_width_in_millimeters / sin (fov / 2.0);
+                result = half_width_in_millimeters / sin (fov / 2.0);
+                break;
 
             case LF_FISHEYE_STEREOGRAPHIC:
-                return half_width_in_millimeters / (2 * tan (fov / 4.0));
+                result = half_width_in_millimeters / (2 * tan (fov / 4.0));
+                break;
 
             case LF_FISHEYE_EQUISOLID:
-                return half_width_in_millimeters / (2 * sin (fov / 4.0));
+                result = half_width_in_millimeters / (2 * sin (fov / 4.0));
+                break;
 
             case LF_FISHEYE_THOBY:
-                return half_width_in_millimeters / (1.47 * sin (0.713 * fov / 2.0));
+                result = half_width_in_millimeters / (1.47 * sin (0.713 * fov / 2.0));
+                break;
+
+            default:
+                // This should never happen
+                return NAN;
         }
+        lfLensCalibDistortion res;
+        if (lens->InterpolateDistortion(focal, res))
+        {
+            if (res.Model == LF_DIST_MODEL_POLY3)
+                result *= 1 - res.Terms[0];
+            else if (res.Model == LF_DIST_MODEL_PTLENS)
+                result *= 1 - res.Terms[0] - res.Terms[1] - res.Terms[2];
+        }
+        return result;
     }
     return focal;
 }
