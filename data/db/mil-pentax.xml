@@ -2,6 +2,7 @@
 
     <mount>
         <name>Pentax Q</name>
+        <compat>Generic</compat>
     </mount>
 
     <camera>
@@ -27,14 +28,13 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>Standard PRIME 8,5 mm F/1,9 AL [IF]</model>
+        <model>Standard Prime 8.5mm f/1.9 AL [IF]</model>
         <mount>Pentax Q</mount>
         <cropfactor>5.53</cropfactor>
         <focal value="8.5" />
         <aperture min="1.9" max="8" />
-        <type>rectilinear</type>
         <calibration>
-            <distortion model="ptlens" focal="8.5" a="0" b="-0.01529" c="0" />
+            <distortion model="poly3" focal="8.5" k1="-0.01529" />
         </calibration>
     </lens>
 
