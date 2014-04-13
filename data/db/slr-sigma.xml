@@ -1425,6 +1425,8 @@
         <mount>Pentax KAF</mount>
         <cropfactor>1.613</cropfactor>
         <calibration>
+            <!-- Measured with a 360° panorama -->
+            <real-focal-length focal="10" real-focal="10.02" />
             <!-- Taken with Canon 7D -->
             <distortion model="ptlens" focal="10" a="0.02278" b="-0.0794" c="0.05484" />
             <distortion model="ptlens" focal="12" a="0" b="-0.00643" c="0" />
