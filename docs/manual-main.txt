@@ -458,39 +458,19 @@ Possible embedded elements:
     values; the library will interpolate the parameters for intermediate focal
     lengths.  The mode name may be "no_crop", "crop_rectangle", or "crop_circle".
     @see lfCropMode
-<dt>\<field_of_view focal="number" fov="number" /\>
-<dd>Declares the horizontal (in landscape orientation) field of view in
-    degrees, after having applied undistortion.  It is the same FOV that Hugin
-    returns.  Field of view is specific for every focal length (in mm), so you
-    can declare multiple field of view entries with different focal values; the
-    library will interpolate the parameters for intermediate focal lengths.  In
-    a way, this is an accurate representation of the actual focal length of the
-    lens.  For example, for the "ptlens" distortion model and a stereographic
-    fisheye lens, the full projection formula is
-    @f[r(\alpha) = r_u(ar_u^3+br_u^2+cr_u+1-a-b-c),\quad r_u=f\cdot2\tan(\alpha/2)@f]
-    Once you have determined @f$f@f$, @f$a@f$, @f$b@f$, and @f$c@f$ by
-    calibration, you get the FOV by assuming ideal projection according to
-    @f[\text{FOV} = 4\arctan\left(\frac{\text{sensor width}}{4f}\right)@f]
-
-    Note that the actual focal length in terms of the <a
-    href="http://en.wikipedia.org/wiki/Paraxial_approximation">paraxial
-    approximation</a> is
-    @f[f_{\mathrm{p.a.}}=\left.\frac{dr}{d\alpha}\right|_{\alpha=0}=\left\{\begin{array}{ll}
-    f(1-a-b-c),&\text{for PTLens model}\\
-    f(1-k_1),&\text{for Poly3 model}\\
-    f,&\text{for Poly5 and FOV1 models}\end{array}\right.@f]
 <dt>\<real-focal-length focal="number" real-focal="number" /\>
-<dd>When Lensfun speaks of “focal length”, the *nominal* focal length from the
-    EXIF data or the gravure on the lens barrel is meant.  In particular, this
-    is what belongs in all "focal" attributes.  However, especially for fisheye
-    lenses, the real focal length generally differs from that nominal focal
-    length.  With “real focal length” I mean the focal length in the <a
+<dd>Declares the *real* focal length of the lens in the <a
     href="http://en.wikipedia.org/wiki/Paraxial_approximation">paraxial
-    approximation</a>.  Note that Hugin (as of 2014) implements the calculation
-    of the real focal length <a
-    href="http://article.gmane.org/gmane.comp.misc.ptx/34865">wrongly</a>.  You
-    have to multiply Hugin's value by @f$1-a-b-c@f$ to get the real focal
-    length.
+    approximation</a>, in contrast to the *nominal* focal length used in all
+    "focal" attributes.  Especially for fisheye lenses, both values can differ
+    significantly.  Lensfun itself needs the real focal length only for some
+    lens type transformations, e.g. from rectilinear to stereographic, but it
+    is very important in panorama stitching.
+
+    The real focal length can be determined reliably only with a 360° panorama,
+    e.g. with Hugin.  Note that Hugin (as of 2014) implements its calculation
+    <a href="http://article.gmane.org/gmane.comp.misc.ptx/34865">wrongly</a>.
+    You have to correct Hugin's value by multiplying by @f$1-a-b-c@f$.
 </dl>
 
 @page dbsearch How database files are found and loaded
