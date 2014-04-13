@@ -80,6 +80,20 @@ extern "C" {
 #   endif
 #endif
 
+#ifndef CONF_LENSFUN_INTERNAL
+/// For marking deprecated functions, see http://stackoverflow.com/a/21265197
+#    ifdef __GNUC__
+#        define DEPRECATED __attribute__((deprecated))
+#    elif defined(_MSC_VER)
+#        define DEPRECATED __declspec(deprecated)
+#    else
+#        pragma message("WARNING: You need to implement DEPRECATED for this compiler")
+#        define DEPRECATED
+#    endif
+#else
+#    define DEPRECATED
+#endif
+
 /// C-compatible bool type; don't bother to define Yet Another Boolean Type
 #define cbool int
 
@@ -946,14 +960,14 @@ struct LF_EXPORT lfLens
      * @param cf
      *     The lens fov structure.
      */
-    void AddCalibFov (const lfLensCalibFov *cf);
+    DEPRECATED void AddCalibFov (const lfLensCalibFov *cf);
 
     /**
      * @brief Remove a field of view  entry from the lens fov structure.
      * @param idx
      *     The lens information data index (zero-based).
      */
-    bool RemoveCalibFov (int idx);
+    DEPRECATED bool RemoveCalibFov (int idx);
 
     /**
      * @brief Add a new lens real focal length structure to the pool.
@@ -1124,7 +1138,7 @@ struct LF_EXPORT lfLens
      * @param res
      *     The resulting interpolated information data.
      */
-    bool InterpolateFov (float focal, lfLensCalibFov &res) const;
+    DEPRECATED bool InterpolateFov (float focal, lfLensCalibFov &res) const;
 
     /**
      * @brief Interpolate lens real focal length data for given focal length.
@@ -1212,7 +1226,7 @@ LF_EXPORT cbool lf_lens_interpolate_crop (const lfLens *lens, float focal,
     lfLensCalibCrop *res);
 
 /** @sa lfLens::InterpolateFov */
-LF_EXPORT cbool lf_lens_interpolate_fov (const lfLens *lens, float focal,
+DEPRECATED LF_EXPORT cbool lf_lens_interpolate_fov (const lfLens *lens, float focal,
     lfLensCalibFov *res);
 
 /** @sa lfLens::InterpolateRealFocal */
@@ -1244,10 +1258,10 @@ LF_EXPORT void lf_lens_add_calib_crop (lfLens *lens, const lfLensCalibCrop *cc);
 LF_EXPORT cbool lf_lens_remove_calib_crop (lfLens *lens, int idx);
 
 /** @sa lfLens::AddCalibFov */
-LF_EXPORT void lf_lens_add_calib_fov (lfLens *lens, const lfLensCalibFov *cf);
+DEPRECATED LF_EXPORT void lf_lens_add_calib_fov (lfLens *lens, const lfLensCalibFov *cf);
 
 /** @sa lfLens::RemoveCalibFov */
-LF_EXPORT cbool lf_lens_remove_calib_fov (lfLens *lens, int idx);
+DEPRECATED LF_EXPORT cbool lf_lens_remove_calib_fov (lfLens *lens, int idx);
 
 /** @sa lfLens::AddCalibRealFocal */
 LF_EXPORT void lf_lens_add_calib_real_focal (lfLens *lens, const lfLensCalibRealFocal *cf);
