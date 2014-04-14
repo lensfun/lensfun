@@ -155,6 +155,7 @@ typedef struct
     gchar *lang;
     const gchar *stack [16];
     size_t stack_depth;
+    const char *errcontext;
 } lfParserData;
 
 static bool __chk_no_attrs(const gchar *element_name, const gchar **attribute_names,
@@ -474,6 +475,11 @@ static void _xml_start_element (GMarkupParseContext *context,
         if (!ctx || strcmp (ctx, "calibration"))
             goto bad_ctx;
 
+        gint line, col;
+        g_markup_parse_context_get_position (context, &line, &col);
+        g_warning ("%s:%d:%d: <field_of_view> tag is deprecated.  Use <real-focal-length> instead",
+                   pd->errcontext, line, col);
+
         lfLensCalibFov lcf;
         memset (&lcf, 0, sizeof (lcf));
         for (i = 0; attribute_names [i]; i++)
@@ -749,6 +755,7 @@ lfError lfDatabase::Load (const char *errcontext, const char *data, size_t data_
     lfParserData pd;
     memset (&pd, 0, sizeof (pd));
     pd.db = This;
+    pd.errcontext = errcontext;
 
     GMarkupParseContext *mpc = g_markup_parse_context_new (
         &gmp, (GMarkupParseFlags)0, &pd, NULL);
