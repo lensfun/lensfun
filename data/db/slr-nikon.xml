@@ -1819,4 +1819,45 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S Nikkor 50mm f/1.4G</model>
+        <model lang="en">Nikkor AF-S 50mm f/1.4G</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D600 -->
+            <distortion model="ptlens" focal="50" a="0.0021108699879156" b="-0.0109814656926241" c="0.00166683305342055" />
+            <tca model="poly3" focal="50" br="-0.0001128" vr="1.0003664" bb="0.0001510" vb="0.9998457" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <!-- Also update copy at Nikon AI-S Nikkor 20mm f/2.8 below. -->
+        <maker>Nikon</maker>
+        <model>Nikon AF Nikkor 20mm f/2.8D</model>
+        <model lang="en">Nikkor AF 20mm f/2.8D</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D600 -->
+            <distortion model="ptlens" focal="20" a="0.0346145503714303" b="-0.0771531442478898" c="0.0142974496031017" />
+            <tca model="poly3" focal="20" br="-0.0003153" vr="1.0011160" bb="0.0003455" vb="0.9993072 " />
+        </calibration>
+    </lens>
+
+    <lens>
+        <!-- Also update copy at Nikon AF Nikkor 20mm f/2.8D above. -->
+        <maker>Nikon</maker>
+        <model>Nikon AI-S Nikkor 20mm f/2.8</model>
+        <model lang="en">Nikkor AI-S 20mm f/2.8</model>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D600 -->
+            <distortion model="ptlens" focal="20" a="0.0346145503714303" b="-0.0771531442478898" c="0.0142974496031017" />
+            <tca model="poly3" focal="20" br="-0.0003153" vr="1.0011160" bb="0.0003455" vb="0.9993072 " />
+        </calibration>
+    </lens>
+
 </lensdatabase>
