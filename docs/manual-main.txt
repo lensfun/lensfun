@@ -468,9 +468,9 @@ Possible embedded elements:
     is very important in panorama stitching.
 
     The real focal length can be determined reliably only with a 360° panorama,
-    e.g. with Hugin.  Note that Hugin (as of 2014) implements its calculation
-    <a href="http://article.gmane.org/gmane.comp.misc.ptx/34865">wrongly</a>.
-    You have to correct Hugin's value by multiplying by @f$1-a-b-c@f$.
+    e.g. with Hugin.  However, as of 2014, Hugin's results <a
+    href="https://bugs.launchpad.net/hugin/+bug/1307457">need to be
+    rectified</a>.
 </dl>
 
 @page dbsearch How database files are found and loaded
