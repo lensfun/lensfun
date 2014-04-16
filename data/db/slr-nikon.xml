@@ -1860,4 +1860,28 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S Nikkor 24-85 mm f/3.5-4.5G ED VR</model>
+        <model lang="en">Nikkor AF-S 24-85mm f/3.5-4.5G ED VR</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="24" a="0.00771" b="-0.03274" c="0.01406" />
+            <distortion model="ptlens" focal="28" a="0.01346" b="-0.04515" c="0.04487" />
+            <distortion model="ptlens" focal="32" a="0.0165" b="-0.0444" c="0.05448" />
+            <distortion model="ptlens" focal="42" a="0.00831" b="-0.00929" c="0.02554" />
+            <distortion model="ptlens" focal="58" a="0.00581" b="-0.00104" c="0.0207" />
+            <distortion model="ptlens" focal="68" a="0.00072" b="0.01909" c="-0.00624" />
+            <distortion model="ptlens" focal="85" a="0.00148" b="0.01645" c="-0.00584" />
+            <tca model="poly3" focal="24" br="0.0000562" vr="1.0003064" bb="-0.0000458" vb="1.0001659" />
+            <tca model="poly3" focal="28" br="0.0000260" vr="1.0003036" bb="-0.0000758" vb="1.0001937" />
+            <tca model="poly3" focal="32" br="0.0001195" vr="1.0000822" bb="-0.0000848" vb="1.0002045" />
+            <tca model="poly3" focal="42" br="0.0000594" vr="0.9999884" bb="-0.0000847" vb="1.0001990" />
+            <tca model="poly3" focal="58" br="0.0000426" vr="0.9998852" bb="-0.0000709" vb="1.0001834" />
+            <tca model="poly3" focal="68" br="0.0000360" vr="0.9998503" bb="-0.0000556" vb="1.0001424" />
+            <tca model="poly3" focal="85" br="0.0000118" vr="0.9998654" bb="-0.0000847" vb="1.0001720" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
