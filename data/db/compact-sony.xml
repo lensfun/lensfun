@@ -743,6 +743,7 @@
         <cropfactor>2.73</cropfactor>
         <aspect-ratio>3:2</aspect-ratio>
         <calibration>
+            <!-- Long-end calibration is reported to be suboptimal. -->
             <distortion focal="10.4" model="ptlens" a="0.00836" b="-0.05316" c="-0.02788" />
             <distortion focal="12.8" model="ptlens" a="0.00891" b="-0.06095" c="0.02196" />
             <distortion focal="14.9" model="ptlens" a="-0.00571" b="0.00909" c="-0.06449" />
