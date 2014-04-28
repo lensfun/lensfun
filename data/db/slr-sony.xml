@@ -218,7 +218,7 @@
 
     <lens>
         <maker>Sony</maker>
-        <model>Sony AF DT 16-105 mm f/3.5-5.6</model>
+        <model>Sony AF DT 16-105mm f/3.5-5.6</model>
         <mount>Sony Alpha</mount>
         <!-- Average crop factor of Sony APS-C cameras -->
         <cropfactor>1.527</cropfactor>
@@ -230,28 +230,12 @@
             <tca model="poly3" focal="75" br="0.0000190" vr="0.9997211" bb="-0.0002164" vb="1.0000605" />
             <tca model="poly3" focal="105" br="0.0001368" vr="0.9992983" bb="-0.0002385" vb="1.0001643" />
 
-            <!-- distortion poly3 with hugin -->
-            <!-- distortion model="poly3" focal="16" k1="-0.025" / -->
-            <!-- distortion model="poly3" focal="22" k1="-0.005" / -->
-            <!-- distortion model="poly3" focal="35" k1="-0.007" / -->
-            <!-- distortion model="poly3" focal="50" k1="-0.008" / -->
-            <!-- distortion model="poly3" focal="70" k1="0.007" / -->
-
-            <!-- distortion ptlens with hugin -->
-            <!-- distortion model="ptlens" focal="16" a="0.030" b="-0.080" c="0.026" / -->
-            <!-- distortion model="ptlens" focal="22" a="0.011" b="-0.024" c="0.009" / -->
-            <!-- distortion model="ptlens" focal="35" a="0.006" b="-0.003" c="-0.002" / -->
-            <!-- distortion model="ptlens" focal="50" a="0.003" b="-0.003" c="0.010" / -->
-            <!-- distortion model="ptlens" focal="70" a="0.002" b="0.003" c="0.003" / -->
-            <!-- distortion model="ptlens" focal="105" a="-0.001" b="0.010" c="-0.004" / -->
-
-            <!-- distortion with OpenCV -->
-            <distortion model="poly5" focal="16" k1="-0.032364"  k2="0.004780" />
-            <distortion model="poly5" focal="24" k1="-0.009351"  k2="0.002502" />
-            <distortion model="poly5" focal="35" k1="0.000617"  k2="0.001124" />
-            <distortion model="poly5" focal="50" k1="0.004351"  k2="0.000318" />        
-            <distortion model="poly5" focal="70" k1="0.006456"  k2="0.000162" />
-            <distortion model="poly5" focal="105" k1="0.006115"  k2="0.000015" />
+            <distortion model="ptlens" focal="16" a="0.030" b="-0.080" c="0.026" />
+            <distortion model="ptlens" focal="22" a="0.011" b="-0.024" c="0.009" />
+            <distortion model="ptlens" focal="35" a="0.006" b="-0.003" c="-0.002" />
+            <distortion model="ptlens" focal="50" a="0.003" b="-0.003" c="0.010" />
+            <distortion model="ptlens" focal="70" a="0.002" b="0.003" c="0.003" />
+            <distortion model="ptlens" focal="105" a="-0.001" b="0.010" c="-0.004" />
 
             <vignetting model="pa" focal="16" aperture="3.5" distance="5" k1="-0.288470" k2="0.374699" k3="-0.523764" />
             <vignetting model="pa" focal="16" aperture="4" distance="5" k1="-0.330235" k2="0.497285" k3="-0.583721" />
@@ -327,39 +311,10 @@
         </calibration>
     </lens>
 
-    <!--can be removed in future releases as it is superseded by a probably better profile below. 
-        just keeping this as a backup for a while  -->
-    <!--lens>        
-        <maker>Sony</maker>
-        <model>Sony DT 18-55mm f/3.5-5.6 SAM SAL 1855</model>
-    	<mount>Sony Alpha</mount>
-	    <type>rectilinear</type>
-    	<focal min="18" max="55" />
-        <! - - Average crop factor of Sony APS-C cameras - ->
-        <cropfactor>1.527</cropfactor>
-        <calibration>
-            <distortion model="poly3" focal="18" k1="-0.01644" />
-            <distortion model="poly3" focal="24" k1="-0.00711" />
-            <distortion model="poly3" focal="35" k1="-0.00156" />
-	        <distortion model="poly3" focal="55" k1="0.00022" />
-            <tca model="poly3" focal="18" br="0,0002383" cr="-0,0002026" vr="1,000005" bb="-0,0000326" cb="-0,0002833" vb="1,0005781" />
-            <tca model="poly3" focal="24" br="0,0001333" cr="-0,0000849" vr="0,9999687" bb="-0,0002544" cb="0,0002858" vb="1,0002966" />
-            <tca model="poly3" focal="28" br="0,0000818" cr="-0,0000641" vr="0,999984" bb="-0,0002708" cb="0,0004174" vb="1,0001424" />
-            <tca model="poly3" focal="35" br="0,0000722" cr="-0,0001022" vr="1,000016" bb="-0,0001064" cb="0,0000633" vb="1,000208" />
-            <tca model="poly3" focal="55" br="0,0000018" cr="0,000005" vr="1,0000062" bb="-0,0000538" cb="0,0001139" vb="1,000009" />
-	        <vignetting model="pa" focal="18" aperture="3.5" distance="8" k1="-0.07471" k2="-1.06505" k3="0.49526" />
-	        <vignetting model="pa" focal="18" aperture="4.5" distance="8" k1="-0.047204" k2="-0.3346" k3="-0.31317" />
-	        <vignetting model="pa" focal="18" aperture="5.6" distance="8" k1="-0.27732" k2="0.18407" k3="0.60019" />
-	        <vignetting model="pa" focal="24" aperture="4"   distance="8" k1="-0.34756" k2="-2.15042" k3="0.29237" />
-	        <vignetting model="pa" focal="24" aperture="5.6" distance="8" k1="-0.48086" k2="-0.2996" k3="-0.25975" />
-        </calibration>
-    </lens-->
-
     <lens>
         <maker>Sony</maker>
         <model>Sony DT 18-55mm f/3.5-5.6 SAM SAL 1855</model>
         <mount>Sony Alpha</mount>
-        <type>rectilinear</type>
         <focal min="18" max="55" />
         <!-- Average crop factor of Sony APS-C cameras -->
         <cropfactor>1.527</cropfactor>
@@ -508,7 +463,7 @@
     <!-- This is a full-frame lens. -->
     <lens>
         <maker>Sony</maker>
-        <model>Sony 50 mm f/1.4 SAL 50F14</model>
+        <model>Sony 50mm f/1.4 SAL 50F14</model>
         <mount>Sony Alpha</mount>
         <!-- Average crop factor of Sony APS-C cameras -->
         <cropfactor>1.527</cropfactor>
