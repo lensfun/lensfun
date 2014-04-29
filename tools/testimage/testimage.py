@@ -231,6 +231,8 @@ def get_real_focal_length():
             result = half_width_in_millimeters / tan(fov / 2)
         return result * hugin_correction
     else:
+        # Interpret the nominal focal length Hugin-compatibly; it's guesswork
+        # and a fallback anyway.
         return focal_length * hugin_correction
 
 def get_projection_function():
