@@ -17,10 +17,7 @@
         <cropfactor>6.4</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <!-- Means a real focal length of 2.806mm.  But this is dummy
-                 because no stitching was done.  -->
-            <field_of_view focal="2.5" fov="105.18" />
-            <distortion model="ptlens" focal="2.5" a="0.03766" b="-0.17346" c="0.18327" />
+            <distortion model="ptlens" focal="2.5" a="-0.07664" b="0.21934" c="-0.10671" />
         </calibration>
     </lens>
 
