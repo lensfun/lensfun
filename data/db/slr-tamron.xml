@@ -394,4 +394,27 @@
             </calibration>
     </lens>
 
+    <lens>
+        <maker>Tamron</maker>
+        <model>Tamron SP AF 11-18mm f/4.5-5.6 Di-II LD Aspherical (IF)</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.620</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 7D -->
+            <distortion model="ptlens" focal="11" a="-0.01251" b="0.06318" c="-0.12889" />
+            <distortion model="ptlens" focal="12" a="0.00174" b="0.02168" c="-0.094" />
+            <distortion model="ptlens" focal="13" a="0.00177" b="0.02035" c="-0.08444" />
+            <distortion model="ptlens" focal="15" a="0.00793" b="-0.00895" c="-0.03469" />
+            <distortion model="ptlens" focal="18" a="0.00432" b="-0.00223" c="-0.02884" />
+            <tca model="poly3" focal="11" br="0.0003262" vr="1.0002776" bb="-0.0001060" vb="1.0000957" />
+            <tca model="poly3" focal="12" br="0.0002765" vr="1.0001904" bb="-0.0001172" vb="1.0001615" />
+            <tca model="poly3" focal="13" br="0.0002045" vr="1.0000647" bb="-0.0001133" vb="1.0002291" />
+            <tca model="poly3" focal="15" br="0.0001933" vr="1.0000948" bb="-0.0001079" vb="1.0002024" />
+            <tca model="poly3" focal="18" br="0.0002596" vr="1.0001649" bb="-0.0001312" vb="1.0000839" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
