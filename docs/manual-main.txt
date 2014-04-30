@@ -471,6 +471,8 @@ Possible embedded elements:
     Once you have determined @f$f@f$, @f$a@f$, @f$b@f$, and @f$c@f$ by
     calibration, you get the FOV by assuming ideal projection according to
     @f[\text{FOV} = 4\arctan\left(\frac{\text{sensor width}}{4f}\right)@f]
+    The FOV must correspond to the distortion coefficients.  Typically, they
+    are the result of the very same fit.
 
     Note that the actual focal length in terms of the <a
     href="http://en.wikipedia.org/wiki/Paraxial_approximation">paraxial
