@@ -1782,4 +1782,35 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 18-250mm f/3.5-6.3 DC OS MACRO HSM</model>
+        <mount>Canon EF</mount>
+        <mount>Sigma SA</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 55V -->
+            <distortion model="ptlens" focal="18" a="0.03419" b="-0.09116" c="0.04125" />
+            <distortion model="ptlens" focal="22" a="0.02775" b="-0.06342" c="0.04051" />
+            <distortion model="ptlens" focal="26" a="0.02884" b="-0.05966" c="0.03629" />
+            <distortion model="ptlens" focal="35" a="0.00054" b="0.03391" c="-0.04229" />
+            <distortion model="ptlens" focal="135" a="0.00826" b="-0.02182" c="0.04344" />
+            <distortion model="ptlens" focal="180" a="0.01526" b="-0.04617" c="0.06437" />
+            <distortion model="ptlens" focal="250" a="0.01692" b="-0.05498" c="0.07496" />
+            <tca model="poly3" focal="18" br="0.0000694" vr="1.0004727" bb="-0.0000955" vb="1.0002783" />
+            <tca model="poly3" focal="22" br="0.0000250" vr="1.0004101" bb="-0.0000327" vb="1.0002243" />
+            <tca model="poly3" focal="26" br="-0.0000025" vr="1.0003871" bb="-0.0000482" vb="1.0002292" />
+            <tca model="poly3" focal="30" br="-0.0000027" vr="1.0002919" bb="-0.0000523" vb="1.0002181" />
+            <tca model="poly3" focal="35" br="-0.0000256" vr="1.0002410" bb="-0.0000116" vb="1.0000706" />
+            <tca model="poly3" focal="50" br="-0.0000453" vr="1.0001936" bb="-0.0000183" vb="1.0000476" />
+            <tca model="poly3" focal="75" br="-0.0000103" vr="1.0000727" bb="-0.0000364" vb="1.0000054" />
+            <tca model="poly3" focal="135" br="-0.0000020" vr="0.9999291" bb="-0.0000215" vb="0.9999288" />
+            <tca model="poly3" focal="180" br="-0.0000950" vr="0.9999136" bb="-0.0000108" vb="0.9995579" />
+            <tca model="poly3" focal="250" br="-0.0000950" vr="0.9999277" bb="0.0000332" vb="0.9994025" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
