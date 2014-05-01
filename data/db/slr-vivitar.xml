@@ -10,6 +10,8 @@
         <calibration>
             <!-- Taken with Sony Alpha 55V -->
             <distortion model="poly3" focal="100" k1="0.00072" />
+            <!-- No measurable TCA -->
+            <tca model="poly3" focal="100" />
         </calibration>
     </lens>
 
