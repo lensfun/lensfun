@@ -1095,4 +1095,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-DA Fish-Eye 10-17mm f/3.5-4.5 ED IF</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.538</cropfactor>
+        <type>equisolid</type>
+        <calibration>
+            <!-- Taken with Pentax K-7 -->
+            <distortion model="ptlens" focal="10" a="-0.03518" b="0.12586" c="-0.09198" />
+            <distortion model="ptlens" focal="11" a="-0.02913" b="0.12685" c="-0.07233" />
+            <distortion model="ptlens" focal="13" a="-0.01146" b="0.05636" c="-0.02116" />
+            <distortion model="ptlens" focal="15" a="-0.00892" b="0.03724" c="-0.02424" />
+            <distortion model="ptlens" focal="17" a="-0.00536" b="0.01752" c="-0.01391" />
+            <tca model="poly3" focal="10" br="0.0000405" vr="1.0004481" bb="-0.0000364" vb="1.0004715" />
+            <tca model="poly3" focal="11" br="0.0000400" vr="1.0004872" bb="-0.0000348" vb="1.0003633" />
+            <tca model="poly3" focal="13" br="0.0000281" vr="1.0005141" bb="-0.0000286" vb="1.0002823" />
+            <tca model="poly3" focal="15" br="0.0000214" vr="1.0005105" bb="-0.0000117" vb="1.0002102" />
+            <tca model="poly3" focal="17" br="0.0000094" vr="1.0005640" bb="-0.0000273" vb="1.0001892" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
