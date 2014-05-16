@@ -568,6 +568,26 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon EF 16-35mm f/2.8L II USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 5D Mark III -->
+            <distortion model="ptlens" focal="16" a="0.0065" b="-0.01669" c="-0.01549" />
+            <distortion model="ptlens" focal="19" a="0.01125" b="-0.02255" c="-0.00278" />
+            <distortion model="ptlens" focal="23" a="0.01448" b="-0.02598" c="0.00708" />
+            <distortion model="ptlens" focal="29" a="0.0151" b="-0.03003" c="0.0198" />
+            <distortion model="ptlens" focal="35" a="0.00983" b="-0.01708" c="0.01203" />
+            <tca model="poly3" focal="16" br="0.0000346" vr="1.0003744" bb="0.0000537" vb="0.9998434" />
+            <tca model="poly3" focal="19" br="0.0001428" vr="1.0000967" bb="-0.0000753" vb="1.0000994" />
+            <tca model="poly3" focal="23" br="0.0001177" vr="0.9999705" bb="-0.0001226" vb="1.0002366" />
+            <tca model="poly3" focal="29" br="0.0000772" vr="0.9999754" bb="-0.0001150" vb="1.0002127" />
+            <tca model="poly3" focal="35" br="0.0001107" vr="0.9999553" bb="-0.0001430" vb="1.0001705" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon EF 17-35mm f/2.8L USM</model>
         <mount>Canon EF</mount>
         <cropfactor>1.0</cropfactor>
@@ -1861,6 +1881,8 @@
         <cropfactor>1.0</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="85" a="-0.000989" b="-0.002335" c="0" />
+            <!-- Taken with Canon 5D Mark III -->
+            <tca model="poly3" focal="85" br="-0.0000287" vr="1.0001408" bb="0.0000182" vb="0.9998642" />
         </calibration>
     </lens>
 
