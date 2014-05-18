@@ -1226,67 +1226,36 @@ int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
             break;
     }
 
-    // Check the lens mount, if specified
-    if (match->Mounts)
-    {
-        int old_score = score;
+    if (compat_mounts && !compat_mounts [0])
+        compat_mounts = NULL;
 
-        if (compat_mounts && !compat_mounts [0])
-            compat_mounts = NULL;
+    // Check the lens mount, if specified
+    if (match->Mounts && (pattern->Mounts || compat_mounts))
+    {
+        bool matching_mount_found = false;
 
         if (pattern->Mounts)
-        {
-            int nm = 0;
             for (int i = 0; pattern->Mounts [i]; i++)
                 for (int j = 0; match->Mounts [j]; j++)
                     if (!_lf_strcmp (pattern->Mounts [i], match->Mounts [j]))
                     {
-                        nm++;
-                        break;
+                        matching_mount_found = true;
+                        score += 10;
+                        goto exit_mount_search;
                     }
 
-            if (nm)
-            {
-                // Count number of mounts in the match lens
-                int match_nm;
-                for (match_nm = 0; match->Mounts [match_nm]; match_nm++)
-                    ;
-                // Don't allow 0 score, make it at least 1
-                int _score = (nm * 20) / match_nm;
-                if (!_score)
-                    _score = 1;
-                score += _score;
-            }
-        }
-
         if (compat_mounts)
-        {
-            int nm = 0;
             for (int i = 0; compat_mounts [i]; i++)
                 for (int j = 0; match->Mounts [j]; j++)
                     if (!_lf_strcmp (compat_mounts [i], match->Mounts [j]))
                     {
-                        nm++;
-                        break;
+                        matching_mount_found = true;
+                        score += 5;
+                        goto exit_mount_search;
                     }
 
-            if (nm)
-            {
-                // Count number of compatible mounts in the match lens
-                int match_nm;
-                for (match_nm = 0; compat_mounts [match_nm]; match_nm++)
-                    ;
-
-                // Don't allow 0 score, make it at least 1
-                int _score = (nm * 10) / match_nm;
-                if (!_score)
-                    _score = 1;
-                score += _score;
-            }
-        }
-
-        // If there were no mount matches, fail the comparison
-        if (old_score == score && (pattern->Mounts || compat_mounts))
+    exit_mount_search:
+        if (!matching_mount_found)
             return 0;
     }
 
