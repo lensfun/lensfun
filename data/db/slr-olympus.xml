@@ -789,4 +789,29 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Olympus</maker>
+        <model>Olympus Zuiko Digital ED 12-60mm f/2.8-4.0 SWD</model>
+        <focal min="12" max="60" />
+        <aperture min="2.8" max="4" />
+        <mount>4/3 System</mount>
+        <cropfactor>2.0</cropfactor> 
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="12" a="0.0378606" b="-0.0903769" c="0.0209704" />
+            <distortion model="ptlens" focal="14" a="0.0356288" b="-0.0735374" c="0.0090992" />
+            <distortion model="ptlens" focal="16" a="0.0199475" b="-0.0359737" c="-0.00727696" />
+            <distortion model="ptlens" focal="18" a="0.0110679" b="-0.0172287" c="-0.00120671" />
+            <distortion model="ptlens" focal="20" a="0.0112205" b="-0.0191171" c="0.00416202" />
+            <distortion model="ptlens" focal="25" a="0.00924039" b="-0.0158513" c="0.00738501" />
+            <distortion model="ptlens" focal="30" a="0.00276997" b="0.00320495" c="-0.00998594" />
+            <distortion model="ptlens" focal="35" a="0.00525429" b="-0.0093383" c="0.00864948" />
+            <distortion model="ptlens" focal="40" a="0.00518391" b="-0.011341" c="0.0138034" />
+            <distortion model="ptlens" focal="45" a="0.0029713" b="-0.00562078" c="0.00965514" />
+            <distortion model="ptlens" focal="50" a="0.00398971" b="-0.0106269" c="0.0164902" />
+            <distortion model="ptlens" focal="55" a="0.00291466" b="-0.00562177" c="0.0084578" />
+            <distortion model="ptlens" focal="60" a="0.00155019" b="-0.00153152" c="0.0052106" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
