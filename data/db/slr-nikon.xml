@@ -1885,4 +1885,32 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S Nikkor 800mm f/5.6E FL ED VR</model>
+        <mount>Nikon F AF</mount>
+        <aperture min="5.6" max="32" />
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D800 -->
+            <distortion model="ptlens" focal="800" a="0.0015" b="-0.00178" c="0.00484" />
+            <!-- Much vigneting data still missing -->
+            <vignetting model="pa" focal="800" aperture="5.6" distance="100" k1="-0.60708" k2="0.24577" k3="-0.10028" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S Nikkor 600mm f/4G ED VR</model>
+        <mount>Nikon F AF</mount>
+        <aperture min="4" max="22" />
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D800 -->
+            <distortion model="ptlens" focal="600" a="-0.00089" b="0.00493" c="-0.00382" />
+            <!-- Much vignetting data still missing -->
+            <vignetting model="pa" focal="600" aperture="4" distance="100" k1="-1.12925" k2="1.1294" k3="-0.5612" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
