@@ -31,8 +31,10 @@
     </lens>
 
     <lens>
+        <!-- This works for 4:3 and 16:9 because crop factor is the same in
+             both cases, no matter what Nokia's white paper says. -->
         <maker>Zeiss</maker>
-        <model>Lumias 1020</model>
+        <model>Lumia 1020</model>
         <model lang="en">fixed lens</model>
         <model lang="de">festes Objektiv</model>
         <mount>lumia1020</mount>
