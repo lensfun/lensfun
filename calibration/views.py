@@ -120,7 +120,7 @@ def store_upload(uploaded_file, email_address):
     return id_
 
 class UploadForm(forms.Form):
-    compressed_file = forms.FileField(label="Archive with RAW files")
+    compressed_file = forms.FileField(label="Archive with RAW files", help_text="Must be a .tar.gz or a .zip file")
     email_address = forms.EmailField(label="Your email address")
 
     def clean_compressed_file(self):
