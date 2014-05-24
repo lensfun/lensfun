@@ -98,7 +98,7 @@ def call_exiv2(raw_file_group):
     exiv2_process = subprocess.Popen(
         ["exiv2", "-PEkt", "-g", "Exif.Image.Make", "-g", "Exif.Image.Model",
          "-g", "Exif.Photo.LensModel", "-g", "Exif.Photo.FocalLength", "-g", "Exif.Photo.FNumber",
-         "-g", "Exif.NikonLd2.LensIDNumber", "-g", "Exif.NikonLd3.LensIDNumber", "-g", "Exif.Nikon3.Lens",
+         "-g", "Exif.NikonLd2.LensIDNumber", "-g", "Exif.Sony2.LensID", "-g", "Exif.NikonLd3.LensIDNumber", "-g", "Exif.Nikon3.Lens",
          "-g", "Exif.CanonCs.LensType", "-g", "Exif.Canon.LensModel"]
         + raw_file_group, stdout=subprocess.PIPE)
     lines = exiv2_process.communicate()[0].splitlines()
@@ -117,6 +117,8 @@ def call_exiv2(raw_file_group):
             filepath, data = line.split("Exif.NikonLd3.")
         elif "Exif.Nikon3." in line:
             filepath, data = line.split("Exif.Nikon3.")
+        elif "Exif.Sony2." in line:
+            filepath, data = line.split("Exif.Sony2.")
         elif "Exif.CanonCs." in line:
             filepath, data = line.split("Exif.CanonCs.")
         elif "Exif.Canon." in line:
@@ -135,7 +137,7 @@ def call_exiv2(raw_file_group):
             exif_data[0] = field_value
         elif fieldname == "Model":
             exif_data[1] = field_value
-        elif fieldname in ["LensIDNumber", "LensType", "LensModel", "Lens"]:
+        elif fieldname in ["LensID", "LensIDNumber", "LensType", "LensModel", "Lens"]:
             if (not exif_data[2] or len(field_value) > len(exif_data[2])) and not invalid_lens_model_name_pattern.match(field_value):
                 exif_data[2] = field_value
         elif fieldname == "FocalLength":
