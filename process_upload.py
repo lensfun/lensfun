@@ -20,7 +20,8 @@ def send_email(to, subject, body):
     message["Subject"] = subject
     message["From"] = me
     message["To"] = to
-    smtp_connection = smtplib.SMTP_SSL("***REMOVED***")
+    smtp_connection = smtplib.SMTP("***REMOVED***", 587)
+    smtp_connection.starttls()
     smtp_connection.login("***REMOVED***", "***REMOVED***")
     smtp_connection.sendmail(me, [to], message.as_string())
 
