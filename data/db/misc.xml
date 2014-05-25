@@ -24,11 +24,18 @@
         <cropfactor>3.93</cropfactor>
     </camera>
 
+    <!-- I think this is also known under the brand "Michael Lens" or "Movie
+         Lens", and with f/1.6.  The correction data actually was submitted as
+         "CCTV Movie Lens HD-MC 35mm/F1.6".  The distortion model is not perfect,
+         test it with
+         <https://c2.staticflickr.com/6/5530/12031215365_2fd76aa31c_z.jpg>.
+         FixMe: It should be re-checked. -->
     <lens>
-        <maker>CCTV Movie Lens</maker>
-        <model>HD-MC 35mm/F1.6</model>
-        <mount>Micro 4/3 System</mount>
+        <maker>Fujian</maker>
+        <model>35mm f/1.7</model>
+        <mount>C</mount>
         <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <distortion model="poly3" focal="35" k1="-0.0055" />
             <tca model="poly3" focal="35" br="-0.0001764" vr="1.0005429" bb="0.0000786" vb="1.0008622" />
