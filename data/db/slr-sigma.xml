@@ -1436,6 +1436,32 @@
 
     <lens>
         <maker>Sigma</maker>
+        <model>Sigma 8-16mm F4.5-5.6 DC HSM</model>
+        <mount>Sigma SA</mount>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Pentax KAF</mount>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D7100 -->
+            <distortion model="ptlens" focal="8" a="0.00985" b="-0.07668" c="0.09452" />
+            <distortion model="ptlens" focal="9" a="-0.0073" b="-0.00074" c="-0.00329" />
+            <distortion model="ptlens" focal="10" a="-0.00608" b="-0.00881" c="0.02021" />
+            <distortion model="ptlens" focal="12" a="-0.02662" b="0.07817" c="-0.08027" />
+            <distortion model="ptlens" focal="14" a="-0.01289" b="0.0306" c="-0.01315" />
+            <distortion model="ptlens" focal="16" a="-0.0184" b="0.05749" c="-0.04454" />
+            <tca model="poly3" focal="8" br="-0.0000141" vr="1.0001963" bb="-0.0000573" vb="1.0001735" />
+            <tca model="poly3" focal="9" br="0.0000277" vr="1.0000937" bb="-0.0000535" vb="1.0002340" />
+            <tca model="poly3" focal="10" br="0.0000257" vr="1.0000862" bb="-0.0000679" vb="1.0002823" />
+            <tca model="poly3" focal="12" br="0.0000717" vr="1.0000453" bb="-0.0000847" vb="1.0002906" />
+            <tca model="poly3" focal="14" br="0.0001034" vr="1.0000726" bb="-0.0000992" vb="1.0002334" />
+            <tca model="poly3" focal="16" br="0.0001132" vr="1.0001441" bb="-0.0001015" vb="1.0001906" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
         <model>Sigma 10-20mm f/3.5 EX DC HSM</model>
         <mount>Nikon F AF</mount>
         <mount>Sigma SA</mount>
