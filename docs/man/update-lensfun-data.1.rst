@@ -65,7 +65,7 @@ call ``update-lensfun-data`` without root permissions.  If the exit code is
 REPORTING BUGS
 ====================
 
-Report bugs at <https://sourceforge.net/p/lensfun/tickets/>.
+Report bugs at <http://sourceforge.net/p/lensfun/bugs/>.
 
 COPYRIGHT
 =============
