@@ -286,12 +286,15 @@ if os.path.exists("tca"):
         pool.join()
         calibration_lines = {}
         for filename in find_raw_files():
-            filename = filename + ".tca"
-            lens_name, focal_length, tca_output = [line.strip() for line in open(filename).readlines()]
+            lens_name, focal_length, tca_output = [line.strip() for line in open(filename + ".tca").readlines()]
             focal_length = float(focal_length)
             data = re.match(
                 r"-r [.0]+:(?P<br>[-.0-9]+):[.0]+:(?P<vr>[-.0-9]+) -b [.0]+:(?P<bb>[-.0-9]+):[.0]+:(?P<vb>[-.0-9]+)",
                 tca_output).groupdict()
+            open(filename + "_tca.gp", "w").write(
+                """set title "{}"
+plot [0:1.8] {} * x**2 + {} title "red", {} * x**2 + {} title "blue"
+pause -1""".format(filename, data["br"], data["vr"], data["bb"], data["vb"]))
             try:
                 calibration_lines.setdefault(lens_name, []).append((focal_length, 
                     """<tca model="poly3" focal="{0:g}" br="{1}" vr="{2}" bb="{3}" vb="{4}" />""".format(
