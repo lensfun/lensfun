@@ -15,4 +15,6 @@ So far you can use Lensfun with the following applications:
 * <a href="http://seebk.github.io/GIMP-Lensfun/" target="_blank">GimpLensfun</a> GIMP plugin
 * <a href="http://photivo.org/" target="_blank">Photivo</a> Photo processor application
 
+If the above applications do not recognize your camera or lens in their lensfun tool please check the <a href="/lenslist/">list of supported lenses</a> and the <a href="/faq/">FAQ</a>.
+
 

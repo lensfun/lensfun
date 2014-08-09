@@ -2,7 +2,7 @@
 title: Development
 linktitle: Development
 layout: default
-weight: 6
+weight: 7
 ---
 
 The source code is available from a git repository hosted at Sourceforge. You can check out the current head revision by
