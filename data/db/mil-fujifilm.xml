@@ -58,4 +58,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>XC16-50mmF3.5-5.6 OIS</model>
+        <model lang="en">XC 16-50mm f/3.5-5.6 OIS</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with X-M1 -->
+            <distortion model="ptlens" focal="16" a="0.02487" b="-0.09617" c="0.03106" />
+            <distortion model="ptlens" focal="22.2" a="0.00843" b="-0.03427" c="0.01288" />
+            <distortion model="ptlens" focal="28.2" a="0.01218" b="-0.05193" c="0.0513" />
+            <distortion model="ptlens" focal="34" a="-0.00417" b="0.01591" c="-0.02319" />
+            <distortion model="ptlens" focal="41.8" a="0" b="-0.00159" c="0" />
+            <distortion model="ptlens" focal="50" a="0" b="0.00416" c="0" />
+            <tca model="poly3" focal="16" br="-0.0001013" vr="1.0003838" bb="0.0000720" vb="1.0000557" />
+            <tca model="poly3" focal="22.2" br="-0.0000844" vr="1.0002839" bb="0.0000997" vb="0.9999382" />
+            <tca model="poly3" focal="29.5" br="-0.0000603" vr="1.0002492" bb="0.0000545" vb="0.9999185" />
+            <tca model="poly3" focal="37.1" br="-0.0000480" vr="1.0002372" bb="0.0000296" vb="0.9998630" />
+            <tca model="poly3" focal="50" br="-0.0000550" vr="1.0001813" bb="0.0000121" vb="0.9997167" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
