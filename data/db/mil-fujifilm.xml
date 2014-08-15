@@ -80,4 +80,29 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>XC50-230mmF4.5-6.7 OIS</model>
+        <model lang="en">XC 50-230mm f/4.5-6.7 OIS</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with X-M1 -->
+            <distortion model="poly3" focal="50" k1="0.0017" />
+            <distortion model="poly3" focal="67.1" k1="0.00774" />
+            <distortion model="poly3" focal="101.2" k1="0.00967" />
+            <distortion model="poly3" focal="135.7" k1="0.00836" />
+            <distortion model="poly3" focal="181.9" k1="0.0089" />
+            <distortion model="poly3" focal="230" k1="0.00772" />
+            <tca model="poly3" focal="50" br="-0.0001000" vr="1.0003015" bb="0.0001185" vb="0.9999656" />
+            <tca model="poly3" focal="67.1" br="-0.0000913" vr="1.0002869" bb="0.0000633" vb="0.9998660" />
+            <tca model="poly3" focal="101.2" br="-0.0000511" vr="1.0001847" bb="0.0000461" vb="0.9996973" />
+            <tca model="poly3" focal="107.3" br="-0.0000559" vr="1.0001940" bb="0.0000439" vb="0.9996962" />
+            <tca model="poly3" focal="135.7" br="-0.0000520" vr="1.0001402" bb="0.0000174" vb="0.9995976" />
+            <tca model="poly3" focal="152.6" br="-0.0000292" vr="1.0000646" bb="-0.0000088" vb="0.9995959" />
+            <tca model="poly3" focal="181.9" br="-0.0000091" vr="0.9999066" bb="0.0000116" vb="0.9995961" />
+            <tca model="poly3" focal="230" br="-0.0000631" vr="0.9994886" bb="0.0000510" vb="0.9998227" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
