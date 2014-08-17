@@ -1628,6 +1628,18 @@
         <cropfactor>1.523</cropfactor>
         <calibration>
             <!-- Taken with Nikon D5100 -->
+            <distortion model="poly3" focal="70" k1="-0.0033" />
+            <distortion model="poly3" focal="85" k1="-0.00177" />
+            <distortion model="poly3" focal="100" k1="0.00201" />
+            <distortion model="poly3" focal="200" k1="0.00316" />
+            <distortion model="poly3" focal="300" k1="0.00387" />
+            <tca model="poly3" focal="70" br="-0.0000054" vr="1.0001364" bb="0.0000012" vb="1.0000391" />
+            <tca model="poly3" focal="85" br="-0.0000454" vr="1.0001576" bb="-0.0000234" vb="1.0000492" />
+            <tca model="poly3" focal="100" br="-0.0000196" vr="1.0000860" bb="-0.0000066" vb="1.0000204" />
+            <tca model="poly3" focal="140" br="-0.0000306" vr="1.0000669" bb="0.0000315" vb="0.9998543" />
+            <tca model="poly3" focal="200" br="-0.0000460" vr="1.0000480" bb="0.0000096" vb="0.9997688" />
+            <tca model="poly3" focal="250" br="-0.0000180" vr="1.0000398" bb="0.0000503" vb="0.9996853" />
+            <tca model="poly3" focal="300" br="-0.0000299" vr="1.0000671" bb="0.0001185" vb="0.9994449" />
             <vignetting model="pa" focal="70" aperture="4.5" distance="10" k1="-0.0671" k2="0.0055" k3="-0.0590" />
             <vignetting model="pa" focal="70" aperture="4.5" distance="1000" k1="-0.0671" k2="0.0055" k3="-0.0590" />
             <vignetting model="pa" focal="70" aperture="5.6" distance="10" k1="-0.0816" k2="0.0207" k3="-0.0141" />
