@@ -918,22 +918,27 @@
         <model>Nikon AF-S DX VR Zoom-Nikkor 18-200mm f/3.5-5.6G IF-ED</model>
         <model lang="en">Nikkor AF-S 18-200mm f/3.5-5.6G DX VR IF-ED</model>
         <mount>Nikon F AF</mount>
-        <!-- Average crop factor of Nikon APS-C cameras -->
-        <cropfactor>1.528</cropfactor>
+        <cropfactor>1.5</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="18" a="0.017598" b="-0.049569" c="0" />
-            <distortion model="ptlens" focal="20" a="0.013846" b="-0.036284" c="0" />
-            <distortion model="ptlens" focal="26" a="0.014876" b="-0.023039" c="0" />
-            <distortion model="ptlens" focal="34" a="0.008669" b="-0.007258" c="0" />
-            <distortion model="ptlens" focal="38" a="0" b="0.012308" c="0" />
-            <distortion model="ptlens" focal="44" a="0" b="0.012651" c="0" />
-            <distortion model="ptlens" focal="56" a="0" b="0.010344" c="0" />
-            <distortion model="ptlens" focal="65" a="0" b="0.011336" c="0" />
-            <distortion model="ptlens" focal="82" a="0" b="0.009171" c="0" />
-            <distortion model="ptlens" focal="105" a="0" b="0.010009" c="0" />
-            <distortion model="ptlens" focal="130" a="0" b="0.007883" c="0" />
-            <distortion model="ptlens" focal="170" a="0" b="0.00648" c="0" />
-            <distortion model="ptlens" focal="200" a="0" b="0.005237" c="0" />
+            <!-- Taken with Nikon D610 -->
+            <distortion model="ptlens" focal="18" a="0.03144" b="-0.10111" c="0.07201" />
+            <distortion model="ptlens" focal="22" a="0.02892" b="-0.08487" c="0.0628" />
+            <distortion model="ptlens" focal="24" a="0.02181" b="-0.05683" c="0.04436" />
+            <distortion model="ptlens" focal="28" a="0.02153" b="-0.05332" c="0.05183" />
+            <distortion model="ptlens" focal="35" a="0.01273" b="-0.02637" c="0.03572" />
+            <distortion model="ptlens" focal="70" a="0" b="0.01185" c="0" />
+            <distortion model="ptlens" focal="135" a="0" b="0.00843" c="0" />
+            <distortion model="ptlens" focal="170" a="0" b="0.00678" c="0" />
+            <distortion model="ptlens" focal="200" a="-0.00506" b="0.01451" c="0.00917" />
+            <tca model="poly3" focal="18" br="0.0000478" vr="1.0002822" bb="-0.0000268" vb="1.0001601" />
+            <tca model="poly3" focal="22" br="0.0000328" vr="1.0002660" bb="-0.0000361" vb="1.0001878" />
+            <tca model="poly3" focal="24" br="-0.0000377" vr="1.0002759" bb="-0.0000243" vb="1.0001775" />
+            <tca model="poly3" focal="28" br="0.0000072" vr="1.0001592" bb="0.0000002" vb="1.0001560" />
+            <tca model="poly3" focal="35" br="0.0000070" vr="1.0000994" bb="-0.0000475" vb="1.0002158" />
+            <tca model="poly3" focal="70" br="0.0000121" vr="1.0000494" bb="-0.0000422" vb="1.0001103" />
+            <tca model="poly3" focal="135" br="0.0000062" vr="0.9998629" bb="0.0000084" vb="0.9998582" />
+            <tca model="poly3" focal="170" br="0.0000074" vr="0.9999426" bb="0.0000855" vb="0.9995827" />
+            <tca model="poly3" focal="200" br="-0.0000064" vr="0.9999083" bb="0.0000246" vb="0.9996926" />
         </calibration>
     </lens>
 
