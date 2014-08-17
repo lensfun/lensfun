@@ -1521,6 +1521,19 @@
 
     <lens>
         <maker>Nikon</maker>
+        <model>Nikon AF-S VR Micro-Nikkor 105mm f/2.8G IF-ED</model>
+        <model lang="en">Nikkor AF-S VR 105mm f/2.8G IF-ED</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D800 -->
+            <distortion model="poly3" focal="105" k1="-0.00131" />
+            <tca model="poly3" focal="105" br="-0.0000282" vr="0.9999225" bb="0.0000075" vb="0.9999279" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
         <model>Nikon AI-S Nikkor 135mm f/2.0</model>
         <model lang="en">Nikkor AI-S 135mm f/2.0</model>
         <mount>Nikon F AI-S</mount>
