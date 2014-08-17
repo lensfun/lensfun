@@ -58,4 +58,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Pentacon</maker>
+        <model>Pentacon 50mm f/1.8 auto multi coating</model>
+        <mount>M42</mount>
+        <cropfactor>1.526</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-5 -->
+            <distortion model="poly3" focal="50" k1="-0.00197" />
+            <tca model="poly3" focal="50" br="-0.0000012" vr="1.0000573" bb="-0.0000011" vb="0.9999574" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
