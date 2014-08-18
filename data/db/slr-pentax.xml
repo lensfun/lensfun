@@ -1128,4 +1128,28 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-M 28mm 1:3.5</model>
+        <mount>Pentax K</mount>
+        <cropfactor>1.538</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K20D -->
+            <distortion model="ptlens" focal="28" a="0.01008" b="-0.03516" c="0.02694" />
+            <tca model="poly3" focal="28" br="-0.0000437" vr="1.0003568" bb="0.0000701" vb="0.9997667" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-M 35mm 1:2</model>
+        <mount>Pentax K</mount>
+        <cropfactor>1.538</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K20D -->
+            <distortion model="poly3" focal="35" k1="-0.00269" />
+            <tca model="poly3" focal="35" br="0.0000109" vr="1.0003580" bb="0.0000502" vb="0.9997821" />
+        </calibration>
+    </lens>
+
 </lensdatabase>

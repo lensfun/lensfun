@@ -70,4 +70,28 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Cosina</maker>
+        <model>Cosina Cosinon-S 50mm 1:2</model>
+        <mount>Pentax K</mount>
+        <cropfactor>1.538</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K20D -->
+            <distortion model="poly3" focal="50" k1="-0.00146" />
+            <tca model="poly3" focal="50" br="-0.0000159" vr="1.0000709" bb="0.0000131" vb="0.9999198" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Mitakon</maker>
+        <model>Mitakon wide MC f=24mm 1:2.8</model>
+        <mount>Minolta MC</mount>
+        <cropfactor>1.538</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K20D -->
+            <distortion model="ptlens" focal="24" a="0.00966" b="-0.0318" c="0.01539" />
+            <tca model="poly3" focal="24" br="-0.0000186" vr="1.0006527" bb="0.0001034" vb="0.9995702" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
