@@ -105,4 +105,20 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>XF55-200mmF3.5-4.8 R LM OIS</model>
+        <model lang="en">XF 55-200mm f/3.5-4.8 R LM OIS</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with X-E2 -->
+            <distortion model="poly3" focal="55" k1="0.00464" />
+            <distortion model="poly3" focal="67.1" k1="0.00754" />
+            <distortion model="poly3" focal="86" k1="0.00912" />
+            <distortion model="poly3" focal="156.1" k1="0.01009" />
+            <distortion model="poly3" focal="200" k1="0.00926" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
