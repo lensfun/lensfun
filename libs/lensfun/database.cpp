@@ -201,7 +201,7 @@ static void _xml_start_element (GMarkupParseContext *context,
             return;
         }
 
-        int version = 1;
+        int version = 0;
         for (i = 0; attribute_names [i]; i++)
             if (!strcmp (attribute_names [i], "version"))
                 version = atoi (attribute_values [i]);

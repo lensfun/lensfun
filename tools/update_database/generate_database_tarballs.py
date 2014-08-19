@@ -12,8 +12,8 @@ class.  Simply use `From1to0` as a starting point.  You prepend the decorator
 `@converter` so that the rest of the program finds the new class.  The rest is
 automatic.
 
-Note that this script also creates a database with version 0.  This is not
-really needed but it is a good test.
+Note that this script also creates a database with version 0.  This may be
+downloaded manually by people who use Lensfun <= 0.2.8.
 """
 
 import glob, os, subprocess, calendar, json, re, time, tarfile, io, argparse, shutil
