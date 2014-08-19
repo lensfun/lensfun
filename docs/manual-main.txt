@@ -214,7 +214,7 @@ Here goes a simple lens database file, I hope I don't have to explain
 much what is what, as the format is pretty much self-documenting.
 
 @verbatim
-<lensdatabase>
+<lensdatabase version="1">
 
     <mount>
         <name>Pentax K</name>
@@ -244,6 +244,16 @@ much what is what, as the format is pretty much self-documenting.
 
 </lensdatabase>
 @endverbatim
+
+The “version” attribute at the @<lensdatabase@> element denotes the format
+version of this database file.  It is an integer number and defaults to “0”.
+Because it was introduced in lensfun 0.2.9, “0” is the format version of all
+lensfun releases before that.  Database format changes mostly are
+backwards-compatible, so that a certain lensfun version supports database
+versions up to a certain number.  The most recent lens database is offered for
+download in all versions, and the @ref lensfun-update-data
+"lensfun-update-data" program fetches the appropriate for you.  See @ref
+db_versions for the version history.
 
 Since lenses and cameras may be known with different names in
 different languages/countries, the library provides a built-in
@@ -275,6 +285,19 @@ format of the data within elements.
 <li>@ref el_camera
 <li>@ref el_lens
 </ul>
+
+
+@page db_versions Database format versions
+
+<table>
+  <tr><th>version</th><th>lensfun release version</th><th>changes</th><th>incompatibilities with previous versions</th></tr>
+  <tr><td>0</td><td>≤ 0.2.8</td><td>—</td><td>—</td></tr>
+  <tr><td>1</td><td>0.2.9</td><td><ul>
+        <li>new: @<aspect-ratio@></li>
+        <li>APS-C crop factors more accurate</li>
+    </ul></td><td>—</td></tr>
+</table>
+
 
 @page el_mount Describing camera mounts: \<mount\>
 
@@ -727,7 +750,7 @@ So now you just create a new file under ~/.local/share/lensfun/ -- with any name
 but with the '.xml' extension:
 
 @verbatim
-<lensdatabase>
+<lensdatabase version="1">
     ... put your definitions here ...
 </lensdatabase>
 @endverbatim
