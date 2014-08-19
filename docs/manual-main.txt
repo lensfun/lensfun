@@ -521,15 +521,25 @@ The main place where lensfun looks for database files are the directories
 returned by the gtk function g_get_system_data_dirs(). This is (usually) the @b
 /usr/share/lensfun/ subdirectory (the part after /usr/share/ is configurable at
 library compilation time) and also the @b /usr/local/share/lensfun/ directory
-for system-local files.  A special exception is /var/lib/lensfun: If this
-directory exists, it is searched instead of /usr/{local/}share/lensfun.  On
-Windows, this is something like “C:\\Documents and
-Settings\\\%User\%\\something” but I'm not sure exactly :-).
+for system-local files.  A special exception is <b>/var/lib/lensfun</b>: If
+this directory exists, it is searched instead of /usr/{local/}share/lensfun.
+On Windows, this is something
+like <b>C:\\Documents and Settings\\\%User\%\\something</b> but I'm not sure
+exactly :-).
 
 After that the user's home directory is searched too, as returned by
-g_get_user_data_dir() with “lensfun” appended as well. On my system this is
-<b>/home/user/.local/share/lensfun</b>. The exact path to the user-specific
-directory can be found in the variable lfDatabase::HomeDataDir.
+g_get_user_data_dir() with “lensfun” appended as well. Usually, this is
+<b>~/.local/share/lensfun</b>. The exact path to the user-specific directory
+can be found in the variable lfDatabase::HomeDataDir.
+
+So sum it up for Linux and other Unix-like platforms, the simplified search
+order is:
+<ol>
+  <li>/usr/share/local/lensfun, /usr/share/lensfun</li>
+  <li>the directory lensfun's database was installed into (usually one of the
+    two above), @em or /var/lib/lensfun if it contains files</li>
+  <li>~/.local/share/lensfun</li>
+</ol>
 
 Another way to load database file is to load them one by one. For this you call
 lfDatabase::Load(const char *) for every XML file that must be loaded.
