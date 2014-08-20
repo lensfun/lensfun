@@ -136,6 +136,13 @@
 
     <camera>
         <maker>Nikon</maker>
+        <model>Coolpix S3300</model>
+        <mount>nikonS3300</mount>
+        <cropfactor>5.65</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Nikon</maker>
         <model>Coolpix P6000</model>
         <mount>nikonP6000</mount>
         <cropfactor>4.6</cropfactor>
@@ -624,6 +631,24 @@
             <tca model="poly3" focal="18.2" br="-0.0000083" vr="1.0001021" bb="-0.0000163" vb="1.0004001" />
             <tca model="poly3" focal="22.4" br="-0.0000270" vr="1.0001445" bb="-0.0000302" vb="1.0002259" />
             <tca model="poly3" focal="25.5" br="0.0000262" vr="1.0000900" bb="-0.0000026" vb="1.0001305" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Coolpix S3300 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>nikonS3300</mount>
+        <cropfactor>5.65</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Bogus calibration entries, just to document that the
+                 camera-correction does a perfect job. -->
+            <distortion model="poly3" focal="4.6" />
+            <distortion model="poly3" focal="27.6" />
+            <tca model="poly3" focal="4.6" />
+            <tca model="poly3" focal="27.6" />
         </calibration>
     </lens>
 
