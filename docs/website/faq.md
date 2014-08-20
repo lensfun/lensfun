@@ -23,7 +23,7 @@ weight: 6
     Please check the <a href="/lenslist/">list of supported lenses</a> for the latest release. Before 
     you report a missing lens, camera, or even start calibration by your own, please also check the 
     list of lenses of the current development version at 
-    <a href="http://wilson.bronger.org/lensfun_coverage.html" target="_blank">
+    <a href="http://wilson.bronger.org/lensfun_coverage.html">
     http://wilson.bronger.org/lensfun_coverage.html</a>
 
 * __My camera and lens is in the list of supported lenses but my image editor does not recognize them?__

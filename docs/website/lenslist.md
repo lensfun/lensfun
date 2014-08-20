@@ -6,7 +6,7 @@ weight: 4
 ---
 
 The following list includes all lenses and compact cameras that are part of the database shipped with release 0.2.8. 
-Before you start to <a href="/calibration/">calibrate</a> new lenses or report missing cameras please check <a href="http://wilson.bronger.org/lensfun_coverage.html" target="_blank">http://wilson.bronger.org/lensfun_coverage.html</a> for a daily updated list covering the status of the current development version.
+Before you start to <a href="/calibration/">calibrate</a> new lenses or report missing cameras please check <a href="http://wilson.bronger.org/lensfun_coverage.html">http://wilson.bronger.org/lensfun_coverage.html</a> for a daily updated list covering the status of the current development version.
 
 <table border='1'><thead><tr><th>manufacturer</th><th>model</th><th>crop</th><th>distortion</th><th>TCA</th><th>vignetting</th></tr></thead><tbody>
 <tr style="background-color: #000000"><td>Canon</td><td>Canon 135mm f/2.0L USM</td><td>1.0</td><td style="background-color: lightgreen;text-align:center">yes</td><td style="text-align:center">no</td><td style="text-align:center">no</td></tr>

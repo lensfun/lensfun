@@ -3,7 +3,7 @@ title: New website
 layout: default
 ---
 
-Lensfun got a new website. Although the layout and design is quite similar to the old one, a lot of things changed under the hood. We moved from a dynamic blog and CMS engine to a static site generator called <a href="http://jekyllrb.com/" target="_blank">Jekyll</a>. 
+Lensfun got a new website. Although the layout and design is quite similar to the old one, a lot of things changed under the hood. We moved from a dynamic blog and CMS engine to a static site generator called <a href="http://jekyllrb.com/">Jekyll</a>. 
 
 This has several advantages:
 
