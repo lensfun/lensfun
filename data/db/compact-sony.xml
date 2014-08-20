@@ -187,7 +187,7 @@
         <maker>Sony</maker>
         <model>DSC-RX100M2</model>
         <model lang="en">DSC-RX100 II</model>
-        <mount>sonyRX100</mount>
+        <mount>sonyRX100II</mount>
         <cropfactor>2.73</cropfactor>
     </camera>      
 
@@ -763,6 +763,46 @@
             <distortion focal="28.8" model="ptlens" a="-0.00842" b="0.0158" c="-0.01114" />
             <distortion focal="33.2" model="ptlens" a="-0.01065" b="0.02132" c="-0.01154" />
             <distortion focal="37.1" model="ptlens" a="0.00226" b="-0.02401" c="0.0397" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker><maker></maker>
+        <model>DSC-RX100 II &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>sonyRX100II</mount>
+        <cropfactor>2.73</cropfactor>
+        <aspect-ratio>3:2</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="10.4" a="0.011046" b="-0.066845" c="-0.010623" />
+            <distortion model="ptlens" focal="12.5" a="0.005301" b="-0.046738" c="0.00161" />
+            <distortion model="ptlens" focal="14.1" a="0.007319" b="-0.055833" c="0.038765" />
+            <distortion model="ptlens" focal="16.6" a="0.005602" b="-0.042056" c="0.031479" />
+            <distortion model="ptlens" focal="18.2" a="-0.001954" b="-0.015736" c="0.011271" />
+            <distortion model="ptlens" focal="20.6" a="-0.002294" b="-0.017409" c="0.029357" />
+            <distortion model="ptlens" focal="23.3" a="0.000795" b="-0.023144" c="0.033147" />
+            <distortion model="ptlens" focal="25.3" a="-0.001021" b="-0.010802" c="0.014495" />
+            <distortion model="ptlens" focal="26.6" a="-0.000752" b="-0.01116" c="0.015762" />
+            <distortion model="ptlens" focal="29.5" a="0.003277" b="-0.024738" c="0.031628" />
+            <distortion model="ptlens" focal="30.8" a="0.001826" b="-0.01782" c="0.021784" />
+            <distortion model="ptlens" focal="33.2" a="0.003849" b="-0.028663" c="0.040715" />
+            <distortion model="ptlens" focal="35.3" a="0.0039" b="-0.025627" c="0.03066" />
+            <distortion model="ptlens" focal="37.1" a="0.001596" b="-0.022367" c="0.033843" />
+            <tca model="poly3" focal="10.4" br="0.0001237" vr="1.0002385" bb="-0.0001421" vb="1.0004466" />
+            <tca model="poly3" focal="12.5" br="0.0001230" vr="1.0002997" bb="-0.0000907" vb="1.0002562" />
+            <tca model="poly3" focal="14.1" br="0.0001337" vr="1.0003018" bb="-0.0000653" vb="1.0002075" />
+            <tca model="poly3" focal="16.6" br="0.0000925" vr="1.0002945" bb="-0.0000533" vb="1.0001741" />
+            <tca model="poly3" focal="18.2" br="0.0000752" vr="1.0002626" bb="-0.0000469" vb="1.0001686" />
+            <tca model="poly3" focal="20.6" br="0.0000398" vr="1.0002549" bb="-0.0000539" vb="1.0001774" />
+            <tca model="poly3" focal="23.3" br="0.0000583" vr="1.0002447" bb="-0.0000446" vb="1.0001558" />
+            <tca model="poly3" focal="25.3" br="0.0000804" vr="1.0001705" bb="-0.0000263" vb="1.0001217" />
+            <tca model="poly3" focal="26.6" br="-0.0000023" vr="1.0002448" bb="-0.0000481" vb="1.0001799" />
+            <tca model="poly3" focal="29.5" br="0.0000001" vr="1.0002366" bb="-0.0000120" vb="1.0000857" />
+            <tca model="poly3" focal="30.8" br="0.0000657" vr="1.0000796" bb="-0.0000449" vb="1.0001984" />
+            <tca model="poly3" focal="33.2" br="0.0000214" vr="1.0000994" bb="-0.0000269" vb="1.0001729" />
+            <tca model="poly3" focal="35.3" br="-0.0000002" vr="1.0000516" bb="-0.0000812" vb="1.0002827" />
+            <tca model="poly3" focal="37.1" br="0.0000607" vr="1.0000855" bb="-0.0000273" vb="1.0000706" />
         </calibration>
     </lens>
 
