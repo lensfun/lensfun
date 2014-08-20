@@ -150,6 +150,16 @@
 
     <camera>
         <maker>Fujifilm</maker>
+        <model>X20</model>
+        <!-- Optically equivalent to X10, see
+             https://secure.flickr.com/groups/darktable/discuss/72157646611511061/ and
+             <http://www.photoreview.com.au/reviews/advanced-compact-cameras/fixed-lens/fujifilm-x20>. -->
+        <mount>fujix10</mount>
+        <cropfactor>3.93</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Fujifilm</maker>
         <model>FinePix HS20EXR</model>
         <mount>fujihs20exr</mount>
         <cropfactor>5.71</cropfactor>
