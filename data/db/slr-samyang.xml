@@ -74,4 +74,19 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang T-S 24mm f/3.5 ED AS UMC</model>
+        <mount>Nikon F AI</mount>
+        <mount>Canon EF</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Sony E</mount>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- No shift, no tilt. -->
+            <distortion model="ptlens" focal="24" a="-0.004" b="0.007" c="-0.02" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
