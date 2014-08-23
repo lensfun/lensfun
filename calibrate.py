@@ -1,10 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2012 Torsten Bronger <bronger@physik.rwth-aachen.de>
+# Copyright 2014 Torsten Bronger <bronger@physik.rwth-aachen.de>
 # This file is in the Public Domain.
-
-from __future__ import unicode_literals, division, absolute_import
 
 missing_packages = set()
 
@@ -193,11 +191,13 @@ You have to rename them according to the scheme "Lens_name--16mm--1.4.RAW"
 if os.path.exists("distortion"):
     with chdir("distortion"):
         pool = multiprocessing.Pool()
+        results = set()
         for filename in find_raw_files():
-            if not os.path.exists(os.path.splitext(filename)[0] + b".tiff"):
-                pool.apply_async(subprocess.call, [generate_raw_conversion_call(filename, ["-w"])])
+            if not os.path.exists(os.path.splitext(filename)[0] + ".tiff"):
+                results.add(pool.apply_async(subprocess.call, [generate_raw_conversion_call(filename, ["-w"])]))
         pool.close()
         pool.join()
+        [result.get() for result in results]
 
 
 #
@@ -269,21 +269,23 @@ def calculate_tca(filename):
     tca_filename = filename + ".tca"
     if not os.path.exists(tca_filename):
         exif_data = file_exif_data[os.path.join("tca", filename)]
-        tiff_filename = os.path.splitext(filename)[0] + b".tiff"
+        tiff_filename = os.path.splitext(filename)[0] + ".tiff"
         if not os.path.exists(tiff_filename):
             subprocess.check_call(generate_raw_conversion_call(filename, ["-4", "-o", "0", "-M"]))
         output = subprocess.check_output(["tca_correct", "-o", "bv", tiff_filename], stderr=open(os.devnull, "w")). \
                  splitlines()[-1].strip()
         with open(tca_filename, "w") as outfile:
-            outfile.write("{0}\n{1}\n{2}\n".format(exif_data[0], exif_data[1], output))
+            outfile.write("{0}\n{1}\n{2}\n".format(exif_data[0], exif_data[1], output.decode("ascii")))
 
 if os.path.exists("tca"):
     with chdir("tca"):
         pool = multiprocessing.Pool()
+        results = set()
         for filename in find_raw_files():
-            pool.apply_async(calculate_tca, [filename])
+            results.add(pool.apply_async(calculate_tca, [filename]))
         pool.close()
         pool.join()
+        [result.get() for result in results]
         calibration_lines = {}
         for filename in find_raw_files():
             lens_name, focal_length, tca_output = [line.strip() for line in open(filename + ".tca").readlines()]
@@ -357,7 +359,7 @@ def evaluate_image_set(exif_data, filepaths):
                             assert line == b"65535"
                             break
             half_diagonal = math.hypot(width // 2, height // 2)
-            image_data = struct.unpack(b"!{0}s{1}H".format(header_size, width * height), image_data)[1:]
+            image_data = struct.unpack("!{0}s{1}H".format(header_size, width * height), image_data)[1:]
             for i, intensity in enumerate(image_data):
                 y, x = divmod(i, width)
                 radii.append(math.hypot(x - width // 2, y - height // 2) / half_diagonal)
