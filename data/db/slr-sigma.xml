@@ -2214,4 +2214,35 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 50mm f/1.4 DG HSM [A]</model>
+        <mount>Canon EF</mount>
+        <mount>Sigma SA</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.005</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 6D -->
+            <distortion model="poly3" focal="50" k1="0" />
+            <tca model="poly3" focal="50" br="-0.0000685" vr="1.0001549" bb="0.0000708" vb="0.9998455" />
+            <vignetting model="pa" focal="50" aperture="1.4" distance="10" k1="-1.7584" k2="1.8503" k3="-0.8208" />
+            <vignetting model="pa" focal="50" aperture="1.4" distance="1000" k1="-1.7584" k2="1.8503" k3="-0.8208" />
+            <vignetting model="pa" focal="50" aperture="2" distance="10" k1="-0.2253" k2="-0.5403" k3="0.3434" />
+            <vignetting model="pa" focal="50" aperture="2" distance="1000" k1="-0.2253" k2="-0.5403" k3="0.3434" />
+            <vignetting model="pa" focal="50" aperture="2.8" distance="10" k1="-0.3100" k2="-0.1997" k3="0.2306" />
+            <vignetting model="pa" focal="50" aperture="2.8" distance="1000" k1="-0.3100" k2="-0.1997" k3="0.2306" />
+            <vignetting model="pa" focal="50" aperture="4" distance="10" k1="-0.4812" k2="0.1346" k3="0.0260" />
+            <vignetting model="pa" focal="50" aperture="4" distance="1000" k1="-0.4812" k2="0.1346" k3="0.0260" />
+            <vignetting model="pa" focal="50" aperture="5.6" distance="10" k1="-0.3879" k2="-0.0701" k3="0.1637" />
+            <vignetting model="pa" focal="50" aperture="5.6" distance="1000" k1="-0.3879" k2="-0.0701" k3="0.1637" />
+            <vignetting model="pa" focal="50" aperture="8" distance="10" k1="-0.3931" k2="-0.0627" k3="0.1598" />
+            <vignetting model="pa" focal="50" aperture="8" distance="1000" k1="-0.3931" k2="-0.0627" k3="0.1598" />
+            <vignetting model="pa" focal="50" aperture="11" distance="10" k1="-0.4106" k2="-0.0318" k3="0.1402" />
+            <vignetting model="pa" focal="50" aperture="11" distance="1000" k1="-0.4106" k2="-0.0318" k3="0.1402" />
+            <vignetting model="pa" focal="50" aperture="16" distance="10" k1="-0.3843" k2="-0.0946" k3="0.1829" />
+            <vignetting model="pa" focal="50" aperture="16" distance="1000" k1="-0.3843" k2="-0.0946" k3="0.1829" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
