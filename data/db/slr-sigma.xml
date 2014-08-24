@@ -2196,4 +2196,22 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 180mm f/2.8 EX DG OS HSM APO Macro</model>
+        <mount>Canon EF</mount>
+        <mount>Sigma SA</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with D800 -->
+            <distortion model="ptlens" focal="180" a="-0.00333" b="0.00918" c="-0.00596" />
+            <vignetting model="pa" focal="180" aperture="2.8" distance="100" k1="-0.99298" k2="0.89434" k3="-0.47337" />
+            <vignetting model="pa" focal="180" aperture="4" distance="100" k1="-0.16527" k2="-0.60898" k3="0.37435" />
+            <vignetting model="pa" focal="180" aperture="5.6" distance="100" k1="0.19506" k2="-0.92214" k3="0.39933" />
+            <vignetting model="pa" focal="180" aperture="8" distance="100" k1="-0.12653" k2="0.27362" k3="-0.49691" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
