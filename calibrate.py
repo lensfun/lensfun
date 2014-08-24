@@ -138,7 +138,7 @@ def call_exiv2(candidate_group):
     exiv2_process = subprocess.Popen(
         ["exiv2", "-PEkt", "-g", "Exif.Photo.LensModel", "-g", "Exif.Photo.FocalLength", "-g", "Exif.Photo.FNumber"]
         + candidate_group, stdout=subprocess.PIPE)
-    lines = exiv2_process.communicate()[0].splitlines()
+    lines = exiv2_process.communicate()[0].decode("utf-8").splitlines()
     assert exiv2_process.returncode in [0, 253]
     result = {}
     for line in lines:
