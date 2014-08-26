@@ -156,4 +156,19 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Samsung</maker>
+        <model>Samsung NX 16-50mm f/3.5-5.6 PZ ED OIS</model>
+        <mount>Samsung NX</mount>
+        <cropfactor>1.54</cropfactor>
+        <calibration>
+            <!-- Taken with Samsung NX200 -->
+            <distortion model="ptlens" focal="16" a="0.01687" b="-0.04326" c="-0.03389" />
+            <distortion model="ptlens" focal="19" a="0.00841" b="-0.01748" c="-0.03254" />
+            <distortion model="ptlens" focal="22" a="0.0085" b="-0.02678" c="-0.00262" />
+            <distortion model="ptlens" focal="30" a="0" b="-0.00441" c="0" />
+            <distortion model="ptlens" focal="50" a="0" b="0.00145" c="0" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
