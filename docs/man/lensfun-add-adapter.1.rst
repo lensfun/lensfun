@@ -24,7 +24,7 @@ Lensfun is a library that corrects flaws in photographic images introduced by
 the lens.  It also contains a comprehensive database of cameras and lenses
 together with their characteristics to be able to apply automatic corrections
 of images taken with these devices.  Lensfun is used by darktable, digiKam,
-Hugin, rawstudio, GimpLensfun, UFRaw, and others.
+rawstudio, GimpLensfun, UFRaw, and others.
 
 Lensfun contains information about lens mounts of cameras and available mounts
 for lens models.  This way, the calling application can offer the user a list
