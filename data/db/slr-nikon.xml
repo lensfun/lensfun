@@ -1976,4 +1976,23 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S DX Nikkor 18-140mm f/3.5-5.6G ED VR</model>
+        <model lang="en">Nikkor AF-S 18-140mm f/3.5-5.6G DX ED VR</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D5100 -->
+            <distortion model="ptlens" focal="18" a="0.02" b="-0.06" c="0.006" />
+            <distortion model="ptlens" focal="35" a="0.01" b="-0.014" c="0.017" />
+            <distortion model="ptlens" focal="52" a="-0.001" b="0.02" c="-0.012" />
+            <distortion model="ptlens" focal="70" a="0.001" b="0.014" c="-0.004" />
+            <distortion model="ptlens" focal="85" a="0.002" b="0.006" c="0.007" />
+            <distortion model="ptlens" focal="95" a="0.002" b="0.003" c="0.016" />
+            <distortion model="ptlens" focal="112" a="0.002" b="0.005" c="0.007" />
+            <distortion model="ptlens" focal="140" a="0.004" b="0.002" c="-0.002" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
