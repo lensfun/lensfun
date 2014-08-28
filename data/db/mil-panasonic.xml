@@ -1230,4 +1230,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Panasonic</maker>
+        <model>Lumix G Vario 7-14mm f/4.0</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Olympus E-M1 -->
+            <distortion model="ptlens" focal="7" a="0.02686" b="-0.10328" c="0.05484" />
+            <distortion model="ptlens" focal="8" a="0.02352" b="-0.08574" c="0.03957" />
+            <distortion model="ptlens" focal="10" a="0.01415" b="-0.05043" c="0.03089" />
+            <distortion model="ptlens" focal="12" a="0.0243" b="-0.07167" c="0.05591" />
+            <distortion model="ptlens" focal="14" a="0.01052" b="-0.02541" c="0.02886" />
+            <tca model="poly3" focal="7" br="0.0001073" vr="1.0002675" bb="0.0000622" vb="1.0001169" />
+            <tca model="poly3" focal="8" br="-0.0000141" vr="1.0002604" bb="0.0000124" vb="1.0002017" />
+            <tca model="poly3" focal="10" br="-0.0000143" vr="1.0000787" bb="0.0000794" vb="1.0001936" />
+            <tca model="poly3" focal="12" br="-0.0000316" vr="1.0001091" bb="0.0001177" vb="1.0001823" />
+            <tca model="poly3" focal="14" br="-0.0000962" vr="1.0002823" bb="0.0000513" vb="1.0001142" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
