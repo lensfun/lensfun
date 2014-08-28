@@ -1050,7 +1050,7 @@
     </lens>
 
     <lens>
-        <maker>Panasonic</maker>
+        <maker>Leica</maker>
         <model>Leica DG Summilux 25mm f/1.4 Asph.</model>
 	<mount>Micro 4/3 System</mount>
         <cropfactor>2.0</cropfactor>
@@ -1248,6 +1248,20 @@
             <tca model="poly3" focal="10" br="-0.0000143" vr="1.0000787" bb="0.0000794" vb="1.0001936" />
             <tca model="poly3" focal="12" br="-0.0000316" vr="1.0001091" bb="0.0001177" vb="1.0001823" />
             <tca model="poly3" focal="14" br="-0.0000962" vr="1.0002823" bb="0.0000513" vb="1.0001142" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Leica</maker>
+        <model>Leica DG Macro-Elmarit 45mm f/2.8</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Olympus E-M1 -->
+            <distortion model="poly3" focal="45" k1="0.0015" />
+            <!-- No visible TCA -->
+            <tca model="poly3" focal="45" vr="1.0005" vb="0.9998" />
         </calibration>
     </lens>
 
