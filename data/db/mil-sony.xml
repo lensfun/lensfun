@@ -360,7 +360,8 @@
         <type>fisheye</type>
         <calibration>
             <!-- Taken with Sony NEX-7 -->
-            <field_of_view focal="10" fov="135.12" />
+            <!-- Measured with 360° panorama -->
+            <real-focal-length focal="10" real-focal="9.853" />
             <distortion model="ptlens" focal="10" a="-0.03545" b="0.08332" c="-0.03802" />
             <tca model="poly3" focal="10" br="-0.0003212" vr="1.0013837" bb="0.0004205" vb="0.9993395" />
             <vignetting model="pa" focal="10" aperture="2.8" distance="0.1" k1="-1.9395" k2="1.9128" k3="-0.8406" />
@@ -637,7 +638,8 @@
         <cropfactor>1.534</cropfactor>
         <calibration>
             <!-- Taken with Sony NEX-7 -->
-            <field_of_view focal="20" fov="60.868" />
+            <!-- Measured with 360° panorama -->
+            <real-focal-length focal="20" real-focal="20.30" />
             <distortion model="ptlens" focal="20" a="0.01609" b="-0.05179" c="0.01925" />
             <tca model="poly3" focal="20" br="-0.0001183" vr="1.0003488" bb="0.0002181" vb="0.9998147" />
             <!-- Measured with overlapping pictures -->

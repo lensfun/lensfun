@@ -270,21 +270,21 @@
         <mount>panasonicLX5</mount>
         <cropfactor>4.71</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
-	    <calibration>
-		    <distortion focal="5.1" model="ptlens" a="0.03955" b="-0.16355" c="0.11864" />
-		    <field_of_view focal="5.1" fov="71.5277" />
-		    <distortion focal="6" model="ptlens" a="0.02451" b="-0.08952" c="0.03353" />
-		    <field_of_view focal="6" fov="63.388" />
-		    <distortion focal="7.5" model="ptlens" a="0.00853" b="-0.03409" c="0.00531" />
-		    <field_of_view focal="7.5" fov="52.5764" />
-		    <distortion focal="10.7" model="ptlens" a="0.00594" b="-0.02024" c="0.0042" />
-		    <field_of_view focal="10.7" fov="38.1962" />
-		    <distortion focal="14.9" model="ptlens" a="0.00141" b="-0.00799" c="0.00152" />
-		    <field_of_view focal="14.9" fov="27.7549" />
-		    <distortion focal="19.2" model="ptlens" a="0.00095" b="-0.00297" c="-0.00298" />
-		    <field_of_view focal="19.2" fov="21.7521" />
-	    </calibration>
-	</lens>    
+        <calibration>
+            <real-focal-length focal="5.1" real-focal="5.334" />
+            <real-focal-length focal="6" real-focal="6.384" />
+            <real-focal-length focal="7.5" real-focal="7.893" />
+            <real-focal-length focal="10.7" real-focal="11.15" />
+            <real-focal-length focal="14.9" real-focal="15.55" />
+            <real-focal-length focal="19.2" real-focal="19.99" />
+            <distortion focal="5.1" model="ptlens" a="0.03955" b="-0.16355" c="0.11864" />
+            <distortion focal="6" model="ptlens" a="0.02451" b="-0.08952" c="0.03353" />
+            <distortion focal="7.5" model="ptlens" a="0.00853" b="-0.03409" c="0.00531" />
+            <distortion focal="10.7" model="ptlens" a="0.00594" b="-0.02024" c="0.0042" />
+            <distortion focal="14.9" model="ptlens" a="0.00141" b="-0.00799" c="0.00152" />
+            <distortion focal="19.2" model="ptlens" a="0.00095" b="-0.00297" c="-0.00298" />
+        </calibration>
+    </lens>    
 
     <lens>
         <maker>Leica</maker>

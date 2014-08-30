@@ -8,6 +8,22 @@
 #include "lensfunprv.h"
 #include <math.h>
 
+/* Takes into account that the Hugin models (Poly3, PTLens), use a wrong focal
+ * length (see the thread http://thread.gmane.org/gmane.comp.misc.ptx/34865).
+ */
+float get_hugin_focal_correction (const lfLens *lens, float focal)
+{
+    lfLensCalibDistortion res;
+    if (lens->InterpolateDistortion(focal, res))
+    {
+        if (res.Model == LF_DIST_MODEL_POLY3)
+            return 1 - res.Terms[0];
+        else if (res.Model == LF_DIST_MODEL_PTLENS)
+            return 1 - res.Terms[0] - res.Terms[1] - res.Terms[2];
+    }
+    return 1;
+}
+
 lfModifier *lfModifier::Create (const lfLens *lens, float crop, int width, int height)
 {
     return new lfExtModifier (lens, crop, width, height);
@@ -46,10 +62,11 @@ int lfModifier::Initialize (
     if (flags & LF_MODIFY_GEOMETRY &&
         lens->Type != targeom)
     {
-        float actual_focal_length = GetActualFocalLength (lens, focal);
+        float real_focal_length = GetRealFocalLength (lens, focal);
+        real_focal_length /= get_hugin_focal_correction (lens, focal);
         if (reverse ?
-            AddCoordCallbackGeometry (targeom, lens->Type, actual_focal_length) :
-            AddCoordCallbackGeometry (lens->Type, targeom, actual_focal_length))
+            AddCoordCallbackGeometry (targeom, lens->Type, real_focal_length) :
+            AddCoordCallbackGeometry (lens->Type, targeom, real_focal_length))
             oflags |= LF_MODIFY_GEOMETRY;
     }
 
@@ -61,9 +78,12 @@ int lfModifier::Initialize (
     return oflags;
 }
 
-float lfModifier::GetActualFocalLength (const lfLens *lens, float focal)
+float lfModifier::GetRealFocalLength (const lfLens *lens, float focal)
 {
     lfExtModifier *This = static_cast<lfExtModifier *> (this);
+    lfLensCalibRealFocal real_focal;
+    if (lens && lens->InterpolateRealFocal (focal, real_focal)) return real_focal.RealFocal;
+    float result = focal;
     lfLensCalibFov fov_raw;
     if (lens && lens->InterpolateFov (focal, fov_raw))
     {
@@ -73,30 +93,49 @@ float lfModifier::GetActualFocalLength (const lfLens *lens, float focal)
         switch (lens->Type)
         {
             case LF_UNKNOWN:
-                return focal;
+                break;
 
             case LF_RECTILINEAR:
-                return half_width_in_millimeters / tan (fov / 2.0);
+                result = half_width_in_millimeters / tan (fov / 2.0);
+                break;
 
             case LF_FISHEYE:
             case LF_PANORAMIC:
             case LF_EQUIRECTANGULAR:
-                return half_width_in_millimeters / (fov / 2.0);
+                result = half_width_in_millimeters / (fov / 2.0);
+                break;
 
             case LF_FISHEYE_ORTHOGRAPHIC:
-                return half_width_in_millimeters / sin (fov / 2.0);
+                result = half_width_in_millimeters / sin (fov / 2.0);
+                break;
 
             case LF_FISHEYE_STEREOGRAPHIC:
-                return half_width_in_millimeters / (2 * tan (fov / 4.0));
+                result = half_width_in_millimeters / (2 * tan (fov / 4.0));
+                break;
 
             case LF_FISHEYE_EQUISOLID:
-                return half_width_in_millimeters / (2 * sin (fov / 4.0));
+                result = half_width_in_millimeters / (2 * sin (fov / 4.0));
+                break;
 
             case LF_FISHEYE_THOBY:
-                return half_width_in_millimeters / (1.47 * sin (0.713 * fov / 2.0));
+                result = half_width_in_millimeters / (1.47 * sin (0.713 * fov / 2.0));
+                break;
+
+            default:
+                // This should never happen
+                return NAN;
         }
     }
-    return focal;
+    /* It may be surprising that get_hugin_focal_correction is applied even if
+     * only the nominal focal length is found and used.  The reason is twofold:
+     * First, many lens manufacturers seem to use a focal length closer to
+     * Hugin's quirky definition.  And secondly, we have better
+     * backwards-compatibility this way.  In particular, one can use Hugin
+     * results (using the nominal focal length) out-of-the-box.  If the nominal
+     * focal length is used, it is guesswork anyway, so this compromise is
+     * acceptable.
+     */
+    return result * get_hugin_focal_correction (lens, focal);
 }
 
 void lfModifier::Destroy ()

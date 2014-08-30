@@ -70,6 +70,7 @@ The following things are particularly interesting to check:
 
 import array, subprocess, math, os, argparse, sys
 from math import sin, tan, atan, floor, ceil, sqrt
+from math import pi as π
 from xml.etree import ElementTree
 
 
@@ -100,10 +101,11 @@ width, aspect_ratio, portrait = args.width, args.aspect_ratio, args.portrait
 
 def get_database_elements():
     lens_element = camera_element = None
-    distortion_element = vignetting_element = tca_element = None
+    distortion_element = tca_element = vignetting_element = real_focal_length_element = fov_element = None
     files_found = False
     def crawl_directory(dirpath):
-        nonlocal lens_element, camera_element, distortion_element, vignetting_element, tca_element, files_found
+        nonlocal lens_element, camera_element, distortion_element, tca_element, vignetting_element, real_focal_length_element, \
+            fov_element, files_found
         for root, __, filenames in os.walk(dirpath):
             for filename in filenames:
                 if filename.endswith(".xml"):
@@ -132,6 +134,12 @@ def get_database_elements():
                                        float(calibration_element.attrib["aperture"]) == aperture and \
                                        float(calibration_element.attrib["distance"]) == distance:
                                         vignetting_element = calibration_element
+                                    elif calibration_element.tag == "real-focal-length" and \
+                                       float(calibration_element.attrib["focal"]) == focal_length:
+                                        real_focal_length_element = calibration_element
+                                    elif calibration_element.tag == "field_of_view" and \
+                                       float(calibration_element.attrib["focal"]) == focal_length:
+                                        fov_element = calibration_element
     paths_search_list = [args.db_path] if args.db_path else \
                         [os.path.expanduser("~/.local/share/lensfun"), "/usr/share/lensfun", "/usr/local/share/lensfun"]
     for path in paths_search_list:
@@ -145,9 +153,10 @@ def get_database_elements():
     if camera_element is None:
         print("Camera model name not found.")
         sys.exit(1)
-    return lens_element, camera_element, distortion_element, vignetting_element, tca_element
+    return lens_element, camera_element, distortion_element, tca_element, vignetting_element, real_focal_length_element, fov_element
 
-lens_element, camera_element, distortion_element, vignetting_element, tca_element = get_database_elements()
+lens_element, camera_element, distortion_element, tca_element, vignetting_element, real_focal_length_element, fov_element = \
+        get_database_elements()
 
 
 camera_cropfactor = float(camera_element.find("cropfactor").text)
@@ -177,12 +186,55 @@ def get_float_attribute(element, attribute_name, default=0):
     except KeyError:
         return default
 
+try:
+    lens_type = lens_element.find("type").text
+except AttributeError:
+    lens_type = "rectilinear"
+
+def get_hugin_correction():
+    """Get the correction factor for the focal length.  This is necessary because
+    in the Hugin distortion models PTLens and Poly3, the focal length is
+    wrongly defined.
+    """
+    if distortion_element is not None:
+        model = distortion_element.attrib["model"]
+        if model == "ptlens":
+            a = get_float_attribute(distortion_element, "a")
+            b = get_float_attribute(distortion_element, "b")
+            c = get_float_attribute(distortion_element, "c")
+            return 1 - a - b - c
+        elif model == "poly3":
+            k1 = get_float_attribute(distortion_element, "k1")
+            return 1 - k1
+    return 1
+hugin_correction = get_hugin_correction()
+
+def get_real_focal_length():
+    if real_focal_length_element is not None:
+        return float(real_focal_length_element.attrib["real-focal"])
+    elif fov_element is not None:
+        fov = float(fov_element.attrib["fov"]) * π / 180
+        half_width_in_millimeters = \
+                sqrt(36**2 + 24**2) / 2 / sqrt(lens_aspect_ratio**2 + 1) * lens_aspect_ratio / lens_cropfactor
+        if lens_type == "stereographic":
+            result = half_width_in_millimeters / (2 * tan(fov / 4))
+        elif lens_type in ["fisheye", "panoramic", "equirectangular"]:
+            result = half_width_in_millimeters / (fov / 2)
+        elif lens_type == "orthographic":
+            result = half_width_in_millimeters / sin(fov / 2)
+        elif lens_type == "equisolid":
+            result = half_width_in_millimeters / (2 * sin(fov / 4))
+        elif lens_type == "fisheye_thoby":
+            result = half_width_in_millimeters / (1.47 * sin(0.713 * fov / 2))
+        else:
+            assert lens_type == "rectilinear"
+            result = half_width_in_millimeters / tan(fov / 2)
+        return result * hugin_correction
+    else:
+        return focal_length * hugin_correction
+
 def get_projection_function():
     projection = None
-    try:
-        lens_type = lens_element.find("type").text
-    except AttributeError:
-        lens_type = "rectilinear"
     if lens_type == "stereographic":
         def projection(ϑ):
             return 2 * tan(ϑ / 2)
@@ -383,8 +435,7 @@ class Image:
 
     def create_grid(self, distortion, projection, tca_red, tca_blue):
         full_frame_diagonal = sqrt(36**2 + 24**2)
-        # FixMe: One should use the FOV to calculate the actual focal length here.
-        diagonal_by_focal_length = full_frame_diagonal / 2 / camera_cropfactor / focal_length
+        diagonal_by_focal_length = full_frame_diagonal / 2 / camera_cropfactor / (get_real_focal_length() / hugin_correction)
         def apply_lens_projection(x, y):
             r_vignetting = sqrt(x**2 + y**2) / self.aspect_ratio_correction
             ϑ = atan(r_vignetting * diagonal_by_focal_length)

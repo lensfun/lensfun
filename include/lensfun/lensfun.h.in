@@ -80,6 +80,20 @@ extern "C" {
 #   endif
 #endif
 
+#ifndef CONF_LENSFUN_INTERNAL
+/// For marking deprecated functions, see http://stackoverflow.com/a/21265197
+#    ifdef __GNUC__
+#        define DEPRECATED __attribute__((deprecated))
+#    elif defined(_MSC_VER)
+#        define DEPRECATED __declspec(deprecated)
+#    else
+#        pragma message("WARNING: You need to implement DEPRECATED for this compiler")
+#        define DEPRECATED
+#    endif
+#else
+#    define DEPRECATED
+#endif
+
 /// C-compatible bool type; don't bother to define Yet Another Boolean Type
 #define cbool int
 
@@ -669,6 +683,30 @@ struct lfLensCalibFov
 C_TYPEDEF (struct, lfLensCalibFov)
 
 /**
+ *  @brief Struct to save real focal length, which can depends on the (nominal)
+ *  focal length
+ */
+struct lfLensCalibRealFocal
+{
+    /** Nominal focal length in mm at which this calibration data was taken */
+    float Focal;
+    /** @brief Real focal length
+     *
+     *  When Lensfun speaks of “focal length”, the *nominal* focal length from
+     *  the EXIF data or the gravure on the lens barrel is meant.  However,
+     *  especially for fisheye lenses, the real focal length generally differs
+     *  from that nominal focal length.  With “real focal length” I mean the
+     *  focal length in the paraxial approximation, see
+     *  <http://en.wikipedia.org/wiki/Paraxial_approximation>.  Note that Hugin
+     *  (as of 2014) implements the calculation of the real focal length
+     *  wrongly, see <http://article.gmane.org/gmane.comp.misc.ptx/34865>.
+     */
+    float RealFocal;
+};
+
+C_TYPEDEF (struct, lfLensCalibRealFocal)
+
+/**
  * @brief This structure describes a single parameter for some lens model.
  */
 struct lfParameter
@@ -787,6 +825,8 @@ struct LF_EXPORT lfLens
     lfLensCalibCrop **CalibCrop;
     /** Field of view calibration data, NULL-terminated (unsorted) */
     lfLensCalibFov **CalibFov;
+    /** Real focal length calibration data, NULL-terminated (unsorted) */
+    lfLensCalibRealFocal **CalibRealFocal;
     /** Lens matching score, used while searching: not actually a lens parameter */
     int Score;
 
@@ -921,14 +961,32 @@ struct LF_EXPORT lfLens
      * @param cf
      *     The lens fov structure.
      */
-    void AddCalibFov (const lfLensCalibFov *cf);
+    DEPRECATED void AddCalibFov (const lfLensCalibFov *cf);
 
     /**
      * @brief Remove a field of view  entry from the lens fov structure.
      * @param idx
      *     The lens information data index (zero-based).
      */
-    bool RemoveCalibFov (int idx);
+    DEPRECATED bool RemoveCalibFov (int idx);
+
+    /**
+     * @brief Add a new lens real focal length structure to the pool.
+     *
+     * The objects is copied, thus you can reuse it as soon as
+     * this function returns.
+     * @param cf
+     *     The lens real focal length structure.
+     */
+    void AddCalibRealFocal (const lfLensCalibRealFocal *cf);
+
+    /**
+     * @brief Remove a real focal length entry from the lens real focal length
+     * structure.
+     * @param idx
+     *     The lens information data index (zero-based).
+     */
+    bool RemoveCalibRealFocal (int idx);
 
     /**
      * @brief This method fills some fields if they are missing but
@@ -1081,7 +1139,16 @@ struct LF_EXPORT lfLens
      * @param res
      *     The resulting interpolated information data.
      */
-    bool InterpolateFov (float focal, lfLensCalibFov &res) const;
+    DEPRECATED bool InterpolateFov (float focal, lfLensCalibFov &res) const;
+
+    /**
+     * @brief Interpolate lens real focal length data for given focal length.
+     * @param focal
+     *     The nominal focal length in mm at which we need image parameters.
+     * @param res
+     *     The resulting interpolated information data.
+     */
+    bool InterpolateRealFocal (float focal, lfLensCalibRealFocal &res) const;
 #endif
 };
 
@@ -1160,8 +1227,12 @@ LF_EXPORT cbool lf_lens_interpolate_crop (const lfLens *lens, float focal,
     lfLensCalibCrop *res);
 
 /** @sa lfLens::InterpolateFov */
-LF_EXPORT cbool lf_lens_interpolate_fov (const lfLens *lens, float focal,
+DEPRECATED LF_EXPORT cbool lf_lens_interpolate_fov (const lfLens *lens, float focal,
     lfLensCalibFov *res);
+
+/** @sa lfLens::InterpolateRealFocal */
+LF_EXPORT cbool lf_lens_interpolate_real_focal (const lfLens *lens, float focal,
+    lfLensCalibRealFocal *res);
 
 /** @sa lfLens::AddCalibDistortion */
 LF_EXPORT void lf_lens_add_calib_distortion (lfLens *lens, const lfLensCalibDistortion *dc);
@@ -1188,10 +1259,16 @@ LF_EXPORT void lf_lens_add_calib_crop (lfLens *lens, const lfLensCalibCrop *cc);
 LF_EXPORT cbool lf_lens_remove_calib_crop (lfLens *lens, int idx);
 
 /** @sa lfLens::AddCalibFov */
-LF_EXPORT void lf_lens_add_calib_fov (lfLens *lens, const lfLensCalibFov *cf);
+DEPRECATED LF_EXPORT void lf_lens_add_calib_fov (lfLens *lens, const lfLensCalibFov *cf);
 
 /** @sa lfLens::RemoveCalibFov */
-LF_EXPORT cbool lf_lens_remove_calib_fov (lfLens *lens, int idx);
+DEPRECATED LF_EXPORT cbool lf_lens_remove_calib_fov (lfLens *lens, int idx);
+
+/** @sa lfLens::AddCalibRealFocal */
+LF_EXPORT void lf_lens_add_calib_real_focal (lfLens *lens, const lfLensCalibRealFocal *cf);
+
+/** @sa lfLens::RemoveCalibRealFocal */
+LF_EXPORT cbool lf_lens_remove_calib_real_focal (lfLens *lens, int idx);
 
 /** @} */
 
@@ -2204,25 +2281,25 @@ struct LF_EXPORT lfModifier
 
 private:
     /**
-     * @brief Calculate the focal length from the measured field-of-view
-     * (FOV).
+     * @brief Determine the real focal length.
      *
-     * Returns the actual focal length (in contrast to the nominal focal length
+     * Returns the real focal length (in contrast to the nominal focal length
      * given in the "focal" attribute in the XML files).  It is needed for
      * accurate geometry transformations, e.g. from fisheye to rectilinear.  If
-     * there is no FOV data available, the nominal focal length is returned as
-     * a fallback.
+     * there is neither real focal length nor FOV data available, the nominal
+     * focal length is returned as a fallback.
      *
      * @param lens
      *     The lens for which the focal length should be returned.
      * @param focal
-     *     The nominal focal length for which the actual focal length should be
+     *     The nominal focal length for which the real focal length should be
      *     returned.
      * @return
-     *     the actual focal length, or, if no FOV data is included into the
-     *     calibration, the given nominal focal length
+     *     the real focal length, or, if no real focal length data and no FOV
+     *     data is included into the calibration, the given nominal focal
+     *     length
      */
-    float GetActualFocalLength (const lfLens *lens, float focal);
+    float GetRealFocalLength (const lfLens *lens, float focal);
 
 protected:
     /* Prevent user from creating and destroying such objects */
