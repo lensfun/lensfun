@@ -486,9 +486,8 @@ Possible embedded elements:
     href="http://en.wikipedia.org/wiki/Paraxial_approximation">paraxial
     approximation</a>, in contrast to the *nominal* focal length used in all
     "focal" attributes.  Especially for fisheye lenses, both values can differ
-    significantly.  Lensfun itself needs the real focal length only for some
-    lens type transformations, e.g. from rectilinear to stereographic, but it
-    is very important in panorama stitching.
+    significantly.  Lensfun itself needs the real focal length for lens type
+    transformations.  It uses the nominal focal length as a fallback.
 
     The real focal length can be determined reliably only with a 360° panorama,
     e.g. with Hugin.  However, as of 2014, Hugin's results <a

@@ -2284,10 +2284,21 @@ private:
      * @brief Determine the real focal length.
      *
      * Returns the real focal length (in contrast to the nominal focal length
-     * given in the "focal" attribute in the XML files).  It is needed for
-     * accurate geometry transformations, e.g. from fisheye to rectilinear.  If
-     * there is neither real focal length nor FOV data available, the nominal
-     * focal length is returned as a fallback.
+     * given in the "focal" attribute in the XML files).  This is the textbook
+     * focal length, derived from the magnification in paraxial approximation.
+     * It is needed for accurate geometry transformations, e.g. from fisheye to
+     * rectilinear.  If there is neither real focal length nor FOV data
+     * available, the nominal focal length is returned as a fallback.
+     *
+     * In practice, its effect is mostly negligible.  When converting to
+     * rectilinear, it merely results in a magnification (which probably is
+     * reverted by autoscaling).  When converting to a fisheye projection
+     * besides stereographic, the degree of distortion is not detectable by the
+     * human eye.  Moreover, most non-fisheyes have quite accurate nominal
+     * focal lengths printed on the lens.  Thus, the only use case left is the
+     * conversion from non-stereographic fisheye to stereographic.  This maps
+     * perfect circled to perfect circles, so it is noticeable if the nominal
+     * focal length is rather off.
      *
      * @param lens
      *     The lens for which the focal length should be returned.
