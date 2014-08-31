@@ -154,4 +154,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>XF18mmF2 R</model>
+        <model lang="en">XF 18mm f/2 R</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with X-Pro1 -->
+            <distortion model="ptlens" focal="18" a="-0.01002" b="0.01206" c="-0.03947" />
+            <tca model="poly3" focal="18" br="-0.0000854" vr="1.0003786" bb="0.0002872" vb="0.9999238" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
