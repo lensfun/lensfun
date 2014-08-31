@@ -311,9 +311,6 @@ const char *lfLens::GetDistortionModelDesc (
     static const lfParameter param_poly5_k2 = { "k2", -0.2F, 0.2F, 0.0F };
     static const lfParameter *param_poly5 [] = { &param_poly3_k1, &param_poly5_k2, NULL };
 
-    static const lfParameter param_fov1_omega = { "omega", 0.0F, 1.4F, 0.0F };
-    static const lfParameter *param_fov1 [] = { &param_fov1_omega, NULL };
-
     static const lfParameter param_ptlens_a = { "a", -0.2F, 0.2F, 0.0F };
     static const lfParameter param_ptlens_b = { "b", -0.2F, 0.2F, 0.0F };
     static const lfParameter param_ptlens_c = { "c", -0.2F, 0.2F, 0.0F };
@@ -344,14 +341,6 @@ const char *lfLens::GetDistortionModelDesc (
             if (params)
                 *params = param_poly5;
             return "5th order polynomial";
-
-        case LF_DIST_MODEL_FOV1:
-            if (details)
-                *details = "Rd = tg (Ru * omega) / (2 * tg (omega/2))\n"
-                    "Ref: http://hal.inria.fr/docs/00/26/72/47/PDF/distcalib.pdf";
-            if (params)
-                *params = param_fov1;
-            return "1st-order field-of-view";
 
         case LF_DIST_MODEL_PTLENS:
             if (details)

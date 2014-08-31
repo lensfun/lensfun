@@ -565,8 +565,6 @@ struct lfExtModifier : public lfModifier
 #endif
     static void ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int count);
     static void ModifyCoord_Dist_Poly5 (void *data, float *iocoord, int count);
-    static void ModifyCoord_UnDist_FOV1 (void *data, float *iocoord, int count);
-    static void ModifyCoord_Dist_FOV1 (void *data, float *iocoord, int count);
     static void ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int count);
     static void ModifyCoord_Dist_PTLens (void *data, float *iocoord, int count);
 #ifdef VECTORIZATION_SSE

@@ -42,15 +42,6 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                                   model.Terms, sizeof (float) * 2);
                 break;
 
-            case LF_DIST_MODEL_FOV1:
-                if (!model.Terms [0])
-                    return false;
-                tmp [0] = 1.0 / model.Terms [0];
-                tmp [1] = 2.0 * tan (model.Terms [0] / 2.0);
-                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_FOV1, 250,
-                                  tmp, sizeof (float) * 2);
-                break;
-
             case LF_DIST_MODEL_PTLENS:
 #ifdef VECTORIZATION_SSE
                 if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
@@ -82,14 +73,6 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
             case LF_DIST_MODEL_POLY5:
                 AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly5, 750,
                                   model.Terms, sizeof (float) * 2);
-                break;
-
-            case LF_DIST_MODEL_FOV1:
-                if (!model.Terms [0])
-                    return false;
-                tmp [0] = model.Terms [0];
-                tmp [1] = 0.5 / tan (model.Terms [0] / 2.0);
-                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_FOV1, 750, tmp, sizeof (float) * 2);
                 break;
 
             case LF_DIST_MODEL_PTLENS:
@@ -586,41 +569,6 @@ void lfExtModifier::ModifyCoord_Dist_Poly5 (void *data, float *iocoord, int coun
         iocoord [0] = x * poly4;
         iocoord [1] = y * poly4;
     }
-}
-
-void lfExtModifier::ModifyCoord_UnDist_FOV1 (void *data, float *iocoord, int count)
-{
-    float *param = (float *)data;
-    // Ru = (1 / omega) * arctan (2 * Rd * tan (omega / 2))
-    float c1 = param [0];
-    float c2 = param [1];
-
-    for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
-    {
-        const float x = iocoord [0];
-        const float y = iocoord [1];
-
-        iocoord [0] = c1 * atan (x * c2);
-        iocoord [1] = c1 * atan (y * c2);
-    }
-}
-
-void lfExtModifier::ModifyCoord_Dist_FOV1 (void *data, float *iocoord, int count)
-{
-    float *param = (float *)data;
-    // Rd = tg (Ru * omega) / (2 * tg (omega/2))
-    float omega = param [0];
-    float dconst = param [1];
-
-    if (omega > 0.001)
-        for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
-        {
-            const float x = iocoord [0];
-            const float y = iocoord [1];
-
-            iocoord [0] = tan (x * omega) * dconst;
-            iocoord [1] = tan (y * omega) * dconst;
-        }
 }
 
 void lfExtModifier::ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int count)

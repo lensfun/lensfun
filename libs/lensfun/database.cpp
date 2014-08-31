@@ -322,8 +322,6 @@ static void _xml_start_element (GMarkupParseContext *context,
                     dc.Model = LF_DIST_MODEL_POLY3;
                 else if (!strcmp (attribute_values [i], "poly5"))
                     dc.Model = LF_DIST_MODEL_POLY5;
-                else if (!strcmp (attribute_values [i], "fov1"))
-                    dc.Model = LF_DIST_MODEL_FOV1;
                 else if (!strcmp (attribute_values [i], "ptlens"))
                     dc.Model = LF_DIST_MODEL_PTLENS;
                 else
@@ -338,8 +336,7 @@ static void _xml_start_element (GMarkupParseContext *context,
             else if (!strcmp (attribute_names [i], "focal"))
                 dc.Focal = atof (attribute_values [i]);
             else if (!strcmp (attribute_names [i], "a") ||
-                     !strcmp (attribute_names [i], "k1") ||
-                     !strcmp (attribute_names [i], "omega"))
+                     !strcmp (attribute_names [i], "k1"))
                 dc.Terms [0] = atof (attribute_values [i]);
             else if (!strcmp (attribute_names [i], "b") ||
                      !strcmp (attribute_names [i], "k2"))
@@ -946,12 +943,6 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                             _lf_xml_printf (
                                 output, "model=\"poly5\" k1=\"%g\" k2=\"%g\" />\n",
                                 cd->Terms [0], cd->Terms [1]);
-                            break;
-
-                        case LF_DIST_MODEL_FOV1:
-                            _lf_xml_printf (
-                                output, "model=\"fov1\" omega=\"%g\" />\n",
-                                cd->Terms [0]);
                             break;
 
                         case LF_DIST_MODEL_PTLENS:

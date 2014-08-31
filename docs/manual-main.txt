@@ -456,11 +456,11 @@ section.
 
 Possible embedded elements:
 <dl>
-<dt>\<distortion focal="number" model="name" k1="number" k2="number" k3="number" omega="number" a="number" b="number" c="number" /\>
+<dt>\<distortion focal="number" model="name" k1="number" k2="number" k3="number" a="number" b="number" c="number" /\>
 <dd>Declares the image distortion model for this lens. Distortion is specific for every
     focal length (in mm), so you can declare multiple distortion entries with different focal
     values; the library will interpolate the parameters for intermediate focal
-    lengths.  The model name may be "none", "poly3", "poly5", "fov1", or "ptlens".
+    lengths.  The model name may be "none", "poly3", "poly5", or "ptlens".
     @see lfDistortionModel
 <dt>\<tca focal="number" model="name" kr="number" kb="number" /\>
 <dd>Declares the Transversal Chromatic Aberrations model for this lens,

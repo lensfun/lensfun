@@ -272,10 +272,6 @@ def get_distortion_function():
             k1 = get_float_attribute(distortion_element, "k1")
             def distortion(r):
                 return k1 * r**3 + (1 - k1) * r
-        elif model == "fov1":
-            ω = get_float_attribute(distortion_element, "omega")
-            def distortion(r):
-                return tan(r * ω) / (2 * tan(ω / 2))
         elif model == "poly5":
             k1 = get_float_attribute(distortion_element, "k1")
             k2 = get_float_attribute(distortion_element, "k2")

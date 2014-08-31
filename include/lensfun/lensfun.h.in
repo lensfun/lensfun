@@ -467,15 +467,6 @@ enum lfDistortionModel
      */
     LF_DIST_MODEL_POLY5,
     /**
-     * @brief Field-of-view lens model (as of 2013, not used in lensfun's database).
-     *
-     * \f[r_d = \frac{\tan(r_u \omega)}{2 \tan(\omega/2)}\f]
-     * The corresponding XML attribute is called “omega”.  It defaults to 0,
-     * however, this value is considered invalid by lensfun.
-     * Ref: http://hal.inria.fr/docs/00/26/72/47/PDF/distcalib.pdf
-     */
-    LF_DIST_MODEL_FOV1,
-    /**
      * @brief PTLens model, which is also used by Hugin.
      *
      * \f[r_d = r_u \cdot (a r_u^3 + b r_u^2 + c r_u + 1 - a - b - c)\f]
@@ -499,7 +490,7 @@ struct lfLensCalibDistortion
     enum lfDistortionModel Model;
     /** @brief Focal length in mm at which this calibration data was taken */
     float Focal;
-    /** @brief Distortion coefficients, dependent on model (a,b,c; k1,k2; or omega) */
+    /** @brief Distortion coefficients, dependent on model (a,b,c or k1 or k1,k2) */
     float Terms [3];
 };
 
