@@ -167,4 +167,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>XF35mmF1.4 R</model>
+        <model lang="en">XF 35mm f/1.4 R</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with X-Pro1 -->
+            <distortion model="ptlens" focal="35" a="0.00729" b="-0.02422" c="0.02113" />
+            <tca model="poly3" focal="35" vr="1.0001" vb="0.9999" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
