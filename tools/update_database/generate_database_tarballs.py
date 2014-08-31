@@ -66,15 +66,17 @@ def fetch_xml_files():
         os.chdir(root + "lensfun-git")
     except FileNotFoundError:
         os.chdir(root)
-        subprocess.check_output(["git", "clone", "git://git.code.sf.net/p/lensfun/code", "lensfun-git"])
+        subprocess.check_call(["git", "clone", "git://git.code.sf.net/p/lensfun/code", "lensfun-git"],
+                              stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
     else:
-        subprocess.check_output(["git", "pull"])
+        subprocess.check_call(["git", "pull"], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
     os.chdir(root + "lensfun-git/data/db")
     xml_files = set()
     timestamp = 0
     for filename in glob.glob("*.xml"):
         xml_files.add(XMLFile(filename))
-        line = subprocess.check_output(["git", "log", "-1", '--format=%ad', "--date=iso", "--", filename]).decode("utf-8")
+        line = subprocess.check_output(["git", "log", "-1", '--format=%ad', "--date=iso", "--", filename],
+                                       stderr=open(os.devnull, "w")).decode("utf-8")
         iso_timestamp, __, iso_timezone = line.rpartition(" ")
         current_timestamp = calendar.timegm(time.strptime(iso_timestamp, "%Y-%m-%d %H:%M:%S"))
         sign, hours, minutes = iso_timezone[0], int(iso_timezone[1:3]), int(iso_timezone[3:5])
