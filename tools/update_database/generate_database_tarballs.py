@@ -129,6 +129,13 @@ class From1To0(Converter):
             element = lens.find("aspect-ratio")
             if element is not None:
                 lens.remove(element)
+            calibration = lens.find("calibration")
+            if calibration is not None:
+                for real_focal_length in calibration.findall("real-focal-length"):
+                    # Note that while one could convert it to the old
+                    # <field-of-view> element, we simply remove it.  It is not
+                    # worth the effort.
+                    calibration.remove(real_focal_length)
             self.round_aps_c_cropfactor(lens)
         for camera in tree.findall("camera"):
             self.round_aps_c_cropfactor(camera)
