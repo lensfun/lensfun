@@ -35,11 +35,16 @@ for filepath in glob.glob(os.path.join(sys.argv[1], "*.xml")):
 
 cameras_in_rawspeed = set()
 full_data = {}
+def add_camera(make, model):
+    normalized_name = normalize_string(model)
+    cameras_in_rawspeed.add(normalized_name)
+    full_data[normalized_name] = (make, model)
 root = ElementTree.parse(sys.argv[2]).getroot()
 for element in root.findall("Camera"):
-    normalized_name = normalize_string(element.attrib.get("model"))
-    cameras_in_rawspeed.add(normalized_name)
-    full_data[normalized_name] = (element.attrib.get("make"), element.attrib.get("model"))
+    make = element.attrib.get("make")
+    add_camera(make, element.attrib.get("model"))
+    for alias in element.find("Aliases") or []:
+        add_camera(make, alias.text)
 
 missing_cameras = cameras_in_rawspeed - cameras_in_lensfun
 for maker, camera in sorted(data for normalized_name, data in full_data.items() if normalized_name in missing_cameras):
