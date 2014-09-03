@@ -474,7 +474,7 @@ static void _xml_start_element (GMarkupParseContext *context,
 
         gint line, col;
         g_markup_parse_context_get_position (context, &line, &col);
-        g_warning ("%s:%d:%d: <field_of_view> tag is deprecated.  Use <real-focal-length> instead",
+        g_warning ("[lensfun] %s:%d:%d: <field_of_view> tag is deprecated.  Use <real-focal-length> instead",
                    pd->errcontext, line, col);
 
         lfLensCalibFov lcf;
@@ -766,7 +766,7 @@ lfError lfDatabase::Load (const char *errcontext, const char *data, size_t data_
     {
         gint line, col;
         g_markup_parse_context_get_position (mpc, &line, &col);
-        g_warning ("%s:%d:%d: %s", errcontext, line, col, err->message);
+        g_warning ("[lensfun] %s:%d:%d: %s", errcontext, line, col, err->message);
     }
 
     g_markup_parse_context_free (mpc);

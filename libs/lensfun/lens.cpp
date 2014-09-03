@@ -810,7 +810,7 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
             dm = c->Model;
         else if (dm != c->Model)
         {
-            g_warning ("WARNING: lens %s/%s has multiple distortion models defined\n",
+            g_warning ("[lensfun] lens %s/%s has multiple distortion models defined\n",
                        Maker, Model);
             continue;
         }
