@@ -249,4 +249,23 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tokina</maker>
+        <model>Tokina AF 12-28mm f/4 AT-X Pro DX</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+             <!-- Taken with Nikon D5200 -->
+            <distortion model="ptlens" focal="12" a="-0.0155" b="0.02702" c="-0.01478" />
+            <distortion model="ptlens" focal="16" a="-0.00587" b="0.01029" c="-0.00103" />
+            <distortion model="ptlens" focal="20" a="-0.00615" b="0.01941" c="-0.01691" />
+            <distortion model="ptlens" focal="28" a="0" b="0.00087" c="0" />
+            <tca model="poly3" focal="12" br="0.0003226" vr="0.9997339" bb="-0.0002505" vb="1.0007854" />
+            <tca model="poly3" focal="16" br="0.0002802" vr="0.9996491" bb="-0.0003635" vb="1.0011169" />
+            <tca model="poly3" focal="20" br="0.0002331" vr="0.9996805" bb="-0.0002379" vb="1.0008884" />
+            <tca model="poly3" focal="28" br="0.0001388" vr="0.9998978" bb="-0.0001242" vb="1.0005127" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
