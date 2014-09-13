@@ -4,7 +4,7 @@ title: Release 0.2.9
 layout: default
 ---
 
-Last update: Git commit 6110f9c7
+Last update: Git commit 3717037
 
 * Streamlined the names of Nikkor, Tamron, Tokina, Panasonic, Leica, Olympus,
   Sony, and Sigma lenses so that auto-detection works better
@@ -28,6 +28,8 @@ Last update: Git commit 6110f9c7
   deprecated
 * Higher accuracy for fisheye <--> rectinilear transformation for lenses with
   real focal length data
+* The field-of-view distortion model (FOV1) was removed because it is
+  inherently flawed
 * Added new cameras
 
 New interchangeable lenses:
@@ -46,6 +48,7 @@ New interchangeable lenses:
 * Canon EF-S 55-250mm f/4-5.6 IS
 * Canon EF 70-300mm f/4-5.6L IS USM
 * Cosina Cosinon-S 50mm 1:2
+* KMZ MC MTO 11CA mirror tele
 * Leica DG Macro-Elmarit 45mm f/2.8
 * Mitakon wide MC f=24mm 1:2.8
 * 1 Nikkor AW 11-27.5mm f/3.5-5.6
@@ -62,8 +65,10 @@ New interchangeable lenses:
 * Nikkor AF-S 800mm f/5.6E FL ED VR
 * Fujian 35mm f/1.7
 * Fujifilm XC 16-50mm f/3.5-5.6 OIS
+* Fujifilm XF 18mm f/2 R
 * Fujifilm XF 18-55mm f/2.8-4 R LM OIS
 * Fujifilm XF 27mm f/2.8
+* Fujifilm XF 35mm f/1.4 R
 * Fujifilm XC 50-230mm f/4.5-6.7 OIS
 * Fujifilm XF 55-200mm f/3.5-4.8 R LM OIS
 * Olympus M.9-18mm f/4.0-5.6
@@ -116,7 +121,9 @@ New interchangeable lenses:
 * Sony AF DT 50mm f/1.8 SAM
 * Sony DT 55-300mm f/4.5-5.6 SAM
 * Tamron SP AF 11-18mm f/4.5-5.6 Di-II LD Aspherical (IF)
+* Tamron 16-300mm f/3.5-6.3 Di II VC PZD
 * Tamron 18-200mm f/3.5-6.3 XR Di II LD
+* Tokina AF 12-28mm f/4 AT-X Pro DX
 * Tokina AF 16-28mm f/2.8 AT-X Pro SD FX
 * Tokina 500mm f/8 RMC Mirror Lens
 * Vivitar 100mm f/3.5 AF Macro
@@ -182,6 +189,7 @@ Additional/updated data for:
 * Sigma 50mm f/1.4 EX DG HSM
 * Sigma 70-200mm f/2.8 EX DG Macro HSM II
 * Sigma 150mm f/2.8 EX DG APO HSM Macro
+* Sony RX100
 * Sony DT 18-55mm f/3.5-5.6 SAM
 * Sony E 20mm f/2.8
 * Sony AF DT 55-200mm f/4-5.6 SAM
