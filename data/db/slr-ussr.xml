@@ -133,4 +133,17 @@
         <type>fisheye</type>
     </lens>
 
+    <lens>
+        <maker>KMZ</maker>
+        <maker lang="ru">КМЗ</maker>
+        <model>MC MTO 11CA 10/1000</model>
+        <mount>M42</mount>
+        <focal value="1000" />
+        <aperture value="10" />
+        <cropfactor>1.531</cropfactor>
+        <calibration>
+            <distortion model="poly3" focal="1000" k1="0.00451" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
