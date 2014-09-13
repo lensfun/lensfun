@@ -38,7 +38,7 @@ def send_email(to, subject, body):
     message["To"] = to
     smtp_connection = smtplib.SMTP("***REMOVED***", 587)
     smtp_connection.starttls()
-    smtp_connection.login("***REMOVED***", "***REMOVED***")
+    smtp_connection.login("***REMOVED***", open("/var/www/.authinfo").readlines()[0].split()[-1])
     smtp_connection.sendmail(me, [to], message.as_string())
 
 def send_success_email(email_address, id_):
