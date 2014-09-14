@@ -1265,4 +1265,28 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Panasonic</maker>
+        <model>Lumix G Vario PZ 45-175mm f/4.0-5.6 Asph. OIS</model>
+        <model lang="en">Lumix G Vario PZ 45-175mm f/4.0-5.6</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Panasonic GH2 -->
+            <distortion model="ptlens" focal="45" a="-0.00276" b="0.01275" c="-0.01961" />
+            <distortion model="ptlens" focal="60" a="-0.01175" b="0.04733" c="-0.05481" />
+            <distortion model="ptlens" focal="75" a="0.00272" b="-0.00709" c="0.0189" />
+            <distortion model="ptlens" focal="100" a="0.00008" b="0.00521" c="0.00112" />
+            <distortion model="ptlens" focal="150" a="-0.00369" b="0.02353" c="-0.02412" />
+            <distortion model="ptlens" focal="175" a="0.00516" b="-0.00873" c="0.01805" />
+            <tca model="poly3" focal="45" br="0.0001486" vr="0.9999469" bb="-0.0001456" vb="1.0003685" />
+            <tca model="poly3" focal="60" br="0.0000648" vr="0.9998969" bb="-0.0001311" vb="1.0004256" />
+            <tca model="poly3" focal="75" br="0.0000644" vr="0.9997525" bb="-0.0001435" vb="1.0004488" />
+            <tca model="poly3" focal="100" br="0.0000622" vr="0.9996669" bb="-0.0000938" vb="1.0003098" />
+            <tca model="poly3" focal="150" br="0.0001107" vr="0.9996701" bb="-0.0001041" vb="0.9999976" />
+            <tca model="poly3" focal="175" br="0.0001140" vr="0.9996807" bb="-0.0001628" vb="0.9999970" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
