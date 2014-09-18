@@ -1993,6 +1993,26 @@
 
     <lens>
         <maker>Sigma</maker>
+        <model>Sigma 50-150mm f/2.8 APO EX DC HSM II</model>
+        <mount>Sigma SA</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Pentax KAF2</mount>
+        <mount>Canon EF</mount>
+        <cropfactor>1.620</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 60D -->
+            <distortion model="poly3" focal="50" k1="-0.00415" />
+            <distortion model="poly3" focal="72" k1="0.00184" />
+            <distortion model="poly3" focal="89" k1="0.00472" />
+            <distortion model="poly3" focal="103" k1="0.00552" />
+            <distortion model="poly3" focal="121" k1="0.00617" />
+            <distortion model="poly3" focal="150" k1="0.007" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
         <model>Sigma 105mm f/2.8 EX DG OS HSM Macro</model>
         <mount>Nikon F AF</mount>
         <mount>Sigma SA</mount>
