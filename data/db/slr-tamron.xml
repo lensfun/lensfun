@@ -460,7 +460,7 @@
 
     <lens>
         <maker>Tamron</maker>
-        <model>Tamron 16-300mm f/3.5-6.3 Di II VC PZD B016</model>
+        <model>Tamron 16-300mm f/3.5-6.3 Di II VC PZD B016 Macro</model>
         <model lang="en">Tamron 16-300mm f/3.5-6.3 Di II VC PZD</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
@@ -477,6 +477,37 @@
             <distortion model="ptlens" focal="100" a="0" b="0.01213" c="0" />
             <distortion model="ptlens" focal="211" a="0" b="0.0076" c="0" />
             <distortion model="ptlens" focal="300" a="0" b="0.00642" c="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Tamron</maker>
+        <model>Tamron 16-300mm f/3.5-6.3 Di II VC PZD B016 Macro</model>
+        <model lang="en">Tamron 16-300mm f/3.5-6.3 Di II VC PZD</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D5200 -->
+            <distortion model="ptlens" focal="16" a="0.02569" b="-0.0757" c="0.01928" />
+            <distortion model="ptlens" focal="18" a="0.02657" b="-0.07396" c="0.04944" />
+            <distortion model="ptlens" focal="22" a="0.01778" b="-0.03909" c="0.02957" />
+            <distortion model="ptlens" focal="26" a="0.01338" b="-0.0211" c="0.01513" />
+            <distortion model="ptlens" focal="31" a="0.00908" b="-0.00334" c="-0.00376" />
+            <distortion model="ptlens" focal="50" a="0.00992" b="-0.01139" c="0.02269" />
+            <distortion model="ptlens" focal="70" a="0" b="0.01566" c="0" />
+            <distortion model="ptlens" focal="150" a="0" b="0.00959" c="0" />
+            <distortion model="ptlens" focal="300" a="0" b="0.0062" c="0" />
+            <tca model="poly3" focal="16" br="-0.0000074" vr="1.0006557" bb="0.0000419" vb="1.0001881" />
+            <tca model="poly3" focal="18" br="0.0000541" vr="1.0004807" bb="0.0000147" vb="1.0000854" />
+            <tca model="poly3" focal="22" br="-0.0000022" vr="1.0004633" bb="0.0000035" vb="1.0001122" />
+            <tca model="poly3" focal="26" br="-0.0000038" vr="1.0004575" bb="0.0000126" vb="1.0000604" />
+            <tca model="poly3" focal="31" br="-0.0000148" vr="1.0004258" bb="-0.0000085" vb="1.0001555" />
+            <tca model="poly3" focal="50" br="0.0000099" vr="1.0001272" bb="-0.0000159" vb="1.0000252" />
+            <tca model="poly3" focal="70" br="-0.0000024" vr="1.0001413" bb="-0.0000606" vb="0.9998388" />
+            <tca model="poly3" focal="150" br="-0.0000344" vr="0.9999047" bb="-0.0001974" vb="0.9996163" />
+            <tca model="poly3" focal="300" br="0.0001277" vr="0.9985891" bb="-0.0000268" vb="0.9999028" />
         </calibration>
     </lens>
 
