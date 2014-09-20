@@ -117,7 +117,7 @@ read_location("http://lensfun.sourceforge.net/db/")
 read_location("http://wilson.bronger.org/lensfun-db/")
 
 if not locations:
-    print("Fatal: No download location found or no newer database available.")
+    print("Fatal: No newer database was found.")
     sys.exit(1)
 best_location = max(locations)
 

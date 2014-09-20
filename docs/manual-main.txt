@@ -511,8 +511,8 @@ returned by the gtk function g_get_system_data_dirs(). This is (usually) the @b
 /usr/share/lensfun/ subdirectory (the part after /usr/share/ is configurable at
 library compilation time) and also the @b /usr/local/share/lensfun/ directory
 for system-local files.  A special exception is <b>/var/lib/lensfun</b>: If
-this directory exists, it is searched instead of /usr/{local/}share/lensfun.
-On Windows, this is something
+this directory exists, it is searched instead of /usr/{local/}share/lensfun 
+and all other database locations are ignored. On Windows, this is something
 like <b>C:\\Documents and Settings\\\%User\%\\something</b> but I'm not sure
 exactly :-).
 
