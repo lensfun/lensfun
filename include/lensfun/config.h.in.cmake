@@ -18,6 +18,9 @@
 #define CONF_DATADIR "${CMAKE_INSTALL_PREFIX}/${DATADIR}"
 #endif
 
+// add a macro to know we're compiling lensfun, not a client library
+#define CONF_LENSFUN_INTERNAL
+
 #cmakedefine VECTORIZATION_SSE
 #cmakedefine VECTORIZATION_SSE2
 
