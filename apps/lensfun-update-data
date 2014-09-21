@@ -8,7 +8,7 @@ Git database may have a too new format for the locally installed LensFun.
 Then, it may fetch backports of the database from other URLs.
 
 This program must be called with root privileges.  It stores the new database
-in `/var/lib/lensfun`.
+in `/var/lib/lensfun-updates`.
 
 The repository of databases resides at a base URL.  Below that URL, there is
 the file versions.json.  It contains a list with three elements.  The first is
@@ -49,6 +49,7 @@ exit code of 2 means that there is a newer version.
 
 import urllib.request, shutil, sys, os, getpass, time, calendar, tarfile, json
 
+lensfun_updates_dir = "/var/lib/lensfun-updates"
 
 def seconds_since_epoch():
     return calendar.timegm(time.gmtime())
@@ -56,7 +57,7 @@ def seconds_since_epoch():
 
 def detect_local_timestamp():
     try:
-        return int(open("/var/lib/lensfun/timestamp.txt").read())
+        return int(open(os.path.join(lensfun_updates_dir, "timestamp.txt")).read())
     except (FileNotFoundError, ValueError):
         pass
     return 0
@@ -83,7 +84,7 @@ class Location:
 
     def extract(self):
         tar = tarfile.open(fileobj=urllib.request.urlopen(self.base_url + "version_{}.tar.bz2".format(self.version)), mode="r|*")
-        tar.extractall("/var/lib/lensfun")
+        tar.extractall(lensfun_updates_dir)
         tar.close()
 
 
@@ -126,8 +127,8 @@ if sys.platform != "win32" and getpass.getuser() != "root":
     print("Fatal: Root privileges needed for updating the database.")
     sys.exit(2)
 
-shutil.rmtree("/var/lib/lensfun", ignore_errors=True)
-os.makedirs("/var/lib/lensfun")
+shutil.rmtree(lensfun_updates_dir, ignore_errors=True)
+os.makedirs(lensfun_updates_dir)
 best_location.extract()
-open("/var/lib/lensfun/timestamp.txt", "w").write(str(best_location.timestamp))
-print("Successfully updated database.")
+open(os.path.join(lensfun_updates_dir, "timestamp.txt"), "w").write(str(best_location.timestamp))
+print("Successfully updated the database in " + lensfun_updates_dir + ".")

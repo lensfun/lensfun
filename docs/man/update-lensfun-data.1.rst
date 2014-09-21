@@ -39,7 +39,7 @@ FILES
 ======
 
 ``update-lensfun-data`` will place the fetched database in
-``/var/lib/lensfun/``.  If necessary, it will create this directory.  If there
+``/var/lib/lensfun-updates/``.  If necessary, it will create this directory.  If there
 is already a database, it is replaced fully.  If lensfun detects a database in
 this directory, it will use that instead of the default location below
 ``/usr/...``.

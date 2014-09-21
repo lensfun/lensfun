@@ -247,7 +247,7 @@ much what is what, as the format is pretty much self-documenting.
 
 The “version” attribute at the @<lensdatabase@> element denotes the format
 version of this database file.  It is an integer number and defaults to “0”.
-Because it was introduced in lensfun 0.2.9, “0” is the format version of all
+Because it was introduced in lensfun 0.2.9, “0” is the format version of all
 lensfun releases before that.  Database format changes mostly are
 backwards-compatible, so that a certain lensfun version supports database
 versions up to a certain number.  The most recent lens database is offered for
@@ -291,7 +291,7 @@ format of the data within elements.
 
 <table>
   <tr><th>version</th><th>lensfun release version</th><th>changes</th><th>incompatibilities with previous versions</th></tr>
-  <tr><td>0</td><td>≤ 0.2.8</td><td>—</td><td>—</td></tr>
+  <tr><td>0</td><td>≤ 0.2.8</td><td>—</td><td>—</td></tr>
   <tr><td>1</td><td>0.2.9</td><td><ul>
         <li>new: @<aspect-ratio@></li>
         <li>APS-C crop factors more accurate</li>
@@ -510,10 +510,10 @@ The main place where lensfun looks for database files are the directories
 returned by the gtk function g_get_system_data_dirs(). This is (usually) the @b
 /usr/share/lensfun/ subdirectory (the part after /usr/share/ is configurable at
 library compilation time) and also the @b /usr/local/share/lensfun/ directory
-for system-local files.  A special exception is <b>/var/lib/lensfun</b>: If
+for system-local files.  A special exception is <b>/var/lib/lensfun-updates</b>: If
 this directory exists, it is searched instead of /usr/{local/}share/lensfun 
 and all other database locations are ignored. On Windows, this is something
-like <b>C:\\Documents and Settings\\\%User\%\\something</b> but I'm not sure
+like <b>C:\\Documents and Settings\\\%User\%\\something</b> but I'm not sure
 exactly :-).
 
 After that the user's home directory is searched too, as returned by
@@ -526,7 +526,7 @@ order is:
 <ol>
   <li>/usr/share/local/lensfun, /usr/share/lensfun</li>
   <li>the directory lensfun's database was installed into (usually one of the
-    two above), @em or /var/lib/lensfun if it contains files</li>
+    two above), @em or /var/lib/lensfun-updates if it contains files</li>
   <li>~/.local/share/lensfun</li>
 </ol>
 

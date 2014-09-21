@@ -114,8 +114,8 @@ def read_database():
     cameras = {}
     makers_and_models = {}
     mounts = {}
-    if os.path.exists("/var/lib/lensfun"):
-        paths = ["/var/lib/lensfun", os.path.expanduser("~/.local/share/lensfun")]
+    if os.path.exists("/var/lib/lensfun-updates"):
+	paths = ["/var/lib/lensfun-updates", os.path.expanduser("~/.local/share/lensfun")]
     else:
         paths = ["/usr/share/lensfun", "/usr/local/share/lensfun", os.path.expanduser("~/.local/share/lensfun")]
     for path in paths:
@@ -149,7 +149,7 @@ def find_mount_groups(mounts):
     """A “mount group” is a set of mount names that are fully compatible to
     every other one in the group.  This way, we can offer the user to add all
     Nikon lenses in one go to their camera mount, no matter whether the Nikon
-    lens is Nikon F, Nikon F AI-S, etc.  Remember that mount compatibilities
+    lens is Nikon F, Nikon F AI-S, etc.  Remember that mount compatibilities
     are not transitive in Lensfun.
     """
     groups = set()

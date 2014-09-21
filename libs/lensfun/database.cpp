@@ -41,9 +41,9 @@ lfError lfDatabase::Load ()
     int static_ndirs = ndirs;
 
 #ifdef CONF_DATADIR
-    /* check if there is a database in /var/lib/CONF_PACKAGE/ and omit
+    /* check if there is a database in /var/lib/lensfun-updates/ and omit
      * CONF_DATADIR if files are present in this directory */
-    gchar *var_dirname = g_build_filename ("/var/lib", CONF_PACKAGE, NULL);
+    gchar *var_dirname = g_build_filename ("/var/lib", "lensfun-updates", NULL);
     GDir *var_dir = g_dir_open (var_dirname, 0, NULL);
     if (var_dir && g_dir_read_name (var_dir))
         dirs [ndirs++] = var_dirname;
@@ -62,8 +62,8 @@ lfError lfDatabase::Load ()
 #endif
 
     /* add all system data directories, check for duplicates, and that
-     * CONF_DATADIR is not among them (so that an existing /var/lib/lensfun is
-     * not overridden again) */
+     * CONF_DATADIR is not among them (so that an existing /var/lib/lensfun-updates
+     * is not overridden again) */
     for (tmp = g_get_system_data_dirs (); ndirs < 10 && *tmp; tmp++)
     {
         char *current_dir = g_build_filename (*tmp, CONF_PACKAGE, NULL);
