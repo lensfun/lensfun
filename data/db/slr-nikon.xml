@@ -2030,4 +2030,20 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AI-S Fisheye-Nikkor 6mm f/2.8</model>
+        <model lang="en">Nikkor AI-S 6mm f/2.8 Fisheye</model>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1</cropfactor>
+        <type>fisheye</type>
+        <calibration>
+            <!-- Taken from
+                 http://www.mir.com.my/rb/photography/companies/nikon/nikkoresources/fisheyes/6mm_FisheyeNikkor-Manual/8.jpg
+                 -->
+            <real-focal-length focal="6" real-focal="6.250" />
+            <distortion model="ptlens" focal="6" a="0.011705" b="-0.01815" c="-0.03936" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
