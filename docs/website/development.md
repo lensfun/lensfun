@@ -9,7 +9,7 @@ The source code is available from a git repository hosted at Sourceforge. You ca
 
         >$ git clone http://git.code.sf.net/p/lensfun/code lensfun-code
 
-The build system is based on CMake. There is also a proprietary Python based system which is not developed anymore and thus is not recommended to use. Enter the lensfun folder and create the CMake build directory:
+The build system is based on CMake. Enter the lensfun folder and create the CMake build directory:
 
         >$ cd lensfun-code/
         >$ mkdir cmake_build
@@ -20,3 +20,5 @@ Beneath many other files this should have created a Makefile that can now be use
 
         >$ make
         >$ make install
+
+More information about the build system and available options can be found in the README file in the root folder.

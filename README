@@ -52,187 +52,18 @@ of the source package. You can read it here:
 http://creativecommons.org/licenses/by-sa/
 
 
-QUICK BUILDING AND INSTALL
---------------------------
+BUILD INSTRUCTIONS
+------------------
 
-(NOTE: Take a look at "BUILDING WITH CMAKE" below for instructions how to build with 
-CMake instead of the included python based build system)
+The build system is based on CMake (http://www.cmake.org/). In order to 
+successfully configure and build the project the following tools are more 
+or less required:
 
-For people that just want to quickly build and install the library and
-forget it, here goes a quick reference.
-
-To build the library, you must first configure the library and then
-build/install it, as usual. In order to successfully configure and
-build the project the following tools are more or less required:
-
-    - Python to run the configure script.
-    - GNU Make 3.80 or later to run the (rather complex) makefiles.
+    - CMake 
+    - GNU Make 
     - Doxygen in order to generate the library documentation.
     - GLib 2.0 and later which is used for low-level I/O and XML parsing.
     - libpng is required to build and run test programs.
-
-First, configure it almost as usual when you use autoconf-based build systems:
-
-        CFLAGS="..." CXXFLAGS="..." LDFLAGS="..." LIBS="..." \
-        ./configure --prefix=... [--bindir, --libdir, --sysconfdir, ...] \
-            [--staticlibs (by default it builds shared libs)]
-
-(see ./configure --help for a full list of configuration options).
-
-If all goes well, you now can enter:
-
-        make install
-
-This will build and install everything required for installation. No separate
-build step is required, it will work in just one step. If you want to install
-somewhere else, not to the directory given by --prefix, you can define a
-installation prefix:
-
-        make install INSTALL_PREFIX=/some/where
-
-also, for compatibility with GNU autotools, DESTDIR is also accepted as an
-alias for INSTALL_PREFIX.
-
-If you have special requirements for installing some components into separate
-directories (like the Debian packages have special requirements for installing
-html manual into a directory different than --docdir), you may override the
-target directory for any submodule by specifying the value of a variable named
-INSTDIR.${module}, like this:
-
-        make install INSTDIR.manual=/usr/share/doc/lensfun-manual
-
-
-BUILDING FOR WINDOWS
---------------------
-
-You have two choices to build the library for Windows: you build under Windows
-and you build under Linux using WINE. I prefer the later since I don't have
-Windows installed anywhere. Also you can choose between MSVC and MinGW32
-compilers, native and cross-building is supported for both.
-
-In any case, building for Windows is quite a trick (like always). There are no
-hardcoded paths on Windows, like in Unix. However, if needed, using hard-coded
-paths is still possible (e.g. when using the MinGW32 cross-compiler on Unix,
-the prefix can be hardcoded to something like /usr/i686-pc-mingw32/sys-root/mingw).
-So both dynamic and static paths are supported for Windows builds.
-
-To enable dynamic paths, you must define the respective static path to empty.
-For example, to make lensfun use dynamic paths (on supported platforms) you
-must use the --prefix="" --datadir="" configure command-line options so that
-CONF_DATADIR becomes undefined.
-
-
-    with MSVC
-    ---------
-
-    You will need Python (native Unix python will work fine if cross-compiling),
-    glib binary and devel packages for Windows (download it from gtk homepage:
-    http://www.gtk.org/download-windows.html) and the MSVC compiler. You may use
-    the free command-line MSVC that's available for download somewhere on
-    Microsoft's site, like I do.
-
-    If you're on WINE, you must run the following script before starting compilation:
-
-        . build/mak/msvc-wine.sh /path/to/msvc x
-
-    This will set up the environment and PATH appropiately.
-
-    Now to configure I recommend the following command line:
-
-        python configure --compiler=msvc --target=windows.x86 --mode=release \
-            --prefix= --bindir= --includedir= --libdir= --docdir= --datadir= \
-            --sysconfdir= --libexecdir=
-
-    After that you may run make and build it.
-
-
-    with MinGW32
-    ------------
-
-    For cross-compiling just install mingw32 and the required libraries.
-    On my system I had to install the following RPMs:
-
-	mingw32-gcc-c++
-	mingw32-libpng
-	mingw32-glib2
-
-    Everything else was pulled in by dependencies.
-
-    Configuring and building is similar to MSVC builds:
-
-        export TKP=i686-pc-mingw32-
-        export SDKDIR=/usr/i686-pc-mingw32/sys-root/mingw
-        ./configure --compiler=gcc --target=windows.x86 --mode=release \
-            --prefix= --bindir= --includedir= --libdir= --docdir= --datadir= \
-            --sysconfdir= --libexecdir= $*
-
-    the TKP variable defines the compiler prefix to use (e.g. i686-pc-mingw32-gcc
-    instead of gcc, i686-pc-mingw32-g++ instead of g++ and so on). The SDKDIR
-    variable (just as for MSVC) will set the directory prefix where configure
-    will look for header files and libraries, because there's no pkg-config
-    on Windows.
-
-    To prepare a distribution it is recommended that you use the following
-    command line:
-
-        make install INSTALL_PREFIX=distr/ CONF_INCLUDEDIR=include/ \
-            CONF_LIBDIR=lib/ CONF_DATADIR=lib/lensfun/
-
-
-BUILD SYSTEM IN DEPTH
----------------------
-
-This project does not use autoconf, but the configure script tries to mimic
-it to some extent. You can see a list of configure options by typing:
-
-	./configure --help
-
-as usual. After that you can build one or several "modules" (which are
-the separate pieces which together form this whole project). To see what
-modules are there, type "make" without parameters. For example, to build
-all test programs, type:
-
-	make tests
-
-The build system hides the complexity of the commands run under macros like
-GCC.CC, GCC.LD and so on, to avoid cluttering the output and let you easily
-identify warnings and errors. However, if you're curious to see the full
-commands used while building, set the makefile variable "V" to 1, e.g:
-
-	make install V=1
-
-If for some reason you need a static library (by default a shared library is
-built), you must use the --staticlibs configure switch, which will force all
-shared libraries to be built statically. For example it is more convenient
-to debug with static libraries, because you don't have to set the
-LD_LIBRARY_PATH variable to the directory where the shared libraries
-are built.
-
-The build system allows quick switching between compiling in debug and
-release mode. The default is release mode for those quick guys that just
-need to build lensfun as a dependency for something bigger. You can change
-the build mode by specifying a value to the MODE makefile variable, e.g:
-
-	make MODE=debug
-
-Another feature of the build system is that it uses a special tool called
-makedep to automatically build dependencies. If it is installed in your
-system, configure will detect and use that. If not, it will be automatically
-built and used. If you don't want this to happen, you must set the AUTODEP
-variable to 0:
-
-	make all AUTODEP=0
-
-These are the most important features so far. The build system currently
-lacks a complete documentation, but I hope the above info is enough to
-productively use it.
-
-
-BUILDING WITH CMAKE
--------------------
-
-Alternatively to the python based build system above you can also build lensfun 
-using CMake.
 
 First enter the lensfun root folder and create a build directory.
 
@@ -252,14 +83,15 @@ Run make/make install as usual
 
 The following CMake options can be set (defaults are upper case):
 
-    -DLENSFUN_INSTALL_PREFIX=/USR/LOCAL install prefix 
-    -DBUILD_STATIC=OFF|on build static or shared lib
-    -DBUILD_TESTS=OFF|on build also the test programs
-    -DBUILD_AUXFUN=OFF|on build also the auxfun lib and the tmod test program
-    -DBUILD_FOR_SSE=off|ON build with SSE optimisation
-    -DBUILD_FOR_SSE2=off|ON build with SSE2 optimisaiton
-    -DBUILD_DOC=OFF|on build documentation
-    -DINSTALL_HELPER_SCRIPTS=off|ON install various helper scripts
+    -DBUILD_STATIC=OFF|on       build static or shared lib
+    -DBUILD_TESTS=OFF|on        build also the test programs
+    -DBUILD_AUXFUN=OFF|on       build also the auxfun lib and the tmod test program
+    -DBUILD_FOR_SSE=off|ON      build with SSE optimisation
+    -DBUILD_FOR_SSE2=off|ON     build with SSE2 optimisaiton
+    -DBUILD_DOC=OFF|on          build documentation
+
+    -DINSTALL_HELPER_SCRIPTS=off|ON         install various helper scripts
+    -DLENSFUN_INSTALL_PREFIX=/USR/LOCAL     install prefix 
 
 You can also build packages with cmake:
 
