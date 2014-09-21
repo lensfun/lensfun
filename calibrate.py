@@ -379,7 +379,7 @@ def evaluate_image_set(exif_data, filepaths):
             bin_index = int(round(radius * (number_of_bins - 1)))
             bins[bin_index].append(intensity)
         radii = [i / (number_of_bins - 1) for i in range(number_of_bins)]
-        intensities = [sum(bin) / len(bin) for bin in bins]
+        intensities = [numpy.median(bin) for bin in bins]
         bins_filename = "{0}-bins.dat".format(output_filename)
         with open(bins_filename, "w") as outfile:
             for radius, intensity in zip(radii, intensities):
