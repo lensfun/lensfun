@@ -191,7 +191,7 @@ for filepath, exif_data in file_exif_data.items():
     if not filepath_pattern.match(os.path.splitext(os.path.basename(filepath))[0]):
         if exif_lens_model and exif_focal_length and exif_aperture:
             if exif_focal_length == int(exif_focal_length):
-                focal_length = format(exif_focal_length, "03")
+                focal_length = format(int(exif_focal_length), "03")
             else:
                 focal_length = format(exif_focal_length, "05.1f")
             os.rename(filepath, os.path.join(os.path.dirname(filepath), "{}--{}mm--{}_{}".format(
