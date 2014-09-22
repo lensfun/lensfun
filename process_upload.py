@@ -77,7 +77,7 @@ except subprocess.CalledProcessError:
     write_result_and_exit("I could not unpack your file.  Was it really a .tar.gz or ZIP file?")
 os.remove(filepath)
 
-invalid_lens_model_name_pattern = re.compile(r"\(\d+\)$")
+invalid_lens_model_name_pattern = re.compile(r"^\(\d+\)$|, | or ")
 raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf",
                        "fff", "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx",
                        "pxn", "r3d", "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f", "jpg", "jpeg"]
@@ -99,7 +99,8 @@ def call_exiv2(raw_file_group):
         ["exiv2", "-PEkt", "-g", "Exif.Image.Make", "-g", "Exif.Image.Model",
          "-g", "Exif.Photo.LensModel", "-g", "Exif.Photo.FocalLength", "-g", "Exif.Photo.FNumber",
          "-g", "Exif.NikonLd2.LensIDNumber", "-g", "Exif.Sony2.LensID", "-g", "Exif.NikonLd3.LensIDNumber", "-g", "Exif.Nikon3.Lens",
-         "-g", "Exif.CanonCs.LensType", "-g", "Exif.Canon.LensModel"]
+         "-g", "Exif.CanonCs.LensType", "-g", "Exif.Canon.LensModel", "-g", "Exif.Panasonic.LensType",
+         "-g", "Exif.PentaxDng.LensType", "-g", "Exif.Pentax.LensType"]
         + raw_file_group, stdout=subprocess.PIPE)
     lines = exiv2_process.communicate()[0].splitlines()
     assert exiv2_process.returncode in [0, 253]
@@ -123,6 +124,12 @@ def call_exiv2(raw_file_group):
             filepath, data = line.split("Exif.CanonCs.")
         elif "Exif.Canon." in line:
             filepath, data = line.split("Exif.Canon.")
+        elif "Exif.Panasonic." in line:
+            filepath, data = line.split("Exif.Panasonic.")
+        elif "Exif.PentaxDng." in line:
+            filepath, data = line.split("Exif.PentaxDng.")
+        elif "Exif.Pentax." in line:
+            filepath, data = line.split("Exif.Pentax.")
         filepath = filepath.rstrip()
         if not filepath:
             assert len(raw_file_group) == 1
@@ -138,7 +145,8 @@ def call_exiv2(raw_file_group):
         elif fieldname == "Model":
             exif_data[1] = field_value
         elif fieldname in ["LensID", "LensIDNumber", "LensType", "LensModel", "Lens"]:
-            if (not exif_data[2] or len(field_value) > len(exif_data[2])) and not invalid_lens_model_name_pattern.match(field_value):
+            if (not exif_data[2] or len(field_value) > len(exif_data[2])) and \
+               not invalid_lens_model_name_pattern.search(field_value):
                 exif_data[2] = field_value
         elif fieldname == "FocalLength":
             exif_data[3] = float(field_value.partition("mm")[0])
