@@ -4,7 +4,7 @@ title: Release 0.2.9
 layout: default
 ---
 
-Last update: Git commit 3717037
+Last update: Git commit f8a89e2
 
 * Streamlined the names of Nikkor, Tamron, Tokina, Panasonic, Leica, Olympus,
   Sony, and Sigma lenses so that auto-detection works better
@@ -52,6 +52,7 @@ New interchangeable lenses:
 * Leica DG Macro-Elmarit 45mm f/2.8
 * Mitakon wide MC f=24mm 1:2.8
 * 1 Nikkor AW 11-27.5mm f/3.5-5.6
+* Nikkor AI-S 6mm f/2.8 Fisheye
 * Nikkor AF-S 18-140mm f/3.5-5.6G DX ED VR
 * Nikkor AF-S 18-200mm f/3.5-5.6G DX VR IF-ED
 * Nikkor AF-S 24-85 mm f/3.5-4.5G ED VR
@@ -75,6 +76,7 @@ New interchangeable lenses:
 * Olympus Zuiko Digital ED 12-60mm f/2.8-4.0 SWD
 * Olympus M.Zuiko Digital 25mm f/1.8
 * Olympus M.40-150mm f/4.0-5.6 R
+* Olympus M.Zuiko Digital ED 75mm f/1.8
 * Panasonic Lumix G Vario 7-14mm f/4.0
 * Panasonic Lumix G Vario 12-35mm f/2.8
 * Panasonic Lumix G Vario 14-42mm f/3.5-5.6 II
@@ -82,6 +84,7 @@ New interchangeable lenses:
 * Panasonic Lumix G 20mm f/1.7 II
 * Panasonic Lumix G Vario 35-100mm f/2.8
 * Panasonic Lumix G Vario 45-150mm f/4.0-5.6
+* Panasonic Lumix G Vario PZ 45-175mm f/4.0-5.6
 * Pentacon 50mm f/1.8 auto multi coating
 * Pentax-DA Fish-Eye 10-17mm f/3.5-4.5 ED IF
 * Pentax-FA 28mm f/2.8 AL
@@ -97,7 +100,9 @@ New interchangeable lenses:
 * Samsung Zoom 18-55mm f/3.5-5.6 OIS
 * Samsung NX 20mm f/2.8 Pancake
 * Samsung NX 45mm f/1.8 2D/3D
+* Samyang 12mm f/2.0 NCS CS
 * Samyang 35mm f/1.4 AS UMC
+* Samyang 50mm f/1.4 AS UMC (APS-C only)
 * Sigma 10mm f/2.8 EX DC Fisheye HSM
 * Sigma 18-35mm f/1.8 DC HSM
 * Sigma 18-250mm f/3.5-6.3 DC OS MACRO HSM
@@ -116,6 +121,9 @@ New interchangeable lenses:
 * Sigma 100-300mm f/4 APO EX DG HSM
 * Sigma 105mm f/2.8 EX DG OS HSM Macro
 * Sigma 180mm f/2.8 EX DG OS HSM APO Macro
+* Sony E 10-18mm f/4 OSS
+* Sony E 16-70mm f/4 ZA OSS
+* Sony E PZ 18-105mm f/4 G OSS
 * Sony DT 18-135mm f/3.5-5.6 SAM
 * Sony AF DT 35mm f/1.8 SAM
 * Sony AF DT 50mm f/1.8 SAM
@@ -129,6 +137,7 @@ New interchangeable lenses:
 * Vivitar 100mm f/3.5 AF Macro
 * Carl Zeiss Distagon T* 2,8/21 ZE
 * Carl Zeiss Distagon T* 2,8/21 ZF.2
+* Zeiss E 32mm f/1.8
 
 New compact cameras:
 
@@ -157,6 +166,7 @@ New compact cameras:
 
 Additional/updated data for:
 
+* Canon EF-S 18-55mm f/3.5-5.6 IS II
 * Canon EF 24-70mm f/2.8L II USM
 * Canon EF 24-105mm f/4L IS USM
 * Canon EF 50mm f/1.8 MkII
@@ -184,7 +194,9 @@ Additional/updated data for:
 * Samyang 8mm f/2.8 Fisheye
 * Sigma 8-16mm F4.5-5.6 DC HSM
 * Sigma 10-20mm f/3.5 EX DC HSM
+* Sigma 10-20mm f/4-5.6 EX DC HSM
 * Sigma 15-30mm f/3.5-4.5 EX DG Aspherical
+* Sigma 30mm f/1.4 EX DC HSM
 * Sigma 35mm f/1.4 DG HSM
 * Sigma 50mm f/1.4 EX DG HSM
 * Sigma 70-200mm f/2.8 EX DG Macro HSM II
