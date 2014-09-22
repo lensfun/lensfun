@@ -68,4 +68,29 @@
             <vignetting model="pa" focal="8" aperture="22" distance="1000" k1="-1.0709" k2="0.9444" k3="-0.5355" />
         </calibration>
     </lens>
+
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang 50mm f/1.4 AS UMC</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony NEX-7 -->
+            <distortion model="poly3" focal="50" k1="-0.00445" />
+            <tca model="poly3" focal="50"  vr="1.0001" vb="1.0001" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang 12mm f/2.0 NCS CS</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony NEX-7 -->
+            <distortion model="ptlens" focal="12" a="0.0097" b="-0.04108" c="0.03623" />
+            <tca model="poly3" focal="12" br="0.0000203" vr="1.0001380" bb="0.0002099" vb="1.0001907" />
+        </calibration>
+    </lens>
+
 </lensdatabase>

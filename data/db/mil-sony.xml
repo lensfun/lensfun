@@ -699,4 +699,62 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>E 10-18mm f/4 OSS</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony NEX-7 -->
+            <distortion model="ptlens" focal="10" a="0.03131" b="-0.0762" c="0.00933" />
+            <distortion model="ptlens" focal="12" a="0.02172" b="-0.05192" c="0.01253" />
+            <distortion model="ptlens" focal="14" a="0.01548" b="-0.03198" c="0.00543" />
+            <distortion model="ptlens" focal="18" a="0" b="0.00814" c="0" />
+            <tca model="poly3" focal="10" br="0.0000798" vr="1.0000292" bb="-0.0001077" vb="1.0002603" />
+            <tca model="poly3" focal="12" br="0.0000530" vr="1.0000109" bb="-0.0000737" vb="1.0002449" />
+            <tca model="poly3" focal="14" br="0.0000529" vr="0.9999721" bb="-0.0001067" vb="1.0003838" />
+            <tca model="poly3" focal="18" br="0.0000339" vr="0.9999979" bb="-0.0000471" vb="1.0003347" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>E 16-70mm f/4 ZA OSS</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony NEX-7 -->
+            <distortion model="ptlens" focal="16" a="0.02953" b="-0.08038" c="0.02902" />
+            <distortion model="ptlens" focal="19" a="0.03146" b="-0.09959" c="0.09201" />
+            <distortion model="ptlens" focal="24" a="0.01795" b="-0.05418" c="0.05884" />
+            <distortion model="ptlens" focal="53" a="0" b="0.00531" c="0" />
+            <distortion model="ptlens" focal="70" a="0" b="0.0044" c="0" />
+            <tca model="poly3" focal="16" br="-0.0000060" vr="1.0004895" bb="-0.0000034" vb="1.0000426" />
+            <tca model="poly3" focal="19" br="-0.0000261" vr="1.0002958" bb="0.0000171" vb="1.0000564" />
+            <tca model="poly3" focal="24" br="-0.0000594" vr="1.0002412" bb="0.0000076" vb="1.0001034" />
+            <tca model="poly3" focal="53" br="-0.0000170" vr="1.0000417" bb="0.0000067" vb="0.9999435" />
+            <tca model="poly3" focal="70" br="-0.0000055" vr="0.9999084" bb="0.0000026" vb="0.9999142" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>E PZ 18-105mm f/4 G OSS</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony NEX-7 -->
+            <distortion model="ptlens" focal="18" a="0.058" b="-0.14747" c="0.10212" />
+            <distortion model="ptlens" focal="21" a="0.0819" b="-0.19694" c="0.16895" />
+            <distortion model="ptlens" focal="26" a="0.05257" b="-0.0963" c="0.08288" />
+            <distortion model="ptlens" focal="28" a="0.03948" b="-0.05729" c="0.04944" />
+            <distortion model="ptlens" focal="105" a="0.01385" b="0.02022" c="-0.01695" />
+            <tca model="poly3" focal="18" br="-0.0000802" vr="1.0007953" bb="0.0001123" vb="0.9997721" />
+            <tca model="poly3" focal="21" br="-0.0001951" vr="1.0007857" bb="0.0001194" vb="0.9997885" />
+            <tca model="poly3" focal="26" br="-0.0001807" vr="1.0006159" bb="0.0001234" vb="0.9997867" />
+            <tca model="poly3" focal="28" br="-0.0001413" vr="1.0005127" bb="0.0000942" vb="0.9997947" />
+            <tca model="poly3" focal="105" br="0.0000407" vr="0.9996731" bb="0.0000675" vb="0.9997709" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
