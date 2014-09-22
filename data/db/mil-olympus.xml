@@ -742,4 +742,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Olympus</maker>
+        <model>Olympus M.Zuiko Digital ED 75mm f/1.8</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with OMD E-M1 -->
+            <distortion model="poly3" focal="75" k1="-0.00025" />
+            <tca model="poly3" focal="75" vr="0.9999905" vb="0.9999613" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
