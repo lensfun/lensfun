@@ -480,6 +480,14 @@ struct lfExtDatabase : public lfDatabase
     GPtrArray *Cameras;
     GPtrArray *Lenses;
 
+    /**
+     * @brief Load all XML files from a directory.
+     *
+     * This is an internal function used by lfDatabase::Load ().  It ignores
+     * all errors.
+     * @param dirname
+     *     The directory to be read.
+     */
     void LoadDirectory (const gchar *dirname);
 
     lfExtDatabase ()

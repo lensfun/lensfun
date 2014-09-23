@@ -59,42 +59,22 @@ lfError lfDatabase::Load ()
 {
     lfExtDatabase *This = static_cast<lfExtDatabase *> (this);
 
-    /* dirs contains the data directories to be read.  Later elements are read
-     * first, earlier elements may override already-read data.  All of its
-     * elements are g_free'd at the end, so duplicate strings if necessary.
-     *
-     * Currently, there are only two elements, the user data directory and the
-     * release directory (which may be the updates directory, if existing).  It
-     * may look over-engineered for just two elements, but it may be expanded
-     * with a system-wide but local data directory.
-     */
-    gchar *dirs [2];
-    // counts the length of dirs
-    int ndirs = 0;
-
-    dirs [ndirs++] = g_strdup (HomeDataDir);
-
 #ifdef CONF_DATADIR
     gchar *main_dirname = g_strdup (CONF_DATADIR);
-    char *updates_dirname = g_strdup ("/var/lib/lensfun-updates");
+    const gchar *updates_dirname = "/var/lib/lensfun-updates";
 #else
     /* windows based OS */
     extern gchar *_lf_get_database_dir ();
     gchar *main_dirname = _lf_get_database_dir ();
-    gchar *updates_dirname = g_strdup ("C:\\to\\be\\defined\\lensfun-updates");
+    const gchar *updates_dirname = "C:\\to\\be\\defined\\lensfun-updates";
 #endif
     if (_lf_read_database_timestamp (main_dirname) > _lf_read_database_timestamp (updates_dirname))
-        dirs [ndirs++] = main_dirname;
+        This->LoadDirectory (main_dirname);
     else
-        dirs [ndirs++] = updates_dirname;
+        This->LoadDirectory (updates_dirname);
+    g_free (main_dirname);
 
-    /* load database xml files from all directories */
-    while (ndirs > 0)
-    {
-        ndirs--;
-        This->LoadDirectory (dirs [ndirs]);
-        g_free (dirs [ndirs]);
-    }
+    This->LoadDirectory (HomeDataDir);
 
     return LF_NO_ERROR;
 }
