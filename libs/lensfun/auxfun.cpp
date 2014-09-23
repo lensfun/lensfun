@@ -9,6 +9,7 @@
 #include <locale.h>
 #include <ctype.h>
 #include <math.h>
+#include <fstream>
 
 static const char *_lf_get_lang ()
 {
@@ -458,6 +459,25 @@ float _lf_interpolate (float y1, float y2, float y3, float y4, float t)
         (t3 - 2 * t2 + t) * tg2 +
         (-2 * t3 + 3 * t2) * y3 +
         (t3 - t2) * tg3;
+}
+
+float _lf_read_database_timestamp (const gchar *dirname)
+{
+    float timestamp = -1.0;
+    GDir *dir = g_dir_open (dirname, 0, NULL);
+    if (dir)
+    {
+        if (g_dir_read_name (dir))
+        {
+            std::ifstream timestamp_file (g_build_filename (dirname, "timestamp.txt", NULL));
+            if (!timestamp_file.fail ())
+                timestamp_file >> timestamp;
+            else
+                timestamp = 0.0;
+        }
+        g_dir_close (dir);
+    }
+    return timestamp;
 }
 
 //------------------------// Fuzzy string matching //------------------------//
