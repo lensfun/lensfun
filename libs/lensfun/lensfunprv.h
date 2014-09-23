@@ -480,6 +480,8 @@ struct lfExtDatabase : public lfDatabase
     GPtrArray *Cameras;
     GPtrArray *Lenses;
 
+    void LoadDirectory (const gchar *dirname);
+
     lfExtDatabase ()
     {
         HomeDataDir = g_build_filename (g_get_user_data_dir (),

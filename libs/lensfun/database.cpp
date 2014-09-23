@@ -28,8 +28,37 @@ void lfDatabase::Destroy ()
     delete static_cast<lfExtDatabase *> (this);
 }
 
+void lfExtDatabase::LoadDirectory (const gchar *dirname)
+{
+    GDir *dir = g_dir_open (dirname, 0, NULL);
+
+    if (dir)
+    {
+        GPatternSpec *ps = g_pattern_spec_new ("*.xml");
+        if (ps)
+        {
+            const gchar *fn;
+            while ((fn = g_dir_read_name (dir)))
+            {
+                size_t sl = strlen (fn);
+                if (g_pattern_match (ps, sl, fn, NULL))
+                {
+                    gchar *ffn = g_build_filename (dirname, fn, NULL);
+                    /* Ignore errors */
+                    Load (ffn);
+                    g_free (ffn);
+                }
+            }
+            g_pattern_spec_free (ps);
+        }
+        g_dir_close (dir);
+    }
+}
+
 lfError lfDatabase::Load ()
 {
+    lfExtDatabase *This = static_cast<lfExtDatabase *> (this);
+
     /* dirs contains the data directories to be read.  Later elements are read
      * first, earlier elements may override already-read data.  All of its
      * elements are g_free'd at the end, so duplicate strings if necessary.
@@ -63,29 +92,7 @@ lfError lfDatabase::Load ()
     while (ndirs > 0)
     {
         ndirs--;
-        GDir *dir = g_dir_open (dirs [ndirs], 0, NULL);
-
-        if (dir)
-        {
-            GPatternSpec *ps = g_pattern_spec_new ("*.xml");
-            if (ps)
-            {
-                const gchar *fn;
-                while ((fn = g_dir_read_name (dir)))
-                {
-                    size_t sl = strlen (fn);
-                    if (g_pattern_match (ps, sl, fn, NULL))
-                    {
-                        gchar *ffn = g_build_filename (dirs [ndirs], fn, NULL);
-                        /* Ignore errors */
-                        Load (ffn);
-                        g_free (ffn);
-                    }
-                }
-                g_pattern_spec_free (ps);
-            }
-            g_dir_close (dir);
-        }
+        This->LoadDirectory (dirs [ndirs]);
         g_free (dirs [ndirs]);
     }
 
