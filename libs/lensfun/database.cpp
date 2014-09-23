@@ -30,7 +30,7 @@ void lfDatabase::Destroy ()
 
 lfError lfDatabase::Load ()
 {
-    gchar *dirs [10];
+    gchar *dirs [2];
     // counts the length of dirs
     int ndirs = 0;
 
@@ -40,24 +40,20 @@ lfError lfDatabase::Load ()
     int static_ndirs = ndirs;
 
 #ifdef CONF_DATADIR
-    /* check if there is a database in /var/lib/lensfun-updates/ and omit
-     * CONF_DATADIR if files are present in this directory */
-    gchar *var_dirname = g_build_filename ("/var/lib", "lensfun-updates", NULL);
-    GDir *var_dir = g_dir_open (var_dirname, 0, NULL);
-    if (var_dir && g_dir_read_name (var_dir))
-        dirs [ndirs++] = var_dirname;
-    else
-    {
-        g_free (var_dirname);
-        dirs [ndirs++] = (char *)CONF_DATADIR;
-        static_ndirs = ndirs;
-    }
-    if (var_dir)
-        g_dir_close (var_dir);
+    gchar *main_dirname = (gchar *)CONF_DATADIR;
+    char *updates_dirname = (gchar *)"/var/lib/lensfun-updates";
 #else
-    /* database location specific for windows based OS */
+    /* windows based OS */
     extern gchar *_lf_get_database_dir ();
-    dirs [ndirs++] = _lf_get_database_dir ();
+    gchar *main_dirname = _lf_get_database_dir ();
+    gchar *updates_dirname = (gchar *)"C:\\to\\be\\defined\\lensfun-updates";
+#endif
+    if (_lf_read_database_timestamp (main_dirname) > _lf_read_database_timestamp (updates_dirname))
+        dirs [ndirs++] = main_dirname;
+    else
+        dirs [ndirs++] = updates_dirname;
+#ifdef CONF_DATADIR
+    static_ndirs = ndirs;
 #endif
 
     /* load database xml files from all directories */
