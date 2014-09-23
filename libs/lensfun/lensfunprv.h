@@ -353,7 +353,7 @@ extern float _lf_interpolate (float y1, float y2, float y3, float y4, float t);
  *     the number of seconds since the Epoch when this database was last
  *     updated.
  */
-extern float _lf_read_database_timestamp (const gchar *dirname);
+extern long int _lf_read_database_timestamp(const gchar *dirname);
 
 /**
  * @brief Compare a lens with a pattern and return a matching score.
