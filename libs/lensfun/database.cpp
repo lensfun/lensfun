@@ -31,7 +31,6 @@ void lfDatabase::Destroy ()
 lfError lfDatabase::Load ()
 {
     gchar *dirs [10];
-    const gchar *const *tmp;
     // counts the length of dirs
     int ndirs = 0;
 
@@ -60,37 +59,6 @@ lfError lfDatabase::Load ()
     extern gchar *_lf_get_database_dir ();
     dirs [ndirs++] = _lf_get_database_dir ();
 #endif
-
-    /* add all system data directories, check for duplicates, and that
-     * CONF_DATADIR is not among them (so that an existing /var/lib/lensfun-updates
-     * is not overridden again) */
-    for (tmp = g_get_system_data_dirs (); ndirs < 10 && *tmp; tmp++)
-    {
-        char *current_dir = g_build_filename (*tmp, CONF_PACKAGE, NULL);
-#ifdef CONF_DATADIR
-        if (current_dir && (strcmp (current_dir, CONF_DATADIR)))
-#else
-        if (current_dir)
-#endif
-        {
-            for (int i = 0; i < ndirs; i++)
-            {
-                if (!strcmp (dirs [i], current_dir))
-                {
-                    g_free (current_dir);
-                    current_dir = NULL;
-                    break;
-                }
-            }
-            if (current_dir)
-                dirs [ndirs++] = current_dir;
-        }
-        else
-        {
-            g_free (current_dir);
-            current_dir = NULL;
-        }            
-    }
 
     /* load database xml files from all directories */
     while (ndirs > 0)
