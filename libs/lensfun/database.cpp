@@ -30,31 +30,34 @@ void lfDatabase::Destroy ()
 
 lfError lfDatabase::Load ()
 {
+    /* dirs contains the data directories to be read.  Later elements are read
+     * first, earlier elements may override already-read data.  All of its
+     * elements are g_free'd at the end, so duplicate strings if necessary.
+     *
+     * Currently, there are only two elements, the user data directory and the
+     * release directory (which may be the updates directory, if existing).  It
+     * may look over-engineered for just two elements, but it may be expanded
+     * with a system-wide but local data directory.
+     */
     gchar *dirs [2];
     // counts the length of dirs
     int ndirs = 0;
 
-    dirs [ndirs++] = HomeDataDir;
-    /* static_ndirs is the index in dirs from where the strings are allocated
-     * by lensfun rather than other libraries. */
-    int static_ndirs = ndirs;
+    dirs [ndirs++] = g_strdup (HomeDataDir);
 
 #ifdef CONF_DATADIR
-    gchar *main_dirname = (gchar *)CONF_DATADIR;
-    char *updates_dirname = (gchar *)"/var/lib/lensfun-updates";
+    gchar *main_dirname = g_strdup (CONF_DATADIR);
+    char *updates_dirname = g_strdup ("/var/lib/lensfun-updates");
 #else
     /* windows based OS */
     extern gchar *_lf_get_database_dir ();
     gchar *main_dirname = _lf_get_database_dir ();
-    gchar *updates_dirname = (gchar *)"C:\\to\\be\\defined\\lensfun-updates";
+    gchar *updates_dirname = g_strdup ("C:\\to\\be\\defined\\lensfun-updates");
 #endif
     if (_lf_read_database_timestamp (main_dirname) > _lf_read_database_timestamp (updates_dirname))
         dirs [ndirs++] = main_dirname;
     else
         dirs [ndirs++] = updates_dirname;
-#ifdef CONF_DATADIR
-    static_ndirs = ndirs;
-#endif
 
     /* load database xml files from all directories */
     while (ndirs > 0)
@@ -83,10 +86,7 @@ lfError lfDatabase::Load ()
             }
             g_dir_close (dir);
         }
-
-        /* Free only paths that were allocated */
-        if (ndirs >= static_ndirs)
-            g_free (dirs [ndirs]);
+        g_free (dirs [ndirs]);
     }
 
     return LF_NO_ERROR;
