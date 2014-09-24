@@ -102,9 +102,7 @@ def read_location(base_url):
         else:
             try:
                 timestamp, versions, alternatives = json.loads(response.read().decode("utf-8"))
-                timestamp = int(timestamp)
-                versions = [int(version) for version in versions]
-            except (ValueError, TypeError):
+            except ValueError:
                 print("  Error: Invalid data received.")
             else:
                 if timestamp > local_timestamp:

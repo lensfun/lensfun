@@ -16,10 +16,9 @@ Note that this script also creates a database with version 0.  This may be
 downloaded manually by people who use Lensfun <= 0.2.8.
 """
 
-import glob, os, subprocess, calendar, json, re, time, tarfile, io, argparse, shutil
+import glob, os, subprocess, calendar, json, time, tarfile, io, argparse, shutil
 from xml.etree import ElementTree
 
-timestamp_pattern = re.compile(r"Last Changed Date: (\d{4}-\d\d-\d\d \d\d:\d\d:\d\d) ([+-])(\d\d)(\d\d) ")
 root = "/tmp/"
 
 parser = argparse.ArgumentParser(description="Generate tar balls of the LensFun database, also for older versions.")
