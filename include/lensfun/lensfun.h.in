@@ -1339,8 +1339,9 @@ struct LF_EXPORT lfDatabase
     /**
      * @brief Load the whole lens database.
      * 
-     * This calls lf_load_file() for all XML files found in usual places
-     * (first /usr/share/lensfun/ then ~/.local/share/lensfun/).
+     * This calls lf_load_file() for all XML files found in usual places (first
+     * /usr/share/lensfun/ then ~/.local/share/lensfun/).  See @ref dbsearch
+     * for more information.
      * @return
      *     LF_NO_ERROR or a error code.
      */
