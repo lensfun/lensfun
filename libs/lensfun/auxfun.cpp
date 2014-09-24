@@ -474,7 +474,7 @@ long int _lf_read_database_timestamp (const gchar *dirname)
             if (!timestamp_file.fail ())
                 timestamp_file >> timestamp;
             else
-                timestamp = 0.0;
+                timestamp = 0;
         }
         g_dir_close (dir);
     }
