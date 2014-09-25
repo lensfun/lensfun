@@ -244,7 +244,7 @@ much what is what, as the format is pretty much self-documenting.
 
 The “version” attribute at the @<lensdatabase@> element denotes the format
 version of this database file.  It is an integer number and defaults to “0”.
-Because it was introduced in lensfun 0.2.9, “0” is the format version of all
+Because it was introduced in lensfun 0.3, “0” is the format version of all
 lensfun releases before that.  Database format changes mostly are
 backwards-compatible, so that a certain lensfun version supports database
 versions up to a certain number.  The most recent lens database is offered for
@@ -287,11 +287,13 @@ format of the data within elements.
 @page db_versions Database format versions
 
 <table>
-  <tr><th>version</th><th>lensfun release version</th><th>changes</th><th>incompatibilities with previous versions</th></tr>
+  <tr><th>database<br/>version</th><th>lensfun<br/>release</th><th>changes</th><th>incompatibilities with<br/>previous versions</th></tr>
   <tr><td>0</td><td>≤ 0.2.8</td><td>—</td><td>—</td></tr>
-  <tr><td>1</td><td>0.2.9</td><td><ul>
-        <li>new: @<aspect-ratio@></li>
-        <li>APS-C crop factors more accurate</li>
+  <tr><td>1</td><td>0.3</td><td><ul>
+        <li>new: @<aspect-ratio@> tag</li>
+        <li>new: @<real-focal-length@> tag</li>
+        <li>removed: @<field_of_view@> tag </li>
+        <li>APS-C crop factors are given with a higher accuracy</li>
     </ul></td><td>—</td></tr>
 </table>
 
@@ -404,14 +406,14 @@ Possible embedded elements:
     imprecise for crop factors smaller than the one used for models.
 <dt>\<aspect-ratio\>number\</aspect-ratio\>
 <dd>This is the aspect ratio of the camera with which all shots for computing
-    distortion models were made.  It is the ratio of the longer edge to the
-    shorter edge.  lensfun needs the aspect ratio internally for correct
-    application of the distortion parameters.  You may give is as a real number
-    or as a ratio with a colon like “4:3”.  It defaults to 1.5 or 3:2.
+    distortion models were made. It is the ratio of the longer edge to the
+    shorter edge. lensfun needs the aspect ratio internally for correct
+    application of the distortion parameters. You may give it is as a real number
+    or as a ratio with a colon like “4:3”. It defaults to 1.5 or 3:2.
 <dt>\<center x="number" y="number" /\>
 <dd>The decentering of the lens, i.e. the offset of its optical axis
     from the center of the viewframe. “x” denotes the offset in
-    horizontal direction, “y” in vertical direction.  The scale is so
+    horizontal direction, “y” in vertical direction. The scale is so
     that the smaller dimension (for very most cameras the height) has
     the value 2. Both offsets default to 0.  It may be particularly helpful for
     shift lenses.

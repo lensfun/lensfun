@@ -656,7 +656,11 @@ struct lfLensCalibCrop
 C_TYPEDEF (struct, lfLensCalibCrop)
 
 /**
- *  @brief Struct to save calibrated field of view, which can depends on the focal length
+ *  @brief Struct to save calibrated field of view, which can depends on the focal length (DEPRECATED)
+ *
+ *  The Field of View (FOV) database entry is deprecated since lensfun 
+ *  version 0.3 and will be removed in future releases.
+ *
  */
 struct lfLensCalibFov
 {
@@ -664,6 +668,9 @@ struct lfLensCalibFov
     float Focal;
     /** @brief Field of view for given images
      * 
+     *  The Field of View (FOV) database entry is deprecated since lensfun 
+     *  version 0.3 and will be removed in future releases.
+     *
      *  Especially for fisheye images the field of view calculated from the (EXIF) focal
      *  length differs slightly from the real field of view. The real field of view can be 
      *  stored in this field 
@@ -945,7 +952,10 @@ struct LF_EXPORT lfLens
     bool RemoveCalibCrop (int idx);
 
     /**
-     * @brief Add a new lens fov structure to the pool.
+     * @brief Add a new lens fov structure to the pool. 
+     *
+     * The Field of View (FOV) database entry is deprecated since lensfun 
+     * version 0.3 and will be removed in future releases.
      *
      * The objects is copied, thus you can reuse it as soon as
      * this function returns.
@@ -956,6 +966,10 @@ struct LF_EXPORT lfLens
 
     /**
      * @brief Remove a field of view  entry from the lens fov structure.
+     *
+     * The Field of View (FOV) database entry is deprecated since lensfun 
+     * version 0.3 and will be removed in future releases.
+     *
      * @param idx
      *     The lens information data index (zero-based).
      */
@@ -1125,6 +1139,10 @@ struct LF_EXPORT lfLens
 
     /**
      * @brief Interpolate lens fov data for given focal length.
+     *
+     * The Field of View (FOV) database entry is deprecated since lensfun 
+     * version 0.3 and will be removed in future releases.
+     *
      * @param focal
      *     The focal length in mm at which we need image parameters.
      * @param res
@@ -1134,6 +1152,10 @@ struct LF_EXPORT lfLens
 
     /**
      * @brief Interpolate lens real focal length data for given focal length.
+     *
+     * The Field of View (FOV) database entry is deprecated since lensfun 
+     * version 0.3 and will be removed in future releases.
+     *
      * @param focal
      *     The nominal focal length in mm at which we need image parameters.
      * @param res
