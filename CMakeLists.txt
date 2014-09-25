@@ -156,6 +156,7 @@ ENDIF()
 # install db files
 FILE(GLOB DATABASE_FILES data/db/*.xml)
 INSTALL(FILES ${DATABASE_FILES} DESTINATION ${DATADIR})
+INSTALL(FILES data/db/timestamp.txt DESTINATION ${DATADIR})
 
 # build documentation
 IF(BUILD_DOC)
