@@ -18,10 +18,13 @@ def find_best(root, tagname):
     if texts:
         return sorted(texts)[0][1]
     texts = [(len(element.text), element.text) for element in root.findall(tagname)]
-    return sorted(texts)[0][1]
+    if texts:
+        return sorted(texts)[0][1]
+    else: 
+        return None
 
 def print_x(value):
-    return ' style="background-color: lightgreen;text-align:center">yes' if value else ' style="text-align:center">no'
+    return ' class="lenslist-highlight lenslist-check">yes' if value else ' class="lenslist-check">no'
 
 #----------------------------------------------------------------------
 # class to hold camera information
@@ -30,6 +33,9 @@ class Camera:
     def __init__(self, element):
         self.maker = find_best(element, "maker")
         self.model = find_best(element, "model")
+        variant = find_best(element, "variant");
+        if variant:
+            self.model = self.model + " " + variant
         self.crop = float(element.find("cropfactor").text)
         self.camera_makers.setdefault(self.maker, set()).add(self.model)
     def __lt__(self, other):
@@ -41,17 +47,17 @@ class Lens:
     def __init__(self, element, root, camtype):
         self.maker = find_best(element, "maker")
         self.model = find_best(element, "model")
-        if camtype == "compact" or self.model == "Standard":
+        if camtype == "compact":
             mount = element.find("mount").text
             for camera in root.findall("camera"):
                 if camera.find("mount").text == mount:
                     self.maker = find_best(camera, "maker")
-                    camera = find_best(camera, "model")
+                    camname = find_best(camera, "model") 
+                    variant = find_best(camera, "variant");
+                    if variant:
+                        camname = camname + " " + variant
                     break
-            if self.model == "Standard":
-                self.model = "Fixed lens {}".format(camera)
-            else:
-                self.model = "Fixed lens {}, {}".format(camera, self.model)
+            self.model = "Fixed lens {}".format(camname)
         try:
             self.crop = float(element.find("cropfactor").text)
         except:
@@ -97,7 +103,7 @@ cameras, lenses = [], []
 for filename in glob.glob(os.path.join(XmlDBPath,"*.xml")):
     root = ElementTree.parse(filename)
 
-    camtype_search = re.search('.*/(.*)-(.*).xml', filename, re.IGNORECASE)    
+    camtype_search = re.search('.*/([^-]*)-(.*).xml', filename, re.IGNORECASE)    
     if camtype_search:
         camtype = camtype_search.group(1)
     else:
@@ -127,8 +133,8 @@ if cmdline_args['markdown'] == False:
                   "</li><li><a href='lens_calibration_tutorial/'>Lens calibration for LensFun</a></li></ul>\n".format(
                       len(lenses), datetime.date.today()))
 
-    outfile.write("<table border='1'><thead><tr><th>manufacturer</th><th>model</th><th>crop</th><th>distortion</th><th>TCA</th>"
-                  "<th>vignetting</th></tr></thead><tbody>\n")
+    outfile.write("<table border='1'><thead><tr><th>manufacturer</th><th>model</th><th>crop</th><th>dist.</th><th>TCA</th>"
+                  "<th>vign.</th></tr></thead><tbody>\n")
     number_of_makers = 0
     previous_maker = None
 
@@ -137,7 +143,7 @@ if cmdline_args['markdown'] == False:
             number_of_makers += 1
 
         outfile.write("""<tr{}><td>{}</td><td>{}</td><td>{}</td><td{}</td><td{}</td><td{}</td></tr>\n""".format(
-            ' style="background-color: #eeeeee"' if number_of_makers % 2 else "",
+            ' class="lenslist-bg1"' if number_of_makers % 2 else ' class="lenslist-bg2"',
             lens.maker if lens.maker.lower() != previous_maker else "", lens.model, lens.crop or "?",
             print_x(lens.distortion), print_x(lens.tca), print_x(lens.vignetting)))
         previous_maker = lens.maker.lower()
