@@ -15,7 +15,7 @@ But we all want ideal shots, don't we? :) So that's what's lensfun is all about 
 
 ## Latest news ##
 
-{% for post in site.posts limit: 2 %}
+{% for post in site.categories.news limit: 2 %}
 <div class="news">
 <h2 class="news-title-frontpage">{{ post.date | date: "%Y-%m-%d" }} {{ post.title }}</h2>
 {{ post.content }}
