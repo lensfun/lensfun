@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# Updates the file data/db/timestamp.txt if the current commit has changed an
+# XML database file.  You install these scripts by copying them into
+# .git/hooks.  Watch out for existing hooks that you may overwrite there.
+
+if [ -a .update_timestamp ]
+then
+    rm .update_timestamp
+    date +%s > data/db/timestamp.txt
+    git add data/db/timestamp.txt
+    git commit --amend -C HEAD --no-verify
+fi
+exit 0

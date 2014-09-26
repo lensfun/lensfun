@@ -28,102 +28,53 @@ void lfDatabase::Destroy ()
     delete static_cast<lfExtDatabase *> (this);
 }
 
+void lfExtDatabase::LoadDirectory (const gchar *dirname)
+{
+    GDir *dir = g_dir_open (dirname, 0, NULL);
+
+    if (dir)
+    {
+        GPatternSpec *ps = g_pattern_spec_new ("*.xml");
+        if (ps)
+        {
+            const gchar *fn;
+            while ((fn = g_dir_read_name (dir)))
+            {
+                size_t sl = strlen (fn);
+                if (g_pattern_match (ps, sl, fn, NULL))
+                {
+                    gchar *ffn = g_build_filename (dirname, fn, NULL);
+                    /* Ignore errors */
+                    Load (ffn);
+                    g_free (ffn);
+                }
+            }
+            g_pattern_spec_free (ps);
+        }
+        g_dir_close (dir);
+    }
+}
+
 lfError lfDatabase::Load ()
 {
-    gchar *dirs [10];
-    const gchar *const *tmp;
-    // counts the length of dirs
-    int ndirs = 0;
-
-    dirs [ndirs++] = HomeDataDir;
-    /* static_ndirs is the index in dirs from where the strings are allocated
-     * by lensfun rather than other libraries. */
-    int static_ndirs = ndirs;
+    lfExtDatabase *This = static_cast<lfExtDatabase *> (this);
 
 #ifdef CONF_DATADIR
-    /* check if there is a database in /var/lib/lensfun-updates/ and omit
-     * CONF_DATADIR if files are present in this directory */
-    gchar *var_dirname = g_build_filename ("/var/lib", "lensfun-updates", NULL);
-    GDir *var_dir = g_dir_open (var_dirname, 0, NULL);
-    if (var_dir && g_dir_read_name (var_dir))
-        dirs [ndirs++] = var_dirname;
-    else
-    {
-        g_free (var_dirname);
-        dirs [ndirs++] = (char *)CONF_DATADIR;
-        static_ndirs = ndirs;
-    }
-    if (var_dir)
-        g_dir_close (var_dir);
+    gchar *main_dirname = g_strdup (CONF_DATADIR);
+    const gchar *updates_dirname = "/var/lib/lensfun-updates";
 #else
-    /* database location specific for windows based OS */
+    /* windows based OS */
     extern gchar *_lf_get_database_dir ();
-    dirs [ndirs++] = _lf_get_database_dir ();
+    gchar *main_dirname = _lf_get_database_dir ();
+    const gchar *updates_dirname = "C:\\to\\be\\defined\\lensfun-updates";
 #endif
+    if (_lf_read_database_timestamp (main_dirname) > _lf_read_database_timestamp (updates_dirname))
+        This->LoadDirectory (main_dirname);
+    else
+        This->LoadDirectory (updates_dirname);
+    g_free (main_dirname);
 
-    /* add all system data directories, check for duplicates, and that
-     * CONF_DATADIR is not among them (so that an existing /var/lib/lensfun-updates
-     * is not overridden again) */
-    for (tmp = g_get_system_data_dirs (); ndirs < 10 && *tmp; tmp++)
-    {
-        char *current_dir = g_build_filename (*tmp, CONF_PACKAGE, NULL);
-#ifdef CONF_DATADIR
-        if (current_dir && (strcmp (current_dir, CONF_DATADIR)))
-#else
-        if (current_dir)
-#endif
-        {
-            for (int i = 0; i < ndirs; i++)
-            {
-                if (!strcmp (dirs [i], current_dir))
-                {
-                    g_free (current_dir);
-                    current_dir = NULL;
-                    break;
-                }
-            }
-            if (current_dir)
-                dirs [ndirs++] = current_dir;
-        }
-        else
-        {
-            g_free (current_dir);
-            current_dir = NULL;
-        }            
-    }
-
-    /* load database xml files from all directories */
-    while (ndirs > 0)
-    {
-        ndirs--;
-        GDir *dir = g_dir_open (dirs [ndirs], 0, NULL);
-
-        if (dir)
-        {
-            GPatternSpec *ps = g_pattern_spec_new ("*.xml");
-            if (ps)
-            {
-                const gchar *fn;
-                while ((fn = g_dir_read_name (dir)))
-                {
-                    size_t sl = strlen (fn);
-                    if (g_pattern_match (ps, sl, fn, NULL))
-                    {
-                        gchar *ffn = g_build_filename (dirs [ndirs], fn, NULL);
-                        /* Ignore errors */
-                        Load (ffn);
-                        g_free (ffn);
-                    }
-                }
-                g_pattern_spec_free (ps);
-            }
-            g_dir_close (dir);
-        }
-
-        /* Free only paths that were allocated */
-        if (ndirs >= static_ndirs)
-            g_free (dirs [ndirs]);
-    }
+    This->LoadDirectory (HomeDataDir);
 
     return LF_NO_ERROR;
 }

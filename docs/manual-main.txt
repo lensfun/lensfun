@@ -497,35 +497,37 @@ Possible embedded elements:
 @page dbsearch How database files are found and loaded
 
 In a typical application, all XML files are loaded automatically at startup.
-If same object is defined in multiple files, later definitions override earlier
-definitions, e.g. user can override system-wide definitions by placing
-appropiately formatted XML files in its home directory.
+If the same object is defined in multiple files, later definitions override
+earlier definitions, e.g. user can override system-wide definitions by placing
+appropriately formatted XML files in its home directory.
 
 A typical application will initialize the lens database by calling the method
 lfDatabase::Load() with no parameters. This method searches for all available
 XML files and loads them, ignoring files with errors.
 
-The main place where lensfun looks for database files are the directories
-returned by the gtk function g_get_system_data_dirs(). This is (usually) the @b
-/usr/share/lensfun/ subdirectory (the part after /usr/share/ is configurable at
-library compilation time) and also the @b /usr/local/share/lensfun/ directory
-for system-local files.  A special exception is <b>/var/lib/lensfun-updates</b>: If
-this directory exists, it is searched instead of /usr/{local/}share/lensfun 
-and all other database locations are ignored. On Windows, this is something
-like <b>C:\\Documents and Settings\\\%User\%\\something</b> but I'm not sure
-exactly :-).
+The main place where lensfun looks for database files usually is
+<b>/usr/share/lensfun/</b>.  However, this is configurable at compilation time,
+and for locally compiled lensfun, it is mostly
+<b>/usr/local/share/lensfun/</b>.  A special directory is
+<b>/var/lib/lensfun-updates</b>: If it exists and contains a newer database, it
+is loaded instead of the main place.  On Windows, this is something like
+<b>C:\\Documents and Settings\\\%User\%\\something</b> but I'm not sure exactly
+:-).
 
-After that the user's home directory is searched too, as returned by
-g_get_user_data_dir() with “lensfun” appended as well. Usually, this is
-<b>~/.local/share/lensfun</b>. The exact path to the user-specific directory
-can be found in the variable lfDatabase::HomeDataDir.
+“Newer database” means that the file timestamp.txt, which is amongst the XML
+files, contains a larger value.  This value is the database timestamp in UNIX
+time.
+
+After having read the global database, the user's home directory is
+searched. Usually, this is <b>~/.local/share/lensfun</b>. The exact path can be
+found in the variable lfDatabase::HomeDataDir.
 
 So sum it up for Linux and other Unix-like platforms, the simplified search
 order is:
 <ol>
-  <li>/usr/share/local/lensfun, /usr/share/lensfun</li>
-  <li>the directory lensfun's database was installed into (usually one of the
-    two above), @em or /var/lib/lensfun-updates if it contains files</li>
+  <li>the directory lensfun's database was installed into (usually
+  /usr/share/{local/}lensfun), @em or /var/lib/lensfun-updates if it contains
+  a newer database</li>
   <li>~/.local/share/lensfun</li>
 </ol>
 
