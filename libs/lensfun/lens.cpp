@@ -878,7 +878,7 @@ bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
             tcam = c->Model;
         else if (tcam != c->Model)
         {
-            g_warning ("WARNING: lens %s/%s has multiple TCA models defined\n",
+            g_warning ("[lensfun] lens %s/%s has multiple TCA models defined\n",
                        Maker, Model);
             continue;
         }
@@ -972,7 +972,7 @@ bool lfLens::InterpolateVignetting (
         } 
         else if (vm != c->Model)
         {
-            g_warning ("WARNING: lens %s/%s has multiple vignetting models defined\n",
+            g_warning ("[lensfun] lens %s/%s has multiple vignetting models defined\n",
                        Maker, Model);
             continue;
         }
@@ -1027,7 +1027,7 @@ bool lfLens::InterpolateCrop (float focal, lfLensCalibCrop &res) const
             cm = c->CropMode;
         else if (cm != c->CropMode)
         {
-            g_warning ("WARNING: lens %s/%s has multiple crop modes defined\n",
+            g_warning ("[lensfun] lens %s/%s has multiple crop modes defined\n",
                        Maker, Model);
             continue;
         }
