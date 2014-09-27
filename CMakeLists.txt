@@ -37,6 +37,13 @@ OPTION(BUILD_FOR_SSE2 "Build with support for SSE2" ON)
 OPTION(BUILD_DOC "Build documentation with doxygen" OFF)
 OPTION(INSTALL_HELPER_SCRIPTS "Install various helper scripts" ON)
 
+IF(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Debug CACHE STRING
+       "Choose the type of build, options are: Debug Release"
+       FORCE
+  )
+ENDIF()
+
 IF(BUILD_FOR_SSE)
   SET(VECTORIZATION_SSE 1)
   IF(CMAKE_COMPILER_IS_GNUCXX)
@@ -172,8 +179,10 @@ IF(WIN32 AND NOT BUILD_STATIC)
 ENDIF()
 
 # print some information
+MESSAGE(STATUS "-------------------------------------------------------------------------------------")
 MESSAGE(STATUS "Building lensfun ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX}")
 MESSAGE(STATUS "-------------------------------------------------------------------------------------")
+MESSAGE(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 IF(BUILD_STATIC)
   MESSAGE(STATUS "Build as static library")
 ELSE()

@@ -74,7 +74,7 @@ Enter the build directory and run CMake to configure your sources and create
 the build files
 
     cd cmake_build
-    cmake ..
+    cmake ../
     
 Run make/make install as usual
     
@@ -83,6 +83,10 @@ Run make/make install as usual
 
 The following CMake options can be set (defaults are upper case):
 
+    -DCMAKE_BUILD_TYPE=DEBUG|Release        select debug or release build mode
+    -DINSTALL_HELPER_SCRIPTS=off|ON         install various helper scripts
+    -DLENSFUN_INSTALL_PREFIX=/USR/LOCAL     install prefix 
+
     -DBUILD_STATIC=OFF|on       build static or shared lib
     -DBUILD_TESTS=OFF|on        build also the test programs
     -DBUILD_AUXFUN=OFF|on       build also the auxfun lib and the tmod test program
@@ -90,8 +94,8 @@ The following CMake options can be set (defaults are upper case):
     -DBUILD_FOR_SSE2=off|ON     build with SSE2 optimisaiton
     -DBUILD_DOC=OFF|on          build documentation
 
-    -DINSTALL_HELPER_SCRIPTS=off|ON         install various helper scripts
-    -DLENSFUN_INSTALL_PREFIX=/USR/LOCAL     install prefix 
+If you want to have more detailed output when running 'make' you can simply add 
+'VERBOSE=1' to the make command line.
 
 You can also build packages with cmake:
 
