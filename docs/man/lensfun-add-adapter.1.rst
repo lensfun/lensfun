@@ -104,4 +104,4 @@ License of the database: Creative Commons Attribution-Share Alike 3.0 license
 SEE ALSO
 ============
 
-update-lensfun-data(1)
+lensfun-update-data(1)

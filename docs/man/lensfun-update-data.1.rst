@@ -1,5 +1,5 @@
 ======================
-update-lensfun-data
+lensfun-update-data
 ======================
 
 ----------------------------
@@ -13,7 +13,7 @@ update lensfun's database
 SYNOPSIS
 ============
 
-``update-lensfun-data``
+``lensfun-update-data``
 
 DESCRIPTION
 ===============
@@ -24,13 +24,13 @@ together with their characteristics to be able to apply automatic corrections
 of images taken with these devices.  Lensfun is used by darktable, digiKam,
 rawstudio, GimpLensfun, UFRaw, and others.
 
-``update-lensfun-data`` is a command-line program that updates lensfun's
+``lensfun-update-data`` is a command-line program that updates lensfun's
 database.  It looks whether a new version is available online, and if this is
 the case, it fetches the latest version and installs it locally.  For the
 latter, the program needs root permissions.  On many system, you get these by
 saying::
 
-    $ sudo update-lensfun-data
+    $ sudo lensfun-update-data
 
 and enter the root password.
 
@@ -38,7 +38,7 @@ and enter the root password.
 FILES
 ======
 
-``update-lensfun-data`` will place the fetched database in
+``lensfun-update-data`` will place the fetched database in
 ``/var/lib/lensfun-updates/``.  If necessary, it will create this directory.  If there
 is already a database, it is replaced fully.  If lensfun detects a database in
 this directory, it will use that instead of the default location below
@@ -47,7 +47,7 @@ this directory, it will use that instead of the default location below
 DIAGNOSTICS
 ===============
 
-``update-lensfun-data`` prints log messages to stdout.
+``lensfun-update-data`` prints log messages to stdout.
 
 Exit status:
 
@@ -59,7 +59,7 @@ Exit status:
 
 Note that you can use these exit codes for detecting whether a new version of
 the database is available without actually fetching that database.  You simply
-call ``update-lensfun-data`` without root permissions.  If the exit code is
+call ``lensfun-update-data`` without root permissions.  If the exit code is
 `2`, there is a newer version available.  If it is `1`, there is none.
 
 REPORTING BUGS
@@ -79,4 +79,4 @@ License of the database: Creative Commons Attribution-Share Alike 3.0 license
 SEE ALSO
 ============
 
-g-update-lensfun-data(1), lensfun-add-adapter(1)
+g-lensfun-update-data(1), lensfun-add-adapter(1)
