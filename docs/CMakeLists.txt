@@ -21,3 +21,20 @@ ADD_CUSTOM_TARGET(doc
 
 # install documentation  
 INSTALL(DIRECTORY ${CMAKE_DOC_OUT}/ DESTINATION ${DOCDIR})
+
+# create and install man pages
+ADD_CUSTOM_TARGET(man ALL)
+ADD_CUSTOM_COMMAND(
+  TARGET man
+  COMMAND rst2man ${CMAKE_CURRENT_SOURCE_DIR}/man/g-lensfun-update-data.1.rst > ${CMAKE_CURRENT_BINARY_DIR}/g-lensfun-update-data.1
+  COMMAND rst2man ${CMAKE_CURRENT_SOURCE_DIR}/man/lensfun-update-data.1.rst > ${CMAKE_CURRENT_BINARY_DIR}/lensfun-update-data.1
+  COMMAND rst2man ${CMAKE_CURRENT_SOURCE_DIR}/man/lensfun-add-adapter.1.rst > ${CMAKE_CURRENT_BINARY_DIR}/lensfun-add-adapter.1
+  WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+)
+
+INSTALL(FILES 
+    ${CMAKE_CURRENT_BINARY_DIR}/g-lensfun-update-data.1 
+    ${CMAKE_CURRENT_BINARY_DIR}/lensfun-update-data.1 
+    ${CMAKE_CURRENT_BINARY_DIR}/lensfun-add-adapter.1 
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/man/man1
+)
