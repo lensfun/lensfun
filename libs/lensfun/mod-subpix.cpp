@@ -139,11 +139,13 @@ bool lfModifier::ApplySubpixelGeometryDistortion (
             out += 6;
         }
 
+        bool safe = true;
         for (i = 0; i < (int)This->CoordCallbacks->len; i++)
         {
             lfCoordCallbackData *cd =
                 (lfCoordCallbackData *)g_ptr_array_index (This->CoordCallbacks, i);
             cd->callback (cd->data, res, width * 3);
+            safe = safe && cd->safe;
         }
 
         for (i = 0; i < (int)This->SubpixelCallbacks->len; i++)
@@ -156,8 +158,15 @@ bool lfModifier::ApplySubpixelGeometryDistortion (
         // Convert normalized coordinates back into natural coordiates
         for (i = width * 3; i > 0; i--)
         {
-            res [0] = (res [0] + This->CenterX) * This->NormUnScale;
-            res [1] = (res [1] + This->CenterY) * This->NormUnScale;
+            if (!safe && (isnan(res [0]) || isnan(res [1]) ||
+                          res [0] < -1e9 || res [0] > 1e9 ||
+                          res [1] < -1e9 || res [1] > 1e9))
+                res [0] = res [1] = 1e9;
+            else
+            {
+                res [0] = (res [0] + This->CenterX) * This->NormUnScale;
+                res [1] = (res [1] + This->CenterY) * This->NormUnScale;
+            }
             res += 2;
         }
     }

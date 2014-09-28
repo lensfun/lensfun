@@ -14,11 +14,12 @@
 #include <math.h>
 
 void lfModifier::AddCoordCallback (
-    lfModifyCoordFunc callback, int priority, void *data, size_t data_size)
+    lfModifyCoordFunc callback, int priority, void *data, size_t data_size, bool safe)
 {
     lfExtModifier *This = static_cast<lfExtModifier *> (this);
     lfCoordCallbackData *d = new lfCoordCallbackData ();
     d->callback = callback;
+    d->safe = safe;
     This->AddCallback (This->CoordCallbacks, d, priority, data, data_size);
 }
 
@@ -34,23 +35,23 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                     return false;
                 tmp [0] = 1.0 / model.Terms [0];
                 AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_Poly3, 250,
-                                  tmp, sizeof (float));
+                                  tmp, sizeof (float), true);
                 break;
 
             case LF_DIST_MODEL_POLY5:
                 AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_Poly5, 250,
-                                  model.Terms, sizeof (float) * 2);
+                                  model.Terms, sizeof (float) * 2, true);
                 break;
 
             case LF_DIST_MODEL_PTLENS:
 #ifdef VECTORIZATION_SSE
                 if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
                     AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_PTLens_SSE, 250,
-                                      model.Terms, sizeof (float) * 3);
+                                      model.Terms, sizeof (float) * 3, true);
                 else
 #endif
                 AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_PTLens, 250,
-                                  model.Terms, sizeof (float) * 3);
+                                  model.Terms, sizeof (float) * 3, true);
                 break;
 
             default:
@@ -63,27 +64,27 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
 #ifdef VECTORIZATION_SSE
                 if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
                     AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly3_SSE, 750,
-                                      model.Terms, sizeof (float));
+                                      model.Terms, sizeof (float), true);
                 else
 #endif
                 AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly3, 750,
-                                  model.Terms, sizeof (float));
+                                  model.Terms, sizeof (float), true);
                 break;
 
             case LF_DIST_MODEL_POLY5:
                 AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly5, 750,
-                                  model.Terms, sizeof (float) * 2);
+                                  model.Terms, sizeof (float) * 2, true);
                 break;
 
             case LF_DIST_MODEL_PTLENS:
 #ifdef VECTORIZATION_SSE
                 if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
                     AddCoordCallback (lfExtModifier::ModifyCoord_Dist_PTLens_SSE, 750,
-                                      model.Terms, sizeof (float) * 3);
+                                      model.Terms, sizeof (float) * 3, true);
                 else
 #endif
                 AddCoordCallback (lfExtModifier::ModifyCoord_Dist_PTLens, 750,
-                                  model.Terms, sizeof (float) * 3);
+                                  model.Terms, sizeof (float) * 3, true);
                 break;
 
             default:
@@ -198,7 +199,7 @@ bool lfModifier::AddCoordCallbackScale (float scale, bool reverse)
 
     tmp [0] = reverse ? scale : 1.0 / scale;
     int priority = reverse ? 900 : 100;
-    AddCoordCallback (lfExtModifier::ModifyCoord_Scale, priority, tmp, sizeof (tmp));
+    AddCoordCallback (lfExtModifier::ModifyCoord_Scale, priority, tmp, sizeof (tmp), true);
     return true;
 }
 
@@ -417,18 +418,27 @@ bool lfModifier::ApplyGeometryDistortion (
             res [i * 2 + 1] = y;
         }
 
+        bool safe = true;
         for (i = 0; i < (int)This->CoordCallbacks->len; i++)
         {
             lfCoordCallbackData *cd =
                 (lfCoordCallbackData *)g_ptr_array_index (This->CoordCallbacks, i);
             cd->callback (cd->data, res, width);
+            safe = safe && cd->safe;
         }
 
         // Convert normalized coordinates back into natural coordiates
         for (i = 0; i < width; i++)
         {
-            res [0] = (res [0] + This->CenterX) * This->NormUnScale;
-            res [1] = (res [1] + This->CenterY) * This->NormUnScale;
+            if (!safe && (isnan(res [0]) || isnan(res [1]) ||
+                          res [0] < -1e9 || res [0] > 1e9 ||
+                          res [1] < -1e9 || res [1] > 1e9))
+                res [0] = res [1] = 1e9;
+            else
+            {
+                res [0] = (res [0] + This->CenterX) * This->NormUnScale;
+                res [1] = (res [1] + This->CenterY) * This->NormUnScale;
+            }
             res += 2;
         }
     }
@@ -646,9 +656,7 @@ void lfExtModifier::ModifyCoord_Geom_Rect_FishEye (void *data, float *iocoord, i
         float r = sqrt (x * x + y * y);
         float rho, theta = r * inv_dist;
 
-        if (theta >= M_PI / 2.0)
-            rho = 1.6e16F;
-        else if (theta == 0.0)
+        if (theta == 0.0)
             rho = 1.0;
         else
             rho = tan (theta) / theta;
@@ -955,22 +963,8 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Stereographic (void *data, float *ioc
         double cosc = cos (c);
 
         iocoord [0] = 0;
-        if(fabs (rh) <= EPSLN)
-        {
-            iocoord [1] = 1.6e16F;
-        }
-        else
-        {
-            iocoord [1] = asin (y * sinc / rh) * dist;
-            if((fabs (cosc) >= EPSLN) || (fabs (x) >= EPSLN))
-            {
-                iocoord [0] = atan2 (x * sinc, cosc * rh) * dist;
-            }
-            else
-            {
-                iocoord [0] = 1.6e16F;
-            };
-        };
+        iocoord [1] = asin (y * sinc / rh) * dist;
+        iocoord [0] = atan2 (x * sinc, cosc * rh) * dist;
     };
 };
 
@@ -1022,18 +1016,10 @@ void lfExtModifier::ModifyCoord_Geom_Equisolid_ERect (void *data, float *iocoord
         double lambda = iocoord [0] / dist;
         double phi = iocoord [1] / dist;
 
-        if (fabs (cos(phi) * cos(lambda) + 1.0) <= EPSLN)
-        {
-            iocoord [0] = 1.6e16F;
-            iocoord [1] = 1.6e16F;
-        }
-        else
-        {
-            double k1 = sqrt (2.0 / (1 + cos(phi) * cos(lambda)));
+        double k1 = sqrt (2.0 / (1 + cos(phi) * cos(lambda)));
 
-            iocoord [0] = dist * k1 * cos (phi) * sin (lambda);
-            iocoord [1] = dist * k1 * sin (phi);
-        };
+        iocoord [0] = dist * k1 * cos (phi) * sin (lambda);
+        iocoord [1] = dist * k1 * sin (phi);
     };
 };
 
@@ -1050,23 +1036,15 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Thoby (void *data, float *iocoord, in
         float y = iocoord [1];
 
         double rho = sqrt (x * x + y * y) * inv_dist;
-        if(rho<-THOBY_K1_PARM || rho > THOBY_K1_PARM)
-        {
-            iocoord [0] = 1.6e16F;
-            iocoord [1] = 1.6e16F;
-        }
-        else
-        {
-            double theta = asin (rho / THOBY_K1_PARM) / THOBY_K2_PARM;
-            double phi   = atan2 (y, x);
-            double s     = (theta == 0.0) ? inv_dist : (sin (theta) / (dist * theta) );
+        double theta = asin (rho / THOBY_K1_PARM) / THOBY_K2_PARM;
+        double phi   = atan2 (y, x);
+        double s     = (theta == 0.0) ? inv_dist : (sin (theta) / (dist * theta) );
 
-            double vx = cos (theta);
-            double vy = s * dist * theta * cos (phi);
+        double vx = cos (theta);
+        double vy = s * dist * theta * cos (phi);
 
-            iocoord [0] = dist * atan2 (vy, vx);
-            iocoord [1] = dist * atan (s * dist * theta * sin (phi) / sqrt (vx * vx + vy * vy));
-        };
+        iocoord [0] = dist * atan2 (vy, vx);
+        iocoord [1] = dist * atan (s * dist * theta * sin (phi) / sqrt (vx * vx + vy * vy));
     };
 };
 

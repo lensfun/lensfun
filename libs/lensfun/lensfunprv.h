@@ -6,6 +6,10 @@
 #ifndef __LENSFUNPRV_H__
 #define __LENSFUNPRV_H__
 
+#ifdef __FAST_MATH__
+#error Fast-math is not supported.
+#endif
+
 #include <glib.h>
 #include <string.h>
 
@@ -513,6 +517,7 @@ struct lfSubpixelCallbackData : public lfCallbackData
 struct lfCoordCallbackData : public lfCallbackData
 {
     lfModifyCoordFunc callback;
+    bool safe;
 };
 
 /// A single pixel color modifier callback.

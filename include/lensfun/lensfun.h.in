@@ -2004,7 +2004,7 @@ struct LF_EXPORT lfModifier
      *     is passed to the callback.
      */
     void AddCoordCallback (lfModifyCoordFunc callback, int priority,
-                           void *data, size_t data_size);
+                           void *data, size_t data_size, bool safe = false);
 
     /**
      * @brief Add a user-defined callback to the subpixel coordinate
