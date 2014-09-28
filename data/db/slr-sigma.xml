@@ -2348,4 +2348,28 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 180mm f/5.6 APO Macro</model>
+        <mount>Sony Alpha</mount>
+        <mount>Olympus OM</mount>
+        <mount>Canon FD</mount>
+        <mount>Pentax K</mount>
+        <mount>Nikon F</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 77 -->
+            <distortion model="poly3" focal="180" k1="0.00106" />
+            <tca model="poly3" focal="180" vr="0.9997" vb="1.0002" />
+            <vignetting model="pa" focal="180" aperture="5.6" distance="10" k1="-0.3350" k2="0.3070" k3="-0.1518" />
+            <vignetting model="pa" focal="180" aperture="5.6" distance="1000" k1="-0.3350" k2="0.3070" k3="-0.1518" />
+            <vignetting model="pa" focal="180" aperture="8" distance="10" k1="-0.1484" k2="0.1991" k3="-0.1089" />
+            <vignetting model="pa" focal="180" aperture="8" distance="1000" k1="-0.1484" k2="0.1991" k3="-0.1089" />
+            <vignetting model="pa" focal="180" aperture="11" distance="10" k1="-0.1768" k2="0.2532" k3="-0.1409" />
+            <vignetting model="pa" focal="180" aperture="11" distance="1000" k1="-0.1768" k2="0.2532" k3="-0.1409" />
+            <vignetting model="pa" focal="180" aperture="22" distance="10" k1="-0.2178" k2="0.3124" k3="-0.1716" />
+            <vignetting model="pa" focal="180" aperture="22" distance="1000" k1="-0.2178" k2="0.3124" k3="-0.1716" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
