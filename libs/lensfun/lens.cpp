@@ -294,7 +294,7 @@ bool lfLens::Check ()
 
     if (!Model || !Mounts || CropFactor <= 0 ||
         MinFocal > MaxFocal || (MaxAperture && MinAperture > MaxAperture) ||
-        !isfinite (AspectRatio) || AspectRatio < 1)
+        AspectRatio < 1)
         return false;
 
     return true;
