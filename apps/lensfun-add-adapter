@@ -115,7 +115,7 @@ def read_database():
     makers_and_models = {}
     mounts = {}
     if os.path.exists("/var/lib/lensfun-updates"):
-	paths = ["/var/lib/lensfun-updates", os.path.expanduser("~/.local/share/lensfun")]
+        paths = ["/var/lib/lensfun-updates", os.path.expanduser("~/.local/share/lensfun")]
     else:
         paths = ["/usr/share/lensfun", "/usr/local/share/lensfun", os.path.expanduser("~/.local/share/lensfun")]
     for path in paths:
