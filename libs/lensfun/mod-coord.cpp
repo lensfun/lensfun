@@ -890,7 +890,14 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Orthographic (void *data, float *ioco
         float x = iocoord [0];
         float y = iocoord [1];
 
-        double theta = asin (sqrt(x * x + y * y) * inv_dist);
+        double r     = sqrt(x * x + y * y);
+        double theta = 0.0;
+
+        if (r < dist)
+            theta = asin (r * inv_dist);
+        else
+            theta = M_PI / 2.0;
+
         double phi   = atan2 (y, x);
 
         double s = (theta == 0.0) ? inv_dist : (sin (theta) / (theta * dist) );
@@ -1001,8 +1008,14 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Equisolid (void *data, float *iocoord
         float x = iocoord [0];
         float y = iocoord [1];
 
-        double rho = sqrt (x * x + y * y);
-        double theta = 2.0 * asin (rho * inv_dist / 2.0);
+        double r = sqrt (x * x + y * y);
+        double theta = 0.0;
+
+        if (r < dist*2.0)
+            theta = 2.0 * asin (r * inv_dist / 2.0);
+        else
+            theta = M_PI / 2.0;
+
         double phi = atan2 (y, x);
         double s = (theta == 0.0) ? inv_dist : (sin (theta) / (dist * theta));
 
