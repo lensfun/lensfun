@@ -19,7 +19,7 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
     lfLensCalibDistortion lensCalibDist = {LF_DIST_MODEL_POLY3, 12.0f, {0.1,0.5,0.5}};
     lfFix->lens->AddCalibDistortion(&lensCalibDist);
 
-    // width and height have to be odd, so we have a defined center pixel
+    // width and height have to be odd, so we have a non fractional center position
     lfFix->img_height = 301;
     lfFix->img_width  = 301;
 
@@ -59,7 +59,7 @@ void test_mod_projection_center(lfFixture* lfFix, gconstpointer data)
     }
 }
 
-// check if output becomes NaN when entering image corners
+// check if output becomes NaN when processing geometry conversion
 void test_mod_projection_borders(lfFixture* lfFix, gconstpointer data)
 {
     float in[2]  = {lfFix->img_width, lfFix->img_height};
