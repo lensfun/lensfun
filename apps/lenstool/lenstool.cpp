@@ -2,8 +2,7 @@
     Test for library image modificator object.
 */
 
-#include "lensfun.h"
-#include "image.h"
+
 #include <glib.h>
 #include <locale.h>
 #include <getopt.h>
@@ -12,6 +11,9 @@
 #include <string.h>
 #include <time.h>
 #include <ctype.h>
+#include "lensfun.h"
+#include "image.h"
+#include "auxfun.h"
 
 /* Define this to apply stage 1 & 3 corrections in one step,
    see main comment to the lfModifier class */
@@ -23,13 +25,16 @@
 #define strtof (float)strtod
 #endif 
 
+
 static struct
 {
     const char *Program;
+    const char *Input;
     const char *Output;
     int ModifyFlags;
     bool Inverse;
     const char *Lens;
+    const char *Camera;
     float Scale;
     float Crop;
     float Focal;
@@ -37,25 +42,30 @@ static struct
     float Distance;
     Image::InterpolationMethod Interpolation;
     lfLensType TargetGeom;
+    bool Verbose;
 } opts =
 {
     NULL,
-    "out-%s",
+    NULL,
+    "output.png",
     0,
     false,
-    "Sigma 14mm f/2.8 EX",
-    1.0,
+    NULL,
+    NULL,
+    1.0f,
     0,
     0,
     0,
-    1.0,
-    Image::I_NEAREST,
-    LF_RECTILINEAR
+    1.0f,
+    Image::I_LANCZOS,
+    LF_RECTILINEAR,
+    false
 };
+
 
 static void DisplayVersion ()
 {
-    g_print ("lensfun version %d.%d.%d: test image modifier routines\n",
+    g_print ("Lenstool reference implementation for lensfun version %d.%d.%d\n",
         LF_VERSION_MAJOR, LF_VERSION_MINOR, LF_VERSION_MICRO);
     g_print ("Copyright (C) 2007 Andrew Zabolotny\n\n");
     g_print ("For distribution rules and conditions of use see the file\n");
@@ -72,33 +82,169 @@ static void DisplayUsage ()
     g_print ("                     orthographic, stereographic, equisolid, thoby)\n");
     g_print ("  -t    --tca        Apply lens chromatic aberrations\n");
     g_print ("  -v    --vignetting Apply lens vignetting\n");
+    g_print ("  -a    --all        Apply all possible corrections (tca, vign, dist)\n");
     g_print ("  -i    --inverse    Inverse correction of the image (e.g. simulate\n");
     g_print ("                     lens distortions instead of correcting them)\n");
-    g_print ("  -s#   --scale=#    Apply additional scale on the image\n");
-    g_print ("  -l#   --lens=#     Use calibration data for this lens\n");
-    g_print ("  -C#   --crop=#     Set camera crop factor\n");
+    g_print ("\n");
+    g_print ("  -C#   --camera=#   Camera name\n");
+    g_print ("  -c#   --crop=#     Set camera crop factor in case the camera is not given\n");
+    g_print ("\n");
+    g_print ("  -L#   --lens=#     Lens name to search for in the database\n");
     g_print ("  -F#   --focal=#    Set focal length at which image has been taken\n");
     g_print ("  -A#   --aperture=# Set aperture at which image has been taken\n");
     g_print ("  -D#   --distance=# Set subject distance at which image has been taken\n");
+    g_print ("\n");
+    g_print ("  -s#   --scale=#    Apply additional scale on the image\n");
     g_print ("  -I#   --interpol=# Choose interpolation algorithm (n[earest], b[ilinear], l[anczos])\n");
+    g_print ("\n");
     g_print ("  -o#   --output=#   Set file name for output image\n");
-    g_print ("  -V    --version    Display program version and exit\n");
+    g_print ("        --verbose    Verbose output\n");
+    g_print ("        --version    Display program version and exit\n");
     g_print ("  -h    --help       Display this help text\n");
 }
 
-// atof() with sanity checks
-static float _atof (const char *s)
+static bool ParseParameters(int argc, char **argv)
 {
-    char *end = NULL;
-    float r = strtof (s, &end);
-    if (end && *end)
-    {
-        g_print ("ERROR: Invalid number `%s', parsed as %g\n", s, r);
-        g_print ("Use your locale-specific number format (e.g. ',' or '.' etc)\n");
-        exit (-1);
+    static struct option long_options[] = {
+        {"output", required_argument, NULL, 'o'},
+        {"distortion", no_argument, NULL, 'd'},
+        {"geometry", optional_argument, NULL, 'g'},
+        {"tca", no_argument, NULL, 't'},
+        {"vignetting", no_argument, NULL, 'v'},
+        {"all", no_argument, NULL, 'a'},
+        {"inverse", no_argument, NULL, 'i'},
+        {"scale", required_argument, NULL, 'S'},
+        {"lens", required_argument, NULL, 'L'},
+        {"camera", required_argument, NULL, 'C'},
+        {"crop", required_argument, NULL, 'c'},
+        {"focal", required_argument, NULL, 'F'},
+        {"aperture", required_argument, NULL, 'A'},
+        {"distance", required_argument, NULL, 'D'},
+        {"interpol", required_argument, NULL, 'I'},
+        {"help", no_argument, NULL, 'h'},
+        {"version", no_argument, NULL, 4},
+        {"verbose", no_argument, NULL, 5},
+        {0, 0, 0, 0}
+    };
+
+    opts.Program = argv [0];
+
+    int c;
+    while ((c = getopt_long (argc, argv, "o:dg::tvaiS:L:C:c:F:A:D:I:h", long_options, NULL)) != EOF) {
+        switch (c) {
+            case 'o':
+                opts.Output = optarg;
+                break;
+            case 'd':
+                opts.ModifyFlags |= LF_MODIFY_DISTORTION;
+                break;
+            case 'g':
+                opts.ModifyFlags |= LF_MODIFY_GEOMETRY;
+                if (optarg) {
+                    if (!strcasecmp (optarg, "rectilinear"))
+                        opts.TargetGeom = LF_RECTILINEAR;
+                    else if (!strcasecmp (optarg, "fisheye"))
+                        opts.TargetGeom = LF_FISHEYE;
+                    else if (!strcasecmp (optarg, "panoramic"))
+                        opts.TargetGeom = LF_PANORAMIC;
+                    else if (!strcasecmp (optarg, "equirectangular"))
+                        opts.TargetGeom = LF_EQUIRECTANGULAR;
+                    else if (!strcasecmp (optarg, "orthographic"))
+                        opts.TargetGeom = LF_FISHEYE_ORTHOGRAPHIC;
+                    else if (!strcasecmp (optarg, "stereographic"))
+                        opts.TargetGeom = LF_FISHEYE_STEREOGRAPHIC;
+                    else if (!strcasecmp (optarg, "equisolid"))
+                        opts.TargetGeom = LF_FISHEYE_EQUISOLID;
+                    else if (!strcasecmp (optarg, "thoby"))
+                        opts.TargetGeom = LF_FISHEYE_THOBY;
+                    else {
+                        DisplayUsage();
+                        g_print ("\nTarget lens geometry must be one of 'rectilinear', 'fisheye', 'panoramic', 'equirectangular'\n'orthographic', 'stereographic', 'equisolid', 'thoby'\n");
+                        return false;
+                    }
+                }
+                break;
+            case 't':
+                opts.ModifyFlags |= LF_MODIFY_TCA;
+                break;
+            case 'v':
+                opts.ModifyFlags |= LF_MODIFY_VIGNETTING;
+                break;
+            case 'a':
+                opts.ModifyFlags |= LF_MODIFY_VIGNETTING;
+                opts.ModifyFlags |= LF_MODIFY_TCA;
+                opts.ModifyFlags |= LF_MODIFY_DISTORTION;
+                break;
+            case 'i':
+                opts.Inverse = true;
+                break;
+            case 'S':
+                opts.ModifyFlags |= LF_MODIFY_SCALE;
+                opts.Scale = _atof (optarg);
+                break;
+            case'L':
+                opts.Lens = optarg;
+                break;
+            case'C':
+                opts.Camera = optarg;
+                break;
+            case 'c':
+                opts.Crop = _atof (optarg);
+                break;
+            case 'F':
+                opts.Focal = _atof (optarg);
+                break;
+            case 'A':
+                opts.Aperture = _atof (optarg);
+                break;
+            case 'D':
+                opts.Distance = _atof (optarg);
+                break;
+            case 'I':
+                if (smartstreq (optarg, "nearest"))
+                    opts.Interpolation = Image::I_NEAREST;
+                else if (smartstreq (optarg, "bilinear"))
+                    opts.Interpolation = Image::I_BILINEAR;
+                else if (smartstreq (optarg, "lanczos"))
+                    opts.Interpolation = Image::I_LANCZOS;
+                else {
+                    DisplayUsage();
+                    g_print ("\nUnknown interpolation method `%s'\n", optarg);
+                    return false;
+                }
+                break;
+            case 'h':
+                DisplayUsage ();
+                return false;
+            case 4:
+                DisplayVersion ();
+                return false;
+            case 5:
+                opts.Verbose = true;
+                break;
+            default:
+                return false;
+        }
     }
-    return r;
+
+    if (optind <= argc)
+        opts.Input = argv [optind];
+
+    if (!opts.Lens && !opts.Camera) {
+        DisplayUsage();
+        g_print ("\nAt least a lens or camera name is required to perform a database lookup!\n");
+        return false;
+    }
+
+    if (!opts.Lens && opts.Input) {
+        DisplayUsage();
+        g_print ("\nNo lens information (-L) supplied to process specified input image!\n");
+        return false;
+    }
+
+    return true;
 }
+
 
 static Image *ApplyModifier (int modflags, bool reverse, Image *img,
                              const lfModifier *mod)
@@ -201,241 +347,159 @@ static Image *ApplyModifier (int modflags, bool reverse, Image *img,
     return img;
 }
 
-static bool smartstreq (const char *str, const char *pattern)
-{
-    const char *src = str;
-    while (*src)
-    {
-        char cs = toupper (*src++);
-        char cp = toupper (*pattern++);
-        if (!cs)
-            return (src != str);
-        if (!cp)
-            return false;
-        if (cs != cp)
-            return false;
-    }
-    return true;
-}
+
 
 int main (int argc, char **argv)
 {
-    static struct option long_options[] =
-    {
-        {"output", required_argument, NULL, 'o'},
-        {"distortion", no_argument, NULL, 'd'},
-        {"geometry", optional_argument, NULL, 'g'},
-        {"tca", no_argument, NULL, 't'},
-        {"vignetting", no_argument, NULL, 'v'},
-        {"inverse", no_argument, NULL, 'i'},
-        {"scale", required_argument, NULL, 's'},
-        {"autoscale", no_argument, NULL, 'S'},
-        {"lens", required_argument, NULL, 'l'},
-        {"crop", required_argument, NULL, 'C'},
-        {"focal", required_argument, NULL, 'F'},
-        {"aperture", required_argument, NULL, 'A'},
-        {"distance", required_argument, NULL, 'D'},
-        {"interpol", required_argument, NULL, 'I'},
-        {"help", no_argument, NULL, 'h'},
-        {"version", no_argument, NULL, 'V'},
-        {0, 0, 0, 0}
-    };
-
     setlocale (LC_ALL, "");
 
-    opts.Program = argv [0];
-
-    int c;
-    while ((c = getopt_long (argc, argv, "o:dg::tvcis:Sl:C:F:A:D:I:hV", long_options, NULL)) != EOF)
-    {
-        switch (c)
-        {
-            case 'o':
-                opts.Output = optarg;
-                break;
-            case 'd':
-                opts.ModifyFlags |= LF_MODIFY_DISTORTION;
-                break;
-            case 'g':
-                opts.ModifyFlags |= LF_MODIFY_GEOMETRY;
-                if (optarg)
-                {
-                    if (!strcasecmp (optarg, "rectilinear"))
-                        opts.TargetGeom = LF_RECTILINEAR;
-                    else if (!strcasecmp (optarg, "fisheye"))
-                        opts.TargetGeom = LF_FISHEYE;
-                    else if (!strcasecmp (optarg, "panoramic"))
-                        opts.TargetGeom = LF_PANORAMIC;
-                    else if (!strcasecmp (optarg, "equirectangular"))
-                        opts.TargetGeom = LF_EQUIRECTANGULAR;
-                    else if (!strcasecmp (optarg, "orthographic"))
-                        opts.TargetGeom = LF_FISHEYE_ORTHOGRAPHIC;
-                    else if (!strcasecmp (optarg, "stereographic"))
-                        opts.TargetGeom = LF_FISHEYE_STEREOGRAPHIC;
-                    else if (!strcasecmp (optarg, "equisolid"))
-                        opts.TargetGeom = LF_FISHEYE_EQUISOLID;
-                    else if (!strcasecmp (optarg, "thoby"))
-                        opts.TargetGeom = LF_FISHEYE_THOBY;
-                    else
-                    {
-                        g_print ("Target lens geometry must be one of 'rectilinear', 'fisheye', 'panoramic', 'equirectangular'\n'orthographic', 'stereographic', 'equisolid', 'thoby'\n");
-                        return -1;
-                    }
-                }
-                break;
-            case 't':
-                opts.ModifyFlags |= LF_MODIFY_TCA;
-                break;
-            case 'v':
-                opts.ModifyFlags |= LF_MODIFY_VIGNETTING;
-                break;
-            case 'i':
-                opts.Inverse = true;
-                break;
-            case 's':
-                opts.ModifyFlags |= LF_MODIFY_SCALE;
-                opts.Scale = _atof (optarg);
-                break;
-            case 'S':
-                opts.ModifyFlags |= LF_MODIFY_SCALE;
-                opts.Scale = 0.0;
-                break;
-            case'l':
-                opts.Lens = optarg;
-                break;
-            case 'C':
-                opts.Crop = _atof (optarg);
-                break;
-            case 'F':
-                opts.Focal = _atof (optarg);
-                break;
-            case 'A':
-                opts.Aperture = _atof (optarg);
-                break;
-            case 'D':
-                opts.Distance = _atof (optarg);
-                break;
-            case 'I':
-                if (smartstreq (optarg, "nearest"))
-                    opts.Interpolation = Image::I_NEAREST;
-                else if (smartstreq (optarg, "bilinear"))
-                    opts.Interpolation = Image::I_BILINEAR;
-                else if (smartstreq (optarg, "lanczos"))
-                    opts.Interpolation = Image::I_LANCZOS;
-                else
-                {
-                    g_print ("Unknown interpolation method `%s'\n", optarg);
-                    return -1;
-                }
-                break;
-            case 'h':
-                DisplayUsage ();
-                return 0;
-            case 'V':
-                DisplayVersion ();
-                return 0;
-            default:
-                return -1;
-        }
-    }
-
-    if (optind >= argc)
-    {
-        g_print ("No files given on command line\n\n");
-        DisplayUsage ();
+    if (!ParseParameters(argc, argv))
         return -1;
-    }
 
+    // load database
     lfDatabase *ldb = lf_db_new ();
     ldb->Load ();
 
-    const lfLens **lenses = ldb->FindLenses (NULL, NULL, opts.Lens);
-    if (!lenses)
-    {
-        g_print ("Cannot find the lens `%s' in database\n", opts.Lens);
-        return -1;
+    // try to find camera in the database
+    const lfCamera *cam = NULL;
+    if (opts.Camera) {
+        const lfCamera ** cameras = ldb->FindCamerasExt(NULL, opts.Camera);
+        if (cameras)
+            cam = cameras[0];
+        else
+            g_print ("Cannot find a camera matching `%s' in database\n", opts.Camera);
+        lf_free (cameras);
+     }
+
+    // try to find a matching lens in the database
+    const lfLens *lens = NULL;
+    if (opts.Lens) {
+        const lfLens **lenses = ldb->FindLenses (cam, NULL, opts.Lens);
+        if (lenses)
+            lens = lenses [0];
+        else
+            g_print ("Cannot find a lens matching `%s' in database\n", opts.Lens);
+        lf_free (lenses);
     }
 
-    const lfLens *lens = lenses [0];
-    lf_free (lenses);
+    // print camera and lens information if in verbose mode or if no input file is specified
+    if (opts.Verbose || !opts.Input) {
+        if (cam && lens) {
+            g_print("Matching lens and camera combination found in the database:\n");
+            PrintCamera(cam, ldb);
+            PrintLens(lens, ldb);
+        } else if (!cam && lens) {
+            g_print("Matching lens found in the database:\n");
+            PrintLens(lens, ldb);
+        } else if (!lens && cam) {
+            g_print("Matching camera found in the database:\n");
+            PrintCamera(cam, ldb);
+        }
+    } else {
+        if (cam && lens) {
+            g_print("= Selecting %s / %s\n", cam->Model, lens->Model);
+        } else if (!cam && lens) {
+            g_print("= Selecting %s\n", lens->Model);
+        }
+    }
 
-    if (!opts.Crop)
-        opts.Crop = lens->CropFactor;
+    // nothing to process, so lets quit here
+    if (!opts.Input) {
+        ldb->Destroy();
+        return 0;
+    }
+
+    // assume standard values if parameters are not specified
+    if (cam)
+        opts.Crop = cam->CropFactor;
+    else if (!opts.Crop)
+        opts.Crop = lens->CropFactor;    
     if (!opts.Focal)
         opts.Focal = lens->MinFocal;
     if (!opts.Aperture)
         opts.Aperture = lens->MinAperture;
 
-    g_print ("%sCorrecting image as taken by lens `%s, %s'\n"
-             "    at crop factor %g, focal length %g, aperture %g, distance %g\n",
-             opts.Inverse ? "Inverse " : "", lens->Maker, lens->Model,
-             opts.Crop, opts.Focal, opts.Aperture, opts.Distance);
-
-    for (; optind < argc; optind++)
-    {
-        Image *img = new Image ();
-        g_print ("Loading `%s' ...", argv [optind]);
-        if (!img->Open (argv [optind]))
-        {
-            g_print ("\rWarning: failed to open file `%s'\n", argv [optind]);
-            delete img;
-            continue;
-        }
-
-        if (!img->LoadPNG ())
-        {
-            g_print ("\rWarning: failed to parse PNG data from file `%s'\n", argv [optind]);
-            delete img;
-            continue;
-        }
-
-        g_print ("\b\b\b[%ux%u], processing", img->width, img->height);
-        lfModifier *mod = lfModifier::Create (lens, opts.Crop, img->width, img->height);
-        int modflags = mod->Initialize (
-            lens, LF_PF_U8, opts.Focal,
-            opts.Aperture, opts.Distance, opts.Scale, opts.TargetGeom,
-            opts.ModifyFlags, opts.Inverse);
-
-        if (!mod)
-        {
-            g_print ("\rWarning: failed to create modifier\n");
-            delete img;
-            continue;
-        }
-
-        if (modflags & LF_MODIFY_TCA)
-            g_print ("[tca]");
-        if (modflags & LF_MODIFY_VIGNETTING)
-            g_print ("[vign]");
-        if (modflags & LF_MODIFY_DISTORTION)
-            g_print ("[dist]");
-        if (modflags & LF_MODIFY_GEOMETRY)
-            g_print ("[geom]");
-        if (opts.Scale != 1.0)
-            g_print ("[scale]");
-        g_print (" ...");
-
-        clock_t st;
-        clock_t xt = clock ();
-        while (xt == (st = clock ()))
-            ;
-
-        img = ApplyModifier (modflags, opts.Inverse, img, mod);
-
-        clock_t et = clock ();
-        g_print ("\b\b\b(%.2g secs)", double (et - st) / CLOCKS_PER_SEC);
-
-        mod->Destroy ();
-
-        char out_fname [200];
-        snprintf (out_fname, sizeof (out_fname), opts.Output, argv [optind]);
-        g_print (", saving `%s'...", out_fname);
-        bool ok = img->SavePNG (out_fname);
-        delete img;
-
-        g_print ("\b\b\b\b, %s\n", ok ? "done" : "FAILED");
+    if (opts.Verbose) {
+        g_print("\nProcessing parameters:\n"
+                "    |- Image crop factor: %g\n"
+                "    |- Focal length: %gmm\n"
+                "    |- Aperture: f/%g\n"
+                "    |- Distance: %gm\n\n",
+                opts.Crop, opts.Focal, opts.Aperture, opts.Distance);
+    } else {
+        g_print("= Processing parameters: Crop %g, Focal %gmm, Aperture f/%g, Distance: %gm\n",
+                opts.Crop, opts.Focal, opts.Aperture, opts.Distance);
     }
 
+    Image *img = new Image ();
+    g_print ("~ Loading `%s' ... ", opts.Input);
+    if (!img->Open (opts.Input)) {
+        g_print ("\rERROR: failed to open file `%s'\n", opts.Input);
+        delete img;
+        ldb->Destroy();
+        return -1;
+    }
+    if (!img->LoadPNG ()) {
+        g_print ("\rERROR: failed to parse PNG data from file `%s'\n", opts.Input);
+        delete img;
+        ldb->Destroy();
+        return -1;
+    }
+    g_print ("done.\n~ Image size [%ux%u].\n", img->width, img->height);
+
+    lfModifier *mod = lfModifier::Create (lens, opts.Crop, img->width, img->height);
+    if (!mod) {
+        g_print ("\rWarning: failed to create modifier\n");
+        delete img;
+        ldb->Destroy();
+        return -1;
+    }
+    int modflags = mod->Initialize (
+        lens, LF_PF_U8, opts.Focal,
+        opts.Aperture, opts.Distance, opts.Scale, opts.TargetGeom,
+        opts.ModifyFlags, opts.Inverse);
+
+    g_print("~ Selected modifications: ");
+    if (modflags & LF_MODIFY_TCA)
+        g_print ("[tca]");
+    if (modflags & LF_MODIFY_VIGNETTING)
+        g_print ("[vign]");
+    if (modflags & LF_MODIFY_DISTORTION)
+        g_print ("[dist]");
+    if (modflags & LF_MODIFY_GEOMETRY)
+        g_print ("[geom]");
+    if (opts.Scale != 1.0)
+        g_print ("[scale]");
+    if (modflags==0)
+        g_print ("[NOTHING]");
+    g_print ("\n");
+
+    g_print("~ Run processing chain... ");
+
+    clock_t st;
+    clock_t xt = clock ();
+    while (xt == (st = clock ()))
+        ;
+
+    img = ApplyModifier (modflags, opts.Inverse, img, mod);
+
+    clock_t et = clock ();
+    g_print ("done (%.3g secs)\n", double (et - st) / CLOCKS_PER_SEC);
+
+    mod->Destroy ();
+
+    g_print ("~ Save output as `%s'...", opts.Output);
+    bool ok = img->SavePNG (opts.Output);
+
+    delete img;
     ldb->Destroy ();
-    return 0;
+
+    if (ok) {
+        g_print (" done\n");
+        return 0;
+    } else {
+        g_print (" FAILED\n");
+        return -1;
+    }
+
 }
