@@ -85,7 +85,7 @@ bool lfModifier::AddColorCallbackVignetting (
                     case LF_PF_U16:
 #ifdef VECTORIZATION_SSE2
                         if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE2)
-                            ADD_CALLBACK (ModifyColor_DeVignetting_PA_Select, lf_u16, 750);
+                            ADD_CALLBACK (ModifyColor_DeVignetting_PA_SSE2, lf_u16, 750);
                         else
 #endif
                         ADD_CALLBACK (ModifyColor_DeVignetting_PA, lf_u16, 750);

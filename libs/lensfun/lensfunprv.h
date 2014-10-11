@@ -620,10 +620,6 @@ struct lfExtModifier : public lfModifier
 #ifdef VECTORIZATION_SSE2
     static void ModifyColor_DeVignetting_PA_SSE2 (
       void *data, float _x, float _y, lf_u16 *pixels, int comp_role, int count);
-    static void ModifyColor_DeVignetting_PA_SSE2_aligned (
-      void *data, float _x, float _y, lf_u16 *pixels, int comp_role, int count);
-    static void ModifyColor_DeVignetting_PA_Select (
-      void *data, float x, float y, lf_u16 *pixels, int comp_role, int count);
 #endif
 
     template<typename T> static void ModifyColor_Vignetting_PA (
