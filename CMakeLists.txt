@@ -38,7 +38,7 @@ OPTION(INSTALL_HELPER_SCRIPTS "Install various helper scripts" ON)
 
 IF(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Debug CACHE STRING
-       "Choose the type of build, options are: Debug Release"
+       "Choose the type of build, options are: Debug, Release"
        FORCE
   )
 ENDIF()
@@ -173,7 +173,7 @@ ENDIF()
 MESSAGE(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 MESSAGE(STATUS "Build doc: ${BUILD_DOC}")
 MESSAGE(STATUS "Build test suite: ${BUILD_TESTS}")
-MESSAGE(STATUS "Building apps: ${BUILD_TESTS}")
+MESSAGE(STATUS "Build lenstool: ${BUILD_LENSTOOL}")
 MESSAGE(STATUS "Build with support for SSE: ${BUILD_FOR_SSE}")
 MESSAGE(STATUS "Build with support for SSE2: ${BUILD_FOR_SSE2}")
 MESSAGE(STATUS "Install helper scripts: ${INSTALL_HELPER_SCRIPTS}")
