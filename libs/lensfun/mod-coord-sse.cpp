@@ -15,8 +15,22 @@
 #include "lensfunprv.h"
 #include <xmmintrin.h>
 
+#if defined (_MSC_VER)
+typedef size_t uintptr_t;
+#else
+typedef __SIZE_TYPE__ uintptr_t;
+#endif
+
 void lfExtModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int count)
 {
+  /*
+   * If buffer is not aligned, fall back to plain code
+   */
+  if((uintptr_t)(iocoord) & 0xf)
+  {
+    return ModifyCoord_UnDist_PTLens(data, iocoord, count);
+  }
+
   float *param = (float *)data;
 
   __m128 a = _mm_set_ps1 (param [0]);
@@ -31,8 +45,8 @@ void lfExtModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, i
   for (int i = 0; i < loop_count ; i++)
   {
     // Load 4 sets of coordinates
-    __m128 c0 = _mm_loadu_ps (&iocoord[8*i]);
-    __m128 c1 = _mm_loadu_ps (&iocoord[8*i+4]);
+    __m128 c0 = _mm_load_ps (&iocoord[8*i]);
+    __m128 c1 = _mm_load_ps (&iocoord[8*i+4]);
     __m128 x = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (2, 0, 2, 0));
     __m128 y = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (3, 1, 3, 1));
     __m128 rd = _mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y));
@@ -71,8 +85,8 @@ void lfExtModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, i
     ru = _mm_mul_ps (ru, _mm_rcp_ps(rd));
     c0 = _mm_mul_ps (c0, ru);
     c1 = _mm_mul_ps (c1, ru);
-    _mm_storeu_ps (&iocoord [8 * i], c0);
-    _mm_storeu_ps (&iocoord [8 * i + 4], c1);
+    _mm_store_ps (&iocoord [8 * i], c0);
+    _mm_store_ps (&iocoord [8 * i + 4], c1);
   }
 
   loop_count *= 4;
@@ -80,12 +94,6 @@ void lfExtModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, i
   if (remain) 
     ModifyCoord_UnDist_PTLens (data, &iocoord [loop_count * 2], remain);
 }
-
-#if defined (_MSC_VER)
-typedef size_t uintptr_t;
-#else
-typedef __SIZE_TYPE__ uintptr_t;
-#endif
 
 void lfExtModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int count)
 {
