@@ -2173,6 +2173,7 @@ struct LF_EXPORT lfModifier
      *     This points to image pixels. The actual pixel format depends on both
      *     pixel_format and comp_role arguments.
      *     The results are stored in place in the same format.
+     *     Warning: this array should be aligned at least on a 16-byte boundary.
      * @param x
      *     The X coordinate of the corner of the block.
      * @param y
@@ -2222,6 +2223,7 @@ struct LF_EXPORT lfModifier
      *     A pointer to an output array which receives the respective X and Y
      *     distorted coordinates for every pixel of the block. The size of
      *     this array must be at least width*height*2 elements.
+     *     Warning: this array should be aligned at least on a 16-byte boundary.
      * @return
      *     true if return buffer has been filled, false if nothing to do
      */
@@ -2255,6 +2257,7 @@ struct LF_EXPORT lfModifier
      *     distorted coordinates of the red, green and blue channels for
      *     every pixel of the block. The size of this array must be
      *     at least width*height*2*3 elements.
+     *     Warning: this array should be aligned at least on a 16-byte boundary.
      * @return
      *     true if return buffer has been filled, false if nothing to do
      */
@@ -2287,6 +2290,7 @@ struct LF_EXPORT lfModifier
      *     A pointer to an output array which receives the respective X and Y
      *     distorted coordinates for every pixel of the block. The size of
      *     this array must be at least width*height*2*3 elements.
+     *     Warning: this array should be aligned at least on a 16-byte boundary.
      * @return
      *     true if return buffer has been filled, false if nothing to do
      */
