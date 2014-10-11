@@ -617,6 +617,10 @@ struct lfExtModifier : public lfModifier
     static void ModifyCoord_Geom_Equisolid_ERect (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_ERect_Thoby (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_Thoby_ERect (void *data, float *iocoord, int count);
+#ifdef VECTORIZATION_SSE
+    static void ModifyColor_DeVignetting_PA_SSE (
+      void *data, float _x, float _y, lf_f32 *pixels, int comp_role, int count);
+#endif
 #ifdef VECTORIZATION_SSE2
     static void ModifyColor_DeVignetting_PA_SSE2 (
       void *data, float _x, float _y, lf_u16 *pixels, int comp_role, int count);
