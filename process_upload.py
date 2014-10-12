@@ -77,6 +77,9 @@ except subprocess.CalledProcessError:
     write_result_and_exit("I could not unpack your file.  Was it really a .tar.gz or ZIP file?")
 os.remove(filepath)
 
+class InvalidRaw(Exception):
+    pass
+
 invalid_lens_model_name_pattern = re.compile(r"^\(\d+\)$|, | or |\|")
 raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf",
                        "fff", "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx",
@@ -101,11 +104,15 @@ def call_exiv2(raw_file_group):
          "-g", "Exif.NikonLd2.LensIDNumber", "-g", "Exif.Sony2.LensID", "-g", "Exif.NikonLd3.LensIDNumber", "-g", "Exif.Nikon3.Lens",
          "-g", "Exif.CanonCs.LensType", "-g", "Exif.Canon.LensModel", "-g", "Exif.Panasonic.LensType",
          "-g", "Exif.PentaxDng.LensType", "-g", "Exif.Pentax.LensType"]
-        + raw_file_group, stdout=subprocess.PIPE)
-    lines = exiv2_process.communicate()[0].splitlines()
-    assert exiv2_process.returncode in [0, 253]
+        + raw_file_group, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    output, error = exiv2_process.communicate()
+    if exiv2_process.returncode in [0, 253]:
+        pass
+    elif exiv2_process.returncode == 1:
+        raise InvalidRaw("""I could not read some of your RAW files.\nI attach the error output of exiv2:\n\n"""
+                         + error.decode("utf-8").replace(directory + "/", ""))
     result = {}
-    for line in lines:
+    for line in output.splitlines():
         # Sometimes, values have trailing rubbish
         line = line.partition(b"\x00")[0].decode("utf-8")
         if "Exif.Photo." in line:
@@ -168,8 +175,11 @@ def call_exiv2(raw_file_group):
         result[filepath] = tuple(exif_data)
     return result
 pool = multiprocessing.Pool()
-for group_exif_data in pool.map(call_exiv2, raw_file_groups):
-    file_exif_data.update(group_exif_data)
+try:
+    for group_exif_data in pool.map(call_exiv2, raw_file_groups):
+        file_exif_data.update(group_exif_data)
+except InvalidRaw as error:
+    write_result_and_exit(error.args[0])
 pool.close()
 pool.join()
 
