@@ -77,7 +77,7 @@ except subprocess.CalledProcessError:
     write_result_and_exit("I could not unpack your file.  Was it really a .tar.gz or ZIP file?")
 os.remove(filepath)
 
-invalid_lens_model_name_pattern = re.compile(r"^\(\d+\)$|, | or ")
+invalid_lens_model_name_pattern = re.compile(r"^\(\d+\)$|, | or |\|")
 raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf",
                        "fff", "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx",
                        "pxn", "r3d", "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f", "jpg", "jpeg"]
