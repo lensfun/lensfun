@@ -30,7 +30,7 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
 void mod_teardown(lfFixture *lfFix, gconstpointer data)
 {
     lfFix->mod->Destroy();
-    lf_free(lfFix->lens);
+    delete lfFix->lens;
 }
 
 // test to verifiy that projection center is image center
