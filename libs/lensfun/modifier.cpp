@@ -7,6 +7,7 @@
 #include "lensfun.h"
 #include "lensfunprv.h"
 #include <math.h>
+#include "windows/mathconstants.h"
 
 /* Takes into account that the Hugin models (Poly3, PTLens), use a wrong focal
  * length (see the thread http://thread.gmane.org/gmane.comp.misc.ptx/34865).

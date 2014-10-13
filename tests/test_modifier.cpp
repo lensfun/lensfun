@@ -1,5 +1,8 @@
 #include <glib.h>
 #include <locale.h>
+#ifdef _MSC_VER
+#define _USE_MATH_DEFINES
+#endif
 #include <math.h>
 #include "lensfun.h"
 
