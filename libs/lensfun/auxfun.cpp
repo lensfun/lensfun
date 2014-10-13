@@ -10,7 +10,6 @@
 #include <ctype.h>
 #include <math.h>
 #include <fstream>
-#include <stdint.h>
 
 static const char *_lf_get_lang ()
 {
