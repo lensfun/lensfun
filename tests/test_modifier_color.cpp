@@ -172,13 +172,33 @@ void test_mod_color(lfFixture *lfFix, gconstpointer data)
   }
 }
 
-gchar *describe(lfTestParams *p, const char *f)
+#ifdef _OPENMP
+template<typename T>
+void test_mod_color_parallel(lfFixture *lfFix, gconstpointer data)
+{
+  const lfTestParams *const p = (lfTestParams *)data;
+
+  #pragma omp parallel for schedule(static)
+  for(size_t y = 0; y < lfFix->img_height; y++)
+  {
+    T *imgdata = (T *)lfFix->image + (size_t)p->cpp * y * lfFix->img_width;
+
+    g_assert_true(
+      lfFix->mod->ApplyColorModification(
+        imgdata, 0.0, y, lfFix->img_width, 1,
+        p->comp_role, p->cpp * lfFix->img_width));
+  }
+}
+#endif
+
+gchar *describe(lfTestParams *p, const char *prefix, const char *f)
 {
   gchar alignment[32] = "";
   g_snprintf(alignment, sizeof(alignment), "%lu-byte", p->alignment);
 
   return g_strdup_printf(
-           "/modifier/color/%s/%s/%s/%s",
+           "/%s/%s/%s/%s/%s",
+           prefix,
            p->reverse ? "Vignetting" : "DeVignetting",
            p->pixDesc,
            f,
@@ -189,9 +209,19 @@ gchar *describe(lfTestParams *p, const char *f)
 template<typename T>
 void add_set_item(lfTestParams *p, const char *f)
 {
-  gchar *desc = describe(p, f);
+  gchar *desc = NULL;
+
+  desc = describe(p, "modifier/color/serialFor", f);
   g_test_add(desc, lfFixture, p, mod_setup<T>, test_mod_color<T>, mod_teardown);
   g_free(desc);
+  desc = NULL;
+
+#ifdef _OPENMP
+  desc = describe(p, "modifier/color/parallelFor", f);
+  g_test_add(desc, lfFixture, p, mod_setup<T>, test_mod_color_parallel<T>, mod_teardown);
+  g_free(desc);
+  desc = NULL;
+#endif
 }
 
 void add_sets(lfTestParams *p)
