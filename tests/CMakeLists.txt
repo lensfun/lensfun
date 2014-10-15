@@ -20,3 +20,7 @@ ADD_TEST(Modifier_subpix test_modifier_subpix)
 ADD_EXECUTABLE(test_modifier_coord_scale test_modifier_coord_scale.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_coord_scale lensfun ${COMMON_LIBS})
 ADD_TEST(Modifier_coord_scale test_modifier_coord_scale)
+
+ADD_EXECUTABLE(test_modifier_coord_distortion test_modifier_coord_distortion.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_coord_distortion lensfun ${COMMON_LIBS})
+ADD_TEST(Modifier_coord_distortion test_modifier_coord_distortion)
