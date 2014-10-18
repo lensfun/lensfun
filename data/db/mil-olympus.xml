@@ -704,8 +704,10 @@
         <aspect-ratio>4:3</aspect-ratio>
         <cropfactor>2.0</cropfactor>
         <calibration>
+            <!-- Taken with E-M10 -->
+            <distortion model="ptlens" focal="25" a="0.00454" b="-0.0141" c="0.00283" />
+            <tca model="poly3" focal="25" vr="1.0003" vb="1.0001" />
             <!-- Taken with DMC-GX7 -->
-            <distortion model="ptlens" focal="25" a="0.00312" b="-0.01265" c="0.00675"/>
             <vignetting model="pa" focal="25" aperture="1.8" distance="10" k1="-0.6642" k2="0.3456" k3="-0.0919" />
             <vignetting model="pa" focal="25" aperture="1.8" distance="1000" k1="-0.6642" k2="0.3456" k3="-0.0919" />
             <vignetting model="pa" focal="25" aperture="2" distance="10" k1="-0.3296" k2="-0.2976" k3="0.2536" />
@@ -826,6 +828,22 @@
             <vignetting model="pa" focal="300" aperture="9" distance="1000" k1="-0.0639" k2="-0.3802" k3="0.2152" />
             <vignetting model="pa" focal="300" aperture="22" distance="10" k1="-0.1583" k2="0.1636" k3="-0.0935" />
             <vignetting model="pa" focal="300" aperture="22" distance="1000" k1="-0.1583" k2="0.1636" k3="-0.0935" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Olympus</maker>
+        <model>Olympus M.Zuiko Digital 14-42mm f/3.5-5.6 EZ</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with E-M10 -->
+            <distortion model="ptlens" focal="14" a="0.01468" b="-0.06545" c="-0.00437" />
+            <distortion model="ptlens" focal="18" a="0.00892" b="-0.04043" c="0.005" />
+            <distortion model="ptlens" focal="22" a="0.00578" b="-0.01597" c="-0.00043" />
+            <distortion model="ptlens" focal="30" a="0.00209" b="0.01156" c="-0.02364" />
+            <distortion model="ptlens" focal="42" a="0.01839" b="-0.05556" c="0.07121" />
         </calibration>
     </lens>
 

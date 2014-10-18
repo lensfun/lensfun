@@ -1210,4 +1210,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-DA 50mm f/1.8</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.526</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-5 II s -->
+            <distortion model="poly3" focal="50" k1="-0.00214" />
+            <tca model="poly3" focal="50" vr="0.9999693" vb="1.0000394" />
+        </calibration>
+    </lens>
+
 </lensdatabase>

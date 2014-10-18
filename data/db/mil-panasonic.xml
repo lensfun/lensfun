@@ -1289,4 +1289,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Leica</maker>
+        <model>Leica DG Summilux 15mm f/1.7</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Olympus E-M10 -->
+            <distortion model="ptlens" focal="15" a="0.01153" b="-0.05273" c="-0.00197" />
+            <tca model="poly3" focal="15" br="-0.0000789" vr="1.0002337" bb="0.0001277" vb="0.9999204" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
