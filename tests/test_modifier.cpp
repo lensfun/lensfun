@@ -12,9 +12,10 @@ typedef struct {
 // setup a standard lens
 void mod_setup(lfFixture *lfFix, gconstpointer data)
 {
-    lfFix->lens             = new lfLens();
-    lfFix->lens->CropFactor = 1.0f;
-    lfFix->lens->Type       = LF_RECTILINEAR;
+    lfFix->lens              = new lfLens();
+    lfFix->lens->CropFactor  = 1.0f;
+    lfFix->lens->AspectRatio = 1.0f;
+    lfFix->lens->Type        = LF_RECTILINEAR;
 
     lfLensCalibDistortion lensCalibDist = {LF_DIST_MODEL_POLY3, 12.0f, {0.1,0.5,0.5}};
     lfFix->lens->AddCalibDistortion(&lensCalibDist);
@@ -22,8 +23,6 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
     // width and height have to be odd, so we have a non fractional center position
     lfFix->img_height = 301;
     lfFix->img_width  = 301;
-
-    lfFix->mod = lfModifier::Create (lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
 }
 
 
@@ -43,7 +42,7 @@ void test_mod_projection_center(lfFixture* lfFix, gconstpointer data)
     lfLensType geom_types [] = {LF_PANORAMIC, LF_EQUIRECTANGULAR , LF_FISHEYE, LF_FISHEYE_EQUISOLID, LF_FISHEYE_ORTHOGRAPHIC, LF_FISHEYE_THOBY, LF_UNKNOWN};
     int i = 0;
     while (geom_types[i]!=LF_UNKNOWN) {
-
+        lfFix->mod = lfModifier::Create (lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
         lfFix->mod->Initialize (
             lfFix->lens, LF_PF_U8, 12.0f,
             6.7f, 2.0f, 1.0f, geom_types[i],
@@ -74,6 +73,7 @@ void test_mod_projection_borders(lfFixture* lfFix, gconstpointer data)
 
         int  i  = 0;
         while (geom_types[i]!=LF_UNKNOWN) {
+            lfFix->mod = lfModifier::Create (lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
             lfFix->mod->Initialize (
                 lfFix->lens, LF_PF_U8, 12.0f,
                 6.7f, 2.0f, 1.0f, geom_types[i],
