@@ -222,17 +222,17 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
             switch (to)
             {
                 case LF_FISHEYE:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Rect_FishEye,
+                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_FishEye_Rect,
                                       500, tmp, sizeof (tmp));
                     return true;
 
                 case LF_PANORAMIC:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Rect_Panoramic,
+                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Panoramic_Rect,
                                       500, tmp, sizeof (tmp));
                     return true;
 
                 case LF_EQUIRECTANGULAR:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Rect_ERect,
+                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Rect,
                                       500, tmp, sizeof (tmp));
                     return true;
 
@@ -246,17 +246,17 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
             switch (to)
             {
                 case LF_RECTILINEAR:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_FishEye_Rect,
+                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Rect_FishEye,
                                       500, tmp, sizeof (tmp));
                     return true;
 
                 case LF_PANORAMIC:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_FishEye_Panoramic,
+                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Panoramic_FishEye,
                                       500, tmp, sizeof (tmp));
                     return true;
 
                 case LF_EQUIRECTANGULAR:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_FishEye_ERect,
+                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_FishEye,
                                       500, tmp, sizeof (tmp));
                     return true;
 
@@ -270,17 +270,17 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
             switch (to)
             {
                 case LF_RECTILINEAR:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Panoramic_Rect,
+                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Rect_Panoramic,
                                       500, tmp, sizeof (tmp));
                     return true;
 
                 case LF_FISHEYE:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Panoramic_FishEye,
+                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_FishEye_Panoramic,
                                       500, tmp, sizeof (tmp));
                     return true;
 
                 case LF_EQUIRECTANGULAR:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Panoramic_ERect,
+                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Panoramic,
                                       500, tmp, sizeof (tmp));
                     return true;
 
@@ -294,17 +294,17 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
             switch (to)
             {
                 case LF_RECTILINEAR:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Rect,
+                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Rect_ERect,
                                       500, tmp, sizeof (tmp));
                     return true;
 
                 case LF_FISHEYE:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_FishEye,
+                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_FishEye_ERect,
                                       500, tmp, sizeof (tmp));
                     return true;
 
                 case LF_PANORAMIC:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Panoramic,
+                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Panoramic_ERect,
                                       500, tmp, sizeof (tmp));
                     return true;
 
@@ -323,41 +323,6 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
 
     //convert from input projection to target projection via equirectangular projection
     switch(to)
-    {
-        case LF_RECTILINEAR:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Rect,
-                                500, tmp, sizeof (tmp));
-            break;
-        case LF_FISHEYE:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_FishEye,
-                                500, tmp, sizeof (tmp));
-            break;
-        case LF_PANORAMIC:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Panoramic,
-                                500, tmp, sizeof (tmp));
-            break;
-        case LF_FISHEYE_ORTHOGRAPHIC:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Orthographic,
-                                500, tmp, sizeof (tmp));
-            break;
-        case LF_FISHEYE_STEREOGRAPHIC:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Stereographic,
-                                500, tmp, sizeof (tmp));
-            break;
-        case LF_FISHEYE_EQUISOLID:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Equisolid,
-                                500, tmp, sizeof (tmp));
-            break;
-        case LF_FISHEYE_THOBY:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Thoby,
-                                500, tmp, sizeof (tmp));
-            break;
-        case LF_EQUIRECTANGULAR:
-        default:
-            //nothing to do
-            break;
-    };
-    switch(from)
     {
         case LF_RECTILINEAR:
             AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Rect_ERect,
@@ -385,6 +350,41 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
             break;
         case LF_FISHEYE_THOBY:
             AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Thoby_ERect,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_EQUIRECTANGULAR:
+        default:
+            //nothing to do
+            break;
+    };
+    switch(from)
+    {
+        case LF_RECTILINEAR:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Rect,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_FISHEYE:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_FishEye,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_PANORAMIC:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Panoramic,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_FISHEYE_ORTHOGRAPHIC:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Orthographic,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_FISHEYE_STEREOGRAPHIC:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Stereographic,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_FISHEYE_EQUISOLID:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Equisolid,
+                                500, tmp, sizeof (tmp));
+            break;
+        case LF_FISHEYE_THOBY:
+            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Thoby,
                                 500, tmp, sizeof (tmp));
             break;
         case LF_EQUIRECTANGULAR:
@@ -634,7 +634,7 @@ void lfExtModifier::ModifyCoord_Dist_PTLens (void *data, float *iocoord, int cou
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_Rect_FishEye (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Geom_FishEye_Rect (void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [1];
 
@@ -658,7 +658,7 @@ void lfExtModifier::ModifyCoord_Geom_Rect_FishEye (void *data, float *iocoord, i
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_FishEye_Rect (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Geom_Rect_FishEye (void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [1];
 
@@ -678,7 +678,7 @@ void lfExtModifier::ModifyCoord_Geom_FishEye_Rect (void *data, float *iocoord, i
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_Rect_Panoramic (
+void lfExtModifier::ModifyCoord_Geom_Panoramic_Rect (
     void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [0];
@@ -695,7 +695,7 @@ void lfExtModifier::ModifyCoord_Geom_Rect_Panoramic (
 }
 
 
-void lfExtModifier::ModifyCoord_Geom_Panoramic_Rect (
+void lfExtModifier::ModifyCoord_Geom_Rect_Panoramic (
     void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [0];
@@ -711,7 +711,7 @@ void lfExtModifier::ModifyCoord_Geom_Panoramic_Rect (
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_Panoramic_FishEye (
+void lfExtModifier::ModifyCoord_Geom_FishEye_Panoramic (
     void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [0];
@@ -734,7 +734,7 @@ void lfExtModifier::ModifyCoord_Geom_Panoramic_FishEye (
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_FishEye_Panoramic (
+void lfExtModifier::ModifyCoord_Geom_Panoramic_FishEye (
     void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [0];
@@ -755,7 +755,7 @@ void lfExtModifier::ModifyCoord_Geom_FishEye_Panoramic (
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_Rect_ERect (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Geom_ERect_Rect (void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [0];
     const float inv_dist = ((float *)data) [1];
@@ -783,7 +783,7 @@ void lfExtModifier::ModifyCoord_Geom_Rect_ERect (void *data, float *iocoord, int
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_ERect_Rect (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Geom_Rect_ERect (void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [0];
 
@@ -797,7 +797,7 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Rect (void *data, float *iocoord, int
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_FishEye_ERect (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Geom_ERect_FishEye (void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [0];
     const float inv_dist = ((float *)data) [1];
@@ -834,7 +834,7 @@ void lfExtModifier::ModifyCoord_Geom_FishEye_ERect (void *data, float *iocoord, 
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_ERect_FishEye (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Geom_FishEye_ERect (void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [0];
     const float inv_dist = ((float *)data) [1];
@@ -856,7 +856,7 @@ void lfExtModifier::ModifyCoord_Geom_ERect_FishEye (void *data, float *iocoord, 
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_Panoramic_ERect (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Geom_ERect_Panoramic (void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [0];
     const float inv_dist = ((float *)data) [1];
@@ -868,7 +868,7 @@ void lfExtModifier::ModifyCoord_Geom_Panoramic_ERect (void *data, float *iocoord
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_ERect_Panoramic (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Geom_Panoramic_ERect (void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [0];
     const float inv_dist = ((float *)data) [1];
@@ -880,7 +880,7 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Panoramic (void *data, float *iocoord
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_ERect_Orthographic (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Geom_Orthographic_ERect (void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [0];
     const float inv_dist = ((float *)data) [1];
@@ -910,7 +910,7 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Orthographic (void *data, float *ioco
     }
 };
 
-void lfExtModifier::ModifyCoord_Geom_Orthographic_ERect (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Geom_ERect_Orthographic (void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [0];
     const float inv_dist = ((float *)data) [1];
@@ -947,7 +947,7 @@ void lfExtModifier::ModifyCoord_Geom_Orthographic_ERect (void *data, float *ioco
 
 #define EPSLN   1.0e-10
 
-void lfExtModifier::ModifyCoord_Geom_ERect_Stereographic (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Geom_Stereographic_ERect (void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [0];
     const float inv_dist = ((float *)data) [1];
@@ -981,7 +981,7 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Stereographic (void *data, float *ioc
     };
 };
 
-void lfExtModifier::ModifyCoord_Geom_Stereographic_ERect (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Geom_ERect_Stereographic (void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [0];
     const float inv_dist = ((float *)data) [1];
@@ -999,7 +999,7 @@ void lfExtModifier::ModifyCoord_Geom_Stereographic_ERect (void *data, float *ioc
     }
 };
 
-void lfExtModifier::ModifyCoord_Geom_ERect_Equisolid (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Geom_Equisolid_ERect (void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [0];
     const float inv_dist = ((float *)data) [1];
@@ -1027,7 +1027,7 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Equisolid (void *data, float *iocoord
     };
 };
 
-void lfExtModifier::ModifyCoord_Geom_Equisolid_ERect (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Geom_ERect_Equisolid (void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [0];
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
@@ -1053,7 +1053,7 @@ void lfExtModifier::ModifyCoord_Geom_Equisolid_ERect (void *data, float *iocoord
 #define THOBY_K1_PARM 1.47F
 #define THOBY_K2_PARM 0.713F
 
-void lfExtModifier::ModifyCoord_Geom_ERect_Thoby (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Geom_Thoby_ERect (void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [0];
     const float inv_dist = ((float *)data) [1];
@@ -1083,7 +1083,7 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Thoby (void *data, float *iocoord, in
     };
 };
 
-void lfExtModifier::ModifyCoord_Geom_Thoby_ERect (void *data, float *iocoord, int count)
+void lfExtModifier::ModifyCoord_Geom_ERect_Thoby (void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [0];
     const float inv_dist = ((float *)data) [1];

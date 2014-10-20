@@ -597,26 +597,26 @@ struct lfExtModifier : public lfModifier
     static void ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int count);
     static void ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int count);
 #endif
-    static void ModifyCoord_Geom_Rect_FishEye (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_Rect_Panoramic (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_Rect_ERect (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_FishEye_Rect (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_FishEye_Panoramic (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_FishEye_ERect (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_Panoramic_Rect (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_Panoramic_FishEye (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_Panoramic_ERect (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_ERect_Rect (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_Rect_FishEye (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_Panoramic_FishEye (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_ERect_FishEye (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_Rect_Panoramic (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_FishEye_Panoramic (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_ERect_Panoramic (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_ERect_Orthographic (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_Rect_ERect (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_FishEye_ERect (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_Panoramic_ERect (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_Orthographic_ERect (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_ERect_Stereographic (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_ERect_Orthographic (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_Stereographic_ERect (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_ERect_Equisolid (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_ERect_Stereographic (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_Equisolid_ERect (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_ERect_Thoby (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_ERect_Equisolid (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_Thoby_ERect (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_ERect_Thoby (void *data, float *iocoord, int count);
 #ifdef VECTORIZATION_SSE
     static void ModifyColor_DeVignetting_PA_SSE (
       void *data, float _x, float _y, lf_f32 *pixels, int comp_role, int count);
