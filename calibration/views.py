@@ -3,7 +3,7 @@
 
 from __future__ import absolute_import, unicode_literals
 
-import hashlib, os, subprocess, json, shutil, mimetypes, smtplib
+import hashlib, os, subprocess, json, shutil, mimetypes, smtplib, re
 from email.MIMEText import MIMEText
 import django.forms as forms
 from django.shortcuts import render
@@ -14,6 +14,8 @@ from django.utils.encoding import iri_to_uri
 
 
 upload_directory = "/mnt/media/raws/Kalibration/uploads"
+allowed_extensions = (".tar.gz", ".tgz", ".tar.bz2", ".tbz2", ".bz2", ".tar.xz", ".txz", ".tar", ".rar", ".7z", ".zip")
+file_extension_pattern = re.compile("(" + "|".join(allowed_extensions).replace(".", "\\.") + ")$", re.IGNORECASE)
 
 
 class HttpResponseSeeOther(django.http.HttpResponse):
@@ -125,9 +127,8 @@ class UploadForm(forms.Form):
 
     def clean_compressed_file(self):
         compressed_file = self.cleaned_data["compressed_file"]
-        normalized_name = compressed_file.name.lower()
-        if not normalized_name.endswith(".tar.gz") and not normalized_name.endswith(".zip"):
-            raise ValidationError("Uploaded file must be ZIP or gzip-ped tarball.")
+        if not file_extension_pattern.search(compressed_file.name):
+            raise ValidationError("Uploaded file must be ZIP, tarball, RAR, or 7-zip.")
         return compressed_file
 
 def upload(request):

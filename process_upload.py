@@ -67,14 +67,24 @@ def write_result_and_exit(error, missing_data=[]):
 
 extension = os.path.splitext(filepath)[1].lower()
 try:
-    if extension == ".gz":
+    if extension in [".gz", ".tgz"]:
         subprocess.check_call(["tar", "--directory", directory, "-xzf", filepath])
-    elif extension == ".bz2":
+    elif extension in [".bz2", ".tbz2", ".tb2"]:
         subprocess.check_call(["tar", "--directory", directory, "-xjf", filepath])
-    elif extension == ".zip":
+    elif extension in [".xz", ".txz"]:
+        subprocess.check_call(["tar", "--directory", directory, "-xJf", filepath])
+    elif extension == ".tar":
+        subprocess.check_call(["tar", "--directory", directory, "-xf", filepath])
+    elif extension == ".rar":
+        subprocess.check_call(["unrar", "x", filepath, directory])
+    elif extension == ".7z":
+        subprocess.check_call(["7z", "x", "-o" + directory, filepath])
+    else:
+        # Must be ZIP (else, fail)
         subprocess.check_call(["unzip", filepath, "-d", directory])
 except subprocess.CalledProcessError:
-    write_result_and_exit("I could not unpack your file.  Was it really a .tar.gz or ZIP file?")
+    write_result_and_exit("I could not unpack your file.  Supported file formats:\n"
+                          ".gz, .tgz, .bz2, .tbz2, .tb2, .xz, .txz, .tar, .rar, .7z, .zip.")
 os.remove(filepath)
 
 class InvalidRaw(Exception):
