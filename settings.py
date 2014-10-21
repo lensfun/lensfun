@@ -1,5 +1,9 @@
 # Django settings for calibration project.
 
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
@@ -7,21 +11,11 @@ ADMINS = (
     ("Torsten Bronger", "bronger"),
 )
 
-MANAGERS = ADMINS
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "calibration",
-        "USER": "chantal",
-        "PASSWORD": "Sonne",
-        "HOST": "localhost"
-        }
-    }
+#TEST_RUNNER = "django.test.runner.DiscoverRunner"
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en//ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["wilson", "wilson.bronger.org"]
+ALLOWED_HOSTS = ["wilson", "wilson.bronger.org", "0.0.0.0"]
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -32,8 +26,6 @@ TIME_ZONE = "Europe/Rome"
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = "en-us"
-
-SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -72,23 +64,8 @@ STATICFILES_DIRS = (
     # don't forget to use absolute paths, not relative paths.
 )
 
-# List of finder classes that know how to find static files in
-# various locations.
-STATICFILES_FINDERS = (
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-#    "django.contrib.staticfiles.finders.DefaultStorageFinder",
-)
-
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = "yyq3%@)4tg6@a86m8s=dopd)i+nu^-ma@p=lzk^su18h@*+hb3"
-
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    "django.template.loaders.filesystem.Loader",
-    "django.template.loaders.app_directories.Loader",
-#     "django.template.loaders.eggs.Loader",
-)
 
 MIDDLEWARE_CLASSES = (
     "django.middleware.common.CommonMiddleware",
