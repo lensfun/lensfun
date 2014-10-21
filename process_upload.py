@@ -185,7 +185,7 @@ pool.join()
 
 
 if not file_exif_data:
-    write_result_and_exit("No images found in archive.")
+    write_result_and_exit("No images (at least, no with EXIF data) found in archive.")
 
 cameras = set(exif_data[:2] for exif_data in file_exif_data.values())
 if len(cameras) != 1:
