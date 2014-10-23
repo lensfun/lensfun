@@ -1,6 +1,12 @@
 IF (NOT MSVC)
-  INCLUDE(FindPkgConfig)
-  PKG_SEARCH_MODULE( GLIB2 REQUIRED glib-2.0 )
+    INCLUDE(FindPkgConfig)
+    PKG_SEARCH_MODULE( GLIB2 REQUIRED glib-2.0 )
+    IF(WIN32 AND NOT BUILD_STATIC)
+        FIND_FILE(GLIB2_DLL 
+                NAMES glib-2.dll glib-2-vs9.dll libglib-2.0-0.dll
+                PATHS "${GLIB2_LIBRARY_DIRS}/../bin"
+                NO_SYSTEM_ENVIRONMENT_PATH)
+    ENDIF()
 ENDIF()
 
 IF (NOT GLIB2_FOUND OR NOT PKG_CONFIG_FOUND)
@@ -47,6 +53,12 @@ IF (NOT GLIB2_FOUND OR NOT PKG_CONFIG_FOUND)
         SET( GLIB2_FOUND 0)
     ENDIF()    
     
+    IF(WIN32 AND NOT BUILD_STATIC)
+        FIND_FILE(GLIB2_DLL 
+                NAMES glib-2.dll glib-2-vs9.dll libglib-2.0-0.dll
+                PATHS "${GLIB2_BASE_DIR}/bin"
+                NO_SYSTEM_ENVIRONMENT_PATH)
+    ENDIF()    
 ENDIF ()
 
 #INCLUDE( FindPackageHandleStandardArgs )
@@ -55,5 +67,3 @@ ENDIF ()
 IF (NOT GLIB2_FOUND AND GLIB2_FIND_REQUIRED)
         MESSAGE(FATAL_ERROR "Could not find glib2")
 ENDIF()
-
-
