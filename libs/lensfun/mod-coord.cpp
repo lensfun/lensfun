@@ -748,7 +748,12 @@ void lfExtModifier::ModifyCoord_Geom_Panoramic_FishEye (
         double phi = x * inv_dist;
         double s = dist * sin (phi);   // y' -> x
         double r = sqrt (s * s + y * y);
-        double theta = dist * atan2 (r, dist * cos (phi)) / r;
+        double theta = 0.0;
+
+        if (r==0.0)
+            theta = 0.0;
+        else
+            theta = dist * atan2 (r, dist * cos (phi)) / r;
 
         iocoord [0] = theta * s;
         iocoord [1] = theta * y;
