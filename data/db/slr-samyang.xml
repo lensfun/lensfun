@@ -46,6 +46,36 @@
 
     <lens>
         <maker>Samyang</maker>
+        <model>Samyang 14mm f/2.8 ED AS IF UMC</model>
+        <mount>Pentax KAF</mount>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AI</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Sony E</mount>
+        <mount>4/3 System</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Samsung NX</mount>
+        <mount>Nikon CX</mount>
+        <mount>Canon EF-M</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <!-- Taken with Sony A77 -->
+            <distortion model="ptlens" focal="14" a="0.01031" b="-0.02759" c="-0.0351" />
+            <tca model="poly3" focal="14" br="0.0000642" vr="0.9999130" bb="-0.0001012" vb="1.0003675" />
+            <vignetting model="pa" focal="14" aperture="2.8" distance="10" k1="-1.1454" k2="1.0122" k3="-0.4352" />
+            <vignetting model="pa" focal="14" aperture="2.8" distance="1000" k1="-1.1454" k2="1.0122" k3="-0.4352" />
+            <vignetting model="pa" focal="14" aperture="4" distance="10" k1="-0.2347" k2="-0.0941" k3="-0.0002" />
+            <vignetting model="pa" focal="14" aperture="4" distance="1000" k1="-0.2347" k2="-0.0941" k3="-0.0002" />
+            <vignetting model="pa" focal="14" aperture="5.6" distance="10" k1="-0.2615" k2="0.0072" k3="0.0062" />
+            <vignetting model="pa" focal="14" aperture="5.6" distance="1000" k1="-0.2615" k2="0.0072" k3="0.0062" />
+            <vignetting model="pa" focal="14" aperture="22" distance="10" k1="-0.2733" k2="0.0338" k3="-0.0093" />
+            <vignetting model="pa" focal="14" aperture="22" distance="1000" k1="-0.2733" k2="0.0338" k3="-0.0093" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Samyang</maker>
         <model>Samyang 500mm f/6.3 MC IF Mirror Lens</model>
         <model lang="de">Samyang 500mm f/6.3 MC IF Spiegelobjektiv</model>
         <mount>T2</mount>
