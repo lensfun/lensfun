@@ -9,6 +9,7 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <regex.h>
+#include <string.h>
 #include <locale.h>
 #include <math.h>
 #include <algorithm>
@@ -204,7 +205,7 @@ void lfLens::GuessParameters ()
     old_numeric = strdup (old_numeric);
     setlocale (LC_NUMERIC, "C");
 
-    if (!MinAperture || !MinFocal)
+    if (Model && !strstr (Model, "extender") && !strstr (Model, "converter") && (!MinAperture || !MinFocal))
         _lf_parse_lens_name (Model, minf, maxf, mina);
 
     if (!MinAperture || !MinFocal)

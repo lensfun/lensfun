@@ -446,6 +446,10 @@ maximal focal length of a zoom lens.  Its value is ignored by lensfun.  As
 explained above, lensfun only stores the minimal and maximal possible f-stop
 number of the lens, not matter at which focal length, e.g. 3.5–32.)
 
+If the focal length in the lens model name is wrong because a converter is
+used, one of the words “converter” or “extender” must appear somewhere in the
+lens model name.
+
 Moreover, the library finds missing min/max values for focal length and
 aperture by looking at the range of these parameters in the @<calibration@>
 section.
