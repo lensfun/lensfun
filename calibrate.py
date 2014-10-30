@@ -265,27 +265,29 @@ except IOError:
 # TCA correction
 #
 
-def calculate_tca(filename):
+def generate_tca_tiffs(filename):
     tca_filename = filename + ".tca"
     if not os.path.exists(tca_filename):
-        exif_data = file_exif_data[os.path.join("tca", filename)]
         tiff_filename = os.path.splitext(filename)[0] + ".tiff"
         if not os.path.exists(tiff_filename):
             subprocess.check_call(generate_raw_conversion_call(filename, ["-4", "-o", "0", "-M"]))
-        output = subprocess.check_output(["tca_correct", "-o", "bv", tiff_filename], stderr=open(os.devnull, "w")). \
-                 splitlines()[-1].strip()
-        with open(tca_filename, "w") as outfile:
-            outfile.write("{0}\n{1}\n{2}\n".format(exif_data[0], exif_data[1], output.decode("ascii")))
+        return filename, tiff_filename, tca_filename
+    return None, None, None
 
 if os.path.exists("tca"):
     with chdir("tca"):
         pool = multiprocessing.Pool()
         results = set()
-        for filename in find_raw_files():
-            results.add(pool.apply_async(calculate_tca, [filename]))
+        raw_files = find_raw_files()
+        for filename, tiff_filename, tca_filename in pool.map(generate_tca_tiffs, raw_files):
+            if filename:
+                output = subprocess.check_output(["tca_correct", "-o", "bv", tiff_filename], stderr=open(os.devnull, "w")). \
+                         splitlines()[-1].strip()
+                exif_data = file_exif_data[os.path.join("tca", filename)]
+                with open(tca_filename, "w") as outfile:
+                    outfile.write("{0}\n{1}\n{2}\n".format(exif_data[0], exif_data[1], output.decode("ascii")))
         pool.close()
         pool.join()
-        [result.get() for result in results]
         calibration_lines = {}
         for filename in find_raw_files():
             lens_name, focal_length, tca_output = [line.strip() for line in open(filename + ".tca").readlines()]
