@@ -2046,4 +2046,27 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF Zoom-Nikkor 28-80mm f/3.3-5.6G</model>
+        <model lang="en">Nikkor AF 28-80mm f/3.3-5.6G</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+          <!-- Taken with Nikon D600 -->
+            <distortion model="ptlens" focal="28" a="0.0075" b="-0.02022" c="-0.02162" />
+            <distortion model="ptlens" focal="35" a="0.00186" b="-0.00107" c="-0.02354" />
+            <distortion model="ptlens" focal="44" a="0.00037" b="0.009" c="-0.02965" />
+            <distortion model="ptlens" focal="52" a="-0.00025" b="0.00971" c="-0.02007" />
+            <distortion model="ptlens" focal="62" a="0.00492" b="-0.01327" c="0.01487" />
+            <distortion model="ptlens" focal="80" a="0.00758" b="-0.02553" c="0.03355" />
+            <tca model="poly3" focal="28" vr="1.0002814" vb="1.0000076" />
+            <tca model="poly3" focal="35" vr="1.0001889" vb="1.0000354" />
+            <tca model="poly3" focal="44" vr="1.0001187" vb="1.0000880" />
+            <tca model="poly3" focal="52" vr="1.0000687" vb="1.0001018" />
+            <tca model="poly3" focal="62" vr="0.9999994" vb="1.0000803" />
+            <tca model="poly3" focal="80" vr="0.9999976" vb="1.0000594" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
