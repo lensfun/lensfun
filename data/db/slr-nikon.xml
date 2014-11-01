@@ -2069,4 +2069,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF Zoom-Nikkor 28-200mm f/3.5-5.6G IF-ED</model>
+        <model lang="en">Nikkor AF 28-200mm f/3.5-5.6G IF-ED</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D600 -->
+            <distortion model="ptlens" focal="28" a="0.08017" b="-0.26356" c="0.26077" />
+            <distortion model="ptlens" focal="42" a="0.01706" b="-0.03987" c="0.03912" />
+            <distortion model="ptlens" focal="66" a="0.00718" b="-0.00425" c="0.0168" />
+            <distortion model="ptlens" focal="200" a="0" b="0.01864" c="0" />
+            <tca model="poly3" focal="28" vr="1.0002275" vb="1.0000944" />
+            <tca model="poly3" focal="42" vr="1.0000854" vb="1.0000926" />
+            <tca model="poly3" focal="50" vr="1.0000529" vb="1.0001110" />
+            <tca model="poly3" focal="66" vr="0.9999807" vb="1.0001296" />
+            <tca model="poly3" focal="95" vr="0.9999182" vb="1.0000201" />
+            <tca model="poly3" focal="135" vr="0.9998602" vb="0.9999489" />
+            <tca model="poly3" focal="200" vr="0.9999000" vb="0.9999004" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
