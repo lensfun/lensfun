@@ -855,4 +855,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Olympus</maker>
+        <model>Olympus M.Zuiko Digital 60mm f/2.8 Macro</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with E-M10 -->
+            <distortion model="poly3" focal="60" k1="0.0013" />
+            <tca model="poly3" focal="60" br="-0.0000632" vr="1.0002668" bb="0.0000602" vb="0.9998450" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
