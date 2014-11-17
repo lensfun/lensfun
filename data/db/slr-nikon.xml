@@ -1715,6 +1715,28 @@
         <model>Nikon AF-S VR Zoom-Nikkor 70-300mm f/4.5-5.6G IF-ED</model>
         <model lang="en">Nikkor AF-S 70-300mm f/4.5-5.6G VR IF-ED</model>
         <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D600 -->
+            <distortion model="poly3" focal="70" k1="-0.00644" />
+            <distortion model="poly3" focal="80" k1="-0.00183" />
+            <distortion model="poly3" focal="92" k1="0.00496" />
+            <distortion model="poly3" focal="170" k1="0.01292" />
+            <distortion model="poly3" focal="240" k1="0.01199" />
+            <distortion model="poly3" focal="300" k1="0.00746" />
+            <tca model="poly3" focal="70" br="0.0000037" vr="1.0001035" bb="-0.0000180" vb="1.0000798" />
+            <tca model="poly3" focal="92" br="-0.0000381" vr="1.0000853" bb="0.0000339" vb="0.9999527" />
+            <tca model="poly3" focal="170" br="-0.0000355" vr="1.0000067" bb="0.0000500" vb="0.9998364" />
+            <tca model="poly3" focal="240" br="-0.0000075" vr="0.9999618" bb="0.0000435" vb="0.9997818" />
+            <tca model="poly3" focal="300" br="-0.0000515" vr="1.0000175" bb="0.0000673" vb="0.9996418" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S VR Zoom-Nikkor 70-300mm f/4.5-5.6G IF-ED</model>
+        <model lang="en">Nikkor AF-S 70-300mm f/4.5-5.6G VR IF-ED</model>
+        <mount>Nikon F AF</mount>
         <cropfactor>1.523</cropfactor>
         <calibration>
             <!-- Taken with Nikon D5100 -->
