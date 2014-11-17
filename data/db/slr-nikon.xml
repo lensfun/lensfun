@@ -1025,8 +1025,32 @@
 
     <lens>
         <maker>Nikon</maker>
-        <model>Nikon AF Zoom-Nikkor 24-85mm f/2.8-4.0D IF</model>
-        <model lang="en">Nikkor AF 24-85mm f/2.8-4.0D IF</model>
+        <model>Nikon AF Zoom-Nikkor 24-85mm f/2.8-4D IF</model>
+        <model lang="en">Nikkor AF 24-85mm f/2.8-4D IF</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D700 -->
+            <distortion model="ptlens" focal="24" a="0.07" b="-0.19609" c="0.12989" />
+            <distortion model="ptlens" focal="28" a="0.05574" b="-0.15106" c="0.10719" />
+            <distortion model="ptlens" focal="35" a="0.02315" b="-0.05159" c="0.03497" />
+            <distortion model="ptlens" focal="50" a="0.03875" b="-0.1185" c="0.13239" />
+            <distortion model="ptlens" focal="70" a="0" b="0.01224" c="0" />
+            <distortion model="ptlens" focal="85" a="0.01293" b="-0.03888" c="0.06945" />
+            <tca model="poly3" focal="24" br="0.0001551" vr="1.0000830" bb="-0.0002466" vb="1.0004527" />
+            <tca model="poly3" focal="26" br="0.0001998" vr="0.9999858" bb="-0.0001978" vb="1.0003660" />
+            <tca model="poly3" focal="28" br="0.0002641" vr="0.9998895" bb="-0.0002754" vb="1.0005002" />
+            <tca model="poly3" focal="35" br="0.0000829" vr="0.9999597" bb="-0.0001594" vb="1.0003188" />
+            <tca model="poly3" focal="50" br="0.0000425" vr="0.9999190" bb="-0.0000953" vb="1.0002240" />
+            <tca model="poly3" focal="70" br="0.0000382" vr="0.9998777" bb="-0.0000390" vb="1.0000807" />
+            <tca model="poly3" focal="85" br="0.0000388" vr="0.9998218" bb="-0.0000124" vb="1.0000196" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF Zoom-Nikkor 24-85mm f/2.8-4D IF</model>
+        <model lang="en">Nikkor AF 24-85mm f/2.8-4D IF</model>
         <mount>Nikon F AF</mount>
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
@@ -2088,6 +2112,37 @@
             <tca model="poly3" focal="95" vr="0.9999182" vb="1.0000201" />
             <tca model="poly3" focal="135" vr="0.9998602" vb="0.9999489" />
             <tca model="poly3" focal="200" vr="0.9999000" vb="0.9999004" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF Zoom-Nikkor 20-35mm f/2.8D IF</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D700 -->
+            <distortion model="ptlens" focal="20" a="0.01479" b="-0.03259" c="0.0026" />
+            <distortion model="ptlens" focal="28" a="0.01506" b="-0.03716" c="0.02036" />
+            <distortion model="ptlens" focal="32" a="0.01362" b="-0.03456" c="0.02473" />
+            <distortion model="ptlens" focal="35" a="0.01467" b="-0.03881" c="0.03203" />
+            <tca model="poly3" focal="20" br="0.0000771" vr="1.0004274" bb="0.0000135" vb="1.0001100" />
+            <tca model="poly3" focal="28" br="0.0000742" vr="1.0001392" bb="-0.0000555" vb="1.0001588" />
+            <tca model="poly3" focal="32" br="0.0000672" vr="1.0001007" bb="-0.0000585" vb="1.0001230" />
+            <tca model="poly3" focal="35" br="0.0001757" vr="0.9999669" bb="-0.0000378" vb="1.0000656" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon Nikkor AI 20mm f/3.5</model>
+        <model lang="en">Nikkor AI 20mm f/3.5</model>
+        <mount>Nikon F AI</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D700 -->
+            <distortion model="ptlens" focal="20" a="0.02362" b="-0.04833" c="-0.00643" />
+            <tca model="poly3" focal="20" br="-0.0000578" vr="1.0005977" bb="0.0002050" vb="0.9994372" />
         </calibration>
     </lens>
 
