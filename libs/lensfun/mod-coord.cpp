@@ -9,9 +9,8 @@
 #include "config.h"
 #include "lensfun.h"
 #include "lensfunprv.h"
-
-#define _USE_MATH_DEFINES // f*k microsoft
 #include <math.h>
+#include "windows/mathconstants.h"
 
 void lfModifier::AddCoordCallback (
     lfModifyCoordFunc callback, int priority, void *data, size_t data_size)

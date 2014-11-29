@@ -25,3 +25,7 @@
 #cmakedefine VECTORIZATION_SSE2
 
 #cmakedefine HAVE_ENDIAN_H
+
+#ifdef _MSC_VER
+#define _USE_MATH_DEFINES
+#endif

@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #ifdef _MSC_VER
-#define _USE_MATH_DEFINES 1
+#define _USE_MATH_DEFINES
 #include <math.h>
 
 float rint (float x)
