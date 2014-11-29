@@ -23,12 +23,13 @@ ADD_CUSTOM_TARGET(doc
 INSTALL(DIRECTORY ${CMAKE_DOC_OUT}/ DESTINATION ${DOCDIR})
 
 # create and install man pages
+FIND_PROGRAM(RST2MAN_EXECUTABLE NAMES rst2man rst2man.py rst2man2 rst2man2.py)
 ADD_CUSTOM_TARGET(man ALL)
 ADD_CUSTOM_COMMAND(
   TARGET man
-  COMMAND rst2man ${CMAKE_CURRENT_SOURCE_DIR}/man/g-lensfun-update-data.1.rst > ${CMAKE_CURRENT_BINARY_DIR}/g-lensfun-update-data.1
-  COMMAND rst2man ${CMAKE_CURRENT_SOURCE_DIR}/man/lensfun-update-data.1.rst > ${CMAKE_CURRENT_BINARY_DIR}/lensfun-update-data.1
-  COMMAND rst2man ${CMAKE_CURRENT_SOURCE_DIR}/man/lensfun-add-adapter.1.rst > ${CMAKE_CURRENT_BINARY_DIR}/lensfun-add-adapter.1
+  COMMAND ${RST2MAN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/man/g-lensfun-update-data.1.rst > ${CMAKE_CURRENT_BINARY_DIR}/g-lensfun-update-data.1
+  COMMAND ${RST2MAN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/man/lensfun-update-data.1.rst > ${CMAKE_CURRENT_BINARY_DIR}/lensfun-update-data.1
+  COMMAND ${RST2MAN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/man/lensfun-add-adapter.1.rst > ${CMAKE_CURRENT_BINARY_DIR}/lensfun-add-adapter.1
   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
 )
 
