@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-update-lensfun-data
+lensfun-update-data
 
 if [ $? -eq 2 ] ; then
-    gksudo update-lensfun-data
+    gksudo lensfun-update-data
 fi
