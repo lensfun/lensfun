@@ -181,7 +181,7 @@
         <model>DSC-RX100</model>
         <mount>sonyRX100</mount>
         <cropfactor>2.73</cropfactor>
-    </camera>      
+    </camera>
 
     <camera>
         <maker>Sony</maker>
@@ -189,7 +189,15 @@
         <model lang="en">DSC-RX100 II</model>
         <mount>sonyRX100II</mount>
         <cropfactor>2.73</cropfactor>
-    </camera>      
+    </camera>
+
+    <camera>
+        <maker>Sony</maker>
+        <model>DSC-RX100M3</model>
+        <model lang="en">DSC-RX100 III</model>
+        <mount>sonyRX100III</mount>
+        <cropfactor>2.73</cropfactor>
+    </camera>
 
     <camera>
         <maker>Sony</maker>
@@ -972,6 +980,28 @@
             <tca model="poly3" focal="33.2" br="0.0000214" vr="1.0000994" bb="-0.0000269" vb="1.0001729" />
             <tca model="poly3" focal="35.3" br="-0.0000002" vr="1.0000516" bb="-0.0000812" vb="1.0002827" />
             <tca model="poly3" focal="37.1" br="0.0000607" vr="1.0000855" bb="-0.0000273" vb="1.0000706" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>DSC-RX100 III &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>sonyRX100III</mount>
+        <cropfactor>2.73</cropfactor>
+        <aspect-ratio>3:2</aspect-ratio>
+        <calibration>
+          <distortion focal="8.8" model="ptlens" a="0.00109" b="0.00488" c="-0.14928" />
+          <distortion focal="10.89" model="ptlens" a="0.01358" b="-0.04477" c="-0.04391" />
+          <distortion focal="12.99" model="ptlens" a="0.00912" b="-0.02548" c="-0.04001" />
+          <distortion focal="14.7" model="ptlens" a="-0.00263" b="0.02701" c="-0.1043" />
+          <distortion focal="16.62" model="ptlens" a="0.01834" b="-0.05484" c="0.01972" />
+          <distortion focal="18.3" model="ptlens" a="-0.00827" b="0.05833" c="-0.12184" />
+          <distortion focal="20.5" model="ptlens" a="-0.00608" b="0.05157" c="-0.10615" />
+          <distortion focal="22.18" model="ptlens" a="0.01728" b="-0.03865" c="0.00944" />
+          <distortion focal="23.9" model="ptlens" a="0.00611" b="-0.00349" c="-0.01441" />
+          <distortion focal="25.7" model="ptlens" a="0.03707" b="-0.1147" c="0.11266" />
         </calibration>
     </lens>
 
