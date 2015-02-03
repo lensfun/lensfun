@@ -1302,4 +1302,23 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Panasonic</maker>
+        <model>Lumix G Vario 12-32 f/3.5-5.6</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Panasonic DMC-GM1 -->
+            <distortion model="ptlens" focal="12" a="0.02222" b="-0.06354" c="-0.05077" />
+            <distortion model="ptlens" focal="14" a="0.02389" b="-0.07355" c="0.00922" />
+            <distortion model="ptlens" focal="20" a="0" b="-0.0088" c="0" />
+            <distortion model="ptlens" focal="32" a="0" b="0.00353" c="0" />
+            <tca model="poly3" focal="12" br="-0.0000213" vr="1.0002074" bb="-0.0000183" vb="1.0002135" />
+            <tca model="poly3" focal="14" br="0.0000115" vr="1.0001642" bb="0.0000508" vb="1.0001012" />
+            <tca model="poly3" focal="20" br="-0.0000057" vr="1.0001348" bb="-0.0000052" vb="1.0001246" />
+            <tca model="poly3" focal="32" br="-0.0000680" vr="1.0001404" bb="-0.0000581" vb="1.0001761" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
