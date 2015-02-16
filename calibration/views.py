@@ -183,6 +183,10 @@ def show_issues(request, id_):
             for data, exif_form in zip(missing_data, exif_forms):
                 lens_model_name = exif_form.cleaned_data["lens_model_name"] or lens_model_name
                 focal_length = exif_form.cleaned_data["focal_length"] or focal_length
+                if focal_length == int(focal_length):
+                    focal_length = format(int(focal_length), "03")
+                else:
+                    focal_length = format(focal_length, "05.1f")
                 aperture = exif_form.cleaned_data["aperture"] or aperture
                 filepath = data[0]
                 filename = os.path.basename(filepath)
