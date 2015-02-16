@@ -193,6 +193,13 @@
         <cropfactor>6.03</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Fujifilm</maker>
+        <model>XQ1</model>
+        <mount>fujiXQ1</mount>
+        <cropfactor>3.91</cropfactor>
+    </camera>
+
     <lens>
         <maker>Fujifilm</maker>
         <model>FinePix F11 &amp; compatibles (Standard)</model>
@@ -787,6 +794,28 @@
             <distortion model="poly3" focal="21.6" k1="0.00156" />
             <distortion model="poly3" focal="28.6" k1="0.00094" />
             <distortion model="poly3" focal="63" k1="0.00021" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>Fujifilm XQ1</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>fujiXQ1</mount>
+        <cropfactor>3.91</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="6.4" a="0.01267" b="-0.07641" c="0.00242" />
+            <distortion model="ptlens" focal="9.7" a="-0.00489" b="-0.00182" c="-0.02868" />
+            <distortion model="ptlens" focal="14.9" a="0" b="-0.00793" c="0" />
+            <distortion model="ptlens" focal="22.2" a="0" b="-0.00295" c="0" />
+            <distortion model="ptlens" focal="25.6" a="0" b="-0.00116" c="0" />
+            <tca model="poly3" focal="6.4" br="0.0003842" vr="0.9998453" bb="-0.0003690" vb="1.0009162" />
+            <tca model="poly3" focal="9.7" br="0.0001230" vr="0.9998798" bb="-0.0001439" vb="1.0005130" />
+            <tca model="poly3" focal="14.9" br="0.0000232" vr="0.9999439" bb="0.0000423" vb="1.0004204" />
+            <tca model="poly3" focal="22.2" br="-0.0000659" vr="1.0001220" bb="-0.0000503" vb="1.0002306" />
+            <tca model="poly3" focal="25.6" br="-0.0000914" vr="1.0001901" bb="-0.0000653" vb="1.0001226" />
         </calibration>
     </lens>
 
