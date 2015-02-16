@@ -696,6 +696,14 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon IXUS 220 HS</model>
+        <model lang="en">IXUS 220 HS</model>
+        <mount>canonIxus220HS</mount>
+        <cropfactor>5.58</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon PowerShot S95</model>
         <model lang="en">PowerShot S95</model>
         <mount>canonS95</mount>
@@ -1969,6 +1977,23 @@
             <tca model="poly3" focal="12.8" br="0.0000514" vr="0.9999909" bb="-0.0001475" vb="1.0004201" />
             <tca model="poly3" focal="18.2" br="0.0000120" vr="1.0000810" bb="-0.0000387" vb="1.0001960" />
             <tca model="poly3" focal="22.5" br="-0.0000057" vr="1.0001253" bb="0.0000043" vb="1.0000429" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon IXUS 220 HS &amp; compatibles, with CHDK's DNG</model>
+        <model lang="en">fixed lens, with CHDK's DNG</model>
+        <model lang="de">festes Objektiv, mit CHDK-DNG</model>
+        <mount>canonIxus220HS</mount>
+        <cropfactor>5.58</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="4.3" a="0.02693" b="-0.08681" c="-0.06074" />
+            <distortion model="ptlens" focal="7.8" a="0.00825" b="-0.03964" c="0.00656" />
+            <distortion model="ptlens" focal="11.7" a="0" b="-0.00228" c="0" />
+            <distortion model="ptlens" focal="17.5" a="0" b="0.00576" c="0" />
+            <distortion model="ptlens" focal="21.5" a="0" b="0.00674" c="0" />
         </calibration>
     </lens>
 
