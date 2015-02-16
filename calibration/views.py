@@ -143,9 +143,9 @@ def upload(request):
 
 class ExifForm(forms.Form):
     lens_model_name = forms.CharField(max_length=255, label="lens model name")
-    focal_length = forms.DecimalField(min_value=0.01, max_digits=5, decimal_places=1, label="focal length",
+    focal_length = forms.DecimalField(min_value=0.1, max_digits=5, decimal_places=1, label="focal length",
                                       help_text="in mm")
-    aperture = forms.DecimalField(min_value=0.01, max_digits=4, decimal_places=1, label="f-stop number")
+    aperture = forms.DecimalField(min_value=0.1, max_digits=4, decimal_places=1, label="f-stop number")
 
     def __init__(self, missing_data, first, *args, **kwargs):
         super(ExifForm, self).__init__(*args, **kwargs)
