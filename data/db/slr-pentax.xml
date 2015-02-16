@@ -1430,4 +1430,22 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Pentax</maker>
+        <model>HD Pentax-DA 20-40mm f/2.8-4 ED Limited DC WR</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.526</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-5 -->
+            <distortion model="ptlens" focal="20" a="0.00595" b="-0.02518" c="0.00497" />
+            <distortion model="ptlens" focal="30" a="0" b="-0.00484" c="0" />
+            <distortion model="ptlens" focal="40" a="0" b="-0.00281" c="0" />
+            <tca model="poly3" focal="20" br="0.0000248" vr="1.0001884" bb="-0.0000041" vb="1.0003045" />
+            <tca model="poly3" focal="26" br="0.0000193" vr="1.0002246" bb="0.0000465" vb="1.0001908" />
+            <tca model="poly3" focal="30" br="0.0000226" vr="1.0001588" bb="-0.0000522" vb="1.0002823" />
+            <tca model="poly3" focal="36" br="-0.0000002" vr="1.0001903" bb="-0.0000449" vb="1.0002319" />
+            <tca model="poly3" focal="40" br="0.0000118" vr="1.0001864" bb="-0.0000041" vb="1.0001781" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
