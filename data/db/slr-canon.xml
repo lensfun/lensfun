@@ -2298,6 +2298,18 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon TS-E 24mm f/3.5L</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.622</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 50D -->
+            <distortion model="poly3" focal="24" k1="-0.00317" />
+            <tca model="poly3" focal="24" br="-0.0000018" vr="1.0003986" bb="-0.0000029" vb="0.9999787" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon TS-E 45mm f/2.8</model>
         <mount>Canon EF</mount>
         <cropfactor>1.0</cropfactor>
