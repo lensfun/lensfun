@@ -732,6 +732,35 @@
 
     <lens>
         <maker>Nikon</maker>
+        <model>Nikon AF-S DX VR Nikkor 18-55mm f/3.5-5.6G II</model>
+        <model lang="en">Nikkor AF-S 18-55mm f/3.5-5.6G DX VR II</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D3300 -->
+            <distortion model="ptlens" focal="18" a="-0.00033" b="-0.007745" c="-0.015154" />
+            <distortion model="ptlens" focal="20" a="0.000646" b="-0.011226" c="-0.003154" />
+            <distortion model="ptlens" focal="21" a="0.011166" b="-0.051056" c="0.04664" />
+            <distortion model="ptlens" focal="25" a="0.00078" b="-0.008896" c="0.003416" />
+            <distortion model="ptlens" focal="32" a="0.000849" b="-0.005467" c="0.004324" />
+            <distortion model="ptlens" focal="40" a="0.002578" b="-0.008653" c="0.010631" />
+            <distortion model="ptlens" focal="46" a="-0.004517" b="0.015171" c="-0.010555" />
+            <distortion model="ptlens" focal="50" a="-0.00118" b="0.005271" c="-0.002504" />
+            <distortion model="ptlens" focal="55" a="-0.002502" b="0.009876" c="-0.007068" />
+            <tca model="poly3" focal="18" br="-0.0001140" vr="1.0008246" bb="0.0001631" vb="0.9995273" />
+            <tca model="poly3" focal="20" br="-0.0000706" vr="1.0007579" bb="0.0001198" vb="0.9995775" />
+            <tca model="poly3" focal="21" br="-0.0000578" vr="1.0007205" bb="0.0001100" vb="0.9995902" />
+            <tca model="poly3" focal="25" br="0.0000003" vr="1.0005248" bb="0.0000604" vb="0.9997175" />
+            <tca model="poly3" focal="32" br="-0.0000060" vr="1.0003273" bb="0.0000307" vb="0.9998234" />
+            <tca model="poly3" focal="40" br="-0.0000164" vr="1.0001566" bb="0.0000247" vb="0.9999039" />
+            <tca model="poly3" focal="46" br="-0.0000266" vr="1.0000953" bb="0.0000241" vb="0.9999198" />
+            <tca model="poly3" focal="50" br="-0.0000254" vr="1.0000472" bb="0.0000251" vb="0.9999325" />
+            <tca model="poly3" focal="55" br="-0.0000181" vr="1.0000225" bb="0.0000268" vb="0.9999503" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
         <model>Nikon AF-S DX Zoom-Nikkor 18-70mm f/3.5-4.5G IF-ED</model>
         <model lang="en">Nikkor AF-S 18-70mm f/3.5-4.5G DX IF-ED</model>
         <focal min="18" max="70" />
