@@ -511,4 +511,22 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tamron</maker>
+        <model>Tamron SP 150-600mm f/5-6.3 Di VC USD</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D7100 -->
+            <distortion model="poly3" focal="150" k1="0.0029" />
+            <distortion model="poly3" focal="210" k1="0.00378" />
+            <distortion model="poly3" focal="300" k1="0.00338" />
+            <distortion model="poly3" focal="400" k1="0.00319" />
+            <distortion model="poly3" focal="500" k1="0.0027" />
+            <distortion model="poly3" focal="600" k1="0.00277" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
