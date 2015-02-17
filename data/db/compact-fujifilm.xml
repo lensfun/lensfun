@@ -689,6 +689,18 @@
 
     <lens>
         <maker>Fujifilm</maker>
+        <model>TCL-X100</model>
+        <mount>fujix100</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X100s -->
+            <distortion model="ptlens" focal="33" a="0.02986" b="-0.05994" c="0.05518" />
+            <tca model="poly3" focal="33" vr="1.0000047" vb="0.9999998" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fujifilm</maker>
         <model>X10 &amp; compatibles (Standard)</model>
         <model lang="en">fixed lens</model>
         <model lang="de">festes Objektiv</model>
