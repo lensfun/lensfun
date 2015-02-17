@@ -2219,4 +2219,18 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF DX Fisheye-Nikkor 10.5mm f/2.8G ED</model>
+        <model lang="en">Nikkor AF 10.5mm f/2.8G DX ED Fisheye</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.523</cropfactor>
+        <type>equisolid</type>
+        <calibration>
+            <!-- Taken with Nikon D7000 -->
+            <distortion model="ptlens" focal="10.5" a="-0.10364" b="0.37484" c="-0.47858" />
+            <tca model="poly3" focal="10.5" br="0.0001472" vr="1.0001888" bb="-0.0000942" vb="1.0006018" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
