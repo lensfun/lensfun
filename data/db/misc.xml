@@ -102,4 +102,32 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Zenit</maker>
+        <model>Zenitar MC 16mm f/2.8</model>
+        <mount>M42</mount>
+        <mount>Nikon F</mount>
+        <mount>Canon EF</mount>
+        <mount>Pentax K</mount>
+        <cropfactor>1.529</cropfactor>
+        <type>fisheye</type>
+        <calibration>
+            <!-- Taken with Fujifilm X-E2 -->
+            <distortion model="poly3" focal="16" k1="-0.00676" />
+            <tca model="poly3" focal="16" vr="0.9999213" vb="1.0005960" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fotasy</maker>
+        <model>Fotasy M3517 35mm f/1.7</model>
+        <mount>M42</mount>
+        <focal value="35" />
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-E2 -->
+            <distortion model="ptlens" focal="35" a="0.02256" b="-0.05856" c="0.07779" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
