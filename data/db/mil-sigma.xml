@@ -48,6 +48,19 @@
 
     <lens>
         <maker>Sigma</maker>
+        <model>Sigma 19mm f/2.8 EX DN</model>
+        <mount>Sony E</mount>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony A6000 -->
+            <distortion model="poly3" focal="19" k1="-0.00748" />
+            <tca model="poly3" focal="19" br="-0.0000466" vr="1.0003817" bb="0.0000346" vb="1.0000194" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
         <model>Sigma 60mm f/2.8 DN</model>
         <mount>Sony E</mount>
         <mount>Micro 4/3 System</mount>
