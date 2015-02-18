@@ -539,6 +539,8 @@
         <cropfactor>1.523</cropfactor>
         <calibration>
             <!-- Taken with Nikon D5100 -->
+            <distortion model="ptlens" focal="60" a="0.01029" b="-0.0342" c="0.02936" />
+            <tca model="poly3" focal="60" br="-0.0000412" vr="1.0003372" bb="0.0000534" vb="0.9999002" />
             <vignetting model="pa" focal="60" aperture="2" distance="10" k1="-0.8996" k2="0.5615" k3="-0.2074" />
             <vignetting model="pa" focal="60" aperture="2" distance="1000" k1="-0.8996" k2="0.5615" k3="-0.2074" />
             <vignetting model="pa" focal="60" aperture="2.2" distance="10" k1="-0.2344" k2="-0.5402" k3="0.3303" />
