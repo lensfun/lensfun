@@ -1469,6 +1469,19 @@
 
     <lens>
         <maker>Nikon</maker>
+        <model>Nikon AF-S Nikkor 28mm f/1.8G</model>
+        <model lang="en">Nikkor AF-S 28mm f/1.8G</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D810 -->
+            <distortion model="ptlens" focal="28" a="0.00961" b="-0.02915" c="0.01024" />
+            <tca model="poly3" focal="28" br="-0.0000955" vr="1.0002765" bb="0.0000582" vb="0.9999656" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
         <model>Nikon AI-S Nikkor 35mm f/1.4</model>
         <model lang="en">Nikkor AI-S 35mm f/1.4</model>
         <mount>Nikon F AI-S</mount>
