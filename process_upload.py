@@ -168,7 +168,8 @@ def call_exiv2(raw_file_group):
         elif fieldname == "FocalLength":
             exif_data[3] = float(field_value.partition("mm")[0])
         elif fieldname == "FNumber":
-            exif_data[4] = float(field_value.partition("F")[2])
+            if field_value != "(0/0)":
+                exif_data[4] = float(field_value.partition("F")[2])
     for filepath, exif_data in result.copy().items():
         if not exif_data[2]:
             camera_model = exif_data[1] and exif_data[1].lower() or ""
