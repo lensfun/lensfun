@@ -340,6 +340,15 @@ def evaluate_image_set(exif_data, filepaths):
     except IOError:
         radii, intensities = [], []
         for filepath in filepaths:
+            maximal_radius = 1
+            try:
+                sidecar_file = open(os.path.splitext(filepath)[0] + ".txt")
+            except FileNotFoundError:
+                pass
+            else:
+                for line in sidecar_file:
+                    if line.startswith("maximal_radius"):
+                        maximal_radius = float(line.partition(":")[2])
             dcraw_process = subprocess.Popen(generate_raw_conversion_call(filepath, ["-4", "-M", "-o", "0", "-c"] + h_option),
                                              stdout=subprocess.PIPE)
             image_data = subprocess.check_output(
@@ -364,8 +373,10 @@ def evaluate_image_set(exif_data, filepaths):
             image_data = struct.unpack("!{0}s{1}H".format(header_size, width * height), image_data)[1:]
             for i, intensity in enumerate(image_data):
                 y, x = divmod(i, width)
-                radii.append(math.hypot(x - width // 2, y - height // 2) / half_diagonal)
-                intensities.append(intensity)
+                radius = math.hypot(x - width // 2, y - height // 2) / half_diagonal
+                if radius <= maximal_radius:
+                    radii.append(radius)
+                    intensities.append(intensity)
         all_points_filename = "{0}-all_points.dat".format(output_filename)
         with open(all_points_filename, "w") as outfile:
             for radius, intensity in zip(radii, intensities):
@@ -378,9 +389,9 @@ def evaluate_image_set(exif_data, filepaths):
             # supposed to be horizontal anyway, and for the last, it underestimates
             # the vignetting at the rim which is a good thing (too much of
             # correction is bad).
-            bin_index = int(round(radius * (number_of_bins - 1)))
+            bin_index = int(round(radius / maximal_radius * (number_of_bins - 1)))
             bins[bin_index].append(intensity)
-        radii = [i / (number_of_bins - 1) for i in range(number_of_bins)]
+        radii = [i / (number_of_bins - 1) * maximal_radius for i in range(number_of_bins)]
         intensities = [numpy.median(bin) for bin in bins]
         bins_filename = "{0}-bins.dat".format(output_filename)
         with open(bins_filename, "w") as outfile:
