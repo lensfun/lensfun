@@ -54,7 +54,7 @@
         <cropfactor>1.534</cropfactor>
         <calibration>
             <!-- Taken with Sony A6000 -->
-            <distortion model="poly3" focal="19" k1="-0.00748" />
+            <distortion model="ptlens" focal="19" a="0.02766" b="-0.0877" c="0.06882" />
             <tca model="poly3" focal="19" br="-0.0000466" vr="1.0003817" bb="0.0000346" vb="1.0000194" />
         </calibration>
     </lens>
