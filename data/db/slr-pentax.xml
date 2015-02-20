@@ -1453,4 +1453,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-M Macro 1:4 50mm</model>
+        <mount>Pentax K</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-M1 -->
+            <distortion model="poly3" focal="50" k1="-0.00105" />
+            <tca model="poly3" focal="50" vr="0.9999922" vb="1.0000026" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
