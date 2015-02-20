@@ -44,4 +44,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Schneider-Kreuznach</maker>
+        <model>Schneider-Kreuznach Retina-Curtagon 1:4/28mm</model>
+        <mount>DKL</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-M1 -->
+            <distortion model="ptlens" focal="28" a="0.00591" b="-0.01953" c="0.00935" />
+            <tca model="poly3" focal="28" vr="1.0004290" vb="0.9997397" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
