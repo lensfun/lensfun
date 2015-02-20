@@ -135,4 +135,28 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Voigtländer</maker>
+        <model>Voigtländer Skoparex 1:3,4/35</model>
+        <mount>DKL</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-M1 -->
+            <distortion model="poly3" focal="35" k1="-0.0049" />
+            <tca model="poly3" focal="35" vr="1.0003184" vb="0.9998060" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Voigtländer</maker>
+        <model>Voigtländer Color-Skopar X 1:2,8/50</model>
+        <mount>DKL</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-M1 -->
+            <distortion model="poly3" focal="50" k1="-0.00238" />
+            <tca model="poly3" focal="50" vr="1.0000342" vb="0.9999683" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
