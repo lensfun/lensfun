@@ -3350,4 +3350,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon Lens FL 50mm F1.4</model>
+        <mount>Canon FL</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-M1 -->
+            <distortion model="poly3" focal="50" k1="-0.00306" />
+            <tca model="poly3" focal="50" vr="1.0001860" vb="0.9999560" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
