@@ -740,4 +740,20 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 28-70mm f/3.5-5.6 OSS</model>
+	<aperture min="3.5" max="5.6" />
+	<mount>Sony E</mount>
+	<cropfactor>1</cropfactor>
+	<calibration>
+            <!-- Taken with Sony A7 -->
+	    <distortion focal="28" model="ptlens" a="0.00900771" b="-0.0310341" c="0.00110802" />
+	    <distortion focal="34" model="ptlens" a="0.0110131" b="-0.0342976" c="0.0325604" />
+	    <distortion focal="49" model="ptlens" a="0.00652285" b="0.000355028" c="0.00747157" />
+	    <distortion focal="58" model="ptlens" a="0.0106412" b="-0.0116139" c="0.0218262" />
+	    <distortion focal="70" model="ptlens" a="0.00952653" b="-0.0142895" c="0.0363005" />
+	</calibration>
+    </lens>
+
 </lensdatabase>
