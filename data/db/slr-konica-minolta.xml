@@ -220,4 +220,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Minolta</maker>
+        <model>Minolta MD 35mm 1/2.8</model>
+        <mount>Minolta MD</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-M1 -->
+            <distortion model="ptlens" focal="35" a="0.01424" b="-0.05599" c="0.06278" />
+            <tca model="poly3" focal="35" vr="1.0003987" vb="0.9998001" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
