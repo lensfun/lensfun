@@ -11,6 +11,16 @@
 
     <mount>
         <name>Minolta MC</name>
+        <compat>Minolta MD</compat>
+        <compat>M42</compat>
+        <compat>DKL</compat>
+        <compat>T2</compat>
+	<compat>Generic</compat>
+    </mount>
+
+    <mount>
+        <name>Minolta MD</name>
+        <compat>Minolta MC</compat>
         <compat>M42</compat>
         <compat>DKL</compat>
         <compat>T2</compat>
