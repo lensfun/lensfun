@@ -2058,6 +2058,18 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon EF 50mm f/1.8</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.613</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 650D -->
+            <distortion model="poly3" focal="50" k1="-0.00149" />
+            <tca model="poly3" focal="50" vr="1.0000033" vb="0.9999942" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon EF 50mm f/1.8 MkII</model>
         <model lang="en">Canon EF 50mm f/1.8 II</model>
         <mount>Canon EF</mount>
