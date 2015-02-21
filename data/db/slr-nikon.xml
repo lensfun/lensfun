@@ -1143,6 +1143,29 @@
 
     <lens>
         <maker>Nikon</maker>
+        <model>Nikon AF-S Nikkor 24-120mm f/4G ED VR</model>
+        <model lang="en">Nikkor AF-S 24-120mm f/4G ED VR</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D700 -->
+            <distortion model="ptlens" focal="24" a="0.01497" b="-0.04816" c="0.01104" />
+            <distortion model="ptlens" focal="28" a="0.01614" b="-0.04771" c="0.04039" />
+            <distortion model="ptlens" focal="35" a="0.01013" b="-0.0181" c="0.02252" />
+            <distortion model="ptlens" focal="50" a="-0.00625" b="0.05219" c="-0.06038" />
+            <distortion model="ptlens" focal="85" a="0.00892" b="-0.00361" c="0.00588" />
+            <distortion model="ptlens" focal="120" a="0.00886" b="-0.01374" c="0.02566" />
+            <tca model="poly3" focal="24" br="-0.0000026" vr="1.0004833" bb="0.0000117" vb="1.0000751" />
+            <tca model="poly3" focal="28" br="0.0000002" vr="1.0004185" bb="-0.0000181" vb="1.0001370" />
+            <tca model="poly3" focal="35" br="0.0000152" vr="1.0002567" bb="-0.0000347" vb="1.0001667" />
+            <tca model="poly3" focal="50" br="-0.0000101" vr="1.0001043" bb="-0.0000518" vb="1.0001772" />
+            <tca model="poly3" focal="85" br="0.0000209" vr="0.9998799" bb="-0.0000182" vb="0.9999789" />
+            <tca model="poly3" focal="120" br="-0.0000034" vr="0.9997514" bb="0.0000435" vb="0.9998576" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
         <model>Nikon AF Zoom-Nikkor 28-200mm f/3.5-5.6G IF-ED</model>
         <model lang="en">Nikkor AF 28-200mm f/3.5-5.6G IF-ED</model>
         <mount>Nikon F AF</mount>
