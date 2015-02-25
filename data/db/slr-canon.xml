@@ -587,15 +587,17 @@
         <maker>Canon</maker>
         <model>Canon EF-S 10-22mm f/3.5-4.5 USM</model>
         <mount>Canon EF-S</mount>
-        <!-- Average crop factor of Canon APS-C cameras -->
-        <cropfactor>1.611</cropfactor>
+        <cropfactor>1.613</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="10" a="0.005371" b="-0.018303" c="0" />
-            <distortion model="ptlens" focal="12" a="0.002619" b="-0.009527" c="0" />
-            <distortion model="ptlens" focal="14" a="0.002896" b="-0.00705" c="0" />
-            <distortion model="ptlens" focal="17" a="0.005115" b="-0.010326" c="0" />
-            <distortion model="ptlens" focal="20" a="0.00512" b="-0.008414" c="0" />
-            <distortion model="ptlens" focal="22" a="0.002769" b="-0.004058" c="0" />
+            <!-- Taken with Canon 650D -->
+            <distortion model="ptlens" focal="10" a="0.01986" b="-0.06874" c="0.05166" />
+            <distortion model="ptlens" focal="12" a="0.0077" b="-0.03199" c="0.02557" />
+            <distortion model="ptlens" focal="14" a="0.003" b="-0.00133" c="-0.01649" />
+            <distortion model="ptlens" focal="22" a="0.00459" b="-0.00356" c="-0.01271" />
+            <tca model="poly3" focal="10" br="-0.0000025" vr="1.0003211" bb="0.0000125" vb="1.0000667" />
+            <tca model="poly3" focal="12" br="0.0001191" vr="1.0001500" bb="-0.0000116" vb="1.0001272" />
+            <tca model="poly3" focal="14" br="0.0000423" vr="1.0001293" bb="-0.0000479" vb="1.0001940" />
+            <tca model="poly3" focal="22" br="0.0000589" vr="0.9999979" bb="-0.0000104" vb="1.0001770" />
         </calibration>
     </lens>
 
