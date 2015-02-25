@@ -1862,6 +1862,24 @@
     
     <lens>
         <maker>Canon</maker>
+        <model>Canon EF 70-200mm f/4L IS USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.613</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 650D -->
+            <distortion model="poly3" focal="70" k1="-0.00476" />
+            <distortion model="poly3" focal="85" k1="-0.00094" />
+            <distortion model="poly3" focal="135" k1="0.00256" />
+            <distortion model="poly3" focal="200" k1="0.00608" />
+            <tca model="poly3" focal="70" vr="1.0001" vb="1.0003" />
+            <tca model="poly3" focal="85" vr="1.0001" vb="1.00015" />
+            <tca model="poly3" focal="135" vr="0.9998" vb="1.0002" />
+            <tca model="poly3" focal="200" vr="0.99975" vb="1" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon EF 70-300mm f/4.5-5.6 DO IS USM</model>
         <mount>Canon EF</mount>
         <cropfactor>1.0</cropfactor>
