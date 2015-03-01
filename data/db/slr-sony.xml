@@ -558,13 +558,12 @@
         <model>Sony 50mm f/1.4 (SAL50F14)</model>
         <model lang="en">Sony 50mm f/1.4</model>
         <mount>Sony Alpha</mount>
-        <!-- Average crop factor of Sony APS-C cameras -->
-        <cropfactor>1.527</cropfactor>
+        <cropfactor>1.534</cropfactor>
         <calibration>
-            <distortion model="poly5" focal="50" k1="-0.003782"  k2="-0.000003" />
-
-            <tca model="poly3" focal="50" br="-0.0000170" vr="1.0002353" bb="0.0000836" vb="0.9996309" />
-
+            <!-- Taken with Sony NEX-7 -->
+            <distortion model="ptlens" focal="50" a="0.00156" b="-0.00217" c="-0.01415" />
+            <tca model="poly3" focal="50" vr="1.0001400" vb="0.9997909" />
+            <!-- Taken with unknown APS-C camera -->
             <vignetting model="pa" focal="50.000000" aperture="1.400000" distance="5.000000" k1="-0.301317" k2="0.131668" k3="-0.068295" />
             <vignetting model="pa" focal="50.000000" aperture="2.000000" distance="5.000000" k1="-0.094064" k2="0.183463" k3="-0.160173" />
             <vignetting model="pa" focal="50.000000" aperture="2.800000" distance="5.000000" k1="-0.046364" k2="0.024316" k3="-0.014513" />
