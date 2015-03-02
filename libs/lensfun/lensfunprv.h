@@ -480,6 +480,9 @@ struct lfExtDatabase : public lfDatabase
     GPtrArray *Cameras;
     GPtrArray *Lenses;
 
+    lfExtDatabase ();
+    ~lfExtDatabase ();
+
     /**
      * @brief Load all XML files from a directory.
      *
@@ -489,36 +492,6 @@ struct lfExtDatabase : public lfDatabase
      *     The directory to be read.
      */
     void LoadDirectory (const gchar *dirname);
-
-    lfExtDatabase ()
-    {
-        HomeDataDir = g_build_filename (g_get_user_data_dir (),
-                                        CONF_PACKAGE, NULL);
-        Mounts = g_ptr_array_new ();
-        g_ptr_array_add (Mounts, NULL);
-        Cameras = g_ptr_array_new ();
-        g_ptr_array_add (Cameras, NULL);
-        Lenses = g_ptr_array_new ();
-        g_ptr_array_add (Lenses, NULL);
-    }
-
-    ~lfExtDatabase ()
-    {
-        size_t i;
-        for (i = 0; i < Mounts->len - 1; i++)
-             delete static_cast<lfMount *> (g_ptr_array_index (Mounts, i));
-        g_ptr_array_free (Mounts, TRUE);
-
-        for (i = 0; i < Cameras->len - 1; i++)
-             delete static_cast<lfCamera *> (g_ptr_array_index (Cameras, i));
-        g_ptr_array_free (Cameras, TRUE);
-
-        for (i = 0; i < Lenses->len - 1; i++)
-             delete static_cast<lfLens *> (g_ptr_array_index (Lenses, i));
-        g_ptr_array_free (Lenses, TRUE);
-
-        g_free (HomeDataDir);
-    }
 };
 
 /// Common ancestor for lfCoordCallbackData and lfColorCallbackData
