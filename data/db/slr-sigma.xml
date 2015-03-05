@@ -1644,6 +1644,23 @@
 
     <lens>
         <maker>Sigma</maker>
+        <model>Sigma 8mm f/3.5 EX DG Circular</model>
+        <model lang="en">Sigma 8mm f/3.5 EX DG circular fisheye</model>
+        <model lang="de">Sigma 8mm f/3.5 EX DG zirkulares Fischauge</model>
+        <mount>Nikon F AF</mount>
+        <mount>Sigma SA</mount>
+        <mount>Canon EF</mount>
+        <cropfactor>1.620</cropfactor>
+        <type>equisolid</type>
+        <calibration>
+            <!-- Taken with Canon 7D -->
+            <distortion model="poly3" focal="8" k1="0.00553" />
+            <tca model="poly3" focal="8" br="-0.0000454" vr="1.0003735" bb="-0.0000002" vb="1.0001634" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
         <model>Sigma 8-16mm f/4.5-5.6 DC HSM</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
