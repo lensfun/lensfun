@@ -205,7 +205,12 @@ void lfLens::GuessParameters ()
     old_numeric = strdup (old_numeric);
     setlocale (LC_NUMERIC, "C");
 
-    if (Model && !strstr (Model, "extender") && !strstr (Model, "converter") && (!MinAperture || !MinFocal))
+    if (Model && (!MinAperture || !MinFocal) &&
+        !strstr (Model, "adapter") &&
+        !strstr (Model, "reducer") &&
+        !strstr (Model, "booster") &&
+        !strstr (Model, "extender") &&
+        !strstr (Model, "converter"))
         _lf_parse_lens_name (Model, minf, maxf, mina);
 
     if (!MinAperture || !MinFocal)
