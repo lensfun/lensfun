@@ -3470,4 +3470,18 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 16-35mm f/4L IS USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.005</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 6D -->
+            <distortion model="ptlens" focal="16" a="0.00938" b="-0.03862" c="0.01807" />
+            <distortion model="ptlens" focal="20" a="0.00676" b="-0.01415" c="-0.01238" />
+            <distortion model="ptlens" focal="24" a="0" b="0.00098" c="0" />
+            <distortion model="ptlens" focal="35" a="0" b="0.00444" c="0" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
