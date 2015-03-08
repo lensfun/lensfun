@@ -23,6 +23,12 @@ static struct
 } lens_name_regex [] =
 {
     {
+        // [min focal]-[max focal]mm f/[min aperture]-[max aperture]
+        "[[:space:]]+([0-9]+[0-9.]*)(-[0-9]+[0-9.]*)?(mm)?[[:space:]]+(f/|f|1/|1:)?([0-9.]+)(-[0-9.]+)?",
+        { 1, 2, 5 },
+        false
+    },
+    {
         // 1:[min aperture]-[max aperture] [min focal]-[max focal]mm
         "[[:space:]]+1:([0-9.]+)(-[0-9.]+)?[[:space:]]+([0-9.]+)(-[0-9.]+)?(mm)?",
         { 3, 4, 1 },
@@ -34,12 +40,6 @@ static struct
         { 3, 4, 1 },
         false
     },
-    {
-        // [min focal]-[max focal]mm f/[min aperture]-[max aperture]
-        "([0-9]+[0-9.]*)(-[0-9]+[0-9.]*)?(mm)?[[:space:]]+(f/?)?([0-9.]+)(-[0-9.]+)?",
-        { 1, 2, 5 },
-        false
-    }
 };
 
 static float _lf_parse_float (const char *model, const regmatch_t &match)
