@@ -2197,6 +2197,18 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon FDn 50mm 1:1.4</model>
+        <mount>Canon FD</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony A6000 -->
+            <distortion model="poly3" focal="50" k1="-0.00193" />
+            <tca model="poly3" focal="50" vr="1.0000929" vb="0.9999371" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon EF-S 60mm f/2.8 Macro</model>
         <mount>Canon EF-S</mount>
         <!-- Average crop factor of Canon APS-C cameras -->
