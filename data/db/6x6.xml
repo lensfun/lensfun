@@ -95,7 +95,7 @@
         <cropfactor>.510</cropfactor>
         <aspect-ratio>1:1</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="80" a="0" b="-0.009721" c="0" />
+            <distortion model="poly3" focal="80" k1="-0.009721" />
         </calibration>
     </lens>
 

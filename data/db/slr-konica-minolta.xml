@@ -97,14 +97,14 @@
         <!-- Average crop factor of Konica-Minolta APS-C cameras -->
         <cropfactor>1.526</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="80" a="0" b="-0.004374" c="0" />
-            <distortion model="ptlens" focal="90" a="0" b="-0.002544" c="0" />
-            <distortion model="ptlens" focal="100" a="0" b="-0.000886" c="0" />
-            <distortion model="ptlens" focal="110" a="0" b="0" c="0" />
-            <distortion model="ptlens" focal="135" a="0" b="0.001336" c="0" />
-            <distortion model="ptlens" focal="150" a="0" b="0.002115" c="0" />
-            <distortion model="ptlens" focal="180" a="0" b="0.00279" c="0" />
-            <distortion model="ptlens" focal="200" a="0" b="0.001971" c="0" />
+            <distortion model="poly3" focal="80" k1="-0.004374" />
+            <distortion model="poly3" focal="90" k1="-0.002544" />
+            <distortion model="poly3" focal="100" k1="-0.000886" />
+            <distortion model="poly3" focal="110" k1="0" />
+            <distortion model="poly3" focal="135" k1="0.001336" />
+            <distortion model="poly3" focal="150" k1="0.002115" />
+            <distortion model="poly3" focal="180" k1="0.00279" />
+            <distortion model="poly3" focal="200" k1="0.001971" />
         </calibration>
     </lens>
 

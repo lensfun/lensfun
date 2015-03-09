@@ -33,14 +33,14 @@
         <!-- Average crop factor of non-Canon APS-C cameras -->
         <cropfactor>1.53</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="50" a="0" b="-0.004038" c="0" />
-            <distortion model="ptlens" focal="63" a="0" b="0.001607" c="0" />
-            <distortion model="ptlens" focal="95" a="0" b="0.007697" c="0" />
-            <distortion model="ptlens" focal="125" a="0" b="0.007991" c="0" />
-            <distortion model="ptlens" focal="138" a="0" b="0.008036" c="0" />
-            <distortion model="ptlens" focal="160" a="0" b="0.007909" c="0" />
-            <distortion model="ptlens" focal="180" a="0" b="0.009293" c="0" />
-            <distortion model="ptlens" focal="200" a="0" b="0.007685" c="0" />
+            <distortion model="poly3" focal="50" k1="-0.004038" />
+            <distortion model="poly3" focal="63" k1="0.001607" />
+            <distortion model="poly3" focal="95" k1="0.007697" />
+            <distortion model="poly3" focal="125" k1="0.007991" />
+            <distortion model="poly3" focal="138" k1="0.008036" />
+            <distortion model="poly3" focal="160" k1="0.007909" />
+            <distortion model="poly3" focal="180" k1="0.009293" />
+            <distortion model="poly3" focal="200" k1="0.007685" />
         </calibration>
     </lens>
 

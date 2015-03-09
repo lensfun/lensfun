@@ -626,13 +626,13 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="17" a="0" b="-0.010424" c="0" />
-            <distortion model="ptlens" focal="19" a="0" b="-0.00567" c="0" />
-            <distortion model="ptlens" focal="22" a="0" b="-0.000148" c="0" />
-            <distortion model="ptlens" focal="26" a="0" b="0.004472" c="0" />
-            <distortion model="ptlens" focal="30" a="0" b="0.005657" c="0" />
-            <distortion model="ptlens" focal="38" a="0" b="0.007283" c="0" />
-            <distortion model="ptlens" focal="55" a="0" b="0.005143" c="0" />
+            <distortion model="poly3" focal="17" k1="-0.010424" />
+            <distortion model="poly3" focal="19" k1="-0.00567" />
+            <distortion model="poly3" focal="22" k1="-0.000148" />
+            <distortion model="poly3" focal="26" k1="0.004472" />
+            <distortion model="poly3" focal="30" k1="0.005657" />
+            <distortion model="poly3" focal="38" k1="0.007283" />
+            <distortion model="poly3" focal="55" k1="0.005143" />
         </calibration>
     </lens>
 
@@ -1067,10 +1067,10 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="24" a="0" b="-0.010413" c="0" />
-            <distortion model="ptlens" focal="29" a="0" b="-0.006777" c="0" />
-            <distortion model="ptlens" focal="38" a="0" b="-0.003447" c="0" />
-            <distortion model="ptlens" focal="50" a="0" b="-0.003329" c="0" />
+            <distortion model="poly3" focal="24" k1="-0.010413" />
+            <distortion model="poly3" focal="29" k1="-0.006777" />
+            <distortion model="poly3" focal="38" k1="-0.003447" />
+            <distortion model="poly3" focal="50" k1="-0.003329" />
         </calibration>
     </lens>
 
@@ -1181,14 +1181,14 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="28" a="0" b="-0.005311" c="0" />
-            <distortion model="ptlens" focal="35" a="0" b="0" c="0" />
-            <distortion model="ptlens" focal="50" a="0" b="0.004112" c="0" />
-            <distortion model="ptlens" focal="70" a="0" b="0.006691" c="0" />
-            <distortion model="ptlens" focal="90" a="0" b="0.007929" c="0" />
-            <distortion model="ptlens" focal="125" a="0" b="0.007482" c="0" />
-            <distortion model="ptlens" focal="150" a="0" b="0.007459" c="0" />
-            <distortion model="ptlens" focal="200" a="0" b="0.007103" c="0" />
+            <distortion model="poly3" focal="28" k1="-0.005311" />
+            <distortion model="poly3" focal="35" k1="0" />
+            <distortion model="poly3" focal="50" k1="0.004112" />
+            <distortion model="poly3" focal="70" k1="0.006691" />
+            <distortion model="poly3" focal="90" k1="0.007929" />
+            <distortion model="poly3" focal="125" k1="0.007482" />
+            <distortion model="poly3" focal="150" k1="0.007459" />
+            <distortion model="poly3" focal="200" k1="0.007103" />
         </calibration>
     </lens>
     
@@ -1199,15 +1199,15 @@
         <mount>Nikon F AF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="28" a="0" b="-0.02406" c="0" />
-            <distortion model="ptlens" focal="32" a="0" b="-0.01294" c="0" />
-            <distortion model="ptlens" focal="34" a="0" b="-0.00517" c="0" />
-            <distortion model="ptlens" focal="36" a="0" b="-0.00147" c="0" />
-            <distortion model="ptlens" focal="50" a="0" b="0.00848" c="0" />
-            <distortion model="ptlens" focal="70" a="0" b="0.01241" c="0" />
-            <distortion model="ptlens" focal="105" a="0" b="0.01124" c="0" />
-            <distortion model="ptlens" focal="200" a="0" b="0.00807" c="0" />
-            <distortion model="ptlens" focal="300" a="0" b="0.00904" c="0" />
+            <distortion model="poly3" focal="28" k1="-0.02406" />
+            <distortion model="poly3" focal="32" k1="-0.01294" />
+            <distortion model="poly3" focal="34" k1="-0.00517" />
+            <distortion model="poly3" focal="36" k1="-0.00147" />
+            <distortion model="poly3" focal="50" k1="0.00848" />
+            <distortion model="poly3" focal="70" k1="0.01241" />
+            <distortion model="poly3" focal="105" k1="0.01124" />
+            <distortion model="poly3" focal="200" k1="0.00807" />
+            <distortion model="poly3" focal="300" k1="0.00904" />
         </calibration>
     </lens>    
 
@@ -1219,12 +1219,12 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="35" a="0" b="-0.005179" c="0" />
-            <distortion model="ptlens" focal="39" a="0" b="-0.003271" c="0" />
-            <distortion model="ptlens" focal="44" a="0" b="-0.001363" c="0" />
-            <distortion model="ptlens" focal="52" a="0" b="0.002606" c="0" />
-            <distortion model="ptlens" focal="62" a="0" b="0.002756" c="0" />
-            <distortion model="ptlens" focal="70" a="0" b="0.003679" c="0" />
+            <distortion model="poly3" focal="35" k1="-0.005179" />
+            <distortion model="poly3" focal="39" k1="-0.003271" />
+            <distortion model="poly3" focal="44" k1="-0.001363" />
+            <distortion model="poly3" focal="52" k1="0.002606" />
+            <distortion model="poly3" focal="62" k1="0.002756" />
+            <distortion model="poly3" focal="70" k1="0.003679" />
         </calibration>
     </lens>
 
@@ -1236,9 +1236,9 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="50" a="0" b="-0.0045" c="0" />
-            <distortion model="ptlens" focal="85" a="0" b="0.002" c="0" />
-            <distortion model="ptlens" focal="135" a="0" b="0.004" c="0" />
+            <distortion model="poly3" focal="50" k1="-0.0045" />
+            <distortion model="poly3" focal="85" k1="0.002" />
+            <distortion model="poly3" focal="135" k1="0.004" />
         </calibration>
     </lens>
 
@@ -1250,12 +1250,12 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="55" a="0" b="-0.000404" c="0" />
-            <distortion model="ptlens" focal="70" a="0" b="0.004874" c="0" />
-            <distortion model="ptlens" focal="85" a="0" b="0.00919" c="0" />
-            <distortion model="ptlens" focal="105" a="0" b="0.010207" c="0" />
-            <distortion model="ptlens" focal="135" a="0" b="0.010639" c="0" />
-            <distortion model="ptlens" focal="200" a="0" b="0.008208" c="0" />
+            <distortion model="poly3" focal="55" k1="-0.000404" />
+            <distortion model="poly3" focal="70" k1="0.004874" />
+            <distortion model="poly3" focal="85" k1="0.00919" />
+            <distortion model="poly3" focal="105" k1="0.010207" />
+            <distortion model="poly3" focal="135" k1="0.010639" />
+            <distortion model="poly3" focal="200" k1="0.008208" />
         </calibration>
     </lens>
 
@@ -1267,11 +1267,11 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="70" a="0" b="0" c="0" />
-            <distortion model="ptlens" focal="85" a="0" b="0.0012" c="0" />
-            <distortion model="ptlens" focal="105" a="0" b="0.002" c="0" />
-            <distortion model="ptlens" focal="135" a="0" b="0.0025" c="0" />
-            <distortion model="ptlens" focal="180" a="0" b="0.0025" c="0" />
+            <distortion model="poly3" focal="70" k1="0" />
+            <distortion model="poly3" focal="85" k1="0.0012" />
+            <distortion model="poly3" focal="105" k1="0.002" />
+            <distortion model="poly3" focal="135" k1="0.0025" />
+            <distortion model="poly3" focal="180" k1="0.0025" />
         </calibration>
     </lens>
 
@@ -1283,12 +1283,12 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="70" a="0" b="-0.004652" c="0" />
-            <distortion model="ptlens" focal="80" a="0" b="-0.003298" c="0" />
-            <distortion model="ptlens" focal="90" a="0" b="-0.001805" c="0" />
-            <distortion model="ptlens" focal="120" a="0" b="0.001192" c="0" />
-            <distortion model="ptlens" focal="175" a="0" b="0.003465" c="0" />
-            <distortion model="ptlens" focal="200" a="0" b="0.003092" c="0" />
+            <distortion model="poly3" focal="70" k1="-0.004652" />
+            <distortion model="poly3" focal="80" k1="-0.003298" />
+            <distortion model="poly3" focal="90" k1="-0.001805" />
+            <distortion model="poly3" focal="120" k1="0.001192" />
+            <distortion model="poly3" focal="175" k1="0.003465" />
+            <distortion model="poly3" focal="200" k1="0.003092" />
         </calibration>
     </lens>
 
@@ -1301,11 +1301,11 @@
         <mount>Nikon F AI-S</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="70" a="0" b="-0.007958" c="0" />
-            <distortion model="ptlens" focal="82" a="0" b="-0.001119" c="0" />
-            <distortion model="ptlens" focal="110" a="0" b="0.00521" c="0" />
-            <distortion model="ptlens" focal="125" a="0" b="0.006972" c="0" />
-            <distortion model="ptlens" focal="200" a="0" b="0.006988" c="0" />
+            <distortion model="poly3" focal="70" k1="-0.007958" />
+            <distortion model="poly3" focal="82" k1="-0.001119" />
+            <distortion model="poly3" focal="110" k1="0.00521" />
+            <distortion model="poly3" focal="125" k1="0.006972" />
+            <distortion model="poly3" focal="200" k1="0.006988" />
         </calibration>
     </lens>
 
@@ -1341,11 +1341,11 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="70" a="0" b="-0.001254" c="0" />
-            <distortion model="ptlens" focal="100" a="0" b="0.004173" c="0" />
-            <distortion model="ptlens" focal="135" a="0" b="0.006434" c="0" />
-            <distortion model="ptlens" focal="200" a="0" b="0.005485" c="0" />
-            <distortion model="ptlens" focal="300" a="0" b="0.004364" c="0" />
+            <distortion model="poly3" focal="70" k1="-0.001254" />
+            <distortion model="poly3" focal="100" k1="0.004173" />
+            <distortion model="poly3" focal="135" k1="0.006434" />
+            <distortion model="poly3" focal="200" k1="0.005485" />
+            <distortion model="poly3" focal="300" k1="0.004364" />
         </calibration>
     </lens>
 
@@ -1357,11 +1357,11 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="70" a="0" b="-0.001254" c="0" />
-            <distortion model="ptlens" focal="100" a="0" b="0.004173" c="0" />
-            <distortion model="ptlens" focal="135" a="0" b="0.006434" c="0" />
-            <distortion model="ptlens" focal="200" a="0" b="0.005485" c="0" />
-            <distortion model="ptlens" focal="300" a="0" b="0.004364" c="0" />
+            <distortion model="poly3" focal="70" k1="-0.001254" />
+            <distortion model="poly3" focal="100" k1="0.004173" />
+            <distortion model="poly3" focal="135" k1="0.006434" />
+            <distortion model="poly3" focal="200" k1="0.005485" />
+            <distortion model="poly3" focal="300" k1="0.004364" />
         </calibration>
     </lens>
 
@@ -1372,11 +1372,11 @@
         <mount>Nikon F AF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="80" a="0" b="-0.00511" c="0" />
-            <distortion model="ptlens" focal="105" a="0" b="0.000515" c="0" />
-            <distortion model="ptlens" focal="135" a="0" b="0.004233" c="0" />
-            <distortion model="ptlens" focal="180" a="0" b="0.010432" c="0" />
-            <distortion model="ptlens" focal="200" a="0" b="0.010603" c="0" />
+            <distortion model="poly3" focal="80" k1="-0.00511" />
+            <distortion model="poly3" focal="105" k1="0.000515" />
+            <distortion model="poly3" focal="135" k1="0.004233" />
+            <distortion model="poly3" focal="180" k1="0.010432" />
+            <distortion model="poly3" focal="200" k1="0.010603" />
         </calibration>
     </lens>
 
@@ -1388,12 +1388,12 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="80" a="0" b="-0.0043" c="0" />
-            <distortion model="ptlens" focal="105" a="0" b="-0.0015" c="0" />
-            <distortion model="ptlens" focal="135" a="0" b="0.001" c="0" />
-            <distortion model="ptlens" focal="210" a="0" b="0.0025" c="0" />
-            <distortion model="ptlens" focal="310" a="0" b="0.0035" c="0" />
-            <distortion model="ptlens" focal="400" a="0" b="0.0045" c="0" />
+            <distortion model="poly3" focal="80" k1="-0.0043" />
+            <distortion model="poly3" focal="105" k1="-0.0015" />
+            <distortion model="poly3" focal="135" k1="0.001" />
+            <distortion model="poly3" focal="210" k1="0.0025" />
+            <distortion model="poly3" focal="310" k1="0.0035" />
+            <distortion model="poly3" focal="400" k1="0.0045" />
         </calibration>
     </lens>
 
@@ -1464,7 +1464,7 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="24" a="0" b="-0.008" c="0" />
+            <distortion model="poly3" focal="24" k1="-0.008" />
         </calibration>
     </lens>
 
@@ -1487,7 +1487,7 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="28" a="0" b="-0.0044" c="0" />
+            <distortion model="poly3" focal="28" k1="-0.0044" />
         </calibration>
     </lens>
 
@@ -1536,7 +1536,7 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="35" a="0" b="-0.005" c="0" />
+            <distortion model="poly3" focal="35" k1="-0.005" />
         </calibration>
     </lens>
     
@@ -1582,7 +1582,7 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="45" a="0" b="-0.0005" c="0" />
+            <distortion model="poly3" focal="45" k1="-0.0005" />
         </calibration>
     </lens>
 
@@ -1593,7 +1593,7 @@
         <mount>Nikon F AF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="50" a="0" b="-0.004672" c="0" />
+            <distortion model="poly3" focal="50" k1="-0.004672" />
         </calibration>
     </lens>
 
@@ -1605,7 +1605,7 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="50" a="0" b="-0.0025" c="0" />
+            <distortion model="poly3" focal="50" k1="-0.0025" />
         </calibration>
     </lens>
     
@@ -1632,7 +1632,7 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="50" a="0" b="-0.0005" c="0" />
+            <distortion model="poly3" focal="50" k1="-0.0005" />
         </calibration>
     </lens>
 
@@ -1644,7 +1644,7 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="50" a="0" b="-0.002" c="0" />
+            <distortion model="poly3" focal="50" k1="-0.002" />
         </calibration>
     </lens>
 
@@ -1656,7 +1656,7 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="55" a="0" b="-0.003" c="0" />
+            <distortion model="poly3" focal="55" k1="-0.003" />
         </calibration>
     </lens>
 
@@ -1668,7 +1668,7 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="55" a="0" b="-0.0002" c="0" />
+            <distortion model="poly3" focal="55" k1="-0.0002" />
         </calibration>
     </lens>
 
@@ -1681,7 +1681,7 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="58" a="0" b="-0.003" c="0" />
+            <distortion model="poly3" focal="58" k1="-0.003" />
         </calibration>
     </lens>
 
@@ -1692,7 +1692,7 @@
         <mount>Nikon F AF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="85" a="0" b="-0.000852" c="0" />
+            <distortion model="poly3" focal="85" k1="-0.000852" />
         </calibration>
     </lens>
 
@@ -1704,7 +1704,7 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="105" a="0" b="0.00142" c="0" />
+            <distortion model="poly3" focal="105" k1="0.00142" />
         </calibration>
     </lens>
 
@@ -1729,7 +1729,7 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="135" a="0" b="0.0015" c="0" />
+            <distortion model="poly3" focal="135" k1="0.0015" />
         </calibration>
     </lens>
 
@@ -1741,7 +1741,7 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="180" a="0" b="0.001" c="0" />
+            <distortion model="poly3" focal="180" k1="0.001" />
         </calibration>
     </lens>
 
@@ -1753,7 +1753,7 @@
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="500" a="0" b="0.001" c="0" />
+            <distortion model="poly3" focal="500" k1="0.001" />
         </calibration>
     </lens>
 

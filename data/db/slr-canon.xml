@@ -1235,10 +1235,10 @@
         <!-- Average crop factor of Canon APS-C cameras -->
         <cropfactor>1.611</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="35" a="0" b="-0.005023" c="0" />
-            <distortion model="ptlens" focal="42" a="0" b="-0.002793" c="0" />
-            <distortion model="ptlens" focal="56" a="0" b="0.000982" c="0" />
-            <distortion model="ptlens" focal="70" a="0" b="0.001993" c="0" />
+            <distortion model="poly3" focal="35" k1="-0.005023" />
+            <distortion model="poly3" focal="42" k1="-0.002793" />
+            <distortion model="poly3" focal="56" k1="0.000982" />
+            <distortion model="poly3" focal="70" k1="0.001993" />
         </calibration>
     </lens>
 
@@ -1506,19 +1506,19 @@
         <mount>Canon EF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="70" a="0" b="-0.009135" c="0" />
-            <distortion model="ptlens" focal="73" a="0" b="-0.008769" c="0" />
-            <distortion model="ptlens" focal="78" a="0" b="-0.006965" c="0" />
-            <distortion model="ptlens" focal="80" a="0" b="-0.005047" c="0" />
-            <distortion model="ptlens" focal="90" a="0" b="-0.000959" c="0" />
-            <distortion model="ptlens" focal="100" a="0" b="0.00029" c="0" />
-            <distortion model="ptlens" focal="115" a="0" b="0.002667" c="0" />
-            <distortion model="ptlens" focal="130" a="0" b="0.004312" c="0" />
-            <distortion model="ptlens" focal="145" a="0" b="0.004809" c="0" />
-            <distortion model="ptlens" focal="160" a="0" b="0.005218" c="0" />
-            <distortion model="ptlens" focal="170" a="0" b="0.006153" c="0" />
-            <distortion model="ptlens" focal="185" a="0" b="0.006109" c="0" />
-            <distortion model="ptlens" focal="200" a="0" b="0.008631" c="0" />
+            <distortion model="poly3" focal="70" k1="-0.009135" />
+            <distortion model="poly3" focal="73" k1="-0.008769" />
+            <distortion model="poly3" focal="78" k1="-0.006965" />
+            <distortion model="poly3" focal="80" k1="-0.005047" />
+            <distortion model="poly3" focal="90" k1="-0.000959" />
+            <distortion model="poly3" focal="100" k1="0.00029" />
+            <distortion model="poly3" focal="115" k1="0.002667" />
+            <distortion model="poly3" focal="130" k1="0.004312" />
+            <distortion model="poly3" focal="145" k1="0.004809" />
+            <distortion model="poly3" focal="160" k1="0.005218" />
+            <distortion model="poly3" focal="170" k1="0.006153" />
+            <distortion model="poly3" focal="185" k1="0.006109" />
+            <distortion model="poly3" focal="200" k1="0.008631" />
         </calibration>
     </lens>
 
@@ -1530,17 +1530,17 @@
         <mount>Canon EF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="98" a="0" b="-0.012279" c="0" />
-            <distortion model="ptlens" focal="105" a="0" b="-0.012117" c="0" />
-            <distortion model="ptlens" focal="110" a="0" b="-0.011447" c="0" />
-            <distortion model="ptlens" focal="120" a="0" b="-0.010878" c="0" />
-            <distortion model="ptlens" focal="135" a="0" b="-0.00804" c="0" />
-            <distortion model="ptlens" focal="145" a="0" b="-0.00886" c="0" />
-            <distortion model="ptlens" focal="160" a="0" b="-0.00706" c="0" />
-            <distortion model="ptlens" focal="185" a="0" b="-0.006693" c="0" />
-            <distortion model="ptlens" focal="220" a="0" b="-0.006125" c="0" />
-            <distortion model="ptlens" focal="245" a="0" b="-0.004999" c="0" />
-            <distortion model="ptlens" focal="280" a="0" b="-0.004683" c="0" />
+            <distortion model="poly3" focal="98" k1="-0.012279" />
+            <distortion model="poly3" focal="105" k1="-0.012117" />
+            <distortion model="poly3" focal="110" k1="-0.011447" />
+            <distortion model="poly3" focal="120" k1="-0.010878" />
+            <distortion model="poly3" focal="135" k1="-0.00804" />
+            <distortion model="poly3" focal="145" k1="-0.00886" />
+            <distortion model="poly3" focal="160" k1="-0.00706" />
+            <distortion model="poly3" focal="185" k1="-0.006693" />
+            <distortion model="poly3" focal="220" k1="-0.006125" />
+            <distortion model="poly3" focal="245" k1="-0.004999" />
+            <distortion model="poly3" focal="280" k1="-0.004683" />
         </calibration>
     </lens>
 
@@ -1695,19 +1695,19 @@
         <mount>Canon EF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="70" a="0" b="-0.006408" c="0" />
-            <distortion model="ptlens" focal="75" a="0" b="-0.005162" c="0" />
-            <distortion model="ptlens" focal="81" a="0" b="-0.003271" c="0" />
-            <distortion model="ptlens" focal="94" a="0" b="0.000642" c="0" />
-            <distortion model="ptlens" focal="100" a="0" b="0.002069" c="0" />
-            <distortion model="ptlens" focal="109" a="0" b="0.003375" c="0" />
-            <distortion model="ptlens" focal="122" a="0" b="0.004125" c="0" />
-            <distortion model="ptlens" focal="135" a="0" b="0.005898" c="0" />
-            <distortion model="ptlens" focal="145" a="0" b="0.006262" c="0" />
-            <distortion model="ptlens" focal="159" a="0" b="0.007369" c="0" />
-            <distortion model="ptlens" focal="168" a="0" b="0.008619" c="0" />
-            <distortion model="ptlens" focal="184" a="0" b="0.008464" c="0" />
-            <distortion model="ptlens" focal="200" a="0" b="0.008816" c="0" />
+            <distortion model="poly3" focal="70" k1="-0.006408" />
+            <distortion model="poly3" focal="75" k1="-0.005162" />
+            <distortion model="poly3" focal="81" k1="-0.003271" />
+            <distortion model="poly3" focal="94" k1="0.000642" />
+            <distortion model="poly3" focal="100" k1="0.002069" />
+            <distortion model="poly3" focal="109" k1="0.003375" />
+            <distortion model="poly3" focal="122" k1="0.004125" />
+            <distortion model="poly3" focal="135" k1="0.005898" />
+            <distortion model="poly3" focal="145" k1="0.006262" />
+            <distortion model="poly3" focal="159" k1="0.007369" />
+            <distortion model="poly3" focal="168" k1="0.008619" />
+            <distortion model="poly3" focal="184" k1="0.008464" />
+            <distortion model="poly3" focal="200" k1="0.008816" />
         </calibration>
     </lens>
 
@@ -1719,18 +1719,18 @@
         <mount>Canon EF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="98" a="0" b="-0.011699" c="0" />
-            <distortion model="ptlens" focal="109" a="0" b="-0.010575" c="0" />
-            <distortion model="ptlens" focal="117" a="0" b="-0.008594" c="0" />
-            <distortion model="ptlens" focal="127" a="0" b="-0.008167" c="0" />
-            <distortion model="ptlens" focal="140" a="0" b="-0.007141" c="0" />
-            <distortion model="ptlens" focal="158" a="0" b="-0.005869" c="0" />
-            <distortion model="ptlens" focal="176" a="0" b="-0.00486" c="0" />
-            <distortion model="ptlens" focal="189" a="0" b="-0.005166" c="0" />
-            <distortion model="ptlens" focal="203" a="0" b="-0.004933" c="0" />
-            <distortion model="ptlens" focal="222" a="0" b="-0.004657" c="0" />
-            <distortion model="ptlens" focal="235" a="0" b="-0.004297" c="0" />
-            <distortion model="ptlens" focal="280" a="0" b="-0.002653" c="0" />
+            <distortion model="poly3" focal="98" k1="-0.011699" />
+            <distortion model="poly3" focal="109" k1="-0.010575" />
+            <distortion model="poly3" focal="117" k1="-0.008594" />
+            <distortion model="poly3" focal="127" k1="-0.008167" />
+            <distortion model="poly3" focal="140" k1="-0.007141" />
+            <distortion model="poly3" focal="158" k1="-0.005869" />
+            <distortion model="poly3" focal="176" k1="-0.00486" />
+            <distortion model="poly3" focal="189" k1="-0.005166" />
+            <distortion model="poly3" focal="203" k1="-0.004933" />
+            <distortion model="poly3" focal="222" k1="-0.004657" />
+            <distortion model="poly3" focal="235" k1="-0.004297" />
+            <distortion model="poly3" focal="280" k1="-0.002653" />
         </calibration>
     </lens>
 
@@ -1884,15 +1884,15 @@
         <mount>Canon EF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="70" a="0" b="-0.003445" c="0" />
-            <distortion model="ptlens" focal="75" a="0" b="-0.001549" c="0" />
-            <distortion model="ptlens" focal="100" a="0" b="0.004544" c="0" />
-            <distortion model="ptlens" focal="130" a="0" b="0.009179" c="0" />
-            <distortion model="ptlens" focal="150" a="0" b="0.010655" c="0" />
-            <distortion model="ptlens" focal="200" a="0" b="0.010972" c="0" />
-            <distortion model="ptlens" focal="230" a="0" b="0.009311" c="0" />
-            <distortion model="ptlens" focal="270" a="0" b="0.011792" c="0" />
-            <distortion model="ptlens" focal="300" a="0" b="0.009986" c="0" />
+            <distortion model="poly3" focal="70" k1="-0.003445" />
+            <distortion model="poly3" focal="75" k1="-0.001549" />
+            <distortion model="poly3" focal="100" k1="0.004544" />
+            <distortion model="poly3" focal="130" k1="0.009179" />
+            <distortion model="poly3" focal="150" k1="0.010655" />
+            <distortion model="poly3" focal="200" k1="0.010972" />
+            <distortion model="poly3" focal="230" k1="0.009311" />
+            <distortion model="poly3" focal="270" k1="0.011792" />
+            <distortion model="poly3" focal="300" k1="0.009986" />
         </calibration>
     </lens>
 
@@ -1918,11 +1918,11 @@
         <!-- Average crop factor of Canon APS-C cameras -->
         <cropfactor>1.611</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="75" a="0" b="-0.004815" c="0" />
-            <distortion model="ptlens" focal="100" a="0" b="-0.004914" c="0" />
-            <distortion model="ptlens" focal="135" a="0" b="0.000475" c="0" />
-            <distortion model="ptlens" focal="155" a="0" b="0.001105" c="0" />
-            <distortion model="ptlens" focal="300" a="0" b="0.00411" c="0" />
+            <distortion model="poly3" focal="75" k1="-0.004815" />
+            <distortion model="poly3" focal="100" k1="-0.004914" />
+            <distortion model="poly3" focal="135" k1="0.000475" />
+            <distortion model="poly3" focal="155" k1="0.001105" />
+            <distortion model="poly3" focal="300" k1="0.00411" />
         </calibration>
     </lens>
 
@@ -1932,13 +1932,13 @@
         <mount>Canon EF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="80" a="0" b="-0.007253" c="0" />
-            <distortion model="ptlens" focal="88" a="0" b="-0.006184" c="0" />
-            <distortion model="ptlens" focal="100" a="0" b="-0.003182" c="0" />
-            <distortion model="ptlens" focal="120" a="0" b="-0.000752" c="0" />
-            <distortion model="ptlens" focal="140" a="0" b="0.001667" c="0" />
-            <distortion model="ptlens" focal="175" a="0" b="0.003535" c="0" />
-            <distortion model="ptlens" focal="200" a="0" b="0.004386" c="0" />
+            <distortion model="poly3" focal="80" k1="-0.007253" />
+            <distortion model="poly3" focal="88" k1="-0.006184" />
+            <distortion model="poly3" focal="100" k1="-0.003182" />
+            <distortion model="poly3" focal="120" k1="-0.000752" />
+            <distortion model="poly3" focal="140" k1="0.001667" />
+            <distortion model="poly3" focal="175" k1="0.003535" />
+            <distortion model="poly3" focal="200" k1="0.004386" />
         </calibration>
     </lens>
 
@@ -1948,13 +1948,13 @@
         <mount>Canon EF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="100" a="0" b="-0.001195" c="0" />
-            <distortion model="ptlens" focal="123" a="0" b="0.001845" c="0" />
-            <distortion model="ptlens" focal="142" a="0" b="0.00427" c="0" />
-            <distortion model="ptlens" focal="173" a="0" b="0.006821" c="0" />
-            <distortion model="ptlens" focal="210" a="0" b="0.008324" c="0" />
-            <distortion model="ptlens" focal="250" a="0" b="0.008554" c="0" />
-            <distortion model="ptlens" focal="300" a="0" b="0.009679" c="0" />
+            <distortion model="poly3" focal="100" k1="-0.001195" />
+            <distortion model="poly3" focal="123" k1="0.001845" />
+            <distortion model="poly3" focal="142" k1="0.00427" />
+            <distortion model="poly3" focal="173" k1="0.006821" />
+            <distortion model="poly3" focal="210" k1="0.008324" />
+            <distortion model="poly3" focal="250" k1="0.008554" />
+            <distortion model="poly3" focal="300" k1="0.009679" />
         </calibration>
     </lens>
 
@@ -2075,7 +2075,7 @@
         <!-- Average crop factor of Canon APS-C cameras -->
         <cropfactor>1.611</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="50" a="0" b="-0.002987" c="0" />
+            <distortion model="poly3" focal="50" k1="-0.002987" />
         </calibration>
     </lens>
 
@@ -2214,7 +2214,7 @@
         <!-- Average crop factor of Canon APS-C cameras -->
         <cropfactor>1.611</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="60" a="0" b="0" c="0" />
+            <distortion model="poly3" focal="60" k1="0" />
         </calibration>
     </lens>
 
@@ -2224,7 +2224,7 @@
         <mount>Canon EF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="85" a="0" b="-0.00214" c="0" />
+            <distortion model="poly3" focal="85" k1="-0.00214" />
         </calibration>
     </lens>
 
@@ -2434,7 +2434,7 @@
         <!-- Average crop factor of Canon APS-C cameras -->
         <cropfactor>1.611</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="200" a="0" b="0.000502" c="0" />
+            <distortion model="poly3" focal="200" k1="0.000502" />
         </calibration>
     </lens>
 
@@ -2478,7 +2478,7 @@
         <mount>Canon EF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="90" a="0" b="0.001333" c="0" />
+            <distortion model="poly3" focal="90" k1="0.001333" />
         </calibration>
     </lens>
 

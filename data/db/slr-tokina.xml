@@ -168,12 +168,12 @@
         <!-- Average crop factor of Canon APS-C cameras -->
         <cropfactor>1.611</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="28" a="0" b="-0.006412" c="0" />
-            <distortion model="ptlens" focal="30" a="0" b="-0.005104" c="0" />
-            <distortion model="ptlens" focal="35" a="0" b="-0.00295" c="0" />
-            <distortion model="ptlens" focal="42" a="0" b="0.000202" c="0" />
-            <distortion model="ptlens" focal="56" a="0" b="0.002091" c="0" />
-            <distortion model="ptlens" focal="70" a="0" b="0.003103" c="0" />
+            <distortion model="poly3" focal="28" k1="-0.006412" />
+            <distortion model="poly3" focal="30" k1="-0.005104" />
+            <distortion model="poly3" focal="35" k1="-0.00295" />
+            <distortion model="poly3" focal="42" k1="0.000202" />
+            <distortion model="poly3" focal="56" k1="0.002091" />
+            <distortion model="poly3" focal="70" k1="0.003103" />
         </calibration>
     </lens>
 
@@ -205,7 +205,7 @@
         <!-- Average crop factor of non-Canon APS-C cameras -->
         <cropfactor>1.53</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="17" a="0" b="-0.012125" c="0" />
+            <distortion model="poly3" focal="17" k1="-0.012125" />
         </calibration>
     </lens>
 

@@ -219,15 +219,15 @@
         <cropfactor>4.5</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="8" a="0" b="-0.00618" c="0" />
-            <distortion model="ptlens" focal="10.4" a="0" b="-0.005407" c="0" />
-            <distortion model="ptlens" focal="12.2" a="0" b="-0.005171" c="0" />
-            <distortion model="ptlens" focal="14.1" a="0" b="-0.004634" c="0" />
-            <distortion model="ptlens" focal="16.1" a="0" b="-0.001624" c="0" />
-            <distortion model="ptlens" focal="18.1" a="0" b="-0.001948" c="0" />
-            <distortion model="ptlens" focal="20.1" a="0" b="-0.000215" c="0" />
-            <distortion model="ptlens" focal="22.1" a="0" b="0.000376" c="0" />
-            <distortion model="ptlens" focal="24" a="0" b="0" c="0" />
+            <distortion model="poly3" focal="8" k1="-0.00618" />
+            <distortion model="poly3" focal="10.4" k1="-0.005407" />
+            <distortion model="poly3" focal="12.2" k1="-0.005171" />
+            <distortion model="poly3" focal="14.1" k1="-0.004634" />
+            <distortion model="poly3" focal="16.1" k1="-0.001624" />
+            <distortion model="poly3" focal="18.1" k1="-0.001948" />
+            <distortion model="poly3" focal="20.1" k1="-0.000215" />
+            <distortion model="poly3" focal="22.1" k1="0.000376" />
+            <distortion model="poly3" focal="24" k1="0" />
         </calibration>
     </lens>
 
@@ -309,13 +309,13 @@
         <cropfactor>4.487</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="8.3" a="0" b="-0.024191" c="0" />
-            <distortion model="ptlens" focal="9.4" a="0" b="-0.018667" c="0" />
-            <distortion model="ptlens" focal="10.6" a="0" b="-0.017396" c="0" />
-            <distortion model="ptlens" focal="12" a="0" b="-0.014467" c="0" />
-            <distortion model="ptlens" focal="15.3" a="0" b="-0.01029" c="0" />
-            <distortion model="ptlens" focal="19.5" a="0" b="-0.008176" c="0" />
-            <distortion model="ptlens" focal="24.9" a="0" b="-0.005081" c="0" />
+            <distortion model="poly3" focal="8.3" k1="-0.024191" />
+            <distortion model="poly3" focal="9.4" k1="-0.018667" />
+            <distortion model="poly3" focal="10.6" k1="-0.017396" />
+            <distortion model="poly3" focal="12" k1="-0.014467" />
+            <distortion model="poly3" focal="15.3" k1="-0.01029" />
+            <distortion model="poly3" focal="19.5" k1="-0.008176" />
+            <distortion model="poly3" focal="24.9" k1="-0.005081" />
         </calibration>
     </lens>
 
