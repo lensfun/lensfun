@@ -1594,6 +1594,15 @@
         <cropfactor>1.0</cropfactor>
         <calibration>
             <distortion model="poly3" focal="50" k1="-0.004672" />
+            <!-- Taken with Nikon D610 -->
+            <vignetting model="pa" focal="50" aperture="1.4" distance="10" k1="-1.6128" k2="1.1600" k3="-0.2864" />
+            <vignetting model="pa" focal="50" aperture="1.4" distance="1000" k1="-1.6128" k2="1.1600" k3="-0.2864" />
+            <vignetting model="pa" focal="50" aperture="2.8" distance="10" k1="0.0016" k2="-0.4910" k3="-0.0246" />
+            <vignetting model="pa" focal="50" aperture="2.8" distance="1000" k1="0.0016" k2="-0.4910" k3="-0.0246" />
+            <vignetting model="pa" focal="50" aperture="5.6" distance="10" k1="-0.3729" k2="0.3408" k3="-0.2180" />
+            <vignetting model="pa" focal="50" aperture="5.6" distance="1000" k1="-0.3729" k2="0.3408" k3="-0.2180" />
+            <vignetting model="pa" focal="50" aperture="11" distance="10" k1="-0.4912" k2="0.5335" k3="-0.2775" />
+            <vignetting model="pa" focal="50" aperture="11" distance="1000" k1="-0.4912" k2="0.5335" k3="-0.2775" />
         </calibration>
     </lens>
 
