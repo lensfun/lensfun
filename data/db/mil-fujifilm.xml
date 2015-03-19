@@ -330,4 +330,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>XF23mmF1.4 R</model>
+        <model lang="en">XF 23mm f/1.4 R</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with X-E2 -->
+            <distortion model="ptlens" focal="23" a="0.00331" b="-0.0094" c="0.00784" />
+            <tca model="poly3" focal="23" vr="1.0002" vb="1.0001" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
