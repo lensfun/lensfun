@@ -1435,6 +1435,20 @@
 
     <lens>
         <maker>Nikon</maker>
+        <model>Nikon AI-S Nikkor 24mm f/2.8</model>
+        <model lang="en">Nikkor AI-S 24mm f/2.8</model>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D600 -->
+            <distortion model="ptlens" focal="24" a="0.01888" b="-0.04391" c="0.00723" />
+            <tca model="poly3" focal="24" br="-0.0002082" vr="1.0007055" bb="0.0001896" vb="0.9996373" />
+        </calibration>
+    </lens>
+
+
+    <lens>
+        <maker>Nikon</maker>
         <model>Nikon AF Nikkor 24mm f/2.8D</model>
         <model lang="en">Nikkor AF 24mm f/2.8D</model>
         <mount>Nikon F AF</mount>
@@ -1465,6 +1479,19 @@
         <cropfactor>1.528</cropfactor>
         <calibration>
             <distortion model="poly3" focal="24" k1="-0.008" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AI-S Nikkor 28mm f/2.8</model>
+        <model lang="en">Nikkor AI-S 28mm f/2.8</model>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D600 -->
+            <distortion model="ptlens" focal="28" a="0.00929" b="-0.02155" c="0.0021" />
+            <tca model="poly3" focal="28" br="-0.0002306" vr="1.0006860" bb="0.0002350" vb="0.9995614" />
         </calibration>
     </lens>
 
@@ -1525,6 +1552,19 @@
         <calibration>
             <!-- Taken with Nikon D3S -->
             <distortion model="ptlens" focal="28" a="0.00913976" b="-0.0245588" c="0.000542579" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AI-S Nikkor 35mm f/2.0</model>
+        <model lang="en">Nikkor AI-S 35mm f/2.0</model>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D600 -->
+            <distortion model="ptlens" focal="35" a="0.01447" b="-0.03949" c="0.0153" />
+            <tca model="poly3" focal="35" br="-0.0001699" vr="1.0005262" bb="0.0001817" vb="0.9996614" />
         </calibration>
     </lens>
 
