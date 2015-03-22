@@ -1346,6 +1346,7 @@ struct LF_EXPORT lfDatabase
 {
     /** @brief Home lens database directory (something like "~/.local/share/lensfun") */
     char *HomeDataDir;
+    char *UserUpdatesDir;
 
 #ifdef __cplusplus
     /**

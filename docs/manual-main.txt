@@ -524,14 +524,16 @@ time.
 
 After having read the global database, the user's home directory is
 searched. Usually, this is <b>~/.local/share/lensfun</b>. The exact path can be
-found in the variable lfDatabase::HomeDataDir.
+found in the variable lfDatabase::HomeDataDir.  The subdirectory
+<b>updates/</b> may contain a user-specific DB update.  This represents an
+alternative to /var/lib/lensfun-updates for which no root priviledges are
+needed.
 
-So sum it up for Linux and other Unix-like platforms, the simplified search
-order is:
+So sum it up for Linux and other Unix-like platforms, the load order is:
 <ol>
   <li>the directory lensfun's database was installed into (usually
-  /usr/share/{local/}lensfun), @em or /var/lib/lensfun-updates if it contains
-  a newer database</li>
+  /usr/share/{local/}lensfun), @em or /var/lib/lensfun-updates, @em or
+  ~/.local/share/lensfun/updates, whatever is newest</li>
   <li>~/.local/share/lensfun</li>
 </ol>
 

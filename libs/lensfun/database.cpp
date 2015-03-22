@@ -22,6 +22,7 @@ lfExtDatabase::lfExtDatabase ()
 {
     HomeDataDir = g_build_filename (g_get_user_data_dir (),
                                     CONF_PACKAGE, NULL);
+    UserUpdatesDir = g_build_filename (HomeDataDir, "updates", NULL);
     Mounts = g_ptr_array_new ();
     g_ptr_array_add (Mounts, NULL);
     Cameras = g_ptr_array_new ();
@@ -46,6 +47,7 @@ lfExtDatabase::~lfExtDatabase ()
     g_ptr_array_free (Lenses, TRUE);
 
     g_free (HomeDataDir);
+    g_free (UserUpdatesDir);
 }
 
 lfDatabase *lfDatabase::Create ()
@@ -91,17 +93,29 @@ lfError lfDatabase::Load ()
 
 #ifdef CONF_DATADIR
     gchar *main_dirname = g_strdup (CONF_DATADIR);
-    const gchar *updates_dirname = "/var/lib/lensfun-updates";
+    const gchar *system_updates_dirname = "/var/lib/lensfun-updates";
 #else
     /* windows based OS */
     extern gchar *_lf_get_database_dir ();
     gchar *main_dirname = _lf_get_database_dir ();
-    const gchar *updates_dirname = "C:\\to\\be\\defined\\lensfun-updates";
+    const gchar *system_updates_dirname = "C:\\to\\be\\defined\\lensfun-updates";
 #endif
-    if (_lf_read_database_timestamp (main_dirname) > _lf_read_database_timestamp (updates_dirname))
-        This->LoadDirectory (main_dirname);
+    const int timestamp_main =
+        _lf_read_database_timestamp (main_dirname);
+    const int timestamp_system_updates =
+        _lf_read_database_timestamp (system_updates_dirname);
+    const int timestamp_user_updates =
+        _lf_read_database_timestamp (UserUpdatesDir);
+    if (timestamp_main > timestamp_system_updates)
+        if (timestamp_user_updates > timestamp_main)
+            This->LoadDirectory (UserUpdatesDir);
+        else
+            This->LoadDirectory (main_dirname);
     else
-        This->LoadDirectory (updates_dirname);
+        if (timestamp_user_updates > timestamp_system_updates)
+            This->LoadDirectory (UserUpdatesDir);
+        else
+            This->LoadDirectory (system_updates_dirname);
     g_free (main_dirname);
 
     This->LoadDirectory (HomeDataDir);
