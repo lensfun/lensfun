@@ -50,6 +50,11 @@ exit code of 2 means that there is a newer version.
 import urllib.request, shutil, sys, os, getpass, time, calendar, tarfile, json
 
 lensfun_updates_dir = "/var/lib/lensfun-updates"
+if sys.platform != "win32" and getpass.getuser() != "root":
+    lensfun_updates_dir = os.path.join(os.path.expanduser("~"),
+                                       ".local", "share", "lensfun", "updates")
+    print("info: root privileges needed for updating the system database.")
+    print("info: updating user DB in '%s'" % lensfun_updates_dir)
 
 def seconds_since_epoch():
     return calendar.timegm(time.gmtime())
@@ -121,9 +126,6 @@ if not locations:
 best_location = max(locations)
 
 
-if sys.platform != "win32" and getpass.getuser() != "root":
-    print("Fatal: Root privileges needed for updating the database.")
-    sys.exit(2)
 
 shutil.rmtree(lensfun_updates_dir, ignore_errors=True)
 os.makedirs(lensfun_updates_dir)
