@@ -121,18 +121,16 @@ For this purpose, there exists a simple command-line tool called
 for a second and the database is updated.  It will report whether an update was
 necessary.
 
-However, if an update is necessary, the program needs root privileges.  So call
-the program with “sudo lensfun‑update-data” and enter your root password.
-There exists a second version of the programm called “g‑lensfun‑update‑data”.
-It will let you enter the root password – if new data is available – in a neat
-window.  This version is especially useful for GUI programs, which can call it
-in the background.
+If you want the updates to be installed system-wide, the program needs root
+privileges.  So call the program with “sudo lensfun‑update‑data” and enter your
+root password.  There exists a second version of the programm called
+“g‑lensfun‑update‑data”.  It will let you enter the root password – if new data
+is available – in a neat window.  This version is especially useful for GUI
+programs, which can call it in the background.
 
-If a calling program just wants to know whether an update is necessary, it
-should call lensfun‑update-data without root privileges and check its return
-code: A return code of 1 means that no newer database is available, a return
-code of 2 means that there is a newer version.
-
+If it is sufficient that the updates are available to only your user account,
+call “lensfun‑update‑data” without root priviledges.  The updates are then
+written to ~/.local/share/lensfun/updates/”.
 
 @page lensfun-add-adapter Adding mount adapters: lensfun‑add‑adapter
 
