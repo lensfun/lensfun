@@ -36,14 +36,9 @@ The timestamps are the number of seconds since the Epoch as an int.
 
 Diagnostics:
 
-Status code 0 -- successful
-            1 -- no suitable download location found
-            2 -- missing root priviledges
-
-Note that these exit codes mean that one can easily check whether a newer
-version of the database is available by calling the program *without* root
-privileges.  An exit code of 1 means that no newer database is available, an
-exit code of 2 means that there is a newer version.
+Status code 0 -- successfully installed updates
+            1 -- no newer upstream database found
+            3 -- no location was responsive; maybe network problems
 
 """
 
@@ -95,8 +90,10 @@ class Location:
 
 seen_urls = set()
 locations = set()
+at_least_one_responsive_location = False
 
 def read_location(base_url):
+    global at_least_one_responsive_location
     if base_url not in seen_urls and len(seen_urls) < 50:
         seen_urls.add(base_url)
         print("Reading {} …".format(base_url + "versions.json"))
@@ -110,6 +107,7 @@ def read_location(base_url):
             except ValueError:
                 print("  Error: Invalid data received.")
             else:
+                at_least_one_responsive_location = True
                 if timestamp > local_timestamp:
                     for version in versions:
                         if suitable_version(version):
@@ -120,8 +118,11 @@ def read_location(base_url):
 read_location("http://lensfun.sourceforge.net/db/")
 read_location("http://wilson.bronger.org/lensfun-db/")
 
-if not locations:
-    print("Fatal: No newer database was found.")
+if not at_least_one_responsive_location:
+    print("Fatal: No location was responsive.  Network down?")
+    sys.exit(3)
+elif not locations:
+    print("Info: No newer database was found.")
     sys.exit(1)
 best_location = max(locations)
 
