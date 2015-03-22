@@ -7,7 +7,7 @@ update lensfun's database
 ----------------------------
 
 :Author: This manual page was written by Torsten Bronger <bronger@physik.rwth-aachen.de>
-:Date:   2013-12-23
+:Date:   2015-03-11
 :Manual section: 1
 
 SYNOPSIS
@@ -26,23 +26,19 @@ rawstudio, GimpLensfun, UFRaw, and others.
 
 ``lensfun-update-data`` is a command-line program that updates lensfun's
 database.  It looks whether a new version is available online, and if this is
-the case, it fetches the latest version and installs it locally.  For the
-latter, the program needs root permissions.  On many system, you get these by
-saying::
-
-    $ sudo lensfun-update-data
-
-and enter the root password.
-
+the case, it fetches the latest version and installs it locally.  If called as
+root, the database is installed system-wide, otherwise, it is installed in the
+user's directory.
 
 FILES
 ======
 
 ``lensfun-update-data`` will place the fetched database in
-``/var/lib/lensfun-updates/``.  If necessary, it will create this directory.  If there
-is already a database, it is replaced fully.  If lensfun detects a database in
-this directory, it will use that instead of the default location below
-``/usr/...``.
+``/var/lib/lensfun-updates/`` (if called as root) or in
+``~/.local/share/lensfun/updates/`` (otherwise).  If necessary, it will create
+this directory.  If there is already a database, it is replaced fully.  If
+lensfun detects a database in one of these directories, it will use that
+instead of the default location below ``/usr/...``.
 
 DIAGNOSTICS
 ===============
@@ -52,15 +48,10 @@ DIAGNOSTICS
 Exit status:
 
 ===========  =====================================
-    0         if OK,
+    0         if OK (updates were installed),
     1         if no newer version could be found,
-    2         if root permissions were missing.
+    3         if no DB location responded validly.
 ===========  =====================================
-
-Note that you can use these exit codes for detecting whether a new version of
-the database is available without actually fetching that database.  You simply
-call ``lensfun-update-data`` without root permissions.  If the exit code is
-`2`, there is a newer version available.  If it is `1`, there is none.
 
 REPORTING BUGS
 ====================
