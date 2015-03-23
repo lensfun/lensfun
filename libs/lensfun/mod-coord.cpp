@@ -92,13 +92,13 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
     return true;
 }
 
-typedef struct { float angle, dist; } lfEdge;
+typedef struct { float angle, dist; } lfPoint;
 
-float _lf_autoscale_single_point (lfEdge edge, GPtrArray *CoordCallbacks)
+float _lf_autoscale_single_point (lfPoint point, GPtrArray *CoordCallbacks)
 {
-    double dist = edge.dist;
-    double sa = sin (edge.angle);
-    double ca = cos (edge.angle);
+    double dist = point.dist;
+    double sa = sin (point.angle);
+    double ca = cos (point.angle);
 
     // We have to find the radius ru which distorts to given corner.
     // We will use Newton's method for this, we have to find the
@@ -159,29 +159,29 @@ float lfModifier::GetAutoScale (bool reverse)
     // 3 2 1
     // 4   0
     // 5 6 7
-    lfEdge edge [8];
+    lfPoint point [8];
 
-    edge [1].angle = atan2 (float (This->Height), float (This->Width));
-    edge [3].angle = M_PI - edge [1].angle;
-    edge [5].angle = M_PI + edge [1].angle;
-    edge [7].angle = 2 * M_PI - edge [1].angle;
+    point [1].angle = atan2 (float (This->Height), float (This->Width));
+    point [3].angle = M_PI - point [1].angle;
+    point [5].angle = M_PI + point [1].angle;
+    point [7].angle = 2 * M_PI - point [1].angle;
 
-    edge [0].angle = 0.0F;
-    edge [2].angle = float (M_PI / 2.0);
-    edge [4].angle = float (M_PI);
-    edge [6].angle = float (M_PI * 3.0 / 2.0);
+    point [0].angle = 0.0F;
+    point [2].angle = float (M_PI / 2.0);
+    point [4].angle = float (M_PI);
+    point [6].angle = float (M_PI * 3.0 / 2.0);
 
-    edge [1].dist = edge [3].dist = edge [5].dist = edge [7].dist =
+    point [1].dist = point [3].dist = point [5].dist = point [7].dist =
         sqrt (float (square (This->Width) + square (This->Height))) * 0.5 * This->NormScale;
-    edge [0].dist = edge [4].dist = This->Width * 0.5 * This->NormScale;
-    edge [2].dist = edge [6].dist = This->Height * 0.5 * This->NormScale;
+    point [0].dist = point [4].dist = This->Width * 0.5 * This->NormScale;
+    point [2].dist = point [6].dist = This->Height * 0.5 * This->NormScale;
 
     float scale = 0.01F;
     for (int i = 0; i < 8; i++)
     {
-        float edge_scale = _lf_autoscale_single_point (edge [i], This->CoordCallbacks);
-        if (edge_scale > scale)
-            scale = edge_scale;
+        float point_scale = _lf_autoscale_single_point (point [i], This->CoordCallbacks);
+        if (point_scale > scale)
+            scale = point_scale;
     }
     // 1 permille is our limit of accuracy (in some cases, we may be even
     // worse, depending on what happens between the test points), so assure
