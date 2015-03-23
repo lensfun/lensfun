@@ -92,6 +92,66 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
     return true;
 }
 
+typedef struct { float angle, dist; } lfEdge;
+
+float _lf_autoscale_single_point (lfEdge edge, GPtrArray *CoordCallbacks)
+{
+    double dist = edge.dist;
+    double sa = sin (edge.angle);
+    double ca = cos (edge.angle);
+
+    // We have to find the radius ru which distorts to given corner.
+    // We will use Newton's method for this, we have to find the
+    // root of the equation: distance (distorted (x,y)) - dist = 0
+    float ru = dist; // Initial approximation
+    float dx = 0.0001F;
+    for (int countdown = 50; ; countdown--)
+    {
+        float res [2];
+
+        res [0] = ca * ru; res [1] = sa * ru;
+        for (int j = 0; j < (int)CoordCallbacks->len; j++)
+        {
+            lfCoordCallbackData *cd =
+                (lfCoordCallbackData *)g_ptr_array_index (CoordCallbacks, j);
+            cd->callback (cd->data, res, 1);
+        }
+        double rd = sqrt (res [0] * res [0] + res [1] * res [1]) - dist;
+        if (rd > -NEWTON_EPS && rd < NEWTON_EPS)
+            break;
+
+        if (!countdown)
+            // e.g. for some ultrawide fisheyes corners extend to infinity
+            // so function never converge ...
+            return -1;
+
+        // Compute approximative function prime in (x,y)
+        res [0] = ca * (ru + dx); res [1] = sa * (ru + dx);
+        for (int j = 0; j < (int)CoordCallbacks->len; j++)
+        {
+            lfCoordCallbackData *cd =
+                (lfCoordCallbackData *)g_ptr_array_index (CoordCallbacks, j);
+            cd->callback (cd->data, res, 1);
+        }
+        double rd1 = sqrt (res [0] * res [0] + res [1] * res [1]) - dist;
+
+        // If rd1 is very close to rd, this means our delta is too small
+        // and we can hit the precision limit of the float format...
+        if (absolute (rd1 - rd) < 0.00001)
+        {
+            dx *= 2;
+            continue;
+        }
+
+        // dy/dx;
+        double prime = (rd1 - rd) / dx;
+
+        ru -= rd / prime;
+    }
+
+    return dist / ru;
+}
+
 float lfModifier::GetAutoScale (bool reverse)
 {
     // Compute the scale factor automatically
@@ -99,7 +159,7 @@ float lfModifier::GetAutoScale (bool reverse)
     // 3 2 1
     // 4   0
     // 5 6 7
-    struct { float angle, dist; } edge [8];
+    lfEdge edge [8];
 
     edge [1].angle = atan2 (float (This->Height), float (This->Width));
     edge [3].angle = M_PI - edge [1].angle;
@@ -119,65 +179,9 @@ float lfModifier::GetAutoScale (bool reverse)
     float scale = 0.01F;
     for (int i = 0; i < 8; i++)
     {
-        float angle = edge [i].angle;
-        float dist = edge [i].dist;
-        double sa = sin (angle);
-        double ca = cos (angle);
-
-        // We have to find the radius ru which distorts to given corner.
-        // We will use Newton's method for this, we have to find the
-        // root of the equation: distance (distorted (x,y)) - dist = 0
-        float ru = dist; // Initial approximation
-        float dx = 0.0001F;
-        for (int countdown = 50; ; countdown--)
-        {
-            float res [2];
-
-            res [0] = ca * ru; res [1] = sa * ru;
-            for (int j = 0; j < (int)This->CoordCallbacks->len; j++)
-            {
-                lfCoordCallbackData *cd =
-                    (lfCoordCallbackData *)g_ptr_array_index (This->CoordCallbacks, j);
-                cd->callback (cd->data, res, 1);
-            }
-            double rd = sqrt (res [0] * res [0] + res [1] * res [1]) - dist;
-            if (rd > -NEWTON_EPS && rd < NEWTON_EPS)
-                break;
-
-            if (!countdown)
-                // e.g. for some ultrawide fisheyes corners extend to infinity
-                // so function never converge ...
-                goto skip_edge;
-
-            // Compute approximative function prime in (x,y)
-            res [0] = ca * (ru + dx); res [1] = sa * (ru + dx);
-            for (int j = 0; j < (int)This->CoordCallbacks->len; j++)
-            {
-                lfCoordCallbackData *cd =
-                    (lfCoordCallbackData *)g_ptr_array_index (This->CoordCallbacks, j);
-                cd->callback (cd->data, res, 1);
-            }
-            double rd1 = sqrt (res [0] * res [0] + res [1] * res [1]) - dist;
-
-            // If rd1 is very close to rd, this means our delta is too small
-            // and we can hit the precision limit of the float format...
-            if (absolute (rd1 - rd) < 0.00001)
-            {
-                dx *= 2;
-                continue;
-            }
-
-            // dy/dx;
-            double prime = (rd1 - rd) / dx;
-
-            ru -= rd / prime;
-        }
-
-        dist /= ru;
-        if (dist > scale)
-            scale = dist;
-    skip_edge:
-        ;
+        float edge_scale = _lf_autoscale_single_point (edge [i], This->CoordCallbacks);
+        if (edge_scale > scale)
+            scale = edge_scale;
     }
 
     return reverse ? 1.0 / scale : scale;
