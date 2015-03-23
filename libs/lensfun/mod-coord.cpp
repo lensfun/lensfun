@@ -183,6 +183,10 @@ float lfModifier::GetAutoScale (bool reverse)
         if (edge_scale > scale)
             scale = edge_scale;
     }
+    // 1 permille is our limit of accuracy (in some cases, we may be even
+    // worse, depending on what happens between the test points), so assure
+    // that we really have no black borders left.
+    scale *= 1.001;
 
     return reverse ? 1.0 / scale : scale;
 }
