@@ -117,7 +117,7 @@ float _lf_autoscale_single_point (lfEdge edge, GPtrArray *CoordCallbacks)
             cd->callback (cd->data, res, 1);
         }
         double rd = sqrt (res [0] * res [0] + res [1] * res [1]) - dist;
-        if (rd > -NEWTON_EPS && rd < NEWTON_EPS)
+        if (rd > -NEWTON_EPS * 100 && rd < NEWTON_EPS * 100)
             break;
 
         if (!countdown)
