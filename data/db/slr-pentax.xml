@@ -303,31 +303,6 @@
     </lens>
 
     <lens>
-        <maker>Pentax</maker>
-        <model>smc Pentax-DA L 18-55mm f/3.5-5.6</model>
-        <mount>Pentax KAF2</mount>
-        <!-- Average crop factor of Pentax APS-C cameras -->
-        <cropfactor>1.53</cropfactor>
-        <calibration>
-            <distortion model="ptlens" focal="18" a="0.00117" b="-0.01707" c="-0.00529" />
-            <distortion model="ptlens" focal="24" a="0" b="-0.0071" c="0" />
-            <distortion model="ptlens" focal="35" a="0" b="0.0002" c="0" />
-            <distortion model="ptlens" focal="42.5" a="0.00291" b="-0.00765" c="0.00808" />
-            <distortion model="ptlens" focal="55" a="0" b="0.00333" c="0" />
-            <vignetting model="pa" focal="18" aperture="11" distance="1000" k1="-0.26538" k2="0.5437" k3="-0.51036" />
-            <vignetting model="pa" focal="24" aperture="11" distance="1000" k1="-0.08271" k2="0.02282" k3="-0.04481" />
-            <vignetting model="pa" focal="35" aperture="11" distance="1000" k1="-0.05666" k2="0.02789" k3="-0.01283" />
-            <vignetting model="pa" focal="42.5" aperture="11" distance="1000" k1="-0.03675" k2="0.01041" k3="-0.00479" />
-            <vignetting model="pa" focal="55" aperture="11" distance="1000" k1="-0.07077" k2="0.07738" k3="-0.04494" />
-            <tca model="poly3" focal="18" br="0.0000246" vr="1.0008065" bb="0.00025" vb="0.9998" />
-            <tca model="poly3" focal="24" br="0.00004" vr="1.00056" bb="0.00024" vb="0.9999" />
-            <tca model="poly3" focal="35" br="0.00001" vr="1.000127" bb="0.000022" vb="1.0001" />
-            <tca model="poly3" focal="42.5" br="0.000084" vr="1.0000218" bb="-0.0000375" vb="1.0000794" />
-            <tca model="poly3" focal="55" br="0.0000165" vr="0.99999" bb="-0.0000538" vb="1.0000742" />
-        </calibration>
-    </lens>
-
-    <lens>
 	    <maker>Pentax</maker>
 	    <model>smc Pentax-DA 18-55mm f/3.5-5.6 AL</model>
 	    <focal min="18" max="55" />
