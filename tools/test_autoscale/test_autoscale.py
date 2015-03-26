@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import math, glob
+import math, glob, multiprocessing
 from xml.etree import ElementTree
 from scipy.optimize import brentq
 
@@ -79,7 +79,23 @@ class Calibration:
             samples += 1
 
 
-perfect_sample_numbers = set()
+def process_calibration(distortion, lens, crop_factor, type_, aspect_ratio):
+    f_per_half_height = float(distortion.attrib.get("focal")) / (12 / crop_factor)
+    model = distortion.attrib.get("model")
+    if model == "ptlens":
+        calibration = Calibration(f_per_half_height,
+                                  a=float(distortion.attrib.get("a", 0)),
+                                  b=float(distortion.attrib.get("b", 0)),
+                                  c=float(distortion.attrib.get("c", 0)), type_=type_, aspect_ratio=aspect_ratio)
+    elif model == "poly3":
+        calibration = Calibration(f_per_half_height, k1=float(distortion.attrib.get("k1", 0)),
+                                  type_=type_, aspect_ratio=aspect_ratio)
+    else:
+        return None, None, None
+    return lens.find("model").text, distortion.attrib.get("focal"), calibration.get_perfect_sample_number()
+
+results = set()
+pool = multiprocessing.Pool()
 for filename in glob.glob("/home/bronger/src/lensfun/data/db/*.xml"):
     tree = ElementTree.parse(filename)
     for lens in tree.findall("lens"):
@@ -98,19 +114,12 @@ for filename in glob.glob("/home/bronger/src/lensfun/data/db/*.xml"):
         calibration_element = lens.find("calibration")
         if calibration_element is not None:
             for distortion in calibration_element.findall("distortion"):
-                f_per_half_height = float(distortion.attrib.get("focal")) / (12 / crop_factor)
-                model = distortion.attrib.get("model")
-                if model == "ptlens":
-                    calibration = Calibration(f_per_half_height,
-                                              a=float(distortion.attrib.get("a", 0)),
-                                              b=float(distortion.attrib.get("b", 0)),
-                                              c=float(distortion.attrib.get("c", 0)), type_=type_, aspect_ratio=aspect_ratio)
-                elif model == "poly3":
-                    calibration = Calibration(f_per_half_height, k1=float(distortion.attrib.get("k1", 0)),
-                                              type_=type_, aspect_ratio=aspect_ratio)
-                else:
-                    continue
-                perfect_sample_number = calibration.get_perfect_sample_number()
-                perfect_sample_numbers.add(perfect_sample_number)
-                print(lens.find("model").text, distortion.attrib.get("focal"), perfect_sample_number)
+                results.add(pool.apply_async(process_calibration, (distortion, lens, crop_factor, type_, aspect_ratio)))
+pool.close()
+pool.join()
+
+perfect_sample_numbers = set()
+for result in results:
+    model, focal_length, perfect_sample_number = result.get()
+    perfect_sample_numbers.add(perfect_sample_number)
 print(perfect_sample_numbers)
