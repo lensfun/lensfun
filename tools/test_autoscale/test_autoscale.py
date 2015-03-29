@@ -120,8 +120,10 @@ for filename in glob.glob("/home/bronger/src/lensfun/data/db/*.xml"):
 pool.close()
 pool.join()
 
-perfect_sample_numbers = set()
+perfect_sample_numbers = {}
 for result in results:
     model, focal_length, perfect_sample_number = result.get()
-    perfect_sample_numbers.add(perfect_sample_number)
-print(perfect_sample_numbers)
+    perfect_sample_numbers.setdefault(perfect_sample_number, set()).add((model, focal_length))
+for perfect_sample_number, lens in perfect_sample_numbers.items():
+    if (perfect_sample_number or 0) > 20:
+        print(lens, ": ", perfect_sample_number)
