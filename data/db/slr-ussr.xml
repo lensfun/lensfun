@@ -151,8 +151,10 @@
         <model>MC HELIOS-44M-4 58mm 1:2</model>
         <mount>M42</mount>
         <cropfactor>1.538</cropfactor>
-        <!-- Taken with Pentax K20D -->
         <calibration>
+            <!-- Taken with Pentax K20D -->
+            <distortion model="poly3" focal="58" k1="0.00131" />
+            <tca model="poly3" focal="58" vr="1.0000037" vb="0.9999377" />
             <vignetting model="pa" focal="58" aperture="2" distance="10" k1="-0.7541" k2="0.5658" k3="-0.2168" />
             <vignetting model="pa" focal="58" aperture="2" distance="1000" k1="-0.7541" k2="0.5658" k3="-0.2168" />
             <vignetting model="pa" focal="58" aperture="2.8" distance="10" k1="-0.1611" k2="0.0829" k3="-0.0613" />
