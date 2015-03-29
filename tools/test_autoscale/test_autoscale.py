@@ -13,34 +13,36 @@ class Calibration:
                 f_per_half_height, a, b, c, k1, type_, aspect_ratio
 
     def de_ptlens(self, r_):
-        upper_limit = 2
-        while True:
-            try:
-                return brentq(lambda r: r * (self.a * r**3 + self.b * r**2 + self.c * r + 1 - self.a - self.b - self.c) - r_,
-                              0, upper_limit)
-            except ValueError:
-                upper_limit += 1
-                if upper_limit > 10:
-                    return float("inf")
+        try:
+            return brentq(lambda r: r * (self.a * r**3 + self.b * r**2 + self.c * r + 1 - self.a - self.b - self.c) - r_, 0, 2)
+        except ValueError:
+            return float("inf")
 
     def de_poly3(self, r_):
-        upper_limit = 2
-        while True:
-            try:
-                return brentq(lambda r: r * (self.k1 * r**2 + 1 - self.k1) - r_, 0, upper_limit)
-            except ValueError:
-                upper_limit += 1
-                if upper_limit > 10:
-                    return float("inf")
+        try:
+            return brentq(lambda r: r * (self.k1 * r**2 + 1 - self.k1) - r_, 0, 2)
+        except ValueError:
+            return float("inf")
 
     def de_fisheye(self, r):
-        return self.f_per_half_height * math.tan(r / self.f_per_half_height)
+        angle = r / self.f_per_half_height
+        if angle < math.pi / 2:
+            return self.f_per_half_height * math.tan(angle)
+        else:
+            return float("inf")
 
     def de_equisolidangle(self, r):
-        return self.f_per_half_height * math.tan(2 * math.asin(r / self.f_per_half_height / 2))
+        try:
+            return self.f_per_half_height * math.tan(2 * math.asin(r / self.f_per_half_height / 2))
+        except ValueError:
+            return float("inf")
 
     def de_stereographic(self, r):
-        return self.f_per_half_height * math.tan(2 * math.atan(r / self.f_per_half_height / 2))
+        angle = 2 * math.atan(r / self.f_per_half_height / 2)
+        if angle < math.pi / 2:
+            return self.f_per_half_height * math.tan(angle)
+        else:
+            return float("inf")
 
     def get_scaling(self, x, y):
         r_ = math.hypot(x, y)
