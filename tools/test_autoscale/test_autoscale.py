@@ -123,5 +123,5 @@ for result in results:
     model, focal_length, perfect_sample_number = result.get()
     perfect_sample_numbers.setdefault(perfect_sample_number, set()).add((model, focal_length))
 for perfect_sample_number, lens in perfect_sample_numbers.items():
-    if (perfect_sample_number or 0) > 20:
+    if (perfect_sample_number or 0) > 2:
         print(lens, ": ", perfect_sample_number)
