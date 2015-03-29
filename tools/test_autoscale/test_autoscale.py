@@ -14,7 +14,7 @@ class Calibration:
 
     def de_ptlens(self, r_):
         try:
-            return brentq(lambda r: r * (self.a * r**3 + self.b * r**2 + self.c * r + 1 - self.a - self.b - self.c) - r_, 0, 2)
+            return brentq(lambda r: r * (self.a * r**3 + self.b * r**2 + self.c * r + 1 - self.a - self.b - self.c) - r_, 0, 2.1)
         except ValueError:
             return float("inf")
 
