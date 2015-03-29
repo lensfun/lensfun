@@ -25,4 +25,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Carl Zeiss Jena 1Q Biotar 1:2 f=58mm T</model>
+        <mount>M42</mount>
+        <cropfactor>1.538</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K20D -->
+            <distortion model="poly3" focal="58" k1="0.0017" />
+            <tca model="poly3" focal="58" vr="0.9999881" vb="0.9999867" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
