@@ -191,7 +191,8 @@ def show_issues(request, id_):
                 filepath = data[0]
                 filename = os.path.basename(filepath)
                 os.rename(filepath, os.path.join(os.path.dirname(filepath), "{}--{}mm--{}_{}".format(
-                    lens_model_name.replace(":", "___").replace("/", "__").replace(" ", "_"), focal_length, aperture, filename)))
+                    lens_model_name.replace("*", "++").replace("=", "##").replace(":", "___").replace("/", "__").replace(" ", "_"),
+                    focal_length, aperture, filename)))
             json.dump((None, []), open(os.path.join(directory, "result.json"), "w"), ensure_ascii=True)
             shutil.rmtree("/var/cache/apache2/calibrate/" + id_)
             send_success_email(email_address, id_)

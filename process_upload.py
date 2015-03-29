@@ -216,7 +216,7 @@ for filepath, exif_data in file_exif_data.items():
             else:
                 focal_length = format(exif_focal_length, "05.1f")
             os.rename(filepath, os.path.join(os.path.dirname(filepath), "{}--{}mm--{}_{}".format(
-                exif_lens_model.replace(":", "___").replace("/", "__").replace(" ", "_").replace("*", "++"),
+                exif_lens_model.replace(":", "___").replace("/", "__").replace(" ", "_").replace("*", "++").replace("=", "##"),
                 focal_length, exif_aperture, filename)))
         else:
             missing_data.append((filepath, exif_lens_model, exif_focal_length, exif_aperture))
