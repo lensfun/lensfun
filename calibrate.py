@@ -119,7 +119,7 @@ def browse_directory(directory):
                 match = filepath_pattern.match(os.path.splitext(filename)[0])
                 if match:
                     file_exif_data[full_filename] = \
-                        (match.group("lens_model").replace("++", "*").replace("___", ":").replace("__", "/").
+                        (match.group("lens_model").replace("##", "=").replace("++", "*").replace("___", ":").replace("__", "/").
                          replace("_", " "), float(match.group("focal_length")), float(match.group("aperture")))
                 else:
                     exiv2_candidates.append(full_filename)
@@ -335,7 +335,7 @@ vignetting_db_entries = {}
 
 def evaluate_image_set(exif_data, filepaths):
     output_filename = "{0}--{1}--{2}--{3}".format(*exif_data).replace(" ", "_").replace("/", "__").replace(":", "___"). \
-                      replace("*", "++")
+                      replace("*", "++").replace("=", "##")
     gnuplot_filename = "{0}.gp".format(output_filename)
     try:
         gnuplot_line = codecs.open(gnuplot_filename, encoding="utf-8").readlines()[3]
