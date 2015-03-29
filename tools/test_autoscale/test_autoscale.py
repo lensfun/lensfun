@@ -61,12 +61,10 @@ class Calibration:
         scalings = []
         for i in range(samples):
             x = self.aspect_ratio * (-1 + i / samples * 2)
-            scalings.append(self.get_scaling(x, -1))
             scalings.append(self.get_scaling(x, +1))
         samples = int(math.ceil(samples / self.aspect_ratio / 2)) * 2
         for i in range(samples):
             y = -1 + i / samples * 2
-            scalings.append(self.get_scaling(- self.aspect_ratio, y))
             scalings.append(self.get_scaling(+ self.aspect_ratio, y))
         return max(scalings) or 1
 
