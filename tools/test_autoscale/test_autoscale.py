@@ -72,13 +72,13 @@ class Calibration:
 
     def get_perfect_sample_number(self):
         perfect_autoscale = self.get_autoscale(100)
-        samples = 1
+        samples = 2
         scalings = []
         while True:
             scalings.append(self.get_autoscale(samples))
             if all(abs(scaling - perfect_autoscale) / perfect_autoscale < 1e-3 for scaling in scalings[-3:]):
                 return samples
-            samples += 1
+            samples += 2
 
 
 def process_calibration(distortion, lens, crop_factor, type_, aspect_ratio):
