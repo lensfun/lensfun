@@ -210,6 +210,13 @@
         <cropfactor>3.91</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Fujifilm</maker>
+        <model>FinePix A370</model>
+        <mount>fujiA370</mount>
+        <cropfactor>6.03</cropfactor>
+    </camera>
+
     <lens>
         <maker>Fujifilm</maker>
         <model>FinePix F11 &amp; compatibles (Standard)</model>
@@ -838,6 +845,21 @@
             <tca model="poly3" focal="14.9" br="0.0000232" vr="0.9999439" bb="0.0000423" vb="1.0004204" />
             <tca model="poly3" focal="22.2" br="-0.0000659" vr="1.0001220" bb="-0.0000503" vb="1.0002306" />
             <tca model="poly3" focal="25.6" br="-0.0000914" vr="1.0001901" bb="-0.0000653" vb="1.0001226" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>Fujifilm FinePix A370</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>fujiA370</mount>
+        <cropfactor>6.03</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="5.9" a="0.01077" b="-0.03642" c="0.0168" />
+            <distortion model="ptlens" focal="7.6" a="0.01088" b="-0.03855" c="0.03003" />
+            <distortion model="ptlens" focal="17.4" a="0" b="0.00062" c="0" />
         </calibration>
     </lens>
 
