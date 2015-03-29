@@ -51,7 +51,7 @@ class Calibration:
             pass
         elif self.type_ == "fisheye":
             r = self.de_fisheye(r)
-        elif self.type_ == "equisolidangle":
+        elif self.type_ == "equisolid":
             r = self.de_equisolidangle(r)
         elif self.type_ == "stereographic":
             r = self.de_stereographic(r)
