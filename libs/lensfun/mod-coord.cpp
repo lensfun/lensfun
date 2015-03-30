@@ -94,7 +94,7 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
 
 typedef struct { float angle, dist; } lfPoint;
 
-float _lf_autoscale_single_point (lfPoint point, GPtrArray *CoordCallbacks)
+float _lf_get_transformed_distance (lfPoint point, GPtrArray *CoordCallbacks)
 {
     double dist = point.dist;
     double sa = sin (point.angle);
@@ -149,7 +149,7 @@ float _lf_autoscale_single_point (lfPoint point, GPtrArray *CoordCallbacks)
         ru -= rd / prime;
     }
 
-    return dist / ru;
+    return ru;
 }
 
 float lfModifier::GetAutoScale (bool reverse)
@@ -179,7 +179,9 @@ float lfModifier::GetAutoScale (bool reverse)
     float scale = 0.01F;
     for (int i = 0; i < 8; i++)
     {
-        float point_scale = _lf_autoscale_single_point (point [i], This->CoordCallbacks);
+        float transformed_distance =
+            _lf_get_transformed_distance (point [i], This->CoordCallbacks);
+        float point_scale = point [i].dist / transformed_distance;
         if (point_scale > scale)
             scale = point_scale;
     }
