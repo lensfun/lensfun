@@ -100,9 +100,9 @@ float _lf_autoscale_single_point (lfPoint point, GPtrArray *CoordCallbacks)
     double sa = sin (point.angle);
     double ca = cos (point.angle);
 
-    // We have to find the radius ru which distorts to given corner.
-    // We will use Newton's method for this, we have to find the
-    // root of the equation: distance (distorted (x,y)) - dist = 0
+    // We have to find the radius ru which distorts to the given point.  We
+    // will use Newton's method for this.  We have to find the root of the
+    // equation: distance (distorted (x, y)) - dist = 0.
     float ru = dist; // Initial approximation
     float dx = 0.0001F;
     for (int countdown = 50; ; countdown--)
