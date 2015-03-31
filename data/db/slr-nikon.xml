@@ -2343,4 +2343,29 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S DX Nikkor 18-300mm f/3.5-6.3G ED VR</model>
+        <model lang="en">Nikkor AF-S 18-300mm f/3.5-6.3G DX ED VR</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D200 -->
+            <distortion model="ptlens" focal="18" a="0.0325" b="-0.10956" c="0.07226" />
+            <distortion model="ptlens" focal="21" a="0.01497" b="-0.03351" c="0.00742" />
+            <distortion model="ptlens" focal="26" a="0.00744" b="-0.00928" c="0.01137" />
+            <distortion model="ptlens" focal="32" a="0.01341" b="-0.02006" c="0.02382" />
+            <distortion model="ptlens" focal="100" a="0" b="0.0134" c="0" />
+            <distortion model="ptlens" focal="195" a="0" b="0.00838" c="0" />
+            <distortion model="ptlens" focal="300" a="0" b="0.00612" c="0" />
+            <tca model="poly3" focal="18" vr="1.0004549" vb="1.0001378" />
+            <tca model="poly3" focal="21" vr="1.0004561" vb="1.0001891" />
+            <tca model="poly3" focal="26" vr="1.0003475" vb="1.0001747" />
+            <tca model="poly3" focal="32" vr="1.0002402" vb="1.0000919" />
+            <tca model="poly3" focal="100" vr="1.0000580" vb="0.9998655" />
+            <tca model="poly3" focal="195" vr="0.9999012" vb="0.9996384" />
+            <tca model="poly3" focal="300" vr="0.9998668" vb="0.9991122" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
