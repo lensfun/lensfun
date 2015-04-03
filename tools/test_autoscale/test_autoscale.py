@@ -118,10 +118,12 @@ for filename in glob.glob("/home/bronger/src/lensfun/data/db/*.xml"):
 pool.close()
 pool.join()
 
-perfect_sample_numbers = {}
+problematic_lenses = {}
 for result in results:
     model, focal_length, perfect_sample_number = result.get()
-    perfect_sample_numbers.setdefault(perfect_sample_number, set()).add((model, focal_length))
-for perfect_sample_number, lens in perfect_sample_numbers.items():
-    if (perfect_sample_number or 0) > 2:
-        print(lens, ": ", perfect_sample_number)
+    if perfect_sample_number and perfect_sample_number > 2:
+        problematic_lenses.setdefault(perfect_sample_number, set()).add((model, focal_length))
+if problematic_lenses:
+    print("Number of equidistant samples on the long edge:\n")
+    for perfect_sample_number, lenses in problematic_lenses.items():
+        print(",\n".join("{} at {}mm".format(*lens) for lens in lenses), ": ", perfect_sample_number)
