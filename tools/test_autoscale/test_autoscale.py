@@ -1,9 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import math, glob, multiprocessing
+import math, glob, multiprocessing, argparse, os.path
 from xml.etree import ElementTree
 from scipy.optimize import brentq
+
+
+parser = argparse.ArgumentParser(description="Check autoscaling algorithm.")
+parser.add_argument("database_path", metavar="database_path", help="The full path to the Lensfun database.")
+parser.add_argument("--original-geometry", dest="original_geometry", action="store_true",
+                    help="Use original geometry of fisheyes rather than transforming to rectilinear.")
+args = parser.parse_args()
 
 
 class Calibration:
@@ -47,7 +54,7 @@ class Calibration:
     def get_scaling(self, x, y):
         r_ = math.hypot(x, y)
         r = self.de_poly3(r_) if self.a is None else self.de_ptlens(r_)
-        if self.type_ == "rectilinear":
+        if self.type_ == "rectilinear" or args.original_geometry:
             pass
         elif self.type_ == "fisheye":
             r = self.de_fisheye(r)
@@ -96,7 +103,7 @@ def process_calibration(distortion, lens, crop_factor, type_, aspect_ratio):
 
 results = set()
 pool = multiprocessing.Pool()
-for filename in glob.glob("/home/bronger/src/lensfun/data/db/*.xml"):
+for filename in glob.glob(os.path.join(args.database_path, "*.xml")):
     tree = ElementTree.parse(filename)
     for lens in tree.findall("lens"):
         type_element = lens.find("type")
