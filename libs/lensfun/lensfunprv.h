@@ -555,8 +555,36 @@ struct lfExtModifier : public lfModifier
     /// A list of pixel coordinate modifier callbacks.
     GPtrArray *CoordCallbacks;
 
+    /// Maximal x and y value in normalized coordinates for the original image
     double MaxX, MaxY;
+    /**
+     * @brief Calculate distance between point and image edge.
+     *
+     * This is an internal function used for autoscaling.  It returns the
+     * distance between the given point and the edge of the image.  The
+     * coordinate system used is the normalized system.  Points inside the
+     * image frame yield negative values, points outside positive values, and
+     * on the frame zero.
+     * @param coord
+     *     The x, y coordinates of the points, as a 2-component array.
+     * @return
+     *     The distance of the point from the edge.
+     */
     double AutoscaleResidualDistance (float *coord) const;
+    /**
+     * @brief Calculate distance of the corrected edge point from the centre.
+     *
+     * This is an internal function used for autoscaling.  It returns the
+     * distance of the point on the edge of the corrected image which lies in
+     * the direction of the given coordinates.  "Distance" means "distance from
+     * origin".  This way, the necessary autoscaling value for this direction
+     * can be calculated by the calling routine.
+     * @param point
+     *     The polar coordinates of the point for which the distance of the
+     *     corrected counterpart should be calculated.
+     * @return
+     *     The distance of the corrected image edge from the origin.
+     */
     float GetTransformedDistance (lfPoint point) const;
 
     static void ModifyCoord_UnTCA_Linear (void *data, float *iocoord, int count);

@@ -109,9 +109,10 @@ float lfExtModifier::GetTransformedDistance (lfPoint point) const
     double sa = sin (point.angle);
     double ca = cos (point.angle);
 
-    // We have to find the radius ru which distorts to the given point.  We
-    // will use Newton's method for this.  We have to find the root of the
-    // equation: distance (distorted (x, y)) - dist = 0.
+    // We have to find the radius ru in the direction of the given point which
+    // distorts to the original (distorted) image edge.  We will use Newton's
+    // method for minimizing the distance between the distorted point at ru and
+    // the original edge.
     float ru = dist; // Initial approximation
     float dx = 0.0001F;
     for (int countdown = 50; ; countdown--)
@@ -193,7 +194,7 @@ float lfModifier::GetAutoScale (bool reverse)
         if (point_scale > scale)
             scale = point_scale;
     }
-    // 1 permille is our limit of accuracy (in some cases, we may be even
+    // 1 permille is our limit of accuracy (in rare cases, we may be even
     // worse, depending on what happens between the test points), so assure
     // that we really have no black borders left.
     scale *= 1.001;
