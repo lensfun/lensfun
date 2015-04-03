@@ -1,6 +1,47 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+"""This program checks the accuracy of Lensfun's autoscaling algorithm.
+Lensfun calculates the autoscaling by testing all four corner points and the
+four edge centres.  For each of these 8 points, it calculates the scaling
+necessary, and then takes the maximal value.
+
+It calculates the scaling necessary by determining the distance of the point of
+the corrected image edge which lies in the same direction as the corner point.
+(Because these two points should lie in top of each other after the
+autoscaling.)  Then, it divides the distance of the corner point by the
+distance of the corrected edge point.  “Distance” means “distance from origin”.
+
+The choice of those 8 points is the critical compromise here.  In most cases,
+the maximal scaling is indeed necessary for one of these points.  For example,
+a corrected pincushion distortion pulls the corners most closely to the centre,
+so they need the maximal scaling.  On the other hand, a corrected barrel
+distorion leaves the edge centres most closely to the origin, so their position
+is critical.  In case of a nasty moustache distortion, the maximal scaling may
+be inbetween, and in these cases, Lensfun's approach fails.
+
+This program shows for which lenses it fails, and how badly.  For
+non-rectilinear lenses, the projection is changed to rectilinear first.
+Currenly (as of April 2015), there is nothing to worry about.  Only three
+lenses fail, and all of them exhibit only very slim black areas after the
+correction.  If one leaves the original projection, two fisheyes join the
+pack.
+
+The simple reason why the current approach works well is that the used
+distortion polynomials usually have monotonic behaviour in the important
+region, so the maximal values are at the borders of the region.  This is even
+more true for projection changes.
+
+For problematic lenses, this program prints the number of sampling points on
+the longer edges necessary to get a decent autoscaling (< 1‰).  Lensfun itself
+only uses 2.  If the problem of black areas increases, one can increase the
+number of edge sampling points to the maximal value this program prints.
+
+The only safe approach is to test *all* edge pixels.  Really.  This is most
+wasteful in almost all cases, so Lensfun doesn't do it (for now).  On the other
+hand, its complexity is O(size).  All other operations of Lensfun are O(size²).
+"""
+
 import math, glob, multiprocessing, argparse, os.path
 from xml.etree import ElementTree
 from scipy.optimize import brentq
