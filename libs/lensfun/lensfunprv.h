@@ -520,6 +520,9 @@ struct lfColorCallbackData : public lfCallbackData
     lfModifyColorFunc callback;
 };
 
+// A test point in the autoscale algorithm
+typedef struct { float angle, dist; } lfPoint;
+
 /**
  * @brief This is the extended lfModifier class, with implementation details
  * hidden from the public header file.
@@ -551,6 +554,10 @@ struct lfExtModifier : public lfModifier
     GPtrArray *ColorCallbacks;
     /// A list of pixel coordinate modifier callbacks.
     GPtrArray *CoordCallbacks;
+
+    double MaxX, MaxY;
+    double AutoscaleResidualDistance (float *coord) const;
+    float GetTransformedDistance (lfPoint point) const;
 
     static void ModifyCoord_UnTCA_Linear (void *data, float *iocoord, int count);
     static void ModifyCoord_TCA_Linear (void *data, float *iocoord, int count);

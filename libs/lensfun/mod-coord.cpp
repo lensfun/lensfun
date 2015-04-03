@@ -92,9 +92,18 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
     return true;
 }
 
-typedef struct { float angle, dist; } lfPoint;
+double lfExtModifier::AutoscaleResidualDistance (float *coord) const
+{
+    double result = coord [0] - MaxX;
+    double intermediate = -MaxX - coord [0];
+    if (intermediate > result) result = intermediate;
+    intermediate = coord [1] - MaxY;
+    if (intermediate > result) result = intermediate;
+    intermediate = -MaxY - coord [1];
+    return intermediate > result ? intermediate : result;
+}
 
-float _lf_get_transformed_distance (lfPoint point, GPtrArray *CoordCallbacks)
+float lfExtModifier::GetTransformedDistance (lfPoint point) const
 {
     double dist = point.dist;
     double sa = sin (point.angle);
@@ -116,7 +125,7 @@ float _lf_get_transformed_distance (lfPoint point, GPtrArray *CoordCallbacks)
                 (lfCoordCallbackData *)g_ptr_array_index (CoordCallbacks, j);
             cd->callback (cd->data, res, 1);
         }
-        double rd = sqrt (res [0] * res [0] + res [1] * res [1]) - dist;
+        double rd = AutoscaleResidualDistance (res);
         if (rd > -NEWTON_EPS * 100 && rd < NEWTON_EPS * 100)
             break;
 
@@ -133,7 +142,7 @@ float _lf_get_transformed_distance (lfPoint point, GPtrArray *CoordCallbacks)
                 (lfCoordCallbackData *)g_ptr_array_index (CoordCallbacks, j);
             cd->callback (cd->data, res, 1);
         }
-        double rd1 = sqrt (res [0] * res [0] + res [1] * res [1]) - dist;
+        double rd1 = AutoscaleResidualDistance (res);
 
         // If rd1 is very close to rd, this means our delta is too small
         // and we can hit the precision limit of the float format...
@@ -179,8 +188,7 @@ float lfModifier::GetAutoScale (bool reverse)
     float scale = 0.01F;
     for (int i = 0; i < 8; i++)
     {
-        float transformed_distance =
-            _lf_get_transformed_distance (point [i], This->CoordCallbacks);
+        float transformed_distance = This->GetTransformedDistance (point [i]);
         float point_scale = point [i].dist / transformed_distance;
         if (point_scale > scale)
             scale = point_scale;
