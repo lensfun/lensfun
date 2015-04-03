@@ -92,6 +92,76 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
     return true;
 }
 
+double lfExtModifier::AutoscaleResidualDistance (float *coord) const
+{
+    double result = coord [0] - MaxX;
+    double intermediate = -MaxX - coord [0];
+    if (intermediate > result) result = intermediate;
+    intermediate = coord [1] - MaxY;
+    if (intermediate > result) result = intermediate;
+    intermediate = -MaxY - coord [1];
+    return intermediate > result ? intermediate : result;
+}
+
+float lfExtModifier::GetTransformedDistance (lfPoint point) const
+{
+    double dist = point.dist;
+    double sa = sin (point.angle);
+    double ca = cos (point.angle);
+
+    // We have to find the radius ru in the direction of the given point which
+    // distorts to the original (distorted) image edge.  We will use Newton's
+    // method for minimizing the distance between the distorted point at ru and
+    // the original edge.
+    float ru = dist; // Initial approximation
+    float dx = 0.0001F;
+    for (int countdown = 50; ; countdown--)
+    {
+        float res [2];
+
+        res [0] = ca * ru; res [1] = sa * ru;
+        for (int j = 0; j < (int)CoordCallbacks->len; j++)
+        {
+            lfCoordCallbackData *cd =
+                (lfCoordCallbackData *)g_ptr_array_index (CoordCallbacks, j);
+            cd->callback (cd->data, res, 1);
+        }
+        double rd = AutoscaleResidualDistance (res);
+        if (rd > -NEWTON_EPS * 100 && rd < NEWTON_EPS * 100)
+            break;
+
+        if (!countdown)
+            // e.g. for some ultrawide fisheyes corners extend to infinity
+            // so function never converge ...
+            return -1;
+
+        // Compute approximative function prime in (x,y)
+        res [0] = ca * (ru + dx); res [1] = sa * (ru + dx);
+        for (int j = 0; j < (int)CoordCallbacks->len; j++)
+        {
+            lfCoordCallbackData *cd =
+                (lfCoordCallbackData *)g_ptr_array_index (CoordCallbacks, j);
+            cd->callback (cd->data, res, 1);
+        }
+        double rd1 = AutoscaleResidualDistance (res);
+
+        // If rd1 is very close to rd, this means our delta is too small
+        // and we can hit the precision limit of the float format...
+        if (absolute (rd1 - rd) < 0.00001)
+        {
+            dx *= 2;
+            continue;
+        }
+
+        // dy/dx;
+        double prime = (rd1 - rd) / dx;
+
+        ru -= rd / prime;
+    }
+
+    return ru;
+}
+
 float lfModifier::GetAutoScale (bool reverse)
 {
     // Compute the scale factor automatically
@@ -99,86 +169,35 @@ float lfModifier::GetAutoScale (bool reverse)
     // 3 2 1
     // 4   0
     // 5 6 7
-    struct { float angle, dist; } edge [8];
+    lfPoint point [8];
 
-    edge [1].angle = atan2 (float (This->Height), float (This->Width));
-    edge [3].angle = M_PI - edge [1].angle;
-    edge [5].angle = M_PI + edge [1].angle;
-    edge [7].angle = 2 * M_PI - edge [1].angle;
+    point [1].angle = atan2 (float (This->Height), float (This->Width));
+    point [3].angle = M_PI - point [1].angle;
+    point [5].angle = M_PI + point [1].angle;
+    point [7].angle = 2 * M_PI - point [1].angle;
 
-    edge [0].angle = 0.0F;
-    edge [2].angle = float (M_PI / 2.0);
-    edge [4].angle = float (M_PI);
-    edge [6].angle = float (M_PI * 3.0 / 2.0);
+    point [0].angle = 0.0F;
+    point [2].angle = float (M_PI / 2.0);
+    point [4].angle = float (M_PI);
+    point [6].angle = float (M_PI * 3.0 / 2.0);
 
-    edge [1].dist = edge [3].dist = edge [5].dist = edge [7].dist =
+    point [1].dist = point [3].dist = point [5].dist = point [7].dist =
         sqrt (float (square (This->Width) + square (This->Height))) * 0.5 * This->NormScale;
-    edge [0].dist = edge [4].dist = This->Width * 0.5 * This->NormScale;
-    edge [2].dist = edge [6].dist = This->Height * 0.5 * This->NormScale;
+    point [0].dist = point [4].dist = This->Width * 0.5 * This->NormScale;
+    point [2].dist = point [6].dist = This->Height * 0.5 * This->NormScale;
 
     float scale = 0.01F;
     for (int i = 0; i < 8; i++)
     {
-        float angle = edge [i].angle;
-        float dist = edge [i].dist;
-        double sa = sin (angle);
-        double ca = cos (angle);
-
-        // We have to find the radius ru which distorts to given corner.
-        // We will use Newton's method for this, we have to find the
-        // root of the equation: distance (distorted (x,y)) - dist = 0
-        float ru = dist; // Initial approximation
-        float dx = 0.0001F;
-        for (int countdown = 50; ; countdown--)
-        {
-            float res [2];
-
-            res [0] = ca * ru; res [1] = sa * ru;
-            for (int j = 0; j < (int)This->CoordCallbacks->len; j++)
-            {
-                lfCoordCallbackData *cd =
-                    (lfCoordCallbackData *)g_ptr_array_index (This->CoordCallbacks, j);
-                cd->callback (cd->data, res, 1);
-            }
-            double rd = sqrt (res [0] * res [0] + res [1] * res [1]) - dist;
-            if (rd > -NEWTON_EPS && rd < NEWTON_EPS)
-                break;
-
-            if (!countdown)
-                // e.g. for some ultrawide fisheyes corners extend to infinity
-                // so function never converge ...
-                goto skip_edge;
-
-            // Compute approximative function prime in (x,y)
-            res [0] = ca * (ru + dx); res [1] = sa * (ru + dx);
-            for (int j = 0; j < (int)This->CoordCallbacks->len; j++)
-            {
-                lfCoordCallbackData *cd =
-                    (lfCoordCallbackData *)g_ptr_array_index (This->CoordCallbacks, j);
-                cd->callback (cd->data, res, 1);
-            }
-            double rd1 = sqrt (res [0] * res [0] + res [1] * res [1]) - dist;
-
-            // If rd1 is very close to rd, this means our delta is too small
-            // and we can hit the precision limit of the float format...
-            if (absolute (rd1 - rd) < 0.00001)
-            {
-                dx *= 2;
-                continue;
-            }
-
-            // dy/dx;
-            double prime = (rd1 - rd) / dx;
-
-            ru -= rd / prime;
-        }
-
-        dist /= ru;
-        if (dist > scale)
-            scale = dist;
-    skip_edge:
-        ;
+        float transformed_distance = This->GetTransformedDistance (point [i]);
+        float point_scale = point [i].dist / transformed_distance;
+        if (point_scale > scale)
+            scale = point_scale;
     }
+    // 1 permille is our limit of accuracy (in rare cases, we may be even
+    // worse, depending on what happens between the test points), so assure
+    // that we really have no black borders left.
+    scale *= 1.001;
 
     return reverse ? 1.0 / scale : scale;
 }
