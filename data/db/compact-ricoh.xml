@@ -108,4 +108,18 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Ricoh</maker>
+        <model>Ricoh GR &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>ricohGR</mount>
+        <cropfactor>1.523</cropfactor>
+        <aspect-ratio>3:2</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="18.3" a="0.01134" b="-0.03066" c="0.01059" />
+            <tca model="poly3" focal="18.3" vr="1.0001157" vb="0.9999549" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
