@@ -43,7 +43,7 @@ void test_mod_projection_center(lfFixture* lfFix, gconstpointer data)
 
     // check mapping of center to center
     lfLensType geom_types [] = {LF_RECTILINEAR, LF_PANORAMIC, LF_EQUIRECTANGULAR , LF_FISHEYE, LF_FISHEYE_EQUISOLID, LF_FISHEYE_ORTHOGRAPHIC, LF_FISHEYE_THOBY, LF_UNKNOWN};
-    char* geom_names [] = {"rectilinear", "panoramic", "equirect", "fisheye", "fisheye-equisolid", "fisheye-orthographic", "fisheye-thoby", NULL};
+    const char* geom_names [] = {"rectilinear", "panoramic", "equirect", "fisheye", "fisheye-equisolid", "fisheye-orthographic", "fisheye-thoby", NULL};
     int  j  = 0;
     while (geom_types[j]!=LF_UNKNOWN) {
 
@@ -82,7 +82,7 @@ void test_mod_projection_borders(lfFixture* lfFix, gconstpointer data)
     float res[2] = {0, 0};
 
     lfLensType geom_types [] = {LF_RECTILINEAR, LF_PANORAMIC, LF_EQUIRECTANGULAR, LF_FISHEYE_STEREOGRAPHIC, LF_FISHEYE, LF_FISHEYE_EQUISOLID, LF_FISHEYE_ORTHOGRAPHIC, LF_FISHEYE_THOBY, LF_UNKNOWN};
-    char* geom_names [] = {"rectilinear", "panoramic", "equirect", "fisheye-sterographic", "fisheye", "fisheye-equisolid", "fisheye-orthographic", "fisheye-thoby", NULL};
+    const char* geom_names [] = {"rectilinear", "panoramic", "equirect", "fisheye-sterographic", "fisheye", "fisheye-equisolid", "fisheye-orthographic", "fisheye-thoby", NULL};
     int  j  = 0;
     while (geom_types[j]!=LF_UNKNOWN) {
 
