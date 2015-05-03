@@ -34,6 +34,10 @@ int lfModifier::Initialize (
     const lfLens *lens, lfPixelFormat format, float focal, float aperture,
     float distance, float scale, lfLensType targeom, int flags, bool reverse)
 {
+    lfExtModifier *This = static_cast<lfExtModifier *> (this);
+    This->ACMScale /= GetRealFocalLength(lens, focal);
+    This->ACMUnScale = 1.0 / This->ACMScale;
+
     int oflags = 0;
 
     if (flags & LF_MODIFY_TCA)
@@ -217,13 +221,15 @@ lfExtModifier::lfExtModifier (const lfLens *lens, float crop, int width, int hei
         float (Height) / float (Width) : float (Width) / float (Height);
 
     float calibration_cropfactor;
+    float calibration_aspect_ratio;
     if (lens)
     {
         calibration_cropfactor = lens->CropFactor;
-        AspectRatioCorrection = sqrt (lens->AspectRatio * lens->AspectRatio + 1);
+        calibration_aspect_ratio = lens->AspectRatio;
     }
     else
-        AspectRatioCorrection = calibration_cropfactor = NAN;
+        calibration_cropfactor = calibration_aspect_ratio = NAN;
+    AspectRatioCorrection = sqrt (calibration_aspect_ratio * calibration_aspect_ratio + 1);
 
     float coordinate_correction =
         1.0 / sqrt (image_aspect_ratio * image_aspect_ratio + 1) *
@@ -249,6 +255,12 @@ lfExtModifier::lfExtModifier (const lfLens *lens, float crop, int width, int hei
     // Used for autoscaling
     MaxX = double (Width) / 2.0 * NormScale;
     MaxY = double (Height) / 2.0 * NormScale;
+
+    // The Adobe cameras models (ACM) use a different coordinate system.
+    // Instead of half height = 1, they express coordinates in units of the
+    // focal length.  Note that the focal length is still missing in this
+    // calculation.  It will be taken into account in lfModifier::Initialize.
+    ACMScale = 18.0 / (calibration_aspect_ratio * calibration_cropfactor);
 }
 
 static void free_callback_list (GPtrArray *arr)

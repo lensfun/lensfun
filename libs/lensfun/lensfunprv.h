@@ -547,6 +547,8 @@ struct lfExtModifier : public lfModifier
     /// Used for conversion from distortion to vignetting coordinate system of
     /// the calibration sensor
     double AspectRatioCorrection;
+    /// The scale factors for conversion to and from ACM coords
+    double ACMScale, ACMUnScale;
 
     /// A list of subpixel coordinate modifier callbacks.
     GPtrArray *SubpixelCallbacks;
