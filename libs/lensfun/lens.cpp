@@ -457,6 +457,12 @@ const char *lfLens::GetVignettingModelDesc (
     static const lfParameter *param_pa [] =
     { &param_pa_k1, &param_pa_k2, &param_pa_k3, NULL };
 
+    static const lfParameter param_acm_alpha1 = { "alpha1", -1.0, 2.0, 0.0 };
+    static const lfParameter param_acm_alpha2 = { "alpha2", -1.0, 2.0, 0.0 };
+    static const lfParameter param_acm_alpha3 = { "alpha3", -1.0, 2.0, 0.0 };
+    static const lfParameter *param_acm [] =
+    { &param_acm_alpha1, &param_acm_alpha2, &param_acm_alpha3, NULL };
+
     switch (model)
     {
         case LF_VIGNETTING_MODEL_NONE:
@@ -474,6 +480,16 @@ const char *lfLens::GetVignettingModelDesc (
                     "Ref: http://hugin.sourceforge.net/tech/";
             if (params)
                 *params = param_pa;
+            return "6th order polynomial";
+
+        case LF_VIGNETTING_MODEL_ACM:
+            if (details)
+                *details = "Adobe's vignetting model\n"
+                    "(which differs from D'Angelo's only in the coordinate system):\n"
+                    "Cd = Cs * (1 + k1 * R^2 + k2 * R^4 + k3 * R^6)\n"
+                    "Ref: http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf";
+            if (params)
+                *params = param_acm;
             return "6th order polynomial";
 
         default:

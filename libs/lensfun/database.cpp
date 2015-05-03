@@ -411,6 +411,8 @@ static void _xml_start_element (GMarkupParseContext *context,
                     vc.Model = LF_VIGNETTING_MODEL_NONE;
                 else if (!strcmp (attribute_values [i], "pa"))
                     vc.Model = LF_VIGNETTING_MODEL_PA;
+                else if (!strcmp (attribute_values [i], "acm"))
+                    vc.Model = LF_VIGNETTING_MODEL_ACM;
                 else
                     goto bad_attr;
             }
@@ -420,11 +422,14 @@ static void _xml_start_element (GMarkupParseContext *context,
                 vc.Aperture = atof (attribute_values [i]);
             else if (!strcmp (attribute_names [i], "distance"))
                 vc.Distance = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "k1"))
+            else if (!strcmp (attribute_names [i], "k1") ||
+                     !strcmp (attribute_names [i], "alpha1"))
                 vc.Terms [0] = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "k2"))
+            else if (!strcmp (attribute_names [i], "k2") ||
+                     !strcmp (attribute_names [i], "alpha2"))
                 vc.Terms [1] = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "k3"))
+            else if (!strcmp (attribute_names [i], "k3") ||
+                     !strcmp (attribute_names [i], "alpha3"))
                 vc.Terms [2] = atof (attribute_values [i]);
             else
                 goto unk_attr;
@@ -1004,6 +1009,11 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                     {
                         case LF_VIGNETTING_MODEL_PA:
                             _lf_xml_printf (output, "model=\"pa\" k1=\"%g\" k2=\"%g\" k3=\"%g\" />\n",
+                                            cv->Terms [0], cv->Terms [1], cv->Terms [2]);
+                            break;
+
+                        case LF_VIGNETTING_MODEL_ACM:
+                            _lf_xml_printf (output, "model=\"acm\" alpha1=\"%g\" alpha2=\"%g\" alpha3=\"%g\" />\n",
                                             cv->Terms [0], cv->Terms [1], cv->Terms [2]);
                             break;
 

@@ -604,7 +604,16 @@ enum lfVignettingModel
      * default to 0.
      * Ref: http://hugin.sourceforge.net/tech/
      */
-    LF_VIGNETTING_MODEL_PA
+    LF_VIGNETTING_MODEL_PA,
+    /**
+     * @brief Adobe's vignetting model.  It differs from D'Angelo's model only
+     * in the coordinate system.
+     *
+     * The corresponding XML attributes are called “alpha1”, “alpha2”, and
+     * “alpha3”.  They default to 0.  Ref:
+     * http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf
+     */
+    LF_VIGNETTING_MODEL_ACM
 };
 
 C_TYPEDEF (enum, lfVignettingModel)
