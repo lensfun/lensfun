@@ -491,7 +491,7 @@ struct lfLensCalibDistortion
     /** @brief Focal length in mm at which this calibration data was taken */
     float Focal;
     /** @brief Distortion coefficients, dependent on model (a,b,c or k1 or k1,k2) */
-    float Terms [3];
+    float Terms [5];
 };
 
 C_TYPEDEF (struct, lfLensCalibDistortion)

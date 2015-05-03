@@ -23,7 +23,7 @@ void lfModifier::AddCoordCallback (
 
 bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool reverse)
 {
-    float tmp [3];
+    float tmp [5];
 
     if (reverse)
         switch (model.Model)
