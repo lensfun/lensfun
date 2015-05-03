@@ -23,7 +23,8 @@ void lfModifier::AddCoordCallback (
 
 bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool reverse)
 {
-    float tmp [5];
+    lfExtModifier *This = static_cast<lfExtModifier *> (this);
+    float tmp [7];
 
     if (reverse)
         switch (model.Model)
@@ -91,8 +92,11 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                 break;
 
             case LF_DIST_MODEL_ACM:
+                memcpy (tmp, model.Terms, sizeof (float) * 5);
+                tmp [5] = This->ACMScale;
+                tmp [6] = This->ACMUnScale;
                 AddCoordCallback (lfExtModifier::ModifyCoord_Dist_ACM, 750,
-                                  model.Terms, sizeof (float) * 5);
+                                  tmp, sizeof (float) * 7);
                 break;
 
             default:
@@ -671,17 +675,19 @@ void lfExtModifier::ModifyCoord_Dist_ACM (void *data, float *iocoord, int count)
     const float k3 = param [2];
     const float k4 = param [3];
     const float k5 = param [4];
+    const float ACMScale = param [5];
+    const float ACMUnScale = param [6];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        const float x = iocoord [0];
-        const float y = iocoord [1];
+        const float x = iocoord [0] * ACMScale;
+        const float y = iocoord [1] * ACMScale;
         const float ru2 = x * x + y * y;
         const float ru4 = ru2 * ru2;
         const float common_term = 1.0 + k1 * ru2 + k2 * ru4 + k3 * ru4 * ru2 + 2 * (k4 * y + k5 * x);
 
-        iocoord [0] = x * common_term + k5 * ru2;
-        iocoord [1] = y * common_term + k4 * ru2;
+        iocoord [0] = (x * common_term + k5 * ru2) * ACMUnScale;
+        iocoord [1] = (y * common_term + k4 * ru2) * ACMUnScale;
     }
 }
 
