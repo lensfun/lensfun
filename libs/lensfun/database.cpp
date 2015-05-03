@@ -319,6 +319,8 @@ static void _xml_start_element (GMarkupParseContext *context,
                     dc.Model = LF_DIST_MODEL_POLY5;
                 else if (!strcmp (attribute_values [i], "ptlens"))
                     dc.Model = LF_DIST_MODEL_PTLENS;
+                else if (!strcmp (attribute_values [i], "acm"))
+                    dc.Model = LF_DIST_MODEL_ACM;
                 else
                 {
                 bad_attr:
@@ -336,8 +338,13 @@ static void _xml_start_element (GMarkupParseContext *context,
             else if (!strcmp (attribute_names [i], "b") ||
                      !strcmp (attribute_names [i], "k2"))
                 dc.Terms [1] = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "c"))
+            else if (!strcmp (attribute_names [i], "c") ||
+                     !strcmp (attribute_names [i], "k3"))
                 dc.Terms [2] = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "k4"))
+                dc.Terms [3] = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "k5"))
+                dc.Terms [4] = atof (attribute_values [i]);
             else
             {
             unk_attr:
@@ -944,6 +951,12 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                             _lf_xml_printf (
                                 output, "model=\"ptlens\" a=\"%g\" b=\"%g\" c=\"%g\" />\n",
                                 cd->Terms [0], cd->Terms [1], cd->Terms [2]);
+                            break;
+
+                        case LF_DIST_MODEL_ACM:
+                            _lf_xml_printf (
+                                output, "model=\"acm\" k1=\"%g\" k2=\"%g\" k3=\"%g\" k4=\"%g\" k5=\"%g\" />\n",
+                                cd->Terms [0], cd->Terms [1], cd->Terms [2], cd->Terms [3], cd->Terms [4]);
                             break;
 
                         default:

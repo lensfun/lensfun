@@ -474,6 +474,20 @@ enum lfDistortionModel
      * default to 0.
      */
     LF_DIST_MODEL_PTLENS,
+    /**
+     * @brief Adobe Camera Model.  The coordinate system is different here.
+     * Everything is measured in units of the focal length of the lens.
+     *
+     * @f[\begin{aligned}
+     * x_d &= x_u (1 + k_1 r^2 + k_2 r^4 + k_3 r^6) + 2x(k_4y + k_5x) + k_5 r^2,
+     * y_d &= y_u (1 + k_1 r^2 + k_2 r^4 + k_3 r^6) + 2y(k_4y + k_5x) + k_4 r^2,
+     * \end{aligned}
+     * @f]
+     * with \f$r = \sqrt{x^2 + y^2}\f$.  The corresponding XML attributes are
+     * called “k1”, “k2”, “k3”, “k4”, and “k5”.  They default to 0.  Ref:
+     * http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf
+     */
+    LF_DIST_MODEL_ACM,
 };
 
 C_TYPEDEF (enum, lfDistortionModel)

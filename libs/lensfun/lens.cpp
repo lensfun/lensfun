@@ -323,6 +323,13 @@ const char *lfLens::GetDistortionModelDesc (
     static const lfParameter *param_ptlens [] = {
         &param_ptlens_a, &param_ptlens_b, &param_ptlens_c, NULL };
 
+    static const lfParameter param_acm_k3 = { "k3", -0.2F, 0.2F, 0.0F };
+    static const lfParameter param_acm_k4 = { "k4", -0.2F, 0.2F, 0.0F };
+    static const lfParameter param_acm_k5 = { "k5", -0.2F, 0.2F, 0.0F };
+    static const lfParameter *param_acm [] = {
+        &param_poly3_k1, &param_poly5_k2, &param_acm_k3,
+        &param_acm_k4, &param_acm_k5, NULL };
+
     switch (model)
     {
         case LF_DIST_MODEL_NONE:
@@ -355,6 +362,16 @@ const char *lfLens::GetDistortionModelDesc (
             if (params)
                 *params = param_ptlens;
             return "PanoTools lens model";
+
+        case LF_DIST_MODEL_ACM:
+            if (details)
+                *details = "x_d = x_u (1 + k_1 r^2 + k_2 r^4 + k_3 r^6) + 2x(k_4y + k_5x) + k_5 r^2\n"
+                    "y_d = y_u (1 + k_1 r^2 + k_2 r^4 + k_3 r^6) + 2y(k_4y + k_5x) + k_4 r^2\n"
+                    "Coordinates are in units of focal length.\n"
+                    "Ref: http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf";
+            if (params)
+                *params = param_acm;
+            return "Adobe camera model";
 
         default:
             // keep gcc 4.4 happy
