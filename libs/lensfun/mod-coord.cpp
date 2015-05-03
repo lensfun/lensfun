@@ -52,6 +52,11 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                                   model.Terms, sizeof (float) * 3);
                 break;
 
+            // case LF_DIST_MODEL_ACM:
+            //     AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_ACM, 250,
+            //                       model.Terms, sizeof (float) * 5);
+            //     break;
+
             default:
                 return false;
         }
@@ -83,6 +88,11 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
 #endif
                 AddCoordCallback (lfExtModifier::ModifyCoord_Dist_PTLens, 750,
                                   model.Terms, sizeof (float) * 3);
+                break;
+
+            case LF_DIST_MODEL_ACM:
+                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_ACM, 750,
+                                  model.Terms, sizeof (float) * 5);
                 break;
 
             default:
@@ -649,6 +659,29 @@ void lfExtModifier::ModifyCoord_Dist_PTLens (void *data, float *iocoord, int cou
 
         iocoord [0] = x * poly3;
         iocoord [1] = y * poly3;
+    }
+}
+
+void lfExtModifier::ModifyCoord_Dist_ACM (void *data, float *iocoord, int count)
+{
+    float *param = (float *)data;
+    // Rd = Ru * (1 + k1 * Ru^2 + k2 * Ru^4)
+    const float k1 = param [0];
+    const float k2 = param [1];
+    const float k3 = param [2];
+    const float k4 = param [3];
+    const float k5 = param [4];
+
+    for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
+    {
+        const float x = iocoord [0];
+        const float y = iocoord [1];
+        const float ru2 = x * x + y * y;
+        const float ru4 = ru2 * ru2;
+        const float common_term = 1.0 + k1 * ru2 + k2 * ru4 + k3 * ru4 * ru2 + 2 * (k4 * y + k5 * x);
+
+        iocoord [0] = x * common_term + k5 * ru2;
+        iocoord [1] = y * common_term + k4 * ru2;
     }
 }
 

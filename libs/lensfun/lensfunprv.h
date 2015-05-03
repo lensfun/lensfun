@@ -605,6 +605,7 @@ struct lfExtModifier : public lfModifier
     static void ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int count);
     static void ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int count);
 #endif
+    static void ModifyCoord_Dist_ACM (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_FishEye_Rect (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_Panoramic_Rect (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_ERect_Rect (void *data, float *iocoord, int count);
