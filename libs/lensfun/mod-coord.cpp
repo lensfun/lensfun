@@ -53,11 +53,6 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                                   model.Terms, sizeof (float) * 3);
                 break;
 
-            // case LF_DIST_MODEL_ACM:
-            //     AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_ACM, 250,
-            //                       model.Terms, sizeof (float) * 5);
-            //     break;
-
             default:
                 return false;
         }
