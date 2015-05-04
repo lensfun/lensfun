@@ -539,7 +539,6 @@ enum lfTCAModel
      * Ref: http://cipa.icomos.org/fileadmin/template/doc/TURIN/403.pdf
      */
     LF_TCA_MODEL_LINEAR,
-
     /**
      * @brief Third order polynomial.
      *
@@ -551,7 +550,25 @@ enum lfTCAModel
      * “vr”, “bb”, “cb”, and “vb”.  vr and vb default to 1, the rest to 0.
      * Ref: http://wiki.panotools.org/Tca_correct
      */
-    LF_TCA_MODEL_POLY3
+    LF_TCA_MODEL_POLY3,
+    /**
+     * @brief Adobe camera model for TCA.
+     *
+     * \f[\begin{aligned}
+     * x_{d,R} &= \alpha_0 \big((1 + \alpha_1 r_{u,R}^2 + \alpha_2 r_{u,R}^4 + \alpha_3 r_{u,R}^6) x_{u,R} +
+                  2(\alpha_4 y_{u,R} + \alpha_5 x_{u,R}) x_{u,R} + \alpha_5 r_{u,R}^2\big)\ \
+     * y_{d,R} &= \alpha_0 \big((1 + \alpha_1 r_{u,R}^2 + \alpha_2 r_{u,R}^4 + \alpha_3 r_{u,R}^6) y_{u,R} +
+                  2(\alpha_4 y_{u,R} + \alpha_5 x_{u,R}) y_{u,R} + \alpha_4 r_{u,R}^2\big)\ \
+     * x_{d,B} &= \beta_0 \big((1 + \beta_1 r_{u,B}^2 + \beta_2 r_{u,B}^4 + \beta_3 r_{u,B}^6) x_{u,B} +
+                  2(\beta_4 y_{u,B} + \beta_5 x_{u,B}) x_{u,B} + \beta_5 r_{u,B}^2\big)\ \
+     * y_{d,B} &= \beta_0 \big((1 + \beta_1 r_{u,B}^2 + \beta_2 r_{u,B}^4 + \beta_3 r_{u,B}^6) y_{u,B} +
+                  2(\beta_4 y_{u,B} + \beta_5 x_{u,B}) y_{u,B} + \beta_4 r_{u,B}^2\big)\ \
+     * \end{aligned}\f]
+     * The corresponding XML attributes are called “alpha0” to “alpha5”,
+     * and “beta0” to “beta5”.  alpha0 and beta0 default to 1, the rest to 0.
+     * Ref: http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf
+     */
+    LF_TCA_MODEL_ACM
 };
 
 C_TYPEDEF (enum, lfTCAModel)

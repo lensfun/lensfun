@@ -409,6 +409,29 @@ const char *lfLens::GetTCAModelDesc (
         NULL
     };
 
+    static const lfParameter param_acm_alpha0 = { "alpha0", 0.99F, 1.01F, 1.0F };
+    static const lfParameter param_acm_beta0 = { "beta0", 0.99F, 1.01F, 1.0F };
+    static const lfParameter param_acm_alpha1 = { "alpha1", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_acm_beta1 = { "beta1", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_acm_alpha2 = { "alpha2", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_acm_beta2 = { "beta2", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_acm_alpha3 = { "alpha3", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_acm_beta3 = { "beta3", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_acm_alpha4 = { "alpha4", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_acm_beta4 = { "beta4", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_acm_alpha5 = { "alpha5", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_acm_beta5 = { "beta5", -0.01F, 0.01F, 0.0F };
+    static const lfParameter *param_acm [] =
+    {
+        &param_acm_alpha0, &param_acm_beta0,
+        &param_acm_alpha1, &param_acm_beta1,
+        &param_acm_alpha2, &param_acm_beta2,
+        &param_acm_alpha3, &param_acm_beta3,
+        &param_acm_alpha4, &param_acm_beta4,
+        &param_acm_alpha5, &param_acm_beta5,
+        NULL
+    };
+
     switch (model)
     {
         case LF_TCA_MODEL_NONE:
@@ -433,6 +456,21 @@ const char *lfLens::GetTCAModelDesc (
             if (params)
                 *params = param_poly3;
             return "3rd order polynomial";
+
+        case LF_TCA_MODEL_ACM:
+            if (details)
+                *details = "x_{d,R} = α_0 ((1 + α_1 r_{u,R}^2 + α_2 r_{u,R}^4 + α_3 r_{u,R}^6) x_{u,R} +\n"
+                           "          2(α_4 y_{u,R} + α_5 x_{u,R}) x_{u,R} + α_5 r_{u,R}^2)\n"
+                           "y_{d,R} = α_0 ((1 + α_1 r_{u,R}^2 + α_2 r_{u,R}^4 + α_3 r_{u,R}^6) y_{u,R} +\n"
+                           "          2(α_4 y_{u,R} + α_5 x_{u,R}) y_{u,R} + α_4 r_{u,R}^2)\n"
+                           "x_{d,B} = β_0 ((1 + β_1 r_{u,B}^2 + β_2 r_{u,B}^4 + β_3 r_{u,B}^6) x_{u,B} +\n"
+                           "          2(β_4 y_{u,B} + β_5 x_{u,B}) x_{u,B} + β_5 r_{u,B}^2)\n"
+                           "y_{d,B} = β_0 ((1 + β_1 r_{u,B}^2 + β_2 r_{u,B}^4 + β_3 r_{u,B}^6) y_{u,B} +\n"
+                           "          2(β_4 y_{u,B} + β_5 x_{u,B}) y_{u,B} + β_4 r_{u,B}^2)\n"
+                    "Ref: http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf";
+            if (params)
+                *params = param_acm;
+            return "Adobe camera model";
 
         default:
             // keep gcc 4.4 happy
