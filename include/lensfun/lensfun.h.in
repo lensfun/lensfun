@@ -570,7 +570,7 @@ struct lfLensCalibTCA
     /** @brief Focal length in mm at which this calibration data was taken */
     float Focal;
     /** @brief The coefficients for TCA, dependent on model; separate for R and B */
-    float Terms [6];
+    float Terms [12];
 };
 
 C_TYPEDEF (struct, lfLensCalibTCA)
