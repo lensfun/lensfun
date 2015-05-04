@@ -57,7 +57,7 @@ extern "C" {
 #define LF_VERSION	((LF_VERSION_MAJOR << 24) | (LF_VERSION_MINOR << 16) | (LF_VERSION_MICRO << 8) | LF_VERSION_BUGFIX)
 
 /// Latest database version supported by this release
-#define LF_MAX_DATABASE_VERSION	1
+#define LF_MAX_DATABASE_VERSION	2
 
 #if defined CONF_LENSFUN_STATIC
 /// This macro expands to an appropiate symbol visibility declaration
