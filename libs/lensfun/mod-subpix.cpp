@@ -19,7 +19,8 @@ void lfModifier::AddSubpixelCallback (
 
 bool lfModifier::AddSubpixelCallbackTCA (lfLensCalibTCA &model, bool reverse)
 {
-    float tmp [2];
+    lfExtModifier *This = static_cast<lfExtModifier *> (this);
+    float tmp [14];
 
     if (reverse)
         switch (model.Model)
@@ -61,6 +62,14 @@ bool lfModifier::AddSubpixelCallbackTCA (lfLensCalibTCA &model, bool reverse)
             case LF_TCA_MODEL_POLY3:
                 AddSubpixelCallback (lfExtModifier::ModifyCoord_TCA_Poly3, 500,
                                      model.Terms, 6 * sizeof (float));
+                return true;
+
+            case LF_TCA_MODEL_ACM:
+                memcpy (tmp, model.Terms, sizeof (float) * 12);
+                tmp [12] = This->ACMScale;
+                tmp [13] = This->ACMUnScale;
+                AddSubpixelCallback (lfExtModifier::ModifyCoord_TCA_ACM, 500,
+                                     tmp, 14 * sizeof (float));
                 return true;
 
             default:
@@ -321,6 +330,52 @@ void lfExtModifier::ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count
             iocoord [4] = x * poly2;
             iocoord [5] = y * poly2;
         }
+}
+
+void lfExtModifier::ModifyCoord_TCA_ACM (void *data, float *iocoord, int count)
+{
+    // Rd = Ru * (b * Ru^2 + c * Ru + v)
+    const float *param = (float *)data;
+    const float alpha0 = param [0];
+    const float beta0 = param [1];
+    const float alpha1 = param [2];
+    const float beta1 = param [3];
+    const float alpha2 = param [4];
+    const float beta2 = param [5];
+    const float alpha3 = param [6];
+    const float beta3 = param [7];
+    const float alpha4 = param [8];
+    const float beta4 = param [9];
+    const float alpha5 = param [10];
+    const float beta5 = param [11];
+    const float ACMScale = param [12];
+    const float ACMUnScale = param [13];
+
+    float x, y, ru2, ru4, common_term;
+    for (float *end = iocoord + count * 2 * 3; iocoord < end; iocoord += 6)
+    {
+        // In the Adobe docs, our "ru" is called "rd".  They call it so because
+        // it is already distorted for the distortion correction.  However, in
+        // context of TCA correction, it is undistorted, so Lensfun calls it
+        // "ru".
+        x = iocoord [0] * ACMScale;
+        y = iocoord [1] * ACMScale;
+        ru2 = x * x + y * y;
+        ru4 = ru2 * ru2;
+        common_term = 1.0 + alpha1 * ru2 + alpha2 * ru4 + alpha3 * ru4 * ru2 +
+                      2 * (alpha4 * y + alpha5 * x);
+        iocoord [0] = alpha0 * (x * common_term + alpha5 * ru2) * ACMUnScale;
+        iocoord [1] = alpha0 * (y * common_term + alpha4 * ru2) * ACMUnScale;
+
+        x = iocoord [4] * ACMScale;
+        y = iocoord [5] * ACMScale;
+        ru2 = x * x + y * y;
+        ru4 = ru2 * ru2;
+        common_term = 1.0 + beta1 * ru2 + beta2 * ru4 + beta3 * ru4 * ru2 +
+                      2 * (beta4 * y + beta5 * x);
+        iocoord [4] = beta0 * (x * common_term + beta5 * ru2) * ACMUnScale;
+        iocoord [5] = beta0 * (y * common_term + beta4 * ru2) * ACMUnScale;
+    }
 }
 
 //---------------------------// The C interface //---------------------------//

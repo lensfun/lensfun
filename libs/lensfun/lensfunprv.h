@@ -593,6 +593,7 @@ struct lfExtModifier : public lfModifier
     static void ModifyCoord_TCA_Linear (void *data, float *iocoord, int count);
     static void ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int count);
     static void ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count);
+    static void ModifyCoord_TCA_ACM (void *data, float *iocoord, int count);
 
     static void ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count);
     static void ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int count);
