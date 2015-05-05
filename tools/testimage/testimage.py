@@ -234,6 +234,7 @@ def get_real_focal_length():
         # Interpret the nominal focal length Hugin-compatibly; it's guesswork
         # and a fallback anyway.
         return focal_length * hugin_correction
+real_focal_length = get_real_focal_length()
 
 def get_projection_function():
     projection = None
@@ -433,7 +434,7 @@ class Image:
 
     def create_grid(self, distortion, projection, tca_red, tca_blue):
         full_frame_diagonal = sqrt(36**2 + 24**2)
-        diagonal_by_focal_length = full_frame_diagonal / 2 / camera_cropfactor / (get_real_focal_length() / hugin_correction)
+        diagonal_by_focal_length = full_frame_diagonal / 2 / camera_cropfactor / (real_focal_length / hugin_correction)
         def apply_lens_projection(x, y):
             r_vignetting = sqrt(x**2 + y**2) / self.aspect_ratio_correction
             ϑ = atan(r_vignetting * diagonal_by_focal_length)
