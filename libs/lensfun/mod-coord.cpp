@@ -237,7 +237,7 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
 
     lfExtModifier *This = static_cast<lfExtModifier *> (this);
     float tmp [2];
-    tmp [0] = 1.0 / This->NormalizedInFocalLengths;
+    tmp [0] = This->NormalizedInFocalLengths;
     tmp [1] = 1.0 / tmp [0];
 
     if(from == to)
@@ -692,7 +692,7 @@ void lfExtModifier::ModifyCoord_Dist_ACM (void *data, float *iocoord, int count)
 
 void lfExtModifier::ModifyCoord_Geom_FishEye_Rect (void *data, float *iocoord, int count)
 {
-    const float inv_dist = ((float *)data) [1];
+    const float inv_dist = ((float *)data) [0];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
@@ -716,7 +716,7 @@ void lfExtModifier::ModifyCoord_Geom_FishEye_Rect (void *data, float *iocoord, i
 
 void lfExtModifier::ModifyCoord_Geom_Rect_FishEye (void *data, float *iocoord, int count)
 {
-    const float inv_dist = ((float *)data) [1];
+    const float inv_dist = ((float *)data) [0];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
@@ -737,8 +737,8 @@ void lfExtModifier::ModifyCoord_Geom_Rect_FishEye (void *data, float *iocoord, i
 void lfExtModifier::ModifyCoord_Geom_Panoramic_Rect (
     void *data, float *iocoord, int count)
 {
-    const float dist = ((float *)data) [0];
-    const float inv_dist = ((float *)data) [1];
+    const float inv_dist = ((float *)data) [0];
+    const float dist = ((float *)data) [1];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
@@ -754,8 +754,8 @@ void lfExtModifier::ModifyCoord_Geom_Panoramic_Rect (
 void lfExtModifier::ModifyCoord_Geom_Rect_Panoramic (
     void *data, float *iocoord, int count)
 {
-    const float dist = ((float *)data) [0];
-    const float inv_dist = ((float *)data) [1];
+    const float inv_dist = ((float *)data) [0];
+    const float dist = ((float *)data) [1];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
@@ -770,8 +770,8 @@ void lfExtModifier::ModifyCoord_Geom_Rect_Panoramic (
 void lfExtModifier::ModifyCoord_Geom_FishEye_Panoramic (
     void *data, float *iocoord, int count)
 {
-    const float dist = ((float *)data) [0];
-    const float inv_dist = ((float *)data) [1];
+    const float inv_dist = ((float *)data) [0];
+    const float dist = ((float *)data) [1];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
@@ -793,8 +793,8 @@ void lfExtModifier::ModifyCoord_Geom_FishEye_Panoramic (
 void lfExtModifier::ModifyCoord_Geom_Panoramic_FishEye (
     void *data, float *iocoord, int count)
 {
-    const float dist = ((float *)data) [0];
-    const float inv_dist = ((float *)data) [1];
+    const float inv_dist = ((float *)data) [0];
+    const float dist = ((float *)data) [1];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
@@ -818,8 +818,8 @@ void lfExtModifier::ModifyCoord_Geom_Panoramic_FishEye (
 
 void lfExtModifier::ModifyCoord_Geom_ERect_Rect (void *data, float *iocoord, int count)
 {
-    const float dist = ((float *)data) [0];
-    const float inv_dist = ((float *)data) [1];
+    const float inv_dist = ((float *)data) [0];
+    const float dist = ((float *)data) [1];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
@@ -846,7 +846,7 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Rect (void *data, float *iocoord, int
 
 void lfExtModifier::ModifyCoord_Geom_Rect_ERect (void *data, float *iocoord, int count)
 {
-    const float dist = ((float *)data) [0];
+    const float dist = ((float *)data) [1];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
@@ -860,8 +860,8 @@ void lfExtModifier::ModifyCoord_Geom_Rect_ERect (void *data, float *iocoord, int
 
 void lfExtModifier::ModifyCoord_Geom_ERect_FishEye (void *data, float *iocoord, int count)
 {
-    const float dist = ((float *)data) [0];
-    const float inv_dist = ((float *)data) [1];
+    const float inv_dist = ((float *)data) [0];
+    const float dist = ((float *)data) [1];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
@@ -897,8 +897,8 @@ void lfExtModifier::ModifyCoord_Geom_ERect_FishEye (void *data, float *iocoord, 
 
 void lfExtModifier::ModifyCoord_Geom_FishEye_ERect (void *data, float *iocoord, int count)
 {
-    const float dist = ((float *)data) [0];
-    const float inv_dist = ((float *)data) [1];
+    const float inv_dist = ((float *)data) [0];
+    const float dist = ((float *)data) [1];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
@@ -919,8 +919,8 @@ void lfExtModifier::ModifyCoord_Geom_FishEye_ERect (void *data, float *iocoord, 
 
 void lfExtModifier::ModifyCoord_Geom_ERect_Panoramic (void *data, float *iocoord, int count)
 {
-    const float dist = ((float *)data) [0];
-    const float inv_dist = ((float *)data) [1];
+    const float inv_dist = ((float *)data) [0];
+    const float dist = ((float *)data) [1];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
@@ -931,8 +931,8 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Panoramic (void *data, float *iocoord
 
 void lfExtModifier::ModifyCoord_Geom_Panoramic_ERect (void *data, float *iocoord, int count)
 {
-    const float dist = ((float *)data) [0];
-    const float inv_dist = ((float *)data) [1];
+    const float inv_dist = ((float *)data) [0];
+    const float dist = ((float *)data) [1];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
@@ -943,8 +943,8 @@ void lfExtModifier::ModifyCoord_Geom_Panoramic_ERect (void *data, float *iocoord
 
 void lfExtModifier::ModifyCoord_Geom_Orthographic_ERect (void *data, float *iocoord, int count)
 {
-    const float dist = ((float *)data) [0];
-    const float inv_dist = ((float *)data) [1];
+    const float inv_dist = ((float *)data) [0];
+    const float dist = ((float *)data) [1];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
@@ -973,8 +973,8 @@ void lfExtModifier::ModifyCoord_Geom_Orthographic_ERect (void *data, float *ioco
 
 void lfExtModifier::ModifyCoord_Geom_ERect_Orthographic (void *data, float *iocoord, int count)
 {
-    const float dist = ((float *)data) [0];
-    const float inv_dist = ((float *)data) [1];
+    const float inv_dist = ((float *)data) [0];
+    const float dist = ((float *)data) [1];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
@@ -1010,8 +1010,8 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Orthographic (void *data, float *ioco
 
 void lfExtModifier::ModifyCoord_Geom_Stereographic_ERect (void *data, float *iocoord, int count)
 {
-    const float dist = ((float *)data) [0];
-    const float inv_dist = ((float *)data) [1];
+    const float inv_dist = ((float *)data) [0];
+    const float dist = ((float *)data) [1];
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0] * inv_dist;
@@ -1044,8 +1044,8 @@ void lfExtModifier::ModifyCoord_Geom_Stereographic_ERect (void *data, float *ioc
 
 void lfExtModifier::ModifyCoord_Geom_ERect_Stereographic (void *data, float *iocoord, int count)
 {
-    const float dist = ((float *)data) [0];
-    const float inv_dist = ((float *)data) [1];
+    const float inv_dist = ((float *)data) [0];
+    const float dist = ((float *)data) [1];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
@@ -1062,8 +1062,8 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Stereographic (void *data, float *ioc
 
 void lfExtModifier::ModifyCoord_Geom_Equisolid_ERect (void *data, float *iocoord, int count)
 {
-    const float dist = ((float *)data) [0];
-    const float inv_dist = ((float *)data) [1];
+    const float inv_dist = ((float *)data) [0];
+    const float dist = ((float *)data) [1];
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
@@ -1090,7 +1090,7 @@ void lfExtModifier::ModifyCoord_Geom_Equisolid_ERect (void *data, float *iocoord
 
 void lfExtModifier::ModifyCoord_Geom_ERect_Equisolid (void *data, float *iocoord, int count)
 {
-    const float dist = ((float *)data) [0];
+    const float dist = ((float *)data) [1];
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         double lambda = iocoord [0] / dist;
@@ -1116,8 +1116,8 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Equisolid (void *data, float *iocoord
 
 void lfExtModifier::ModifyCoord_Geom_Thoby_ERect (void *data, float *iocoord, int count)
 {
-    const float dist = ((float *)data) [0];
-    const float inv_dist = ((float *)data) [1];
+    const float inv_dist = ((float *)data) [0];
+    const float dist = ((float *)data) [1];
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
@@ -1146,8 +1146,8 @@ void lfExtModifier::ModifyCoord_Geom_Thoby_ERect (void *data, float *iocoord, in
 
 void lfExtModifier::ModifyCoord_Geom_ERect_Thoby (void *data, float *iocoord, int count)
 {
-    const float dist = ((float *)data) [0];
-    const float inv_dist = ((float *)data) [1];
+    const float inv_dist = ((float *)data) [0];
+    const float dist = ((float *)data) [1];
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
