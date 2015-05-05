@@ -88,8 +88,8 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
 
             case LF_DIST_MODEL_ACM:
                 memcpy (tmp, model.Terms, sizeof (float) * 5);
-                tmp [5] = This->ACMScale;
-                tmp [6] = This->ACMUnScale;
+                tmp [5] = This->NormalizedInFocalLengths;
+                tmp [6] = 1.0 / tmp [5];
                 AddCoordCallback (lfExtModifier::ModifyCoord_Dist_ACM, 750,
                                   tmp, sizeof (float) * 7);
                 break;

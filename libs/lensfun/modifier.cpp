@@ -35,8 +35,6 @@ int lfModifier::Initialize (
     float distance, float scale, lfLensType targeom, int flags, bool reverse)
 {
     lfExtModifier *This = static_cast<lfExtModifier *> (this);
-    This->ACMScale /= GetRealFocalLength(lens, focal);
-    This->ACMUnScale = 1.0 / This->ACMScale;
     This->NormalizedInFocalLengths = This->NormalizedInMillimeters /
         (GetRealFocalLength(lens, focal) / get_hugin_focal_correction (lens, focal));
 
@@ -163,7 +161,8 @@ void lfModifier::Destroy ()
 
   (2) For vignetting, r = 1 is the corner of the image.
 
-  (3) For geometry transformation, the unit length is the focal length.
+  (3) For geometry transformation and for all Adobe camera models, the unit
+      length is the focal length.
 
   The constructor lfExtModifier::lfExtModifier is the central method that
   handles the coordinate systems.  It does so by providing the scaling factors
@@ -255,12 +254,6 @@ lfExtModifier::lfExtModifier (const lfLens *lens, float crop, int width, int hei
     // Used for autoscaling
     MaxX = double (Width) / 2.0 * NormScale;
     MaxY = double (Height) / 2.0 * NormScale;
-
-    // The Adobe cameras models (ACM) use a different coordinate system.
-    // Instead of half height = 1, they express coordinates in units of the
-    // focal length.  Note that the focal length is still missing in this
-    // calculation.  It will be taken into account in lfModifier::Initialize.
-    ACMScale = 18.0 / (calibration_aspect_ratio * calibration_cropfactor);
 }
 
 static void free_callback_list (GPtrArray *arr)
