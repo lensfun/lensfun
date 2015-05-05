@@ -229,11 +229,15 @@ bool lfModifier::AddCoordCallbackScale (float scale, bool reverse)
     return true;
 }
 
-bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float focal)
+bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float focal /*=0*/)
 {
+    if (focal)
+        g_warning ("[lensfun] The 'focal' parameter to "
+                   "lfModifier::AddCoordCallbackGeometry () is deprecated.");
+
     lfExtModifier *This = static_cast<lfExtModifier *> (this);
     float tmp [2];
-    tmp [0] = focal / This->NormalizedInMillimeters;
+    tmp [0] = 1.0 / This->NormalizedInFocalLengths;
     tmp [1] = 1.0 / tmp [0];
 
     if(from == to)

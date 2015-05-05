@@ -542,8 +542,12 @@ struct lfExtModifier : public lfModifier
     /// The coefficients for conversion to and from normalized coords
     double NormScale, NormUnScale;
     /// Factor to transform from normalized into absolute coords (mm).  Needed
-    /// for geometry transformation.
+    /// for calculating the real focal length from the FOV, and for calculating
+    /// NormalizedInFocalLengths.
     double NormalizedInMillimeters;
+    /// Factor to transform from normalized into units of the focal length.
+    /// Needed for geometry transformation and the Adobe camera models.
+    double NormalizedInFocalLengths;
     /// Used for conversion from distortion to vignetting coordinate system of
     /// the calibration sensor
     double AspectRatioCorrection;

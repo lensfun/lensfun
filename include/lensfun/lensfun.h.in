@@ -2167,11 +2167,11 @@ struct LF_EXPORT lfModifier
      * @param to
      *     The lens model for target image.
      * @param focal
-     *     Lens focal length in mm.
+     *     Lens focal length in mm.  Deprecated.
      * @return
      *     True if a library has a callback for given from->to conversion.
      */
-    bool AddCoordCallbackGeometry (lfLensType from, lfLensType to, float focal);
+    bool AddCoordCallbackGeometry (lfLensType from, lfLensType to, float focal = 0);
 
     /**
      * @brief Add the stock image scaling callback into the chain.
@@ -2426,7 +2426,7 @@ LF_EXPORT cbool lf_modifier_add_coord_callback_distortion (
 
 /** @sa lfModifier::AddCoordCallbackGeometry */
 LF_EXPORT cbool lf_modifier_add_coord_callback_geometry (
-    lfModifier *modifier, lfLensType from, lfLensType to, float focal);
+    lfModifier *modifier, lfLensType from, lfLensType to, float focal = 0);
 
 /** @sa lfModifier::AddCoordCallbackScale */
 LF_EXPORT cbool lf_modifier_add_coord_callback_scale (

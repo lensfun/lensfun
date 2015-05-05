@@ -37,6 +37,8 @@ int lfModifier::Initialize (
     lfExtModifier *This = static_cast<lfExtModifier *> (this);
     This->ACMScale /= GetRealFocalLength(lens, focal);
     This->ACMUnScale = 1.0 / This->ACMScale;
+    This->NormalizedInFocalLengths = This->NormalizedInMillimeters /
+        (GetRealFocalLength(lens, focal) / get_hugin_focal_correction (lens, focal));
 
     int oflags = 0;
 
@@ -67,11 +69,9 @@ int lfModifier::Initialize (
     if (flags & LF_MODIFY_GEOMETRY &&
         lens->Type != targeom)
     {
-        float real_focal_length = GetRealFocalLength (lens, focal);
-        real_focal_length /= get_hugin_focal_correction (lens, focal);
         if (reverse ?
-            AddCoordCallbackGeometry (targeom, lens->Type, real_focal_length) :
-            AddCoordCallbackGeometry (lens->Type, targeom, real_focal_length))
+            AddCoordCallbackGeometry (targeom, lens->Type) :
+            AddCoordCallbackGeometry (lens->Type, targeom))
             oflags |= LF_MODIFY_GEOMETRY;
     }
 
@@ -179,8 +179,8 @@ void lfModifier::Destroy ()
   work, the coordinates are finally divided by NormScale again.  Done.
 
   But the devil is in the details.  Geometry transformation has to happen in
-  (3), so for only this step, all coordinates are scaled by focal /
-  NormalizedInMillimeters in lfModifier::AddCoordCallbackGeometry.  Moreover,
+  (3), so for only this step, all coordinates are scaled by
+  NormalizedInFocalLengths in lfModifier::AddCoordCallbackGeometry.  Moreover,
   it is important to see that the conversion into (1) is pretty irrelevant.
   (It is performed for that the resulting image is not ridiculously small; but
   this could also be achieved with proper auto-scaling.)  Instead, really
