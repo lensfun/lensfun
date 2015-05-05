@@ -236,6 +236,11 @@ def get_real_focal_length():
         return focal_length * hugin_correction
 real_focal_length = get_real_focal_length()
 
+# This factor converts Lensfun coordinates into real-world coordinates on the
+# camera sensor, in units of the focal length.
+normalized_in_focal_lengths = \
+    sqrt(36**2 + 24**2) / 2 / sqrt(lens_aspect_ratio**2 + 1) / lens_cropfactor / (real_focal_length / hugin_correction)
+
 def get_projection_function():
     projection = None
     if lens_type == "stereographic":
@@ -280,6 +285,16 @@ def get_distortion_function():
             k2 = get_float_attribute(distortion_element, "k2")
             def distortion(r):
                 return r * (1 + k1 * r**2 + k2 * r**4)
+        elif model == "acm":
+            k1 = get_float_attribute(distortion_element, "k1")
+            k2 = get_float_attribute(distortion_element, "k2")
+            k3 = get_float_attribute(distortion_element, "k3")
+            k4 = get_float_attribute(distortion_element, "k4")
+            k5 = get_float_attribute(distortion_element, "k5")
+            assert k4 == 0 and k5 == 0, Exception("We do not support non-radial terms.")
+            def distortion(r):
+                r *= normalized_in_focal_lengths
+                return r * (1 + k1 * r**2 + k2 * r**4 + k3 * r**6) / normalized_in_focal_lengths
     return distortion
 distortion = get_distortion_function()
 
@@ -308,6 +323,27 @@ def get_tca_functions():
             vb = get_float_attribute(tca_element, "vb", 1)
             def tca_blue(r):
                 return r**3 * bb + r**2 * cb + r * vb
+        elif model == "acm":
+            α0 = get_float_attribute(tca_element, "alpha0", 1)
+            α1 = get_float_attribute(tca_element, "alpha1")
+            α2 = get_float_attribute(tca_element, "alpha2")
+            α3 = get_float_attribute(tca_element, "alpha3")
+            α4 = get_float_attribute(tca_element, "alpha4")
+            α5 = get_float_attribute(tca_element, "alpha5")
+            assert α4 == 0 and α5 == 0, Exception("We do not support non-radial terms.")
+            def tca_red(r):
+                r *= normalized_in_focal_lengths
+                return α0 * r * (1 + α1 * r**2 + α2 * r**4 + α3 * r**6) / normalized_in_focal_lengths
+            β0 = get_float_attribute(tca_element, "beta0", 1)
+            β1 = get_float_attribute(tca_element, "beta1")
+            β2 = get_float_attribute(tca_element, "beta2")
+            β3 = get_float_attribute(tca_element, "beta3")
+            β4 = get_float_attribute(tca_element, "beta4")
+            β5 = get_float_attribute(tca_element, "beta5")
+            assert β4 == 0 and β5 == 0, Exception("We do not support non-radial terms.")
+            def tca_blue(r):
+                r *= normalized_in_focal_lengths
+                return β0 * r * (1 + β1 * r**2 + β2 * r**4 + β3 * r**6) / normalized_in_focal_lengths
     return tca_red, tca_blue
 tca_red, tca_blue = get_tca_functions()
 
@@ -322,6 +358,13 @@ def get_vignetting_function():
             k3 = get_float_attribute(vignetting_element, "k3")
             def vignetting(r):
                 return 1 + k1 * r**2 + k2 * r**4 + k3 * r**6
+        elif model == "acm":
+            α1 = get_float_attribute(vignetting_element, "alpha1")
+            α2 = get_float_attribute(vignetting_element, "alpha2")
+            α3 = get_float_attribute(vignetting_element, "alpha3")
+            def vignetting(r):
+                r *= sqrt(aspect_ratio**2 + 1) * normalized_in_focal_lengths
+                return 1 + α1 * r**2 + α2 * r**4 + α3 * r**6
     return vignetting
 vignetting = get_vignetting_function()
 
