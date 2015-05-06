@@ -479,11 +479,11 @@ enum lfDistortionModel
      * Everything is measured in units of the focal length of the lens.
      *
      * @f[\begin{aligned}
-     * x_d &= x_u (1 + k_1 r^2 + k_2 r^4 + k_3 r^6) + 2x(k_4y + k_5x) + k_5 r^2,
-     * y_d &= y_u (1 + k_1 r^2 + k_2 r^4 + k_3 r^6) + 2y(k_4y + k_5x) + k_4 r^2,
+     * x_d &= x_u (1 + k_1 r_u^2 + k_2 r_u^4 + k_3 r_u^6) + 2x(k_4y + k_5x) + k_5 r_u^2, \\
+     * y_d &= y_u (1 + k_1 r_u^2 + k_2 r_u^4 + k_3 r_u^6) + 2y(k_4y + k_5x) + k_4 r_u^2,
      * \end{aligned}
      * @f]
-     * with \f$r = \sqrt{x^2 + y^2}\f$.  The corresponding XML attributes are
+     * with \f$r_u = \sqrt{x_u^2 + y_u^2}\f$.  The corresponding XML attributes are
      * called “k1”, “k2”, “k3”, “k4”, and “k5”.  They default to 0.  Ref:
      * http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf
      */
@@ -552,21 +552,31 @@ enum lfTCAModel
      */
     LF_TCA_MODEL_POLY3,
     /**
-     * @brief Adobe camera model for TCA.
+     * @brief Adobe camera model for TCA.  The coordinate system is different
+     * here.  Everything is measured in units of the focal length of the lens.
      *
      * \f[\begin{aligned}
-     * x_{d,R} &= \alpha_0 \big((1 + \alpha_1 r_{u,R}^2 + \alpha_2 r_{u,R}^4 + \alpha_3 r_{u,R}^6) x_{u,R} +
-                  2(\alpha_4 y_{u,R} + \alpha_5 x_{u,R}) x_{u,R} + \alpha_5 r_{u,R}^2\big)\ \
-     * y_{d,R} &= \alpha_0 \big((1 + \alpha_1 r_{u,R}^2 + \alpha_2 r_{u,R}^4 + \alpha_3 r_{u,R}^6) y_{u,R} +
-                  2(\alpha_4 y_{u,R} + \alpha_5 x_{u,R}) y_{u,R} + \alpha_4 r_{u,R}^2\big)\ \
-     * x_{d,B} &= \beta_0 \big((1 + \beta_1 r_{u,B}^2 + \beta_2 r_{u,B}^4 + \beta_3 r_{u,B}^6) x_{u,B} +
-                  2(\beta_4 y_{u,B} + \beta_5 x_{u,B}) x_{u,B} + \beta_5 r_{u,B}^2\big)\ \
-     * y_{d,B} &= \beta_0 \big((1 + \beta_1 r_{u,B}^2 + \beta_2 r_{u,B}^4 + \beta_3 r_{u,B}^6) y_{u,B} +
-                  2(\beta_4 y_{u,B} + \beta_5 x_{u,B}) y_{u,B} + \beta_4 r_{u,B}^2\big)\ \
+     * x_{d,R} &= \alpha_0 \left(\left(1 + \alpha_1 r_{u,R}^2 +
+                  \alpha_2 r_{u,R}^4 + \alpha_3 r_{u,R}^6\right) x_{u,R} +
+                  2(\alpha_4 y_{u,R} + \alpha_5 x_{u,R}) x_{u,R} +
+                  \alpha_5 r_{u,R}^2\right), \\
+     * y_{d,R} &= \alpha_0 \left(\left(1 + \alpha_1 r_{u,R}^2 +
+                  \alpha_2 r_{u,R}^4 + \alpha_3 r_{u,R}^6\right) y_{u,R} +
+                  2(\alpha_4 y_{u,R} + \alpha_5 x_{u,R}) y_{u,R} +
+                  \alpha_4 r_{u,R}^2\right), \\
+     * x_{d,B} &= \beta_0 \left(\left(1 + \beta_1 r_{u,B}^2 +
+                  \beta_2 r_{u,B}^4 + \beta_3 r_{u,B}^6\right) x_{u,B} +
+                  2(\beta_4 y_{u,B} + \beta_5 x_{u,B}) x_{u,B} +
+                  \beta_5 r_{u,B}^2\right), \\
+     * y_{d,B} &= \beta_0 \left(\left(1 + \beta_1 r_{u,B}^2 +
+                  \beta_2 r_{u,B}^4 + \beta_3 r_{u,B}^6\right) y_{u,B} +
+                  2(\beta_4 y_{u,B} + \beta_5 x_{u,B}) y_{u,B} +
+                  \beta_4 r_{u,B}^2\right),
      * \end{aligned}\f]
-     * The corresponding XML attributes are called “alpha0” to “alpha5”,
-     * and “beta0” to “beta5”.  alpha0 and beta0 default to 1, the rest to 0.
-     * Ref: http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf
+     * with \f$r_{u,\ast} = \sqrt{x_{u,\ast}^2 + y_{u,\ast}^2}\f$.  The
+     * corresponding XML attributes are called “alpha0” to “alpha5”, and
+     * “beta0” to “beta5”.  alpha0 and beta0 default to 1, the rest to 0.  Ref:
+     * http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf
      */
     LF_TCA_MODEL_ACM
 };
@@ -624,8 +634,10 @@ enum lfVignettingModel
     LF_VIGNETTING_MODEL_PA,
     /**
      * @brief Adobe's vignetting model.  It differs from D'Angelo's model only
-     * in the coordinate system.
+     * in the coordinate system.  Everything is measured in units of the focal
+     * length of the lens.
      *
+     * \f[C_d = C_s \cdot (1 + \alpha_1 r^2 + \alpha_2 r^4 + \alpha_3 r^6).\f]
      * The corresponding XML attributes are called “alpha1”, “alpha2”, and
      * “alpha3”.  They default to 0.  Ref:
      * http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf
