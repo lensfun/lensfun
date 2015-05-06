@@ -455,7 +455,6 @@ enum lfDistortionModel
      *
      * \f[r_d = r_u \cdot (1 - k_1 + k_1 r_u^2)\f]
      * The corresponding XML attribute is called “k1”.  It defaults to 0.
-     * Ref: http://www.imatest.com/docs/distortion.html
      */
     LF_DIST_MODEL_POLY3,
     /**
@@ -464,6 +463,7 @@ enum lfDistortionModel
      * \f[r_d = r_u \cdot (1 + k_1 r_u^2 + k_2 r_u^4)\f]
      * The corresponding XML attributes are called “k1” and “k2”.  They default
      * to 0.
+     * Ref: http://www.imatest.com/docs/distortion.html
      */
     LF_DIST_MODEL_POLY5,
     /**
