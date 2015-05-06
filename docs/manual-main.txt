@@ -462,20 +462,19 @@ Possible embedded elements:
 <dd>Declares the image distortion model for this lens. Distortion is specific for every
     focal length (in mm), so you can declare multiple distortion entries with different focal
     values; the library will interpolate the parameters for intermediate focal
-    lengths.  The model name may be "none", "poly3", "poly5", or "ptlens".
+    lengths.  The model name may be "none", "poly3", "poly5", "ptlens", or "acm".
     @see lfDistortionModel
 <dt>\<tca focal="number" model="name" kr="number" kb="number" /\>
 <dd>Declares the Transversal Chromatic Aberrations model for this lens,
     depending on focal length.  The library will interpolate the parameters for
     intermediate focal lengths.  The model name may be "none", "linear",
-    or "poly3".
-    @see lfTCAModel
+    "poly3", or "acm".  @see lfTCAModel
 <dt>\<vignetting focal="number" aperture="number" distance="number" model="name" k1="number" k2="number" k3="number" /\>
 <dd>Declares the vignetting model for this lens at given focal length (in mm), given aperture (as f-number),
     and given distance to subject in focus (in meters). This kind of calibration requires relatively many
     sample points since it depends on three variables.  The library will
     interpolate the parameters for between the sample points if necessary.  The
-    model name may be "none" or "pa".
+    model name may be "none", "pa", or "acm".
     @see lfVignettingModel
 <dt>\<crop focal="number" mode="name" left="number" right="number" top="number" bottom="number" /\>
 <dd>Declares the image crop for this lens. Crop can be specific for every
