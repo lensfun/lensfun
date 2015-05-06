@@ -483,8 +483,11 @@ enum lfDistortionModel
      * y_d &= y_u (1 + k_1 r_u^2 + k_2 r_u^4 + k_3 r_u^6) + 2y(k_4y + k_5x) + k_4 r_u^2,
      * \end{aligned}
      * @f]
-     * with \f$r_u = \sqrt{x_u^2 + y_u^2}\f$.  The corresponding XML attributes are
-     * called “k1”, “k2”, “k3”, “k4”, and “k5”.  They default to 0.  Ref:
+     * with \f$r_u = \sqrt{x_u^2 + y_u^2}\f$.  The corresponding XML attributes
+     * are called “k1”, “k2”, “k3”, “k4”, and “k5”.  They default to 0.  Note
+     * that Adobe's fisheye model is also covered by this by setting the lens
+     * type to "fisheye" and using only the \f$k_1\f$ and \f$k_2\f$ parameters.
+     * Ref:
      * http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf
      */
     LF_DIST_MODEL_ACM,
