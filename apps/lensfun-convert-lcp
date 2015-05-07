@@ -97,16 +97,54 @@ class FieldNotFoundError(Exception):
     pass
 
 
-def read_field(element, field_name, default=None):
-    try:
-        return element.find(camera_ns + field_name).text
-    except AttributeError:
+class LCPFile:
+
+    def __init__(self, filepath):
+        self.tree = ElementTree.parse(filepath)
+        self.old_format = bool(
+            self.tree.findall(".//{http://ns.adobe.com/photoshop/1.0/camera-profile}Make"))
+        self.calibration_entries = list(self.tree.getroot()[0][0][0][0])
+        self._read_first_entry()
+
+    def _read_first_entry(self):
+        entry = self.calibration_entries[0]
+        camera_make = self.read_field(entry, "Make")
+        camera_model = self.read_field(entry, "Model", camera_make)
+        camera = cameras.get((camera_make.lower(), camera_model.lower()))
+        model_en = self.read_field(entry, "LensPrettyName")
         try:
-            return element.find(rdf_ns + "Description").attrib[camera_ns + field_name]
+            model = self.read_field(entry, "Lens")
+        except FieldNotFoundError:
+            model = model_en
+        if unusable_lens_name_regex.match(model):
+            model = model_en
+#                    print(model_en, (50 - len(model_en)) * " ", model)
+        try:
+            cropfactor = float(self.read_field(entry, "SensorFormatFactor"))
+        except FieldNotFoundError:
+            cropfactor = camera and camera.cropfactor
+        for lens in lenses:
+            models = [model] if model == model_en else [model, model_en]
+            if lens.matches(models, cropfactor):
+                print("Match! (1)")
+                break
+        else:
+            print("No Match! (2)")
+            lens = None
+        
+    def read_field(self, element, field_name, default=None):
+        try:
+            if self.old_format:
+                return element.find(camera_ns + field_name).text
+            else:
+                return element.find(rdf_ns + "Description").attrib[camera_ns + field_name]
         except (KeyError, AttributeError):
             if default is not None:
                 return default
             raise FieldNotFoundError(field_name)
+
+    def generate_distortion_entries(tree):
+        pass
 
 
 camera_ns = "{http://ns.adobe.com/photoshop/1.0/camera-profile}"
@@ -117,36 +155,7 @@ for root, __, filenames in os.walk(args.input_directory):
     for filename in filenames:
         filepath = os.path.join(root, filename)
         try:
-            tree = ElementTree.parse(filepath)
+            lcp_file = LCPFile(filepath)
         except ElementTree.ParseError:
             continue
 #        print(filepath)
-        camera_make = camera_model = None
-        for profile in tree.findall(".//{http://ns.adobe.com/photoshop/1.0/}CameraProfiles"):
-            for entry in profile.findall(rdf_ns + "Seq/" + rdf_ns + "li"):
-                if camera_make is None:
-                    # Read file-global data
-                    camera_make = read_field(entry, "Make")
-                    camera_model = read_field(entry, "Model", camera_make)
-                    camera = cameras.get((camera_make.lower(), camera_model.lower()))
-                    model_en = read_field(entry, "LensPrettyName")
-                    try:
-                        model = read_field(entry, "Lens")
-                    except FieldNotFoundError:
-                        model = model_en
-                    if unusable_lens_name_regex.match(model):
-                        model = model_en
-#                    print(model_en, (50 - len(model_en)) * " ", model)
-                    try:
-                        cropfactor = float(read_field(entry, "SensorFormatFactor"))
-                    except FieldNotFoundError:
-                        cropfactor = camera and camera.cropfactor
-                    for lens in lenses:
-                        models = [model] if model == model_en else [model, model_en]
-                        if lens.matches(models, cropfactor):
-                            print("Match! (1)")
-                            break
-                    else:
-                        print("No Match! (2)")
-                        lens = None
-                    
