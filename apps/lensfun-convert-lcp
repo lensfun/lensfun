@@ -143,8 +143,31 @@ class LCPFile:
                 return default
             raise FieldNotFoundError(field_name)
 
+    @property
+    def best_entries(self):
+        """Return the entries best suited for distortion and TCA data, because Lensfun
+        can only use one per focal length."""
+        try:
+            return self._best_entries
+        except AttributeError:
+            current_distances, current_apertures, self._best_entries = {}, {}, {}
+            for entry in self.calibration_entries:
+                focal_length = float(self.read_field(entry, "FocalLength"))
+                current_distance = current_distances.setdefault(focal_length, -1)
+                current_aperture = current_apertures.setdefault(focal_length, 1000)
+                distance = float(self.read_field(entry, "FocusDistance"))
+                if distance > current_distance:
+                    aperture = float(self.read_field(entry, "ApertureValue"))
+                    if abs(aperture - 8) < abs(current_aperture - 8):
+                        current_distances[focal_length] = distance
+                        current_apertures[focal_length] = aperture
+                        self._best_entries[focal_length] = entry
+            return self._best_entries
+
     def generate_distortion_entries(tree):
-        pass
+        for focal_length in sorted(self.best_entries):
+            entry = self.best_entries[focal_length]
+            
 
 
 camera_ns = "{http://ns.adobe.com/photoshop/1.0/camera-profile}"
