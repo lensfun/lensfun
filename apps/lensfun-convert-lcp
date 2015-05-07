@@ -46,16 +46,19 @@ class Lens:
                      if token != "f" and not token.isspace() and
                      (len(token) > 1 or token.isalnum() or token in "*+"))
 
-    def matches(self, name, cropfactor):
-        if not 0.96 < cropfactor / self.cropfactor < 1.041:
+    def matches(self, names, cropfactor):
+        if cropfactor and not 0.96 < cropfactor / self.cropfactor < 1.041:
             return False
-        normalized_model = self.normalized_model[:]
-        for token in self.normalize_lens_model_name(name):
+        for name in names:
+            normalized_model = list(self.normalized_model)
             try:
-                normalized_model.remove(token)
+                for token in self.normalize_lens_model_name(name):
+                    normalized_model.remove(token)
             except ValueError:
-                return False
-        return len(normalized_model) < 4
+                continue
+            if len(normalized_model) < 4:
+                return True
+        return False
 
     def __hash__(self):
         return hash(self.normalized_model) ^ hash(self.cropfactor)
@@ -90,11 +93,6 @@ if not cameras:
     sys.exit(1)
 
 
-class LCPLens:
-    def __init__(self, maker, model):
-        self.maker, self.model = maker, model
-
-
 class FieldNotFoundError(Exception):
     pass
 
@@ -113,7 +111,7 @@ def read_field(element, field_name, default=None):
 
 camera_ns = "{http://ns.adobe.com/photoshop/1.0/camera-profile}"
 rdf_ns = "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}"
-data = {}
+unusable_lens_name_regex = re.compile("[-0-9.]+\s*mm(\s*f/?[-0-9.]+)?|Sigma Lens$", re.IGNORECASE)
 
 for root, __, filenames in os.walk(args.input_directory):
     for filename in filenames:
@@ -132,16 +130,23 @@ for root, __, filenames in os.walk(args.input_directory):
                     camera_model = read_field(entry, "Model", camera_make)
                     camera = cameras.get((camera_make.lower(), camera_model.lower()))
                     model_en = read_field(entry, "LensPrettyName")
-                    maker = model_en.split()[0]
                     try:
                         model = read_field(entry, "Lens")
                     except FieldNotFoundError:
                         model = model_en
-                    data[maker, model] = lens = LCPLens(maker, model)
-                    lens.model_en = model_en
+                    if unusable_lens_name_regex.match(model):
+                        model = model_en
+#                    print(model_en, (50 - len(model_en)) * " ", model)
                     try:
-                        lens.cropfactor = read_field(entry, "SensorFormatFactor")
+                        cropfactor = float(read_field(entry, "SensorFormatFactor"))
                     except FieldNotFoundError:
-                        lens.cropfactor = camera and camera.cropfactor or 0.1
-                        if lens.cropfactor == 0.1:
-                            print(model_en)
+                        cropfactor = camera and camera.cropfactor
+                    for lens in lenses:
+                        models = [model] if model == model_en else [model, model_en]
+                        if lens.matches(models, cropfactor):
+                            print("Match! (1)")
+                            break
+                    else:
+                        print("No Match! (2)")
+                        lens = None
+                    
