@@ -1,0 +1,147 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""This program reads Adobe LCP files and converts their content to one Lensfun
+XML file.
+"""
+
+import os, argparse, sys, re
+from xml.etree import ElementTree
+
+
+parser = argparse.ArgumentParser(description="Convert LCP files to a Lensfun XML file.")
+parser.add_argument("input_directory", default=".", nargs="?", metavar="path",
+                    help="""path to the LCP files (default: ".")""")
+parser.add_argument("--output", default=os.path.expanduser("~/.local/share/lensfun/_lcps.xml"),
+                    help="path of output file (default: ~/.local/share/lensfun/_lcps.xml)")
+parser.add_argument("--db-path", help="Path to the lensfun database.  If not given, look in the same places as Lensfun.")
+args = parser.parse_args()
+
+
+class Camera:
+
+    def __init__(self, maker, model):
+        self.maker, self.model = maker, model
+        self.mount = None
+        self.cropfactor = None
+
+
+def child_without_attributes(parent, name):
+    for child in parent.findall(name):
+        if not list(child.attrib.keys()):
+            return child
+
+
+class Lens:
+    model_name_token_regex = re.compile(r"[0-9][0-9.]*|\s+|[^\w\s]+|[^\W\d_]+")
+
+    def __init__(self, element):
+        self.element = element
+        self.normalized_model = self.normalize_lens_model_name(child_without_attributes(element, "model").text)
+        self.cropfactor = float(element.find("cropfactor").text)
+
+    @staticmethod
+    def normalize_lens_model_name(name):
+        return tuple(token for token in Lens.model_name_token_regex.findall(name.lower())
+                     if token != "f" and not token.isspace() and
+                     (len(token) > 1 or token.isalnum() or token in "*+"))
+
+    def matches(self, name, cropfactor):
+        if not 0.96 < cropfactor / self.cropfactor < 1.041:
+            return False
+        normalized_model = self.normalized_model[:]
+        for token in self.normalize_lens_model_name(name):
+            try:
+                normalized_model.remove(token)
+            except ValueError:
+                return False
+        return len(normalized_model) < 4
+
+    def __hash__(self):
+        return hash(self.normalized_model) ^ hash(self.cropfactor)
+
+    def __eq__(self, other):
+        return self.normalized_model == other.normalized_model and self.cropfactor == other.cropfactor
+
+
+cameras = {}
+lenses = set()
+def crawl_directory(dirpath):
+    for root, __, filenames in os.walk(dirpath):
+        for filename in filenames:
+            if filename.endswith(".xml"):
+                tree = ElementTree.parse(os.path.join(root, filename)).getroot()
+                for element in tree.findall("camera"):
+                    maker, model = child_without_attributes(element, "maker").text, \
+                                   child_without_attributes(element, "model").text
+                    cameras[maker.lower(), model.lower()] = camera = Camera(maker, model)
+                    camera.cropfactor = float(element.find("cropfactor").text)
+                    camera.mount = element.find("mount").text
+                lenses.update(Lens(element) for element in tree.findall("lens"))
+
+paths_search_list = [args.db_path] if args.db_path else \
+                    ["/usr/share/lensfun", "/usr/local/share/lensfun", "/var/lib/lensfun",
+                     os.path.expanduser("~/.local/share/lensfun/updates"),
+                     os.path.expanduser("~/.local/share/lensfun")]
+for path in paths_search_list:
+    crawl_directory(path)
+if not cameras:
+    print("No Lensfun database found.")
+    sys.exit(1)
+
+
+class LCPLens:
+    def __init__(self, maker, model):
+        self.maker, self.model = maker, model
+
+
+class FieldNotFoundError(Exception):
+    pass
+
+
+def read_field(element, field_name, default=None):
+    try:
+        return element.find(camera_ns + field_name).text
+    except AttributeError:
+        try:
+            return element.find(rdf_ns + "Description").attrib[camera_ns + field_name]
+        except (KeyError, AttributeError):
+            if default is not None:
+                return default
+            raise FieldNotFoundError(field_name)
+
+
+camera_ns = "{http://ns.adobe.com/photoshop/1.0/camera-profile}"
+rdf_ns = "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}"
+data = {}
+
+for root, __, filenames in os.walk(args.input_directory):
+    for filename in filenames:
+        filepath = os.path.join(root, filename)
+        try:
+            tree = ElementTree.parse(filepath)
+        except ElementTree.ParseError:
+            continue
+#        print(filepath)
+        camera_make = camera_model = None
+        for profile in tree.findall(".//{http://ns.adobe.com/photoshop/1.0/}CameraProfiles"):
+            for entry in profile.findall(rdf_ns + "Seq/" + rdf_ns + "li"):
+                if camera_make is None:
+                    # Read file-global data
+                    camera_make = read_field(entry, "Make")
+                    camera_model = read_field(entry, "Model", camera_make)
+                    camera = cameras.get((camera_make.lower(), camera_model.lower()))
+                    model_en = read_field(entry, "LensPrettyName")
+                    maker = model_en.split()[0]
+                    try:
+                        model = read_field(entry, "Lens")
+                    except FieldNotFoundError:
+                        model = model_en
+                    data[maker, model] = lens = LCPLens(maker, model)
+                    lens.model_en = model_en
+                    try:
+                        lens.cropfactor = read_field(entry, "SensorFormatFactor")
+                    except FieldNotFoundError:
+                        lens.cropfactor = camera and camera.cropfactor or 0.1
+                        if lens.cropfactor == 0.1:
+                            print(model_en)
