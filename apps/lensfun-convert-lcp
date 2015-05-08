@@ -147,6 +147,7 @@ class LCPLens:
         self.calibration_entries = [self.get_description_element_maybe(entry) for entry in self.tree.getroot()[0][0][0][0]]
         self._read_first_entry()
         self._fix_focal_lengths()
+        self.xml_element = self.xml_element()
 
     def get_description_element_maybe(self, element):
         if self.old_format:
@@ -305,40 +306,64 @@ class LCPLens:
         return elements
 
     def xml_element(self):
-        if lcp_lens.lensfun_lens:
-            lens = copy.deepcopy(lcp_lens.lensfun_lens.element)
+        if self.lensfun_lens:
+            lens = copy.deepcopy(self.lensfun_lens.element)
             calibration = lens.find("calibration")
             if calibration is None:
                 calibration = ElementTree.SubElement(lens, "calibration")
-            entries_generated = False
+            self.correction_coverage = 3
             if calibration.find("distortion") is None:
-                entries = lcp_lens.generate_distortion_entries()[0]
+                entries = self.generate_distortion_entries()[0]
                 if entries:
                     calibration.extend(entries)
-                    entries_generated = True
+                else:
+                    self.correction_coverage -= 1
             if calibration.find("tca") is None:
-                entries = lcp_lens.generate_tca_entries()
+                entries = self.generate_tca_entries()
                 if entries:
                     calibration.extend(entries)
-                    entries_generated = True
+                else:
+                    self.correction_coverage -= 1
             if calibration.find("vignetting") is None:
-                entries = lcp_lens.generate_vignetting_entries()
+                entries = self.generate_vignetting_entries()
                 if entries:
                     calibration.extend(entries)
-                    entries_generated = True
-            if not entries_generated:
+                else:
+                    self.correction_coverage -= 1
+            if not self.correction_coverage:
                 return None
         else:
             lens = ElementTree.Element("lens")
-            ElementTree.SubElement(lens, "model").text = lcp_lens.model
-            if lcp_lens.model != lcp_lens.model_en:
-                ElementTree.SubElement(lens, "model", {"lang": "en"}).text = lcp_lens.model_en
-            ElementTree.SubElement(lens, "cropfactor").text = str(lcp_lens.cropfactor)
+            ElementTree.SubElement(lens, "model").text = self.model
+            if self.model != self.model_en:
+                ElementTree.SubElement(lens, "model", {"lang": "en"}).text = self.model_en
+            ElementTree.SubElement(lens, "cropfactor").text = str(self.cropfactor)
             calibration = ElementTree.SubElement(lens, "calibration")
-            calibration.extend(lcp_lens.generate_distortion_entries()[0])
-            calibration.extend(lcp_lens.generate_tca_entries())
-            calibration.extend(lcp_lens.generate_vignetting_entries())
+            self.correction_coverage = 0
+            entries = self.generate_distortion_entries()[0]
+            if entries:
+                calibration.extend(entries)
+                self.correction_coverage += 1
+            entries = self.generate_tca_entries()
+            if entries:
+                calibration.extend(entries)
+                self.correction_coverage += 1
+            entries = self.generate_vignetting_entries()
+            if entries:
+                calibration.extend(entries)
+                self.correction_coverage += 1
         return lens
+
+    @property
+    def normalized_cropfactor(self):
+        if 1.5 <= self.cropfactor <= 1.57:
+            return 1.5
+        elif 1.58 <= self.cropfactor <= 1.63:
+            return 1.6
+        elif 1.2 <= self.cropfactor <= 1.3:
+            return 1.3
+        else:
+            return self.cropfactor
 
 
 lcp_lenses = {}
@@ -350,13 +375,17 @@ for root, __, filenames in os.walk(args.input_directory):
         except ElementTree.ParseError:
             continue
 #        print(filepath)
-        lcp_lenses[lcp_lens.maker, lcp_lens.model, lcp_lens.cropfactor] = lcp_lens
+        key = (lcp_lens.maker, lcp_lens.model, lcp_lens.normalized_cropfactor)
+        already_existing_lens = lcp_lenses.get(key)
+        if not already_existing_lens or already_existing_lens.correction_coverage < lcp_lens.correction_coverage \
+           or already_existing_lens.correction_coverage == lcp_lens.correction_coverage and \
+           already_existing_lens.cropfactor > lcp_lens.cropfactor:
+            lcp_lenses[key] = lcp_lens
 
 
 output = ElementTree.Element("lensdatabase", {"version": "2"})
 for lens in lcp_lenses.values():
-    element = lens.xml_element()
-    if element:
-        output.append(element)
+    if lens.xml_element:
+        output.append(lens.xml_element)
 indent(output)
 open("/tmp/_adobe.xml", "w").write(ElementTree.tostring(output, encoding="unicode"))
