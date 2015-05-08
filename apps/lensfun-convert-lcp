@@ -239,6 +239,7 @@ class LCPFile:
             else:
                 assert fisheye != True
                 fisheye = False
+            entry = self.get_description_element_maybe(entry)
             element = ElementTree.Element("distortion", {"focal": str(focal_length), "model": "acm"})
             for i in range(1, 6):
                 k = self.read_field(entry, "RadialDistortParam{}".format(i), None)
@@ -254,12 +255,16 @@ class LCPFile:
             entry = best_entries[focal_length].find(camera_ns + "PerspectiveModel")
             if entry is None:
                 entry = best_entries[focal_length].find(camera_ns + "FisheyeModel")
+            entry = self.get_description_element_maybe(entry)
             element = ElementTree.Element("tca", {"focal": str(focal_length), "model": "acm"})
             for type_ in ["alpha", "beta"]:
                 chromatic_element = entry.find(camera_ns + ("ChromaticRedGreenModel" if type_ == "alpha" else
                                                             "ChromaticBlueGreenModel"))
-                for i in range(6):
-                    parameter = self.read_field(entry, "RadialDistortParam{}".format(i), None)
+                scale_factor = self.read_field(chromatic_element, "ScaleFactor", None)
+                if scale_factor is not None:
+                    element.attrib[type_ + "0"] = scale_factor
+                for i in range(1, 6):
+                    parameter = self.read_field(chromatic_element, "RadialDistortParam{}".format(i), None)
                     if parameter is not None:
                         element.attrib[type_ + str(i)] = parameter
             elements.append(element)
