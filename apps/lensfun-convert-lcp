@@ -178,12 +178,12 @@ class LCPFile:
             self.model = self.model_en
 #        print(self.model_en, (50 - len(self.model_en)) * " ", self.model)
         try:
-            cropfactor = float(self.read_field(entry, "SensorFormatFactor"))
+            self.cropfactor = float(self.read_field(entry, "SensorFormatFactor"))
         except FieldNotFoundError:
-            cropfactor = camera and camera.cropfactor
+            self.cropfactor = camera and camera.cropfactor or 1
         models = [self.model] if self.model == self.model_en else [self.model, self.model_en]
         for lens in lenses:
-            if lens.matches(models, cropfactor):
+            if lens.matches(models, self.cropfactor):
                 self.lensfun_lens = lens
 #                print("Match! (1)")
                 break
@@ -317,17 +317,30 @@ for root, __, filenames in os.walk(args.input_directory):
             calibration = lens.find("calibration")
             if calibration is None:
                 calibration = ElementTree.SubElement(lens, "calibration")
+            entries_generated = False
             if calibration.find("distortion") is None:
-                calibration.extend(lcp_file.generate_distortion_entries()[0])
+                entries = lcp_file.generate_distortion_entries()[0]
+                if entries:
+                    calibration.extend(entries)
+                    entries_generated = True
             if calibration.find("tca") is None:
-                calibration.extend(lcp_file.generate_tca_entries())
+                entries = lcp_file.generate_tca_entries()
+                if entries:
+                    calibration.extend(entries)
+                    entries_generated = True
             if calibration.find("vignetting") is None:
-                calibration.extend(lcp_file.generate_vignetting_entries())
+                entries = lcp_file.generate_vignetting_entries()
+                if entries:
+                    calibration.extend(entries)
+                    entries_generated = True
+            if not entries_generated:
+                continue
         else:
             lens = ElementTree.Element("lens")
             ElementTree.SubElement(lens, "model").text = lcp_file.model
             if lcp_file.model != lcp_file.model_en:
                 ElementTree.SubElement(lens, "model", {"lang": "en"}).text = lcp_file.model_en
+            ElementTree.SubElement(lens, "cropfactor").text = str(lcp_file.cropfactor)
             calibration = ElementTree.SubElement(lens, "calibration")
             calibration.extend(lcp_file.generate_distortion_entries()[0])
             calibration.extend(lcp_file.generate_tca_entries())
