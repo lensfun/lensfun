@@ -163,7 +163,9 @@ class LCPFile:
         for entry in self.calibration_entries:
             perspective_entry = entry.find(camera_ns + "PerspectiveModel")
             if perspective_entry is None:
-                continue
+                perspective_entry = entry.find(camera_ns + "FisheyeModel")
+                if perspective_entry is None:
+                    continue
             if tca and self.get_description_element_maybe(perspective_entry).\
                find(camera_ns + "ChromaticRedGreenModel") is None:
                 continue
@@ -186,21 +188,31 @@ class LCPFile:
     def generate_distortion_entries(self):
         best_entries = self.best_entries(tca=False)
         elements = []
+        fisheye = None
         for focal_length in sorted(best_entries):
             entry = best_entries[focal_length].find(camera_ns + "PerspectiveModel")
+            if entry is None:
+                entry = best_entries[focal_length].find(camera_ns + "FisheyeModel")
+                assert fisheye != False
+                fisheye = True
+            else:
+                assert fisheye != True
+                fisheye = False
             element = ElementTree.Element("distortion", {"focal": str(focal_length)})
             for i in range(1, 6):
                 k = self.read_field(entry, "RadialDistortParam{}".format(i), None)
                 if k is not None:
                     element.attrib["k{}".format(i)] = k
             elements.append(element)
-        return elements
+        return elements, fisheye
 
     def generate_tca_entries(self):
         best_entries = self.best_entries(tca=True)
         elements = []
         for focal_length in sorted(best_entries):
             entry = best_entries[focal_length].find(camera_ns + "PerspectiveModel")
+            if entry is None:
+                entry = best_entries[focal_length].find(camera_ns + "FisheyeModel")
             if entry is not None:
                 element = ElementTree.Element("tca", {"focal": str(focal_length)})
                 for type_ in ["alpha", "beta"]:
