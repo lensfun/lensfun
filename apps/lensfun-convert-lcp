@@ -18,6 +18,38 @@ parser.add_argument("--db-path", help="Path to the lensfun database.  If not giv
 args = parser.parse_args()
 
 
+def indent(elem, level=0):
+    """Indent a given ElementTree in-place by added whitespace so that it looks
+    nicer in the flattened output.  Taken from the ElementTree webseite.  This
+    routine may be embedded directly into ElementTree in a future version of
+    it.
+
+    :param elem: the root element of an ElementTree tree
+    :param level: the indentation level of the root element, in numbers of space
+        characters.
+
+    :type elem: xml.etree.ElementTree.Element
+    :type level: int
+
+    :return:
+      The same tree but with added whitespace in its ``text`` and ``tail``
+      attributes.
+
+    :rtype: xml.etree.ElementTree.Element
+    """
+    i = "\n" + level * "  "
+    if len(elem):
+        if not elem.text or not elem.text.strip():
+            elem.text = i + "  "
+        for elem in elem:
+            indent(elem, level + 1)
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+    else:
+        if level and (not elem.tail or not elem.tail.strip()):
+            elem.tail = i
+
+
 class Camera:
 
     def __init__(self, maker, model):
