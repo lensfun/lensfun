@@ -109,6 +109,7 @@ class LCPFile:
             self.tree.findall(".//{http://ns.adobe.com/photoshop/1.0/camera-profile}Make"))
         self.calibration_entries = [self.get_description_element_maybe(entry) for entry in self.tree.getroot()[0][0][0][0]]
         self._read_first_entry()
+        self._fix_focal_lengths()
 
     def get_description_element_maybe(self, element):
         if self.old_format:
@@ -119,6 +120,18 @@ class LCPFile:
         else:
             return description
 
+    def _fix_focal_lengths(self):
+        """For now, I just delete entries with a missing FocalLength field."""
+        clean_entries = []
+        for entry in self.calibration_entries:
+            try:
+                focal_length = float(self.read_field(entry, "FocalLength"))
+            except FieldNotFoundError:
+                print("Error!")
+            else:
+                clean_entries.append(entry)
+        self.calibration_entries = clean_entries
+            
     def _read_first_entry(self):
         entry = self.calibration_entries[0]
         camera_make = self.read_field(entry, "Make")
@@ -169,11 +182,7 @@ class LCPFile:
             if tca and self.get_description_element_maybe(perspective_entry).\
                find(camera_ns + "ChromaticRedGreenModel") is None:
                 continue
-            try:
-                focal_length = float(self.read_field(entry, "FocalLength"))
-            except FieldNotFoundError:
-                print("Error!")
-                continue
+            focal_length = float(self.read_field(entry, "FocalLength"))
             current_distance = current_distances.setdefault(focal_length, -1)
             current_aperture = current_apertures.setdefault(focal_length, 1000)
             distance = float(self.read_field(entry, "FocusDistance", -1))
