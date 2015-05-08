@@ -107,10 +107,17 @@ class LCPFile:
         self.tree = ElementTree.parse(filepath)
         self.old_format = bool(
             self.tree.findall(".//{http://ns.adobe.com/photoshop/1.0/camera-profile}Make"))
-        self.calibration_entries = list(self.tree.getroot()[0][0][0][0])
-        if not self.old_format:
-            self.calibration_entries = [entry.find(rdf_ns + "Description") for entry in self.calibration_entries]
+        self.calibration_entries = [self.get_description_element_maybe(entry) for entry in self.tree.getroot()[0][0][0][0]]
         self._read_first_entry()
+
+    def get_description_element_maybe(self, element):
+        if self.old_format:
+            return element
+        description = element.find(rdf_ns + "Description")
+        if description is None:
+            return element
+        else:
+            return description
 
     def _read_first_entry(self):
         entry = self.calibration_entries[0]
@@ -157,9 +164,8 @@ class LCPFile:
             perspective_entry = entry.find(camera_ns + "PerspectiveModel")
             if perspective_entry is None:
                 continue
-            if not self.old_format:
-                perspective_entry = perspective_entry.find(rdf_ns + "Description")
-            if tca and perspective_entry.find(camera_ns + "ChromaticRedGreenModel") is None:
+            if tca and self.get_description_element_maybe(perspective_entry).\
+               find(camera_ns + "ChromaticRedGreenModel") is None:
                 continue
             try:
                 focal_length = float(self.read_field(entry, "FocalLength"))
