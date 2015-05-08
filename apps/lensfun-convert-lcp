@@ -188,20 +188,16 @@ class LCPFile:
         elements = []
         for focal_length in sorted(best_entries):
             entry = best_entries[focal_length].find(camera_ns + "PerspectiveModel")
-            if entry is not None:
-                element = ElementTree.Element("distortion", {"focal": str(focal_length)})
-                for i in range(1, 6):
-                    k = self.read_field(entry, "RadialDistortParam{}".format(i), None)
-                    if k is not None:
-                        element.attrib["k{}".format(i)] = k
-                elements.append(element)
-            else:
-                print("Error!")
+            element = ElementTree.Element("distortion", {"focal": str(focal_length)})
+            for i in range(1, 6):
+                k = self.read_field(entry, "RadialDistortParam{}".format(i), None)
+                if k is not None:
+                    element.attrib["k{}".format(i)] = k
+            elements.append(element)
         return elements
 
     def generate_tca_entries(self):
         best_entries = self.best_entries(tca=True)
-        print(len(best_entries))
         elements = []
         for focal_length in sorted(best_entries):
             entry = best_entries[focal_length].find(camera_ns + "PerspectiveModel")
@@ -254,4 +250,4 @@ for root, __, filenames in os.walk(args.input_directory):
         except ElementTree.ParseError:
             continue
         print(filepath)
-        (len(lcp_file.generate_tca_entries()))
+        (len(lcp_file.generate_distortion_entries()))
