@@ -5,7 +5,7 @@
 XML file.
 """
 
-import os, argparse, sys, re
+import os, argparse, sys, re, copy
 from xml.etree import ElementTree
 
 
@@ -176,7 +176,7 @@ class LCPFile:
             self.model = self.model_en
         if unusable_lens_name_regex.match(self.model):
             self.model = self.model_en
-#                    print(self.model_en, (50 - len(self.model_en)) * " ", self.model)
+#        print(self.model_en, (50 - len(self.model_en)) * " ", self.model)
         try:
             cropfactor = float(self.read_field(entry, "SensorFormatFactor"))
         except FieldNotFoundError:
@@ -184,11 +184,12 @@ class LCPFile:
         models = [self.model] if self.model == self.model_en else [self.model, self.model_en]
         for lens in lenses:
             if lens.matches(models, cropfactor):
+                self.lensfun_lens = lens
 #                print("Match! (1)")
                 break
         else:
 #            print("No Match! (2)")
-            lens = None
+            self.lensfun_lens = None
         
     def read_field(self, element, field_name, default=NoFieldDefault):
         try:
@@ -311,14 +312,26 @@ for root, __, filenames in os.walk(args.input_directory):
         except ElementTree.ParseError:
             continue
 #        print(filepath)
-        lens = ElementTree.Element("lens")
-        ElementTree.SubElement(lens, "model").text = lcp_file.model
-        if lcp_file.model != lcp_file.model_en:
-            ElementTree.SubElement(lens, "model", {"lang": "en"}).text = lcp_file.model_en
-        calibration = ElementTree.SubElement(lens, "calibration")
-        calibration.extend(lcp_file.generate_distortion_entries()[0])
-        calibration.extend(lcp_file.generate_tca_entries())
-        calibration.extend(lcp_file.generate_vignetting_entries())
+        if lcp_file.lensfun_lens:
+            lens = copy.deepcopy(lcp_file.lensfun_lens.element)
+            calibration = lens.find("calibration")
+            if calibration is None:
+                calibration = ElementTree.SubElement(lens, "calibration")
+            if calibration.find("distortion") is None:
+                calibration.extend(lcp_file.generate_distortion_entries()[0])
+            if calibration.find("tca") is None:
+                calibration.extend(lcp_file.generate_tca_entries())
+            if calibration.find("vignetting") is None:
+                calibration.extend(lcp_file.generate_vignetting_entries())
+        else:
+            lens = ElementTree.Element("lens")
+            ElementTree.SubElement(lens, "model").text = lcp_file.model
+            if lcp_file.model != lcp_file.model_en:
+                ElementTree.SubElement(lens, "model", {"lang": "en"}).text = lcp_file.model_en
+            calibration = ElementTree.SubElement(lens, "calibration")
+            calibration.extend(lcp_file.generate_distortion_entries()[0])
+            calibration.extend(lcp_file.generate_tca_entries())
+            calibration.extend(lcp_file.generate_vignetting_entries())
         output.append(lens)
 indent(output)
 open("/tmp/_adobe.xml", "w").write(ElementTree.tostring(output, encoding="unicode"))
