@@ -169,20 +169,20 @@ class LCPFile:
         camera_make = self.read_field(entry, "Make")
         camera_model = self.read_field(entry, "Model", camera_make)
         camera = cameras.get((camera_make.lower(), camera_model.lower()))
-        model_en = self.read_field(entry, "LensPrettyName")
+        self.model_en = self.read_field(entry, "LensPrettyName")
         try:
-            model = self.read_field(entry, "Lens")
+            self.model = self.read_field(entry, "Lens")
         except FieldNotFoundError:
-            model = model_en
-        if unusable_lens_name_regex.match(model):
-            model = model_en
-#                    print(model_en, (50 - len(model_en)) * " ", model)
+            self.model = self.model_en
+        if unusable_lens_name_regex.match(self.model):
+            self.model = self.model_en
+#                    print(self.model_en, (50 - len(self.model_en)) * " ", self.model)
         try:
             cropfactor = float(self.read_field(entry, "SensorFormatFactor"))
         except FieldNotFoundError:
             cropfactor = camera and camera.cropfactor
+        models = [self.model] if self.model == self.model_en else [self.model, self.model_en]
         for lens in lenses:
-            models = [model] if model == model_en else [model, model_en]
             if lens.matches(models, cropfactor):
 #                print("Match! (1)")
                 break
@@ -239,7 +239,7 @@ class LCPFile:
             else:
                 assert fisheye != True
                 fisheye = False
-            element = ElementTree.Element("distortion", {"focal": str(focal_length)})
+            element = ElementTree.Element("distortion", {"focal": str(focal_length), "model": "acm"})
             for i in range(1, 6):
                 k = self.read_field(entry, "RadialDistortParam{}".format(i), None)
                 if k is not None:
@@ -254,7 +254,7 @@ class LCPFile:
             entry = best_entries[focal_length].find(camera_ns + "PerspectiveModel")
             if entry is None:
                 entry = best_entries[focal_length].find(camera_ns + "FisheyeModel")
-            element = ElementTree.Element("tca", {"focal": str(focal_length)})
+            element = ElementTree.Element("tca", {"focal": str(focal_length), "model": "acm"})
             for type_ in ["alpha", "beta"]:
                 chromatic_element = entry.find(camera_ns + ("ChromaticRedGreenModel" if type_ == "alpha" else
                                                             "ChromaticBlueGreenModel"))
@@ -283,7 +283,7 @@ class LCPFile:
             if entry is not None:
                 entry = entry.find(camera_ns + "VignetteModel")
                 if entry is not None:
-                    element = ElementTree.Element("vignetting", {"focal": focal_length, "aperture": aperture,
+                    element = ElementTree.Element("vignetting", {"focal": focal_length, "model": "acm", "aperture": aperture,
                                                                  "distance": distance})
                     for i in range(1, 6):
                         α = self.read_field(entry, "VignetteModelParam{}".format(i), None)
@@ -297,6 +297,7 @@ camera_ns = "{http://ns.adobe.com/photoshop/1.0/camera-profile}"
 rdf_ns = "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}"
 unusable_lens_name_regex = re.compile("[-0-9.]+\s*mm(\s*f/?[-0-9.]+)?|Sigma Lens$", re.IGNORECASE)
 
+output = ElementTree.Element("lensdatabase", {"version": "2"})
 for root, __, filenames in os.walk(args.input_directory):
     for filename in filenames:
         filepath = os.path.join(root, filename)
@@ -304,5 +305,15 @@ for root, __, filenames in os.walk(args.input_directory):
             lcp_file = LCPFile(filepath)
         except ElementTree.ParseError:
             continue
-        print(filepath)
-        (len(lcp_file.generate_vignetting_entries()))
+#        print(filepath)
+        lens = ElementTree.Element("lens")
+        ElementTree.SubElement(lens, "model").text = lcp_file.model
+        if lcp_file.model != lcp_file.model_en:
+            ElementTree.SubElement(lens, "model", {"lang": "en"}).text = lcp_file.model_en
+        calibration = ElementTree.SubElement(lens, "calibration")
+        calibration.extend(lcp_file.generate_distortion_entries()[0])
+        calibration.extend(lcp_file.generate_tca_entries())
+        calibration.extend(lcp_file.generate_vignetting_entries())
+        output.append(lens)
+indent(output)
+open("/tmp/_adobe.xml", "w").write(ElementTree.tostring(output, encoding="unicode"))
