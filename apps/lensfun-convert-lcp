@@ -97,6 +97,10 @@ class FieldNotFoundError(Exception):
     pass
 
 
+class NoFieldDefault:
+    pass
+
+
 class LCPFile:
 
     def __init__(self, filepath):
@@ -104,6 +108,8 @@ class LCPFile:
         self.old_format = bool(
             self.tree.findall(".//{http://ns.adobe.com/photoshop/1.0/camera-profile}Make"))
         self.calibration_entries = list(self.tree.getroot()[0][0][0][0])
+        if not self.old_format:
+            self.calibration_entries = [entry.find(rdf_ns + "Description") for entry in self.calibration_entries]
         self._read_first_entry()
 
     def _read_first_entry(self):
@@ -126,48 +132,108 @@ class LCPFile:
         for lens in lenses:
             models = [model] if model == model_en else [model, model_en]
             if lens.matches(models, cropfactor):
-                print("Match! (1)")
+#                print("Match! (1)")
                 break
         else:
-            print("No Match! (2)")
+#            print("No Match! (2)")
             lens = None
         
-    def read_field(self, element, field_name, default=None):
+    def read_field(self, element, field_name, default=NoFieldDefault):
         try:
             if self.old_format:
                 return element.find(camera_ns + field_name).text
             else:
-                return element.find(rdf_ns + "Description").attrib[camera_ns + field_name]
+                return element.attrib[camera_ns + field_name]
         except (KeyError, AttributeError):
-            if default is not None:
+            if default is not NoFieldDefault:
                 return default
             raise FieldNotFoundError(field_name)
 
-    @property
-    def best_entries(self):
+    def best_entries(self, tca):
         """Return the entries best suited for distortion and TCA data, because Lensfun
         can only use one per focal length."""
-        try:
-            return self._best_entries
-        except AttributeError:
-            current_distances, current_apertures, self._best_entries = {}, {}, {}
-            for entry in self.calibration_entries:
+        current_distances, current_apertures, result = {}, {}, {}
+        for entry in self.calibration_entries:
+            perspective_entry = entry.find(camera_ns + "PerspectiveModel")
+            if perspective_entry is None:
+                continue
+            if not self.old_format:
+                perspective_entry = perspective_entry.find(rdf_ns + "Description")
+            if tca and perspective_entry.find(camera_ns + "ChromaticRedGreenModel") is None:
+                continue
+            try:
                 focal_length = float(self.read_field(entry, "FocalLength"))
-                current_distance = current_distances.setdefault(focal_length, -1)
-                current_aperture = current_apertures.setdefault(focal_length, 1000)
-                distance = float(self.read_field(entry, "FocusDistance"))
-                if distance > current_distance:
-                    aperture = float(self.read_field(entry, "ApertureValue"))
-                    if abs(aperture - 8) < abs(current_aperture - 8):
-                        current_distances[focal_length] = distance
-                        current_apertures[focal_length] = aperture
-                        self._best_entries[focal_length] = entry
-            return self._best_entries
+            except FieldNotFoundError:
+                print("Error!")
+                continue
+            current_distance = current_distances.setdefault(focal_length, -1)
+            current_aperture = current_apertures.setdefault(focal_length, 1000)
+            distance = float(self.read_field(entry, "FocusDistance", -1))
+            if distance > current_distance:
+                aperture = float(self.read_field(entry, "ApertureValue", 1000))
+                if abs(aperture - 8) < abs(current_aperture - 8):
+                    current_distances[focal_length] = distance
+                    current_apertures[focal_length] = aperture
+                    result[focal_length] = entry
+        return result
 
-    def generate_distortion_entries(tree):
-        for focal_length in sorted(self.best_entries):
-            entry = self.best_entries[focal_length]
-            
+    def generate_distortion_entries(self):
+        best_entries = self.best_entries(tca=False)
+        elements = []
+        for focal_length in sorted(best_entries):
+            entry = best_entries[focal_length].find(camera_ns + "PerspectiveModel")
+            if entry is not None:
+                element = ElementTree.Element("distortion", {"focal": str(focal_length)})
+                for i in range(1, 6):
+                    k = self.read_field(entry, "RadialDistortParam{}".format(i), None)
+                    if k is not None:
+                        element.attrib["k{}".format(i)] = k
+                elements.append(element)
+            else:
+                print("Error!")
+        return elements
+
+    def generate_tca_entries(self):
+        best_entries = self.best_entries(tca=True)
+        print(len(best_entries))
+        elements = []
+        for focal_length in sorted(best_entries):
+            entry = best_entries[focal_length].find(camera_ns + "PerspectiveModel")
+            if entry is not None:
+                element = ElementTree.Element("tca", {"focal": str(focal_length)})
+                for type_ in ["alpha", "beta"]:
+                    chromatic_element = entry.find(camera_ns + ("ChromaticRedGreenModel" if type_ == "alpha" else
+                                                                "ChromaticBlueGreenModel"))
+                    for i in range(6):
+                        parameter = self.read_field(entry, "RadialDistortParam{}".format(i), None)
+                        if parameter is not None:
+                            element.attrib[type_ + str(i)] = parameter
+                elements.append(element)
+        return elements
+
+    def generate_vignetting_entries(self):
+        elements = []
+        def sort_key(entry):
+            focal_length = float(self.read_field(entry, "FocalLength"))
+            aperture = float(self.read_field(entry, "ApertureValue"))
+            distance = float(self.read_field(entry, "FocusDistance"))
+            return (focal_length, aperture, distance)
+        for entry in sorted(self.calibration_entries, key=sort_key):
+            entry = entry.find(camera_ns + "PerspectiveModel")
+            if entry is not None:
+                entry = entry.find(camera_ns + "VignetteModel")
+                if entry is not None:
+                    focal_length = float(self.read_field(entry, "FocalLength"))
+                    aperture = float(self.read_field(entry, "ApertureValue"))
+                    distance = float(self.read_field(entry, "FocusDistance"))
+                    element = ElementTree.Element("vignetting", {"focal": str(focal_length), "aperture": aperture,
+                                                                 "distance": distance})
+                    for i in range(1, 6):
+                        α = self.read_field(entry, "VignetteModelParam{}".format(i), None)
+                        if α is not None:
+                            element.attrib["alpha{}".format(i)] = α
+                    elements.append(element)
+        return elements
 
 
 camera_ns = "{http://ns.adobe.com/photoshop/1.0/camera-profile}"
@@ -181,4 +247,5 @@ for root, __, filenames in os.walk(args.input_directory):
             lcp_file = LCPFile(filepath)
         except ElementTree.ParseError:
             continue
-#        print(filepath)
+        print(filepath)
+        (len(lcp_file.generate_tca_entries()))
