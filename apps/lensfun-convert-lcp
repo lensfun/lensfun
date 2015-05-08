@@ -213,16 +213,15 @@ class LCPFile:
             entry = best_entries[focal_length].find(camera_ns + "PerspectiveModel")
             if entry is None:
                 entry = best_entries[focal_length].find(camera_ns + "FisheyeModel")
-            if entry is not None:
-                element = ElementTree.Element("tca", {"focal": str(focal_length)})
-                for type_ in ["alpha", "beta"]:
-                    chromatic_element = entry.find(camera_ns + ("ChromaticRedGreenModel" if type_ == "alpha" else
-                                                                "ChromaticBlueGreenModel"))
-                    for i in range(6):
-                        parameter = self.read_field(entry, "RadialDistortParam{}".format(i), None)
-                        if parameter is not None:
-                            element.attrib[type_ + str(i)] = parameter
-                elements.append(element)
+            element = ElementTree.Element("tca", {"focal": str(focal_length)})
+            for type_ in ["alpha", "beta"]:
+                chromatic_element = entry.find(camera_ns + ("ChromaticRedGreenModel" if type_ == "alpha" else
+                                                            "ChromaticBlueGreenModel"))
+                for i in range(6):
+                    parameter = self.read_field(entry, "RadialDistortParam{}".format(i), None)
+                    if parameter is not None:
+                        element.attrib[type_ + str(i)] = parameter
+            elements.append(element)
         return elements
 
     def generate_vignetting_entries(self):
