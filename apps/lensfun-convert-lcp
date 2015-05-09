@@ -129,6 +129,10 @@ class FieldNotFoundError(Exception):
     pass
 
 
+class NoLCPDataUsed(Exception):
+    pass
+
+
 class NoFieldDefault:
     pass
 
@@ -192,6 +196,8 @@ class LCPLens:
         for lens in lenses:
             if lens.matches(models, self.cropfactor):
                 self.lensfun_lens = lens
+                self.maker = child_without_attributes(lens.element, "maker").text
+                self.model = child_without_attributes(lens.element, "model").text
 #                print("Match! (1)")
                 break
         else:
@@ -312,26 +318,30 @@ class LCPLens:
             if calibration is None:
                 calibration = ElementTree.SubElement(lens, "calibration")
             self.correction_coverage = 3
+            lcp_entries_used = False
             if calibration.find("distortion") is None:
                 entries = self.generate_distortion_entries()[0]
                 if entries:
                     calibration.extend(entries)
+                    lcp_entries_used = True
                 else:
                     self.correction_coverage -= 1
             if calibration.find("tca") is None:
                 entries = self.generate_tca_entries()
                 if entries:
                     calibration.extend(entries)
+                    lcp_entries_used = True
                 else:
                     self.correction_coverage -= 1
             if calibration.find("vignetting") is None:
                 entries = self.generate_vignetting_entries()
                 if entries:
                     calibration.extend(entries)
+                    lcp_entries_used = True
                 else:
                     self.correction_coverage -= 1
-            if not self.correction_coverage:
-                return None
+            if not lcp_entries_used:
+                raise NoLCPDataUsed
         else:
             lens = ElementTree.Element("lens")
             ElementTree.SubElement(lens, "model").text = self.model
@@ -363,7 +373,7 @@ class LCPLens:
         elif 1.2 <= self.cropfactor <= 1.3:
             return 1.3
         else:
-            return self.cropfactor
+            return round(self.cropfactor * 10) / 10
 
 
 lcp_lenses = {}
@@ -372,7 +382,7 @@ for root, __, filenames in os.walk(args.input_directory):
         filepath = os.path.join(root, filename)
         try:
             lcp_lens = LCPLens(filepath)
-        except ElementTree.ParseError:
+        except (ElementTree.ParseError, NoLCPDataUsed):
             continue
 #        print(filepath)
         key = (lcp_lens.maker, lcp_lens.model, lcp_lens.normalized_cropfactor)
@@ -385,7 +395,6 @@ for root, __, filenames in os.walk(args.input_directory):
 
 output = ElementTree.Element("lensdatabase", {"version": "2"})
 for lens in lcp_lenses.values():
-    if lens.xml_element:
-        output.append(lens.xml_element)
+    output.append(lens.xml_element)
 indent(output)
 open("/tmp/_adobe.xml", "w").write(ElementTree.tostring(output, encoding="unicode"))
