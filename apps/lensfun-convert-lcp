@@ -320,7 +320,14 @@ class LCPLens:
             self.correction_coverage = 3
             lcp_entries_used = False
             if calibration.find("distortion") is None:
-                entries = self.generate_distortion_entries()[0]
+                entries, fisheye = self.generate_distortion_entries()
+                if fisheye:
+                    type_ = lens.find("type")
+                    if type_ is not None:
+                        if type_.text != "fisheye":
+                            entries = []
+                    else:
+                        ElementTree.SubElement(lens, "type").text = "fisheye"
                 if entries:
                     calibration.extend(entries)
                     lcp_entries_used = True
@@ -350,7 +357,9 @@ class LCPLens:
             ElementTree.SubElement(lens, "cropfactor").text = str(self.cropfactor)
             calibration = ElementTree.SubElement(lens, "calibration")
             self.correction_coverage = 0
-            entries = self.generate_distortion_entries()[0]
+            entries, fisheye = self.generate_distortion_entries()
+            if fisheye:
+                ElementTree.SubElement(lens, "type").text = "fisheye"
             if entries:
                 calibration.extend(entries)
                 self.correction_coverage += 1
