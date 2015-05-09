@@ -301,8 +301,11 @@ class LCPLens:
                 continue
             entry = entry.find(camera_ns + "PerspectiveModel")
             if entry is not None:
+                entry = self.get_description_element_maybe(entry)
+            if entry is not None:
                 entry = entry.find(camera_ns + "VignetteModel")
                 if entry is not None:
+                    entry = self.get_description_element_maybe(entry)
                     element = ElementTree.Element("vignetting", {"focal": focal_length, "model": "acm", "aperture": aperture,
                                                                  "distance": distance})
                     for i in range(1, 6):
