@@ -1063,7 +1063,14 @@ bool lfLens::InterpolateVignetting (
 	    smallest_interpolation_distance = std::min(smallest_interpolation_distance, interpolation_distance);
 	    float weighting = fabs (1.0 / pow (interpolation_distance, power));
 	    for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
-	        res.Terms [i] += weighting * c->Terms [i];
+            {
+                float contribution = weighting * c->Terms [i];
+                if (vm == LF_VIGNETTING_MODEL_ACM)
+                    // Undo the scaling of the parameters with the focal length
+                    // (due to the coordinate scaling) to aid interpolation
+                    contribution /= pow (c->Focal, (i + 1) * 2);
+	        res.Terms [i] += contribution;
+            }
 	    total_weighting += weighting;
     }
     
@@ -1073,7 +1080,11 @@ bool lfLens::InterpolateVignetting (
     if (total_weighting > 0 && smallest_interpolation_distance < FLT_MAX)
     {
 	    for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
+            {
 	        res.Terms [i] /= total_weighting;
+                if (vm == LF_VIGNETTING_MODEL_ACM)
+                    res.Terms [i] *= pow (focal, (i + 1) * 2);
+            }
 	    return true;
     } else 
         return false;
