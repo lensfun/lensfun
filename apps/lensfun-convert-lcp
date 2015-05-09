@@ -19,10 +19,9 @@ args = parser.parse_args()
 
 
 def indent(elem, level=0):
-    """Indent a given ElementTree in-place by added whitespace so that it looks
-    nicer in the flattened output.  Taken from the ElementTree webseite.  This
-    routine may be embedded directly into ElementTree in a future version of
-    it.
+    """Indent the output ElementTree in-place by added whitespace so that it looks
+    nicer in the flattened output.  Taken from the ElementTree webseite.  It
+    was modified so that it produces even nicer output for Lensfun files.
 
     :param elem: the root element of an ElementTree tree
     :param level: the indentation level of the root element, in numbers of space
@@ -37,12 +36,14 @@ def indent(elem, level=0):
 
     :rtype: xml.etree.ElementTree.Element
     """
-    i = "\n" + level * "  "
+    i = "\n" + level * "    "
     if len(elem):
         if not elem.text or not elem.text.strip():
-            elem.text = i + "  "
+            elem.text = i + "    "
         for elem in elem:
             indent(elem, level + 1)
+            if level == 0:
+                elem.tail = "\n" + i + "    "
         if not elem.tail or not elem.tail.strip():
             elem.tail = i
     else:
@@ -406,4 +407,7 @@ output = ElementTree.Element("lensdatabase", {"version": "2"})
 for lens in lcp_lenses.values():
     output.append(lens.xml_element)
 indent(output)
-open("/tmp/_adobe.xml", "w").write(ElementTree.tostring(output, encoding="unicode"))
+output.text = "\n\n    "
+output.tail = "\n"
+output[-1].tail = "\n\n"
+open(args.output, "w").write(ElementTree.tostring(output, encoding="unicode"))
