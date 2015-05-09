@@ -167,9 +167,7 @@ float lfModifier::GetAutoScale (bool reverse)
     // Compute the scale factor automatically
     const lfExtModifier *This = static_cast<const lfExtModifier *> (this);
 
-    float subpixel_scale = 1.0;
-    if (This->SubpixelCallbacks->len > 0)
-        subpixel_scale = 1.001;
+    const float subpixel_scale = This->SubpixelCallbacks->len == 0 ? 1.0 : 1.001;
 
     if (This->CoordCallbacks->len == 0)
         return subpixel_scale;
