@@ -352,6 +352,7 @@ class LCPLens:
                 raise NoLCPDataUsed
         else:
             lens = ElementTree.Element("lens")
+            ElementTree.SubElement(lens, "maker").text = self.maker
             ElementTree.SubElement(lens, "model").text = self.model
             if self.model != self.model_en:
                 ElementTree.SubElement(lens, "model", {"lang": "en"}).text = self.model_en
