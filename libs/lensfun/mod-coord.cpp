@@ -166,6 +166,10 @@ float lfModifier::GetAutoScale (bool reverse)
 {
     // Compute the scale factor automatically
     const lfExtModifier *This = static_cast<const lfExtModifier *> (this);
+
+    if (This->CoordCallbacks->len == 0)
+        return 1.0;
+
     // 3 2 1
     // 4   0
     // 5 6 7
