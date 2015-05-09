@@ -285,6 +285,11 @@ class LCPLens:
         return elements
 
     def generate_vignetting_entries(self):
+        match = re.search(r"f/?(?P<min>[0-9.]+)", self.model, re.IGNORECASE)
+        if match:
+            aperture_min = float(match.group("min"))
+        else:
+            aperture_min = 0
         elements = []
         def sort_key(entry):
             focal_length = float(self.read_field(entry, "FocalLength"))
@@ -297,6 +302,8 @@ class LCPLens:
                 aperture = self.read_field(entry, "ApertureValue")
                 distance = self.read_field(entry, "FocusDistance")
             except FieldNotFoundError:
+                continue
+            if aperture_min > float(aperture):
                 continue
             entry = entry.find(camera_ns + "PerspectiveModel")
             if entry is not None:
