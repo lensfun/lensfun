@@ -312,6 +312,45 @@ class LCPLens:
                     elements.append(element)
         return elements
 
+    def guess_ilc_mounts(self):
+        maker = self.maker.lower()
+        model = self.model.lower()
+        mounts = set()
+        if "nikon" in maker:
+            if 2.6 < self.cropfactor < 2.8:
+                mounts.add("Nikon CX")
+            else:
+                mounts.add("Nikon F AF")
+        if "canon" in maker:
+            if "ef-m" in model:
+                mounts.add("Canon EF-M")
+            else:
+                mounts.add("Canon EF")
+        if "sony" in maker:
+            if "E " in self.model:
+                mounts.add("Sony E")
+            else:
+                mounts.add("Sony Alpha")
+        if "sigma" in maker:
+            if "E " in self.model:
+                mounts.add("Sony E")
+            else:
+                mounts.update({"Sigma SA", "Nikon F AF", "Sony Alpha", "Pentax KAF", "Canon EF", "Minolta AF", "Canon FD",
+                               "Olympus OM", "4/3 System"})
+        if "tokina" in maker:
+            mounts.update({"Nikon F AF", "Sony Alpha", "Pentax KAF", "Canon EF", "Canon FD", "Minolta M", "Olympus OM"})
+        if "tamron" in maker:
+            mounts.update({"Nikon F AF", "Sony Alpha", "Pentax KAF", "Canon EF"})
+        if not mounts:
+            mounts = {"Sigma SA", "Nikon F AF", "Sony Alpha", "Pentax KAF", "Canon EF", "Minolta AF", "Canon FD",
+                      "Olympus OM", "4/3 System"}
+        result = []
+        for mount in mounts:
+            element = ElementTree.Element("mount")
+            element.text = mount
+            result.append(element)
+        return result
+
     def xml_element(self):
         if self.lensfun_lens:
             lens = copy.deepcopy(self.lensfun_lens.element)
@@ -356,6 +395,7 @@ class LCPLens:
             ElementTree.SubElement(lens, "model").text = self.model
             if self.model != self.model_en:
                 ElementTree.SubElement(lens, "model", {"lang": "en"}).text = self.model_en
+            lens.extend(self.guess_ilc_mounts())
             ElementTree.SubElement(lens, "cropfactor").text = str(self.cropfactor)
             calibration = ElementTree.SubElement(lens, "calibration")
             self.correction_coverage = 0
