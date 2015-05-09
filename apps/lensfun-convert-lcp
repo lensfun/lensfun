@@ -122,8 +122,7 @@ paths_search_list = [args.db_path] if args.db_path else \
 for path in paths_search_list:
     crawl_directory(path)
 if not cameras:
-    print("No Lensfun database found.")
-    sys.exit(1)
+    print("Warning: No Lensfun database found.")
 
 
 class FieldNotFoundError(Exception):
