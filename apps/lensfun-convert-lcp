@@ -105,7 +105,7 @@ lenses = set()
 def crawl_directory(dirpath):
     for root, __, filenames in os.walk(dirpath):
         for filename in filenames:
-            if filename.endswith(".xml"):
+            if not filename.startswith("_") and filename.endswith(".xml"):
                 tree = ElementTree.parse(os.path.join(root, filename)).getroot()
                 for element in tree.findall("camera"):
                     maker, model = child_without_attributes(element, "maker").text, \
