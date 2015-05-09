@@ -367,7 +367,9 @@ class LCPLens:
                         if type_.text != "fisheye":
                             entries = []
                     else:
-                        ElementTree.SubElement(lens, "type").text = "fisheye"
+                        type_element = ElementTree.Element("type")
+                        type_element.text = "fisheye"
+                        lens.insert(max(len(lens) - 1, 0), type_element)
                 if entries:
                     calibration.extend(entries)
                     lcp_entries_used = True
@@ -397,11 +399,11 @@ class LCPLens:
                 ElementTree.SubElement(lens, "model", {"lang": "en"}).text = self.model_en
             lens.extend(self.guess_ilc_mounts())
             ElementTree.SubElement(lens, "cropfactor").text = str(self.cropfactor)
-            calibration = ElementTree.SubElement(lens, "calibration")
             self.correction_coverage = 0
             entries, fisheye = self.generate_distortion_entries()
             if fisheye:
                 ElementTree.SubElement(lens, "type").text = "fisheye"
+            calibration = ElementTree.SubElement(lens, "calibration")
             if entries:
                 calibration.extend(entries)
                 self.correction_coverage += 1
