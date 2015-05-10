@@ -263,7 +263,8 @@ class LCPLens:
         if camera:
             if camera.mount[0].islower():
                 self.fixed_lens_mount = camera.mount
-        elif re.search(r"coolpix|finefix|powershot|sony dsc|cyber-?shot", self.model_en, re.IGNORECASE):
+        elif re.search(r"coolpix|finefix|powershot|sony dsc|cyber-?shot|apple|iphone|hero|inspire|cgo2gb|samsung ex1",
+                       self.model_en, re.IGNORECASE):
             self.fixed_lens_mount = "compactCamera" + str(abs(hash(self.model_en)))
             camera = ElementTree.Element("camera")
             ElementTree.SubElement(camera, "maker").text = camera_make
