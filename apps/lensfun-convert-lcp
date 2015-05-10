@@ -297,8 +297,8 @@ class LCPLens:
                find(camera_ns + "ChromaticRedGreenModel") is None:
                 continue
             focal_length = float(self.read_field(entry, "FocalLength"))
-            current_distance = current_distances.setdefault(focal_length, -1)
-            current_aperture = current_apertures.setdefault(focal_length, 1000)
+            current_distance = current_distances.setdefault(focal_length, -2)
+            current_aperture = current_apertures.setdefault(focal_length, 1001)
             distance = float(self.read_field(entry, "FocusDistance", -1))
             if distance > current_distance:
                 aperture = float(self.read_field(entry, "ApertureValue", 1000))
