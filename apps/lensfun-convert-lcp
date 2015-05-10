@@ -238,6 +238,9 @@ class LCPLens:
         self.model_en = self.read_field(entry, "LensPrettyName")
         if self.read_field(entry, "CameraRawProfile", "True").lower() == "false":
             self.model_en += " (JPEGs)"
+            self.raw = False
+        else:
+            self.raw = True
         self.maker = self.clean_lens_maker(self.model_en)
         try:
             self.model = self.read_field(entry, "Lens")
@@ -517,8 +520,9 @@ class LCPLens:
             ElementTree.SubElement(lens, "maker").text = self.maker
             ElementTree.SubElement(lens, "model").text = self.model
             if self.fixed_lens_mount:
-                ElementTree.SubElement(lens, "model", lang="en").text = "fixed lens"
-                ElementTree.SubElement(lens, "model", lang="de").text = "festes Objektiv"
+                suffix = "" if self.raw else " (JPEGs)"
+                ElementTree.SubElement(lens, "model", lang="en").text = "fixed lens" + suffix
+                ElementTree.SubElement(lens, "model", lang="de").text = "festes Objektiv" + suffix
                 ElementTree.SubElement(lens, "mount").text = self.fixed_lens_mount
             else:
                 if self.model != self.model_en:
