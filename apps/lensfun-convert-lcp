@@ -203,6 +203,10 @@ class LCPLens:
         else:
 #            print("No Match! (2)")
             self.lensfun_lens = None
+        if camera and camera.mount[0].islower():
+            self.fixed_lens_mount = camera.mount
+        else:
+            self.fixed_lens_mount = None
         
     def read_field(self, element, field_name, default=NoFieldDefault):
         try:
@@ -406,7 +410,10 @@ class LCPLens:
             ElementTree.SubElement(lens, "model").text = self.model
             if self.model != self.model_en:
                 ElementTree.SubElement(lens, "model", {"lang": "en"}).text = self.model_en
-            lens.extend(self.guess_ilc_mounts())
+            if self.fixed_lens_mount:
+                ElementTree.SubElement(lens, "mount").text = self.fixed_lens_mount
+            else:
+                lens.extend(self.guess_ilc_mounts())
             ElementTree.SubElement(lens, "cropfactor").text = str(self.cropfactor)
             self.correction_coverage = 0
             entries, fisheye = self.generate_distortion_entries()
