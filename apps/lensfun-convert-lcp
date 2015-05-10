@@ -232,10 +232,8 @@ class LCPLens:
                 self.lensfun_lens = lens
                 self.maker = child_without_attributes(lens.element, "maker").text
                 self.model = child_without_attributes(lens.element, "model").text
-#                print("Match! (1)")
                 break
         else:
-#            print("No Match! (2)")
             self.lensfun_lens = None
         self.fixed_lens_mount = None
         if camera:
@@ -496,7 +494,6 @@ for root, __, filenames in os.walk(args.input_directory):
             lcp_lens = LCPLens(filepath)
         except (ElementTree.ParseError, NoLCPDataUsed):
             continue
-#        print(filepath)
         key = (lcp_lens.maker, lcp_lens.model, lcp_lens.normalized_cropfactor)
         already_existing_lens = lcp_lenses.get(key)
         if not already_existing_lens or already_existing_lens.correction_coverage < lcp_lens.correction_coverage \
