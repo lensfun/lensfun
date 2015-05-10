@@ -70,8 +70,15 @@ class Lens:
 
     def __init__(self, element):
         self.element = element
-        self.normalized_model = self.normalize_lens_model_name(child_without_attributes(element, "model").text)
+        model = child_without_attributes(element, "model").text
+        self.normalized_model = self.normalize_lens_model_name(model)
         self.cropfactor = float(element.find("cropfactor").text)
+        first_mount = element.find("mount").text
+        if first_mount[0].islower():
+            self.fixed_lens_mount = first_mount
+        else:
+            self.fixed_lens_mount = None
+        self.chdk = "chdk" in model.lower()
 
     @staticmethod
     def normalize_lens_model_name(name):
@@ -79,7 +86,9 @@ class Lens:
                      if token != "f" and not token.isspace() and
                      (len(token) > 1 or token.isalnum() or token in "*+"))
 
-    def matches(self, names, cropfactor):
+    def matches(self, names, cropfactor, fixed_lens_mount):
+        if self.fixed_lens_mount and fixed_lens_mount == self.fixed_lens_mount and not self.chdk:
+            return True
         if cropfactor and not 0.96 < cropfactor / self.cropfactor < 1.041:
             return False
         for name in names:
@@ -253,15 +262,6 @@ class LCPLens:
             self.cropfactor = float(self.read_field(entry, "SensorFormatFactor"))
         except FieldNotFoundError:
             self.cropfactor = camera and camera.cropfactor or 1
-        models = [self.model] if self.model == self.model_en else [self.model, self.model_en]
-        for lens in lenses:
-            if lens.matches(models, self.cropfactor):
-                self.lensfun_lens = lens
-                self.maker = child_without_attributes(lens.element, "maker").text
-                self.model = child_without_attributes(lens.element, "model").text
-                break
-        else:
-            self.lensfun_lens = None
         self.fixed_lens_mount = None
         if camera:
             if camera.mount[0].islower():
@@ -269,12 +269,21 @@ class LCPLens:
         elif re.search(r"coolpix|finefix|powershot|sony dsc|cyber-?shot|apple|iphone|hero|inspire|cgo2gb|samsung ex1",
                        self.model_en, re.IGNORECASE):
             self.fixed_lens_mount = "compactCamera" + str(abs(hash(self.model_en)))
-            camera = ElementTree.Element("camera")
-            ElementTree.SubElement(camera, "maker").text = camera_make
-            ElementTree.SubElement(camera, "model").text = self.camera_model
-            ElementTree.SubElement(camera, "mount").text = self.fixed_lens_mount
-            ElementTree.SubElement(camera, "cropfactor").text = str(self.cropfactor)
-            self.compact_cameras.append(camera)
+            camera_element = ElementTree.Element("camera")
+            ElementTree.SubElement(camera_element, "maker").text = camera_make
+            ElementTree.SubElement(camera_element, "model").text = self.camera_model
+            ElementTree.SubElement(camera_element, "mount").text = self.fixed_lens_mount
+            ElementTree.SubElement(camera_element, "cropfactor").text = str(self.cropfactor)
+            self.compact_cameras.append(camera_element)
+        models = [self.model] if self.model == self.model_en else [self.model, self.model_en]
+        for lens in lenses:
+            if lens.matches(models, self.cropfactor, self.fixed_lens_mount):
+                self.lensfun_lens = lens
+                self.maker = child_without_attributes(lens.element, "maker").text
+                self.model = child_without_attributes(lens.element, "model").text
+                break
+        else:
+            self.lensfun_lens = None
         
     def read_field(self, element, field_name, default=NoFieldDefault):
         try:
