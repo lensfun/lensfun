@@ -579,7 +579,8 @@ for camera in LCPLens.compact_cameras:
 for lens in lcp_lenses.values():
     output.append(lens.xml_element)
 indent(output)
-output.text = "\n\n    "
-output.tail = "\n"
-output[-1].tail = "\n\n"
+if len(output):
+    output.text = "\n\n    "
+    output.tail = "\n"
+    output[-1].tail = "\n\n"
 open(args.output, "w").write(ElementTree.tostring(output, encoding="unicode"))
