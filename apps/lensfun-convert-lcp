@@ -211,8 +211,8 @@ class LCPLens:
     def _read_first_entry(self):
         entry = self.calibration_entries[0]
         camera_make = self.read_field(entry, "Make")
-        camera_model = self.read_field(entry, "Model", camera_make)
-        camera = cameras.get((camera_make.lower(), camera_model.lower()))
+        self.camera_model = self.read_field(entry, "Model", camera_make)
+        camera = cameras.get((camera_make.lower(), self.camera_model.lower()))
         self.model_en = self.read_field(entry, "LensPrettyName")
         self.maker = self.clean_lens_maker(self.model_en)
         try:
@@ -243,7 +243,7 @@ class LCPLens:
             self.fixed_lens_mount = "compactCamera" + str(abs(hash(self.model_en)))
             camera = ElementTree.Element("camera")
             ElementTree.SubElement(camera, "maker").text = camera_make
-            ElementTree.SubElement(camera, "model").text = camera_model
+            ElementTree.SubElement(camera, "model").text = self.camera_model
             ElementTree.SubElement(camera, "mount").text = self.fixed_lens_mount
             ElementTree.SubElement(camera, "cropfactor").text = str(self.cropfactor)
             self.compact_cameras.append(camera)
@@ -366,34 +366,78 @@ class LCPLens:
         return elements
 
     def guess_ilc_mounts(self):
-        model = self.model.lower()
         mounts = set()
         if self.maker == "Nikon":
             if 2.6 < self.cropfactor < 2.8:
                 mounts.add("Nikon CX")
             else:
                 mounts.add("Nikon F AF")
-        if self.maker == "Canon":
-            if "ef-m" in model:
+        elif self.maker == "Canon":
+            if "ef-m" in self.model.lower():
                 mounts.add("Canon EF-M")
             else:
                 mounts.add("Canon EF")
-        if self.maker == "Sony":
+        elif self.maker == "Sony":
             if "E " in self.model:
                 mounts.add("Sony E")
             else:
                 mounts.add("Sony Alpha")
-        if self.maker == "Sigma":
+        elif self.maker == "Pentax":
+            mounts.add("Pentax KAF")
+        elif self.maker == "Sigma":
             if "E " in self.model:
                 mounts.add("Sony E")
             else:
                 mounts.update({"Sigma SA", "Nikon F AF", "Sony Alpha", "Pentax KAF", "Canon EF", "Minolta AF", "Canon FD",
                                "Olympus OM", "4/3 System"})
-        if self.maker == "Tokina":
+        elif self.maker == "Zeiss":
+            if "E " in self.model:
+                mounts.add("Sony E")
+            else:
+                mounts.update({"Nikon F AF", "Fujifilm X", "Canon EF", "Leica M"})
+        elif self.maker == "Voigtländer":
+            mounts.update({"DKL", "Leica M", "M42", "Micro 4/3 System", "Nikon F"})
+        elif self.maker == "Leica":
+            if "-S " in self.model or " S " in self.model:
+                mounts.add("Leica S")
+            elif "-R " in self.model or " R " in self.model:
+                mounts.add("Leica R")
+            else:
+                mounts.add("Leica M")
+        elif self.maker == "Mamiya":
+            mounts.add("Mamiya 645")
+        elif self.maker == "Tokina":
             mounts.update({"Nikon F AF", "Sony Alpha", "Pentax KAF", "Canon EF", "Canon FD", "Minolta M", "Olympus OM"})
-        if self.maker == "Tamron":
+        elif self.maker == "Tamron":
             mounts.update({"Nikon F AF", "Sony Alpha", "Pentax KAF", "Canon EF"})
+        elif self.maker == "Samsung":
+            if "NX" in self.model or "NX" in self.camera_model:
+                mounts.add("Samsung NX")
+        elif self.maker == "HandeVision":
+            if "E " in self.model:
+                mounts.add("Sony E")
+            else:
+                mounts.update({"Canon EF-M", "Micro 4/3 System", "Fujifilm X"})
+        elif self.maker == "SLR Magic":
+            mounts.update({"Leica M", "Sony E", "Micro 4/3 System", "Fujifilm X"})
+        elif self.maker == "Hasselblad":
+            if "LF" in self.model:
+                mounts.add("Sony E")
+            else:
+                mounts.add("Hasselblad H")
+        elif self.maker == "Mitakon":
+            mounts.update({"Sony E", "Micro 4/3 System", "Fujifilm X", "Canon EF", "Nikon F AI"})
+        elif self.maker == "Venus Optics":
+            mounts.update({"Nikon F AF", "Sony Alpha", "Pentax KAF", "Canon EF"})
+        elif self.maker == "Schneider-Kreuznach":
+            if "phase one" in self.camera_model.lower():
+                mounts.update({"Hasselblad H", "Mamiya 645"})
+        elif self.maker == "Phase One":
+            mounts.update({"Hasselblad H", "Mamiya 645"})
+        elif self.maker == "Lomography":
+            mounts.update({"Nikon F AF", "Canon EF"})
         if not mounts:
+            print("Warning: Fall back to default mounts for {} / {}.".format(self.maker, self.model))
             mounts = {"Sigma SA", "Nikon F AF", "Sony Alpha", "Pentax KAF", "Canon EF", "Minolta AF", "Canon FD",
                       "Olympus OM", "4/3 System"}
         result = []
