@@ -140,6 +140,7 @@ class NoFieldDefault:
 camera_ns = "{http://ns.adobe.com/photoshop/1.0/camera-profile}"
 rdf_ns = "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}"
 unusable_lens_name_regex = re.compile(r"[-0-9.]+\s*mm(\s*f/?[-0-9.]+)?|Sigma Lens$", re.IGNORECASE)
+focal_length_regex = re.compile(r"([0-9.]+)\s*mm\b", re.IGNORECASE)
 
 
 class LCPLens:
@@ -169,9 +170,29 @@ class LCPLens:
         clean_entries = []
         for entry in self.calibration_entries:
             try:
-                focal_length = float(self.read_field(entry, "FocalLength"))
+                self.read_field(entry, "FocalLength")
             except FieldNotFoundError:
-                print("Error!")
+                match = focal_length_regex.search(self.model)
+                focal_length = None
+                if match:
+                    focal_length = match.group(1)
+                else:
+                    try:
+                        match = focal_length_regex.search(self.read_field(entry, "Lens"))
+                    except FieldNotFoundError:
+                        pass
+                    else:
+                        focal_length = match.group(1)
+                if focal_length:
+                    if self.old_format:
+                        ElementTree.SubElement(entry, camera_ns + "FocalLength").text = focal_length
+                        clean_entries.append(entry)
+                    else:
+                        entry.attrib[camera_ns + "FocalLength"] = focal_length
+                        clean_entries.append(entry)
+                else:
+                    print("Warning: No focal length could be determined for {} / {}.".format(self.maker, self.model))
+                    raise NoLCPDataUsed
             else:
                 clean_entries.append(entry)
         self.calibration_entries = clean_entries
