@@ -235,6 +235,8 @@ class LCPLens:
         self.camera_model = self.read_field(entry, "Model", camera_make)
         camera = cameras.get((camera_make.lower(), self.camera_model.lower()))
         self.model_en = self.read_field(entry, "LensPrettyName")
+        if self.read_field(entry, "CameraRawProfile", "True").lower() == "false":
+            self.model_en += " (JPEGs)"
         self.maker = self.clean_lens_maker(self.model_en)
         try:
             self.model = self.read_field(entry, "Lens")
