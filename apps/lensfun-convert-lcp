@@ -15,6 +15,7 @@ parser.add_argument("input_directory", default=".", nargs="?", metavar="path",
 parser.add_argument("--output", default=os.path.expanduser("~/.local/share/lensfun/_lcps.xml"),
                     help="path of output file (default: ~/.local/share/lensfun/_lcps.xml)")
 parser.add_argument("--db-path", help="Path to the lensfun database.  If not given, look in the same places as Lensfun.")
+parser.add_argument("--prefer-lcp", action="store_true", help="Prefer LCP data over Lensfun data.")
 args = parser.parse_args()
 
 
@@ -492,35 +493,45 @@ class LCPLens:
                 calibration = ElementTree.SubElement(lens, "calibration")
             self.correction_coverage = 3
             lcp_entries_used = False
-            if calibration.find("distortion") is None:
+            no_lensfun_data = calibration.find("distortion") is None
+            if no_lensfun_data or args.prefer_lcp:
                 entries, fisheye = self.generate_distortion_entries()
-                if fisheye:
-                    type_ = lens.find("type")
-                    if type_ is not None:
-                        if type_.text != "fisheye":
-                            entries = []
-                    else:
-                        type_element = ElementTree.Element("type")
-                        type_element.text = "fisheye"
-                        lens.insert(max(len(lens) - 1, 0), type_element)
                 if entries:
+                    type_ = lens.find("type")
+                    if fisheye:
+                        if type_ is not None:
+                            type_.text = "fisheye"
+                        else:
+                            type_element = ElementTree.Element("type")
+                            type_element.text = "fisheye"
+                            lens.insert(max(len(lens) - 1, 0), type_element)
+                    elif type_ is not None:
+                        lens.remove(type_)
+                    for entry in calibration.findall("distortion"):
+                        calibration.remove(entry)
                     calibration.extend(entries)
                     lcp_entries_used = True
-                else:
+                elif no_lensfun_data:
                     self.correction_coverage -= 1
-            if calibration.find("tca") is None:
+            no_lensfun_data = calibration.find("tca") is None
+            if no_lensfun_data or args.prefer_lcp:
                 entries = self.generate_tca_entries()
                 if entries:
+                    for entry in calibration.findall("tca"):
+                        calibration.remove(entry)
                     calibration.extend(entries)
                     lcp_entries_used = True
-                else:
+                elif no_lensfun_data:
                     self.correction_coverage -= 1
-            if calibration.find("vignetting") is None:
+            no_lensfun_data = calibration.find("vignetting") is None
+            if no_lensfun_data or args.prefer_lcp:
                 entries = self.generate_vignetting_entries()
                 if entries:
+                    for entry in calibration.findall("vignetting"):
+                        calibration.remove(entry)
                     calibration.extend(entries)
                     lcp_entries_used = True
-                else:
+                elif no_lensfun_data:
                     self.correction_coverage -= 1
             if not lcp_entries_used:
                 raise NoLCPDataUsed
