@@ -175,6 +175,38 @@ class LCPLens:
             else:
                 clean_entries.append(entry)
         self.calibration_entries = clean_entries
+
+    @staticmethod
+    def clean_lens_maker(model):
+        model_lower = model.lower()
+        if "pentax" in model_lower:
+            return "Pentax"
+        if model_lower.startswith("hero"):
+            return "GoPro"
+        if model_lower.startswith("iphone"):
+            return "Apple"
+        if model_lower.startswith("inspire"):
+            return "DJI"
+        if model_lower.startswith("schneider"):
+            return "Schneider-Kreuznach"
+        if model_lower.startswith("phase one"):
+            return "Phase One"
+        if model_lower.startswith("venus optics"):
+            return "Venus Optics"
+        if "mitakon" in model_lower:
+            return "Mitakon"
+        if "cgo2g" in model_lower:
+            return "Yuneec"
+        if model_lower.startswith("slr magic"):
+            return "SLR Magic"
+        if model_lower.startswith("dp") and "quattro" in model_lower:
+            return "Sigma"
+        if "voigtlander" in model_lower:
+            return "Voigtländer"
+        if "handevision" in model_lower:
+            return "HandeVision"
+        maker = model.split()[0].capitalize()
+        return maker
             
     def _read_first_entry(self):
         entry = self.calibration_entries[0]
@@ -182,7 +214,7 @@ class LCPLens:
         camera_model = self.read_field(entry, "Model", camera_make)
         camera = cameras.get((camera_make.lower(), camera_model.lower()))
         self.model_en = self.read_field(entry, "LensPrettyName")
-        self.maker = self.model_en.split()[0]
+        self.maker = self.clean_lens_maker(self.model_en)
         try:
             self.model = self.read_field(entry, "Lens")
         except FieldNotFoundError:
@@ -336,33 +368,32 @@ class LCPLens:
         return elements
 
     def guess_ilc_mounts(self):
-        maker = self.maker.lower()
         model = self.model.lower()
         mounts = set()
-        if "nikon" in maker:
+        if self.maker == "Nikon":
             if 2.6 < self.cropfactor < 2.8:
                 mounts.add("Nikon CX")
             else:
                 mounts.add("Nikon F AF")
-        if "canon" in maker:
+        if self.maker == "Canon":
             if "ef-m" in model:
                 mounts.add("Canon EF-M")
             else:
                 mounts.add("Canon EF")
-        if "sony" in maker:
+        if self.maker == "Sony":
             if "E " in self.model:
                 mounts.add("Sony E")
             else:
                 mounts.add("Sony Alpha")
-        if "sigma" in maker:
+        if self.maker == "Sigma":
             if "E " in self.model:
                 mounts.add("Sony E")
             else:
                 mounts.update({"Sigma SA", "Nikon F AF", "Sony Alpha", "Pentax KAF", "Canon EF", "Minolta AF", "Canon FD",
                                "Olympus OM", "4/3 System"})
-        if "tokina" in maker:
+        if self.maker == "Tokina":
             mounts.update({"Nikon F AF", "Sony Alpha", "Pentax KAF", "Canon EF", "Canon FD", "Minolta M", "Olympus OM"})
-        if "tamron" in maker:
+        if self.maker == "Tamron":
             mounts.update({"Nikon F AF", "Sony Alpha", "Pentax KAF", "Canon EF"})
         if not mounts:
             mounts = {"Sigma SA", "Nikon F AF", "Sony Alpha", "Pentax KAF", "Canon EF", "Minolta AF", "Canon FD",
