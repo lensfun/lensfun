@@ -180,7 +180,8 @@ class LCPLens:
                     try:
                         match = focal_length_regex.search(self.read_field(entry, "Lens"))
                     except FieldNotFoundError:
-                        pass
+                        if "inspire 1 fc350" in self.model.lower():
+                            focal_length = 20.7
                     else:
                         focal_length = match.group(1)
                 if focal_length:
