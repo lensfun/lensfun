@@ -491,10 +491,8 @@ class LCPLens:
             calibration = lens.find("calibration")
             if calibration is None:
                 calibration = ElementTree.SubElement(lens, "calibration")
-            self.correction_coverage = 3
             lcp_entries_used = False
-            no_lensfun_data = calibration.find("distortion") is None
-            if no_lensfun_data or args.prefer_lcp:
+            if calibration.find("distortion") is None or args.prefer_lcp:
                 entries, fisheye = self.generate_distortion_entries()
                 if entries:
                     type_ = lens.find("type")
@@ -511,28 +509,20 @@ class LCPLens:
                         calibration.remove(entry)
                     calibration.extend(entries)
                     lcp_entries_used = True
-                elif no_lensfun_data:
-                    self.correction_coverage -= 1
-            no_lensfun_data = calibration.find("tca") is None
-            if no_lensfun_data or args.prefer_lcp:
+            if calibration.find("tca") is None or args.prefer_lcp:
                 entries = self.generate_tca_entries()
                 if entries:
                     for entry in calibration.findall("tca"):
                         calibration.remove(entry)
                     calibration.extend(entries)
                     lcp_entries_used = True
-                elif no_lensfun_data:
-                    self.correction_coverage -= 1
-            no_lensfun_data = calibration.find("vignetting") is None
-            if no_lensfun_data or args.prefer_lcp:
+            if calibration.find("vignetting") is None or args.prefer_lcp:
                 entries = self.generate_vignetting_entries()
                 if entries:
                     for entry in calibration.findall("vignetting"):
                         calibration.remove(entry)
                     calibration.extend(entries)
                     lcp_entries_used = True
-                elif no_lensfun_data:
-                    self.correction_coverage -= 1
             if not lcp_entries_used:
                 raise NoLCPDataUsed
         else:
@@ -549,25 +539,28 @@ class LCPLens:
                     ElementTree.SubElement(lens, "model", {"lang": "en"}).text = self.model_en
                 lens.extend(self.guess_ilc_mounts())
             ElementTree.SubElement(lens, "cropfactor").text = str(self.cropfactor)
-            self.correction_coverage = 0
             entries, fisheye = self.generate_distortion_entries()
             if fisheye:
                 ElementTree.SubElement(lens, "type").text = "fisheye"
             calibration = ElementTree.SubElement(lens, "calibration")
             if entries:
                 calibration.extend(entries)
-                self.correction_coverage += 1
             entries = self.generate_tca_entries()
             if entries:
                 calibration.extend(entries)
-                self.correction_coverage += 1
             entries = self.generate_vignetting_entries()
             if entries:
                 calibration.extend(entries)
-                self.correction_coverage += 1
-            if not self.correction_coverage:
-                print("Warning: LCP file for {} / {} contained no correction data.".format(self.maker, self.model))
-                raise NoLCPDataUsed
+        self.correction_coverage = 0
+        if calibration.find("distortion") is not None:
+            self.correction_coverage += 1
+        if calibration.find("tca") is not None:
+            self.correction_coverage += 1
+        if calibration.find("vignetting") is not None:
+            self.correction_coverage += 1
+        if not self.correction_coverage:
+            print("Warning: LCP file for {} / {} contained no correction data.".format(self.maker, self.model))
+            raise NoLCPDataUsed
         return lens
 
     @property
