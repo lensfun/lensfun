@@ -516,6 +516,9 @@ class LCPLens:
             if entries:
                 calibration.extend(entries)
                 self.correction_coverage += 1
+            if not self.correction_coverage:
+                print("Warning: LCP file for {} / {} contained no correction data.".format(self.maker, self.model))
+                raise NoLCPDataUsed
         return lens
 
     @property
