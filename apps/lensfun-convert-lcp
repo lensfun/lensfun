@@ -139,7 +139,7 @@ class NoFieldDefault:
 
 camera_ns = "{http://ns.adobe.com/photoshop/1.0/camera-profile}"
 rdf_ns = "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}"
-unusable_lens_name_regex = re.compile("[-0-9.]+\s*mm(\s*f/?[-0-9.]+)?|Sigma Lens$", re.IGNORECASE)
+unusable_lens_name_regex = re.compile(r"[-0-9.]+\s*mm(\s*f/?[-0-9.]+)?|Sigma Lens$", re.IGNORECASE)
 
 
 class LCPLens:
