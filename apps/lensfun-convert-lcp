@@ -89,9 +89,8 @@ class Lens:
 
     def matches(self, names, cropfactor, fixed_lens_mount):
         if self.fixed_lens_mount and fixed_lens_mount == self.fixed_lens_mount and not self.chdk:
-            return True
-        if cropfactor and not 0.96 < cropfactor / self.cropfactor < 1.041:
-            return False
+            return (1000, 0)
+        scores = []
         for name in names:
             normalized_model = list(self.normalized_model)
             try:
@@ -99,9 +98,18 @@ class Lens:
                     normalized_model.remove(token)
             except ValueError:
                 continue
-            if len(normalized_model) < 4:
-                return True
-        return False
+            unmatched_tokens = len(normalized_model)
+            if unmatched_tokens < 4:
+                scores.append(10 - unmatched_tokens)
+                break
+        else:
+            return (-1000, 0)
+        cropfactor_ratio = cropfactor / self.cropfactor
+        if not 0.96 < cropfactor_ratio < 1.041:
+            return (-1000, 0)
+        else:
+            scores.append(10 - 100 * abs(1 - cropfactor_ratio))
+        return tuple(scores)
 
 
 cameras = {}
@@ -272,15 +280,17 @@ class LCPLens:
             ElementTree.SubElement(camera_element, "mount").text = self.fixed_lens_mount
             ElementTree.SubElement(camera_element, "cropfactor").text = str(self.cropfactor)
             self.compact_cameras.append(camera_element)
+        self.lensfun_lens = None
         models = [self.model] if self.model == self.model_en else [self.model, self.model_en]
+        best_scores = (-1000, 0)
         for lens in lenses:
-            if lens.matches(models, self.cropfactor, self.fixed_lens_mount):
+            scores = lens.matches(models, self.cropfactor, self.fixed_lens_mount)
+            if scores > best_scores:
+                best_scores = scores
                 self.lensfun_lens = lens
-                self.maker = child_without_attributes(lens.element, "maker").text
-                self.model = child_without_attributes(lens.element, "model").text
-                break
-        else:
-            self.lensfun_lens = None
+        if self.lensfun_lens:
+            self.maker = child_without_attributes(self.lensfun_lens.element, "maker").text
+            self.model = child_without_attributes(self.lensfun_lens.element, "model").text
         
     def read_field(self, element, field_name, default=NoFieldDefault):
         try:
