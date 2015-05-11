@@ -39,4 +39,4 @@ License of the database: Creative Commons Attribution-Share Alike 3.0 license
 SEE ALSO
 ===========
 
-lensfun-update-data(1), lensfun-add-adapter(1)
+lensfun-update-data(1), lensfun-add-adapter(1), lensfun-convert-lcp(1)
