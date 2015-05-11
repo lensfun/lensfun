@@ -52,7 +52,13 @@ def indent(elem, level=0):
             elem.tail = i
 
 
-class Camera:
+def child_without_attributes(parent, name):
+    for child in parent.findall(name):
+        if not list(child.attrib.keys()):
+            return child
+
+
+class LensfunCamera:
 
     def __init__(self, maker, model):
         self.maker, self.model = maker, model
@@ -60,13 +66,8 @@ class Camera:
         self.cropfactor = None
 
 
-def child_without_attributes(parent, name):
-    for child in parent.findall(name):
-        if not list(child.attrib.keys()):
-            return child
+class LensfunLens:
 
-
-class Lens:
     model_name_token_regex = re.compile(r"[0-9][0-9.]*|\s+|[^\w\s]+|[^\W\d_]+")
 
     def __init__(self, element):
@@ -83,7 +84,7 @@ class Lens:
 
     @staticmethod
     def normalize_lens_model_name(name):
-        return tuple(token for token in Lens.model_name_token_regex.findall(name.lower())
+        return tuple(token for token in LensfunLens.model_name_token_regex.findall(name.lower())
                      if token != "f" and not token.isspace() and
                      (len(token) > 1 or token.isalnum() or token in "*+"))
 
@@ -112,8 +113,8 @@ class Lens:
         return tuple(scores)
 
 
-cameras = {}
-lenses = {}
+lensfun_cameras = {}
+lensfun_lenses = {}
 def crawl_directory(dirpath):
     for filepath in glob.glob(os.path.join(dirpath, "*.xml")):
         if not os.path.basename(filepath).startswith("_"):
@@ -121,12 +122,12 @@ def crawl_directory(dirpath):
             for element in tree.findall("camera"):
                 maker, model = child_without_attributes(element, "maker").text, \
                                child_without_attributes(element, "model").text
-                cameras[maker.lower(), model.lower()] = camera = Camera(maker, model)
+                lensfun_cameras[maker.lower(), model.lower()] = camera = LensfunCamera(maker, model)
                 camera.cropfactor = float(element.find("cropfactor").text)
                 camera.mount = element.find("mount").text
             for element in tree.findall("lens"):
-                lens = Lens(element)
-                lenses[lens.normalized_model, lens.cropfactor] = lens
+                lens = LensfunLens(element)
+                lensfun_lenses[lens.normalized_model, lens.cropfactor] = lens
 
 paths_search_list = [args.db_path] if args.db_path else \
                     ["/usr/share/lensfun", "/usr/local/share/lensfun", "/var/lib/lensfun-updates",
@@ -134,8 +135,8 @@ paths_search_list = [args.db_path] if args.db_path else \
                      os.path.expanduser("~/.local/share/lensfun")]
 for path in paths_search_list:
     crawl_directory(path)
-lenses = set(lenses.values())
-if not cameras:
+lensfun_lenses = set(lensfun_lenses.values())
+if not lensfun_cameras:
     print("Warning: No Lensfun database found.")
 
 
@@ -166,8 +167,8 @@ class LCPLens:
         self.old_format = bool(
             self.tree.findall(".//{http://ns.adobe.com/photoshop/1.0/camera-profile}Make"))
         self.calibration_entries = [self.get_description_element_maybe(entry) for entry in self.tree.getroot()[0][0][0][0]]
-        self._read_first_entry()
-        self._fix_focal_lengths()
+        self.read_first_entry()
+        self.fix_focal_lengths()
         self.xml_element = self.xml_element()
 
     def get_description_element_maybe(self, element):
@@ -179,38 +180,16 @@ class LCPLens:
         else:
             return description
 
-    def _fix_focal_lengths(self):
-        """For now, I just delete entries with a missing FocalLength field."""
-        clean_entries = []
-        for entry in self.calibration_entries:
-            try:
-                self.read_field(entry, "FocalLength")
-            except FieldNotFoundError:
-                match = focal_length_regex.search(self.model)
-                focal_length = None
-                if match:
-                    focal_length = match.group(1)
-                else:
-                    try:
-                        match = focal_length_regex.search(self.read_field(entry, "Lens"))
-                    except FieldNotFoundError:
-                        if "inspire 1 fc350" in self.model.lower():
-                            focal_length = 20.7
-                    else:
-                        focal_length = match.group(1)
-                if focal_length:
-                    if self.old_format:
-                        ElementTree.SubElement(entry, camera_ns + "FocalLength").text = focal_length
-                        clean_entries.append(entry)
-                    else:
-                        entry.attrib[camera_ns + "FocalLength"] = focal_length
-                        clean_entries.append(entry)
-                else:
-                    print("Warning: No focal length could be determined for {} / {}.".format(self.maker, self.model))
-                    raise NoLCPDataUsed
+    def read_field(self, element, field_name, default=NoFieldDefault):
+        try:
+            if self.old_format:
+                return element.find(camera_ns + field_name).text
             else:
-                clean_entries.append(entry)
-        self.calibration_entries = clean_entries
+                return element.attrib[camera_ns + field_name]
+        except (KeyError, AttributeError):
+            if default is not NoFieldDefault:
+                return default
+            raise FieldNotFoundError(field_name)
 
     @staticmethod
     def clean_lens_maker(model):
@@ -244,11 +223,11 @@ class LCPLens:
         maker = model.split()[0].capitalize()
         return maker
             
-    def _read_first_entry(self):
+    def read_first_entry(self):
         entry = self.calibration_entries[0]
         camera_make = self.read_field(entry, "Make")
         self.camera_model = self.read_field(entry, "Model", camera_make)
-        camera = cameras.get((camera_make.lower(), self.camera_model.lower()))
+        camera = lensfun_cameras.get((camera_make.lower(), self.camera_model.lower()))
         self.model_en = self.read_field(entry, "LensPrettyName")
         if self.read_field(entry, "CameraRawProfile", "True").lower() == "false":
             self.model_en += " (JPEGs)"
@@ -262,7 +241,6 @@ class LCPLens:
             self.model = self.model_en
         if unusable_lens_name_regex.match(self.model):
             self.model = self.model_en
-#        print(self.model_en, (50 - len(self.model_en)) * " ", self.model)
         try:
             self.cropfactor = float(self.read_field(entry, "SensorFormatFactor"))
         except FieldNotFoundError:
@@ -283,7 +261,7 @@ class LCPLens:
         self.lensfun_lens = None
         models = [self.model] if self.model == self.model_en else [self.model, self.model_en]
         best_scores = (-1000, 0)
-        for lens in lenses:
+        for lens in lensfun_lenses:
             scores = lens.matches(models, self.cropfactor, self.fixed_lens_mount)
             if scores > best_scores:
                 best_scores = scores
@@ -292,16 +270,37 @@ class LCPLens:
             self.maker = child_without_attributes(self.lensfun_lens.element, "maker").text
             self.model = child_without_attributes(self.lensfun_lens.element, "model").text
         
-    def read_field(self, element, field_name, default=NoFieldDefault):
-        try:
-            if self.old_format:
-                return element.find(camera_ns + field_name).text
+    def fix_focal_lengths(self):
+        clean_entries = []
+        for entry in self.calibration_entries:
+            try:
+                self.read_field(entry, "FocalLength")
+            except FieldNotFoundError:
+                match = focal_length_regex.search(self.model)
+                focal_length = None
+                if match:
+                    focal_length = match.group(1)
+                else:
+                    try:
+                        match = focal_length_regex.search(self.read_field(entry, "Lens"))
+                    except FieldNotFoundError:
+                        if "inspire 1 fc350" in self.model.lower():
+                            focal_length = 20.7
+                    else:
+                        focal_length = match.group(1)
+                if focal_length:
+                    if self.old_format:
+                        ElementTree.SubElement(entry, camera_ns + "FocalLength").text = focal_length
+                        clean_entries.append(entry)
+                    else:
+                        entry.attrib[camera_ns + "FocalLength"] = focal_length
+                        clean_entries.append(entry)
+                else:
+                    print("Warning: No focal length could be determined for {} / {}.".format(self.maker, self.model))
+                    raise NoLCPDataUsed
             else:
-                return element.attrib[camera_ns + field_name]
-        except (KeyError, AttributeError):
-            if default is not NoFieldDefault:
-                return default
-            raise FieldNotFoundError(field_name)
+                clean_entries.append(entry)
+        self.calibration_entries = clean_entries
 
     def best_entries(self, tca):
         """Return the entries best suited for distortion and TCA data, because Lensfun
