@@ -5,7 +5,7 @@
 XML file.
 """
 
-import os, argparse, sys, re, copy
+import os, argparse, sys, re, copy, glob
 from xml.etree import ElementTree
 
 
@@ -113,17 +113,16 @@ class Lens:
 cameras = {}
 lenses = set()
 def crawl_directory(dirpath):
-    for root, __, filenames in os.walk(dirpath):
-        for filename in filenames:
-            if not filename.startswith("_") and filename.endswith(".xml"):
-                tree = ElementTree.parse(os.path.join(root, filename)).getroot()
-                for element in tree.findall("camera"):
-                    maker, model = child_without_attributes(element, "maker").text, \
-                                   child_without_attributes(element, "model").text
-                    cameras[maker.lower(), model.lower()] = camera = Camera(maker, model)
-                    camera.cropfactor = float(element.find("cropfactor").text)
-                    camera.mount = element.find("mount").text
-                lenses.update(Lens(element) for element in tree.findall("lens"))
+    for filepath in glob.glob(os.path.join(dirpath, "*.xml")):
+        if not os.path.basename(filepath).startswith("_"):
+            tree = ElementTree.parse(filepath).getroot()
+            for element in tree.findall("camera"):
+                maker, model = child_without_attributes(element, "maker").text, \
+                               child_without_attributes(element, "model").text
+                cameras[maker.lower(), model.lower()] = camera = Camera(maker, model)
+                camera.cropfactor = float(element.find("cropfactor").text)
+                camera.mount = element.find("mount").text
+            lenses.update(Lens(element) for element in tree.findall("lens"))
 
 paths_search_list = [args.db_path] if args.db_path else \
                     ["/usr/share/lensfun", "/usr/local/share/lensfun", "/var/lib/lensfun-updates",
