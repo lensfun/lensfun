@@ -584,20 +584,24 @@ class LCPLens:
             return round(self.cropfactor * 10) / 10
 
 
-lcp_lenses = {}
-for root, __, filenames in os.walk(args.input_directory):
-    for filename in filenames:
-        filepath = os.path.join(root, filename)
-        try:
-            lcp_lens = LCPLens(filepath)
-        except (ElementTree.ParseError, NoLCPDataUsed):
-            continue
-        key = (lcp_lens.maker, lcp_lens.model, lcp_lens.normalized_cropfactor)
-        already_existing_lens = lcp_lenses.get(key)
-        if not already_existing_lens or already_existing_lens.correction_coverage < lcp_lens.correction_coverage \
-           or already_existing_lens.correction_coverage == lcp_lens.correction_coverage and \
-           already_existing_lens.cropfactor > lcp_lens.cropfactor:
-            lcp_lenses[key] = lcp_lens
+def read_lcp_files():
+    lcp_lenses = {}
+    for root, __, filenames in os.walk(args.input_directory):
+        for filename in filenames:
+            filepath = os.path.join(root, filename)
+            try:
+                lcp_lens = LCPLens(filepath)
+            except (ElementTree.ParseError, NoLCPDataUsed):
+                continue
+            key = (lcp_lens.maker, lcp_lens.model, lcp_lens.normalized_cropfactor)
+            already_existing_lens = lcp_lenses.get(key)
+            if not already_existing_lens or already_existing_lens.correction_coverage < lcp_lens.correction_coverage \
+               or already_existing_lens.correction_coverage == lcp_lens.correction_coverage and \
+               already_existing_lens.cropfactor > lcp_lens.cropfactor:
+                lcp_lenses[key] = lcp_lens
+    return lcp_lenses
+
+lcp_lenses = read_lcp_files()
 
 
 output = ElementTree.Element("lensdatabase", {"version": "2"})
