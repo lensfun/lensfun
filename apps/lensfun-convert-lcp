@@ -114,30 +114,33 @@ class LensfunLens:
         return tuple(scores)
 
 
-lensfun_cameras = {}
-lensfun_lenses = {}
-def crawl_directory(dirpath):
-    for filepath in glob.glob(os.path.join(dirpath, "*.xml")):
-        if not os.path.basename(filepath).startswith("_"):
-            tree = ElementTree.parse(filepath).getroot()
-            for element in tree.findall("camera"):
-                maker, model = child_without_attributes(element, "maker").text, \
-                               child_without_attributes(element, "model").text
-                lensfun_cameras[maker.lower(), model.lower()] = camera = LensfunCamera(maker, model)
-                camera.cropfactor = float(element.find("cropfactor").text)
-                camera.mount = element.find("mount").text
-            for element in tree.findall("lens"):
-                lens = LensfunLens(element)
-                lensfun_lenses[lens.normalized_model, lens.cropfactor] = lens
+def read_lensfun_database():
+    lensfun_cameras = {}
+    lensfun_lenses_dict = {}
+    def crawl_directory(dirpath):
+        for filepath in glob.glob(os.path.join(dirpath, "*.xml")):
+            if not os.path.basename(filepath).startswith("_"):
+                tree = ElementTree.parse(filepath).getroot()
+                for element in tree.findall("camera"):
+                    maker, model = child_without_attributes(element, "maker").text, \
+                                   child_without_attributes(element, "model").text
+                    lensfun_cameras[maker.lower(), model.lower()] = camera = LensfunCamera(maker, model)
+                    camera.cropfactor = float(element.find("cropfactor").text)
+                    camera.mount = element.find("mount").text
+                for element in tree.findall("lens"):
+                    lens = LensfunLens(element)
+                    lensfun_lenses_dict[lens.normalized_model, lens.cropfactor] = lens
 
-paths_search_list = [args.db_path] if args.db_path else \
-                    ["/usr/share/lensfun", "/usr/local/share/lensfun", "/var/lib/lensfun-updates",
-                     os.path.expanduser("~/.local/share/lensfun/updates"),
-                     os.path.expanduser("~/.local/share/lensfun")]
-for path in paths_search_list:
-    crawl_directory(path)
-lensfun_lenses = set(lensfun_lenses.values())
-if not lensfun_cameras:
+    paths_search_list = [args.db_path] if args.db_path else \
+                        ["/usr/share/lensfun", "/usr/local/share/lensfun", "/var/lib/lensfun-updates",
+                         os.path.expanduser("~/.local/share/lensfun/updates"),
+                         os.path.expanduser("~/.local/share/lensfun")]
+    for path in paths_search_list:
+        crawl_directory(path)
+    return lensfun_cameras, set(lensfun_lenses_dict.values())
+
+lensfun_cameras, lensfun_lenses = read_lensfun_database()
+if not lensfun_cameras and not lensfun_lenses:
     print("Warning: No Lensfun database found.")
 
 
