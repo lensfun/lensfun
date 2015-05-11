@@ -13,7 +13,8 @@ parser = argparse.ArgumentParser(description="Convert LCP files to a Lensfun XML
 parser.add_argument("input_directory", default=".", nargs="?", metavar="path",
                     help="""path to the LCP files (default: ".")""")
 parser.add_argument("--output", default=os.path.expanduser("~/.local/share/lensfun/_lcps.xml"),
-                    help="path of output file (default: ~/.local/share/lensfun/_lcps.xml)")
+                    help="Path of output file (default: ~/.local/share/lensfun/_lcps.xml).  "
+                    "This file is overwritten silently.")
 parser.add_argument("--db-path", help="Path to the lensfun database.  If not given, look in the same places as Lensfun.")
 parser.add_argument("--prefer-lcp", action="store_true", help="Prefer LCP data over Lensfun data.")
 args = parser.parse_args()
