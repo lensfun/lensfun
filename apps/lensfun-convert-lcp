@@ -103,15 +103,9 @@ class Lens:
                 return True
         return False
 
-    def __hash__(self):
-        return hash(self.normalized_model) ^ hash(self.cropfactor)
-
-    def __eq__(self, other):
-        return self.normalized_model == other.normalized_model and self.cropfactor == other.cropfactor
-
 
 cameras = {}
-lenses = set()
+lenses = {}
 def crawl_directory(dirpath):
     for filepath in glob.glob(os.path.join(dirpath, "*.xml")):
         if not os.path.basename(filepath).startswith("_"):
@@ -122,7 +116,9 @@ def crawl_directory(dirpath):
                 cameras[maker.lower(), model.lower()] = camera = Camera(maker, model)
                 camera.cropfactor = float(element.find("cropfactor").text)
                 camera.mount = element.find("mount").text
-            lenses.update(Lens(element) for element in tree.findall("lens"))
+            for element in tree.findall("lens"):
+                lens = Lens(element)
+                lenses[lens.normalized_model, lens.cropfactor] = lens
 
 paths_search_list = [args.db_path] if args.db_path else \
                     ["/usr/share/lensfun", "/usr/local/share/lensfun", "/var/lib/lensfun-updates",
@@ -130,6 +126,7 @@ paths_search_list = [args.db_path] if args.db_path else \
                      os.path.expanduser("~/.local/share/lensfun")]
 for path in paths_search_list:
     crawl_directory(path)
+lenses = set(lenses.values())
 if not cameras:
     print("Warning: No Lensfun database found.")
 
