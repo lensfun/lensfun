@@ -2,7 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """This program reads Adobe LCP files and converts their content to one Lensfun
-XML file.
+XML file.  It was tested against the LCP files shipped with “Adobe DNG
+Converter 9.0” although it should work with other sets of LCP files, too.
+
+This program assumes that one LCP file contains the data of exactly one lens.
+
+It writes a single XML output file, by default into the personal DB directory.
+While this directory has highest priority, note that other files in this
+directory – albeit highly unlikely – might contain entries that override data
+in that XML file.
 """
 
 import os, argparse, sys, re, copy, glob
@@ -54,12 +62,36 @@ def indent(elem, level=0):
 
 
 def child_without_attributes(parent, name):
+    """Return the first child element that doesn't have attributes.  This is used
+    e.g. for the ``<model>`` tag in order to get the version without the
+    ``lang`` attribute.
+
+    :param parent: parent element of the element to be retrieved
+    :param name: tag name of the element to be retrieved
+
+    :type parent: ElementTree.Element
+    :type name: str
+
+    :return:
+      The first ``<name>`` within ``<parent>`` without attributes.  ``None`` if
+      none was found.
+
+    :rtype: ElementTree.Element or NoneType
+    """
     for child in parent.findall(name):
         if not list(child.attrib.keys()):
             return child
 
 
+# Part I
+#
+# Reading the Lensfun database
+
+
 class LensfunCamera:
+    """One camera entry in Lensfun's database.  It is used to derive cropfactors of
+    LCP entries from them, and the mounts of compact cameras.
+    """
 
     def __init__(self, maker, model):
         self.maker, self.model = maker, model
@@ -68,10 +100,33 @@ class LensfunCamera:
 
 
 class LensfunLens:
+    """One ``<lens>`` entry in Lensfun's database.  They are used to match LCP
+    entries against them, and use them as a starting point for output entries
+    in case of a match.
+
+    :ivar element: the original Lensfun DB XML element
+    :ivar normalized_model: the tokenized form of the lens model name; see
+      `normalize_lens_model_name`
+    :ivar cropfactor: the cropfactor of the calibration
+    :ivar fixed_lens_mount: if not ``None``, the name of the compact camera
+      mount of this lens
+    :ivar chdk: whether this calibration refers to CHDK's DNGs.
+
+    :type element: ElementTree.Element
+    :type normalized_model: tuple of str
+    :type cropfactor: float
+    :type fixed_lens_mount: NoneType or str
+    :type chdk: bool
+    """
 
     model_name_token_regex = re.compile(r"[0-9][0-9.]*|\s+|[^\w\s]+|[^\W\d_]+")
 
     def __init__(self, element):
+        """
+        :param element: the Lensfun DB <lens> element
+
+        :type element: ElementTree.Element
+        """
         self.element = element
         model = child_without_attributes(element, "model").text
         self.normalized_model = self.normalize_lens_model_name(model)
@@ -85,11 +140,44 @@ class LensfunLens:
 
     @staticmethod
     def normalize_lens_model_name(name):
+        """Tokenise the given name.  This routine helps to implement a lens
+        model matching similar to Lensfun itself.
+
+        :param name: model name to be tokenised.
+
+        :type name: str
+
+        :return:
+          The tokens found in the name.  Singular punctuation and f's are
+          discarded, as done my Lensfun.
+
+        :rtype: tuple of str
+        """
         return tuple(token for token in LensfunLens.model_name_token_regex.findall(name.lower())
                      if token != "f" and not token.isspace() and
                      (len(token) > 1 or token.isalnum() or token in "*+"))
 
     def matches(self, names, cropfactor, fixed_lens_mount):
+        """Returns a score indicating how well the given parameters match this
+        lens.
+
+        :param names: model names to be checked; since the LCP files contain
+          more than one, you pass a list here
+        :param cropfactor: the cropfactor derived from the LCP file
+        :param fixed_lens_mount: the name of the fixed lens mount derived from
+          the LCP file, using Lensfun's camera list
+
+        :type names: list of str
+        :type cropfactor: float
+        :type fixed_lens_mount: str or NoneType
+
+        :return:
+          A score that measures the similarity of the lens data sets.  It is a
+          tuple of numeric values in order to assure one best match (or none).
+          A return value of (-1000, 0) indicates no match.
+
+        :rtype: (float, float)
+        """
         if self.fixed_lens_mount and fixed_lens_mount == self.fixed_lens_mount and not self.chdk:
             return (1000, 0)
         scores = []
@@ -115,6 +203,16 @@ class LensfunLens:
 
 
 def read_lensfun_database():
+    """Reads the Lensfun database and returns its content.  It obeys to
+    Lensfun's rules of overriding entries.
+
+    :return:
+      All found cameras and lenses.  As for cameras, the result is a dict with
+      the key `(maker, model)`, both in all-lowercase.  This makes lookup
+      easier later.
+
+    :rtype: dict mapping (str, str) to `LensfunCamera`, set of `LensfunLens`
+    """
     lensfun_cameras = {}
     lensfun_lenses_dict = {}
     def crawl_directory(dirpath):
@@ -144,29 +242,114 @@ if not lensfun_cameras and not lensfun_lenses:
     print("Warning: No Lensfun database found.")
 
 
+# Part II
+#
+# Reading the LCP files and merging the data with the Lensfun data
+
+
 class FieldNotFoundError(Exception):
+    """Raised by `LCPLens.read_field` if an element/atribute with the given
+    name was not found, and no default was defined.
+    """
     pass
 
 
 class NoLCPDataUsed(Exception):
+    """Raised anywhere in the methods of `LCPLens` (but only during the
+    ``__init__`` call) in order to signal that this LCP entry must not be used
+    for the output, e.g. because Lensfun already contains a full set of data
+    for that lens.
+    """
     pass
 
 
 class NoFieldDefault:
+    """Singleton used as a parameter default in `LCPLens.read_field` to distinguish
+    between “no default provided” and any kind of default including ``None``.
+    """
     pass
 
 
+# Important LCP namespaces
 camera_ns = "{http://ns.adobe.com/photoshop/1.0/camera-profile}"
 rdf_ns = "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}"
+# This regex identifies garbage in the <Lens> tag in the LCP file.
 unusable_lens_name_regex = re.compile(r"[-0-9.]+\s*mm(\s*f/?[-0-9.]+)?|Sigma Lens$", re.IGNORECASE)
+# This regex is used for finding a focal length in a string.
 focal_length_regex = re.compile(r"([0-9.]+)\s*mm\b", re.IGNORECASE)
 
 
 class LCPLens:
+    """An entry in the LCP database.  It is identical with a single LCP file.
+
+    :ivar compact_cameras: This clas variable collects all entries for compact
+      cameras that should go into the output because Lensfun doesn't define
+      them.  Note that even with the ``--prefer-lcp`` option, Lensfun camera
+      definitions are not overridden by the XML output (but only calibration
+      data).
+
+    :ivar old_format: Adobe has changed the schema of the LCP files at least
+      twice over the years.  This makes three variants.  In particular, tags
+      became attributes, and then, the <Description> element was dropped at
+      some point.  This flag distinguishes between the first two variants,
+      i.e. tags and attributes.
+
+    :ivar calibration_entries: all calibration entries (elements) in the LCP
+      file.  One entry refers to one set of EXIF data (focal length, aperture,
+      distance) and can contain distortion, TCA, and vignetting data.
+
+    :ivar xml_element: The XML element ready to be used for the output.  It is
+      already generated in the constructor in order to be able to mark the
+      instance as unfit for output by raising `NoLCPDataUsed`.
+
+    :ivar lensfun_lens: The Lensfun lens object that represents the same lens
+      and calibration cropfactor as this lens.
+
+    :ivar camera_model: Model of the camera used for the calibration.  This is
+      used for helping with determining the calibration cropfactor, and it is
+      used for detecting data of compact cameras.
+
+    :ivar maker: Lens maker name.
+
+    :ivar model: Lens model name.  This is supposed to be the equivalent of
+      Lensfun's ``<model>`` tag without language attribute.
+
+    :ivar model_en: Verbose lens model name.  This is supposed to be the
+      equivalent of Lensfun's ``<model lang="en">`` tag.
+
+    :ivar raw: Whether this calibration data was taken from RAW images.  If
+      ``False``, JPEG is assumed.
+
+    :ivar cropfactor: The cropfactor used for the calibration.  This script
+      tries hard in determining the cropfactor (unfortunately, it is not always
+      included into the LCP files).  It all else fails, it is set to 1.
+
+    :ivar fixed_lens_mount: The mount name if we have detected a fixed-lens
+      camera.  If not ``None``, it is either an original Lensfun mount name, or
+      a made-up unique compact camera mount name.
+
+    :type compact_cameras: list of ElementTree.Element
+    :type old_format: bool
+    :type calibration_entries: list of ElementTree.Element
+    :type xml_element: ElementTree.Element
+    :type lensfun_lens: `LensfunLens` or ``NoneType``
+    :type camera_model: str
+    :type maker: str
+    :type model: str
+    :type model_en: str
+    :type raw: bool
+    :type cropfactor: float
+    :type fixed_lens_mount: str or ``NoneType``
+    """
 
     compact_cameras = []
 
     def __init__(self, filepath):
+        """
+        :param filepath: path to the LCP file
+
+        :type filepath: str
+        """
         tree = ElementTree.parse(filepath)
         self.old_format = bool(
             tree.findall(".//{http://ns.adobe.com/photoshop/1.0/camera-profile}Make"))
@@ -176,6 +359,22 @@ class LCPLens:
         self.xml_element = self.xml_element()
 
     def get_description_element_maybe(self, element):
+        """Get the proper element to read calibration data from.  This routine helps to
+        support both the second and the third variant of the LCP file format.
+        The second variant uses ``<Description>`` tags below
+        ``<PerspectiveModel>``, while the third variant attaches the attributes
+        directly to ``<PerspectiveModel>``.  For the “old format” (first
+        variant), this routine does nothing.
+
+        :param element: the calibration entry, typically an <li> element
+
+        :type element: ElementTree.Element
+
+        :return:
+          the real element carrying the calibration data
+
+        :rtype: ElementTree.Element
+        """
         if self.old_format:
             return element
         description = element.find(rdf_ns + "Description")
@@ -185,6 +384,27 @@ class LCPLens:
             return description
 
     def read_field(self, element, field_name, default=NoFieldDefault):
+        """:param element: element into which the field is placed
+
+        :param field_name: The name of the field to be read.  For LCP
+          variant 1, this is the tag of a child element.  For LCP variants 1
+          and 2, this is an attribute name.
+
+        :param default: Default value if the field is not found.  Note that it
+          is distinguished between “no default given” and “``None`` is the
+          default”.
+
+        :type element: ElementTree.Element
+        :type field_name: str
+        :type default: object
+
+        :return:
+          the content of the field, or if the field doesn't exist, the default
+          if given
+
+        :raises FieldNotFoundError: if the field does not exist and not default
+          is given
+        """
         try:
             if self.old_format:
                 return element.find(camera_ns + field_name).text
@@ -197,6 +417,20 @@ class LCPLens:
 
     @staticmethod
     def clean_lens_maker(model):
+        """Returns the maker of the given lens.  Unfortunately, LCP files don't contain
+        the maker of the lens explicitly, but it is needed for Lensfun XML
+        output.  Besides, the exact maker is used in `guess_ilc_mounts` to
+        guess for which mounts the lens is probably available.
+
+        :param model: lens model name that contains the maker somewhere
+
+        :type model: str
+
+        :return:
+          the make of this lens
+
+        :rtype: str
+        """
         model_lower = model.lower()
         if "pentax" in model_lower:
             return "Pentax"
@@ -228,6 +462,11 @@ class LCPLens:
         return maker
             
     def read_first_entry(self):
+        """Extracts metadata from the first calibration entry in the file and
+        populates the object instance.  This refers to the lens model and
+        maker, the camera maker, the cropfactor used for the calibration, and
+        some other things.  It populates most of this instance's fields.
+        """
         entry = self.calibration_entries[0]
         camera_make = self.read_field(entry, "Make")
         self.camera_model = self.read_field(entry, "Model", camera_make)
@@ -275,6 +514,11 @@ class LCPLens:
             self.model = child_without_attributes(self.lensfun_lens.element, "model").text
         
     def fix_focal_lengths(self):
+        """Assures that every LCP file calibration entry has a focal length.  Contrary
+        to the official Adobe specs, many calibration entries lack a focal
+        length.  In this routine, we try to reconstruct it in those cases from
+        the lens model name.  If this fails, the respective entry is removed.
+        """
         clean_entries = []
         for entry in self.calibration_entries:
             try:
@@ -307,8 +551,20 @@ class LCPLens:
         self.calibration_entries = clean_entries
 
     def best_entries(self, tca):
-        """Return the entries best suited for distortion and TCA data, because Lensfun
-        can only use one per focal length."""
+        """Returns the entries best suited for distortion and TCA data, because Lensfun
+        can only use one per focal length.
+
+        :param tca: Whether we look for TCA entries.  If ``False``, we look for
+          distortion entries.
+
+        :type tca: bool
+
+        :return:
+          dictionary mapping the focal length to the best entry for that focal
+          length
+
+        :rtype: dict mapping float to ElementTree.Element
+        """
         current_distances, current_apertures, result = {}, {}, {}
         for entry in self.calibration_entries:
             perspective_entry = entry.find(camera_ns + "PerspectiveModel")
@@ -332,6 +588,22 @@ class LCPLens:
         return result
 
     def generate_distortion_entries(self):
+        """Generates distortion entries from the LCP file.  The entries have the
+        Lensfun format and can be included as children into a ``<calibration>``
+        tag.  They are sorted by increasing focal length.  The information
+        whether the distortion data refers to Adobe's fisheye model is
+        returned, too.
+
+        Curiously enough, Adobe's fisheye model can be realised easily in
+        Lensfun by simply adding the ``<distortion>`` tag with the ``k1`` and
+        ``k2`` parameters, and setting ``<type>`` to ``fisheye``.
+
+        :return:
+          the ``<distortion>`` elements for the Lensfun output, and whether
+          it's a fisheye lens
+
+        :rtype: list of ElementTree.Element, bool
+        """
         best_entries = self.best_entries(tca=False)
         elements = []
         fisheye = None
@@ -354,6 +626,15 @@ class LCPLens:
         return elements, fisheye
 
     def generate_tca_entries(self):
+        """Generates TCA entries from the LCP file.  The entries have the Lensfun
+        format and can be included as children into a ``<calibration>`` tag.
+        They are sorted by increasing focal length.
+
+        :return:
+          the ``<tca>`` elements for the Lensfun output
+
+        :rtype: list of ElementTree.Element
+        """
         best_entries = self.best_entries(tca=True)
         elements = []
         for focal_length in sorted(best_entries):
@@ -376,6 +657,16 @@ class LCPLens:
         return elements
 
     def generate_vignetting_entries(self):
+        """Generates vignetting entries from the LCP file.  The entries have the
+        Lensfun format and can be included as children into a ``<calibration>``
+        tag.  They are sorted by increasing focal length, then by increasing
+        f-stop number, and then by increasing distance.
+
+        :return:
+          the ``<vignetting>`` elements for the Lensfun output
+
+        :rtype: list of ElementTree.Element
+        """
         match = re.search(r"f/?(?P<min>[0-9.]+)", self.model, re.IGNORECASE)
         if match:
             aperture_min = float(match.group("min"))
@@ -413,6 +704,17 @@ class LCPLens:
         return elements
 
     def guess_ilc_mounts(self):
+        """Guess the list of available mounts of this lens.  This routine gives
+        senseful results only if the lens is for interchangeable lens cameras
+        (rather than compact cameras).  First and foremost, it uses the lens
+        maker for its guesswork.
+
+        :return:
+          the mounts for which this lens is probably available, as a list of
+          ``<mount>`` elements
+
+        :rtype: list of ElementTree.Element
+        """
         mounts = set()
         if self.maker == "Nikon":
             if 2.6 < self.cropfactor < 2.8:
@@ -495,7 +797,20 @@ class LCPLens:
         return result
 
     def xml_element(self):
+        """Generates the Lensfun XML entry for this lens.  Here, everything
+        comes together.
+
+        :return:
+          the ``<lens>`` element with the complete data for this lens, ready to
+          be send into the final output
+
+        :rtype: ElementTree.Element
+
+        :raises NoLCPDataUsed: if no data from the LCP file really made it into
+          the final ``<lens>`` entry, so its inclusion is pointless.
+        """
         if self.lensfun_lens:
+            # Re-populating an existing Lensfun entry.
             lens = copy.deepcopy(self.lensfun_lens.element)
             calibration = lens.find("calibration")
             if calibration is None:
@@ -535,6 +850,7 @@ class LCPLens:
             if not lcp_entries_used:
                 raise NoLCPDataUsed
         else:
+            # Creating a <lens> element from scratch.
             lens = ElementTree.Element("lens")
             ElementTree.SubElement(lens, "maker").text = self.maker
             ElementTree.SubElement(lens, "model").text = self.model
@@ -574,6 +890,16 @@ class LCPLens:
 
     @property
     def normalized_cropfactor(self):
+        """Returns the normalized cropfactor for this lens.  This is the cropfactor
+        rounded to one decimal place.  In addition, APS-C cropfactors are all
+        clamped to exactly 1.5 (1.6 for Canon), and APS-H is clamped to 1.3.
+        This way, duplicates in output can be reduced.
+
+        :return:
+          the normalised cropfactor
+
+        :rtype: float
+        """
         if 1.5 <= self.cropfactor <= 1.57:
             return 1.5
         elif 1.58 <= self.cropfactor <= 1.63:
@@ -585,6 +911,14 @@ class LCPLens:
 
 
 def read_lcp_files():
+    """Returns all LCP lenses (aka LCP files) that actually make it into the final
+    output.
+
+    :return:
+      all LCP lenses for the output XML file
+
+    :rtype: set of `LCPLens`
+    """
     lcp_lenses_dict = {}
     for root, __, filenames in os.walk(args.input_directory):
         for filename in filenames:
@@ -602,6 +936,11 @@ def read_lcp_files():
     return set(lcp_lenses_dict.values())
 
 lcp_lenses = read_lcp_files()
+
+
+# Part III
+#
+# Writing the output to an XML file
 
 
 output = ElementTree.Element("lensdatabase", {"version": "2"})
