@@ -167,10 +167,10 @@ class LCPLens:
     compact_cameras = []
 
     def __init__(self, filepath):
-        self.tree = ElementTree.parse(filepath)
+        tree = ElementTree.parse(filepath)
         self.old_format = bool(
-            self.tree.findall(".//{http://ns.adobe.com/photoshop/1.0/camera-profile}Make"))
-        self.calibration_entries = [self.get_description_element_maybe(entry) for entry in self.tree.getroot()[0][0][0][0]]
+            tree.findall(".//{http://ns.adobe.com/photoshop/1.0/camera-profile}Make"))
+        self.calibration_entries = [self.get_description_element_maybe(entry) for entry in tree.getroot()[0][0][0][0]]
         self.read_first_entry()
         self.fix_focal_lengths()
         self.xml_element = self.xml_element()
