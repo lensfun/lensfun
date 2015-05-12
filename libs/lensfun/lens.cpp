@@ -883,7 +883,7 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
     {
         float values [5] = {spline [0]->Focal, spline [1]->Focal,
                             spline [2]->Focal, spline [3]->Focal, focal};
-        __parameter_scales (values, sizeof(values), LF_MODIFY_DISTORTION, dm, i);
+        __parameter_scales (values, 5, LF_MODIFY_DISTORTION, dm, i);
         res.Terms [i] = _lf_interpolate (
             (spline [0] ? spline [0]->Terms [i] : FLT_MAX) * values [0],
             spline [1]->Terms [i] * values [1], spline [2]->Terms [i] * values [2],
@@ -957,7 +957,7 @@ bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
     {
         float values [5] = {spline [0]->Focal, spline [1]->Focal,
                             spline [2]->Focal, spline [3]->Focal, focal};
-        __parameter_scales (values, sizeof(values), LF_MODIFY_TCA, tcam, i);
+        __parameter_scales (values, 5, LF_MODIFY_TCA, tcam, i);
         res.Terms [i] = _lf_interpolate (
             (spline [0] ? spline [0]->Terms [i] : FLT_MAX) * values [0],
             spline [1]->Terms [i] * values [1], spline [2]->Terms [i] * values [2],
