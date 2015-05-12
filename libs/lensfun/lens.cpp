@@ -900,6 +900,21 @@ static void __parameter_scales (float values [], int number_of_values,
             break;
         }
         break;
+
+    case LF_MODIFY_VIGNETTING:
+        switch (model)
+        {
+        case LF_VIGNETTING_MODEL_PA:
+            for (int i=0; i < number_of_values; i++)
+                values [i] = 1.0;
+            break;
+
+        case LF_VIGNETTING_MODEL_ACM:
+            const float exponent = (float)(2 * (index + 1));
+            for (int i=0; i < number_of_values; i++)
+                values [i] = 1.0 / pow (values [i], exponent);
+            break;
+        }
     }
 }
 
@@ -1117,12 +1132,9 @@ bool lfLens::InterpolateVignetting (
 	    float weighting = fabs (1.0 / pow (interpolation_distance, power));
 	    for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
             {
-                float contribution = weighting * c->Terms [i];
-                if (vm == LF_VIGNETTING_MODEL_ACM)
-                    // Undo the scaling of the parameters with the focal length
-                    // (due to the coordinate scaling) to aid interpolation
-                    contribution /= pow (c->Focal, (i + 1) * 2);
-	        res.Terms [i] += contribution;
+                float values [1] = {c->focal};
+                __parameter_scales (values, sizeof (values), LF_MODIFY_VIGNETTING, vm, i);
+	        res.Terms [i] += weighting * c->Terms [i] * values [0];
             }
 	    total_weighting += weighting;
     }
@@ -1134,9 +1146,9 @@ bool lfLens::InterpolateVignetting (
     {
 	    for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
             {
-	        res.Terms [i] /= total_weighting;
-                if (vm == LF_VIGNETTING_MODEL_ACM)
-                    res.Terms [i] *= pow (focal, (i + 1) * 2);
+                float values [1] = {focal};
+                __parameter_scales (values, sizeof (values), LF_MODIFY_VIGNETTING, vm, i);
+	        res.Terms [i] /= total_weighting * values [0];
             }
 	    return true;
     } else 
