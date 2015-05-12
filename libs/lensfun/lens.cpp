@@ -791,6 +791,35 @@ static int __insert_spline (void **spline, float *spline_dist, float dist, void 
     return -1;
 }
 
+static void __parameter_scales (float values [], int number_of_values,
+                                int type, int model, int index)
+{
+    switch (type)
+    {
+    case LF_MODIFY_DISTORTION:
+        switch (model)
+        {
+        case LF_DIST_MODEL_POLY3:
+        case LF_DIST_MODEL_POLY5:
+        case LF_DIST_MODEL_PTLENS:
+            break;
+        }
+        break;
+
+    case LF_MODIFY_TCA:
+        switch (model)
+        {
+        case LF_TCA_MODEL_LINEAR:
+        case LF_TCA_MODEL_POLY3:
+            if (index < 2)
+                for (int i=0; i < number_of_values; i++)
+                    values [i] = 1.0;
+            break;
+        }
+        break;
+    }
+}
+
 bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) const
 {
     if (!CalibDistortion)
