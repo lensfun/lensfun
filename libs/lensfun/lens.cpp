@@ -862,6 +862,70 @@ static int __insert_spline (void **spline, float *spline_dist, float dist, void 
     return -1;
 }
 
+/* Coefficient interpolation
+
+   The interpolation of model coefficients bases on spline interpolation
+   (distortion/TCA) and the IDW algorithm (vignetting).  Both methods work best
+   if the input data points (i.e. the values in the XML file) are
+   preconditioned so that they follow more or less a linear slope.  For this
+   preconditioning, we transform the axes.
+
+   First, let's have a look at the untransformed slopes.  For distortion, the
+   parameters decrease with increasing focal length, following a 1/f law.  The
+   same is true for all TCA parameters besides the zeroth one (i.e. the term
+   close to 1), which remains constant.  In contrast, all three vignetting
+   parameters remain constant for different focal lengths, however, they do
+   decrease according to 1/aperture and 1/distance.  All of this is only roughly
+   true of course, however, I could really reproduce it by mass-analysing the
+   existing data.
+
+   Thus, in order to make the slopes linear, I transform the aperture and
+   distance axes to reciprocal axes in __vignetting_dist ().  I keep the focal
+   length axis linear, though, for all three kinds of correction.  Instead, I
+   transform the parameter axis by multiplying it by the focal length of the
+   respective data point for those parameters that exhibit 1/f behaviour.  Of
+   course, this parameter scaling must be undone after the interpolation by
+   dividing by the destination focal length.
+
+   The ACM models are a special case because they use a coordinate system that
+   scales with the focal length.  Therefore, their parameters tend to increase
+   (partly heavily) by the focal length.  I undo this by dividing the
+   parameters by the focal length in the same power that the respective r
+   coordinate has.  For example, I divide k₁ of the distortion model by f²,
+   because it says “k₁r²” in the formula.  Note that this is done *on top* of
+   the multiplying by f, so that effectively, k₁ is divided by f.  Also note
+   that the factor x in the Adobe formula does not mean that we have r³,
+   because the left-hand side of the formula scales by f, too, and anhilates
+   this factor.
+
+   All of this only works well with polynomial-based models.  I simply don't
+   know whether or how it applies to completely different types of models.
+
+   Does it really matter?  Well, my own research revealed that only for
+   vignetting, it is absolutely necessary.  Especially the parameter scaling
+   for the ACM model prevents the slightly fragile IDW algorithm from failing
+   badly in many cases.  The reciprocal axis for aperture also helps a lot.  I
+   think that the parameter scaling for distortion and TCA for the ACM models
+   is also advantageous since especially the k₃ parameter tends to explode by
+   the focal length, and the splines will have a hard time to follow such
+   slopes.  Well, and if you implement the facilities for axis transformation
+   anyway, you can cover all other cases too, I think.
+
+
+   The function __parameter_scales () below implements the parameter axis
+   scaling.  If returns factors by which the parameters are multiplied, and
+   divided by after the interpolation.  It takes the "type" of the correction
+   (distortion/TCA/vignetting), the model, and the parameter index in this
+   model.  All of these parameters should be easy to understand.
+
+   The "values" parameter is slightly more convoluted.  It takes the focal
+   lengths for which scale factors should be returned.  "number_of_values"
+   contains the number of values in the "values" array.  At the same time,
+   "values" contains the scale factors themselves, thus, __parameter_scales ()
+   changes the "values" array in place.  This makes sense because the caller
+   doesn't need the focal lengths anymore, and because in most cases, the scale
+   factor is the focal length itself, so nothing needs to be changed.
+ */
 static void __parameter_scales (float values [], int number_of_values,
                                 int type, int model, int index)
 {
