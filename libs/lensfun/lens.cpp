@@ -862,6 +862,35 @@ static int __insert_spline (void **spline, float *spline_dist, float dist, void 
     return -1;
 }
 
+static void __parameter_scales (float values [], int number_of_values,
+                                int type, int model, int index)
+{
+    switch (type)
+    {
+    case LF_MODIFY_DISTORTION:
+        switch (model)
+        {
+        case LF_DIST_MODEL_POLY3:
+        case LF_DIST_MODEL_POLY5:
+        case LF_DIST_MODEL_PTLENS:
+            break;
+        }
+        break;
+
+    case LF_MODIFY_TCA:
+        switch (model)
+        {
+        case LF_TCA_MODEL_LINEAR:
+        case LF_TCA_MODEL_POLY3:
+            if (index < 2)
+                for (int i=0; i < number_of_values; i++)
+                    values [i] = 1.0;
+            break;
+        }
+        break;
+    }
+}
+
 bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) const
 {
     if (!CalibDistortion)
@@ -922,10 +951,16 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
     float t = (focal - spline [1]->Focal) / (spline [2]->Focal - spline [1]->Focal);
 
     for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
+    {
+        float values [5] = {spline [0]->Focal, spline [1]->Focal,
+                            spline [2]->Focal, spline [3]->Focal, focal};
+        __parameter_scales (values, sizeof(values), LF_MODIFY_DISTORTION, dm, i);
         res.Terms [i] = _lf_interpolate (
-            spline [0] ? spline [0]->Terms [i] : FLT_MAX,
-            spline [1]->Terms [i], spline [2]->Terms [i],
-            spline [3] ? spline [3]->Terms [i] : FLT_MAX, t);
+            (spline [0] ? spline [0]->Terms [i] : FLT_MAX) * values [0],
+            spline [1]->Terms [i] * values [1], spline [2]->Terms [i] * values [2],
+            (spline [3] ? spline [3]->Terms [i] : FLT_MAX) * values [3],
+            t) / values [4];
+    }
 
     return true;
 }
@@ -990,10 +1025,16 @@ bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
     float t = (focal - spline [1]->Focal) / (spline [2]->Focal - spline [1]->Focal);
 
     for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
+    {
+        float values [5] = {spline [0]->Focal, spline [1]->Focal,
+                            spline [2]->Focal, spline [3]->Focal, focal};
+        __parameter_scales (values, sizeof(values), LF_MODIFY_TCA, tcam, i);
         res.Terms [i] = _lf_interpolate (
-            spline [0] ? spline [0]->Terms [i] : FLT_MAX,
-            spline [1]->Terms [i], spline [2]->Terms [i],
-            spline [3] ? spline [3]->Terms [i] : FLT_MAX, t);
+            (spline [0] ? spline [0]->Terms [i] : FLT_MAX) * values [0],
+            spline [1]->Terms [i] * values [1], spline [2]->Terms [i] * values [2],
+            (spline [3] ? spline [3]->Terms [i] : FLT_MAX) * values [3],
+            t) / values [4];
+    }
 
     return true;
 }

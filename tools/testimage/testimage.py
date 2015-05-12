@@ -141,7 +141,9 @@ def get_database_elements():
                                        float(calibration_element.attrib["focal"]) == focal_length:
                                         fov_element = calibration_element
     paths_search_list = [args.db_path] if args.db_path else \
-                        [os.path.expanduser("~/.local/share/lensfun"), "/usr/share/lensfun", "/usr/local/share/lensfun"]
+                        ["/usr/share/lensfun", "/usr/local/share/lensfun", "/var/lib/lensfun",
+                         os.path.expanduser("~/.local/share/lensfun/updates"),
+                         os.path.expanduser("~/.local/share/lensfun")]
     for path in paths_search_list:
         crawl_directory(path)
     if not files_found:

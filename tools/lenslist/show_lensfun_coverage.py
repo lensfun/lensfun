@@ -94,6 +94,7 @@ if cmdline_args['git']==True:
     if os.path.isdir(XmlDBPath):
         shutil.rmtree(XmlDBPath)
     subprocess.check_output(["git", "clone", "http://git.code.sf.net/p/lensfun/code", XmlDBPath])
+    XmlDBPath = os.path.join(XmlDBPath, "data", "db")
 else:
     XmlDBPath = cmdline_args['db_path']
     print("~ Lensfun database is searched in "+XmlDBPath)

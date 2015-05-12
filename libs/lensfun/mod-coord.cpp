@@ -175,6 +175,12 @@ float lfModifier::GetAutoScale (bool reverse)
 {
     // Compute the scale factor automatically
     const lfExtModifier *This = static_cast<const lfExtModifier *> (this);
+
+    const float subpixel_scale = This->SubpixelCallbacks->len == 0 ? 1.0 : 1.001;
+
+    if (This->CoordCallbacks->len == 0)
+        return subpixel_scale;
+
     // 3 2 1
     // 4   0
     // 5 6 7
@@ -207,6 +213,7 @@ float lfModifier::GetAutoScale (bool reverse)
     // worse, depending on what happens between the test points), so assure
     // that we really have no black borders left.
     scale *= 1.001;
+    scale *= subpixel_scale;
 
     return reverse ? 1.0 / scale : scale;
 }
