@@ -881,13 +881,14 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
 
     for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
     {
-        float values [5] = {spline [0]->Focal, spline [1]->Focal,
-                            spline [2]->Focal, spline [3]->Focal, focal};
+        float values [5] = {spline [0] ? spline [0]->Focal : NAN, spline [1]->Focal,
+                            spline [2]->Focal, spline [3] ? spline [3]->Focal : NAN,
+                            focal};
         __parameter_scales (values, 5, LF_MODIFY_DISTORTION, dm, i);
         res.Terms [i] = _lf_interpolate (
-            (spline [0] ? spline [0]->Terms [i] : FLT_MAX) * values [0],
+            spline [0] ? spline [0]->Terms [i] * values [0] : FLT_MAX,
             spline [1]->Terms [i] * values [1], spline [2]->Terms [i] * values [2],
-            (spline [3] ? spline [3]->Terms [i] : FLT_MAX) * values [3],
+            spline [3] ? spline [3]->Terms [i] * values [3] : FLT_MAX,
             t) / values [4];
     }
 
@@ -955,13 +956,14 @@ bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
 
     for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
     {
-        float values [5] = {spline [0]->Focal, spline [1]->Focal,
-                            spline [2]->Focal, spline [3]->Focal, focal};
+        float values [5] = {spline [0] ? spline [0]->Focal : NAN, spline [1]->Focal,
+                            spline [2]->Focal, spline [3] ? spline [3]->Focal : NAN,
+                            focal};
         __parameter_scales (values, 5, LF_MODIFY_TCA, tcam, i);
         res.Terms [i] = _lf_interpolate (
-            (spline [0] ? spline [0]->Terms [i] : FLT_MAX) * values [0],
+            spline [0] ? spline [0]->Terms [i] * values [0] : FLT_MAX,
             spline [1]->Terms [i] * values [1], spline [2]->Terms [i] * values [2],
-            (spline [3] ? spline [3]->Terms [i] : FLT_MAX) * values [3],
+            spline [3] ? spline [3]->Terms [i] * values [3] : FLT_MAX,
             t) / values [4];
     }
 
