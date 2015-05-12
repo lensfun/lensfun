@@ -1111,9 +1111,9 @@ bool lfLens::InterpolateVignetting (
         const lfLensCalibVignetting* c = CalibVignetting [i];
         // Take into account just the first encountered lens model
         if (vm == LF_VIGNETTING_MODEL_NONE)
-	    {
+        {
             vm = c->Model;
-	        res.Model = vm;
+            res.Model = vm;
         } 
         else if (vm != c->Model)
         {
@@ -1122,21 +1122,21 @@ bool lfLens::InterpolateVignetting (
             continue;
         }
 
-	    float interpolation_distance = __vignetting_dist (this, *c, focal, aperture, distance);
-	    if (interpolation_distance < 0.0001) {
-	        res = *c;
-	        return true;
-	    }
-	    
-	    smallest_interpolation_distance = std::min(smallest_interpolation_distance, interpolation_distance);
-	    float weighting = fabs (1.0 / pow (interpolation_distance, power));
-	    for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
-            {
-                float values [1] = {c->focal};
-                __parameter_scales (values, sizeof (values), LF_MODIFY_VIGNETTING, vm, i);
-	        res.Terms [i] += weighting * c->Terms [i] * values [0];
-            }
-	    total_weighting += weighting;
+        float interpolation_distance = __vignetting_dist (this, *c, focal, aperture, distance);
+        if (interpolation_distance < 0.0001) {
+            res = *c;
+            return true;
+        }
+
+        smallest_interpolation_distance = std::min(smallest_interpolation_distance, interpolation_distance);
+        float weighting = fabs (1.0 / pow (interpolation_distance, power));
+        for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
+        {
+            float values [1] = {c->Focal};
+            __parameter_scales (values, sizeof (values), LF_MODIFY_VIGNETTING, vm, i);
+            res.Terms [i] += weighting * c->Terms [i] * values [0];
+        }
+        total_weighting += weighting;
     }
     
     if (smallest_interpolation_distance > 1)
@@ -1144,13 +1144,13 @@ bool lfLens::InterpolateVignetting (
     
     if (total_weighting > 0 && smallest_interpolation_distance < FLT_MAX)
     {
-	    for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
-            {
-                float values [1] = {focal};
-                __parameter_scales (values, sizeof (values), LF_MODIFY_VIGNETTING, vm, i);
-	        res.Terms [i] /= total_weighting * values [0];
-            }
-	    return true;
+        for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
+        {
+            float values [1] = {focal};
+            __parameter_scales (values, sizeof (values), LF_MODIFY_VIGNETTING, vm, i);
+            res.Terms [i] /= total_weighting * values [0];
+        }
+        return true;
     } else 
         return false;
 }
