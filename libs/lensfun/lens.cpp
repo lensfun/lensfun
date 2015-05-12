@@ -874,6 +874,12 @@ static void __parameter_scales (float values [], int number_of_values,
         case LF_DIST_MODEL_POLY5:
         case LF_DIST_MODEL_PTLENS:
             break;
+
+        case LF_DIST_MODEL_ACM:
+            const float exponent = index < 3 ? (float)(2 * (index + 1)) : 1.0;
+            for (int i=0; i < number_of_values; i++)
+                values [i] /= pow (values [i], exponent);
+            break;
         }
         break;
 
@@ -885,6 +891,12 @@ static void __parameter_scales (float values [], int number_of_values,
             if (index < 2)
                 for (int i=0; i < number_of_values; i++)
                     values [i] = 1.0;
+            break;
+
+        case LF_TCA_MODEL_ACM:
+            const float exponent = index > 1 && index < 8 ? (float)(index / 2 * 2) : 1.0;
+            for (int i=0; i < number_of_values; i++)
+                values [i] /= pow (values [i], exponent);
             break;
         }
         break;
