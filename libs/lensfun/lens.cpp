@@ -1199,7 +1199,7 @@ bool lfLens::InterpolateVignetting (
         for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
         {
             float values [1] = {c->Focal};
-            __parameter_scales (values, sizeof (values), LF_MODIFY_VIGNETTING, vm, i);
+            __parameter_scales (values, 1, LF_MODIFY_VIGNETTING, vm, i);
             res.Terms [i] += weighting * c->Terms [i] * values [0];
         }
         total_weighting += weighting;
@@ -1213,7 +1213,7 @@ bool lfLens::InterpolateVignetting (
         for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
         {
             float values [1] = {focal};
-            __parameter_scales (values, sizeof (values), LF_MODIFY_VIGNETTING, vm, i);
+            __parameter_scales (values, 1, LF_MODIFY_VIGNETTING, vm, i);
             res.Terms [i] /= total_weighting * values [0];
         }
         return true;
