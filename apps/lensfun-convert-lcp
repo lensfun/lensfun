@@ -120,6 +120,25 @@ class LensfunLens:
     """
 
     model_name_token_regex = re.compile(r"[0-9][0-9.]*|\s+|[^\w\s]+|[^\W\d_]+")
+    model_name_number_regex = re.compile(r"\s+((AB|[ABC])\d{2,3}([ENPS]|EM)?|272E[ENS]|F004[NS]?|o77)(?=\s|$)")
+    model_name_f_regex = re.compile(r"(?<=\s)F(?=\d)")
+    model_name_fixes = {
+        "TAMRON 18-270mm F/3.5-6.3 DiII PZD B008S": "Tamron AF 18-270mm f/3.5-6.3 Di II VC PZD",
+        "SIGMA 18-35mm F1.8 DC HSM A013": "Sigma 18-35mm f/1.8 DC HSM [A]",
+        "SIGMA 30mm F1.4 DC HSM A013": "Sigma 30mm f/1.4 EX DC HSM",
+        "Sony DT 55-200mm F4-5.6 SAM": "Sony AF DT 55-200mm f/4-5.6 SAM",
+        "Canon EF 135mm f/2 L USM": "Canon EF 135mm f/2.0L USM",
+        "Nikon AF NIKKOR 35mm f/2D": "Nikon AF Nikkor 35mm f/2.0D",
+        "Nikon AF-S DX DX NIKKOR 18-300mm f/3.5-6.3G ED VR": "Nikon AF-S DX Nikkor 18-300mm f/3.5-6.3G ED VR",
+        "Nikon NIKKOR 50mm f/1.2 AIS": "Nikon AI-S Nikkor 50mm f/1.2",
+        "SIGMA 12-24mm F4.5-5.6 EX DG ASPHERICAL HSM": "Sigma 12-24mm f/4.5-5.6 EX DG USM",
+        "SIGMA 17-70mm F2.8-4.5 DC MACRO HSM": "Sigma 17-70mm f/2.8-4.5 DC Macro",
+        "SIGMA 24-105mm F4 DG OS HSM A013": "Sigma 24-105mm f/4.0 DG OS HSM [A]",
+        "SIGMA 8mm F3.5 EX DG CIRCULAR FISHEYE": "Sigma 8mm f/3.5 EX DG Circular",
+        "TAMRON SP AF 28-75mm F2.8 XR Di": "Tamron SP AF 28-75mm f/2.8 XR Di LD Aspherical (IF) Macro",
+        "TAMRON XR DiII 18-200mm F3.5-6.3": "Tamron AF 18-200mm f/3.5-6.3 XR Di II LD Aspherical (IF) Macro",
+        "Tokina AT-X 124 PRO DX 12-24mm F4(IF)": "Tokina 12-24mm f/4 AT-X 124 AF Pro DX",
+        "smc PENTAX-DA 10-17mm F3.5-4.5 ED [IF] Fisheye zoom": "smc Pentax-DA Fish-Eye 10-17mm f/3.5-4.5 ED IF"}
 
     def __init__(self, element):
         """
@@ -157,6 +176,29 @@ class LensfunLens:
                      if token != "f" and not token.isspace() and
                      (len(token) > 1 or token.isalnum() or token in "*+"))
 
+    @classmethod
+    def sanitize_lcp_lens_model_name(cls, name):
+        """Corrects errors in lens model names typically found in LCP files.  This
+        improves matching with Lensfun's lens model names.
+
+        :param name: the original lens model name in the LCP file
+
+        :type name: str
+
+        :return:
+          the corrected lens model name
+
+        :rtype: str
+        """
+        try:
+            return cls.model_name_fixes[name]
+        except KeyError:
+            name = name.replace("DiII", "Di II")
+            name = name.replace("Leica ", "")
+            name = cls.model_name_number_regex.sub("", name)
+            name = cls.model_name_f_regex.sub("f/", name)
+            return name
+
     def matches(self, names, cropfactor, fixed_lens_mount):
         """Returns a score indicating how well the given parameters match this
         lens.
@@ -182,6 +224,7 @@ class LensfunLens:
             return (1000, 0)
         scores = []
         for name in names:
+            name = self.sanitize_lcp_lens_model_name(name)
             normalized_model = list(self.normalized_model)
             try:
                 for token in self.normalize_lens_model_name(name):
