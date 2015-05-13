@@ -13,6 +13,9 @@
 #include <locale.h>
 #include <math.h>
 #include <algorithm>
+#ifndef NDEBUG
+#include <iostream>
+#endif
 
 static struct
 {
@@ -1004,7 +1007,31 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
 
         // Take into account just the first encountered lens model
         if (dm == LF_DIST_MODEL_NONE)
+        {
             dm = c->Model;
+#ifndef NDEBUG
+            std::cout << "[lensfun] Distortion: ";
+            switch (dm)
+            {
+                case LF_DIST_MODEL_POLY3:
+                    std::cout << "poly3";
+                    break;
+
+                case LF_DIST_MODEL_POLY5:
+                    std::cout << "poly5";
+                    break;
+
+                case LF_DIST_MODEL_PTLENS:
+                    std::cout << "ptlens";
+                    break;
+
+                case LF_DIST_MODEL_ACM:
+                    std::cout << "acm";
+                    break;
+            }
+            std::cout << std::endl;
+#endif
+        }
         else if (dm != c->Model)
         {
             g_warning ("[lensfun] lens %s/%s has multiple distortion models defined\n",
@@ -1079,7 +1106,28 @@ bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
 
         // Take into account just the first encountered lens model
         if (tcam == LF_TCA_MODEL_NONE)
+        {
             tcam = c->Model;
+#ifndef NDEBUG
+            std::cout << "[lensfun] TCA: ";
+            switch (tcam)
+            {
+                case LF_TCA_MODEL_LINEAR:
+                    std::cout << "linear";
+                    break;
+
+                case LF_TCA_MODEL_POLY3:
+                    std::cout << "poly3";
+                    break;
+
+                case LF_TCA_MODEL_ACM:
+                    std::cout << "acm";
+                    break;
+
+            }
+            std::cout << std::endl;
+#endif
+        }
         else if (tcam != c->Model)
         {
             g_warning ("[lensfun] lens %s/%s has multiple TCA models defined\n",
@@ -1180,6 +1228,20 @@ bool lfLens::InterpolateVignetting (
         {
             vm = c->Model;
             res.Model = vm;
+#ifndef NDEBUG
+            std::cout << "[lensfun] Vignetting: ";
+            switch (vm)
+            {
+                case LF_VIGNETTING_MODEL_PA:
+                    std::cout << "pa";
+                    break;
+
+                case LF_VIGNETTING_MODEL_ACM:
+                    std::cout << "acm";
+                    break;
+            }
+            std::cout << std::endl;
+#endif
         } 
         else if (vm != c->Model)
         {
