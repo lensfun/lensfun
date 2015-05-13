@@ -120,7 +120,7 @@ class LensfunLens:
     """
 
     model_name_token_regex = re.compile(r"[0-9][0-9.]*|\s+|[^\w\s]+|[^\W\d_]+")
-    model_name_number_regex = re.compile(r"\s+((AB|[ABC])\d{2,3}([ENPS]|EM)?|272E[ENS]|F004[NS]?|o77)(?=\s|$)")
+    model_name_number_regex = re.compile(r"\s+((AB|[ABCGS])\d{2,3}([ENPS]|EM)?|272E[ENPS]|F004[ENS]?|o77)(?=\s|$)")
     model_name_f_regex = re.compile(r"(?<=\s)F(?=\d)")
     model_name_fixes = {
         "TAMRON 18-270mm F/3.5-6.3 DiII PZD B008S": "Tamron AF 18-270mm f/3.5-6.3 Di II VC PZD",
@@ -139,6 +139,9 @@ class LensfunLens:
         "TAMRON XR DiII 18-200mm F3.5-6.3": "Tamron AF 18-200mm f/3.5-6.3 XR Di II LD Aspherical (IF) Macro",
         "Tokina AT-X 124 PRO DX 12-24mm F4(IF)": "Tokina 12-24mm f/4 AT-X 124 AF Pro DX",
         "smc PENTAX-DA 10-17mm F3.5-4.5 ED [IF] Fisheye zoom": "smc Pentax-DA Fish-Eye 10-17mm f/3.5-4.5 ED IF"}
+    uppercase_token_regex = re.compile(r"\b(SIGMA|TAMRON|ELMAR|SUMMILUX|SUMMICRON|SUMMARIT|ELMARIT|VARIO|SUPER|"
+                                       r"TRI|NOCTILUX|TELYT|ASPH|PRO|MACRO|"
+                                       r"ASPHERICAL|CIRCULAR|DIAGONAL|FISHEYE|PENTAX)\b")
 
     def __init__(self, element):
         """
@@ -193,8 +196,17 @@ class LensfunLens:
         try:
             return cls.model_name_fixes[name]
         except KeyError:
+            result = []
+            previous_match = None
+            for match in cls.uppercase_token_regex.finditer(name):
+                result.append(name[previous_match and previous_match.end() or 0:match.start()])
+                result.append(match.group(0).capitalize())
+                previous_match = match
+            result.append(name[previous_match and previous_match.end() or 0:])
+            name = "".join(result)
             name = name.replace("DiII", "Di II")
             name = name.replace("Leica ", "")
+            name = name.replace("Voigtlander", "Voigtländer")
             name = cls.model_name_number_regex.sub("", name)
             name = cls.model_name_f_regex.sub("f/", name)
             return name
