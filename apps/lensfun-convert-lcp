@@ -514,6 +514,37 @@ class LCPLens:
             return "HandeVision"
         maker = model.split()[0].capitalize()
         return maker
+
+    def make_model_en_prettier(self):
+        """Makes the human-friendly lens model name prettier.  This happens after
+        having matched agains Lensfun names, so in contrast to
+        `LensfunLens.sanitize_lcp_lens_model_name`, this function only acts on
+        ``model_en``, and only for nice GUI entries.
+        """
+        if "nikkor" in self.model_en.lower() and self.model_en.lower().startswith("nikon"):
+            tokens = self.model_en.split()
+            for i, token in enumerate(tokens):
+                if "nikkor" in token.lower():
+                    fisheye = "fisheye" in token.lower()
+                    del tokens[i]
+                    if fisheye:
+                        if tokens[-1] == "(JPEGs)":
+                            tokens.insert(-1, "Fisheye")
+                        else:
+                            tokens.append("Fisheye")
+                    break
+            try:
+                dx_index = tokens.index("DX")
+            except ValueError:
+                pass
+            else:
+                del tokens[dx_index]
+                for i, token in enumerate(tokens):
+                    if token.startswith("f/"):
+                        tokens.insert(i + 1, "DX")
+                        break
+            tokens[0] = "Nikkor"
+            self.model_en = " ".join(tokens)
             
     def read_first_entry(self):
         """Extracts metadata from the first calibration entry in the file and
@@ -540,6 +571,7 @@ class LCPLens:
             self.model = self.model_en
         self.model = LensfunLens.sanitize_lcp_lens_model_name(self.model)
         self.model_en = LensfunLens.sanitize_lcp_lens_model_name(self.model_en)
+        self.make_model_en_prettier()
         try:
             self.cropfactor = float(self.read_field(entry, "SensorFormatFactor"))
         except FieldNotFoundError:
