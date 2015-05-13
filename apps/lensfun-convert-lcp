@@ -775,7 +775,10 @@ class LCPLens:
             else:
                 mounts.add("Sony Alpha")
         elif self.maker == "Pentax":
-            mounts.add("Pentax KAF")
+            if "645" in self.model:
+                mounts.add("Mamiya 645")
+            else:
+                mounts.add("Pentax KAF")
         elif self.maker == "Sigma":
             if "E " in self.model:
                 mounts.add("Sony E")
