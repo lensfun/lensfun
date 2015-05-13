@@ -224,7 +224,6 @@ class LensfunLens:
             return (1000, 0)
         scores = []
         for name in names:
-            name = self.sanitize_lcp_lens_model_name(name)
             normalized_model = list(self.normalized_model)
             try:
                 for token in self.normalize_lens_model_name(name):
@@ -527,6 +526,8 @@ class LCPLens:
             self.model = self.model_en
         if unusable_lens_name_regex.match(self.model):
             self.model = self.model_en
+        self.model = LensfunLens.sanitize_lcp_lens_model_name(self.model)
+        self.model_en = LensfunLens.sanitize_lcp_lens_model_name(self.model_en)
         try:
             self.cropfactor = float(self.read_field(entry, "SensorFormatFactor"))
         except FieldNotFoundError:
