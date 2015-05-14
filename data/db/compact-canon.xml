@@ -66,6 +66,14 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon PowerShot G7 X</model>
+        <model lang="en">PowerShot G7 X (3:2)</model>
+        <mount>canonG7X</mount>
+        <cropfactor>2.72</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon PowerShot G9</model>
         <model lang="en">PowerShot G9</model>
         <mount>canonG9</mount>
@@ -2112,6 +2120,30 @@
             <tca model="poly3" focal="23.2" vr="1.0000605" vb="0.9997287" />
             <tca model="poly3" focal="30.3" vr="0.9999841" vb="0.9998124" />
             <tca model="poly3" focal="40" vr="0.9999261" vb="0.9997613" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon G7 X &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>canonG7X</mount>
+        <cropfactor>2.72</cropfactor>
+        <aspect-ratio>3:2</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="8.8" a="0.03872" b="-0.15563" c="0.02544" />
+            <distortion model="ptlens" focal="10.2" a="0.02069" b="-0.08948" c="-0.00758" />
+            <distortion model="ptlens" focal="12.8" a="0.00157" b="-0.01787" c="-0.04424" />
+            <distortion model="ptlens" focal="18.1" a="0" b="-0.01038" c="0" />
+            <distortion model="ptlens" focal="31" a="0" b="0.00302" c="0" />
+            <distortion model="ptlens" focal="36.8" a="0" b="0.00625" c="0" />
+            <tca model="poly3" focal="8.8" br="-0.0001622" vr="1.0004427" bb="0.0001401" vb="0.9998903" />
+            <tca model="poly3" focal="10.2" br="-0.0003663" vr="1.0012244" bb="0.0002460" vb="0.9996525" />
+            <tca model="poly3" focal="12.8" br="-0.0002031" vr="1.0007920" bb="0.0000489" vb="0.9998982" />
+            <tca model="poly3" focal="18.1" br="-0.0000658" vr="1.0002495" bb="-0.0000162" vb="1.0000249" />
+            <tca model="poly3" focal="31" br="0.0000038" vr="0.9999370" bb="0.0000201" vb="0.9999466" />
+            <tca model="poly3" focal="36.8" br="0.0000132" vr="0.9998952" bb="0.0000210" vb="0.9999015" />
         </calibration>
     </lens>
 
