@@ -47,7 +47,8 @@ ENDIF()
 SET(BINDIR bin CACHE PATH "Main binary directory")
 SET(LIBDIR lib${LIB_SUFFIX} CACHE PATH "Directory for library itself")
 SET(INCLUDEDIR include CACHE PATH "Directory for library header files")
-SET(DATADIR share/lensfun CACHE PATH "Directory for library data files")
+# specify data dir as an absolute path
+SET(DATADIR ${CMAKE_INSTALL_DATAROOTDIR}/lensfun CACHE PATH "Directory for library data files")
 
 IF(BUILD_FOR_SSE)
   SET(VECTORIZATION_SSE 1)
@@ -83,7 +84,7 @@ IF(BUILD_STATIC)
 ENDIF()
 
 IF(BUILD_DOC)
-  SET(DOCDIR share/doc/lensfun-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX} CACHE PATH "Directory to put library documentation in")
+  SET(DOCDIR ${CMAKE_INSTALL_DATAROOTDIR}/doc/lensfun-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX} CACHE PATH "Directory to put library documentation in")
 ENDIF(BUILD_DOC)
 
 IF(WIN32)
