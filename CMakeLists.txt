@@ -30,7 +30,7 @@ ENDIF()
 
 # options controlling the build process
 OPTION(BUILD_STATIC "Build static library" OFF)
-OPTION(BUILD_TESTS "Build test suite" ON)
+OPTION(BUILD_TESTS "Build test suite" OFF)
 OPTION(BUILD_LENSTOOL "Build the lenstool (requires libpng)" OFF)
 OPTION(BUILD_FOR_SSE "Build with support for SSE" ON)
 OPTION(BUILD_FOR_SSE2 "Build with support for SSE2" ON)
