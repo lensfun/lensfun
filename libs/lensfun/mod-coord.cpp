@@ -53,6 +53,11 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                                   model.Terms, sizeof (float) * 3);
                 break;
 
+            case LF_DIST_MODEL_ACM:
+                g_warning ("[lensfun] \"acm\" distortion model is not yet implemented "
+                           "for reverse correction");
+                return false;
+
             default:
                 return false;
         }

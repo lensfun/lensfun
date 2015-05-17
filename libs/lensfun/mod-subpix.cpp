@@ -44,6 +44,11 @@ bool lfModifier::AddSubpixelCallbackTCA (lfLensCalibTCA &model, bool reverse)
                                      model.Terms, 6 * sizeof (float));
                 return true;
 
+            case LF_TCA_MODEL_ACM:
+                g_warning ("[lensfun] \"acm\" TCA model is not yet implemented "
+                           "for reverse correction");
+                return false;
+
             default:
                 // keep gcc 4.4+ happy
                 break;
