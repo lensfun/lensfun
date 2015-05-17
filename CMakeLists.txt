@@ -13,6 +13,7 @@ SET(VERSION_MAJOR 0)
 SET(VERSION_MINOR 3)
 SET(VERSION_MICRO 1)
 SET(VERSION_BUGFIX 0)
+SET(VERSION_API 1)
 
 # check if some include are available
 INCLUDE(CheckIncludeFiles)
@@ -216,7 +217,7 @@ ENDIF()
 
 IF(CPACK_BINARY_DEB)
   # workaround to set correct debian package name
-  SET(CPACK_DEBIAN_PACKAGE_NAME "liblensfun${VERSION_MAJOR}")
+  SET(CPACK_DEBIAN_PACKAGE_NAME "liblensfun${VERSION_API}")
   STRING(TOLOWER "${CPACK_DEBIAN_PACKAGE_NAME}" CPACK_PACKAGE_NAME_LOWERCASE)
   FIND_PROGRAM(DPKG_PROGRAM dpkg DOC "dpkg program of Debian-based systems")
   if(DPKG_PROGRAM)
