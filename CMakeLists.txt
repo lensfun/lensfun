@@ -8,6 +8,15 @@ GET_FILENAME_COMPONENT(SOURCE_BASE_DIR ${CMAKE_SOURCE_DIR} PATH CACHE)
 #  global setup
 project(lensfun)
 
+# set install prefix
+IF(WIN32)
+  # install into place in build-dir  
+  SET(LENSFUN_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install" CACHE PATH "Install prefix for lensfun")    
+ELSE()
+  SET(LENSFUN_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE PATH "Install prefix for lensfun")    
+ENDIF()
+SET(CMAKE_INSTALL_PREFIX "${LENSFUN_INSTALL_PREFIX}" CACHE INTERNAL "" FORCE)
+
 # version
 SET(VERSION_MAJOR 0)
 SET(VERSION_MINOR 3)
@@ -44,12 +53,24 @@ IF(NOT CMAKE_BUILD_TYPE)
   )
 ENDIF()
 
-# define destination dirs (relative to prefix)
-SET(BINDIR bin CACHE PATH "Main binary directory")
-SET(LIBDIR lib${LIB_SUFFIX} CACHE PATH "Directory for library itself")
-SET(INCLUDEDIR include CACHE PATH "Directory for library header files")
-# specify data dir as an absolute path
-SET(DATADIR ${CMAKE_INSTALL_DATAROOTDIR}/lensfun CACHE PATH "Directory for library data files")
+# get standard GNU install directories for the current platform
+INCLUDE(GNUInstallDirs)
+IF(NOT DEFINED CMAKE_INSTALL_DATAROOTDIR)
+  SET(CMAKE_INSTALL_DATAROOTDIR "share" CACHE PATH "read-only architecture-independent data root (share)")
+ENDIF()
+
+# define destination dirs (usually relative to LENSFUN_INSTALL_PREFIX)
+SET(LENSFUN_BINDIR bin CACHE PATH "Main binary directory" )
+SET(LENSFUN_LIBDIR lib${LIB_SUFFIX} CACHE PATH "Directory for library itself")
+SET(LENSFUN_INCLUDEDIR include CACHE PATH "Directory for library header files")
+SET(LENSFUN_DATADIR ${CMAKE_INSTALL_DATAROOTDIR}/lensfun CACHE PATH "Directory for library data files")
+
+# prepend paths with prefix to get an absolute path
+FOREACH(dir BINDIR LIBDIR INCLUDEDIR DATADIR)
+IF(NOT IS_ABSOLUTE ${LENSFUN_${dir}})
+    SET(LENSFUN_${dir} "${LENSFUN_INSTALL_PREFIX}/${LENSFUN_${dir}}" CACHE PATH "" FORCE)
+ENDIF()
+ENDFOREACH()
 
 IF(BUILD_FOR_SSE)
   SET(VECTORIZATION_SSE 1)
@@ -77,7 +98,7 @@ FIND_PACKAGE(GLIB2 REQUIRED)
 INCLUDE_DIRECTORIES(${GLIB2_INCLUDE_DIRS})
 # install glib dll on windows next to lensfun.dll
 IF (GLIB2_DLL)
-    INSTALL(FILES ${GLIB2_DLL} DESTINATION ${BINDIR})
+    INSTALL(FILES ${GLIB2_DLL} DESTINATION ${LENSFUN_BINDIR})
 ENDIF()
 
 IF(BUILD_STATIC)
@@ -85,17 +106,10 @@ IF(BUILD_STATIC)
 ENDIF()
 
 IF(BUILD_DOC)
-  SET(DOCDIR ${CMAKE_INSTALL_DATAROOTDIR}/doc/lensfun-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX} CACHE PATH "Directory to put library documentation in")
+  SET(LENSFUN_DOCDIR ${CMAKE_INSTALL_DATAROOTDIR}/doc/lensfun-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX} CACHE PATH "Directory to put library documentation in")
 ENDIF(BUILD_DOC)
 
-IF(WIN32)
-  # install into place in build-dir  
-  SET(LENSFUN_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install" CACHE PATH "Install prefix for lensfun")    
-ELSE()
-  SET(LENSFUN_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE PATH "Install prefix for lensfun")    
-ENDIF()
-SET(CMAKE_INSTALL_PREFIX "${LENSFUN_INSTALL_PREFIX}" CACHE INTERNAL "" FORCE)
-
+# some windows and MSVC specific settings
 IF(WIN32)
   SET(PLATFORM_WINDOWS 1)  
   
@@ -144,15 +158,15 @@ ENDIF()
 ADD_SUBDIRECTORY(apps)
 
 # install include files
-INSTALL(FILES ${CMAKE_BINARY_DIR}/lensfun.h DESTINATION ${INCLUDEDIR}/lensfun)
+INSTALL(FILES ${CMAKE_BINARY_DIR}/lensfun.h DESTINATION ${LENSFUN_INCLUDEDIR}/lensfun)
 IF(NOT HAVE_REGEX_H)
-  INSTALL(FILES include/regex/regex.h DESTINATION ${INCLUDEDIR}/regex)
+  INSTALL(FILES include/regex/regex.h DESTINATION ${LENSFUN_INCLUDEDIR}/regex)
 ENDIF()
 
 # install db files
 FILE(GLOB DATABASE_FILES data/db/*.xml)
-INSTALL(FILES ${DATABASE_FILES} DESTINATION ${DATADIR})
-INSTALL(FILES data/db/timestamp.txt DESTINATION ${DATADIR})
+INSTALL(FILES ${DATABASE_FILES} DESTINATION ${LENSFUN_DATADIR})
+INSTALL(FILES data/db/timestamp.txt DESTINATION ${LENSFUN_DATADIR})
 
 # build documentation
 IF(BUILD_DOC)
@@ -164,7 +178,7 @@ IF(WIN32 AND NOT BUILD_STATIC)
             NAMES glib-2.dll glib-2-vs9.dll
             PATHS "${GLIB2_BASE_DIR}/bin"
             NO_SYSTEM_ENVIRONMENT_PATH)
-  INSTALL(FILES ${GLIB2_DLL} DESTINATION ${BINDIR})
+  INSTALL(FILES ${GLIB2_DLL} DESTINATION ${LENSFUN_BINDIR})
 ENDIF()
 
 # print some information
