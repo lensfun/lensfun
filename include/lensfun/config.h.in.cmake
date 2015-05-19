@@ -15,7 +15,7 @@
 #ifndef PLATFORM_WINDOWS
 //fix path to data works only on *nix systems
 //on windows that data dir is relocatable
-#define CONF_DATADIR "${CMAKE_INSTALL_PREFIX}/${DATADIR}"
+#define CONF_DATADIR "${LENSFUN_FULL_DATADIR}"
 #endif
 
 // add a macro to know we're compiling lensfun, not a client library
