@@ -14,8 +14,7 @@ ENDIF()
 
 
 IF(INSTALL_HELPER_SCRIPTS)
-  INSTALL(FILES g-lensfun-update-data lensfun-add-adapter lensfun-update-data
-          PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_EXECUTE GROUP_READ WORLD_EXECUTE WORLD_READ
+  INSTALL(PROGRAMS g-lensfun-update-data lensfun-add-adapter lensfun-update-data
           DESTINATION ${LENSFUN_FULL_BINDIR})
 ENDIF(INSTALL_HELPER_SCRIPTS)
 
