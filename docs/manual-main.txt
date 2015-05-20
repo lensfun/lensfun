@@ -491,9 +491,11 @@ Possible embedded elements:
     transformations.  It uses the nominal focal length as a fallback.
 
     The real focal length can be determined reliably only with a 360° panorama,
-    e.g. with Hugin.  However, as of 2014, Hugin's results <a
+    e.g. with Hugin.  However, Hugin's results <a
     href="https://bugs.launchpad.net/hugin/+bug/1307457">need to be
-    rectified</a>.
+    rectified</a>.  The real focal length must correspond to the distortion
+    coefficients.  Typically, they are the result of the very same parameter
+    optimisation.
 </dl>
 
 @page dbsearch How database files are found and loaded
