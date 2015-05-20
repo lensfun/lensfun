@@ -32,6 +32,7 @@ import os, sys, argparse
 from xml.etree import ElementTree
 
 local_xml_filepath = os.path.expanduser("~/.local/share/lensfun/_mounts.xml")
+os.makedirs(os.path.dirname(local_xml_filepath), exist_ok=True)
 
 parser = argparse.ArgumentParser(description="Add mount compatibilities (adapters) to Lensfun's database.")
 parser.add_argument("--maker", help="Exact camera manufacturer name.")
