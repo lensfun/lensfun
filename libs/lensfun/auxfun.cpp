@@ -471,7 +471,9 @@ long int _lf_read_database_timestamp (const gchar *dirname)
     {
         if (g_dir_read_name (dir))
         {
-            std::ifstream timestamp_file (g_build_filename (actual_dirname, "timestamp.txt", NULL));
+            gchar *filename = g_build_filename (actual_dirname, "timestamp.txt", NULL);
+            std::ifstream timestamp_file (filename);
+            g_free (filename);
             if (!timestamp_file.fail ())
                 timestamp_file >> timestamp;
             else
