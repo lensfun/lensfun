@@ -463,13 +463,15 @@ float _lf_interpolate (float y1, float y2, float y3, float y4, float t)
 
 long int _lf_read_database_timestamp (const gchar *dirname)
 {
+    gchar *actual_dirname = g_build_filename (dirname, DATABASE_SUBDIR, NULL);
+
     long int timestamp = -1;
-    GDir *dir = g_dir_open (dirname, 0, NULL);
+    GDir *dir = g_dir_open (actual_dirname, 0, NULL);
     if (dir)
     {
         if (g_dir_read_name (dir))
         {
-            std::ifstream timestamp_file (g_build_filename (dirname, "timestamp.txt", NULL));
+            std::ifstream timestamp_file (g_build_filename (actual_dirname, "timestamp.txt", NULL));
             if (!timestamp_file.fail ())
                 timestamp_file >> timestamp;
             else
@@ -477,6 +479,8 @@ long int _lf_read_database_timestamp (const gchar *dirname)
         }
         g_dir_close (dir);
     }
+
+    g_free (actual_dirname);
     return timestamp;
 }
 
