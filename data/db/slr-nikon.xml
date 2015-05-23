@@ -1208,17 +1208,21 @@
         <mount>Nikon F AF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <distortion model="poly3" focal="28" k1="-0.02406" />
-            <distortion model="poly3" focal="32" k1="-0.01294" />
-            <distortion model="poly3" focal="34" k1="-0.00517" />
-            <distortion model="poly3" focal="36" k1="-0.00147" />
-            <distortion model="poly3" focal="50" k1="0.00848" />
-            <distortion model="poly3" focal="70" k1="0.01241" />
-            <distortion model="poly3" focal="105" k1="0.01124" />
-            <distortion model="poly3" focal="200" k1="0.00807" />
-            <distortion model="poly3" focal="300" k1="0.00904" />
+            <!-- Taken with Nikon D750 -->
+            <distortion model="ptlens" focal="28" a="0.02437" b="-0.07944" c="0.03221" />
+            <distortion model="ptlens" focal="32" a="0.02279" b="-0.05938" c="0.02075" />
+            <distortion model="ptlens" focal="35" a="0.02285" b="-0.05351" c="0.02656" />
+            <distortion model="ptlens" focal="50" a="0.00822" b="-0.00508" c="0.01128" />
+            <distortion model="ptlens" focal="135" a="0" b="0.01364" c="0" />
+            <distortion model="ptlens" focal="300" a="0" b="0.01154" c="0" />
+            <tca model="poly3" focal="28" br="-0.0000975" vr="1.0006202" bb="0.0001084" vb="0.9999783" />
+            <tca model="poly3" focal="32" br="-0.0000959" vr="1.0005671" bb="0.0000886" vb="1.0000226" />
+            <tca model="poly3" focal="35" br="-0.0000971" vr="1.0004956" bb="0.0000702" vb="1.0000984" />
+            <tca model="poly3" focal="50" br="-0.0000442" vr="1.0001869" bb="0.0000512" vb="1.0001978" />
+            <tca model="poly3" focal="135" br="0.0000755" vr="0.9997563" bb="-0.0000986" vb="1.0002884" />
+            <tca model="poly3" focal="300" br="-0.0000196" vr="0.9998476" bb="-0.0000967" vb="0.9999651" />
         </calibration>
-    </lens>    
+    </lens>
 
     <lens>
         <maker>Nikon</maker>
