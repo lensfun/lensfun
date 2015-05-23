@@ -28,8 +28,8 @@ weight: 6
 
 * __My camera and lens is in the list of supported lenses but my image editor does not recognize them?__
 
-    Probably the lensfun database on your computer is out of date. On Linux lensfun is usually 
-    installed system wide by a package manager. On Windows and Mac lensfun is usually shipped 
+    Probably the lensfun database on your computer is out of date. On Linux, lensfun is usually 
+    installed system wide by a package manager. On Windows and Mac, lensfun is usually shipped 
     together with the image editing application. Please check for updates!
 
 * __My lens should be supported but the camera is missing. What can I do?__
