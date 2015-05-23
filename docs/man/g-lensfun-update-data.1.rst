@@ -3,7 +3,7 @@ g-lensfun-update-data
 ========================
 
 ----------------------------
-update lensfun's database
+update Lensfun's database
 ----------------------------
 
 :Author: This manual page was written by Torsten Bronger <bronger@physik.rwth-aachen.de>
@@ -21,7 +21,7 @@ DESCRIPTION
 ``g-lensfun-update-data`` is a GUI version of ``lensfun-update-data``.  Both
 programs do the same, however, ``g-lensfun-update-data`` will ask for a root
 password if needed in a popup window rather than on the command line.  This
-way, it comes in handy if a GUI program wants to let the user update lensfun's
+way, it comes in handy if a GUI program wants to let the user update Lensfun's
 database.
 
 See the manpage of ``lensfun-update-data`` for further information, and pay

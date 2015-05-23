@@ -77,8 +77,8 @@ class Lens:
 #----------------------------------------------------------------------
 
 # set up the commandline parser and define some arguemnts
-parser = argparse.ArgumentParser(description='Create a list of all cameras and lenses in the lensfun database.')
-parser.add_argument('db_path', metavar='DB_PATH', help='path to the lensfun database', default='/usr/share/lensfun/', nargs='?')
+parser = argparse.ArgumentParser(description='Create a list of all cameras and lenses in the Lensfun database.')
+parser.add_argument('db_path', metavar='DB_PATH', help='path to the Lensfun database', default='/usr/share/lensfun/', nargs='?')
 parser.add_argument('-g', dest='git', action='store_true', help='use current database from git repository')
 parser.add_argument('-t', dest='table_only', action='store_true', help='pure table/list without surrounding header and description')
 parser.add_argument('-m', dest='markdown', action='store_true', help='output markdown instead of HTML')
@@ -128,10 +128,10 @@ if cmdline_args['markdown'] == False:
     #----------------------------------------------------------------------
     # HTML table
     if cmdline_args['table_only'] == False:
-        outfile.write("<html><head><title>LensFun's coverage</title></head><body><h1>LensFun coverage</h1><h2>Lenses (count: {})</h2>"
-                  "<p>This table was generated on {} from current LensFun sources.  Your LensFun version may be older, resulting in "
+        outfile.write("<html><head><title>Lensfun's coverage</title></head><body><h1>Lensfun coverage</h1><h2>Lenses (count: {})</h2>"
+                  "<p>This table was generated on {} from current Lensfun sources.  Your Lensfun version may be older, resulting in "
                   "less coverage.  If your lens is not included, see</p><ul><li><a href='/calibration'>Upload calibration pictures</a>"
-                  "</li><li><a href='lens_calibration_tutorial/'>Lens calibration for LensFun</a></li></ul>\n".format(
+                  "</li><li><a href='lens_calibration_tutorial/'>Lens calibration for Lensfun</a></li></ul>\n".format(
                       len(lenses), datetime.date.today()))
 
     outfile.write("<table border='1'><thead><tr><th>manufacturer</th><th>model</th><th>crop</th><th>dist.</th><th>TCA</th>"
@@ -150,7 +150,7 @@ if cmdline_args['markdown'] == False:
         previous_maker = lens.maker.lower()
 
     outfile.write("</tbody></table><h2>Cameras</h2><p>Note that new camera models can be added very easily.  "
-              "Contact the LensFun maintainers for this.</p>")
+              "Contact the Lensfun maintainers for this.</p>")
 
     for maker, cameras in sorted(Camera.camera_makers.items()):
         outfile.write("<p><strong>{}</strong>: {}</p>".format(maker, ", ".join(sorted(cameras))))
@@ -163,10 +163,10 @@ else:
     # Markdown list
 
     if cmdline_args['table_only'] == False:
-        outfile.write("= LensFun's coverage = \n\n == Lenses (count: {}) ==\n\n"
-                  "This list was generated on {} from current LensFun sources.  Your LensFun version may be older, resulting in "
+        outfile.write("= Lensfun's coverage = \n\n == Lenses (count: {}) ==\n\n"
+                  "This list was generated on {} from current Lensfun sources.  Your Lensfun version may be older, resulting in "
                   "less coverage.  \nIf your lens is not included, see \n\n* <a href='/calibration'>Upload calibration pictures</a>\n"
-                  "* <a href='lens_calibration_tutorial/'>Lens calibration for LensFun</a>\n\n".format(
+                  "* <a href='lens_calibration_tutorial/'>Lens calibration for Lensfun</a>\n\n".format(
                       len(lenses), datetime.date.today()))
 
     number_of_makers = 0

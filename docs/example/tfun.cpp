@@ -11,7 +11,7 @@
 
 static void DisplayVersion ()
 {
-    g_print ("lensfun version %d.%d.%d: test database search routines\n",
+    g_print ("Lensfun version %d.%d.%d: test database search routines\n",
         LF_VERSION_MAJOR, LF_VERSION_MINOR, LF_VERSION_MICRO);
     g_print ("Copyright (C) 2007 Andrew Zabolotny\n\n");
     g_print ("For distribution rules and conditions of use see the file\n");

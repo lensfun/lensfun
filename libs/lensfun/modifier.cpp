@@ -147,7 +147,7 @@ void lfModifier::Destroy ()
 //---------------------------------------------------------------------------//
 
 /*
-  About coordinate systems in lensfun
+  About coordinate systems in Lensfun
 
   Lensfun uses three coordinate systems.  In all of them, the centre of the
   image is the origin.  There is a single coordinate "r" which is the distance

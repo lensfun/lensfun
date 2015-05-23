@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""This program fetches the latest version of the LensFun database from the
+"""This program fetches the latest version of the Lensfun database from the
 Internet and places it on the local system.  This way, the user can update the
 database conveniently.  Unfortunately, we have to take into account that the
-Git database may have a too new format for the locally installed LensFun.
+Git database may have a too new format for the locally installed Lensfun.
 Then, it may fetch backports of the database from other URLs.
 
 This program must be called with root privileges.  It stores the new database
@@ -28,7 +28,7 @@ files
     version_2.tar.bz2
     version_3.tar.bz2
 
-in the same directory as versions.json.  These tar balls contain the LensFun
+in the same directory as versions.json.  These tar balls contain the Lensfun
 database with the given timestamp and version.
 
 The timestamps are the number of seconds since the Epoch as an int.

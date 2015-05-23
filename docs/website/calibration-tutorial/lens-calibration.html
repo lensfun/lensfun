@@ -16,8 +16,8 @@ access to it so I had no idea what it can and what can't do.
 </p>
 
 <p>But in the later years the Hugin open-source program have evolved, so now it
-covers most of the functionality that lensfun can use. In fact, it was an oncoming
-traffic, as lensfun was also modified to be more compatible with Hugin models.
+covers most of the functionality that Lensfun can use. In fact, it was an oncoming
+traffic, as Lensfun was also modified to be more compatible with Hugin models.
 So today it is possible to create a complete lens database entry using just
 Hugin and the tools which are part of the Hugin package.
 </p>
@@ -38,15 +38,15 @@ Lens ID                         : smc PENTAX-DA 12-24mm F4 ED AL &#91;IF&#93;
 <p>So, exiftool identifies the lens as "smc PENTAX-DA 12-24mm F4 ED AL [IF]", and
 exiv2 was not able to identify it. We can use just this name in database, but for
 aestetics we'll change the name to the same form as used through the database using
-knowledge about the rules lensfun uses when doing a fuzzy search of lenses in database:
+knowledge about the rules Lensfun uses when doing a fuzzy search of lenses in database:
 </p>
 
 <ul>
-<li>During a lens search the case of characters is ignored. Thus, lensfun does not
+<li>During a lens search the case of characters is ignored. Thus, Lensfun does not
     care if it is "smc" or "SMC".
 <li>During a lens search the order of words does not matter. That is, "pentax da smc"
-    and "smc da pentax" are absolutely equivalent. A "word" in lensfun interpretation
-    is a sequence of characters of the same type (lensfun senses three character types:
+    and "smc da pentax" are absolutely equivalent. A "word" in Lensfun interpretation
+    is a sequence of characters of the same type (Lensfun senses three character types:
     digits, punctuation characters and all others). Words made of single punctuation
     characters are ignored. Also, as a special exception, the word consisting of
     a single "f" is ignored too. So, "[IF]" is really split into three words -
@@ -77,7 +77,7 @@ correct data and click the correct buttons :)
 
 <p>There exists also a
 shorter <a href="http://wilson.bronger.org/lens_calibration_tutorial/">tutorial
-for LensFun calibration</a>.  It is not as comprehensive regarding the
+for Lensfun calibration</a>.  It is not as comprehensive regarding the
 theoretical background.  But it includes a free command-line program that
 automates most of what is explained here.</p>
 
@@ -95,12 +95,12 @@ when you'll put control points on the image.
 </p>
 
 <p>The crop factor of the camera that was used to make test shots should be added
-to the database in the &lt;cropfactor&gt; tag. This value will help lensfun scale
+to the database in the &lt;cropfactor&gt; tag. This value will help Lensfun scale
 the model to fit the shot made with other camera with possibly other crop factor.
 </p>
 
 <p>For example, if a model is made with a crop factor of 1.0, it can be used with
-shots made with another camera with a crop factor of 1.5, but lensfun will have
+shots made with another camera with a crop factor of 1.5, but Lensfun will have
 to scale the coordinates accordingly. On the other hand, if the model was made
 for a crop factor of 1.5, it is not a very good idea to use this model for shots
 made with another camera with a crop factor of, say, 1.1, because the math model

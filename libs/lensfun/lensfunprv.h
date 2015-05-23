@@ -340,7 +340,7 @@ extern gint _lf_lens_compare (gconstpointer a, gconstpointer b);
 extern float _lf_interpolate (float y1, float y2, float y3, float y4, float t);
 
 /**
- * @brief Scans for the timestamp of a lensfun database.
+ * @brief Scans for the timestamp of a Lensfun database.
  *
  * "database" means here a directory containing XML files.  If it also contains
  * a file timestamp.txt, its content is interpreted as a string-encoded
@@ -348,7 +348,7 @@ extern float _lf_interpolate (float y1, float y2, float y3, float y4, float t);
  * (UNIX time).  If it is not present, 0 is returned.  If the directory is not
  * found or empty, a negative value is returned.
  * @param dirname
- *     the name of the directory containing a lensfun database
+ *     the name of the directory containing a Lensfun database
  * @return
  *     the number of seconds since the Epoch when this database was last
  *     updated.

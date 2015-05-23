@@ -1,4 +1,4 @@
-# build lensfun library
+# build Lensfun library
 SET(LENSFUN_SRC camera.cpp database.cpp lens.cpp 
                 mount.cpp lensfunprv.h cpuid.cpp 
                 mod-color-sse.cpp mod-color-sse2.cpp mod-color.cpp

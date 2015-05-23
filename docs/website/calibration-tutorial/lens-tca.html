@@ -18,7 +18,7 @@ polynomial:
 Rd = a * Ru^4 + b * Ru^3 + c * Ru^2 + v * Ru
 </pre>
 
-<p>Since lensfun targets more or less realtime image processing, I decided to use
+<p>Since Lensfun targets more or less realtime image processing, I decided to use
 a simpler model that is enough for practical applications, with the <em>a</em>
 coefficient always supposed to be zero:
 </p>
@@ -68,7 +68,7 @@ But don't try to mix coefficients from different images or average them randomly
 </p>
 
 <p>Also, note that usually it is enough to provide only the <em>b</em> and <em>v</em>
-parameters (e.g. limit to a third-order polynomial). In this case lensfun will
+parameters (e.g. limit to a third-order polynomial). In this case Lensfun will
 use a optimized code path and avoid computing two square roots per pixel, so its
 worth to try first a simpler model:
 </p>

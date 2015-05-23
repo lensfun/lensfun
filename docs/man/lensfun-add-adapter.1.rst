@@ -3,7 +3,7 @@ lensfun-add-adapter
 ======================
 
 --------------------------------------------------------
-add lens mount compatibilities to lensfun's database
+add lens mount compatibilities to Lensfun's database
 --------------------------------------------------------
 
 :Author: This manual page was written by Torsten Bronger <bronger@physik.rwth-aachen.de>
@@ -32,7 +32,7 @@ with lenses that fit on their camera in order to pick one.  Otherwise, you
 would see *all* lenses every time.  This can be pretty overwhelming.
 
 But if you bought an adapter for another mount system, you would want to see
-lenses of that mount system listed for your camera.  So, you must tell lensfun
+lenses of that mount system listed for your camera.  So, you must tell Lensfun
 somehow that you own the adapter.  You can do so by calling
 ``lensfun-add-adapter``.
 
@@ -66,7 +66,7 @@ OPTIONS
 ``--remove-local-mount-config``
     Resets the local mount configuration, i.e. the additional mount
     compatibilities that were created by this program.  Effectively, it removes
-    the file ``_mount.xml`` from the local lensfun database of the current
+    the file ``_mount.xml`` from the local Lensfun database of the current
     user.
 
 FILES

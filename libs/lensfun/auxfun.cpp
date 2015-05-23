@@ -1,5 +1,5 @@
 /*
-    Auxiliary helper functions for lensfun
+    Auxiliary helper functions for Lensfun
     Copyright (C) 2007 by Andrew Zabolotny
 */
 

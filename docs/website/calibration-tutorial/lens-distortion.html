@@ -9,7 +9,7 @@
 
 <h1>Calculating lens distortion</h1>
 
-<p>The lensfun library provides many different mathematical models for lens distortion.
+<p>The Lensfun library provides many different mathematical models for lens distortion.
 They are mostly of theoretical interest but could be useful when porting calibration
 data made with some other software. These models are described in the comments to the
 lfDistortionModel type. For our needs we'll use just two models: the "ptlens" model,
@@ -62,12 +62,12 @@ parameters. If you're opted for the ptlens model, also click “a” and “c”
 <img src="dist-hugin-optimizer.png" />
 
 <p>Please don't check other boxes (like “view (v)” or “x/y shift”), because this will
-introduce distortions that lensfun can't reproduce! Also make sure those parameters
+introduce distortions that Lensfun can't reproduce! Also make sure those parameters
 are all zero (except “view” which should correspond to lens angle corresponding to
 your focal length), if they are not, go to the “Images” and “Camera and Lens” pages
 and clear them all. Also make sure the “crop factor” is exactly what you use in your
 lens description: sometimes it could differ a little (like 1.47 instead of 1.5 in my
-case), focal length must be the same in Hugin and lensfun, otherwise they won't match.
+case), focal length must be the same in Hugin and Lensfun, otherwise they won't match.
 </p>
 
 <p>Now press “Optimize now!”. If everything goes normal, Hugin will compute new
