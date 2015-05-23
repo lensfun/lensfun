@@ -2699,4 +2699,29 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 70-300mm F4-5.6 DG Macro</model>
+        <mount>Sony Alpha</mount>
+        <mount>Sigma SA</mount>
+        <mount>Pentax KAF2</mount>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D610 -->
+            <distortion model="ptlens" focal="70" a="-0.00361" b="-0.00079" c="0.00665" />
+            <distortion model="ptlens" focal="90" a="-0.00146" b="-0.00111" c="0.01353" />
+            <distortion model="ptlens" focal="102" a="0.00417" b="-0.01327" c="0.02682" />
+            <distortion model="ptlens" focal="135" a="0.00681" b="-0.01051" c="0.01656" />
+            <distortion model="ptlens" focal="300" a="0" b="0.00905" c="0" />
+            <tca model="poly3" focal="70" br="0.0000707" vr="1.0000548" bb="-0.0000728" vb="1.0000550" />
+            <tca model="poly3" focal="90" br="0.0000178" vr="1.0000676" bb="-0.0000335" vb="0.9999981" />
+            <tca model="poly3" focal="102" br="0.0000021" vr="1.0000526" bb="-0.0000060" vb="0.9999382" />
+            <tca model="poly3" focal="135" br="-0.0000271" vr="1.0000352" bb="0.0000214" vb="0.9998037" />
+            <tca model="poly3" focal="220" br="-0.0000298" vr="0.9999532" bb="0.0000435" vb="0.9996860" />
+            <tca model="poly3" focal="300" br="-0.0000555" vr="0.9998700" bb="0.0000869" vb="0.9996162" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
