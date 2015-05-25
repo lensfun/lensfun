@@ -28,7 +28,7 @@ Status code 0 -- successful
             2 -- invalid input in interactive mode
 """
 
-import os, sys, argparse
+import os, sys, argparse, glob
 from xml.etree import ElementTree
 
 local_xml_filepath = os.path.expanduser("~/.local/share/lensfun/_mounts.xml")
@@ -120,28 +120,27 @@ def read_database():
     else:
         paths = ["/usr/share/lensfun", "/usr/local/share/lensfun", os.path.expanduser("~/.local/share/lensfun")]
     for path in paths:
-        if os.path.exists(path):
-            for root, __, filenames in os.walk(path):
-                for filename in filenames:
-                    if filename.endswith("xml"):
-                        filepath = os.path.join(root, filename)
-                        tree = ElementTree.parse(filepath)
-                        for mount in tree.findall("mount"):
-                            name = default_name(mount, "name")
-                            try:
-                                fixed_lens = mounts[name].fixed_lens
-                            except KeyError:
-                                fixed_lens = filename.startswith("compact") or name in ["olympusE10"]
-                            mounts[name] = Mount(name, fixed_lens)
-                            for compatible_mount in mount.findall("compat"):
-                                mounts[name].compatible_mounts.add(compatible_mount.text)
-                        for camera in tree.findall("camera"):
-                            loose_name = normalize_camera_name(fancy_name(camera, "maker") + fancy_name(camera, "model"))
-                            maker_and_model = default_name(camera, "maker"), default_name(camera, "model")
-                            makers_and_models[loose_name] = maker_and_model
-                            mount = default_name(camera, "mount")
-                            cameras[maker_and_model] = mount
-                            mounts.setdefault(mount, Mount(mount, filename.startswith("compact") or mount in ["olympusE10"]))
+        for filepath in glob.glob(os.path.join(path, "*.xml")):
+            filename = os.path.basename(filepath)
+            tree = ElementTree.parse(filepath)
+            for mount in tree.findall("mount"):
+                name = default_name(mount, "name")
+                if name == "Sony E":
+                    print(filepath)
+                try:
+                    fixed_lens = mounts[name].fixed_lens
+                except KeyError:
+                    fixed_lens = filename.startswith("compact") or name in ["olympusE10"]
+                mounts[name] = Mount(name, fixed_lens)
+                for compatible_mount in mount.findall("compat"):
+                    mounts[name].compatible_mounts.add(compatible_mount.text)
+            for camera in tree.findall("camera"):
+                loose_name = normalize_camera_name(fancy_name(camera, "maker") + fancy_name(camera, "model"))
+                maker_and_model = default_name(camera, "maker"), default_name(camera, "model")
+                makers_and_models[loose_name] = maker_and_model
+                mount = default_name(camera, "mount")
+                cameras[maker_and_model] = mount
+                mounts.setdefault(mount, Mount(mount, filename.startswith("compact") or mount in ["olympusE10"]))
     for maker_and_model, mount_name in cameras.items():
         cameras[maker_and_model] = mounts[mount_name]
     return mounts, makers_and_models, cameras
