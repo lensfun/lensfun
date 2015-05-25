@@ -18,3 +18,27 @@ IF(INSTALL_HELPER_SCRIPTS)
           PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_EXECUTE GROUP_READ WORLD_EXECUTE WORLD_READ
           DESTINATION ${LENSFUN_FULL_BINDIR})
 ENDIF(INSTALL_HELPER_SCRIPTS)
+
+
+# Inspired by http://bloerg.net/2012/11/10/cmake-and-distutils.html
+
+FIND_PROGRAM(PYTHON "python3")
+IF(PYTHON)
+    SET(SETUP_PY_IN "${CMAKE_CURRENT_SOURCE_DIR}/setup.py.in")
+    SET(SETUP_PY    "${CMAKE_CURRENT_BINARY_DIR}/setup.py")
+    SET(DEPS_IN     "${CMAKE_CURRENT_SOURCE_DIR}/lensfun/__init__.py.in")
+    SET(DEPS        "${CMAKE_CURRENT_BINARY_DIR}/lensfun/__init__.py")
+    SET(OUTPUT      "${CMAKE_CURRENT_BINARY_DIR}/build/timestamp")
+
+    CONFIGURE_FILE(${SETUP_PY_IN} ${SETUP_PY})
+    CONFIGURE_FILE(${DEPS_IN} ${DEPS})
+
+    ADD_CUSTOM_COMMAND(OUTPUT ${OUTPUT}
+                       COMMAND ${PYTHON} ${SETUP_PY} build
+                       COMMAND ${CMAKE_COMMAND} -E touch ${OUTPUT}
+                       DEPENDS ${DEPS_IN})
+
+    ADD_CUSTOM_TARGET(python-package ALL DEPENDS ${OUTPUT})
+
+    INSTALL(CODE "execute_process(COMMAND ${PYTHON} ${SETUP_PY} install)")
+ENDIF(PYTHON)
