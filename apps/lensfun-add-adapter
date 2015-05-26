@@ -125,8 +125,6 @@ def read_database():
             tree = ElementTree.parse(filepath)
             for mount in tree.findall("mount"):
                 name = default_name(mount, "name")
-                if name == "Sony E":
-                    print(filepath)
                 try:
                     fixed_lens = mounts[name].fixed_lens
                 except KeyError:
