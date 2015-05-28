@@ -11,9 +11,9 @@ project(lensfun)
 # set install prefix
 IF(WIN32)
   # install into place in build-dir  
-  SET(LENSFUN_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install" CACHE PATH "Install prefix for lensfun")    
+  SET(LENSFUN_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install" CACHE PATH "Install prefix for Lensfun")    
 ELSE()
-  SET(LENSFUN_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE PATH "Install prefix for lensfun")    
+  SET(LENSFUN_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE PATH "Install prefix for Lensfun")    
 ENDIF()
 SET(CMAKE_INSTALL_PREFIX "${LENSFUN_INSTALL_PREFIX}" CACHE INTERNAL "" FORCE)
 
@@ -75,6 +75,8 @@ ENDIF(BUILD_DOC)
 FOREACH(dir BINDIR LIBDIR INCLUDEDIR DATADIR DOCDIR)
 IF(NOT IS_ABSOLUTE ${LENSFUN_${dir}})
     SET(LENSFUN_FULL_${dir} "${LENSFUN_INSTALL_PREFIX}/${LENSFUN_${dir}}" CACHE INTERNAL "" FORCE)
+ELSE()
+    SET(LENSFUN_FULL_${dir} "${LENSFUN_${dir}}" CACHE INTERNAL "" FORCE)
 ENDIF()
 ENDFOREACH()
 
@@ -187,7 +189,7 @@ ENDIF()
 
 # print some information
 MESSAGE(STATUS "-------------------------------------------------------------------------------------")
-MESSAGE(STATUS "Building lensfun ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX}")
+MESSAGE(STATUS "Building Lensfun ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX}")
 MESSAGE(STATUS "-------------------------------------------------------------------------------------")
 IF(BUILD_STATIC)
   MESSAGE(STATUS "Build as static library")

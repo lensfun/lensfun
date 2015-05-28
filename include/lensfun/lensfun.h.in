@@ -1,6 +1,6 @@
 /* -*- mode:c++ -*- */
 /*
-    LensFun - a library for maintaining a database of photographical lenses,
+    Lensfun - a library for maintaining a database of photographical lenses,
     and providing the means to correct some of the typical lens distortions.
     Copyright (C) 2007 by Andrew Zabolotny
 
@@ -34,7 +34,7 @@ extern "C" {
 
 /**
  * @file lensfun.h
- * This file defines the interface to the lensfun library.
+ * This file defines the interface to the Lensfun library.
  */
 
 /*----------------------------------------------------------------------------*/
@@ -433,7 +433,7 @@ LF_EXPORT cbool lf_camera_check (lfCamera *camera);
  */
 
 /**
- * @brief The lensfun library implements several lens distortion models.
+ * @brief The Lensfun library implements several lens distortion models.
  * This enum lists them.
  *
  * Distortion usually heavily depends on the focal length, but does not depend
@@ -497,7 +497,7 @@ struct lfLensCalibDistortion
 C_TYPEDEF (struct, lfLensCalibDistortion)
 
 /**
- * @brief The lensfun library supports several models for lens lateral
+ * @brief The Lensfun library supports several models for lens lateral
  * chromatic aberrations (also called transversal chromatic
  * aberrations, TCA).
  *
@@ -562,7 +562,7 @@ struct lfLensCalibTCA
 C_TYPEDEF (struct, lfLensCalibTCA)
 
 /**
- * @brief The lensfun library supports several models for lens vignetting
+ * @brief The Lensfun library supports several models for lens vignetting
  * correction.
  *
  * We focus on optical and natural vignetting since they can be generalized for
@@ -658,7 +658,7 @@ C_TYPEDEF (struct, lfLensCalibCrop)
 /**
  *  @brief Struct to save calibrated field of view, which can depends on the focal length (DEPRECATED)
  *
- *  The Field of View (FOV) database entry is deprecated since lensfun 
+ *  The Field of View (FOV) database entry is deprecated since Lensfun 
  *  version 0.3 and will be removed in future releases.
  *
  */
@@ -668,7 +668,7 @@ struct lfLensCalibFov
     float Focal;
     /** @brief Field of view for given images
      * 
-     *  The Field of View (FOV) database entry is deprecated since lensfun 
+     *  The Field of View (FOV) database entry is deprecated since Lensfun 
      *  version 0.3 and will be removed in future releases.
      *
      *  Especially for fisheye images the field of view calculated from the (EXIF) focal
@@ -954,7 +954,7 @@ struct LF_EXPORT lfLens
     /**
      * @brief Add a new lens fov structure to the pool. 
      *
-     * The Field of View (FOV) database entry is deprecated since lensfun 
+     * The Field of View (FOV) database entry is deprecated since Lensfun 
      * version 0.3 and will be removed in future releases.
      *
      * The objects is copied, thus you can reuse it as soon as
@@ -967,7 +967,7 @@ struct LF_EXPORT lfLens
     /**
      * @brief Remove a field of view  entry from the lens fov structure.
      *
-     * The Field of View (FOV) database entry is deprecated since lensfun 
+     * The Field of View (FOV) database entry is deprecated since Lensfun 
      * version 0.3 and will be removed in future releases.
      *
      * @param idx
@@ -1140,7 +1140,7 @@ struct LF_EXPORT lfLens
     /**
      * @brief Interpolate lens fov data for given focal length.
      *
-     * The Field of View (FOV) database entry is deprecated since lensfun 
+     * The Field of View (FOV) database entry is deprecated since Lensfun 
      * version 0.3 and will be removed in future releases.
      *
      * @param focal
@@ -1153,7 +1153,7 @@ struct LF_EXPORT lfLens
     /**
      * @brief Interpolate lens real focal length data for given focal length.
      *
-     * The Field of View (FOV) database entry is deprecated since lensfun 
+     * The Field of View (FOV) database entry is deprecated since Lensfun 
      * version 0.3 and will be removed in future releases.
      *
      * @param focal
@@ -1307,7 +1307,7 @@ enum
      */
     LF_SEARCH_LOOSE = 1,
     /**
-     * @brief This flag makes LensFun to sort the results by focal
+     * @brief This flag makes Lensfun to sort the results by focal
      * length, and remove all double lens names.
      *
      * If a lens has entries for different crop factors/aspect ratios,
@@ -1378,7 +1378,7 @@ struct LF_EXPORT lfDatabase
      * If the loaded file contains the specification of a camera/lens that's
      * already in memory, it overrides that data.
      * @param filename
-     *     The name of a XML file to load. Note that lensfun does not support
+     *     The name of a XML file to load. Note that Lensfun does not support
      *     the full XML specification as it uses the glib's simple XML parser,
      *     so advanced XML features are not available.
      * @return

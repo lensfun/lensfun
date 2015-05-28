@@ -1,4 +1,4 @@
-The lensfun website is based on __Jekyll__ which is a static website generator.
+The Lensfun website is based on __Jekyll__ which is a static website generator.
 See http://jekyllrb.com/ for more information.
 
 Basic instructions:

@@ -65,7 +65,7 @@ static struct
 
 static void DisplayVersion ()
 {
-    g_print ("Lenstool reference implementation for lensfun version %d.%d.%d\n",
+    g_print ("Lenstool reference implementation for Lensfun version %d.%d.%d\n",
         LF_VERSION_MAJOR, LF_VERSION_MINOR, LF_VERSION_MICRO);
     g_print ("Copyright (C) 2007 Andrew Zabolotny\n\n");
     g_print ("For distribution rules and conditions of use see the file\n");
