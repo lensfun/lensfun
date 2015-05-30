@@ -91,7 +91,7 @@ lfError lfDatabase::Load ()
 {
     lfExtDatabase *This = static_cast<lfExtDatabase *> (this);
 
-#ifdef CONF_DATADIR
+#ifndef PLATFORM_WINDOWS
     gchar *main_dirname = g_strdup (CONF_DATADIR);
     const gchar *system_updates_dirname = "/var/lib/lensfun-updates";
 #else

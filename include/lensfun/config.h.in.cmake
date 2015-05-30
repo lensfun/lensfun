@@ -16,6 +16,8 @@
 //fix path to data works only on *nix systems
 //on windows that data dir is relocatable
 #define CONF_DATADIR "${LENSFUN_FULL_DATADIR}"
+#else
+#define CONF_DATADIR "${LENSFUN_WINDOWS_DATADIR}"
 #endif
 
 // add a macro to know we're compiling Lensfun, not a client library

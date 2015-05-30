@@ -7,13 +7,11 @@
 #include <windows.h>
 #include <glib/gstdio.h>
 
-#ifndef CONF_DATADIR
-
 char *_lf_get_database_dir ()
 {
     static gchar *dir = NULL;
 
-    HMODULE h = GetModuleHandle ("lensfun.dll");
+    HMODULE h = GetModuleHandle ("liblensfun.dll");
     if (!h)
         return g_strdup ("");
 
@@ -26,9 +24,7 @@ char *_lf_get_database_dir ()
         eos--;
     *eos = 0;
 
-    dir = g_build_filename (buff, CONF_PACKAGE, NULL);
+    dir = g_build_filename (buff, CONF_DATADIR, NULL);
 
     return dir;
 }
-
-#endif
