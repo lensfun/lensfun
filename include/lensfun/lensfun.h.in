@@ -118,6 +118,17 @@ enum lfError
 
 C_TYPEDEF (enum, lfError)
 
+/** The type of a 8-bit pixel */
+typedef unsigned char lf_u8;
+/** The type of a 16-bit pixel */
+typedef unsigned short lf_u16;
+/** The type of a 32-bit pixel */
+typedef unsigned int lf_u32;
+/** The type of a 32-bit floating-point pixel */
+typedef float lf_f32;
+/** The type of a 64-bit floating-point pixel */
+typedef double lf_f64;
+
 /**
  * The basics of memory allocation: never free objects allocated by the
  * library yourselves, instead use this function. It is a direct
@@ -1351,6 +1362,9 @@ struct LF_EXPORT lfDatabase
     char *UserUpdatesDir;
 
 #ifdef __cplusplus
+    lfDatabase ();
+    ~lfDatabase ();
+
     /**
      * @brief Create a new empty database object.
      */
@@ -1360,6 +1374,16 @@ struct LF_EXPORT lfDatabase
      * @brief Destroy the database object and free all loaded data.
      */
     void Destroy ();
+
+    /**
+     * @brief Load all XML files from a directory.
+     *
+     * This is an internal function used by lfDatabase::Load ().  It ignores
+     * all errors.
+     * @param dirname
+     *     The directory to be read.
+     */
+    void LoadDirectory (const char *dirname, bool use_versioned_subdir=true);
 
     /**
      * @brief Load the whole lens database.
@@ -1598,11 +1622,32 @@ struct LF_EXPORT lfDatabase
      */
     const lfMount *const *GetMounts () const;
 
-protected:
-    /* Prevent user from creating and destroying such objects */
-    lfDatabase () {}
-    ~lfDatabase () {}
+    /**
+     * @brief Add a mount to the database.
+     * @param mount
+     *     the mount to add
+     */
+    void AddMount (lfMount *mount);
+
+    /**
+     * @brief Add a camera to the database.
+     * @param camera
+     *     the camera to add
+     */
+    void AddCamera (lfCamera *camera);
+
+    /**
+     * @brief Add a lens to the database.
+     * @param lens
+     *     the lens to add
+     */
+    void AddLens (lfLens *lens);
+
+private:
 #endif
+    void *Mounts;
+    void *Cameras;
+    void *Lenses;
 };
 
 C_TYPEDEF (struct, lfDatabase)
@@ -1850,6 +1895,21 @@ typedef void (*lfModifyColorFunc) (void *data, float x, float y,
  */
 typedef void (*lfModifyCoordFunc) (void *data, float *iocoord, int count);
 
+// @cond
+    
+/// Common ancestor for lfCoordCallbackData and lfColorCallbackData
+struct lfCallbackData
+{
+    int priority;
+    void *data;
+    size_t data_size;
+};
+
+// A test point in the autoscale algorithm
+typedef struct { float angle, dist; } lfPoint;
+
+// @endcond
+
 /**
  * @brief A modifier object contains optimized data required to rectify a
  * image.
@@ -1929,9 +1989,37 @@ typedef void (*lfModifyCoordFunc) (void *data, float *iocoord, int count);
  * stage 3, which will correct the R,G,B coordinates further.
  * ApplySubpixelGeometryDistortion() does this in a convenient fashion.
  */
+#ifdef __cplusplus
+}
+#endif
+
 struct LF_EXPORT lfModifier
 {
 #ifdef __cplusplus
+    /**
+     * @brief Create a empty image modifier object.
+     *
+     * Before using the returned object you must add the required
+     * modifier callbacks (see methods AddXXXCallback below).
+     *
+     * You must provide the original image width/height even if you
+     * plan to correct just a part of the image.
+     *
+     * @param lens
+     *     For all modifications, the crop factor, aspect ratio, and
+     *     center shift of this lens will be used.
+     * @param crop
+     *     The crop factor for current camera. The distortion models will
+     *     take this into account if lens models were measured on a camera
+     *     with a different crop factor.
+     * @param width
+     *     The width of the image you want to correct.
+     * @param height
+     *     The height of the image you want to correct.
+     */
+    lfModifier (const lfLens *lens, float crop, int width, int height);
+    ~lfModifier ();
+
     /**
      * @brief Create a empty image modifier object.
      *
@@ -2333,15 +2421,120 @@ private:
      */
     float GetRealFocalLength (const lfLens *lens, float focal);
 
-protected:
-    /* Prevent user from creating and destroying such objects */
-    lfModifier () {}
-    ~lfModifier () {}
-#elif defined _MSC_VER
-    /* Sucks, like always */
-    void *dummy;
+    void AddCallback (void *arr, lfCallbackData *d,
+                      int priority, void *data, size_t data_size);
+
+    /**
+     * @brief Calculate distance between point and image edge.
+     *
+     * This is an internal function used for autoscaling.  It returns the
+     * distance between the given point and the edge of the image.  The
+     * coordinate system used is the normalized system.  Points inside the
+     * image frame yield negative values, points outside positive values, and
+     * on the frame zero.
+     * @param coord
+     *     The x, y coordinates of the points, as a 2-component array.
+     * @return
+     *     The distance of the point from the edge.
+     */
+    double AutoscaleResidualDistance (float *coord) const;
+    /**
+     * @brief Calculate distance of the corrected edge point from the centre.
+     *
+     * This is an internal function used for autoscaling.  It returns the
+     * distance of the point on the edge of the corrected image which lies in
+     * the direction of the given coordinates.  "Distance" means "distance from
+     * origin".  This way, the necessary autoscaling value for this direction
+     * can be calculated by the calling routine.
+     * @param point
+     *     The polar coordinates of the point for which the distance of the
+     *     corrected counterpart should be calculated.
+     * @return
+     *     The distance of the corrected image edge from the origin.
+     */
+    float GetTransformedDistance (lfPoint point) const;
+
+    static void ModifyCoord_UnTCA_Linear (void *data, float *iocoord, int count);
+    static void ModifyCoord_TCA_Linear (void *data, float *iocoord, int count);
+    static void ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int count);
+    static void ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count);
+
+    static void ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count);
+    static void ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int count);
+#ifdef VECTORIZATION_SSE
+    static void ModifyCoord_Dist_Poly3_SSE (void *data, float *iocoord, int count);
 #endif
+    static void ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int count);
+    static void ModifyCoord_Dist_Poly5 (void *data, float *iocoord, int count);
+    static void ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int count);
+    static void ModifyCoord_Dist_PTLens (void *data, float *iocoord, int count);
+#ifdef VECTORIZATION_SSE
+    static void ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int count);
+    static void ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int count);
+#endif
+    static void ModifyCoord_Geom_FishEye_Rect (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_Panoramic_Rect (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_ERect_Rect (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_Rect_FishEye (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_Panoramic_FishEye (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_ERect_FishEye (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_Rect_Panoramic (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_FishEye_Panoramic (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_ERect_Panoramic (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_Rect_ERect (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_FishEye_ERect (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_Panoramic_ERect (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_Orthographic_ERect (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_ERect_Orthographic (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_Stereographic_ERect (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_ERect_Stereographic (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_Equisolid_ERect (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_ERect_Equisolid (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_Thoby_ERect (void *data, float *iocoord, int count);
+    static void ModifyCoord_Geom_ERect_Thoby (void *data, float *iocoord, int count);
+#ifdef VECTORIZATION_SSE
+    static void ModifyColor_DeVignetting_PA_SSE (
+      void *data, float _x, float _y, lf_f32 *pixels, int comp_role, int count);
+#endif
+#ifdef VECTORIZATION_SSE2
+    static void ModifyColor_DeVignetting_PA_SSE2 (
+      void *data, float _x, float _y, lf_u16 *pixels, int comp_role, int count);
+#endif
+
+    template<typename T> static void ModifyColor_Vignetting_PA (
+        void *data, float x, float y, T *rgb, int comp_role, int count);
+    template<typename T> static void ModifyColor_DeVignetting_PA (
+        void *data, float x, float y, T *rgb, int comp_role, int count);
+
+    static void ModifyCoord_Scale (void *data, float *iocoord, int count);
+#endif
+    /// Image width and height
+    int Width, Height;
+    /// The center of distortions in normalized coordinates
+    double CenterX, CenterY;
+    /// The coefficients for conversion to and from normalized coords
+    double NormScale, NormUnScale;
+    /// Factor to transform from normalized into absolute coords (mm).  Needed
+    /// for geometry transformation.
+    double NormalizedInMillimeters;
+    /// Used for conversion from distortion to vignetting coordinate system of
+    /// the calibration sensor
+    double AspectRatioCorrection;
+
+    /// A list of subpixel coordinate modifier callbacks.
+    void *SubpixelCallbacks;
+    /// A list of pixel color modifier callbacks.
+    void *ColorCallbacks;
+    /// A list of pixel coordinate modifier callbacks.
+    void *CoordCallbacks;
+
+    /// Maximal x and y value in normalized coordinates for the original image
+    double MaxX, MaxY;
 };
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 C_TYPEDEF (struct, lfModifier)
 

@@ -18,17 +18,6 @@
 // adjusted for the lens calibration data/camera crop factors.
 #define NEWTON_EPS 0.00001
 
-/** The type of a 8-bit pixel */
-typedef unsigned char lf_u8;
-/** The type of a 16-bit pixel */
-typedef unsigned short lf_u16;
-/** The type of a 32-bit pixel */
-typedef unsigned int lf_u32;
-/** The type of a 32-bit floating-point pixel */
-typedef float lf_f32;
-/** The type of a 64-bit floating-point pixel */
-typedef double lf_f64;
-
 class lfFuzzyStrCmp;
 
 /**
@@ -467,45 +456,6 @@ public:
     int Compare (const lfMLstr match);
 };
 
-/**
- * @brief The real Database class.
- *
- * It contains some additional data fields
- * which must not be seen from the application at all (even
- * private members don't qualify because we will have to include
- * glib.h from lens.h and that's something we want to hide).
- */
-struct lfExtDatabase : public lfDatabase
-{
-    GPtrArray *Mounts;
-    GPtrArray *Cameras;
-    GPtrArray *Lenses;
-
-    lfExtDatabase ();
-    ~lfExtDatabase ();
-
-    /**
-     * @brief Load all XML files from a directory.
-     *
-     * This is an internal function used by lfDatabase::Load ().  It ignores
-     * all errors.
-     * @param dirname
-     *     The directory to be read.
-     * @param use_versioned_subdir
-     *     If true, the "version_?" (with the proper version number) directory
-     *     name is appended to subdir.
-     */
-    void LoadDirectory (const gchar *dirname, bool use_versioned_subdir=true);
-};
-
-/// Common ancestor for lfCoordCallbackData and lfColorCallbackData
-struct lfCallbackData
-{
-    int priority;
-    void *data;
-    size_t data_size;
-};
-
 /// Subpixel distortion callback
 struct lfSubpixelCallbackData : public lfCallbackData
 {
@@ -522,128 +472,6 @@ struct lfCoordCallbackData : public lfCallbackData
 struct lfColorCallbackData : public lfCallbackData
 {
     lfModifyColorFunc callback;
-};
-
-// A test point in the autoscale algorithm
-typedef struct { float angle, dist; } lfPoint;
-
-/**
- * @brief This is the extended lfModifier class, with implementation details
- * hidden from the public header file.
- */
-struct lfExtModifier : public lfModifier
-{
-    lfExtModifier (const lfLens *lens, float crop, int width, int height);
-    ~lfExtModifier ();
-
-    void AddCallback (GPtrArray *arr, lfCallbackData *d,
-                      int priority, void *data, size_t data_size);
-
-    /// Image width and height
-    int Width, Height;
-    /// The center of distortions in normalized coordinates
-    double CenterX, CenterY;
-    /// The coefficients for conversion to and from normalized coords
-    double NormScale, NormUnScale;
-    /// Factor to transform from normalized into absolute coords (mm).  Needed
-    /// for geometry transformation.
-    double NormalizedInMillimeters;
-    /// Used for conversion from distortion to vignetting coordinate system of
-    /// the calibration sensor
-    double AspectRatioCorrection;
-
-    /// A list of subpixel coordinate modifier callbacks.
-    GPtrArray *SubpixelCallbacks;
-    /// A list of pixel color modifier callbacks.
-    GPtrArray *ColorCallbacks;
-    /// A list of pixel coordinate modifier callbacks.
-    GPtrArray *CoordCallbacks;
-
-    /// Maximal x and y value in normalized coordinates for the original image
-    double MaxX, MaxY;
-    /**
-     * @brief Calculate distance between point and image edge.
-     *
-     * This is an internal function used for autoscaling.  It returns the
-     * distance between the given point and the edge of the image.  The
-     * coordinate system used is the normalized system.  Points inside the
-     * image frame yield negative values, points outside positive values, and
-     * on the frame zero.
-     * @param coord
-     *     The x, y coordinates of the points, as a 2-component array.
-     * @return
-     *     The distance of the point from the edge.
-     */
-    double AutoscaleResidualDistance (float *coord) const;
-    /**
-     * @brief Calculate distance of the corrected edge point from the centre.
-     *
-     * This is an internal function used for autoscaling.  It returns the
-     * distance of the point on the edge of the corrected image which lies in
-     * the direction of the given coordinates.  "Distance" means "distance from
-     * origin".  This way, the necessary autoscaling value for this direction
-     * can be calculated by the calling routine.
-     * @param point
-     *     The polar coordinates of the point for which the distance of the
-     *     corrected counterpart should be calculated.
-     * @return
-     *     The distance of the corrected image edge from the origin.
-     */
-    float GetTransformedDistance (lfPoint point) const;
-
-    static void ModifyCoord_UnTCA_Linear (void *data, float *iocoord, int count);
-    static void ModifyCoord_TCA_Linear (void *data, float *iocoord, int count);
-    static void ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int count);
-    static void ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count);
-
-    static void ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count);
-    static void ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int count);
-#ifdef VECTORIZATION_SSE
-    static void ModifyCoord_Dist_Poly3_SSE (void *data, float *iocoord, int count);
-#endif
-    static void ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int count);
-    static void ModifyCoord_Dist_Poly5 (void *data, float *iocoord, int count);
-    static void ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int count);
-    static void ModifyCoord_Dist_PTLens (void *data, float *iocoord, int count);
-#ifdef VECTORIZATION_SSE
-    static void ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int count);
-    static void ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int count);
-#endif
-    static void ModifyCoord_Geom_FishEye_Rect (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_Panoramic_Rect (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_ERect_Rect (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_Rect_FishEye (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_Panoramic_FishEye (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_ERect_FishEye (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_Rect_Panoramic (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_FishEye_Panoramic (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_ERect_Panoramic (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_Rect_ERect (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_FishEye_ERect (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_Panoramic_ERect (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_Orthographic_ERect (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_ERect_Orthographic (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_Stereographic_ERect (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_ERect_Stereographic (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_Equisolid_ERect (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_ERect_Equisolid (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_Thoby_ERect (void *data, float *iocoord, int count);
-    static void ModifyCoord_Geom_ERect_Thoby (void *data, float *iocoord, int count);
-#ifdef VECTORIZATION_SSE
-    static void ModifyColor_DeVignetting_PA_SSE (
-      void *data, float _x, float _y, lf_f32 *pixels, int comp_role, int count);
-#endif
-#ifdef VECTORIZATION_SSE2
-    static void ModifyColor_DeVignetting_PA_SSE2 (
-      void *data, float _x, float _y, lf_u16 *pixels, int comp_role, int count);
-#endif
-
-    template<typename T> static void ModifyColor_Vignetting_PA (
-        void *data, float x, float y, T *rgb, int comp_role, int count);
-    template<typename T> static void ModifyColor_DeVignetting_PA (
-        void *data, float x, float y, T *rgb, int comp_role, int count);
-
-    static void ModifyCoord_Scale (void *data, float *iocoord, int count);
 };
 
 #endif /* __LENSFUNPRV_H__ */

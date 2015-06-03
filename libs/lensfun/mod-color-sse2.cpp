@@ -30,7 +30,7 @@ typedef size_t uintptr_t;
 typedef __SIZE_TYPE__ uintptr_t;
 #endif
 
-void lfExtModifier::ModifyColor_DeVignetting_PA_SSE2 (
+void lfModifier::ModifyColor_DeVignetting_PA_SSE2 (
     void *data, float _x, float _y, lf_u16 *pixels, int comp_role, int count)
 {
     int cr = comp_role;

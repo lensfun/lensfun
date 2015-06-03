@@ -21,7 +21,7 @@ typedef size_t uintptr_t;
 typedef __SIZE_TYPE__ uintptr_t;
 #endif
 
-void lfExtModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int count)
 {
   /*
    * If buffer is not aligned, fall back to plain code
@@ -95,7 +95,7 @@ void lfExtModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, i
     ModifyCoord_UnDist_PTLens (data, &iocoord [loop_count * 2], remain);
 }
 
-void lfExtModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int count)
 {
   /*
    * If buffer is not aligned, fall back to plain code
@@ -139,7 +139,7 @@ void lfExtModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int
     ModifyCoord_Dist_PTLens (data, &iocoord [loop_count * 2], remain);
 }
 
-void lfExtModifier::ModifyCoord_Dist_Poly3_SSE (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Dist_Poly3_SSE (void *data, float *iocoord, int count)
 {
   /*
    * If buffer is not aligned, fall back to plain code

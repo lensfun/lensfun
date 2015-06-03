@@ -11,22 +11,20 @@
 void lfModifier::AddColorCallback (
     lfModifyColorFunc callback, int priority, void *data, size_t data_size)
 {
-    lfExtModifier *This = static_cast<lfExtModifier *> (this);
     lfColorCallbackData *d = new lfColorCallbackData ();
     d->callback = callback;
-    This->AddCallback (This->ColorCallbacks, d, priority, data, data_size);
+    AddCallback (ColorCallbacks, d, priority, data, data_size);
 }
 
 bool lfModifier::AddColorCallbackVignetting (
     lfLensCalibVignetting &model, lfPixelFormat format, bool reverse)
 {
     float tmp [5];
-    lfExtModifier *This = static_cast<lfExtModifier *> (this);
 
 #define ADD_CALLBACK(func, type, prio) \
     AddColorCallback ( \
         (lfModifyColorFunc)(void (*)(void *, float, float, type *, int, int)) \
-        lfExtModifier::func, prio, tmp, 5 * sizeof (float)) \
+        lfModifier::func, prio, tmp, 5 * sizeof (float)) \
 
     memcpy (tmp, model.Terms, 3 * sizeof (float));
 
@@ -35,8 +33,8 @@ bool lfModifier::AddColorCallbackVignetting (
     // for vignetting it uses 1.0 = half diagonal length. We have
     // to compute a transition coefficient as lfModifier works in
     // the first coordinate system.
-    tmp [3] = This->NormScale / This->AspectRatioCorrection;
-    tmp [4] = 1.0 / This->AspectRatioCorrection;
+    tmp [3] = NormScale / AspectRatioCorrection;
+    tmp [4] = 1.0 / AspectRatioCorrection;
 
     if (reverse)
         switch (model.Model)
@@ -125,20 +123,18 @@ bool lfModifier::AddColorCallbackVignetting (
 bool lfModifier::ApplyColorModification (
     void *pixels, float x, float y, int width, int height, int comp_role, int row_stride) const
 {
-    const lfExtModifier *This = static_cast<const lfExtModifier *> (this);
-
-    if (This->ColorCallbacks->len <= 0 || height <= 0)
+    if (((GPtrArray *)ColorCallbacks)->len <= 0 || height <= 0)
         return false; // nothing to do
 
-    x = x * This->NormScale - This->CenterX;
-    y = y * This->NormScale - This->CenterY;
+    x = x * NormScale - CenterX;
+    y = y * NormScale - CenterY;
 
-    for (; height; y += This->NormScale, height--)
+    for (; height; y += NormScale, height--)
     {
-        for (int i = 0; i < (int)This->ColorCallbacks->len; i++)
+        for (int i = 0; i < (int)((GPtrArray *)ColorCallbacks)->len; i++)
         {
             lfColorCallbackData *cd =
-                (lfColorCallbackData *)g_ptr_array_index (This->ColorCallbacks, i);
+                (lfColorCallbackData *)g_ptr_array_index ((GPtrArray *)ColorCallbacks, i);
             cd->callback (cd->data, x, y, pixels, comp_role, width);
         }
         pixels = ((char *)pixels) + row_stride;
@@ -259,7 +255,7 @@ template<>inline lf_u16 *apply_multiplier (lf_u16 *pixels, double c, int &cr)
     return pixels;
 }
 
-template<typename T> void lfExtModifier::ModifyColor_Vignetting_PA (
+template<typename T> void lfModifier::ModifyColor_Vignetting_PA (
     void *data, float x, float y, T *pixels, int comp_role, int count)
 {
     float *param = (float *)data;
@@ -293,7 +289,7 @@ template<typename T> void lfExtModifier::ModifyColor_Vignetting_PA (
     }
 }
 
-template<typename T> void lfExtModifier::ModifyColor_DeVignetting_PA (
+template<typename T> void lfModifier::ModifyColor_DeVignetting_PA (
     void *data, float x, float y, T *pixels, int comp_role, int count)
 {
     float *param = (float *)data;

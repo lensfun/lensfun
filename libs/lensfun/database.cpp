@@ -18,33 +18,33 @@
 #  include <unistd.h>
 #endif
 
-lfExtDatabase::lfExtDatabase ()
+lfDatabase::lfDatabase ()
 {
     HomeDataDir = g_build_filename (g_get_user_data_dir (),
                                     CONF_PACKAGE, NULL);
     UserUpdatesDir = g_build_filename (HomeDataDir, "updates", NULL);
     Mounts = g_ptr_array_new ();
-    g_ptr_array_add (Mounts, NULL);
+    g_ptr_array_add ((GPtrArray *)Mounts, NULL);
     Cameras = g_ptr_array_new ();
-    g_ptr_array_add (Cameras, NULL);
+    g_ptr_array_add ((GPtrArray *)Cameras, NULL);
     Lenses = g_ptr_array_new ();
-    g_ptr_array_add (Lenses, NULL);
+    g_ptr_array_add ((GPtrArray *)Lenses, NULL);
 }
 
-lfExtDatabase::~lfExtDatabase ()
+lfDatabase::~lfDatabase ()
 {
     size_t i;
-    for (i = 0; i < Mounts->len - 1; i++)
-         delete static_cast<lfMount *> (g_ptr_array_index (Mounts, i));
-    g_ptr_array_free (Mounts, TRUE);
+    for (i = 0; i < ((GPtrArray *)Mounts)->len - 1; i++)
+         delete static_cast<lfMount *> (g_ptr_array_index ((GPtrArray *)Mounts, i));
+    g_ptr_array_free ((GPtrArray *)Mounts, TRUE);
 
-    for (i = 0; i < Cameras->len - 1; i++)
-         delete static_cast<lfCamera *> (g_ptr_array_index (Cameras, i));
-    g_ptr_array_free (Cameras, TRUE);
+    for (i = 0; i < ((GPtrArray *)Cameras)->len - 1; i++)
+         delete static_cast<lfCamera *> (g_ptr_array_index ((GPtrArray *)Cameras, i));
+    g_ptr_array_free ((GPtrArray *)Cameras, TRUE);
 
-    for (i = 0; i < Lenses->len - 1; i++)
-         delete static_cast<lfLens *> (g_ptr_array_index (Lenses, i));
-    g_ptr_array_free (Lenses, TRUE);
+    for (i = 0; i < ((GPtrArray *)Lenses)->len - 1; i++)
+         delete static_cast<lfLens *> (g_ptr_array_index ((GPtrArray *)Lenses, i));
+    g_ptr_array_free ((GPtrArray *)Lenses, TRUE);
 
     g_free (HomeDataDir);
     g_free (UserUpdatesDir);
@@ -52,15 +52,15 @@ lfExtDatabase::~lfExtDatabase ()
 
 lfDatabase *lfDatabase::Create ()
 {
-    return new lfExtDatabase ();
+    return new lfDatabase ();
 }
 
 void lfDatabase::Destroy ()
 {
-    delete static_cast<lfExtDatabase *> (this);
+    delete this;
 }
 
-void lfExtDatabase::LoadDirectory (const gchar *dirname, bool use_versioned_subdir/*=true*/)
+void lfDatabase::LoadDirectory (const gchar *dirname, bool use_versioned_subdir/*=true*/)
 {
     gchar *actual_dirname;
     if (use_versioned_subdir)
@@ -96,7 +96,6 @@ void lfExtDatabase::LoadDirectory (const gchar *dirname, bool use_versioned_subd
 
 lfError lfDatabase::Load ()
 {
-    lfExtDatabase *This = static_cast<lfExtDatabase *> (this);
 
 #ifndef PLATFORM_WINDOWS
     gchar *main_dirname = g_strdup (CONF_DATADIR);
@@ -115,18 +114,18 @@ lfError lfDatabase::Load ()
         _lf_read_database_timestamp (UserUpdatesDir);
     if (timestamp_main > timestamp_system_updates)
         if (timestamp_user_updates > timestamp_main)
-            This->LoadDirectory (UserUpdatesDir);
+            LoadDirectory (UserUpdatesDir);
         else
-            This->LoadDirectory (main_dirname);
+            LoadDirectory (main_dirname);
     else
         if (timestamp_user_updates > timestamp_system_updates)
-            This->LoadDirectory (UserUpdatesDir);
+            LoadDirectory (UserUpdatesDir);
         else
-            This->LoadDirectory (system_updates_dirname);
+            LoadDirectory (system_updates_dirname);
     g_free (main_dirname);
 
-    This->LoadDirectory (HomeDataDir, false);
-    This->LoadDirectory (HomeDataDir);
+    LoadDirectory (HomeDataDir, false);
+    LoadDirectory (HomeDataDir);
 
     return LF_NO_ERROR;
 }
@@ -151,7 +150,7 @@ lfError lfDatabase::Load (const char *filename)
 /* Private structure used by XML parse */
 typedef struct
 {
-    lfExtDatabase *db;
+    lfDatabase *db;
     lfMount *mount;
     lfCamera *camera;
     lfLens *lens;
@@ -561,8 +560,7 @@ static void _xml_end_element (GMarkupParseContext *context,
             return;
         }
 
-        _lf_ptr_array_insert_unique (
-            pd->db->Mounts, pd->mount, _lf_mount_compare, (GDestroyNotify)lf_mount_destroy);
+        pd->db->AddMount(pd->mount);
         pd->mount = NULL;
     }
     else if (!strcmp (element_name, "camera"))
@@ -577,8 +575,7 @@ static void _xml_end_element (GMarkupParseContext *context,
             return;
         }
 
-        _lf_ptr_array_insert_unique (
-            pd->db->Cameras, pd->camera, _lf_camera_compare, (GDestroyNotify)lf_camera_destroy);
+        pd->db->AddCamera(pd->camera);
         pd->camera = NULL;
     }
     else if (!strcmp (element_name, "lens"))
@@ -593,8 +590,7 @@ static void _xml_end_element (GMarkupParseContext *context,
             return;
         }
 
-        _lf_ptr_array_insert_unique (
-            pd->db->Lenses, pd->lens, _lf_lens_compare, (GDestroyNotify)lf_lens_destroy);
+        pd->db->AddLens(pd->lens);
         pd->lens = NULL;
     }
 }
@@ -738,8 +734,6 @@ lfError lfDatabase::Load (const char *errcontext, const char *data, size_t data_
         NULL
     };
 
-    lfExtDatabase *This = static_cast<lfExtDatabase *> (this);
-
     /* Temporarily drop numeric format to "C" */
     char *old_numeric = setlocale (LC_NUMERIC, NULL);
     old_numeric = strdup(old_numeric);
@@ -748,13 +742,13 @@ lfError lfDatabase::Load (const char *errcontext, const char *data, size_t data_
     /* eek! GPtrArray does not have a method to insert a pointer
      into middle of the array... We have to remove the trailing
      NULL and re-append it after loading ... */
-    g_ptr_array_remove_index_fast (This->Mounts, This->Mounts->len - 1);
-    g_ptr_array_remove_index_fast (This->Cameras, This->Cameras->len - 1);
-    g_ptr_array_remove_index_fast (This->Lenses, This->Lenses->len - 1);
+    g_ptr_array_remove_index_fast ((GPtrArray *)Mounts, ((GPtrArray *)Mounts)->len - 1);
+    g_ptr_array_remove_index_fast ((GPtrArray *)Cameras, ((GPtrArray *)Cameras)->len - 1);
+    g_ptr_array_remove_index_fast ((GPtrArray *)Lenses, ((GPtrArray *)Lenses)->len - 1);
 
     lfParserData pd;
     memset (&pd, 0, sizeof (pd));
-    pd.db = This;
+    pd.db = this;
     pd.errcontext = errcontext;
 
     GMarkupParseContext *mpc = g_markup_parse_context_new (
@@ -775,9 +769,9 @@ lfError lfDatabase::Load (const char *errcontext, const char *data, size_t data_
     g_markup_parse_context_free (mpc);
 
     /* Re-add the trailing NULL */
-    g_ptr_array_add (This->Mounts, NULL);
-    g_ptr_array_add (This->Cameras, NULL);
-    g_ptr_array_add (This->Lenses, NULL);
+    g_ptr_array_add ((GPtrArray *)Mounts, NULL);
+    g_ptr_array_add ((GPtrArray *)Cameras, NULL);
+    g_ptr_array_add ((GPtrArray *)Lenses, NULL);
 
     /* Restore numeric format */
     setlocale (LC_NUMERIC, old_numeric);
@@ -788,11 +782,10 @@ lfError lfDatabase::Load (const char *errcontext, const char *data, size_t data_
 
 lfError lfDatabase::Save (const char *filename) const
 {
-    const lfExtDatabase *This = static_cast<const lfExtDatabase *> (this);
     return Save (filename,
-        (lfMount **)This->Mounts->pdata,
-        (lfCamera **)This->Cameras->pdata,
-        (lfLens **)This->Lenses->pdata);
+                 (lfMount **)((GPtrArray *)Mounts)->pdata,
+                 (lfCamera **)((GPtrArray *)Cameras)->pdata,
+                 (lfLens **)((GPtrArray *)Lenses)->pdata);
 }
 
 lfError lfDatabase::Save (const char *filename,
@@ -1109,27 +1102,26 @@ const lfCamera **lfDatabase::FindCameras (const char *maker, const char *model) 
     if (model && !*model)
         model = NULL;
 
-    const GPtrArray *cameras = static_cast<const lfExtDatabase *> (this)->Cameras;
     lfCamera tc;
     tc.SetMaker (maker);
     tc.SetModel (model);
-    int idx = _lf_ptr_array_find_sorted (cameras, &tc, __find_camera_compare);
+    int idx = _lf_ptr_array_find_sorted ((GPtrArray *)Cameras, &tc, __find_camera_compare);
     if (idx < 0)
         return NULL;
 
     guint idx1 = idx;
     while (idx1 > 0 &&
-           __find_camera_compare (g_ptr_array_index (cameras, idx1 - 1), &tc) == 0)
+           __find_camera_compare (g_ptr_array_index ((GPtrArray *)Cameras, idx1 - 1), &tc) == 0)
         idx1--;
 
     guint idx2 = idx;
-    while (++idx2 < cameras->len - 1 &&
-           __find_camera_compare (g_ptr_array_index (cameras, idx2), &tc) == 0)
+    while (++idx2 < ((GPtrArray *)Cameras)->len - 1 &&
+           __find_camera_compare (g_ptr_array_index ((GPtrArray *)Cameras, idx2), &tc) == 0)
         ;
 
     const lfCamera **ret = g_new (const lfCamera *, idx2 - idx1 + 1);
     for (guint i = idx1; i < idx2; i++)
-        ret [i - idx1] = (lfCamera *)g_ptr_array_index (cameras, i);
+        ret [i - idx1] = (lfCamera *)g_ptr_array_index ((GPtrArray *)Cameras, i);
     ret [idx2 - idx1] = NULL;
     return ret;
 }
@@ -1150,15 +1142,14 @@ const lfCamera **lfDatabase::FindCamerasExt (const char *maker, const char *mode
     if (model && !*model)
         model = NULL;
 
-    const GPtrArray *cameras = static_cast<const lfExtDatabase *> (this)->Cameras;
     GPtrArray *ret = g_ptr_array_new ();
 
     lfFuzzyStrCmp fcmaker (maker, (sflags & LF_SEARCH_LOOSE) == 0);
     lfFuzzyStrCmp fcmodel (model, (sflags & LF_SEARCH_LOOSE) == 0);
 
-    for (size_t i = 0; i < cameras->len - 1; i++)
+    for (size_t i = 0; i < ((GPtrArray *)Cameras)->len - 1; i++)
     {
-        lfCamera *dbcam = static_cast<lfCamera *> (g_ptr_array_index (cameras, i));
+        lfCamera *dbcam = static_cast<lfCamera *> (g_ptr_array_index ((GPtrArray *)Cameras, i));
         int score1 = 0, score2 = 0;
         if ((!maker || (score1 = fcmaker.Compare (dbcam->Maker))) &&
             (!model || (score2 = fcmodel.Compare (dbcam->Model))))
@@ -1178,8 +1169,7 @@ const lfCamera **lfDatabase::FindCamerasExt (const char *maker, const char *mode
 
 const lfCamera *const *lfDatabase::GetCameras () const
 {
-    const lfExtDatabase *This = static_cast<const lfExtDatabase *> (this);
-    return (lfCamera **)This->Cameras->pdata;
+    return (lfCamera **)((GPtrArray *)Cameras)->pdata;
 }
 
 const lfLens **lfDatabase::FindLenses (const lfCamera *camera,
@@ -1252,7 +1242,6 @@ static void _lf_add_compat_mounts (
 
 const lfLens **lfDatabase::FindLenses (const lfLens *lens, int sflags) const
 {
-    const GPtrArray *lenses = static_cast<const lfExtDatabase *> (this)->Lenses;
     GPtrArray *ret = g_ptr_array_new ();
     GPtrArray *mounts = g_ptr_array_new ();
 
@@ -1266,9 +1255,9 @@ const lfLens **lfDatabase::FindLenses (const lfLens *lens, int sflags) const
 
     int score;
     const bool sort_and_uniquify = (sflags & LF_SEARCH_SORT_AND_UNIQUIFY) != 0;
-    for (size_t i = 0; i < lenses->len - 1; i++)
+    for (size_t i = 0; i < ((GPtrArray *)Lenses)->len - 1; i++)
     {
-        lfLens *dblens = static_cast<lfLens *> (g_ptr_array_index (lenses, i));
+        lfLens *dblens = static_cast<lfLens *> (g_ptr_array_index ((GPtrArray *)Lenses, i));
         if ((score = _lf_lens_compare_score (
             lens, dblens, &fc, (const char **)mounts->pdata)) > 0)
         {
@@ -1306,20 +1295,18 @@ const lfLens **lfDatabase::FindLenses (const lfLens *lens, int sflags) const
 
 const lfLens *const *lfDatabase::GetLenses () const
 {
-    const lfExtDatabase *This = static_cast<const lfExtDatabase *> (this);
-    return (lfLens **)This->Lenses->pdata;
+    return (lfLens **)((GPtrArray *)Lenses)->pdata;
 }
 
 const lfMount *lfDatabase::FindMount (const char *mount) const
 {
-    const GPtrArray *Mounts = static_cast<const lfExtDatabase *> (this)->Mounts;
     lfMount tm;
     tm.SetName (mount);
-    int idx = _lf_ptr_array_find_sorted (Mounts, &tm, _lf_mount_compare);
+    int idx = _lf_ptr_array_find_sorted ((GPtrArray *)Mounts, &tm, _lf_mount_compare);
     if (idx < 0)
         return NULL;
 
-    return (const lfMount *)g_ptr_array_index (Mounts, idx);
+    return (const lfMount *)g_ptr_array_index ((GPtrArray *)Mounts, idx);
 }
 
 const char *lfDatabase::MountName (const char *mount) const
@@ -1332,8 +1319,25 @@ const char *lfDatabase::MountName (const char *mount) const
 
 const lfMount * const *lfDatabase::GetMounts () const
 {
-    const lfExtDatabase *This = static_cast<const lfExtDatabase *> (this);
-    return (lfMount **)This->Mounts->pdata;
+    return (lfMount **)((GPtrArray *)Mounts)->pdata;
+}
+
+void lfDatabase::AddMount (lfMount *mount)
+{
+    _lf_ptr_array_insert_unique (
+        (GPtrArray *)Mounts, mount, _lf_mount_compare, (GDestroyNotify)lf_mount_destroy);
+}
+
+void lfDatabase::AddCamera (lfCamera *camera)
+{
+    _lf_ptr_array_insert_unique (
+        (GPtrArray *)Cameras, camera, _lf_camera_compare, (GDestroyNotify)lf_camera_destroy);
+}
+
+void lfDatabase::AddLens (lfLens *lens)
+{
+    _lf_ptr_array_insert_unique (
+        (GPtrArray *)Lenses, lens, _lf_lens_compare, (GDestroyNotify)lf_lens_destroy);
 }
 
 //---------------------------// The C interface //---------------------------//
