@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""This program allows the user to add further mount compatibilities to
-Lensfun.  This way, the number of default mount compatibilities can be kept
-low, while users who own adapters can add those to their local installation.
-Especially mirrorless systems can use all SLR lenses, so the lens lists to
-choose from would become very long.
+"""This program allows the user to add further mount compatibilities to his
+Lensfun configuration.  This way, the number of default mount compatibilities
+can be kept low, while users who own adapters can add those to their local
+installation.  Especially mirrorless systems can use all SLR lenses, so the
+lens lists to choose from would become very long.
 
 The program can be used non-interactively (passing arguments on the command
 line) and interactively, where the program asks you questions and takes your
@@ -26,10 +26,19 @@ Diagnostics:
 Status code 0 -- successful
             1 -- invalid command line arguments
             2 -- invalid input in interactive mode
+
+The program writes its output to ``~/.local/share/lensfun/_mounts.xml``.  Any
+former mount configuration in that file is preserved.  Since it can be assumed
+that this file will not change its format often (in particular, not with every
+new Lensfun DB version), this file is deliberately not put in a versioned
+sub-directory.  As a positive side-effect of this, the user is not forced to
+move this file once a new Lensfun DB version comes out.
 """
 
 import os, sys, argparse, glob
 from xml.etree import ElementTree
+import lensfun
+
 
 local_xml_filepath = os.path.expanduser("~/.local/share/lensfun/_mounts.xml")
 os.makedirs(os.path.dirname(local_xml_filepath), exist_ok=True)
@@ -115,10 +124,7 @@ def read_database():
     cameras = {}
     makers_and_models = {}
     mounts = {}
-    if os.path.exists("/var/lib/lensfun-updates"):
-        paths = ["/var/lib/lensfun-updates", os.path.expanduser("~/.local/share/lensfun")]
-    else:
-        paths = ["/usr/share/lensfun", "/usr/local/share/lensfun", os.path.expanduser("~/.local/share/lensfun")]
+    paths = lensfun.get_database_directories()
     for path in paths:
         for filepath in glob.glob(os.path.join(path, "*.xml")):
             filename = os.path.basename(filepath)

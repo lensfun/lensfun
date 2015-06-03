@@ -348,7 +348,8 @@ extern float _lf_interpolate (float y1, float y2, float y3, float y4, float t);
  * (UNIX time).  If it is not present, 0 is returned.  If the directory is not
  * found or empty, a negative value is returned.
  * @param dirname
- *     the name of the directory containing a Lensfun database
+ *     the name of the directory containing a Lensfun database; the "version_x"
+ *     suffix is implicitly appended
  * @return
  *     the number of seconds since the Epoch when this database was last
  *     updated.
@@ -490,8 +491,11 @@ struct lfExtDatabase : public lfDatabase
      * all errors.
      * @param dirname
      *     The directory to be read.
+     * @param use_versioned_subdir
+     *     If true, the "version_?" (with the proper version number) directory
+     *     name is appended to subdir.
      */
-    void LoadDirectory (const gchar *dirname);
+    void LoadDirectory (const gchar *dirname, bool use_versioned_subdir=true);
 };
 
 /// Common ancestor for lfCoordCallbackData and lfColorCallbackData

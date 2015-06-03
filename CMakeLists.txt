@@ -23,6 +23,9 @@ SET(VERSION_MINOR 3)
 SET(VERSION_MICRO 1)
 SET(VERSION_BUGFIX 0)
 SET(VERSION_API 1)
+# This is the version of the *shipped* database, which is not necessarily the
+# highest version number supported
+SET(LENSFUN_DB_VERSION 1)
 
 # check if some include are available
 INCLUDE(CheckIncludeFiles)
@@ -172,8 +175,8 @@ ENDIF()
 
 # install db files
 FILE(GLOB DATABASE_FILES data/db/*.xml)
-INSTALL(FILES ${DATABASE_FILES} DESTINATION ${LENSFUN_FULL_DATADIR})
-INSTALL(FILES data/db/timestamp.txt DESTINATION ${LENSFUN_FULL_DATADIR})
+INSTALL(FILES ${DATABASE_FILES} DESTINATION ${LENSFUN_FULL_DATADIR}/version_${LENSFUN_DB_VERSION})
+INSTALL(FILES data/db/timestamp.txt DESTINATION ${LENSFUN_FULL_DATADIR}/version_${LENSFUN_DB_VERSION})
 
 # build documentation
 IF(BUILD_DOC)

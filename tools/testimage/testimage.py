@@ -72,6 +72,7 @@ import array, subprocess, math, os, argparse, sys
 from math import sin, tan, atan, floor, ceil, sqrt
 from math import pi as π
 from xml.etree import ElementTree
+import lensfun
 
 
 parser = argparse.ArgumentParser(description="Generate test images for Lensfun.")
@@ -140,10 +141,7 @@ def get_database_elements():
                                     elif calibration_element.tag == "field_of_view" and \
                                        float(calibration_element.attrib["focal"]) == focal_length:
                                         fov_element = calibration_element
-    paths_search_list = [args.db_path] if args.db_path else \
-                        ["/usr/share/lensfun", "/usr/local/share/lensfun", "/var/lib/lensfun",
-                         os.path.expanduser("~/.local/share/lensfun/updates"),
-                         os.path.expanduser("~/.local/share/lensfun")]
+    paths_search_list = [args.db_path] if args.db_path else lensfun.get_database_directories()
     for path in paths_search_list:
         crawl_directory(path)
     if not files_found:

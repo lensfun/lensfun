@@ -20,6 +20,8 @@
 #define CONF_DATADIR "${LENSFUN_WINDOWS_DATADIR}"
 #endif
 
+#define DATABASE_SUBDIR "version_${LENSFUN_DB_VERSION}"
+
 // add a macro to know we're compiling Lensfun, not a client library
 #define CONF_LENSFUN_INTERNAL
 

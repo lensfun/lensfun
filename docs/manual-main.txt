@@ -130,7 +130,12 @@ programs, which can call it in the background.
 
 If it is sufficient that the updates are available to only your user account,
 call “lensfun‑update‑data” without root priviledges.  The updates are then
-written to ~/.local/share/lensfun/updates/”.
+written to ~/.local/share/lensfun/updates”.
+
+In case there is more than one version of Lensfun on your system (e.g. you
+installed a new version, but the original version of your Linux distribution is
+still there and used by some programs), “lensfun‑update‑data” tries to detect
+this and updates the other database versions, too.
 
 @page lensfun-add-adapter Adding mount adapters: lensfun‑add‑adapter
 
@@ -510,12 +515,14 @@ lfDatabase::Load() with no parameters. This method searches for all available
 XML files and loads them, ignoring files with errors.
 
 The main place where Lensfun looks for database files usually is
-<b>/usr/share/lensfun/</b>.  However, this is configurable at compilation time,
-and for locally compiled Lensfun, it is mostly
-<b>/usr/local/share/lensfun/</b>.  A special directory is
-<b>/var/lib/lensfun-updates</b>: If it exists and contains a newer database, it
-is loaded instead of the main place.  On Windows, this is something like
-<b>C:\\Documents and Settings\\\%User\%\\something</b> but I'm not sure exactly
+<b>/usr/share/lensfun/version_<i>x</i></b>, where <i>x</i> is the database
+format version (@ref db_versions).  However, this is configurable at
+compilation time, and for locally compiled Lensfun, it is mostly
+<b>/usr/local/share/lensfun/version_<i>x</i></b>.  A special directory is
+<b>/var/lib/lensfun-updates/version_<i>x</i></b>: If it exists and contains a
+newer database, it is loaded instead of the main place.  On Windows, this is
+something like <b>C:\\Documents and
+Settings\\\%User\%\\something\\version_<i>x</i></b> but I'm not sure exactly
 :-).
 
 “Newer database” means that the file timestamp.txt, which is amongst the XML
@@ -523,18 +530,26 @@ files, contains a larger value.  This value is the database timestamp in UNIX
 time.
 
 After having read the global database, the user's home directory is
-searched. Usually, this is <b>~/.local/share/lensfun</b>. The exact path can be
-found in the variable lfDatabase::HomeDataDir.  The subdirectory
-<b>updates/</b> may contain a user-specific DB update.  This represents an
-alternative to /var/lib/lensfun-updates for which no root priviledges are
+searched. Usually, this is
+<b>~/.local/share/lensfun</b>.  The exact path can be found in the variable
+lfDatabase::HomeDataDir.  The subdirectory <b>updates/version_<i>x</i></b> may
+contain a user-specific DB update.  This represents an alternative to
+/var/lib/lensfun-updates/version_<i>x</i> for which no root priviledges are
 needed.
+
+<b>~/.local/share/lensfun/version_<i>x</i></b> is also scanned with higher
+priority than the one without the version_<i>x</i>, so that the user can set
+entries specific for a database version.  This is useful only if you need to
+maintain two or more different Lensfun versions on your system.
 
 So sum it up for Linux and other Unix-like platforms, the load order is:
 <ol>
   <li>the directory Lensfun's database was installed into (usually
-  /usr/share/{local/}lensfun), @em or /var/lib/lensfun-updates, @em or
-  ~/.local/share/lensfun/updates, whatever is newest</li>
+  /usr/share/{local/}lensfun/version_<i>x</i>), @em or
+  /var/lib/lensfun-updates/version_<i>x</i>, @em or
+  ~/.local/share/lensfun/updates/version_<i>x</i>, whatever is newest</li>
   <li>~/.local/share/lensfun</li>
+  <li>~/.local/share/lensfun/version_<i>x</i></li>
 </ol>
 
 Another way to load database file is to load them one by one. For this you call

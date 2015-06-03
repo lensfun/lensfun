@@ -60,10 +60,15 @@ void lfDatabase::Destroy ()
     delete static_cast<lfExtDatabase *> (this);
 }
 
-void lfExtDatabase::LoadDirectory (const gchar *dirname)
+void lfExtDatabase::LoadDirectory (const gchar *dirname, bool use_versioned_subdir/*=true*/)
 {
-    GDir *dir = g_dir_open (dirname, 0, NULL);
+    gchar *actual_dirname;
+    if (use_versioned_subdir)
+        actual_dirname = g_build_filename (dirname, DATABASE_SUBDIR, NULL);
+    else
+        actual_dirname = g_strdup (dirname);
 
+    GDir *dir = g_dir_open (actual_dirname, 0, NULL);
     if (dir)
     {
         GPatternSpec *ps = g_pattern_spec_new ("*.xml");
@@ -75,7 +80,7 @@ void lfExtDatabase::LoadDirectory (const gchar *dirname)
                 size_t sl = strlen (fn);
                 if (g_pattern_match (ps, sl, fn, NULL))
                 {
-                    gchar *ffn = g_build_filename (dirname, fn, NULL);
+                    gchar *ffn = g_build_filename (actual_dirname, fn, NULL);
                     /* Ignore errors */
                     Load (ffn);
                     g_free (ffn);
@@ -85,6 +90,8 @@ void lfExtDatabase::LoadDirectory (const gchar *dirname)
         }
         g_dir_close (dir);
     }
+
+    g_free (actual_dirname);
 }
 
 lfError lfDatabase::Load ()
@@ -118,6 +125,7 @@ lfError lfDatabase::Load ()
             This->LoadDirectory (system_updates_dirname);
     g_free (main_dirname);
 
+    This->LoadDirectory (HomeDataDir, false);
     This->LoadDirectory (HomeDataDir);
 
     return LF_NO_ERROR;
