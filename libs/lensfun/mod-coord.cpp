@@ -1192,6 +1192,24 @@ void lf_modifier_add_coord_callback (
     modifier->AddCoordCallback (callback, priority, data, data_size);
 }
 
+cbool lf_modifier_add_coord_callback_distortion (
+    lfModifier *modifier, lfLensCalibDistortion *model, cbool reverse)
+{
+    return modifier->AddCoordCallbackDistortion (*model, reverse);
+}
+
+cbool lf_modifier_add_coord_callback_geometry (
+    lfModifier *modifier, lfLensType from, lfLensType to, float focal)
+{
+    return modifier->AddCoordCallbackGeometry (from, to, focal);
+}
+
+cbool lf_modifier_add_coord_callback_scale (
+    lfModifier *modifier, float scale, cbool reverse)
+{
+    return modifier->AddCoordCallbackScale (scale, reverse);
+}
+
 float lf_modifier_get_auto_scale (lfModifier *modifier, cbool reverse)
 {
     return modifier->GetAutoScale (reverse);
