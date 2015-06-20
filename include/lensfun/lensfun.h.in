@@ -2642,7 +2642,7 @@ LF_EXPORT cbool lf_modifier_add_coord_callback_distortion (
 
 /** @sa lfModifier::AddCoordCallbackGeometry */
 LF_EXPORT cbool lf_modifier_add_coord_callback_geometry (
-    lfModifier *modifier, lfLensType from, lfLensType to, float focal);
+    lfModifier *modifier, lfLensType from, lfLensType to);
 
 /** @sa lfModifier::AddCoordCallbackScale */
 LF_EXPORT cbool lf_modifier_add_coord_callback_scale (

@@ -1199,9 +1199,9 @@ cbool lf_modifier_add_coord_callback_distortion (
 }
 
 cbool lf_modifier_add_coord_callback_geometry (
-    lfModifier *modifier, lfLensType from, lfLensType to, float focal)
+    lfModifier *modifier, lfLensType from, lfLensType to)
 {
-    return modifier->AddCoordCallbackGeometry (from, to, focal);
+    return modifier->AddCoordCallbackGeometry (from, to);
 }
 
 cbool lf_modifier_add_coord_callback_scale (
