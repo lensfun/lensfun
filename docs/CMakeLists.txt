@@ -20,7 +20,7 @@ ADD_CUSTOM_TARGET(doc
 )
 
 # install documentation  
-INSTALL(DIRECTORY ${CMAKE_DOC_OUT}/ DESTINATION ${DOCDIR})
+INSTALL(DIRECTORY ${CMAKE_DOC_OUT}/ DESTINATION ${LENSFUN_FULL_DOCDIR})
 
 # create and install man pages
 FIND_PROGRAM(RST2MAN_EXECUTABLE NAMES rst2man rst2man.py rst2man2 rst2man2.py)

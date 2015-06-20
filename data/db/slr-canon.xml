@@ -3707,4 +3707,44 @@
             <vignetting model="pa" focal="210" aperture="29" distance="1000" k1="-0.3346" k2="0.2640" k3="-0.0997" />
         </calibration>
     </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 24-70mm f/4L IS USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 5D Mark III -->
+            <distortion model="ptlens" focal="24" a="0.01231" b="-0.02141" c="-0.02607" />
+            <distortion model="ptlens" focal="33" a="0.00008" b="0.00847" c="-0.02294" />
+            <distortion model="ptlens" focal="42" a="0" b="0.00302" c="0" />
+            <distortion model="ptlens" focal="70" a="0" b="0.00807" c="0" />
+            <tca model="poly3" focal="24" br="-0.0000967" vr="1.0003311" bb="0.0000579" vb="0.9999625" />
+            <tca model="poly3" focal="35" br="-0.0000609" vr="1.0002052" bb="0.0000471" vb="0.9999760" />
+            <tca model="poly3" focal="42" br="-0.0000549" vr="1.0000990" bb="0.0000341" vb="0.9999984" />
+            <tca model="poly3" focal="50" br="-0.0000538" vr="1.0000124" bb="0.0000396" vb="1.0000021" />
+            <tca model="poly3" focal="70" br="-0.0000278" vr="0.9998685" bb="0.0000294" vb="0.9999997" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF-S 10-18mm f/4.5-5.6 IS STM</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.62</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 60D -->
+            <distortion model="ptlens" focal="10" a="0.00949" b="-0.05893" c="0.07285" />
+            <distortion model="ptlens" focal="11" a="-0.00564" b="0.00351" c="0.00207" />
+            <distortion model="ptlens" focal="12" a="-0.00356" b="-0.00048" c="0.0094" />
+            <distortion model="ptlens" focal="15" a="0" b="0.00056" c="0" />
+            <distortion model="ptlens" focal="18" a="0" b="0.00148" c="0" />
+            <tca model="poly3" focal="10" br="0.0001349" vr="1.0002043" bb="-0.0000252" vb="1.0001449" />
+            <tca model="poly3" focal="11" br="0.0001467" vr="1.0000867" bb="-0.0000398" vb="1.0001593" />
+            <tca model="poly3" focal="12" br="0.0001790" vr="1.0000317" bb="-0.0000910" vb="1.0002721" />
+            <tca model="poly3" focal="15" br="0.0001485" vr="0.9999637" bb="-0.0000704" vb="1.0003160" />
+            <tca model="poly3" focal="18" br="0.0000770" vr="0.9999802" bb="-0.0000703" vb="1.0003253" />
+        </calibration>
+    </lens>
+
 </lensdatabase>

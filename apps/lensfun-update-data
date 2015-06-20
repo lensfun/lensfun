@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""This program fetches the latest version of the LensFun database from the
+"""This program fetches the latest version of the Lensfun database from the
 Internet and places it on the local system.  This way, the user can update the
 database conveniently.  Unfortunately, we have to take into account that the
-Git database may have a too new format for the locally installed LensFun.
+Git database may have a too new format for the locally installed Lensfun.
 Then, it may fetch backports of the database from other URLs.
 
 This program must be called with root privileges.  It stores the new database
@@ -24,11 +24,11 @@ files
 
 ::
 
-    version_1.tar.bz
-    version_2.tar.bz
-    version_3.tar.bz
+    version_1.tar.bz2
+    version_2.tar.bz2
+    version_3.tar.bz2
 
-in the same directory as versions.json.  These tar balls contain the LensFun
+in the same directory as versions.json.  These tar balls contain the Lensfun
 database with the given timestamp and version.
 
 The timestamps are the number of seconds since the Epoch as an int.
@@ -37,12 +37,16 @@ The timestamps are the number of seconds since the Epoch as an int.
 Diagnostics:
 
 Status code 0 -- successfully installed updates
-            1 -- no newer upstream database found
+            1 -- no newer upstream database found for last installed Lensfun
             3 -- no location was responsive; maybe network problems
 
 """
 
-import urllib.request, shutil, sys, os, getpass, time, calendar, tarfile, json
+import urllib.request, shutil, sys, os, getpass, time, calendar, tarfile, json, glob
+import lensfun
+
+
+database_version = lensfun.get_database_version()
 
 lensfun_updates_dir = "/var/lib/lensfun-updates"
 if sys.platform != "win32" and getpass.getuser() != "root":
@@ -51,21 +55,24 @@ if sys.platform != "win32" and getpass.getuser() != "root":
     print("info: root privileges needed for updating the system database.")
     print("info: updating user DB in '%s'" % lensfun_updates_dir)
 
+
 def seconds_since_epoch():
     return calendar.timegm(time.gmtime())
 
 
-def detect_local_timestamp():
-    try:
-        return int(open(os.path.join(lensfun_updates_dir, "timestamp.txt")).read())
-    except (FileNotFoundError, ValueError):
-        pass
-    return 0
-local_timestamp = detect_local_timestamp()
+def detect_local_timestamp(version):
+    if version == database_version:
+        return lensfun.get_core_database()[0]
 
+    def detect_single_timestamp(path):
+        try:
+            return int(open(os.path.join(path, "version_{}".format(version), "timestamp.txt")).read())
+        except (FileNotFoundError, ValueError):
+            return 0
 
-def suitable_version(version):
-    return version == 1
+    directory_candidates = {"/usr/share/lensfun", "/usr/local/share/lensfun",
+                            "/var/lib/lensfun-updates", os.path.expanduser("~/.local/share/lensfun/updates")}
+    return max(map(detect_single_timestamp, directory_candidates))
 
 
 class Location:
@@ -74,22 +81,30 @@ class Location:
         self.base_url, self.version, self.timestamp = base_url, version, timestamp
 
     def __lt__(self, other):
-        if not suitable_version(self.version):
-            return True
-        if not other:
-            return False
-        if not suitable_version(other.version):
-            return False
-        return (self.version, self.timestamp) < (other.version, other.timestamp)
+        return self.timestamp < other.timestamp
 
-    def extract(self):
-        tar = tarfile.open(fileobj=urllib.request.urlopen(self.base_url + "version_{}.tar.bz2".format(self.version)), mode="r|*")
-        tar.extractall(lensfun_updates_dir)
+    def extract(self, directory):
+        tar = tarfile.open(fileobj=urllib.request.urlopen(self.base_url + "version_{}.tar.bz2".format(self.version)),
+                           mode="r|*")
+        tar.extractall(directory)
         tar.close()
 
 
+def detect_local_database_versions():
+    versions = {database_version}
+    for directory in glob.glob("/usr/share/lensfun/version_*") + glob.glob("/usr/local/share/lensfun/version_*"):
+        if os.path.isdir(directory):
+            try:
+                versions.add(int(directory.partition("version_")[2]))
+            except ValueError:
+                pass
+    return versions
+local_database_versions = detect_local_database_versions()
+
+
+locations = {version: set() for version in local_database_versions}
+local_timestamps = {version: detect_local_timestamp(version) for version in local_database_versions}
 seen_urls = set()
-locations = set()
 at_least_one_responsive_location = False
 
 def read_location(base_url):
@@ -108,10 +123,10 @@ def read_location(base_url):
                 print("  Error: Invalid data received.")
             else:
                 at_least_one_responsive_location = True
-                if timestamp > local_timestamp:
-                    for version in versions:
-                        if suitable_version(version):
-                            locations.add(Location(base_url, version, timestamp))
+                versions = set(versions) & set(locations)
+                for version in versions:
+                    if timestamp > local_timestamps[version]:
+                        locations[version].add(Location(base_url, version, timestamp))
                 for base_url in alternatives:
                     read_location(base_url)
 
@@ -121,15 +136,19 @@ read_location("http://wilson.bronger.org/lensfun-db/")
 if not at_least_one_responsive_location:
     print("Fatal: No location was responsive.  Network down?")
     sys.exit(3)
-elif not locations:
-    print("Info: No newer database was found.")
+elif not locations[database_version]:
+    print("Info: No newer database was found for last installed Lensfun.")
     sys.exit(1)
-best_location = max(locations)
 
 
-
-shutil.rmtree(lensfun_updates_dir, ignore_errors=True)
-os.makedirs(lensfun_updates_dir)
-best_location.extract()
-open(os.path.join(lensfun_updates_dir, "timestamp.txt"), "w").write(str(best_location.timestamp))
-print("Successfully updated the database in " + lensfun_updates_dir + ".")
+for version, location_list in locations.items():
+    try:
+        best_location = max(location_list)
+    except ValueError:
+        continue
+    updates_dir = os.path.join(lensfun_updates_dir, "version_{}".format(version))
+    shutil.rmtree(updates_dir, ignore_errors=True)
+    os.makedirs(updates_dir)
+    best_location.extract(updates_dir)
+    open(os.path.join(updates_dir, "timestamp.txt"), "w").write(str(best_location.timestamp))
+    print("Successfully updated the database in " + updates_dir + ".")

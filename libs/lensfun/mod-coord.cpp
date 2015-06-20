@@ -15,15 +15,13 @@
 void lfModifier::AddCoordCallback (
     lfModifyCoordFunc callback, int priority, void *data, size_t data_size)
 {
-    lfExtModifier *This = static_cast<lfExtModifier *> (this);
     lfCoordCallbackData *d = new lfCoordCallbackData ();
     d->callback = callback;
-    This->AddCallback (This->CoordCallbacks, d, priority, data, data_size);
+    AddCallback (CoordCallbacks, d, priority, data, data_size);
 }
 
 bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool reverse)
 {
-    lfExtModifier *This = static_cast<lfExtModifier *> (this);
     float tmp [7];
 
     if (reverse)
@@ -33,23 +31,23 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
                 if (!model.Terms [0])
                     return false;
                 tmp [0] = 1.0 / model.Terms [0];
-                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_Poly3, 250,
+                AddCoordCallback (ModifyCoord_UnDist_Poly3, 250,
                                   tmp, sizeof (float));
                 break;
 
             case LF_DIST_MODEL_POLY5:
-                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_Poly5, 250,
+                AddCoordCallback (ModifyCoord_UnDist_Poly5, 250,
                                   model.Terms, sizeof (float) * 2);
                 break;
 
             case LF_DIST_MODEL_PTLENS:
 #ifdef VECTORIZATION_SSE
                 if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
-                    AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_PTLens_SSE, 250,
+                    AddCoordCallback (ModifyCoord_UnDist_PTLens_SSE, 250,
                                       model.Terms, sizeof (float) * 3);
                 else
 #endif
-                AddCoordCallback (lfExtModifier::ModifyCoord_UnDist_PTLens, 250,
+                AddCoordCallback (ModifyCoord_UnDist_PTLens, 250,
                                   model.Terms, sizeof (float) * 3);
                 break;
 
@@ -67,35 +65,35 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
             case LF_DIST_MODEL_POLY3:
 #ifdef VECTORIZATION_SSE
                 if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly3_SSE, 750,
+                    AddCoordCallback (ModifyCoord_Dist_Poly3_SSE, 750,
                                       model.Terms, sizeof (float));
                 else
 #endif
-                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly3, 750,
+                AddCoordCallback (ModifyCoord_Dist_Poly3, 750,
                                   model.Terms, sizeof (float));
                 break;
 
             case LF_DIST_MODEL_POLY5:
-                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_Poly5, 750,
+                AddCoordCallback (ModifyCoord_Dist_Poly5, 750,
                                   model.Terms, sizeof (float) * 2);
                 break;
 
             case LF_DIST_MODEL_PTLENS:
 #ifdef VECTORIZATION_SSE
                 if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Dist_PTLens_SSE, 750,
+                    AddCoordCallback (ModifyCoord_Dist_PTLens_SSE, 750,
                                       model.Terms, sizeof (float) * 3);
                 else
 #endif
-                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_PTLens, 750,
+                AddCoordCallback (ModifyCoord_Dist_PTLens, 750,
                                   model.Terms, sizeof (float) * 3);
                 break;
 
             case LF_DIST_MODEL_ACM:
                 memcpy (tmp, model.Terms, sizeof (float) * 5);
-                tmp [5] = This->NormalizedInFocalLengths;
+                tmp [5] = NormalizedInFocalLengths;
                 tmp [6] = 1.0 / tmp [5];
-                AddCoordCallback (lfExtModifier::ModifyCoord_Dist_ACM, 750,
+                AddCoordCallback (ModifyCoord_Dist_ACM, 750,
                                   tmp, sizeof (float) * 7);
                 break;
 
@@ -106,7 +104,7 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
     return true;
 }
 
-double lfExtModifier::AutoscaleResidualDistance (float *coord) const
+double lfModifier::AutoscaleResidualDistance (float *coord) const
 {
     double result = coord [0] - MaxX;
     double intermediate = -MaxX - coord [0];
@@ -117,7 +115,7 @@ double lfExtModifier::AutoscaleResidualDistance (float *coord) const
     return intermediate > result ? intermediate : result;
 }
 
-float lfExtModifier::GetTransformedDistance (lfPoint point) const
+float lfModifier::GetTransformedDistance (lfPoint point) const
 {
     double dist = point.dist;
     double sa = sin (point.angle);
@@ -134,10 +132,10 @@ float lfExtModifier::GetTransformedDistance (lfPoint point) const
         float res [2];
 
         res [0] = ca * ru; res [1] = sa * ru;
-        for (int j = 0; j < (int)CoordCallbacks->len; j++)
+        for (int j = 0; j < (int)((GPtrArray *)CoordCallbacks)->len; j++)
         {
             lfCoordCallbackData *cd =
-                (lfCoordCallbackData *)g_ptr_array_index (CoordCallbacks, j);
+                (lfCoordCallbackData *)g_ptr_array_index ((GPtrArray *)CoordCallbacks, j);
             cd->callback (cd->data, res, 1);
         }
         double rd = AutoscaleResidualDistance (res);
@@ -151,10 +149,10 @@ float lfExtModifier::GetTransformedDistance (lfPoint point) const
 
         // Compute approximative function prime in (x,y)
         res [0] = ca * (ru + dx); res [1] = sa * (ru + dx);
-        for (int j = 0; j < (int)CoordCallbacks->len; j++)
+        for (int j = 0; j < (int)((GPtrArray *)CoordCallbacks)->len; j++)
         {
             lfCoordCallbackData *cd =
-                (lfCoordCallbackData *)g_ptr_array_index (CoordCallbacks, j);
+                (lfCoordCallbackData *)g_ptr_array_index ((GPtrArray *)CoordCallbacks, j);
             cd->callback (cd->data, res, 1);
         }
         double rd1 = AutoscaleResidualDistance (res);
@@ -179,11 +177,9 @@ float lfExtModifier::GetTransformedDistance (lfPoint point) const
 float lfModifier::GetAutoScale (bool reverse)
 {
     // Compute the scale factor automatically
-    const lfExtModifier *This = static_cast<const lfExtModifier *> (this);
+    const float subpixel_scale = ((GPtrArray *)SubpixelCallbacks)->len == 0 ? 1.0 : 1.001;
 
-    const float subpixel_scale = This->SubpixelCallbacks->len == 0 ? 1.0 : 1.001;
-
-    if (This->CoordCallbacks->len == 0)
+    if (((GPtrArray *)CoordCallbacks)->len == 0)
         return subpixel_scale;
 
     // 3 2 1
@@ -191,7 +187,7 @@ float lfModifier::GetAutoScale (bool reverse)
     // 5 6 7
     lfPoint point [8];
 
-    point [1].angle = atan2 (float (This->Height), float (This->Width));
+    point [1].angle = atan2 (float (Height), float (Width));
     point [3].angle = M_PI - point [1].angle;
     point [5].angle = M_PI + point [1].angle;
     point [7].angle = 2 * M_PI - point [1].angle;
@@ -202,14 +198,14 @@ float lfModifier::GetAutoScale (bool reverse)
     point [6].angle = float (M_PI * 3.0 / 2.0);
 
     point [1].dist = point [3].dist = point [5].dist = point [7].dist =
-        sqrt (float (square (This->Width) + square (This->Height))) * 0.5 * This->NormScale;
-    point [0].dist = point [4].dist = This->Width * 0.5 * This->NormScale;
-    point [2].dist = point [6].dist = This->Height * 0.5 * This->NormScale;
+        sqrt (float (square (Width) + square (Height))) * 0.5 * NormScale;
+    point [0].dist = point [4].dist = Width * 0.5 * NormScale;
+    point [2].dist = point [6].dist = Height * 0.5 * NormScale;
 
     float scale = 0.01F;
     for (int i = 0; i < 8; i++)
     {
-        float transformed_distance = This->GetTransformedDistance (point [i]);
+        float transformed_distance = GetTransformedDistance (point [i]);
         float point_scale = point [i].dist / transformed_distance;
         if (point_scale > scale)
             scale = point_scale;
@@ -237,7 +233,7 @@ bool lfModifier::AddCoordCallbackScale (float scale, bool reverse)
 
     tmp [0] = reverse ? scale : 1.0 / scale;
     int priority = reverse ? 900 : 100;
-    AddCoordCallback (lfExtModifier::ModifyCoord_Scale, priority, tmp, sizeof (tmp));
+    AddCoordCallback (ModifyCoord_Scale, priority, tmp, sizeof (tmp));
     return true;
 }
 
@@ -247,9 +243,8 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
         g_warning ("[lensfun] The 'focal' parameter to "
                    "lfModifier::AddCoordCallbackGeometry () is deprecated.");
 
-    lfExtModifier *This = static_cast<lfExtModifier *> (this);
     float tmp [2];
-    tmp [0] = This->NormalizedInFocalLengths;
+    tmp [0] = NormalizedInFocalLengths;
     tmp [1] = 1.0 / tmp [0];
 
     if(from == to)
@@ -265,17 +260,17 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
             switch (to)
             {
                 case LF_FISHEYE:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_FishEye_Rect,
+                    AddCoordCallback (ModifyCoord_Geom_FishEye_Rect,
                                       500, tmp, sizeof (tmp));
                     return true;
 
                 case LF_PANORAMIC:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Panoramic_Rect,
+                    AddCoordCallback (ModifyCoord_Geom_Panoramic_Rect,
                                       500, tmp, sizeof (tmp));
                     return true;
 
                 case LF_EQUIRECTANGULAR:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Rect,
+                    AddCoordCallback (ModifyCoord_Geom_ERect_Rect,
                                       500, tmp, sizeof (tmp));
                     return true;
 
@@ -289,17 +284,17 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
             switch (to)
             {
                 case LF_RECTILINEAR:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Rect_FishEye,
+                    AddCoordCallback (ModifyCoord_Geom_Rect_FishEye,
                                       500, tmp, sizeof (tmp));
                     return true;
 
                 case LF_PANORAMIC:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Panoramic_FishEye,
+                    AddCoordCallback (ModifyCoord_Geom_Panoramic_FishEye,
                                       500, tmp, sizeof (tmp));
                     return true;
 
                 case LF_EQUIRECTANGULAR:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_FishEye,
+                    AddCoordCallback (ModifyCoord_Geom_ERect_FishEye,
                                       500, tmp, sizeof (tmp));
                     return true;
 
@@ -313,17 +308,17 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
             switch (to)
             {
                 case LF_RECTILINEAR:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Rect_Panoramic,
+                    AddCoordCallback (ModifyCoord_Geom_Rect_Panoramic,
                                       500, tmp, sizeof (tmp));
                     return true;
 
                 case LF_FISHEYE:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_FishEye_Panoramic,
+                    AddCoordCallback (ModifyCoord_Geom_FishEye_Panoramic,
                                       500, tmp, sizeof (tmp));
                     return true;
 
                 case LF_EQUIRECTANGULAR:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Panoramic,
+                    AddCoordCallback (ModifyCoord_Geom_ERect_Panoramic,
                                       500, tmp, sizeof (tmp));
                     return true;
 
@@ -337,17 +332,17 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
             switch (to)
             {
                 case LF_RECTILINEAR:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Rect_ERect,
+                    AddCoordCallback (ModifyCoord_Geom_Rect_ERect,
                                       500, tmp, sizeof (tmp));
                     return true;
 
                 case LF_FISHEYE:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_FishEye_ERect,
+                    AddCoordCallback (ModifyCoord_Geom_FishEye_ERect,
                                       500, tmp, sizeof (tmp));
                     return true;
 
                 case LF_PANORAMIC:
-                    AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Panoramic_ERect,
+                    AddCoordCallback (ModifyCoord_Geom_Panoramic_ERect,
                                       500, tmp, sizeof (tmp));
                     return true;
 
@@ -368,31 +363,31 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
     switch(to)
     {
         case LF_RECTILINEAR:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Rect_ERect,
+            AddCoordCallback (ModifyCoord_Geom_Rect_ERect,
                                 500, tmp, sizeof (tmp));
             break;
         case LF_FISHEYE:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_FishEye_ERect,
+            AddCoordCallback (ModifyCoord_Geom_FishEye_ERect,
                                 500, tmp, sizeof (tmp));
             break;
         case LF_PANORAMIC:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Panoramic_ERect,
+            AddCoordCallback (ModifyCoord_Geom_Panoramic_ERect,
                                 500, tmp, sizeof (tmp));
             break;
         case LF_FISHEYE_ORTHOGRAPHIC:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Orthographic_ERect,
+            AddCoordCallback (ModifyCoord_Geom_Orthographic_ERect,
                                 500, tmp, sizeof (tmp));
             break;
         case LF_FISHEYE_STEREOGRAPHIC:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Stereographic_ERect,
+            AddCoordCallback (ModifyCoord_Geom_Stereographic_ERect,
                                 500, tmp, sizeof (tmp));
             break;
         case LF_FISHEYE_EQUISOLID:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Equisolid_ERect,
+            AddCoordCallback (ModifyCoord_Geom_Equisolid_ERect,
                                 500, tmp, sizeof (tmp));
             break;
         case LF_FISHEYE_THOBY:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_Thoby_ERect,
+            AddCoordCallback (ModifyCoord_Geom_Thoby_ERect,
                                 500, tmp, sizeof (tmp));
             break;
         case LF_EQUIRECTANGULAR:
@@ -403,31 +398,31 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
     switch(from)
     {
         case LF_RECTILINEAR:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Rect,
+            AddCoordCallback (ModifyCoord_Geom_ERect_Rect,
                                 500, tmp, sizeof (tmp));
             break;
         case LF_FISHEYE:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_FishEye,
+            AddCoordCallback (ModifyCoord_Geom_ERect_FishEye,
                                 500, tmp, sizeof (tmp));
             break;
         case LF_PANORAMIC:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Panoramic,
+            AddCoordCallback (ModifyCoord_Geom_ERect_Panoramic,
                                 500, tmp, sizeof (tmp));
             break;
         case LF_FISHEYE_ORTHOGRAPHIC:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Orthographic,
+            AddCoordCallback (ModifyCoord_Geom_ERect_Orthographic,
                                 500, tmp, sizeof (tmp));
             break;
         case LF_FISHEYE_STEREOGRAPHIC:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Stereographic,
+            AddCoordCallback (ModifyCoord_Geom_ERect_Stereographic,
                                 500, tmp, sizeof (tmp));
             break;
         case LF_FISHEYE_EQUISOLID:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Equisolid,
+            AddCoordCallback (ModifyCoord_Geom_ERect_Equisolid,
                                 500, tmp, sizeof (tmp));
             break;
         case LF_FISHEYE_THOBY:
-            AddCoordCallback (lfExtModifier::ModifyCoord_Geom_ERect_Thoby,
+            AddCoordCallback (ModifyCoord_Geom_ERect_Thoby,
                                 500, tmp, sizeof (tmp));
             break;
         case LF_EQUIRECTANGULAR:
@@ -441,37 +436,35 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
 bool lfModifier::ApplyGeometryDistortion (
     float xu, float yu, int width, int height, float *res) const
 {
-    const lfExtModifier *This = static_cast<const lfExtModifier *> (this);
-
-    if (This->CoordCallbacks->len <= 0 || height <= 0)
+    if (((GPtrArray *)CoordCallbacks)->len <= 0 || height <= 0)
         return false; // nothing to do
 
     // All callbacks work with normalized coordinates
-    xu = xu * This->NormScale - This->CenterX;
-    yu = yu * This->NormScale - This->CenterY;
+    xu = xu * NormScale - CenterX;
+    yu = yu * NormScale - CenterY;
 
-    for (float y = yu; height; y += This->NormScale, height--)
+    for (float y = yu; height; y += NormScale, height--)
     {
         int i;
         float x = xu;
-        for (i = 0; i < width; i++, x += This->NormScale)
+        for (i = 0; i < width; i++, x += NormScale)
         {
             res [i * 2] = x;
             res [i * 2 + 1] = y;
         }
 
-        for (i = 0; i < (int)This->CoordCallbacks->len; i++)
+        for (i = 0; i < (int)((GPtrArray *)CoordCallbacks)->len; i++)
         {
             lfCoordCallbackData *cd =
-                (lfCoordCallbackData *)g_ptr_array_index (This->CoordCallbacks, i);
+                (lfCoordCallbackData *)g_ptr_array_index ((GPtrArray *)CoordCallbacks, i);
             cd->callback (cd->data, res, width);
         }
 
         // Convert normalized coordinates back into natural coordiates
         for (i = 0; i < width; i++)
         {
-            res [0] = (res [0] + This->CenterX) * This->NormUnScale;
-            res [1] = (res [1] + This->CenterY) * This->NormUnScale;
+            res [0] = (res [0] + CenterX) * NormUnScale;
+            res [1] = (res [1] + CenterY) * NormUnScale;
             res += 2;
         }
     }
@@ -479,7 +472,7 @@ bool lfModifier::ApplyGeometryDistortion (
     return true;
 }
 
-void lfExtModifier::ModifyCoord_Scale (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Scale (void *data, float *iocoord, int count)
 {
     float scale = *(float *)data;
 
@@ -490,7 +483,7 @@ void lfExtModifier::ModifyCoord_Scale (void *data, float *iocoord, int count)
     }
 }
 
-void lfExtModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count)
 {
     const float inv_k1 = *(float *)data;
     const float one_minus_k1_div_k1 = (1 - 1.0 / inv_k1) * inv_k1;
@@ -538,7 +531,7 @@ void lfExtModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int co
     }
 }
 
-void lfExtModifier::ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int count)
 {
     // Rd = Ru * (1 - k1 + k1 * Ru^2)
     const float k1 = *(float *)data;
@@ -555,7 +548,7 @@ void lfExtModifier::ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int coun
     }
 }
 
-void lfExtModifier::ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int count)
 {
     float *param = (float *)data;
     float k1 = param [0];
@@ -595,7 +588,7 @@ void lfExtModifier::ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int co
     }
 }
 
-void lfExtModifier::ModifyCoord_Dist_Poly5 (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Dist_Poly5 (void *data, float *iocoord, int count)
 {
     float *param = (float *)data;
     // Rd = Ru * (1 + k1 * Ru^2 + k2 * Ru^4)
@@ -614,7 +607,7 @@ void lfExtModifier::ModifyCoord_Dist_Poly5 (void *data, float *iocoord, int coun
     }
 }
 
-void lfExtModifier::ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int count)
 {
     float *param = (float *)data;
     float a = param [0];
@@ -655,7 +648,7 @@ void lfExtModifier::ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int c
     }
 }
 
-void lfExtModifier::ModifyCoord_Dist_PTLens (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Dist_PTLens (void *data, float *iocoord, int count)
 {
     float *param = (float *)data;
     // Rd = Ru * (a * Ru^3 + b * Ru^2 + c * Ru + d)
@@ -677,7 +670,7 @@ void lfExtModifier::ModifyCoord_Dist_PTLens (void *data, float *iocoord, int cou
     }
 }
 
-void lfExtModifier::ModifyCoord_Dist_ACM (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Dist_ACM (void *data, float *iocoord, int count)
 {
     float *param = (float *)data;
     // Rd = Ru * (1 + k1 * Ru^2 + k2 * Ru^4)
@@ -702,7 +695,7 @@ void lfExtModifier::ModifyCoord_Dist_ACM (void *data, float *iocoord, int count)
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_FishEye_Rect (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Geom_FishEye_Rect (void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [0];
 
@@ -726,7 +719,7 @@ void lfExtModifier::ModifyCoord_Geom_FishEye_Rect (void *data, float *iocoord, i
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_Rect_FishEye (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Geom_Rect_FishEye (void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [0];
 
@@ -746,7 +739,7 @@ void lfExtModifier::ModifyCoord_Geom_Rect_FishEye (void *data, float *iocoord, i
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_Panoramic_Rect (
+void lfModifier::ModifyCoord_Geom_Panoramic_Rect (
     void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [0];
@@ -763,7 +756,7 @@ void lfExtModifier::ModifyCoord_Geom_Panoramic_Rect (
 }
 
 
-void lfExtModifier::ModifyCoord_Geom_Rect_Panoramic (
+void lfModifier::ModifyCoord_Geom_Rect_Panoramic (
     void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [0];
@@ -779,7 +772,7 @@ void lfExtModifier::ModifyCoord_Geom_Rect_Panoramic (
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_FishEye_Panoramic (
+void lfModifier::ModifyCoord_Geom_FishEye_Panoramic (
     void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [0];
@@ -802,7 +795,7 @@ void lfExtModifier::ModifyCoord_Geom_FishEye_Panoramic (
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_Panoramic_FishEye (
+void lfModifier::ModifyCoord_Geom_Panoramic_FishEye (
     void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [0];
@@ -828,7 +821,7 @@ void lfExtModifier::ModifyCoord_Geom_Panoramic_FishEye (
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_ERect_Rect (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Geom_ERect_Rect (void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [0];
     const float dist = ((float *)data) [1];
@@ -856,7 +849,7 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Rect (void *data, float *iocoord, int
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_Rect_ERect (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Geom_Rect_ERect (void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [1];
 
@@ -870,7 +863,7 @@ void lfExtModifier::ModifyCoord_Geom_Rect_ERect (void *data, float *iocoord, int
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_ERect_FishEye (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Geom_ERect_FishEye (void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [0];
     const float dist = ((float *)data) [1];
@@ -907,7 +900,7 @@ void lfExtModifier::ModifyCoord_Geom_ERect_FishEye (void *data, float *iocoord, 
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_FishEye_ERect (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Geom_FishEye_ERect (void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [0];
     const float dist = ((float *)data) [1];
@@ -929,7 +922,7 @@ void lfExtModifier::ModifyCoord_Geom_FishEye_ERect (void *data, float *iocoord, 
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_ERect_Panoramic (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Geom_ERect_Panoramic (void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [0];
     const float dist = ((float *)data) [1];
@@ -941,7 +934,7 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Panoramic (void *data, float *iocoord
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_Panoramic_ERect (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Geom_Panoramic_ERect (void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [0];
     const float dist = ((float *)data) [1];
@@ -953,7 +946,7 @@ void lfExtModifier::ModifyCoord_Geom_Panoramic_ERect (void *data, float *iocoord
     }
 }
 
-void lfExtModifier::ModifyCoord_Geom_Orthographic_ERect (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Geom_Orthographic_ERect (void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [0];
     const float dist = ((float *)data) [1];
@@ -983,7 +976,7 @@ void lfExtModifier::ModifyCoord_Geom_Orthographic_ERect (void *data, float *ioco
     }
 };
 
-void lfExtModifier::ModifyCoord_Geom_ERect_Orthographic (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Geom_ERect_Orthographic (void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [0];
     const float dist = ((float *)data) [1];
@@ -1020,7 +1013,7 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Orthographic (void *data, float *ioco
 
 #define EPSLN   1.0e-10
 
-void lfExtModifier::ModifyCoord_Geom_Stereographic_ERect (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Geom_Stereographic_ERect (void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [0];
     const float dist = ((float *)data) [1];
@@ -1054,7 +1047,7 @@ void lfExtModifier::ModifyCoord_Geom_Stereographic_ERect (void *data, float *ioc
     };
 };
 
-void lfExtModifier::ModifyCoord_Geom_ERect_Stereographic (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Geom_ERect_Stereographic (void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [0];
     const float dist = ((float *)data) [1];
@@ -1072,7 +1065,7 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Stereographic (void *data, float *ioc
     }
 };
 
-void lfExtModifier::ModifyCoord_Geom_Equisolid_ERect (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Geom_Equisolid_ERect (void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [0];
     const float dist = ((float *)data) [1];
@@ -1100,7 +1093,7 @@ void lfExtModifier::ModifyCoord_Geom_Equisolid_ERect (void *data, float *iocoord
     };
 };
 
-void lfExtModifier::ModifyCoord_Geom_ERect_Equisolid (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Geom_ERect_Equisolid (void *data, float *iocoord, int count)
 {
     const float dist = ((float *)data) [1];
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
@@ -1126,7 +1119,7 @@ void lfExtModifier::ModifyCoord_Geom_ERect_Equisolid (void *data, float *iocoord
 #define THOBY_K1_PARM 1.47F
 #define THOBY_K2_PARM 0.713F
 
-void lfExtModifier::ModifyCoord_Geom_Thoby_ERect (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Geom_Thoby_ERect (void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [0];
     const float dist = ((float *)data) [1];
@@ -1156,7 +1149,7 @@ void lfExtModifier::ModifyCoord_Geom_Thoby_ERect (void *data, float *iocoord, in
     };
 };
 
-void lfExtModifier::ModifyCoord_Geom_ERect_Thoby (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Geom_ERect_Thoby (void *data, float *iocoord, int count)
 {
     const float inv_dist = ((float *)data) [0];
     const float dist = ((float *)data) [1];

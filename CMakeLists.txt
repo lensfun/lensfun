@@ -8,11 +8,24 @@ GET_FILENAME_COMPONENT(SOURCE_BASE_DIR ${CMAKE_SOURCE_DIR} PATH CACHE)
 #  global setup
 project(lensfun)
 
+# set install prefix
+IF(WIN32)
+  # install into place in build-dir  
+  SET(LENSFUN_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install" CACHE PATH "Install prefix for Lensfun")    
+ELSE()
+  SET(LENSFUN_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE PATH "Install prefix for Lensfun")    
+ENDIF()
+SET(CMAKE_INSTALL_PREFIX "${LENSFUN_INSTALL_PREFIX}" CACHE INTERNAL "" FORCE)
+
 # version
 SET(VERSION_MAJOR 0)
 SET(VERSION_MINOR 3)
 SET(VERSION_MICRO 1)
 SET(VERSION_BUGFIX 0)
+SET(VERSION_API 1)
+# This is the version of the *shipped* database, which is not necessarily the
+# highest version number supported
+SET(LENSFUN_DB_VERSION 1)
 
 # check if some include are available
 INCLUDE(CheckIncludeFiles)
@@ -29,7 +42,7 @@ ENDIF()
 
 # options controlling the build process
 OPTION(BUILD_STATIC "Build static library" OFF)
-OPTION(BUILD_TESTS "Build test suite" ON)
+OPTION(BUILD_TESTS "Build test suite" OFF)
 OPTION(BUILD_LENSTOOL "Build the lenstool (requires libpng)" OFF)
 OPTION(BUILD_FOR_SSE "Build with support for SSE" ON)
 OPTION(BUILD_FOR_SSE2 "Build with support for SSE2" ON)
@@ -43,11 +56,33 @@ IF(NOT CMAKE_BUILD_TYPE)
   )
 ENDIF()
 
-# define destination dirs (relative to prefix)
-SET(BINDIR bin CACHE PATH "Main binary directory")
-SET(LIBDIR lib${LIB_SUFFIX} CACHE PATH "Directory for library itself")
-SET(INCLUDEDIR include CACHE PATH "Directory for library header files")
-SET(DATADIR share/lensfun CACHE PATH "Directory for library data files")
+# get standard GNU install directories for the current platform
+INCLUDE(GNUInstallDirs)
+IF(NOT DEFINED CMAKE_INSTALL_DATAROOTDIR)
+  SET(CMAKE_INSTALL_DATAROOTDIR "share" CACHE PATH "read-only architecture-independent data root (share)")
+ENDIF()
+
+# define destination dirs (either relative to LENSFUN_INSTALL_PREFIX or as absolute path)
+SET(LENSFUN_BINDIR bin CACHE PATH "Main binary directory" )
+SET(LENSFUN_LIBDIR lib${LIB_SUFFIX} CACHE PATH "Directory for library itself")
+SET(LENSFUN_INCLUDEDIR include CACHE PATH "Directory for library header files")
+IF (NOT WIN32)
+    SET(LENSFUN_DATADIR ${CMAKE_INSTALL_DATAROOTDIR}/lensfun CACHE PATH "Directory for library data files")
+ELSE()
+    SET(LENSFUN_WINDOWS_DATADIR ${CMAKE_INSTALL_DATAROOTDIR}/lensfun CACHE PATH "Directory for library data files. This should be relative to the location where the lensfun.dll will be installed.")
+ENDIF()
+IF(BUILD_DOC)
+  SET(LENSFUN_DOCDIR ${CMAKE_INSTALL_DATAROOTDIR}/doc/lensfun-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX} CACHE PATH "Directory to put library documentation in")
+ENDIF(BUILD_DOC)
+
+# prepend paths with prefix to get an absolute path
+FOREACH(dir BINDIR LIBDIR INCLUDEDIR DATADIR DOCDIR)
+IF(NOT IS_ABSOLUTE ${LENSFUN_${dir}})
+    SET(LENSFUN_FULL_${dir} "${LENSFUN_INSTALL_PREFIX}/${LENSFUN_${dir}}" CACHE INTERNAL "" FORCE)
+ELSE()
+    SET(LENSFUN_FULL_${dir} "${LENSFUN_${dir}}" CACHE INTERNAL "" FORCE)
+ENDIF()
+ENDFOREACH()
 
 IF(BUILD_FOR_SSE)
   SET(VECTORIZATION_SSE 1)
@@ -75,25 +110,16 @@ FIND_PACKAGE(GLIB2 REQUIRED)
 INCLUDE_DIRECTORIES(${GLIB2_INCLUDE_DIRS})
 # install glib dll on windows next to lensfun.dll
 IF (GLIB2_DLL)
-    INSTALL(FILES ${GLIB2_DLL} DESTINATION ${BINDIR})
+    INSTALL(FILES ${GLIB2_DLL} DESTINATION ${LENSFUN_FULL_BINDIR})
 ENDIF()
 
 IF(BUILD_STATIC)
   ADD_DEFINITIONS(-DCONF_LENSFUN_STATIC)
 ENDIF()
 
-IF(BUILD_DOC)
-  SET(DOCDIR share/doc/lensfun-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX} CACHE PATH "Directory to put library documentation in")
-ENDIF(BUILD_DOC)
 
-IF(WIN32)
-  # install into place in build-dir  
-  SET(LENSFUN_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install" CACHE PATH "Install prefix for lensfun")    
-ELSE()
-  SET(LENSFUN_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE PATH "Install prefix for lensfun")    
-ENDIF()
-SET(CMAKE_INSTALL_PREFIX "${LENSFUN_INSTALL_PREFIX}" CACHE INTERNAL "" FORCE)
 
+# some windows and MSVC specific settings
 IF(WIN32)
   SET(PLATFORM_WINDOWS 1)  
   
@@ -142,15 +168,15 @@ ENDIF()
 ADD_SUBDIRECTORY(apps)
 
 # install include files
-INSTALL(FILES ${CMAKE_BINARY_DIR}/lensfun.h DESTINATION ${INCLUDEDIR}/lensfun)
+INSTALL(FILES ${CMAKE_BINARY_DIR}/lensfun.h DESTINATION ${LENSFUN_FULL_INCLUDEDIR}/lensfun)
 IF(NOT HAVE_REGEX_H)
-  INSTALL(FILES include/regex/regex.h DESTINATION ${INCLUDEDIR}/regex)
+  INSTALL(FILES include/regex/regex.h DESTINATION ${LENSFUN_FULL_INCLUDEDIR}/regex)
 ENDIF()
 
 # install db files
 FILE(GLOB DATABASE_FILES data/db/*.xml)
-INSTALL(FILES ${DATABASE_FILES} DESTINATION ${DATADIR})
-INSTALL(FILES data/db/timestamp.txt DESTINATION ${DATADIR})
+INSTALL(FILES ${DATABASE_FILES} DESTINATION ${LENSFUN_FULL_DATADIR}/version_${LENSFUN_DB_VERSION})
+INSTALL(FILES data/db/timestamp.txt DESTINATION ${LENSFUN_FULL_DATADIR}/version_${LENSFUN_DB_VERSION})
 
 # build documentation
 IF(BUILD_DOC)
@@ -162,12 +188,12 @@ IF(WIN32 AND NOT BUILD_STATIC)
             NAMES glib-2.dll glib-2-vs9.dll
             PATHS "${GLIB2_BASE_DIR}/bin"
             NO_SYSTEM_ENVIRONMENT_PATH)
-  INSTALL(FILES ${GLIB2_DLL} DESTINATION ${BINDIR})
+  INSTALL(FILES ${GLIB2_DLL} DESTINATION ${LENSFUN_FULL_BINDIR})
 ENDIF()
 
 # print some information
 MESSAGE(STATUS "-------------------------------------------------------------------------------------")
-MESSAGE(STATUS "Building lensfun ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX}")
+MESSAGE(STATUS "Building Lensfun ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX}")
 MESSAGE(STATUS "-------------------------------------------------------------------------------------")
 IF(BUILD_STATIC)
   MESSAGE(STATUS "Build as static library")
@@ -215,7 +241,7 @@ ENDIF()
 
 IF(CPACK_BINARY_DEB)
   # workaround to set correct debian package name
-  SET(CPACK_DEBIAN_PACKAGE_NAME "liblensfun${VERSION_MAJOR}")
+  SET(CPACK_DEBIAN_PACKAGE_NAME "liblensfun${VERSION_API}")
   STRING(TOLOWER "${CPACK_DEBIAN_PACKAGE_NAME}" CPACK_PACKAGE_NAME_LOWERCASE)
   FIND_PROGRAM(DPKG_PROGRAM dpkg DOC "dpkg program of Debian-based systems")
   if(DPKG_PROGRAM)

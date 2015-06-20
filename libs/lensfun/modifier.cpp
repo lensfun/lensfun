@@ -27,15 +27,14 @@ float get_hugin_focal_correction (const lfLens *lens, float focal)
 
 lfModifier *lfModifier::Create (const lfLens *lens, float crop, int width, int height)
 {
-    return new lfExtModifier (lens, crop, width, height);
+    return new lfModifier (lens, crop, width, height);
 }
 
 int lfModifier::Initialize (
     const lfLens *lens, lfPixelFormat format, float focal, float aperture,
     float distance, float scale, lfLensType targeom, int flags, bool reverse)
 {
-    lfExtModifier *This = static_cast<lfExtModifier *> (this);
-    This->NormalizedInFocalLengths = This->NormalizedInMillimeters /
+    NormalizedInFocalLengths = NormalizedInMillimeters /
         (GetRealFocalLength(lens, focal) / get_hugin_focal_correction (lens, focal));
 
     int oflags = 0;
@@ -83,7 +82,6 @@ int lfModifier::Initialize (
 
 float lfModifier::GetRealFocalLength (const lfLens *lens, float focal)
 {
-    lfExtModifier *This = static_cast<lfExtModifier *> (this);
     lfLensCalibRealFocal real_focal;
     if (lens && lens->InterpolateRealFocal (focal, real_focal)) return real_focal.RealFocal;
     float result = focal;
@@ -91,7 +89,7 @@ float lfModifier::GetRealFocalLength (const lfLens *lens, float focal)
     if (lens && lens->InterpolateFov (focal, fov_raw))
     {
         float fov = fov_raw.FieldOfView * M_PI / 180.0;
-        float half_width_in_millimeters = This->NormalizedInMillimeters * lens->AspectRatio;
+        float half_width_in_millimeters = NormalizedInMillimeters * lens->AspectRatio;
         // See also SrcPanoImage::calcFocalLength in Hugin.
         switch (lens->Type)
         {
@@ -143,13 +141,13 @@ float lfModifier::GetRealFocalLength (const lfLens *lens, float focal)
 
 void lfModifier::Destroy ()
 {
-    delete static_cast<lfExtModifier *> (this);
+    delete this;
 }
 
 //---------------------------------------------------------------------------//
 
 /*
-  About coordinate systems in lensfun
+  About coordinate systems in Lensfun
 
   Lensfun uses three coordinate systems.  In all of them, the centre of the
   image is the origin.  There is a single coordinate "r" which is the distance
@@ -164,7 +162,7 @@ void lfModifier::Destroy ()
   (3) For geometry transformation and for all Adobe camera models, the unit
       length is the focal length.
 
-  The constructor lfExtModifier::lfExtModifier is the central method that
+  The constructor lfModifier::lfModifier is the central method that
   handles the coordinate systems.  It does so by providing the scaling factors
   between them: NormScale (and NormUnScale = 1/NormScale),
   NormalizedInMillimeters, and AspectRatioCorrection.
@@ -204,7 +202,7 @@ void lfModifier::Destroy ()
 
 */
 
-lfExtModifier::lfExtModifier (const lfLens *lens, float crop, int width, int height)
+lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
 {
     SubpixelCallbacks = g_ptr_array_new ();
     ColorCallbacks = g_ptr_array_new ();
@@ -256,11 +254,11 @@ lfExtModifier::lfExtModifier (const lfLens *lens, float crop, int width, int hei
     MaxY = double (Height) / 2.0 * NormScale;
 }
 
-static void free_callback_list (GPtrArray *arr)
+static void free_callback_list (void *arr)
 {
-    for (unsigned i = 0; i < arr->len; i++)
+    for (unsigned i = 0; i < ((GPtrArray *)arr)->len; i++)
     {
-        lfCallbackData *d = (lfCallbackData *)g_ptr_array_index (arr, i);
+        lfCallbackData *d = (lfCallbackData *)g_ptr_array_index ((GPtrArray *)arr, i);
         if (d)
         {
             if (d->data_size)
@@ -268,10 +266,10 @@ static void free_callback_list (GPtrArray *arr)
             delete d;
         }
     }
-    g_ptr_array_free (arr, TRUE);
+    g_ptr_array_free ((GPtrArray *)arr, TRUE);
 }
 
-lfExtModifier::~lfExtModifier ()
+lfModifier::~lfModifier ()
 {
     free_callback_list (SubpixelCallbacks);
     free_callback_list (ColorCallbacks);
@@ -286,8 +284,8 @@ static gint _lf_coordcb_compare (gconstpointer a, gconstpointer b)
         d1->priority > d2->priority ? +1 : 0;
 }
 
-void lfExtModifier::AddCallback (GPtrArray *arr, lfCallbackData *d,
-                                 int priority, void *data, size_t data_size)
+void lfModifier::AddCallback (void *arr, lfCallbackData *d,
+                              int priority, void *data, size_t data_size)
 {
     d->priority = priority;
     d->data_size = data_size;
@@ -298,7 +296,7 @@ void lfExtModifier::AddCallback (GPtrArray *arr, lfCallbackData *d,
     }
     else
         d->data = data;
-    _lf_ptr_array_insert_sorted (arr, d, _lf_coordcb_compare);
+    _lf_ptr_array_insert_sorted ((GPtrArray *)arr, d, _lf_coordcb_compare);
 }
 
 //---------------------------// The C interface //---------------------------//

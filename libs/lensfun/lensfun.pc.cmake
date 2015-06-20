@@ -2,8 +2,8 @@ prefix=@CMAKE_INSTALL_PREFIX@
 bindir=@CMAKE_INSTALL_PREFIX@/@BINDIR@
 libdir=@CMAKE_INSTALL_PREFIX@/@LIBDIR@
 includedir=@CMAKE_INSTALL_PREFIX@/@INCLUDEDIR@
-datadir=@CMAKE_INSTALL_PREFIX@/@DATADIR@
-docdir=@CMAKE_INSTALL_PREFIX@/@DOCDIR@
+datadir=@DATADIR@
+docdir=@DOCDIR@
 
 Name: lensfun
 Description: A photographic lens database and access library

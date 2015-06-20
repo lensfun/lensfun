@@ -3,7 +3,7 @@ lensfun-update-data
 ======================
 
 ----------------------------
-update lensfun's database
+update Lensfun's database
 ----------------------------
 
 :Author: This manual page was written by Torsten Bronger <bronger@physik.rwth-aachen.de>
@@ -24,7 +24,7 @@ together with their characteristics to be able to apply automatic corrections
 of images taken with these devices.  Lensfun is used by darktable, digiKam,
 rawstudio, GimpLensfun, UFRaw, and others.
 
-``lensfun-update-data`` is a command-line program that updates lensfun's
+``lensfun-update-data`` is a command-line program that updates Lensfun's
 database.  It looks whether a new version is available online, and if this is
 the case, it fetches the latest version and installs it locally.  If called as
 root, the database is installed system-wide, otherwise, it is installed in the
@@ -37,7 +37,7 @@ FILES
 ``/var/lib/lensfun-updates/`` (if called as root) or in
 ``~/.local/share/lensfun/updates/`` (otherwise).  If necessary, it will create
 this directory.  If there is already a database, it is replaced fully.  If
-lensfun detects a database in one of these directories, it will use that
+Lensfun detects a database in one of these directories, it will use that
 instead of the default location below ``/usr/...``.
 
 DIAGNOSTICS

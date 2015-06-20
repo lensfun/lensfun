@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""This program generates a bitmap which simulates lens errors.  Then, LensFun
-can be used to rectify them.  This way, one can check whether LensFun is
+"""This program generates a bitmap which simulates lens errors.  Then, Lensfun
+can be used to rectify them.  This way, one can check whether Lensfun is
 working properly.  The test image contains vignetting and a rectangular grid.
 The grid lines exhibit distortion and TCA.  The lens projection can be
 non-rectilinear.
 
 External dependencies: Python version 3, ImageMagick, exiv2.
 
-The program takes the lens parameters from LensFun's database.  To the usual
+The program takes the lens parameters from Lensfun's database.  To the usual
 search path it adds the current path (the xml files of which would override
 those found in the usual locations).
 
@@ -33,7 +33,7 @@ The following things are particularly interesting to check:
     doesn't care about vignetting noticably.  Well, and then the image is
     un-distorted.
 
-    Note that LensFun seems to work the other way round.  But this is only
+    Note that Lensfun seems to work the other way round.  But this is only
     because it uses the corrected destination image as the starting point: It
     uses the distortion formula to find the pixel on the distorted sensor
     image, then it applies the TCA correction formula to find the subpixel
@@ -46,7 +46,7 @@ The following things are particularly interesting to check:
     program testimage.py has an easy job: It just has to use the corresponsing
     inner part of the resulting picture.
 
-    However, for LensFun, it is more difficult because it works on the
+    However, for Lensfun, it is more difficult because it works on the
     destination image.  But is must still work properly.
 
 4. If the aspect ratio of the camera does not match the one of the calibration,
@@ -72,24 +72,25 @@ import array, subprocess, math, os, argparse, sys
 from math import sin, tan, atan, floor, ceil, sqrt
 from math import pi as π
 from xml.etree import ElementTree
+import lensfun
 
 
-parser = argparse.ArgumentParser(description="Generate test images for LensFun.")
-parser.add_argument("lens_model_name", metavar="lens", help="Lens model name.  Must match an entry in LensFun's database exactly.")
+parser = argparse.ArgumentParser(description="Generate test images for Lensfun.")
+parser.add_argument("lens_model_name", metavar="lens", help="Lens model name.  Must match an entry in Lensfun's database exactly.")
 parser.add_argument("camera_model_name", metavar="camera",
-                    help="Camera model name.  Must match an entry in LensFun's database exactly.")
+                    help="Camera model name.  Must match an entry in Lensfun's database exactly.")
 parser.add_argument("focal_length", type=float,
-                    help="Focal length in mm.  Must match an entry in LensFun's database exactly, no interpolation is done.")
+                    help="Focal length in mm.  Must match an entry in Lensfun's database exactly, no interpolation is done.")
 parser.add_argument("aperture", type=float,
-                    help="Aperture in f-stops.  Must match an entry in LensFun's database exactly, no interpolation is done.")
+                    help="Aperture in f-stops.  Must match an entry in Lensfun's database exactly, no interpolation is done.")
 parser.add_argument("distance", type=float,
-                    help="Distance in metres.  Must match an entry in LensFun's database exactly, no interpolation is done.")
+                    help="Distance in metres.  Must match an entry in Lensfun's database exactly, no interpolation is done.")
 parser.add_argument("--width", type=int, default=600, help="The resulting bitmap's long edge width in pixels.  Default: 600")
 parser.add_argument("--aspect-ratio", type=float, default=1.5, help="The resulting bitmap's aspect ratio, >= 1.  Default: 1.5")
 parser.add_argument("--portrait", action="store_true",
                     help="Whether the resulting bitmap should be in portrait orientation.  Default: landscape")
 parser.add_argument("--outfile", default="testimage.tiff", help="Path to the output file.  Default: testimage.tiff")
-parser.add_argument("--db-path", help="Path to the database.  If not given, look in the same places as LensFun.")
+parser.add_argument("--db-path", help="Path to the database.  If not given, look in the same places as Lensfun.")
 parser.add_argument("--no-vignetting", dest="vignetting", action="store_false",
                     help="Supresses simulation of vignetting.  *Much* faster.")
 args = parser.parse_args()
@@ -140,10 +141,7 @@ def get_database_elements():
                                     elif calibration_element.tag == "field_of_view" and \
                                        float(calibration_element.attrib["focal"]) == focal_length:
                                         fov_element = calibration_element
-    paths_search_list = [args.db_path] if args.db_path else \
-                        ["/usr/share/lensfun", "/usr/local/share/lensfun", "/var/lib/lensfun",
-                         os.path.expanduser("~/.local/share/lensfun/updates"),
-                         os.path.expanduser("~/.local/share/lensfun")]
+    paths_search_list = [args.db_path] if args.db_path else lensfun.get_database_directories()
     for path in paths_search_list:
         crawl_directory(path)
     if not files_found:

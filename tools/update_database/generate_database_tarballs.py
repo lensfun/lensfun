@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""Generator for database tarballs, in different LensFun versions.
+"""Generator for database tarballs, in different Lensfun versions.
 
 This program is intended to run as a cronjob, and possibly be run as needed.
 It creates a versions.json file and tarballs in the given output directory.  If
 desired, it also pushes its content to sourceforge.de.
 
-If a new database version is created in LensFun, you must add a new `Converter`
+If a new database version is created in Lensfun, you must add a new `Converter`
 class.  Simply use `From1to0` as a starting point.  You prepend the decorator
 `@converter` so that the rest of the program finds the new class.  The rest is
 automatic.
@@ -21,7 +21,7 @@ from xml.etree import ElementTree
 
 root = "/tmp/"
 
-parser = argparse.ArgumentParser(description="Generate tar balls of the LensFun database, also for older versions.")
+parser = argparse.ArgumentParser(description="Generate tar balls of the Lensfun database, also for older versions.")
 parser.add_argument("output_path", help="Directory where to put the XML files.  They are put in the db/ subdirectory.  "
                     "It needn't exist yet.")
 parser.add_argument("--upload", action="store_true", help="Upload the files to Sourceforge, too.")

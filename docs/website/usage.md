@@ -4,7 +4,7 @@ linktitle: Usage
 layout: default
 weight: 3
 ---
-Lensfun itself is only a library for correcting several artefacts and a database for storing lens profiles. To actually use lensfun to process your images you need an image editing application with lensfun support.
+Lensfun itself is only a library for correcting several artefacts and a database for storing lens profiles. To actually use Lensfun to process your images you need an image editing application with Lensfun support.
 
 So far you can use Lensfun with the following applications:
 
@@ -16,6 +16,6 @@ So far you can use Lensfun with the following applications:
 * <a href="http://photivo.org/">Photivo</a> Photo processor application
 * <a href="http://hugin.sourceforge.net/">Hugin</a> Panorama stitcher (version 2011.4.0 - 2014.0.0)
 
-If the above applications do not recognize your camera or lens in their lensfun tool please check the <a href="/lenslist/">list of supported lenses</a> and the <a href="/faq/">FAQ</a>.
+If the above applications do not recognize your camera or lens in their Lensfun tool please check the <a href="/lenslist/">list of supported lenses</a> and the <a href="/faq/">FAQ</a>.
 
 

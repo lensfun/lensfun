@@ -124,4 +124,27 @@
         </calibration>
     </lens>
 
+<lens>
+    <maker>Samyang</maker>
+    <model>Samyang 12mm f/2.8 Fish-Eye ED AS NCS</model>
+    <model lang="de">Samyang 12mm f/2.8 Fischauge ED AS NCS</model>
+    <mount>Nikon F AI</mount>
+    <mount>Canon EF</mount>
+    <mount>Sony E</mount>
+    <cropfactor>1</cropfactor>
+    <type>stereographic</type>
+    <calibration>
+        <!-- Taken with D800 -->
+        <distortion model="ptlens" focal="12" a="a=-0.000331804" b="-0.00911417" c="-0.044237" />
+        <vignetting model="pa" focal="12" aperture="2.8" distance="10" k1="-0.90717" k2="0.58477" k3="-0.2198" />
+        <vignetting model="pa" focal="12" aperture="2.8" distance="1000" k1="-0.90717" k2="0.58477" k3="-0.2198" />
+        <vignetting model="pa" focal="12" aperture="4.0" distance="10" k1="-0.17101" k2="-0.54574" k3="0.3056" />
+        <vignetting model="pa" focal="12" aperture="4.0" distance="1000" k1="-0.17101" k2="-0.54574" k3="0.3056" />
+        <vignetting model="pa" focal="12" aperture="5.6" distance="10" k1="-0.1978" k2="-0.03729" k3="-0.11743" />
+        <vignetting model="pa" focal="12" aperture="5.6" distance="1000" k1="-0.1978" k2="-0.03729" k3="-0.11743" />
+        <vignetting model="pa" focal="12" aperture="8.0" distance="10" k1="-0.18295" k2="-0.09272" k3="0.03547" />
+        <vignetting model="pa" focal="12" aperture="8.0" distance="1000" k1="-0.18295" k2="-0.09272" k3="0.03547" />
+    </calibration>
+</lens>
+
 </lensdatabase>

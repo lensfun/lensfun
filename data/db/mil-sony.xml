@@ -134,6 +134,14 @@
         <cropfactor>1</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Sony</maker>
+        <model>ILCE-7M2</model>
+        <model lang="en">Alpha 7 II</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
     <lens>
         <maker>Sony</maker>
         <model>E 16mm f/2.8</model>
@@ -766,6 +774,18 @@
 	    <distortion focal="58" model="ptlens" a="0.0106412" b="-0.0116139" c="0.0218262" />
 	    <distortion focal="70" model="ptlens" a="0.00952653" b="-0.0142895" c="0.0363005" />
 	</calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 55mm f/1.8 ZA</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony A7 II -->
+            <distortion model="ptlens" focal="55" a="-0.01142" b="0.02682" c="-0.01628"/>
+            <tca model="poly3" focal="55" vr="1.00005" vb="0.99975" />
+        </calibration>
     </lens>
 
 </lensdatabase>

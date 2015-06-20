@@ -1,21 +1,21 @@
 /**
-@mainpage lensfun: A library for rectifying and simulating photographic lens distortions
+@mainpage Lensfun: A library for rectifying and simulating photographic lens distortions
 
 @section intro Introduction
 
-The goal of the lensfun library is to provide a open source database
+The goal of the Lensfun library is to provide a open source database
 of photographic lenses and their characteristics. In the past there
 was a effort in this direction (see http://www.epaperpress.com/ptlens/),
 but then author decided to take the commercial route and the database
 froze at the last public stage. This database was used as the basement
-on which lensfun database grew, thanks to PTLens author which gave his
+on which Lensfun database grew, thanks to PTLens author which gave his
 permission for this, while the code was totally rewritten from scratch
 (and the database was converted to a totally new, XML-based format).
 
-The lensfun library not only provides a way to read the database and
+The Lensfun library not only provides a way to read the database and
 search for specific things in it, but also provides a set of algorithms
 for correcting images based on detailed knowledge of lens properties and
-calibration data. Right now lensfun is designed to correct distortion,
+calibration data. Right now Lensfun is designed to correct distortion,
 transversal (also known as lateral) chromatic aberrations, and
 vignetting.  Furthermore, it can convert between different types of
 lenses, for example from fisheye into rectilinear.
@@ -73,7 +73,7 @@ You can read it here: @ref cc-by-ca or
 @page credits Credits
 
 This project was contrived by <b>Andrew Zabolotny</b>, who developed all
-features present in lensfun.  Later, when Andrew had no time anymore for
+features present in Lensfun.  Later, when Andrew had no time anymore for
 regular releases, <b>Sebastian Kraft</b> took over maintenance.  The following
 people contributed code:
 
@@ -109,12 +109,12 @@ of this library:
 Also I would like to thank all the people sending profiles for the database. 
 
 
-@page lensfun-update-data Updating lensfun's database: lensfun‑update-data
+@page lensfun-update-data Updating Lensfun's database: lensfun‑update-data
 
-New lenses and cameras arrive at lensfun every week.  So, it is desirable to
-update your copy of lensfun's database to stay up-to-date.  In particular, if
+New lenses and cameras arrive at Lensfun every week.  So, it is desirable to
+update your copy of Lensfun's database to stay up-to-date.  In particular, if
 you have sent calibration pictures to Torsten's calibration service, you must
-update your local lensfun database after the calibration in order to be able to
+update your local Lensfun database after the calibration in order to be able to
 use the new calibrations.
 
 For this purpose, there exists a simple command-line tool called
@@ -131,7 +131,12 @@ programs, which can call it in the background.
 
 If it is sufficient that the updates are available to only your user account,
 call “lensfun‑update‑data” without root priviledges.  The updates are then
-written to ~/.local/share/lensfun/updates/”.
+written to ~/.local/share/lensfun/updates”.
+
+In case there is more than one version of Lensfun on your system (e.g. you
+installed a new version, but the original version of your Linux distribution is
+still there and used by some programs), “lensfun‑update‑data” tries to detect
+this and updates the other database versions, too.
 
 @page lensfun-add-adapter Adding mount adapters: lensfun‑add‑adapter
 
@@ -141,7 +146,7 @@ with lenses that fit on their camera in order to pick one.  Otherwise, you
 would see *all* lenses every time.  This can be pretty overwhelming.
 
 But if you bought an adapter for another mount system, you would want to see
-lenses of that mount system listed for your camera.  So, you must tell lensfun
+lenses of that mount system listed for your camera.  So, you must tell Lensfun
 somehow that you own the adapter.  You can do so by calling
 lensfun‑add‑adapter.
 
@@ -225,11 +230,11 @@ application in any case may provide a mean to choose from the whole list in
 addition to filtering lenses by mount.
 
 The cameras may be autodetected by using EXIF information from
-the source image. However, the lensfun library is not tied in any way
+the source image. However, the Lensfun library is not tied in any way
 to EXIF tags, it is in the application's responsibility to read those
 tags in any way they like. In fact, you may detect the camera which
 was used to take the image in some other way (for example, if you
-want to use lensfun for processing images taken from videocams, which
+want to use Lensfun for processing images taken from videocams, which
 usually do not use EXIF, or scanned images from film cameras),
 you may even ask the user directly to choose the camera from a list.
 
@@ -239,7 +244,7 @@ lens model is highly manufacturer-dependent and is usually hidden
 in the Exif.MakerNote tag which is a big binary blob; luckily
 the exiv2 library can parse many vendor-specific MakerNote's),
 or you may provide some mean for the user to enter the
-lens model manually. The lensfun library will help you a little
+lens model manually. The Lensfun library will help you a little
 here, since it provides a means to match a set of lenses from
 the database given a human-entered lens description (e.g.
 fuzzy lens search).
@@ -289,9 +294,9 @@ much what is what, as the format is pretty much self-documenting.
 
 The “version” attribute at the @<lensdatabase@> element denotes the format
 version of this database file.  It is an integer number and defaults to “0”.
-Because it was introduced in lensfun 0.3, “0” is the format version of all
-lensfun releases before that.  Database format changes mostly are
-backwards-compatible, so that a certain lensfun version supports database
+Because it was introduced in Lensfun 0.3, “0” is the format version of all
+Lensfun releases before that.  Database format changes mostly are
+backwards-compatible, so that a certain Lensfun version supports database
 versions up to a certain number.  The most recent lens database is offered for
 download in all versions, and the @ref lensfun-update-data
 "lensfun-update-data" program fetches the appropriate for you.  See @ref
@@ -332,7 +337,7 @@ format of the data within elements.
 @page db_versions Database format versions
 
 <table>
-  <tr><th>database<br/>version</th><th>lensfun<br/>release</th><th>changes</th><th>incompatibilities with<br/>previous versions</th></tr>
+  <tr><th>database<br/>version</th><th>Lensfun<br/>release</th><th>changes</th><th>incompatibilities with<br/>previous versions</th></tr>
   <tr><td>0</td><td>≤ 0.2.8</td><td>—</td><td>—</td></tr>
   <tr><td>1</td><td>0.3</td><td><ul>
         <li>new: @<aspect-ratio@> tag</li>
@@ -374,7 +379,7 @@ Things are slightly complicated with mirrorless systems because they are
 adaptable to virtually any non-mirrorless system.  In order to avoid too many
 useless entries in the lens selection lists for mirrorless mounts, only
 important (e.g. because only few native lenses yet exist) compatibilities
-should be included into lensfun's official database (e.g. Canon EF on Canon M).
+should be included into Lensfun's official database (e.g. Canon EF on Canon M).
 The user can override this easily in their local database files, adding
 compatibilities for all mounts they have adaptors for, see @ref
 lensfun-add-adapter.</dl>
@@ -420,8 +425,8 @@ Possible embedded elements:
 <dd>Lens model. This must be specified exactly as it is returned by EXIF
     reading libraries to allow for automatic recognition of the lens. However,
     upper and lower case doesn't matter, neither does the ordering of the
-    “words” in the lens model name.  A “word” in lensfun interpretation is a
-    sequence of characters of the same type (lensfun senses three character
+    “words” in the lens model name.  A “word” in Lensfun interpretation is a
+    sequence of characters of the same type (Lensfun senses three character
     types: digits, punctuation characters and all others). Words made of single
     punctuation characters are ignored. Also, as a special exception, the word
     consisting of a single “f” is ignored too. So, “[IF]” is really split into
@@ -433,7 +438,7 @@ Possible embedded elements:
 <dt>\<type\>string\</type\>
 <dd>Lens type. This is one of: “rectilinear", “fisheye”, “panoramic”, 
     “equirectangular”, “orthographic”, “stereographic”, “equisolid”,
-    “fisheye_thoby”.  If this field is not given, lensfun assumes rectilinear.
+    “fisheye_thoby”.  If this field is not given, Lensfun assumes rectilinear.
 <dt>\<focal min="number" max="number" value="number" /\>
 <dd>Lens focal length in mm. This can be either a single value for a fixed-focal length
     lens, or a minimum and maximum value in the case of a zoom lens.
@@ -453,7 +458,7 @@ Possible embedded elements:
 <dt>\<aspect-ratio\>number\</aspect-ratio\>
 <dd>This is the aspect ratio of the camera with which all shots for computing
     distortion models were made. It is the ratio of the longer edge to the
-    shorter edge. lensfun needs the aspect ratio internally for correct
+    shorter edge. Lensfun needs the aspect ratio internally for correct
     application of the distortion parameters. You may give it is as a real number
     or as a ratio with a colon like “4:3”. It defaults to 1.5 or 3:2.
 <dt>\<center x="number" y="number" /\>
@@ -488,8 +493,8 @@ Another pattern for lens parameters is
 </ul>
 
 (Note that “max aperture” refers here to the minimal f-stop number at the
-maximal focal length of a zoom lens.  Its value is ignored by lensfun.  As
-explained above, lensfun only stores the minimal and maximal possible f-stop
+maximal focal length of a zoom lens.  Its value is ignored by Lensfun.  As
+explained above, Lensfun only stores the minimal and maximal possible f-stop
 number of the lens, not matter at which focal length, e.g. 3.5–32.)
 
 If the focal length in the lens model name is wrong because a converter is
@@ -538,9 +543,11 @@ Possible embedded elements:
     transformations.  It uses the nominal focal length as a fallback.
 
     The real focal length can be determined reliably only with a 360° panorama,
-    e.g. with Hugin.  However, as of 2014, Hugin's results <a
+    e.g. with Hugin.  However, Hugin's results <a
     href="https://bugs.launchpad.net/hugin/+bug/1307457">need to be
-    rectified</a>.
+    rectified</a>.  The real focal length must correspond to the distortion
+    coefficients.  Typically, they are the result of the very same parameter
+    optimisation.
 </dl>
 
 @page dbsearch How database files are found and loaded
@@ -554,13 +561,15 @@ A typical application will initialize the lens database by calling the method
 lfDatabase::Load() with no parameters. This method searches for all available
 XML files and loads them, ignoring files with errors.
 
-The main place where lensfun looks for database files usually is
-<b>/usr/share/lensfun/</b>.  However, this is configurable at compilation time,
-and for locally compiled lensfun, it is mostly
-<b>/usr/local/share/lensfun/</b>.  A special directory is
-<b>/var/lib/lensfun-updates</b>: If it exists and contains a newer database, it
-is loaded instead of the main place.  On Windows, this is something like
-<b>C:\\Documents and Settings\\\%User\%\\something</b> but I'm not sure exactly
+The main place where Lensfun looks for database files usually is
+<b>/usr/share/lensfun/version_<i>x</i></b>, where <i>x</i> is the database
+format version (@ref db_versions).  However, this is configurable at
+compilation time, and for locally compiled Lensfun, it is mostly
+<b>/usr/local/share/lensfun/version_<i>x</i></b>.  A special directory is
+<b>/var/lib/lensfun-updates/version_<i>x</i></b>: If it exists and contains a
+newer database, it is loaded instead of the main place.  On Windows, this is
+something like <b>C:\\Documents and
+Settings\\\%User\%\\something\\version_<i>x</i></b> but I'm not sure exactly
 :-).
 
 “Newer database” means that the file timestamp.txt, which is amongst the XML
@@ -568,18 +577,26 @@ files, contains a larger value.  This value is the database timestamp in UNIX
 time.
 
 After having read the global database, the user's home directory is
-searched. Usually, this is <b>~/.local/share/lensfun</b>. The exact path can be
-found in the variable lfDatabase::HomeDataDir.  The subdirectory
-<b>updates/</b> may contain a user-specific DB update.  This represents an
-alternative to /var/lib/lensfun-updates for which no root priviledges are
+searched. Usually, this is
+<b>~/.local/share/lensfun</b>.  The exact path can be found in the variable
+lfDatabase::HomeDataDir.  The subdirectory <b>updates/version_<i>x</i></b> may
+contain a user-specific DB update.  This represents an alternative to
+/var/lib/lensfun-updates/version_<i>x</i> for which no root priviledges are
 needed.
+
+<b>~/.local/share/lensfun/version_<i>x</i></b> is also scanned with higher
+priority than the one without the version_<i>x</i>, so that the user can set
+entries specific for a database version.  This is useful only if you need to
+maintain two or more different Lensfun versions on your system.
 
 So sum it up for Linux and other Unix-like platforms, the load order is:
 <ol>
-  <li>the directory lensfun's database was installed into (usually
-  /usr/share/{local/}lensfun), @em or /var/lib/lensfun-updates, @em or
-  ~/.local/share/lensfun/updates, whatever is newest</li>
+  <li>the directory Lensfun's database was installed into (usually
+  /usr/share/{local/}lensfun/version_<i>x</i>), @em or
+  /var/lib/lensfun-updates/version_<i>x</i>, @em or
+  ~/.local/share/lensfun/updates/version_<i>x</i>, whatever is newest</li>
   <li>~/.local/share/lensfun</li>
+  <li>~/.local/share/lensfun/version_<i>x</i></li>
 </ol>
 
 Another way to load database file is to load them one by one. For this you call
@@ -588,8 +605,8 @@ lfDatabase::Load(const char *) for every XML file that must be loaded.
 
 @page corrections How the corrections work
 
-For both the people working on lensfun and the people working with
-lensfun, it is very important to understand how corrections are applied
+For both the people working on Lensfun and the people working with
+Lensfun, it is very important to understand how corrections are applied
 to the images.
 
 @section ordering Order of the image operations
@@ -676,11 +693,11 @@ comes last in the processing.
 
 @section actualorder How it is really done
 
-The actual order perfomed in the lensfun-calling program will differ
+The actual order perfomed in the Lensfun-calling program will differ
 from the above list.
 
 Why is this?  Understanding this is very important for hacking on
-lensfun as well as for using it in your own programs.
+Lensfun as well as for using it in your own programs.
 
 When it comes to pixel coordinate transformations, it is very sensful to
 start with the perfect, rectified image (still empty) and distort its
@@ -784,7 +801,7 @@ colour space. Linear RGB can only be retrieved from RAW files, as JPEG files fro
 most cameras already have colour transfromations applied. This is very important. If you do e.g. 
 TCA correction on sRGB data, the colour fringes are still visible.  And if you do 
 vignetting correction after a gamma has been applied, the corners probably will look too
-bright.  So make sure that lensfun comes early enough in your processing chain.
+bright.  So make sure that Lensfun comes early enough in your processing chain.
 
 
 @page filldb Filling the database
@@ -861,8 +878,8 @@ Now you can create a XML entry for your camera:
     </camera>
 @endverbatim
 
-Now add this definition to a XML database file along lensfun database
-search path and your camera will be detected and lensfun will work properly
+Now add this definition to a XML database file along Lensfun database
+search path and your camera will be detected and Lensfun will work properly
 with images produced by it.
 
 <ul>
@@ -889,7 +906,7 @@ A simple lens database entry would look something like:
     </lens>
 @endverbatim
 
-The above code just tells lensfun that there exist a lens called
+The above code just tells Lensfun that there exist a lens called
 “smc Pentax-DA 12-24mm f/4 ED AL IF” manufactured by Pentax and it uses the
 Pentax KAF2 mount. This is not very useful except to make user happy that
 there's at least one other person in the world owning his lens.
@@ -901,7 +918,7 @@ adjust the coefficients until you get decent results.
 
 Computing math model coefficients for distortion, tca, vignetting is a separate
 very complex matter. It is out of the scope of this manual to give even a
-short brief about this. There's a tutorial on lensfun site that will teach you
+short brief about this. There's a tutorial on Lensfun site that will teach you
 how to create a complete lens entry using just Hugin.
 
 <ul>

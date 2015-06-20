@@ -11,15 +11,13 @@
 void lfModifier::AddSubpixelCallback (
     lfSubpixelCoordFunc callback, int priority, void *data, size_t data_size)
 {
-    lfExtModifier *This = static_cast<lfExtModifier *> (this);
     lfSubpixelCallbackData *d = new lfSubpixelCallbackData ();
     d->callback = callback;
-    This->AddCallback (This->SubpixelCallbacks, d, priority, data, data_size);
+    AddCallback (SubpixelCallbacks, d, priority, data, data_size);
 }
 
 bool lfModifier::AddSubpixelCallbackTCA (lfLensCalibTCA &model, bool reverse)
 {
-    lfExtModifier *This = static_cast<lfExtModifier *> (this);
     float tmp [14];
 
     if (reverse)
@@ -35,12 +33,12 @@ bool lfModifier::AddSubpixelCallbackTCA (lfLensCalibTCA &model, bool reverse)
                         return false;
                     tmp [i] = 1.0 / model.Terms [i];
                 }
-                AddSubpixelCallback (lfExtModifier::ModifyCoord_UnTCA_Linear, 500,
+                AddSubpixelCallback (ModifyCoord_UnTCA_Linear, 500,
                                      tmp, 2 * sizeof (float));
                 return true;
 
             case LF_TCA_MODEL_POLY3:
-                AddSubpixelCallback (lfExtModifier::ModifyCoord_UnTCA_Poly3, 500,
+                AddSubpixelCallback (ModifyCoord_UnTCA_Poly3, 500,
                                      model.Terms, 6 * sizeof (float));
                 return true;
 
@@ -60,20 +58,20 @@ bool lfModifier::AddSubpixelCallbackTCA (lfLensCalibTCA &model, bool reverse)
                 break;
 
             case LF_TCA_MODEL_LINEAR:
-                AddSubpixelCallback (lfExtModifier::ModifyCoord_TCA_Linear, 500,
+                AddSubpixelCallback (ModifyCoord_TCA_Linear, 500,
                                      model.Terms, 2 * sizeof (float));
                 return true;
 
             case LF_TCA_MODEL_POLY3:
-                AddSubpixelCallback (lfExtModifier::ModifyCoord_TCA_Poly3, 500,
+                AddSubpixelCallback (ModifyCoord_TCA_Poly3, 500,
                                      model.Terms, 6 * sizeof (float));
                 return true;
 
             case LF_TCA_MODEL_ACM:
                 memcpy (tmp, model.Terms, sizeof (float) * 12);
-                tmp [12] = This->NormalizedInFocalLengths;
+                tmp [12] = NormalizedInFocalLengths;
                 tmp [13] = 1.0 / tmp [12];
-                AddSubpixelCallback (lfExtModifier::ModifyCoord_TCA_ACM, 500,
+                AddSubpixelCallback (ModifyCoord_TCA_ACM, 500,
                                      tmp, 14 * sizeof (float));
                 return true;
 
@@ -88,39 +86,37 @@ bool lfModifier::AddSubpixelCallbackTCA (lfLensCalibTCA &model, bool reverse)
 bool lfModifier::ApplySubpixelDistortion (
     float xu, float yu, int width, int height, float *res) const
 {
-    const lfExtModifier *This = static_cast<const lfExtModifier *> (this);
-
-    if (This->SubpixelCallbacks->len <= 0 || height <= 0)
+    if (((GPtrArray *)SubpixelCallbacks)->len <= 0 || height <= 0)
         return false; // nothing to do
 
     // All callbacks work with normalized coordinates
-    xu = xu * This->NormScale - This->CenterX;
-    yu = yu * This->NormScale - This->CenterY;
+    xu = xu * NormScale - CenterX;
+    yu = yu * NormScale - CenterY;
 
-    for (float y = yu; height; y += This->NormScale, height--)
+    for (float y = yu; height; y += NormScale, height--)
     {
         int i;
         float x = xu;
         float *out = res;
-        for (i = 0; i < width; i++, x += This->NormScale)
+        for (i = 0; i < width; i++, x += NormScale)
         {
             out [0] = out [2] = out [4] = x;
             out [1] = out [3] = out [5] = y;
             out += 6;
         }
 
-        for (i = 0; i < (int)This->SubpixelCallbacks->len; i++)
+        for (i = 0; i < (int)((GPtrArray *)SubpixelCallbacks)->len; i++)
         {
             lfSubpixelCallbackData *cd =
-                (lfSubpixelCallbackData *)g_ptr_array_index (This->SubpixelCallbacks, i);
+                (lfSubpixelCallbackData *)g_ptr_array_index ((GPtrArray *)SubpixelCallbacks, i);
             cd->callback (cd->data, res, width);
         }
 
         // Convert normalized coordinates back into natural coordiates
         for (i = width * 3; i > 0; i--)
         {
-            res [0] = (res [0] + This->CenterX) * This->NormUnScale;
-            res [1] = (res [1] + This->CenterY) * This->NormUnScale;
+            res [0] = (res [0] + CenterX) * NormUnScale;
+            res [1] = (res [1] + CenterY) * NormUnScale;
             res += 2;
         }
     }
@@ -131,47 +127,45 @@ bool lfModifier::ApplySubpixelDistortion (
 bool lfModifier::ApplySubpixelGeometryDistortion (
     float xu, float yu, int width, int height, float *res) const
 {
-    const lfExtModifier *This = static_cast<const lfExtModifier *> (this);
-
-    if ((This->SubpixelCallbacks->len <= 0 && This->CoordCallbacks->len <= 0)
+    if ((((GPtrArray *)SubpixelCallbacks)->len <= 0 && ((GPtrArray *)CoordCallbacks)->len <= 0)
      || height <= 0)
         return false; // nothing to do
 
     // All callbacks work with normalized coordinates
-    xu = xu * This->NormScale - This->CenterX;
-    yu = yu * This->NormScale - This->CenterY;
+    xu = xu * NormScale - CenterX;
+    yu = yu * NormScale - CenterY;
 
-    for (float y = yu; height; y += This->NormScale, height--)
+    for (float y = yu; height; y += NormScale, height--)
     {
         int i;
         float x = xu;
         float *out = res;
-        for (i = 0; i < width; i++, x += This->NormScale)
+        for (i = 0; i < width; i++, x += NormScale)
         {
             out [0] = out [2] = out [4] = x;
             out [1] = out [3] = out [5] = y;
             out += 6;
         }
 
-        for (i = 0; i < (int)This->CoordCallbacks->len; i++)
+        for (i = 0; i < (int)((GPtrArray *)CoordCallbacks)->len; i++)
         {
             lfCoordCallbackData *cd =
-                (lfCoordCallbackData *)g_ptr_array_index (This->CoordCallbacks, i);
+                (lfCoordCallbackData *)g_ptr_array_index ((GPtrArray *)CoordCallbacks, i);
             cd->callback (cd->data, res, width * 3);
         }
 
-        for (i = 0; i < (int)This->SubpixelCallbacks->len; i++)
+        for (i = 0; i < (int)((GPtrArray *)SubpixelCallbacks)->len; i++)
         {
             lfSubpixelCallbackData *cd =
-                (lfSubpixelCallbackData *)g_ptr_array_index (This->SubpixelCallbacks, i);
+                (lfSubpixelCallbackData *)g_ptr_array_index ((GPtrArray *)SubpixelCallbacks, i);
             cd->callback (cd->data, res, width);
         }
 
         // Convert normalized coordinates back into natural coordiates
         for (i = width * 3; i > 0; i--)
         {
-            res [0] = (res [0] + This->CenterX) * This->NormUnScale;
-            res [1] = (res [1] + This->CenterY) * This->NormUnScale;
+            res [0] = (res [0] + CenterX) * NormUnScale;
+            res [1] = (res [1] + CenterY) * NormUnScale;
             res += 2;
         }
     }
@@ -179,7 +173,7 @@ bool lfModifier::ApplySubpixelGeometryDistortion (
     return true;
 }
 
-void lfExtModifier::ModifyCoord_UnTCA_Linear (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_UnTCA_Linear (void *data, float *iocoord, int count)
 {
     float *param = (float *)data;
     float k_r = param [0];
@@ -194,7 +188,7 @@ void lfExtModifier::ModifyCoord_UnTCA_Linear (void *data, float *iocoord, int co
     }
 }
 
-void lfExtModifier::ModifyCoord_TCA_Linear (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_TCA_Linear (void *data, float *iocoord, int count)
 {
     float *param = (float *)data;
     float k_r = param [0];
@@ -209,7 +203,7 @@ void lfExtModifier::ModifyCoord_TCA_Linear (void *data, float *iocoord, int coun
     }
 }
 
-void lfExtModifier::ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int count)
 {
     const float *param = (float *)data;
     const float vr = param [0];
@@ -288,7 +282,7 @@ next_subpixel_b:;
     }
 }
 
-void lfExtModifier::ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count)
 {
     // Rd = Ru * (b * Ru^2 + c * Ru + v)
     const float *param = (float *)data;
@@ -337,7 +331,7 @@ void lfExtModifier::ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count
         }
 }
 
-void lfExtModifier::ModifyCoord_TCA_ACM (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_TCA_ACM (void *data, float *iocoord, int count)
 {
     // Rd = Ru * (b * Ru^2 + c * Ru + v)
     const float *param = (float *)data;
