@@ -76,6 +76,45 @@ def write_image_file(image_data, width, height, filepath):
     image_data.byteswap()
 
 
+def ellipse_analysis(x, y, f_normalized):
+    import numpy
+
+    # Taken from http://math.stackexchange.com/a/767126/248694
+    M = numpy.array([[x[i]**2, x[i] * y[i], y[i]**2, x[i], y[i], 1] for i in range(5)])
+    U, σ, V_ = numpy.linalg.svd(M)
+    assert all(σ > 1e-15)
+    # Taken from http://mathworld.wolfram.com/Ellipse.html, equation (15)
+    # onwards.
+    a, b, c, d, f, g = V_[-1].reshape(-1)
+    b, d, f = b/2, d/2, f/2
+
+    _D = b**2 - a * c
+    x0 = (c * d - b * f) / _D
+    y0 = (a * f - b * d) / _D
+
+    _N = 2 * (a * f**2 + c * d**2 + g * b**2 - 2 * b * d * f - a * c * g) / _D
+    _S = numpy.sqrt((a - c)**2 + 4 * b**2)
+    _R = a + c
+    a_ = numpy.sqrt(_N / (_S - _R))
+    b_ = numpy.sqrt(_N / (- _S - _R))
+
+    if abs(b) < 1e-15:
+        φ = 0 if a < c else π/2
+    else:
+        φ = 1/2 * (π/2 - numpy.arctan((a - c) / (2 * b)))
+        if a > c:
+            φ += π/2
+    # End taken from mathworld
+
+    if a_ < b_:
+        a_, b_ = b_, a_
+        φ -= π/2
+
+    radius_vertex = f_normalized / numpy.sqrt((a_ / b_)**2 - 1)
+    print (radius_vertex * cos(φ), radius_vertex * sin(φ))
+    return radius_vertex * cos(φ), radius_vertex * sin(φ)
+
+
 def intersection(x1, y1, x2, y2, x3, y3, x4, y4):
     A = x1 * y2 - y1 * x2
     B = x3 * y4 - y3 * x4
@@ -128,29 +167,32 @@ def rotate_ρ_δ_ρh(ρ, δ, ρ_h, x, y, z):
         A31 * x + A32 * y + A33 * z
 
 def calculate_angles(x, y, f, normalized_in_millimeters):
+    number_of_control_points = len(x)
     # Calculate the center of gravity of the control points
-    if len(x) == 8:
-        center_x = sum(x) / 8
-        center_y = sum(y) / 8
-    else:
+    if number_of_control_points == 6:
         center_x = sum(x[:4]) / 4
         center_y = sum(y[:4]) / 4
-
-    x_v, y_v = intersection(x[0], y[0], x[1], y[1], x[2], y[2], x[3], y[3])
-    if len(x) == 8:
-        # The problem is over-determined.  I prefer the fourth line over the
-        # focal length.  Maybe this is useful in cases where the focal length
-        # is not known.
-        x_h, y_h = intersection(x[4], y[4], x[5], y[5], x[6], y[6], x[7], y[7])
-        try:
-            f_normalized = sqrt(- x_h * x_v - y_h * y_v)
-        except ValueError:
-            # FixMe: Is really always an f given (even if it is inaccurate)?
-            f_normalized = f / normalized_in_millimeters
-        else:
-            print(f_normalized * normalized_in_millimeters, "mm")
     else:
-        f_normalized = f / normalized_in_millimeters
+        center_x = sum(x) / number_of_control_points
+        center_y = sum(y) / number_of_control_points
+
+    # FixMe: Is really always an f given (even if it is inaccurate)?
+    f_normalized = f / normalized_in_millimeters
+    if number_of_control_points == 5:
+        x_v, y_v = ellipse_analysis(x, y, f_normalized)
+    else:
+        x_v, y_v = intersection(x[0], y[0], x[1], y[1], x[2], y[2], x[3], y[3])
+        if len(x) == 8:
+            # The problem is over-determined.  I prefer the fourth line over the
+            # focal length.  Maybe this is useful in cases where the focal length
+            # is not known.
+            x_h, y_h = intersection(x[4], y[4], x[5], y[5], x[6], y[6], x[7], y[7])
+            try:
+                f_normalized = sqrt(- x_h * x_v - y_h * y_v)
+            except ValueError:
+                pass
+            else:
+                print(f_normalized * normalized_in_millimeters, "mm")
 
     # Calculate vertex in polar coordinates
     ρ = atan(- x_v / f_normalized)
@@ -173,6 +215,9 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
     if len(x) == 4:
         # This results from assuming that at y = 0, there is a horizontal in
         # the picture.  y = 0 is arbitrary, but then, so is every other value.
+        ρ_h = 0
+    elif len(x) == 5:
+        # FixMe: For now.
         ρ_h = 0
     else:
         z4 = z5 = f_normalized
@@ -350,7 +395,7 @@ class Modifier:
         is the unchanged image.  +1 is an increase of the tilting angle by 25%.
 
         """
-        if self.focal_length <= 0 or len(x) not in [4, 6, 8] or len(x) != len(y):
+        if self.focal_length <= 0 or len(x) not in [4, 5, 6, 8] or len(x) != len(y):
             # Don't add any callback
             return False
         if d <= - 1:
