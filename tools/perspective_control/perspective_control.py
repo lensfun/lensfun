@@ -454,7 +454,7 @@ class Modifier:
                 res[offset + i * 2] = x
                 res[offset + i * 2 + 1] = y
                 x += self.norm_scale
-            #self.scaling_callback([self.scaling_factor], res, offset, width)
+            self.scaling_callback([self.scaling_factor], res, offset, width)
             self.perspective_correction_callback(self.callback_data, res, offset, width)
             for i in range(width):
                 res[offset] = (res[offset] + self.center_x) * self.norm_unscale
