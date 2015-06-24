@@ -217,7 +217,6 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
         # the picture.  y = 0 is arbitrary, but then, so is every other value.
         ρ_h = 0
     elif len(x) == 5:
-        # FixMe: For now.
         ρ_h = 0
     else:
         z4 = z5 = f_normalized
