@@ -365,6 +365,11 @@ class Modifier:
         4 control points: c0 and c1 define one vertical lines, c2 and c3 the other.
         The focal length is used to get the proper aspect ratio.
 
+        5 control points: They all must lie on an ellipse that is actually a
+        rotated circle.  It is important that c0 must be farther away from the
+        viewpoint than the centre of the circle.  The focal length is needed to
+        find the proper vertex.
+
         6 control points: c0 to c3 like above.  c4 and c5 define a horizontal line.
         The focal length is used to get the proper aspect ratio.
 
@@ -394,7 +399,6 @@ class Modifier:
         The d parameter is supposed to be offered to the user as a slider.  It
         can take values from -1 to +1.  0 denotes the perfect correction.  -1
         is the unchanged image.  +1 is an increase of the tilting angle by 25%.
-
         """
         if self.focal_length <= 0 or len(x) not in [4, 5, 6, 8] or len(x) != len(y):
             # Don't add any callback
