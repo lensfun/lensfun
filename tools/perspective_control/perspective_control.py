@@ -111,7 +111,9 @@ def ellipse_analysis(x, y, f_normalized):
         φ -= π/2
 
     radius_vertex = f_normalized / numpy.sqrt((a_ / b_)**2 - 1)
-    print (radius_vertex * cos(φ), radius_vertex * sin(φ))
+    if y[0] > y0 + tan(φ) * (x[0] - x0):
+        radius_vertex *= -1
+
     return radius_vertex * cos(φ), radius_vertex * sin(φ)
 
 
