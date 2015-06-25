@@ -114,7 +114,7 @@ def ellipse_analysis(x, y, f_normalized):
     if y[0] > y0 + tan(φ) * (x[0] - x0):
         radius_vertex *= -1
 
-    return radius_vertex * cos(φ), radius_vertex * sin(φ)
+    return radius_vertex * cos(φ), radius_vertex * sin(φ), x0, y0
 
 
 def intersection(x1, y1, x2, y2, x3, y3, x4, y4):
@@ -206,7 +206,7 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
     # FixMe: Is really always an f given (even if it is inaccurate)?
     f_normalized = f / normalized_in_millimeters
     if number_of_control_points in [5, 7]:
-        x_v, y_v = ellipse_analysis(x[:5], y[:5], f_normalized)
+        x_v, y_v, center_x, center_y = ellipse_analysis(x[:5], y[:5], f_normalized)
     else:
         x_v, y_v = intersection(x[0], y[0], x[1], y[1], x[2], y[2], x[3], y[3])
         if number_of_control_points == 8:
