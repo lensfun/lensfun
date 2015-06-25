@@ -232,10 +232,10 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
     c = (a[0] + b[0], a[1] + b[1])
     if abs(c[0]) > abs(c[1]):
         # The first two lines denote *horizontal* lines, the last two
-        # *verticals*.  The final rotation is by final_rotation·π/2.
-        final_rotation = copysign(1, ρ)
+        # *verticals*.
+        α = copysign(π/2, ρ)
     else:
-        final_rotation = 0
+        α = 0
 
     # Calculate angle of intersection of horizontal great circle with equator,
     # after the vertex was moved into the zenith
@@ -250,7 +250,7 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
         if ρ_h is None and number_of_control_points == 8:
             ρ_h = determine_ρ_h(ρ, δ, x[6:8], y[6:8], f_normalized, center_x, center_y)
         ρ_h = ρ_h or 0
-    return ρ, δ, ρ_h, f_normalized, final_rotation, center_x, center_y
+    return ρ, δ, ρ_h, f_normalized, α, center_x, center_y
 
 def generate_rotation_matrix(ρ1, δ, ρ2, d):
     """Returns a rotation matrix which combines three rotations.  First, around the
@@ -428,7 +428,7 @@ class Modifier:
         x = [value * self.norm_scale - self.center_x for value in x]
         y = [value * self.norm_scale - self.center_y for value in y]
 
-        ρ, δ, ρ_h, f_normalized, final_rotation, center_of_control_points_x, center_of_control_points_y = \
+        ρ, δ, ρ_h, f_normalized, α, center_of_control_points_x, center_of_control_points_y = \
                 calculate_angles(x, y, self.focal_length, self.normalized_in_millimeters)
 
         # Transform center point to get shift
@@ -457,20 +457,19 @@ class Modifier:
         Δa = - x * mapping_scale
         Δb = - y * mapping_scale
 
-#        print(ρ * 180 / π, δ * 180 / π, ρ_h * 180 / π, final_rotation * 90)
+#        print(ρ * 180 / π, δ * 180 / π, ρ_h * 180 / π, α * 90)
 
         # Finally, generate a rotation matrix in backward (lookup) direction
         A11, A12, A13, \
         A21, A22, A23, \
         A31, A32, A33 = generate_rotation_matrix(- ρ_h, - δ, - ρ, d)
 
-        if final_rotation:
-            # This matrix is: R_y(- ρ) · Rₓ(- δ) · R_y(- ρₕ) ·
-            # R_z(final_rotation·π/2).  final_rotation is eigher -1 or +1.
-            A11, A12, A13 = final_rotation * A12, - final_rotation * A11, A13
-            A21, A22, A23 = final_rotation * A22, - final_rotation * A21, A23
-            A31, A32, A33 = final_rotation * A32, - final_rotation * A31, A33
-            Δa, Δb = final_rotation * Δb, - final_rotation * Δa
+        # Now we append the final rotation by α.  This matrix is: R_y(- ρ) ·
+        # Rₓ(- δ) · R_y(- ρₕ) · R_z(α).
+        A11, A12, A13 = cos(α) * A11 + sin(α) * A12, - sin(α) * A11 + cos(α) * A12, A13
+        A21, A22, A23 = cos(α) * A21 + sin(α) * A22, - sin(α) * A21 + cos(α) * A22, A23
+        A31, A32, A33 = cos(α) * A31 + sin(α) * A32, - sin(α) * A31 + cos(α) * A32, A33
+        Δa, Δb = cos(α) * Δa + sin(α) * Δb, - sin(α) * Δa + cos(α) * Δb
 
         # The occurances of mapping_scale here avoid an additional
         # multiplication in the inner loop of perspective_correction_callback.
