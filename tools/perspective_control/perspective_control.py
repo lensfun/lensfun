@@ -168,6 +168,31 @@ def rotate_ρ_δ_ρh(ρ, δ, ρ_h, x, y, z):
         A21 * x + A22 * y + A23 * z, \
         A31 * x + A32 * y + A33 * z
 
+def determine_ρ_h(ρ, δ, x, y, f_normalized, center_x, center_y):
+    x_, y_, z_ = [float("nan"), float("nan")], [float("nan"), float("nan")], [float("nan"), float("nan")]
+    x_[0], y_[0], z_[0] = rotate_ρ_δ(ρ, δ, x[0], y[0], f_normalized)
+    x_[1], y_[1], z_[1] = rotate_ρ_δ(ρ, δ, x[1], y[1], f_normalized)
+    if y_[0] == y_[1]:
+        if y_[0] == 0:
+            # ρ_h is undefined (horizontal great circle is on the equator).
+            return None
+        else:
+            # The horizontal vanishing point is perfectly to the left/right, so
+            # no rotation necessary.
+            return 0
+    else:
+        λ = y_[0] / (y_[0] - y_[1])
+        x_h = x_[0] + λ * (x_[1] - x_[0])
+        z_h = z_[0] + λ * (z_[1] - z_[0])
+        if z_h == 0:
+            ρ_h = 0 if x_h > 0 else π
+        else:
+            ρ_h = π / 2 - atan(x_h / z_h)
+        if rotate_ρ_δ_ρh(ρ, δ, ρ_h, center_x, center_y, f_normalized)[2] < 0:
+            # We have to move the vertex to the left instead of right
+            ρ_h -= π
+        return ρ_h
+
 def calculate_angles(x, y, f, normalized_in_millimeters):
     number_of_control_points = len(x)
     # Calculate the center of gravity of the control points
@@ -221,26 +246,10 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
     elif number_of_control_points == 5:
         ρ_h = 0
     else:
-        z4 = z5 = f_normalized
-        x4_, y4_, z4_ = rotate_ρ_δ(ρ, δ, x[4], y[4], z4)
-        x5_, y5_, z5_ = rotate_ρ_δ(ρ, δ, x[5], y[5], z5)
-        if y4_ == y5_:
-            # The horizontal vanishing point is perfectly to the left/right, so
-            # no rotation necessary.  ρ_h is undefined if also y4_ == 0
-            # (horizontal great circle is on the equator), but we simply set
-            # ρ_h = 0 in this case, too.
-            ρ_h = 0
-        else:
-            λ = y4_ / (y4_ - y5_)
-            x_h = x4_ + λ * (x5_ - x4_)
-            z_h = z4_ + λ * (z5_ - z4_)
-            if z_h == 0:
-                ρ_h = 0 if x_h > 0 else π
-            else:
-                ρ_h = π / 2 - atan(x_h / z_h)
-            if rotate_ρ_δ_ρh(ρ, δ, ρ_h, center_x, center_y, f_normalized)[2] < 0:
-                # We have to move the vertex to the left instead of right
-                ρ_h -= π
+        ρ_h = determine_ρ_h(ρ, δ, x[4:6], y[4:6], f_normalized, center_x, center_y)
+        if ρ_h is None and number_of_control_points == 8:
+            ρ_h = determine_ρ_h(ρ, δ, x[6:8], y[6:8], f_normalized, center_x, center_y)
+        ρ_h = ρ_h or 0
     return ρ, δ, ρ_h, f_normalized, final_rotation, center_x, center_y
 
 def generate_rotation_matrix(ρ1, δ, ρ2, d):
