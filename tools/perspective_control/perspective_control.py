@@ -184,7 +184,7 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
         x_v, y_v = ellipse_analysis(x, y, f_normalized)
     else:
         x_v, y_v = intersection(x[0], y[0], x[1], y[1], x[2], y[2], x[3], y[3])
-        if len(x) == 8:
+        if number_of_control_points == 8:
             # The problem is over-determined.  I prefer the fourth line over the
             # focal length.  Maybe this is useful in cases where the focal length
             # is not known.
@@ -214,11 +214,11 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
 
     # Calculate angle of intersection of horizontal great circle with equator,
     # after the vertex was moved into the zenith
-    if len(x) == 4:
+    if number_of_control_points == 4:
         # This results from assuming that at y = 0, there is a horizontal in
         # the picture.  y = 0 is arbitrary, but then, so is every other value.
         ρ_h = 0
-    elif len(x) == 5:
+    elif number_of_control_points == 5:
         ρ_h = 0
     else:
         z4 = z5 = f_normalized
