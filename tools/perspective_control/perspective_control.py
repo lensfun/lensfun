@@ -205,8 +205,8 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
 
     # FixMe: Is really always an f given (even if it is inaccurate)?
     f_normalized = f / normalized_in_millimeters
-    if number_of_control_points == 5:
-        x_v, y_v = ellipse_analysis(x, y, f_normalized)
+    if number_of_control_points in [5, 7]:
+        x_v, y_v = ellipse_analysis(x[:5], y[:5], f_normalized)
     else:
         x_v, y_v = intersection(x[0], y[0], x[1], y[1], x[2], y[2], x[3], y[3])
         if number_of_control_points == 8:
@@ -243,7 +243,7 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
         # This results from assuming that at y = 0, there is a horizontal in
         # the picture.  y = 0 is arbitrary, but then, so is every other value.
         ρ_h = 0
-    elif number_of_control_points == 5:
+    elif number_of_control_points in [5, 7]:
         ρ_h = 0
     else:
         ρ_h = determine_ρ_h(ρ, δ, x[4:6], y[4:6], f_normalized, center_x, center_y)
@@ -374,11 +374,6 @@ class Modifier:
         4 control points: c0 and c1 define one vertical lines, c2 and c3 the other.
         The focal length is used to get the proper aspect ratio.
 
-        5 control points: They all must lie on an ellipse that is actually a
-        rotated circle.  It is important that c0 must be farther away from the
-        viewpoint than the centre of the circle.  The focal length is needed to
-        find the proper vertex.
-
         6 control points: c0 to c3 like above.  c4 and c5 define a horizontal line.
         The focal length is used to get the proper aspect ratio.
 
@@ -386,7 +381,16 @@ class Modifier:
         horizontal line.  The focal length given is discarded and calculated from
         the control points.
 
-        If the lines constructed from the first four control points are more
+        5 control points: They all must lie on an ellipse that is actually a
+        rotated circle.  It is important that c0 must be farther away from the
+        viewpoint than the centre of the circle.  The focal length is needed to
+        find the proper vertex.
+
+        7 control points: c0 to c4 like above.  c5 and c6 define a horizontal
+        line which is used to rotate the final image nicely.
+
+        If the lines constructed from the first four control points for the 4,
+        6 and 8 points case (or the last two for the 7 points case) are more
         horizontal than vertical, in all of the above, "horizontal" and
         "vertical" need to be swapped.
 
@@ -409,7 +413,7 @@ class Modifier:
         can take values from -1 to +1.  0 denotes the perfect correction.  -1
         is the unchanged image.  +1 is an increase of the tilting angle by 25%.
         """
-        if self.focal_length <= 0 or len(x) not in [4, 5, 6, 8] or len(x) != len(y):
+        if self.focal_length <= 0 or len(x) not in [4, 5, 6, 7, 8] or len(x) != len(y):
             # Don't add any callback
             return False
         if d <= - 1:
