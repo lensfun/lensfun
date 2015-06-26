@@ -227,15 +227,21 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
     if rotate_ρ_δ(ρ, δ, center_x, center_y, f_normalized)[2] < 0:
         # We have to move the vertex into the nadir instead of the zenith.
         δ -= π
+
     if number_of_control_points in [4, 6, 8]:
         a = normalize(x_v - x[0], y_v - y[0])
         b = normalize(x_v - x[2], y_v - y[2])
         c = (a[0] + b[0], a[1] + b[1])
-    else:
+    elif number_of_control_points == 5:
         c = (x_v - center_x, y_v - center_y)
-    if abs(c[0]) > abs(c[1]):
+    else:
+        c = (x[5] - x[6], y[5] - y[6])
+    if number_of_control_points == 7:
+        # FixMe: Determine the angle of the line after forward-rotation, then
+        # set α so that the line is vertical/horizontal according to c.
+    elif abs(c[0]) > abs(c[1]):
         # The first two lines denote *horizontal* lines, the last two
-        # *verticals*.
+        # *verticals*.  So, rotate the final image by ±90°.
         α = copysign(π/2, ρ)
     else:
         α = 0
