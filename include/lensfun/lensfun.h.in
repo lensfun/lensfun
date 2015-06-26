@@ -2094,6 +2094,8 @@ struct LF_EXPORT lfModifier
         const lfLens *lens, lfPixelFormat format, float focal, float aperture,
         float distance, float scale, lfLensType targeom, int flags, bool reverse);
 
+    bool Initialize_Perspective_Correction (int *x, int *y, int count, float d);
+
     /**
      * @brief Destroy the modifier object.
      *
@@ -2492,6 +2494,7 @@ private:
     static void ModifyCoord_Geom_ERect_Equisolid (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_Thoby_ERect (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_ERect_Thoby (void *data, float *iocoord, int count);
+    static void ModifyCoord_Perspective_Correction (void *data, float *iocoord, int count);
 #ifdef VECTORIZATION_SSE
     static void ModifyColor_DeVignetting_PA_SSE (
       void *data, float _x, float _y, lf_f32 *pixels, int comp_role, int count);
