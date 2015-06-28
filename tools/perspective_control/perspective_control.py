@@ -228,6 +228,8 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
         # We have to move the vertex into the nadir instead of the zenith.
         δ -= π
 
+    swapped_verticals_and_horizontals = False
+
     if number_of_control_points in [4, 6, 8]:
         a = normalize(x_v - x[0], y_v - y[0])
         b = normalize(x_v - x[2], y_v - y[2])
@@ -241,8 +243,7 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
         # FixMe: Determine the angle of the line after forward-rotation, then
         # set α so that the line is vertical/horizontal according to c.
     elif abs(c[0]) > abs(c[1]):
-        # The first two lines denote *horizontal* lines, the last two
-        # *verticals*.  So, rotate the final image by ±90°.
+        swapped_verticals_and_horizontals = True
         α = copysign(π/2, ρ)
     else:
         α = 0
@@ -250,9 +251,13 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
     # Calculate angle of intersection of horizontal great circle with equator,
     # after the vertex was moved into the zenith
     if number_of_control_points == 4:
-        # This results from assuming that at y = 0, there is a horizontal in
-        # the picture.  y = 0 is arbitrary, but then, so is every other value.
-        ρ_h = 0
+        if swapped_verticals_and_horizontals:
+            x_perpendicular_line = [center_x, center_x]
+            y_perpendicular_line = [center_y - 1, center_y + 1]
+        else:
+            x_perpendicular_line = [center_x - 1, center_x + 1]
+            y_perpendicular_line = [center_y, center_y]
+        ρ_h = determine_ρ_h(ρ, δ, x_perpendicular_line, y_perpendicular_line, f_normalized, center_x, center_y) or 0
     elif number_of_control_points in [5, 7]:
         ρ_h = 0
     else:
