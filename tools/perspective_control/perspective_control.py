@@ -237,6 +237,7 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
     else:
         c = (x[5] - x[6], y[5] - y[6])
     if number_of_control_points == 7:
+        pass
         # FixMe: Determine the angle of the line after forward-rotation, then
         # set α so that the line is vertical/horizontal according to c.
     elif abs(c[0]) > abs(c[1]):
