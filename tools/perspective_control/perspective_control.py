@@ -369,15 +369,15 @@ class Modifier:
     """
 
     def __init__(self, crop_factor, width, height):
-        assert width > height
+        self.size = min(width, height)
         self.crop_factor, self.width, self.height = crop_factor, width, height
-        aspect_ratio = width / height
+        aspect_ratio = width / height if width > height else height / width
         aspect_ratio_correction = sqrt(1 + aspect_ratio**2)
         self.normalized_in_millimeters = sqrt(36**2 + 24**2) / 2 / aspect_ratio_correction / self.crop_factor
-        self.norm_scale = 2 / (height - 1)
-        self.norm_unscale = (height - 1) / 2
-        self.center_x = width / height
-        self.center_y = 1
+        self.norm_scale = 2 / (self.size - 1)
+        self.norm_unscale = (self.size - 1) / 2
+        self.center_x = width / self.size
+        self.center_y = height / self.size
 
     def initialize(self, focal_length):
         self.focal_length = focal_length
