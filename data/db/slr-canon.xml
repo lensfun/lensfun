@@ -3749,4 +3749,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF-S 24mm f/2.8 STM</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.622</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 400D -->
+            <distortion model="poly3" focal="24" k1="-0.00902" />
+            <tca model="poly3" focal="24" vr="1.0001965" vb="1.0000158" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
