@@ -181,7 +181,8 @@ def call_exiv2(raw_file_group):
                     ["exiftool", "-j", "-lensmodel", "-lensid", "-lenstype", filepath],
                     stderr=open(os.devnull, "w")).decode("utf-8"))[0]
                 exiftool_lens_model = data.get("LensID") or data.get("LensModel") or data.get("LensType")
-                if exiftool_lens_model and "unknown" not in exiftool_lens_model.lower():
+                if exiftool_lens_model and "unknown" not in exiftool_lens_model.lower() \
+                   and "manual lens" not in exiftool_lens_model.lower():
                     exif_data[2] = exiftool_lens_model
         result[filepath] = tuple(exif_data)
     return result
