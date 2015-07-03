@@ -788,4 +788,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 24-70mm f/4 ZA OSS</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony A6000 -->
+            <distortion model="ptlens" focal="24" a="0.01086" b="-0.05129" c="0.0454" />
+            <distortion model="ptlens" focal="29" a="0" b="-0.00342" c="0" />
+            <distortion model="ptlens" focal="34" a="0" b="0.00284" c="0" />
+            <distortion model="ptlens" focal="64" a="0" b="0.01063" c="0" />
+            <distortion model="ptlens" focal="70" a="0" b="0.0104" c="0" />
+            <tca model="poly3" focal="24" br="0.0001084" vr="1.0001830" bb="-0.0000322" vb="1.0000766" />
+            <tca model="poly3" focal="28" br="0.0000684" vr="1.0001879" bb="0.0000126" vb="0.9999843" />
+            <tca model="poly3" focal="34" br="-0.0000011" vr="1.0001999" bb="0.0000162" vb="0.9999974" />
+            <tca model="poly3" focal="41" br="-0.0000036" vr="1.0001795" bb="0.0000174" vb="0.9999616" />
+            <tca model="poly3" focal="50" br="-0.0000109" vr="1.0001446" bb="0.0000218" vb="0.9999371" />
+            <tca model="poly3" focal="61" br="-0.0000211" vr="1.0000951" bb="0.0000230" vb="0.9999419" />
+            <tca model="poly3" focal="70" br="-0.0000291" vr="1.0001021" bb="0.0000411" vb="0.9998636" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
