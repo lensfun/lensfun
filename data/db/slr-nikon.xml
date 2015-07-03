@@ -2818,4 +2818,40 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon Lens Series E 28mm f/2.8</model>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D600 -->
+            <distortion model="ptlens" focal="28" a="0.01493" b="-0.05112" c="0.02965" />
+            <tca model="poly3" focal="28" vr="1.0004587" vb="0.9998259" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon Lens Series E 50mm f/1.8</model>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D600 -->
+            <distortion model="poly3" focal="50" k1="0.0007" />
+            <tca model="poly3" focal="50" vr="1.0000550" vb="0.9999107" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon Lens Series E 100mm f/2.8</model>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D600 -->
+            <distortion model="poly3" focal="100" k1="0.00588" />
+            <tca model="poly3" focal="100" vr="0.9998270" vb="0.9999607" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
