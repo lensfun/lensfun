@@ -265,4 +265,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Voigtländer</maker>
+        <model>Voigtlander Ultron 40mm f/2 SLII Aspherical</model>
+        <model lang="en">Voigtländer Ultron 40mm f/2 SL-II Aspherical</model>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D600 -->
+            <distortion model="ptlens" focal="40" a="0.00914" b="-0.03392" c="0.02683" />
+            <tca model="poly3" focal="40" vr="1.0001130" vb="1.0000510" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
