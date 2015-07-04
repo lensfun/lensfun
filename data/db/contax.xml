@@ -43,4 +43,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Contax</maker>
+        <model>Contax G Planar T* 2/35</model>
+        <mount>Contax G</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony A6000 -->
+            <distortion model="poly3" focal="35" k1="-0.0021" />
+            <tca model="poly3" focal="35" vr="1.0002" vb="0.9997" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
