@@ -1168,6 +1168,8 @@
         <cropfactor>1.538</cropfactor>
         <calibration>
             <!-- Taken with Pentax K20D -->
+            <distortion model="ptlens" focal="28" a="0.00207" b="-0.0073" c="-0.00479" />
+            <tca model="poly3" focal="28" br="-0.0000016" vr="1.0004852" bb="0.0000372" vb="0.9997864" />
             <vignetting model="pa" focal="28" aperture="2.8" distance="10" k1="-1.0219" k2="0.9483" k3="-0.4035" />
             <vignetting model="pa" focal="28" aperture="2.8" distance="1000" k1="-1.0219" k2="0.9483" k3="-0.4035" />
             <vignetting model="pa" focal="28" aperture="4" distance="10" k1="-0.2157" k2="-0.3435" k3="0.2363" />
