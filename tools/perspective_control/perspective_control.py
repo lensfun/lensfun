@@ -28,7 +28,7 @@ coordinates.  There are 4, 6, or 8 points allowed, see
 """
 
 import sys, subprocess, os, array, json, multiprocessing, tempfile
-from math import sin, cos, tan, atan, sqrt, copysign, acos, log
+from math import sin, cos, tan, atan, atan2, sqrt, copysign, acos, log
 from math import pi as π
 
 def read_ppm(input_file, read_data=True):
@@ -239,9 +239,15 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
     else:
         c = (x[5] - x[6], y[5] - y[6])
     if number_of_control_points == 7:
-        pass
-        # FixMe: Determine the angle of the line after forward-rotation, then
-        # set α so that the line is vertical/horizontal according to c.
+        x5_, y5_ = rotate_ρ_δ(ρ, δ, x[5], y[5], f_normalized)
+        x6_, y6_ = rotate_ρ_δ(ρ, δ, x[6], y[6], f_normalized)
+        α = atan2(y6_ - y5_, x6_ - x5_)
+        if abs(c[0]) > abs(c[1]):
+            # Find smallest rotation into horizontal
+            α = - (α - π/2) % π - π/2
+        else:
+            # Find smallest rotation into vertical
+            α = - α % π - π/2
     elif abs(c[0]) > abs(c[1]):
         swapped_verticals_and_horizontals = True
         α = copysign(π/2, ρ)
