@@ -112,6 +112,8 @@ def ellipse_analysis(x, y, f_normalized):
     radius_vertex = f_normalized / sqrt((a_ / b_)**2 - 1)
     if y[0] > y0 + tan(φ) * (x[0] - x0):
         radius_vertex *= -1
+    if (x[0] - x0) * (y[1] - y0) < (x[1] - x0) * (y[0] - y0):
+        radius_vertex *= -1
 
     return radius_vertex * cos(φ), radius_vertex * sin(φ), x0, y0
 
@@ -402,9 +404,11 @@ class Modifier:
         the control points.
 
         5 control points: They all must lie on an ellipse that is actually a
-        rotated circle.  It is important that c0 must be farther away from the
-        viewpoint than the centre of the circle.  The focal length is needed to
-        find the proper vertex.
+        rotated circle.  If they lie in a clockwise ordering, c0 is assumed to
+        be farther away from the viewpoint than the centre of the circle.  If
+        they lie in a counter-clockwise ordering, c0 is assumed to be closer to
+        the viewpoint than the centre of the circle.  The focal length is
+        needed to find the proper vertex.
 
         7 control points: c0 to c4 like above.  c5 and c6 define a horizontal
         line which is used to rotate the final image nicely.
