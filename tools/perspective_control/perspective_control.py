@@ -92,15 +92,15 @@ def ellipse_analysis(x, y, f_normalized):
     y0 = (a * f - b * d) / _D
 
     _N = 2 * (a * f**2 + c * d**2 + g * b**2 - 2 * b * d * f - a * c * g) / _D
-    _S = numpy.sqrt((a - c)**2 + 4 * b**2)
+    _S = sqrt((a - c)**2 + 4 * b**2)
     _R = a + c
-    a_ = numpy.sqrt(_N / (_S - _R))
-    b_ = numpy.sqrt(_N / (- _S - _R))
+    a_ = sqrt(_N / (_S - _R))
+    b_ = sqrt(_N / (- _S - _R))
 
     if abs(b) < 1e-15:
         φ = 0 if a < c else π/2
     else:
-        φ = 1/2 * (π/2 - numpy.arctan((a - c) / (2 * b)))
+        φ = 1/2 * (π/2 - atan((a - c) / (2 * b)))
         if a > c:
             φ += π/2
     # End taken from mathworld
@@ -109,7 +109,7 @@ def ellipse_analysis(x, y, f_normalized):
         a_, b_ = b_, a_
         φ -= π/2
 
-    radius_vertex = f_normalized / numpy.sqrt((a_ / b_)**2 - 1)
+    radius_vertex = f_normalized / sqrt((a_ / b_)**2 - 1)
     if y[0] > y0 + tan(φ) * (x[0] - x0):
         radius_vertex *= -1
 
