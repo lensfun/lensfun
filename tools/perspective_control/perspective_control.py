@@ -94,8 +94,10 @@ def ellipse_analysis(x, y, f_normalized):
     _N = 2 * (a * f**2 + c * d**2 + g * b**2 - 2 * b * d * f - a * c * g) / _D
     _S = sqrt((a - c)**2 + 4 * b**2)
     _R = a + c
-    a_ = sqrt(_N / (_S - _R))
-    b_ = sqrt(_N / (- _S - _R))
+    # Here, Weisstein swapped major and minor semiaxis, see
+    # http://math.stackexchange.com/a/1227435/248694
+    a_ = sqrt(_N / (- _S - _R))
+    b_ = sqrt(_N / (_S - _R))
 
     if abs(b) < 1e-15:
         φ = 0 if a < c else π/2
@@ -104,10 +106,6 @@ def ellipse_analysis(x, y, f_normalized):
         if a > c:
             φ += π/2
     # End taken from mathworld
-
-    if a_ < b_:
-        a_, b_ = b_, a_
-        φ -= π/2
 
     radius_vertex = f_normalized / sqrt((a_ / b_)**2 - 1)
     if y[0] > y0 + tan(φ) * (x[0] - x0):
