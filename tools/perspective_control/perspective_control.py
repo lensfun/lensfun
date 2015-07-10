@@ -6,12 +6,12 @@ must be converted to Lensfun C++ code of course.  However, its structure is
 already very similar to how Lensfun is structured.
 
 Usage:
-    python3 perspective_control.py <image files>
+    python3 perspective_control.py <JSON file>
 
-Every image file must have a sidecar JSON file with the extension .json with
-the following content:
+The JSON file has the following structure:
 
 [
+    "image.jpeg",
     18,
     1.534,
     6,
@@ -19,12 +19,11 @@ the following content:
     [ 188,  154,  187,  154, 188,  187]
 ]
 
-Here, 18 is the focal length in mm, 1.534 is the crop factor, 6 is a scaling
-parameter, the first array are the x values of the control points, and the
-second array are the y values.  The (x, y) values must be image pixel
-coordinates.  There are 4, 6, or 8 points allowed, see
-`initialize_perspective_correction` below.
-
+Here, "image.jpeg" is the filename of the image file, 18 is the focal length in
+mm, 1.534 is the crop factor, 6 is a scaling parameter, the first array are the
+x values of the control points, and the second array are the y values.  The (x,
+y) values must be image pixel coordinates.  There are 4, 6, or 8 points
+allowed, see `initialize_perspective_correction` below.
 """
 
 import sys, subprocess, os, array, json, multiprocessing, tempfile
@@ -545,9 +544,10 @@ class Modifier:
                 offset += 2
             y += self.norm_scale
 
-def process_image(filepath, d, index):
-    image_data, width, height = read_image_file(filepath)
-    f, crop_factor, shrinking, x, y = json.load(open(os.path.splitext(filepath)[0] + ".json"))
+def process_image(json_filepath, d, index):
+    image_filepath, f, crop_factor, shrinking, x, y = json.load(open(json_filepath))
+    image_filepath = os.path.join(os.path.dirname(json_filepath), image_filepath)
+    image_data, width, height = read_image_file(image_filepath)
     modifier = Modifier(crop_factor, width, height)
     modifier.initialize(f)
     if modifier.initialize_perspective_correction(x, y, d):
@@ -572,7 +572,7 @@ def process_image(filepath, d, index):
                     destination_image_data[destination_offset + 2] = image_data[image_offset + 2]
     else:
         destination_image_data = image_data
-    basename, extension = os.path.splitext(filepath)
+    basename, extension = os.path.splitext(image_filepath)
     write_image_file(destination_image_data, width, height, "{}_{:03}_{}{}".format(basename, index, d, extension))
 
 pool = multiprocessing.Pool()
