@@ -104,14 +104,19 @@ def ellipse_analysis(x, y, f_normalized):
     if a_ < b_:
         a_, b_ = b_, a_
         φ -= π/2
+    # Normalize to -π/2..π/2 so that the vertex half-plane is top or bottom
+    # rather than e.g. left or right.
+    φ = (φ + π/2) % π - π/2
 
-    radius_vertex = f_normalized / sqrt((a_ / b_)**2 - 1)
+    # Negative sign because vertex at top (negative y values) should be
+    # default.
+    radius_vertex = - f_normalized / sqrt((a_ / b_)**2 - 1)
     if y[0] > y0 + tan(φ) * (x[0] - x0):
         radius_vertex *= -1
     if (x[0] - x0) * (y[1] - y0) < (x[1] - x0) * (y[0] - y0):
         radius_vertex *= -1
 
-    return radius_vertex * cos(φ), radius_vertex * sin(φ), x0, y0
+    return radius_vertex * sin(φ), radius_vertex * cos(φ), x0, y0
 
 
 def intersection(x1, y1, x2, y2, x3, y3, x4, y4):
