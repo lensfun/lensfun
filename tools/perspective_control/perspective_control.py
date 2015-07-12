@@ -111,8 +111,6 @@ def ellipse_analysis(x, y, f_normalized):
     # Negative sign because vertex at top (negative y values) should be
     # default.
     radius_vertex = - f_normalized / sqrt((a_ / b_)**2 - 1)
-    if y[0] > y0 + tan(φ) * (x[0] - x0):
-        radius_vertex *= -1
     if (x[0] - x0) * (y[1] - y0) < (x[1] - x0) * (y[0] - y0):
         radius_vertex *= -1
 
