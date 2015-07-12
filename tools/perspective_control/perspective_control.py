@@ -8,7 +8,8 @@ already very similar to how Lensfun is structured.
 Usage:
     python3 perspective_control.py <JSON file>
 
-The JSON file has the following structure:
+If <JSON file> is a dash "-", the JSON data is read from stdin.  The JSON
+file/data has the following structure:
 
 [
     "image.jpeg",
@@ -547,7 +548,8 @@ class Modifier:
             y += self.norm_scale
 
 def process_image(json_filepath, d, index):
-    image_filepath, f, crop_factor, shrinking, x, y = json.load(open(json_filepath))
+    input_file = open(json_filepath) if json_filepath != "-" else sys.stdin
+    image_filepath, f, crop_factor, shrinking, x, y = json.load(input_file)
     image_filepath = os.path.join(os.path.dirname(json_filepath), image_filepath)
     image_data, width, height = read_image_file(image_filepath)
     modifier = Modifier(crop_factor, width, height)
