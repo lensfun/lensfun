@@ -574,7 +574,7 @@ def process_image(json_filepath, d, index):
                     destination_image_data[destination_offset + 2] = image_data[image_offset + 2]
     else:
         destination_image_data = image_data
-    basename, extension = os.path.splitext(image_filepath)
+    basename, extension = os.path.splitext(json_filepath)
     write_image_file(destination_image_data, width, height, "{}_{:03}_{}{}".format(basename, index, d, extension))
 
 pool = multiprocessing.Pool()
