@@ -91,20 +91,15 @@ def ellipse_analysis(x, y, f_normalized):
     x0 = (c * d - b * f) / _D
     y0 = (a * f - b * d) / _D
 
+    φ = 1/2 * atan(2 * b / (a - c))
+    if a > c:
+        φ += π/2
+
     _N = 2 * (a * f**2 + c * d**2 + g * b**2 - 2 * b * d * f - a * c * g) / _D
     _S = sqrt((a - c)**2 + 4 * b**2)
     _R = a + c
-    # Here, Weisstein swapped major and minor semiaxis, see
-    # http://math.stackexchange.com/a/1227435/248694
-    a_ = sqrt(_N / (- _S - _R))
-    b_ = sqrt(_N / (_S - _R))
-
-    if abs(b) < 1e-15:
-        φ = 0 if a < c else π/2
-    else:
-        φ = 1/2 * (π/2 - atan((a - c) / (2 * b)))
-        if a > c:
-            φ += π/2
+    a_ = sqrt(_N / (_S - _R))
+    b_ = sqrt(_N / (- _S - _R))
     # End taken from mathworld
 
     radius_vertex = f_normalized / sqrt((a_ / b_)**2 - 1)
