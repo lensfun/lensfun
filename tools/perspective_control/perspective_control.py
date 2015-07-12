@@ -403,11 +403,10 @@ class Modifier:
         the control points.
 
         5 control points: They all must lie on an ellipse that is actually a
-        rotated circle.  If they lie in a clockwise ordering, c0 is assumed to
-        be farther away from the viewpoint than the centre of the circle.  If
-        they lie in a counter-clockwise ordering, c0 is assumed to be closer to
-        the viewpoint than the centre of the circle.  The focal length is
-        needed to find the proper vertex.
+        rotated circle.  If they lie in a clockwise ordering, the vertex is
+        assumed to be above the ellipse centre in the image.  If they lie in a
+        counter-clockwise ordering, the vertex is assumed to be below the
+        ellipse.  The focal length is needed to find the proper vertex.
 
         7 control points: c0 to c4 like above.  c5 and c6 define a horizontal
         line which is used to rotate the final image nicely.
