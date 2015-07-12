@@ -101,6 +101,9 @@ def ellipse_analysis(x, y, f_normalized):
     a_ = sqrt(_N / (_S - _R))
     b_ = sqrt(_N / (- _S - _R))
     # End taken from mathworld
+    if a_ < b_:
+        a_, b_ = b_, a_
+        φ -= π/2
 
     radius_vertex = f_normalized / sqrt((a_ / b_)**2 - 1)
     if y[0] > y0 + tan(φ) * (x[0] - x0):
