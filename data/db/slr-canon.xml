@@ -4146,4 +4146,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon Lens FDn 24mm 1:2.8</model>
+        <mount>Canon FD</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-A2 -->
+            <distortion model="ptlens" focal="24" a="0.00827" b="-0.02833" c="0.01235" />
+            <tca model="poly3" focal="24" vr="1.0006247" vb="0.9998035" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
