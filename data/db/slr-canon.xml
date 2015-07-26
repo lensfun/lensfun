@@ -4158,4 +4158,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon Lens FDn 50mm 1:1.8</model>
+        <mount>Canon FD</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-A2 -->
+            <distortion model="poly3" focal="50" k1="-0.00209" />
+            <tca model="poly3" focal="50" vr="1.0000463" vb="0.9999598" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
