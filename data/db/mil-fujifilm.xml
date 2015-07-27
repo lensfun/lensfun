@@ -350,4 +350,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>XC16-50mmF3.5-5.6 OIS II</model>
+        <model lang="en">XC 16-50mm f/3.5-5.6 OIS II</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-A2 -->
+            <distortion model="ptlens" focal="16" a="0.02234" b="-0.0861" c="0.01689" />
+            <distortion model="ptlens" focal="23.2" a="0.01026" b="-0.04209" c="0.0245" />
+            <distortion model="ptlens" focal="29.5" a="0.00387" b="-0.01658" c="0.00911" />
+            <distortion model="ptlens" focal="35.5" a="0" b="-0.00122" c="0" />
+            <distortion model="ptlens" focal="50" a="0" b="0.00373" c="0" />
+            <tca model="poly3" focal="16" vr="1.0006" vb="1.0005" />
+            <tca model="poly3" focal="23.2" vr="1.0006" vb="1.0006" />
+            <tca model="poly3" focal="29.5" vr="1.0004" vb="1.0003" />
+            <tca model="poly3" focal="35.5" vr="1.0003" vb="1.0000" />
+            <tca model="poly3" focal="50" vr="1.0002" vb="0.9993" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
