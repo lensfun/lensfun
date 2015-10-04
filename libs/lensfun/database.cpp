@@ -60,8 +60,9 @@ void lfDatabase::Destroy ()
     delete this;
 }
 
-void lfDatabase::LoadDirectory (const gchar *dirname, bool use_versioned_subdir/*=true*/)
+bool lfDatabase::LoadDirectory (const gchar *dirname, bool use_versioned_subdir/*=true*/)
 {
+    bool database_found = false;
     gchar *actual_dirname;
     if (use_versioned_subdir)
         actual_dirname = g_build_filename (dirname, DATABASE_SUBDIR, NULL);
@@ -82,7 +83,8 @@ void lfDatabase::LoadDirectory (const gchar *dirname, bool use_versioned_subdir/
                 {
                     gchar *ffn = g_build_filename (actual_dirname, fn, NULL);
                     /* Ignore errors */
-                    Load (ffn);
+                    if (Load (ffn) == LF_NO_ERROR)
+                        database_found = true;
                     g_free (ffn);
                 }
             }
@@ -92,10 +94,13 @@ void lfDatabase::LoadDirectory (const gchar *dirname, bool use_versioned_subdir/
     }
 
     g_free (actual_dirname);
+
+    return database_found;
 }
 
 lfError lfDatabase::Load ()
 {
+    bool database_found = false;
 
 #ifndef PLATFORM_WINDOWS
     gchar *main_dirname = g_strdup (CONF_DATADIR);
@@ -114,20 +119,20 @@ lfError lfDatabase::Load ()
         _lf_read_database_timestamp (UserUpdatesDir);
     if (timestamp_main > timestamp_system_updates)
         if (timestamp_user_updates > timestamp_main)
-            LoadDirectory (UserUpdatesDir);
+            database_found |= LoadDirectory (UserUpdatesDir);
         else
-            LoadDirectory (main_dirname);
+            database_found |= LoadDirectory (main_dirname);
     else
         if (timestamp_user_updates > timestamp_system_updates)
-            LoadDirectory (UserUpdatesDir);
+            database_found |= LoadDirectory (UserUpdatesDir);
         else
-            LoadDirectory (system_updates_dirname);
+            database_found |= LoadDirectory (system_updates_dirname);
     g_free (main_dirname);
 
-    LoadDirectory (HomeDataDir, false);
-    LoadDirectory (HomeDataDir);
+    database_found |= LoadDirectory (HomeDataDir, false);
+    database_found |= LoadDirectory (HomeDataDir);
 
-    return LF_NO_ERROR;
+    return database_found ? LF_NO_ERROR : LF_NO_DATABASE;
 }
 
 lfError lfDatabase::Load (const char *filename)
