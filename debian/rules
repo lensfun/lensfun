@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+%:
+	dh $@ --with python3 --parallel --buildsystem=cmake
+
+override_dh_auto_configure:
+ifneq (,$(filter %-doc,$(shell dh_listpackages)))
+	dh_auto_configure -- -DBUILD_DOC=ON -DDOCDIR="/usr/share/doc/liblensfun-doc/html"
+else
+	dh_auto_configure -- -DBUILD_DOC=OFF
+endif
+
+override_dh_auto_clean:
+	find -name "*.pyc" -exec rm -f '{}' \;
+	dh_auto_clean
+
+override_dh_makeshlibs:
+	dh_makeshlibs -V 'liblensfun1 (>= 0.3.2)'

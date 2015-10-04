@@ -1,0 +1,148 @@
+lensfun (0.3.2-0.1) UNRELEASED; urgency=low
+
+  * Non maintainer upload
+
+ -- Sebastian Kraft <mail@sebastiankraft.net>  Wed, 26 Nov 2015 15:56:36 +0100
+
+lensfun (0.2.8-2) unstable; urgency=medium
+
+  * Team upload.
+  * The project moved from Berlios to Sourceforce, so:
+    - update Homepage to http://lensfun.sourceforge.net
+    - update watch file to look on sf.net
+  * Add Vcs-* headers.
+  * Simplify/improve/sort .install files.
+  * Do not build the documentation on arch-only builds:
+    - move the doxygen build dependency to Build-Depends-Indep
+    - explicitly disable the documentation build (i.e. pass -DBUILD_DOC=OFF
+      to cmake) when not producing -doc packages
+  * Add the pkg-config build dependency.
+  * Bump the priority to optional, since it is used by other "optional"
+    sources.
+
+ -- Pino Toscano <pino@debian.org>  Mon, 08 Sep 2014 09:01:51 +0200
+
+lensfun (0.2.8-1) unstable; urgency=low
+
+  * New upstream release
+  * Add --parallel
+  * Add -DDOCDIR="/usr/share/doc/liblensfun-doc/html"
+  * Add +docs/adobe-lens-profile.txt
+  * Bump shlibs - dh_makeshlibs -V 'liblensfun0 (>= 0.2.8)'
+  * Bump Standards-Version: 3.9.5 - no further changes
+
+ -- Mark Purcell <msp@debian.org>  Sat, 09 Nov 2013 16:32:20 +1100
+
+lensfun (0.2.7-3) unstable; urgency=low
+
+  [Andreas Metzler]
+  * Bump shlibs. Closes: #722406
+
+ -- Mark Purcell <msp@debian.org>  Sun, 12 May 2013 17:27:17 +1000
+
+lensfun (0.2.7-2) unstable; urgency=low
+
+  * Upload to unstable
+
+ -- Mark Purcell <msp@debian.org>  Sun, 12 May 2013 10:17:02 +1000
+
+lensfun (0.2.7-1) experimental; urgency=low
+
+  * New upstream release
+    - Fixes "new upstream version" (Closes: #679113)
+    - Fixes "FTBFS with libpng 1.5" (Closes: #648130)
+  * Update debian/watch - Thanks Bart
+  * Fixed "Build-Depends on libpng-dev" (Closes: #662391)
+  * Switch to cmake - Thanks yofel@kubuntu.org 
+  * debian/compat -> 9
+
+ -- Mark Purcell <msp@debian.org>  Sat, 09 Mar 2013 14:29:47 +1100
+
+lensfun (0.2.7-0ubuntu1) raring; urgency=low
+
+  * New upstream release (LP: #1084730)
+  * Switch to new cmake based buildsystem as the old one doesn't create
+    a properly versioned library anymore and is deprecated
+    - Add build-dep on cmake
+    - Drop buil-dep on autotools-dev
+  * Port package from cdbs to dh7 style rules 
+    - Build-Depend on debhelper >= 7.0.50~
+    - Drop build-dep on cdbs
+    - rewrite rules to use dh instead of cdbs
+    into the right path again
+  * Add ubuntu_build_docs.diff so the documentation is built and installed
+  * Update liblensfun-doc.install as the documentation is now installed into
+    the right location right away
+  * Switch to source format 3.0 (quilt) for quilt support
+
+ -- Philip Muškovac <yofel@kubuntu.org>  Mon, 25 Feb 2013 20:49:11 +0100
+
+lensfun (0.2.5-2) unstable; urgency=low
+
+  * Drop symbol support (Closes: #589048) 
+  * Fix "liblensfun packages seem to miss some documentation" 
+    missing dir added to liblensfun-doc.install (Closes: #617547)
+
+ -- Mark Purcell <msp@debian.org>  Sun, 22 Jan 2012 13:40:44 +1100
+
+lensfun (0.2.5-1) experimental; urgency=low
+
+  * New upstream release (Closes: #576230)
+    - Upload to experimental whilst we investigate symbols
+  * disable --vectorization= while we workout howto cross platform
+
+ -- Mark Purcell <msp@debian.org>  Wed, 14 Jul 2010 21:01:12 +1000
+
+lensfun (0.2.4-1) unstable; urgency=low
+
+  * New upstream release
+
+  [ Didier Raboud ]
+  * In debian/control, write a new common description for the binary packages
+    (Closes: #522168)
+
+  [ Stefan Potyra ] 
+  * Add 10-makedep-fix-ftbfs patch to fix FTBFS.
+  * Add 20-enum-sentinel patch to have g++-4.4 not remove the otherwise
+    unreachable code handling out-of-bounds enum values via the
+    c-wrapper functions. LP: #433368.
+   
+  [ Pascal de Bruijn ]
+  * Drop all previous lensfun database patches.
+  * Add 90-lensfun-db-update-rel-to-svn65 patch, to update the lensfun 
+    database to revision 65 of lensfun svn.
+  * Add 91-lensfun-db-update-svn65-to-pmjdebruijn patch, to update the
+    lensfun database from revision 65 to pmjdebruijn's local tree.
+
+  [ Mark Purcell ]
+  * Update debian/watch
+  * Drop debian/patches & dpatch as included upstream 0.2.4 
+
+ -- Mark Purcell <msp@debian.org>  Mon, 26 Oct 2009 08:12:51 +1100
+
+lensfun (0.2.3-2) unstable; urgency=low
+
+  [ Luka Renko ]
+  * rules: add --libdir=/usr/lib to ./configure for amd64 libraries.
+    (Closes: #516657)
+  * Update debian/liblensfun0.symbols to match all symbols.
+
+  [ Pascal de Bruijn ]
+  * Added patches:
+    - 01-lensfun-db-cameras-generic (APS-H, FourThirds)
+    - 02-lensfun-db-cameras-canon (5DmkII, 50D, 30D)
+    - 03-lensfun-db-cameras-nikon (D40, D40X, D60, D80, D90, D700, D3, D3X)
+    - 04-lensfun-db-cameras-pentax (K100D, K200D, K10D, K20D)
+    - 05-lensfun-db-cameras-samsung (GX20)
+  * Split up the data package into a data and doc package.
+
+  [ Mark Purcell ]
+  * Update Maintainer: Debian KDE Extras Team.
+
+ -- Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>  Thu, 19 Mar 2009 23:26:51 +0100
+
+lensfun (0.2.3-1) unstable; urgency=low
+
+  * Initial release (Closes: #509242)
+
+ -- Mark Purcell <msp@debian.org>  Wed, 07 Jan 2009 09:47:45 +1100

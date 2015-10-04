@@ -1,0 +1,40 @@
+Decription: doc install fixes for cmake
+ Correctly build and install the documenation files.
+ Taken from:
+ http://developer.berlios.de/patch/?func=detailpatch&patch_id=3421&group_id=9034
+ http://developer.berlios.de/patch/?func=detailpatch&patch_id=3420&group_id=9034
+Origin: upstream
+Index: b/docs/CMakeLists.txt
+Author: Ubuntu
+===================================================================
+--- a/docs/CMakeLists.txt
++++ b/docs/CMakeLists.txt
+@@ -12,12 +12,12 @@ CONFIGURE_FILE(doxyfile.in.cmake ${DOXYF
+ 
+ # now build documentation
+ ADD_CUSTOM_TARGET(doc
++  ALL
+   COMMAND "${DOXYGEN_EXECUTABLE}"
+-  DEPENDS doxyfile.in.cmake manual-main.txt ../include/lensfun/lensfun.h.in
++  DEPENDS ${DOXYFILE} manual-main.txt ../include/lensfun/lensfun.h.in
+   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+   COMMENT "Building documentation with doxygen"
+ )
+ 
+ # install documentation  
+-FILE(GLOB doc_files "${CMAKE_DOC_OUT}/*.*")
+-INSTALL(FILES ${doc_files} DESTINATION ${DOCDIR})
++INSTALL(DIRECTORY ${CMAKE_DOC_OUT}/ DESTINATION ${DOCDIR})
+Index: b/CMakeLists.txt
+===================================================================
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -77,7 +77,7 @@ SET(BINDIR bin)
+ SET(LIBDIR lib${LIB_SUFFIX})
+ SET(INCLUDEDIR include)
+ SET(DATADIR share/lensfun)
+-SET(DOCDIR share/doc/lensfun-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX})
++SET(DOCDIR share/doc/lensfun-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX} CACHE STRING "Directory to put library documentation in")
+ 
+ IF(WIN32)
+   # install into place in build-dir  

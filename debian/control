@@ -1,0 +1,127 @@
+Source: lensfun
+Priority: optional
+Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
+Uploaders: Mark Purcell <msp@debian.org>
+Build-Depends: debhelper (>= 9), cmake, pkg-config, python3, libglib2.0-dev,
+ libpng-dev, python-docutils
+Build-Depends-Indep: doxygen
+Standards-Version: 3.9.6
+Section: libs
+Homepage: http://lensfun.sourceforge.net
+Vcs-Browser: http://anonscm.debian.org/viewvc/pkg-kde/kde-extras/lensfun/trunk
+Vcs-Svn: svn://anonscm.debian.org/pkg-kde/kde-extras/lensfun/trunk
+
+Package: liblensfun-dev
+Section: libdevel
+Architecture: any
+Depends: liblensfun1 (= ${binary:Version}), ${misc:Depends}
+Description: Lens Correction library - Development files
+ Lensfun is an opensource database of photographic lenses and their
+ characteristics. It contains three kinds of objects:
+  * mounts
+  * cameras
+  * lenses
+ .
+ It is used in various photo-related software in which it allows the
+ correction of various artifacts:
+  * distortion
+  * transveral (also known as lateral) chromatic aberrations
+  * vignetting
+  * colour contribution of the lens (correcting said "yellowish" or "blueish"
+    images)
+ .
+ It provides a way to read and search for specific things in the database.
+ .
+ This package contains the development files.
+
+Package: liblensfun1
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, liblensfun-data1
+Description: Lens Correction library - Runtime files
+ Lensfun is an opensource database of photographic lenses and their
+ characteristics. It contains three kinds of objects:
+  * mounts
+  * cameras
+  * lenses
+ .
+ It is used in various photo-related software in which it allows the
+ correction of various artifacts:
+  * distortion
+  * transveral (also known as lateral) chromatic aberrations
+  * vignetting
+  * colour contribution of the lens (correcting said "yellowish" or "blueish"
+    images)
+ .
+ It provides a way to read and search for specific things in the database.
+ .
+ This package contains the runtime files to access the library.
+
+Package: liblensfun-data1
+Architecture: all
+Depends: ${misc:Depends}
+Description: Lens Correction library - Data
+ Lensfun is an opensource database of photographic lenses and their
+ characteristics. It contains three kinds of objects:
+  * mounts
+  * cameras
+  * lenses
+ .
+ It is used in various photo-related software in which it allows the
+ correction of various artifacts:
+  * distortion
+  * transveral (also known as lateral) chromatic aberrations
+  * vignetting
+  * colour contribution of the lens (correcting said "yellowish" or "blueish"
+    images)
+ .
+ It provides a way to read and search for specific things in the database.
+ .
+ This package contains the data collection.
+
+Package: liblensfun-doc
+Section: doc
+Architecture: all
+Depends: ${misc:Depends}, libjs-mathjax
+Description: Lens Correction library - Documentation
+ Lensfun is an opensource database of photographic lenses and their
+ characteristics. It contains three kinds of objects:
+  * mounts
+  * cameras
+  * lenses
+ .
+ It is used in various photo-related software in which it allows the
+ correction of various artifacts:
+  * distortion
+  * transveral (also known as lateral) chromatic aberrations
+  * vignetting
+  * colour contribution of the lens (correcting said "yellowish" or "blueish"
+    images)
+ .
+ It provides a way to read and search for specific things in the database.
+ .
+ This package contains the documentation.
+
+Package: liblensfun-bin
+Architecture: all
+Depends: ${misc:Depends}, ${python3:Depends}
+Recommends: gksu
+Description: Lens Correction library - helper programs
+ Lensfun is an opensource database of photographic lenses and their
+ characteristics. It contains three kinds of objects:
+  * mounts
+  * cameras
+  * lenses
+ .
+ It is used in various photo-related software in which it allows the
+ correction of various artifacts:
+  * distortion
+  * transveral (also known as lateral) chromatic aberrations
+  * vignetting
+  * colour contribution of the lens (correcting said "yellowish" or "blueish"
+    images)
+ .
+ It provides a way to read and search for specific things in the database.
+ .
+ This package contains helper programs to update the database from the Internet
+ and to add further mount compatibilities.
+

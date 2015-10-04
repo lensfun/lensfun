@@ -1,0 +1,15 @@
+Use Mathjax from libjs-mathjax package.
+This fixes the privacy-breach-may-use-debian-package lintian error.
+Index: lensfun-0.3.0/docs/doxyfile.in.cmake
+===================================================================
+--- lensfun-0.3.0.orig/docs/doxyfile.in.cmake
++++ lensfun-0.3.0/docs/doxyfile.in.cmake
+@@ -1208,7 +1208,7 @@ MATHJAX_FORMAT         = HTML-CSS
+ # However, it is strongly recommended to install a local
+ # copy of MathJax from http://www.mathjax.org before deployment.
+ 
+-MATHJAX_RELPATH        = http://lensfun.sourceforge.net/mathjax
++MATHJAX_RELPATH        = /usr/share/javascript/mathjax
+ 
+ # The MATHJAX_EXTENSIONS tag can be used to specify one or MathJax extension
+ # names that should be enabled during MathJax rendering.
