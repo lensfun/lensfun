@@ -1387,7 +1387,7 @@ struct LF_EXPORT lfDatabase
      * @return
      *     True if valid lensfun XML data was succesfully loaded.
      */
-    bool LoadDirectory (const char *dirname, bool use_versioned_subdir=true);
+    bool LoadDirectory (const char *dirname);
 
     /**
      * @brief Find and load the lens database.
