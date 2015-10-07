@@ -107,8 +107,8 @@ ENDIF()
 
 # find dependencies
 # NOTE: must be one of the macros listed in https://developer.gnome.org/glib/stable/glib-Version-Information.html
-SET(LENSFUN_GLIB_REQUIREMENT_MACRO "GLIB_VERSION_2_44")
-FIND_PACKAGE(GLIB2 REQUIRED 2.44)
+SET(LENSFUN_GLIB_REQUIREMENT_MACRO "GLIB_VERSION_2_40")
+FIND_PACKAGE(GLIB2 REQUIRED 2.40)
 
 INCLUDE_DIRECTORIES(${GLIB2_INCLUDE_DIRS})
 # install glib dll on windows next to lensfun.dll
