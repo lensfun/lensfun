@@ -33,3 +33,9 @@
 #ifdef _MSC_VER
 #define _USE_MATH_DEFINES
 #endif
+
+#define GLIB_VERSION_MIN_REQUIRED      (${LENSFUN_GLIB_REQUIREMENT_MACRO})
+
+// to avoid usage of API that is not in GLIB_VERSION_MIN_REQUIRED version
+// and make it easy to detect when to bump requirements:
+#define GLIB_VERSION_MAX_ALLOWED      (GLIB_VERSION_MIN_REQUIRED)
