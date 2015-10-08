@@ -2,7 +2,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8 FATAL_ERROR )
 
 # path for helper modules
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/build/CMakeModules)
+set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_SOURCE_DIR}/cmake/modules")
 GET_FILENAME_COMPONENT(SOURCE_BASE_DIR ${CMAKE_SOURCE_DIR} PATH CACHE)
 
 #  global setup
@@ -106,8 +106,11 @@ IF(WIN32)
 ENDIF()
 
 # find dependencies
-FIND_PACKAGE(GLIB2 REQUIRED)
-INCLUDE_DIRECTORIES(${GLIB2_INCLUDE_DIRS})
+# NOTE: must be one of the macros listed in https://developer.gnome.org/glib/stable/glib-Version-Information.html
+SET(LENSFUN_GLIB_REQUIREMENT_MACRO "GLIB_VERSION_2_40")
+FIND_PACKAGE(GLIB2 REQUIRED 2.40)
+
+INCLUDE_DIRECTORIES(SYSTEM ${GLIB2_INCLUDE_DIRS})
 # install glib dll on windows next to lensfun.dll
 IF (GLIB2_DLL)
     INSTALL(FILES ${GLIB2_DLL} DESTINATION ${LENSFUN_FULL_BINDIR})
