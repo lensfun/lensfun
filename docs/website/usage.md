@@ -13,8 +13,9 @@ So far you can use Lensfun with the following applications:
 * <a href="http://rawstudio.org/">Rawstudio</a> another raw processor
 * <a href="http://digikam.org/">Digikam/Kipi</a> image management application, supports Lensfun via Kipi-Plugin
 * <a href="http://seebk.github.io/GIMP-Lensfun/">GimpLensfun</a> GIMP plugin
-* <a href="http://photivo.org/">Photivo</a> Photo processor application
-* <a href="http://hugin.sourceforge.net/">Hugin</a> Panorama stitcher (version 2011.4.0 - 2014.0.0)
+* <a href="http://photivo.org/">Photivo</a> photo processor application
+* <a href="https://github.com/neothemachine/lensfunpy">lensfunpy</a> Python wrapper for Lensfun
+* <a href="http://hugin.sourceforge.net/">Hugin</a> panorama stitcher (version 2011.4.0 - 2014.0.0)
 
 If the above applications do not recognize your camera or lens in their Lensfun tool please check the <a href="/lenslist/">list of supported lenses</a> and the <a href="/faq/">FAQ</a>.
 
