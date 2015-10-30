@@ -233,6 +233,13 @@
         <cropfactor>5.56</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Panasonic</maker>
+        <model>DMC-LF1</model>
+        <mount>panasonicLF1</mount>
+        <cropfactor>4.67</cropfactor>
+    </camera>
+
     <lens>
         <maker>Leica</maker>
         <model>DMC-LX1 &amp; compatibles (Standard)</model>
@@ -701,6 +708,25 @@
             <tca focal="11.8" model="poly3" br="-0.0001123" cr="0.0002160" vr="0.9999639" bb="-0.0000447" cb="-0.0002364" vb="1.0005859" />
             <tca focal="19.7" model="poly3" br="0.0001264" cr="-0.0002769" vr="1.0001582" bb="-0.0002199" cb="0.0002568" vb="1.0001491" />
             <tca focal="54.7" model="poly3" br="0.0000262" cr="0.0000067" vr="0.9998924" bb="-0.0000739" cb="0.0001647" vb="0.9998393" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Panasonic</maker>
+        <model>DMC-LF1 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>panasonicLF1</mount>
+        <cropfactor>4.67</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <tca model="poly3" focal="6" vr="1.0005672" vb="1.0000977" />
+            <tca model="poly3" focal="7.5" vr="1.0005690" vb="1.0000776" />
+            <tca model="poly3" focal="10.7" vr="1.0005082" vb="0.9999157" />
+            <tca model="poly3" focal="15" vr="1.0003700" vb="0.9998667" />
+            <tca model="poly3" focal="19.2" vr="1.0002766" vb="0.9997974" />
+            <tca model="poly3" focal="28.9" vr="1.0000763" vb="0.9997835" />
+            <tca model="poly3" focal="42.8" vr="0.9998590" vb="0.9998421" />
         </calibration>
     </lens>
 
