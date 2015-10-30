@@ -758,6 +758,22 @@
         <cropfactor>5.6</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot ELPH 110 HS</model>
+        <model lang="en">Powershot ELPH 110 HS</model>
+        <mount>canonIxus125HS</mount>
+        <cropfactor>5.58</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon IXUS 125 HS</model>
+        <model lang="en">IXUS 125 HS</model>
+        <mount>canonIxus125HS</mount>
+        <cropfactor>5.58</cropfactor>
+    </camera>
+
     <lens>
         <maker>Canon</maker>
         <model>Canon PowerShot Pro1 &amp; compatibles (Standard)</model>
@@ -2192,6 +2208,23 @@
             <tca model="poly3" focal="12.3" br="-0.0000172" vr="1.0000424" bb="-0.0000860" vb="1.0002696" />
             <tca model="poly3" focal="21.7" br="-0.0000362" vr="1.0000884" bb="-0.0000442" vb="1.0000962" />
             <tca model="poly3" focal="26" br="0.0000709" vr="1.0000116" bb="-0.0000173" vb="1.0000555" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Standard</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>canonIxus125HS</mount>
+        <cropfactor>5.58</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="4.3" a="0.0414" b="-0.15308" c="0.04158" />
+            <distortion model="ptlens" focal="7.8" a="0" b="-0.01745" c="0" />
+            <distortion model="ptlens" focal="11.2" a="0" b="-0.00357" c="0" />
+            <distortion model="ptlens" focal="16.2" a="0" b="0.00377" c="0" />
+            <distortion model="ptlens" focal="21.5" a="0" b="0.00709" c="0" />
         </calibration>
     </lens>
 
