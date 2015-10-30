@@ -206,7 +206,7 @@ if os.path.exists("distortion"):
 
 lens_line_pattern = re.compile(
     r"(?P<name>.+):\s*(?P<maker>[^,]+)\s*,\s*(?P<mount>[^,]+)\s*,\s*(?P<cropfactor>[^,]+)"
-    r"(\s*,\s*(?P<aspect_ratio>\d+:\d+))?(\s*,\s*(?P<type>[^,]+))?")
+    r"(\s*,\s*(?P<aspect_ratio>\d+:\d+|[0-9.]+))?(\s*,\s*(?P<type>[^,]+))?")
 distortion_line_pattern = re.compile(r"\s*distortion\((?P<focal_length>[.0-9]+)mm\)\s*=\s*"
                                      r"(?P<a>[-.0-9]+)(?:\s*,\s*(?P<b>[-.0-9]+)\s*,\s*(?P<c>[-.0-9]+))?")
 lenses = {}
