@@ -2855,4 +2855,27 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF Micro-Nikkor 105mm f/2.8D</model>
+        <model lang="en">Nikkor AF 105mm f/2.8D Micro</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D750 -->
+            <distortion model="poly3" focal="105" k1="0.00083" />
+            <tca model="poly3" focal="105" vr="0.9999257" vb="1.0000278" />
+            <vignetting model="pa" focal="105" aperture="2.8" distance="10" k1="-1.2984" k2="1.4994" k3="-0.7772" />
+            <vignetting model="pa" focal="105" aperture="2.8" distance="1000" k1="-1.2984" k2="1.4994" k3="-0.7772" />
+            <vignetting model="pa" focal="105" aperture="4" distance="10" k1="-0.0934" k2="-0.0239" k3="-0.1779" />
+            <vignetting model="pa" focal="105" aperture="4" distance="1000" k1="-0.0934" k2="-0.0239" k3="-0.1779" />
+            <vignetting model="pa" focal="105" aperture="5.6" distance="10" k1="-0.0950" k2="0.0021" k3="-0.0049" />
+            <vignetting model="pa" focal="105" aperture="5.6" distance="1000" k1="-0.0950" k2="0.0021" k3="-0.0049" />
+            <vignetting model="pa" focal="105" aperture="8" distance="10" k1="-0.0866" k2="-0.0231" k3="0.0150" />
+            <vignetting model="pa" focal="105" aperture="8" distance="1000" k1="-0.0866" k2="-0.0231" k3="0.0150" />
+            <vignetting model="pa" focal="105" aperture="32" distance="10" k1="-0.0379" k2="-0.1418" k3="0.0891" />
+            <vignetting model="pa" focal="105" aperture="32" distance="1000" k1="-0.0379" k2="-0.1418" k3="0.0891" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
