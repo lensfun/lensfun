@@ -8,6 +8,13 @@
     </camera>
 
     <camera>
+        <maker>GoPro</maker>
+        <model>HERO4 Silver</model>
+        <mount>goProHero4</mount>
+        <cropfactor>7.66</cropfactor>
+    </camera>
+
+    <camera>
         <maker>DJI</maker>
         <model>Phantom Vision FC200</model>
         <mount>dijPhantomVisionFC200</mount>
@@ -40,6 +47,20 @@
         <calibration>
             <distortion model="ptlens" focal="5" a="0.02707" b="-0.10021" c="-0.09787" />
             <tca model="poly3" focal="5" vr="1.0002" vb="1.0007" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>GoPro</maker>
+        <model>HERO4</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>goProHero4</mount>
+        <cropfactor>7.66</cropfactor>
+        <type>equisolid</type>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="3" a="0.03183" b="-0.11592" c="0" />
         </calibration>
     </lens>
 
