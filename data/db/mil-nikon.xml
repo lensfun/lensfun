@@ -189,4 +189,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>1 Nikkor 32mm f/1.2</model>
+        <mount>Nikon CX</mount>
+        <cropfactor>2.727</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon 1 J1 -->
+            <distortion model="ptlens" focal="32" a="-0.002" b="0.004" c="-0.003" />
+            <tca model="poly3" focal="32" br="-0.0000293" vr="1.0000997" bb="0.0000337" vb="0.9998935" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
