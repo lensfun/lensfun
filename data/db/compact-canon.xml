@@ -2186,12 +2186,66 @@
             <distortion model="ptlens" focal="18.1" a="0" b="-0.01038" c="0" />
             <distortion model="ptlens" focal="31" a="0" b="0.00302" c="0" />
             <distortion model="ptlens" focal="36.8" a="0" b="0.00625" c="0" />
-            <tca model="poly3" focal="8.8" br="-0.0001622" vr="1.0004427" bb="0.0001401" vb="0.9998903" />
-            <tca model="poly3" focal="10.2" br="-0.0003663" vr="1.0012244" bb="0.0002460" vb="0.9996525" />
-            <tca model="poly3" focal="12.8" br="-0.0002031" vr="1.0007920" bb="0.0000489" vb="0.9998982" />
-            <tca model="poly3" focal="18.1" br="-0.0000658" vr="1.0002495" bb="-0.0000162" vb="1.0000249" />
-            <tca model="poly3" focal="31" br="0.0000038" vr="0.9999370" bb="0.0000201" vb="0.9999466" />
-            <tca model="poly3" focal="36.8" br="0.0000132" vr="0.9998952" bb="0.0000210" vb="0.9999015" />
+            <tca model="poly3" focal="8.8" br="-0.0005162" vr="1.0016034" bb="0.0004383" vb="0.9993909" />
+            <tca model="poly3" focal="11.5" br="-0.0002728" vr="1.0011909" bb="0.0002069" vb="0.9996313" />
+            <tca model="poly3" focal="14.2" br="-0.0001588" vr="1.0008252" bb="0.0001122" vb="0.9998027" />
+            <tca model="poly3" focal="18.4" br="-0.0001077" vr="1.0004530" bb="0.0000610" vb="0.9999249" />
+            <tca model="poly3" focal="25.2" br="-0.0000678" vr="1.0001331" bb="0.0000333" vb="0.9999687" />
+            <tca model="poly3" focal="36.8" br="-0.0000631" vr="0.9998836" bb="0.0000158" vb="0.9999238" />
+            <vignetting model="pa" focal="8.8" aperture="1.8" distance="10" k1="-0.2553" k2="-0.1170" k3="-0.7056" />
+            <vignetting model="pa" focal="8.8" aperture="1.8" distance="1000" k1="-0.2553" k2="-0.1170" k3="-0.7056" />
+            <vignetting model="pa" focal="8.8" aperture="2.5" distance="10" k1="0.0116" k2="-0.3654" k3="-0.7260" />
+            <vignetting model="pa" focal="8.8" aperture="2.5" distance="1000" k1="0.0116" k2="-0.3654" k3="-0.7260" />
+            <vignetting model="pa" focal="8.8" aperture="3.5" distance="10" k1="-0.0396" k2="-0.0536" k3="-0.9917" />
+            <vignetting model="pa" focal="8.8" aperture="3.5" distance="1000" k1="-0.0396" k2="-0.0536" k3="-0.9917" />
+            <vignetting model="pa" focal="8.8" aperture="5" distance="10" k1="-0.2345" k2="0.8117" k3="-1.6607" />
+            <vignetting model="pa" focal="8.8" aperture="5" distance="1000" k1="-0.2345" k2="0.8117" k3="-1.6607" />
+            <vignetting model="pa" focal="8.8" aperture="11" distance="10" k1="-0.3502" k2="1.3201" k3="-2.0550" />
+            <vignetting model="pa" focal="8.8" aperture="11" distance="1000" k1="-0.3502" k2="1.3201" k3="-2.0550" />
+            <vignetting model="pa" focal="12.2" aperture="2.2" distance="10" k1="-0.9433" k2="1.5959" k3="-1.1783" />
+            <vignetting model="pa" focal="12.2" aperture="2.2" distance="1000" k1="-0.9433" k2="1.5959" k3="-1.1783" />
+            <vignetting model="pa" focal="12.2" aperture="3.2" distance="10" k1="-0.0705" k2="-0.0631" k3="-0.2402" />
+            <vignetting model="pa" focal="12.2" aperture="3.2" distance="1000" k1="-0.0705" k2="-0.0631" k3="-0.2402" />
+            <vignetting model="pa" focal="12.2" aperture="4.5" distance="10" k1="-0.3210" k2="0.6479" k3="-0.6690" />
+            <vignetting model="pa" focal="12.2" aperture="4.5" distance="1000" k1="-0.3210" k2="0.6479" k3="-0.6690" />
+            <vignetting model="pa" focal="12.2" aperture="6.3" distance="10" k1="-0.3130" k2="0.5326" k3="-0.4661" />
+            <vignetting model="pa" focal="12.2" aperture="6.3" distance="1000" k1="-0.3130" k2="0.5326" k3="-0.4661" />
+            <vignetting model="pa" focal="12.2" aperture="9" distance="10" k1="-0.2301" k2="0.2070" k3="-0.1677" />
+            <vignetting model="pa" focal="12.2" aperture="9" distance="1000" k1="-0.2301" k2="0.2070" k3="-0.1677" />
+            <vignetting model="pa" focal="12.2" aperture="11" distance="10" k1="-0.2130" k2="0.1342" k3="-0.0993" />
+            <vignetting model="pa" focal="12.2" aperture="11" distance="1000" k1="-0.2130" k2="0.1342" k3="-0.0993" />
+            <vignetting model="pa" focal="16.8" aperture="2.5" distance="10" k1="-0.5504" k2="0.5311" k3="-0.3166" />
+            <vignetting model="pa" focal="16.8" aperture="2.5" distance="1000" k1="-0.5504" k2="0.5311" k3="-0.3166" />
+            <vignetting model="pa" focal="16.8" aperture="3.5" distance="10" k1="-0.0703" k2="-0.1104" k3="-0.1004" />
+            <vignetting model="pa" focal="16.8" aperture="3.5" distance="1000" k1="-0.0703" k2="-0.1104" k3="-0.1004" />
+            <vignetting model="pa" focal="16.8" aperture="5" distance="10" k1="-0.2687" k2="0.5568" k3="-0.4949" />
+            <vignetting model="pa" focal="16.8" aperture="5" distance="1000" k1="-0.2687" k2="0.5568" k3="-0.4949" />
+            <vignetting model="pa" focal="16.8" aperture="7.1" distance="10" k1="-0.2001" k2="0.2552" k3="-0.1775" />
+            <vignetting model="pa" focal="16.8" aperture="7.1" distance="1000" k1="-0.2001" k2="0.2552" k3="-0.1775" />
+            <vignetting model="pa" focal="16.8" aperture="10" distance="10" k1="-0.1708" k2="0.1409" k3="-0.0725" />
+            <vignetting model="pa" focal="16.8" aperture="10" distance="1000" k1="-0.1708" k2="0.1409" k3="-0.0725" />
+            <vignetting model="pa" focal="16.8" aperture="11" distance="10" k1="-0.1797" k2="0.1623" k3="-0.0873" />
+            <vignetting model="pa" focal="16.8" aperture="11" distance="1000" k1="-0.1797" k2="0.1623" k3="-0.0873" />
+            <vignetting model="pa" focal="23.4" aperture="2.8" distance="10" k1="-0.3289" k2="0.9280" k3="-0.8241" />
+            <vignetting model="pa" focal="23.4" aperture="2.8" distance="1000" k1="-0.3289" k2="0.9280" k3="-0.8241" />
+            <vignetting model="pa" focal="23.4" aperture="4" distance="10" k1="-0.1598" k2="0.2689" k3="-0.2806" />
+            <vignetting model="pa" focal="23.4" aperture="4" distance="1000" k1="-0.1598" k2="0.2689" k3="-0.2806" />
+            <vignetting model="pa" focal="23.4" aperture="5.6" distance="10" k1="-0.1551" k2="0.1893" k3="-0.1145" />
+            <vignetting model="pa" focal="23.4" aperture="5.6" distance="1000" k1="-0.1551" k2="0.1893" k3="-0.1145" />
+            <vignetting model="pa" focal="23.4" aperture="8" distance="10" k1="-0.1492" k2="0.1581" k3="-0.0767" />
+            <vignetting model="pa" focal="23.4" aperture="8" distance="1000" k1="-0.1492" k2="0.1581" k3="-0.0767" />
+            <vignetting model="pa" focal="23.4" aperture="11" distance="10" k1="-0.1533" k2="0.1661" k3="-0.0794" />
+            <vignetting model="pa" focal="23.4" aperture="11" distance="1000" k1="-0.1533" k2="0.1661" k3="-0.0794" />
+            <vignetting model="pa" focal="36.8" aperture="2.8" distance="10" k1="-0.1704" k2="-0.2258" k3="0.0705" />
+            <vignetting model="pa" focal="36.8" aperture="2.8" distance="1000" k1="-0.1704" k2="-0.2258" k3="0.0705" />
+            <vignetting model="pa" focal="36.8" aperture="4" distance="10" k1="-0.1958" k2="0.4549" k3="-0.4959" />
+            <vignetting model="pa" focal="36.8" aperture="4" distance="1000" k1="-0.1958" k2="0.4549" k3="-0.4959" />
+            <vignetting model="pa" focal="36.8" aperture="5.6" distance="10" k1="-0.2475" k2="0.3334" k3="-0.2460" />
+            <vignetting model="pa" focal="36.8" aperture="5.6" distance="1000" k1="-0.2475" k2="0.3334" k3="-0.2460" />
+            <vignetting model="pa" focal="36.8" aperture="8" distance="10" k1="-0.1842" k2="0.0868" k3="-0.0198" />
+            <vignetting model="pa" focal="36.8" aperture="8" distance="1000" k1="-0.1842" k2="0.0868" k3="-0.0198" />
+            <vignetting model="pa" focal="36.8" aperture="11" distance="10" k1="-0.1869" k2="0.0890" k3="-0.0178" />
+            <vignetting model="pa" focal="36.8" aperture="11" distance="1000" k1="-0.1869" k2="0.0890" k3="-0.0178" />
         </calibration>
     </lens>
 
