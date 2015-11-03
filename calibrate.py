@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2014 Torsten Bronger <bronger@physik.rwth-aachen.de>
+# Copyright 2012-2015 Torsten Bronger <bronger@physik.rwth-aachen.de>
 # This file is in the Public Domain.
 
 missing_packages = set()
