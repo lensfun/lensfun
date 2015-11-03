@@ -2211,6 +2211,21 @@
         <cropfactor>1.0</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="24" a="0.017412" b="-0.039315" c="0" />
+            <!-- Taken with Canon 5D -->
+            <vignetting model="pa" focal="24" aperture="2.8" distance="10" k1="-1.9042" k2="1.8775" k3="-0.7656" />
+            <vignetting model="pa" focal="24" aperture="2.8" distance="1000" k1="-1.9042" k2="1.8775" k3="-0.7656" />
+            <vignetting model="pa" focal="24" aperture="4" distance="10" k1="-0.3786" k2="-0.8590" k3="0.5975" />
+            <vignetting model="pa" focal="24" aperture="4" distance="1000" k1="-0.3786" k2="-0.8590" k3="0.5975" />
+            <vignetting model="pa" focal="24" aperture="5.6" distance="10" k1="-0.5720" k2="0.1848" k3="-0.0872" />
+            <vignetting model="pa" focal="24" aperture="5.6" distance="1000" k1="-0.5720" k2="0.1848" k3="-0.0872" />
+            <vignetting model="pa" focal="24" aperture="8" distance="10" k1="-0.5534" k2="0.0775" k3="0.0466" />
+            <vignetting model="pa" focal="24" aperture="8" distance="1000" k1="-0.5534" k2="0.0775" k3="0.0466" />
+            <vignetting model="pa" focal="24" aperture="11" distance="10" k1="-0.5601" k2="0.0867" k3="0.0430" />
+            <vignetting model="pa" focal="24" aperture="11" distance="1000" k1="-0.5601" k2="0.0867" k3="0.0430" />
+            <vignetting model="pa" focal="24" aperture="16" distance="10" k1="-0.5673" k2="0.0970" k3="0.0386" />
+            <vignetting model="pa" focal="24" aperture="16" distance="1000" k1="-0.5673" k2="0.0970" k3="0.0386" />
+            <vignetting model="pa" focal="24" aperture="22" distance="10" k1="-0.5737" k2="0.1049" k3="0.0356" />
+            <vignetting model="pa" focal="24" aperture="22" distance="1000" k1="-0.5737" k2="0.1049" k3="0.0356" />
         </calibration>
     </lens>
 
