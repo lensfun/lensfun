@@ -832,4 +832,15 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 28mm f/2</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="poly3" focal="28" k1="-0.02561" />
+            <tca model="poly3" focal="28" vr="1.0001366" vb="0.9999474" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
