@@ -915,4 +915,18 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Olympus</maker>
+        <model>Olympus M.Zuiko Digital ED 8mm f/1.8 Fisheye Pro</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <type>equisolid</type>
+        <calibration>
+            <!-- Taken with Olympus E-M5 II -->
+            <distortion model="poly3" focal="8" k1="-0.00531" />
+            <tca model="poly3" focal="8" br="-0.0000479" vr="1.0005124" bb="0.0000296" vb="1.0000150" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
