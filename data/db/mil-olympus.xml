@@ -645,7 +645,7 @@
 
     <lens>
         <maker>Olympus</maker>
-        <model>Olympus M.Zuiko Digital ED 12-40mm f/2.8</model>
+        <model>Olympus M.Zuiko Digital ED 12-40mm f/2.8 Pro</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2.0</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
@@ -874,6 +874,58 @@
             <!-- Taken with E-M10 -->
             <distortion model="poly3" focal="60" k1="0.00078" />
             <tca model="poly3" focal="60" br="-0.0000632" vr="1.0002668" bb="0.0000602" vb="0.9998450" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Olympus</maker>
+        <model>Olympus M.Zuiko Digital ED 7-14mm f/2.8 Pro</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Olympus E-M1 -->
+            <distortion model="ptlens" focal="7" a="0.04439" b="-0.17864" c="0.13663" />
+            <distortion model="ptlens" focal="8" a="0.03553" b="-0.15302" c="0.13031" />
+            <distortion model="ptlens" focal="9" a="0.0244" b="-0.11622" c="0.10732" />
+            <distortion model="ptlens" focal="10" a="0.00877" b="-0.06446" c="0.0724" />
+            <distortion model="ptlens" focal="12" a="-0.0012" b="-0.02183" c="0.03886" />
+            <distortion model="ptlens" focal="14" a="-0.00708" b="0.00634" c="0.01377" />
+            <tca model="poly3" focal="7" vr="1.0002513" vb="1.0000643" />
+            <tca model="poly3" focal="8" vr="1.0002812" vb="1.0000534" />
+            <tca model="poly3" focal="9" vr="1.0003194" vb="1.0000333" />
+            <tca model="poly3" focal="10" vr="1.0003171" vb="1.0000324" />
+            <tca model="poly3" focal="11" vr="1.0003051" vb="1.0000588" />
+            <tca model="poly3" focal="12" vr="1.0002551" vb="1.0000838" />
+            <tca model="poly3" focal="13" vr="1.0001951" vb="1.0001380" />
+            <tca model="poly3" focal="14" vr="1.0001628" vb="1.0001960" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Olympus</maker>
+        <model>Olympus 9mm Body Cap Lens Fisheye</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <type>stereographic</type>
+        <calibration>
+            <!-- Taken with Olympus E-M10 -->
+            <distortion model="poly3" focal="9" k1="-0.03111" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Olympus</maker>
+        <model>Olympus M.Zuiko Digital ED 8mm f/1.8 Fisheye Pro</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <type>equisolid</type>
+        <calibration>
+            <!-- Taken with Olympus E-M5 II -->
+            <distortion model="poly3" focal="8" k1="-0.00531" />
+            <tca model="poly3" focal="8" br="-0.0000479" vr="1.0005124" bb="0.0000296" vb="1.0000150" />
         </calibration>
     </lens>
 

@@ -156,6 +156,13 @@
         <cropfactor>3.933</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Nikon</maker>
+        <model>Coolpix P7000</model>
+        <mount>nikonP7000</mount>
+        <cropfactor>4.69</cropfactor>
+    </camera>
+
     <lens>
         <maker>Nikon</maker>
         <model>E8800 &amp; compatibles (Standard)</model>
@@ -649,6 +656,22 @@
             <distortion model="poly3" focal="27.6" />
             <tca model="poly3" focal="4.6" />
             <tca model="poly3" focal="27.6" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Coolpix P7000 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>nikonP7000</mount>
+        <cropfactor>4.69</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="6" a="0.01246" b="-0.02848" c="-0.02244" />
+            <distortion model="ptlens" focal="8.8" a="0.01448" b="-0.03373" c="0.0304" />
+            <distortion model="ptlens" focal="16.3" a="0" b="0.01025" c="0" />
+            <distortion model="ptlens" focal="42.6" a="0" b="0.00694" c="0" />
         </calibration>
     </lens>
 

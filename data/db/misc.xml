@@ -37,6 +37,26 @@
         <cropfactor>1.525</cropfactor>
     </camera>
 
+    <camera>
+        <maker>LG Mobile</maker>
+        <maker lang="en">LG</maker>
+        <model>LG-H815</model>
+        <model lang="en">LG G4</model>
+        <mount>lgH815</mount>
+        <cropfactor>6.34</cropfactor>
+    </camera>
+
+    <camera>
+        <!-- This camera has been rebranded as Hama Action-Cam "Star-60",
+             fantec BeastVision XHD and possibly others. -->
+        <maker>AEE</maker>
+        <model>AEE DV</model>
+        <model lang="en">AEE MagiCam SD19 &amp; compatibles</model>
+        <mount>aeeDV</mount>
+        <!-- The crop factor is only estimated from the 1/2.5" specs. -->
+        <cropfactor>6</cropfactor>
+    </camera>
+
     <!-- I think this is also known under the brand "Michael Lens" or "Movie
          Lens", and with f/1.6.  The correction data actually was submitted as
          "CCTV Movie Lens HD-MC 35mm/F1.6".  The distortion model is not perfect,
@@ -275,6 +295,33 @@
             <!-- Taken with Nikon D600 -->
             <distortion model="ptlens" focal="40" a="0.00914" b="-0.03392" c="0.02683" />
             <tca model="poly3" focal="40" vr="1.0001130" vb="1.0000510" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>LG</maker>
+        <model>LG G4 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>lgH815</mount>
+        <cropfactor>6.34</cropfactor>
+        <aspect-ratio>16:9</aspect-ratio>
+        <calibration>
+            <distortion model="poly3" focal="4.42" k1="0.00306" />
+            <tca model="poly3" focal="4.42" vr="1.0000246" vb="1.0000556" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>AEE</maker>
+        <model>AEE SD19 &amp; compatibles</model>
+        <mount>aeeDV</mount>
+        <!-- The crop factor is only estimated from the 1/2.5" specs. -->
+        <cropfactor>6</cropfactor>
+        <type>equisolid</type>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="5" a="0.02844" b="-0.05905" c="-0.27048" />
         </calibration>
     </lens>
 

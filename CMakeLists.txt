@@ -8,15 +8,6 @@ GET_FILENAME_COMPONENT(SOURCE_BASE_DIR ${CMAKE_SOURCE_DIR} PATH CACHE)
 #  global setup
 project(lensfun)
 
-# set install prefix
-IF(WIN32)
-  # install into place in build-dir  
-  SET(LENSFUN_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install" CACHE PATH "Install prefix for Lensfun")    
-ELSE()
-  SET(LENSFUN_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE PATH "Install prefix for Lensfun")    
-ENDIF()
-SET(CMAKE_INSTALL_PREFIX "${LENSFUN_INSTALL_PREFIX}" CACHE INTERNAL "" FORCE)
-
 # version
 SET(VERSION_MAJOR 0)
 SET(VERSION_MINOR 3)
@@ -56,33 +47,18 @@ IF(NOT CMAKE_BUILD_TYPE)
   )
 ENDIF()
 
+# set local install prefix on windows
+IF(WIN32 AND CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)  
+  SET(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install" CACHE PATH "Install prefix for Lensfun" FORCE)    
+ENDIF()
 # get standard GNU install directories for the current platform
 INCLUDE(GNUInstallDirs)
 IF(NOT DEFINED CMAKE_INSTALL_DATAROOTDIR)
   SET(CMAKE_INSTALL_DATAROOTDIR "share" CACHE PATH "read-only architecture-independent data root (share)")
 ENDIF()
-
-# define destination dirs (either relative to LENSFUN_INSTALL_PREFIX or as absolute path)
-SET(LENSFUN_BINDIR bin CACHE PATH "Main binary directory" )
-SET(LENSFUN_LIBDIR lib${LIB_SUFFIX} CACHE PATH "Directory for library itself")
-SET(LENSFUN_INCLUDEDIR include CACHE PATH "Directory for library header files")
-IF (NOT WIN32)
-    SET(LENSFUN_DATADIR ${CMAKE_INSTALL_DATAROOTDIR}/lensfun CACHE PATH "Directory for library data files")
-ELSE()
+IF (WIN32)
     SET(LENSFUN_WINDOWS_DATADIR ${CMAKE_INSTALL_DATAROOTDIR}/lensfun CACHE PATH "Directory for library data files. This should be relative to the location where the lensfun.dll will be installed.")
 ENDIF()
-IF(BUILD_DOC)
-  SET(LENSFUN_DOCDIR ${CMAKE_INSTALL_DATAROOTDIR}/doc/lensfun-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}.${VERSION_BUGFIX} CACHE PATH "Directory to put library documentation in")
-ENDIF(BUILD_DOC)
-
-# prepend paths with prefix to get an absolute path
-FOREACH(dir BINDIR LIBDIR INCLUDEDIR DATADIR DOCDIR)
-IF(NOT IS_ABSOLUTE ${LENSFUN_${dir}})
-    SET(LENSFUN_FULL_${dir} "${LENSFUN_INSTALL_PREFIX}/${LENSFUN_${dir}}" CACHE INTERNAL "" FORCE)
-ELSE()
-    SET(LENSFUN_FULL_${dir} "${LENSFUN_${dir}}" CACHE INTERNAL "" FORCE)
-ENDIF()
-ENDFOREACH()
 
 IF(BUILD_FOR_SSE)
   SET(VECTORIZATION_SSE 1)
@@ -103,6 +79,10 @@ IF(WIN32)
   IF(NOT GLIB2_BASE_DIR)
     SET(GLIB2_BASE_DIR "${SOURCE_BASE_DIR}/glib-2.28.1" CACHE STRING "Base path of glib2 dir." FORCE)
   ENDIF()
+  # install glib dll on windows next to lensfun.dll
+  IF (GLIB2_DLL)
+    INSTALL(FILES ${GLIB2_DLL} DESTINATION ${CMAKE_INSTALL_BINDIR})
+  ENDIF()
 ENDIF()
 
 # find dependencies
@@ -111,15 +91,11 @@ SET(LENSFUN_GLIB_REQUIREMENT_MACRO "GLIB_VERSION_2_40")
 FIND_PACKAGE(GLIB2 REQUIRED 2.40)
 
 INCLUDE_DIRECTORIES(SYSTEM ${GLIB2_INCLUDE_DIRS})
-# install glib dll on windows next to lensfun.dll
-IF (GLIB2_DLL)
-    INSTALL(FILES ${GLIB2_DLL} DESTINATION ${LENSFUN_FULL_BINDIR})
-ENDIF()
+
 
 IF(BUILD_STATIC)
   ADD_DEFINITIONS(-DCONF_LENSFUN_STATIC)
 ENDIF()
-
 
 
 # some windows and MSVC specific settings
@@ -171,15 +147,15 @@ ENDIF()
 ADD_SUBDIRECTORY(apps)
 
 # install include files
-INSTALL(FILES ${CMAKE_BINARY_DIR}/lensfun.h DESTINATION ${LENSFUN_FULL_INCLUDEDIR}/lensfun)
+INSTALL(FILES ${CMAKE_BINARY_DIR}/lensfun.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/lensfun)
 IF(NOT HAVE_REGEX_H)
-  INSTALL(FILES include/regex/regex.h DESTINATION ${LENSFUN_FULL_INCLUDEDIR}/regex)
+  INSTALL(FILES include/regex/regex.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/regex)
 ENDIF()
 
 # install db files
 FILE(GLOB DATABASE_FILES data/db/*.xml)
-INSTALL(FILES ${DATABASE_FILES} DESTINATION ${LENSFUN_FULL_DATADIR}/version_${LENSFUN_DB_VERSION})
-INSTALL(FILES data/db/timestamp.txt DESTINATION ${LENSFUN_FULL_DATADIR}/version_${LENSFUN_DB_VERSION})
+INSTALL(FILES ${DATABASE_FILES} DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/lensfun/version_${LENSFUN_DB_VERSION})
+INSTALL(FILES data/db/timestamp.txt DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/lensfun/version_${LENSFUN_DB_VERSION})
 
 # build documentation
 IF(BUILD_DOC)
@@ -191,7 +167,7 @@ IF(WIN32 AND NOT BUILD_STATIC)
             NAMES glib-2.dll glib-2-vs9.dll
             PATHS "${GLIB2_BASE_DIR}/bin"
             NO_SYSTEM_ENVIRONMENT_PATH)
-  INSTALL(FILES ${GLIB2_DLL} DESTINATION ${LENSFUN_FULL_BINDIR})
+  INSTALL(FILES ${GLIB2_DLL} DESTINATION ${CMAKE_INSTALL_BINDIR})
 ENDIF()
 
 # print some information
@@ -210,7 +186,7 @@ MESSAGE(STATUS "Build lenstool: ${BUILD_LENSTOOL}")
 MESSAGE(STATUS "Build with support for SSE: ${BUILD_FOR_SSE}")
 MESSAGE(STATUS "Build with support for SSE2: ${BUILD_FOR_SSE2}")
 MESSAGE(STATUS "Install helper scripts: ${INSTALL_HELPER_SCRIPTS}")
-MESSAGE(STATUS "\nInstall prefix: ${LENSFUN_INSTALL_PREFIX}")
+MESSAGE(STATUS "\nInstall prefix: ${CMAKE_INSTALL_PREFIX}")
 MESSAGE(STATUS "\nUsing: ")
 MESSAGE(STATUS "GLIB2 include dir: ${GLIB2_INCLUDE_DIRS}")
 MESSAGE(STATUS "GLIB2 library: ${GLIB2_LIBRARIES}")
