@@ -4,7 +4,7 @@
 
 override_dh_auto_configure:
 ifneq (,$(filter %-doc,$(shell dh_listpackages)))
-	dh_auto_configure -- -DBUILD_DOC=ON -DDOCDIR="/usr/share/doc/liblensfun-doc/html"
+	dh_auto_configure -- -DBUILD_DOC=ON -DCMAKE_INSTALL_DOCDIR="/usr/share/doc/liblensfun-doc/html"
 else
 	dh_auto_configure -- -DBUILD_DOC=OFF
 endif
