@@ -20,6 +20,9 @@ and vignetting.
 The interface is defined both using C++ style and plain C.
 The C interface is a wrapper around the C++ classes.
 
+Website: http://lensfun.sourceforge.net/  
+Sourceforge: http://sourceforge.net/projects/lensfun/  
+
 
 LICENSE
 -------
@@ -59,11 +62,11 @@ The build system is based on CMake (http://www.cmake.org/). In order to
 successfully configure and build the project the following tools are more 
 or less required:
 
-    - CMake 
-    - GNU Make 
-    - Doxygen in order to generate the library documentation.
-    - GLib 2.0 and later which is used for low-level I/O and XML parsing.
-    - libpng is required to build and run test programs.
+ - CMake 
+ - GNU Make 
+ - Doxygen in order to generate the library documentation.
+ - GLib 2.0 and later which is used for low-level I/O and XML parsing.
+ - libpng is required to build and run test programs.
 
 First enter the Lensfun root folder and create a build directory.
 
@@ -85,7 +88,7 @@ The following CMake options can be set (defaults are upper case):
 
     -DCMAKE_BUILD_TYPE=DEBUG|Release        select debug or release build mode
     -DINSTALL_HELPER_SCRIPTS=off|ON         install various helper scripts
-    -DLENSFUN_INSTALL_PREFIX=/USR/LOCAL     install prefix 
+    -DCMAKE_INSTALL_PREFIX=/USR/LOCAL       install prefix 
 
     -DBUILD_STATIC=OFF|on       build static or shared lib
     -DBUILD_TESTS=OFF|on        build also the test programs
@@ -116,7 +119,7 @@ DOCUMENTATION
 The end-user documentation for the library can be built by issuing the
 command:
 
-	make docs
+    make docs
 
 Also you can read it online at any time by pointing your browser to:
 
@@ -132,31 +135,31 @@ CREDITS
 Here goes a full list of people who have contributed to this library:
 
 CODE:
-	Andrew Zabolotny <zap@homelink.ru>
-
+  > Andrew Zabolotny <zap@homelink.ru>
+ 
 LENS DATA:
-	Tom Niemann: original open-source ptlens database.
+  > Tom Niemann: original open-source ptlens database.
 
 THANKS:
-	Pablo d'Angelo for the idea of a open-source lens database.
-	The whole PanoTools team:</b> for all math and knowledge I have borrowed
-	from PanoTools:
-		Helmut Dersch - The father of most (all?) open-source panorama
-		creation tools.
-		Daniel M. German
-		Kevin Kratzke
-		Rik Littlefield
-		Fulvio Senore
-		Jim Watters
-		Thomas Rauscher
-		Pablo d'Angelo (thanks once more :)
-		Bret McKee
-		Robert Platt
+  > Pablo d'Angelo for the idea of a open-source lens database.
+  > 
+  > The whole PanoTools team, for all math and knowledge I have borrowed from PanoTools:
+  > 
+  > Helmut Dersch - The father of most (all?) open-source panorama creation tools.
+  > Daniel M. German
+  > Kevin Kratzke
+  > Rik Littlefield
+  > Fulvio Senore
+  > Jim Watters
+  > Thomas Rauscher
+  > Pablo d'Angelo (thanks once more :)
+  > Bret McKee
+  > Robert Platt
 
 Also I would like to thank the people that made valuable contributions to Lensfun:
-	Niels Kristian Bech Jensen
-	Pascal de Bruijn
-	Thomas Modes
-	Torsten Bronger
+  > Niels Kristian Bech Jensen
+  > Pascal de Bruijn
+  > Thomas Modes
+  > Torsten Bronger
 
 And of course great thanks to all the people sending profiles for the database. 
