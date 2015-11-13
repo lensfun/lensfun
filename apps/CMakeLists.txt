@@ -39,5 +39,5 @@ IF(PYTHON)
 
     ADD_CUSTOM_TARGET(python-package ALL DEPENDS ${OUTPUT})
 
-    INSTALL(CODE "execute_process(COMMAND ${PYTHON} ${SETUP_PY} install --prefix=/home/vagrant/lensfun/lensfun-0.3.2/debian/tmp/usr)")
+    INSTALL(CODE "execute_process(COMMAND ${PYTHON} ${SETUP_PY} install --prefix=../usr)")
 ENDIF(PYTHON)
