@@ -7,7 +7,7 @@ ifneq (,$(filter %-doc,$(shell dh_listpackages)))
 	dh_auto_configure -- -DBUILD_DOC=ON -DCMAKE_INSTALL_DOCDIR="/usr/share/doc/liblensfun-doc/html" \
 					    -DSETUP_PY_INSTALL_PREFIX="../usr"
 else
-	dh_auto_configure -- -DBUILD_DOC=OFF
+	dh_auto_configure -- -DBUILD_DOC=OFF -DSETUP_PY_INSTALL_PREFIX="../usr"
 endif
 
 override_dh_auto_clean:
