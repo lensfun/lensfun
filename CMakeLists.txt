@@ -85,10 +85,16 @@ IF(WIN32)
   ENDIF()
 ENDIF()
 
-# find dependencies
-# NOTE: must be one of the macros listed in https://developer.gnome.org/glib/stable/glib-Version-Information.html
-SET(LENSFUN_GLIB_REQUIREMENT_MACRO "GLIB_VERSION_2_40")
-FIND_PACKAGE(GLIB2 REQUIRED 2.40)
+
+IF (BUILD_TESTS)
+  # automatic tests need at least glib version 2.40
+  # NOTE: must be one of the macros listed in https://developer.gnome.org/glib/stable/glib-Version-Information.html
+  SET(LENSFUN_GLIB_REQUIREMENT_MACRO "GLIB_VERSION_2_40")
+  FIND_PACKAGE(GLIB2 REQUIRED)
+ELSE()
+  SET(LENSFUN_GLIB_REQUIREMENT_MACRO "GLIB_VERSION_2_26")
+  FIND_PACKAGE(GLIB2 REQUIRED)
+ENDIF()
 
 INCLUDE_DIRECTORIES(SYSTEM ${GLIB2_INCLUDE_DIRS})
 
