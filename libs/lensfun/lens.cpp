@@ -1145,8 +1145,8 @@ static float __vignetting_dist (
         f1 /= df;
         f2 /= df;
     }
-    float a1 = 8.0 / aperture;
-    float a2 = 8.0 / x.Aperture;
+    float a1 = 4.0 / aperture;
+    float a2 = 4.0 / x.Aperture;
     float d1 = 0.1 / distance;
     float d2 = 0.1 / x.Distance;
 

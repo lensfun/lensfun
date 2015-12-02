@@ -1,0 +1,26 @@
+<lensdatabase version="1">
+
+    <lens>
+        <maker>Tamron</maker>
+        <model>Tamron 18-200mm f/3.5-6.3 Di III VC</model>
+        <mount>Sony E</mount>
+        <mount>Canon EF-M</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony A6000 -->
+            <distortion model="ptlens" focal="18" a="0.02016" b="-0.04597" c="-0.03359" />
+            <distortion model="ptlens" focal="20.9" a="0.03108" b="-0.08646" c="0.04744" />
+            <distortion model="ptlens" focal="22.6" a="0.02567" b="-0.06728" c="0.03734" />
+            <distortion model="ptlens" focal="34.1" a="0.00474" b="-0.00952" c="0.00794" />
+            <distortion model="ptlens" focal="69.5" a="0" b="0.00596" c="0" />
+            <distortion model="ptlens" focal="200" a="0" b="0.00674" c="0" />
+            <tca model="poly3" focal="18" vr="1.0004" vb="1.0002" />
+            <tca model="poly3" focal="20.9" vr="1.0003" vb="1.0002" />
+            <tca model="poly3" focal="22.6" vr="1.0003" vb="1.0001" />
+            <tca model="poly3" focal="34.1" vr="1.0003" vb="1.0001" />
+            <tca model="poly3" focal="69.5" vr="0.9999" vb="1.0004" />
+            <tca model="poly3" focal="200" vr="0.9991" vb="0.9997" />
+        </calibration>
+    </lens>
+
+</lensdatabase>

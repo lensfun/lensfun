@@ -289,7 +289,7 @@ class Modifier:
     places.
 
     And then there is the d parameter which allows finetuning of the
-    correction.  It is between -1 and 1, with 0 meaning full correction, 0 no
+    correction.  It is between -1 and 1, with 0 meaning full correction, -1 no
     correction, and 1 increased rotation by factor 1.25.  For example, if you
     have tilted the camera by 40°, d = -1 means the original tilt of 40°, d = 0
     means no tilt (perfect correction), and d = 1 means a tilt of 10° in the
@@ -454,7 +454,7 @@ class Modifier:
                 res[offset + i * 2] = x
                 res[offset + i * 2 + 1] = y
                 x += self.norm_scale
-            #self.scaling_callback([self.scaling_factor], res, offset, width)
+            self.scaling_callback([self.scaling_factor], res, offset, width)
             self.perspective_correction_callback(self.callback_data, res, offset, width)
             for i in range(width):
                 res[offset] = (res[offset] + self.center_x) * self.norm_unscale

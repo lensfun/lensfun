@@ -680,6 +680,14 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon PowerShot SX130 IS</model>
+        <model lang="en">PowerShot SX130 IS</model>
+        <mount>canonSX150IS</mount>
+        <cropfactor>5.62</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon PowerShot SX220 HS</model>
         <model lang="en">PowerShot SX220 HS</model>
         <mount>canonSX220HS</mount>
@@ -756,6 +764,38 @@
         <model lang="en">PowerShot A4000 IS</model>
         <mount>canonA4000IS</mount>
         <cropfactor>5.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot ELPH 110 HS</model>
+        <model lang="en">Powershot ELPH 110 HS</model>
+        <mount>canonIxus125HS</mount>
+        <cropfactor>5.58</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon IXUS 125 HS</model>
+        <model lang="en">IXUS 125 HS</model>
+        <mount>canonIxus125HS</mount>
+        <cropfactor>5.58</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot SX510 HS</model>
+        <model lang="en">PowerShot SX510 HS</model>
+        <mount>canonSX510HS</mount>
+        <cropfactor>5.58</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot S110</model>
+        <model lang="en">PowerShot S110</model>
+        <mount>canonS110</mount>
+        <cropfactor>4.62</cropfactor>
     </camera>
 
     <lens>
@@ -2162,12 +2202,66 @@
             <distortion model="ptlens" focal="18.1" a="0" b="-0.01038" c="0" />
             <distortion model="ptlens" focal="31" a="0" b="0.00302" c="0" />
             <distortion model="ptlens" focal="36.8" a="0" b="0.00625" c="0" />
-            <tca model="poly3" focal="8.8" br="-0.0001622" vr="1.0004427" bb="0.0001401" vb="0.9998903" />
-            <tca model="poly3" focal="10.2" br="-0.0003663" vr="1.0012244" bb="0.0002460" vb="0.9996525" />
-            <tca model="poly3" focal="12.8" br="-0.0002031" vr="1.0007920" bb="0.0000489" vb="0.9998982" />
-            <tca model="poly3" focal="18.1" br="-0.0000658" vr="1.0002495" bb="-0.0000162" vb="1.0000249" />
-            <tca model="poly3" focal="31" br="0.0000038" vr="0.9999370" bb="0.0000201" vb="0.9999466" />
-            <tca model="poly3" focal="36.8" br="0.0000132" vr="0.9998952" bb="0.0000210" vb="0.9999015" />
+            <tca model="poly3" focal="8.8" br="-0.0005162" vr="1.0016034" bb="0.0004383" vb="0.9993909" />
+            <tca model="poly3" focal="11.5" br="-0.0002728" vr="1.0011909" bb="0.0002069" vb="0.9996313" />
+            <tca model="poly3" focal="14.2" br="-0.0001588" vr="1.0008252" bb="0.0001122" vb="0.9998027" />
+            <tca model="poly3" focal="18.4" br="-0.0001077" vr="1.0004530" bb="0.0000610" vb="0.9999249" />
+            <tca model="poly3" focal="25.2" br="-0.0000678" vr="1.0001331" bb="0.0000333" vb="0.9999687" />
+            <tca model="poly3" focal="36.8" br="-0.0000631" vr="0.9998836" bb="0.0000158" vb="0.9999238" />
+            <vignetting model="pa" focal="8.8" aperture="1.8" distance="10" k1="-0.2553" k2="-0.1170" k3="-0.7056" />
+            <vignetting model="pa" focal="8.8" aperture="1.8" distance="1000" k1="-0.2553" k2="-0.1170" k3="-0.7056" />
+            <vignetting model="pa" focal="8.8" aperture="2.5" distance="10" k1="0.0116" k2="-0.3654" k3="-0.7260" />
+            <vignetting model="pa" focal="8.8" aperture="2.5" distance="1000" k1="0.0116" k2="-0.3654" k3="-0.7260" />
+            <vignetting model="pa" focal="8.8" aperture="3.5" distance="10" k1="-0.0396" k2="-0.0536" k3="-0.9917" />
+            <vignetting model="pa" focal="8.8" aperture="3.5" distance="1000" k1="-0.0396" k2="-0.0536" k3="-0.9917" />
+            <vignetting model="pa" focal="8.8" aperture="5" distance="10" k1="-0.2345" k2="0.8117" k3="-1.6607" />
+            <vignetting model="pa" focal="8.8" aperture="5" distance="1000" k1="-0.2345" k2="0.8117" k3="-1.6607" />
+            <vignetting model="pa" focal="8.8" aperture="11" distance="10" k1="-0.3502" k2="1.3201" k3="-2.0550" />
+            <vignetting model="pa" focal="8.8" aperture="11" distance="1000" k1="-0.3502" k2="1.3201" k3="-2.0550" />
+            <vignetting model="pa" focal="12.2" aperture="2.2" distance="10" k1="-0.9433" k2="1.5959" k3="-1.1783" />
+            <vignetting model="pa" focal="12.2" aperture="2.2" distance="1000" k1="-0.9433" k2="1.5959" k3="-1.1783" />
+            <vignetting model="pa" focal="12.2" aperture="3.2" distance="10" k1="-0.0705" k2="-0.0631" k3="-0.2402" />
+            <vignetting model="pa" focal="12.2" aperture="3.2" distance="1000" k1="-0.0705" k2="-0.0631" k3="-0.2402" />
+            <vignetting model="pa" focal="12.2" aperture="4.5" distance="10" k1="-0.3210" k2="0.6479" k3="-0.6690" />
+            <vignetting model="pa" focal="12.2" aperture="4.5" distance="1000" k1="-0.3210" k2="0.6479" k3="-0.6690" />
+            <vignetting model="pa" focal="12.2" aperture="6.3" distance="10" k1="-0.3130" k2="0.5326" k3="-0.4661" />
+            <vignetting model="pa" focal="12.2" aperture="6.3" distance="1000" k1="-0.3130" k2="0.5326" k3="-0.4661" />
+            <vignetting model="pa" focal="12.2" aperture="9" distance="10" k1="-0.2301" k2="0.2070" k3="-0.1677" />
+            <vignetting model="pa" focal="12.2" aperture="9" distance="1000" k1="-0.2301" k2="0.2070" k3="-0.1677" />
+            <vignetting model="pa" focal="12.2" aperture="11" distance="10" k1="-0.2130" k2="0.1342" k3="-0.0993" />
+            <vignetting model="pa" focal="12.2" aperture="11" distance="1000" k1="-0.2130" k2="0.1342" k3="-0.0993" />
+            <vignetting model="pa" focal="16.8" aperture="2.5" distance="10" k1="-0.5504" k2="0.5311" k3="-0.3166" />
+            <vignetting model="pa" focal="16.8" aperture="2.5" distance="1000" k1="-0.5504" k2="0.5311" k3="-0.3166" />
+            <vignetting model="pa" focal="16.8" aperture="3.5" distance="10" k1="-0.0703" k2="-0.1104" k3="-0.1004" />
+            <vignetting model="pa" focal="16.8" aperture="3.5" distance="1000" k1="-0.0703" k2="-0.1104" k3="-0.1004" />
+            <vignetting model="pa" focal="16.8" aperture="5" distance="10" k1="-0.2687" k2="0.5568" k3="-0.4949" />
+            <vignetting model="pa" focal="16.8" aperture="5" distance="1000" k1="-0.2687" k2="0.5568" k3="-0.4949" />
+            <vignetting model="pa" focal="16.8" aperture="7.1" distance="10" k1="-0.2001" k2="0.2552" k3="-0.1775" />
+            <vignetting model="pa" focal="16.8" aperture="7.1" distance="1000" k1="-0.2001" k2="0.2552" k3="-0.1775" />
+            <vignetting model="pa" focal="16.8" aperture="10" distance="10" k1="-0.1708" k2="0.1409" k3="-0.0725" />
+            <vignetting model="pa" focal="16.8" aperture="10" distance="1000" k1="-0.1708" k2="0.1409" k3="-0.0725" />
+            <vignetting model="pa" focal="16.8" aperture="11" distance="10" k1="-0.1797" k2="0.1623" k3="-0.0873" />
+            <vignetting model="pa" focal="16.8" aperture="11" distance="1000" k1="-0.1797" k2="0.1623" k3="-0.0873" />
+            <vignetting model="pa" focal="23.4" aperture="2.8" distance="10" k1="-0.3289" k2="0.9280" k3="-0.8241" />
+            <vignetting model="pa" focal="23.4" aperture="2.8" distance="1000" k1="-0.3289" k2="0.9280" k3="-0.8241" />
+            <vignetting model="pa" focal="23.4" aperture="4" distance="10" k1="-0.1598" k2="0.2689" k3="-0.2806" />
+            <vignetting model="pa" focal="23.4" aperture="4" distance="1000" k1="-0.1598" k2="0.2689" k3="-0.2806" />
+            <vignetting model="pa" focal="23.4" aperture="5.6" distance="10" k1="-0.1551" k2="0.1893" k3="-0.1145" />
+            <vignetting model="pa" focal="23.4" aperture="5.6" distance="1000" k1="-0.1551" k2="0.1893" k3="-0.1145" />
+            <vignetting model="pa" focal="23.4" aperture="8" distance="10" k1="-0.1492" k2="0.1581" k3="-0.0767" />
+            <vignetting model="pa" focal="23.4" aperture="8" distance="1000" k1="-0.1492" k2="0.1581" k3="-0.0767" />
+            <vignetting model="pa" focal="23.4" aperture="11" distance="10" k1="-0.1533" k2="0.1661" k3="-0.0794" />
+            <vignetting model="pa" focal="23.4" aperture="11" distance="1000" k1="-0.1533" k2="0.1661" k3="-0.0794" />
+            <vignetting model="pa" focal="36.8" aperture="2.8" distance="10" k1="-0.1704" k2="-0.2258" k3="0.0705" />
+            <vignetting model="pa" focal="36.8" aperture="2.8" distance="1000" k1="-0.1704" k2="-0.2258" k3="0.0705" />
+            <vignetting model="pa" focal="36.8" aperture="4" distance="10" k1="-0.1958" k2="0.4549" k3="-0.4959" />
+            <vignetting model="pa" focal="36.8" aperture="4" distance="1000" k1="-0.1958" k2="0.4549" k3="-0.4959" />
+            <vignetting model="pa" focal="36.8" aperture="5.6" distance="10" k1="-0.2475" k2="0.3334" k3="-0.2460" />
+            <vignetting model="pa" focal="36.8" aperture="5.6" distance="1000" k1="-0.2475" k2="0.3334" k3="-0.2460" />
+            <vignetting model="pa" focal="36.8" aperture="8" distance="10" k1="-0.1842" k2="0.0868" k3="-0.0198" />
+            <vignetting model="pa" focal="36.8" aperture="8" distance="1000" k1="-0.1842" k2="0.0868" k3="-0.0198" />
+            <vignetting model="pa" focal="36.8" aperture="11" distance="10" k1="-0.1869" k2="0.0890" k3="-0.0178" />
+            <vignetting model="pa" focal="36.8" aperture="11" distance="1000" k1="-0.1869" k2="0.0890" k3="-0.0178" />
         </calibration>
     </lens>
 
@@ -2192,6 +2286,110 @@
             <tca model="poly3" focal="12.3" br="-0.0000172" vr="1.0000424" bb="-0.0000860" vb="1.0002696" />
             <tca model="poly3" focal="21.7" br="-0.0000362" vr="1.0000884" bb="-0.0000442" vb="1.0000962" />
             <tca model="poly3" focal="26" br="0.0000709" vr="1.0000116" bb="-0.0000173" vb="1.0000555" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon IXUS 125 HS &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>canonIxus125HS</mount>
+        <cropfactor>5.58</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="4.3" a="0.0414" b="-0.15308" c="0.04158" />
+            <distortion model="ptlens" focal="7.8" a="0" b="-0.01745" c="0" />
+            <distortion model="ptlens" focal="11.2" a="0" b="-0.00357" c="0" />
+            <distortion model="ptlens" focal="16.2" a="0" b="0.00377" c="0" />
+            <distortion model="ptlens" focal="21.5" a="0" b="0.00709" c="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon PowerShot SX510 HS &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>canonSX510HS</mount>
+        <cropfactor>5.58</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="poly3" focal="4.3" k1="-0.00676" />
+            <distortion model="poly3" focal="7.3" k1="-0.00704" />
+            <distortion model="poly3" focal="13.5" k1="-0.00508" />
+            <distortion model="poly3" focal="38.02" k1="-0.0009" />
+            <distortion model="poly3" focal="129" k1="0.01651" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon PowerShot SX510 HS &amp; compatibles, with CHDK's DNG</model>
+        <model lang="en">fixed lens, with CHDK's DNG</model>
+        <model lang="de">festes Objektiv, mit CHDK-DNG</model>
+        <mount>canonSX510HS</mount>
+        <cropfactor>5.58</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="4.3" a="0.09431" b="-0.30906" c="0.16325" />
+            <distortion model="ptlens" focal="7.3" a="-0.01391" b="0.04723" c="-0.1158" />
+            <distortion model="ptlens" focal="13.5" a="-0.00449" b="0.00424" c="-0.00131" />
+            <distortion model="ptlens" focal="38" a="0" b="-0.00112" c="0" />
+            <distortion model="ptlens" focal="129" a="0" b="0.00284" c="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon PowerShot S110 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>canonS110</mount>
+        <aperture min="2" max="8"/>
+        <cropfactor>4.62</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="5.2" a="0.02413" b="-0.13243" c="0.04812" />
+            <distortion model="ptlens" focal="7.3" a="0" b="-0.03409" c="0" />
+            <distortion model="ptlens" focal="11.6" a="0" b="-0.0117" c="0" />
+            <distortion model="ptlens" focal="15.1" a="0" b="-0.00591" c="0" />
+            <distortion model="ptlens" focal="26" a="0" b="-0.00051" c="0" />
+            <tca model="poly3" focal="5.2" br="0.0005406" vr="0.9997708" bb="-0.0005534" vb="1.0010173" />
+            <tca model="poly3" focal="6" br="0.0003573" vr="0.9998093" bb="-0.0004156" vb="1.0008989" />
+            <tca model="poly3" focal="7.5" br="0.0001571" vr="0.9998835" bb="-0.0003592" vb="1.0010216" />
+            <tca model="poly3" focal="10.8" br="0.0000533" vr="0.9999270" bb="-0.0002132" vb="1.0006859" />
+            <tca model="poly3" focal="18.4" br="0.0000095" vr="1.0000614" bb="-0.0000490" vb="1.0002302" />
+            <tca model="poly3" focal="21.6" br="0.0000129" vr="1.0000749" bb="-0.0000119" vb="1.0000899" />
+            <tca model="poly3" focal="26" br="0.0000498" vr="1.0001549" bb="-0.0000029" vb="0.9999835" />
+            <vignetting model="pa" focal="5.2" aperture="2" distance="10" k1="-1.5437" k2="2.1484" k3="-1.3830" />
+            <vignetting model="pa" focal="5.2" aperture="2" distance="1000" k1="-1.5437" k2="2.1484" k3="-1.3830" />
+            <vignetting model="pa" focal="5.2" aperture="8" distance="10" k1="-0.8800" k2="0.7319" k3="-0.5745" />
+            <vignetting model="pa" focal="5.2" aperture="8" distance="1000" k1="-0.8800" k2="0.7319" k3="-0.5745" />
+            <vignetting model="pa" focal="6" aperture="2.2" distance="10" k1="-1.3579" k2="1.6044" k3="-0.8169" />
+            <vignetting model="pa" focal="6" aperture="2.2" distance="1000" k1="-1.3579" k2="1.6044" k3="-0.8169" />
+            <vignetting model="pa" focal="6" aperture="8" distance="10" k1="-0.7565" k2="0.7208" k3="-0.5473" />
+            <vignetting model="pa" focal="6" aperture="8" distance="1000" k1="-0.7565" k2="0.7208" k3="-0.5473" />
+            <vignetting model="pa" focal="7.5" aperture="2.8" distance="10" k1="-0.5935" k2="0.1245" k3="-0.0121" />
+            <vignetting model="pa" focal="7.5" aperture="2.8" distance="1000" k1="-0.5935" k2="0.1245" k3="-0.0121" />
+            <vignetting model="pa" focal="7.5" aperture="8" distance="10" k1="-0.5321" k2="0.4279" k3="-0.3660" />
+            <vignetting model="pa" focal="7.5" aperture="8" distance="1000" k1="-0.5321" k2="0.4279" k3="-0.3660" />
+            <vignetting model="pa" focal="10.8" aperture="4" distance="10" k1="-0.5609" k2="0.2939" k3="-0.1218" />
+            <vignetting model="pa" focal="10.8" aperture="4" distance="1000" k1="-0.5609" k2="0.2939" k3="-0.1218" />
+            <vignetting model="pa" focal="10.8" aperture="8" distance="10" k1="-0.3058" k2="0.1651" k3="-0.1433" />
+            <vignetting model="pa" focal="10.8" aperture="8" distance="1000" k1="-0.3058" k2="0.1651" k3="-0.1433" />
+            <vignetting model="pa" focal="18.4" aperture="5" distance="10" k1="-0.7490" k2="0.7164" k3="-0.3594" />
+            <vignetting model="pa" focal="18.4" aperture="5" distance="1000" k1="-0.7490" k2="0.7164" k3="-0.3594" />
+            <vignetting model="pa" focal="18.4" aperture="8" distance="10" k1="-0.1028" k2="-0.0527" k3="-0.0295" />
+            <vignetting model="pa" focal="18.4" aperture="8" distance="1000" k1="-0.1028" k2="-0.0527" k3="-0.0295" />
+            <vignetting model="pa" focal="21.6" aperture="5.6" distance="10" k1="-0.5749" k2="0.4969" k3="-0.2498" />
+            <vignetting model="pa" focal="21.6" aperture="5.6" distance="1000" k1="-0.5749" k2="0.4969" k3="-0.2498" />
+            <vignetting model="pa" focal="21.6" aperture="8" distance="10" k1="-0.1005" k2="-0.0963" k3="0.0222" />
+            <vignetting model="pa" focal="21.6" aperture="8" distance="1000" k1="-0.1005" k2="-0.0963" k3="0.0222" />
+            <vignetting model="pa" focal="26" aperture="5.9" distance="10" k1="-0.5277" k2="0.5043" k3="-0.2849" />
+            <vignetting model="pa" focal="26" aperture="5.9" distance="1000" k1="-0.5277" k2="0.5043" k3="-0.2849" />
+            <vignetting model="pa" focal="26" aperture="8" distance="10" k1="-0.0260" k2="-0.3116" k3="0.1489" />
+            <vignetting model="pa" focal="26" aperture="8" distance="1000" k1="-0.0260" k2="-0.3116" k3="0.1489" />
         </calibration>
     </lens>
 

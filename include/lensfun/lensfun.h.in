@@ -113,7 +113,9 @@ enum lfError
     /** No error occured */
     LF_NO_ERROR = 0,
     /** Wrong XML data format */
-    LF_WRONG_FORMAT
+    LF_WRONG_FORMAT,
+    /** No database could be loaded */
+    LF_NO_DATABASE
 };
 
 C_TYPEDEF (enum, lfError)
@@ -1437,15 +1439,15 @@ struct LF_EXPORT lfDatabase
      * all errors.
      * @param dirname
      *     The directory to be read.
+     * @return
+     *     True if valid lensfun XML data was succesfully loaded.
      */
-    void LoadDirectory (const char *dirname, bool use_versioned_subdir=true);
+    bool LoadDirectory (const char *dirname);
 
     /**
-     * @brief Load the whole lens database.
+     * @brief Find and load the lens database.
      * 
-     * This calls lf_load_file() for all XML files found in usual places (first
-     * /usr/share/lensfun/ then ~/.local/share/lensfun/).  See @ref dbsearch
-     * for more information.
+     * See @ref dbsearch for more information.
      * @return
      *     LF_NO_ERROR or a error code.
      */

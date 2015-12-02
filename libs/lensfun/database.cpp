@@ -22,7 +22,7 @@ lfDatabase::lfDatabase ()
 {
     HomeDataDir = g_build_filename (g_get_user_data_dir (),
                                     CONF_PACKAGE, NULL);
-    UserUpdatesDir = g_build_filename (HomeDataDir, "updates", NULL);
+    UserUpdatesDir = g_build_filename (HomeDataDir, "updates", DATABASE_SUBDIR, NULL);
     Mounts = g_ptr_array_new ();
     g_ptr_array_add ((GPtrArray *)Mounts, NULL);
     Cameras = g_ptr_array_new ();
@@ -60,15 +60,11 @@ void lfDatabase::Destroy ()
     delete this;
 }
 
-void lfDatabase::LoadDirectory (const gchar *dirname, bool use_versioned_subdir/*=true*/)
+bool lfDatabase::LoadDirectory (const gchar *dirname)
 {
-    gchar *actual_dirname;
-    if (use_versioned_subdir)
-        actual_dirname = g_build_filename (dirname, DATABASE_SUBDIR, NULL);
-    else
-        actual_dirname = g_strdup (dirname);
+    bool database_found = false;
 
-    GDir *dir = g_dir_open (actual_dirname, 0, NULL);
+    GDir *dir = g_dir_open (dirname, 0, NULL);
     if (dir)
     {
         GPatternSpec *ps = g_pattern_spec_new ("*.xml");
@@ -80,9 +76,10 @@ void lfDatabase::LoadDirectory (const gchar *dirname, bool use_versioned_subdir/
                 size_t sl = strlen (fn);
                 if (g_pattern_match (ps, sl, fn, NULL))
                 {
-                    gchar *ffn = g_build_filename (actual_dirname, fn, NULL);
+                    gchar *ffn = g_build_filename (dirname, fn, NULL);
                     /* Ignore errors */
-                    Load (ffn);
+                    if (Load (ffn) == LF_NO_ERROR)
+                        database_found = true;
                     g_free (ffn);
                 }
             }
@@ -91,15 +88,16 @@ void lfDatabase::LoadDirectory (const gchar *dirname, bool use_versioned_subdir/
         g_dir_close (dir);
     }
 
-    g_free (actual_dirname);
+    return database_found;
 }
 
 lfError lfDatabase::Load ()
 {
+    bool database_found = false;
 
 #ifndef PLATFORM_WINDOWS
-    gchar *main_dirname = g_strdup (CONF_DATADIR);
-    const gchar *system_updates_dirname = "/var/lib/lensfun-updates";
+    gchar *main_dirname = g_build_filename (CONF_DATADIR, DATABASE_SUBDIR, NULL);
+    const gchar *system_updates_dirname = g_build_filename ("/var/lib/lensfun-updates", DATABASE_SUBDIR, NULL);
 #else
     /* windows based OS */
     extern gchar *_lf_get_database_dir ();
@@ -114,20 +112,19 @@ lfError lfDatabase::Load ()
         _lf_read_database_timestamp (UserUpdatesDir);
     if (timestamp_main > timestamp_system_updates)
         if (timestamp_user_updates > timestamp_main)
-            LoadDirectory (UserUpdatesDir);
+            database_found |= LoadDirectory (UserUpdatesDir);
         else
-            LoadDirectory (main_dirname);
+            database_found |= LoadDirectory (main_dirname);
     else
         if (timestamp_user_updates > timestamp_system_updates)
-            LoadDirectory (UserUpdatesDir);
+            database_found |= LoadDirectory (UserUpdatesDir);
         else
-            LoadDirectory (system_updates_dirname);
+            database_found |= LoadDirectory (system_updates_dirname);
     g_free (main_dirname);
 
-    LoadDirectory (HomeDataDir, false);
-    LoadDirectory (HomeDataDir);
+    database_found |= LoadDirectory (HomeDataDir);
 
-    return LF_NO_ERROR;
+    return database_found ? LF_NO_ERROR : LF_NO_DATABASE;
 }
 
 lfError lfDatabase::Load (const char *filename)

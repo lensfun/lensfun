@@ -15,4 +15,37 @@
         </calibration>
     </lens>
 
+    <lens>
+        <!-- This lens is available in five variants, see
+             <http://www.robertstech.com/vivitar.htm>.  This web site suggests
+             that variants 4 and 5 are optically equivalent.  The other
+             versions must definitely be considered different from each
+             other. -->
+        <maker>Vivitar</maker>
+        <!-- FixMe: "One" should be "1" once
+             https://sourceforge.net/p/lensfun/bugs/35 is fixed. -->
+        <model>Vivitar Series One 70-210mm 1:3.5 SN 22...</model>
+        <model lang="en">Vivitar Series 1 70-210mm 1:3.5 SN 22…</model>
+        <mount>Nikon F</mount>
+        <mount>Pentax K</mount>
+        <mount>Canon FD</mount>
+        <mount>Canon FL</mount>
+        <mount>Olympus OM</mount>
+        <mount>M42</mount>
+        <cropfactor>1.534</cropfactor>
+        <focal min="70" max="210" />
+        <aperture min="3.5" max="22" />
+        <calibration>
+            <!-- Taken with Sony A6000 -->
+            <distortion model="poly3" focal="70" k1="-0.00183" />
+            <distortion model="poly3" focal="85" k1="-0.00025" />
+            <distortion model="poly3" focal="210" k1="0.00324" />
+            <tca model="poly3" focal="70" vr="1.0001457" vb="0.9998911" />
+            <tca model="poly3" focal="85" vr="1.0000626" vb="0.9999076" />
+            <tca model="poly3" focal="135" vr="0.9998391" vb="0.9999724" />
+            <tca model="poly3" focal="180" vr="0.9995820" vb="1.0000310" />
+            <tca model="poly3" focal="210" vr="0.9994685" vb="1.0000417" />
+        </calibration>
+    </lens>
+
 </lensdatabase>

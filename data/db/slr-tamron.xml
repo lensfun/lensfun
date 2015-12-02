@@ -586,4 +586,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tamron</maker>
+        <model>Tamron SP AF 70-200mm f/2.8 Di LD (IF) Macro</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D700 -->
+            <distortion model="poly3" focal="70" k1="-0.00915" />
+            <distortion model="poly3" focal="92" k1="-0.00355" />
+            <distortion model="poly3" focal="120" k1="0.00108" />
+            <distortion model="poly3" focal="145" k1="0.00556" />
+            <distortion model="poly3" focal="200" k1="0.00775" />
+            <tca model="poly3" focal="70" vr="1.0003920" vb="0.9998959" />
+            <tca model="poly3" focal="92" vr="1.0001709" vb="0.9999495" />
+            <tca model="poly3" focal="120" vr="1.0000178" vb="0.9999875" />
+            <tca model="poly3" focal="145" vr="0.9999155" vb="1.0000171" />
+            <tca model="poly3" focal="200" vr="0.9998438" vb="0.9999326" />
+        </calibration>
+    </lens>
+
 </lensdatabase>

@@ -357,8 +357,13 @@ int main (int argc, char **argv)
         return -1;
 
     // load database
-    lfDatabase *ldb = lf_db_new ();
-    ldb->Load ();
+    lfDatabase *ldb = new lfDatabase ();
+
+    if (ldb->Load () != LF_NO_ERROR) {
+        ldb->Destroy();
+        g_print ("\rERROR: Database could not be loaded\n");
+        return -1;
+    }
 
     // try to find camera in the database
     const lfCamera *cam = NULL;
