@@ -222,6 +222,13 @@
         <cropfactor>5.62</cropfactor>
     </camera>
     
+    <camera>
+        <maker>Sony</maker>
+        <model>Xperia Z3</model>
+        <mount>sonyXperiaZ3</mount>
+        <cropfactor>7.87</cropfactor>
+    </camera>
+
     <lens>
         <maker>Carl Zeiss</maker>
         <model>DSC-R1 &amp; compatibles (Standard)</model>
@@ -1033,6 +1040,21 @@
                  (if really requested) has bronger@physik.rwth-aachen.de. -->
             <distortion focal="4.3" model="poly3" k1="0" />
             <distortion focal="215" model="poly3" k1="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>Sony Xperia Z3 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>sonyXperiaZ3</mount>
+        <cropfactor>7.87</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- This stems from the advertised feature of 25mm equiv. -->
+            <real-focal-length focal="4.9" real-focal="3.2" />
+            <distortion model="ptlens" focal="4.9" a="0.0132" b="-0.07765" c="0.14683" />
         </calibration>
     </lens>
 
