@@ -49,7 +49,8 @@
     <camera>
         <!-- This camera has been rebranded as Hama Action-Cam "Star-60",
              fantec BeastVision XHD and possibly others. -->
-        <maker>AEE</maker>
+        <maker>AEE DV</maker>
+        <maker lang="en">AEE</maker>
         <model>AEE DV</model>
         <model lang="en">AEE MagiCam SD19 &amp; compatibles</model>
         <mount>aeeDV</mount>
@@ -316,12 +317,19 @@
         <maker>AEE</maker>
         <model>AEE SD19 &amp; compatibles</model>
         <mount>aeeDV</mount>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
         <!-- The crop factor is only estimated from the 1/2.5" specs. -->
         <cropfactor>6</cropfactor>
         <type>equisolid</type>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="5" a="0.02844" b="-0.05905" c="-0.27048" />
+            <!-- Measured with 360° panorama -->
+            <!--real-focal-length focal="5" real-focal="2.5" />
+            <distortion model="ptlens" focal="5" a="0.0525" b="-0.1258" c="0.15228" /-->
+            <!-- Measured with a single image, assuming the same FOV as above -->
+            <real-focal-length focal="5" real-focal="2.61" />
+            <distortion model="ptlens" focal="5" a="0.05109" b="-0.12092" c="0.10955" />
         </calibration>
     </lens>
 
