@@ -12,6 +12,7 @@
 #include <string.h>
 #include <locale.h>
 #include <math.h>
+#include "windows/mathconstants.h"
 #include <algorithm>
 
 static struct
