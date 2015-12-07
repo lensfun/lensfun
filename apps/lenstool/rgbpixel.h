@@ -19,8 +19,6 @@
 #ifndef __RGBPIXEL_H__
 #define __RGBPIXEL_H__
 
-#include "config.h"
-
 #ifdef HAVE_ENDIAN_H
 #  include <endian.h>
 #endif

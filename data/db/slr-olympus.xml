@@ -178,14 +178,17 @@
         <cropfactor>2.0</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="9" a="-0.00278861" b="-0.0014655" c="0.00667809" />
-            <distortion model="ptlens" focal="11" a="-0.00230113" b="0.00568337" c="0.00385418" />
-            <distortion model="ptlens" focal="14" a="0.0028023" b="-0.00664244" c="0.0122182" />
-            <distortion model="ptlens" focal="18" a="-0.0010959" b="0.00291188" c="0.00571393" />
-            <tca model="poly3" focal="9" br="-0.0000859" vr="1.0002600" bb="-0.0001253" vb="1.0001971" />
-            <tca model="poly3" focal="11" br="0.0000079" vr="1.0001843" bb="-0.0001521" vb="1.0002540" />
-            <tca model="poly3" focal="14" br="0.0000509" vr="1.0001296" bb="-0.0001716" vb="1.0003184" />
-            <tca model="poly3" focal="18" br="-0.0000076" vr="1.0001488" bb="-0.0001226" vb="1.0002276" />
+            <!-- Taken with Olympus E-M10 -->
+            <distortion model="poly3" focal="9" k1="-0.00991" />
+            <distortion model="poly3" focal="11" k1="-0.00574" />
+            <distortion model="poly3" focal="12" k1="-0.00412" />
+            <distortion model="poly3" focal="13" k1="-0.00209" />
+            <distortion model="poly3" focal="18" k1="-0.001" />
+            <tca model="poly3" focal="9" vr="1.0004547" vb="0.9999902" />
+            <tca model="poly3" focal="11" vr="1.0003758" vb="0.9999724" />
+            <tca model="poly3" focal="12" vr="1.0002944" vb="0.9999781" />
+            <tca model="poly3" focal="13" vr="1.0003339" vb="0.9999837" />
+            <tca model="poly3" focal="18" vr="1.0003062" vb="0.9999625" />
             <vignetting model="pa" focal="9" aperture="4" distance="0.25" k1="-0.4907" k2="0.3365" k3="-0.3633" />
             <vignetting model="pa" focal="9" aperture="4" distance="0.5" k1="-0.3635" k2="-0.0437" k3="-0.1999" />
             <vignetting model="pa" focal="9" aperture="4" distance="1.5" k1="-0.3964" k2="0.0444" k3="-0.2357" />
@@ -435,6 +438,12 @@
             <distortion model="ptlens" focal="25" a="0.002227" b="-0.001738" c="0" />
             <distortion model="ptlens" focal="35" a="0" b="0" c="0" />
             <distortion model="ptlens" focal="54" a="0" b="-0.001107" c="0" />
+            <!-- Taken with Olympus E-M10 -->
+            <tca model="poly3" focal="14" vr="1.0004652" vb="1.0000151" />
+            <tca model="poly3" focal="19" vr="1.0003096" vb="1.0000367" />
+            <tca model="poly3" focal="25" vr="1.0001643" vb="1.0000181" />
+            <tca model="poly3" focal="35" vr="1.0000783" vb="0.9999489" />
+            <tca model="poly3" focal="54" vr="0.9998060" vb="1.0000496" />
         </calibration>
     </lens>
 

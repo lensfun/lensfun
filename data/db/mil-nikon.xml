@@ -177,4 +177,28 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>1 Nikkor 18.5mm f/1.8</model>
+        <mount>Nikon CX</mount>
+        <cropfactor>2.727</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon 1 J1 -->
+            <distortion model="poly3" focal="18.5" k1="-0.00974" />
+            <tca model="poly3" focal="18.5" br="-0.0000181" vr="1.0004235" bb="0.0000843" vb="0.9999900" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>1 Nikkor 32mm f/1.2</model>
+        <mount>Nikon CX</mount>
+        <cropfactor>2.727</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon 1 J1 -->
+            <distortion model="ptlens" focal="32" a="-0.002" b="0.004" c="-0.003" />
+            <tca model="poly3" focal="32" br="-0.0000293" vr="1.0000997" bb="0.0000337" vb="0.9998935" />
+        </calibration>
+    </lens>
+
 </lensdatabase>

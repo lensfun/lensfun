@@ -224,6 +224,14 @@
     <camera>
         <maker>Olympus Imaging Corp.</maker>
         <maker lang="en">Olympus</maker>
+        <model>XZ-2</model>
+        <mount>olympusxz1</mount>
+        <cropfactor>4.68</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Olympus Imaging Corp.</maker>
+        <maker lang="en">Olympus</maker>
         <model>Stylus1</model>
         <model lang="en">Stylus 1</model>
         <mount>olympusStylus1</mount>
@@ -239,6 +247,42 @@
         <model lang="en">Stylus 1, 1s</model>
         <mount>olympusStylus1</mount>
         <cropfactor>4.67</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Olympus Corporation</maker>
+        <maker lang="en">Olympus</maker>
+        <model>TG-1</model>
+        <model lang="en">Stylus TG-1</model>
+        <mount>olympusStylusTG4</mount>
+        <cropfactor>5.56</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Olympus Corporation</maker>
+        <maker lang="en">Olympus</maker>
+        <model>TG-2</model>
+        <model lang="en">Stylus TG-2</model>
+        <mount>olympusStylusTG4</mount>
+        <cropfactor>5.56</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Olympus Corporation</maker>
+        <maker lang="en">Olympus</maker>
+        <model>TG-3</model>
+        <model lang="en">Stylus TG-3</model>
+        <mount>olympusStylusTG4</mount>
+        <cropfactor>5.56</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Olympus Corporation</maker>
+        <maker lang="en">Olympus</maker>
+        <model>TG-4</model>
+        <model lang="en">Stylus TG-4</model>
+        <mount>olympusStylusTG4</mount>
+        <cropfactor>5.56</cropfactor>
     </camera>
 
     <lens>
@@ -604,6 +648,29 @@
             <tca model="poly3" focal="35" br="0.0000169" vr="0.9998975" bb="-0.0000098" vb="1.0000255" />
             <tca model="poly3" focal="51.4" br="0.0000277" vr="0.9998371" bb="-0.0000071" vb="1.0000043" />
             <tca model="poly3" focal="64.3" br="0.0000729" vr="0.9996827" bb="0.0000264" vb="0.9998948" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Olympus</maker>
+        <model>Olympus Stylus TG-4 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>olympusStylusTG4</mount>
+        <cropfactor>5.56</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Olympus Stylus TG-4 -->
+            <distortion model="poly3" focal="4.5" k1="-0.04661" />
+            <distortion model="poly3" focal="5.1" k1="-0.03028" />
+            <distortion model="poly3" focal="6.9" k1="-0.00581" />
+            <distortion model="poly3" focal="9" k1="0.00574" />
+            <distortion model="poly3" focal="18" k1="0.01525" />
+            <tca model="poly3" focal="4.5" br="-0.0000440" vr="1.0004022" bb="0.0000003" vb="1.0000025" />
+            <tca model="poly3" focal="5.1" br="0.0000436" vr="1.0002117" bb="-0.0000141" vb="1.0000376" />
+            <tca model="poly3" focal="6.9" br="-0.0000276" vr="1.0001322" bb="-0.0000199" vb="1.0000921" />
+            <tca model="poly3" focal="9" br="-0.0000200" vr="1.0000631" bb="-0.0000128" vb="1.0000870" />
+            <tca model="poly3" focal="18" br="-0.0000067" vr="0.9999876" bb="-0.0000838" vb="1.0000917" />
         </calibration>
     </lens>
 

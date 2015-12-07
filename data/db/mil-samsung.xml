@@ -1,8 +1,15 @@
 <lensdatabase version="1">
+
     <mount>
         <name>Samsung NX</name>
-        <name lang="en">Samsung NX</name>
-        <compat>Pentax K</compat>
+        <compat>M42</compat>
+        <compat>DKL</compat>
+        <compat>T2</compat>
+        <compat>Generic</compat>
+    </mount>
+
+    <mount>
+        <name>Samsung NX mini</name>
         <compat>M42</compat>
         <compat>DKL</compat>
         <compat>T2</compat>
@@ -127,6 +134,13 @@
         <model>NX30</model>
         <mount>Samsung NX</mount>
         <cropfactor>1.531</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Samsung</maker>
+        <model>NX mini</model>
+        <mount>Samsung NX mini</mount>
+        <cropfactor>2.727</cropfactor>
     </camera>
 
     <lens>

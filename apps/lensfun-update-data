@@ -42,18 +42,18 @@ Status code 0 -- successfully installed updates
 
 """
 
-import urllib.request, shutil, sys, os, getpass, time, calendar, tarfile, json, glob
+import urllib.request, shutil, sys, os, time, calendar, tarfile, json, glob
 import lensfun
 
 
 database_version = lensfun.get_database_version()
 
 lensfun_updates_dir = "/var/lib/lensfun-updates"
-if sys.platform != "win32" and getpass.getuser() != "root":
+if os.name == "posix" and os.geteuid() != 0:
     lensfun_updates_dir = os.path.join(os.path.expanduser("~"),
                                        ".local", "share", "lensfun", "updates")
-    print("info: root privileges needed for updating the system database.")
-    print("info: updating user DB in '%s'" % lensfun_updates_dir)
+    print("Info: root privileges needed for updating the system database.")
+    print("Info: updating user DB in '%s'" % lensfun_updates_dir)
 
 
 def seconds_since_epoch():

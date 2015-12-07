@@ -12,6 +12,7 @@
 #include <string.h>
 #include <locale.h>
 #include <math.h>
+#include "windows/mathconstants.h"
 #include <algorithm>
 
 static struct
@@ -1392,7 +1393,7 @@ int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
                     if (!_lf_strcmp (compat_mounts [i], match->Mounts [j]))
                     {
                         matching_mount_found = true;
-                        score += 5;
+                        score += 9;
                         goto exit_mount_search;
                     }
 
