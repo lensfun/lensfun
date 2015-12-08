@@ -24,6 +24,15 @@ lfCamera::~lfCamera ()
     lf_free (Mount);
 }
 
+lfCamera::lfCamera (const lfCamera &other)
+{
+    Maker = lf_mlstr_dup (other.Maker);
+    Model = lf_mlstr_dup (other.Model);
+    Variant = lf_mlstr_dup (other.Variant);
+    Mount = g_strdup (other.Mount);
+    CropFactor = other.CropFactor;
+}
+
 lfCamera &lfCamera::operator = (const lfCamera &other)
 {
     lf_free (Maker);
