@@ -215,6 +215,8 @@ struct LF_EXPORT lfMount
      */
     lfMount ();
 
+    lfMount (const lfMount &other);
+
     /**
      * Assignment operator
      */
