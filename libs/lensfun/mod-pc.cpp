@@ -20,7 +20,7 @@ void calculate_angles(std::vector<float> x_norm, std::vector<float> y_norm, floa
 
 bool lfModifier::Initialize_Perspective_Correction (int *x, int *y, int count, float d)
 {
-    if (focal <= 0 || count != 4 && count != 6 && count != 8)
+    if (focal_length <= 0 || count != 4 && count != 6 && count != 8)
         return false;
     if (d < -1)
         d = -1;
@@ -35,7 +35,7 @@ bool lfModifier::Initialize_Perspective_Correction (int *x, int *y, int count, f
 
     float rho, delta, rho_h, f_normalized, final_rotation, center_of_control_points_x,
         center_of_control_points_y;
-    calculate_angles(x_norm, y_norm, focal, NormalizedInMillimeters,
+    calculate_angles(x_norm, y_norm, focal_length, NormalizedInMillimeters,
                      rho, delta, rho_h, f_normalized, final_rotation, center_of_control_points_x,
                      center_of_control_points_y);
     

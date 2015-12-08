@@ -34,6 +34,7 @@ int lfModifier::Initialize (
     const lfLens *lens, lfPixelFormat format, float focal, float aperture,
     float distance, float scale, lfLensType targeom, int flags, bool reverse)
 {
+    focal_length = focal;
     int oflags = 0;
 
     if (flags & LF_MODIFY_TCA)
