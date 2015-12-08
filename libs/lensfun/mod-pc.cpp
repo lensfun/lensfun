@@ -20,7 +20,6 @@ void calculate_angles(std::vector<float> x_norm, std::vector<float> y_norm, floa
 
 bool lfModifier::Initialize_Perspective_Correction (int *x, int *y, int count, float d)
 {
-    lfExtModifier *This = static_cast<lfExtModifier *> (this);
     if (focal <= 0 || count != 4 && count != 6 && count != 8)
         return false;
     if (d < -1)
@@ -30,19 +29,19 @@ bool lfModifier::Initialize_Perspective_Correction (int *x, int *y, int count, f
     std::vector<float> x_norm, y_norm;
     for (int i = 0; i < count; i++)
     {
-        x_norm.push_back (x [i] * This->NormScale - This->CenterX);
-        y_norm.push_back (y [i] * This->NormScale - This->CenterY);
+        x_norm.push_back (x [i] * NormScale - CenterX);
+        y_norm.push_back (y [i] * NormScale - CenterY);
     }
 
     float rho, delta, rho_h, f_normalized, final_rotation, center_of_control_points_x,
         center_of_control_points_y;
-    calculate_angles(x_norm, y_norm, This->focal, This->NormalizedInMillimeters,
+    calculate_angles(x_norm, y_norm, focal, NormalizedInMillimeters,
                      rho, delta, rho_h, f_normalized, final_rotation, center_of_control_points_x,
                      center_of_control_points_y);
     
 }
 
-void lfExtModifier::ModifyCoord_Perspective_Correction (void *data, float *iocoord, int count)
+void lfModifier::ModifyCoord_Perspective_Correction (void *data, float *iocoord, int count)
 {
     // Rd = Ru * (1 - k1 + k1 * Ru^2)
     const float k1 = *(float *)data;
