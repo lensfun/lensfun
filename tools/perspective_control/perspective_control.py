@@ -118,13 +118,17 @@ def ellipse_analysis(x, y, f_normalized):
     return radius_vertex * sin(φ), radius_vertex * cos(φ), x0, y0
 
 
-def intersection(x1, y1, x2, y2, x3, y3, x4, y4):
-    A = x1 * y2 - y1 * x2
-    B = x3 * y4 - y3 * x4
-    C = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
+def intersection(x, y):
+    """Returns the coordinates of the intersection of the lines defined by ``x``
+    and ``y``.  Both parameters need to be exactly 4 items long.  The first two
+    items defines the one line, the last two the other.
+    """
+    A = x[0] * y[1] - y[0] * x[1]
+    B = x[2] * y[3] - y[2] * x[3]
+    C = (x[0] - x[1]) * (y[2] - y[3]) - (y[0] - y[1]) * (x[2] - x[3])
 
-    numerator_x = (A * (x3 - x4) - B * (x1 - x2))
-    numerator_y = (A * (y3 - y4) - B * (y1 - y2))
+    numerator_x = (A * (x[2] - x[3]) - B * (x[0] - x[1]))
+    numerator_y = (A * (y[2] - y[3]) - B * (y[0] - y[1]))
     try:
         return numerator_x / C, numerator_y / C
     except ZeroDivisionError:
@@ -209,12 +213,12 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
     if number_of_control_points in [5, 7]:
         x_v, y_v, center_x, center_y = ellipse_analysis(x[:5], y[:5], f_normalized)
     else:
-        x_v, y_v = intersection(x[0], y[0], x[1], y[1], x[2], y[2], x[3], y[3])
+        x_v, y_v = intersection(x[:4], y[:4])
         if number_of_control_points == 8:
             # The problem is over-determined.  I prefer the fourth line over the
             # focal length.  Maybe this is useful in cases where the focal length
             # is not known.
-            x_h, y_h = intersection(x[4], y[4], x[5], y[5], x[6], y[6], x[7], y[7])
+            x_h, y_h = intersection(x[4:], y[4:])
             try:
                 f_normalized = sqrt(- x_h * x_v - y_h * y_v)
             except ValueError:
