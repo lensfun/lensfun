@@ -23,7 +23,7 @@ file/data has the following structure:
 Here, "image.jpeg" is the filename of the image file, 18 is the focal length in
 mm, 1.534 is the crop factor, 6 is a scaling parameter, the first array are the
 x values of the control points, and the second array are the y values.  The (x,
-y) values must be image pixel coordinates.  There are 4, 6, or 8 points
+y) values must be image pixel coordinates.  There are 4, 5, 6, 7, or 8 points
 allowed, see `initialize_perspective_correction` below.
 """
 
