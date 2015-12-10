@@ -244,9 +244,17 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
     else:
         c = (x[5] - x[6], y[5] - y[6])
     if number_of_control_points == 7:
-        x5_, y5_ = rotate_ρ_δ(ρ, δ, x[5], y[5], f_normalized)
-        x6_, y6_ = rotate_ρ_δ(ρ, δ, x[6], y[6], f_normalized)
-        α = atan2(y6_ - y5_, x6_ - x5_)
+        x5_, y5_, z5_ = rotate_ρ_δ(ρ, δ, x[5], y[5], f_normalized)
+        # Central projection through the origin
+        stretch_factor = f_normalized / z5_
+        x5_ *= stretch_factor
+        y5_ *= stretch_factor
+        x6_, y6_, z6_ = rotate_ρ_δ(ρ, δ, x[6], y[6], f_normalized)
+        # Central projection through the origin
+        stretch_factor = f_normalized / z6_
+        x6_ *= stretch_factor
+        y6_ *= stretch_factor
+        α = - atan2(y6_ - y5_, x6_ - x5_)
         if abs(c[0]) > abs(c[1]):
             # Find smallest rotation into horizontal
             α = - (α - π/2) % π - π/2
