@@ -76,6 +76,13 @@ def write_image_file(image_data, width, height, filepath):
     image_data.byteswap()
 
 
+def central_projection(coordinates, focal_length):
+    """Projects the coordinates on an x-y plane with the distance ``focal_length``
+    from the origin.  The centre of the projection is the origin.
+    """
+    stretch_factor = focal_length / coordinates[2]
+    return coordinates[0] * stretch_factor, coordinates[1] * stretch_factor
+
 def ellipse_analysis(x, y, f_normalized):
     import numpy
 
@@ -186,9 +193,9 @@ def determine_ρ_h(ρ, δ, x, y, f_normalized, center_x, center_y):
             # no rotation necessary.
             return 0
     else:
-        λ = y_[0] / (y_[0] - y_[1])
-        x_h = x_[0] + λ * (x_[1] - x_[0])
-        z_h = z_[0] + λ * (z_[1] - z_[0])
+        Δx, Δz = central_projection((x_[1] - x_[0], z_[1] - z_[0], y_[1] - y_[0]), - y_[0])
+        x_h = x_[0] + Δx
+        z_h = z_[0] + Δz
         if z_h == 0:
             ρ_h = 0 if x_h > 0 else π
         else:
@@ -244,16 +251,8 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
     else:
         c = (x[5] - x[6], y[5] - y[6])
     if number_of_control_points == 7:
-        x5_, y5_, z5_ = rotate_ρ_δ(ρ, δ, x[5], y[5], f_normalized)
-        # Central projection through the origin
-        stretch_factor = f_normalized / z5_
-        x5_ *= stretch_factor
-        y5_ *= stretch_factor
-        x6_, y6_, z6_ = rotate_ρ_δ(ρ, δ, x[6], y[6], f_normalized)
-        # Central projection through the origin
-        stretch_factor = f_normalized / z6_
-        x6_ *= stretch_factor
-        y6_ *= stretch_factor
+        x5_, y5_ = central_projection(rotate_ρ_δ(ρ, δ, x[5], y[5], f_normalized), f_normalized)
+        x6_, y6_ = central_projection(rotate_ρ_δ(ρ, δ, x[6], y[6], f_normalized), f_normalized)
         α = - atan2(y6_ - y5_, x6_ - x5_)
         if abs(c[0]) > abs(c[1]):
             # Find smallest rotation into horizontal
@@ -488,9 +487,6 @@ class Modifier:
             return False
         # This is the mapping scale in the image center
         mapping_scale = f_normalized / z
-        # Central projection through the origin
-        Δa = - x * mapping_scale
-        Δb = - y * mapping_scale
 
 #        print(ρ * 180 / π, δ * 180 / π, ρ_h * 180 / π, α * 90)
 
@@ -504,6 +500,7 @@ class Modifier:
         A11, A12, A13 = cos(α) * A11 + sin(α) * A12, - sin(α) * A11 + cos(α) * A12, A13
         A21, A22, A23 = cos(α) * A21 + sin(α) * A22, - sin(α) * A21 + cos(α) * A22, A23
         A31, A32, A33 = cos(α) * A31 + sin(α) * A32, - sin(α) * A31 + cos(α) * A32, A33
+        Δa, Δb = central_projection((x, y, z), f_normalized)
         Δa, Δb = cos(α) * Δa + sin(α) * Δb, - sin(α) * Δa + cos(α) * Δb
 
         # The occurances of mapping_scale here avoid an additional
@@ -522,8 +519,8 @@ class Modifier:
         f_normalized = data[9]
         Δa, Δb = data[10:12]
         for i in range(count):
-            x = iocoord[offset + i * 2] - Δa
-            y = iocoord[offset + i * 2 + 1] - Δb
+            x = iocoord[offset + i * 2] + Δa
+            y = iocoord[offset + i * 2 + 1] + Δb
             z_ = A31 * x + A32 * y + A33 * f_normalized
             if z_ > 0:
                 x_ = A11 * x + A12 * y + A13 * f_normalized
