@@ -76,11 +76,12 @@ def write_image_file(image_data, width, height, filepath):
     image_data.byteswap()
 
 
-def central_projection(coordinates, focal_length):
-    """Projects the coordinates on an x-y plane with the distance ``focal_length``
-    from the origin.  The centre of the projection is the origin.
+def central_projection(coordinates, plane_distance):
+    """Projects the coordinates on an x-y plane with the distance
+    ``plane_distance`` from the origin.  The centre of the projection is the
+    origin.
     """
-    stretch_factor = focal_length / coordinates[2]
+    stretch_factor = plane_distance / coordinates[2]
     return coordinates[0] * stretch_factor, coordinates[1] * stretch_factor
 
 def ellipse_analysis(x, y, f_normalized):
