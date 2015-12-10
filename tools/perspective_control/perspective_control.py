@@ -525,10 +525,10 @@ class Modifier:
             if z_ > 0:
                 x_ = A11 * x + A12 * y + A13 * f_normalized
                 y_ = A21 * x + A22 * y + A23 * f_normalized
-                # Central projection through the origin
-                stretch_factor = f_normalized / z_
-                iocoord[offset + i * 2] = x_ * stretch_factor
-                iocoord[offset + i * 2 + 1] = y_ * stretch_factor
+                # The following call slows down by 5% in comparison to the
+                # inline representation, however, it should not be a penalty in
+                # C++, and it adds readability.
+                iocoord[offset + i * 2], iocoord[offset + i * 2 + 1] = central_projection((x_, y_, z_), f_normalized)
             else:
                 iocoord[offset + i * 2] = iocoord[offset + i * 2 + 1] = float("nan")
 
