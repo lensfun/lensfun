@@ -188,7 +188,7 @@ def determine_ρ_h(ρ, δ, x, y, f_normalized, center_x, center_y):
     if y_[0] == y_[1]:
         if y_[0] == 0:
             # ρ_h is undefined (horizontal great circle is on the equator).
-            return None
+            return float("nan")
         else:
             # The horizontal vanishing point is perfectly to the left/right, so
             # no rotation necessary.
@@ -276,14 +276,15 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
         else:
             x_perpendicular_line = [center_x - 1, center_x + 1]
             y_perpendicular_line = [center_y, center_y]
-        ρ_h = determine_ρ_h(ρ, δ, x_perpendicular_line, y_perpendicular_line, f_normalized, center_x, center_y) or 0
+        ρ_h = determine_ρ_h(ρ, δ, x_perpendicular_line, y_perpendicular_line, f_normalized, center_x, center_y)
     elif number_of_control_points in [5, 7]:
         ρ_h = 0
     else:
         ρ_h = determine_ρ_h(ρ, δ, x[4:6], y[4:6], f_normalized, center_x, center_y)
-        if ρ_h is None and number_of_control_points == 8:
+        if math.isnan(ρ_h) and number_of_control_points == 8:
             ρ_h = determine_ρ_h(ρ, δ, x[6:8], y[6:8], f_normalized, center_x, center_y)
-        ρ_h = ρ_h or 0
+    if math.isnan(ρ_h):
+        ρ_h = 0
     return ρ, δ, ρ_h, f_normalized, α, center_x, center_y
 
 def generate_rotation_matrix(ρ1, δ, ρ2, d):
