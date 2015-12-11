@@ -23,11 +23,9 @@ using std::sqrt;
 
 fvector normalize (float x, float y)
 {
-    fvector result (2);
     float norm = sqrt (pow (x, 2) + pow(y, 2));
-    result [0] = x / norm;
-    result [1] = y / norm;
-    return result;
+    float temp[] = {x / norm, y / norm};
+    return fvector (temp, temp + 2);
 }
 
 void central_projection (fvector coordinates, float plane_distance, float &x, float &y)
@@ -129,14 +127,8 @@ void ellipse_analysis (fvector x, fvector y, float f_normalized, float &x_v, flo
     // Taken from http://math.stackexchange.com/a/767126/248694
     for (int i = 0; i < 5; i++)
     {
-        fvector row (6);
-        row [0] = pow (x [i], 2);
-        row [1] = x [i] * y [i];
-        row [2] = pow (y [i], 2);
-        row [3] = x [i];
-        row [4] = y [i];
-        row [5] = 1;
-        M.push_back (row);
+        float temp[] = {pow (x [i], 2), x [i] * y [i], pow (y [i], 2), x [i], y [i], 1};
+        M.push_back (fvector (temp, temp + 6));
     }
     fvector parameters = svd (M);
     /* Taken from http://mathworld.wolfram.com/Ellipse.html, equation (15)
