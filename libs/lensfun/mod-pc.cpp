@@ -123,17 +123,67 @@ fvector svd (matrix M)
 void ellipse_analysis (fvector x, fvector y, float f_normalized, float &x_v, float &y_v,
                        float &center_x, float &center_y)
 {
-    matrix M (12, fvector (6));
+    matrix M;
+    float a, b, c, d, f, g, _D, x0, y0, phi, _N, _S, _R, a_, b_, radius_vertex;
+
+    // Taken from http://math.stackexchange.com/a/767126/248694
     for (int i = 0; i < 5; i++)
     {
-        M [i][0] = x [i] * x [i];
-        M [i][1] = x [i] * y [i];
-        M [i][2] = y [i] * y [i];
-        M [i][3] = x [i];
-        M [i][4] = y [i];
-        M [i][5] = 1;
+        fvector row (6);
+        row [0] = pow (x [i], 2);
+        row [1] = x [i] * y [i];
+        row [2] = pow (y [i], 2);
+        row [3] = x [i];
+        row [4] = y [i];
+        row [5] = 1;
+        M.push_back (row);
     }
-    fvector S2 = svd (M);
+    fvector parameters = svd (M);
+    /* Taken from http://mathworld.wolfram.com/Ellipse.html, equation (15)
+       onwards. */
+    a = parameters [0];
+    b = parameters [1] / 2;
+    c = parameters [2];
+    d = parameters [3] / 2;
+    f = parameters [4] / 2;
+    g = parameters [5];
+
+    _D = pow (b, 2) - a * c;
+    x0 = (c * d - b * f) / _D;
+    y0 = (a * f - b * d) / _D;
+
+    phi = 1/2 * atan (2 * b / (a - c));
+    if (a > c)
+        phi += M_PI_2;
+
+    _N = 2 * (a * pow (f, 2) + c * pow (d, 2) + g * pow(b, 2) - 2 * b * d * f - a * c * g) / _D;
+    _S = sqrt (pow ((a - c), 2) + 4 * pow (b, 2));
+    _R = a + c;
+    a_ = sqrt (_N / (_S - _R));
+    b_ = sqrt (_N / (- _S - _R));
+    // End taken from mathworld
+    if (a_ < b_)
+    {
+        float temp;
+        temp = a_;
+        a_ = b_;
+        b_ = temp;
+        phi -= M_PI_2;
+    }
+    /* Normalize to -π/2..π/2 so that the vertex half-plane is top or bottom
+       rather than e.g. left or right. */
+    phi = fmod (phi + M_PI_2, M_PI) - M_PI_2;
+
+    /* Negative sign because vertex at top (negative y values) should be
+       default. */
+    radius_vertex = - f_normalized / sqrt (pow (a_ / b_, 2) - 1);
+    if ((x [0] - x0) * (y [1] - y0) < (x [1] - x0) * (y [0] - y0))
+        radius_vertex *= -1;
+
+    x_v = radius_vertex * sin(phi);
+    y_v = radius_vertex * cos(phi);
+    center_x = x0;
+    center_y = y0;
 }
 
 fvector rotate_rho_delta (float rho, float delta, float x, float y, float z)
