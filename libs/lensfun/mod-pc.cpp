@@ -24,7 +24,7 @@ using std::sqrt;
 fvector normalize (float x, float y)
 {
     fvector result (2);
-    float norm = sqrt (x * x + y * y);
+    float norm = sqrt (pow (x, 2) + pow(y, 2));
     result [0] = x / norm;
     result [1] = y / norm;
     return result;
@@ -194,7 +194,7 @@ void calculate_angles(fvector x, fvector y, float f,
     }
 
     rho = atan (- x_v / f_normalized);
-    delta = M_PI_2 - atan (- y_v / sqrt (x_v * x_v + f_normalized * f_normalized));
+    delta = M_PI_2 - atan (- y_v / sqrt (pow (x_v, 2) + pow (f_normalized, 2)));
     if (rotate_rho_delta (rho, delta, center_x, center_y, f_normalized) [2] < 0)
         // We have to move the vertex into the nadir instead of the zenith.
         delta -= M_PI;
@@ -320,7 +320,7 @@ void lfModifier::ModifyCoord_Perspective_Correction (void *data, float *iocoord,
     {
         const float x = iocoord [0];
         const float y = iocoord [1];
-        const float poly2 = one_minus_k1 + k1 * (x * x + y * y);
+        const float poly2 = one_minus_k1 + k1 * (pow (x, 2) + pow (y, 2));
 
         iocoord [0] = x * poly2;
         iocoord [1] = y * poly2;
