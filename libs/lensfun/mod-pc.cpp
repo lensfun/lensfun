@@ -261,11 +261,31 @@ void intersection (fvector x, fvector y, float &x_i, float &y_i)
     y_i = numerator_y / C;
 }
 
-float determine_rho_h (float rho, float delta,
-                       fvector x_perpendicular_line, fvector y_perpendicular_line,
+float determine_rho_h (float rho, float delta, fvector x, fvector y,
                        float f_normalized, float center_x, float center_y)
 {
-    
+    fvector p0, p1;
+    p0 = rotate_rho_delta(rho, delta, x [0], y [0], f_normalized);
+    p1 = rotate_rho_delta(rho, delta, x [0], y [0], f_normalized);
+    float x_0 = p0 [0], y_0 = p0 [1], z_0 = p0 [2];
+    float x_1 = p1 [0], y_1 = p1 [1], z_1 = p1 [2];
+    if (y_0 == y_1)
+        return y_0 == 0 ? NAN : 0;
+    else
+    {
+        float Delta_x, Delta_z, x_h, z_h, rho_h;
+        float temp[] = {x_1 - x_0, z_1 - z_0, y_1 - y_0};
+        central_projection (fvector (temp, temp + 3), - y_0, Delta_x, Delta_z);
+        x_h = x_0 + Delta_x;
+        z_h = z_0 + Delta_z;
+        if (z_h == 0)
+            rho_h = x_h > 0 ? 0 : M_PI;
+        else
+            rho_h = M_PI_2 - atan (x_h / z_h);
+        if (rotate_rho_delta_rho_h (rho, delta, rho_h, center_x, center_y, f_normalized) [2] < 0)
+            rho_h -= M_PI;
+        return rho_h;
+    }
 }
 
 void calculate_angles(fvector x, fvector y, float f,
