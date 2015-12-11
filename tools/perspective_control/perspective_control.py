@@ -24,7 +24,7 @@ Here, "image.jpeg" is the filename of the image file, 18 is the focal length in
 mm, 1.534 is the crop factor, 6 is a scaling parameter, the first array are the
 x values of the control points, and the second array are the y values.  The (x,
 y) values must be image pixel coordinates.  There are 4, 5, 6, 7, or 8 points
-allowed, see `initialize_perspective_correction` below.
+allowed, see `enable_perspective_correction` below.
 """
 
 import sys, subprocess, os, array, json, multiprocessing, tempfile
@@ -402,7 +402,7 @@ class Modifier:
     def initialize(self, focal_length):
         self.focal_length = focal_length
 
-    def initialize_perspective_correction(self, x, y, d):
+    def enable_perspective_correction(self, x, y, d):
         """Depending on the number of control points given, there are three possible
         modes:
 
@@ -565,7 +565,7 @@ def process_image(json_filepath, d, index):
     image_data, width, height = read_image_file(image_filepath)
     modifier = Modifier(crop_factor, width, height)
     modifier.initialize(f)
-    if modifier.initialize_perspective_correction(x, y, d):
+    if modifier.enable_perspective_correction(x, y, d):
         res = array.array("f", width * height * 2 * [0])
         modifier.scaling_factor = shrinking
         modifier.apply_perspective_correction(0, 0, width, height, res)
