@@ -23,7 +23,7 @@ using std::sqrt;
 
 fvector normalize (float x, float y)
 {
-    float norm = sqrt (pow (x, 2) + pow(y, 2));
+    float norm = sqrt (pow (x, 2) + pow (y, 2));
     float temp[] = {x / norm, y / norm};
     return fvector (temp, temp + 2);
 }
@@ -46,7 +46,7 @@ fvector svd (matrix M)
         threshold = 0.1 * epsilon,
         vt, p, x0, y0, q, r, c0, s0, d1, d2;
 
-    M.resize (2 * n, fvector(n));
+    M.resize (2 * n, fvector (n));
     for (i = 0; i < n; i++)
         M [n + i][i] = 1;
 
@@ -148,7 +148,7 @@ void ellipse_analysis (fvector x, fvector y, float f_normalized, float &x_v, flo
     if (a > c)
         phi += M_PI_2;
 
-    _N = 2 * (a * pow (f, 2) + c * pow (d, 2) + g * pow(b, 2) - 2 * b * d * f - a * c * g) / _D;
+    _N = 2 * (a * pow (f, 2) + c * pow (d, 2) + g * pow (b, 2) - 2 * b * d * f - a * c * g) / _D;
     _S = sqrt (pow ((a - c), 2) + 4 * pow (b, 2));
     _R = a + c;
     a_ = sqrt (_N / (_S - _R));
@@ -172,8 +172,8 @@ void ellipse_analysis (fvector x, fvector y, float f_normalized, float &x_v, flo
     if ((x [0] - x0) * (y [1] - y0) < (x [1] - x0) * (y [0] - y0))
         radius_vertex *= -1;
 
-    x_v = radius_vertex * sin(phi);
-    y_v = radius_vertex * cos(phi);
+    x_v = radius_vertex * sin (phi);
+    y_v = radius_vertex * cos (phi);
     center_x = x0;
     center_y = y0;
 }
@@ -257,8 +257,8 @@ float determine_rho_h (float rho, float delta, fvector x, fvector y,
                        float f_normalized, float center_x, float center_y)
 {
     fvector p0, p1;
-    p0 = rotate_rho_delta(rho, delta, x [0], y [0], f_normalized);
-    p1 = rotate_rho_delta(rho, delta, x [0], y [0], f_normalized);
+    p0 = rotate_rho_delta (rho, delta, x [0], y [0], f_normalized);
+    p1 = rotate_rho_delta (rho, delta, x [0], y [0], f_normalized);
     float x_0 = p0 [0], y_0 = p0 [1], z_0 = p0 [2];
     float x_1 = p1 [0], y_1 = p1 [1], z_1 = p1 [2];
     if (y_0 == y_1)
@@ -280,23 +280,23 @@ float determine_rho_h (float rho, float delta, fvector x, fvector y,
     }
 }
 
-void calculate_angles(fvector x, fvector y, float f,
-                      float normalized_in_millimeters, float &rho, float &delta, float &rho_h,
-                      float &f_normalized, float &final_rotation, float &center_of_control_points_x,
-                      float &center_of_control_points_y)
+void calculate_angles (fvector x, fvector y, float f,
+                       float normalized_in_millimeters, float &rho, float &delta, float &rho_h,
+                       float &f_normalized, float &final_rotation, float &center_of_control_points_x,
+                       float &center_of_control_points_y)
 {
     const int number_of_control_points = x.size();
 
     float center_x, center_y;
     if (number_of_control_points == 6)
     {
-        center_x = std::accumulate(x.begin(), x.begin() + 4, 0.) / 4;
-        center_y = std::accumulate(y.begin(), y.begin() + 4, 0.) / 4;
+        center_x = std::accumulate (x.begin(), x.begin() + 4, 0.) / 4;
+        center_y = std::accumulate (y.begin(), y.begin() + 4, 0.) / 4;
     }
     else
     {
-        center_x = std::accumulate(x.begin(), x.end(), 0.) / number_of_control_points;
-        center_y = std::accumulate(y.begin(), y.end(), 0.) / number_of_control_points;
+        center_x = std::accumulate (x.begin(), x.end(), 0.) / number_of_control_points;
+        center_y = std::accumulate (y.begin(), y.end(), 0.) / number_of_control_points;
     }
 
     // FixMe: Is really always an f given (even if it is inaccurate)?
@@ -333,7 +333,7 @@ void calculate_angles(fvector x, fvector y, float f,
 
     bool swapped_verticals_and_horizontals = false;
 
-    fvector c(2);
+    fvector c (2);
     switch (number_of_control_points) {
     case 4:
     case 6:
@@ -407,12 +407,12 @@ void calculate_angles(fvector x, fvector y, float f,
         rho_h = 0;
     else
     {
-        rho_h = determine_rho_h (rho, delta, fvector(x.begin() + 4, x.begin() + 6),
-                                 fvector(y.begin() + 4, y.begin() + 6), f_normalized, center_x, center_y);
+        rho_h = determine_rho_h (rho, delta, fvector (x.begin() + 4, x.begin() + 6),
+                                 fvector (y.begin() + 4, y.begin() + 6), f_normalized, center_x, center_y);
         if (isnan (rho_h))
             if (number_of_control_points == 8)
-                rho_h = determine_rho_h (rho, delta, fvector(x.begin() + 6, x.begin() + 8),
-                                         fvector(y.begin() + 6, y.begin() + 8), f_normalized, center_x, center_y);
+                rho_h = determine_rho_h (rho, delta, fvector (x.begin() + 6, x.begin() + 8),
+                                         fvector (y.begin() + 6, y.begin() + 8), f_normalized, center_x, center_y);
             else
                 rho_h = 0;
     }
@@ -436,9 +436,9 @@ bool lfModifier::enable_perspective_correction (fvector x, fvector y, float d)
 
     float rho, delta, rho_h, f_normalized, final_rotation, center_of_control_points_x,
         center_of_control_points_y;
-    calculate_angles(x, y, focal_length, NormalizedInMillimeters,
-                     rho, delta, rho_h, f_normalized, final_rotation, center_of_control_points_x,
-                     center_of_control_points_y);
+    calculate_angles (x, y, focal_length, NormalizedInMillimeters,
+                      rho, delta, rho_h, f_normalized, final_rotation, center_of_control_points_x,
+                      center_of_control_points_y);
 
 }
 
