@@ -76,6 +76,13 @@ def write_image_file(image_data, width, height, filepath):
     image_data.byteswap()
 
 
+def normalize(x, y):
+    norm = sqrt(x**2 + y**2)
+    try:
+        return x / norm, y / norm
+    except ZeroDivisionError:
+        return math.copysign(float("inf"), x), math.copysign(float("inf"), y)
+
 def central_projection(coordinates, plane_distance):
     """Projects the coordinates on an x-y plane with the distance
     ``plane_distance`` from the origin.  The centre of the projection is the
@@ -328,13 +335,6 @@ def generate_rotation_matrix(ρ1, δ, ρ2, d):
     return A11, A12, A13, \
            A21, A22, A23, \
            A31, A32, A33
-
-def normalize(x, y):
-    norm = sqrt(x**2 + y**2)
-    try:
-        return x / norm, y / norm
-    except ZeroDivisionError:
-        return math.copysign(float("inf"), x), math.copysign(float("inf"), y)
 
 class Modifier:
 

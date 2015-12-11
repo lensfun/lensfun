@@ -195,6 +195,21 @@ void ellipse_analysis (fvector x, fvector y, float f_normalized, float &x_v, flo
            ⎝   0         0    1 ⎠
 */
 
+void intersection (fvector x, fvector y, float &x_i, float &y_i)
+{
+    float A, B, C, numerator_x, numerator_y;
+
+    A = x [0] * y [1] - y [0] * x [1];
+    B = x [2] * y [3] - y [2] * x [3];
+    C = (x [0] - x [1]) * (y [2] - y [3]) - (y [0] - y [1]) * (x [2] - x [3]);
+
+    numerator_x = (A * (x [2] - x [3]) - B * (x [0] - x [1]));
+    numerator_y = (A * (y [2] - y [3]) - B * (y [0] - y [1]));
+
+    x_i = numerator_x / C;
+    y_i = numerator_y / C;
+}
+
 fvector rotate_rho_delta (float rho, float delta, float x, float y, float z)
 {
     // This matrix is: Rₓ(δ) · R_y(ρ)
@@ -236,21 +251,6 @@ fvector rotate_rho_delta_rho_h (float rho, float delta, float rho_h,
     result [1] = A21 * x + A22 * y + A23 * z;
     result [2] = A31 * x + A32 * y + A33 * z;
     return result;
-}
-
-void intersection (fvector x, fvector y, float &x_i, float &y_i)
-{
-    float A, B, C, numerator_x, numerator_y;
-
-    A = x [0] * y [1] - y [0] * x [1];
-    B = x [2] * y [3] - y [2] * x [3];
-    C = (x [0] - x [1]) * (y [2] - y [3]) - (y [0] - y [1]) * (x [2] - x [3]);
-
-    numerator_x = (A * (x [2] - x [3]) - B * (x [0] - x [1]));
-    numerator_y = (A * (y [2] - y [3]) - B * (y [0] - y [1]));
-
-    x_i = numerator_x / C;
-    y_i = numerator_y / C;
 }
 
 float determine_rho_h (float rho, float delta, fvector x, fvector y,
