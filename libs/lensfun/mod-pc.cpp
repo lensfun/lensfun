@@ -186,8 +186,42 @@ void ellipse_analysis (fvector x, fvector y, float f_normalized, float &x_v, flo
     center_y = y0;
 }
 
+/*
+  In the following, I refer to these two rotation matrices: (See
+  <http://en.wikipedia.org/wiki/Rotation_matrix#In_three_dimensions>.)
+
+          ⎛ 1     0         0   ⎞
+  Rₓ(ϑ) = ⎜ 0   cos ϑ   - sin ϑ ⎟
+          ⎝ 0   sin ϑ     cos ϑ ⎠
+
+           ⎛  cos ϑ   0   sin ϑ ⎞
+  R_y(ϑ) = ⎜   0      1    0    ⎟
+           ⎝- sin ϑ   0   cos ϑ ⎠
+
+           ⎛ cos ϑ   - sin ϑ  0 ⎞
+  R_z(ϑ) = ⎜ sin ϑ     cos ϑ  0 ⎟
+           ⎝   0         0    1 ⎠
+*/
+
 fvector rotate_rho_delta (float rho, float delta, float x, float y, float z)
 {
+    // This matrix is: Rₓ(δ) · R_y(ρ)
+    float A11, A12, A13, A21, A22, A23, A31, A32, A33;
+    A11 = cos (rho);
+    A12 = 0;
+    A13 = sin (rho);
+    A21 = sin (rho) * sin (delta);
+    A22 = cos (delta);
+    A23 = - cos (rho) * sin (delta);
+    A31 = - sin (rho) * cos (delta);
+    A32 = sin (delta);
+    A33 = cos (rho) * cos (delta);
+
+    fvector result (3);
+    result [0] = A11 * x + A12 * y + A13 * z;
+    result [1] = A21 * x + A22 * y + A23 * z;
+    result [2] = A31 * x + A32 * y + A33 * z;
+    return result;
 }
 
 void intersection (fvector x, fvector y, float &x_i, float &y_i)
@@ -205,8 +239,11 @@ void intersection (fvector x, fvector y, float &x_i, float &y_i)
     y_i = numerator_y / C;
 }
 
-float determine_rho_h (float rho, float delta, fvector x_perpendicular_line, fvector y_perpendicular_line, float f_normalized, float center_x, float center_y)
+float determine_rho_h (float rho, float delta,
+                       fvector x_perpendicular_line, fvector y_perpendicular_line,
+                       float f_normalized, float center_x, float center_y)
 {
+    
 }
 
 void calculate_angles(fvector x, fvector y, float f,
