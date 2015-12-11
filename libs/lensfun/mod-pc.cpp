@@ -12,11 +12,13 @@
 #include <iostream>
 #include "windows/mathconstants.h"
 
+using std::acos;
 using std::atan;
 using std::atan2;
 using std::cos;
 using std::fabs;
 using std::fmod;
+using std::log;
 using std::pow;
 using std::sin;
 using std::sqrt;
@@ -416,6 +418,59 @@ void calculate_angles (fvector x, fvector y, float f,
             else
                 rho_h = 0;
     }
+}
+
+matrix generate_rotation_matrix (float rho_1, float delta, float rho_2, float d)
+{
+    float s_rho_2, c_rho_2, s_delta, c_delta, s_rho_1, c_rho_1,
+        w, x, y, z, theta, s_theta;
+    /* We calculate the quaternion by multiplying the three quaternions for the
+       three rotations (in reverse order).  We use quaternions here to be able
+       to apply the d parameter in a reasonable way. */
+    s_rho_2 = sin (rho_2 / 2);
+    c_rho_2 = cos (rho_2 / 2);
+    s_delta = sin (delta / 2);
+    c_delta = cos (delta / 2);
+    s_rho_1 = sin (rho_1 / 2);
+    c_rho_1 = cos (rho_1 / 2);
+    w = c_rho_2 * c_delta * c_rho_1 - s_rho_2 * c_delta * s_rho_1;
+    x = c_rho_2 * s_delta * c_rho_1 + s_rho_2 * s_delta * s_rho_1;
+    y = c_rho_2 * c_delta * s_rho_1 + s_rho_2 * c_delta * c_rho_1;
+    z = c_rho_2 * s_delta * s_rho_1 - s_rho_2 * s_delta * c_rho_1;
+    // Now, decompose the quaternion into θ and the axis unit vector.
+    theta = 2 * acos (w);
+    if (theta > M_PI)
+        theta -= 2 * M_PI;
+    s_theta = sin (theta / 2);
+    x /= s_theta;
+    y /= s_theta;
+    z /= s_theta;
+    const float compression = 10;
+    theta *= d <= 0 ? d + 1 : 1 + 1. / compression * log (compression * d + 1);
+    if (theta > 0.9 * M_PI)
+        theta = 0.9 * M_PI;
+    else if (theta < - 0.9 * M_PI)
+        theta = - 0.9 * M_PI;
+    // Compose the quaternion again.
+    w = cos (theta / 2);
+    s_theta = sin (theta / 2);
+    x *= s_theta;
+    y *= s_theta;
+    z *= s_theta;
+    /* Convert the quaternion to a rotation matrix, see e.g.
+       <https://en.wikipedia.org/wiki/Rotation_matrix#Quaternion>.  This matrix
+       is (if d=0): R_y(ρ2) · Rₓ(δ) · R_y(ρ1) */
+    matrix M (3, fvector (3));
+    M [0][0] = 1 - 2 * pow (y, 2) - 2 * pow (z, 2);
+    M [0][1] = 2 * x * y - 2 * z * w;
+    M [0][2] = 2 * x * z + 2 * y * w;
+    M [1][0] = 2 * x * y + 2 * z * w;
+    M [1][1] = 1 - 2 * pow (x, 2) - 2 * pow (z, 2);
+    M [1][2] = 2 * y * z - 2 * x * w;
+    M [2][0] = 2 * x * z - 2 * y * w;
+    M [2][1] = 2 * y * z + 2 * x * w;
+    M [2][2] = 1 - 2 * pow (x, 2) - 2 * pow (y, 2);
+    return M;
 }
 
 bool lfModifier::enable_perspective_correction (fvector x, fvector y, float d)
