@@ -474,4 +474,8 @@ struct lfColorCallbackData : public lfCallbackData
     lfModifyColorFunc callback;
 };
 
+typedef std::vector<fvector> matrix;
+
+fvector svd(matrix M);
+
 #endif /* __LENSFUNPRV_H__ */

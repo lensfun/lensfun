@@ -29,7 +29,88 @@ void central_projection (fvector coordinates, float plane_distance, float &x, fl
     y = coordinates [1] * stretch_factor;
 }
 
-typedef std::vector<fvector> matrix;
+fvector svd (matrix M)
+{
+    const int n = M [0].size();
+    fvector S2 (n);
+    int  i, j, k, estimated_column_rank = n, counter = n, iterations = 0,
+        max_cycles = (n < 120) ? 30 : n / 4;
+    float epsilon = std::numeric_limits<float>::epsilon() * 10,
+        e2 = 10 * n * pow (epsilon, 2),
+        threshold = 0.1 * epsilon,
+        vt, p, x0, y0, q, r, c0, s0, d1, d2;
+
+    M.resize (2 * n, fvector(n));
+    for (i = 0; i < n; i++)
+        M [n + i][i] = 1;
+
+    while (counter != 0 && iterations++ <= max_cycles)
+    {
+        counter = estimated_column_rank * (estimated_column_rank - 1) / 2;
+        for (j = 0; j < estimated_column_rank - 1; j++)
+            for (k = j + 1; k < estimated_column_rank; k++)
+            {
+                p = q = r = 0;
+                for (i = 0; i < n; i++)
+                {
+                    x0 = M [i][j];
+                    y0 = M [i][k];
+                    p += x0 * y0;
+                    q += pow (x0, 2);
+                    r += pow (y0, 2);
+                }
+                S2 [j] = q;
+                S2 [k] = r;
+                if (q >= r) {
+                    if (q <= e2 * S2 [0] || fabs (p) <= threshold * q)
+                        counter--;
+                    else
+                    {
+                        p /= q;
+                        r = 1 - r / q;
+                        vt = sqrt (4 * pow (p, 2) + pow (r, 2));
+                        c0 = sqrt (0.5 * (1 + r / vt));
+                        s0 = p / (vt * c0);
+                        for (i = 0; i < 2 * n; i++)
+                        {
+                            d1 = M [i][j];
+                            d2 = M [i][k];
+                            M [i][j] = d1 * c0 + d2 * s0;
+                            M [i][k] = - d1 * s0 + d2 * c0;
+                        }
+                    }
+                }
+                else
+                {
+                    p /= r;
+                    q = q / r - 1;
+                    vt = sqrt (4 * pow (p, 2) + pow (q, 2));
+                    s0 = sqrt (0.5 * (1 - q / vt));
+                    if (p < 0)
+                        s0 = - s0;
+                    c0 = p / (vt * s0);
+                    for (i = 0; i < 2 * n; i++)
+                    {
+                        d1 = M [i][j];
+                        d2 = M [i][k];
+                        M [i][j] = d1 * c0 + d2 * s0;
+                        M [i][k] = - d1 * s0 + d2 * c0;
+                    }
+                }
+            }
+        while (estimated_column_rank > 2 &&
+               S2 [estimated_column_rank - 1] <=
+               S2 [0] * threshold + pow (threshold, 2))
+            estimated_column_rank--;
+    }
+    if (iterations > max_cycles)
+        g_warning ("[Lensfun] SVD: Iterations did non converge");
+
+    fvector result;
+    for (matrix::iterator it = M.begin() + n; it != M.end(); ++it)
+        result.push_back ((*it) [n - 1]);
+    return result;
+}
 
 void ellipse_analysis (fvector x, fvector y, float f_normalized, float &x_v, float &y_v,
                        float &center_x, float &center_y)
@@ -37,12 +118,12 @@ void ellipse_analysis (fvector x, fvector y, float f_normalized, float &x_v, flo
     matrix M (12, fvector (6));
     for (int i = 0; i < 5; i++)
     {
-        M [6 * i]     = x [i] * x [i];
-        M [6 * i + 1] = x [i] * y [i];
-        M [6 * i + 2] = y [i] * y [i];
-        M [6 * i + 3] = x [i];
-        M [6 * i + 4] = y [i];
-        M [6 * i + 5] = 1;
+        M [i][0] = x [i] * x [i];
+        M [i][1] = x [i] * y [i];
+        M [i][2] = y [i] * y [i];
+        M [i][3] = x [i];
+        M [i][4] = y [i];
+        M [i][5] = 1;
     }
     fvector S2 = svd (M);
 }
@@ -218,7 +299,7 @@ bool lfModifier::enable_perspective_correction (fvector x, fvector y, float d)
     calculate_angles(x, y, focal_length, NormalizedInMillimeters,
                      rho, delta, rho_h, f_normalized, final_rotation, center_of_control_points_x,
                      center_of_control_points_y);
-    
+
 }
 
 void lfModifier::ModifyCoord_Perspective_Correction (void *data, float *iocoord, int count)

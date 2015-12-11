@@ -25,6 +25,11 @@
 #include <stddef.h>
 
 #ifdef __cplusplus
+
+#include <vector>
+
+typedef std::vector<float> fvector;
+
 extern "C" {
 /** Helper macro to make C/C++ work similarly */
 #  define C_TYPEDEF(t,c)
@@ -2096,7 +2101,7 @@ struct LF_EXPORT lfModifier
         const lfLens *lens, lfPixelFormat format, float focal, float aperture,
         float distance, float scale, lfLensType targeom, int flags, bool reverse);
 
-    bool Initialize_Perspective_Correction (int *x, int *y, int count, float d);
+    bool enable_perspective_correction (fvector x, fvector y, float d);
 
     /**
      * @brief Destroy the modifier object.
