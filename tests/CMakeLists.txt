@@ -21,6 +21,10 @@ ADD_EXECUTABLE(test_modifier_coord_scale test_modifier_coord_scale.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_coord_scale lensfun ${COMMON_LIBS})
 ADD_TEST(Modifier_coord_scale test_modifier_coord_scale)
 
+ADD_EXECUTABLE(test_modifier_coord_perspective_correction test_modifier_coord_perspective_correction.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_coord_perspective_correction lensfun ${COMMON_LIBS})
+ADD_TEST(Modifier_coord_perspective_correction test_modifier_coord_perspective_correction)
+
 ADD_EXECUTABLE(test_modifier_coord_distortion test_modifier_coord_distortion.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_coord_distortion lensfun ${COMMON_LIBS})
 ADD_TEST(Modifier_coord_distortion test_modifier_coord_distortion)
