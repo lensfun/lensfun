@@ -224,6 +224,28 @@ fvector rotate_rho_delta (float rho, float delta, float x, float y, float z)
     return result;
 }
 
+fvector rotate_rho_delta_rho_h (float rho, float delta, float rho_h,
+                                float x, float y, float z)
+{
+    // This matrix is: R_y(ρₕ) · Rₓ(δ) · R_y(ρ)
+    float A11, A12, A13, A21, A22, A23, A31, A32, A33;
+    A11 = cos (rho) * cos (rho_h) - sin (rho) * cos (delta) * sin (rho_h);
+    A12 = sin (delta) * sin (rho_h);
+    A13 = sin (rho) * cos (rho_h) + cos (rho) * cos (delta) * sin (rho_h);
+    A21 = sin (rho) * sin (delta);
+    A22 = cos (delta);
+    A23 = - cos (rho) * sin (delta);
+    A31 = - cos (rho) * sin (rho_h) - sin (rho) * cos (delta) * cos (rho_h);
+    A32 = sin (delta) * cos (rho_h);
+    A33 = - sin (rho) * sin (rho_h) + cos (rho) * cos (delta) * cos (rho_h);
+
+    fvector result (3);
+    result [0] = A11 * x + A12 * y + A13 * z;
+    result [1] = A21 * x + A22 * y + A23 * z;
+    result [2] = A31 * x + A32 * y + A33 * z;
+    return result;
+}
+
 void intersection (fvector x, fvector y, float &x_i, float &y_i)
 {
     float A, B, C, numerator_x, numerator_y;
