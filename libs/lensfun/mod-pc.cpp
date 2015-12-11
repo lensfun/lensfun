@@ -6,12 +6,20 @@
 #include "config.h"
 #include "lensfun.h"
 #include "lensfunprv.h"
-#include <math.h>
 #include <cmath>
 #include <vector>
 #include <numeric>
 #include <iostream>
 #include "windows/mathconstants.h"
+
+using std::atan;
+using std::atan2;
+using std::cos;
+using std::fabs;
+using std::fmod;
+using std::pow;
+using std::sin;
+using std::sqrt;
 
 fvector normalize (float x, float y)
 {
@@ -227,10 +235,10 @@ void calculate_angles(fvector x, fvector y, float f,
         alpha = - atan2 (y6_ - y5_, x6_ - x5_);
         if (fabs (c [0]) > fabs (c [1]))
             // Find smallest rotation into horizontal
-            alpha = - std::fmod (alpha - M_PI_2, M_PI) - M_PI_2;
+            alpha = - fmod (alpha - M_PI_2, M_PI) - M_PI_2;
         else
             // Find smallest rotation into vertical
-            alpha = - std::fmod (alpha, M_PI) - M_PI_2;
+            alpha = - fmod (alpha, M_PI) - M_PI_2;
     }
     else if (fabs (c [0]) > fabs (c [1]))
     {
