@@ -173,7 +173,7 @@ def rotate_ρ_δ_ρh(ρ, δ, ρ_h, x, y, z):
     # This matrix is: R_y(ρₕ) · Rₓ(δ) · R_y(ρ)
     A11, A12, A13 = cos(ρ) * cos(ρ_h) - sin(ρ) * cos(δ) * sin(ρ_h), sin(δ) * sin(ρ_h), sin(ρ) * cos(ρ_h) + cos(ρ) * cos(δ) * sin(ρ_h)
     A21, A22, A23 = sin(ρ) * sin(δ), cos(δ), - cos(ρ) * sin(δ)
-    A31, A32, A33 = - cos(ρ) * sin(ρ_h) -  sin(ρ) * cos(δ) * cos(ρ_h), \
+    A31, A32, A33 = - cos(ρ) * sin(ρ_h) - sin(ρ) * cos(δ) * cos(ρ_h), \
                     sin(δ) * cos(ρ_h), \
                     - sin(ρ) * sin(ρ_h) + cos(ρ) * cos(δ) * cos(ρ_h)
     return \
