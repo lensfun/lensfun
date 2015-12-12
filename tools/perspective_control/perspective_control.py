@@ -480,15 +480,16 @@ class Modifier:
         A31, A32, A33 = generate_rotation_matrix(ρ, δ, ρ_h, d)
 
         if new_image_center == "old image center":
-            x, y, z = A13 * f_normalized, A23 * f_normalized, A33 * f_normalized
+            center_coords = A13 * f_normalized, A23 * f_normalized, A33 * f_normalized
         elif new_image_center == "control points center":
-            x, y, z = A11 * center_of_control_points_x + A12 * center_of_control_points_y + A13 * f_normalized, \
-                      A21 * center_of_control_points_x + A22 * center_of_control_points_y + A23 * f_normalized, \
-                      A31 * center_of_control_points_x + A32 * center_of_control_points_y + A33 * f_normalized
-        if z <= 0:
+            center_coords = \
+                    A11 * center_of_control_points_x + A12 * center_of_control_points_y + A13 * f_normalized, \
+                    A21 * center_of_control_points_x + A22 * center_of_control_points_y + A23 * f_normalized, \
+                    A31 * center_of_control_points_x + A32 * center_of_control_points_y + A33 * f_normalized
+        if center_coords[2] <= 0:
             return False
         # This is the mapping scale in the image center
-        mapping_scale = f_normalized / z
+        mapping_scale = f_normalized / center_coords[2]
 
 #        print(ρ * 180 / π, δ * 180 / π, ρ_h * 180 / π, α * 90)
 
@@ -502,7 +503,7 @@ class Modifier:
         A11, A12, A13 = cos(α) * A11 + sin(α) * A12, - sin(α) * A11 + cos(α) * A12, A13
         A21, A22, A23 = cos(α) * A21 + sin(α) * A22, - sin(α) * A21 + cos(α) * A22, A23
         A31, A32, A33 = cos(α) * A31 + sin(α) * A32, - sin(α) * A31 + cos(α) * A32, A33
-        Δa, Δb = central_projection((x, y, z), f_normalized)
+        Δa, Δb = central_projection(center_coords, f_normalized)
         Δa, Δb = cos(α) * Δa + sin(α) * Δb, - sin(α) * Δa + cos(α) * Δb
 
         # The occurances of mapping_scale here avoid an additional
