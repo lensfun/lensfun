@@ -284,7 +284,7 @@ float determine_rho_h (float rho, float delta, fvector x, fvector y,
 
 void calculate_angles (fvector x, fvector y, float f,
                        float normalized_in_millimeters, float &rho, float &delta, float &rho_h,
-                       float &f_normalized, float &final_rotation, float &center_of_control_points_x,
+                       float &f_normalized, float &alpha, float &center_of_control_points_x,
                        float &center_of_control_points_y)
 {
     const int number_of_control_points = x.size();
@@ -359,7 +359,6 @@ void calculate_angles (fvector x, fvector y, float f,
         c [1] = y [5] - y [6];
     }
     }
-    float alpha;
     if (number_of_control_points == 7)
     {
         float x5_, y5_;
