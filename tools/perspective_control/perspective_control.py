@@ -28,7 +28,7 @@ allowed, see `enable_perspective_correction` below.
 """
 
 import sys, subprocess, os, array, json, multiprocessing, tempfile
-from math import sin, cos, tan, atan, atan2, sqrt, copysign, acos, log
+from math import sin, cos, tan, atan, atan2, sqrt, copysign, acos, log, isnan
 from math import pi as π
 
 def read_ppm(input_file, read_data=True):
@@ -288,9 +288,9 @@ def calculate_angles(x, y, f, normalized_in_millimeters):
         ρ_h = 0
     else:
         ρ_h = determine_ρ_h(ρ, δ, x[4:6], y[4:6], f_normalized, center_x, center_y)
-        if math.isnan(ρ_h) and number_of_control_points == 8:
+        if isnan(ρ_h) and number_of_control_points == 8:
             ρ_h = determine_ρ_h(ρ, δ, x[6:8], y[6:8], f_normalized, center_x, center_y)
-    if math.isnan(ρ_h):
+    if isnan(ρ_h):
         ρ_h = 0
     return ρ, δ, ρ_h, f_normalized, α, center_x, center_y
 
