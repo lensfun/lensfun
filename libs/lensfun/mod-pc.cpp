@@ -282,10 +282,9 @@ float determine_rho_h (float rho, float delta, fvector x, fvector y,
     }
 }
 
-void calculate_angles (fvector x, fvector y, float f,
-                       float normalized_in_millimeters, float &rho, float &delta, float &rho_h,
-                       float &f_normalized, float &alpha, float &center_of_control_points_x,
-                       float &center_of_control_points_y)
+void calculate_angles (fvector x, fvector y, float f_normalized,
+                       float &rho, float &delta, float &rho_h, float &alpha,
+                       float &center_of_control_points_x, float &center_of_control_points_y)
 {
     const int number_of_control_points = x.size();
 
@@ -301,8 +300,6 @@ void calculate_angles (fvector x, fvector y, float f,
         center_y = std::accumulate (y.begin(), y.end(), 0.) / number_of_control_points;
     }
 
-    // FixMe: Is really always an f given (even if it is inaccurate)?
-    f_normalized = f / normalized_in_millimeters;
     float x_v, y_v;
     if (number_of_control_points == 5 || number_of_control_points == 7)
         ellipse_analysis (fvector (x.begin(), x.begin() + 5), fvector (y.begin(), y.begin() + 5),
@@ -475,7 +472,7 @@ matrix generate_rotation_matrix (float rho_1, float delta, float rho_2, float d)
 bool lfModifier::enable_perspective_correction (fvector x, fvector y, float d)
 {
     const int number_of_control_points = x.size();
-    if (focal_length <= 0 || number_of_control_points != 4 &&
+    if (f_normalized <= 0 || number_of_control_points != 4 &&
         number_of_control_points != 6 && number_of_control_points != 8)
         return false;
     if (d < -1)
@@ -490,9 +487,8 @@ bool lfModifier::enable_perspective_correction (fvector x, fvector y, float d)
 
     float rho, delta, rho_h, f_normalized, final_rotation, center_of_control_points_x,
         center_of_control_points_y;
-    calculate_angles (x, y, focal_length, NormalizedInMillimeters,
-                      rho, delta, rho_h, f_normalized, final_rotation, center_of_control_points_x,
-                      center_of_control_points_y);
+    calculate_angles (x, y, f_normalized, rho, delta, rho_h, final_rotation,
+                      center_of_control_points_x, center_of_control_points_y);
 
 }
 
