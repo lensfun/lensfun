@@ -529,19 +529,20 @@ bool lfModifier::enable_perspective_correction (fvector x, fvector y, float d)
     float mapping_scale = f_normalized / center_coords [2];
 
     // Finally, generate a rotation matrix in backward (lookup) direction
-    A = generate_rotation_matrix (- rho_h, - delta, - rho, d);
+    matrix A_ = generate_rotation_matrix (- rho_h, - delta, - rho, d);
 
     /* Now we append the final rotation by α.  This matrix is: R_y(- ρ) ·
        Rₓ(- δ) · R_y(- ρₕ) · R_z(α). */
-    A [0][0] = cos (alpha) * A [0][0] + sin (alpha) * A [0][1];
-    A [0][1] = - sin (alpha) * A [0][0] + cos (alpha) * A [0][1];
-    A [0][2] = A [0][2];
-    A [1][0] = cos (alpha) * A [1][0] + sin (alpha) * A [1][1];
-    A [1][1] = - sin (alpha) * A [1][0] + cos (alpha) * A [1][1];
-    A [1][2] = A [1][2];
-    A [2][0] = cos (alpha) * A [2][0] + sin (alpha) * A [2][1];
-    A [2][1] = - sin (alpha) * A [2][0] + cos (alpha) * A [2][1];
-    A [2][2] = A [2][2];
+    A [0][0] = cos (alpha) * A_ [0][0] + sin (alpha) * A_ [0][1];
+    A [0][1] = - sin (alpha) * A_ [0][0] + cos (alpha) * A_ [0][1];
+    A [0][2] = A_ [0][2];
+    A [1][0] = cos (alpha) * A_ [1][0] + sin (alpha) * A_ [1][1];
+    A [1][1] = - sin (alpha) * A_ [1][0] + cos (alpha) * A_ [1][1];
+    A [1][2] = A_ [1][2];
+    A [2][0] = cos (alpha) * A_ [2][0] + sin (alpha) * A_ [2][1];
+    A [2][1] = - sin (alpha) * A_ [2][0] + cos (alpha) * A_ [2][1];
+    A [2][2] = A_ [2][2];
+
     float Delta_a, Delta_b;
     central_projection (center_coords, f_normalized, Delta_a, Delta_b);
     Delta_a = cos (alpha) * Delta_a + sin (alpha) * Delta_b;
