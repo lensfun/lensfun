@@ -17,14 +17,40 @@
 
 typedef struct
 {
+  void       *coordBuff;
+  size_t      img_width, img_height;
+  lfLens     *lens;
+  lfModifier *mod;
 } lfFixture;
 
-void mod_setup(lfFixture *lfFix, gconstpointer data)
+// setup a standard lens
+void mod_setup (lfFixture *lfFix, gconstpointer data)
 {
+    lfFix->lens             = new lfLens();
+    lfFix->lens->CropFactor = 1.534f;
+    lfFix->lens->AspectRatio = 1.5f;
+    lfFix->lens->Type       = LF_RECTILINEAR;
+
+    lfFix->img_height = 1000;
+    lfFix->img_width  = 1500;
+
+    lfFix->mod = lfModifier::Create (lfFix->lens, 1.534f, lfFix->img_width, lfFix->img_height);
+
+    lfFix->mod->Initialize(lfFix->lens, LF_PF_F32, 50.89f, 2.8f, 1000.0f, 1.0f, LF_RECTILINEAR,
+                           0, false);
+
+    lfFix->coordBuff = NULL;
+
+    const size_t bufsize = 2 * lfFix->img_width * lfFix->img_height * sizeof (float);
+    lfFix->coordBuff = g_malloc (bufsize);
 }
 
-void mod_teardown(lfFixture *lfFix, gconstpointer data)
+void mod_teardown (lfFixture *lfFix, gconstpointer data)
 {
+    g_free (lfFix->coordBuff);
+
+    lfFix->mod->Destroy();
+    delete lfFix->lens;
 }
 
 void test_mod_coord_pc_svd (lfFixture *lfFix, gconstpointer data)
@@ -55,6 +81,15 @@ void test_mod_coord_pc_svd (lfFixture *lfFix, gconstpointer data)
     g_assert_cmpfloat (fabs (result [5] - 0.665912), <=, epsilon);
 }
 
+void test_mod_coord_pc_correction_params (lfFixture *lfFix, gconstpointer data)
+{
+    float temp_x[] = {503, 1063, 509, 1066};
+    float temp_y[] = {150, 197, 860, 759};
+    fvector x (temp_x, temp_x + 4);
+    fvector y (temp_y, temp_y + 4);
+    lfFix->mod->enable_perspective_correction (x, y, 0);
+}
+
 
 int main (int argc, char **argv)
 {
@@ -64,6 +99,8 @@ int main (int argc, char **argv)
 
   g_test_add ("/modifier/coord/pc/svd", lfFixture, NULL,
               mod_setup, test_mod_coord_pc_svd, mod_teardown);
+  g_test_add ("/modifier/coord/pc/correction params", lfFixture, NULL,
+              mod_setup, test_mod_coord_pc_correction_params, mod_teardown);
 
   return g_test_run();
 }
