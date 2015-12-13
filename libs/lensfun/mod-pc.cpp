@@ -414,6 +414,8 @@ void calculate_angles (fvector x, fvector y, float f_normalized,
             else
                 rho_h = 0;
     }
+    center_of_control_points_x = center_x;
+    center_of_control_points_y = center_y;
 }
 
 matrix generate_rotation_matrix (float rho_1, float delta, float rho_2, float d)
