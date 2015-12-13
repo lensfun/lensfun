@@ -567,17 +567,33 @@ bool lfModifier::enable_perspective_correction (fvector x, fvector y, float d)
 
 void lfModifier::ModifyCoord_Perspective_Correction (void *data, float *iocoord, int count)
 {
-    // Rd = Ru * (1 - k1 + k1 * Ru^2)
-    const float k1 = *(float *)data;
-    const float one_minus_k1 = 1.0 - k1;
+    float *param = (float *)data;
+    float A11 = param [0];
+    float A12 = param [1];
+    float A13 = param [2];
+    float A21 = param [3];
+    float A22 = param [4];
+    float A23 = param [5];
+    float A31 = param [6];
+    float A32 = param [7];
+    float A33 = param [8];
+    float f_normalized = param [9];
+    float Delta_a = param [10];
+    float Delta_b = param [11];
 
+    fvector coordinates (3);
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        const float x = iocoord [0];
-        const float y = iocoord [1];
-        const float poly2 = one_minus_k1 + k1 * (pow (x, 2) + pow (y, 2));
-
-        iocoord [0] = x * poly2;
-        iocoord [1] = y * poly2;
+        const float x = iocoord [0] + Delta_a;
+        const float y = iocoord [1] + Delta_b;
+        coordinates [2] = A31 * x + A32 * y + A33 * f_normalized;
+        if (coordinates [2] > 0)
+        {
+            coordinates [0] = A11 * x + A12 * y + A13 * f_normalized;
+            coordinates [1] = A21 * x + A22 * y + A23 * f_normalized;
+            central_projection (coordinates, f_normalized, iocoord [0], iocoord [1]);
+        }
+        else
+            iocoord [0] = iocoord [1] = NAN;
     }
 }
