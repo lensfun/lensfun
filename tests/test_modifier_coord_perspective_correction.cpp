@@ -27,15 +27,15 @@ void mod_teardown(lfFixture *lfFix, gconstpointer data)
 {
 }
 
-void test_mod_coord_perspective_correction(lfFixture *lfFix, gconstpointer data)
+void test_mod_coord_pc_svd (lfFixture *lfFix, gconstpointer data)
 {
-    fvector x(5), y(5);
+    fvector x (5), y (5);
     x[0] = 1; y[0] = 1;
     x[1] = 2; y[1] = 2;
     x[2] = 3; y[2] = 2;
     x[3] = 2; y[3] = 0;
     x[4] = 1; y[4] = 1.5;
-    matrix M(5, fvector(6));
+    matrix M (5, fvector (6));
     for (int i = 0; i < 5; i++)
     {
         M [i][0] = x [i] * x [i];
@@ -56,14 +56,14 @@ void test_mod_coord_perspective_correction(lfFixture *lfFix, gconstpointer data)
 }
 
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-  setlocale(LC_ALL, "");
+  setlocale (LC_ALL, "");
 
-  g_test_init(&argc, &argv, NULL);
+  g_test_init (&argc, &argv, NULL);
 
-  g_test_add("/modifier/coord/perspective_control", lfFixture, NULL,
-             mod_setup, test_mod_coord_perspective_correction, mod_teardown);
+  g_test_add ("/modifier/coord/pc/svd", lfFixture, NULL,
+              mod_setup, test_mod_coord_pc_svd, mod_teardown);
 
   return g_test_run();
 }
