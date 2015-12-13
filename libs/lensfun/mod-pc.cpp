@@ -547,8 +547,11 @@ bool lfModifier::enable_perspective_correction (fvector x, fvector y, float d)
 
     float Delta_a, Delta_b;
     central_projection (center_coords, f_normalized, Delta_a, Delta_b);
-    Delta_a = cos (alpha) * Delta_a + sin (alpha) * Delta_b;
-    Delta_b = - sin (alpha) * Delta_a + cos (alpha) * Delta_b;
+    {
+        float Delta_a_old = Delta_a;
+        Delta_a = cos (alpha) * Delta_a + sin (alpha) * Delta_b;
+        Delta_b = - sin (alpha) * Delta_a_old + cos (alpha) * Delta_b;
+    }
 
     /* The occurances of mapping_scale here avoid an additional multiplication
        in the inner loop of perspective_correction_callback. */
