@@ -260,7 +260,7 @@ float determine_rho_h (float rho, float delta, fvector x, fvector y,
 {
     fvector p0, p1;
     p0 = rotate_rho_delta (rho, delta, x [0], y [0], f_normalized);
-    p1 = rotate_rho_delta (rho, delta, x [0], y [0], f_normalized);
+    p1 = rotate_rho_delta (rho, delta, x [1], y [1], f_normalized);
     float x_0 = p0 [0], y_0 = p0 [1], z_0 = p0 [2];
     float x_1 = p1 [0], y_1 = p1 [1], z_1 = p1 [2];
     if (y_0 == y_1)
