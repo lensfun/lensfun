@@ -151,6 +151,47 @@ void test_mod_coord_pc_4_points_portrait (lfFixture *lfFix, gconstpointer data)
     }
 }
 
+void test_mod_coord_pc_8_points (lfFixture *lfFix, gconstpointer data)
+{
+    // Bases on image DSC02278
+    const float epsilon = std::numeric_limits<float>::epsilon();
+
+    float temp_x[] = {615, 264, 1280, 813, 615, 1280, 264, 813};
+    float temp_y[] = {755, 292, 622, 220, 755, 622, 292, 220};
+    fvector x (temp_x, temp_x + 8);
+    fvector y (temp_y, temp_y + 8);
+    lfFix->mod->enable_perspective_correction (x, y, 0);
+
+    float expected_x[] = {-112.681725f, 7.11962175f, 129.830688f, 255.558914f, 384.416901f,
+                          516.522705f, 652.001343f, 790.982971f, 933.605408f, 1080.01367f};
+    float expected_y[] = {394.968201f, 422.388306f, 450.474274f, 479.251129f, 508.743988f,
+                          538.980408f, 569.988647f, 601.798706f, 634.442017f, 667.951965f};
+    fvector coords (2);
+    for (int i = 0; i < 10; i++)
+    {
+        lfFix->mod->ApplyGeometryDistortion (100.0 * i, 100.0 * i, 1, 1, &coords [0]);
+        g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, epsilon);
+        g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, epsilon);
+    }
+}
+
+void test_mod_coord_pc_0_points (lfFixture *lfFix, gconstpointer data)
+{
+    // Bases on image DSC02279 (well, actually DSC02279.json)
+    const float epsilon = std::numeric_limits<float>::epsilon();
+
+    fvector empty_list;
+    lfFix->mod->enable_perspective_correction (empty_list, empty_list, 0);
+
+    fvector coords (2);
+    for (int i = 0; i < 10; i++)
+    {
+        lfFix->mod->ApplyGeometryDistortion (100.0 * i, 100.0 * i, 1, 1, &coords [0]);
+        g_assert_cmpfloat (fabs (coords [0]), <=, epsilon);
+        g_assert_cmpfloat (fabs (coords [1]), <=, epsilon);
+    }
+}
+
 
 int main (int argc, char **argv)
 {
@@ -164,6 +205,10 @@ int main (int argc, char **argv)
               mod_setup, test_mod_coord_pc_4_points, mod_teardown);
   g_test_add ("/modifier/coord/pc/4 points portrait", lfFixture, NULL,
               mod_setup_portrait, test_mod_coord_pc_4_points_portrait, mod_teardown);
+  g_test_add ("/modifier/coord/pc/8 points", lfFixture, NULL,
+              mod_setup, test_mod_coord_pc_8_points, mod_teardown);
+  g_test_add ("/modifier/coord/pc/no points", lfFixture, NULL,
+              mod_setup, test_mod_coord_pc_0_points, mod_teardown);
 
   return g_test_run();
 }
