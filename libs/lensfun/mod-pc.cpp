@@ -594,6 +594,6 @@ void lfModifier::ModifyCoord_Perspective_Correction (void *data, float *iocoord,
             central_projection (coordinates, f_normalized, iocoord [0], iocoord [1]);
         }
         else
-            iocoord [0] = iocoord [1] = NAN;
+            iocoord [0] = iocoord [1] = 1.6e16F;
     }
 }
