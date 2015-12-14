@@ -81,13 +81,27 @@ void test_mod_coord_pc_svd (lfFixture *lfFix, gconstpointer data)
     g_assert_cmpfloat (fabs (result [5] - 0.665912), <=, epsilon);
 }
 
-void test_mod_coord_pc_correction_params (lfFixture *lfFix, gconstpointer data)
+void test_mod_coord_pc_4_points (lfFixture *lfFix, gconstpointer data)
 {
+    const float epsilon = std::numeric_limits<float>::epsilon();
+
     float temp_x[] = {503, 1063, 509, 1066};
     float temp_y[] = {150, 197, 860, 759};
     fvector x (temp_x, temp_x + 4);
     fvector y (temp_y, temp_y + 4);
     lfFix->mod->enable_perspective_correction (x, y, 0);
+
+    float expected_x[] = {194.43689f, 283.340454f, 366.920929f, 445.64209f, 519.91571f,
+                          590.108704f, 656.548218f, 719.527649f, 779.31012f, 836.133301f};
+    float expected_y[] = {-88.5747986f, 45.5082512f, 171.562714f, 290.288757f, 402.307434f,
+                          508.171478f, 608.374634f, 703.359009f, 793.522034f, 879.221741f};
+    fvector coords (2);
+    for (int i = 0; i < 10; i++)
+    {
+        lfFix->mod->ApplyGeometryDistortion (100.0 * i, 100.0 * i, 1, 1, &coords [0]);
+        g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, epsilon);
+        g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, epsilon);
+    }
 }
 
 
@@ -99,8 +113,8 @@ int main (int argc, char **argv)
 
   g_test_add ("/modifier/coord/pc/svd", lfFixture, NULL,
               mod_setup, test_mod_coord_pc_svd, mod_teardown);
-  g_test_add ("/modifier/coord/pc/correction params", lfFixture, NULL,
-              mod_setup, test_mod_coord_pc_correction_params, mod_teardown);
+  g_test_add ("/modifier/coord/pc/4 points", lfFixture, NULL,
+              mod_setup, test_mod_coord_pc_4_points, mod_teardown);
 
   return g_test_run();
 }
