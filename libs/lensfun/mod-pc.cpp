@@ -43,7 +43,7 @@ fvector svd (matrix M)
     fvector S2 (n);
     int  i, j, k, estimated_column_rank = n, counter = n, iterations = 0,
         max_cycles = (n < 120) ? 30 : n / 4;
-    float epsilon = std::numeric_limits<float>::epsilon() * 10,
+    float epsilon = std::numeric_limits<float>::epsilon(),
         e2 = 10 * n * pow (epsilon, 2),
         threshold = 0.1 * epsilon,
         vt, p, x0, y0, q, r, c0, s0, d1, d2;
