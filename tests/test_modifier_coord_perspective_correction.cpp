@@ -83,6 +83,7 @@ void test_mod_coord_pc_svd (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_pc_4_points (lfFixture *lfFix, gconstpointer data)
 {
+    // Bases on image DSC02275
     const float epsilon = std::numeric_limits<float>::epsilon();
 
     float temp_x[] = {503, 1063, 509, 1066};
