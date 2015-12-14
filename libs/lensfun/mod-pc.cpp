@@ -146,7 +146,7 @@ void ellipse_analysis (fvector x, fvector y, float f_normalized, float &x_v, flo
     x0 = (c * d - b * f) / _D;
     y0 = (a * f - b * d) / _D;
 
-    phi = 1/2 * atan (2 * b / (a - c));
+    phi = 1./2 * atan (2 * b / (a - c));
     if (a > c)
         phi += M_PI_2;
 
