@@ -105,7 +105,7 @@ void test_mod_coord_pc_svd (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_pc_4_points (lfFixture *lfFix, gconstpointer data)
 {
-    // Bases on image DSC02275
+    // Bases on DSC02275.json
     const float epsilon = std::numeric_limits<float>::epsilon();
 
     float temp_x[] = {503, 1063, 509, 1066};
@@ -129,7 +129,7 @@ void test_mod_coord_pc_4_points (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_pc_4_points_portrait (lfFixture *lfFix, gconstpointer data)
 {
-    // Bases on image DSC02277
+    // Bases on DSC02277.json
     const float epsilon = std::numeric_limits<float>::epsilon();
 
     float temp_x[] = {145, 208, 748, 850};
@@ -153,7 +153,7 @@ void test_mod_coord_pc_4_points_portrait (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_pc_8_points (lfFixture *lfFix, gconstpointer data)
 {
-    // Bases on image DSC02278
+    // Bases on DSC02278.json
     const float epsilon = std::numeric_limits<float>::epsilon();
 
     float temp_x[] = {615, 264, 1280, 813, 615, 1280, 264, 813};
@@ -177,7 +177,7 @@ void test_mod_coord_pc_8_points (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_pc_0_points (lfFixture *lfFix, gconstpointer data)
 {
-    // Bases on image DSC02279 (well, actually DSC02279.json)
+    // Bases on DSC02279.json
     const float epsilon = std::numeric_limits<float>::epsilon();
 
     fvector empty_list;
