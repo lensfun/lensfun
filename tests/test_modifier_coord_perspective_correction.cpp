@@ -45,6 +45,28 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
     lfFix->coordBuff = g_malloc (bufsize);
 }
 
+// setup a standard image in portrait mode
+void mod_setup_portrait (lfFixture *lfFix, gconstpointer data)
+{
+    lfFix->lens             = new lfLens();
+    lfFix->lens->CropFactor = 1.534f;
+    lfFix->lens->AspectRatio = 1.5f;
+    lfFix->lens->Type       = LF_RECTILINEAR;
+
+    lfFix->img_height = 1500;
+    lfFix->img_width  = 1000;
+
+    lfFix->mod = lfModifier::Create (lfFix->lens, 1.534f, lfFix->img_width, lfFix->img_height);
+
+    lfFix->mod->Initialize(lfFix->lens, LF_PF_F32, 50.89f, 2.8f, 1000.0f, 1.0f, LF_RECTILINEAR,
+                           0, false);
+
+    lfFix->coordBuff = NULL;
+
+    const size_t bufsize = 2 * lfFix->img_width * lfFix->img_height * sizeof (float);
+    lfFix->coordBuff = g_malloc (bufsize);
+}
+
 void mod_teardown (lfFixture *lfFix, gconstpointer data)
 {
     g_free (lfFix->coordBuff);
@@ -105,6 +127,30 @@ void test_mod_coord_pc_4_points (lfFixture *lfFix, gconstpointer data)
     }
 }
 
+void test_mod_coord_pc_4_points_portrait (lfFixture *lfFix, gconstpointer data)
+{
+    // Bases on image DSC02277
+    const float epsilon = std::numeric_limits<float>::epsilon();
+
+    float temp_x[] = {145, 208, 748, 850};
+    float temp_y[] = {1060, 666, 668, 1060};
+    fvector x (temp_x, temp_x + 4);
+    fvector y (temp_y, temp_y + 4);
+    lfFix->mod->enable_perspective_correction (x, y, 0);
+
+    float expected_x[] = {71.1176453f, 147.857544f, 228.261032f, 312.596893f, 401.160767f,
+                          494.278839f, 592.311707f, 695.658936f, 804.764648f, 920.124146f};
+    float expected_y[] = {508.424408f, 535.728027f, 564.335327f, 594.341736f, 625.852295f,
+                          658.983337f, 693.863159f, 730.633606f, 769.452942f, 810.497437f};
+    fvector coords (2);
+    for (int i = 0; i < 10; i++)
+    {
+        lfFix->mod->ApplyGeometryDistortion (100.0 * i, 100.0 * i, 1, 1, &coords [0]);
+        g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, epsilon);
+        g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, epsilon);
+    }
+}
+
 
 int main (int argc, char **argv)
 {
@@ -116,6 +162,8 @@ int main (int argc, char **argv)
               mod_setup, test_mod_coord_pc_svd, mod_teardown);
   g_test_add ("/modifier/coord/pc/4 points", lfFixture, NULL,
               mod_setup, test_mod_coord_pc_4_points, mod_teardown);
+  g_test_add ("/modifier/coord/pc/4 points portrait", lfFixture, NULL,
+              mod_setup_portrait, test_mod_coord_pc_4_points_portrait, mod_teardown);
 
   return g_test_run();
 }
