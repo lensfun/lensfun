@@ -112,7 +112,7 @@ void test_mod_coord_pc_4_points (lfFixture *lfFix, gconstpointer data)
     float temp_y[] = {150, 197, 860, 759};
     fvector x (temp_x, temp_x + 4);
     fvector y (temp_y, temp_y + 4);
-    lfFix->mod->enable_perspective_correction (x, y, 0);
+    g_assert_true (lfFix->mod->enable_perspective_correction (x, y, 0));
 
     float expected_x[] = {194.43689f, 283.340454f, 366.920929f, 445.64209f, 519.91571f,
                           590.108704f, 656.548218f, 719.527649f, 779.31012f, 836.133301f};
@@ -121,7 +121,7 @@ void test_mod_coord_pc_4_points (lfFixture *lfFix, gconstpointer data)
     fvector coords (2);
     for (int i = 0; i < 10; i++)
     {
-        lfFix->mod->ApplyGeometryDistortion (100.0 * i, 100.0 * i, 1, 1, &coords [0]);
+        g_assert_true (lfFix->mod->ApplyGeometryDistortion (100.0 * i, 100.0 * i, 1, 1, &coords [0]));
         g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, epsilon);
         g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, epsilon);
     }
@@ -136,7 +136,7 @@ void test_mod_coord_pc_4_points_portrait (lfFixture *lfFix, gconstpointer data)
     float temp_y[] = {1060, 666, 668, 1060};
     fvector x (temp_x, temp_x + 4);
     fvector y (temp_y, temp_y + 4);
-    lfFix->mod->enable_perspective_correction (x, y, 0);
+    g_assert_true (lfFix->mod->enable_perspective_correction (x, y, 0));
 
     float expected_x[] = {71.1176453f, 147.857544f, 228.261032f, 312.596893f, 401.160767f,
                           494.278839f, 592.311707f, 695.658936f, 804.764648f, 920.124146f};
@@ -145,7 +145,7 @@ void test_mod_coord_pc_4_points_portrait (lfFixture *lfFix, gconstpointer data)
     fvector coords (2);
     for (int i = 0; i < 10; i++)
     {
-        lfFix->mod->ApplyGeometryDistortion (100.0 * i, 100.0 * i, 1, 1, &coords [0]);
+        g_assert_true (lfFix->mod->ApplyGeometryDistortion (100.0 * i, 100.0 * i, 1, 1, &coords [0]));
         g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, epsilon);
         g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, epsilon);
     }
@@ -160,7 +160,7 @@ void test_mod_coord_pc_8_points (lfFixture *lfFix, gconstpointer data)
     float temp_y[] = {755, 292, 622, 220, 755, 622, 292, 220};
     fvector x (temp_x, temp_x + 8);
     fvector y (temp_y, temp_y + 8);
-    lfFix->mod->enable_perspective_correction (x, y, 0);
+    g_assert_true (lfFix->mod->enable_perspective_correction (x, y, 0));
 
     float expected_x[] = {-112.681725f, 7.11962175f, 129.830688f, 255.558914f, 384.416901f,
                           516.522705f, 652.001343f, 790.982971f, 933.605408f, 1080.01367f};
@@ -169,7 +169,7 @@ void test_mod_coord_pc_8_points (lfFixture *lfFix, gconstpointer data)
     fvector coords (2);
     for (int i = 0; i < 10; i++)
     {
-        lfFix->mod->ApplyGeometryDistortion (100.0 * i, 100.0 * i, 1, 1, &coords [0]);
+        g_assert_true (lfFix->mod->ApplyGeometryDistortion (100.0 * i, 100.0 * i, 1, 1, &coords [0]));
         g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, epsilon);
         g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, epsilon);
     }
@@ -181,12 +181,12 @@ void test_mod_coord_pc_0_points (lfFixture *lfFix, gconstpointer data)
     const float epsilon = std::numeric_limits<float>::epsilon();
 
     fvector empty_list;
-    lfFix->mod->enable_perspective_correction (empty_list, empty_list, 0);
+    g_assert_false (lfFix->mod->enable_perspective_correction (empty_list, empty_list, 0));
 
     fvector coords (2);
     for (int i = 0; i < 10; i++)
     {
-        lfFix->mod->ApplyGeometryDistortion (100.0 * i, 100.0 * i, 1, 1, &coords [0]);
+        g_assert_false (lfFix->mod->ApplyGeometryDistortion (100.0 * i, 100.0 * i, 1, 1, &coords [0]));
         g_assert_cmpfloat (fabs (coords [0]), <=, epsilon);
         g_assert_cmpfloat (fabs (coords [1]), <=, epsilon);
     }
