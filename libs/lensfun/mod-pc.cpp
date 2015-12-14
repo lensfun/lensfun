@@ -597,3 +597,12 @@ void lfModifier::ModifyCoord_Perspective_Correction (void *data, float *iocoord,
             iocoord [0] = iocoord [1] = 1.6e16F;
     }
 }
+
+//---------------------------// The C interface //---------------------------//
+
+cbool enable_perspective_correction (lfModifier *modifier,
+                                    float *x, float *y, int count, float d)
+{
+    fvector x_ (x, x + count), y_ (y, y + count);
+    return modifier->enable_perspective_correction (x_, y_, d);
+}

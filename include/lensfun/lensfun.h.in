@@ -2567,6 +2567,10 @@ LF_EXPORT int lf_modifier_initialize (
     float focal, float aperture, float distance, float scale,
     lfLensType targeom, int flags, cbool reverse);
 
+/** @sa lfModifier::enable_perspective_correction */
+LF_EXPORT cbool enable_perspective_correction (lfModifier *modifier,
+    float *x, float *y, int count, float d);
+
 /** @sa lfModifier::AddCoordCallback */
 LF_EXPORT void lf_modifier_add_coord_callback (
     lfModifier *modifier, lfModifyCoordFunc callback, int priority,
