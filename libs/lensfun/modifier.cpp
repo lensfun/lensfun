@@ -34,6 +34,9 @@ int lfModifier::Initialize (
     const lfLens *lens, lfPixelFormat format, float focal, float aperture,
     float distance, float scale, lfLensType targeom, int flags, bool reverse)
 {
+    NormalizedInFocalLengths = NormalizedInMillimeters /
+        (GetRealFocalLength(lens, focal) / get_hugin_focal_correction (lens, focal));
+
     int oflags = 0;
 
     if (flags & LF_MODIFY_TCA)
@@ -63,11 +66,9 @@ int lfModifier::Initialize (
     if (flags & LF_MODIFY_GEOMETRY &&
         lens->Type != targeom)
     {
-        float real_focal_length = GetRealFocalLength (lens, focal);
-        real_focal_length /= get_hugin_focal_correction (lens, focal);
         if (reverse ?
-            AddCoordCallbackGeometry (targeom, lens->Type, real_focal_length) :
-            AddCoordCallbackGeometry (lens->Type, targeom, real_focal_length))
+            AddCoordCallbackGeometry (targeom, lens->Type) :
+            AddCoordCallbackGeometry (lens->Type, targeom))
             oflags |= LF_MODIFY_GEOMETRY;
     }
 
@@ -158,7 +159,8 @@ void lfModifier::Destroy ()
 
   (2) For vignetting, r = 1 is the corner of the image.
 
-  (3) For geometry transformation, the unit length is the focal length.
+  (3) For geometry transformation and for all Adobe camera models, the unit
+      length is the focal length.
 
   The constructor lfModifier::lfModifier is the central method that
   handles the coordinate systems.  It does so by providing the scaling factors
@@ -174,8 +176,8 @@ void lfModifier::Destroy ()
   work, the coordinates are finally divided by NormScale again.  Done.
 
   But the devil is in the details.  Geometry transformation has to happen in
-  (3), so for only this step, all coordinates are scaled by focal /
-  NormalizedInMillimeters in lfModifier::AddCoordCallbackGeometry.  Moreover,
+  (3), so for only this step, all coordinates are scaled by
+  NormalizedInFocalLengths in lfModifier::AddCoordCallbackGeometry.  Moreover,
   it is important to see that the conversion into (1) is pretty irrelevant.
   (It is performed for that the resulting image is not ridiculously small; but
   this could also be achieved with proper auto-scaling.)  Instead, really
@@ -216,13 +218,15 @@ lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
         float (Height) / float (Width) : float (Width) / float (Height);
 
     float calibration_cropfactor;
+    float calibration_aspect_ratio;
     if (lens)
     {
         calibration_cropfactor = lens->CropFactor;
-        AspectRatioCorrection = sqrt (lens->AspectRatio * lens->AspectRatio + 1);
+        calibration_aspect_ratio = lens->AspectRatio;
     }
     else
-        AspectRatioCorrection = calibration_cropfactor = NAN;
+        calibration_cropfactor = calibration_aspect_ratio = NAN;
+    AspectRatioCorrection = sqrt (calibration_aspect_ratio * calibration_aspect_ratio + 1);
 
     float coordinate_correction =
         1.0 / sqrt (image_aspect_ratio * image_aspect_ratio + 1) *

@@ -29,6 +29,7 @@ lenses, for example from fisheye into rectilinear.
     <ul>
     <li>@ref lensfun-update-data
     <li>@ref lensfun-add-adapter
+    <li>@ref lensfun-convert-lcp
     </ul>
 <li>@ref database
     <ul>
@@ -159,6 +160,52 @@ adapter.  That's it.
 
 You can also use lensfun‑add‑adapter to reset your adapter configuration.  Call
 it with the ‑‑help paremeter to see all functions.
+
+@page lensfun-convert-lcp Converting Adobe LCP files to Lensfun: lensfun‑convert‑lcp
+
+While Lensfun's lens database is pretty comprehensive, it does not contain all
+lenses.  Moreover, only for distortion correction, the coverage is at almost
+100%.  Most datasets lack vignetting data, and many lack TCA data.  Therefore,
+it may be helpful for you that Lensfun is able to use so-called LCP files.  LCP
+files contain lens correction information – just like Lensfun's database does.
+Usually, one LCP file contains data of exactly one lens.  The LCP file format
+is defined by Adobe (see the <a
+href="http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf">specification</a>)
+and used in their Lightroom and Photoshop products.  Everyone can create LCP
+profiles using Adobe's <a
+href="http://www.adobe.com/support/downloads/detail.jsp?ftpID=5490">Lens
+Profile Creator</a>.  Moreover, a comprehensive library of LCP profiles is
+shipped with <a
+href="http://www.adobe.com/support/downloads/product.jsp?product=106&platform=Windows">Adobe's
+DNG converter</a>, but pay attention to the licence agreement associated with
+this software.
+
+The RawTherapee community has created a <a
+href="http://rawpedia.rawtherapee.com/How_to_get_LCP_and_DCP_profiles">page
+describing in detail how to get LCP profiles</a>.  Additionally, you may google
+for further sources of LCP profiles.
+
+Once you have put the LCP files in a directory on your computer, you can easily
+import them into Lensfun by calling “lensfun‑convert‑lcp” in this directory.
+After that, the data is immediately available in your favourite Lensfun-using
+RAW converter.  “lensfun‑convert‑lcp” merges the two data sources, so you get
+the best of both worlds.  See the manpage of “lensfun‑convert‑lcp” and its
+output with the “‑h” option for further information.
+
+<blockquote>
+Note however, that Adobe files tend to undercorrect distortion and vignetting.
+In particular, vignetting is corrected only partially.  Moreover, since recent
+Adobe products do not correct TCA based on LCP files anymore, TCA coverage is
+bad for newer lenses.  And last but not least, automatic lens detection is much
+more reliable with genuine Lensfun datasets.  Thus, instead of using LCP
+profiles, please consider <a
+href="http://wilson.bronger.org/calibration">uploading RAW images suitable for
+calibration</a>.  This way, you do not only benefit from increased quality, but
+you also help others with the same lens models by providing freely available
+data.
+
+Thank you!
+</blockquote>
 
 
 @page database Lens database
@@ -298,6 +345,7 @@ format of the data within elements.
         <li>removed: @<field_of_view@> tag </li>
         <li>APS-C crop factors are given with a higher accuracy</li>
     </ul></td><td>—</td></tr>
+  <tr><td>2</td><td>??</td><td>new: "acm" models for distortion, TCA, and vignetting</td><td>—</td></tr>
 </table>
 
 
@@ -466,20 +514,19 @@ Possible embedded elements:
 <dd>Declares the image distortion model for this lens. Distortion is specific for every
     focal length (in mm), so you can declare multiple distortion entries with different focal
     values; the library will interpolate the parameters for intermediate focal
-    lengths.  The model name may be "none", "poly3", "poly5", or "ptlens".
+    lengths.  The model name may be "none", "poly3", "poly5", "ptlens", or "acm".
     @see lfDistortionModel
 <dt>\<tca focal="number" model="name" kr="number" kb="number" /\>
 <dd>Declares the Transversal Chromatic Aberrations model for this lens,
     depending on focal length.  The library will interpolate the parameters for
     intermediate focal lengths.  The model name may be "none", "linear",
-    or "poly3".
-    @see lfTCAModel
+    "poly3", or "acm".  @see lfTCAModel
 <dt>\<vignetting focal="number" aperture="number" distance="number" model="name" k1="number" k2="number" k3="number" /\>
 <dd>Declares the vignetting model for this lens at given focal length (in mm), given aperture (as f-number),
     and given distance to subject in focus (in meters). This kind of calibration requires relatively many
     sample points since it depends on three variables.  The library will
     interpolate the parameters for between the sample points if necessary.  The
-    model name may be "none" or "pa".
+    model name may be "none", "pa", or "acm".
     @see lfVignettingModel
 <dt>\<crop focal="number" mode="name" left="number" right="number" top="number" bottom="number" /\>
 <dd>Declares the image crop for this lens. Crop can be specific for every
