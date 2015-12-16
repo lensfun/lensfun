@@ -28,6 +28,7 @@
 
 #include <vector>
 
+/** Multi-purpose array of float values. */
 typedef std::vector<float> fvector;
 
 extern "C" {
@@ -2101,6 +2102,54 @@ struct LF_EXPORT lfModifier
         const lfLens *lens, lfPixelFormat format, float focal, float aperture,
         float distance, float scale, lfLensType targeom, int flags, bool reverse);
 
+    /**
+     * @brief Enable the perspective correction.
+     *
+     * Depending on the number of control points given, there are three
+     * possible modes:
+     *
+     * 4 control points: c0 and c1 define one vertical lines, c2 and c3 the
+     * other.  The focal length is used to get the proper aspect ratio.
+     *
+     * 6 control points: c0 to c3 like above.  c4 and c5 define a horizontal
+     * line.  The focal length is used to get the proper aspect ratio.
+     *
+     * 8 control points: c0 to c5 like above.  c6 and c7 define a second
+     * horizontal line.  The focal length given is discarded and calculated
+     * from the control points.
+     *
+     * 5 control points: They all must lie on an ellipse that is actually a
+     * rotated circle.  If they lie in a clockwise ordering, the vertex is
+     * assumed to be above the ellipse centre in the image.  If they lie in a
+     * counter-clockwise ordering, the vertex is assumed to be below the
+     * ellipse.  The focal length is needed to find the proper vertex.
+     *
+     * 7 control points: c0 to c4 like above.  c5 and c6 define a horizontal
+     * line which is used to rotate the final image nicely.
+     *
+     * If the lines constructed from the first four control points for the 4, 6
+     * and 8 points case (or the last two for the 7 points case) are more
+     * horizontal than vertical, in all of the above, "horizontal" and
+     * "vertical" need to be swapped.
+     *
+     * All control points must be given as pixel coordinates in the original
+     * image.  For best precision, anti-distortion should have been applied
+     * before taking the coordinates.  Moreover, fisheye images must have been
+     * transformed into rectilinear of the same focal length.  In contrast,
+     * cropping, rotating, shifting, or scaling must be switched off.
+     *
+     * @param x
+     *     The x coordinates of the control points.
+     * @param y
+     *     The y coordinates of the control points.
+     * @param d
+     *     This parameter is supposed to be offered to the user as a slider.
+     *     It can take values from -1 to +1.  0 denotes the perfect correction.
+     *     -1 is the unchanged image.  +1 is an increase of the tilting angle
+     *     by 25%.
+     * @return
+     *     True if the perspective correction was enabled.
+     */
     bool enable_perspective_correction (fvector x, fvector y, float d);
 
     /**
