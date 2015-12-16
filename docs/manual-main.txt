@@ -37,6 +37,7 @@ lenses, for example from fisheye into rectilinear.
     <li>@ref filldb
     </ul>
 <li>@ref corrections
+<li>@ref perspective-correction
 <li>@ref programming
     <ul>
     <li>@ref basearch
@@ -687,6 +688,153 @@ lfModifier::ApplyColorModification.  Then, you do the coordinate-transforming
 operations from scaling to anti-TCA.  Lensfun can do this in one function call
 with lfModifier::ApplySubpixelGeometryDistortion.  Finally, you do a lookup on
 the vignetting-corrected RAW data, using the transformed coordinates.
+
+
+@page perspective-correction Applying perspective correction
+
+Perspective correction, also known as perspective control or keystone
+correction, corrects parallel lines.  For example when taking a picture of a
+tower, it may be necessary to tilt the camera in order to have the whole tower
+in the viewframe.  But then, the verticals of the tower are not parallel in the
+picture.  Instead, the edges of the tower become narrower towards the top.
+
+In general, whenever you tilt a camera relatively to a plane in your image
+(e.g. the front wall of a building), you get so-called “aberrant lines”, i.e.,
+you lose the parallelity of lines (e.g. wall edges) on that plane.  Moreover,
+circles become ellipses.
+
+In some cases, such effects may be desired.  In all other cases, Lensfun offers
+correction for them.  All it needs are “control points”, i.e. points lying on
+lines that are supposed to be parallel.  Note that in most cases, Lensfun also
+needs the proper focal length and crop factor for perspective correction.
+
+You can use Lensfun's perspective correction in five different modes, which are
+distinguished by the number of control points given.  This table presents an
+overview:
+
+<table>
+  <tr><th>number of<br/>control points</th><th>type</th><th>short description</th>
+    <th>focal length<br/>necessary</th><th>full<br/>correction</th></tr>
+  <tr><td>4</td><td>lines</td><td>(1) & (2) define first line, (3) & (4) define second line, both should be parallel</td>
+    <td>yes</td><td>no</td></tr>
+  <tr><td>5</td><td>circle</td><td>points on (distorted) circle line</td>
+    <td>yes</td><td>no</td></tr>
+  <tr><td>6</td><td>lines</td><td>(1)–(4) as with 4 control points; (5) & (6) define line perpendicular to the other two</td>
+    <td>yes</td><td>yes</td></tr>
+  <tr><td>7</td><td>circle & line</td><td>(1)–(5) as with 5 control points; (6) & (7) define perfectly horizonal or vertical line</td>
+    <td>yes</td><td>no</td></tr>
+  <tr><td>8</td><td>lines</td><td>(1)–(6) as with 6 control points; (7) & (8) define line parallel to the (5)/(6) line</td>
+    <td>no</td><td>yes</td></tr>
+</table>
+
+In this table, “full correction” means that all lines that are parallel in the
+original (horizonal, vertical, diagonal, whatever, as long as they are within
+the plane) become parallel after the correction.  No full correction means that
+only lines in <i>one</i> direction are corrected.
+
+
+@section pc-coordinates Control point coordinates
+
+Control points are given using their pixel coordinates.  The origin of the
+coordinate system is in the top left corner, with the first pixel having the
+coordinates (0, 0).  The first coordinate is measured to the right, and the
+second is measured to the bottom.  For best accuracy, the coodinates do not
+refer to the pristine image.  Instead, the following transformations need to
+have been applied when the coordinates are determined:
+
+<ul>
+<li>distortion correction</li>
+<li>transformation into rectilinear, if necessary</li>
+</ul>
+
+However, the following transformation <i>must not</i> have been applied when
+the coordinates are determined:
+
+<ul>
+<li>scaling</li>
+<li>rotation</li>
+<li>shift</li>
+<li>crop</li>
+<li>any other coordinate-changing transformation</li>
+</ul>
+
+Vignetting and TCA corrections don't matter.
+
+@section lines-based-pc Lines-based correction
+
+<div class="image-portrait43">
+\image html pc-8-points.svg "8 points: two horizontals, two verticals"
+</div>
+<div class="image-landscape">
+\image html pc-6-points.svg "6 points: two verticals, one horizonal"
+</div>
+<div class="image-landscape">
+\image html pc-4-points.svg "4 points: two verticals"
+</div>
+
+Using 4, 6, or 8 control points activates a lines-based correction using 2, 3,
+or 4 lines, respectively.  Each consecutive pair of points defines a line.  The
+ordering within a pair doesn't matter.  In the images, you see examples for
+placing the control points in each case.
+
+As you can see in the 8-points image, points may also share their coordinates.
+In the 6-points image, points 5 and 6 could be the same as 2 and 3,
+respectively.  But try to use lines as long as possible.
+
+Whether a line or a pair of lines is to be interpreted as vertical or
+horizontal, is decided by Lensfun by taking the best match.  For example in the
+8-points case, you could swap verticals and horizontals, and it would work
+either way.
+
+@section circle-based-pc Circle-based correction
+
+<div class="image-landscape">
+\image html pc-7-points.svg "7 points: one circle, one horizonal"
+</div>
+<div class="image-landscape">
+\image html pc-5-points.svg "5 points: one circle"
+</div>
+
+Using 5 or 7 control points activates a circle-based correction using an
+ellipse which is supposed to become a circle.  Mathematicaly, 5 points define
+an ellipse.  Two additional points may be used to define a horizonal or
+vertical line, whichever is closer.
+
+There is, unfortunately, an ambiguity to sort out: A circle may become an
+ellipse by tilting the camera upwards or downwards.  Without further
+information, Lensfun cannot know what happened in a particular image.  Thus, if
+you set the control points clockwise, Lensfun assumes that the first point is
+farther away from the camera than the centre of the circle.  Accordingly,
+counter-clockwise control points indicate that the first point is closer to the
+camera than the centre of the circle.  This may sound complicated but in most
+cases, the camera is tilted upwards like in the example images.  Then, just set
+the control points clockwise beginning at the top and it works.
+
+@section pc-postprocessing Shifting, scaling, and rotating
+
+After a successful perspective correction, it is highly senseful to apply some
+post-processing.  Additionally to what is already in Lensfun's chain of
+transformations, it adds the following:
+
+<ul>
+<li>It shifts the image to that the original centre remains in the centre.  In
+some extreme cases, the original centre cannot be displayed anymore because it
+is beyond the vertex.  Then, the centre of the control points is used
+instead.</li>
+<li>It scales the image so that the centre of the image keeps its scale.</li>
+<li>It rotates the image so that lines supposed to be vertical or horizonal actually are.</li>
+</ul>
+
+@section pc-tips Tips
+
+<ul>
+<li>Use lines which are as long as possible.</li>
+<li>Use circles which are as large as possible.</li>
+<li>Take care that pairs of lines which are supposed to be parallel are as far apart as possible.</li>
+<li>Use 8 points only if the focal length is unknown.</li>
+<li>Do not mark lines that are already parallel in the original image.</li>
+<li>Do not mark circles that are already perfectly circular in the original image.</li>
+</ul>
 
 
 @page programming Using this library in your programs
