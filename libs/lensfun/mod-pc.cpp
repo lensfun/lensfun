@@ -3,6 +3,56 @@
     Copyright (C) 2015 by Torsten Bronger <bronger@physik.rwth-aachen.de>
 */
 
+/*
+    First, the coordinate system.  It is right-handed.  The centre of the image
+    is the origin of the x-y plane.  x is to the right, y to the bottom, and z
+    into the back.  All rotations rotate points in mathematical positive
+    direction around the axes.  The axes keep their position (extrinsic
+    rotations).
+
+    The general algorithm is as follows: The original image (note that the
+    sensor sees everything mirror-inverted, but this is annihilated by the
+    back-projection later) is positioned parallely to the x-y plane at z = -
+    focal length.  Then, it is central-projected to the full sphere (radius
+    equals focal length), so it gets positive z coordinates and can be viewed
+    properly from the origin.
+
+    This way, also the vertical vanishing point is on the sphere at (- ρ, 90° -
+    δ).  Then, the sphere with the image is rotated around the y axis by ρ so
+    that the vanishing point is on the y-z plane with z > 0.  Then, the sphere
+    is rotated around the y axis by δ so that the vanishing point is in the
+    zenith – where it belongs.
+
+    Next, the intersection of the horizontal control line with the x-z plane is
+    determined.  Its rectascension is called 90° - ρₕ.  So, the sphere is
+    rotation around the y axis a second time, this time by ρₕ.  Now, the right
+    vanishing point truely is to the right.
+
+    The rotated image plane is central-projected back into the sensor plane at
+    z = - focal length.  In general, it will be way off the center of the
+    image, so that the image must be shifted.  We shift so that the image
+    center is a fix point.  If however the image center is not visible in the
+    result, or too close to the pole (i.e. magnification > 10), we use the
+    center of gravity of the control points instead.
+
+    Finally, the scaling in the center of the image is kept constant.  One can
+    finetune with an additinal scaling, but this way, one has a good starting
+    point.
+
+    Note that in reality, this whole process is performed backwards because we
+    make a lookup in the original picture.  In particular, the rotation by ρ,
+    δ, ρₕ becomes - ρₕ, - δ, - ρ.  We still need the forward direction in some
+    places.
+
+    And then there is the d parameter which allows finetuning of the
+    correction.  It is between -1 and 1, with 0 meaning full correction, -1 no
+    correction, and 1 increased rotation by factor 1.25.  For example, if you
+    have tilted the camera by 40°, d = -1 means the original tilt of 40°, d = 0
+    means no tilt (perfect correction), and d = 1 means a tilt of 10° in the
+    opposite direction (over-correction).  This way, one can finetune the slope
+    of the lines as well as the aspect ratio.
+ */
+
 #include "config.h"
 #include "lensfun.h"
 #include "lensfunprv.h"
@@ -30,6 +80,9 @@ fvector normalize (float x, float y)
     return fvector (temp, temp + 2);
 }
 
+/* Projects the coordinates on an x-y plane with the distance `plane_distance`
+ * from the origin.  The centre of the projection is the origin.
+ */
 void central_projection (fvector coordinates, float plane_distance, float &x, float &y)
 {
     float stretch_factor = plane_distance / coordinates [2];
@@ -37,6 +90,10 @@ void central_projection (fvector coordinates, float plane_distance, float &x, fl
     y = coordinates [1] * stretch_factor;
 }
 
+/* The following SVD implementation is a modified version of an SVD
+ * implementation published in “Evaluation of gaussian processes and other
+ * methods for non-linear regression”, Carl Edward Rasmussen, 1996.
+ */
 fvector svd (matrix M)
 {
     const int n = M [0].size();
@@ -180,6 +237,25 @@ void ellipse_analysis (fvector x, fvector y, float f_normalized, float &x_v, flo
     center_y = y0;
 }
 
+/* Returns the coordinates of the intersection of the lines defined by `x` and
+ * `y`.  Both parameters need to be exactly 4 items long.  The first two items
+ * defines the one line, the last two the other.
+ */
+void intersection (fvector x, fvector y, float &x_i, float &y_i)
+{
+    float A, B, C, numerator_x, numerator_y;
+
+    A = x [0] * y [1] - y [0] * x [1];
+    B = x [2] * y [3] - y [2] * x [3];
+    C = (x [0] - x [1]) * (y [2] - y [3]) - (y [0] - y [1]) * (x [2] - x [3]);
+
+    numerator_x = (A * (x [2] - x [3]) - B * (x [0] - x [1]));
+    numerator_y = (A * (y [2] - y [3]) - B * (y [0] - y [1]));
+
+    x_i = numerator_x / C;
+    y_i = numerator_y / C;
+}
+
 /*
   In the following, I refer to these two rotation matrices: (See
   <http://en.wikipedia.org/wiki/Rotation_matrix#In_three_dimensions>.)
@@ -196,21 +272,6 @@ void ellipse_analysis (fvector x, fvector y, float f_normalized, float &x_v, flo
   R_z(ϑ) = ⎜ sin ϑ     cos ϑ  0 ⎟
            ⎝   0         0    1 ⎠
 */
-
-void intersection (fvector x, fvector y, float &x_i, float &y_i)
-{
-    float A, B, C, numerator_x, numerator_y;
-
-    A = x [0] * y [1] - y [0] * x [1];
-    B = x [2] * y [3] - y [2] * x [3];
-    C = (x [0] - x [1]) * (y [2] - y [3]) - (y [0] - y [1]) * (x [2] - x [3]);
-
-    numerator_x = (A * (x [2] - x [3]) - B * (x [0] - x [1]));
-    numerator_y = (A * (y [2] - y [3]) - B * (y [0] - y [1]));
-
-    x_i = numerator_x / C;
-    y_i = numerator_y / C;
-}
 
 fvector rotate_rho_delta (float rho, float delta, float x, float y, float z)
 {
@@ -418,6 +479,10 @@ void calculate_angles (fvector x, fvector y, float f_normalized,
     center_of_control_points_y = center_y;
 }
 
+/* Returns a rotation matrix which combines three rotations.  First, around the
+ * y axis by ρ₁, then, around the x axis by δ, and finally, around the y axis
+ * again by ρ₂.
+ */
 matrix generate_rotation_matrix (float rho_1, float delta, float rho_2, float d)
 {
     float s_rho_2, c_rho_2, s_delta, c_delta, s_rho_1, c_rho_1,
