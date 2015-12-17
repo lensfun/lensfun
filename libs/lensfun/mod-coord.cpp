@@ -673,7 +673,6 @@ void lfModifier::ModifyCoord_Dist_PTLens (void *data, float *iocoord, int count)
 void lfModifier::ModifyCoord_Dist_ACM (void *data, float *iocoord, int count)
 {
     float *param = (float *)data;
-    // Rd = Ru * (1 + k1 * Ru^2 + k2 * Ru^4)
     const float k1 = param [0];
     const float k2 = param [1];
     const float k3 = param [2];
