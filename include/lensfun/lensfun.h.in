@@ -2634,11 +2634,8 @@ private:
     double NormScale, NormUnScale;
     /// Factor to transform from normalized into absolute coords (mm).  Needed
     /// for calculating the real focal length from the FOV, and for calculating
-    /// NormalizedInFocalLengths.
+    /// f_normalized.
     double NormalizedInMillimeters;
-    /// Factor to transform from normalized into units of the focal length.
-    /// Needed for geometry transformation and the Adobe camera models.
-    double NormalizedInFocalLengths;
     /// Used for conversion from distortion to vignetting coordinate system of
     /// the calibration sensor
     double AspectRatioCorrection;
@@ -2654,9 +2651,10 @@ private:
     double MaxX, MaxY;
 
     /// Nominal focal length (usually taken from EXIF data) in normalized
-    /// units.  Currently, it is only needed for perspective correction.  On
-    /// the long run, /all/ image data will be stored in lfModifier, once the
-    /// Enable... methods are written.
+    /// units.  Currently, it is needed for geometry transformation, the Adobe
+    /// camera models, and perspective correction.  On the long run, /all/
+    /// image data will be stored in lfModifier, once the Enable... methods are
+    /// written.
     double f_normalized;
 };
 
