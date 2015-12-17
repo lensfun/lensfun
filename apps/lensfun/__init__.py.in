@@ -42,7 +42,7 @@ def get_core_database():
     versioned_subdir = "version_{}".format(get_database_version())
     db_path_candidates = {"/var/lib/lensfun-updates",
                           os.path.expanduser("~/.local/share/lensfun/updates"),
-                          "${LENSFUN_FULL_DATADIR}"}
+                          "${CMAKE_INSTALL_FULL_DATAROOTDIR}/lensfun"}
     newest_path = None
     newest_timestamp = 0
     for path in db_path_candidates:
