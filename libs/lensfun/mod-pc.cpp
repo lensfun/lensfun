@@ -620,12 +620,12 @@ bool lfModifier::enable_perspective_correction (fvector x, fvector y, float d)
         Delta_b = - sin (alpha) * Delta_a_old + cos (alpha) * Delta_b;
     }
 
-    /* The occurances of mapping_scale here avoid an additional multiplication
-       in the inner loop of perspective_correction_callback. */
-    float tmp[] = {A [0][0] * mapping_scale, A [0][1] * mapping_scale, A [0][2],
-                   A [1][0] * mapping_scale, A [1][1] * mapping_scale, A [1][2],
-                   A [2][0] * mapping_scale, A [2][1] * mapping_scale, A [2][2],
-                   f_normalized, Delta_a / mapping_scale, Delta_b / mapping_scale};
+    /* The occurances of factors and denominators here avoid additional
+       operations in the inner loop of perspective_correction_callback. */
+    float tmp[] = {A [0][0] * mapping_scale, A [0][1] * mapping_scale, A [0][2] * f_normalized,
+                   A [1][0] * mapping_scale, A [1][1] * mapping_scale, A [1][2] * f_normalized,
+                   A [2][0] / center_coords [2], A [2][1] / center_coords [2], A [2][2],
+                   Delta_a / mapping_scale, Delta_b / mapping_scale};
     AddCoordCallback (ModifyCoord_Perspective_Correction, 200, tmp, sizeof (tmp));
     return true;
 }
@@ -642,21 +642,19 @@ void lfModifier::ModifyCoord_Perspective_Correction (void *data, float *iocoord,
     float A31 = param [6];
     float A32 = param [7];
     float A33 = param [8];
-    float f_normalized = param [9];
-    float Delta_a = param [10];
-    float Delta_b = param [11];
+    float Delta_a = param [9];
+    float Delta_b = param [10];
 
-    fvector coordinates (3);
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        const float x = iocoord [0] + Delta_a;
-        const float y = iocoord [1] + Delta_b;
-        coordinates [2] = A31 * x + A32 * y + A33 * f_normalized;
-        if (coordinates [2] > 0)
+        float x, y, z_;
+        x = iocoord [0] + Delta_a;
+        y = iocoord [1] + Delta_b;
+        z_ = A31 * x + A32 * y + A33;
+        if (z_ > 0)
         {
-            coordinates [0] = A11 * x + A12 * y + A13 * f_normalized;
-            coordinates [1] = A21 * x + A22 * y + A23 * f_normalized;
-            central_projection (coordinates, f_normalized, iocoord [0], iocoord [1]);
+            iocoord [0] = (A11 * x + A12 * y + A13) / z_;
+            iocoord [1] = (A21 * x + A22 * y + A23) / z_;
         }
         else
             iocoord [0] = iocoord [1] = 1.6e16F;
