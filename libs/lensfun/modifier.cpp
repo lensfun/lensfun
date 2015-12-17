@@ -9,22 +9,6 @@
 #include <math.h>
 #include "windows/mathconstants.h"
 
-/* Takes into account that the Hugin models (Poly3, PTLens), use a wrong focal
- * length (see the thread http://thread.gmane.org/gmane.comp.misc.ptx/34865).
- */
-float get_hugin_focal_correction (const lfLens *lens, float focal)
-{
-    lfLensCalibDistortion res;
-    if (lens->InterpolateDistortion(focal, res))
-    {
-        if (res.Model == LF_DIST_MODEL_POLY3)
-            return 1 - res.Terms[0];
-        else if (res.Model == LF_DIST_MODEL_PTLENS)
-            return 1 - res.Terms[0] - res.Terms[1] - res.Terms[2];
-    }
-    return 1;
-}
-
 lfModifier *lfModifier::Create (const lfLens *lens, float crop, int width, int height)
 {
     return new lfModifier (lens, crop, width, height);
@@ -34,8 +18,7 @@ int lfModifier::Initialize (
     const lfLens *lens, lfPixelFormat format, float focal, float aperture,
     float distance, float scale, lfLensType targeom, int flags, bool reverse)
 {
-    NormalizedInFocalLengths = NormalizedInMillimeters /
-        (GetRealFocalLength(lens, focal) / get_hugin_focal_correction (lens, focal));
+    NormalizedInFocalLengths = NormalizedInMillimeters / GetRealFocalLength(lens, focal);
 
     int oflags = 0;
 
@@ -127,16 +110,7 @@ float lfModifier::GetRealFocalLength (const lfLens *lens, float focal)
                 return NAN;
         }
     }
-    /* It may be surprising that get_hugin_focal_correction is applied even if
-     * only the nominal focal length is found and used.  The reason is twofold:
-     * First, many lens manufacturers seem to use a focal length closer to
-     * Hugin's quirky definition.  And secondly, we have better
-     * backwards-compatibility this way.  In particular, one can use Hugin
-     * results (using the nominal focal length) out-of-the-box.  If the nominal
-     * focal length is used, it is guesswork anyway, so this compromise is
-     * acceptable.
-     */
-    return result * get_hugin_focal_correction (lens, focal);
+    return result;
 }
 
 void lfModifier::Destroy ()
