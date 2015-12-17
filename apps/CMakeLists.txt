@@ -14,7 +14,7 @@ ENDIF()
 
 
 IF(INSTALL_HELPER_SCRIPTS)
-  INSTALL(PROGRAMS g-lensfun-update-data lensfun-add-adapter lensfun-update-data
+  INSTALL(PROGRAMS g-lensfun-update-data lensfun-add-adapter lensfun-update-data lensfun-convert-lcp
           DESTINATION ${CMAKE_INSTALL_BINDIR})
 ENDIF(INSTALL_HELPER_SCRIPTS)
 

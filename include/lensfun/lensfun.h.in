@@ -63,7 +63,7 @@ extern "C" {
 #define LF_VERSION	((LF_VERSION_MAJOR << 24) | (LF_VERSION_MINOR << 16) | (LF_VERSION_MICRO << 8) | LF_VERSION_BUGFIX)
 
 /// Latest database version supported by this release
-#define LF_MAX_DATABASE_VERSION	1
+#define LF_MAX_DATABASE_VERSION	2
 
 #if defined CONF_LENSFUN_STATIC
 /// This macro expands to an appropiate symbol visibility declaration
@@ -220,6 +220,8 @@ struct LF_EXPORT lfMount
      * @brief Initialize a new mount object. All fields are set to 0.
      */
     lfMount ();
+
+    lfMount (const lfMount &other);
 
     /**
      * Assignment operator
@@ -493,6 +495,23 @@ enum lfDistortionModel
      * default to 0.
      */
     LF_DIST_MODEL_PTLENS,
+    /**
+     * @brief Adobe Camera Model.  The coordinate system is different here.
+     * Everything is measured in units of the focal length of the lens.
+     *
+     * @f[\begin{aligned}
+     * x_d &= x_u (1 + k_1 r_u^2 + k_2 r_u^4 + k_3 r_u^6) + 2x(k_4y + k_5x) + k_5 r_u^2, \\
+     * y_d &= y_u (1 + k_1 r_u^2 + k_2 r_u^4 + k_3 r_u^6) + 2y(k_4y + k_5x) + k_4 r_u^2,
+     * \end{aligned}
+     * @f]
+     * with \f$r_u = \sqrt{x_u^2 + y_u^2}\f$.  The corresponding XML attributes
+     * are called “k1”, “k2”, “k3”, “k4”, and “k5”.  They default to 0.  Note
+     * that Adobe's fisheye model is also covered by this by setting the lens
+     * type to "fisheye" and using only the \f$k_1\f$ and \f$k_2\f$ parameters.
+     * Ref:
+     * http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf
+     */
+    LF_DIST_MODEL_ACM,
 };
 
 C_TYPEDEF (enum, lfDistortionModel)
@@ -510,7 +529,7 @@ struct lfLensCalibDistortion
     /** @brief Focal length in mm at which this calibration data was taken */
     float Focal;
     /** @brief Distortion coefficients, dependent on model (a,b,c or k1 or k1,k2) */
-    float Terms [3];
+    float Terms [5];
 };
 
 C_TYPEDEF (struct, lfLensCalibDistortion)
@@ -544,7 +563,6 @@ enum lfTCAModel
      * Ref: http://cipa.icomos.org/fileadmin/template/doc/TURIN/403.pdf
      */
     LF_TCA_MODEL_LINEAR,
-
     /**
      * @brief Third order polynomial.
      *
@@ -556,7 +574,35 @@ enum lfTCAModel
      * “vr”, “bb”, “cb”, and “vb”.  vr and vb default to 1, the rest to 0.
      * Ref: http://wiki.panotools.org/Tca_correct
      */
-    LF_TCA_MODEL_POLY3
+    LF_TCA_MODEL_POLY3,
+    /**
+     * @brief Adobe camera model for TCA.  The coordinate system is different
+     * here.  Everything is measured in units of the focal length of the lens.
+     *
+     * \f[\begin{aligned}
+     * x_{d,R} &= \alpha_0 \left(\left(1 + \alpha_1 r_{u,R}^2 +
+                  \alpha_2 r_{u,R}^4 + \alpha_3 r_{u,R}^6\right) x_{u,R} +
+                  2(\alpha_4 y_{u,R} + \alpha_5 x_{u,R}) x_{u,R} +
+                  \alpha_5 r_{u,R}^2\right), \\
+     * y_{d,R} &= \alpha_0 \left(\left(1 + \alpha_1 r_{u,R}^2 +
+                  \alpha_2 r_{u,R}^4 + \alpha_3 r_{u,R}^6\right) y_{u,R} +
+                  2(\alpha_4 y_{u,R} + \alpha_5 x_{u,R}) y_{u,R} +
+                  \alpha_4 r_{u,R}^2\right), \\
+     * x_{d,B} &= \beta_0 \left(\left(1 + \beta_1 r_{u,B}^2 +
+                  \beta_2 r_{u,B}^4 + \beta_3 r_{u,B}^6\right) x_{u,B} +
+                  2(\beta_4 y_{u,B} + \beta_5 x_{u,B}) x_{u,B} +
+                  \beta_5 r_{u,B}^2\right), \\
+     * y_{d,B} &= \beta_0 \left(\left(1 + \beta_1 r_{u,B}^2 +
+                  \beta_2 r_{u,B}^4 + \beta_3 r_{u,B}^6\right) y_{u,B} +
+                  2(\beta_4 y_{u,B} + \beta_5 x_{u,B}) y_{u,B} +
+                  \beta_4 r_{u,B}^2\right),
+     * \end{aligned}\f]
+     * with \f$r_{u,\ast} = \sqrt{x_{u,\ast}^2 + y_{u,\ast}^2}\f$.  The
+     * corresponding XML attributes are called “alpha0” to “alpha5”, and
+     * “beta0” to “beta5”.  alpha0 and beta0 default to 1, the rest to 0.  Ref:
+     * http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf
+     */
+    LF_TCA_MODEL_ACM
 };
 
 C_TYPEDEF (enum, lfTCAModel)
@@ -575,7 +621,7 @@ struct lfLensCalibTCA
     /** @brief Focal length in mm at which this calibration data was taken */
     float Focal;
     /** @brief The coefficients for TCA, dependent on model; separate for R and B */
-    float Terms [6];
+    float Terms [12];
 };
 
 C_TYPEDEF (struct, lfLensCalibTCA)
@@ -609,7 +655,18 @@ enum lfVignettingModel
      * default to 0.
      * Ref: http://hugin.sourceforge.net/tech/
      */
-    LF_VIGNETTING_MODEL_PA
+    LF_VIGNETTING_MODEL_PA,
+    /**
+     * @brief Adobe's vignetting model.  It differs from D'Angelo's model only
+     * in the coordinate system.  Everything is measured in units of the focal
+     * length of the lens.
+     *
+     * \f[C_d = C_s \cdot (1 + \alpha_1 r^2 + \alpha_2 r^4 + \alpha_3 r^6).\f]
+     * The corresponding XML attributes are called “alpha1”, “alpha2”, and
+     * “alpha3”.  They default to 0.  Ref:
+     * http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf
+     */
+    LF_VIGNETTING_MODEL_ACM
 };
 
 C_TYPEDEF (enum, lfVignettingModel)
@@ -2275,11 +2332,11 @@ struct LF_EXPORT lfModifier
      * @param to
      *     The lens model for target image.
      * @param focal
-     *     Lens focal length in mm.
+     *     Lens focal length in mm.  Deprecated.
      * @return
      *     True if a library has a callback for given from->to conversion.
      */
-    bool AddCoordCallbackGeometry (lfLensType from, lfLensType to, float focal);
+    bool AddCoordCallbackGeometry (lfLensType from, lfLensType to, float focal = 0);
 
     /**
      * @brief Add the stock image scaling callback into the chain.
@@ -2516,6 +2573,7 @@ private:
     static void ModifyCoord_TCA_Linear (void *data, float *iocoord, int count);
     static void ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int count);
     static void ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count);
+    static void ModifyCoord_TCA_ACM (void *data, float *iocoord, int count);
 
     static void ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count);
     static void ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int count);
@@ -2530,6 +2588,7 @@ private:
     static void ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int count);
     static void ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int count);
 #endif
+    static void ModifyCoord_Dist_ACM (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_FishEye_Rect (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_Panoramic_Rect (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_ERect_Rect (void *data, float *iocoord, int count);
@@ -2574,8 +2633,12 @@ private:
     /// The coefficients for conversion to and from normalized coords
     double NormScale, NormUnScale;
     /// Factor to transform from normalized into absolute coords (mm).  Needed
-    /// for geometry transformation.
+    /// for calculating the real focal length from the FOV, and for calculating
+    /// NormalizedInFocalLengths.
     double NormalizedInMillimeters;
+    /// Factor to transform from normalized into units of the focal length.
+    /// Needed for geometry transformation and the Adobe camera models.
+    double NormalizedInFocalLengths;
     /// Used for conversion from distortion to vignetting coordinate system of
     /// the calibration sensor
     double AspectRatioCorrection;
@@ -2650,7 +2713,7 @@ LF_EXPORT cbool lf_modifier_add_coord_callback_distortion (
 
 /** @sa lfModifier::AddCoordCallbackGeometry */
 LF_EXPORT cbool lf_modifier_add_coord_callback_geometry (
-    lfModifier *modifier, lfLensType from, lfLensType to, float focal);
+    lfModifier *modifier, lfLensType from, lfLensType to);
 
 /** @sa lfModifier::AddCoordCallbackScale */
 LF_EXPORT cbool lf_modifier_add_coord_callback_scale (

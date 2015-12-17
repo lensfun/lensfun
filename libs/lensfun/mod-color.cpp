@@ -28,18 +28,22 @@ bool lfModifier::AddColorCallbackVignetting (
 
     memcpy (tmp, model.Terms, 3 * sizeof (float));
 
-    // Damn! Hugin uses two different "normalized" coordinate systems:
-    // for distortions it uses 1.0 = min(half width, half height) and
-    // for vignetting it uses 1.0 = half diagonal length. We have
-    // to compute a transition coefficient as lfModifier works in
-    // the first coordinate system.
-    tmp [3] = NormScale / AspectRatioCorrection;
-    tmp [4] = 1.0 / AspectRatioCorrection;
+    if (model.Model == LF_VIGNETTING_MODEL_ACM)
+        tmp [4] = NormalizedInFocalLengths;
+    else
+        // Damn! Hugin uses two different "normalized" coordinate systems:
+        // for distortions it uses 1.0 = min(half width, half height) and
+        // for vignetting it uses 1.0 = half diagonal length. We have
+        // to compute a transition coefficient as lfModifier works in
+        // the first coordinate system.
+        tmp [4] = 1.0 / AspectRatioCorrection;
+    tmp [3] = tmp [4] * NormScale;
 
     if (reverse)
         switch (model.Model)
         {
             case LF_VIGNETTING_MODEL_PA:
+            case LF_VIGNETTING_MODEL_ACM:
                 switch (format)
                 {
                     case LF_PF_U8:
@@ -74,6 +78,7 @@ bool lfModifier::AddColorCallbackVignetting (
         switch (model.Model)
         {
             case LF_VIGNETTING_MODEL_PA:
+            case LF_VIGNETTING_MODEL_ACM:
                 switch (format)
                 {
                     case LF_PF_U8:

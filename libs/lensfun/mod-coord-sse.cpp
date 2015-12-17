@@ -23,6 +23,7 @@ typedef __SIZE_TYPE__ uintptr_t;
 
 void lfModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int count)
 {
+  // See "Note about PT-based distortion models" at the top of mod-coord.cpp.
   /*
    * If buffer is not aligned, fall back to plain code
    */
@@ -33,12 +34,11 @@ void lfModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int 
 
   float *param = (float *)data;
 
-  __m128 a = _mm_set_ps1 (param [0]);
-  __m128 b = _mm_set_ps1 (param [1]);
-  __m128 c = _mm_set_ps1 (param [2]);
+  __m128 a_ = _mm_set_ps1 (param [0]);
+  __m128 b_ = _mm_set_ps1 (param [1]);
+  __m128 c_ = _mm_set_ps1 (param [2]);
   __m128 very_small = _mm_set_ps1 (1e-15);
   __m128 one = _mm_set_ps1 (1.0f);
-  __m128 d = _mm_sub_ps (one, _mm_add_ps (a, _mm_add_ps (b, c)));
 
   // SSE Loop processes 4 pixels/loop
   int loop_count = count / 4;
@@ -57,10 +57,10 @@ void lfModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int 
     __m128 ru = rd;
     for (int step = 0; step < 4; step++)
     {
-      // fru = ru * (a * ru^2 * ru + b * ru^2 + c * ru + d) - rd
+      // fru = ru * (a_ * ru^2 * ru + b_ * ru^2 + c_ * ru + 1) - rd
       __m128 ru_sq =  _mm_mul_ps (ru, ru);
-      __m128 fru = _mm_mul_ps (_mm_mul_ps (a, ru), ru_sq);
-      __m128 t = _mm_add_ps (_mm_mul_ps (b, ru_sq), _mm_add_ps (d, _mm_mul_ps (c, ru)));
+      __m128 fru = _mm_mul_ps (_mm_mul_ps (a_, ru), ru_sq);
+      __m128 t = _mm_add_ps (_mm_mul_ps (b_, ru_sq), _mm_add_ps (one, _mm_mul_ps (c_, ru)));
       fru = _mm_sub_ps (_mm_mul_ps (_mm_add_ps (t, fru), ru), rd);
 
       // This is most likely faster than loading form L1 cache
@@ -69,10 +69,10 @@ void lfModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int 
       __m128 four = _mm_add_ps (two, two);
 
       // corr =  4 * a * ru * ru^2 + 3 * b * ru^2 + 2 * c * ru + d
-      __m128 corr = _mm_mul_ps (c, ru);
-      corr = _mm_add_ps (d, _mm_add_ps (corr, corr));
-      t = _mm_mul_ps (ru_sq, _mm_mul_ps (three, b));
-      corr = _mm_add_ps (corr, _mm_mul_ps (_mm_mul_ps (ru, ru_sq), _mm_mul_ps (four, a)));
+      __m128 corr = _mm_mul_ps (c_, ru);
+      corr = _mm_add_ps (one, _mm_add_ps (corr, corr));
+      t = _mm_mul_ps (ru_sq, _mm_mul_ps (three, b_));
+      corr = _mm_add_ps (corr, _mm_mul_ps (_mm_mul_ps (ru, ru_sq), _mm_mul_ps (four, a_)));
       corr = _mm_rcp_ps (_mm_add_ps (corr, t));
 
       // ru -= fru * corr
@@ -97,6 +97,7 @@ void lfModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int 
 
 void lfModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int count)
 {
+  // See "Note about PT-based distortion models" at the top of mod-coord.cpp.
   /*
    * If buffer is not aligned, fall back to plain code
    */
@@ -107,11 +108,11 @@ void lfModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int co
 
   float *param = (float *)data;
 
-  // Rd = Ru * (a * Ru^3 + b * Ru^2 + c * Ru + d)
-  __m128 a = _mm_set_ps1 (param [0]);
-  __m128 b = _mm_set_ps1 (param [1]);
-  __m128 c = _mm_set_ps1 (param [2]);
-  __m128 d = _mm_sub_ps (_mm_set_ps1 (1.0f), _mm_add_ps (a, _mm_add_ps (b, c)));
+  // Rd = Ru * (a_ * Ru^3 + b_ * Ru^2 + c_ * Ru + 1)
+  __m128 a_ = _mm_set_ps1 (param [0]);
+  __m128 b_ = _mm_set_ps1 (param [1]);
+  __m128 c_ = _mm_set_ps1 (param [2]);
+  __m128 one = _mm_set_ps1 (1.0f);
 
   // SSE Loop processes 4 pixels/loop
   int loop_count = count / 4;
@@ -124,11 +125,11 @@ void lfModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int co
     __m128 ru2 = _mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y));
     __m128 ru = _mm_rcp_ps (_mm_rsqrt_ps (ru2));
 
-    // Calculate poly3 = a * ru2 * ru + b * ru2 + c * ru + d;
-    __m128 t = _mm_mul_ps (ru2, b);
-    __m128 poly3 = _mm_mul_ps (_mm_mul_ps (a, ru2), ru);
-    t = _mm_add_ps (t, _mm_mul_ps (ru, c));
-    poly3 = _mm_add_ps (t, _mm_add_ps (poly3, d));
+    // Calculate poly3 = a_ * ru2 * ru + b_ * ru2 + c_ * ru + 1;
+    __m128 t = _mm_mul_ps (ru2, b_);
+    __m128 poly3 = _mm_mul_ps (_mm_mul_ps (a_, ru2), ru);
+    t = _mm_add_ps (t, _mm_mul_ps (ru, c_));
+    poly3 = _mm_add_ps (t, _mm_add_ps (poly3, one));
     _mm_store_ps (&iocoord [8 * i], _mm_mul_ps (poly3, c0));
     _mm_store_ps (&iocoord [8 * i + 4], _mm_mul_ps (poly3, c1));
   }
@@ -141,6 +142,7 @@ void lfModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int co
 
 void lfModifier::ModifyCoord_Dist_Poly3_SSE (void *data, float *iocoord, int count)
 {
+  // See "Note about PT-based distortion models" at the top of mod-coord.cpp.
   /*
    * If buffer is not aligned, fall back to plain code
    */
@@ -151,9 +153,9 @@ void lfModifier::ModifyCoord_Dist_Poly3_SSE (void *data, float *iocoord, int cou
 
   float *param = (float *)data;
 
-  // Rd = Ru * (d + k1 * Ru^2),  d = 1 - k1
-  __m128 k1 = _mm_set_ps1 (param [0]);
-  __m128 d = _mm_sub_ps (_mm_set_ps1 (1.0f), k1);
+  // Rd = Ru * (1 + k1 * Ru^2)
+  __m128 k1_ = _mm_set_ps1 (param [0]);
+  __m128 one = _mm_set_ps1 (1.0f);
 
   // SSE Loop processes 4 pixels/loop
   int loop_count = count / 4;
@@ -164,8 +166,8 @@ void lfModifier::ModifyCoord_Dist_Poly3_SSE (void *data, float *iocoord, int cou
     __m128 x = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (2, 0, 2, 0));
     __m128 y = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (3, 1, 3, 1));
 
-    // Calculate poly3 = k1 * ru * ru + d;
-    __m128 poly3 = _mm_add_ps (_mm_mul_ps (_mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y)), k1), d);
+    // Calculate poly3 = k1_ * ru * ru + 1;
+    __m128 poly3 = _mm_add_ps (_mm_mul_ps (_mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y)), k1_), one);
     _mm_store_ps (&iocoord [8 * i], _mm_mul_ps (poly3, c0));
     _mm_store_ps (&iocoord [8 * i + 4], _mm_mul_ps (poly3, c1));
   }

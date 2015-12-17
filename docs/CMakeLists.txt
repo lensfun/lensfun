@@ -30,6 +30,7 @@ ADD_CUSTOM_COMMAND(
   COMMAND ${RST2MAN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/man/g-lensfun-update-data.1.rst > ${CMAKE_CURRENT_BINARY_DIR}/g-lensfun-update-data.1
   COMMAND ${RST2MAN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/man/lensfun-update-data.1.rst > ${CMAKE_CURRENT_BINARY_DIR}/lensfun-update-data.1
   COMMAND ${RST2MAN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/man/lensfun-add-adapter.1.rst > ${CMAKE_CURRENT_BINARY_DIR}/lensfun-add-adapter.1
+  COMMAND ${RST2MAN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/man/lensfun-convert-lcp.1.rst > ${CMAKE_CURRENT_BINARY_DIR}/lensfun-convert-lcp.1
   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
 )
 

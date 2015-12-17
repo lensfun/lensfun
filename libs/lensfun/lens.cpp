@@ -131,6 +131,52 @@ lfLens::~lfLens ()
         _lf_free_lens_regex ();
 }
 
+lfLens::lfLens (const lfLens &other)
+{
+    Maker = lf_mlstr_dup (other.Maker);
+    Model = lf_mlstr_dup (other.Model);
+    MinFocal = other.MinFocal;
+    MaxFocal = other.MaxFocal;
+    MinAperture = other.MinAperture;
+    MaxAperture = other.MaxAperture;
+
+    Mounts = NULL;
+    if (other.Mounts)
+        for (int i = 0; other.Mounts [i]; i++)
+            AddMount (other.Mounts [i]);
+
+    CenterX = other.CenterX;
+    CenterY = other.CenterY;
+    CropFactor = other.CropFactor;
+    AspectRatio = other.AspectRatio;
+    Type = other.Type;
+
+    CalibDistortion = NULL;
+    if (other.CalibDistortion)
+        for (int i = 0; other.CalibDistortion [i]; i++)
+            AddCalibDistortion (other.CalibDistortion [i]);
+    CalibTCA = NULL;
+    if (other.CalibTCA)
+        for (int i = 0; other.CalibTCA [i]; i++)
+            AddCalibTCA (other.CalibTCA [i]);
+    CalibVignetting = NULL;
+    if (other.CalibVignetting)
+        for (int i = 0; other.CalibVignetting [i]; i++)
+            AddCalibVignetting (other.CalibVignetting [i]);
+    CalibCrop = NULL;
+    if (other.CalibCrop)
+        for (int i = 0; other.CalibCrop [i]; i++)
+            AddCalibCrop (other.CalibCrop [i]);
+    CalibFov = NULL;
+    if (other.CalibFov)
+        for (int i = 0; other.CalibFov [i]; i++)
+            AddCalibFov (other.CalibFov [i]);
+    CalibRealFocal = NULL;
+    if (other.CalibRealFocal)
+        for (int i = 0; other.CalibRealFocal [i]; i++)
+            AddCalibRealFocal (other.CalibRealFocal [i]);
+}
+
 lfLens &lfLens::operator = (const lfLens &other)
 {
     lf_free (Maker);
@@ -324,6 +370,13 @@ const char *lfLens::GetDistortionModelDesc (
     static const lfParameter *param_ptlens [] = {
         &param_ptlens_a, &param_ptlens_b, &param_ptlens_c, NULL };
 
+    static const lfParameter param_acm_k3 = { "k3", -0.2F, 0.2F, 0.0F };
+    static const lfParameter param_acm_k4 = { "k4", -0.2F, 0.2F, 0.0F };
+    static const lfParameter param_acm_k5 = { "k5", -0.2F, 0.2F, 0.0F };
+    static const lfParameter *param_acm [] = {
+        &param_poly3_k1, &param_poly5_k2, &param_acm_k3,
+        &param_acm_k4, &param_acm_k5, NULL };
+
     switch (model)
     {
         case LF_DIST_MODEL_NONE:
@@ -356,6 +409,16 @@ const char *lfLens::GetDistortionModelDesc (
             if (params)
                 *params = param_ptlens;
             return "PanoTools lens model";
+
+        case LF_DIST_MODEL_ACM:
+            if (details)
+                *details = "x_d = x_u (1 + k_1 r^2 + k_2 r^4 + k_3 r^6) + 2x(k_4y + k_5x) + k_5 r^2\n"
+                    "y_d = y_u (1 + k_1 r^2 + k_2 r^4 + k_3 r^6) + 2y(k_4y + k_5x) + k_4 r^2\n"
+                    "Coordinates are in units of focal length.\n"
+                    "Ref: http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf";
+            if (params)
+                *params = param_acm;
+            return "Adobe camera model";
 
         default:
             // keep gcc 4.4 happy
@@ -393,6 +456,29 @@ const char *lfLens::GetTCAModelDesc (
         NULL
     };
 
+    static const lfParameter param_acm_alpha0 = { "alpha0", 0.99F, 1.01F, 1.0F };
+    static const lfParameter param_acm_beta0 = { "beta0", 0.99F, 1.01F, 1.0F };
+    static const lfParameter param_acm_alpha1 = { "alpha1", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_acm_beta1 = { "beta1", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_acm_alpha2 = { "alpha2", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_acm_beta2 = { "beta2", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_acm_alpha3 = { "alpha3", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_acm_beta3 = { "beta3", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_acm_alpha4 = { "alpha4", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_acm_beta4 = { "beta4", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_acm_alpha5 = { "alpha5", -0.01F, 0.01F, 0.0F };
+    static const lfParameter param_acm_beta5 = { "beta5", -0.01F, 0.01F, 0.0F };
+    static const lfParameter *param_acm [] =
+    {
+        &param_acm_alpha0, &param_acm_beta0,
+        &param_acm_alpha1, &param_acm_beta1,
+        &param_acm_alpha2, &param_acm_beta2,
+        &param_acm_alpha3, &param_acm_beta3,
+        &param_acm_alpha4, &param_acm_beta4,
+        &param_acm_alpha5, &param_acm_beta5,
+        NULL
+    };
+
     switch (model)
     {
         case LF_TCA_MODEL_NONE:
@@ -418,6 +504,21 @@ const char *lfLens::GetTCAModelDesc (
                 *params = param_poly3;
             return "3rd order polynomial";
 
+        case LF_TCA_MODEL_ACM:
+            if (details)
+                *details = "x_{d,R} = α_0 ((1 + α_1 r_{u,R}^2 + α_2 r_{u,R}^4 + α_3 r_{u,R}^6) x_{u,R} +\n"
+                           "          2(α_4 y_{u,R} + α_5 x_{u,R}) x_{u,R} + α_5 r_{u,R}^2)\n"
+                           "y_{d,R} = α_0 ((1 + α_1 r_{u,R}^2 + α_2 r_{u,R}^4 + α_3 r_{u,R}^6) y_{u,R} +\n"
+                           "          2(α_4 y_{u,R} + α_5 x_{u,R}) y_{u,R} + α_4 r_{u,R}^2)\n"
+                           "x_{d,B} = β_0 ((1 + β_1 r_{u,B}^2 + β_2 r_{u,B}^4 + β_3 r_{u,B}^6) x_{u,B} +\n"
+                           "          2(β_4 y_{u,B} + β_5 x_{u,B}) x_{u,B} + β_5 r_{u,B}^2)\n"
+                           "y_{d,B} = β_0 ((1 + β_1 r_{u,B}^2 + β_2 r_{u,B}^4 + β_3 r_{u,B}^6) y_{u,B} +\n"
+                           "          2(β_4 y_{u,B} + β_5 x_{u,B}) y_{u,B} + β_4 r_{u,B}^2)\n"
+                    "Ref: http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf";
+            if (params)
+                *params = param_acm;
+            return "Adobe camera model";
+
         default:
             // keep gcc 4.4 happy
             break;
@@ -441,6 +542,12 @@ const char *lfLens::GetVignettingModelDesc (
     static const lfParameter *param_pa [] =
     { &param_pa_k1, &param_pa_k2, &param_pa_k3, NULL };
 
+    static const lfParameter param_acm_alpha1 = { "alpha1", -1.0, 2.0, 0.0 };
+    static const lfParameter param_acm_alpha2 = { "alpha2", -1.0, 2.0, 0.0 };
+    static const lfParameter param_acm_alpha3 = { "alpha3", -1.0, 2.0, 0.0 };
+    static const lfParameter *param_acm [] =
+    { &param_acm_alpha1, &param_acm_alpha2, &param_acm_alpha3, NULL };
+
     switch (model)
     {
         case LF_VIGNETTING_MODEL_NONE:
@@ -458,6 +565,16 @@ const char *lfLens::GetVignettingModelDesc (
                     "Ref: http://hugin.sourceforge.net/tech/";
             if (params)
                 *params = param_pa;
+            return "6th order polynomial";
+
+        case LF_VIGNETTING_MODEL_ACM:
+            if (details)
+                *details = "Adobe's vignetting model\n"
+                    "(which differs from D'Angelo's only in the coordinate system):\n"
+                    "Cd = Cs * (1 + k1 * R^2 + k2 * R^4 + k3 * R^6)\n"
+                    "Ref: http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf";
+            if (params)
+                *params = param_acm;
             return "6th order polynomial";
 
         default:
@@ -792,6 +909,70 @@ static int __insert_spline (void **spline, float *spline_dist, float dist, void 
     return -1;
 }
 
+/* Coefficient interpolation
+
+   The interpolation of model coefficients bases on spline interpolation
+   (distortion/TCA) and the IDW algorithm (vignetting).  Both methods work best
+   if the input data points (i.e. the values in the XML file) are
+   preconditioned so that they follow more or less a linear slope.  For this
+   preconditioning, we transform the axes.
+
+   First, let's have a look at the untransformed slopes.  For distortion, the
+   parameters decrease with increasing focal length, following a 1/f law.  The
+   same is true for all TCA parameters besides the zeroth one (i.e. the term
+   close to 1), which remains constant.  In contrast, all three vignetting
+   parameters remain constant for different focal lengths, however, they do
+   decrease according to 1/aperture and 1/distance.  All of this is only roughly
+   true of course, however, I could really reproduce it by mass-analysing the
+   existing data.
+
+   Thus, in order to make the slopes linear, I transform the aperture and
+   distance axes to reciprocal axes in __vignetting_dist ().  I keep the focal
+   length axis linear, though, for all three kinds of correction.  Instead, I
+   transform the parameter axis by multiplying it by the focal length of the
+   respective data point for those parameters that exhibit 1/f behaviour.  Of
+   course, this parameter scaling must be undone after the interpolation by
+   dividing by the destination focal length.
+
+   The ACM models are a special case because they use a coordinate system that
+   scales with the focal length.  Therefore, their parameters tend to increase
+   (partly heavily) by the focal length.  I undo this by dividing the
+   parameters by the focal length in the same power that the respective r
+   coordinate has.  For example, I divide k₁ of the distortion model by f²,
+   because it says “k₁r²” in the formula.  Note that this is done *on top* of
+   the multiplying by f, so that effectively, k₁ is divided by f.  Also note
+   that the factor x in the Adobe formula does not mean that we have r³,
+   because the left-hand side of the formula scales by f, too, and anhilates
+   this factor.
+
+   All of this only works well with polynomial-based models.  I simply don't
+   know whether or how it applies to completely different types of models.
+
+   Does it really matter?  Well, my own research revealed that only for
+   vignetting, it is absolutely necessary.  Especially the parameter scaling
+   for the ACM model prevents the slightly fragile IDW algorithm from failing
+   badly in many cases.  The reciprocal axis for aperture also helps a lot.  I
+   think that the parameter scaling for distortion and TCA for the ACM models
+   is also advantageous since especially the k₃ parameter tends to explode by
+   the focal length, and the splines will have a hard time to follow such
+   slopes.  Well, and if you implement the facilities for axis transformation
+   anyway, you can cover all other cases too, I think.
+
+
+   The function __parameter_scales () below implements the parameter axis
+   scaling.  If returns factors by which the parameters are multiplied, and
+   divided by after the interpolation.  It takes the "type" of the correction
+   (distortion/TCA/vignetting), the model, and the parameter index in this
+   model.  All of these parameters should be easy to understand.
+
+   The "values" parameter is slightly more convoluted.  It takes the focal
+   lengths for which scale factors should be returned.  "number_of_values"
+   contains the number of values in the "values" array.  At the same time,
+   "values" contains the scale factors themselves, thus, __parameter_scales ()
+   changes the "values" array in place.  This makes sense because the caller
+   doesn't need the focal lengths anymore, and because in most cases, the scale
+   factor is the focal length itself, so nothing needs to be changed.
+ */
 static void __parameter_scales (float values [], int number_of_values,
                                 int type, int model, int index)
 {
@@ -803,6 +984,12 @@ static void __parameter_scales (float values [], int number_of_values,
         case LF_DIST_MODEL_POLY3:
         case LF_DIST_MODEL_POLY5:
         case LF_DIST_MODEL_PTLENS:
+            break;
+
+        case LF_DIST_MODEL_ACM:
+            const float exponent = index < 3 ? (float)(2 * (index + 1)) : 1.0;
+            for (int i=0; i < number_of_values; i++)
+                values [i] /= pow (values [i], exponent);
             break;
         }
         break;
@@ -816,8 +1003,29 @@ static void __parameter_scales (float values [], int number_of_values,
                 for (int i=0; i < number_of_values; i++)
                     values [i] = 1.0;
             break;
+
+        case LF_TCA_MODEL_ACM:
+            const float exponent = index > 1 && index < 8 ? (float)(index / 2 * 2) : 1.0;
+            for (int i=0; i < number_of_values; i++)
+                values [i] /= pow (values [i], exponent);
+            break;
         }
         break;
+
+    case LF_MODIFY_VIGNETTING:
+        switch (model)
+        {
+        case LF_VIGNETTING_MODEL_PA:
+            for (int i=0; i < number_of_values; i++)
+                values [i] = 1.0;
+            break;
+
+        case LF_VIGNETTING_MODEL_ACM:
+            const float exponent = (float)(2 * (index + 1));
+            for (int i=0; i < number_of_values; i++)
+                values [i] = 1.0 / pow (values [i], exponent);
+            break;
+        }
     }
 }
 
@@ -1016,9 +1224,9 @@ bool lfLens::InterpolateVignetting (
         const lfLensCalibVignetting* c = CalibVignetting [i];
         // Take into account just the first encountered lens model
         if (vm == LF_VIGNETTING_MODEL_NONE)
-	    {
+        {
             vm = c->Model;
-	        res.Model = vm;
+            res.Model = vm;
         } 
         else if (vm != c->Model)
         {
@@ -1027,17 +1235,21 @@ bool lfLens::InterpolateVignetting (
             continue;
         }
 
-	    float interpolation_distance = __vignetting_dist (this, *c, focal, aperture, distance);
-	    if (interpolation_distance < 0.0001) {
-	        res = *c;
-	        return true;
-	    }
-	    
-	    smallest_interpolation_distance = std::min(smallest_interpolation_distance, interpolation_distance);
-	    float weighting = fabs (1.0 / pow (interpolation_distance, power));
-	    for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
-	        res.Terms [i] += weighting * c->Terms [i];
-	    total_weighting += weighting;
+        float interpolation_distance = __vignetting_dist (this, *c, focal, aperture, distance);
+        if (interpolation_distance < 0.0001) {
+            res = *c;
+            return true;
+        }
+
+        smallest_interpolation_distance = std::min(smallest_interpolation_distance, interpolation_distance);
+        float weighting = fabs (1.0 / pow (interpolation_distance, power));
+        for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
+        {
+            float values [1] = {c->Focal};
+            __parameter_scales (values, 1, LF_MODIFY_VIGNETTING, vm, i);
+            res.Terms [i] += weighting * c->Terms [i] * values [0];
+        }
+        total_weighting += weighting;
     }
     
     if (smallest_interpolation_distance > 1)
@@ -1045,9 +1257,13 @@ bool lfLens::InterpolateVignetting (
     
     if (total_weighting > 0 && smallest_interpolation_distance < FLT_MAX)
     {
-	    for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
-	        res.Terms [i] /= total_weighting;
-	    return true;
+        for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
+        {
+            float values [1] = {focal};
+            __parameter_scales (values, 1, LF_MODIFY_VIGNETTING, vm, i);
+            res.Terms [i] /= total_weighting * values [0];
+        }
+        return true;
     } else 
         return false;
 }

@@ -323,6 +323,8 @@ static void _xml_start_element (GMarkupParseContext *context,
                     dc.Model = LF_DIST_MODEL_POLY5;
                 else if (!strcmp (attribute_values [i], "ptlens"))
                     dc.Model = LF_DIST_MODEL_PTLENS;
+                else if (!strcmp (attribute_values [i], "acm"))
+                    dc.Model = LF_DIST_MODEL_ACM;
                 else
                 {
                 bad_attr:
@@ -340,8 +342,13 @@ static void _xml_start_element (GMarkupParseContext *context,
             else if (!strcmp (attribute_names [i], "b") ||
                      !strcmp (attribute_names [i], "k2"))
                 dc.Terms [1] = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "c"))
+            else if (!strcmp (attribute_names [i], "c") ||
+                     !strcmp (attribute_names [i], "k3"))
                 dc.Terms [2] = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "k4"))
+                dc.Terms [3] = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "k5"))
+                dc.Terms [4] = atof (attribute_values [i]);
             else
             {
             unk_attr:
@@ -370,25 +377,45 @@ static void _xml_start_element (GMarkupParseContext *context,
                     tcac.Model = LF_TCA_MODEL_LINEAR;
                 else if (!strcmp (attribute_values [i], "poly3"))
                     tcac.Model = LF_TCA_MODEL_POLY3;
+                else if (!strcmp (attribute_values [i], "acm"))
+                    tcac.Model = LF_TCA_MODEL_ACM;
                 else
                     goto bad_attr;
             }
             else if (!strcmp (attribute_names [i], "focal"))
                 tcac.Focal = atof (attribute_values [i]);
             else if (!strcmp (attribute_names [i], "kr") ||
-                     !strcmp (attribute_names [i], "vr"))
+                     !strcmp (attribute_names [i], "vr") ||
+                     !strcmp (attribute_names [i], "alpha0"))
                 tcac.Terms [0] = atof (attribute_values [i]);
             else if (!strcmp (attribute_names [i], "kb") ||
-                     !strcmp (attribute_names [i], "vb"))
+                     !strcmp (attribute_names [i], "vb") ||
+                     !strcmp (attribute_names [i], "beta0"))
                 tcac.Terms [1] = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "cr"))
+            else if (!strcmp (attribute_names [i], "cr") ||
+                     !strcmp (attribute_names [i], "alpha1"))
                 tcac.Terms [2] = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "cb"))
+            else if (!strcmp (attribute_names [i], "cb") ||
+                     !strcmp (attribute_names [i], "beta1"))
                 tcac.Terms [3] = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "br"))
+            else if (!strcmp (attribute_names [i], "br") ||
+                     !strcmp (attribute_names [i], "alpha2"))
                 tcac.Terms [4] = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "bb"))
+            else if (!strcmp (attribute_names [i], "bb") ||
+                     !strcmp (attribute_names [i], "beta2"))
                 tcac.Terms [5] = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "alpha3"))
+                tcac.Terms [6] = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "beta3"))
+                tcac.Terms [7] = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "alpha4"))
+                tcac.Terms [8] = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "beta4"))
+                tcac.Terms [9] = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "alpha5"))
+                tcac.Terms [10] = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "beta5"))
+                tcac.Terms [11] = atof (attribute_values [i]);
             else
                 goto unk_attr;
 
@@ -408,6 +435,8 @@ static void _xml_start_element (GMarkupParseContext *context,
                     vc.Model = LF_VIGNETTING_MODEL_NONE;
                 else if (!strcmp (attribute_values [i], "pa"))
                     vc.Model = LF_VIGNETTING_MODEL_PA;
+                else if (!strcmp (attribute_values [i], "acm"))
+                    vc.Model = LF_VIGNETTING_MODEL_ACM;
                 else
                     goto bad_attr;
             }
@@ -417,11 +446,14 @@ static void _xml_start_element (GMarkupParseContext *context,
                 vc.Aperture = atof (attribute_values [i]);
             else if (!strcmp (attribute_names [i], "distance"))
                 vc.Distance = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "k1"))
+            else if (!strcmp (attribute_names [i], "k1") ||
+                     !strcmp (attribute_names [i], "alpha1"))
                 vc.Terms [0] = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "k2"))
+            else if (!strcmp (attribute_names [i], "k2") ||
+                     !strcmp (attribute_names [i], "alpha2"))
                 vc.Terms [1] = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "k3"))
+            else if (!strcmp (attribute_names [i], "k3") ||
+                     !strcmp (attribute_names [i], "alpha3"))
                 vc.Terms [2] = atof (attribute_values [i]);
             else
                 goto unk_attr;
@@ -944,6 +976,12 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                                 cd->Terms [0], cd->Terms [1], cd->Terms [2]);
                             break;
 
+                        case LF_DIST_MODEL_ACM:
+                            _lf_xml_printf (
+                                output, "model=\"acm\" k1=\"%g\" k2=\"%g\" k3=\"%g\" k4=\"%g\" k5=\"%g\" />\n",
+                                cd->Terms [0], cd->Terms [1], cd->Terms [2], cd->Terms [3], cd->Terms [4]);
+                            break;
+
                         default:
                             _lf_xml_printf (output, "model=\"none\" />\n");
                             break;
@@ -971,6 +1009,18 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                                             ctca->Terms [3], ctca->Terms [4], ctca->Terms [5]);
                             break;
 
+                        case LF_TCA_MODEL_ACM:
+                            _lf_xml_printf (output, "model=\"acm\" alpha0=\"%g\" beta0=\"%g\" "
+                                            "alpha1=\"%g\" beta1=\"%g\" alpha2=\"%g\" "
+                                            "beta2=\"%g\" alpha3=\"%g\" beta3=\"%g\" "
+                                            "alpha4=\"%g\" beta4=\"%g\" alpha5=\"%g\" "
+                                            "beta5=\"%g\" />\n",
+                                            ctca->Terms [0], ctca->Terms [1], ctca->Terms [2],
+                                            ctca->Terms [3], ctca->Terms [4], ctca->Terms [5],
+                                            ctca->Terms [6], ctca->Terms [7], ctca->Terms [8],
+                                            ctca->Terms [9], ctca->Terms [10], ctca->Terms [11]);
+                            break;
+
                         default:
                             _lf_xml_printf (output, "model=\"none\" />\n");
                             break;
@@ -989,6 +1039,11 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                     {
                         case LF_VIGNETTING_MODEL_PA:
                             _lf_xml_printf (output, "model=\"pa\" k1=\"%g\" k2=\"%g\" k3=\"%g\" />\n",
+                                            cv->Terms [0], cv->Terms [1], cv->Terms [2]);
+                            break;
+
+                        case LF_VIGNETTING_MODEL_ACM:
+                            _lf_xml_printf (output, "model=\"acm\" alpha1=\"%g\" alpha2=\"%g\" alpha3=\"%g\" />\n",
                                             cv->Terms [0], cv->Terms [1], cv->Terms [2]);
                             break;
 

@@ -9,22 +9,6 @@
 #include <math.h>
 #include "windows/mathconstants.h"
 
-/* Takes into account that the Hugin models (Poly3, PTLens), use a wrong focal
- * length (see the thread http://thread.gmane.org/gmane.comp.misc.ptx/34865).
- */
-float get_hugin_focal_correction (const lfLens *lens, float focal)
-{
-    lfLensCalibDistortion res;
-    if (lens->InterpolateDistortion(focal, res))
-    {
-        if (res.Model == LF_DIST_MODEL_POLY3)
-            return 1 - res.Terms[0];
-        else if (res.Model == LF_DIST_MODEL_PTLENS)
-            return 1 - res.Terms[0] - res.Terms[1] - res.Terms[2];
-    }
-    return 1;
-}
-
 lfModifier *lfModifier::Create (const lfLens *lens, float crop, int width, int height)
 {
     return new lfModifier (lens, crop, width, height);
@@ -35,6 +19,8 @@ int lfModifier::Initialize (
     float distance, float scale, lfLensType targeom, int flags, bool reverse)
 {
     f_normalized = focal / NormalizedInMillimeters;
+    NormalizedInFocalLengths = NormalizedInMillimeters / GetRealFocalLength (lens, focal);
+
     int oflags = 0;
 
     if (flags & LF_MODIFY_TCA)
@@ -64,11 +50,9 @@ int lfModifier::Initialize (
     if (flags & LF_MODIFY_GEOMETRY &&
         lens->Type != targeom)
     {
-        float real_focal_length = GetRealFocalLength (lens, focal);
-        real_focal_length /= get_hugin_focal_correction (lens, focal);
         if (reverse ?
-            AddCoordCallbackGeometry (targeom, lens->Type, real_focal_length) :
-            AddCoordCallbackGeometry (lens->Type, targeom, real_focal_length))
+            AddCoordCallbackGeometry (targeom, lens->Type) :
+            AddCoordCallbackGeometry (lens->Type, targeom))
             oflags |= LF_MODIFY_GEOMETRY;
     }
 
@@ -127,16 +111,7 @@ float lfModifier::GetRealFocalLength (const lfLens *lens, float focal)
                 return NAN;
         }
     }
-    /* It may be surprising that get_hugin_focal_correction is applied even if
-     * only the nominal focal length is found and used.  The reason is twofold:
-     * First, many lens manufacturers seem to use a focal length closer to
-     * Hugin's quirky definition.  And secondly, we have better
-     * backwards-compatibility this way.  In particular, one can use Hugin
-     * results (using the nominal focal length) out-of-the-box.  If the nominal
-     * focal length is used, it is guesswork anyway, so this compromise is
-     * acceptable.
-     */
-    return result * get_hugin_focal_correction (lens, focal);
+    return result;
 }
 
 void lfModifier::Destroy ()
@@ -159,7 +134,8 @@ void lfModifier::Destroy ()
 
   (2) For vignetting, r = 1 is the corner of the image.
 
-  (3) For geometry transformation, the unit length is the focal length.
+  (3) For geometry transformation and for all Adobe camera models, the unit
+      length is the focal length.
 
   The constructor lfModifier::lfModifier is the central method that
   handles the coordinate systems.  It does so by providing the scaling factors
@@ -175,8 +151,8 @@ void lfModifier::Destroy ()
   work, the coordinates are finally divided by NormScale again.  Done.
 
   But the devil is in the details.  Geometry transformation has to happen in
-  (3), so for only this step, all coordinates are scaled by focal /
-  NormalizedInMillimeters in lfModifier::AddCoordCallbackGeometry.  Moreover,
+  (3), so for only this step, all coordinates are scaled by
+  NormalizedInFocalLengths in lfModifier::AddCoordCallbackGeometry.  Moreover,
   it is important to see that the conversion into (1) is pretty irrelevant.
   (It is performed for that the resulting image is not ridiculously small; but
   this could also be achieved with proper auto-scaling.)  Instead, really
@@ -217,13 +193,15 @@ lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
         float (Height) / float (Width) : float (Width) / float (Height);
 
     float calibration_cropfactor;
+    float calibration_aspect_ratio;
     if (lens)
     {
         calibration_cropfactor = lens->CropFactor;
-        AspectRatioCorrection = sqrt (lens->AspectRatio * lens->AspectRatio + 1);
+        calibration_aspect_ratio = lens->AspectRatio;
     }
     else
-        AspectRatioCorrection = calibration_cropfactor = NAN;
+        calibration_cropfactor = calibration_aspect_ratio = NAN;
+    AspectRatioCorrection = sqrt (calibration_aspect_ratio * calibration_aspect_ratio + 1);
 
     float coordinate_correction =
         1.0 / sqrt (image_aspect_ratio * image_aspect_ratio + 1) *

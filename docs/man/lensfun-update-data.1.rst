@@ -70,4 +70,4 @@ License of the database: Creative Commons Attribution-Share Alike 3.0 license
 SEE ALSO
 ============
 
-g-lensfun-update-data(1), lensfun-add-adapter(1)
+g-lensfun-update-data(1), lensfun-add-adapter(1), lensfun-convert-lcp(1)
