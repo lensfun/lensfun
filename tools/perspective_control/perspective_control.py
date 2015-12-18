@@ -398,7 +398,6 @@ class Modifier:
         self.center_y = height / self.size
 
     def initialize(self, focal_length):
-        # FixMe: Is really always an f given (even if it is inaccurate)?
         self.f_normalized = focal_length / self.normalized_in_millimeters
 
     def enable_perspective_correction(self, x, y, d):
