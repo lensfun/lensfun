@@ -343,7 +343,7 @@ float determine_rho_h (float rho, float delta, fvector x, fvector y,
     }
 }
 
-void calculate_angles (fvector x, fvector y, float f_normalized,
+void calculate_angles (fvector x, fvector y, float &f_normalized,
                        float &rho, float &delta, float &rho_h, float &alpha,
                        float &center_of_control_points_x, float &center_of_control_points_y)
 {
@@ -552,17 +552,18 @@ bool lfModifier::EnablePerspectiveCorrection (fvector x, fvector y, float d)
         y [i] = y [i] * NormScale - CenterY;
     }
 
+    float f_normalized = FocalLengthNormalized;
     float rho, delta, rho_h, alpha, center_of_control_points_x,
         center_of_control_points_y, z;
-    calculate_angles (x, y, FocalLengthNormalized, rho, delta, rho_h, alpha,
+    calculate_angles (x, y, f_normalized, rho, delta, rho_h, alpha,
                       center_of_control_points_x, center_of_control_points_y);
 
     // Transform center point to get shift
-    z = rotate_rho_delta_rho_h (rho, delta, rho_h, 0, 0, FocalLengthNormalized) [2];
+    z = rotate_rho_delta_rho_h (rho, delta, rho_h, 0, 0, f_normalized) [2];
     /* If the image centre is too much outside, or even at infinity, take the
        center of gravity of the control points instead. */
     enum center_type { old_image_center, control_points_center };
-    center_type new_image_center = z <= 0 || FocalLengthNormalized / z > 10 ? control_points_center : old_image_center;
+    center_type new_image_center = z <= 0 || f_normalized / z > 10 ? control_points_center : old_image_center;
 
     /* Generate a rotation matrix in forward direction, for getting the
        proper shift of the image center. */
@@ -572,29 +573,29 @@ bool lfModifier::EnablePerspectiveCorrection (fvector x, fvector y, float d)
     switch (new_image_center) {
     case old_image_center:
     {
-        center_coords [0] = A [0][2] * FocalLengthNormalized;
-        center_coords [1] = A [1][2] * FocalLengthNormalized;
-        center_coords [2] = A [2][2] * FocalLengthNormalized;
+        center_coords [0] = A [0][2] * f_normalized;
+        center_coords [1] = A [1][2] * f_normalized;
+        center_coords [2] = A [2][2] * f_normalized;
         break;
     }
     case control_points_center:
     {
         center_coords [0] = A [0][0] * center_of_control_points_x +
                             A [0][1] * center_of_control_points_y +
-                            A [0][2] * FocalLengthNormalized;
+                            A [0][2] * f_normalized;
         center_coords [1] = A [1][0] * center_of_control_points_x +
                             A [1][1] * center_of_control_points_y +
-                            A [1][2] * FocalLengthNormalized;
+                            A [1][2] * f_normalized;
         center_coords [2] = A [2][0] * center_of_control_points_x +
                             A [2][1] * center_of_control_points_y +
-                            A [2][2] * FocalLengthNormalized;
+                            A [2][2] * f_normalized;
         break;
     }
     }
     if (center_coords [2] <= 0)
         return false;
     // This is the mapping scale in the image center
-    float mapping_scale = FocalLengthNormalized / center_coords [2];
+    float mapping_scale = f_normalized / center_coords [2];
 
     // Finally, generate a rotation matrix in backward (lookup) direction
     {
@@ -614,7 +615,7 @@ bool lfModifier::EnablePerspectiveCorrection (fvector x, fvector y, float d)
     }
 
     float Delta_a, Delta_b;
-    central_projection (center_coords, FocalLengthNormalized, Delta_a, Delta_b);
+    central_projection (center_coords, f_normalized, Delta_a, Delta_b);
     {
         float Delta_a_old = Delta_a;
         Delta_a = cos (alpha) * Delta_a + sin (alpha) * Delta_b;
@@ -623,8 +624,8 @@ bool lfModifier::EnablePerspectiveCorrection (fvector x, fvector y, float d)
 
     /* The occurances of factors and denominators here avoid additional
        operations in the inner loop of perspective_correction_callback. */
-    float tmp[] = {A [0][0] * mapping_scale, A [0][1] * mapping_scale, A [0][2] * FocalLengthNormalized,
-                   A [1][0] * mapping_scale, A [1][1] * mapping_scale, A [1][2] * FocalLengthNormalized,
+    float tmp[] = {A [0][0] * mapping_scale, A [0][1] * mapping_scale, A [0][2] * f_normalized,
+                   A [1][0] * mapping_scale, A [1][1] * mapping_scale, A [1][2] * f_normalized,
                    A [2][0] / center_coords [2], A [2][1] / center_coords [2], A [2][2],
                    Delta_a / mapping_scale, Delta_b / mapping_scale};
     AddCoordCallback (ModifyCoord_Perspective_Correction, 200, tmp, sizeof (tmp));

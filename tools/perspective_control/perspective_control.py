@@ -290,7 +290,7 @@ def calculate_angles(x, y, f_normalized):
             ρ_h = determine_ρ_h(ρ, δ, x[6:8], y[6:8], f_normalized, center_x, center_y)
     if isnan(ρ_h):
         ρ_h = 0
-    return ρ, δ, ρ_h, α, center_x, center_y
+    return ρ, δ, ρ_h, α, center_x, center_y, f_normalized
 
 def generate_rotation_matrix(ρ1, δ, ρ2, d):
     """Returns a rotation matrix which combines three rotations.  First, around the
@@ -462,14 +462,14 @@ class Modifier:
         x = [value * self.norm_scale - self.center_x for value in x]
         y = [value * self.norm_scale - self.center_y for value in y]
 
-        ρ, δ, ρ_h, α, center_of_control_points_x, center_of_control_points_y = \
+        ρ, δ, ρ_h, α, center_of_control_points_x, center_of_control_points_y, f_normalized = \
                 calculate_angles(x, y, self.f_normalized)
 
         # Transform center point to get shift
-        z = rotate_ρ_δ_ρh(ρ, δ, ρ_h, 0, 0, self.f_normalized)[2]
+        z = rotate_ρ_δ_ρh(ρ, δ, ρ_h, 0, 0, f_normalized)[2]
         # If the image centre is too much outside, or even at infinity, take the
         # center of gravity of the control points instead.
-        new_image_center = "control points center" if z <= 0 or self.f_normalized / z > 10 else "old image center"
+        new_image_center = "control points center" if z <= 0 or f_normalized / z > 10 else "old image center"
 
         # Generate a rotation matrix in forward direction, for getting the
         # proper shift of the image center.
@@ -478,16 +478,16 @@ class Modifier:
         A31, A32, A33 = generate_rotation_matrix(ρ, δ, ρ_h, d)
 
         if new_image_center == "old image center":
-            center_coords = A13 * self.f_normalized, A23 * self.f_normalized, A33 * self.f_normalized
+            center_coords = A13 * f_normalized, A23 * f_normalized, A33 * f_normalized
         elif new_image_center == "control points center":
             center_coords = \
-                    A11 * center_of_control_points_x + A12 * center_of_control_points_y + A13 * self.f_normalized, \
-                    A21 * center_of_control_points_x + A22 * center_of_control_points_y + A23 * self.f_normalized, \
-                    A31 * center_of_control_points_x + A32 * center_of_control_points_y + A33 * self.f_normalized
+                    A11 * center_of_control_points_x + A12 * center_of_control_points_y + A13 * f_normalized, \
+                    A21 * center_of_control_points_x + A22 * center_of_control_points_y + A23 * f_normalized, \
+                    A31 * center_of_control_points_x + A32 * center_of_control_points_y + A33 * f_normalized
         if center_coords[2] <= 0:
             return False
         # This is the mapping scale in the image center
-        mapping_scale = self.f_normalized / center_coords[2]
+        mapping_scale = f_normalized / center_coords[2]
 
 #        print(ρ * 180 / π, δ * 180 / π, ρ_h * 180 / π, α * 90)
 
@@ -501,7 +501,7 @@ class Modifier:
         A11, A12, A13 = cos(α) * A11 + sin(α) * A12, - sin(α) * A11 + cos(α) * A12, A13
         A21, A22, A23 = cos(α) * A21 + sin(α) * A22, - sin(α) * A21 + cos(α) * A22, A23
         A31, A32, A33 = cos(α) * A31 + sin(α) * A32, - sin(α) * A31 + cos(α) * A32, A33
-        Δa, Δb = central_projection(center_coords, self.f_normalized)
+        Δa, Δb = central_projection(center_coords, f_normalized)
         Δa, Δb = cos(α) * Δa + sin(α) * Δb, - sin(α) * Δa + cos(α) * Δb
 
         # The occurances of mapping_scale here avoid an additional
@@ -509,7 +509,7 @@ class Modifier:
         self.callback_data = A11 * mapping_scale, A12 * mapping_scale, A13, \
                              A21 * mapping_scale, A22 * mapping_scale, A23, \
                              A31 * mapping_scale, A32 * mapping_scale, A33, \
-                             self.f_normalized, Δa / mapping_scale, Δb / mapping_scale
+                             f_normalized, Δa / mapping_scale, Δb / mapping_scale
         return True
 
     @staticmethod
