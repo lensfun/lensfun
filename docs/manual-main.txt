@@ -18,7 +18,8 @@ for correcting images based on detailed knowledge of lens properties and
 calibration data. Right now Lensfun is designed to correct distortion,
 transversal (also known as lateral) chromatic aberrations, and
 vignetting.  Furthermore, it can convert between different types of
-lenses, for example from fisheye into rectilinear.
+lenses, for example from fisheye into rectilinear.  And last but not
+least, it can correct the perspective, simulating a shift lens.
 
 @section contents Contents
 
@@ -620,6 +621,7 @@ apply them in the right order.  This is:
 <li>anti-TCA
 <li>undistortion
 <li>change of projection
+<li>perspective correction
 <li>scaling
 </ol>
 
@@ -684,12 +686,20 @@ a successful distortion correction.
 Therefore, the change of projection is perfomed \a after the image
 corrections.
 
+@subsection pc Perspective correction
+
+Lensfun can correct the effects of tilting of the camera, also known as
+perspective correction, see @ref perspective-correction.  In order for this to
+work properly, the distortion needs to be corrected, and the image needs to be
+converted to rectilinear projection if necessary.  Therefore, perspective
+correction is performed \a after the change of projection.
+
 @subsection scaling Scaling
 
-Often it is desirable to scale the resulting image, e.g. to eliminate
-black areas at the borders caused by one of the previous image
-operations.  This scaling affect the resulting image, therefore, it
-comes last in the processing.
+Often it is desirable to scale the resulting image, e.g. to eliminate black
+areas at the borders caused by one of the previous image operations.  Because
+all other transformations assume the pristine sensor image, in particular for
+assuming the correct focal length, scaling comes last in the processing.
 
 
 @section actualorder How it is really done
@@ -713,6 +723,7 @@ image manipulations the reverse way:
 
 <ol>
 <li>scaling
+<li>perspective correction
 <li>change of projection
 <li>undistortion
 <li>anti-TCA
@@ -725,9 +736,10 @@ coordinate.  This seems to be wrong at first because we want to undistort after
 all.  But given how undistortion is actually done, it makes sense.  The same is
 true for ::lfTCAModel.
 
-Note that in the sequence \a scaling → <em>change of projection</em> → \a
-undistortion → <em>anti-TCA</em>, the resulting coordinates of the previous
-step are the input coordinates for the respective next step.
+Note that in the sequence \a scaling → <em>perspective correction</em> →
+<em>change of projection</em> → \a undistortion → <em>anti-TCA</em>, the
+resulting coordinates of the previous step are the input coordinates for the
+respective next step.
 
 In reality, devignetting is performed first nevertheless, because it can be
 separated from all other operations, by calling

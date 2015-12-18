@@ -1999,6 +1999,7 @@ typedef struct { float angle, dist; } lfPoint;
  * <li>Fix chromatic aberrations (TCA)
  * <li>Fix lens distortion
  * <li>Fix lens geometry
+ * <li>Fix perspective
  * <li>Scale the image
  * </ol>
  *
@@ -2011,6 +2012,7 @@ typedef struct { float angle, dist; } lfPoint;
  * </ol>
  * <li>Coordinates<ol>
  * <li>Scale the image
+ * <li>Fix perspective
  * <li>Fix lens geometry
  * <li>Fix lens distortion
  * </ol>
@@ -2026,9 +2028,10 @@ typedef struct { float angle, dist; } lfPoint;
  * in place.
  *
  * Then, the distortions introduced by the lens are removed (distortion and
- * geometry), and an additional scaling factor is applied if required.  This
- * operation requires building new image in a new allocated buffer: you cannot
- * modify the image in place, or bad things will happen.
+ * geometry), perpective is corrected if desired, and an additional scaling
+ * factor is applied if required.  This operation requires building new image
+ * in a new allocated buffer: you cannot modify the image in place, or bad
+ * things will happen.
  *
  * And finally, in the subpixel distortion stage, application corrects
  * transversal chromatic aberrations. For every target pixel coordinate the
