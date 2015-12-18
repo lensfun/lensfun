@@ -2166,14 +2166,14 @@ struct LF_EXPORT lfModifier
      * possible modes:
      *
      * 4 control points: c0 and c1 define one vertical lines, c2 and c3 the
-     * other.  The focal length is used to get the proper aspect ratio.
+     * other.  The focal length defined in the creation of the modifier is used
+     * to get the proper aspect ratio.
      *
      * 6 control points: c0 to c3 like above.  c4 and c5 define a horizontal
      * line.  The focal length is used to get the proper aspect ratio.
      *
      * 8 control points: c0 to c5 like above.  c6 and c7 define a second
-     * horizontal line.  The focal length given is discarded and calculated
-     * from the control points.
+     * horizontal line.  The focal length is not used.
      *
      * 5 control points: They all must lie on an ellipse that is actually a
      * rotated circle.  If they lie in a clockwise ordering, the vertex is

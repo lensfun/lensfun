@@ -447,7 +447,7 @@ class Modifier:
         can take values from -1 to +1.  0 denotes the perfect correction.  -1
         is the unchanged image.  +1 is an increase of the tilting angle by 25%.
         """
-        if self.f_normalized <= 0 or len(x) not in [4, 5, 6, 7, 8] or len(x) != len(y):
+        if  len(x) not in [4, 5, 6, 7, 8] or len(x) != len(y) or self.f_normalized <= 0 and len(x) != 8:
             # Don't add any callback
             return False
         if d <= - 1:

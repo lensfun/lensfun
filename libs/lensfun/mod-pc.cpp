@@ -539,7 +539,8 @@ matrix generate_rotation_matrix (float rho_1, float delta, float rho_2, float d)
 bool lfModifier::enable_perspective_correction (fvector x, fvector y, float d)
 {
     const int number_of_control_points = x.size();
-    if (FocalLengthNormalized <= 0 || number_of_control_points < 4 || number_of_control_points > 8)
+    if (number_of_control_points < 4 || number_of_control_points > 8 ||
+        FocalLengthNormalized <= 0 && number_of_control_points != 8)
         return false;
     if (d < -1)
         d = -1;
