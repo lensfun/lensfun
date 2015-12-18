@@ -129,8 +129,8 @@ bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool 
             }
             case LF_DIST_MODEL_ACM:
                 memcpy (tmp, model.Terms, sizeof (float) * 5);
-                tmp [5] = 1 / f_normalized;
-                tmp [6] = f_normalized;
+                tmp [5] = 1 / FocalLengthNormalized;
+                tmp [6] = FocalLengthNormalized;
                 AddCoordCallback (ModifyCoord_Dist_ACM, 750,
                                   tmp, sizeof (float) * 7);
                 break;
@@ -282,8 +282,8 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
                    "lfModifier::AddCoordCallbackGeometry () is deprecated.");
 
     float tmp [2];
-    tmp [0] = 1 / f_normalized;
-    tmp [1] = f_normalized;
+    tmp [0] = 1 / FocalLengthNormalized;
+    tmp [1] = FocalLengthNormalized;
 
     if(from == to)
         return false;

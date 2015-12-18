@@ -2634,7 +2634,7 @@ private:
     double NormScale, NormUnScale;
     /// Factor to transform from normalized into absolute coords (mm).  Needed
     /// for calculating the real focal length from the FOV, and for calculating
-    /// f_normalized.
+    /// FocalLengthNormalized.
     double NormalizedInMillimeters;
     /// Used for conversion from distortion to vignetting coordinate system of
     /// the calibration sensor
@@ -2655,7 +2655,7 @@ private:
     /// camera models, and perspective correction.  On the long run, /all/
     /// image data will be stored in lfModifier, once the Enable... methods are
     /// written.
-    double f_normalized;
+    double FocalLengthNormalized;
 };
 
 #ifdef __cplusplus
