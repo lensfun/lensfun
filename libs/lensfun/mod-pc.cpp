@@ -169,7 +169,7 @@ fvector svd (matrix M)
             estimated_column_rank--;
     }
     if (iterations > max_cycles)
-        g_warning ("[Lensfun] SVD: Iterations did non converge");
+        g_warning ("[Lensfun] SVD: Iterations did not converge");
 
     fvector result;
     for (matrix::iterator it = M.begin() + n; it != M.end(); ++it)
