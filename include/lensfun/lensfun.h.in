@@ -215,6 +215,9 @@ struct LF_EXPORT lfMount
      */
     lfMount ();
 
+    /**
+     * Copy constructor
+     */
     lfMount (const lfMount &other);
 
     /**
