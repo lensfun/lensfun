@@ -1967,7 +1967,9 @@ typedef struct { float angle, dist; } lfPoint;
  * Then, the distortions introduced by the lens are removed (distortion and
  * geometry), and an additional scaling factor is applied if required.  This
  * operation requires building new image in a new allocated buffer: you cannot
- * modify the image in place, or bad things will happen.
+ * modify the image in place, or bad things will happen.  Note that Lensfun
+ * does not provide pixel interpolation routines.  You have to implement the
+ * lookup in the original image yourself.
  *
  * And finally, in the subpixel distortion stage, application corrects
  * transversal chromatic aberrations. For every target pixel coordinate the
