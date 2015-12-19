@@ -31,7 +31,6 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
 
 void mod_teardown(lfFixture *lfFix, gconstpointer data)
 {
-    lfFix->mod->Destroy();
     delete lfFix->lens;
 }
 
@@ -55,7 +54,7 @@ void test_mod_projection_center(lfFixture* lfFix, gconstpointer data)
             if(g_test_verbose())
                 g_print("  ~ Conversion from %s -> %s \n", geom_names[j], geom_names[i]);
 
-            lfFix->mod = lfModifier::Create (lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
+            lfFix->mod = new lfModifier (lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
             lfFix->mod->Initialize (
                 lfFix->lens, LF_PF_U8, 12.0f,
                 6.7f, 2.0f, 1.0f, geom_types[i],
@@ -68,6 +67,8 @@ void test_mod_projection_center(lfFixture* lfFix, gconstpointer data)
                 g_assert_cmpfloat(in[0],==,res[0]);
                 g_assert_cmpfloat(in[1],==,res[1]);
             }
+
+            delete lfFix->mod;
             i++;
         }
         j++;
@@ -94,7 +95,7 @@ void test_mod_projection_borders(lfFixture* lfFix, gconstpointer data)
             if(g_test_verbose())
                 g_print("  ~ Conversion from %s -> %s \n", geom_names[j], geom_names[i]);
 
-            lfFix->mod = lfModifier::Create (lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
+            lfFix->mod = new lfModifier (lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
             lfFix->mod->Initialize (
                 lfFix->lens, LF_PF_U8, 12.0f,
                 6.7f, 2.0f, 1.0f, geom_types[i],
@@ -115,6 +116,7 @@ void test_mod_projection_borders(lfFixture* lfFix, gconstpointer data)
                 g_assert_false(isnan(res[1]));
             }
 
+            delete lfFix->mod;
             i++;
         }
         j++;
