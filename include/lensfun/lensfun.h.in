@@ -1744,6 +1744,9 @@ LF_EXPORT lfError lf_db_load (lfDatabase *db);
 /** @sa lfDatabase::Load(const char *) */
 LF_EXPORT lfError lf_db_load_file (lfDatabase *db, const char *filename);
 
+/** @sa lfDatabase::LoadDirectory(const char *) */
+LF_EXPORT cbool lf_db_load_directory (lfDatabase *db, const char *dirname);
+
 /** @sa lfDatabase::Load(const char *, const char *, size_t) */
 LF_EXPORT lfError lf_db_load_data (lfDatabase *db, const char *errcontext,
                                    const char *data, size_t data_size);
