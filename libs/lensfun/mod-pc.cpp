@@ -59,7 +59,6 @@
 #include <cmath>
 #include <vector>
 #include <numeric>
-#include <iostream>
 #include <stdexcept>
 #include "windows/mathconstants.h"
 

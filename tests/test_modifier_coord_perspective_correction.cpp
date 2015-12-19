@@ -9,7 +9,6 @@
 #include <cstdlib>
 #include <cstdio>
 #include <cmath>
-#include <iostream>
 
 #include "lensfun.h"
 #include "../libs/lensfun/lensfunprv.h"
