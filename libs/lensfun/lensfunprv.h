@@ -474,8 +474,12 @@ struct lfColorCallbackData : public lfCallbackData
     lfModifyColorFunc callback;
 };
 
-typedef std::vector<fvector> matrix;
+// `dvector`, `matrix`, and `svg` are declared here to be able to test `svd` in
+// unit tests.
 
-fvector svd(matrix M);
+typedef std::vector<double> dvector;
+typedef std::vector<dvector> matrix;
+
+dvector svd(matrix M);
 
 #endif /* __LENSFUNPRV_H__ */

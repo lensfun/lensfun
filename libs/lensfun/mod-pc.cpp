@@ -73,19 +73,19 @@ using std::pow;
 using std::sin;
 using std::sqrt;
 
-fvector normalize (float x, float y)
+dvector normalize (double x, double y)
 {
-    float norm = sqrt (pow (x, 2) + pow (y, 2));
-    float temp[] = {x / norm, y / norm};
-    return fvector (temp, temp + 2);
+    double norm = sqrt (pow (x, 2) + pow (y, 2));
+    double temp[] = {x / norm, y / norm};
+    return dvector (temp, temp + 2);
 }
 
 /* Projects the coordinates on an x-y plane with the distance `plane_distance`
  * from the origin.  The centre of the projection is the origin.
  */
-void central_projection (fvector coordinates, float plane_distance, float &x, float &y)
+void central_projection (dvector coordinates, double plane_distance, double &x, double &y)
 {
-    float stretch_factor = plane_distance / coordinates [2];
+    double stretch_factor = plane_distance / coordinates [2];
     x = coordinates [0] * stretch_factor;
     y = coordinates [1] * stretch_factor;
 }
@@ -94,18 +94,18 @@ void central_projection (fvector coordinates, float plane_distance, float &x, fl
  * implementation published in “Evaluation of gaussian processes and other
  * methods for non-linear regression”, Carl Edward Rasmussen, 1996.
  */
-fvector svd (matrix M)
+dvector svd (matrix M)
 {
     const int n = M [0].size();
-    fvector S2 (n);
+    dvector S2 (n);
     int  i, j, k, estimated_column_rank = n, counter = n, iterations = 0,
-        max_cycles = (n < 120) ? 30 : n / 4;
-    float epsilon = std::numeric_limits<float>::epsilon(),
+        max_cycles = (n < 120) ? 60 : n / 2;
+    double epsilon = std::numeric_limits<double>::epsilon(),
         e2 = 10 * n * pow (epsilon, 2),
-        threshold = 0.1 * epsilon,
+        threshold = 0.2 * epsilon,
         vt, p, x0, y0, q, r, c0, s0, d1, d2;
 
-    M.resize (2 * n, fvector (n));
+    M.resize (2 * n, dvector (n));
     for (i = 0; i < n; i++)
         M [n + i][i] = 1;
 
@@ -171,25 +171,25 @@ fvector svd (matrix M)
     if (iterations > max_cycles)
         g_warning ("[Lensfun] SVD: Iterations did not converge");
 
-    fvector result;
+    dvector result;
     for (matrix::iterator it = M.begin() + n; it != M.end(); ++it)
         result.push_back ((*it) [n - 1]);
     return result;
 }
 
-void ellipse_analysis (fvector x, fvector y, float f_normalized, float &x_v, float &y_v,
-                       float &center_x, float &center_y)
+void ellipse_analysis (dvector x, dvector y, double f_normalized, double &x_v, double &y_v,
+                       double &center_x, double &center_y)
 {
     matrix M;
-    float a, b, c, d, f, g, _D, x0, y0, phi, _N, _S, _R, a_, b_, radius_vertex;
+    double a, b, c, d, f, g, _D, x0, y0, phi, _N, _S, _R, a_, b_, radius_vertex;
 
     // Taken from http://math.stackexchange.com/a/767126/248694
     for (int i = 0; i < 5; i++)
     {
-        float temp[] = {pow (x [i], 2), x [i] * y [i], pow (y [i], 2), x [i], y [i], 1};
-        M.push_back (fvector (temp, temp + 6));
+        double temp[] = {pow (x [i], 2), x [i] * y [i], pow (y [i], 2), x [i], y [i], 1};
+        M.push_back (dvector (temp, temp + 6));
     }
-    fvector parameters = svd (M);
+    dvector parameters = svd (M);
     /* Taken from http://mathworld.wolfram.com/Ellipse.html, equation (15)
        onwards. */
     a = parameters [0];
@@ -215,7 +215,7 @@ void ellipse_analysis (fvector x, fvector y, float f_normalized, float &x_v, flo
     // End taken from mathworld
     if (a_ < b_)
     {
-        float temp;
+        double temp;
         temp = a_;
         a_ = b_;
         b_ = temp;
@@ -241,9 +241,9 @@ void ellipse_analysis (fvector x, fvector y, float f_normalized, float &x_v, flo
  * `y`.  Both parameters need to be exactly 4 items long.  The first two items
  * defines the one line, the last two the other.
  */
-void intersection (fvector x, fvector y, float &x_i, float &y_i)
+void intersection (dvector x, dvector y, double &x_i, double &y_i)
 {
-    float A, B, C, numerator_x, numerator_y;
+    double A, B, C, numerator_x, numerator_y;
 
     A = x [0] * y [1] - y [0] * x [1];
     B = x [2] * y [3] - y [2] * x [3];
@@ -273,10 +273,10 @@ void intersection (fvector x, fvector y, float &x_i, float &y_i)
            ⎝   0         0    1 ⎠
 */
 
-fvector rotate_rho_delta (float rho, float delta, float x, float y, float z)
+dvector rotate_rho_delta (double rho, double delta, double x, double y, double z)
 {
     // This matrix is: Rₓ(δ) · R_y(ρ)
-    float A11, A12, A13, A21, A22, A23, A31, A32, A33;
+    double A11, A12, A13, A21, A22, A23, A31, A32, A33;
     A11 = cos (rho);
     A12 = 0;
     A13 = sin (rho);
@@ -287,18 +287,18 @@ fvector rotate_rho_delta (float rho, float delta, float x, float y, float z)
     A32 = sin (delta);
     A33 = cos (rho) * cos (delta);
 
-    fvector result (3);
+    dvector result (3);
     result [0] = A11 * x + A12 * y + A13 * z;
     result [1] = A21 * x + A22 * y + A23 * z;
     result [2] = A31 * x + A32 * y + A33 * z;
     return result;
 }
 
-fvector rotate_rho_delta_rho_h (float rho, float delta, float rho_h,
-                                float x, float y, float z)
+dvector rotate_rho_delta_rho_h (double rho, double delta, double rho_h,
+                                double x, double y, double z)
 {
     // This matrix is: R_y(ρₕ) · Rₓ(δ) · R_y(ρ)
-    float A11, A12, A13, A21, A22, A23, A31, A32, A33;
+    double A11, A12, A13, A21, A22, A23, A31, A32, A33;
     A11 = cos (rho) * cos (rho_h) - sin (rho) * cos (delta) * sin (rho_h);
     A12 = sin (delta) * sin (rho_h);
     A13 = sin (rho) * cos (rho_h) + cos (rho) * cos (delta) * sin (rho_h);
@@ -309,28 +309,28 @@ fvector rotate_rho_delta_rho_h (float rho, float delta, float rho_h,
     A32 = sin (delta) * cos (rho_h);
     A33 = - sin (rho) * sin (rho_h) + cos (rho) * cos (delta) * cos (rho_h);
 
-    fvector result (3);
+    dvector result (3);
     result [0] = A11 * x + A12 * y + A13 * z;
     result [1] = A21 * x + A22 * y + A23 * z;
     result [2] = A31 * x + A32 * y + A33 * z;
     return result;
 }
 
-float determine_rho_h (float rho, float delta, fvector x, fvector y,
-                       float f_normalized, float center_x, float center_y)
+double determine_rho_h (double rho, double delta, dvector x, dvector y,
+                        double f_normalized, double center_x, double center_y)
 {
-    fvector p0, p1;
+    dvector p0, p1;
     p0 = rotate_rho_delta (rho, delta, x [0], y [0], f_normalized);
     p1 = rotate_rho_delta (rho, delta, x [1], y [1], f_normalized);
-    float x_0 = p0 [0], y_0 = p0 [1], z_0 = p0 [2];
-    float x_1 = p1 [0], y_1 = p1 [1], z_1 = p1 [2];
+    double x_0 = p0 [0], y_0 = p0 [1], z_0 = p0 [2];
+    double x_1 = p1 [0], y_1 = p1 [1], z_1 = p1 [2];
     if (y_0 == y_1)
         return y_0 == 0 ? NAN : 0;
     else
     {
-        float Delta_x, Delta_z, x_h, z_h, rho_h;
-        float temp[] = {x_1 - x_0, z_1 - z_0, y_1 - y_0};
-        central_projection (fvector (temp, temp + 3), - y_0, Delta_x, Delta_z);
+        double Delta_x, Delta_z, x_h, z_h, rho_h;
+        double temp[] = {x_1 - x_0, z_1 - z_0, y_1 - y_0};
+        central_projection (dvector (temp, temp + 3), - y_0, Delta_x, Delta_z);
         x_h = x_0 + Delta_x;
         z_h = z_0 + Delta_z;
         if (z_h == 0)
@@ -343,13 +343,13 @@ float determine_rho_h (float rho, float delta, fvector x, fvector y,
     }
 }
 
-void calculate_angles (fvector x, fvector y, float &f_normalized,
-                       float &rho, float &delta, float &rho_h, float &alpha,
-                       float &center_of_control_points_x, float &center_of_control_points_y)
+void calculate_angles (dvector x, dvector y, double &f_normalized,
+                       double &rho, double &delta, double &rho_h, double &alpha,
+                       double &center_of_control_points_x, double &center_of_control_points_y)
 {
     const int number_of_control_points = x.size();
 
-    float center_x, center_y;
+    double center_x, center_y;
     if (number_of_control_points == 6)
     {
         center_x = std::accumulate (x.begin(), x.begin() + 4, 0.) / 4;
@@ -361,25 +361,25 @@ void calculate_angles (fvector x, fvector y, float &f_normalized,
         center_y = std::accumulate (y.begin(), y.end(), 0.) / number_of_control_points;
     }
 
-    float x_v, y_v;
+    double x_v, y_v;
     if (number_of_control_points == 5 || number_of_control_points == 7)
-        ellipse_analysis (fvector (x.begin(), x.begin() + 5), fvector (y.begin(), y.begin() + 5),
+        ellipse_analysis (dvector (x.begin(), x.begin() + 5), dvector (y.begin(), y.begin() + 5),
                           f_normalized, x_v, y_v, center_x, center_y);
     else
     {
-        intersection (fvector (x.begin(), x.begin() + 4),
-                      fvector (y.begin(), y.begin() + 4),
+        intersection (dvector (x.begin(), x.begin() + 4),
+                      dvector (y.begin(), y.begin() + 4),
                       x_v, y_v);
         if (number_of_control_points == 8)
         {
             /* The problem is over-determined.  I prefer the fourth line over
                the focal length.  Maybe this is useful in cases where the focal
                length is not known. */
-            float x_h, y_h;
-            intersection (fvector (x.begin() + 4, x.begin() + 8),
-                          fvector (y.begin() + 4, y.begin() + 8),
+            double x_h, y_h;
+            intersection (dvector (x.begin() + 4, x.begin() + 8),
+                          dvector (y.begin() + 4, y.begin() + 8),
                           x_h, y_h);
-            float radicand = - x_h * x_v - y_h * y_v;
+            double radicand = - x_h * x_v - y_h * y_v;
             if (radicand >= 0)
                 f_normalized = sqrt (radicand);
         }
@@ -393,14 +393,14 @@ void calculate_angles (fvector x, fvector y, float &f_normalized,
 
     bool swapped_verticals_and_horizontals = false;
 
-    fvector c (2);
+    dvector c (2);
     switch (number_of_control_points) {
     case 4:
     case 6:
     case 8:
     {
-        fvector a = normalize (x_v - x [0], y_v - y [0]);
-        fvector b = normalize (x_v - x [2], y_v - y [2]);
+        dvector a = normalize (x_v - x [0], y_v - y [0]);
+        dvector b = normalize (x_v - x [2], y_v - y [2]);
         c [0] = a [0] + b [0];
         c [1] = a [1] + b [1];
         break;
@@ -419,9 +419,9 @@ void calculate_angles (fvector x, fvector y, float &f_normalized,
     }
     if (number_of_control_points == 7)
     {
-        float x5_, y5_;
+        double x5_, y5_;
         central_projection (rotate_rho_delta (rho, delta, x [5], y [5], f_normalized), f_normalized, x5_, y5_);
-        float x6_, y6_;
+        double x6_, y6_;
         central_projection (rotate_rho_delta (rho, delta, x [6], y [6], f_normalized), f_normalized, x6_, y6_);
         alpha = - atan2 (y6_ - y5_, x6_ - x5_);
         if (fabs (c [0]) > fabs (c [1]))
@@ -443,7 +443,7 @@ void calculate_angles (fvector x, fvector y, float &f_normalized,
        after the vertex was moved into the zenith */
     if (number_of_control_points == 4)
     {
-        fvector x_perpendicular_line (2), y_perpendicular_line (2);
+        dvector x_perpendicular_line (2), y_perpendicular_line (2);
         if (swapped_verticals_and_horizontals)
         {
             x_perpendicular_line [0] = center_x;
@@ -466,12 +466,12 @@ void calculate_angles (fvector x, fvector y, float &f_normalized,
         rho_h = 0;
     else
     {
-        rho_h = determine_rho_h (rho, delta, fvector (x.begin() + 4, x.begin() + 6),
-                                 fvector (y.begin() + 4, y.begin() + 6), f_normalized, center_x, center_y);
+        rho_h = determine_rho_h (rho, delta, dvector (x.begin() + 4, x.begin() + 6),
+                                 dvector (y.begin() + 4, y.begin() + 6), f_normalized, center_x, center_y);
         if (isnan (rho_h))
             if (number_of_control_points == 8)
-                rho_h = determine_rho_h (rho, delta, fvector (x.begin() + 6, x.begin() + 8),
-                                         fvector (y.begin() + 6, y.begin() + 8), f_normalized, center_x, center_y);
+                rho_h = determine_rho_h (rho, delta, dvector (x.begin() + 6, x.begin() + 8),
+                                         dvector (y.begin() + 6, y.begin() + 8), f_normalized, center_x, center_y);
             else
                 rho_h = 0;
     }
@@ -483,9 +483,9 @@ void calculate_angles (fvector x, fvector y, float &f_normalized,
  * y axis by ρ₁, then, around the x axis by δ, and finally, around the y axis
  * again by ρ₂.
  */
-matrix generate_rotation_matrix (float rho_1, float delta, float rho_2, float d)
+matrix generate_rotation_matrix (double rho_1, double delta, double rho_2, double d)
 {
-    float s_rho_2, c_rho_2, s_delta, c_delta, s_rho_1, c_rho_1,
+    double s_rho_2, c_rho_2, s_delta, c_delta, s_rho_1, c_rho_1,
         w, x, y, z, theta, s_theta;
     /* We calculate the quaternion by multiplying the three quaternions for the
        three rotations (in reverse order).  We use quaternions here to be able
@@ -508,7 +508,7 @@ matrix generate_rotation_matrix (float rho_1, float delta, float rho_2, float d)
     x /= s_theta;
     y /= s_theta;
     z /= s_theta;
-    const float compression = 10;
+    const double compression = 10;
     theta *= d <= 0 ? d + 1 : 1 + 1. / compression * log (compression * d + 1);
     if (theta > 0.9 * M_PI)
         theta = 0.9 * M_PI;
@@ -523,7 +523,7 @@ matrix generate_rotation_matrix (float rho_1, float delta, float rho_2, float d)
     /* Convert the quaternion to a rotation matrix, see e.g.
        <https://en.wikipedia.org/wiki/Rotation_matrix#Quaternion>.  This matrix
        is (if d=0): R_y(ρ2) · Rₓ(δ) · R_y(ρ1) */
-    matrix M (3, fvector (3));
+    matrix M (3, dvector (3));
     M [0][0] = 1 - 2 * pow (y, 2) - 2 * pow (z, 2);
     M [0][1] = 2 * x * y - 2 * z * w;
     M [0][2] = 2 * x * z + 2 * y * w;
@@ -546,16 +546,17 @@ bool lfModifier::EnablePerspectiveCorrection (fvector x, fvector y, float d)
         d = -1;
     if (d > 1)
         d = 1;
+    dvector x_, y_;
     for (int i = 0; i < number_of_control_points; i++)
     {
-        x [i] = x [i] * NormScale - CenterX;
-        y [i] = y [i] * NormScale - CenterY;
+        x_.push_back (x [i] * NormScale - CenterX);
+        y_.push_back (y [i] * NormScale - CenterY);
     }
 
-    float f_normalized = FocalLengthNormalized;
-    float rho, delta, rho_h, alpha, center_of_control_points_x,
+    double f_normalized = FocalLengthNormalized;
+    double rho, delta, rho_h, alpha, center_of_control_points_x,
         center_of_control_points_y, z;
-    calculate_angles (x, y, f_normalized, rho, delta, rho_h, alpha,
+    calculate_angles (x_, y_, f_normalized, rho, delta, rho_h, alpha,
                       center_of_control_points_x, center_of_control_points_y);
 
     // Transform center point to get shift
@@ -568,7 +569,7 @@ bool lfModifier::EnablePerspectiveCorrection (fvector x, fvector y, float d)
     /* Generate a rotation matrix in forward direction, for getting the
        proper shift of the image center. */
     matrix A = generate_rotation_matrix (rho, delta, rho_h, d);
-    fvector center_coords (3);
+    dvector center_coords (3);
 
     switch (new_image_center) {
     case old_image_center:
@@ -595,7 +596,7 @@ bool lfModifier::EnablePerspectiveCorrection (fvector x, fvector y, float d)
     if (center_coords [2] <= 0)
         return false;
     // This is the mapping scale in the image center
-    float mapping_scale = f_normalized / center_coords [2];
+    double mapping_scale = f_normalized / center_coords [2];
 
     // Finally, generate a rotation matrix in backward (lookup) direction
     {
@@ -614,10 +615,10 @@ bool lfModifier::EnablePerspectiveCorrection (fvector x, fvector y, float d)
         A [2][2] = A_ [2][2];
     }
 
-    float Delta_a, Delta_b;
+    double Delta_a, Delta_b;
     central_projection (center_coords, f_normalized, Delta_a, Delta_b);
     {
-        float Delta_a_old = Delta_a;
+        double Delta_a_old = Delta_a;
         Delta_a = cos (alpha) * Delta_a + sin (alpha) * Delta_b;
         Delta_b = - sin (alpha) * Delta_a_old + cos (alpha) * Delta_b;
     }
