@@ -1383,10 +1383,10 @@ struct LF_EXPORT lfDatabase
     void Destroy ();
 
     /**
-     * @brief Load all XML files from a directory.
+     * @brief Open and parse all XML files in a given directory.
      *
-     * This is an internal function used by lfDatabase::Load ().  It ignores
-     * all errors.
+     * Returns true if valid Lensfun XML data was found and loaded
+     * sucessfully.
      * @param dirname
      *     The directory to be read.
      * @return
@@ -1397,7 +1397,8 @@ struct LF_EXPORT lfDatabase
     /**
      * @brief Find and load the lens database.
      * 
-     * See @ref dbsearch for more information.
+     * This function automatically tries to determine the location of the 
+     * lens database on the system. See @ref dbsearch for more information.
      * @return
      *     LF_NO_ERROR or a error code.
      */
