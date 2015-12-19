@@ -629,7 +629,7 @@ bool lfModifier::EnablePerspectiveCorrection (fvector x, fvector y, float d)
                    A [1][0] * mapping_scale, A [1][1] * mapping_scale, A [1][2] * f_normalized,
                    A [2][0] / center_coords [2], A [2][1] / center_coords [2], A [2][2],
                    Delta_a / mapping_scale, Delta_b / mapping_scale};
-    AddCoordCallback (ModifyCoord_Perspective_Correction, 200, tmp, sizeof (tmp));
+    AddCoordCallback (ModifyCoord_Perspective_Correction, 300, tmp, sizeof (tmp));
     return true;
 }
 
