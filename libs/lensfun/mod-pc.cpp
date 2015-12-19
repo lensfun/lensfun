@@ -46,7 +46,7 @@
 
     And then there is the d parameter which allows finetuning of the
     correction.  It is between -1 and 1, with 0 meaning full correction, -1 no
-    correction, and 1 increased rotation by factor 1.25.  For example, if you
+    correction, and 1 increased rotation by factor 1.24.  For example, if you
     have tilted the camera by 40°, d = -1 means the original tilt of 40°, d = 0
     means no tilt (perfect correction), and d = 1 means a tilt of 10° in the
     opposite direction (over-correction).  This way, one can finetune the slope
