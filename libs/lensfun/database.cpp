@@ -1354,6 +1354,11 @@ lfError lf_db_load (lfDatabase *db)
     return db->Load ();
 }
 
+cbool lf_db_load_directory (lfDatabase *db, const char *dirname)
+{
+    return db->LoadDirectory (dirname);
+}
+
 lfError lf_db_load_file (lfDatabase *db, const char *filename)
 {
     return db->Load (filename);
