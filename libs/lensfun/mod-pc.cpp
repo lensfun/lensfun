@@ -60,6 +60,7 @@
 #include <vector>
 #include <numeric>
 #include <iostream>
+#include <stdexcept>
 #include "windows/mathconstants.h"
 
 using std::acos;
@@ -89,6 +90,13 @@ void central_projection (dvector coordinates, double plane_distance, double &x, 
     x = coordinates [0] * stretch_factor;
     y = coordinates [1] * stretch_factor;
 }
+
+
+class svd_no_convergence: public std::runtime_error
+{
+public:
+    svd_no_convergence() : std::runtime_error ("SVD: Iterations did not converge") {}
+};
 
 /* The following SVD implementation is a modified version of an SVD
  * implementation published in “Evaluation of gaussian processes and other
@@ -169,7 +177,7 @@ dvector svd (matrix M)
             estimated_column_rank--;
     }
     if (iterations > max_cycles)
-        g_warning ("[Lensfun] SVD: Iterations did not converge");
+        throw svd_no_convergence();
 
     dvector result;
     for (matrix::iterator it = M.begin() + n; it != M.end(); ++it)
@@ -561,8 +569,16 @@ bool lfModifier::EnablePerspectiveCorrection (fvector x, fvector y, float d)
     double f_normalized = FocalLengthNormalized;
     double rho, delta, rho_h, alpha, center_of_control_points_x,
         center_of_control_points_y, z;
-    calculate_angles (x_, y_, f_normalized, rho, delta, rho_h, alpha,
-                      center_of_control_points_x, center_of_control_points_y);
+    try
+    {
+        calculate_angles (x_, y_, f_normalized, rho, delta, rho_h, alpha,
+                          center_of_control_points_x, center_of_control_points_y);
+    }
+    catch (svd_no_convergence &e)
+    {
+        g_warning ("[Lensfun] %s", e.what());
+        return false;
+    }
 
     // Transform center point to get shift
     z = rotate_rho_delta_rho_h (rho, delta, rho_h, 0, 0, f_normalized) [2];
