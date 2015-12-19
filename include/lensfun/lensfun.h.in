@@ -791,11 +791,10 @@ C_TYPEDEF (enum, lfLensType)
  * @brief Lens data.
  * Unknown fields are set to NULL or 0.
  *
- * To create a new lens object, use the lfLens::Create() or lf_lens_new()
- * functions. After that fill the fields for which you have data, and
- * invoke the lfLens::Check or lf_lens_check() function, which will
- * check if existing data is enough and will fill some fields using
- * information extracted from lens name.
+ * To manually create a new lens object, fill the fields for which you 
+ * have data, and invoke the lfLens::Check() or lf_lens_check() function, 
+ * which will check if existing data is enough and will automatically fill
+ * some fields using information extracted from lens name.
  */
 struct LF_EXPORT lfLens
 {
@@ -1356,9 +1355,6 @@ enum
  * (see lfDatabase::HomeDataDir), where it will override any definitions
  * from the system-wide database.
  *
- * You cannot create and destroy objects of this type directly; instead
- * use the lf_db_new() / lf_db_destroy() functions or the
- * lfDatabase::Create() / lfDatabase::Destroy() methods.
  */
 struct LF_EXPORT lfDatabase
 {
@@ -1373,14 +1369,18 @@ struct LF_EXPORT lfDatabase
     ~lfDatabase ();
 
     /**
-     * @brief Create a new empty database object.
+     * @brief Create a new empty database object. This function is deprecated and
+     * will be removed in the future. Use the standard constructor instead.
      */
-    static lfDatabase *Create ();
+    DEPRECATED static lfDatabase *Create ();
 
     /**
      * @brief Destroy the database object and free all loaded data.
+     *
+     * This function is deprecated and will be removed in the future. 
+     * Please use the standard destructor instead.
      */
-    void Destroy ();
+    DEPRECATED void Destroy ();
 
     /**
      * @brief Open and parse all XML files in a given directory.
@@ -1930,7 +1930,7 @@ typedef struct { float angle, dist; } lfPoint;
  * a lens object, which contains a set of correction models, and
  * create a modifier object from it.
  *
- * Normally, you will create an instance with lfModifier::Create and initilise
+ * Normally, you will create an instance of lfModifier and initialise
  * immediately it with lfModifier::Initialize, passing a valid lens object in
  * both cases.  Users of the plain C interface will use lf_modifier_new() and
  * lf_modifier_initialize() instead.
@@ -2010,7 +2010,7 @@ struct LF_EXPORT lfModifier
 {
 #ifdef __cplusplus
     /**
-     * @brief Create a empty image modifier object.
+     * @brief Create an empty image modifier object.
      *
      * Before using the returned object you must add the required
      * modifier callbacks (see methods AddXXXCallback below).
@@ -2034,13 +2034,16 @@ struct LF_EXPORT lfModifier
     ~lfModifier ();
 
     /**
-     * @brief Create a empty image modifier object.
+     * @brief Create an empty image modifier object.
      *
      * Before using the returned object you must add the required
      * modifier callbacks (see methods AddXXXCallback below).
      *
      * You must provide the original image width/height even if you
      * plan to correct just a part of the image.
+     *
+     * This function is deprecated and will be removed in the future. 
+     * Please use the standard constructor instead.
      *
      * @param lens
      *     For all modifications, the crop factor, aspect ratio, and
@@ -2056,7 +2059,7 @@ struct LF_EXPORT lfModifier
      * @return
      *     A new empty image modifier object.
      */
-    static lfModifier *Create (const lfLens *lens, float crop, int width, int height);
+    DEPRECATED static lfModifier *Create (const lfLens *lens, float crop, int width, int height);
 
     /**
      * @brief Initialize the process of correcting aberrations in a image.
@@ -2074,7 +2077,7 @@ struct LF_EXPORT lfModifier
      * @param lens
      *     The lens which aberrations you want to correct in a image.
      *     It should be the same lens object as the one passed to
-     *     lfModifier::Create.
+     *     the lfModifier constructor.
      * @param format
      *     Pixel format of your image (bits per pixel component)
      * @param focal
@@ -2110,9 +2113,10 @@ struct LF_EXPORT lfModifier
     /**
      * @brief Destroy the modifier object.
      *
-     * This is the only correct way to destroy a lfModifier object.
+     * This function is deprecated and will be removed in the future. 
+     * Please use the standard destructor instead.
      */
-    void Destroy ();
+    DEPRECATED void Destroy ();
 
     /**
      * @brief Add a user-defined callback to the coordinate correction chain.
