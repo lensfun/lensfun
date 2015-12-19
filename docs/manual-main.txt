@@ -792,33 +792,6 @@ the plane) become parallel after the correction.  No full correction means that
 only lines in <i>one</i> direction are corrected.
 
 
-@section pc-coordinates Control point coordinates
-
-Control points are given using their pixel coordinates.  The origin of the
-coordinate system is in the top left corner, with the first pixel having the
-coordinates (0, 0).  The first coordinate is measured to the right, and the
-second is measured to the bottom.  For best accuracy, the coodinates do not
-refer to the pristine image.  Instead, the following transformations need to
-have been applied when the coordinates are determined:
-
-<ul>
-<li>distortion correction</li>
-<li>transformation into rectilinear, if necessary</li>
-</ul>
-
-However, the following transformation <i>must not</i> have been applied when
-the coordinates are determined:
-
-<ul>
-<li>scaling</li>
-<li>rotation</li>
-<li>shift</li>
-<li>crop</li>
-<li>any other coordinate-changing transformation</li>
-</ul>
-
-Vignetting and TCA corrections don't matter.
-
 @section lines-based-pc Lines-based correction
 
 <div class="image-portrait43">
@@ -895,6 +868,61 @@ instead.</li>
 <li>Do not mark circles that are already perfectly circular in the original image.</li>
 </ul>
 
+
+@section pc-in-own-code How to implement perspective correction in own code
+
+Currently, perspective correction has its own initialiser
+lfModifier::EnablePerspectiveCorrection.  Typically, you will call this method
+immediately after lfModifier::Create and lfModifier::Initialize.  In plain C,
+you call ::lf_modifier_enable_perspective_correction immediately after
+::lf_modifier_new and ::lf_modifier_initialize.  The only real challenge is to
+get the control point coordinates.
+
+@subsection pc-coordinates Control point coordinates
+
+Control points are given using their pixel coordinates.  The origin of the
+coordinate system is in the top left corner, with the first pixel having the
+coordinates (0, 0).  The first coordinate is measured to the right, and the
+second is measured to the bottom.  For best accuracy, the coodinates do not
+refer to the pristine image.  Instead, the following transformations need to
+have been applied when the coordinates are determined:
+
+<ul>
+<li>distortion correction</li>
+<li>transformation into rectilinear, if necessary</li>
+</ul>
+
+Since for most lenses, both transformations don't change much, you can also use
+pristine RAW image coordinates lenses for simplicity, but this may lead to
+slightly inaccurate perspective correction, and fails for fisheyes.  In
+contrast, the following transformations <i>must not</i> have been applied when
+the coordinates are determined:
+
+<ul>
+<li>scaling</li>
+<li>rotation</li>
+<li>shift</li>
+<li>crop</li>
+<li>any other coordinate-changing transformation</li>
+</ul>
+
+Vignetting and TCA corrections don't matter.
+
+@subsection pc-suggestion-for-implementation Suggestions for getting control points
+
+If you wish to offer perspective correction in an interactive way, it is
+recommended to present a distortion-corrected, rectilinear image to the user.
+Then, the user picks coordinates in the image, and these coordinates are ready
+to be used for perspective correction directly.
+
+Another possibility is to let the used set control points in the really
+pristine image (without any transformations applied).  Then, you set up a
+modifier object only for distortion correction and – in case of a fisheye lens
+– for transformation into the rectilinear projection.  <i>It is important that
+you set the “reverse” option to “true” for this modifier.</i> Then, you send
+the control point coordinates through lfModifier::ApplyGeometryDistortion and
+get the coordinates for perspective correction.  Of course, for the actual
+correction, you need a different modifier object.
 
 @page programming Using this library in your programs
 
