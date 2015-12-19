@@ -9,14 +9,14 @@ typedef struct {
 
 void db_setup(lfFixture *lfFix, gconstpointer data)
 {
-    lfFix->db = lf_db_new ();
+    lfFix->db = new lfDatabase ();
     lfFix->db->Load();
 }
 
 
 void db_teardown(lfFixture *lfFix, gconstpointer data)
 {
-    lfFix->db->Destroy();
+    delete lfFix->db;
 }
 
 

@@ -360,7 +360,7 @@ int main (int argc, char **argv)
     lfDatabase *ldb = new lfDatabase ();
 
     if (ldb->Load () != LF_NO_ERROR) {
-        ldb->Destroy();
+        delete ldb;
         g_print ("\rERROR: Database could not be loaded\n");
         return -1;
     }
@@ -410,7 +410,7 @@ int main (int argc, char **argv)
 
     // nothing to process, so lets quit here
     if (!opts.Input) {
-        ldb->Destroy();
+        delete ldb;
         return 0;
     }
 
@@ -441,22 +441,22 @@ int main (int argc, char **argv)
     if (!img->Open (opts.Input)) {
         g_print ("\rERROR: failed to open file `%s'\n", opts.Input);
         delete img;
-        ldb->Destroy();
+        delete ldb;
         return -1;
     }
     if (!img->LoadPNG ()) {
         g_print ("\rERROR: failed to parse PNG data from file `%s'\n", opts.Input);
         delete img;
-        ldb->Destroy();
+        delete ldb;
         return -1;
     }
     g_print ("done.\n~ Image size [%ux%u].\n", img->width, img->height);
 
-    lfModifier *mod = lfModifier::Create (lens, opts.Crop, img->width, img->height);
+    lfModifier *mod = new lfModifier (lens, opts.Crop, img->width, img->height);
     if (!mod) {
         g_print ("\rWarning: failed to create modifier\n");
         delete img;
-        ldb->Destroy();
+        delete ldb;
         return -1;
     }
     int modflags = mod->Initialize (
@@ -491,13 +491,13 @@ int main (int argc, char **argv)
     clock_t et = clock ();
     g_print ("done (%.3g secs)\n", double (et - st) / CLOCKS_PER_SEC);
 
-    mod->Destroy ();
+    delete mod;
 
     g_print ("~ Save output as `%s'...", opts.Output);
     bool ok = img->SavePNG (opts.Output);
 
     delete img;
-    ldb->Destroy ();
+    delete ldb;
 
     if (ok) {
         g_print (" done\n");
