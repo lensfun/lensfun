@@ -2659,6 +2659,8 @@ private:
     /// image data will be stored in lfModifier, once the Enable... methods are
     /// written.
     double FocalLengthNormalized;
+    /// Whether the transformations are applied reversely
+    bool Reverse;
 };
 
 #ifdef __cplusplus
