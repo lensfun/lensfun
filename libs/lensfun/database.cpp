@@ -1396,7 +1396,7 @@ void lfDatabase::AddLens (lfLens *lens)
 
 lfDatabase *lf_db_new ()
 {
-    return lfDatabase::Create ();
+    return new lfDatabase ();
 }
 
 void lf_db_destroy (lfDatabase *db)

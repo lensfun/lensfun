@@ -278,7 +278,7 @@ void lfModifier::AddCallback (void *arr, lfCallbackData *d,
 lfModifier *lf_modifier_new (
     const lfLens *lens, float crop, int width, int height)
 {
-    return lfModifier::Create (lens, crop, width, height);
+    new lfModifier (lens, crop, width, height);
 }
 
 void lf_modifier_destroy (lfModifier *modifier)
