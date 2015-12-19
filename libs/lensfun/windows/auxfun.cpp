@@ -24,7 +24,7 @@ char *_lf_get_database_dir ()
         eos--;
     *eos = 0;
 
-    dir = g_build_filename (buff, CONF_DATADIR, NULL);
+    dir = g_build_filename (buff, CONF_DATADIR, DATABASE_SUBDIR, NULL);
 
     return dir;
 }
