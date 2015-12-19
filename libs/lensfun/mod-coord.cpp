@@ -521,6 +521,38 @@ void lfModifier::ModifyCoord_Scale (void *data, float *iocoord, int count)
     }
 }
 
+void lfModifier::ModifyCoord_LinearMap (void *data, float *iocoord, int count)
+{
+    float *params = (float *)data;
+    float A11 = params [0];
+    float A12 = params [1];
+    float A21 = params [2];
+    float A22 = params [3];
+
+    for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
+    {
+        iocoord [0] = A11 * iocoord [0] + A12 * iocoord [1];
+        iocoord [1] = A21 * iocoord [0] + A22 * iocoord [1];
+    }
+}
+
+void lfModifier::ModifyCoord_Affinity (void *data, float *iocoord, int count)
+{
+    float *params = (float *)data;
+    float A11 = params [0];
+    float A12 = params [1];
+    float A21 = params [2];
+    float A22 = params [3];
+    float b1 = params [4];
+    float b2 = params [5];
+
+    for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
+    {
+        iocoord [0] = A11 * iocoord [0] + A12 * iocoord [1] + b1;
+        iocoord [1] = A21 * iocoord [0] + A22 * iocoord [1] + b2;
+    }
+}
+
 void lfModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count)
 {
     // See "Note about PT-based distortion models" at the top of this file.

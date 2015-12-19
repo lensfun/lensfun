@@ -2581,6 +2581,8 @@ private:
         void *data, float x, float y, T *rgb, int comp_role, int count);
 
     static void ModifyCoord_Scale (void *data, float *iocoord, int count);
+    static void ModifyCoord_LinearMap (void *data, float *iocoord, int count);
+    static void ModifyCoord_Affinity (void *data, float *iocoord, int count);
 #endif
     /// Image width and height
     int Width, Height;
