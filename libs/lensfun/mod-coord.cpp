@@ -29,6 +29,7 @@
 #include "lensfun.h"
 #include "lensfunprv.h"
 #include <math.h>
+#include <cstdarg>
 #include "windows/mathconstants.h"
 
 void lfModifier::AddCoordCallback (
@@ -1236,7 +1237,7 @@ cbool lf_modifier_add_coord_callback_distortion (
 }
 
 cbool lf_modifier_add_coord_callback_geometry (
-    lfModifier *modifier, lfLensType from, lfLensType to)
+    lfModifier *modifier, lfLensType from, lfLensType to, ...)
 {
     return modifier->AddCoordCallbackGeometry (from, to);
 }

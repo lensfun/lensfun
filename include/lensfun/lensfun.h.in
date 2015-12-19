@@ -2649,9 +2649,14 @@ LF_EXPORT cbool lf_modifier_add_color_callback_vignetting (
 LF_EXPORT cbool lf_modifier_add_coord_callback_distortion (
     lfModifier *modifier, lfLensCalibDistortion *model, cbool reverse);
 
-/** @sa lfModifier::AddCoordCallbackGeometry */
+/** @sa lfModifier::AddCoordCallbackGeometry
+ *
+ * <b>Deprecation notice:</b> In Lensfun prior to 0.3.2, this function accepted
+ * a further argument `focal`.  This is now not needed anymore and deprecated.
+ * You should pass exactly three arguments.
+ */
 LF_EXPORT cbool lf_modifier_add_coord_callback_geometry (
-    lfModifier *modifier, lfLensType from, lfLensType to);
+    lfModifier *modifier, lfLensType from, lfLensType to, ...);
 
 /** @sa lfModifier::AddCoordCallbackScale */
 LF_EXPORT cbool lf_modifier_add_coord_callback_scale (
