@@ -480,6 +480,6 @@ struct lfColorCallbackData : public lfCallbackData
 typedef std::vector<double> dvector;
 typedef std::vector<dvector> matrix;
 
-dvector svd(matrix M);
+dvector svd (matrix M);
 
 #endif /* __LENSFUNPRV_H__ */
