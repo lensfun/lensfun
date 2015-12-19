@@ -2028,7 +2028,7 @@ typedef struct { float angle, dist; } lfPoint;
  * in place.
  *
  * Then, the distortions introduced by the lens are removed (distortion and
- * geometry), perpective is corrected if desired, and an additional scaling
+ * geometry), perspective is corrected if desired, and an additional scaling
  * factor is applied if required.  This operation requires building new image
  * in a new allocated buffer: you cannot modify the image in place, or bad
  * things will happen.
