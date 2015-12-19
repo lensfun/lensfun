@@ -857,6 +857,26 @@ instead.</li>
 <li>It rotates the image so that lines supposed to be vertical or horizonal actually are.</li>
 </ul>
 
+@section pc-d-parameter The d parameter for fine-tuning
+
+\image html pc-d-parameter.svg "Relative tilting angle for different d values"
+
+Very often, a full correction of the perspective is not the artistically best
+option.  Instead, a slight undercorrection leads to a more pleasing result.
+For this and similar purposes, Lensfun offers a fine-tune parameter called “d”.
+It takes values from −1 to +1 with the following meaning:
+
+<table>
+  <tr><th>d</th><th>meaning</th></tr>
+  <tr><td>−1</td><td>no change of the image</td></tr>
+  <tr><td>0</td><td>perfect correction</td></tr>
+  <tr><td>+1</td><td>over-correction by 25%</td></tr>
+</table>
+
+Technically, by increasing d from −1 to 0, the tilting angle is decreased from
+the original value to 0.  Values of d greater than 0 increase the tilting angle
+to the opposite direction up to 25% of the original tilt.
+
 @section pc-tips Tips
 
 <ul>
