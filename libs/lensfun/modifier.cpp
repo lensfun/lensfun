@@ -210,7 +210,7 @@ lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
     // In NormalizedInMillimeters, we un-do all factors of
     // coordinate_correction that refer to the calibration sensor because
     // NormalizedInMillimeters is supposed to transform to image coordinates.
-    NormalizedInMillimeters = sqrt(36.0*36.0 + 24.0*24.0) / 2.0 /
+    NormalizedInMillimeters = sqrt (36.0*36.0 + 24.0*24.0) / 2.0 /
         AspectRatioCorrection / calibration_cropfactor;
 
     // The scale to transform {-size/2 .. 0 .. size/2-1} to {-1 .. 0 .. +1}
