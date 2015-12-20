@@ -2165,6 +2165,9 @@ struct LF_EXPORT lfModifier
         const lfLens *lens, lfPixelFormat format, float focal, float aperture,
         float distance, float scale, lfLensType targeom, int flags, bool reverse);
 
+    bool EnableScaleRotateShift (
+        float scale, float angle, float shift_x, float shift_y);
+
     /**
      * @brief Destroy the modifier object.
      *

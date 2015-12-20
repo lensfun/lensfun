@@ -65,6 +65,50 @@ int lfModifier::Initialize (
     return oflags;
 }
 
+bool lfModifier::EnableScaleRotateShift (
+    float scale, float angle, float shift_x, float shift_y)
+{
+    if (scale == 0)
+    {
+        g_warning ("[Lensfun] scaling by zero: ignore invalid affinity\n");
+        return false;
+    }
+    int priority = 100;
+    if (Reverse)
+    {
+        scale = 1 / scale;
+        angle = - angle;
+        priority = 900;
+    }
+    if (shift_x == 0 && shift_y == 0)
+    {
+        if (angle == 0)
+        {
+            float tmp[] = {scale};
+            AddCoordCallback (ModifyCoord_Scale, priority, tmp, sizeof (tmp));
+        }
+        else
+        {
+            float tmp[] = {scale * cos (angle), scale * sin (angle),
+                           - scale * sin (angle), scale * cos (angle)};
+            AddCoordCallback (ModifyCoord_LinearMap, priority, tmp, sizeof (tmp));
+        }
+    }
+    else
+    {
+        float tmp[] = {scale * cos (angle), scale * sin (angle),
+                       - scale * sin (angle), scale * cos (angle),
+                       - shift_x, - shift_y};
+        if (!Reverse)
+        {
+            tmp [4] = tmp [0] * shift_x + tmp [1] * shift_y;
+            tmp [5] = tmp [2] * shift_x + tmp [3] * shift_y;
+        }
+        AddCoordCallback (ModifyCoord_Affinity, priority, tmp, sizeof (tmp));
+    }
+    return true;
+}
+
 float lfModifier::GetRealFocalLength (const lfLens *lens, float focal)
 {
     lfLensCalibRealFocal real_focal;
