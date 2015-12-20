@@ -60,6 +60,8 @@ int lfModifier::Initialize (
         if (AddCoordCallbackScale (scale, reverse))
             oflags |= LF_MODIFY_SCALE;
 
+    Reverse = reverse;
+
     return oflags;
 }
 

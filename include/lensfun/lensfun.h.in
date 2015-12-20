@@ -2610,6 +2610,8 @@ private:
 
     /// Maximal x and y value in normalized coordinates for the original image
     double MaxX, MaxY;
+    /// Whether the transformations are applied reversely
+    bool Reverse;
 };
 
 #ifdef __cplusplus
