@@ -96,6 +96,15 @@ bool lfModifier::EnableScaleRotateShift (
     }
     else
     {
+        const float sensor_normalized_in_normalized = \
+            sqrt (36.0*36.0 + 24.0*24.0) / 2.0 / Crop / NormalizedInMillimeters;
+        /* The shifts are given in the *image sensor* coordinate system, where
+         * 1 is half-diagonal.  In contrast, the coordinates in the callbacks
+         * are given in so-called normalized coordinates, where 1 is
+         * half-height of the *calibration sensor*.
+         */
+        shift_x *= sensor_normalized_in_normalized;
+        shift_y *= sensor_normalized_in_normalized;
         float tmp[] = {scale * cos (angle), scale * sin (angle),
                        - scale * sin (angle), scale * cos (angle),
                        - shift_x, - shift_y};
