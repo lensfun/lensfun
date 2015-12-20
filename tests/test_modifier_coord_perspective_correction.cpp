@@ -18,8 +18,8 @@ typedef struct
 void mod_setup (lfFixture *lfFix, gconstpointer data)
 {
     lfFix->lens             = new lfLens();
-    lfFix->lens->CropFactor = 1.534f;
-    lfFix->lens->AspectRatio = 1.5f;
+    lfFix->lens->CropFactor = 1.0f;
+    lfFix->lens->AspectRatio = 4.0f / 3.0f;
     lfFix->lens->Type       = LF_RECTILINEAR;
 
     lfFix->img_height = 1000;
@@ -105,10 +105,10 @@ void test_mod_coord_pc_4_points (lfFixture *lfFix, gconstpointer data)
     fvector y (temp_y, temp_y + 4);
     g_assert_true (lfFix->mod->EnablePerspectiveCorrection (x, y, 0));
 
-    float expected_x[] = {194.437012f, 283.340546f, 366.921051f, 445.642181f, 519.915833f,
-                          590.108826f, 656.548401f, 719.527771f, 779.310303f, 836.133484f};
-    float expected_y[] = {-88.5750961f, 45.5079803f, 171.562485f, 290.288574f, 402.307251f,
-                          508.171326f, 608.374451f, 703.358887f, 793.521912f, 879.221619f};
+    float expected_x[] = {194.43692f, 283.340424f, 366.920746f, 445.641846f, 519.915894f,
+                          590.108826f, 656.548462f, 719.527649f, 779.310303f, 836.133362f};
+    float expected_y[] = {-88.5750732f, 45.5079613f, 171.562485f, 290.288574f, 402.307251f,
+                          508.171326f, 608.374451f, 703.358887f, 793.521851f, 879.221619f};
     fvector coords (2);
     for (int i = 0; i < 10; i++)
     {
@@ -153,10 +153,10 @@ void test_mod_coord_pc_8_points (lfFixture *lfFix, gconstpointer data)
     fvector y (temp_y, temp_y + 8);
     g_assert_true (lfFix->mod->EnablePerspectiveCorrection (x, y, 0));
 
-    float expected_x[] = {-111.943428f, 7.50743866f, 129.942276f, 255.474686f, 384.223206f,
-                          516.313354f, 651.877075f, 791.052795f, 933.987122f, 1080.83423f};
-    float expected_y[] = {395.057556f, 422.428436f, 450.482971f, 479.247437f, 508.748901f,
-                          539.015991f, 570.078918f, 601.969543f, 634.721252f, 668.369751f};
+    float expected_x[] = {-111.943428f, 7.50738907f, 129.942307f, 255.474655f, 384.223328f,
+                          516.313416f, 651.877136f, 791.052856f, 933.987305f, 1080.83435f};
+    float expected_y[] = {395.057678f, 422.428528f, 450.483154f, 479.247589f, 508.749023f,
+                          539.01593f, 570.078918f, 601.969543f, 634.721375f, 668.369812f};
     fvector coords (2);
     for (int i = 0; i < 10; i++)
     {
@@ -194,10 +194,10 @@ void test_mod_coord_pc_5_points (lfFixture *lfFix, gconstpointer data)
     fvector y (temp_y, temp_y + 5);
     g_assert_true (lfFix->mod->EnablePerspectiveCorrection (x, y, 0));
 
-    float expected_x[] = {-115.643318f, 22.0951996f, 151.909103f, 274.463257f, 390.349792f,
-                          500.098633f, 604.184753f, 703.0354f, 797.03595f, 886.534668f};
-    float expected_y[] = {209.866226f, 274.712097f, 335.827148f, 393.524597f, 448.082794f,
-                          499.751373f, 548.754272f, 595.292114f, 639.54657f, 681.681641f};
+    float expected_x[] = {-115.643349f, 22.0951462f, 151.909119f, 274.463135f, 390.349792f,
+                          500.098633f, 604.184753f, 703.0354f, 797.03595f, 886.534729f};
+    float expected_y[] = {209.866318f, 274.712097f, 335.827271f, 393.524567f, 448.082886f,
+                          499.751404f, 548.75415f, 595.292114f, 639.546631f, 681.681702f};
     fvector coords (2);
     for (int i = 0; i < 10; i++)
     {
@@ -218,10 +218,10 @@ void test_mod_coord_pc_7_points (lfFixture *lfFix, gconstpointer data)
     fvector y (temp_y, temp_y + 7);
     g_assert_true (lfFix->mod->EnablePerspectiveCorrection (x, y, 0));
 
-    float expected_x[] = {-138.270081f, 3.81350255f, 144.414642f, 283.556305f, 421.260925f,
-                          557.550476f, 692.447327f, 825.971985f, 958.14563f, 1088.98877f};
-    float expected_y[] = {522.336792f, 532.40564f, 542.369263f, 552.229492f, 561.987915f,
-                          571.646057f, 581.205627f, 590.667664f, 600.034119f, 609.306335f};
+    float expected_x[] = {-138.270096f, 3.81354356f, 144.414719f, 283.556183f, 421.260986f,
+                          557.550598f, 692.447144f, 825.971863f, 958.145752f, 1088.98865f};
+    float expected_y[] = {522.336792f, 532.405762f, 542.369385f, 552.229553f, 561.987976f,
+                          571.646179f, 581.205627f, 590.667847f, 600.034363f, 609.306396f};
     fvector coords (2);
     for (int i = 0; i < 10; i++)
     {
