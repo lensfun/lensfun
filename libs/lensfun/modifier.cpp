@@ -272,6 +272,8 @@ lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
     // Used for autoscaling
     MaxX = double (Width) / 2.0 * NormScale;
     MaxY = double (Height) / 2.0 * NormScale;
+
+    Crop = crop;
 }
 
 static void free_callback_list (void *arr)

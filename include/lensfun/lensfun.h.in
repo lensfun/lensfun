@@ -2615,6 +2615,8 @@ private:
     double MaxX, MaxY;
     /// Whether the transformations are applied reversely
     bool Reverse;
+    // Crop factor of the sensor (not any calibration)
+    float Crop;
 };
 
 #ifdef __cplusplus
