@@ -1,13 +1,5 @@
-#include <glib.h>
-
-#include <clocale>
-#include <vector>
 #include <string>
-#include <map>
 #include <limits>
-
-#include <cstdlib>
-#include <cstdio>
 #include <cmath>
 
 #include "lensfun.h"
