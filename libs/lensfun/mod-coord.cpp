@@ -531,8 +531,9 @@ void lfModifier::ModifyCoord_LinearMap (void *data, float *iocoord, int count)
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        iocoord [0] = A11 * iocoord [0] + A12 * iocoord [1];
-        iocoord [1] = A21 * iocoord [0] + A22 * iocoord [1];
+        float old_x = iocoord [0];
+        iocoord [0] = A11 * old_x + A12 * iocoord [1];
+        iocoord [1] = A21 * old_x + A22 * iocoord [1];
     }
 }
 
@@ -548,10 +549,10 @@ void lfModifier::ModifyCoord_Affinity (void *data, float *iocoord, int count)
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        iocoord [0] += b1;
+        float x = iocoord [0] + b1;
         iocoord [1] += b2;
-        iocoord [0] = A11 * iocoord [0] + A12 * iocoord [1];
-        iocoord [1] = A21 * iocoord [0] + A22 * iocoord [1];
+        iocoord [0] = A11 * x + A12 * iocoord [1];
+        iocoord [1] = A21 * x + A22 * iocoord [1];
     }
 }
 
