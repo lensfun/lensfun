@@ -65,7 +65,7 @@ int lfModifier::Initialize (
     return oflags;
 }
 
-bool lfModifier::EnableScaleRotateShift (
+cbool lfModifier::EnableScaleRotateShift (
     float scale, float angle, float shift_x, float shift_y)
 {
     if (scale == 0)
