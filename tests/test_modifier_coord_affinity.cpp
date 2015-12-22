@@ -23,10 +23,10 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
     lfFix->lens->AspectRatio = 4.0f / 3.0f;
     lfFix->lens->Type       = LF_RECTILINEAR;
 
-    lfFix->img_height = 1000;
-    lfFix->img_width  = 1500;
+    lfFix->img_height = 1001;
+    lfFix->img_width  = 1501;
 
-    lfFix->mod = lfModifier::Create (lfFix->lens, 1.534f, lfFix->img_width, lfFix->img_height);
+    lfFix->mod = lfModifier::Create (lfFix->lens, 1.5f, lfFix->img_width, lfFix->img_height);
 
     lfFix->mod->Initialize(lfFix->lens, LF_PF_F32, 50.0f, 2.8f, 1000.0f, 1.0f, LF_RECTILINEAR,
                            0, false);
@@ -73,10 +73,51 @@ void test_mod_coord_affinity_rotation (lfFixture *lfFix, gconstpointer data)
 
     g_assert_true (lfFix->mod->EnableScaleRotateShift (1.0, M_PI_2, 0, 0));
 
-    float expected_x[] = {249.750046f, 349.750031f, 449.750031f, 549.75f, 649.75f,
-                          749.75f, 849.75f, 949.75f, 1049.75f, 1149.75f};
-    float expected_y[] = {1248.75f, 1148.75f, 1048.75f, 948.75f, 848.75f,
-                          748.75f, 648.75f, 548.75f, 448.75f, 348.75f};
+    float expected_x[] = {250.000061f, 350.000031f, 450.0f, 550.0f, 650.0f,
+                          750.0f, 850.0f, 950.0f, 1050.0f, 1150.0f};
+    float expected_y[] = {1250.0f, 1150.0f, 1050.0f, 950.0f, 850.0f,
+                          750.0f, 650.0f, 550.0f, 450.0f, 349.999969f};
+    std::vector<float> coords (2);
+    for (int i = 0; i < 10; i++)
+    {
+        g_assert_true (lfFix->mod->ApplyGeometryDistortion (100.0f * i, 100.0f * i, 1, 1, &coords [0]));
+        g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, epsilon);
+        g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, epsilon);
+    }
+}
+
+void test_mod_coord_affinity_shift (lfFixture *lfFix, gconstpointer data)
+{
+    const float epsilon = std::numeric_limits<float>::epsilon();
+
+    g_assert_true (lfFix->mod->EnableScaleRotateShift (1.0, 0.0, 0.1, 0.1));
+
+    /* The very first coordinate is hypot(1000, 1500) / 2 / 10. */
+    float expected_x[] = {90.1387711f, 190.138763f, 290.138794f, 390.138794f, 490.138763f,
+                          590.138794f, 690.138794f, 790.138794f, 890.138794f, 990.138794f};
+    float expected_y[] = {90.1387863f, 190.138779f, 290.138763f, 390.138794f, 490.138794f,
+                          590.138794f, 690.138794f, 790.138794f, 890.138794f, 990.138794f};
+    std::vector<float> coords (2);
+    for (int i = 0; i < 10; i++)
+    {
+        g_assert_true (lfFix->mod->ApplyGeometryDistortion (100.0f * i, 100.0f * i, 1, 1, &coords [0]));
+        g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, epsilon);
+        g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, epsilon);
+    }
+}
+
+/* Here, I mainly check that shift is executed *before* rotation (in the
+ * direction uncorrected–corrected). */
+void test_mod_coord_affinity_rotation_shift (lfFixture *lfFix, gconstpointer data)
+{
+    const float epsilon = std::numeric_limits<float>::epsilon();
+
+    g_assert_true (lfFix->mod->EnableScaleRotateShift (1.0, M_PI_2, 0.1, 0.1));
+
+    float expected_x[] = {159.861282f, 259.861267f, 359.861206f, 459.861237f, 559.861206f,
+                          659.861206f, 759.861206f, 859.861206f, 959.861206f, 1059.86121f};
+    float expected_y[] = {1159.86133f, 1059.86121f, 959.861206f, 859.861267f, 759.861206f,
+                          659.861206f, 559.861206f, 459.861206f, 359.861206f, 259.861206f};
     std::vector<float> coords (2);
     for (int i = 0; i < 10; i++)
     {
@@ -95,6 +136,10 @@ int main (int argc, char **argv)
 
   g_test_add ("/modifier/coord/affinity/rotation", lfFixture, NULL,
               mod_setup, test_mod_coord_affinity_rotation, mod_teardown);
+  g_test_add ("/modifier/coord/affinity/shift", lfFixture, NULL,
+              mod_setup, test_mod_coord_affinity_shift, mod_teardown);
+  g_test_add ("/modifier/coord/affinity/rotation+shift", lfFixture, NULL,
+              mod_setup, test_mod_coord_affinity_rotation_shift, mod_teardown);
 
   return g_test_run();
 }
