@@ -237,17 +237,18 @@ lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
     ColorCallbacks = g_ptr_array_new ();
     CoordCallbacks = g_ptr_array_new ();
 
-    // Avoid divide overflows on singular cases
-    Width = (width >= 2 ? width : 2);
-    Height = (height >= 2 ? height : 2);
+    // Avoid divide overflows on singular cases.  The "- 1" is due to the fact
+    // that `Width` and `Height` are measured at the pixel centres (they are
+    // actually transformed) instead at their outer rims.
+    Width = double (width >= 2 ? width - 1 : 1);
+    Height = double (height >= 2 ? height - 1 : 1);
 
     // Image "size"
-    float size = float ((Width < Height) ? Width : Height);
-    float image_aspect_ratio = (Width < Height) ?
-        float (Height) / float (Width) : float (Width) / float (Height);
+    double size = Width < Height ? Width : Height;
+    double image_aspect_ratio = Width < Height ? Height / Width : Width / Height;
 
-    float calibration_cropfactor;
-    float calibration_aspect_ratio;
+    double calibration_cropfactor;
+    double calibration_aspect_ratio;
     if (lens)
     {
         calibration_cropfactor = lens->CropFactor;
@@ -257,7 +258,7 @@ lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
         calibration_cropfactor = calibration_aspect_ratio = NAN;
     AspectRatioCorrection = sqrt (calibration_aspect_ratio * calibration_aspect_ratio + 1);
 
-    float coordinate_correction =
+    double coordinate_correction =
         1.0 / sqrt (image_aspect_ratio * image_aspect_ratio + 1) *
         calibration_cropfactor / crop *
         AspectRatioCorrection;
@@ -265,22 +266,22 @@ lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
     // In NormalizedInMillimeters, we un-do all factors of
     // coordinate_correction that refer to the calibration sensor because
     // NormalizedInMillimeters is supposed to transform to image coordinates.
-    NormalizedInMillimeters = sqrt(36.0*36.0 + 24.0*24.0) / 2.0 /
+    NormalizedInMillimeters = sqrt (36.0*36.0 + 24.0*24.0) / 2.0 /
         AspectRatioCorrection / calibration_cropfactor;
 
     // The scale to transform {-size/2 .. 0 .. size/2-1} to {-1 .. 0 .. +1}
-    NormScale = 2.0 / (size - 1) * coordinate_correction;
+    NormScale = 2.0 / size * coordinate_correction;
 
     // The scale to transform {-1 .. 0 .. +1} to {-size/2 .. 0 .. size/2-1}
-    NormUnScale = (size - 1) * 0.5 / coordinate_correction;
+    NormUnScale = size * 0.5 / coordinate_correction;
 
     // Geometric lens center in normalized coordinates
-    CenterX = (Width / size + (lens ? lens->CenterX : 0.0)) * coordinate_correction;
-    CenterY = (Height / size + (lens ? lens->CenterY : 0.0)) * coordinate_correction;
+    CenterX = Width / size * coordinate_correction + (lens ? lens->CenterX : 0.0);
+    CenterY = Height / size * coordinate_correction + (lens ? lens->CenterY : 0.0);
 
     // Used for autoscaling
-    MaxX = double (Width) / 2.0 * NormScale;
-    MaxY = double (Height) / 2.0 * NormScale;
+    MaxX = Width / 2.0 * NormScale;
+    MaxY = Height / 2.0 * NormScale;
 
     Crop = crop;
 }
