@@ -2165,6 +2165,33 @@ struct LF_EXPORT lfModifier
         const lfLens *lens, lfPixelFormat format, float focal, float aperture,
         float distance, float scale, lfLensType targeom, int flags, bool reverse);
 
+    /**
+     * @brief Enables an affine transformation (rotation, scaling, and shift).
+     *
+     * It is important to note that in contrast to the textbook definition of
+     * the affine transformation, the shift is applied first, and then the
+     * scaling/rotation.  This is so that the unit length for the shift is
+     * well-defined.
+     *
+     * If shift and/or rotation is set to zero, a fast code path is used, so
+     * that a pure scaling or a pure scaling+rotation can be executed as fast
+     * as possible.
+     *
+     * @param scale
+     *     The scaling factor.
+     * @param angle
+     *     The angle of rotation, given in radian.  The rotation is performed
+     *     in mathematically positive direction (i.e. anti-clockwise)
+     * @param shift_x
+     *     Shift in x direction (to the right).  The unit of measurement is the
+     *     half-diagonal of the sensor, i.e. the full diagonal has a length
+     *     of 2.
+     * @param shift_y
+     *     Shift in y direction (to the bottom).  The rest is the same as for
+     *     shift_x.
+     * @return
+     *     Whether the enabling was successful.
+     */
     cbool EnableScaleRotateShift (
         float scale, float angle, float shift_x, float shift_y);
 
