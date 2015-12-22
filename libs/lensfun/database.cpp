@@ -1396,7 +1396,7 @@ void lfDatabase::AddLens (lfLens *lens)
 
 lfDatabase *lf_db_new ()
 {
-    return lfDatabase::Create ();
+    return new lfDatabase ();
 }
 
 void lf_db_destroy (lfDatabase *db)
@@ -1407,6 +1407,11 @@ void lf_db_destroy (lfDatabase *db)
 lfError lf_db_load (lfDatabase *db)
 {
     return db->Load ();
+}
+
+cbool lf_db_load_directory (lfDatabase *db, const char *dirname)
+{
+    return db->LoadDirectory (dirname);
 }
 
 lfError lf_db_load_file (lfDatabase *db, const char *filename)

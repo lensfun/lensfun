@@ -221,6 +221,9 @@ struct LF_EXPORT lfMount
      */
     lfMount ();
 
+    /**
+     * Copy constructor
+     */
     lfMount (const lfMount &other);
 
     /**
@@ -500,11 +503,11 @@ enum lfDistortionModel
      * Everything is measured in units of the focal length of the lens.
      *
      * @f[\begin{aligned}
-     * x_d &= x_u (1 + k_1 r_u^2 + k_2 r_u^4 + k_3 r_u^6) + 2x(k_4y + k_5x) + k_5 r_u^2, \\
-     * y_d &= y_u (1 + k_1 r_u^2 + k_2 r_u^4 + k_3 r_u^6) + 2y(k_4y + k_5x) + k_4 r_u^2,
+     * x_d &= x_u (1 + k_1 r_u^2 + k_2 r_u^4 + k_3 r_u^6) + 2x_u(k_4y_u + k_5x_u) + k_5 r_u^2, \\
+     * y_d &= y_u (1 + k_1 r_u^2 + k_2 r_u^4 + k_3 r_u^6) + 2y_u(k_4y_u + k_5x_u) + k_4 r_u^2,
      * \end{aligned}
      * @f]
-     * with \f$r_u = \sqrt{x_u^2 + y_u^2}\f$.  The corresponding XML attributes
+     * with \f$r_u^2 = x_u^2 + y_u^2\f$.  The corresponding XML attributes
      * are called “k1”, “k2”, “k3”, “k4”, and “k5”.  They default to 0.  Note
      * that Adobe's fisheye model is also covered by this by setting the lens
      * type to "fisheye" and using only the \f$k_1\f$ and \f$k_2\f$ parameters.
@@ -849,11 +852,10 @@ C_TYPEDEF (enum, lfLensType)
  * @brief Lens data.
  * Unknown fields are set to NULL or 0.
  *
- * To create a new lens object, use the lfLens::Create() or lf_lens_new()
- * functions. After that fill the fields for which you have data, and
- * invoke the lfLens::Check or lf_lens_check() function, which will
- * check if existing data is enough and will fill some fields using
- * information extracted from lens name.
+ * To manually create a new lens object, fill the fields for which you 
+ * have data, and invoke the lfLens::Check() or lf_lens_check() function, 
+ * which will check if existing data is enough and will automatically fill
+ * some fields using information extracted from lens name.
  */
 struct LF_EXPORT lfLens
 {
@@ -1414,9 +1416,6 @@ enum
  * (see lfDatabase::HomeDataDir), where it will override any definitions
  * from the system-wide database.
  *
- * You cannot create and destroy objects of this type directly; instead
- * use the lf_db_new() / lf_db_destroy() functions or the
- * lfDatabase::Create() / lfDatabase::Destroy() methods.
  */
 struct LF_EXPORT lfDatabase
 {
@@ -1431,20 +1430,24 @@ struct LF_EXPORT lfDatabase
     ~lfDatabase ();
 
     /**
-     * @brief Create a new empty database object.
+     * @brief Create a new empty database object. This function is deprecated and
+     * will be removed in the future. Use the standard constructor instead.
      */
-    static lfDatabase *Create ();
+    DEPRECATED static lfDatabase *Create ();
 
     /**
      * @brief Destroy the database object and free all loaded data.
+     *
+     * This function is deprecated and will be removed in the future. 
+     * Please use the standard destructor instead.
      */
-    void Destroy ();
+    DEPRECATED void Destroy ();
 
     /**
-     * @brief Load all XML files from a directory.
+     * @brief Open and parse all XML files in a given directory.
      *
-     * This is an internal function used by lfDatabase::Load ().  It ignores
-     * all errors.
+     * Returns true if valid Lensfun XML data was found and loaded
+     * sucessfully.
      * @param dirname
      *     The directory to be read.
      * @return
@@ -1455,7 +1458,8 @@ struct LF_EXPORT lfDatabase
     /**
      * @brief Find and load the lens database.
      * 
-     * See @ref dbsearch for more information.
+     * This function automatically tries to determine the location of the 
+     * lens database on the system. See @ref dbsearch for more information.
      * @return
      *     LF_NO_ERROR or a error code.
      */
@@ -1746,6 +1750,9 @@ LF_EXPORT lfError lf_db_load (lfDatabase *db);
 /** @sa lfDatabase::Load(const char *) */
 LF_EXPORT lfError lf_db_load_file (lfDatabase *db, const char *filename);
 
+/** @sa lfDatabase::LoadDirectory(const char *) */
+LF_EXPORT cbool lf_db_load_directory (lfDatabase *db, const char *dirname);
+
 /** @sa lfDatabase::Load(const char *, const char *, size_t) */
 LF_EXPORT lfError lf_db_load_data (lfDatabase *db, const char *errcontext,
                                    const char *data, size_t data_size);
@@ -1984,7 +1991,7 @@ typedef struct { float angle, dist; } lfPoint;
  * a lens object, which contains a set of correction models, and
  * create a modifier object from it.
  *
- * Normally, you will create an instance with lfModifier::Create and initilise
+ * Normally, you will create an instance of lfModifier and initialise
  * immediately it with lfModifier::Initialize, passing a valid lens object in
  * both cases.  Users of the plain C interface will use lf_modifier_new() and
  * lf_modifier_initialize() instead.
@@ -2031,7 +2038,8 @@ typedef struct { float angle, dist; } lfPoint;
  * geometry), perspective is corrected if desired, and an additional scaling
  * factor is applied if required.  This operation requires building new image
  * in a new allocated buffer: you cannot modify the image in place, or bad
- * things will happen.
+ * things will happen.  Note that Lensfun does not provide pixel interpolation
+ * routines.  You have to implement the lookup in the original image yourself.
  *
  * And finally, in the subpixel distortion stage, application corrects
  * transversal chromatic aberrations. For every target pixel coordinate the
@@ -2065,7 +2073,7 @@ struct LF_EXPORT lfModifier
 {
 #ifdef __cplusplus
     /**
-     * @brief Create a empty image modifier object.
+     * @brief Create an empty image modifier object.
      *
      * Before using the returned object you must add the required
      * modifier callbacks (see methods AddXXXCallback below).
@@ -2089,13 +2097,16 @@ struct LF_EXPORT lfModifier
     ~lfModifier ();
 
     /**
-     * @brief Create a empty image modifier object.
+     * @brief Create an empty image modifier object.
      *
      * Before using the returned object you must add the required
      * modifier callbacks (see methods AddXXXCallback below).
      *
      * You must provide the original image width/height even if you
      * plan to correct just a part of the image.
+     *
+     * This function is deprecated and will be removed in the future. 
+     * Please use the standard constructor instead.
      *
      * @param lens
      *     For all modifications, the crop factor, aspect ratio, and
@@ -2111,7 +2122,7 @@ struct LF_EXPORT lfModifier
      * @return
      *     A new empty image modifier object.
      */
-    static lfModifier *Create (const lfLens *lens, float crop, int width, int height);
+    DEPRECATED static lfModifier *Create (const lfLens *lens, float crop, int width, int height);
 
     /**
      * @brief Initialize the process of correcting aberrations in a image.
@@ -2129,7 +2140,7 @@ struct LF_EXPORT lfModifier
      * @param lens
      *     The lens which aberrations you want to correct in a image.
      *     It should be the same lens object as the one passed to
-     *     lfModifier::Create.
+     *     the lfModifier constructor.
      * @param format
      *     Pixel format of your image (bits per pixel component)
      * @param focal
@@ -2215,9 +2226,10 @@ struct LF_EXPORT lfModifier
     /**
      * @brief Destroy the modifier object.
      *
-     * This is the only correct way to destroy a lfModifier object.
+     * This function is deprecated and will be removed in the future. 
+     * Please use the standard destructor instead.
      */
-    void Destroy ();
+    DEPRECATED void Destroy ();
 
     /**
      * @brief Add a user-defined callback to the coordinate correction chain.
@@ -2629,8 +2641,9 @@ private:
 
     static void ModifyCoord_Scale (void *data, float *iocoord, int count);
 #endif
-    /// Image width and height
-    int Width, Height;
+    /// Coordinate grid width and height; these are the original image
+    /// dimensions minus one.
+    double Width, Height;
     /// The center of distortions in normalized coordinates
     double CenterX, CenterY;
     /// The coefficients for conversion to and from normalized coords

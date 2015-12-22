@@ -199,7 +199,8 @@ Note however, that Adobe files tend to undercorrect distortion and vignetting.
 In particular, vignetting is corrected only partially.  Moreover, since recent
 Adobe products do not correct TCA based on LCP files anymore, TCA coverage is
 bad for newer lenses.  And last but not least, automatic lens detection is much
-more reliable with genuine Lensfun datasets.  Thus, instead of using LCP
+more reliable with genuine Lensfun datasets.  In Lensfun's official database,
+no profiles using “acm” models are accepted.  Thus, instead of using LCP
 profiles, please consider <a
 href="http://wilson.bronger.org/calibration">uploading RAW images suitable for
 calibration</a>.  This way, you do not only benefit from increased quality, but
