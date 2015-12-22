@@ -225,7 +225,7 @@ float lfModifier::GetAutoScale (bool reverse)
     // 5 6 7
     lfPoint point [8];
 
-    point [1].angle = atan2 (float (Height), float (Width));
+    point [1].angle = atan2 (Height, Width);
     point [3].angle = M_PI - point [1].angle;
     point [5].angle = M_PI + point [1].angle;
     point [7].angle = 2 * M_PI - point [1].angle;
@@ -236,7 +236,7 @@ float lfModifier::GetAutoScale (bool reverse)
     point [6].angle = float (M_PI * 3.0 / 2.0);
 
     point [1].dist = point [3].dist = point [5].dist = point [7].dist =
-        sqrt (float (square (Width) + square (Height))) * 0.5 * NormScale;
+        sqrt (pow (Width, 2) + pow (Height, 2)) * 0.5 * NormScale;
     point [0].dist = point [4].dist = Width * 0.5 * NormScale;
     point [2].dist = point [6].dist = Height * 0.5 * NormScale;
 

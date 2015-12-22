@@ -185,13 +185,12 @@ lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
     // Avoid divide overflows on singular cases.  The "- 1" is due to the fact
     // that `Width` and `Height` are measured at the pixel centres (they are
     // actually transformed) instead at their outer rims.
-    Width = (width >= 2 ? width - 1 : 1);
-    Height = (height >= 2 ? height - 1 : 1);
+    Width = double (width >= 2 ? width - 1 : 1);
+    Height = double (height >= 2 ? height - 1 : 1);
 
     // Image "size"
-    double size = double ((Width < Height) ? Width : Height);
-    double image_aspect_ratio = (Width < Height) ?
-        double (Height) / double (Width) : double (Width) / double (Height);
+    double size = Width < Height ? Width : Height;
+    double image_aspect_ratio = Width < Height ? Height / Width : Width / Height;
 
     double calibration_cropfactor;
     double calibration_aspect_ratio;
@@ -226,8 +225,8 @@ lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
     CenterY = (Height / size + (lens ? lens->CenterY : 0.0)) * coordinate_correction;
 
     // Used for autoscaling
-    MaxX = double (Width) / 2.0 * NormScale;
-    MaxY = double (Height) / 2.0 * NormScale;
+    MaxX = Width / 2.0 * NormScale;
+    MaxY = Height / 2.0 * NormScale;
 }
 
 static void free_callback_list (void *arr)

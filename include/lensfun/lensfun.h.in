@@ -2582,8 +2582,9 @@ private:
 
     static void ModifyCoord_Scale (void *data, float *iocoord, int count);
 #endif
-    /// Image width and height
-    int Width, Height;
+    /// Coordinate grid width and height; these are the original image
+    /// dimensions minus one.
+    double Width, Height;
     /// The center of distortions in normalized coordinates
     double CenterX, CenterY;
     /// The coefficients for conversion to and from normalized coords
