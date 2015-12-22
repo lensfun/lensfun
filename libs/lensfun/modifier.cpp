@@ -221,8 +221,8 @@ lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
     NormUnScale = size * 0.5 / coordinate_correction;
 
     // Geometric lens center in normalized coordinates
-    CenterX = (Width / size + (lens ? lens->CenterX : 0.0)) * coordinate_correction;
-    CenterY = (Height / size + (lens ? lens->CenterY : 0.0)) * coordinate_correction;
+    CenterX = Width / size * coordinate_correction + (lens ? lens->CenterX : 0.0);
+    CenterY = Height / size * coordinate_correction + (lens ? lens->CenterY : 0.0);
 
     // Used for autoscaling
     MaxX = Width / 2.0 * NormScale;
