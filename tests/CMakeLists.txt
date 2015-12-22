@@ -29,5 +29,9 @@ ADD_EXECUTABLE(test_modifier_coord_geometry test_modifier_coord_geometry.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_coord_geometry lensfun ${COMMON_LIBS})
 ADD_TEST(Modifier_coord_geometry test_modifier_coord_geometry)
 
+ADD_EXECUTABLE(test_modifier_coord_tiny_image test_modifier_coord_tiny_image.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_coord_tiny_image lensfun ${COMMON_LIBS})
+ADD_TEST(Modifier_coord_tiny_image test_modifier_coord_tiny_image)
+
 FIND_PACKAGE(PythonInterp REQUIRED)
 ADD_TEST(NAME Database_integrity COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/check_database/check_database.py ../../data/db)
