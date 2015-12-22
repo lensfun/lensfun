@@ -189,12 +189,12 @@ lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
     Height = (height >= 2 ? height - 1 : 1);
 
     // Image "size"
-    float size = float ((Width < Height) ? Width : Height);
-    float image_aspect_ratio = (Width < Height) ?
-        float (Height) / float (Width) : float (Width) / float (Height);
+    double size = double ((Width < Height) ? Width : Height);
+    double image_aspect_ratio = (Width < Height) ?
+        double (Height) / double (Width) : double (Width) / double (Height);
 
-    float calibration_cropfactor;
-    float calibration_aspect_ratio;
+    double calibration_cropfactor;
+    double calibration_aspect_ratio;
     if (lens)
     {
         calibration_cropfactor = lens->CropFactor;
@@ -204,7 +204,7 @@ lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
         calibration_cropfactor = calibration_aspect_ratio = NAN;
     AspectRatioCorrection = sqrt (calibration_aspect_ratio * calibration_aspect_ratio + 1);
 
-    float coordinate_correction =
+    double coordinate_correction =
         1.0 / sqrt (image_aspect_ratio * image_aspect_ratio + 1) *
         calibration_cropfactor / crop *
         AspectRatioCorrection;
