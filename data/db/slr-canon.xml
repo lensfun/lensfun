@@ -4391,4 +4391,27 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 8-15mm f/4L Fisheye USM</model>
+        <model lang="de">Canon EF 8-15mm f/4L Fischauge USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <type>equisolid</type>
+        <calibration>
+            <!-- Taken with Canon 5D Mark III -->
+            <!-- Measured with three overlapping images -->
+            <distortion model="ptlens" focal="8" a="0.3872" b="-0.71595" c="0.4026" />
+            <distortion model="ptlens" focal="10" a="-0.0544" b="0.1525" c="-0.13653" />
+            <distortion model="ptlens" focal="12" a="-0.03221" b="0.11073" c="-0.11648" />
+            <distortion model="ptlens" focal="14" a="-0.00184" b="0.02215" c="-0.03559" />
+            <distortion model="ptlens" focal="15" a="-0.03003" b="0.11503" c="-0.13108" />
+            <tca model="poly3" focal="8" br="-0.0001287" vr="1.0002094" bb="-0.0001928" vb="1.0004344" />
+            <tca model="poly3" focal="10" br="-0.0000833" vr="1.0002316" bb="-0.0001865" vb="1.0004452" />
+            <tca model="poly3" focal="12" br="-0.0000267" vr="1.0001820" bb="-0.0001625" vb="1.0004520" />
+            <tca model="poly3" focal="14" br="-0.0000639" vr="1.0001923" bb="-0.0001071" vb="1.0003814" />
+            <tca model="poly3" focal="15" br="-0.0000591" vr="1.0001947" bb="0.0000426" vb="1.0002589" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
