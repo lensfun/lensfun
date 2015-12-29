@@ -23,12 +23,18 @@
 
 7. Collect all <calibration> elements of one lens model in one <lens> entry.
 
+8. Make mount implicit for compact cameras (link <lens> to <camera> directly).
+
+9. Add informative "camera" attribute to <calibration>.
+
 Manual postprocessing necessary:
 
 1. Some lenses may have a too big <min-crop-factor>.  (For example, FF lenses
    for which Lensfun only had got APS-C calibrations yet.)
 
 2. Alias entries must be merged.
+
+3. Merge multiple camera entries for multiple crop factors in one.
 """
 
 import sys, glob, os
