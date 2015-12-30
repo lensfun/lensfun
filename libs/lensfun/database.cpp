@@ -11,6 +11,8 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <glib/gstdio.h>
+#include <math.h>
+#include "windows/mathconstants.h"
 
 #ifdef PLATFORM_WINDOWS
 #  include <io.h>
@@ -312,6 +314,7 @@ static void _xml_start_element (GMarkupParseContext *context,
 
         lfLensCalibDistortion dc;
         memset (&dc, 0, sizeof (dc));
+        dc.RealFocal = -1;
         for (i = 0; attribute_names [i]; i++)
             if (!strcmp (attribute_names [i], "model"))
             {
@@ -336,6 +339,8 @@ static void _xml_start_element (GMarkupParseContext *context,
             }
             else if (!strcmp (attribute_names [i], "focal"))
                 dc.Focal = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "real-focal"))
+                dc.RealFocal = atof (attribute_values [i]);
             else if (!strcmp (attribute_names [i], "a") ||
                      !strcmp (attribute_names [i], "k1"))
                 dc.Terms [0] = atof (attribute_values [i]);
@@ -357,6 +362,11 @@ static void _xml_start_element (GMarkupParseContext *context,
                              attribute_names [i], element_name);
                 return;
             }
+        if (!(dc.RealFocal > 0))
+            if (dc.Model == LF_DIST_MODEL_PTLENS)
+                dc.RealFocal = dc.Focal * (1 - dc.Terms [0] - dc.Terms [1] - dc.Terms [2]);
+            else if (dc.Model == LF_DIST_MODEL_POLY3)
+                dc.RealFocal = dc.Focal * (1 - dc.Terms [0]);
 
         pd->lens->AddCalibDistortion (&dc);
     }
@@ -956,6 +966,8 @@ char *lfDatabase::Save (const lfMount *const *mounts,
 
                     _lf_xml_printf (output, "\t\t\t<distortion focal=\"%g\" ",
                                     cd->Focal);
+                    if (cd->RealFocal > 0)
+                    _lf_xml_printf (output, "real-focal=\"%g\" ", cd->RealFocal);
                     switch (cd->Model)
                     {
                         case LF_DIST_MODEL_POLY3:

@@ -1041,6 +1041,8 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
     };
     float spline_dist [4] = { -FLT_MAX, -FLT_MAX, FLT_MAX, FLT_MAX };
     lfDistortionModel dm = LF_DIST_MODEL_NONE;
+    enum RealFocalLengthDefined { UNKNOWN, DEFINED, NOT_DEFINED };
+    RealFocalLengthDefined real_focal_length_defined = UNKNOWN;
 
     memset (spline, 0, sizeof (spline));
     for (int i = 0; CalibDistortion [i]; i++)
@@ -1048,6 +1050,15 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
         lfLensCalibDistortion *c = CalibDistortion [i];
         if (c->Model == LF_DIST_MODEL_NONE)
             continue;
+
+        if (!(c->RealFocal > 0) && real_focal_length_defined == DEFINED ||
+            c->RealFocal > 0 && real_focal_length_defined == NOT_DEFINED)
+        {
+            g_warning ("[Lensfun] lens %s/%s has only partially defined real focal lengths\n",
+                       Maker, Model);
+            continue;
+        }
+        else real_focal_length_defined = c->RealFocal > 0 ? DEFINED : NOT_DEFINED;
 
         // Take into account just the first encountered lens model
         if (dm == LF_DIST_MODEL_NONE)
@@ -1088,6 +1099,10 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
 
     float t = (focal - spline [1]->Focal) / (spline [2]->Focal - spline [1]->Focal);
 
+    res.RealFocal = _lf_interpolate (
+        spline [0] ? spline [0]->RealFocal : FLT_MAX,
+        spline [1]->RealFocal, spline [2]->RealFocal,
+        spline [3] ? spline [3]->RealFocal : FLT_MAX, t);
     for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
     {
         float values [5] = {spline [0] ? spline [0]->Focal : NAN, spline [1]->Focal,

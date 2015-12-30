@@ -523,8 +523,19 @@ struct lfLensCalibDistortion
 {
     /** @brief The type of distortion model used */
     enum lfDistortionModel Model;
-    /** @brief Focal length in mm at which this calibration data was taken */
+    /** @brief Nominal focal length in mm at which this calibration data was
+     * taken */
     float Focal;
+    /** @brief Real focal length in mm for this nominal focal length
+     *
+     * Non-positive values denote an unknown real focal length.
+     *
+     * Only for Hugin-based distortion models, there is a default, which is the
+     * nominal focal length multiplied by the "d" parameter (i.e. linear in r)
+     * in the Hugin polynomial.  This is because it is this focal length that
+     * Hugin assumes in its fit.
+     */
+    float RealFocal;
     /** @brief Distortion coefficients, dependent on model (a,b,c or k1 or k1,k2) */
     float Terms [5];
 };
