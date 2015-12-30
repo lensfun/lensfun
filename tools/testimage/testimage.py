@@ -193,8 +193,7 @@ except AttributeError:
 
 def get_hugin_correction():
     """Get the correction factor for the focal length.  This is necessary because
-    in the Hugin distortion models PTLens and Poly3, the focal length is
-    wrongly defined.
+    the Hugin distortion models PTLens and Poly3 menipulate the focal length.
     """
     if distortion_element is not None:
         model = distortion_element.attrib["model"]
