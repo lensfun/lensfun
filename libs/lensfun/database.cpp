@@ -209,10 +209,17 @@ static void _xml_start_element (GMarkupParseContext *context,
                 version = atoi (attribute_values [i]);
             else
                 goto bad_attr;
+        if (version < LF_MIN_DATABASE_VERSION)
+        {
+            g_set_error (error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
+                         "Database version is %d, but oldest supported is only %d!\n",
+                         version, LF_MIN_DATABASE_VERSION);
+            return;
+        }
         if (version > LF_MAX_DATABASE_VERSION)
         {
             g_set_error (error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
-                         "Database version is %d, but supported is only %d!\n",
+                         "Database version is %d, but newest supported is only %d!\n",
                          version, LF_MAX_DATABASE_VERSION);
             return;
         }
