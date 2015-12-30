@@ -229,17 +229,15 @@ def get_real_focal_length():
         else:
             assert lens_type == "rectilinear"
             result = half_width_in_millimeters / tan(fov / 2)
-        return result * hugin_correction
+        return result
     else:
-        # Interpret the nominal focal length Hugin-compatibly; it's guesswork
-        # and a fallback anyway.
-        return focal_length * hugin_correction
+        return focal_length
 real_focal_length = get_real_focal_length()
 
 # This factor converts Lensfun coordinates into real-world coordinates on the
 # camera sensor, in units of the focal length.
 normalized_in_focal_lengths = \
-    sqrt(36**2 + 24**2) / 2 / sqrt(lens_aspect_ratio**2 + 1) / lens_cropfactor / (real_focal_length / hugin_correction)
+    sqrt(36**2 + 24**2) / 2 / sqrt(lens_aspect_ratio**2 + 1) / lens_cropfactor / real_focal_length
 
 def get_projection_function():
     projection = None
@@ -477,7 +475,7 @@ class Image:
 
     def create_grid(self, distortion, projection, tca_red, tca_blue):
         full_frame_diagonal = sqrt(36**2 + 24**2)
-        diagonal_by_focal_length = full_frame_diagonal / 2 / camera_cropfactor / (real_focal_length / hugin_correction)
+        diagonal_by_focal_length = full_frame_diagonal / 2 / camera_cropfactor / real_focal_length
         def apply_lens_projection(x, y):
             r_vignetting = sqrt(x**2 + y**2) / self.aspect_ratio_correction
             ϑ = atan(r_vignetting * diagonal_by_focal_length)
@@ -494,6 +492,11 @@ class Image:
                     x, y = apply_lens_projection(x, y)
 
                 # 2. Distortion on top of that
+                # 2a. Undo the scaling in Hugin-based distortion models,
+                # so that the focal length is still correct
+                x /= hugin_correction
+                y /= hugin_correction
+                # 2b. Apply distortion model
                 r = sqrt(x**2 + y**2) * self.ar_plus_cf_correction
                 r_distorted = distortion(r)
                 distortion_scaling = r_distorted / r
