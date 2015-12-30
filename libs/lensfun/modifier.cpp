@@ -107,7 +107,7 @@ float lfModifier::GetRealFocalLength (const lfLens *lens, float focal)
 
             default:
                 // This should never happen
-                return NAN;
+                result = NAN;
         }
         return result;
     }
