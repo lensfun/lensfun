@@ -246,4 +246,18 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Samsung</maker>
+        <model>Samsung NX 10mm f/3.5 Fisheye</model>
+        <model lang="de">Samsung NX 10mm f/3.5 Fischauge</model>
+        <mount>Samsung NX</mount>
+        <cropfactor>1.531</cropfactor>
+        <type>equisolid</type>
+        <calibration>
+            <!-- Taken with Samsung NX30 -->
+            <distortion model="ptlens" focal="10" a="-0.0459" b="0.13431" c="-0.10789" />
+            <tca model="poly3" focal="10" br="0.0000529" vr="1.0002370" bb="-0.0000076" vb="1.0003018" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
