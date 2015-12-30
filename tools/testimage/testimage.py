@@ -229,8 +229,10 @@ def get_real_focal_length():
             assert lens_type == "rectilinear"
             result = half_width_in_millimeters / tan(fov / 2)
         return result
+    elif distortion_element is not None and "real-focal" in distortion_element.attrib:
+        return get_float_attribute(distortion_element, "real-focal")
     else:
-        return focal_length
+        return focal_length * hugin_correction
 real_focal_length = get_real_focal_length()
 
 # This factor converts Lensfun coordinates into real-world coordinates on the
