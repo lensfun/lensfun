@@ -123,7 +123,7 @@ float lfModifier::GetRealFocalLength (const lfLens *lens, float focal)
 
             default:
                 // This should never happen
-                return NAN;
+                result = NAN;
         }
     }
     /* It may be surprising that get_hugin_focal_correction is applied even if
