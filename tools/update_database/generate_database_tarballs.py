@@ -136,6 +136,11 @@ class From2To1(Converter):
     from_version = 2
     to_version = 1
 
+    def __call__(self, tree):
+        super().__call__(tree)
+        for acm_model in tree.findall("//calibration/*[@model='acm']"):
+            acm_model.getparent().remove(acm_model)
+
 
 output_path = os.path.join(args.output_path, "db")
 shutil.rmtree(output_path, ignore_errors=True)
