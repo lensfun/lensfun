@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""Transforms a version-1 database into a version-2 database.
+"""Transforms a version-1 database into a version-2 database.  Eventually, this
+will be used as a helper for the user to transform their local XML files to the
+new DB version format.  Until then, only parts of it will run at a time,
+because we must do the transition of the core DB step by step.
 
 1. Assign unique IDs to mounts, cameras, and lenses.  All numbers < 1000 are
    reserved for private/local use.  Anything which is not a positive integer
@@ -12,9 +15,9 @@
 3. Move the <cropfactor> element out of <lens> into the <calibration> element
    as an attribute.
 
-4. Introduce a <min-crop-factor> element in <lens> which denotes the maximal
-   image circle the lens can illuminate.  Populate this field with the minimal
-   calibration cropfactor found.
+4. Introduce a <min-crop-factor> element in <lens> which denotes the minimal
+   crop factor this lens is specified for.  Populate this field with the
+   minimal calibration cropfactor found.
 
 5. Move the <aspect-ratio> element out of <lens> into the <calibration> element
    as an attribute.
@@ -23,9 +26,7 @@
 
 7. Collect all <calibration> elements of one lens model in one <lens> entry.
 
-8. Make mount implicit for compact cameras (link <lens> to <camera> directly).
-
-9. Add informative "camera" attribute to <calibration>.
+8. Add informative "camera" attribute to <calibration>.
 
 Manual postprocessing necessary:
 
