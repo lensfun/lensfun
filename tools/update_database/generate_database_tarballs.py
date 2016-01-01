@@ -30,9 +30,9 @@ args = parser.parse_args()
 
 class XMLFile:
 
-    def __init__(self, filepath):
+    def __init__(self, root, filepath):
         self.filepath = filepath
-        self.tree = etree.parse(os.path.join(root, "lensfun-git/data/db", filepath))
+        self.tree = etree.parse(os.path.join(root, filepath))
 
     @staticmethod
     def indent(tree, level=0):
@@ -71,7 +71,7 @@ def fetch_xml_files():
         subprocess.check_call(["git", "pull"], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
     os.chdir(root + "lensfun-git/data/db")
     xml_filenames = glob.glob("*.xml")
-    xml_files = set(XMLFile(filename) for filename in xml_filenames)
+    xml_files = set(XMLFile(os.getcwd(), filename) for filename in xml_filenames)
     timestamp = int(subprocess.check_output(["git", "log", "-1", '--format=%ad', "--date=raw", "--"] + xml_filenames). \
                     decode("utf-8").split()[0])
     return xml_files, timestamp
