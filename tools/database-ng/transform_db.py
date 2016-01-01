@@ -6,9 +6,9 @@ will be used as a helper for the user to transform their local XML files to the
 new DB version format.  Until then, only parts of it will run at a time,
 because we must do the transition of the core DB step by step.
 
-1. Assign unique IDs to mounts, cameras, and lenses.  All numbers < 1000 are
-   reserved for private/local use.  Anything which is not a positive integer
-   (this includes 0) is an invalid ID.
+1. Assign unique IDs to cameras, and lenses.  All numbers < 1000 are reserved
+   for private/local use.  Anything which is not a positive integer (this
+   includes 0) is an invalid ID.
 
 2. <aperture> is renamed to <f-stop>.
 
@@ -46,15 +46,10 @@ def bump_up_version(root):
     root.attrib["version"] = "2"
 
 
-mount_ids = {999}
 camera_ids = {999}
 lens_ids = {999}
 
 def assign_ids(root):
-    for child in root.xpath("mount"):
-        next_id = max(mount_ids) + 1
-        child.attrib["id"] = str(next_id)
-        mount_ids.add(next_id)
     for child in root.xpath("camera"):
         next_id = max(camera_ids) + 1
         child.attrib["id"] = str(next_id)
