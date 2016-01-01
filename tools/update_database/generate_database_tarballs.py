@@ -88,7 +88,7 @@ class Converter:
                 del root.attrib["version"]
         else:
             root.attrib["version"] = str(self.to_version)
-        
+
 converters = []
 current_version = 0
 def converter(converter_class):
@@ -96,6 +96,7 @@ def converter(converter_class):
     current_version = max(current_version, converter_class.from_version)
     converters.append(converter_class())
     return converter_class
+
 
 @converter
 class From1To0(Converter):
@@ -128,6 +129,13 @@ class From1To0(Converter):
             self.round_aps_c_cropfactor(lens)
         for camera in tree.findall("camera"):
             self.round_aps_c_cropfactor(camera)
+
+
+@converter
+class From2To1(Converter):
+    from_version = 2
+    to_version = 1
+
 
 output_path = os.path.join(args.output_path, "db")
 shutil.rmtree(output_path, ignore_errors=True)
