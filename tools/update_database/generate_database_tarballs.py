@@ -140,6 +140,10 @@ class From2To1(Converter):
         super().__call__(tree)
         for acm_model in tree.findall("//calibration/*[@model='acm']"):
             acm_model.getparent().remove(acm_model)
+        for distortion in tree.findall("//calibration/distortion[@real-focal]"):
+            etree.SubElement(distortion.getparent(), "real-focal-length", {"focal": distortion.get("focal"),
+                                                                           "real-focal": distortion.get("real-focal")})
+            del distortion.attrib["real-focal"]
 
 
 output_path = os.path.join(args.output_path, "db")
