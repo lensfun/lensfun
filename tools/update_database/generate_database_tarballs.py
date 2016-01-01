@@ -17,7 +17,7 @@ downloaded manually by people who use Lensfun <= 0.2.8.
 """
 
 import glob, os, subprocess, calendar, json, time, tarfile, io, argparse, shutil
-from xml.etree import ElementTree
+from lxml import etree
 
 root = "/tmp/"
 
@@ -32,7 +32,7 @@ class XMLFile:
 
     def __init__(self, filepath):
         self.filepath = filepath
-        self.tree = ElementTree.parse(os.path.join(root, "lensfun-git/data/db", filepath))
+        self.tree = etree.parse(os.path.join(root, "lensfun-git/data/db", filepath))
 
     @staticmethod
     def indent(tree, level=0):
@@ -54,7 +54,7 @@ class XMLFile:
         tarinfo = tarfile.TarInfo(self.filepath)
         root = self.tree.getroot()
         self.indent(root)
-        content = ElementTree.tostring(root, encoding="utf-8")
+        content = etree.tostring(root, encoding="utf-8")
         tarinfo.size = len(content)
         tarinfo.mtime = timestamp
         tar.addfile(tarinfo, io.BytesIO(content))
