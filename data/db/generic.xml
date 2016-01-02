@@ -2,8 +2,7 @@
     The meaning of this file is to provide some generic lenses that can be used
     to correct or simulate geometric distortions for specific types of lenses.
     It does not provide (obviously) any calibration data.
--->
-<lensdatabase version="2">
+--><lensdatabase version="2">
 
     <mount>
         <name>Generic</name>
@@ -58,7 +57,7 @@
         <model>Crop-factor 1.0 (Full Frame)</model>
         <model lang="de">Crop-Faktor 1.0 (Kleinbildformat)</model>
         <mount>Generic</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
     </camera>
 
     <camera>
@@ -112,7 +111,7 @@
         <model>Crop-factor 2.0 (Four-Thirds)</model>
         <model lang="de">Crop-Faktor 2.0 (Four-Thirds)</model>
         <mount>Generic</mount>
-        <cropfactor>2.0</cropfactor>
+        <cropfactor>2</cropfactor>
     </camera>
 
     <lens>
@@ -121,7 +120,7 @@
         <model>Rectilinear 10-1000mm f/1.0</model>
         <model lang="de">Rektilinear 10-1000mm f/1.0</model>
         <mount>Generic</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
         <type>rectilinear</type>
     </lens>
 
@@ -131,7 +130,7 @@
         <model>Fisheye 8-20mm f/1.0</model>
         <model lang="de">Fischauge 8-20mm f/1.0</model>
         <mount>Generic</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
         <type>fisheye</type>
     </lens>
 
@@ -141,7 +140,7 @@
         <model>Panoramic 10-100mm f/1.0</model>
         <model lang="de">Panoramaobjektiv 10-100mm f/1.0</model>
         <mount>Generic</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
         <type>panoramic</type>
     </lens>
 

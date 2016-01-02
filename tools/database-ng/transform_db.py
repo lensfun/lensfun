@@ -1,20 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""Transforms a version-1 database into a version-2 database.
+"""Transforms a version-1 database into a version-2 database.  Eventually, this
+will be used as a helper for the user to transform their local XML files to the
+new DB version format.  Until then, only parts of it will run at a time,
+because we must do the transition of the core DB step by step.
 
-1. Assign unique IDs to mounts, cameras, and lenses.  All numbers < 1000 are
-   reserved for private/local use.  Anything which is not a positive integer
-   (this includes 0) is an invalid ID.
+1. Assign unique IDs to cameras, and lenses.  All numbers < 1000 are reserved
+   for private/local use.  Anything which is not a positive integer (this
+   includes 0) is an invalid ID.
 
 2. <aperture> is renamed to <f-stop>.
 
 3. Move the <cropfactor> element out of <lens> into the <calibration> element
    as an attribute.
 
-4. Introduce a <min-crop-factor> element in <lens> which denotes the maximal
-   image circle the lens can illuminate.  Populate this field with the minimal
-   calibration cropfactor found.
+4. Introduce a <min-crop-factor> element in <lens> which denotes the minimal
+   crop factor this lens is specified for.  Populate this field with the
+   minimal calibration cropfactor found.
 
 5. Move the <aspect-ratio> element out of <lens> into the <calibration> element
    as an attribute.
@@ -23,9 +26,7 @@
 
 7. Collect all <calibration> elements of one lens model in one <lens> entry.
 
-8. Make mount implicit for compact cameras (link <lens> to <camera> directly).
-
-9. Add informative "camera" attribute to <calibration>.
+8. Add informative "camera" attribute to <calibration>.
 
 Manual postprocessing necessary:
 
@@ -45,15 +46,20 @@ def bump_up_version(root):
     root.attrib["version"] = "2"
 
 
-mount_ids = {999}
+def move_real_focal_length(root):
+    for real_focal_length in root.xpath("//real-focal-length"):
+        focal = real_focal_length.get("focal")
+        real_focal = real_focal_length.get("real-focal")
+        calibration = real_focal_length.getparent()
+        distortion = calibration.xpath("distortion[@focal='{}']".format(focal))[0]
+        distortion.set("real-focal", real_focal)
+        calibration.remove(real_focal_length)
+
+
 camera_ids = {999}
 lens_ids = {999}
 
 def assign_ids(root):
-    for child in root.xpath("mount"):
-        next_id = max(mount_ids) + 1
-        child.attrib["id"] = str(next_id)
-        mount_ids.add(next_id)
     for child in root.xpath("camera"):
         next_id = max(camera_ids) + 1
         child.attrib["id"] = str(next_id)
@@ -115,4 +121,4 @@ for path in glob.glob(os.path.join(sys.argv[1], "*.xml")):
     copy_cropfactor_and_move_aspect_ratio(root)
     min_cropfactor(root)
 
-    tree.write(open(os.path.join(sys.argv[2], os.path.basename(path)), "wb"))
+    tree.write(open(os.path.join(sys.argv[2], os.path.basename(path)), "wb"), encoding="utf-8")

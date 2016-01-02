@@ -9,14 +9,14 @@
         <cropfactor>1.534</cropfactor>
         <calibration>
             <!-- Taken with NEX-C3 -->
-            <distortion model="poly3" focal="30" k1="-0.00329" />
-            <tca model="poly3" focal="30" br="-0.0000696" vr="1.0003379" bb="0.0001188" vb="0.9998102" />
-            <vignetting model="pa" focal="30" aperture="2.8" distance="10" k1="-0.7946" k2="0.5729" k3="-0.1713" />
-            <vignetting model="pa" focal="30" aperture="2.8" distance="1000" k1="-0.7946" k2="0.5729" k3="-0.1713" />
-            <vignetting model="pa" focal="30" aperture="4" distance="10" k1="-0.3097" k2="-0.3089" k3="0.2307" />
-            <vignetting model="pa" focal="30" aperture="4" distance="1000" k1="-0.3097" k2="-0.3089" k3="0.2307" />
-            <vignetting model="pa" focal="30" aperture="5.6" distance="10" k1="-0.6172" k2="0.5891" k3="-0.2868" />
-            <vignetting model="pa" focal="30" aperture="5.6" distance="1000" k1="-0.6172" k2="0.5891" k3="-0.2868" />
+            <distortion model="poly3" focal="30" k1="-0.00329"/>
+            <tca model="poly3" focal="30" br="-0.0000696" vr="1.0003379" bb="0.0001188" vb="0.9998102"/>
+            <vignetting model="pa" focal="30" aperture="2.8" distance="10" k1="-0.7946" k2="0.5729" k3="-0.1713"/>
+            <vignetting model="pa" focal="30" aperture="2.8" distance="1000" k1="-0.7946" k2="0.5729" k3="-0.1713"/>
+            <vignetting model="pa" focal="30" aperture="4" distance="10" k1="-0.3097" k2="-0.3089" k3="0.2307"/>
+            <vignetting model="pa" focal="30" aperture="4" distance="1000" k1="-0.3097" k2="-0.3089" k3="0.2307"/>
+            <vignetting model="pa" focal="30" aperture="5.6" distance="10" k1="-0.6172" k2="0.5891" k3="-0.2868"/>
+            <vignetting model="pa" focal="30" aperture="5.6" distance="1000" k1="-0.6172" k2="0.5891" k3="-0.2868"/>
         </calibration>
     </lens>
 
@@ -25,11 +25,11 @@
         <model>Sigma 30mm f/2.8 EX DN</model>
         <mount>Sony E</mount>
         <mount>Micro 4/3 System</mount>
-        <cropfactor>2.0</cropfactor>
+        <cropfactor>2</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <!-- Taken with OMD E-M5 -->
-            <distortion model="poly3" focal="30" k1="-0.00454" />
+            <distortion model="poly3" focal="30" k1="-0.00454"/>
         </calibration>
     </lens>
 
@@ -38,11 +38,11 @@
         <model>Sigma 19mm f/2.8 EX DN</model>
         <mount>Sony E</mount>
         <mount>Micro 4/3 System</mount>
-        <cropfactor>2.0</cropfactor>
+        <cropfactor>2</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <!-- Taken with OMD E-M5 -->
-            <distortion model="ptlens" focal="19" a="0.00475" b="-0.01706" c="0.00298" />
+            <distortion model="ptlens" focal="19" a="0.00475" b="-0.01706" c="0.00298"/>
         </calibration>
     </lens>
 
@@ -54,8 +54,8 @@
         <cropfactor>1.534</cropfactor>
         <calibration>
             <!-- Taken with Sony A6000 -->
-            <distortion model="ptlens" focal="19" a="0.02766" b="-0.0877" c="0.06882" />
-            <tca model="poly3" focal="19" br="-0.0000466" vr="1.0003817" bb="0.0000346" vb="1.0000194" />
+            <distortion model="ptlens" focal="19" a="0.02766" b="-0.0877" c="0.06882"/>
+            <tca model="poly3" focal="19" br="-0.0000466" vr="1.0003817" bb="0.0000346" vb="1.0000194"/>
         </calibration>
     </lens>
 
@@ -68,9 +68,9 @@
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <!-- Taken with OMD E-M5 -->
-            <distortion model="poly3" focal="60" k1="0.00275" />
+            <distortion model="poly3" focal="60" k1="0.00275"/>
             <!-- No measurable TCA -->
-            <tca model="poly3" focal="60" />
+            <tca model="poly3" focal="60"/>
         </calibration>
     </lens>
 
@@ -79,30 +79,30 @@
         <model>Sigma 19mm f/2.8 DN</model>
         <mount>Micro 4/3 System</mount>
         <mount>Sony E</mount>
-        <cropfactor>2.0</cropfactor>
+        <cropfactor>2</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <!-- Taken with OMD E-PL3 -->
-            <distortion model="poly3" focal="19" k1="-0.00656" />
-            <tca model="poly3" focal="19" br="0.0000179" vr="1.0004833" bb="0.0000497" vb="0.9999659" />
-            <vignetting model="pa" focal="19" aperture="2.8" distance="10" k1="-0.8505" k2="0.7338" k3="-0.3257" />
-            <vignetting model="pa" focal="19" aperture="2.8" distance="1000" k1="-0.8505" k2="0.7338" k3="-0.3257" />
-            <vignetting model="pa" focal="19" aperture="3.2" distance="10" k1="-0.8111" k2="0.5574" k3="-0.2042" />
-            <vignetting model="pa" focal="19" aperture="3.2" distance="1000" k1="-0.8111" k2="0.5574" k3="-0.2042" />
-            <vignetting model="pa" focal="19" aperture="3.5" distance="10" k1="-0.4141" k2="-0.2053" k3="0.2060" />
-            <vignetting model="pa" focal="19" aperture="3.5" distance="1000" k1="-0.4141" k2="-0.2053" k3="0.2060" />
-            <vignetting model="pa" focal="19" aperture="4" distance="10" k1="-0.2906" k2="-0.2445" k3="0.1612" />
-            <vignetting model="pa" focal="19" aperture="4" distance="1000" k1="-0.2906" k2="-0.2445" k3="0.1612" />
-            <vignetting model="pa" focal="19" aperture="4.5" distance="10" k1="-0.3708" k2="0.0713" k3="-0.0506" />
-            <vignetting model="pa" focal="19" aperture="4.5" distance="1000" k1="-0.3708" k2="0.0713" k3="-0.0506" />
-            <vignetting model="pa" focal="19" aperture="5" distance="10" k1="-0.4144" k2="0.1900" k3="-0.0941" />
-            <vignetting model="pa" focal="19" aperture="5" distance="1000" k1="-0.4144" k2="0.1900" k3="-0.0941" />
-            <vignetting model="pa" focal="19" aperture="5.6" distance="10" k1="-0.3772" k2="0.0907" k3="-0.0155" />
-            <vignetting model="pa" focal="19" aperture="5.6" distance="1000" k1="-0.3772" k2="0.0907" k3="-0.0155" />
-            <vignetting model="pa" focal="19" aperture="6.3" distance="10" k1="-0.3456" k2="0.0248" k3="0.0258" />
-            <vignetting model="pa" focal="19" aperture="6.3" distance="1000" k1="-0.3456" k2="0.0248" k3="0.0258" />
-            <vignetting model="pa" focal="19" aperture="22" distance="10" k1="-0.4123" k2="0.1070" k3="-0.0016" />
-            <vignetting model="pa" focal="19" aperture="22" distance="1000" k1="-0.4123" k2="0.1070" k3="-0.0016" />
+            <distortion model="poly3" focal="19" k1="-0.00656"/>
+            <tca model="poly3" focal="19" br="0.0000179" vr="1.0004833" bb="0.0000497" vb="0.9999659"/>
+            <vignetting model="pa" focal="19" aperture="2.8" distance="10" k1="-0.8505" k2="0.7338" k3="-0.3257"/>
+            <vignetting model="pa" focal="19" aperture="2.8" distance="1000" k1="-0.8505" k2="0.7338" k3="-0.3257"/>
+            <vignetting model="pa" focal="19" aperture="3.2" distance="10" k1="-0.8111" k2="0.5574" k3="-0.2042"/>
+            <vignetting model="pa" focal="19" aperture="3.2" distance="1000" k1="-0.8111" k2="0.5574" k3="-0.2042"/>
+            <vignetting model="pa" focal="19" aperture="3.5" distance="10" k1="-0.4141" k2="-0.2053" k3="0.2060"/>
+            <vignetting model="pa" focal="19" aperture="3.5" distance="1000" k1="-0.4141" k2="-0.2053" k3="0.2060"/>
+            <vignetting model="pa" focal="19" aperture="4" distance="10" k1="-0.2906" k2="-0.2445" k3="0.1612"/>
+            <vignetting model="pa" focal="19" aperture="4" distance="1000" k1="-0.2906" k2="-0.2445" k3="0.1612"/>
+            <vignetting model="pa" focal="19" aperture="4.5" distance="10" k1="-0.3708" k2="0.0713" k3="-0.0506"/>
+            <vignetting model="pa" focal="19" aperture="4.5" distance="1000" k1="-0.3708" k2="0.0713" k3="-0.0506"/>
+            <vignetting model="pa" focal="19" aperture="5" distance="10" k1="-0.4144" k2="0.1900" k3="-0.0941"/>
+            <vignetting model="pa" focal="19" aperture="5" distance="1000" k1="-0.4144" k2="0.1900" k3="-0.0941"/>
+            <vignetting model="pa" focal="19" aperture="5.6" distance="10" k1="-0.3772" k2="0.0907" k3="-0.0155"/>
+            <vignetting model="pa" focal="19" aperture="5.6" distance="1000" k1="-0.3772" k2="0.0907" k3="-0.0155"/>
+            <vignetting model="pa" focal="19" aperture="6.3" distance="10" k1="-0.3456" k2="0.0248" k3="0.0258"/>
+            <vignetting model="pa" focal="19" aperture="6.3" distance="1000" k1="-0.3456" k2="0.0248" k3="0.0258"/>
+            <vignetting model="pa" focal="19" aperture="22" distance="10" k1="-0.4123" k2="0.1070" k3="-0.0016"/>
+            <vignetting model="pa" focal="19" aperture="22" distance="1000" k1="-0.4123" k2="0.1070" k3="-0.0016"/>
         </calibration>
     </lens>
 

@@ -43,7 +43,7 @@
         <cropfactor>6.4</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="2.5" a="-0.07664" b="0.21934" c="-0.10671" />
+            <distortion model="ptlens" focal="2.5" a="-0.07664" b="0.21934" c="-0.10671"/>
         </calibration>
     </lens>
 
@@ -57,8 +57,8 @@
         <type>equisolid</type>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="5" a="0.02707" b="-0.10021" c="-0.09787" />
-            <tca model="poly3" focal="5" vr="1.0002" vb="1.0007" />
+            <distortion model="ptlens" focal="5" a="0.02707" b="-0.10021" c="-0.09787"/>
+            <tca model="poly3" focal="5" vr="1.0002" vb="1.0007"/>
         </calibration>
     </lens>
 
@@ -72,7 +72,7 @@
         <type>equisolid</type>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="3" a="0.03183" b="-0.11592" c="0" />
+            <distortion model="ptlens" focal="3" a="0.03183" b="-0.11592" c="0"/>
         </calibration>
     </lens>
 
@@ -91,8 +91,7 @@
             <!--real-focal-length focal="5" real-focal="2.5" />
             <distortion model="ptlens" focal="5" a="0.0525" b="-0.1258" c="0.15228" /-->
             <!-- Measured with a single image, assuming the same FOV as above -->
-            <real-focal-length focal="5" real-focal="2.61" />
-            <distortion model="ptlens" focal="5" a="0.05109" b="-0.12092" c="0.10955" />
+            <distortion model="ptlens" focal="5" a="0.05109" b="-0.12092" c="0.10955" real-focal="2.61"/>
         </calibration>
     </lens>
 
