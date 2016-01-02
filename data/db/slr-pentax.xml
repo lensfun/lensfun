@@ -265,7 +265,7 @@
         <mount>Pentax KAF2</mount>
         <cropfactor>1.523</cropfactor>
     </camera>
-    
+
     <camera>
         <maker>Pentax</maker>
         <model>Pentax K-S2</model>
@@ -273,7 +273,7 @@
         <mount>Pentax KAF2</mount>
         <cropfactor>1.534</cropfactor>
     </camera>
-     
+
     <camera>
         <maker>Pentax</maker>
         <model>Pentax K-S1</model>
@@ -327,22 +327,22 @@
     </lens>
 
     <lens>
-	    <maker>Pentax</maker>
-	    <model>smc Pentax-DA 18-55mm f/3.5-5.6 AL</model>
-            <!-- FixMe: According to
-                 <http://en.wikipedia.org/wiki/Pentax_DA_18-55mm_lens>, Samsung
-                 D-XENON 18-55mm 1:3.5-5.6 AL is an alias. -->
-	    <focal min="18" max="55"/>
-	    <aperture min="3.5" max="40"/>
-	    <mount>Pentax KAF2</mount>
-	    <!-- Average crop factor of Pentax APS-C cameras -->
+        <maker>Pentax</maker>
+        <model>smc Pentax-DA 18-55mm f/3.5-5.6 AL</model>
+        <!-- FixMe: According to
+             <http://en.wikipedia.org/wiki/Pentax_DA_18-55mm_lens>, Samsung
+             D-XENON 18-55mm 1:3.5-5.6 AL is an alias. -->
+        <focal min="18" max="55"/>
+        <aperture min="3.5" max="40"/>
+        <mount>Pentax KAF2</mount>
+        <!-- Average crop factor of Pentax APS-C cameras -->
         <cropfactor>1.53</cropfactor>
-	    <calibration>
-	        <distortion focal="18" model="ptlens" a="0.00606571" b="-0.0251409" c="-0.00216764"/>
-	        <distortion focal="24" model="ptlens" a="0.00100173" b="-0.0115495" c="0.00286152"/>
-	        <distortion focal="35" model="ptlens" a="-8.27771e-05" b="0.000563308" c="-0.000657665"/>
-	        <distortion focal="45" model="ptlens" a="0.00340219" b="-0.0072762" c="0.00763624"/>
-	        <distortion focal="55" model="ptlens" a="-0.000442312" b="0.00460551" c="-0.00158524"/>
+        <calibration>
+            <distortion focal="18" model="ptlens" a="0.00606571" b="-0.0251409" c="-0.00216764"/>
+            <distortion focal="24" model="ptlens" a="0.00100173" b="-0.0115495" c="0.00286152"/>
+            <distortion focal="35" model="ptlens" a="-8.27771e-05" b="0.000563308" c="-0.000657665"/>
+            <distortion focal="45" model="ptlens" a="0.00340219" b="-0.0072762" c="0.00763624"/>
+            <distortion focal="55" model="ptlens" a="-0.000442312" b="0.00460551" c="-0.00158524"/>
             <tca model="poly3" focal="18" br="-0.0000871" vr="1.0004828" bb="-0.0000263" vb="1.0001433"/>
             <tca model="poly3" focal="20" br="-0.0006746" cr="0.0017899" vr="0.9997634" bb="0.0007446" cb="-0.0011695" vb="1.0005314"/>
             <tca model="poly3" focal="21" br="-0.0012575" cr="0.0022420" vr="1.0000624" bb="-0.0004657" cb="0.0009917" vb="0.9995849"/>
@@ -425,10 +425,10 @@
     </lens>
 
     <lens>
-      <maker>Pentax</maker>
-      <!-- FixMe: The following is an artificial compound name.  It should be
-           refactored in aliases.  The optical equivalence is documented on
-           <http://en.wikipedia.org/wiki/Pentax_DA_18-55mm_lens>. -->
+        <maker>Pentax</maker>
+        <!-- FixMe: The following is an artificial compound name.  It should be
+             refactored in aliases.  The optical equivalence is documented on
+             <http://en.wikipedia.org/wiki/Pentax_DA_18-55mm_lens>. -->
         <model>smc Pentax-DA 18-55mm f/3.5-5.6 AL II L WR</model>
         <model lang="en">smc Pentax-DA 18-55mm f/3.5-5.6 AL II/L/WR</model>
         <mount>Pentax KAF2</mount>
@@ -838,7 +838,7 @@
             <vignetting model="pa" focal="35" aperture="16" distance="10" k1="-0.2197" k2="0.0419" k3="-0.0017"/>
             <vignetting model="pa" focal="35" aperture="16" distance="1000" k1="-0.2197" k2="0.0419" k3="-0.0017"/>
             <vignetting model="pa" focal="35" aperture="22" distance="10" k1="-0.2166" k2="0.0363" k3="0.0025"/>
-            <vignetting model="pa" focal="35" aperture="22" distance="1000" k1="-0.2166" k2="0.0363" k3="0.0025"/>            
+            <vignetting model="pa" focal="35" aperture="22" distance="1000" k1="-0.2166" k2="0.0363" k3="0.0025"/>
         </calibration>
     </lens>
 
@@ -994,12 +994,12 @@
         <!-- Average crop factor of Pentax APS-C cameras -->
         <cropfactor>1.53</cropfactor>
         <calibration>
-              <distortion model="poly3" focal="28" k1="-0.00843"/>
-              <tca model="poly3" focal="28.0" br="0.0000578" cr="-0.0001581" vr="1.0005750" bb="-0.0000046" cb="0.0001367" vb="0.9996466"/>
-              <vignetting model="pa" focal="28" aperture="11" distance="100" k1="-0.38602" k2="1.0657" k3="-0.86036"/>
-              <vignetting model="pa" focal="28" aperture="8" distance="100" k1="-0.41027" k2="0.96832" k3="-0.79405"/>
-              <vignetting model="pa" focal="28" aperture="5.6" distance="100" k1="-0.38055" k2="1.06408" k3="-0.92936"/>
-              <vignetting model="pa" focal="28" aperture="2.8" distance="100" k1="-0.87866" k2="1.00009" k3="-0.5801"/>
+            <distortion model="poly3" focal="28" k1="-0.00843"/>
+            <tca model="poly3" focal="28.0" br="0.0000578" cr="-0.0001581" vr="1.0005750" bb="-0.0000046" cb="0.0001367" vb="0.9996466"/>
+            <vignetting model="pa" focal="28" aperture="11" distance="100" k1="-0.38602" k2="1.0657" k3="-0.86036"/>
+            <vignetting model="pa" focal="28" aperture="8" distance="100" k1="-0.41027" k2="0.96832" k3="-0.79405"/>
+            <vignetting model="pa" focal="28" aperture="5.6" distance="100" k1="-0.38055" k2="1.06408" k3="-0.92936"/>
+            <vignetting model="pa" focal="28" aperture="2.8" distance="100" k1="-0.87866" k2="1.00009" k3="-0.5801"/>
         </calibration>
     </lens>
 
@@ -1161,10 +1161,10 @@
     </lens>
 
     <lens>
-	    <maker>Pentax</maker>
-	    <model>smc Pentax-A 28mm 1:2.8</model>	    
-	    <aperture min="2.8" max="22"/>
-	    <mount>Pentax KA</mount>
+        <maker>Pentax</maker>
+        <model>smc Pentax-A 28mm 1:2.8</model>
+        <aperture min="2.8" max="22"/>
+        <mount>Pentax KA</mount>
         <cropfactor>1.538</cropfactor>
         <calibration>
             <!-- Taken with Pentax K20D -->

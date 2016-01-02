@@ -1,17 +1,17 @@
 <lensdatabase version="2">
 
-   <lens>
-	    <maker>Samyang</maker>
-	    <model>Samyang 7.5mm f/3.5 UMC Fish-eye MFT</model>
-	    <model lang="de">Samyang 7.5mm f/3.5 UMC Fischauge MFT</model>
-	    <focal value="7.5"/>
-	    <aperture min="3.5" max="22"/>
-	    <mount>Micro 4/3 System</mount>
-	    <type>fisheye</type>
-	    <cropfactor>2</cropfactor>
-            <aspect-ratio>4:3</aspect-ratio>
-	    <calibration>
-	      <distortion focal="7.5" model="ptlens" a="-0.0133116" b="0.00822383" c="-0.0180619"/>
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang 7.5mm f/3.5 UMC Fish-eye MFT</model>
+        <model lang="de">Samyang 7.5mm f/3.5 UMC Fischauge MFT</model>
+        <focal value="7.5"/>
+        <aperture min="3.5" max="22"/>
+        <mount>Micro 4/3 System</mount>
+        <type>fisheye</type>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion focal="7.5" model="ptlens" a="-0.0133116" b="0.00822383" c="-0.0180619"/>
             <tca model="poly3" focal="7.5" br="-0.0001120" vr="1.0003181" bb="0.0000315" vb="0.9999183"/>
             <vignetting model="pa" focal="7.5" aperture="3.5" distance="0.09" k1="-0.6898" k2="0.5629" k3="-0.2798"/>
             <vignetting model="pa" focal="7.5" aperture="3.5" distance="0.18" k1="-1.0041" k2="1.6690" k3="-0.9910"/>
@@ -33,7 +33,7 @@
             <vignetting model="pa" focal="7.5" aperture="22" distance="0.18" k1="-0.9166" k2="1.2514" k3="-0.6183"/>
             <vignetting model="pa" focal="7.5" aperture="22" distance="0.54" k1="-0.9866" k2="1.2614" k3="-0.5698"/>
             <vignetting model="pa" focal="7.5" aperture="22" distance="1000" k1="-1.0589" k2="1.5841" k3="-0.8397"/>
-	    </calibration>
+        </calibration>
     </lens>
 
     <lens>

@@ -398,18 +398,18 @@
     </lens>
 
     <lens>
-            <maker>Tamron</maker>
-            <model>Tamron SP AF 90mm f/2.8 Di Macro 1:1</model>
-            <focal value="90"/>
-            <aperture min="2.8" max="32"/>
-            <mount>Nikon F AF</mount>
+        <maker>Tamron</maker>
+        <model>Tamron SP AF 90mm f/2.8 Di Macro 1:1</model>
+        <focal value="90"/>
+        <aperture min="2.8" max="32"/>
+        <mount>Nikon F AF</mount>
         <mount>Canon EF</mount>
         <mount>Pentax KAF2</mount>
         <mount>Sony Alpha</mount>
         <!-- Average crop factor of non-Canon APS-C cameras -->
         <cropfactor>1.53</cropfactor>
-            <calibration>
-                <distortion focal="90" model="ptlens" a="-0.00126953" b="0.00404399" c="-0.0027782"/>
+        <calibration>
+            <distortion focal="90" model="ptlens" a="-0.00126953" b="0.00404399" c="-0.0027782"/>
             <tca model="poly3" focal="90" br="-0.0000152" vr="1.0000471" bb="-0.0000061" vb="0.9998509"/>
             <vignetting model="pa" focal="90" aperture="2.8" distance="0.29" k1="0.0414" k2="-0.1677" k3="0.1199"/>
             <vignetting model="pa" focal="90" aperture="2.8" distance="0.6" k1="-0.0576" k2="-0.2887" k3="0.2065"/>
@@ -432,7 +432,7 @@
             <vignetting model="pa" focal="90" aperture="32" distance="1.5" k1="-0.0777" k2="0.0766" k3="-0.0380"/>
             <vignetting model="pa" focal="90" aperture="32" distance="1000" k1="-0.0557" k2="0.0276" k3="-0.0118"/>
             <real-focal-length focal="90" real-focal="88.35"/>
-            </calibration>
+        </calibration>
     </lens>
 
     <lens>

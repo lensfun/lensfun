@@ -551,7 +551,7 @@
             <tca model="poly3" focal="35" vr="1.0000943" vb="1.0000318"/>
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Nikon</maker>
         <model>Nikon AF-S DX Zoom-Nikkor 16-85mm f/3.5-5.6G ED VR</model>
@@ -620,7 +620,7 @@
             <vignetting model="pa" focal="85" aperture="36" distance="1000" k1="-0.0937" k2="-0.0561" k3="0.0275"/>
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Nikon</maker>
         <model>Nikon AF-S Zoom-Nikkor 17-35mm f/2.8D IF-ED</model>
@@ -995,7 +995,7 @@
             <vignetting model="pa" focal="105" aperture="36" distance="10" k1="-0.2340" k2="0.1934" k3="-0.0849"/>
             <vignetting model="pa" focal="105" aperture="36" distance="1000" k1="-0.2340" k2="0.1934" k3="-0.0849"/>
         </calibration>
-    </lens>    
+    </lens>
 
     <lens>
         <maker>Nikon</maker>
@@ -1339,7 +1339,7 @@
             <distortion model="poly3" focal="200" k1="0.007103"/>
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Nikon</maker>
         <model>Nikon AF-S Zoom-Nikkor 28-300mm f/3.5-5.6G ED VR</model>
@@ -1851,7 +1851,6 @@
         </calibration>
     </lens>
 
-
     <lens>
         <maker>Nikon</maker>
         <model>Nikon AF Nikkor 24mm f/2.8D</model>
@@ -1984,7 +1983,7 @@
             <distortion model="poly3" focal="35" k1="-0.005"/>
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Nikon</maker>
         <model>Nikon AF-S DX Nikkor 35mm f/1.8G</model>
@@ -2007,7 +2006,7 @@
             <vignetting model="pa" focal="35" aperture="22" distance="1000" k1="-0.1143" k2="-0.0162" k3="0.0186"/>
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Nikon</maker>
         <model>Nikon AF Nikkor 35mm f/2.0D</model>
@@ -2062,8 +2061,9 @@
             <distortion model="poly3" focal="50" k1="-0.0025"/>
         </calibration>
     </lens>
-    
-    <lens> <!-- Submitted by Ed Gomez -->
+
+    <lens>
+        <!-- Submitted by Ed Gomez -->
         <maker>Nikon</maker>
         <model>Nikon AF Nikkor 50mm f/1.8D</model>
         <model lang="en">Nikkor AF 50mm f/1.8D</model>
@@ -2076,7 +2076,7 @@
         <calibration>
             <distortion model="ptlens" focal="50.0" a="-0.00255" b="0.00841" c="-0.01107"/>
         </calibration>
-    </lens>    
+    </lens>
 
     <lens>
         <maker>Nikon</maker>
@@ -2433,7 +2433,6 @@
             <distortion model="ptlens" focal="50" a="0.0042" b="-0.01715" c="0.00585"/>
         </calibration>
     </lens>
-
 
     <lens>
         <maker>Nikon</maker>
@@ -2881,7 +2880,7 @@
         <mount>Nikon F AF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-          <!-- Taken with Nikon D600 -->
+            <!-- Taken with Nikon D600 -->
             <distortion model="ptlens" focal="28" a="0.0075" b="-0.02022" c="-0.02162"/>
             <distortion model="ptlens" focal="35" a="0.00186" b="-0.00107" c="-0.02354"/>
             <distortion model="ptlens" focal="44" a="0.00037" b="0.009" c="-0.02965"/>
@@ -2973,7 +2972,8 @@
         <type>equisolid</type>
         <calibration>
             <!-- Taken with Nikon D7000 -->
-            <real-focal-length focal="10.5" real-focal="10.31"/>  <!-- Taken with panorama -->
+            <!-- Taken with panorama -->
+            <real-focal-length focal="10.5" real-focal="10.31"/>
             <distortion model="ptlens" focal="10.5" a="0.03347" b="-0.0964" c="0.08113"/>
             <tca model="poly3" focal="10.5" br="0.0001472" vr="1.0001888" bb="-0.0000942" vb="1.0006018"/>
         </calibration>

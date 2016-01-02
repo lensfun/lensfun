@@ -246,14 +246,12 @@
             <tca model="poly3" focal="50" br="-0.0000401" vr="0.9998721" bb="-0.0001637" vb="1.0001459"/>
             <tca model="poly3" focal="75" br="0.0000190" vr="0.9997211" bb="-0.0002164" vb="1.0000605"/>
             <tca model="poly3" focal="105" br="0.0001368" vr="0.9992983" bb="-0.0002385" vb="1.0001643"/>
-
             <distortion model="ptlens" focal="16" a="0.030" b="-0.080" c="0.026"/>
             <distortion model="ptlens" focal="22" a="0.011" b="-0.024" c="0.009"/>
             <distortion model="ptlens" focal="35" a="0.006" b="-0.003" c="-0.002"/>
             <distortion model="ptlens" focal="50" a="0.003" b="-0.003" c="0.010"/>
             <distortion model="ptlens" focal="70" a="0.002" b="0.003" c="0.003"/>
             <distortion model="ptlens" focal="105" a="-0.001" b="0.010" c="-0.004"/>
-
             <vignetting model="pa" focal="16" aperture="3.5" distance="5" k1="-0.288470" k2="0.374699" k3="-0.523764"/>
             <vignetting model="pa" focal="16" aperture="4" distance="5" k1="-0.330235" k2="0.497285" k3="-0.583721"/>
             <vignetting model="pa" focal="16" aperture="4.5" distance="5" k1="-0.336407" k2="0.552643" k3="-0.575818"/>
@@ -552,14 +550,13 @@
         </calibration>
     </lens>
 
-
     <lens>
-      <maker>Sony</maker>
+        <maker>Sony</maker>
         <model>Sony AF DT 55-200mm f/4-5.6 SAM (SAL55200-2)</model>
         <model lang="en">Sony AF DT 55-200mm f/4-5.6 SAM</model>
-	    <mount>Sony Alpha</mount>
-	    <type>rectilinear</type>
-	    <focal min="55" max="200"/>
+        <mount>Sony Alpha</mount>
+        <type>rectilinear</type>
+        <focal min="55" max="200"/>
         <!-- Average crop factor of Sony APS-C cameras -->
         <cropfactor>1.527</cropfactor>
         <calibration>
@@ -568,11 +565,11 @@
             <distortion model="poly3" focal="100" k1="0.01073"/>
             <distortion model="poly3" focal="135" k1="0.00952"/>
             <distortion model="poly3" focal="200" k1="0.00871"/>
-	        <tca model="poly3" focal="55" br="0.0000101" vr="1.0001643" bb="0.0001108" vb="0.9999451"/>
-	        <tca model="poly3" focal="70" br="-0.0000150" vr="1.0001222" bb="0.0000510" vb="0.9998586"/>
-	        <tca model="poly3" focal="100" br="-0.0000128" vr="0.9998724" bb="-0.0000023" vb="0.9997716"/>
-	        <tca model="poly3" focal="135" br="-0.0000979" vr="0.9998131" bb="-0.0001018" vb="0.9997999"/>
-	        <tca model="poly3" focal="200" br="-0.0001877" vr="0.9997167" bb="-0.0000221" vb="0.9996858"/>
+            <tca model="poly3" focal="55" br="0.0000101" vr="1.0001643" bb="0.0001108" vb="0.9999451"/>
+            <tca model="poly3" focal="70" br="-0.0000150" vr="1.0001222" bb="0.0000510" vb="0.9998586"/>
+            <tca model="poly3" focal="100" br="-0.0000128" vr="0.9998724" bb="-0.0000023" vb="0.9997716"/>
+            <tca model="poly3" focal="135" br="-0.0000979" vr="0.9998131" bb="-0.0001018" vb="0.9997999"/>
+            <tca model="poly3" focal="200" br="-0.0001877" vr="0.9997167" bb="-0.0000221" vb="0.9996858"/>
             <!-- Taken with Sony Alpha 77 -->
             <vignetting model="pa" focal="55" aperture="4" distance="10" k1="-0.1376" k2="-0.7425" k3="0.4487"/>
             <vignetting model="pa" focal="55" aperture="4" distance="1000" k1="-0.1376" k2="-0.7425" k3="0.4487"/>
@@ -616,7 +613,6 @@
             <vignetting model="pa" focal="200" aperture="32" distance="1000" k1="-0.1259" k2="0.0395" k3="-0.0237"/>
         </calibration>
     </lens>
-
 
     <!-- This is a full-frame lens. -->
     <lens>
