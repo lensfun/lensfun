@@ -65,8 +65,6 @@ int lfModifier::Initialize (
 
 float lfModifier::GetRealFocalLength (const lfLens *lens, float focal)
 {
-    lfLensCalibRealFocal real_focal;
-    if (lens && lens->InterpolateRealFocal (focal, real_focal)) return real_focal.RealFocal;
     float result = focal;
     lfLensCalibFov fov_raw;
     if (lens && lens->InterpolateFov (focal, fov_raw))

@@ -135,9 +135,6 @@ def get_database_elements():
                                        float(calibration_element.attrib["aperture"]) == aperture and \
                                        float(calibration_element.attrib["distance"]) == distance:
                                         vignetting_element = calibration_element
-                                    elif calibration_element.tag == "real-focal-length" and \
-                                       float(calibration_element.attrib["focal"]) == focal_length:
-                                        real_focal_length_element = calibration_element
                                     elif calibration_element.tag == "field_of_view" and \
                                        float(calibration_element.attrib["focal"]) == focal_length:
                                         fov_element = calibration_element

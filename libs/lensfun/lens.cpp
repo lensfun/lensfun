@@ -126,7 +126,6 @@ lfLens::~lfLens ()
     _lf_list_free ((void **)CalibVignetting);
     _lf_list_free ((void **)CalibCrop);
     _lf_list_free ((void **)CalibFov);
-    _lf_list_free ((void **)CalibRealFocal);
     if (!--_lf_lens_regex_refs)
         _lf_free_lens_regex ();
 }
@@ -171,10 +170,6 @@ lfLens::lfLens (const lfLens &other)
     if (other.CalibFov)
         for (int i = 0; other.CalibFov [i]; i++)
             AddCalibFov (other.CalibFov [i]);
-    CalibRealFocal = NULL;
-    if (other.CalibRealFocal)
-        for (int i = 0; other.CalibRealFocal [i]; i++)
-            AddCalibRealFocal (other.CalibRealFocal [i]);
 }
 
 lfLens &lfLens::operator = (const lfLens &other)
@@ -219,10 +214,6 @@ lfLens &lfLens::operator = (const lfLens &other)
     if (other.CalibFov)
         for (int i = 0; other.CalibFov [i]; i++)
             AddCalibFov (other.CalibFov [i]);
-    lf_free (CalibRealFocal); CalibRealFocal = NULL;
-    if (other.CalibRealFocal)
-        for (int i = 0; other.CalibRealFocal [i]; i++)
-            AddCalibRealFocal (other.CalibRealFocal [i]);
 
     return *this;
 }
@@ -308,15 +299,6 @@ void lfLens::GuessParameters ()
             for (int i=0; CalibFov [i]; i++)
             {
                 float f = CalibFov [i]->Focal;
-                if (f < minf)
-                    minf = f;
-                if (f > maxf)
-                    maxf = f;
-            }
-        if (CalibRealFocal)
-            for (int i=0; CalibRealFocal [i]; i++)
-            {
-                float f = CalibRealFocal [i]->Focal;
                 if (f < minf)
                     minf = f;
                 if (f > maxf)
@@ -838,35 +820,6 @@ bool lfLens::RemoveCalibFov (int idx)
         lfLensCalibFov ***cd;
         void ***arr;
     } x = { &CalibFov };
-    return _lf_delobj (x.arr, idx);
-}
-
-static bool cmp_real_focal (const void *x1, const void *x2)
-{
-    const lfLensCalibRealFocal *d1 = static_cast<const lfLensCalibRealFocal *> (x1);
-    const lfLensCalibRealFocal *d2 = static_cast<const lfLensCalibRealFocal *> (x2);
-    return (d1->Focal == d2->Focal);
-}
-
-void lfLens::AddCalibRealFocal (const lfLensCalibRealFocal *lcf)
-{
-    // Avoid "dereferencing type-punned pointer will break strict-aliasing rules" warning
-    union
-    {
-        lfLensCalibRealFocal ***cd;
-        void ***arr;
-    } x = { &CalibRealFocal };
-    _lf_addobj (x.arr, lcf, sizeof (*lcf), cmp_real_focal);
-}
-
-bool lfLens::RemoveCalibRealFocal (int idx)
-{
-    // Avoid "dereferencing type-punned pointer will break strict-aliasing rules" warning
-    union
-    {
-        lfLensCalibRealFocal ***cd;
-        void ***arr;
-    } x = { &CalibRealFocal };
     return _lf_delobj (x.arr, idx);
 }
 
@@ -1401,67 +1354,6 @@ bool lfLens::InterpolateFov (float focal, lfLensCalibFov &res) const
     return true;
 }
 
-bool lfLens::InterpolateRealFocal (float focal, lfLensCalibRealFocal &res) const
-{
-    if (!CalibRealFocal)
-        return false;
-
-    union
-    {
-        lfLensCalibRealFocal *spline [4];
-        void *spline_ptr [4];
-    };
-    float spline_dist [4] = { -FLT_MAX, -FLT_MAX, FLT_MAX, FLT_MAX };
-
-    memset (spline, 0, sizeof (spline));
-    int counter=0;
-    for (int i = 0; CalibRealFocal [i]; i++)
-    {
-        lfLensCalibRealFocal *c = CalibRealFocal [i];
-        if (c->RealFocal == 0)
-            continue;
-
-        counter++;
-        float df = focal - c->Focal;
-        if (df == 0.0)
-        {
-            // Exact match found, don't care to interpolate
-            res = *c;
-            return true;
-        }
-
-        __insert_spline (spline_ptr, spline_dist, df, c);
-    }
-
-    //no valid data found
-    if (counter==0)
-        return false;
-
-    if (!spline [1] || !spline [2])
-    {
-        if (spline [1])
-            res = *spline [1];
-        else if (spline [2])
-            res = *spline [2];
-        else
-            return false;
-
-        return true;
-    }
-
-    // No exact match found, interpolate the model parameters
-    res.Focal = focal;
-
-    float t = (focal - spline [1]->Focal) / (spline [2]->Focal - spline [1]->Focal);
-
-    res.RealFocal = _lf_interpolate (
-        spline [0] ? spline [0]->RealFocal : FLT_MAX,
-        spline [1]->RealFocal, spline [2]->RealFocal,
-        spline [3] ? spline [3]->RealFocal : FLT_MAX, t);
-
-    return true;
-}
-
 gint _lf_lens_parameters_compare (const lfLens *i1, const lfLens *i2)
 {
     int cmp = int ((i1->MinFocal - i2->MinFocal) * 100);
@@ -1731,12 +1623,6 @@ cbool lf_lens_interpolate_fov (const lfLens *lens, float focal,
     return lens->InterpolateFov (focal, *res);
 }
 
-cbool lf_lens_interpolate_real_focal (const lfLens *lens, float focal,
-    lfLensCalibRealFocal *res)
-{
-    return lens->InterpolateRealFocal (focal, *res);
-}
-
 void lf_lens_add_calib_distortion (lfLens *lens, const lfLensCalibDistortion *dc)
 {
     lens->AddCalibDistortion (dc);
@@ -1787,14 +1673,3 @@ cbool lf_lens_remove_calib_fov (lfLens *lens, int idx)
 {
     return lens->RemoveCalibFov (idx);
 }
-
-void lf_lens_add_calib_real_focal (lfLens *lens, const lfLensCalibRealFocal *lcf)
-{
-    lens->AddCalibRealFocal (lcf);
-}
-
-cbool lf_lens_remove_calib_real_focal (lfLens *lens, int idx)
-{
-    return lens->RemoveCalibRealFocal (idx);
-}
-

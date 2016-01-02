@@ -346,7 +346,8 @@ format of the data within elements.
         <li>removed: @<field_of_view@> tag </li>
         <li>APS-C crop factors are given with a higher accuracy</li>
     </ul></td><td>—</td></tr>
-  <tr><td>2</td><td>??</td><td>new: "acm" models for distortion, TCA, and vignetting</td><td>—</td></tr>
+  <tr><td>2</td><td>??</td><td>new: "acm" models for distortion, TCA, and vignetting;
+  the @<real-focal-length@> tag moved into the real-focal attribute in @<distortion@></td><td>—</td></tr>
 </table>
 
 
@@ -511,12 +512,14 @@ section.
 
 Possible embedded elements:
 <dl>
-<dt>\<distortion focal="number" model="name" k1="number" k2="number" k3="number" a="number" b="number" c="number" /\>
-<dd>Declares the image distortion model for this lens. Distortion is specific for every
-    focal length (in mm), so you can declare multiple distortion entries with different focal
-    values; the library will interpolate the parameters for intermediate focal
-    lengths.  The model name may be "none", "poly3", "poly5", "ptlens", or "acm".
-    @see lfDistortionModel
+<dt>\<distortion focal="number" model="name" k1="number" k2="number" k3="number" a="number" b="number" c="number"
+                 real-focal="number"/\>
+<dd>Declares the image distortion model for this lens. Distortion is specific
+    for every focal length (in mm), so you can declare multiple distortion
+    entries with different focal values; the library will interpolate the
+    parameters for intermediate focal lengths.  The model name may be "none",
+    "poly3", "poly5", "ptlens", or "acm".  See @ref real-focal for a
+    description of the optional “real-focal” attribute.  @see lfDistortionModel
 <dt>\<tca focal="number" model="name" kr="number" kb="number" /\>
 <dd>Declares the Transversal Chromatic Aberrations model for this lens,
     depending on focal length.  The library will interpolate the parameters for
@@ -535,21 +538,25 @@ Possible embedded elements:
     values; the library will interpolate the parameters for intermediate focal
     lengths.  The mode name may be "no_crop", "crop_rectangle", or "crop_circle".
     @see lfCropMode
-<dt>\<real-focal-length focal="number" real-focal="number" /\>
-<dd>Declares the *real* focal length of the lens in the <a
-    href="http://en.wikipedia.org/wiki/Paraxial_approximation">paraxial
-    approximation</a>, in contrast to the *nominal* focal length used in all
-    "focal" attributes.  Especially for fisheye lenses, both values can differ
-    significantly.  Lensfun itself needs the real focal length for lens type
-    transformations.  It uses the nominal focal length as a fallback.
-
-    The real focal length can be determined reliably only with a 360° panorama,
-    e.g. with Hugin.  However, Hugin's results <a
-    href="https://bugs.launchpad.net/hugin/+bug/1307457">need to be
-    rectified</a>.  The real focal length must correspond to the distortion
-    coefficients.  Typically, they are the result of the very same parameter
-    optimisation.
 </dl>
+
+@section real-focal Real focal length
+
+The optional attribute “real-focal” for the @<distortion@> element declares the *real*
+focal length of the lens in the <a
+href="http://en.wikipedia.org/wiki/Paraxial_approximation">paraxial
+approximation</a>, in contrast to the *nominal* focal length used in all
+"focal" attributes.  Especially for fisheye lenses, both values can differ
+significantly.  Lensfun itself needs the real focal length for lens type
+transformations.  It uses the nominal focal length as a fallback.
+
+The real focal length can be determined reliably only with a 360° panorama,
+e.g. with Hugin.  The images must overlap by at least half an image width.
+However, Hugin's results <a
+href="https://bugs.launchpad.net/hugin/+bug/1307457">need to be rectified</a>.
+The real focal length must correspond to the distortion coefficients.
+Typically, they are the result of the very same parameter optimisation.
+
 
 @page dbsearch How database files are found and loaded
 
