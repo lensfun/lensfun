@@ -321,7 +321,6 @@ static void _xml_start_element (GMarkupParseContext *context,
 
         lfLensCalibDistortion dc;
         memset (&dc, 0, sizeof (dc));
-        dc.RealFocal = -1;
         for (i = 0; attribute_names [i]; i++)
             if (!strcmp (attribute_names [i], "model"))
             {
@@ -369,11 +368,14 @@ static void _xml_start_element (GMarkupParseContext *context,
                              attribute_names [i], element_name);
                 return;
             }
-        if (!(dc.RealFocal > 0))
-            if (dc.Model == LF_DIST_MODEL_PTLENS)
-                dc.RealFocal = dc.Focal * (1 - dc.Terms [0] - dc.Terms [1] - dc.Terms [2]);
-            else if (dc.Model == LF_DIST_MODEL_POLY3)
-                dc.RealFocal = dc.Focal * (1 - dc.Terms [0]);
+        if (dc.RealFocal > 0)
+            dc.RealFocalMeasured = true;
+        else if (dc.Model == LF_DIST_MODEL_PTLENS)
+            dc.RealFocal = dc.Focal * (1 - dc.Terms [0] - dc.Terms [1] - dc.Terms [2]);
+        else if (dc.Model == LF_DIST_MODEL_POLY3)
+            dc.RealFocal = dc.Focal * (1 - dc.Terms [0]);
+        else
+            dc.RealFocal = dc.Focal;
 
         pd->lens->AddCalibDistortion (&dc);
     }

@@ -1088,20 +1088,10 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
 
     float t = (focal - spline [1]->Focal) / (spline [2]->Focal - spline [1]->Focal);
 
-    {
-        float rf0, rf1, rf2, rf3;
-        if (spline [0])
-            rf0 = spline [0]->RealFocal > 0 ? spline [0]->RealFocal : spline [0]->Focal;
-        else
-            rf0 = FLT_MAX;
-        rf1 = spline [1]->RealFocal > 0 ? spline [1]->RealFocal : spline [1]->Focal;
-        rf2 = spline [2]->RealFocal > 0 ? spline [2]->RealFocal : spline [2]->Focal;
-        if (spline [3])
-            rf3 = spline [3]->RealFocal > 0 ? spline [3]->RealFocal : spline [3]->Focal;
-        else
-            rf3 = FLT_MAX;
-        res.RealFocal = _lf_interpolate (rf0, rf1, rf2, rf3, t);
-    }
+    res.RealFocal = _lf_interpolate (
+        spline [0] ? spline [0]->RealFocal : FLT_MAX,
+        spline [1]->RealFocal, spline [2]->RealFocal,
+        spline [3] ? spline [3]->RealFocal : FLT_MAX, t);
     for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
     {
         float values [5] = {spline [0] ? spline [0]->Focal : NAN, spline [1]->Focal,
