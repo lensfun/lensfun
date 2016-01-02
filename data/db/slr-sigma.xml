@@ -681,13 +681,13 @@
         <!-- Average crop factor of non-Canon APS-C cameras -->
         <cropfactor>1.53</cropfactor>
         <calibration>
-            <distortion focal="18" model="ptlens" a="0.0228732" b="-0.0665251" c="0.0172122"/>
-            <distortion focal="26" model="ptlens" a="0.018288" b="-0.0421043" c="0.0335132"/>
-            <distortion focal="34" model="ptlens" a="0.00457497" b="-0.000870647" c="-0.00027649"/>
-            <distortion focal="53" model="ptlens" a="0.00342257" b="0.00447765" c="0.00439016"/>
-            <distortion focal="93" model="ptlens" a="0.00259922" b="0.00679448" c="0.00154937"/>
-            <distortion focal="133" model="ptlens" a="0.00133032" b="0.00707209" c="0.000924872"/>
-            <distortion focal="200" model="ptlens" a="0.00197842" b="0.00390761" c="0.00418497"/>
+            <distortion focal="18" model="ptlens" a="0.0228732" b="-0.0665251" c="0.0172122" real-focal="18.14"/>
+            <distortion focal="26" model="ptlens" a="0.018288" b="-0.0421043" c="0.0335132" real-focal="25.28"/>
+            <distortion focal="34" model="ptlens" a="0.00457497" b="-0.000870647" c="-0.00027649" real-focal="33.26"/>
+            <distortion focal="53" model="ptlens" a="0.00342257" b="0.00447765" c="0.00439016" real-focal="51.06"/>
+            <distortion focal="93" model="ptlens" a="0.00259922" b="0.00679448" c="0.00154937" real-focal="89.97"/>
+            <distortion focal="133" model="ptlens" a="0.00133032" b="0.00707209" c="0.000924872" real-focal="129.0"/>
+            <distortion focal="200" model="ptlens" a="0.00197842" b="0.00390761" c="0.00418497" real-focal="194.4"/>
             <tca model="poly3" focal="18" br="-0.0002192" vr="1.0007559" bb="-0.0000088" vb="1.0000705"/>
             <tca model="poly3" focal="26" br="-0.0000847" vr="1.0004325" bb="-0.0000104" vb="1.0001260"/>
             <tca model="poly3" focal="34" br="-0.0000453" vr="1.0002166" bb="-0.0000439" vb="1.0001923"/>
@@ -839,14 +839,7 @@
             <vignetting model="pa" focal="200" aperture="40" distance="1" k1="-0.0499" k2="-0.0351" k3="0.0417"/>
             <vignetting model="pa" focal="200" aperture="40" distance="4" k1="-0.0623" k2="-0.0135" k3="0.0199"/>
             <vignetting model="pa" focal="200" aperture="40" distance="1000" k1="-0.0744" k2="-0.0079" k3="0.0190"/>
-            <real-focal-length focal="18" real-focal="18.14"/>
-            <real-focal-length focal="26" real-focal="25.28"/>
-            <real-focal-length focal="34" real-focal="33.26"/>
-            <real-focal-length focal="53" real-focal="51.06"/>
-            <real-focal-length focal="93" real-focal="89.97"/>
-            <real-focal-length focal="133" real-focal="129.0"/>
-            <real-focal-length focal="200" real-focal="194.4"/>
-        </calibration>
+            </calibration>
     </lens>
 
     <lens>
@@ -1875,10 +1868,9 @@
         <cropfactor>1</cropfactor>
         <type>equisolid</type>
         <calibration>
-            <!-- Measured with 360° panorama -->
             <!-- Taken with Canon 5D Mark III -->
-            <real-focal-length focal="8" real-focal="7.15"/>
-            <distortion model="ptlens" focal="8" a="-0.08165" b="-0.09515" c="0.28621"/>
+            <!-- Measured with 360° panorama -->
+            <distortion model="ptlens" focal="8" a="-0.08165" b="-0.09515" c="0.28621" real-focal="7.15"/>
             <tca model="poly3" focal="8" br="-0.0000252" vr="1.0005234" bb="0.0003099" vb="1.0001467"/>
         </calibration>
     </lens>
@@ -1943,10 +1935,9 @@
         <mount>Pentax KAF</mount>
         <cropfactor>1.613</cropfactor>
         <calibration>
-            <!-- Measured with a 360° panorama -->
-            <real-focal-length focal="10" real-focal="10.02"/>
             <!-- Taken with Canon 7D -->
-            <distortion model="ptlens" focal="10" a="0.02278" b="-0.0794" c="0.05484"/>
+            <!-- Real focal length measured with a 360° panorama -->
+            <distortion model="ptlens" focal="10" a="0.02278" b="-0.0794" c="0.05484" real-focal="10.02"/>
             <distortion model="ptlens" focal="12" a="0" b="-0.00643" c="0"/>
             <distortion model="ptlens" focal="15" a="0" b="0.00016" c="0"/>
             <distortion model="ptlens" focal="17" a="0.00645" b="-0.01179" c="0.00284"/>

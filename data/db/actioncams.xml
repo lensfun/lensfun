@@ -91,8 +91,7 @@
             <!--real-focal-length focal="5" real-focal="2.5" />
             <distortion model="ptlens" focal="5" a="0.0525" b="-0.1258" c="0.15228" /-->
             <!-- Measured with a single image, assuming the same FOV as above -->
-            <real-focal-length focal="5" real-focal="2.61"/>
-            <distortion model="ptlens" focal="5" a="0.05109" b="-0.12092" c="0.10955"/>
+            <distortion model="ptlens" focal="5" a="0.05109" b="-0.12092" c="0.10955" real-focal="2.61"/>
         </calibration>
     </lens>
 

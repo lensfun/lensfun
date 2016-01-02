@@ -2868,8 +2868,7 @@
             <!-- Taken from
                  http://www.mir.com.my/rb/photography/companies/nikon/nikkoresources/fisheyes/6mm_FisheyeNikkor-Manual/8.jpg
                  -->
-            <real-focal-length focal="6" real-focal="6.250"/>
-            <distortion model="ptlens" focal="6" a="0.011705" b="-0.01815" c="-0.03936"/>
+            <distortion model="ptlens" focal="6" a="0.011705" b="-0.01815" c="-0.03936" real-focal="6.250"/>
         </calibration>
     </lens>
 
@@ -2973,8 +2972,7 @@
         <calibration>
             <!-- Taken with Nikon D7000 -->
             <!-- Taken with panorama -->
-            <real-focal-length focal="10.5" real-focal="10.31"/>
-            <distortion model="ptlens" focal="10.5" a="0.03347" b="-0.0964" c="0.08113"/>
+            <distortion model="ptlens" focal="10.5" a="0.03347" b="-0.0964" c="0.08113" real-focal="10.31"/>
             <tca model="poly3" focal="10.5" br="0.0001472" vr="1.0001888" bb="-0.0000942" vb="1.0006018"/>
         </calibration>
     </lens>

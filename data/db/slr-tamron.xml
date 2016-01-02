@@ -409,7 +409,7 @@
         <!-- Average crop factor of non-Canon APS-C cameras -->
         <cropfactor>1.53</cropfactor>
         <calibration>
-            <distortion focal="90" model="ptlens" a="-0.00126953" b="0.00404399" c="-0.0027782"/>
+            <distortion focal="90" model="ptlens" a="-0.00126953" b="0.00404399" c="-0.0027782" real-focal="88.35"/>
             <tca model="poly3" focal="90" br="-0.0000152" vr="1.0000471" bb="-0.0000061" vb="0.9998509"/>
             <vignetting model="pa" focal="90" aperture="2.8" distance="0.29" k1="0.0414" k2="-0.1677" k3="0.1199"/>
             <vignetting model="pa" focal="90" aperture="2.8" distance="0.6" k1="-0.0576" k2="-0.2887" k3="0.2065"/>
@@ -431,7 +431,6 @@
             <vignetting model="pa" focal="90" aperture="32" distance="0.6" k1="-0.1223" k2="0.1561" k3="-0.0806"/>
             <vignetting model="pa" focal="90" aperture="32" distance="1.5" k1="-0.0777" k2="0.0766" k3="-0.0380"/>
             <vignetting model="pa" focal="90" aperture="32" distance="1000" k1="-0.0557" k2="0.0276" k3="-0.0118"/>
-            <real-focal-length focal="90" real-focal="88.35"/>
         </calibration>
     </lens>
 

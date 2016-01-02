@@ -1061,8 +1061,7 @@
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <!-- This stems from the advertised feature of 25mm equiv. -->
-            <real-focal-length focal="4.9" real-focal="3.2"/>
-            <distortion model="ptlens" focal="4.9" a="0.0132" b="-0.07765" c="0.14683"/>
+            <distortion model="ptlens" focal="4.9" a="0.0132" b="-0.07765" c="0.14683" real-focal="3.2"/>
         </calibration>
     </lens>
 
