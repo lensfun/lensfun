@@ -46,6 +46,16 @@ def bump_up_version(root):
     root.attrib["version"] = "2"
 
 
+def move_real_focal_length(root):
+    for real_focal_length in root.xpath("//real-focal-length"):
+        focal = real_focal_length.get("focal")
+        real_focal = real_focal_length.get("real-focal")
+        calibration = real_focal_length.getparent()
+        distortion = calibration.xpath("distortion[@focal='{}']".format(focal))[0]
+        distortion.set("real-focal", real_focal)
+        calibration.remove(real_focal_length)
+
+
 camera_ids = {999}
 lens_ids = {999}
 
