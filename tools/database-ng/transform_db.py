@@ -121,4 +121,4 @@ for path in glob.glob(os.path.join(sys.argv[1], "*.xml")):
     copy_cropfactor_and_move_aspect_ratio(root)
     min_cropfactor(root)
 
-    tree.write(open(os.path.join(sys.argv[2], os.path.basename(path)), "wb"))
+    tree.write(open(os.path.join(sys.argv[2], os.path.basename(path)), "wb"), encoding="utf-8")
