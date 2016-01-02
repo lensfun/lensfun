@@ -536,6 +536,10 @@ struct lfLensCalibDistortion
      * nominal focal length multiplied by the "d" parameter (i.e. linear in r)
      * in the Hugin polynomial.  This is because it is this focal length that
      * Hugin assumes in its fit.
+     *
+     * When using it for correction (rather than mere database lookup), Lensfun
+     * interpolates the real focal lengths at the nominal focal length used for
+     * the image.  Missing points are filled with the nominal focal length.
      */
     float RealFocal;
     /** @brief Distortion coefficients, dependent on model (a,b,c or k1 or k1,k2) */
