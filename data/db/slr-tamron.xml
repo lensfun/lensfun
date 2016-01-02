@@ -30,7 +30,7 @@
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="17" a="0.023029" b="-0.056393" c="0"/>
             <distortion model="ptlens" focal="18" a="0.021257" b="-0.051504" c="0"/>
@@ -212,7 +212,7 @@
         <model>Tamron SP 24-70mm f/2.8 Di VC USD</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="24" a="0.03519" b="-0.10395" c="0.06092"/>
             <distortion model="ptlens" focal="35" a="0.01436" b="-0.0404" c="0.03983"/>
@@ -255,7 +255,7 @@
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <mount>Sony Alpha</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="28" a="0.01469" b="-0.034774" c="0"/>
             <distortion model="ptlens" focal="30" a="0.012441" b="-0.026997" c="0"/>
@@ -272,7 +272,7 @@
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="28" a="0.020983" b="-0.054749" c="0"/>
             <distortion model="ptlens" focal="32" a="0.018015" b="-0.042871" c="0"/>
@@ -344,8 +344,8 @@
             <distortion model="ptlens" focal="70" a="0.00168" b="-0.00649" c="0.0021"/>
             <distortion model="ptlens" focal="100" a="-0.00287" b="0.01075" c="-0.00716"/>
             <distortion model="ptlens" focal="133" a="0.00404" b="-0.0061" c="0.00845"/>
-            <distortion model="ptlens" focal="180" a="0.0" b="0.00388" c="0.0"/>
-            <distortion model="ptlens" focal="300" a="0.0" b="0.00442" c="0.0"/>
+            <distortion model="ptlens" focal="180" a="0" b="0.00388" c="0"/>
+            <distortion model="ptlens" focal="300" a="0" b="0.00442" c="0"/>
             <tca model="poly3" focal="70" br="-0.0000487" vr="1.0002053" bb="0.0000352" vb="0.9998612"/>
             <tca model="poly3" focal="100" br="-0.0000402" vr="1.0000889" bb="0.0000026" vb="0.9998133"/>
             <tca model="poly3" focal="133" br="-0.0000210" vr="0.9999776" bb="0.0000067" vb="0.9998469"/>
@@ -365,7 +365,7 @@
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Sony Alpha</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="70" a="0" b="-0.006" c="0.002"/>
             <distortion model="ptlens" focal="85" a="-0.006" b="0.009" c="-0.001"/>
@@ -592,7 +592,7 @@
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Sony Alpha</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Nikon D700 -->
             <distortion model="poly3" focal="70" k1="-0.00915"/>

@@ -39,7 +39,7 @@
         <mount>Samsung NX</mount>
         <mount>Nikon CX</mount>
         <mount>Canon EF-M</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="14" a="0.04015" b="-0.07043" c="-0.05466"/>
             <tca model="poly3" focal="14" br="0.0000198" vr="0.9999690" bb="-0.0001334" vb="1.0003226"/>
@@ -138,12 +138,12 @@
             <distortion model="ptlens" focal="12" a="a=-0.000331804" b="-0.00911417" c="-0.044237"/>
             <vignetting model="pa" focal="12" aperture="2.8" distance="10" k1="-0.90717" k2="0.58477" k3="-0.2198"/>
             <vignetting model="pa" focal="12" aperture="2.8" distance="1000" k1="-0.90717" k2="0.58477" k3="-0.2198"/>
-            <vignetting model="pa" focal="12" aperture="4.0" distance="10" k1="-0.17101" k2="-0.54574" k3="0.3056"/>
-            <vignetting model="pa" focal="12" aperture="4.0" distance="1000" k1="-0.17101" k2="-0.54574" k3="0.3056"/>
+            <vignetting model="pa" focal="12" aperture="4" distance="10" k1="-0.17101" k2="-0.54574" k3="0.3056"/>
+            <vignetting model="pa" focal="12" aperture="4" distance="1000" k1="-0.17101" k2="-0.54574" k3="0.3056"/>
             <vignetting model="pa" focal="12" aperture="5.6" distance="10" k1="-0.1978" k2="-0.03729" k3="-0.11743"/>
             <vignetting model="pa" focal="12" aperture="5.6" distance="1000" k1="-0.1978" k2="-0.03729" k3="-0.11743"/>
-            <vignetting model="pa" focal="12" aperture="8.0" distance="10" k1="-0.18295" k2="-0.09272" k3="0.03547"/>
-            <vignetting model="pa" focal="12" aperture="8.0" distance="1000" k1="-0.18295" k2="-0.09272" k3="0.03547"/>
+            <vignetting model="pa" focal="12" aperture="8" distance="10" k1="-0.18295" k2="-0.09272" k3="0.03547"/>
+            <vignetting model="pa" focal="12" aperture="8" distance="1000" k1="-0.18295" k2="-0.09272" k3="0.03547"/>
         </calibration>
     </lens>
 

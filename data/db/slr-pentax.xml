@@ -61,7 +61,7 @@
         <maker>Pentax</maker>
         <model>35mm film: full frame</model>
         <mount>Pentax KAF2</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
     </camera>
 
     <camera>
@@ -967,7 +967,7 @@
             <distortion model="poly3" focal="50" k1="-0.00203"/>
             <tca model="poly3" focal="50" br="-0.0000488" cr="0.0001144" vr="1.0005239" bb="0.0001427" cb="-0.0002953" vb="0.9994200"/>
             <vignetting model="pa" focal="50" aperture="1.4" k1="-0.75531" k2="0.64285" k3="-0.26061"/>
-            <vignetting model="pa" focal="50" aperture="2.0" k1="-0.06676" k2="-0.04799" k3="0.02031"/>
+            <vignetting model="pa" focal="50" aperture="2" k1="-0.06676" k2="-0.04799" k3="0.02031"/>
             <vignetting model="pa" focal="50" aperture="5.6" k1="-0.15783" k2="0.15089" k3="-0.01524"/>
             <vignetting model="pa" focal="50" aperture="8" k1="-0.1018" k2="-0.00066" k3="0.06612"/>
             <vignetting model="pa" focal="50" aperture="11" k1="-0.00027" k2="-0.25301" k3="0.20985"/>
@@ -995,7 +995,7 @@
         <cropfactor>1.53</cropfactor>
         <calibration>
             <distortion model="poly3" focal="28" k1="-0.00843"/>
-            <tca model="poly3" focal="28.0" br="0.0000578" cr="-0.0001581" vr="1.0005750" bb="-0.0000046" cb="0.0001367" vb="0.9996466"/>
+            <tca model="poly3" focal="28" br="0.0000578" cr="-0.0001581" vr="1.0005750" bb="-0.0000046" cb="0.0001367" vb="0.9996466"/>
             <vignetting model="pa" focal="28" aperture="11" distance="100" k1="-0.38602" k2="1.0657" k3="-0.86036"/>
             <vignetting model="pa" focal="28" aperture="8" distance="100" k1="-0.41027" k2="0.96832" k3="-0.79405"/>
             <vignetting model="pa" focal="28" aperture="5.6" distance="100" k1="-0.38055" k2="1.06408" k3="-0.92936"/>
