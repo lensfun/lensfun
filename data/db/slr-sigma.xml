@@ -2792,4 +2792,24 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 4.5mm f/2.8 EX DC HSM circular fisheye</model>
+        <model lang="de">Sigma 4.5mm f/2.8 EX DC HSM Zirkular-Fischauge</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Pentax KAF2</mount>
+        <mount>Sigma SA</mount>
+        <cropfactor>1.534</cropfactor>
+        <type>fisheye</type>
+        <calibration>
+            <!-- Taken with Pentax K-3 -->
+            <!-- Measured with 360° panorama -->
+            <real-focal-length focal="4.5" real-focal="4.53319002" />
+            <distortion model="ptlens" focal="4.5" a="-0.21693" b="-0.44076" c="-0.47357" />
+            <tca model="poly3" focal="4.5" br="-0.0011015" vr="1.0008801" bb="-0.0002284" vb="1.0005327" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
