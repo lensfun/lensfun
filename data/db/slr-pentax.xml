@@ -1323,4 +1323,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-M Macro 1:4 100mm</model>
+        <mount>Pentax K</mount>
+        <cropfactor>1.531</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K10D -->
+            <!-- Really no measurable distortion -->
+            <distortion model="poly3" focal="100" k1="0" />
+            <tca model="poly3" focal="100" vr="0.9998701" vb="1.0000849" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
