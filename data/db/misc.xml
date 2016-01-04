@@ -312,4 +312,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <!-- This is *not* the mirror lens -->
+        <maker>Beroflex</maker>
+        <model>Beroflex 1:8 500mm</model>
+        <mount>T2</mount>
+        <cropfactor>1.531</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K10D -->
+            <distortion model="poly3" focal="500" k1="0.00108" />
+            <tca model="poly3" focal="500" vr="0.9999464" vb="0.9997637" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
