@@ -4285,6 +4285,22 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon EF 24-70mm f/4L IS USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.600</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 70D -->
+            <distortion model="poly3" focal="24" k1="-0.00617" />
+            <distortion model="poly3" focal="35" k1="-0.00017" />
+            <distortion model="poly3" focal="70" k1="0.00069" />
+            <tca model="poly3" focal="24" vr="1.0002234" vb="1.0000123" />
+            <tca model="poly3" focal="35" vr="1.0001076" vb="0.9999995" />
+            <tca model="poly3" focal="70" vr="0.9998799" vb="1.0000011" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon EF-S 10-18mm f/4.5-5.6 IS STM</model>
         <mount>Canon EF-S</mount>
         <cropfactor>1.62</cropfactor>
