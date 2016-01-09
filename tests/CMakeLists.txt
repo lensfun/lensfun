@@ -1,6 +1,6 @@
 ADD_EXECUTABLE(test_database test_database.cpp)
 TARGET_LINK_LIBRARIES(test_database lensfun ${COMMON_LIBS})
-ADD_TEST(Database test_database)
+ADD_TEST(NAME Database WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND test_database)
 
 ADD_EXECUTABLE(test_modifier test_modifier.cpp)
 TARGET_LINK_LIBRARIES(test_modifier lensfun ${COMMON_LIBS})
@@ -30,4 +30,4 @@ TARGET_LINK_LIBRARIES(test_modifier_coord_geometry lensfun ${COMMON_LIBS})
 ADD_TEST(Modifier_coord_geometry test_modifier_coord_geometry)
 
 FIND_PACKAGE(PythonInterp REQUIRED)
-ADD_TEST(NAME Database_integrity COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/check_database/check_database.py ../../data/db)
+ADD_TEST(NAME Database_integrity COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/check_database/check_database.py ${CMAKE_SOURCE_DIR}/data/db)
