@@ -18,6 +18,7 @@ import os
 
 user_local_db_path = os.path.join(
     os.environ.get("XDG_DATA_HOME", os.path.expanduser("~/.local/share")), "lensfun")
+system_db_path = os.path.join("${CMAKE_INSTALL_FULL_DATAROOTDIR}", "lensfun")
 system_db_update_path = os.path.join("/", "${CMAKE_INSTALL_LOCALSTATEDIR}", "lib", "lensfun-updates")
 
 
@@ -54,7 +55,7 @@ def get_core_database():
     versioned_subdir = "version_{}".format(get_database_version())
     db_path_candidates = {system_db_update_path,
                           os.path.join(user_local_db_path, "updates"),
-                          "${CMAKE_INSTALL_FULL_DATAROOTDIR}/lensfun"}
+                          system_db_path}
     newest_path = None
     newest_timestamp = 0
     for path in db_path_candidates:

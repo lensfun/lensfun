@@ -69,7 +69,7 @@ def detect_local_timestamp(version):
         except (FileNotFoundError, ValueError):
             return 0
 
-    directory_candidates = {"/usr/share/lensfun", "/usr/local/share/lensfun",
+    directory_candidates = {"/usr/share/lensfun", "/usr/local/share/lensfun", lensfun.system_db_path,
                             lensfun.system_db_update_path, os.path.join(lensfun.user_local_db_path, "updates")}
     return max(map(detect_single_timestamp, directory_candidates))
 
@@ -91,7 +91,10 @@ class Location:
 
 def detect_local_database_versions():
     versions = {database_version}
-    for directory in glob.glob("/usr/share/lensfun/version_*") + glob.glob("/usr/local/share/lensfun/version_*"):
+    directories = set(glob.glob("/usr/share/lensfun/version_*") +
+                      glob.glob("/usr/local/share/lensfun/version_*") +
+                      glob.glob(os.path.join(lensfun.system_db_path, "version_*")))
+    for directory in directories:
         if os.path.isdir(directory):
             try:
                 versions.add(int(directory.partition("version_")[2]))
