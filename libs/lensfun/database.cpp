@@ -97,13 +97,12 @@ lfError lfDatabase::Load ()
 
 #ifndef PLATFORM_WINDOWS
     gchar *main_dirname = g_build_filename (CONF_DATADIR, DATABASE_SUBDIR, NULL);
-    const gchar *system_updates_dirname = g_build_filename ("/var/lib/lensfun-updates", DATABASE_SUBDIR, NULL);
 #else
     /* windows based OS */
     extern gchar *_lf_get_database_dir ();
     gchar *main_dirname = _lf_get_database_dir ();
-    const gchar *system_updates_dirname = "C:\\to\\be\\defined\\lensfun-updates";
 #endif
+    const gchar *system_updates_dirname = g_build_filename (SYSTEM_DB_UPDATE_PATH, DATABASE_SUBDIR, NULL);
     const int timestamp_main =
         _lf_read_database_timestamp (main_dirname);
     const int timestamp_system_updates =
