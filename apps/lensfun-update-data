@@ -50,8 +50,7 @@ database_version = lensfun.get_database_version()
 
 lensfun_updates_dir = "/var/lib/lensfun-updates"
 if os.name == "posix" and os.geteuid() != 0:
-    lensfun_updates_dir = os.path.join(os.path.expanduser("~"),
-                                       ".local", "share", "lensfun", "updates")
+    lensfun_updates_dir = os.path.join(lensfun.user_local_db_path, "updates")
     print("Info: root privileges needed for updating the system database.")
     print("Info: updating user DB in '%s'" % lensfun_updates_dir)
 
@@ -71,7 +70,7 @@ def detect_local_timestamp(version):
             return 0
 
     directory_candidates = {"/usr/share/lensfun", "/usr/local/share/lensfun",
-                            "/var/lib/lensfun-updates", os.path.expanduser("~/.local/share/lensfun/updates")}
+                            "/var/lib/lensfun-updates", os.path.join(lensfun.user_local_db_path, "updates")}
     return max(map(detect_single_timestamp, directory_candidates))
 
 
