@@ -127,6 +127,7 @@ def ParseLens (lines):
 def WriteOut (ofn):
     global Mounts, Cameras, Lenses
     fw = open (ofn, "w")
+    fw.write ("<!DOCTYPE lensdatabase SYSTEM \"lensfun-database.dtd\">\n\n")
     fw.write ("<lensdatabase>\n\n")
 
     for c in Mounts:

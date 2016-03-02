@@ -861,6 +861,7 @@ char *lfDatabase::Save (const lfMount *const *mounts,
     int i, j;
     GString *output = g_string_sized_new (1024);
 
+    g_string_append (output, "<!DOCTYPE lensdatabase SYSTEM \"lensfun-database.dtd\">\n");
     g_string_append (output, "<lensdatabase>\n\n");
 
     if (mounts)
