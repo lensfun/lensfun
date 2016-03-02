@@ -185,7 +185,7 @@ if(USE_XMLLINT)
     get_filename_component(DBNAME ${database} NAME_WE)
     add_custom_target(
       validate_${DBNAME} ALL
-      COMMAND ${Xmllint_BIN} --valid --noout ${database}
+      COMMAND ${Xmllint_BIN} --valid --noout --schema data/db/lensfun-database.xsd ${database}
       DEPENDS ${database}
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
       COMMENT "Checking validity of ${database}"
@@ -196,7 +196,7 @@ endif(USE_XMLLINT)
 INSTALL(FILES ${DATABASE_FILES} DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/lensfun/version_${LENSFUN_DB_VERSION})
 INSTALL(FILES data/db/timestamp.txt DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/lensfun/version_${LENSFUN_DB_VERSION})
 
-FILE(GLOB DATABASE_DTD data/db/*.dtd)
+FILE(GLOB DATABASE_DTD data/db/*.dtd data/db/*.xsd)
 INSTALL(FILES ${DATABASE_DTD} DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/lensfun/version_${LENSFUN_DB_VERSION})
 
 # build documentation
