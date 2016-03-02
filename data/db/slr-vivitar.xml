@@ -1,3 +1,4 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
 <lensdatabase version="2">
 
     <lens>
@@ -32,9 +33,9 @@
         <mount>Canon FL</mount>
         <mount>Olympus OM</mount>
         <mount>M42</mount>
-        <cropfactor>1.534</cropfactor>
         <focal min="70" max="210"/>
         <aperture min="3.5" max="22"/>
+        <cropfactor>1.534</cropfactor>
         <calibration>
             <!-- Taken with Sony A6000 -->
             <distortion model="poly3" focal="70" k1="-0.00183"/>

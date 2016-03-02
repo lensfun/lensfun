@@ -1,0 +1,78 @@
+<!ELEMENT lensdatabase (mount*, camera*, lens*) >
+<!ATTLIST lensdatabase version NMTOKEN #REQUIRED >
+
+<!ELEMENT mount (#PCDATA | name | compat)* >
+
+<!ELEMENT name (#PCDATA) >
+<!ATTLIST name lang CDATA #IMPLIED >
+
+<!ELEMENT compat (#PCDATA) >
+
+<!ELEMENT camera (maker+, model+, variant?, mount, cropfactor, aspect-ratio?) >
+
+<!ELEMENT maker (#PCDATA) >
+<!ATTLIST maker lang CDATA #IMPLIED >
+
+<!ELEMENT model (#PCDATA) >
+<!ATTLIST model lang CDATA #IMPLIED >
+
+<!ELEMENT variant (#PCDATA) >
+
+<!ELEMENT cropfactor (#PCDATA) >
+
+<!ELEMENT aspect-ratio (#PCDATA) >
+
+<!ELEMENT lens (maker+, model+, mount+, focal?, aperture?, type?, cropfactor, aspect-ratio?, calibration?) >
+
+<!ELEMENT focal EMPTY >
+<!ATTLIST focal min NMTOKEN #IMPLIED >
+<!ATTLIST focal max NMTOKEN #IMPLIED >
+<!-- or -->
+<!ATTLIST focal value NMTOKEN #IMPLIED >
+
+<!ELEMENT aperture EMPTY >
+<!ATTLIST aperture min NMTOKEN #IMPLIED >
+<!ATTLIST aperture max NMTOKEN #IMPLIED >
+<!-- or -->
+<!ATTLIST aperture value NMTOKEN #IMPLIED >
+
+<!ELEMENT type (#PCDATA) >
+
+<!ELEMENT calibration (distortion*, tca*, vignetting*)+ >
+
+<!ELEMENT distortion EMPTY >
+<!ATTLIST distortion model (poly3 | poly5 | ptlens) #REQUIRED >
+<!ATTLIST distortion focal NMTOKEN #REQUIRED >
+<!ATTLIST distortion real-focal NMTOKEN #IMPLIED >
+<!-- when model = poly3 | poly5 -->
+<!ATTLIST distortion k1 NMTOKEN #IMPLIED >
+<!-- when model = poly5 -->
+<!ATTLIST distortion k2 NMTOKEN #IMPLIED >
+<!-- else, when model = ptlens -->
+<!ATTLIST distortion a NMTOKEN #IMPLIED >
+<!ATTLIST distortion b NMTOKEN #IMPLIED >
+<!ATTLIST distortion c NMTOKEN #IMPLIED >
+
+<!ELEMENT tca EMPTY >
+<!ATTLIST tca model (linear | poly3) #REQUIRED >
+<!ATTLIST tca focal NMTOKEN #REQUIRED >
+<!-- when model = linear -->
+<!ATTLIST tca kr NMTOKEN #IMPLIED >
+<!ATTLIST tca kb NMTOKEN #IMPLIED >
+<!-- else, when model = poly3 -->
+<!ATTLIST tca vr NMTOKEN #IMPLIED >
+<!ATTLIST tca vb NMTOKEN #IMPLIED >
+<!ATTLIST tca cr NMTOKEN #IMPLIED >
+<!ATTLIST tca cb NMTOKEN #IMPLIED >
+<!ATTLIST tca br NMTOKEN #IMPLIED >
+<!ATTLIST tca bb NMTOKEN #IMPLIED >
+
+<!ELEMENT vignetting EMPTY >
+<!ATTLIST vignetting model (pa) #REQUIRED >
+<!ATTLIST vignetting focal NMTOKEN #REQUIRED >
+<!ATTLIST vignetting aperture NMTOKEN #REQUIRED >
+<!ATTLIST vignetting distance NMTOKEN #REQUIRED >
+<!-- when model = pa -->
+<!ATTLIST vignetting k1 NMTOKEN #REQUIRED >
+<!ATTLIST vignetting k2 NMTOKEN #REQUIRED >
+<!ATTLIST vignetting k3 NMTOKEN #REQUIRED >

@@ -1,3 +1,4 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
 <lensdatabase version="2">
 
     <mount>
@@ -677,8 +678,8 @@
         <model>Canon EF 15mm f/2.8 Fisheye</model>
         <model lang="de">Canon EF 15mm f/2.8 Fischauge</model>
         <mount>Canon EF</mount>
-        <cropfactor>1</cropfactor>
         <type>fisheye</type>
+        <cropfactor>1</cropfactor>
     </lens>
 
     <lens>
@@ -2469,9 +2470,9 @@
     <lens>
         <maker>Canon</maker>
         <model>Canon FDn 50mm 1:1.4</model>
+        <mount>Canon FD</mount>
         <focal value="50"/>
         <aperture min="1.4" max="22"/>
-        <mount>Canon FD</mount>
         <cropfactor>2</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="50" a="-0.000919817" b="0.00112022" c="-0.00289404"/>
@@ -2669,9 +2670,9 @@
     <lens>
         <maker>Canon</maker>
         <model>Canon FDn 100mm 1:2.8</model>
+        <mount>Canon FD</mount>
         <focal value="100"/>
         <aperture min="2.8" max="32"/>
-        <mount>Canon FD</mount>
         <cropfactor>2</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="100" a="-0.000626176" b="0.00321735" c="-0.0016503"/>
@@ -4398,8 +4399,8 @@
         <model>Canon EF 8-15mm f/4L Fisheye USM</model>
         <model lang="de">Canon EF 8-15mm f/4L Fischauge USM</model>
         <mount>Canon EF</mount>
-        <cropfactor>1</cropfactor>
         <type>equisolid</type>
+        <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Canon 5D Mark III -->
             <!-- Measured with three overlapping images -->

@@ -1,3 +1,4 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
 <lensdatabase version="2">
 
     <lens>
@@ -13,8 +14,8 @@
         <mount>4/3 System</mount>
         <mount>Micro 4/3 System</mount>
         <mount>Samsung NX</mount>
-        <cropfactor>1.534</cropfactor>
         <type>stereographic</type>
+        <cropfactor>1.534</cropfactor>
         <calibration>
             <!-- Taken with some APS-C Pentax probably. -->
             <tca model="poly3" focal="8" br="-0.0007764" cr="0.0013798" vr="1.0000228" bb="-0.0002711" cb="0.0008531" vb="0.9998496"/>
@@ -131,11 +132,11 @@
         <mount>Nikon F AI</mount>
         <mount>Canon EF</mount>
         <mount>Sony E</mount>
-        <cropfactor>1</cropfactor>
         <type>stereographic</type>
+        <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with D800 -->
-            <distortion model="ptlens" focal="12" a="a=-0.000331804" b="-0.00911417" c="-0.044237"/>
+            <distortion model="ptlens" focal="12" a="-0.000331804" b="-0.00911417" c="-0.044237"/>
             <vignetting model="pa" focal="12" aperture="2.8" distance="10" k1="-0.90717" k2="0.58477" k3="-0.2198"/>
             <vignetting model="pa" focal="12" aperture="2.8" distance="1000" k1="-0.90717" k2="0.58477" k3="-0.2198"/>
             <vignetting model="pa" focal="12" aperture="4" distance="10" k1="-0.17101" k2="-0.54574" k3="0.3056"/>

@@ -1,3 +1,4 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
 <lensdatabase version="2">
 
     <mount>
@@ -148,9 +149,9 @@
         <maker>Olympus</maker>
         <model>Olympus M.Zuiko Digital ED 12mm f/2.0</model>
         <mount>Micro 4/3 System</mount>
+        <focal value="12"/>
         <cropfactor>2</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
-        <focal value="12"/>
         <calibration>
             <distortion model="ptlens" focal="12" a="-0.005" b="-0.016" c="-0.014"/>
             <tca model="poly3" focal="12" br="0.0000749" vr="1.0001239" bb="0.0000350" vb="1.0000181"/>
@@ -348,9 +349,9 @@
     <lens>
         <maker>Olympus</maker>
         <model>Olympus M.Zuiko Digital ED 14-150mm f/4.0-5.6</model>
+        <mount>Micro 4/3 System</mount>
         <focal min="14" max="150"/>
         <aperture min="4" max="22"/>
-        <mount>Micro 4/3 System</mount>
         <cropfactor>2</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
@@ -512,9 +513,9 @@
     <lens>
         <maker>Olympus</maker>
         <model>Olympus M.Zuiko Digital 45mm f/1.8</model>
+        <mount>Micro 4/3 System</mount>
         <focal value="45"/>
         <aperture min="1.8" max="22"/>
-        <mount>Micro 4/3 System</mount>
         <cropfactor>2</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
@@ -717,8 +718,8 @@
         <maker>Olympus</maker>
         <model>Olympus M.Zuiko Digital 25mm f/1.8</model>
         <mount>Micro 4/3 System</mount>
-        <aspect-ratio>4:3</aspect-ratio>
         <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <!-- Taken with E-M10 -->
             <distortion model="ptlens" focal="25" a="0.00454" b="-0.0141" c="0.00283"/>
@@ -905,9 +906,9 @@
         <maker>Olympus</maker>
         <model>Olympus 9mm Body Cap Lens Fisheye</model>
         <mount>Micro 4/3 System</mount>
+        <type>stereographic</type>
         <cropfactor>2</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
-        <type>stereographic</type>
         <calibration>
             <!-- Taken with Olympus E-M10 -->
             <distortion model="poly3" focal="9" k1="-0.03111"/>
@@ -918,9 +919,9 @@
         <maker>Olympus</maker>
         <model>Olympus M.Zuiko Digital ED 8mm f/1.8 Fisheye Pro</model>
         <mount>Micro 4/3 System</mount>
+        <type>equisolid</type>
         <cropfactor>2</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
-        <type>equisolid</type>
         <calibration>
             <!-- Taken with Olympus E-M5 II -->
             <distortion model="poly3" focal="8" k1="-0.00531"/>

@@ -1,3 +1,4 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
 <lensdatabase version="2">
 
     <mount>
@@ -795,9 +796,9 @@
         <maker>Nikon</maker>
         <model>Nikon AF-S DX Zoom-Nikkor 18-70mm f/3.5-4.5G IF-ED</model>
         <model lang="en">Nikkor AF-S 18-70mm f/3.5-4.5G DX IF-ED</model>
+        <mount>Nikon F AF</mount>
         <focal min="18" max="70"/>
         <aperture min="3.5" max="29"/>
-        <mount>Nikon F AF</mount>
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
@@ -2862,8 +2863,8 @@
         <model>Nikon AI-S Fisheye-Nikkor 6mm f/2.8</model>
         <model lang="en">Nikkor AI-S 6mm f/2.8 Fisheye</model>
         <mount>Nikon F AI-S</mount>
-        <cropfactor>1</cropfactor>
         <type>fisheye</type>
+        <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken from
                  http://www.mir.com.my/rb/photography/companies/nikon/nikkoresources/fisheyes/6mm_FisheyeNikkor-Manual/8.jpg
@@ -2967,8 +2968,8 @@
         <model>Nikon AF DX Fisheye-Nikkor 10.5mm f/2.8G ED</model>
         <model lang="en">Nikkor AF 10.5mm f/2.8G DX ED Fisheye</model>
         <mount>Nikon F AF</mount>
-        <cropfactor>1.523</cropfactor>
         <type>equisolid</type>
+        <cropfactor>1.523</cropfactor>
         <calibration>
             <!-- Taken with Nikon D7000 -->
             <!-- Taken with panorama -->
