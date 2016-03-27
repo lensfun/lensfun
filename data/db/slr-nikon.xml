@@ -551,7 +551,34 @@
             <tca model="poly3" focal="35" vr="1.0000943" vb="1.0000318" />
         </calibration>
     </lens>
-    
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S VR DX 16-80mm 2.8-4.0E ED</model>
+        <model lang="en">Nikkor AF-S 16-80mm f/2.8-4G ED VR DX</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="16" a="0.01368" b="-0.04363" c="0.00904" />
+            <distortion model="ptlens" focal="18" a="0.03553" b="-0.06901" c="0.0202" />
+            <distortion model="ptlens" focal="20" a="0.00324" b="0.00545" c="-0.01603" />
+            <distortion model="ptlens" focal="22" a="-0.0068" b="0.03696" c="-0.03991" />
+            <distortion model="ptlens" focal="28" a="0.01925" b="-0.04931" c="0.05884" />
+            <distortion model="ptlens" focal="34" a="-0.00711" b="0.03741" c="-0.02289" />
+            <distortion model="ptlens" focal="40" a="0.00892" b="-0.0052" c="0.01119" />
+            <distortion model="ptlens" focal="44" a="0.01529" b="-0.0184" c="0.01554" />
+            <distortion model="ptlens" focal="50" a="0.00491" b="-0.00007" c="0.01417" />
+            <distortion model="ptlens" focal="55" a="0.02076" b="-0.0394" c="0.04369" />
+            <distortion model="ptlens" focal="58" a="0.00009" b="0.01279" c="0.00076" />
+            <distortion model="ptlens" focal="60" a="0.00876" b="-0.00268" c="0.00458" />
+            <distortion model="ptlens" focal="62" a="-0.00059" b="0.02024" c="-0.01362" />
+            <distortion model="ptlens" focal="66" a="-0.00417" b="0.02593" c="-0.01421" />
+            <distortion model="ptlens" focal="72" a="0.03333" b="-0.06751" c="0.06361" />
+            <distortion model="ptlens" focal="75" a="-0.00173" b="0.01554" c="-0.00392" />
+            <distortion model="ptlens" focal="80" a="-0.00074" b="0.01741" c="-0.01376" />
+        </calibration>
+    </lens>
+
     <lens>
         <maker>Nikon</maker>
         <model>Nikon AF-S DX Zoom-Nikkor 16-85mm f/3.5-5.6G ED VR</model>
