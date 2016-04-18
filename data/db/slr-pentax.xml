@@ -1336,4 +1336,44 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-DA L 18-50mm F4-5.6 DC WR RE</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-S2 -->
+            <distortion model="ptlens" focal="18" a="0.00982" b="-0.03805" c="0.01695" />
+            <distortion model="ptlens" focal="24" a="0.00488" b="-0.02037" c="0.01274" />
+            <distortion model="ptlens" focal="34" a="0" b="0.0009" c="0" />
+            <distortion model="ptlens" focal="50" a="0" b="0.00297" c="0" />
+            <tca model="poly3" focal="18" vr="1.0005357" vb="1.0000769" />
+            <tca model="poly3" focal="24" vr="1.0003696" vb="1.0000405" />
+            <tca model="poly3" focal="34" vr="1.0001627" vb="1.0000371" />
+            <tca model="poly3" focal="50" vr="1.0000870" vb="1.0000095" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-DA L 50-200mm F4-5.6 ED WR</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-S2 -->
+            <distortion model="poly3" focal="50" k1="-0.00627" />
+            <distortion model="poly3" focal="57.5" k1="-0.00403" />
+            <distortion model="poly3" focal="80" k1="0.0038" />
+            <distortion model="poly3" focal="105" k1="0.00915" />
+            <distortion model="poly3" focal="137.5" k1="0.00709" />
+            <distortion model="poly3" focal="200" k1="0.00746" />
+            <tca model="poly3" focal="50" vr="0.9999539" vb="1.0001903" />
+            <tca model="poly3" focal="57.5" vr="0.9999462" vb="1.0001701" />
+            <tca model="poly3" focal="80" vr="0.9998231" vb="1.0001614" />
+            <tca model="poly3" focal="105" vr="0.9998754" vb="1.0000401" />
+            <tca model="poly3" focal="137.5" vr="0.9998983" vb="0.9999943" />
+            <tca model="poly3" focal="200" vr="0.9999243" vb="0.9999551" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
