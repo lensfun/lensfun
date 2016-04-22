@@ -7,7 +7,7 @@ import hashlib, os, subprocess, json, shutil, mimetypes, smtplib, re
 from email.MIMEText import MIMEText
 import django.forms as forms
 from django.shortcuts import render
-from django.forms.util import ValidationError
+from django.forms.utils import ValidationError
 import django.core.urlresolvers
 import django.http
 from django.utils.encoding import iri_to_uri
