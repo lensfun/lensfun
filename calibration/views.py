@@ -110,7 +110,12 @@ def store_upload(uploaded_file, email_address):
     hash_.update(email_address)
     id_ = email_address.partition("@")[0] + "_" + hash_.hexdigest()
     directory = os.path.join(upload_directory, id_)
-    shutil.rmtree(directory, ignore_errors=True)
+    try:
+        shutil.rmtree(directory)
+    except FileNotFoundError:
+        pass
+    except PermissionError:
+        return id_
     os.makedirs(directory)
     with open(os.path.join(directory, "originator.json"), "w") as outfile:
         json.dump(email_address, outfile, ensure_ascii=True)
