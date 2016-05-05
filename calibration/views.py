@@ -112,10 +112,15 @@ def store_upload(uploaded_file, email_address):
     directory = os.path.join(upload_directory, id_)
     try:
         shutil.rmtree(directory)
-    except FileNotFoundError:
-        pass
-    except PermissionError:
-        return id_
+    except OSError as error:
+        message = str(error).partition(":")[0]
+        if message == "[Errno 13] Permission denied":
+            # Directory has been already brongerised.
+            return id_
+        elif message == "[Errno 2] No such file or directory":
+            pass
+        else:
+            raise
     os.makedirs(directory)
     with open(os.path.join(directory, "originator.json"), "w") as outfile:
         json.dump(email_address, outfile, ensure_ascii=True)
