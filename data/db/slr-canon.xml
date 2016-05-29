@@ -4434,6 +4434,32 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon EF 90-300mm f/4.5-5.6</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with a Canon EOS 6D -->
+            <distortion model="ptlens" focal="90" a="-0.006" b="0.022" c="-0.02" />
+            <distortion model="ptlens" focal="100" a="0.003" b="-0.012" c="0.024" />
+            <distortion model="ptlens" focal="115" a="-0.001" b="0.016" c="-0.022" />
+            <distortion model="ptlens" focal="135" a="0.005" b="-0.008" c="0.014" />
+            <distortion model="ptlens" focal="160" a="0.011" b="-0.029" c="0.045" />
+            <distortion model="ptlens" focal="200" a="-0.014" b="0.064" c="-0.069" />
+            <distortion model="ptlens" focal="245" a="0.005" b="-0.005" c="0.017" />
+            <distortion model="ptlens" focal="300" a="0.001" b="0.018" c="-0.017" />
+            <tca model="poly3" focal="90" br="0.0001124" vr="0.9999506" bb="-0.0001772" vb="1.0001915" />
+            <tca model="poly3" focal="100" br="0.0000892" vr="0.9999439" bb="-0.0002141" vb="1.0002109" />
+            <tca model="poly3" focal="115" br="0.0000318" vr="0.9999684" bb="-0.0001839" vb="1.0000694" />
+            <tca model="poly3" focal="135" br="0.0000023" vr="0.9999446" bb="-0.0000763" vb="0.9998603" />
+            <tca model="poly3" focal="160" br="-0.0000001" vr="0.9999788" bb="-0.0000913" vb="0.9997460" />
+            <tca model="poly3" focal="200" br="0.0000823" vr="0.9998566" bb="-0.0003916" vb="0.9997365" />
+            <tca model="poly3" focal="245" br="0.0000451" vr="0.9998133" bb="-0.0004300" vb="0.9998388" />
+            <tca model="poly3" focal="300" br="0.0002260" vr="0.9993977" bb="0.0002063" vb="0.9996073" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon EF-S 18-200mm f/3.5-5.6 IS</model>
         <mount>Canon EF-S</mount>
         <cropfactor>1.620</cropfactor>
