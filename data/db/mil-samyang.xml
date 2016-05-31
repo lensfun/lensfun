@@ -90,16 +90,7 @@
             <!-- Taken with Sony NEX-7 -->
             <distortion model="ptlens" focal="12" a="0.0097" b="-0.04108" c="0.03623"/>
             <tca model="poly3" focal="12" br="0.0000203" vr="1.0001380" bb="0.0002099" vb="1.0001907"/>
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Samyang</maker>
-        <model>Samyang 12mm f/2.0 NCS CS</model>
-        <mount>Sony E</mount>
-        <mount>Fujifilm X</mount>
-        <cropfactor>1.529</cropfactor>
-        <calibration>
+            <!-- Taken with Fujifilm X camera (cropfactor 1.529) -->
             <vignetting model="pa" focal="12" aperture="2" distance="10" k1="-1.6043" k2="1.4148" k3="-0.5957" />
             <vignetting model="pa" focal="12" aperture="2" distance="1000" k1="-1.6043" k2="1.4148" k3="-0.5957" />
             <vignetting model="pa" focal="12" aperture="2.8" distance="10" k1="-1.0849" k2="0.8287" k3="-0.4311" />
