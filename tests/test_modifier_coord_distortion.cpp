@@ -164,17 +164,17 @@ int main(int argc, char **argv)
     // ??? + Canon EF 85mm f/1.2L II USM
     distortCalib["LF_DIST_MODEL_POLY3"] = (lfLensCalibDistortion)
     {
-      LF_DIST_MODEL_POLY3, 85.0f, { -0.00412}
+      LF_DIST_MODEL_POLY3, 85.0f, 85.3502f, false, { -0.00412}
     };
     //Canon PowerShot G12 (fixed lens)
     distortCalib["LF_DIST_MODEL_POLY5"] = (lfLensCalibDistortion)
     {
-      LF_DIST_MODEL_POLY5, 6.1f, { -0.030571633, 0.004658548}
+      LF_DIST_MODEL_POLY5, 6.1f, 6.1f, false, { -0.030571633, 0.004658548}
     };
     //Canon EOS 5D Mark III + Canon EF 24-70mm f/2.8L II USM
     distortCalib["LF_DIST_MODEL_PTLENS"] = (lfLensCalibDistortion)
     {
-      LF_DIST_MODEL_PTLENS, 24.0f, {0.02964, -0.07853, 0.02943}
+      LF_DIST_MODEL_PTLENS, 24.0f, 24.46704f, false, {0.02964, -0.07853, 0.02943}
     };
 
     for(std::map<std::string, lfLensCalibDistortion>::iterator it_distortCalib = distortCalib.begin(); it_distortCalib != distortCalib.end(); ++it_distortCalib)
