@@ -9,6 +9,13 @@
 
     <camera>
         <maker>GoPro</maker>
+        <model>Hero3+ black</model>
+        <mount>goProHero3+</mount>
+        <cropfactor>5.42</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>GoPro</maker>
         <model>HERO4 Silver</model>
         <mount>goProHero4</mount>
         <cropfactor>7.66</cropfactor>
@@ -48,17 +55,15 @@
     </lens>
 
     <lens>
-        <maker>DJI</maker>
-        <model>Phantom Vision FC200 &amp; compatibles</model>
+        <maker>GoPro</maker>
+        <model>GoPro Hero3+ black &amp; compatibles</model>
         <model lang="en">fixed lens</model>
         <model lang="de">festes Objektiv</model>
-        <mount>dijPhantomVisionFC200</mount>
-        <cropfactor>6</cropfactor>
-        <type>equisolid</type>
+        <mount>goProHero3+</mount>
+        <cropfactor>5.42</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="5" a="0.02707" b="-0.10021" c="-0.09787"/>
-            <tca model="poly3" focal="5" vr="1.0002" vb="1.0007"/>
+            <distortion model="ptlens" focal="15" a="0.01049" b="0.01663" c="-0.40901" />
         </calibration>
     </lens>
 
@@ -73,6 +78,21 @@
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <distortion model="ptlens" focal="3" a="0.03183" b="-0.11592" c="0"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>DJI</maker>
+        <model>Phantom Vision FC200 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>dijPhantomVisionFC200</mount>
+        <cropfactor>6</cropfactor>
+        <type>equisolid</type>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="5" a="0.02707" b="-0.10021" c="-0.09787" />
+            <tca model="poly3" focal="5" vr="1.0002" vb="1.0007" />
         </calibration>
     </lens>
 

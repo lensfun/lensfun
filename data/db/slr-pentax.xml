@@ -235,6 +235,15 @@
     </camera>
 
     <camera>
+        <maker>RICOH IMAGING COMPANY, LTD.</maker>
+        <maker lang="en">Pentax</maker>
+        <model>PENTAX K-1</model>
+        <model lang="en">K-1</model>
+        <mount>Pentax KAF3</mount>
+        <cropfactor>1.0</cropfactor>
+    </camera>
+
+    <camera>
         <maker>Pentax</maker>
         <model>Pentax K2000</model>
         <model lang="en">K2000</model>
@@ -722,6 +731,32 @@
 
     <lens>
         <maker>Pentax</maker>
+        <model>smc Pentax-DA 40mm f/2.8 XS</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="40" a="0.00084" b="0.0026" c="-0.01446" />
+	        <tca model="poly3" focal="40.0" br="-0.0000344" vr="1.0002530" bb="0.0000659" vb="0.9998578" />
+            <vignetting model="pa" focal="40" aperture="2.8" distance="10" k1="-1.6422" k2="1.4812" k3="-0.6072" />
+            <vignetting model="pa" focal="40" aperture="2.8" distance="1000" k1="-1.6422" k2="1.4812" k3="-0.6072" />
+            <vignetting model="pa" focal="40" aperture="4" distance="10" k1="-0.4285" k2="-0.7416" k3="0.5401" />
+            <vignetting model="pa" focal="40" aperture="4" distance="1000" k1="-0.4285" k2="-0.7416" k3="0.5401" />
+            <vignetting model="pa" focal="40" aperture="5.6" distance="10" k1="-0.5051" k2="0.1224" k3="-0.1631" />
+            <vignetting model="pa" focal="40" aperture="5.6" distance="1000" k1="-0.5051" k2="0.1224" k3="-0.1631" />
+            <vignetting model="pa" focal="40" aperture="8" distance="10" k1="-0.5724" k2="0.3651" k3="-0.2500" />
+            <vignetting model="pa" focal="40" aperture="8" distance="1000" k1="-0.5724" k2="0.3651" k3="-0.2500" />
+            <vignetting model="pa" focal="40" aperture="11" distance="10" k1="-0.5495" k2="0.0721" k3="0.0591" />
+            <vignetting model="pa" focal="40" aperture="11" distance="1000" k1="-0.5495" k2="0.0721" k3="0.0591" />
+            <vignetting model="pa" focal="40" aperture="16" distance="10" k1="-0.5480" k2="0.0905" k3="0.0287" />
+            <vignetting model="pa" focal="40" aperture="16" distance="1000" k1="-0.5480" k2="0.0905" k3="0.0287" />
+            <vignetting model="pa" focal="40" aperture="22" distance="10" k1="-0.6683" k2="0.3178" k3="-0.0722" />
+            <vignetting model="pa" focal="40" aperture="22" distance="1000" k1="-0.6683" k2="0.3178" k3="-0.0722" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
         <model>smc Pentax-FA 43mm f/1.9 Limited</model>
         <mount>Pentax KAF2</mount>
         <!-- Average crop factor of Pentax APS-C cameras -->
@@ -978,6 +1013,27 @@
 
     <lens>
         <maker>Pentax</maker>
+        <model>smc Pentax-FA 50mm f/1.4</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="50" a="0.00533" b="-0.02067" c="0.02125" />
+	        <tca model="poly3" focal="50.0" br="0.0000394" vr="1.0001857" bb="0.0000526" vb="0.9993940" />
+            <vignetting model="pa" focal="50" aperture="1.4" distance="1000" k1="-1.4574" k2="1.1617" k3="-0.4518" />
+            <vignetting model="pa" focal="50" aperture="2" distance="1000" k1="-0.0461" k2="-1.2152" k3="0.6719" />
+            <vignetting model="pa" focal="50" aperture="2.8" distance="1000" k1="-0.3162" k2="0.3087" k3="-0.3464" />
+            <vignetting model="pa" focal="50" aperture="4" distance="1000" k1="-0.2434" k2="0.0061" k3="0.0194" />
+            <vignetting model="pa" focal="50" aperture="5.6" distance="1000" k1="-0.3038" k2="0.1823" k3="-0.1025" />
+            <vignetting model="pa" focal="50" aperture="8" distance="1000" k1="-0.3308" k2="0.2728" k3="-0.1756" />
+            <vignetting model="pa" focal="50" aperture="11" distance="1000" k1="-0.3380" k2="0.2932" k3="-0.2021" />
+            <vignetting model="pa" focal="50" aperture="16" distance="1000" k1="-0.3380" k2="0.2678" k3="-0.1838" />
+            <vignetting model="pa" focal="50" aperture="22" distance="1000" k1="-0.3555" k2="0.2764" k3="-0.1692" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
         <model>smc Pentax-DA 21mm f/3.2 AL Limited</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.526</cropfactor>
@@ -1001,6 +1057,32 @@
             <vignetting model="pa" focal="28" aperture="5.6" distance="100" k1="-0.38055" k2="1.06408" k3="-0.92936"/>
             <vignetting model="pa" focal="28" aperture="2.8" distance="100" k1="-0.87866" k2="1.00009" k3="-0.5801"/>
         </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-FA 28mm f/2.8 AL</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="28" a="0.01253" b="-0.03208" c="0.00563" />
+            <tca model="poly3" focal="28" br="-0.0000563" vr="1.0002879" bb="0.0001022" vb="0.9998245" />
+            <vignetting model="pa" focal="28" aperture="2.8" distance="10" k1="-2.0397" k2="2.1920" k3="-0.9456" />
+            <vignetting model="pa" focal="28" aperture="2.8" distance="1000" k1="-2.0397" k2="2.1920" k3="-0.9456" />
+            <vignetting model="pa" focal="28" aperture="4" distance="10" k1="-0.7531" k2="0.1413" k3="0.0144" />
+            <vignetting model="pa" focal="28" aperture="4" distance="1000" k1="-0.7531" k2="0.1413" k3="0.0144" />
+            <vignetting model="pa" focal="28" aperture="5.6" distance="10" k1="-0.7244" k2="0.0516" k3="0.1462" />
+            <vignetting model="pa" focal="28" aperture="5.6" distance="1000" k1="-0.7244" k2="0.0516" k3="0.1462" />
+            <vignetting model="pa" focal="28" aperture="8" distance="10" k1="-0.6642" k2="-0.0844" k3="0.2290" />
+            <vignetting model="pa" focal="28" aperture="8" distance="1000" k1="-0.6642" k2="-0.0844" k3="0.2290" />
+            <vignetting model="pa" focal="28" aperture="11" distance="10" k1="-0.9747" k2="0.6184" k3="-0.1904" />
+            <vignetting model="pa" focal="28" aperture="11" distance="1000" k1="-0.9747" k2="0.6184" k3="-0.1904" />
+            <vignetting model="pa" focal="28" aperture="16" distance="10" k1="-0.9730" k2="0.6071" k3="-0.1809" />
+            <vignetting model="pa" focal="28" aperture="16" distance="1000" k1="-0.9730" k2="0.6071" k3="-0.1809" />
+            <vignetting model="pa" focal="28" aperture="22" distance="10" k1="-0.8601" k2="0.3664" k3="-0.0386" />
+            <vignetting model="pa" focal="28" aperture="22" distance="1000" k1="-0.8601" k2="0.3664" k3="-0.0386" />
+	</calibration>
     </lens>
 
     <lens>
@@ -1320,6 +1402,59 @@
             <!-- Taken with Fujifilm X-M1 -->
             <distortion model="poly3" focal="50" k1="-0.00105"/>
             <tca model="poly3" focal="50" vr="0.9999922" vb="1.0000026"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-M Macro 1:4 100mm</model>
+        <mount>Pentax K</mount>
+        <cropfactor>1.531</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K10D -->
+            <!-- Really no measurable distortion -->
+            <distortion model="poly3" focal="100" k1="0" />
+            <tca model="poly3" focal="100" vr="0.9998701" vb="1.0000849" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-DA L 18-50mm F4-5.6 DC WR RE</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-S2 -->
+            <distortion model="ptlens" focal="18" a="0.00982" b="-0.03805" c="0.01695" />
+            <distortion model="ptlens" focal="24" a="0.00488" b="-0.02037" c="0.01274" />
+            <distortion model="ptlens" focal="34" a="0" b="0.0009" c="0" />
+            <distortion model="ptlens" focal="50" a="0" b="0.00297" c="0" />
+            <tca model="poly3" focal="18" vr="1.0005357" vb="1.0000769" />
+            <tca model="poly3" focal="24" vr="1.0003696" vb="1.0000405" />
+            <tca model="poly3" focal="34" vr="1.0001627" vb="1.0000371" />
+            <tca model="poly3" focal="50" vr="1.0000870" vb="1.0000095" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-DA L 50-200mm F4-5.6 ED WR</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-S2 -->
+            <distortion model="poly3" focal="50" k1="-0.00627" />
+            <distortion model="poly3" focal="57.5" k1="-0.00403" />
+            <distortion model="poly3" focal="80" k1="0.0038" />
+            <distortion model="poly3" focal="105" k1="0.00915" />
+            <distortion model="poly3" focal="137.5" k1="0.00709" />
+            <distortion model="poly3" focal="200" k1="0.00746" />
+            <tca model="poly3" focal="50" vr="0.9999539" vb="1.0001903" />
+            <tca model="poly3" focal="57.5" vr="0.9999462" vb="1.0001701" />
+            <tca model="poly3" focal="80" vr="0.9998231" vb="1.0001614" />
+            <tca model="poly3" focal="105" vr="0.9998754" vb="1.0000401" />
+            <tca model="poly3" focal="137.5" vr="0.9998983" vb="0.9999943" />
+            <tca model="poly3" focal="200" vr="0.9999243" vb="0.9999551" />
         </calibration>
     </lens>
 

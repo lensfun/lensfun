@@ -40,7 +40,7 @@ from xml.etree import ElementTree
 import lensfun
 
 
-local_xml_filepath = os.path.expanduser("~/.local/share/lensfun/_mounts.xml")
+local_xml_filepath = os.path.join(lensfun.user_local_db_path, "_mounts.xml")
 os.makedirs(os.path.dirname(local_xml_filepath), exist_ok=True)
 
 parser = argparse.ArgumentParser(description="Add mount compatibilities (adapters) to Lensfun's database.")

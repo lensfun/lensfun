@@ -849,4 +849,29 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>Sony AF DT 30mm f/2.8 SAM Macro (SAL30M28)</model>
+        <model lang="en">Sony AF DT 30mm f/2.8 SAM Macro</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 65 -->
+            <distortion model="ptlens" focal="30" a="0.00472" b="-0.02284" c="0.02137" />
+            <tca model="poly3" focal="30" br="-0.0000159" vr="1.0003480" bb="0.0000940" vb="0.9996574" />
+            <vignetting model="pa" focal="30" aperture="2.8" distance="10" k1="-1.8670" k2="2.1179" k3="-0.9856" />
+            <vignetting model="pa" focal="30" aperture="2.8" distance="1000" k1="-1.8670" k2="2.1179" k3="-0.9856" />
+            <vignetting model="pa" focal="30" aperture="3.5" distance="10" k1="-1.3206" k2="0.9184" k3="-0.2916" />
+            <vignetting model="pa" focal="30" aperture="3.5" distance="1000" k1="-1.3206" k2="0.9184" k3="-0.2916" />
+            <vignetting model="pa" focal="30" aperture="4.5" distance="10" k1="-0.5181" k2="-0.2225" k3="0.1860" />
+            <vignetting model="pa" focal="30" aperture="4.5" distance="1000" k1="-0.5181" k2="-0.2225" k3="0.1860" />
+            <vignetting model="pa" focal="30" aperture="5.6" distance="10" k1="-0.5288" k2="0.2552" k3="-0.1913" />
+            <vignetting model="pa" focal="30" aperture="5.6" distance="1000" k1="-0.5288" k2="0.2552" k3="-0.1913" />
+            <vignetting model="pa" focal="30" aperture="7.1" distance="10" k1="-0.6083" k2="0.5202" k3="-0.3191" />
+            <vignetting model="pa" focal="30" aperture="7.1" distance="1000" k1="-0.6083" k2="0.5202" k3="-0.3191" />
+            <vignetting model="pa" focal="30" aperture="22" distance="10" k1="-0.8122" k2="0.5752" k3="-0.2326" />
+            <vignetting model="pa" focal="30" aperture="22" distance="1000" k1="-0.8122" k2="0.5752" k3="-0.2326" />
+        </calibration>
+    </lens>
+
 </lensdatabase>

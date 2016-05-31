@@ -19,8 +19,10 @@
 //fix path to data works only on *nix systems
 //on windows that data dir is relocatable
 #define CONF_DATADIR "${CMAKE_INSTALL_FULL_DATAROOTDIR}/lensfun"
+#define SYSTEM_DB_UPDATE_PATH "/${CMAKE_INSTALL_LOCALSTATEDIR}/lib/lensfun-updates"
 #else
 #define CONF_DATADIR "${LENSFUN_WINDOWS_DATADIR}"
+#define SYSTEM_DB_UPDATE_PATH "C:\\to\\be\\defined\\lensfun-updates"
 #endif
 
 #define DATABASE_SUBDIR "version_${LENSFUN_DB_VERSION}"

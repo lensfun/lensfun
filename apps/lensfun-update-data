@@ -48,10 +48,9 @@ import lensfun
 
 database_version = lensfun.get_database_version()
 
-lensfun_updates_dir = "/var/lib/lensfun-updates"
+lensfun_updates_dir = lensfun.system_db_update_path
 if os.name == "posix" and os.geteuid() != 0:
-    lensfun_updates_dir = os.path.join(os.path.expanduser("~"),
-                                       ".local", "share", "lensfun", "updates")
+    lensfun_updates_dir = os.path.join(lensfun.user_local_db_path, "updates")
     print("Info: root privileges needed for updating the system database.")
     print("Info: updating user DB in '%s'" % lensfun_updates_dir)
 
@@ -70,8 +69,8 @@ def detect_local_timestamp(version):
         except (FileNotFoundError, ValueError):
             return 0
 
-    directory_candidates = {"/usr/share/lensfun", "/usr/local/share/lensfun",
-                            "/var/lib/lensfun-updates", os.path.expanduser("~/.local/share/lensfun/updates")}
+    directory_candidates = {"/usr/share/lensfun", "/usr/local/share/lensfun", lensfun.system_db_path,
+                            lensfun.system_db_update_path, os.path.join(lensfun.user_local_db_path, "updates")}
     return max(map(detect_single_timestamp, directory_candidates))
 
 
@@ -92,7 +91,10 @@ class Location:
 
 def detect_local_database_versions():
     versions = {database_version}
-    for directory in glob.glob("/usr/share/lensfun/version_*") + glob.glob("/usr/local/share/lensfun/version_*"):
+    directories = set(glob.glob("/usr/share/lensfun/version_*") +
+                      glob.glob("/usr/local/share/lensfun/version_*") +
+                      glob.glob(os.path.join(lensfun.system_db_path, "version_*")))
+    for directory in directories:
         if os.path.isdir(directory):
             try:
                 versions.add(int(directory.partition("version_")[2]))

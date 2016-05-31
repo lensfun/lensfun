@@ -10,7 +10,7 @@ typedef struct {
 void db_setup(lfFixture *lfFix, gconstpointer data)
 {
     lfFix->db = new lfDatabase ();
-    lfFix->db->Load();
+    lfFix->db->LoadDirectory("data/db");
 }
 
 
