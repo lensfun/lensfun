@@ -68,7 +68,16 @@ def fetch_xml_files():
         subprocess.check_call(["git", "clone", "git://git.code.sf.net/p/lensfun/code", "lensfun-git"],
                               stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
     else:
-        subprocess.check_call(["git", "pull"], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
+        subprocess.check_call(["git", "fetch"], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
+
+    names = set()
+    for line in subprocess.check_output(["git", "branch", "-a", "--list", "origin/release*", "--no-color"],
+                                        stderr=open(os.devnull, "w")).decode("utf-8").splitlines():
+        names.add(line.rpartition("/")[2])
+    branch_name = sorted(names)[-1]
+    subprocess.check_call(["git", "checkout", branch_name], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
+    subprocess.check_call(["git", "pull"], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
+
     os.chdir(root + "lensfun-git/data/db")
     xml_filenames = glob.glob("*.xml")
     xml_files = set(XMLFile(os.getcwd(), filename) for filename in xml_filenames)
