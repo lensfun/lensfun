@@ -1,3 +1,4 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
 <!--
     This file contains some of the cameras and lenses from:
     "Krasnogorsky zavod" JSC (http://www.zenit-foto.ru/english/index.htm)
@@ -72,10 +73,10 @@
         <maker lang="ru">КМЗ</maker>
         <model>MC Zenitar 2.8/16</model>
         <model lang="ru">МС Зенитар 2.8/16</model>
-        <type>fisheye</type>
         <mount>M42</mount>
         <mount>Pentax K</mount>
         <mount>Nikon F</mount>
+        <type>fisheye</type>
         <cropfactor>1</cropfactor>
     </lens>
 
@@ -113,9 +114,9 @@
         <model>MC Variozenitar-K 2.8-3.5/25-45</model>
         <model lang="ru">МС Вариозенитар-К 2.8-3.5/25-45</model>
         <mount>M42</mount>
-        <cropfactor>1</cropfactor>
-        <aperture min="2.8"/>
         <focal min="25" max="45"/>
+        <aperture min="2.8"/>
+        <cropfactor>1</cropfactor>
     </lens>
 
     <lens>
@@ -127,9 +128,9 @@
         <mount>Pentax K</mount>
         <mount>Nikon F</mount>
         <mount>Canon EF</mount>
-        <cropfactor>1</cropfactor>
         <aperture min="3.5" max="16"/>
         <type>fisheye</type>
+        <cropfactor>1</cropfactor>
     </lens>
 
     <lens>

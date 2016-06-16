@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="positiveDecimal">
+    <xs:restriction base="xs:decimal">
+      <xs:minExclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="positiveFloat">
+    <xs:restriction base="xs:float">
+      <xs:minExclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="xspositiveIntegerxspositiveInteger">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([0-9])+:([0-9])+"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="aspect-ratio">
+    <xs:union memberTypes="positiveDecimal xspositiveIntegerxspositiveInteger"/>
+  </xs:simpleType>
+  <xs:simpleType name="LensOpticalType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="rectilinear"/>
+      <xs:enumeration value="fisheye"/>
+      <xs:enumeration value="panoramic"/>
+      <xs:enumeration value="stereographic"/>
+      <xs:enumeration value="equisolid"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DistortionModelType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="poly3"/>
+      <xs:enumeration value="poly5"/>
+      <xs:enumeration value="ptlens"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TcaModelType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="linear"/>
+      <xs:enumeration value="poly3"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="VignettingModelType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="pa"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="MultiName">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="lang" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="RangeOrValue">
+    <xs:attribute name="min" type="positiveFloat"/>
+    <xs:attribute name="max" type="positiveFloat"/>
+    <xs:attribute name="value" type="positiveFloat"/>
+  </xs:complexType>
+  <xs:complexType name="MountType">
+    <xs:sequence>
+      <xs:element name="name" type="MultiName" maxOccurs="unbounded"/>
+      <xs:element name="compat" type="xs:string" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CalibrationDistortionType">
+    <xs:attribute name="model" type="DistortionModelType" use="required"/>
+    <xs:attribute name="focal" type="positiveFloat" use="required"/>
+    <xs:attribute name="real-focal" type="positiveFloat"/>
+    <!-- when model = poly3 | poly5 -->
+    <xs:attribute name="k1" type="xs:float"/>
+    <!-- when model = poly5 -->
+    <xs:attribute name="k2" type="xs:float"/>
+    <!-- else, when model = ptlens -->
+    <xs:attribute name="a" type="xs:float"/>
+    <xs:attribute name="b" type="xs:float"/>
+    <xs:attribute name="c" type="xs:float"/>
+  </xs:complexType>
+  <xs:complexType name="CalibrationTcaType">
+    <xs:attribute name="model" type="TcaModelType" use="required"/>
+    <xs:attribute name="focal" type="positiveFloat" use="required"/>
+    <!-- when model = linear -->
+    <xs:attribute name="kr" type="xs:float"/>
+    <xs:attribute name="kb" type="xs:float"/>
+    <!-- when model = linear -->
+    <xs:attribute name="vr" type="xs:float"/>
+    <xs:attribute name="vb" type="xs:float"/>
+    <xs:attribute name="cr" type="xs:float"/>
+    <xs:attribute name="cb" type="xs:float"/>
+    <xs:attribute name="br" type="xs:float"/>
+    <xs:attribute name="bb" type="xs:float"/>
+  </xs:complexType>
+  <xs:complexType name="CalibrationVignettingType">
+    <xs:attribute name="model" type="VignettingModelType" use="required"/>
+    <xs:attribute name="focal" type="positiveFloat" use="required"/>
+    <xs:attribute name="aperture" type="positiveFloat" use="required"/>
+    <xs:attribute name="distance" type="positiveFloat" use="required"/>
+    <xs:attribute name="k1" type="xs:float" use="required"/>
+    <xs:attribute name="k2" type="xs:float" use="required"/>
+    <xs:attribute name="k3" type="xs:float" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="CalibrationType">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="distortion" type="CalibrationDistortionType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="tca" type="CalibrationTcaType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="vignetting" type="CalibrationVignettingType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="CameraType">
+    <xs:sequence>
+      <xs:element name="maker" type="MultiName" maxOccurs="unbounded"/>
+      <xs:element name="model" type="MultiName" maxOccurs="unbounded"/>
+      <xs:element name="variant" type="xs:string" minOccurs="0"/>
+      <xs:element name="mount" type="xs:string"/>
+      <xs:element name="cropfactor" type="positiveFloat"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LensType">
+    <xs:sequence>
+      <xs:element name="maker" type="MultiName" maxOccurs="unbounded"/>
+      <xs:element name="model" type="MultiName" maxOccurs="unbounded"/>
+      <xs:element name="mount" type="xs:string" maxOccurs="unbounded"/>
+      <xs:element name="focal" type="RangeOrValue" minOccurs="0"/>
+      <xs:element name="aperture" type="RangeOrValue" minOccurs="0"/>
+      <xs:element name="type" type="LensOpticalType" minOccurs="0"/>
+      <xs:element name="cropfactor" type="positiveFloat" minOccurs="0"/>
+      <xs:element name="aspect-ratio" type="aspect-ratio" minOccurs="0"/>
+      <xs:element name="calibration" type="CalibrationType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LensDatabaseType">
+    <xs:sequence>
+      <xs:element name="mount" type="MountType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="camera" type="CameraType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="lens" type="LensType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="version" type="xs:positiveInteger" use="required"/>
+  </xs:complexType>
+  <xs:element name="lensdatabase" type="LensDatabaseType"/>
+</xs:schema>

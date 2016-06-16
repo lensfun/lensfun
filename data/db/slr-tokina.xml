@@ -1,3 +1,4 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
 <lensdatabase version="2">
 
     <lens>
@@ -231,10 +232,10 @@
         <mount>Minolta M</mount>
         <mount>Olympus OM</mount>
         <mount>Nikon F AI</mount>
-        <!-- Average crop factor of non-Canon APS-C cameras -->
-        <cropfactor>1.53</cropfactor>
         <focal value="500"/>
         <aperture value="8"/>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
         <calibration>
             <tca model="poly3" focal="500" br="0.0000917" cr="-0.0001426" vr="0.9998064" bb="0.0002514" cb="-0.0004149" vb="0.9997489"/>
         </calibration>

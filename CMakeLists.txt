@@ -45,6 +45,7 @@ OPTION(BUILD_FOR_SSE "Build with support for SSE" ${X86_ON})
 OPTION(BUILD_FOR_SSE2 "Build with support for SSE2" ${X86_ON})
 OPTION(BUILD_DOC "Build documentation with doxygen" OFF)
 OPTION(INSTALL_HELPER_SCRIPTS "Install various helper scripts" ON)
+option(USE_XMLLINT "Run xmllint to test if data/db/*.xml are valid" ON)
 
 IF(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Debug CACHE STRING
@@ -142,6 +143,17 @@ IF(WIN32)
   ENDIF(MSVC)
 ENDIF(WIN32)
 
+# do we have xmllint?
+if(USE_XMLLINT)
+  find_program(Xmllint_BIN xmllint)
+  if(${Xmllint_BIN} STREQUAL "Xmllint_BIN-NOTFOUND")
+    message(STATUS "Missing xmllint")
+    set(USE_XMLLINT OFF)
+  else(${Xmllint_BIN} STREQUAL "Xmllint_BIN-NOTFOUND")
+    message(STATUS "Found xmllint")
+  endif(${Xmllint_BIN} STREQUAL "Xmllint_BIN-NOTFOUND")
+endif(USE_XMLLINT)
+
 # create config.h file
 CONFIGURE_FILE(include/lensfun/config.h.in.cmake ${CMAKE_BINARY_DIR}/config.h)
 # create lensfun.h file
@@ -167,8 +179,25 @@ ENDIF()
 
 # install db files
 FILE(GLOB DATABASE_FILES data/db/*.xml)
+
+if(USE_XMLLINT)
+  foreach(database ${DATABASE_FILES})
+    get_filename_component(DBNAME ${database} NAME_WE)
+    add_custom_target(
+      validate_${DBNAME} ALL
+      COMMAND ${Xmllint_BIN} --valid --noout --schema data/db/lensfun-database.xsd ${database}
+      DEPENDS ${database}
+      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
+      COMMENT "Checking validity of ${database}"
+    )
+  endforeach(database)
+endif(USE_XMLLINT)
+
 INSTALL(FILES ${DATABASE_FILES} DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/lensfun/version_${LENSFUN_DB_VERSION})
 INSTALL(FILES data/db/timestamp.txt DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/lensfun/version_${LENSFUN_DB_VERSION})
+
+FILE(GLOB DATABASE_DTD data/db/*.dtd data/db/*.xsd)
+INSTALL(FILES ${DATABASE_DTD} DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/lensfun/version_${LENSFUN_DB_VERSION})
 
 # build documentation
 IF(BUILD_DOC)

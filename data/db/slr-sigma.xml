@@ -1,3 +1,4 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
 <lensdatabase version="2">
 
     <mount>
@@ -62,14 +63,14 @@
         <!-- HSM is not available for Sony and Pentax, so don't display it for
              avoiding confusion. -->
         <model lang="en">Sigma 10-20mm f/4-5.6 EX DC</model>
-        <focal min="10" max="20"/>
-        <aperture min="4" max="32"/>
         <mount>Nikon F AF</mount>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
         <mount>Pentax KAF2</mount>
         <mount>Sony Alpha</mount>
         <mount>4/3 System</mount>
+        <focal min="10" max="20"/>
+        <aperture min="4" max="32"/>
         <!-- Average crop factor of non-Canon APS-C cameras -->
         <cropfactor>1.53</cropfactor>
         <calibration>
@@ -187,14 +188,14 @@
         <!-- HSM is not available for Sony and Pentax, so don't display it for
              avoiding confusion. -->
         <model lang="en">Sigma 10-20mm f/4-5.6 EX DC</model>
-        <focal min="10" max="20"/>
-        <aperture min="4" max="32"/>
         <mount>Nikon F AF</mount>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
         <mount>Pentax KAF2</mount>
         <mount>Sony Alpha</mount>
         <mount>4/3 System</mount>
+        <focal min="10" max="20"/>
+        <aperture min="4" max="32"/>
         <cropfactor>1.620</cropfactor>
         <calibration>
             <!-- Taken with Canon 60D -->
@@ -671,13 +672,13 @@
     <lens>
         <maker>Sigma</maker>
         <model>Sigma 18-200mm f/3.5-6.3 DC</model>
-        <focal min="18" max="200"/>
-        <aperture min="3.5" max="40"/>
         <mount>Sigma SA</mount>
         <mount>Nikon F AF</mount>
         <mount>Canon EF</mount>
         <mount>Pentax KAF2</mount>
         <mount>Sony Alpha</mount>
+        <focal min="18" max="200"/>
+        <aperture min="3.5" max="40"/>
         <!-- Average crop factor of non-Canon APS-C cameras -->
         <cropfactor>1.53</cropfactor>
         <calibration>
@@ -872,12 +873,12 @@
     <lens>
         <maker>Sigma</maker>
         <model>Sigma 24-60mm f/2.8 EX DG</model>
-        <focal min="24" max="60"/>
-        <aperture min="2.8" max="22"/>
         <mount>Nikon F AF</mount>
         <mount>Canon EF</mount>
         <mount>Pentax KAF2</mount>
         <mount>Sony Alpha</mount>
+        <focal min="24" max="60"/>
+        <aperture min="2.8" max="22"/>
         <!-- Average crop factor of non-Canon APS-C cameras -->
         <cropfactor>1.53</cropfactor>
         <calibration>
@@ -1663,9 +1664,9 @@
     <lens>
         <maker>Sigma</maker>
         <model>Sigma 150mm f/2.8 EX DG APO HSM Macro</model>
+        <mount>4/3 System</mount>
         <focal value="150"/>
         <aperture min="2.8" max="22"/>
-        <mount>4/3 System</mount>
         <cropfactor>2</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
@@ -1831,8 +1832,8 @@
         <mount>Nikon F AF</mount>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
-        <cropfactor>1.523</cropfactor>
         <type>equisolid</type>
+        <cropfactor>1.523</cropfactor>
         <calibration>
             <!-- Taken with Nikon D5100 -->
             <distortion model="ptlens" focal="8" a="-0.18485" b="0.5218" c="-0.42534"/>
@@ -1848,8 +1849,8 @@
         <mount>Nikon F AF</mount>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
-        <cropfactor>1.620</cropfactor>
         <type>equisolid</type>
+        <cropfactor>1.620</cropfactor>
         <calibration>
             <!-- Taken with Canon 7D -->
             <distortion model="poly3" focal="8" k1="0.00553"/>
@@ -1865,8 +1866,8 @@
         <mount>Nikon F AF</mount>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
-        <cropfactor>1</cropfactor>
         <type>equisolid</type>
+        <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Canon 5D Mark III -->
             <!-- Measured with 360° panorama -->
@@ -2207,8 +2208,8 @@
         <mount>Sony Alpha</mount>
         <mount>Pentax KAF2</mount>
         <mount>Canon EF</mount>
-        <cropfactor>1.622</cropfactor>
         <type>equisolid</type>
+        <cropfactor>1.622</cropfactor>
         <calibration>
             <!-- Taken with Canon EOS 450D -->
             <distortion model="ptlens" focal="10" a="0.01165" b="-0.04879" c="0.09652"/>
@@ -2223,8 +2224,8 @@
         <mount>Sony Alpha</mount>
         <mount>Pentax KAF2</mount>
         <mount>Canon EF</mount>
-        <cropfactor>1.523</cropfactor>
         <type>fisheye</type>
+        <cropfactor>1.523</cropfactor>
         <calibration>
             <!-- Taken with Nikon D200 -->
             <distortion model="ptlens" focal="10" a="0.00057" b="-0.02738" c="0.00014"/>
@@ -2786,8 +2787,8 @@
         <mount>Sony Alpha</mount>
         <mount>Pentax KAF2</mount>
         <mount>Sigma SA</mount>
-        <cropfactor>1.534</cropfactor>
         <type>fisheye</type>
+        <cropfactor>1.534</cropfactor>
         <calibration>
             <!-- Taken with Pentax K-3 -->
             <!-- Measured with 360° panorama -->

@@ -1,3 +1,4 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
 <lensdatabase version="2">
 
     <lens>
@@ -400,12 +401,12 @@
     <lens>
         <maker>Tamron</maker>
         <model>Tamron SP AF 90mm f/2.8 Di Macro 1:1</model>
-        <focal value="90"/>
-        <aperture min="2.8" max="32"/>
         <mount>Nikon F AF</mount>
         <mount>Canon EF</mount>
         <mount>Pentax KAF2</mount>
         <mount>Sony Alpha</mount>
+        <focal value="90"/>
+        <aperture min="2.8" max="32"/>
         <!-- Average crop factor of non-Canon APS-C cameras -->
         <cropfactor>1.53</cropfactor>
         <calibration>
