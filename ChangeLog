@@ -2,6 +2,10 @@
     UPCOMING RELEASE
 =======================================
 
+* Static lfXX::Create() and lfXX:Destroy() methods of various Lensfun classe are now marked as deprecated. C++ new/delete syntax should be used instead.
+* CMAKE: glib > 2.26 is now only required when tests are being build.
+* CMAKE: various fixes (paths, OS compatibility)
+
 New interchangeable lenses:
 
 * Beroflex 1:8 500mm
