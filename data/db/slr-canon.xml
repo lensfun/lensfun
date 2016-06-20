@@ -2755,6 +2755,24 @@
         <maker>Canon</maker>
         <model>Canon EF 100-400mm f/4.5-5.6L IS USM</model>
         <mount>Canon EF</mount>
+        <!-- Average crop factor of Canon APS-C cameras -->
+        <cropfactor>1.611</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="100" a="0.001543" b="-0.003547" c="0" />
+            <distortion model="ptlens" focal="135" a="0.000471" b="-0.000408" c="0" />
+            <distortion model="ptlens" focal="150" a="0.00022" b="0.000681" c="0" />
+            <distortion model="ptlens" focal="200" a="-0.00011" b="0.00192" c="0" />
+            <distortion model="ptlens" focal="250" a="0.001326" b="-0.001117" c="0" />
+            <distortion model="ptlens" focal="300" a="-0.001773" b="0.005878" c="0" />
+            <distortion model="ptlens" focal="350" a="0.000721" b="0.000672" c="0" />
+            <distortion model="ptlens" focal="400" a="-0.000338" b="0.003752" c="0" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 100-400mm f/4.5-5.6L IS USM</model>
+        <mount>Canon EF</mount>
         <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Canon 5D Mark III -->
