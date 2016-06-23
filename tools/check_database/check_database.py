@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """Checks sanity of the database.  Pass the path to the database on the command
-line.
+line.  This path defaults to ``../../data/db``, relatively to the directory of
+this script.
 
 If you want to add a check, just add a "check_..." function to this program.
 It must take a set of ElementTree roots.
@@ -50,8 +51,12 @@ def check_primary_keys_uniqueness(roots):
                 cameras.add(camera)
 
 
+try:
+    rootdir = sys.argv[1]
+except IndexError:
+    rootdir = os.path.join(os.path.dirname(__file__), "../../data/db")
 roots = set()
-for filepath in glob.glob(os.path.join(sys.argv[1], "*.xml")):
+for filepath in glob.glob(os.path.join(rootdir, "*.xml")):
     roots.add(ElementTree.parse(filepath).getroot())
 for check_function in [function for function in globals().copy().values()
                        if inspect.isfunction(function) and function.__name__.startswith("check_")]:
