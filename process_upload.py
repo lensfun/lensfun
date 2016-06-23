@@ -13,6 +13,8 @@ filepath = sys.argv[1]
 directory = os.path.abspath(os.path.dirname(filepath))
 cache_dir = os.path.join("/var/cache/apache2/calibrate", os.path.basename(directory))
 email_address = json.load(open(os.path.join(directory, "originator.json")))
+authinfo = open("/var/www/.authinfo").readlines()[0].split()
+authinfo = dict(zip(authinfo[::2], authinfo[1::2]))
 
 def send_email(to, subject, body):
     message = MIMEText(body, _charset = "iso-8859-1")
@@ -20,9 +22,9 @@ def send_email(to, subject, body):
     message["Subject"] = subject
     message["From"] = me
     message["To"] = to
-    smtp_connection = smtplib.SMTP("***REMOVED***", 587)
+    smtp_connection = smtplib.SMTP(authinfo["machine"], authinfo["port"])
     smtp_connection.starttls()
-    smtp_connection.login("***REMOVED***", open("/var/www/.authinfo").readlines()[0].split()[-1])
+    smtp_connection.login(authinfo["login"], authinfo["password"])
     smtp_connection.sendmail(me, [to], message.as_string())
 
 def send_error_email():

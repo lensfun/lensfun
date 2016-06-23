@@ -16,6 +16,8 @@ from django.utils.encoding import iri_to_uri
 upload_directory = "/mnt/media/raws/Kalibration/uploads"
 allowed_extensions = (".tar.gz", ".tgz", ".tar.bz2", ".tbz2", ".bz2", ".tar.xz", ".txz", ".tar", ".rar", ".7z", ".zip")
 file_extension_pattern = re.compile("(" + "|".join(allowed_extensions).replace(".", "\\.") + ")$", re.IGNORECASE)
+authinfo = open("/var/www/.authinfo").readlines()[0].split()
+authinfo = dict(zip(authinfo[::2], authinfo[1::2]))
 
 
 class HttpResponseSeeOther(django.http.HttpResponse):
@@ -38,9 +40,9 @@ def send_email(to, subject, body):
     message["Subject"] = subject
     message["From"] = me
     message["To"] = to
-    smtp_connection = smtplib.SMTP("***REMOVED***", 587)
+    smtp_connection = smtplib.SMTP(authinfo["machine"], authinfo["port"])
     smtp_connection.starttls()
-    smtp_connection.login("***REMOVED***", open("/var/www/.authinfo").readlines()[0].split()[-1])
+    smtp_connection.login(authinfo["login"], authinfo["password"])
     smtp_connection.sendmail(me, [to], message.as_string())
 
 def send_success_email(email_address, id_):
