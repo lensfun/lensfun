@@ -1,0 +1,33 @@
+--- /tmp/lensfun-0.2.5/libs/lensfun/lens.cpp	2010-03-22 23:14:25.000000000 +0100
++++ /home/bronger/temp/lens.cpp	2012-11-07 05:11:48.124714439 +0100
+@@ -817,7 +817,7 @@
+     lfVignettingModel vm = LF_VIGNETTING_MODEL_NONE;
+ 
+     float min_dist = 0.01F;
+-    for (guint i = 0; i < vc->len; i++)
++    for (guint i = 0; i < vc->len && i < 1000; i++)
+     {
+         lfLensCalibVignetting *c =
+             (lfLensCalibVignetting *)g_ptr_array_index (vc, i);
+@@ -917,10 +917,6 @@
+             }
+         }
+ 
+-        // If we have found no points for the spline, drop
+-        if (!spline [1] || !spline [2])
+-            continue;
+-
+         // Sort the spline points according to the real distance
+         // between p and the points, not by "rating".
+         if (spline_dist [0] < spline_dist [1])
+@@ -942,6 +938,10 @@
+             spline_dist [3] = tmpf;
+         }
+ 
++        // If we have found no points for the spline, drop
++        if (!spline [1] || !spline [2])
++            continue;
++
+         // Interpolate a new point given four spline points
+         // For this we have to find first the 't' parameter
+         // in the range 0..1 which gives the closest to p point
