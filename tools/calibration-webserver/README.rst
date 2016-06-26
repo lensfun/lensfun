@@ -31,7 +31,9 @@ In ``settings.py``
 ------------------
 
 This is an ordinary `Django settings`_ file.  Settings you should change are
-``ADMINS``, ``ALLOWED_HOSTS``, and ``SECRET_KEY``.
+``ADMINS``, ``ALLOWED_HOSTS``, and ``SECRET_KEY``.  (The ``SECRET_KEY`` is not
+used by this appication currently, but this may change in a later version, so
+set the ``SECRET_KEY`` to a new value kanyway.)
 
 .. _Django settings: https://docs.djangoproject.com/en/1.9/ref/settings/
 
