@@ -69,11 +69,6 @@ def send_success_email():
 New calibration images arrived from <{}>, see
 
     {}
-
--- 
-Torsten Bronger, aquisgrana, europa vetus
-                   Jabber ID: torsten.bronger@jabber.rwth-aachen.de
-                                  or http://bronger-jmp.appspot.com
 """.format(email_address, directory))
 
 def write_result_and_exit(error, missing_data=[]):
