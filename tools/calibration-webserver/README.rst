@@ -47,6 +47,13 @@ changing its source code:
 * In ``send_email``, you have to change the value of the variable “``me``”.
 * In ``send_error_email``, you have to change the email text as well as the
   URL.
+* In ``send_success_email``, you have to change the recipient email address.
+
+
+In ``calibration/views.py``
+---------------------------
+
+* In ``send_success_email``, you have to change the recipient email address.
 
 
 Usage with Apache
