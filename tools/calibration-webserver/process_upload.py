@@ -113,7 +113,8 @@ def call_exiv2(raw_file_group):
     exiv2_process = subprocess.Popen(
         ["exiv2", "-PEkt", "-g", "Exif.Image.Make", "-g", "Exif.Image.Model",
          "-g", "Exif.Photo.LensModel", "-g", "Exif.Photo.FocalLength", "-g", "Exif.Photo.FNumber",
-         "-g", "Exif.NikonLd2.LensIDNumber", "-g", "Exif.Sony2.LensID", "-g", "Exif.NikonLd3.LensIDNumber", "-g", "Exif.Nikon3.Lens",
+         "-g", "Exif.NikonLd2.LensIDNumber", "-g", "Exif.Sony2.LensID", "-g", "Exif.NikonLd3.LensIDNumber",
+         "-g", "Exif.Nikon3.Lens",
          "-g", "Exif.CanonCs.LensType", "-g", "Exif.Canon.LensModel", "-g", "Exif.Panasonic.LensType",
          "-g", "Exif.PentaxDng.LensType", "-g", "Exif.Pentax.LensType"]
         + raw_file_group, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
