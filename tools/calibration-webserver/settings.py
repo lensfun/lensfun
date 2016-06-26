@@ -125,5 +125,3 @@ LOGGING = {
         },
     }
 }
-
-FILE_UPLOAD_TEMP_DIR = "/mnt/media/tmp/"
