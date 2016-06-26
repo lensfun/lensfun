@@ -1,9 +1,27 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""Important: for this program to work, the directory
-/var/cache/apache2/calibrate must be writable for www-data!
+"""This script takes the location of a file archive (e.g. a tarball) as its
+argument and converts it into an extracted set of files in the same directory.
+Moreover, all image files are renamed so that the most important image
+parameters like the focal length are included into the filename.
 
+Besides the archive file, it expects a file ``originator.json`` in the same
+directory which contains only one string, which is the email address of the
+uploader.
+
+It takes the SMTP credentials from the first line in the file
+``/var/www/.authinfo``.  Its content may be::
+
+    machine mail.example.com login me243242 port 587 password reallysecret
+
+This program is called from the Apache process and is detached from it.  In the
+background, it processes the uploaded archive while the user is presented a
+success message in their browser.
+
+Important: for this program to work, the directories
+/var/cache/apache2/calibrate and the directory with the above mentioned files
+must be writable for the user as which this script runs (probably www-data)!
 """
 
 import hashlib, sys, os, subprocess, json, re, multiprocessing, smtplib
