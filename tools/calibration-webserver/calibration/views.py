@@ -46,10 +46,10 @@ def send_email(to, subject, body):
     smtp_connection.sendmail(me, [to], message.as_string())
 
 def send_success_email(email_address, id_):
-    send_email("Torsten Bronger <bronger@physik.rwth-aachen.de>", "Neue Kalibrationsdaten von " + email_address,
-               """Hallöchen!
+    send_email("Torsten Bronger <bronger@physik.rwth-aachen.de>", "New calibration images from " + email_address,
+               """Hidy-Ho!
 
-Es liegen neue Kalibrationsdaten von {} vor, siehe
+New calibration images arrived from <{}>, see
 
     {}
 
@@ -57,7 +57,7 @@ Es liegen neue Kalibrationsdaten von {} vor, siehe
 Torsten Bronger, aquisgrana, europa vetus
                    Jabber ID: torsten.bronger@jabber.rwth-aachen.de
                                   or http://bronger-jmp.appspot.com
-               """.format(email_address, os.path.join("/home/bronger/raws/Kalibration/uploads", id_)))
+""".format(email_address, os.path.join("/home/bronger/raws/Kalibration/uploads", id_)))
 
 
 def spawn_daemon(path_to_executable, *args):

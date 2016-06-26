@@ -63,10 +63,10 @@ Torsten Bronger, aquisgrana, europa vetus
 """.format("http://wilson.bronger.org/calibration/results/" + os.path.basename(directory)))
 
 def send_success_email():
-    send_email("Torsten Bronger <bronger@physik.rwth-aachen.de>", "Neue Kalibrationsdaten von " + email_address,
-               """Hallöchen!
+    send_email("Torsten Bronger <bronger@physik.rwth-aachen.de>", "New calibration images from " + email_address,
+               """Hidy-Ho!
 
-Es liegen neue Kalibrationsdaten von {} vor, siehe
+New calibration images arrived from <{}>, see
 
     {}
 
