@@ -140,7 +140,10 @@ class UploadForm(forms.Form):
 
 def upload(request):
     if request.method == "POST":
-        upload_form = UploadForm(request.POST, request.FILES)
+        try:
+            upload_form = UploadForm(request.POST, request.FILES)
+        except django.http.UnreadablePostError:
+            return django.http.HttpResponseBadRequest(b"Upload was incomplete.")
         if upload_form.is_valid():
             id_ = store_upload(request.FILES["compressed_file"], upload_form.cleaned_data["email_address"])
             return HttpResponseSeeOther(django.core.urlresolvers.reverse(show_issues, kwargs={"id_": id_}))
