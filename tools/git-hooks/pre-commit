@@ -7,6 +7,18 @@
 
 if [[ -n $(git diff --cached data/db/*.xml) ]]
 then
+    
+    # run database checks before commit
+    python3 tools/check_database/check_database.py data/db/
+    RETVAL=$?
+    if [ $RETVAL -ne 0 ]
+    then 
+        echo "Pre-commit hook <check_database.py> returned an error!"
+	echo "Please repair the corrupted database and try again."
+        exit 1
+    fi
+
+    # finally update timestamp
     touch .update_timestamp
 fi
 exit 0
