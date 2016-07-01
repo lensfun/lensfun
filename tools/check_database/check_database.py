@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """Checks sanity of the database.  Pass the path to the database on the command
-line.
+line.  This path defaults to ``../../data/db``, relatively to the directory of
+this script.
 
 If you want to add a check, just add a "check_..." function to this program.
 It must take a set of ElementTree roots.
@@ -77,7 +78,12 @@ def check_xmllint(db_files):
 ##########
 # Main program
 
-db_files = glob.glob(os.path.join(sys.argv[1], "*.xml"))
+try:
+    rootdir = sys.argv[1]
+except IndexError:
+    rootdir = os.path.join(os.path.dirname(__file__), "../../data/db")
+
+db_files = glob.glob(os.path.join(rootdir, "*.xml"))
 
 for check_function in [function for function in globals().copy().values()
                        if inspect.isfunction(function) and function.__name__.startswith("check_")]:

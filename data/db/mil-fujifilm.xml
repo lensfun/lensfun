@@ -58,6 +58,13 @@
         <cropfactor>1.529</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Fujifilm</maker>
+        <model>X-T10</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+    </camera>
+
     <lens>
         <maker>Fujifilm</maker>
         <model>XF18-55mmF2.8-4 R LM OIS</model>
@@ -706,22 +713,6 @@
             <vignetting model="pa" focal="50" aperture="16" distance="1000" k1="-0.0879" k2="-0.0115" k3="0.0026"/>
             <vignetting model="pa" focal="50" aperture="22" distance="10" k1="-0.0917" k2="-0.0093" k3="0.0035"/>
             <vignetting model="pa" focal="50" aperture="22" distance="1000" k1="-0.0917" k2="-0.0093" k3="0.0035"/>
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Fujifilm</maker>
-        <model>XF35mmF2 R WR</model>
-        <model lang="en">XF 35mm f/2 WR</model>
-        <mount>Fujifilm X</mount>
-        <cropfactor>1.529</cropfactor>
-        <calibration>
-            <!-- Taken with Fujifilm X-E2 -->
-            <!-- The subject was not really trustworthy for distortion
-                 measurement.  I asked the uploader to upload a better
-                 image. -->
-            <distortion model="poly3" focal="35" k1="-0.02597"/>
-            <tca model="poly3" focal="35" vr="1.0000774" vb="0.9999724"/>
         </calibration>
     </lens>
 

@@ -1,0 +1,104 @@
+{% extends "calibration/base.html" %}
+
+{% block content %}
+<h1>Upload calibration pictures</h1>
+
+<!--p style="color: red; font-weight: bold">Lens profiling is currently on hold
+due to other work on Lensfun.  This will last for a couple of weeks as far as I
+can see.</p-->
+
+<p>So you want to use lens correction features of Darktable, Rawstudio,
+digiKam, Imagemagick etc, but your lens is not yet supported</a>?  No problem –
+just take some test shots and upload them here.</p>
+
+<h2>How to upload</h2>
+
+<p>First, <a href="/lensfun_coverage.html">check whether the data is already
+    available in current Lensfun</a>!</p>
+
+<p>Then, read carefully the section <a href="#instructions">“How should test
+shots look like?”</a>  below.</p>
+
+<p>Please select a tarball (.tar.gz) or a ZIP file from your computer that
+contains the RAW pictures.  A single upload may contain RAWs for many different
+lenses, but only <em>one</em> camera.</p>
+
+<p><strong>Important:</strong> By uploading files here, you thereby grant
+me, <a href="mailto:bronger@physik.rwth-aachen.de">Torsten Bronger</a>, the
+right to permanently store them on my computer and use them for generating
+calibration data.  This data is then published under the
+  <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons
+Attribution-Share Alike 3.0 license</a>.  I may make your images anonymously
+available to open source projects, e.g. to exiv2 in order to improve automatic
+lens model detection.  I will never publish or give away your email
+address.</p>
+
+<form enctype="multipart/form-data" method="post">
+  <table border="1">
+    {{ upload }}
+  </table>
+  <p><input type="submit"/></p>
+</form>
+
+<hr/>
+
+<h2>What happens after the upload?</h2>
+
+I will send you an email with the calibration data, together with instruction
+for how to install them locally.  At the same time, I will send this data to
+the Lensfun project.  Please give me time for this.  I hope to process every
+request within 48 hours but keep in mind that I have to do it partly manually.
+
+<img style="float: left; margin-right: 1em; margin-top: 3ex; margin-bottom: 3ex"
+     src="/lens_calibration_tutorial/hugin_half.png" alt="Good anti-distortion target"/>
+
+<h2 id="instructions">How should test shots look like?</h2>
+
+<p>If you calibrate a zoom lens, take pictures at at least five different focal
+lengths.  Always include the extreme values.</p>
+
+<p>Test shots need to be taken at a distance of at least 3 metres.  The
+pictures must contain one straight line, running from one end of the picture to
+the other, very close to the long border of the picture.  Ideally, it contains a
+second straight line 1/3 of the image height from the top.</p>
+
+<p>The picture on the left is a good example.  The numbered marks follow the
+two lines that I mentioned.  I recommend that you use a modern building and
+take pictures of it.  Don't take picures of brick walls or tiles.  Tilting or
+rotating the camera is allowed.  Make really sharp pictures.  Switch off all
+corrections (some cameras do this even for RAWs).</p>
+
+<p>I have compiled <a href="/calibration/target_tips">three further sample pictures</a>,
+to eliminate all doubts.</p>
+
+<img style="float: right; margin-left: 1em"
+     src="/lens_calibration_tutorial/DSC03194.jpg" alt="Good TCA correction target"/>
+
+<h2 style="">TCA and vignetting</h2>
+
+
+<p>The more corrections are possible, the better.  As for TCA (chromatic
+aberration), I can maybe use the same pictures that you uploaded for distortion
+above.  Anyway, they need to contain sharp high-contrast edges over the whole
+image, see the photo on the right.</p>
+
+<p>As for taking pictures for vignetting correction,
+see <a href="http://wilson.bronger.org/lens_calibration_tutorial/#id3">my lens
+calibration tutorial</a>.</p>
+
+<h2>About EXIF data …</h2>
+
+<p>I need to know lens model, focal length, and aperture for each shot.
+Mostly, this is already included in the RAW.  In case it isn’t, you will be
+pointed to a web page where you can add any missing data.</p>
+
+<p>However, if the EXIF data in some files is plain wrong (for example, you
+used a fisheye converter), it is necessary that you rename such files.  For
+example, you may rename to</p>
+
+<pre>    Canon_EF_24-70mm_f__2.8L_USM--35mm--2.8.CR2</pre>
+
+<p>In the lens name, a single underscore “_” represents a space “ ”, and double
+underscore “__” represents a slash “/”.</p>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+body { 
+    font-family: "DejaVu Sans", "Bitstream Vera Sans", "Trebuchet MS", Verdana, sans-serif;
+}
+
+h1 { margin-top: 0pt }
+
+/* MESSAGES & ERRORS */
+div.errorlist, td.error-messages { text-align: left; font-size: x-small; padding: 0pt }
+div.errorlist, td.error-messages p { padding: 0.5ex 0.5ex 0pt 0.5ex; margin: 0pt 0pt 0pt 0pt;
+				     color:white; background-color: maroon; font-weight: bold }
+ul.errorlist { margin:0 !important; background-color: maroon; font-weight: normal }
+.errorlist li { padding: 0pt 0.5ex 0pt 0.5ex; display:block; color:white }
+
+a > img, img[usemap] { border: none }
+
+ul.radio-select { list-style-type: none; display: inline; margin-left: 0; padding-left:0 }
+ul.radio-select li { display: inline; margin-right: 1em }
