@@ -1,9 +1,13 @@
 #include <string>
 #include <limits>
 #include <cmath>
+#include <iostream>
+#include <ctime>
 
 #include "lensfun.h"
 #include "../libs/lensfun/lensfunprv.h"
+
+#include "common_code.hpp"
 
 
 typedef struct
@@ -210,6 +214,19 @@ void test_mod_coord_pc_7_points (lfFixture *lfFix, gconstpointer data)
     }
 }
 
+void test_mod_coord_pc_performance (lfFixture *lfFix, gconstpointer data)
+{
+    float temp_x[] = {145, 208, 748, 850};
+    float temp_y[] = {1060, 666, 668, 1060};
+    fvector x (temp_x, temp_x + 4);
+    fvector y (temp_y, temp_y + 4);
+    g_assert_true (lfFix->mod->enable_perspective_correction (x, y, 0));
+    fvector coords (6000 * 4000 * 2);
+    unsigned int start = clock();
+    lfFix->mod->ApplyGeometryDistortion (0, 0, 6000, 4000, &coords [0]);
+    std::cerr << (clock() - start) / 1000. << std::endl;
+}
+
 
 int main (int argc, char **argv)
 {
@@ -231,6 +248,8 @@ int main (int argc, char **argv)
               mod_setup, test_mod_coord_pc_5_points, mod_teardown);
   g_test_add ("/modifier/coord/pc/7 points", lfFixture, NULL,
               mod_setup, test_mod_coord_pc_7_points, mod_teardown);
+  g_test_add ("/modifier/coord/pc/performance", lfFixture, NULL,
+              mod_setup, test_mod_coord_pc_performance, mod_teardown);
 
   return g_test_run();
 }
