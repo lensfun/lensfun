@@ -564,7 +564,14 @@ def process_image(json_filepath, d, index):
     image_data, width, height = read_image_file(image_filepath)
     modifier = Modifier(crop_factor, width, height)
     modifier.initialize(f)
+    modifier.enable_perspective_correction(x, y, d)
+    modifier.scaling_factor = shrinking
+    res = array.array("f", 2 * [0])
+    for i in range(0, 1000, 100):
+        modifier.apply_perspective_correction(i, i, 1, 1, res)
+        print(res[0], end=", ")
     if modifier.enable_perspective_correction(x, y, d):
+        return
         res = array.array("f", width * height * 2 * [0])
         modifier.scaling_factor = shrinking
         modifier.apply_perspective_correction(0, 0, width, height, res)
