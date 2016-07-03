@@ -29,7 +29,7 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
     lfFix->img_height = 2;
     lfFix->img_width  = 3;
 
-    lfFix->mod = lfModifier::Create (lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
+    lfFix->mod = new lfModifier (lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
 
     lfFix->mod->Initialize (lfFix->lens, LF_PF_F32, 50.89f, 2.8f, 1000.0f, 10.0f, LF_RECTILINEAR,
                             LF_MODIFY_SCALE, true);
@@ -44,7 +44,7 @@ void mod_teardown (lfFixture *lfFix, gconstpointer data)
 {
     g_free (lfFix->coordBuff);
 
-    lfFix->mod->Destroy();
+    delete lfFix->mod;
     delete lfFix->lens;
 }
 
