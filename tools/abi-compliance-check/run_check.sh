@@ -1,8 +1,10 @@
 #!/bin/bash
 
+set -e
+
 # set commit, branch or tag to compare
-LF_COMMIT_NEW=release_0.3.x
-LF_COMMIT_OLD=v0.3.2
+LF_COMMIT_NEW=$1
+LF_COMMIT_OLD=$2
 
 ACC_VERSION=1.99.21
 
@@ -14,7 +16,7 @@ unzip $ACC_VERSION.zip
 rm $ACC_VERSION.zip
 
 # prepare build directory
-mkdir build
+mkdir -p build
 cd build
 
 # checkout and build new version
@@ -28,6 +30,9 @@ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../LF_old/ ../../../
 make && make install
 
 cd ../
+
+echo "Going back to branch <$CURRENT_BRANCH>"
+git checkout $CURRENT_BRANCH
 
 # prepare config
 sed "s|<version>.*</version>|<version>${LF_COMMIT_OLD}</version>|" LF_tmp_old.xml > LF_old.xml
@@ -46,6 +51,3 @@ rm -rf logs
 rm -rf abi-compliance-checker-*
 rm LF_new.xml
 rm LF_old.xml
-
-echo "Going back to branch <$CURRENT_BRANCH>"
-git checkout $CURRENT_BRANCH
