@@ -934,9 +934,9 @@
         <maker>Canon</maker>
         <model>Canon EF-S 17-55mm f/2.8 IS USM</model>
         <mount>Canon EF-S</mount>
-        <!-- Average crop factor of Canon APS-C cameras -->
-        <cropfactor>1.611</cropfactor>
+        <cropfactor>1.622</cropfactor>
         <calibration>
+            <!-- Taken with cropfactor 1.622 (Canon 50D or 450D) -->
             <distortion model="ptlens" focal="17" a="0.0160544" b="-0.0422842" c="0.00805163"/>
             <distortion model="ptlens" focal="20" a="0.0145107" b="-0.0318653" c="0.012966"/>
             <distortion model="ptlens" focal="23" a="0.0132784" b="-0.0244953" c="0.0194828"/>
@@ -3061,8 +3061,9 @@
         <model>Canon EF 50mm f/1.8 MkII</model>
         <model lang="en">Canon EF 50mm f/1.8 II</model>
         <mount>Canon EF</mount>
-        <cropfactor>1.6</cropfactor>
+        <cropfactor>1.622</cropfactor>
         <calibration>
+            <!-- Taken with cropfactor 1.622 (Canon 50D or 450D) -->
             <distortion a="0.00099" b="-0.00582" c="0.00498" focal="50" model="ptlens"/>
             <tca bb="-0.0000082" br="-0.0000133" focal="50" model="poly3" vb="0.9999807" vr="1.0001567"/>
             <vignetting model="pa" focal="50" aperture="1.8" distance="0.45" k1="-0.5303" k2="0.3040" k3="-0.0894"/>
@@ -3822,8 +3823,9 @@
         <maker>Canon</maker>
         <model>Canon EF-S 18-55mm f/3.5-5.6 IS</model>
         <mount>Canon EF-S</mount>
-        <cropfactor>1.613</cropfactor>
+        <cropfactor>1.622</cropfactor>
         <calibration>
+            <!-- Taken with cropfactor 1.622 (Canon 50D or 450D) -->
             <distortion model="ptlens" focal="18" a="0.00644" b="-0.01245" c="-0.0348"/>
             <distortion model="ptlens" focal="21" a="0.00345" b="-0.00918" c="-0.01759"/>
             <distortion model="ptlens" focal="24" a="0.01705" b="-0.05405" c="0.03261"/>
