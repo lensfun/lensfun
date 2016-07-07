@@ -26,6 +26,9 @@ General
 
     machine mail.example.com login me243242 port 587 password reallysecret
 
+* The script ``push_uploads_to_github.py`` should run as a cronjob, e.g. once
+  per hour.
+
 
 In ``settings.py``
 ------------------
@@ -50,6 +53,13 @@ changing its source code:
 * In ``send_error_email``, you have to change the signature in the email text
   as well as the URL.
 * In ``send_success_email``, you have to change the recipient email address.
+
+
+In ``push_uploads_to_github.py``
+--------------------------------
+
+* Set ``root`` to the path where the calibration uploads reside.
+* Replace ``username`` and ``password`` with your GitHub credentials.
 
 
 In ``calibration/views.py``
