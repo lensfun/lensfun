@@ -18,7 +18,7 @@ General
 -------
 
 * Some important prerequisites are Python 3, Django 1.9, exiv2, Exiftool,
-  unrar, 7zip, unzip, ImageMagick, Apache, and Python WSGI.
+  unrar, 7zip, unzip, PyGithub, ImageMagick, Apache, and Python WSGI.
 * The directory ``/var/cache/apache2/calibrate`` must be writable to the user
   ``www-user``.
 * The first line of the file ``/var/www/.authinfo`` takes the SMTP credentials
