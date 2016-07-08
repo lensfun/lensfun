@@ -106,7 +106,7 @@ def store_upload(uploaded_file, email_address):
     hash_.update(uploaded_file.name)
     hash_.update(str(uploaded_file.size))
     hash_.update(email_address)
-    id_ = email_address.partition("@")[0] + "_" + hash_.hexdigest()
+    id_ = hash_.hexdigest()[:7] + "_" + email_address.partition("@")[0]
     directory = os.path.join(upload_directory, id_)
     try:
         shutil.rmtree(directory)
