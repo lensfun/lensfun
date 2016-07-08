@@ -19,53 +19,19 @@ General
 
 * Some important prerequisites are Python 3, Django 1.9, exiv2, Exiftool,
   unrar, 7zip, unzip, PyGithub, ImageMagick, Apache, and Python WSGI.
-* The directory ``/var/cache/apache2/calibrate`` must be writable to the user
-  ``www-user``.
-* The first line of the file ``/var/www/.authinfo`` takes the SMTP credentials
-  used for sending mails.  Its content may be::
-
-    machine mail.example.com login me243242 port 587 password reallysecret
-
+* Adjust the settings in ``settings.py``.  This is an ordinary `Django
+  settings`_ file.  Settings you should change are ``ADMINS``,
+  ``ALLOWED_HOSTS``, and ``SECRET_KEY``.  (The ``SECRET_KEY`` is not used by
+  this appication currently, but this may change in a later version, so set the
+  ``SECRET_KEY`` to a new value kanyway.)
+* Adjust the values in ``calibration_webserver.ini``.  This file must be moved
+  to the home directory of the user under which the webserver process runs
+  (e.g. ``/var/www``).
+* The directory ``cache_root`` must be writable to the webserver user.
 * The script ``push_uploads_to_github.py`` should run as a cronjob, e.g. once
   per hour.
 
-
-In ``settings.py``
-------------------
-
-This is an ordinary `Django settings`_ file.  Settings you should change are
-``ADMINS``, ``ALLOWED_HOSTS``, and ``SECRET_KEY``.  (The ``SECRET_KEY`` is not
-used by this appication currently, but this may change in a later version, so
-set the ``SECRET_KEY`` to a new value kanyway.)
-
 .. _Django settings: https://docs.djangoproject.com/en/1.9/ref/settings/
-
-
-In ``process_upload.py``
----------------------------
-
-Since this script runs as a stand-alone program rather than a module in a
-Django-based process, it cannot easily access the Django settings.  (I don't
-claim that this would be impossible, though.)  Thus, you have to adapt it by
-changing its source code:
-
-* In ``send_email``, you have to change the value of the variable “``me``”.
-* In ``send_error_email``, you have to change the signature in the email text
-  as well as the URL.
-* In ``send_success_email``, you have to change the recipient email address.
-
-
-In ``push_uploads_to_github.py``
---------------------------------
-
-* Set ``root`` to the path where the calibration uploads reside.
-* Replace ``username`` and ``password`` with your GitHub credentials.
-
-
-In ``calibration/views.py``
----------------------------
-
-* In ``send_success_email``, you have to change the recipient email address.
 
 
 Templates

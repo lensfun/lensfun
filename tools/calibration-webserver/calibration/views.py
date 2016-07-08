@@ -3,7 +3,7 @@
 
 from __future__ import absolute_import, unicode_literals
 
-import hashlib, os, subprocess, json, shutil, mimetypes, smtplib, re
+import hashlib, os, subprocess, json, shutil, mimetypes, smtplib, re, ConfigParser
 from email.MIMEText import MIMEText
 import django.forms as forms
 from django.shortcuts import render
@@ -13,11 +13,12 @@ import django.http
 from django.utils.encoding import iri_to_uri
 
 
-upload_directory = "/mnt/media/raws/Kalibration/uploads"
+config = ConfigParser.ConfigParser()
+config.read(os.path.expanduser("~/calibration_webserver.ini"))
+
+upload_directory = config["General"]["uploads_root"]
 allowed_extensions = (".tar.gz", ".tgz", ".tar.bz2", ".tbz2", ".bz2", ".tar.xz", ".txz", ".tar", ".rar", ".7z", ".zip")
 file_extension_pattern = re.compile("(" + "|".join(allowed_extensions).replace(".", "\\.") + ")$", re.IGNORECASE)
-authinfo = open("/var/www/.authinfo").readlines()[0].split()
-authinfo = dict(zip(authinfo[::2], authinfo[1::2]))
 
 
 class HttpResponseSeeOther(django.http.HttpResponse):
@@ -36,17 +37,17 @@ class HttpResponseSeeOther(django.http.HttpResponse):
 
 def send_email(to, subject, body):
     message = MIMEText(body.encode("iso-8859-1"), _charset = "iso-8859-1")
-    me = "Torsten Bronger <bronger@physik.rwth-aachen.de>"
+    me = config["General"]["admin"]
     message["Subject"] = subject
     message["From"] = me
     message["To"] = to
-    smtp_connection = smtplib.SMTP(authinfo["machine"], authinfo["port"])
+    smtp_connection = smtplib.SMTP(config["SMTP"]["machine"], config["SMTP"]["port"])
     smtp_connection.starttls()
-    smtp_connection.login(authinfo["login"], authinfo["password"])
+    smtp_connection.login(config["SMTP"]["login"], config["SMTP"]["password"])
     smtp_connection.sendmail(me, [to], message.as_string())
 
 def send_success_email(email_address, id_):
-    send_email("Torsten Bronger <bronger@physik.rwth-aachen.de>", "New calibration images from " + email_address,
+    send_email(config["General"]["admin"], "New calibration images from " + email_address,
                """Hidy-Ho!
 
 New calibration images arrived from <{}>, see

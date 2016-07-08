@@ -4,12 +4,15 @@
 """This script is supposed to run as a cronjob, e.g. once per hour.
 """
 
-import os, re
+import os, re, configparser
 from github import Github
 
 
-root = "/path/two/upload/directory"
-github = Github("username", "password")
+config = configparser.ConfigParser()
+config.read(os.path.expanduser("~/calibration_webserver.ini"))
+
+root = config["General"]["uploads_root"]
+github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
 lensfun = github.get_organization("lensfun").get_repo("lensfun")
 calibration_request_label = lensfun.get_label("calibration request")
 
