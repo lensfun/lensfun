@@ -83,7 +83,7 @@ def spawn_daemon(path_to_executable, *args):
     if pid != 0:
         os._exit(0)
     try:
-        maxfd = os.sysconf(b"SC_OPEN_MAX")
+        maxfd = os.sysconf("SC_OPEN_MAX")
     except (AttributeError, ValueError):
         maxfd = 1024
     for fd in range(maxfd):
@@ -101,9 +101,9 @@ def spawn_daemon(path_to_executable, *args):
 
 def store_upload(uploaded_file, email_address):
     hash_ = hashlib.sha1()
-    hash_.update(uploaded_file.name)
-    hash_.update(str(uploaded_file.size))
-    hash_.update(email_address)
+    hash_.update(uploaded_file.name.encode("utf-8"))
+    hash_.update(str(uploaded_file.size).encode("utf-8"))
+    hash_.update(email_address.encode("utf-8"))
     id_ = hash_.hexdigest()[:6] + "_" + email_address.partition("@")[0]
     directory = os.path.join(upload_directory, id_)
     try:
