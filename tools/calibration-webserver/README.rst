@@ -38,6 +38,7 @@ In a ``<VirtualHost>`` section, you should insert something like::
     WSGIScriptAlias /calibration /path/to/calibration-webserver/django.wsgi
     WSGIDaemonProcess calibration lang='en_US.UTF-8' locale='en_US.UTF-8' display-name=%{GROUP}
     WSGIProcessGroup calibration
+    Alias /calibration/static /var/www/calibration
 
 ..  LocalWords:  www login WSGIScriptAlias WSGIDaemonProcess lang UTF
 ..  LocalWords:  WSGIProcessGroup
