@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 # Django settings for calibration project.
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)

@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from __future__ import absolute_import, unicode_literals
-
 import hashlib, os, subprocess, json, shutil, mimetypes, smtplib, re, configparser
 from email.mime.text import MIMEText
 import django.forms as forms
