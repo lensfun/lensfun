@@ -148,7 +148,7 @@ def upload(request):
             return django.http.HttpResponseBadRequest(b"Upload was incomplete.")
         if upload_form.is_valid():
             id_ = store_upload(request.FILES["compressed_file"], upload_form.cleaned_data["email_address"])
-            return HttpResponseSeeOther(django.core.urlresolvers.reverse(show_issues, kwargs={"id_": id_}))
+            return HttpResponseSeeOther(django.core.urlresolvers.reverse("show_issues", kwargs={"id_": id_}))
     else:
         upload_form = UploadForm()
     return render(request, "calibration/upload.html", {"title": "Calibration images upload", "upload": upload_form})
