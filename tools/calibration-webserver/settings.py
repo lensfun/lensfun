@@ -22,6 +22,7 @@ EMAIL_PORT = config["SMTP"]["port"]
 EMAIL_HOST_USER = config["SMTP"]["login"]
 EMAIL_HOST_PASSWORD = config["SMTP"]["password"]
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = config["General"]["admin_email"]
 
 #TEST_RUNNER = "django.test.runner.DiscoverRunner"
 
