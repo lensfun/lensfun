@@ -1,13 +1,13 @@
 # Django settings for calibration project.
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os, ConfigParser
+import os, configparser
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-config = ConfigParser.ConfigParser()
+config = configparser.ConfigParser()
 config.read(os.path.expanduser("~/calibration_webserver.ini"))
 
 ADMINS = (

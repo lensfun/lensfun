@@ -3,8 +3,8 @@
 
 from __future__ import absolute_import, unicode_literals
 
-import hashlib, os, subprocess, json, shutil, mimetypes, smtplib, re, ConfigParser
-from email.MIMEText import MIMEText
+import hashlib, os, subprocess, json, shutil, mimetypes, smtplib, re, configparser
+from email.mime.text import MIMEText
 import django.forms as forms
 from django.shortcuts import render
 from django.forms.utils import ValidationError
@@ -13,7 +13,7 @@ import django.http
 from django.utils.encoding import iri_to_uri
 
 
-config = ConfigParser.ConfigParser()
+config = configparser.ConfigParser()
 config.read(os.path.expanduser("~/calibration_webserver.ini"))
 
 upload_directory = config["General"]["uploads_root"]
@@ -72,7 +72,7 @@ def spawn_daemon(path_to_executable, *args):
     """
     try:
         pid = os.fork()
-    except OSError, e:
+    except OSError as e:
         raise RuntimeError("1st fork failed: %s [%d]" % (e.strerror, e.errno))
     if pid != 0:
         os.waitpid(pid, 0)
@@ -80,7 +80,7 @@ def spawn_daemon(path_to_executable, *args):
     os.setsid()
     try:
         pid = os.fork()
-    except OSError, e:
+    except OSError as e:
         raise RuntimeError("2nd fork failed: %s [%d]" % (e.strerror, e.errno))
     if pid != 0:
         os._exit(0)

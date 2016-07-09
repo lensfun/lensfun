@@ -4,11 +4,10 @@
 """Context processor for getting the admin's name and email into the templates.
 """
 
-from __future__ import absolute_import, unicode_literals
-import ConfigParser
+import os, configparser
 
 
-config = ConfigParser.ConfigParser()
+config = configparser.ConfigParser()
 config.read(os.path.expanduser("~/calibration_webserver.ini"))
 
 
