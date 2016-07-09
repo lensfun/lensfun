@@ -54,7 +54,7 @@ Thank you!
 Torsten Bronger, aquisgrana, europa vetus
                    Jabber ID: torsten.bronger@jabber.rwth-aachen.de
                                   or http://bronger-jmp.appspot.com
-""".format("http://wilson.bronger.org/calibration/results/" + os.path.basename(directory)))
+""".format(config["General"]["root_url"] + "/results/" + os.path.basename(directory)))
 
 def send_success_email():
     send_email(admin, "New calibration images from " + email_address,
