@@ -64,7 +64,7 @@ def spawn_daemon(path_to_executable, *args):
 
     :Parameters:
       - `path_to_executable`: absolute path to the executable to be run
-        detatched
+        detached
       - `args`: all arguments to be passed to the subprocess
 
     :type path_to_executable: str
