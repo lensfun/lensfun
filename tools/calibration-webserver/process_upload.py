@@ -22,6 +22,7 @@ from email.mime.text import MIMEText
 config = configparser.ConfigParser()
 config.read(os.path.expanduser("~/calibration_webserver.ini"))
 
+admin = "{} <{}>".format(config["General"]["admin_name"], config["General"]["admin_email"])
 filepath = sys.argv[1]
 directory = os.path.abspath(os.path.dirname(filepath))
 cache_dir = os.path.join(config["General"]["cache_root"], os.path.basename(directory))
@@ -30,14 +31,13 @@ email_address = json.load(open(os.path.join(directory, "originator.json")))
 
 def send_email(to, subject, body):
     message = MIMEText(body, _charset = "iso-8859-1")
-    me = config["General"]["admin"]
     message["Subject"] = subject
-    message["From"] = me
+    message["From"] = admin
     message["To"] = to
     smtp_connection = smtplib.SMTP(config["SMTP"]["machine"], config["SMTP"]["port"])
     smtp_connection.starttls()
     smtp_connection.login(config["SMTP"]["login"], config["SMTP"]["password"])
-    smtp_connection.sendmail(me, [to], message.as_string())
+    smtp_connection.sendmail(admin, [to], message.as_string())
 
 def send_error_email():
     send_email(email_address, "Problems with your calibration images upload", """Hi!
@@ -57,7 +57,7 @@ Torsten Bronger, aquisgrana, europa vetus
 """.format("http://wilson.bronger.org/calibration/results/" + os.path.basename(directory)))
 
 def send_success_email():
-    send_email(config["General"]["admin"], "New calibration images from " + email_address,
+    send_email(admin, "New calibration images from " + email_address,
                """Hidy-Ho!
 
 New calibration images arrived from <{}>, see
