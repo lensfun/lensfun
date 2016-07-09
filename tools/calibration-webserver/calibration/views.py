@@ -126,7 +126,8 @@ def store_upload(uploaded_file, email_address):
     with open(filepath, "wb") as outfile:
         for chunk in uploaded_file.chunks():
             outfile.write(chunk)
-    spawn_daemon("/usr/bin/python3", "/home/bronger/src/calibration/process_upload.py", filepath)
+    spawn_daemon("/usr/bin/env", "python3",
+                 os.path.join(os.path.abspath(os.path.dirname(__file__)), "..", "process_upload.py"), filepath)
     return id_
 
 class UploadForm(forms.Form):
