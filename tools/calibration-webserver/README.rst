@@ -13,10 +13,6 @@ to be realised by changing the source code itself.
 Configuration
 ===============
 
-
-General
--------
-
 * Some important prerequisites are Python 3, Django 1.9, exiv2, Exiftool,
   unrar, 7zip, unzip, PyGithub, ImageMagick, Apache, and Python WSGI.
 * Adjust the settings in ``settings.py``.  This is an ordinary `Django
