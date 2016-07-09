@@ -50,10 +50,6 @@ Please visit
 Thank you!
 
 (This is an automatically generated message.)
--- 
-Torsten Bronger, aquisgrana, europa vetus
-                   Jabber ID: torsten.bronger@jabber.rwth-aachen.de
-                                  or http://bronger-jmp.appspot.com
 """.format(config["General"]["root_url"] + "/results/" + os.path.basename(directory)))
 
 def send_success_email():

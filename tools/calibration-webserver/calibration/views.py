@@ -53,7 +53,7 @@ def send_success_email(email_address, id_):
 New calibration images arrived from <{}>, see
 
     {}
-""".format(email_address, os.path.join("/home/bronger/raws/Kalibration/uploads", id_)))
+""".format(email_address, os.path.join(config["General"]["uploads_root"], id_)))
 
 
 def spawn_daemon(path_to_executable, *args):
@@ -113,7 +113,7 @@ def store_upload(uploaded_file, email_address):
     except OSError as error:
         message = str(error).partition(":")[0]
         if message == "[Errno 13] Permission denied":
-            # Directory has been already brongerised.
+            # Directory has been already chowned to the calibrator.
             return id_
         elif message == "[Errno 2] No such file or directory":
             pass
