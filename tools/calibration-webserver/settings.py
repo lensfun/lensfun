@@ -81,11 +81,18 @@ ROOT_URLCONF = "calibration.urls"
 # Python dotted path to the WSGI application used by Django's runserver.
 #WSGI_APPLICATION = "calibration.wsgi.application"
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # don't forget to use absolute paths, not relative paths.
-)
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "OPTIONS": {
+            "context_processors": ["django.template.context_processors.debug",
+                                   "django.template.context_processors.request",
+                                   "django.contrib.auth.context_processors.auth",
+                                   "django.contrib.messages.context_processors.messages",
+                                   "calibration.context_processors.default"]
+            }
+    }
+]
 
 INSTALLED_APPS = (
     "django.contrib.auth",

@@ -34,13 +34,6 @@ General
 .. _Django settings: https://docs.djangoproject.com/en/1.9/ref/settings/
 
 
-Templates
----------
-
-In the templates ``error.html``, ``pending.html``, ``success.html``, and
-``upload.html``, you have to replace Bronger's email address with your own.
-
-
 Usage with Apache
 =====================
 
