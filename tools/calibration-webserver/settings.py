@@ -17,6 +17,12 @@ ADMINS = (
     (config["General"]["admin_name"], config["General"]["admin_email"]),
 )
 
+EMAIL_HOST = config["SMTP"]["machine"]
+EMAIL_PORT = config["SMTP"]["port"]
+EMAIL_HOST_USER = config["SMTP"]["login"]
+EMAIL_HOST_PASSWORD = config["SMTP"]["password"]
+EMAIL_USE_TLS = True
+
 #TEST_RUNNER = "django.test.runner.DiscoverRunner"
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
