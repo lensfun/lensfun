@@ -48,8 +48,8 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
 
   lfFix->lens->AddCalibDistortion(&p->calib);
 
-  lfFix->img_height = 300;
-  lfFix->img_width  = 300;
+  lfFix->img_height = 299;
+  lfFix->img_width  = 299;
 
   lfFix->mod = new lfModifier(lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
 
