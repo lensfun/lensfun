@@ -104,8 +104,8 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
   lfLensCalibVignetting lensCalibVign = {LF_VIGNETTING_MODEL_PA, 24.0f, 2.8f, 1000.0f, { -0.5334f, -0.7926f, 0.5243f}};
   lfFix->lens->AddCalibVignetting(&lensCalibVign);
 
-  lfFix->img_height = 300;
-  lfFix->img_width  = 300;
+  lfFix->img_height = 299;
+  lfFix->img_width  = 299;
 
   lfFix->mod = new lfModifier(lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
 
