@@ -547,7 +547,7 @@ const char *lfLens::GetVignettingModelDesc (
                     "Ref: http://hugin.sourceforge.net/tech/";
             if (params)
                 *params = param_pa;
-            return "6th order polynomial";
+            return "6th order polynomial (Pablo D'Angelo)";
 
         case LF_VIGNETTING_MODEL_ACM:
             if (details)
@@ -557,7 +557,7 @@ const char *lfLens::GetVignettingModelDesc (
                     "Ref: http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf";
             if (params)
                 *params = param_acm;
-            return "6th order polynomial";
+            return "6th order polynomial (Adobe)";
 
         default:
             // keep gcc 4.4 happy
