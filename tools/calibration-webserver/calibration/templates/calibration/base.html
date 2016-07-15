@@ -1,10 +1,12 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang='{{ LANGUAGE_CODE|default:"en" }}' 
   xml:lang='{{ LANGUAGE_CODE|default:"en" }}' {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 <head>
 <title>{% block title %}{{ title }}{% endblock %}</title>
 <meta charset="UTF-8"/>
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}calibration/css/main.css"/>
+<link rel="stylesheet" type="text/css" href="{% static "calibration/css/main.css" %}"/>
 {% block extrahead %}{% endblock %}
 {% block css %}{% endblock %}
 </head>

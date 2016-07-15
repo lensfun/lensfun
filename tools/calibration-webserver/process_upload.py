@@ -10,40 +10,34 @@ Besides the archive file, it expects a file ``originator.json`` in the same
 directory which contains only one string, which is the email address of the
 uploader.
 
-It takes the SMTP credentials from the first line in the file
-``/var/www/.authinfo``.  Its content may be::
-
-    machine mail.example.com login me243242 port 587 password reallysecret
-
 This program is called from the Apache process and is detached from it.  In the
 background, it processes the uploaded archive while the user is presented a
 success message in their browser.
-
-Important: for this program to work, the directories
-/var/cache/apache2/calibrate and the directory with the above mentioned files
-must be writable for the user as which this script runs (probably www-data)!
 """
 
-import hashlib, sys, os, subprocess, json, re, multiprocessing, smtplib
+import hashlib, sys, os, subprocess, json, re, multiprocessing, smtplib, configparser
 from email.mime.text import MIMEText
 
+
+config = configparser.ConfigParser()
+config.read(os.path.expanduser("~/calibration_webserver.ini"))
+
+admin = "{} <{}>".format(config["General"]["admin_name"], config["General"]["admin_email"])
 filepath = sys.argv[1]
 directory = os.path.abspath(os.path.dirname(filepath))
-cache_dir = os.path.join("/var/cache/apache2/calibrate", os.path.basename(directory))
+cache_dir = os.path.join(config["General"]["cache_root"], os.path.basename(directory))
 email_address = json.load(open(os.path.join(directory, "originator.json")))
-authinfo = open("/var/www/.authinfo").readlines()[0].split()
-authinfo = dict(zip(authinfo[::2], authinfo[1::2]))
+
 
 def send_email(to, subject, body):
     message = MIMEText(body, _charset = "iso-8859-1")
-    me = "Torsten Bronger <bronger@physik.rwth-aachen.de>"
     message["Subject"] = subject
-    message["From"] = me
+    message["From"] = admin
     message["To"] = to
-    smtp_connection = smtplib.SMTP(authinfo["machine"], authinfo["port"])
+    smtp_connection = smtplib.SMTP(config["SMTP"]["machine"], config["SMTP"]["port"])
     smtp_connection.starttls()
-    smtp_connection.login(authinfo["login"], authinfo["password"])
-    smtp_connection.sendmail(me, [to], message.as_string())
+    smtp_connection.login(config["SMTP"]["login"], config["SMTP"]["password"])
+    smtp_connection.sendmail(admin, [to], message.as_string())
 
 def send_error_email():
     send_email(email_address, "Problems with your calibration images upload", """Hi!
@@ -56,14 +50,10 @@ Please visit
 Thank you!
 
 (This is an automatically generated message.)
--- 
-Torsten Bronger, aquisgrana, europa vetus
-                   Jabber ID: torsten.bronger@jabber.rwth-aachen.de
-                                  or http://bronger-jmp.appspot.com
-""".format("http://wilson.bronger.org/calibration/results/" + os.path.basename(directory)))
+""".format(config["General"]["root_url"] + "/results/" + os.path.basename(directory)))
 
 def send_success_email():
-    send_email("Torsten Bronger <bronger@physik.rwth-aachen.de>", "New calibration images from " + email_address,
+    send_email(admin, "New calibration images from " + email_address,
                """Hidy-Ho!
 
 New calibration images arrived from <{}>, see

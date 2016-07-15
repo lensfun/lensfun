@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from __future__ import absolute_import, unicode_literals
-
-import hashlib, os, subprocess, json, shutil, mimetypes, smtplib, re
-from email.MIMEText import MIMEText
+import hashlib, os, subprocess, json, shutil, mimetypes, smtplib, re, configparser
+from email.mime.text import MIMEText
 import django.forms as forms
 from django.shortcuts import render
 from django.forms.utils import ValidationError
@@ -13,11 +11,13 @@ import django.http
 from django.utils.encoding import iri_to_uri
 
 
-upload_directory = "/mnt/media/raws/Kalibration/uploads"
+config = configparser.ConfigParser()
+config.read(os.path.expanduser("~/calibration_webserver.ini"))
+
+upload_directory = config["General"]["uploads_root"]
+admin = "{} <{}>".format(config["General"]["admin_name"], config["General"]["admin_email"])
 allowed_extensions = (".tar.gz", ".tgz", ".tar.bz2", ".tbz2", ".bz2", ".tar.xz", ".txz", ".tar", ".rar", ".7z", ".zip")
 file_extension_pattern = re.compile("(" + "|".join(allowed_extensions).replace(".", "\\.") + ")$", re.IGNORECASE)
-authinfo = open("/var/www/.authinfo").readlines()[0].split()
-authinfo = dict(zip(authinfo[::2], authinfo[1::2]))
 
 
 class HttpResponseSeeOther(django.http.HttpResponse):
@@ -36,23 +36,22 @@ class HttpResponseSeeOther(django.http.HttpResponse):
 
 def send_email(to, subject, body):
     message = MIMEText(body.encode("iso-8859-1"), _charset = "iso-8859-1")
-    me = "Torsten Bronger <bronger@physik.rwth-aachen.de>"
     message["Subject"] = subject
-    message["From"] = me
+    message["From"] = admin
     message["To"] = to
-    smtp_connection = smtplib.SMTP(authinfo["machine"], authinfo["port"])
+    smtp_connection = smtplib.SMTP(config["SMTP"]["machine"], config["SMTP"]["port"])
     smtp_connection.starttls()
-    smtp_connection.login(authinfo["login"], authinfo["password"])
-    smtp_connection.sendmail(me, [to], message.as_string())
+    smtp_connection.login(config["SMTP"]["login"], config["SMTP"]["password"])
+    smtp_connection.sendmail(admin, [to], message.as_string())
 
 def send_success_email(email_address, id_):
-    send_email("Torsten Bronger <bronger@physik.rwth-aachen.de>", "New calibration images from " + email_address,
+    send_email(admin, "New calibration images from " + email_address,
                """Hidy-Ho!
 
 New calibration images arrived from <{}>, see
 
     {}
-""".format(email_address, os.path.join("/home/bronger/raws/Kalibration/uploads", id_)))
+""".format(email_address, os.path.join(config["General"]["uploads_root"], id_)))
 
 
 def spawn_daemon(path_to_executable, *args):
@@ -63,7 +62,7 @@ def spawn_daemon(path_to_executable, *args):
 
     :Parameters:
       - `path_to_executable`: absolute path to the executable to be run
-        detatched
+        detached
       - `args`: all arguments to be passed to the subprocess
 
     :type path_to_executable: str
@@ -71,7 +70,7 @@ def spawn_daemon(path_to_executable, *args):
     """
     try:
         pid = os.fork()
-    except OSError, e:
+    except OSError as e:
         raise RuntimeError("1st fork failed: %s [%d]" % (e.strerror, e.errno))
     if pid != 0:
         os.waitpid(pid, 0)
@@ -79,12 +78,12 @@ def spawn_daemon(path_to_executable, *args):
     os.setsid()
     try:
         pid = os.fork()
-    except OSError, e:
+    except OSError as e:
         raise RuntimeError("2nd fork failed: %s [%d]" % (e.strerror, e.errno))
     if pid != 0:
         os._exit(0)
     try:
-        maxfd = os.sysconf(b"SC_OPEN_MAX")
+        maxfd = os.sysconf("SC_OPEN_MAX")
     except (AttributeError, ValueError):
         maxfd = 1024
     for fd in range(maxfd):
@@ -102,17 +101,17 @@ def spawn_daemon(path_to_executable, *args):
 
 def store_upload(uploaded_file, email_address):
     hash_ = hashlib.sha1()
-    hash_.update(uploaded_file.name)
-    hash_.update(str(uploaded_file.size))
-    hash_.update(email_address)
-    id_ = email_address.partition("@")[0] + "_" + hash_.hexdigest()
+    hash_.update(uploaded_file.name.encode("utf-8"))
+    hash_.update(str(uploaded_file.size).encode("utf-8"))
+    hash_.update(email_address.encode("utf-8"))
+    id_ = hash_.hexdigest()[:6] + "_" + email_address.partition("@")[0]
     directory = os.path.join(upload_directory, id_)
     try:
         shutil.rmtree(directory)
     except OSError as error:
         message = str(error).partition(":")[0]
         if message == "[Errno 13] Permission denied":
-            # Directory has been already brongerised.
+            # Directory has been already chowned to the calibrator.
             return id_
         elif message == "[Errno 2] No such file or directory":
             pass
@@ -125,7 +124,8 @@ def store_upload(uploaded_file, email_address):
     with open(filepath, "wb") as outfile:
         for chunk in uploaded_file.chunks():
             outfile.write(chunk)
-    spawn_daemon("/usr/bin/python3", "/home/bronger/src/calibration/process_upload.py", filepath)
+    spawn_daemon("/usr/bin/env", "python3",
+                 os.path.join(os.path.abspath(os.path.dirname(__file__)), "..", "process_upload.py"), filepath)
     return id_
 
 class UploadForm(forms.Form):
@@ -146,7 +146,7 @@ def upload(request):
             return django.http.HttpResponseBadRequest(b"Upload was incomplete.")
         if upload_form.is_valid():
             id_ = store_upload(request.FILES["compressed_file"], upload_form.cleaned_data["email_address"])
-            return HttpResponseSeeOther(django.core.urlresolvers.reverse(show_issues, kwargs={"id_": id_}))
+            return HttpResponseSeeOther(django.core.urlresolvers.reverse("show_issues", kwargs={"id_": id_}))
     else:
         upload_form = UploadForm()
     return render(request, "calibration/upload.html", {"title": "Calibration images upload", "upload": upload_form})
