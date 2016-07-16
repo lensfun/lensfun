@@ -17,6 +17,7 @@ success message in their browser.
 
 import hashlib, sys, os, subprocess, json, re, multiprocessing, smtplib, configparser
 from email.mime.text import MIMEText
+from github import Github
 
 
 config = configparser.ConfigParser()
@@ -25,12 +26,17 @@ config.read(os.path.expanduser("~/calibration_webserver.ini"))
 admin = "{} <{}>".format(config["General"]["admin_name"], config["General"]["admin_email"])
 filepath = sys.argv[1]
 directory = os.path.abspath(os.path.dirname(filepath))
-cache_dir = os.path.join(config["General"]["cache_root"], os.path.basename(directory))
+upload_id = os.path.basename(directory)
+upload_hash = upload_id.partition("_")[0]
+cache_dir = os.path.join(config["General"]["cache_root"], upload_id)
 email_address = json.load(open(os.path.join(directory, "originator.json")))
+github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
+lensfun = github.get_organization("lensfun").get_repo("lensfun")
+calibration_request_label = lensfun.get_label("calibration request")
 
 
 def send_email(to, subject, body):
-    message = MIMEText(body, _charset = "iso-8859-1")
+    message = MIMEText(body, _charset = "utf-8")
     message["Subject"] = subject
     message["From"] = admin
     message["To"] = to
@@ -39,27 +45,51 @@ def send_email(to, subject, body):
     smtp_connection.login(config["SMTP"]["login"], config["SMTP"]["password"])
     smtp_connection.sendmail(admin, [to], message.as_string())
 
-def send_error_email():
-    send_email(email_address, "Problems with your calibration images upload", """Hi!
 
-There has been issues with your calibration images upload.
-Please visit
+def send_error_email():
+    send_email(email_address, "Problems with your calibration images upload " + upload_id, """Hi!
+
+Thank you for your images upload!  However, There have been issues
+with the contents.  Please visit
 
     {}
 
 Thank you!
 
 (This is an automatically generated message.)
-""".format(config["General"]["root_url"] + "/results/" + os.path.basename(directory)))
+""".format(config["General"]["root_url"] + "/results/" + upload_id))
 
-def send_success_email():
-    send_email(admin, "New calibration images from " + email_address,
-               """Hidy-Ho!
 
-New calibration images arrived from <{}>, see
+def send_success_email(issue_link):
+    send_email(email_address, "Your calibration upload " + upload_id,
+               """Hi!
 
-    {}
-""".format(email_address, directory))
+Thank you for your images upload!  You can follow progress on GitHub
+at <{}>.  If you
+like to join on GitHub, follow-up to the issue with a short comment
+“I am the uploader” or something like that.  Otherwise, we will
+discuss any questions regarding your images with you by email.
+Either way, you'll get an email when the processing is finished.
+
+(This is an automatically generated message.)
+""".format(issue_link))
+
+
+def sync_with_github():
+    title = "Calibration upload " + upload_hash
+    for issue in lensfun.get_issues(state="", labels=[calibration_request_label]):
+        if issue.title == title:
+            issue.edit(state="open")
+            issue.create_comment("The original uploader has uploaded the very same files again.  It should be discussed "
+                                 "with the uploader why this was done.")
+            break
+    else:
+        body = "Calibration images were uploaded to the directory that starts with “`{0}_`”.\n\n" \
+               "Please read the [workflow description](http://wilson.bronger.org/calibration_workflow.html) for further " \
+               "instructions about the calibration.\n".format(upload_hash)
+        issue = lensfun.create_issue("Calibration upload {}".format(upload_hash), body=body, labels=[calibration_request_label])
+    return issue.url
+
 
 def write_result_and_exit(error, missing_data=[]):
     result = (error, missing_data)
@@ -67,8 +97,10 @@ def write_result_and_exit(error, missing_data=[]):
     if any(result):
         send_error_email()
     else:
-        send_success_email()
+        issue_link = sync_with_github()
+        send_success_email(issue_link)
     sys.exit()
+
 
 extension = os.path.splitext(filepath)[1].lower()
 try:
