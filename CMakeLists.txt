@@ -254,3 +254,8 @@ IF(CPACK_BINARY_DEB)
 ENDIF(CPACK_BINARY_DEB)
 
 INCLUDE(CPack)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Coverage" AND CMAKE_COMPILER_IS_GNUCXX)
+  include(CodeCoverage)
+  setup_target_for_coverage(coverage ctest coverage)
+endif(CMAKE_BUILD_TYPE STREQUAL "Coverage" AND CMAKE_COMPILER_IS_GNUCXX)
