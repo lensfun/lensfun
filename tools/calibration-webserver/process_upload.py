@@ -18,6 +18,7 @@ success message in their browser.
 import hashlib, sys, os, subprocess, json, re, multiprocessing, smtplib, configparser
 from email.mime.text import MIMEText
 from github import Github
+import owncloud
 
 
 config = configparser.ConfigParser()
@@ -99,6 +100,7 @@ def write_result_and_exit(error, missing_data=[]):
     else:
         issue_link = sync_with_github()
         send_success_email(issue_link)
+        owncloud.sync()
     sys.exit()
 
 
