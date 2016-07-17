@@ -4,7 +4,10 @@
 """This script takes the location of a file archive (e.g. a tarball) as its
 argument and converts it into an extracted set of files in the same directory.
 Moreover, all image files are renamed so that the most important image
-parameters like the focal length are included into the filename.
+parameters like the focal length are included into the filename.  Futhermore, a
+GitHub issue is created in the “lensfun/lensfun” repository.  Finally, the
+ownCloud command line client is called for pushing the new files to the
+ownCloud server for the calibrators to pick them up.
 
 Besides the archive file, it expects a file ``originator.json`` in the same
 directory which contains only one string, which is the email address of the
@@ -22,6 +25,17 @@ import owncloud
 
 
 def send_email(to, subject, body):
+    """Sends an email using the SMTP configuration given in the INI file.  The
+    sender is always the administrator, also as given in the INI file.
+
+    :param to: recipient of the email
+    :param subject: subject of the email
+    :param body: body text of the email
+
+    :type to: str
+    :type subject: str
+    :type body: str
+    """
     message = MIMEText(body, _charset = "utf-8")
     message["Subject"] = subject
     message["From"] = admin
@@ -33,6 +47,10 @@ def send_email(to, subject, body):
 
 
 def send_error_email():
+    """Sends an error email to the uploader.  This happens if the upload was
+    erroneous (bad file format, not image files in it etc), or if for some or
+    all of the images their lens data could not be extracted.
+    """
     send_email(email_address, "Problems with your calibration images upload " + upload_id, """Hi!
 
 Thank you for your images upload!  However, There have been issues
@@ -47,6 +65,12 @@ Thank you!
 
 
 def send_success_email(issue_link):
+    """Sends a success (acknowledge) email to the uploader.
+
+    :param issue_link: URL to the GitHub issue of this calibration images set.
+
+    :type issue_link: str
+    """
     send_email(email_address, "Your calibration upload " + upload_id,
                """Hi!
 
@@ -62,6 +86,13 @@ Either way, you'll get an email when the processing is finished.
 
 
 def sync_with_github():
+    """Create of re-open an issue on GitHub for this calibration upload.
+
+    :return:
+      the URL to the GitHub issue
+
+    :rtype: str
+    """
     title = "Calibration upload " + upload_hash
     for issue in lensfun.get_issues(state="", labels=[calibration_request_label]):
         if issue.title == title:
@@ -78,6 +109,17 @@ def sync_with_github():
 
 
 def write_result_and_exit(error, missing_data=[]):
+    """Write ``result.json``, send mail to the uploader, and terminate this
+    program.
+
+    :param error: error message for the uploader; ``None`` if no error
+      occurred.
+    :param missing_data: files for which no EXIF lens data could be determined.
+
+    :type error: str or NoneType
+    :type missing_data: list of (str, str or NoneType, float or NoneType, float
+      or NoneType)
+    """
     result = (error, missing_data)
     json.dump(result, open(os.path.join(directory, "result.json"), "w"), ensure_ascii=True)
     if any(result):
@@ -90,6 +132,9 @@ def write_result_and_exit(error, missing_data=[]):
 
 
 def extract_archive():
+    """Extracts the archive (e.g. the tarball) which was uploaded.  Afterwards, the
+    archive file is deleted.
+    """
     extension = os.path.splitext(filepath)[1].lower()
     try:
         if extension in [".gz", ".tgz"]:
@@ -114,13 +159,30 @@ def extract_archive():
 
 
 class InvalidRaw(Exception):
+    """Raised if a RAW could not be parsed by exiv2.
+    """
     pass
 
 
 invalid_lens_model_name_pattern = re.compile(r"^\(\d+\)$|, | or |\|")
+"""Lens model names which must be assumed to be invalid like “(234)”."""
 
 
 def call_exiv2(raw_file_group):
+    """Extracts the EXIF data from the given RAW image files.  This is a helper
+    function for `collect_exif_data`.  It is used for parallelising the work.
+
+    :param raw_file_group: the raw files that should be processed.
+
+    :type raw_file_group: list of str
+
+    :return:
+      the extracted EXIF data for the given files, as a dictionary mapping
+      filepaths to (camera make, camera model, lens model, focal length, f-stop
+      number)
+
+    :rtype: dict mapping str to (str, str, str, float, float)
+    """
     exiv2_process = subprocess.Popen(
         ["exiv2", "-PEkt", "-g", "Exif.Image.Make", "-g", "Exif.Image.Model",
          "-g", "Exif.Photo.LensModel", "-g", "Exif.Photo.FocalLength", "-g", "Exif.Photo.FNumber",
@@ -203,6 +265,15 @@ def call_exiv2(raw_file_group):
 
 
 def collect_exif_data():
+    """Extracts the EXIF data from all RAW image files of the upload.
+
+    :return:
+      the extracted EXIF data for the given files, as a dictionary mapping
+      filepaths to (camera make, camera model, lens model, focal length, f-stop
+      number)
+
+    :rtype: dict mapping str to (str, str, str, float, float)
+    """
     raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf",
                            "fff", "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx",
                            "pxn", "r3d", "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f", "jpg", "jpeg"]
@@ -231,6 +302,17 @@ def collect_exif_data():
 
 
 def check_data(file_exif_data):
+    """Performs basic checks on the upload contents.  It checks whether at least
+    one image is in the upload, and whether exactly one camera was used.  If
+    the check fails, `write_result_and_exit` is called and thus the program
+    terminated.
+
+    :param file_exif_data: the extracted EXIF data for the given files, as a
+      dictionary mapping filepaths to (camera make, camera model, lens model,
+      focal length, f-stop number)
+
+    :type file_exif_data: dict mapping str to (str, str, str, float, float)
+    """
     if not file_exif_data:
         write_result_and_exit("No images (at least, no with EXIF data) found in archive.")
 
@@ -240,6 +322,15 @@ def check_data(file_exif_data):
 
 
 def generate_thumbnail(raw_filepath):
+    """Generates a thumbnail for the given image.  The thumbnail is written into
+    the cache dir, given by ``cache_root`` in the INI file.  This is a helper
+    routine for `tag_image_files` in order to make the thumbnail generation
+    parallel.
+
+    :param raw_filepath: filepath of the RAW image file
+
+    :type raw_filepath: str
+    """
     hash_ = hashlib.sha1()
     hash_.update(raw_filepath.encode("utf-8"))
     out_filepath = os.path.join(cache_dir, hash_.hexdigest() + ".jpeg")
@@ -251,6 +342,23 @@ def generate_thumbnail(raw_filepath):
 
 
 def tag_image_files(file_exif_data):
+    """Renames the image files so that essential EXIF data is in the filename.
+    Moreover, this function collects files with missing EXIF data, creates
+    thumbnails for them, and returns the list of them.
+
+    :param file_exif_data: the extracted EXIF data for the given files, as a
+      dictionary mapping filepaths to (camera make, camera model, lens model,
+      focal length, f-stop number)
+
+    :type file_exif_data: dict mapping str to (str, str, str, float, float)
+
+    :return:
+      All files for which EXIF data is missing, as a list (filepath, lens
+      model, focal length, f-stop number).  Anythin missing is ``None``.
+
+    :rtype: list of (str, str or NoneType, float or NoneType, float or
+      NoneType)
+    """
     missing_data = []
     filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)")
     for filepath, exif_data in file_exif_data.items():
