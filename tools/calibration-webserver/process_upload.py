@@ -242,8 +242,6 @@ if not file_exif_data:
 cameras = set(exif_data[:2] for exif_data in file_exif_data.values())
 if len(cameras) != 1:
     write_result_and_exit("Multiple camera models found.")
-else:
-    camera = cameras.pop()
 
 missing_data = []
 filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)")
