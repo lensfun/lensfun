@@ -21,21 +21,6 @@ from github import Github
 import owncloud
 
 
-config = configparser.ConfigParser()
-config.read(os.path.expanduser("~/calibration_webserver.ini"))
-
-admin = "{} <{}>".format(config["General"]["admin_name"], config["General"]["admin_email"])
-filepath = sys.argv[1]
-directory = os.path.abspath(os.path.dirname(filepath))
-upload_id = os.path.basename(directory)
-upload_hash = upload_id.partition("_")[0]
-cache_dir = os.path.join(config["General"]["cache_root"], upload_id)
-email_address = json.load(open(os.path.join(directory, "originator.json")))
-github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
-lensfun = github.get_organization("lensfun").get_repo("lensfun")
-calibration_request_label = lensfun.get_label("calibration request")
-
-
 def send_email(to, subject, body):
     message = MIMEText(body, _charset = "utf-8")
     message["Subject"] = subject
@@ -104,48 +89,37 @@ def write_result_and_exit(error, missing_data=[]):
     sys.exit()
 
 
-extension = os.path.splitext(filepath)[1].lower()
-try:
-    if extension in [".gz", ".tgz"]:
-        subprocess.check_call(["tar", "--directory", directory, "-xzf", filepath])
-    elif extension in [".bz2", ".tbz2", ".tb2"]:
-        subprocess.check_call(["tar", "--directory", directory, "-xjf", filepath])
-    elif extension in [".xz", ".txz"]:
-        subprocess.check_call(["tar", "--directory", directory, "-xJf", filepath])
-    elif extension == ".tar":
-        subprocess.check_call(["tar", "--directory", directory, "-xf", filepath])
-    elif extension == ".rar":
-        subprocess.check_call(["unrar", "x", filepath, directory])
-    elif extension == ".7z":
-        subprocess.check_call(["7z", "x", "-o" + directory, filepath])
-    else:
-        # Must be ZIP (else, fail)
-        subprocess.check_call(["unzip", filepath, "-d", directory])
-except subprocess.CalledProcessError:
-    write_result_and_exit("I could not unpack your file.  Supported file formats:\n"
-                          ".gz, .tgz, .bz2, .tbz2, .tb2, .xz, .txz, .tar, .rar, .7z, .zip.")
-os.remove(filepath)
+def extract_archive():
+    extension = os.path.splitext(filepath)[1].lower()
+    try:
+        if extension in [".gz", ".tgz"]:
+            subprocess.check_call(["tar", "--directory", directory, "-xzf", filepath])
+        elif extension in [".bz2", ".tbz2", ".tb2"]:
+            subprocess.check_call(["tar", "--directory", directory, "-xjf", filepath])
+        elif extension in [".xz", ".txz"]:
+            subprocess.check_call(["tar", "--directory", directory, "-xJf", filepath])
+        elif extension == ".tar":
+            subprocess.check_call(["tar", "--directory", directory, "-xf", filepath])
+        elif extension == ".rar":
+            subprocess.check_call(["unrar", "x", filepath, directory])
+        elif extension == ".7z":
+            subprocess.check_call(["7z", "x", "-o" + directory, filepath])
+        else:
+            # Must be ZIP (else, fail)
+            subprocess.check_call(["unzip", filepath, "-d", directory])
+    except subprocess.CalledProcessError:
+        write_result_and_exit("I could not unpack your file.  Supported file formats:\n"
+                              ".gz, .tgz, .bz2, .tbz2, .tb2, .xz, .txz, .tar, .rar, .7z, .zip.")
+    os.remove(filepath)
+
 
 class InvalidRaw(Exception):
     pass
 
+
 invalid_lens_model_name_pattern = re.compile(r"^\(\d+\)$|, | or |\|")
-raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf",
-                       "fff", "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx",
-                       "pxn", "r3d", "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f", "jpg", "jpeg"]
-raw_files = []
-for root, __, filenames in os.walk(directory):
-    for filename in filenames:
-        if os.path.splitext(filename)[1].lower()[1:] in raw_file_extensions:
-            raw_files.append(os.path.join(root, filename))
-raw_files_per_group = len(raw_files) // multiprocessing.cpu_count() + 1
-raw_file_groups = []
-file_exif_data = {}
-while raw_files:
-    raw_file_group = raw_files[:raw_files_per_group]
-    if raw_file_group:
-        raw_file_groups.append(raw_file_group)
-    del raw_files[:raw_files_per_group]
+
+
 def call_exiv2(raw_file_group):
     exiv2_process = subprocess.Popen(
         ["exiv2", "-PEkt", "-g", "Exif.Image.Make", "-g", "Exif.Image.Model",
@@ -226,58 +200,104 @@ def call_exiv2(raw_file_group):
                     exif_data[2] = exiftool_lens_model
         result[filepath] = tuple(exif_data)
     return result
-pool = multiprocessing.Pool()
-try:
-    for group_exif_data in pool.map(call_exiv2, raw_file_groups):
-        file_exif_data.update(group_exif_data)
-except InvalidRaw as error:
-    write_result_and_exit(error.args[0])
-pool.close()
-pool.join()
 
 
-if not file_exif_data:
-    write_result_and_exit("No images (at least, no with EXIF data) found in archive.")
-
-cameras = set(exif_data[:2] for exif_data in file_exif_data.values())
-if len(cameras) != 1:
-    write_result_and_exit("Multiple camera models found.")
-
-missing_data = []
-filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)")
-for filepath, exif_data in file_exif_data.items():
-    filename = os.path.basename(filepath)
-    exif_lens_model, exif_focal_length, exif_aperture = exif_data[2:]
-    if not filepath_pattern.match(os.path.splitext(os.path.basename(filepath))[0]):
-        if exif_lens_model and exif_focal_length and exif_aperture:
-            if exif_focal_length == int(exif_focal_length):
-                focal_length = format(int(exif_focal_length), "03")
-            else:
-                focal_length = format(exif_focal_length, "05.1f")
-            os.rename(filepath, os.path.join(os.path.dirname(filepath), "{}--{}mm--{}_{}".format(
-                exif_lens_model, focal_length, exif_aperture, filename). \
-                      replace(":", "___").replace("/", "__").replace(" ", "_").replace("*", "++").replace("=", "##")))
-        else:
-            missing_data.append((filepath, exif_lens_model, exif_focal_length, exif_aperture))
-
-if missing_data:
-    try:
-        os.makedirs(cache_dir)
-    except FileExistsError:
-        pass
-    def generate_thumbnail(raw_filepath):
-        hash_ = hashlib.sha1()
-        hash_.update(raw_filepath.encode("utf-8"))
-        out_filepath = os.path.join(cache_dir, hash_.hexdigest() + ".jpeg")
-        if os.path.splitext(raw_filepath)[1].lower() in [".jpeg", ".jpg"]:
-            subprocess.Popen(["convert", raw_filepath, "-resize", "131072@", out_filepath]).wait()
-        else:
-            dcraw = subprocess.Popen(["dcraw", "-h", "-T", "-c", raw_filepath], stdout=subprocess.PIPE)
-            subprocess.Popen(["convert", "-", "-resize", "131072@", out_filepath], stdin=dcraw.stdout).wait()
+def collect_exif_data():
+    raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf",
+                           "fff", "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx",
+                           "pxn", "r3d", "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f", "jpg", "jpeg"]
+    raw_files = []
+    for root, __, filenames in os.walk(directory):
+        for filename in filenames:
+            if os.path.splitext(filename)[1].lower()[1:] in raw_file_extensions:
+                raw_files.append(os.path.join(root, filename))
+    raw_files_per_group = len(raw_files) // multiprocessing.cpu_count() + 1
+    raw_file_groups = []
+    file_exif_data = {}
+    while raw_files:
+        raw_file_group = raw_files[:raw_files_per_group]
+        if raw_file_group:
+            raw_file_groups.append(raw_file_group)
+        del raw_files[:raw_files_per_group]
     pool = multiprocessing.Pool()
-    pool.map(generate_thumbnail, [data[0] for data in missing_data])
+    try:
+        for group_exif_data in pool.map(call_exiv2, raw_file_groups):
+            file_exif_data.update(group_exif_data)
+    except InvalidRaw as error:
+        write_result_and_exit(error.args[0])
     pool.close()
     pool.join()
+    return file_exif_data
 
 
-write_result_and_exit(None, missing_data)
+def check_data(file_exif_data):
+    if not file_exif_data:
+        write_result_and_exit("No images (at least, no with EXIF data) found in archive.")
+
+    cameras = set(exif_data[:2] for exif_data in file_exif_data.values())
+    if len(cameras) != 1:
+        write_result_and_exit("Multiple camera models found.")
+
+
+def generate_thumbnail(raw_filepath):
+    hash_ = hashlib.sha1()
+    hash_.update(raw_filepath.encode("utf-8"))
+    out_filepath = os.path.join(cache_dir, hash_.hexdigest() + ".jpeg")
+    if os.path.splitext(raw_filepath)[1].lower() in [".jpeg", ".jpg"]:
+        subprocess.Popen(["convert", raw_filepath, "-resize", "131072@", out_filepath]).wait()
+    else:
+        dcraw = subprocess.Popen(["dcraw", "-h", "-T", "-c", raw_filepath], stdout=subprocess.PIPE)
+        subprocess.Popen(["convert", "-", "-resize", "131072@", out_filepath], stdin=dcraw.stdout).wait()
+
+
+def tag_image_files(file_exif_data):
+    missing_data = []
+    filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)")
+    for filepath, exif_data in file_exif_data.items():
+        filename = os.path.basename(filepath)
+        exif_lens_model, exif_focal_length, exif_aperture = exif_data[2:]
+        if not filepath_pattern.match(os.path.splitext(os.path.basename(filepath))[0]):
+            if exif_lens_model and exif_focal_length and exif_aperture:
+                if exif_focal_length == int(exif_focal_length):
+                    focal_length = format(int(exif_focal_length), "03")
+                else:
+                    focal_length = format(exif_focal_length, "05.1f")
+                os.rename(filepath, os.path.join(os.path.dirname(filepath), "{}--{}mm--{}_{}".format(
+                    exif_lens_model, focal_length, exif_aperture, filename). \
+                          replace(":", "___").replace("/", "__").replace(" ", "_").replace("*", "++").replace("=", "##")))
+            else:
+                missing_data.append((filepath, exif_lens_model, exif_focal_length, exif_aperture))
+    if missing_data:
+        try:
+            os.makedirs(cache_dir)
+        except FileExistsError:
+            pass
+        pool = multiprocessing.Pool()
+        pool.map(generate_thumbnail, [data[0] for data in missing_data])
+        pool.close()
+        pool.join()
+    return missing_data
+
+
+try:
+    config = configparser.ConfigParser()
+    config.read(os.path.expanduser("~/calibration_webserver.ini"))
+
+    admin = "{} <{}>".format(config["General"]["admin_name"], config["General"]["admin_email"])
+    filepath = sys.argv[1]
+    directory = os.path.abspath(os.path.dirname(filepath))
+    upload_id = os.path.basename(directory)
+    upload_hash = upload_id.partition("_")[0]
+    cache_dir = os.path.join(config["General"]["cache_root"], upload_id)
+    email_address = json.load(open(os.path.join(directory, "originator.json")))
+    github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
+    lensfun = github.get_organization("lensfun").get_repo("lensfun")
+    calibration_request_label = lensfun.get_label("calibration request")
+
+    extract_archive()
+    file_exif_data = collect_exif_data()
+    check_data(file_exif_data)
+    missing_data = tag_image_files(file_exif_data)
+    write_result_and_exit(None, missing_data)
+except Exception as error:
+    send_email(admin, "Error in calibration upload " + upload_id, repr(error))
