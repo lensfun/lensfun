@@ -102,7 +102,8 @@ def sync_with_github():
             break
     else:
         body = "Calibration images were uploaded to the directory that starts with “`{0}_`”.\n\n" \
-               "Please read the [workflow description](http://wilson.bronger.org/calibration_workflow.html) for further " \
+               "Please read the [workflow description]" \
+               "(https://github.com/lensfun/lensfun/blob/master/tools/calibration-webserver/workflow.rst) for further " \
                "instructions about the calibration.\n".format(upload_hash)
         issue = lensfun.create_issue("Calibration upload {}".format(upload_hash), body=body, labels=[calibration_request_label])
     return issue.url
