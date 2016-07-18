@@ -82,11 +82,12 @@ def update_git_repository():
         os.chdir(root)
         subprocess.check_call(["git", "clone", "git://git.code.sf.net/p/lensfun/code", "lensfun-git"],
                               stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
+        os.chdir(root + "lensfun-git")
         db_was_updated = True
     else:
         subprocess.check_call(["git", "fetch"], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
         changed_files = subprocess.check_output(["git", "diff", "--name-only", "master..origin/master"],
-                                                stderr=open(os.devnull, "w")).splitlines()
+                                                stderr=open(os.devnull, "w")).decode("utf-8").splitlines()
         db_was_updated = any(filename.startswith("data/db/") for filename in changed_files)
 
     subprocess.check_call(["git", "checkout", "master"], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
