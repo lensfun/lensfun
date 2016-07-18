@@ -7,6 +7,10 @@ This program is intended to run as a cronjob, and possibly be run as needed.
 It creates a versions.json file and tarballs in the given output directory.  If
 desired, it also pushes its content to sourceforge.de.
 
+Since this script reads the same configuration file as the calibration
+webserver in $HOME, it should run as the webserver user.  If this is not
+feasible, you have to duplicate the INI file.
+
 If a new database version is created in Lensfun, you must add a new `Converter`
 class.  Simply use `From1to0` as a starting point.  You prepend the decorator
 `@converter` so that the rest of the program finds the new class.  The rest is
@@ -16,16 +20,22 @@ Note that this script also creates a database with version 0.  This may be
 downloaded manually by people who use Lensfun <= 0.2.8.
 """
 
-import glob, os, subprocess, calendar, json, time, tarfile, io, argparse, shutil
+import glob, os, subprocess, calendar, json, time, tarfile, io, argparse, shutil, configparser, smtplib
+from email.mime.text import MIMEText
 from lxml import etree
 
-root = "/tmp/"
 
 parser = argparse.ArgumentParser(description="Generate tar balls of the Lensfun database, also for older versions.")
 parser.add_argument("output_path", help="Directory where to put the XML files.  They are put in the db/ subdirectory.  "
                     "It needn't exist yet.")
 parser.add_argument("--upload", action="store_true", help="Upload the files to Sourceforge, too.")
 args = parser.parse_args()
+
+config = configparser.ConfigParser()
+config.read(os.path.expanduser("~/calibration_webserver.ini"))
+
+admin = "{} <{}>".format(config["General"]["admin_name"], config["General"]["admin_email"])
+root = "/tmp/"
 
 
 class XMLFile:
@@ -183,6 +193,28 @@ def generate_database_tarballs(xml_files, timestamp):
     if args.upload:
         subprocess.check_call(["rsync", "-a", "--delete", output_path if output_path.endswith("/") else output_path + "/",
                                "web.sourceforge.net:/home/project-web/lensfun/htdocs/db"])
+
+
+def send_email(to, subject, body):
+    """Sends an email using the SMTP configuration given in the INI file.  The
+    sender is always the administrator, also as given in the INI file.
+
+    :param to: recipient of the email
+    :param subject: subject of the email
+    :param body: body text of the email
+
+    :type to: str
+    :type subject: str
+    :type body: str
+    """
+    message = MIMEText(body, _charset = "utf-8")
+    message["Subject"] = subject
+    message["From"] = admin
+    message["To"] = to
+    smtp_connection = smtplib.SMTP(config["SMTP"]["machine"], config["SMTP"]["port"])
+    smtp_connection.starttls()
+    smtp_connection.login(config["SMTP"]["login"], config["SMTP"]["password"])
+    smtp_connection.sendmail(admin, [to], message.as_string())
 
 
 db_was_updated = update_git_repository()
