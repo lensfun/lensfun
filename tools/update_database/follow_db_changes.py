@@ -75,7 +75,8 @@ def update_git_repository():
         db_was_updated = any(filename.startswith("data/db/") for filename in changed_files)
 
     subprocess.check_call(["git", "checkout", "master"], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
-    subprocess.check_call(["git", "pull"], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
+    subprocess.check_call(["git", "reset", "--hard", "origin/master"],
+                          stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
     return db_was_updated
 
 
