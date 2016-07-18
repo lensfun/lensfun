@@ -50,7 +50,7 @@ class XMLFile:
             if level and (not tree.tail or not tree.tail.strip()):
                 tree.tail = i
 
-    def write_to_tar(self, tar):
+    def write_to_tar(self, tar, timestamp):
         tarinfo = tarfile.TarInfo(self.filepath)
         root = self.tree.getroot()
         self.indent(root)
@@ -84,7 +84,6 @@ def fetch_xml_files():
     timestamp = int(subprocess.check_output(["git", "log", "-1", '--format=%ad', "--date=raw", "--"] + xml_filenames). \
                     decode("utf-8").split()[0])
     return xml_files, timestamp
-xml_files, timestamp = fetch_xml_files()
 
 
 class Converter:
@@ -155,27 +154,34 @@ class From2To1(Converter):
             del distortion.attrib["real-focal"]
 
 
-output_path = os.path.join(args.output_path, "db")
-shutil.rmtree(output_path, ignore_errors=True)
-os.makedirs(output_path)
-metadata = [timestamp, [], []]
-while True:
-    metadata[1].insert(0, current_version)
+def generate_database_tarballs(xml_files, timestamp):
+    version = current_version
+    output_path = os.path.join(args.output_path, "db")
+    shutil.rmtree(output_path, ignore_errors=True)
+    os.makedirs(output_path)
+    metadata = [timestamp, [], []]
+    while True:
+        metadata[1].insert(0, version)
 
-    tar = tarfile.open(os.path.join(output_path, "version_{}.tar.bz2".format(current_version)), "w:bz2")
-    for xml_file in xml_files:
-        xml_file.write_to_tar(tar)
-    tar.close()
+        tar = tarfile.open(os.path.join(output_path, "version_{}.tar.bz2".format(version)), "w:bz2")
+        for xml_file in xml_files:
+            xml_file.write_to_tar(tar, timestamp)
+        tar.close()
 
-    try:
-        converter_instance = converters.pop()
-    except IndexError:
-        break
-    assert converter_instance.from_version == current_version
-    for xml_file in xml_files:
-        converter_instance(xml_file.tree)
-    current_version = converter_instance.to_version
-json.dump(metadata, open(os.path.join(output_path, "versions.json"), "w"))
-if args.upload:
-    subprocess.check_call(["rsync", "-a", "--delete", output_path if output_path.endswith("/") else output_path + "/",
-                           "web.sourceforge.net:/home/project-web/lensfun/htdocs/db"])
+        try:
+            converter_instance = converters.pop()
+        except IndexError:
+            break
+        assert converter_instance.from_version == version
+        for xml_file in xml_files:
+            converter_instance(xml_file.tree)
+        version = converter_instance.to_version
+    json.dump(metadata, open(os.path.join(output_path, "versions.json"), "w"))
+    if args.upload:
+        subprocess.check_call(["rsync", "-a", "--delete", output_path if output_path.endswith("/") else output_path + "/",
+                               "web.sourceforge.net:/home/project-web/lensfun/htdocs/db"])
+
+
+
+xml_files, timestamp = fetch_xml_files()
+generate_database_tarballs(xml_files, timestamp)
