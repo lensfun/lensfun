@@ -48,8 +48,10 @@ Workflow
    images were good, but the target was not really trustworthy” or “Images of
    ducks on a lake cannot be used for calibration”.  Note that it is not
    necessary to use this feature at all.
-6. Add the label “respond and close” to the issue.
-7. A `cronjob`_ on Torsten's computer will remove this label once per hour,
+6. File a pull request with the calibration results.
+7. When the pull request has been merged, the mergerer (is this a word?) adds
+   the label “respond and close” to the issue.
+8. A `cronjob`_ on Torsten's computer will remove this label once per hour,
    close the issue, and send an email to the uploader, possibly with the latest
    “@uploader” comment.
 
