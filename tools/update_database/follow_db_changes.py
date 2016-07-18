@@ -20,9 +20,10 @@ Note that this script also creates a database with version 0.  This may be
 downloaded manually by people who use Lensfun <= 0.2.8.
 """
 
-import glob, os, subprocess, calendar, json, time, tarfile, io, argparse, shutil, configparser, smtplib
+import glob, os, subprocess, calendar, json, time, tarfile, io, argparse, shutil, configparser, smtplib, textwrap
 from email.mime.text import MIMEText
 from lxml import etree
+from github import Github
 
 
 parser = argparse.ArgumentParser(description="Generate tar balls of the Lensfun database, also for older versions.")
@@ -34,6 +35,10 @@ args = parser.parse_args()
 config = configparser.ConfigParser()
 config.read(os.path.expanduser("~/calibration_webserver.ini"))
 
+github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
+lensfun = github.get_organization("lensfun").get_repo("lensfun")
+calibration_request_label = lensfun.get_label("calibration request")
+respond_and_close_label = lensfun.get_label("respond and close")
 admin = "{} <{}>".format(config["General"]["admin_name"], config["General"]["admin_email"])
 root = "/tmp/"
 
@@ -217,7 +222,50 @@ def send_email(to, subject, body):
     smtp_connection.sendmail(admin, [to], message.as_string())
 
 
+def get_uploader_email(upload_hash):
+    uploads_root = config["General"]["uploads_root"]
+    for directory in os.listdir(uploads_root):
+        if directory.partition("_")[0] == upload_hash:
+            return json.load(open(os.path.join(uploads_root, directory, "originator.json")))
+
+
+def close_github_issues():
+    for issue in lensfun.get_issues(state="", labels=[calibration_request_label, respond_and_close_label]):
+        issue.remove_from_labels(respond_and_close_label)
+        upload_hash = issue.title.split()[-1]
+        uploader_email = get_uploader_email(upload_hash)
+        if not uploader_email:
+            issue.create_comment("The upload directory (with the uploader's email address) could not be found.")
+            continue
+        issue.edit(state="closed")
+        body = """Dear uploader,
+
+your upload has been processed and the results were added to
+Lensfun's database.  You – like every Lensfun user – can install the
+results locally by calling “lensfun-update-data” on the command
+line.
+
+{}Please respond to this email if you have any further questions.
+
+Thank you again for your contribution!
+
+(This is an automatically generated message.)
+"""
+        for comment in issue.get_comments().reversed:
+            if comment.body.startswith("@uploader"):
+                calibrator_comment = comment.body[len("@uploader"):]
+                if calibrator_comment.startswith(":"):
+                    calibrator_comment = calibrator_comment[1:]
+                calibrator_comment = textwrap.fill(calibrator_comment.strip(), width=68)
+                body = body.format("Additional information from the calibrator:\n" + calibrator_comment + "\n\n")
+                break
+        else:
+            body = body.format("")
+        send_email(uploader_email, "Your calibration upload has been processed", body)
+
+
 db_was_updated = update_git_repository()
 if db_was_updated:
     xml_files, timestamp = fetch_xml_files()
     generate_database_tarballs(xml_files, timestamp)
+close_github_issues()
