@@ -60,19 +60,26 @@ class XMLFile:
         tar.addfile(tarinfo, io.BytesIO(content))
 
 
-def fetch_xml_files():
+def update_git_repository():
     try:
         os.chdir(root + "lensfun-git")
     except FileNotFoundError:
         os.chdir(root)
         subprocess.check_call(["git", "clone", "git://git.code.sf.net/p/lensfun/code", "lensfun-git"],
                               stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
+        db_was_updated = True
     else:
         subprocess.check_call(["git", "fetch"], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
+        changed_files = subprocess.check_output(["git", "diff", "--name-only", "master..origin/master"],
+                                                stderr=open(os.devnull, "w")).splitlines()
+        db_was_updated = any(filename.startswith("data/db/") for filename in changed_files)
 
     subprocess.check_call(["git", "checkout", "master"], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
     subprocess.check_call(["git", "pull"], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
+    return db_was_updated
 
+
+def fetch_xml_files():
     os.chdir(root + "lensfun-git/data/db")
     xml_filenames = glob.glob("*.xml")
     xml_files = set(XMLFile(os.getcwd(), filename) for filename in xml_filenames)
@@ -177,6 +184,7 @@ def generate_database_tarballs(xml_files, timestamp):
                                "web.sourceforge.net:/home/project-web/lensfun/htdocs/db"])
 
 
-
-xml_files, timestamp = fetch_xml_files()
-generate_database_tarballs(xml_files, timestamp)
+db_was_updated = update_git_repository()
+if db_was_updated:
+    xml_files, timestamp = fetch_xml_files()
+    generate_database_tarballs(xml_files, timestamp)
