@@ -24,15 +24,15 @@ for issue in lensfun.get_issues(state="", labels=[calibration_request_label]):
     if match:
         issue_ids.add(match.group(1))
 
-id_regex = re.compile(".*_([0-9a-f]{6})$")
+
+id_regex = re.compile("([0-9a-f]{6})_.*$")
 for directory in os.listdir(root):
     match = id_regex.match(directory)
     if match:
         id_ = match.group(1)
         if id_ not in issue_ids:
-            body = "Calibration images were uploaded to the directory that starts with `{0}_`.\n\n" \
-                   "If you want to work on it, please self-assign this issue first.  When you are finished, copy your " \
-                   "final version of the images directory with a describing name into the top-level directory and remove " \
-                   "the original directory `{0}_*`.  Then, close this issue.\n\n" \
-                   "Thank you!\n".format(id_)
-            lensfun.create_issue("Calibration upload {}".format(id_),body=body, labels=[calibration_request_label])
+            body = "Calibration images were uploaded to the directory that starts with “`{0}_`”.\n\n" \
+                   "Please read the [workflow description]" \
+                   "(https://github.com/lensfun/lensfun/blob/master/tools/calibration-webserver/workflow.rst) for further " \
+                   "instructions about the calibration.\n".format(id_)
+            lensfun.create_issue("Calibration upload {}".format(id_), body=body, labels=[calibration_request_label])
