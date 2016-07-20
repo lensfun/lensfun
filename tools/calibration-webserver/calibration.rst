@@ -247,5 +247,16 @@ particular for vignetting, there must not be an overcorrection at the rim.
 Finally
 ========
 
+Replace the upload directory on ownCloud with your new version.  Take care to
+remove all TIFFs first because they are huge.  I use the following clean-up
+script::
+
+    #!/bin/sh
+    find . -name "*.tiff" -exec rm {} \;
+    find . -name "*.tca" -exec rm {} \;
+    find . -name "*.gp" -exec rm {} \;
+    find . -name "*.dat" -exec rm {} \;
+    find . -name "*.xmp" -exec rm {} \;
+
 Create a pull request on GitHub for the branch that contains your data against
 the “lensfun/lensfun” repository.
