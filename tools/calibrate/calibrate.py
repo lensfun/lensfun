@@ -264,7 +264,7 @@ except IOError:
 # TCA correction
 #
 
-only_linear_tca = False
+only_linear_tca = len(sys.argv) <= 1 or sys.argv[1] == "--simple-tca"
 
 def generate_tca_tiffs(filename):
     tca_filename = filename + ".tca"
