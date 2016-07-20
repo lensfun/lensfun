@@ -292,7 +292,7 @@ if os.path.exists("tca"):
         pool.join()
         calibration_lines = {}
         for filename in find_raw_files():
-            lens_name, focal_length, tca_output = [line.strip() for line in open(filename + ".tca").readlines()]
+            lens_name, focal_length, tca_output = [line.rstrip("\n") for line in open(filename + ".tca").readlines()]
             focal_length = float(focal_length)
             data = re.match(
                 r"-r [.0]+:(?P<br>[-.0-9]+):[.0]+:(?P<vr>[-.0-9]+) -b [.0]+:(?P<bb>[-.0-9]+):[.0]+:(?P<vb>[-.0-9]+)",
