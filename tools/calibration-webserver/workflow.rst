@@ -38,7 +38,8 @@ Workflow
 1. Assign an unassigned calibration request issue to you.
 2. The issue title contains a hash.  The respective directory in ownCloud
    starts with the same hash.
-3. Work on the calibration, probably changing the contents of the directory.
+3. `Work on the calibration`_, probably changing the contents of the
+   directory.
 4. If you have questions to the uploader, contact them by email or in the
    GitHub issue.  If the uploader prefers GitHub, they will add a comment like
    “I am the uploader” to the issue.
@@ -55,5 +56,7 @@ Workflow
    close the issue, and send an email to the uploader, possibly with the latest
    “@uploader” comment.
 
+.. _Work on the calibration:
+   https://github.com/lensfun/lensfun/blob/master/tools/calibration-webserver/calibration.rst
 .. _cronjob:
    https://github.com/lensfun/lensfun/blob/master/tools/update_database/follow_db_changes.py
