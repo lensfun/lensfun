@@ -242,7 +242,8 @@ except IOError:
     lens_names_by_focal_length = [item[1] for item in lens_names_by_focal_length]
     with open("lenses.txt", "w") as outfile:
         if focal_lengths:
-            outfile.write("""# For suggestions for <maker> and <mount> see <http://goo.gl/BSARX>.
+            outfile.write("""# For suggestions for <maker> and <mount> see
+# <https://github.com/lensfun/lensfun/tree/master/data/db>.
 # <aspect-ratio> is optional and by default 3:2.
 # Omit <type> for rectilinear lenses.
 """)
