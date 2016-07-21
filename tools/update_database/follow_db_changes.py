@@ -200,7 +200,7 @@ def generate_database_tarballs(xml_files, timestamp):
     json.dump(metadata, open(os.path.join(output_path, "versions.json"), "w"))
     if args.upload:
         subprocess.check_call(["rsync", "-a", "--delete", output_path if output_path.endswith("/") else output_path + "/",
-                               "web.sourceforge.net:/home/project-web/lensfun/htdocs/db"])
+                               config["SourceForge"]["login"] + "@web.sourceforge.net:/home/project-web/lensfun/htdocs/db"])
 
 
 def send_email(to, subject, body):
