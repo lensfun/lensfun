@@ -24,7 +24,7 @@ Configuration
   to the home directory of the user under which the webserver process runs
   (e.g. ``/var/www``).
 * The directory ``cache_root`` must be writable to the webserver user.
-* The script ``push_uploads_to_github.py`` should run as a cronjob, e.g. once
+* The script ``follow_db_changes.py`` should run as a cronjob, e.g. once
   per hour.
 
 .. _Django settings: https://docs.djangoproject.com/en/1.9/ref/settings/
