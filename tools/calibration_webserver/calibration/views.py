@@ -130,8 +130,14 @@ def store_upload(uploaded_file, email_address):
     with open(filepath, "wb") as outfile:
         for chunk in uploaded_file.chunks():
             outfile.write(chunk)
+    webserver_parent_path = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
+    try:
+        python_path = os.environ["PYTHONPATH"] + ":" + webserver_parent_path
+    except KeyError:
+        python_path = webserver_parent_path
     spawn_daemon("/usr/bin/env", "python3",
-                 os.path.join(os.path.abspath(os.path.dirname(__file__)), "..", "process_upload.py"), filepath)
+                 os.path.join(os.path.abspath(os.path.dirname(__file__)), "..", "process_upload.py"), filepath,
+                 {"PYTHONPATH": python_path})
     return id_
 
 class UploadForm(forms.Form):
