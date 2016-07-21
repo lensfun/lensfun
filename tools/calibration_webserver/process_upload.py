@@ -21,7 +21,7 @@ success message in their browser.
 import hashlib, sys, os, subprocess, json, re, multiprocessing, smtplib, configparser
 from email.mime.text import MIMEText
 from github import Github
-import owncloud
+from . import owncloud
 
 
 def send_email(to, subject, body):
