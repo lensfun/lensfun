@@ -54,7 +54,7 @@ New calibration images arrived from <{}>, see
 """.format(email_address, os.path.join(config["General"]["uploads_root"], id_)))
 
 
-def spawn_daemon(path_to_executable, *args):
+def spawn_daemon(path_to_executable, *args, env=None):
     """Spawns a completely detached subprocess (i.e., a daemon).  Taken from
     http://stackoverflow.com/questions/972362/spawning-process-from-python
     which in turn was inspired by
@@ -64,9 +64,13 @@ def spawn_daemon(path_to_executable, *args):
       - `path_to_executable`: absolute path to the executable to be run
         detached
       - `args`: all arguments to be passed to the subprocess
+      - `env`: if not None, the environment variables passed to the process;
+        they are added to the ones of the current process, overriding in case
+        of collisions
 
     :type path_to_executable: str
     :type args: list of str
+    :type env: dict mapping str to str, or NoneType
     """
     try:
         pid = os.fork()
@@ -94,8 +98,10 @@ def spawn_daemon(path_to_executable, *args):
     os.open(os.devnull, os.O_RDWR)
     os.dup2(0, 1)
     os.dup2(0, 2)
+    env_ = os.environ.copy()
+    env_.update(env)
     try:
-        os.execv(path_to_executable, [path_to_executable] + list(filter(lambda arg: arg is not None, args)))
+        os.execve(path_to_executable, [path_to_executable] + list(filter(lambda arg: arg is not None, args)), env_)
     except:
         os._exit(255)
 
