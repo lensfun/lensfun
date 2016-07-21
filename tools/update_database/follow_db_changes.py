@@ -5,7 +5,8 @@
 
 This program is intended to run as a cronjob, and possibly be run as needed.
 It creates a versions.json file and tarballs in the given output directory.  If
-desired, it also pushes its content to sourceforge.de.
+desired, it also pushes its content to sourceforge.de.  The
+``calibration_webserver`` package must be in the PYTHONPATH.
 
 Since this script reads the same configuration file as the calibration
 webserver in $HOME, it should run as the webserver user.  If this is not
@@ -24,6 +25,7 @@ import glob, os, subprocess, calendar, json, time, tarfile, io, argparse, shutil
 from email.mime.text import MIMEText
 from lxml import etree
 from github import Github
+from calibration_webserver import owncloud
 
 
 parser = argparse.ArgumentParser(description="Generate tar balls of the Lensfun database, also for older versions.")
@@ -265,6 +267,7 @@ Thank you again for your contribution!
         send_email(uploader_email, "Your calibration upload has been processed", body)
 
 
+owncloud.sync()
 db_was_updated = update_git_repository()
 if db_was_updated:
     xml_files, timestamp = fetch_xml_files()
