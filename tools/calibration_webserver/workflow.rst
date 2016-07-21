@@ -57,6 +57,6 @@ Workflow
    “@uploader” comment.
 
 .. _Work on the calibration:
-   https://github.com/lensfun/lensfun/blob/master/tools/calibration-webserver/calibration.rst
+   https://github.com/lensfun/lensfun/blob/master/tools/calibration_webserver/calibration.rst
 .. _cronjob:
    https://github.com/lensfun/lensfun/blob/master/tools/update_database/follow_db_changes.py

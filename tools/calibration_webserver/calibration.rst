@@ -16,7 +16,7 @@ terse `workflow description`_.
 
 .. _Torsten Bronger: mailto:bronger@physik.rwth-aachen.de
 .. _workflow description:
-   https://github.com/lensfun/lensfun/blob/master/tools/calibration-webserver/workflow.rst
+   https://github.com/lensfun/lensfun/blob/master/tools/calibration_webserver/workflow.rst
 
 
 The setting
