@@ -106,7 +106,7 @@ def sync_with_github():
                "(https://github.com/lensfun/lensfun/blob/master/tools/calibration_webserver/workflow.rst) for further " \
                "instructions about the calibration.\n".format(upload_hash)
         issue = lensfun.create_issue("Calibration upload {}".format(upload_hash), body=body, labels=[calibration_request_label])
-    return issue.url
+    return issue.html_url
 
 
 def write_result_and_exit(error, missing_data=[]):
