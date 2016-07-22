@@ -42,7 +42,7 @@ def send_email(to, subject, body):
     smtp_connection = smtplib.SMTP(config["SMTP"]["machine"], config["SMTP"]["port"])
     smtp_connection.starttls()
     smtp_connection.login(config["SMTP"]["login"], config["SMTP"]["password"])
-    smtp_connection.sendmail(admin, [to], message.as_string())
+    smtp_connection.sendmail(admin, [to, config["General"]["admin_email"]], message.as_string())
 
 def send_success_email(email_address, id_):
     send_email(admin, "New calibration images from " + email_address,
