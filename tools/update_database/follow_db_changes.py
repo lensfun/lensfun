@@ -231,11 +231,12 @@ class UploadDirectoryNotFound(Exception):
         super().__init__("The upload directory (with the uploader's email address) could not be found.")
 
 
-def get_uploader_email(upload_hash):
+def get_upload_data(upload_hash):
     uploads_root = config["General"]["uploads_root"]
     for directory in os.listdir(uploads_root):
         if directory.partition("_")[0] == upload_hash:
-            return json.load(open(os.path.join(uploads_root, directory, "originator.json")))
+            path = os.path.join(uploads_root, directory)
+            return path, json.load(open(os.path.join(path, "originator.json")))
     else:
         raise UploadDirectoryNotFound
 
@@ -243,7 +244,7 @@ def get_uploader_email(upload_hash):
 def process_issue(issue, label, body):
     issue.remove_from_labels(label)
     upload_hash = issue.title.split()[-1]
-    uploader_email = get_uploader_email(upload_hash)
+    upload_path, uploader_email = get_upload_data(upload_hash)
     issue.edit(state="closed")
     for comment in issue.get_comments().reversed:
         if comment.body.startswith("@uploader"):
@@ -256,6 +257,8 @@ def process_issue(issue, label, body):
     else:
         body = body.format("")
     send_email(uploader_email, "Your calibration upload has been processed", body)
+    if config["General"].get("archive_path"):
+        shutil.move(upload_path, config["General"]["archive_path"])
 
 
 def close_github_issues():
@@ -297,9 +300,10 @@ Thank you for your work so far nevertheless!
             issue.create_comment(str(error))
 
 
-owncloud.sync()
 db_was_updated = update_git_repository()
 if db_was_updated:
     xml_files, timestamp = fetch_xml_files()
     generate_database_tarballs(xml_files, timestamp)
+owncloud.sync()
 close_github_issues()
+owncloud.sync()
