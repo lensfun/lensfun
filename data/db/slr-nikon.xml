@@ -3284,12 +3284,13 @@
             <tca model="poly3" focal="300" br="-0.0000065" vr="0.9994044" bb="-0.0000318" vb="1.0000918"/>
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Nikkor</maker>
         <model>Nikon AF-S Nikkor 35mm f/1.8G ED</model>
+        <model lang="en">Nikkor AF-S 35mm f/1.8G ED</model>
         <mount>Nikon F AF</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Nikon D750 -->
             <distortion model="ptlens" focal="35" a="0.02498" b="-0.07793" c="0.05642" />
@@ -3300,8 +3301,9 @@
     <lens>
         <maker>Nikkor</maker>
         <model>Nikon AF DC-Nikkor 135mm f/2D</model>
+        <model lang="en">Nikkor AF 135mm f/2D DC</model>
         <mount>Nikon F AF</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Nikon D750 -->
             <distortion model="ptlens" focal="135" a="0.00165" b="0.0009" c="-0.01172" />
