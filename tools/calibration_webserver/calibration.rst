@@ -62,7 +62,7 @@ Sometimes, we have already the data for the lens(es).  Then, comment like::
     @uploader: Lensfun's database already contains the data for the lens you
     submitted.  Please answer to this email if you have trouble with it.
 
-In both cases, add the “respond and close” label to the issue.  Done.
+In both cases, add the “unsuccessful” label to the issue.  Done.
 
 
 Communication

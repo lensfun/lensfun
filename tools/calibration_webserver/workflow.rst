@@ -51,7 +51,7 @@ Workflow
    necessary to use this feature at all.
 6. File a pull request with the calibration results.
 7. When the pull request has been merged, the mergerer (is this a word?) adds
-   the label “respond and close” to the issue.
+   the label “successful” to the issue.
 8. A `cronjob`_ on Torsten's computer will remove this label once per hour,
    close the issue, and send an email to the uploader, possibly with the latest
    “@uploader” comment.

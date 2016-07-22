@@ -40,7 +40,8 @@ config.read(os.path.expanduser("~/calibration_webserver.ini"))
 github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
 lensfun = github.get_organization("lensfun").get_repo("lensfun")
 calibration_request_label = lensfun.get_label("calibration request")
-respond_and_close_label = lensfun.get_label("respond and close")
+successful_label = lensfun.get_label("successful")
+unsuccessful_label = lensfun.get_label("unsuccessful")
 admin = "{} <{}>".format(config["General"]["admin_name"], config["General"]["admin_email"])
 root = "/tmp/"
 
@@ -225,22 +226,40 @@ def send_email(to, subject, body):
     smtp_connection.sendmail(admin, [to], message.as_string())
 
 
+class UploadDirectoryNotFound(Exception):
+    def __init__(self):
+        super().__init__("The upload directory (with the uploader's email address) could not be found.")
+
+
 def get_uploader_email(upload_hash):
     uploads_root = config["General"]["uploads_root"]
     for directory in os.listdir(uploads_root):
         if directory.partition("_")[0] == upload_hash:
             return json.load(open(os.path.join(uploads_root, directory, "originator.json")))
+    else:
+        raise UploadDirectoryNotFound
+
+
+def process_issue(issue, label, body):
+    issue.remove_from_labels(label)
+    upload_hash = issue.title.split()[-1]
+    uploader_email = get_uploader_email(upload_hash)
+    issue.edit(state="closed")
+    for comment in issue.get_comments().reversed:
+        if comment.body.startswith("@uploader"):
+            calibrator_comment = comment.body[len("@uploader"):]
+            if calibrator_comment.startswith(":"):
+                calibrator_comment = calibrator_comment[1:]
+            calibrator_comment = textwrap.fill(calibrator_comment.strip(), width=68)
+            body = body.format("Additional information from the calibrator:\n" + calibrator_comment + "\n\n")
+            break
+    else:
+        body = body.format("")
+    send_email(uploader_email, "Your calibration upload has been processed", body)
 
 
 def close_github_issues():
-    for issue in lensfun.get_issues(state="", labels=[calibration_request_label, respond_and_close_label]):
-        issue.remove_from_labels(respond_and_close_label)
-        upload_hash = issue.title.split()[-1]
-        uploader_email = get_uploader_email(upload_hash)
-        if not uploader_email:
-            issue.create_comment("The upload directory (with the uploader's email address) could not be found.")
-            continue
-        issue.edit(state="closed")
+    for issue in lensfun.get_issues(state="", labels=[calibration_request_label, successful_label]):
         body = """Dear uploader,
 
 your upload has been processed and the results were added to
@@ -254,17 +273,28 @@ Thank you again for your contribution!
 
 (This is an automatically generated message.)
 """
-        for comment in issue.get_comments().reversed:
-            if comment.body.startswith("@uploader"):
-                calibrator_comment = comment.body[len("@uploader"):]
-                if calibrator_comment.startswith(":"):
-                    calibrator_comment = calibrator_comment[1:]
-                calibrator_comment = textwrap.fill(calibrator_comment.strip(), width=68)
-                body = body.format("Additional information from the calibrator:\n" + calibrator_comment + "\n\n")
-                break
-        else:
-            body = body.format("")
-        send_email(uploader_email, "Your calibration upload has been processed", body)
+        try:
+            process_issue(issue, successful_label, body)
+        except UploadDirectoryNotFound as error:
+            issue.create_comment(str(error))
+    for issue in lensfun.get_issues(state="", labels=[calibration_request_label, unsuccessful_label]):
+        body = """Dear uploader,
+
+your upload has been processed but unfortunately, it could not be
+used for calibration in its present form.  Please read the
+instructions at http://wilson.bronger.org/calibration carefully and
+consider a re-upload.
+
+{}Please respond to this email if you have any further questions.
+
+Thank you for your work so far nevertheless!
+
+(This is an automatically generated message.)
+"""
+        try:
+            process_issue(issue, unsuccessful_label, body)
+        except UploadDirectoryNotFound as error:
+            issue.create_comment(str(error))
 
 
 owncloud.sync()
