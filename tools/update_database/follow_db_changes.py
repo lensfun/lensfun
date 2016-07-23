@@ -241,8 +241,36 @@ def get_upload_data(upload_hash):
         raise UploadDirectoryNotFound
 
 
-def process_issue(issue, label, body):
-    issue.remove_from_labels(label)
+def process_issue(issue, successful):
+    issue.remove_from_labels(successful_label if successful else unsuccessful_label)
+    if successful:
+        body = """Dear uploader,
+
+your upload has been processed and the results were added to
+Lensfun's database.  You – like every Lensfun user – can install the
+results locally by calling “lensfun-update-data” on the command
+line.
+
+{}Please respond to this email if you have any further questions.
+
+Thank you again for your contribution!
+
+(This is an automatically generated message.)
+"""
+    else:
+        body = """Dear uploader,
+
+your upload has been processed but unfortunately, it could not be
+used for calibration in its present form.  Please read the
+instructions at http://wilson.bronger.org/calibration carefully and
+consider a re-upload.
+
+{}Please respond to this email if you have any further questions.
+
+Thank you for your work so far nevertheless!
+
+(This is an automatically generated message.)
+"""
     upload_hash = issue.title.split()[-1]
     upload_path, uploader_email = get_upload_data(upload_hash)
     issue.edit(state="closed")
@@ -258,44 +286,19 @@ def process_issue(issue, label, body):
         body = body.format("")
     send_email(uploader_email, "Your calibration upload has been processed", body)
     if config["General"].get("archive_path"):
-        shutil.move(upload_path, config["General"]["archive_path"])
+        destination = config["General"]["archive_path"]
+        shutil.move(upload_path, destination)
 
 
 def close_github_issues():
     for issue in lensfun.get_issues(state="", labels=[calibration_request_label, successful_label]):
-        body = """Dear uploader,
-
-your upload has been processed and the results were added to
-Lensfun's database.  You – like every Lensfun user – can install the
-results locally by calling “lensfun-update-data” on the command
-line.
-
-{}Please respond to this email if you have any further questions.
-
-Thank you again for your contribution!
-
-(This is an automatically generated message.)
-"""
         try:
-            process_issue(issue, successful_label, body)
+            process_issue(issue, successful=True)
         except UploadDirectoryNotFound as error:
             issue.create_comment(str(error))
     for issue in lensfun.get_issues(state="", labels=[calibration_request_label, unsuccessful_label]):
-        body = """Dear uploader,
-
-your upload has been processed but unfortunately, it could not be
-used for calibration in its present form.  Please read the
-instructions at http://wilson.bronger.org/calibration carefully and
-consider a re-upload.
-
-{}Please respond to this email if you have any further questions.
-
-Thank you for your work so far nevertheless!
-
-(This is an automatically generated message.)
-"""
         try:
-            process_issue(issue, unsuccessful_label, body)
+            process_issue(issue, successful=False)
         except UploadDirectoryNotFound as error:
             issue.create_comment(str(error))
 
