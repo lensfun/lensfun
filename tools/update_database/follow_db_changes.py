@@ -287,6 +287,8 @@ Thank you for your work so far nevertheless!
     send_email(uploader_email, "Your calibration upload has been processed", body)
     if config["General"].get("archive_path"):
         destination = config["General"]["archive_path"]
+        if not successful:
+            destination = os.path.join(destination, "unusable_" + os.path.basename(upload_path))
         shutil.move(upload_path, destination)
 
 
