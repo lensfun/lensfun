@@ -338,6 +338,34 @@
 
     <lens>
         <maker>Pentax</maker>
+        <model></model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.526</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K5 -->
+            <distortion model="ptlens" focal="16" a="0.0128194" b="-0.0316035" c="-0.0188219" />
+            <distortion model="ptlens" focal="21" a="0.00900492" b="-0.0197809" c="-0.000667816" />
+            <distortion model="ptlens" focal="26" a="0.000946351" b="0.00713425" c="-0.0166867" />
+            <distortion model="ptlens" focal="28" a="-0.0044335" b="0.0251402" c="-0.0279517" />
+            <distortion model="ptlens" focal="35" a="-0.00319378" b="0.0213484" c="-0.0248333" />
+            <distortion model="ptlens" focal="43" a="0.000425028" b="0.00919418" c="-0.0109862" />
+            <distortion model="ptlens" focal="48" a="0.0215815" b="-0.0752127" c="0.101619" />
+            <distortion model="ptlens" focal="68" a="-0.000323365" b="0.00551294" c="0.00186962" />
+            <distortion model="ptlens" focal="85" a="0.00564139" b="-0.0180164" c="0.0337795" />
+            <tca model="poly3" focal="16" br="-0.0000704" vr="1.0005077" bb="0.0000690" vb="0.9999805" />
+            <tca model="poly3" focal="21" br="-0.0000044" vr="1.0004007" bb="0.0000207" vb="0.9999686" />
+            <tca model="poly3" focal="26" br="0.0000063" vr="1.0003142" bb="0.0000010" vb="0.9999308" />
+            <tca model="poly3" focal="28" br="0.0000026" vr="1.0002490" bb="-0.0000145" vb="0.9999347" />
+            <tca model="poly3" focal="35" br="-0.0000295" vr="1.0002180" bb="-0.0000030" vb="0.9999106" />
+            <tca model="poly3" focal="43" br="-0.0000267" vr="1.0001546" bb="-0.0000031" vb="0.9998828" />
+            <tca model="poly3" focal="48" br="-0.0000256" vr="1.0000562" bb="0.0000067" vb="0.9998701" />
+            <tca model="poly3" focal="68" br="-0.0000360" vr="0.9999061" bb="0.0000238" vb="0.9998529" />
+            <tca model="poly3" focal="85" br="-0.0000305" vr="0.9998040" bb="0.0000295" vb="0.9997888" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
         <model>smc Pentax-DA 18-55mm f/3.5-5.6 AL</model>
         <!-- FixMe: According to
              <http://en.wikipedia.org/wiki/Pentax_DA_18-55mm_lens>, Samsung
