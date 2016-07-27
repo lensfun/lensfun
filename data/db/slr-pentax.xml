@@ -585,6 +585,26 @@
 
     <lens>
         <maker>Pentax</maker>
+        <model>PENTAX-F 28-80mm F3.5-4.5</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.526</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-5 -->
+            <distortion model="ptlens" focal="28" a="0.00103457" b="-0.0104385" c="-0.00251646" />
+            <distortion model="ptlens" focal="36" a="-0.00951146" b="0.0384678" c="-0.0644029" />
+            <distortion model="ptlens" focal="50" a="0.000214314" b="0.00652746" c="-0.0189032" />
+            <distortion model="ptlens" focal="68" a="-0.00808015" b="0.0359238" c="-0.052148" />
+            <distortion model="ptlens" focal="80" a="-0.0033906" b="0.0165939" c="-0.0253379" />
+            <tca model="poly3" focal="28" br="0.0000000" vr="1.0003470" bb="0.0000514" vb="1.0000402" />
+            <tca model="poly3" focal="36" br="0.0000153" vr="1.0002037" bb="0.0000424" vb="1.0000780" />
+            <tca model="poly3" focal="50" br="-0.0000103" vr="1.0001007" bb="0.0000085" vb="1.0001358" />
+            <tca model="poly3" focal="68" br="-0.0000330" vr="1.0001177" bb="-0.0000271" vb="1.0001116" />
+            <tca model="poly3" focal="80" br="-0.0000109" vr="1.0000879" bb="-0.0000033" vb="1.0000849" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
         <model>smc Pentax-DA 50-200mm f/4-5.6 DA ED</model>
         <mount>Pentax KAF2</mount>
         <!-- Average crop factor of Pentax APS-C cameras -->
