@@ -845,6 +845,18 @@
 
     <lens>
         <maker>Pentax</maker>
+        <model>smc Pentax-M 50mm f/1.7</model>
+        <mount>Pentax K</mount>
+        <cropfactor>1.526</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-5 II -->
+            <distortion model="ptlens" focal="50" a="0.00454358" b="-0.0157885" c="0.0150319" />
+            <tca model="poly3" focal="50" br="-0.0000256" vr="1.0000546" bb="-0.0000066" vb="0.9999937" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
         <model>smc Pentax-M 50mm f/2</model>
         <mount>Pentax K</mount>
         <!-- Average crop factor of Pentax APS-C cameras -->
