@@ -2015,6 +2015,18 @@
 
     <lens>
         <maker>Nikon</maker>
+        <model>Nikon Ai Nikkor 24mm f/2.8</model>
+        <mount>Nikon F</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D800 -->
+            <distortion model="ptlens" focal="24" a="0.0202" b="-0.05926" c="0.03781" />
+            <tca model="poly3" focal="24" vr="1.0004745" vb="0.9998899" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
         <model>Nikon AF Nikkor 24mm f/2.8D</model>
         <model lang="en">Nikkor AF 24mm f/2.8D</model>
         <mount>Nikon F AF</mount>
