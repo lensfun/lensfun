@@ -226,9 +226,10 @@ def send_email(to, subject, body):
     smtp_connection.sendmail(admin, [to, config["General"]["admin_email"]], message.as_string())
 
 
-class UploadDirectoryNotFound(Exception):
+class OriginatorFileNotReadable(Exception):
     def __init__(self):
-        super().__init__("The upload directory (with the uploader's email address) could not be found.")
+        super().__init__("The upload directory (with the uploader's email address) could not be found, "
+                         "and/or the originator.json file was not present or not readable.")
 
 
 def get_upload_data(upload_hash):
@@ -236,9 +237,12 @@ def get_upload_data(upload_hash):
     for directory in os.listdir(uploads_root):
         if directory.partition("_")[0] == upload_hash:
             path = os.path.join(uploads_root, directory)
-            return path, json.load(open(os.path.join(path, "originator.json")))
+            try:
+                return path, json.load(open(os.path.join(path, "originator.json")))
+            except (FileNotFoundError, PermissionError, json.JSONDecodeError):
+                raise OriginatorFileNotReadable
     else:
-        raise UploadDirectoryNotFound
+        raise OriginatorFileNotReadable
 
 
 def process_issue(issue, successful):
@@ -296,12 +300,12 @@ def close_github_issues():
     for issue in lensfun.get_issues(state="", labels=[calibration_request_label, successful_label]):
         try:
             process_issue(issue, successful=True)
-        except UploadDirectoryNotFound as error:
+        except OriginatorFileNotReadable as error:
             issue.create_comment(str(error))
     for issue in lensfun.get_issues(state="", labels=[calibration_request_label, unsuccessful_label]):
         try:
             process_issue(issue, successful=False)
-        except UploadDirectoryNotFound as error:
+        except OriginatorFileNotReadable as error:
             issue.create_comment(str(error))
 
 
