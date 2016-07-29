@@ -1385,4 +1385,22 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Panasonic</maker>
+        <model>LUMIX G VARIO 14-140/F3.5-5.6 </model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <calibration>
+            <!-- Taken with Panasonic DMC-G70 -->
+            <distortion model="ptlens" focal="14" a="0.03621" b="-0.12936" c="0.0619" />
+            <distortion model="ptlens" focal="19" a="0.02193" b="-0.07774" c="0.0502" />
+            <distortion model="ptlens" focal="26" a="0.00635" b="-0.02395" c="0.02026" />
+            <distortion model="ptlens" focal="37" a="0.00188" b="-0.00037" c="-0.00532" />
+            <distortion model="ptlens" focal="46" a="0.00292" b="0.00204" c="-0.0141" />
+            <distortion model="ptlens" focal="69" a="-0.00526" b="0.02418" c="-0.02834" />
+            <distortion model="ptlens" focal="102" a="-0.00722" b="0.02631" c="-0.02095" />
+            <distortion model="ptlens" focal="140" a="0.00108" b="-0.00403" c="0.01137" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
