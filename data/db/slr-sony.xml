@@ -849,5 +849,51 @@
             <vignetting model="pa" focal="30" aperture="22" distance="1000" k1="-0.8122" k2="0.5752" k3="-0.2326"/>
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 24-240mm F3.5-6.3 OSS</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7R (A7R) -->
+            <distortion model="ptlens" focal="24" a="0.03845" b="-0.13772" c="0.07834" />
+            <distortion model="ptlens" focal="49" a="0.00446" b="0.00426" c="0.00916" />
+            <distortion model="ptlens" focal="100" a="-0.00732" b="0.0354" c="-0.01164" />
+            <distortion model="ptlens" focal="152" a="0.00205" b="0.02088" c="-0.0275" />
+            <distortion model="ptlens" focal="240" a="0.03214" b="-0.08025" c="0.08436" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 28-70mm F3.5-5.6 OSS</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7R (A7R) -->
+            <distortion model="ptlens" focal="28" a="-0.05901" b="0.25871" c="-0.40493" />
+            <distortion model="ptlens" focal="34" a="-0.02149" b="0.0744" c="-0.08141" />
+            <distortion model="ptlens" focal="50" a="0.00621" b="0.00601" c="-0.01137" />
+            <distortion model="ptlens" focal="58" a="0.05821" b="-0.20083" c="0.2647" />
+            <distortion model="ptlens" focal="70" a="0.1502" b="-0.54505" c="0.70454" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 70-200mm F4 G OSS</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7R (A7R) -->
+            <distortion model="ptlens" focal="70" a="-0.00998" b="0.04602" c="-0.08171" />
+            <distortion model="ptlens" focal="89" a="-0.0113" b="0.05113" c="-0.0724" />
+            <distortion model="ptlens" focal="120" a="0.00345" b="-0.00364" c="0.0002" />
+            <distortion model="ptlens" focal="164" a="0.01123" b="-0.03131" c="0.04108" />
+            <distortion model="ptlens" focal="197" a="0.01254" b="-0.0357" c="0.05244" />
+            <distortion model="ptlens" focal="200" a="-0.00419" b="0.03834" c="-0.0547" />
+        </calibration>
+    </lens>
 
 </lensdatabase>
