@@ -820,4 +820,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>XF56mmF1.2 R</model>
+        <model lang="en">XF 56mm f/1.2 R</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-E2 -->
+            <distortion model="ptlens" focal="56" a="0.00239" b="-0.00767" c="0.00358" />
+            <tca model="poly3" focal="56" vr="1.0000116" vb="0.9999456" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
