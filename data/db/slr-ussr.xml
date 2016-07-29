@@ -173,4 +173,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>MTO</maker>
+        <model>MTO-500 500mm f/8 mirror lens</model>
+        <mount>M39/1</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-M1 -->
+            <vignetting model="pa" focal="500" aperture="8" distance="10" k1="-1.0017" k2="1.0513" k3="-0.4818" />
+            <vignetting model="pa" focal="500" aperture="8" distance="1000" k1="-1.0017" k2="1.0513" k3="-0.4818" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
