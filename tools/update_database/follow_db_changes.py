@@ -300,12 +300,12 @@ def close_github_issues():
     for issue in lensfun.get_issues(state="", labels=[calibration_request_label, successful_label]):
         try:
             process_issue(issue, successful=True)
-        except OriginatorFileNotReadable as error:
+        except (OriginatorFileNotReadable, OSError) as error:
             issue.create_comment(str(error))
     for issue in lensfun.get_issues(state="", labels=[calibration_request_label, unsuccessful_label]):
         try:
             process_issue(issue, successful=False)
-        except OriginatorFileNotReadable as error:
+        except (OriginatorFileNotReadable, OSError) as error:
             issue.create_comment(str(error))
 
 
