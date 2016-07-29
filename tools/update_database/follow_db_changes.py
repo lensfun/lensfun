@@ -277,7 +277,6 @@ Thank you for your work so far nevertheless!
 """
     upload_hash = issue.title.split()[-1]
     upload_path, uploader_email = get_upload_data(upload_hash)
-    issue.edit(state="closed")
     for comment in issue.get_comments().reversed:
         if comment.body.startswith("@uploader"):
             calibrator_comment = comment.body[len("@uploader"):]
@@ -294,6 +293,7 @@ Thank you for your work so far nevertheless!
         if not successful:
             destination = os.path.join(destination, "unusable_" + os.path.basename(upload_path))
         shutil.move(upload_path, destination)
+    issue.edit(state="closed")
 
 
 def close_github_issues():
