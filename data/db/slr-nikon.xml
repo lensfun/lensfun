@@ -2011,22 +2011,10 @@
         <mount>Nikon F AI-S</mount>
         <cropfactor>1</cropfactor>
         <calibration>
-            <!-- Taken with Nikon D600 -->
-            <distortion model="ptlens" focal="24" a="0.01888" b="-0.04391" c="0.00723"/>
-            <tca model="poly3" focal="24" br="-0.0002082" vr="1.0007055" bb="0.0001896" vb="0.9996373"/>
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Nikon</maker>
-        <model>Nikon AI Nikkor 24mm f/2.8</model>
-        <model lang="en">Nikkor AI 24mm f/2.8</model>
-        <mount>Nikon F AI</mount>
-        <cropfactor>1</cropfactor>
-        <calibration>
             <!-- Taken with Nikon D800 -->
             <distortion model="ptlens" focal="24" a="0.0202" b="-0.05926" c="0.03781" />
-            <tca model="poly3" focal="24" vr="1.0004745" vb="0.9998899" />
+            <!-- Taken with Nikon D600 -->
+            <tca model="poly3" focal="24" br="-0.0002082" vr="1.0007055" bb="0.0001896" vb="0.9996373"/>
         </calibration>
     </lens>
 
