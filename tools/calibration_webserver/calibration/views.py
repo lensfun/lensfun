@@ -99,7 +99,8 @@ def spawn_daemon(path_to_executable, *args, env=None):
     os.dup2(0, 1)
     os.dup2(0, 2)
     env_ = os.environ.copy()
-    env_.update(env)
+    if env is not None:
+        env_.update(env)
     try:
         os.execve(path_to_executable, [path_to_executable] + list(filter(lambda arg: arg is not None, args)), env_)
     except:
