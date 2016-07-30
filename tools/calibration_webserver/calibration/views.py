@@ -138,7 +138,7 @@ def store_upload(uploaded_file, email_address):
         python_path = webserver_parent_path
     spawn_daemon("/usr/bin/env", "python3",
                  os.path.join(os.path.abspath(os.path.dirname(__file__)), "..", "process_upload.py"), filepath,
-                 {"PYTHONPATH": python_path})
+                 env={"PYTHONPATH": python_path})
     return id_
 
 class UploadForm(forms.Form):
