@@ -820,4 +820,23 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>FUJIFILM</maker>
+        <model>XF16-55mmF2.8 R LM WR</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="16" a="0.02551" b="-0.08802" c="0.02986" />
+            <distortion model="ptlens" focal="18.7" a="0.02639" b="-0.09371" c="0.06949" />
+            <distortion model="ptlens" focal="28.3" a="-0.00603" b="0.03552" c="-0.04632" />
+            <distortion model="ptlens" focal="35.3" a="0.00725" b="-0.00705" c="0.00456" />
+            <distortion model="ptlens" focal="55" a="0.02046" b="-0.05859" c="0.08192" />
+            <tca model="poly3" focal="16" br="-0.0002950" vr="1.0013143" bb="0.0002728" vb="0.9995741" />
+            <tca model="poly3" focal="18.7" br="-0.0002591" vr="1.0013211" bb="0.0002701" vb="0.9992707" />
+            <tca model="poly3" focal="28.3" br="-0.0002947" vr="1.0012029" bb="0.0003146" vb="0.9988996" />
+            <tca model="poly3" focal="35.3" br="-0.0003870" vr="1.0011116" bb="0.0003397" vb="0.9987853" />
+            <tca model="poly3" focal="55" br="-0.0003426" vr="1.0004456" bb="0.0002934" vb="0.9987352" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
