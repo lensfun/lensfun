@@ -903,5 +903,36 @@
             <vignetting model="pa" focal="90" aperture="22" distance="1000" k1="-0.1558" k2="0.0642" k3="-0.0253"/>
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 24-240mm f/3.5-6.3 OSS</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7R (A7R) -->
+            <distortion model="ptlens" focal="24" a="0.03845" b="-0.13772" c="0.07834" />
+            <distortion model="ptlens" focal="49" a="0.00446" b="0.00426" c="0.00916" />
+            <distortion model="ptlens" focal="100" a="-0.00732" b="0.0354" c="-0.01164" />
+            <distortion model="ptlens" focal="152" a="0.00205" b="0.02088" c="-0.0275" />
+            <distortion model="ptlens" focal="240" a="0.03214" b="-0.08025" c="0.08436" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 70-200mm f/4 G OSS</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7R (A7R) -->
+            <distortion model="ptlens" focal="70" a="-0.00998" b="0.04602" c="-0.08171" />
+            <distortion model="ptlens" focal="89" a="-0.0113" b="0.05113" c="-0.0724" />
+            <distortion model="ptlens" focal="120" a="0.00345" b="-0.00364" c="0.0002" />
+            <distortion model="ptlens" focal="164" a="0.01123" b="-0.03131" c="0.04108" />
+            <distortion model="ptlens" focal="197" a="0.01254" b="-0.0357" c="0.05244" />
+            <distortion model="ptlens" focal="200" a="-0.00419" b="0.03834" c="-0.0547" />
+        </calibration>
+    </lens>
 
 </lensdatabase>
