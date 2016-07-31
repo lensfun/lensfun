@@ -258,5 +258,5 @@ script::
     find . -name "*.dat" -exec rm {} \;
     find . -name "*.xmp" -exec rm {} \;
 
-Create a pull request on GitHub for the branch that contains your data against
-the “lensfun/lensfun” repository.
+Commit yor results to the Lensfun's master branch on GitHub.  Or, if you want
+feedback first, create a pull request.
