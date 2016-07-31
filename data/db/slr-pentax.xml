@@ -343,6 +343,34 @@
 
     <lens>
         <maker>Pentax</maker>
+        <model>HD PENTAX-DA 16-85mm F3.5-5.6 ED DC WR</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.526</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K5 -->
+            <distortion model="ptlens" focal="16" a="0.0128194" b="-0.0316035" c="-0.0188219" />
+            <distortion model="ptlens" focal="21" a="0.00900492" b="-0.0197809" c="-0.000667816" />
+            <distortion model="ptlens" focal="26" a="0.000946351" b="0.00713425" c="-0.0166867" />
+            <distortion model="ptlens" focal="28" a="-0.0044335" b="0.0251402" c="-0.0279517" />
+            <distortion model="ptlens" focal="35" a="-0.00319378" b="0.0213484" c="-0.0248333" />
+            <distortion model="ptlens" focal="43" a="0.000425028" b="0.00919418" c="-0.0109862" />
+            <distortion model="ptlens" focal="48" a="0.0215815" b="-0.0752127" c="0.101619" />
+            <distortion model="ptlens" focal="68" a="-0.000323365" b="0.00551294" c="0.00186962" />
+            <distortion model="ptlens" focal="85" a="0.00564139" b="-0.0180164" c="0.0337795" />
+            <tca model="poly3" focal="16" br="-0.0000704" vr="1.0005077" bb="0.0000690" vb="0.9999805" />
+            <tca model="poly3" focal="21" br="-0.0000044" vr="1.0004007" bb="0.0000207" vb="0.9999686" />
+            <tca model="poly3" focal="26" br="0.0000063" vr="1.0003142" bb="0.0000010" vb="0.9999308" />
+            <tca model="poly3" focal="28" br="0.0000026" vr="1.0002490" bb="-0.0000145" vb="0.9999347" />
+            <tca model="poly3" focal="35" br="-0.0000295" vr="1.0002180" bb="-0.0000030" vb="0.9999106" />
+            <tca model="poly3" focal="43" br="-0.0000267" vr="1.0001546" bb="-0.0000031" vb="0.9998828" />
+            <tca model="poly3" focal="48" br="-0.0000256" vr="1.0000562" bb="0.0000067" vb="0.9998701" />
+            <tca model="poly3" focal="68" br="-0.0000360" vr="0.9999061" bb="0.0000238" vb="0.9998529" />
+            <tca model="poly3" focal="85" br="-0.0000305" vr="0.9998040" bb="0.0000295" vb="0.9997888" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
         <model>smc Pentax-DA 18-55mm f/3.5-5.6 AL</model>
         <!-- FixMe: According to
              <http://en.wikipedia.org/wiki/Pentax_DA_18-55mm_lens>, Samsung
@@ -557,6 +585,26 @@
             <vignetting model="pa" focal="68" aperture="11" distance="1000" k1="-0.11324" k2="0.21297" k3="-0.19382"/>
             <vignetting model="pa" focal="100" aperture="11" distance="1000" k1="-0.10339" k2="0.24899" k3="-0.28571"/>
             <vignetting model="pa" focal="135" aperture="11" distance="1000" k1="-0.16882" k2="0.35516" k3="-0.28791"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>PENTAX-F 28-80mm F3.5-4.5</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.526</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-5 -->
+            <distortion model="ptlens" focal="28" a="0.00103457" b="-0.0104385" c="-0.00251646" />
+            <distortion model="ptlens" focal="36" a="-0.00951146" b="0.0384678" c="-0.0644029" />
+            <distortion model="ptlens" focal="50" a="0.000214314" b="0.00652746" c="-0.0189032" />
+            <distortion model="ptlens" focal="68" a="-0.00808015" b="0.0359238" c="-0.052148" />
+            <distortion model="ptlens" focal="80" a="-0.0033906" b="0.0165939" c="-0.0253379" />
+            <tca model="poly3" focal="28" br="0.0000000" vr="1.0003470" bb="0.0000514" vb="1.0000402" />
+            <tca model="poly3" focal="36" br="0.0000153" vr="1.0002037" bb="0.0000424" vb="1.0000780" />
+            <tca model="poly3" focal="50" br="-0.0000103" vr="1.0001007" bb="0.0000085" vb="1.0001358" />
+            <tca model="poly3" focal="68" br="-0.0000330" vr="1.0001177" bb="-0.0000271" vb="1.0001116" />
+            <tca model="poly3" focal="80" br="-0.0000109" vr="1.0000879" bb="-0.0000033" vb="1.0000849" />
         </calibration>
     </lens>
 
@@ -797,6 +845,18 @@
             <distortion model="poly3" focal="135" k1="0.00185"/>
             <tca model="poly3" focal="135" br="0.0000400" vr="0.999887" bb="-0.00012" vb="1.0002"/>
             <vignetting model="pa" focal="135" aperture="11" distance="1000" k1="-0.40098" k2="0.46402" k3="-0.26756"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-M 50mm f/1.7</model>
+        <mount>Pentax K</mount>
+        <cropfactor>1.526</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-5 II -->
+            <distortion model="ptlens" focal="50" a="0.00454358" b="-0.0157885" c="0.0150319" />
+            <tca model="poly3" focal="50" br="-0.0000256" vr="1.0000546" bb="-0.0000066" vb="0.9999937" />
         </calibration>
     </lens>
 
