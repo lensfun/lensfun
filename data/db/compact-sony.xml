@@ -246,6 +246,13 @@
         <cropfactor>2.73</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Sony</maker>
+        <model>DSC-RX1RM2</model>
+        <mount>sonyRX1</mount>
+        <cropfactor>1.0</cropfactor>
+    </camera>
+
     <lens>
         <maker>Carl Zeiss</maker>
         <model>DSC-R1 &amp; compatibles (Standard)</model>
@@ -1118,6 +1125,20 @@
             <tca model="poly3" focal="18.2" vr="1.0004791" vb="1.0000114"/>
             <tca model="poly3" focal="25.2" vr="1.0003735" vb="0.9999717"/>
             <tca model="poly3" focal="73.2" vr="0.9998839" vb="0.9999304"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Carl Zeiss</maker>
+        <model>DSC-RX1RM2 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>sonyRX1</mount>
+        <cropfactor>1.0</cropfactor>
+        <aspect-ratio>3:2</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="35" a="0.01397" b="-0.05582" c="0.04619"/>
+            <tca model="poly3" focal="35" vr="1.0001751" vb="1.0000530"/>
         </calibration>
     </lens>
 
