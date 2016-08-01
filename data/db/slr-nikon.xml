@@ -3319,4 +3319,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF DC-Nikkor 105mm f/2D</model>
+        <model lang="en">Nikkor AF 105mm f/2D DC</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D600 -->
+            <distortion model="ptlens" focal="105" a="-0.00457" b="0.01891" c="-0.02932"/>
+            <tca model="poly3" focal="105" vr="0.9998959" vb="1.0001104"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
