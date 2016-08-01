@@ -916,6 +916,23 @@
 
     <lens>
         <maker>Olympus</maker>
+        <model>Olympus M.Zuiko Digital ED 40-150mm f/2.8 Pro</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with OMD E-M10 Mk II -->
+            <distortion model="ptlens" focal="40" a="-0.000686648" b="-0.00940753" c="-0.00546391" />
+            <distortion model="ptlens" focal="70" a="-0.00205376" b="0.00258215" c="-0.000489355" />
+            <distortion model="ptlens" focal="150" a="0.00420926" b="-0.00754286" c="0.0130875" />
+            <tca model="poly3" focal="40" br="-0.0000104" vr="1.0003979" bb="0.0000706" vb="0.9999588" />
+            <tca model="poly3" focal="70" br="0.0000367" vr="1.0000212" bb="-0.0000337" vb="1.0000500" />
+            <tca model="poly3" focal="150" br="-0.0000304" vr="0.9998731" bb="-0.0000193" vb="1.0000447" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Olympus</maker>
         <model>Olympus 9mm Body Cap Lens Fisheye</model>
         <mount>Micro 4/3 System</mount>
         <type>stereographic</type>
