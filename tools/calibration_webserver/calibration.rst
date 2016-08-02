@@ -180,10 +180,19 @@ Hugin patch
 
 Unfortunately for calibration, newer Hugin versions draw lines between control
 points, which cannot be switched off.  If you cannot live with that (I can't),
-you have to compile Hugin yourself and `comment out the code`_.  Or, use a 2014
-version of Hugin.
+you may use a 2014 version of Hugin.  Alternatively, you can modify Hugin's
+source code and compile Hugin yourself: In
+``hugin/src/hugin1/hugin/CPImageCtrl.cpp``, at ``DisplayedControlPoint::Draw``,
+you have to comment out the following line:
 
-.. _comment out the code: http://permalink.gmane.org/gmane.comp.misc.ptx/35067
+.. code-block:: c++
+
+    if(m_line)
+    {
+    //    DrawLine(dc);    <----
+        DrawCross(dc, p, l);
+        DrawCross(dc, p2, l);
+    }
 
 
 a, b, c or only b-only?
