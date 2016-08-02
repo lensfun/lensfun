@@ -1523,4 +1523,23 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-DA 17-70mm f/4 AL [IF] SDM</model>
+        <mount>Pentax KAF2</mount>
+        <!-- Average crop factor of Pentax APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="17" a="-0.01067" b="0.03945" c="-0.07039"/>
+            <distortion model="ptlens" focal="19" a="-0.00170" b="0.01164" c="-0.02842"/>
+            <distortion model="ptlens" focal="23" a="-0.01072" b="0.03889" c="-0.04282"/>
+            <distortion model="ptlens" focal="28" a="-0.0133" b="0.05266" c="-0.05293"/>
+            <distortion model="ptlens" focal="33" a="0.00167" b="0.00049" c="0.00827"/>
+            <distortion model="ptlens" focal="39" a="-0.00545" b="0.02304" c="-0.01654"/>
+            <distortion model="ptlens" focal="48" a="-0.00577" b="0.02136" c="-0.00938"/>
+            <distortion model="ptlens" focal="58" a="-0.00833" b="0.0294" c="-0.01728"/>
+            <distortion model="ptlens" focal="70" a="0.00129" b="-0.00754" c="0.02604"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
