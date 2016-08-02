@@ -298,4 +298,24 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tokina</maker>
+        <model>Tokina AT-X 828 AF PRO (80-200mm f/2.8)</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D610 -->
+            <distortion model="ptlens" focal="80" a="0.00084" b="-0.00992" c="0.00919"/>
+            <distortion model="ptlens" focal="100" a="0.00199" b="-0.00657" c="0.00742"/>
+            <distortion model="ptlens" focal="116" a="0.00629" b="-0.01689" c="0.01942"/>
+            <distortion model="ptlens" focal="135" a="0.00381" b="-0.00784" c="0.01505"/>
+            <distortion model="ptlens" focal="200" a="0.00471" b="-0.00806" c="0.02028"/>
+            <tca model="poly3" focal="80" vr="1.0001077" vb="0.9999569"/>
+            <tca model="poly3" focal="100" vr="1.0000161" vb="0.9999170"/>
+            <tca model="poly3" focal="116" vr="0.9999781" vb="0.9998856"/>
+            <tca model="poly3" focal="135" vr="0.9999332" vb="0.9998826"/>
+            <tca model="poly3" focal="200" vr="0.9998570" vb="0.9999823"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
