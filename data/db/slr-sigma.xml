@@ -2924,4 +2924,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 50-100mm f/1.8.DC HSM Art</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F</mount>
+        <mount>Sigma SA</mount>
+        <cropfactor>1.605</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS 7D Mark II -->
+            <distortion model="ptlens" focal="50" a="0.00595" b="-0.02621" c="0.02484"/>
+            <distortion model="ptlens" focal="60" a="0.00255" b="-0.00766" c="0.00479"/>
+            <distortion model="ptlens" focal="70" a="-0.00085" b="0.00568" c="-0.00515"/>
+            <distortion model="ptlens" focal="85" a="0.00304" b="-0.00662" c="0.01071"/>
+            <distortion model="ptlens" focal="100" a="-0.00115" b="0.01147" c="-0.00831"/>
+            <tca model="poly3" focal="50" vr="1.0005412" vb="0.9999618"/>
+            <tca model="poly3" focal="60" vr="1.0004842" vb="0.9999661"/>
+            <tca model="poly3" focal="70" vr="1.0004081" vb="0.9999722"/>
+            <tca model="poly3" focal="85" vr="1.0002939" vb="0.9999802"/>
+            <tca model="poly3" focal="100" vr="1.0002253" vb="0.9999808"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
