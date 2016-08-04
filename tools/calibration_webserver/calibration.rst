@@ -182,8 +182,8 @@ Unfortunately for calibration, newer Hugin versions draw lines between control
 points, which cannot be switched off.  If you cannot live with that (I can't),
 you may use a 2014 version of Hugin.  Alternatively, you can modify Hugin's
 source code and compile Hugin yourself: In
-``hugin/src/hugin1/hugin/CPImageCtrl.cpp``, at ``DisplayedControlPoint::Draw``,
-you have to comment out the following line:
+``hugin/src/hugin1/hugin/CPImageCtrl.cpp``, at ``DisplayedControlPoint::Draw``
+(line 250 in Hugin 2016.0.0), you have to comment out the following line:
 
 .. code-block:: c++
 
