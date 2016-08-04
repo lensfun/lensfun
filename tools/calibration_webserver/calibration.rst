@@ -237,6 +237,17 @@ proper XML file in Lensfun's database.  Prepend an XML comment of the form
 
 to the data.
 
+Often, you may want to fine-tune the lens model name.  Lensfun normalises names
+before any matching, so you have some freedom.  For example, upper/lowercase
+can be changed arbitrarily.  Any single “f” is ignored, so you may change
+``10-18mm 2.8`` into ``10-18mm f/2.8``.  If there was a tele converter
+involved, you must add “converter” into the name so that Lensfun does not try
+to derive allowed focal lengths from the lens name.  Ordering of parts in the
+lens name is completely unimportant for matching.  As are single punctuation
+characters.  You may even add things (e.g. ``10-18`` into ``10-18mm``) but be
+conservative here.  *Never* drop something from what exiv2 says; this would
+thwart matching.
+
 In case of compact cameras, you also have to create an entry for the camera.
 Copy the latest existing ``<camera>`` entry in the file and edit it.
 
