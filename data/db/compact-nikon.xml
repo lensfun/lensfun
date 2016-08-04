@@ -164,6 +164,13 @@
         <cropfactor>4.69</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Nikon</maker>
+        <model>Coolpix A</model>
+        <mount>nikonA</mount>
+        <cropfactor>1.5</cropfactor>
+    </camera>
+
     <lens>
         <maker>Nikon</maker>
         <model>E8800 &amp; compatibles (Standard)</model>
@@ -673,6 +680,19 @@
             <distortion model="ptlens" focal="8.8" a="0.01448" b="-0.03373" c="0.0304"/>
             <distortion model="ptlens" focal="16.3" a="0" b="0.01025" c="0"/>
             <distortion model="ptlens" focal="42.6" a="0" b="0.00694" c="0"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Coolpix A &amp; compatibles</model>
+        <mount>nikonA</mount>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18.5" a="0.00611" b="-0.01026" c="-0.01844"/>
+            <tca model="poly3" focal="18.5" vr="1.0000922" vb="1.0000229"/>
         </calibration>
     </lens>
 
