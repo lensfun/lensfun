@@ -287,7 +287,7 @@ Thank you for your work so far nevertheless!
             break
     else:
         body = body.format("")
-    send_email(uploader_email, "Your calibration upload has been processed", body)
+    send_email(uploader_email, "Your calibration upload {} has been processed".format(upload_hash), body)
     if config["General"].get("archive_path"):
         destination = config["General"]["archive_path"]
         if not successful:
