@@ -24,6 +24,12 @@ from github import Github
 from calibration_webserver import owncloud
 
 
+config = configparser.ConfigParser()
+config.read(os.path.expanduser("~/calibration_webserver.ini"))
+
+admin = "{} <{}>".format(config["General"]["admin_name"], config["General"]["admin_email"])
+
+
 def send_email(to, subject, body):
     """Sends an email using the SMTP configuration given in the INI file.  The
     sender is always the administrator, also as given in the INI file.
@@ -388,25 +394,22 @@ def tag_image_files(file_exif_data):
     return missing_data
 
 
-try:
-    config = configparser.ConfigParser()
-    config.read(os.path.expanduser("~/calibration_webserver.ini"))
-
-    admin = "{} <{}>".format(config["General"]["admin_name"], config["General"]["admin_email"])
+if __name__ == "__main__":
     filepath = sys.argv[1]
     directory = os.path.abspath(os.path.dirname(filepath))
     upload_id = os.path.basename(directory)
-    upload_hash = upload_id.partition("_")[0]
-    cache_dir = os.path.join(config["General"]["cache_root"], upload_id)
-    email_address = json.load(open(os.path.join(directory, "originator.json")))
-    github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
-    lensfun = github.get_organization("lensfun").get_repo("lensfun")
-    calibration_request_label = lensfun.get_label("calibration request")
+    try:
+        upload_hash = upload_id.partition("_")[0]
+        cache_dir = os.path.join(config["General"]["cache_root"], upload_id)
+        email_address = json.load(open(os.path.join(directory, "originator.json")))
+        github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
+        lensfun = github.get_organization("lensfun").get_repo("lensfun")
+        calibration_request_label = lensfun.get_label("calibration request")
 
-    extract_archive()
-    file_exif_data = collect_exif_data()
-    check_data(file_exif_data)
-    missing_data = tag_image_files(file_exif_data)
-    write_result_and_exit(None, missing_data)
-except Exception as error:
-    send_email(admin, "Error in calibration upload " + upload_id, repr(error))
+        extract_archive()
+        file_exif_data = collect_exif_data()
+        check_data(file_exif_data)
+        missing_data = tag_image_files(file_exif_data)
+        write_result_and_exit(None, missing_data)
+    except Exception as error:
+        send_email(admin, "Error in calibration upload " + upload_id, repr(error))
