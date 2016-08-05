@@ -245,8 +245,8 @@ involved, you must add “converter” into the name so that Lensfun does not tr
 to derive allowed focal lengths from the lens name.  Ordering of parts in the
 lens name is completely unimportant for matching.  As are single punctuation
 characters.  You may even add things (e.g. ``10-18`` into ``10-18mm``) but be
-conservative here.  *Never* drop something from what exiv2 says; this would
-thwart matching.
+conservative here.  *Never* drop something from what exiv2 says (except for
+punctuation); this would thwart matching.
 
 In case of compact cameras, you also have to create an entry for the camera.
 Copy the latest existing ``<camera>`` entry in the file and edit it.
