@@ -115,6 +115,18 @@ def sync_with_github():
     return issue.html_url
 
 
+def handle_successful_upload():
+    """Make all necessary steps after a successful upload.  This encompasses:
+
+    1. Creation of an GitHub issue.
+    2. Synchronisation of the ownCloud directory.
+    3. Sending of a success email to the uploader.
+    """
+    issue_link = sync_with_github()
+    send_success_email(issue_link)
+    owncloud.sync()
+
+
 def write_result_and_exit(error, missing_data=[]):
     """Write ``result.json``, send mail to the uploader, and terminate this
     program.
@@ -132,9 +144,7 @@ def write_result_and_exit(error, missing_data=[]):
     if any(result):
         send_error_email()
     else:
-        issue_link = sync_with_github()
-        send_success_email(issue_link)
-        owncloud.sync()
+        handle_successful_upload()
     sys.exit()
 
 
