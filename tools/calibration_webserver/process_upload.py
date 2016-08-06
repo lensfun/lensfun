@@ -99,6 +99,7 @@ def sync_with_github():
 
     :rtype: str
     """
+    upload_hash = upload_id.partition("_")[0]
     title = "Calibration upload " + upload_hash
     for issue in lensfun.get_issues(state="", labels=[calibration_request_label]):
         if issue.title == title:
@@ -409,7 +410,6 @@ if __name__ == "__main__":
     directory = os.path.abspath(os.path.dirname(filepath))
     upload_id = os.path.basename(directory)
     try:
-        upload_hash = upload_id.partition("_")[0]
         cache_dir = os.path.join(config["General"]["cache_root"], upload_id)
         email_address = json.load(open(os.path.join(directory, "originator.json")))
         github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
