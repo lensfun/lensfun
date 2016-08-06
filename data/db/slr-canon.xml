@@ -4696,8 +4696,8 @@
         <cropfactor>1.605</cropfactor>
         <calibration>
             <!-- Taken with Canon 7D Mark II -->
-            <distortion model="ptlens" focal="420" a="-0.00631" b="0.02876" c="-0.04531" />
-            <tca model="poly3" focal="420" br="0.0000256" vr="0.9997308" bb="-0.0000028" vb="1.0000172" />
+            <distortion model="poly3" focal="420" k1="-0.00134" />
+            <tca model="poly3" focal="420" vr="0.9997680" vb="1.0000126"/>
         </calibration>
     </lens>
 
