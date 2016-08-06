@@ -212,6 +212,8 @@ def show_issues(request, id_):
                     focal_length, aperture, filename)))
             json.dump((None, []), open(os.path.join(directory, "result.json"), "w"), ensure_ascii=True)
             shutil.rmtree("/var/cache/apache2/calibrate/" + id_)
+            process_upload.email_address = email_address
+            process_upload.directory = directory
             process_upload.upload_id = id_
             process_upload.handle_successful_upload()
             return render(request, "calibration/success.html")
