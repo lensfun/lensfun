@@ -3267,6 +3267,18 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon EF 100mm f/2.8L Macro IS USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.605</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 7D Mark II -->
+            <distortion model="ptlens" focal="100" a="0.00804" b="-0.0341" c="0.04884" />
+            <tca model="poly3" focal="100" br="-0.0000029" vr="1.0002069" bb="0.0000320" vb="0.9998728" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon EF 100mm f/2.8 Macro</model>
         <mount>Canon EF</mount>
         <!-- Average crop factor of Canon APS-C cameras -->
@@ -4660,6 +4672,30 @@
             <!-- Taken with Canon 20D -->
             <distortion model="poly3" focal="600" k1="-0.00067"/>
             <tca model="poly3" focal="600" vr="0.9998626" vb="1.0000065"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 300mm f/4L IS</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.605</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 7D Mark II -->
+            <distortion model="ptlens" focal="300" a="-0.00271" b="0.00945" c="-0.00645" />
+            <tca model="poly3" focal="300" br="0.0000114" vr="0.9999147" bb="-0.0000121" vb="0.9999900" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>EF300mm f/4L IS USM +1.4x extender</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.605</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 7D Mark II -->
+            <distortion model="ptlens" focal="420" a="-0.00631" b="0.02876" c="-0.04531" />
+            <tca model="poly3" focal="420" br="0.0000256" vr="0.9997308" bb="-0.0000028" vb="1.0000172" />
         </calibration>
     </lens>
 
