@@ -101,7 +101,7 @@ def sync_with_github():
     """
     upload_hash = upload_id.partition("_")[0]
     title = "Calibration upload " + upload_hash
-    for issue in lensfun.get_issues(state="", labels=[calibration_request_label]):
+    for issue in github.lensfun.get_issues(state="", labels=[github.calibration_request_label]):
         if issue.title == title:
             issue.edit(state="open")
             issue.create_comment("The original uploader has uploaded the very same files again.  It should be discussed "
@@ -112,7 +112,8 @@ def sync_with_github():
                "Please read the [workflow description]" \
                "(https://github.com/lensfun/lensfun/blob/master/tools/calibration_webserver/workflow.rst) for further " \
                "instructions about the calibration.\n".format(upload_hash)
-        issue = lensfun.create_issue("Calibration upload {}".format(upload_hash), body=body, labels=[calibration_request_label])
+        issue = github.lensfun.create_issue("Calibration upload {}".format(upload_hash), body=body,
+                                            labels=[github.calibration_request_label])
     return issue.html_url
 
 
@@ -405,6 +406,16 @@ def tag_image_files(file_exif_data):
     return missing_data
 
 
+class GithubConfiguration:
+    """Holds the GitHub-related variables.  These variables represent the
+    connection to the Lensfun project on GitHub.
+    """
+    def __init__(self):
+        self.github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
+        self.lensfun = self.github.get_organization("lensfun").get_repo("lensfun")
+        self.calibration_request_label = self.lensfun.get_label("calibration request")
+
+
 if __name__ == "__main__":
     filepath = sys.argv[1]
     directory = os.path.abspath(os.path.dirname(filepath))
@@ -412,9 +423,7 @@ if __name__ == "__main__":
     try:
         cache_dir = os.path.join(config["General"]["cache_root"], upload_id)
         email_address = json.load(open(os.path.join(directory, "originator.json")))
-        github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
-        lensfun = github.get_organization("lensfun").get_repo("lensfun")
-        calibration_request_label = lensfun.get_label("calibration request")
+        github = GithubConfiguration()
 
         extract_archive()
         file_exif_data = collect_exif_data()
