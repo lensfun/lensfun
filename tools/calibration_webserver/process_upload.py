@@ -162,10 +162,13 @@ def extract_archive():
     """
     protected_files = {"originator.json": None, "comments.txt": None}
     for filename in protected_files:
+        path = os.path.join(directory, filename)
         try:
-            protected_files[filename] = open(os.path.join(directory, filename), "rb").read()
+            protected_files[filename] = open(path, "rb").read()
         except FileNotFoundError:
             pass
+        else:
+            os.remove(path)
     extension = os.path.splitext(filepath)[1].lower()
     try:
         if extension in [".gz", ".tgz"]:
