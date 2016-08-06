@@ -91,6 +91,7 @@ def spawn_daemon(path_to_executable, *args, env=None):
     except:
         os._exit(255)
 
+
 def store_upload(uploaded_file, email_address):
     hash_ = hashlib.sha1()
     hash_.update(uploaded_file.name.encode("utf-8"))
@@ -125,6 +126,7 @@ def store_upload(uploaded_file, email_address):
                  env={"PYTHONPATH": python_path})
     return id_
 
+
 class UploadForm(forms.Form):
     compressed_file = forms.FileField(label="Archive with RAW files", help_text="Must be a .tar.gz or a .zip file")
     email_address = forms.EmailField(label="Your email address")
@@ -134,6 +136,7 @@ class UploadForm(forms.Form):
         if not file_extension_pattern.search(compressed_file.name):
             raise ValidationError("Uploaded file must be ZIP, tarball, RAR, or 7-zip.")
         return compressed_file
+
 
 def upload(request):
     if request.method == "POST":
@@ -147,6 +150,7 @@ def upload(request):
     else:
         upload_form = UploadForm()
     return render(request, "calibration/upload.html", {"title": "Calibration images upload", "upload": upload_form})
+
 
 class ExifForm(forms.Form):
     lens_model_name = forms.CharField(max_length=255, label="lens model name")
@@ -162,6 +166,7 @@ class ExifForm(forms.Form):
         if not first:
             for fieldname in ["lens_model_name", "focal_length", "aperture"]:
                 self.fields[fieldname].required = False
+
 
 def show_issues(request, id_):
     directory = os.path.join(upload_directory, id_)
@@ -208,6 +213,7 @@ def show_issues(request, id_):
     else:
         exif_forms = [ExifForm(data, i==0, prefix=str(i)) for i, data in enumerate(missing_data)]
     return render(request, "calibration/missing_exif.html", {"images": zip(filepaths, thumbnails, exif_forms)})
+
 
 def thumbnail(request, id_, hash_):
     filepath = os.path.join("/var/cache/apache2/calibrate", id_, hash_ + ".jpeg")
