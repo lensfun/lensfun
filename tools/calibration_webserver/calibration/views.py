@@ -97,6 +97,7 @@ def store_upload(uploaded_file, email_address, comments):
     hash_.update(uploaded_file.name.encode("utf-8"))
     hash_.update(str(uploaded_file.size).encode("utf-8"))
     hash_.update(email_address.encode("utf-8"))
+    hash_.update(comments.strip().encode("utf-8"))
     id_ = hash_.hexdigest()[:6] + "_" + email_address.partition("@")[0]
     directory = os.path.join(upload_directory, id_)
     try:
