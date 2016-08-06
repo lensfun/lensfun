@@ -112,6 +112,12 @@ def sync_with_github():
                "Please read the [workflow description]" \
                "(https://github.com/lensfun/lensfun/blob/master/tools/calibration_webserver/workflow.rst) for further " \
                "instructions about the calibration.\n".format(upload_hash)
+        try:
+            comments = open(os.path.join(directory, "comments.txt")).read()
+        except FileNotFoundError:
+            pass
+        else:
+            body += "\nAdditional comments by the uploader:\n\n> " + comments.strip().replace("\n", "\n> ")
         issue = github.lensfun.create_issue("Calibration upload {}".format(upload_hash), body=body,
                                             labels=[github.calibration_request_label])
     return issue.html_url
@@ -154,7 +160,7 @@ def extract_archive():
     """Extracts the archive (e.g. the tarball) which was uploaded.  Afterwards, the
     archive file is deleted.
     """
-    protected_files = {"originator.json": None}
+    protected_files = {"originator.json": None, "comments.txt": None}
     for filename in protected_files:
         try:
             protected_files[filename] = open(os.path.join(directory, filename), "rb").read()

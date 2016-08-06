@@ -92,7 +92,7 @@ def spawn_daemon(path_to_executable, *args, env=None):
         os._exit(255)
 
 
-def store_upload(uploaded_file, email_address):
+def store_upload(uploaded_file, email_address, comments):
     hash_ = hashlib.sha1()
     hash_.update(uploaded_file.name.encode("utf-8"))
     hash_.update(str(uploaded_file.size).encode("utf-8"))
@@ -113,6 +113,9 @@ def store_upload(uploaded_file, email_address):
     os.makedirs(directory)
     with open(os.path.join(directory, "originator.json"), "w") as outfile:
         json.dump(email_address, outfile, ensure_ascii=True)
+    if comments:
+        with open(os.path.join(directory, "comments.txt"), "w") as outfile:
+            outfile.write(comments)
     filepath = os.path.join(directory, uploaded_file.name)
     with open(filepath, "wb") as outfile:
         for chunk in uploaded_file.chunks():
@@ -130,6 +133,7 @@ def store_upload(uploaded_file, email_address):
 class UploadForm(forms.Form):
     compressed_file = forms.FileField(label="Archive with RAW files", help_text="Must be a .tar.gz or a .zip file")
     email_address = forms.EmailField(label="Your email address")
+    comments = forms.CharField(label="optional comments", widget=forms.Textarea)
 
     def clean_compressed_file(self):
         compressed_file = self.cleaned_data["compressed_file"]
@@ -145,7 +149,8 @@ def upload(request):
         except django.http.UnreadablePostError:
             return django.http.HttpResponseBadRequest(b"Upload was incomplete.")
         if upload_form.is_valid():
-            id_ = store_upload(request.FILES["compressed_file"], upload_form.cleaned_data["email_address"])
+            id_ = store_upload(request.FILES["compressed_file"],
+                               upload_form.cleaned_data["email_address"], upload_form.cleaned_data["comments"])
             return HttpResponseSeeOther(django.core.urlresolvers.reverse("show_issues", kwargs={"id_": id_}))
     else:
         upload_form = UploadForm()
