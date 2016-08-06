@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import hashlib, os, subprocess, json, shutil, mimetypes, smtplib, re, configparser
-from email.mime.text import MIMEText
+import hashlib, os, subprocess, json, shutil, mimetypes, re, configparser
 import django.forms as forms
 from django.shortcuts import render
 from django.forms.utils import ValidationError
@@ -19,6 +18,12 @@ admin = "{} <{}>".format(config["General"]["admin_name"], config["General"]["adm
 allowed_extensions = (".tar.gz", ".tgz", ".tar.bz2", ".tbz2", ".bz2", ".tar.xz", ".txz", ".tar", ".rar", ".7z", ".zip")
 file_extension_pattern = re.compile("(" + "|".join(allowed_extensions).replace(".", "\\.") + ")$", re.IGNORECASE)
 
+webserver_parent_path = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
+import sys
+sys.path.append(webserver_parent_path)
+from calibration_webserver import process_upload
+process_upload.github = process_upload.GithubConfiguration()
+
 
 class HttpResponseSeeOther(django.http.HttpResponse):
     """Response class for HTTP 303 redirects.  Unfortunately, Django does the
@@ -32,26 +37,6 @@ class HttpResponseSeeOther(django.http.HttpResponse):
     def __init__(self, redirect_to):
         super(HttpResponseSeeOther, self).__init__()
         self["Location"] = iri_to_uri(redirect_to)
-
-
-def send_email(to, subject, body):
-    message = MIMEText(body.encode("iso-8859-1"), _charset = "iso-8859-1")
-    message["Subject"] = subject
-    message["From"] = admin
-    message["To"] = to
-    smtp_connection = smtplib.SMTP(config["SMTP"]["machine"], config["SMTP"]["port"])
-    smtp_connection.starttls()
-    smtp_connection.login(config["SMTP"]["login"], config["SMTP"]["password"])
-    smtp_connection.sendmail(admin, [to, config["General"]["admin_email"]], message.as_string())
-
-def send_success_email(email_address, id_):
-    send_email(admin, "New calibration images from " + email_address,
-               """Hidy-Ho!
-
-New calibration images arrived from <{}>, see
-
-    {}
-""".format(email_address, os.path.join(config["General"]["uploads_root"], id_)))
 
 
 def spawn_daemon(path_to_executable, *args, env=None):
@@ -131,7 +116,6 @@ def store_upload(uploaded_file, email_address):
     with open(filepath, "wb") as outfile:
         for chunk in uploaded_file.chunks():
             outfile.write(chunk)
-    webserver_parent_path = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
     try:
         python_path = os.environ["PYTHONPATH"] + ":" + webserver_parent_path
     except KeyError:
@@ -218,7 +202,8 @@ def show_issues(request, id_):
                     focal_length, aperture, filename)))
             json.dump((None, []), open(os.path.join(directory, "result.json"), "w"), ensure_ascii=True)
             shutil.rmtree("/var/cache/apache2/calibrate/" + id_)
-            send_success_email(email_address, id_)
+            process_upload.upload_id = id_
+            process_upload.handle_successful_upload()
             return render(request, "calibration/success.html")
     else:
         exif_forms = [ExifForm(data, i==0, prefix=str(i)) for i, data in enumerate(missing_data)]
