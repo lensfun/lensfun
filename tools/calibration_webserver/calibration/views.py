@@ -17,12 +17,11 @@ upload_directory = config["General"]["uploads_root"]
 admin = "{} <{}>".format(config["General"]["admin_name"], config["General"]["admin_email"])
 allowed_extensions = (".tar.gz", ".tgz", ".tar.bz2", ".tbz2", ".bz2", ".tar.xz", ".txz", ".tar", ".rar", ".7z", ".zip")
 file_extension_pattern = re.compile("(" + "|".join(allowed_extensions).replace(".", "\\.") + ")$", re.IGNORECASE)
-
 webserver_parent_path = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
-import sys
-sys.path.append(webserver_parent_path)
-from calibration_webserver import process_upload
-process_upload.github = process_upload.GithubConfiguration()
+try:
+    python_path = os.environ["PYTHONPATH"] + ":" + webserver_parent_path
+except KeyError:
+    python_path = webserver_parent_path
 
 
 class HttpResponseSeeOther(django.http.HttpResponse):
@@ -121,13 +120,9 @@ def store_upload(uploaded_file, email_address, comments):
     with open(filepath, "wb") as outfile:
         for chunk in uploaded_file.chunks():
             outfile.write(chunk)
-    try:
-        python_path = os.environ["PYTHONPATH"] + ":" + webserver_parent_path
-    except KeyError:
-        python_path = webserver_parent_path
     spawn_daemon("/usr/bin/env", "python3",
-                 os.path.join(os.path.abspath(os.path.dirname(__file__)), "..", "process_upload.py"), filepath,
-                 env={"PYTHONPATH": python_path})
+                 os.path.join(os.path.abspath(os.path.dirname(__file__)), "..", "process_upload.py"),
+                 "initial", filepath, env={"PYTHONPATH": python_path})
     return id_
 
 
@@ -213,10 +208,10 @@ def show_issues(request, id_):
                     focal_length, aperture, filename)))
             json.dump((None, []), open(os.path.join(directory, "result.json"), "w"), ensure_ascii=True)
             shutil.rmtree("/var/cache/apache2/calibrate/" + id_)
-            process_upload.email_address = email_address
-            process_upload.directory = directory
-            process_upload.upload_id = id_
-            process_upload.handle_successful_upload()
+            spawn_daemon("/usr/bin/env", "python3",
+                         os.path.join(os.path.abspath(os.path.dirname(__file__)), "..", "process_upload.py"),
+                         "amended", directory, env={"PYTHONPATH": python_path})
+
             return render(request, "calibration/success.html")
     else:
         exif_forms = [ExifForm(data, i==0, prefix=str(i)) for i, data in enumerate(missing_data)]

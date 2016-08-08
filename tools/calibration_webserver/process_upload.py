@@ -13,6 +13,17 @@ Besides the archive file, it expects a file ``originator.json`` in the same
 directory which contains only one string, which is the email address of the
 uploader.
 
+This script works in two modes of operation:
+
+1. The first argument is "initial" and the second the absolute path to a
+   tarball.  This does the thing explained above.
+2. The first argument is "amended" and the second the absolute path to a
+   directory.  This happens if the first processing resulted in missing EXIF
+   data, and the user has provided it, and now the final stages of processing
+   (e.g. GitHub issue, ownCloud synchronisation) can be performed.  The
+   directory is in this case the directory into which the original tarball was
+   extracted.
+
 This program is called from the Apache process and is detached from it.  In the
 background, it processes the uploaded archive while the user is presented a
 success message in their browser.
@@ -440,8 +451,9 @@ class GithubConfiguration:
         self.calibration_request_label = self.lensfun.get_label("calibration request")
 
 
-if __name__ == "__main__":
-    filepath = sys.argv[1]
+operation = sys.argv[1]
+if operation == "initial":
+    filepath = sys.argv[2]
     directory = os.path.abspath(os.path.dirname(filepath))
     upload_id = os.path.basename(directory)
     try:
@@ -456,3 +468,14 @@ if __name__ == "__main__":
         write_result_and_exit(None, missing_data)
     except Exception as error:
         send_email(admin, "Error in calibration upload " + upload_id, repr(error))
+elif operation == "amended":
+    directory = sys.argv[2]
+    upload_id = os.path.basename(directory)
+    try:
+        email_address = json.load(open(os.path.join(directory, "originator.json")))
+        github = GithubConfiguration()
+        handle_successful_upload()
+    except Exception as error:
+        send_email(admin, "Error in calibration upload " + upload_id, repr(error))
+else:
+    raise Exception("Invalid operation")
