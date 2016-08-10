@@ -856,7 +856,7 @@
         <cropfactor>1.613</cropfactor>
         <calibration>
             <!-- taken with Canon EOS 700D -->
-            <distortion model="ptlens" focal="90" a="-0.00692" b="0.018" c="-0.00702"/>
+            <distortion model="poly3" focal="90" k1="-0.00085"/>
             <tca model="poly3" focal="90" vr="1.0000890" vb="1.0000142"/>
         </calibration>
     </lens>
