@@ -113,6 +113,31 @@
 
     <lens>
         <maker>Tamron</maker>
+        <model>Tamron SP AF 17-50mm f/2.8 XR Di II VC LD Aspherical (IF)</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.613</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 700D -->
+            <distortion model="ptlens" focal="17" a="0.01062" b="-0.02795" c="-0.01852" />
+            <distortion model="ptlens" focal="21" a="0.00662" b="-0.01583" c="-0.01217" />
+            <distortion model="ptlens" focal="25" a="0.00546" b="-0.0092" c="-0.01406" />
+            <distortion model="ptlens" focal="29" a="0" b="-0.00072" c="0" />
+            <distortion model="ptlens" focal="35" a="0" b="0.0008" c="0" />
+            <distortion model="ptlens" focal="42" a="0" b="0.00127" c="0" />
+            <distortion model="ptlens" focal="50" a="0" b="0.00192" c="0" />
+            <tca model="poly3" focal="17" br="0.0000899" vr="1.0002901" bb="-0.0000249" vb="1.0000373" />
+            <tca model="poly3" focal="21" br="0.0000810" vr="1.0002483" bb="-0.0000293" vb="0.9999965" />
+            <tca model="poly3" focal="25" br="0.0000611" vr="1.0002142" bb="-0.0000485" vb="1.0000065" />
+            <tca model="poly3" focal="29" br="0.0000039" vr="1.0002061" bb="-0.0000300" vb="0.9999764" />
+            <tca model="poly3" focal="35" br="-0.0000217" vr="1.0001788" bb="-0.0000244" vb="0.9999476" />
+            <tca model="poly3" focal="42" br="-0.0000020" vr="1.0000794" bb="-0.0000250" vb="0.9999412" />
+            <tca model="poly3" focal="50" br="0.0000015" vr="1.0000160" bb="-0.0000400" vb="0.9999559" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Tamron</maker>
         <model>Tamron AF 18-200mm f/3.5-6.3 XR Di II LD Aspherical (IF) Macro</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
