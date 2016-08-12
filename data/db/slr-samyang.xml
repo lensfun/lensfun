@@ -159,4 +159,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang 135mm f/2 ED UMC</model>
+        <aperture min="2" max="22"/>
+        <mount>Nikon F</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D800 -->
+            <distortion model="ptlens" focal="135" a="0.00072" b="-0.001" c="0.00215"/>
+            <vignetting model="pa" focal="135" aperture="2.0" distance="0.8" k1="-0.22656" k2="0.16959" k3="-0.07317"/>
+            <vignetting model="pa" focal="135" aperture="2.0" distance="3" k1="-0.53456" k2="0.29892" k3="-0.15499"/>
+            <vignetting model="pa" focal="135" aperture="2.0" distance="100" k1="-1.01068" k2="0.99239" k3="-0.53442"/>
+            <vignetting model="pa" focal="135" aperture="2.8" distance="0.8" k1="-0.10264" k2="-0.00365" k3="0.03305"/>
+            <vignetting model="pa" focal="135" aperture="2.8" distance="3" k1="-0.08784" k2="0.06134" k3="-0.08"/>
+            <vignetting model="pa" focal="135" aperture="2.8" distance="100" k1="0.02813" k2="-0.92096" k3="0.59655"/>
+            <vignetting model="pa" focal="135" aperture="4.0" distance="3" k1="-0.085" k2="0" k3="0"/>
+            <vignetting model="pa" focal="135" aperture="4.0" distance="100" k1="-0.069" k2="-0.16" k3="-0.06"/>
+            <vignetting model="pa" focal="135" aperture="5.6" distance="100" k1="-0.14" k2="0.11" k3="-0.15"/>
+            <vignetting model="pa" focal="135" aperture="8.0" distance="100" k1="-0.11" k2="0" k3="0"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
