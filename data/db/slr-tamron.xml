@@ -885,4 +885,33 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tamron</maker>
+        <model>Tamron AF 18-270mm F/3.5-6.3 Di II VC LD Aspherical (IF) Macro</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D7200 -->
+            <distortion model="ptlens" focal="18" a="0.02445" b="-0.07818" c="0.03054"/>
+            <distortion model="ptlens" focal="25" a="0.00579" b="-0.00644" c="-0.00982"/>
+            <distortion model="ptlens" focal="35" a="0.00865" b="-0.01285" c="0.0082"/>
+            <distortion model="ptlens" focal="50" a="0.00542" b="0.01072" c="-0.02489"/>
+            <distortion model="ptlens" focal="70" a="0.00396" b="-0.00473" c="0.02262"/>
+            <distortion model="ptlens" focal="100" a="-0.00576" b="0.03412" c="-0.0423"/>
+            <distortion model="ptlens" focal="140" a="0.00483" b="-0.01297" c="0.03075"/>
+            <distortion model="ptlens" focal="200" a="-0.00069" b="0.00867" c="-0.00672"/>
+            <distortion model="ptlens" focal="270" a="-0.00785" b="0.03486" c="-0.03572"/>
+            <tca model="poly3" focal="18" vr="1.0005251" vb="1.0000436"/>
+            <tca model="poly3" focal="25" vr="1.0002516" vb="0.9999854"/>
+            <tca model="poly3" focal="35" vr="1.0003318" vb="0.9999948"/>
+            <tca model="poly3" focal="50" vr="1.0001071" vb="0.9999909"/>
+            <tca model="poly3" focal="70" vr="1.0000046" vb="0.9999661"/>
+            <tca model="poly3" focal="100" vr="0.9999238" vb="0.9999483"/>
+            <tca model="poly3" focal="140" vr="0.9997563" vb="0.9997176"/>
+            <tca model="poly3" focal="200" vr="0.9999102" vb="0.9999149"/>
+            <tca model="poly3" focal="270" vr="0.9997811" vb="0.9998942"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
