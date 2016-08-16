@@ -854,4 +854,27 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>XF10-24mmF4 R OIS</model>
+        <model lang="en">XF 10-24mm f/4 R OIS</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-T10 -->
+            <distortion model="ptlens" focal="10" a="0.01619" b="-0.07655" c="0.05816"/>
+            <distortion model="ptlens" focal="12" a="-0.00089" b="-0.00928" c="0.00304"/>
+            <distortion model="ptlens" focal="14.5" a="-0.00966" b="0.02255" c="-0.00776"/>
+            <distortion model="ptlens" focal="18.2" a="-0.01658" b="0.04898" c="-0.0265"/>
+            <distortion model="ptlens" focal="20" a="-0.02138" b="0.06476" c="-0.03966"/>
+            <distortion model="ptlens" focal="24" a="-0.02363" b="0.07681" c="-0.05944"/>
+            <tca model="poly3" focal="10" vr="1.0003928" vb="0.9999066"/>
+            <tca model="poly3" focal="12" vr="1.0003642" vb="0.9999359"/>
+            <tca model="poly3" focal="14.5" vr="1.0001902" vb="1.0000327"/>
+            <tca model="poly3" focal="18.2" vr="1.0000632" vb="1.0001139"/>
+            <tca model="poly3" focal="20" vr="1.0000037" vb="1.0001642"/>
+            <tca model="poly3" focal="24" vr="0.9999651" vb="1.0001861"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
