@@ -877,4 +877,35 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>XF18-135mmF3.5-5.6R LM OIS WR</model>
+        <model lang="en">XF 18-135mm f/3.5-5.6R LM OIS WR</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-T1 -->
+            <distortion model="ptlens" focal="18" a="0.01941" b="-0.06675" c="0.0182"/>
+            <distortion model="ptlens" focal="23.3" a="0.02157" b="-0.06615" c="0.0498"/>
+            <distortion model="ptlens" focal="32.6" a="0.0121" b="-0.02671" c="0.01745"/>
+            <distortion model="ptlens" focal="36.6" a="0.00095" b="0.00464" c="-0.00262"/>
+            <distortion model="ptlens" focal="49.4" a="0.01018" b="-0.0215" c="0.02094"/>
+            <distortion model="ptlens" focal="66.2" a="0.00047" b="0.00047" c="0.01288"/>
+            <distortion model="ptlens" focal="88.2" a="-0.00663" b="0.02638" c="-0.02265"/>
+            <distortion model="ptlens" focal="98.6" a="0.00243" b="-0.00754" c="0.01607"/>
+            <distortion model="ptlens" focal="135" a="0.02188" b="-0.06638" c="0.06834"/>
+            <tca model="poly3" focal="18" vr="1.0005311" vb="1.0000593"/>
+            <tca model="poly3" focal="23.3" vr="1.0001611" vb="1.0001960"/>
+            <tca model="poly3" focal="32.6" vr="1.0000350" vb="1.0003320"/>
+            <tca model="poly3" focal="36.6" vr="1.0000125" vb="1.0002991"/>
+            <tca model="poly3" focal="49.4" vr="1.0000246" vb="1.0000648"/>
+            <tca model="poly3" focal="52.4" vr="1.0000208" vb="1.0000512"/>
+            <tca model="poly3" focal="70.2" vr="1.0000080" vb="0.9998932"/>
+            <tca model="poly3" focal="88.2" vr="0.9998601" vb="0.9998080"/>
+            <tca model="poly3" focal="93.2" vr="0.9998528" vb="0.9998364"/>
+            <tca model="poly3" focal="98.6" vr="0.9998614" vb="0.9997719"/>
+            <tca model="poly3" focal="135" vr="0.9994228" vb="0.9998818"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
