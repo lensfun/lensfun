@@ -1665,6 +1665,21 @@
 
     <lens>
         <maker>Sigma</maker>
+        <model>Sigma Macro 70mm F2.8 EX DG</model>
+        <mount>Sigma SA</mount>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="70" a="0" b="0" c="0" />
+            <tca model="poly3" focal="70" br="-0.0000528" vr="1.0002393" bb="0.0000308" vb="0.9998053" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
         <model>Sigma 150mm f/2.8 EX DG APO HSM Macro</model>
         <mount>4/3 System</mount>
         <focal value="150"/>
