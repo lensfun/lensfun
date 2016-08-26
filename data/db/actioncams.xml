@@ -30,6 +30,13 @@
     </camera>
 
     <camera>
+        <maker>DJI</maker>
+        <model>Phantom 3 Pro FC300X</model>
+        <mount>dijPhantom3ProFC300X</mount>
+        <cropfactor>5.5</cropfactor>
+    </camera>
+
+    <camera>
         <!-- This camera has been rebranded as Hama Action-Cam "Star-60",
              fantec BeastVision XHD and possibly others. -->
         <maker>AEE DV</maker>
@@ -112,6 +119,21 @@
             <!--distortion model="ptlens" focal="5" a="0.0525" b="-0.1258" c="0.15228" real-focal="2.5" /-->
             <!-- Measured with a single image, assuming the same FOV as above -->
             <distortion model="ptlens" focal="5" a="0.05109" b="-0.12092" c="0.10955" real-focal="2.61"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>DJI</maker>
+        <model>Phantom 3 Pro</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>dijPhantom3ProFC300X</mount>
+        <cropfactor>5.5</cropfactor>
+        <type>equisolid</type>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <vignetting model="pa" focal="3.6" aperture="2.8" distance="10" k1="-0.9228" k2="0.5367" k3="-0.2985"/>
+            <vignetting model="pa" focal="3.6" aperture="2.8" distance="1000" k1="-0.9228" k2="0.5367" k3="-0.2985"/>
         </calibration>
     </lens>
 
