@@ -841,15 +841,15 @@
             <vignetting model="pa" focal="70" aperture="22" distance="1000" k1="-0.4057" k2="0.0361" k3="0.0339"/>
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Sony</maker>
-        <model>FE 35mm F1.4 ZA</model>
+        <model>FE 35mm f/1.4 ZA</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Alpha 7S -->
-            <distortion model="ptlens" focal="35" a="0" b="-0.00399" c="0" />
+            <distortion model="poly3" focal="35" k1="-0.00399"/>
         </calibration>
     </lens>
 
