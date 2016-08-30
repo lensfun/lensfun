@@ -1674,7 +1674,22 @@
         <cropfactor>1.534</cropfactor>
         <calibration>
             <!-- Taken with Nikon D7200 -->
-            <tca model="poly3" focal="70" br="-0.0000528" vr="1.0002393" bb="0.0000308" vb="0.9998053" />
+            <tca model="poly3" focal="70" vr="1.0002393" vb="0.9998053" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 85mm F1.4 EX DG HSM</model>
+        <mount>Sigma SA</mount>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D7200 -->
+            <distortion model="poly3" focal="85" k1="0.00017" />
         </calibration>
     </lens>
 
