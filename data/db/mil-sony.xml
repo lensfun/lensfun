@@ -471,6 +471,21 @@
 
     <lens>
         <maker>Sony</maker>
+        <model>E 10-18mm f/4 OSS</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Alpha 7S -->
+            <distortion model="ptlens" focal="10" a="0.196017" b="-0.375554" c="0.167273" />
+            <distortion model="ptlens" focal="12" a="0.131602" b="-0.258384" c="0.136303" />
+            <distortion model="ptlens" focal="14" a="0.116361" b="-0.255284" c="0.189679" />
+            <distortion model="ptlens" focal="16" a="0.1015" b="-0.223082" c="0.169764" />
+            <distortion model="ptlens" focal="18" a="0.0633556" b="-0.132668" c="0.123128" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
         <model>E 18-200mm f/3.5-6.3 OSS</model>
         <mount>Sony E</mount>
         <cropfactor>1.534</cropfactor>
