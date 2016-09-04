@@ -98,5 +98,5 @@ def sync():
                                        config["ownCloud"]["server_url"]])
                 return
         cycles_left -= 1
-        sleep(60)
+        time.sleep(60)
     raise LockError
