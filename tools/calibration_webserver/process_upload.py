@@ -53,7 +53,7 @@ def send_email(to, subject, body):
     :type subject: str
     :type body: str
     """
-    message = MIMEText(body, _charset = "utf-8")
+    message = MIMEText(body)
     message["Subject"] = subject
     message["From"] = admin
     message["To"] = to
