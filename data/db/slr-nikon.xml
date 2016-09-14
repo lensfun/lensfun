@@ -3344,4 +3344,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-P DX Nikkor 18-55mm f/3.5-5.6G VR</model>
+        <model lang="en">Nikkor AF-P 18-55mm f/3.5-5.6G DX VR</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D3300 -->
+            <distortion model="ptlens" focal="18" a="0.01368" b="-0.06635" c="0.05634"/>
+            <distortion model="ptlens" focal="27" a="-0.00251" b="-0.00039" c="0.00216"/>
+            <distortion model="ptlens" focal="38" a="0.0081" b="-0.02326" c="0.01923"/>
+            <distortion model="ptlens" focal="42" a="0.00752" b="-0.02904" c="0.03851"/>
+            <distortion model="ptlens" focal="55" a="-0.00143" b="0.00372" c="0.00513"/>
+            <tca model="poly3" focal="18" vr="1.0000132" vb="0.9999439"/>
+            <tca model="poly3" focal="27" vr="1.0004023" vb="0.9999283"/>
+            <tca model="poly3" focal="38" vr="1.0001621" vb="0.9999533"/>
+            <tca model="poly3" focal="42" vr="1.0000028" vb="1.0000053"/>
+            <tca model="poly3" focal="55" vr="0.9999729" vb="1.0000319"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
