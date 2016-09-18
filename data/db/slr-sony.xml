@@ -851,4 +851,22 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>Sony AF DT 18-250mm f/3.5-6.3 (SAL18250)</model>
+        <model lang="en">Sony AF DT 18-250mm f/3.5-6.3</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 65 -->
+            <distortion model="ptlens" focal="18" a="0.01887" b="-0.05832" c="0.00708"/>
+            <distortion model="ptlens" focal="30" a="0.04068" b="-0.12525" c="0.13898"/>
+            <distortion model="ptlens" focal="40" a="0.01444" b="-0.03561" c="0.04514"/>
+            <distortion model="ptlens" focal="55" a="0.00014" b="0.01095" c="0.00508"/>
+            <distortion model="ptlens" focal="75" a="0.00283" b="-0.00043" c="0.01781"/>
+            <distortion model="ptlens" focal="130" a="-0.00506" b="0.04556" c="-0.07297"/>
+            <distortion model="ptlens" focal="250" a="-0.00828" b="0.02298" c="-0.005"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
