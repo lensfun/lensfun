@@ -165,6 +165,13 @@
     </camera>
 
     <camera>
+        <maker>Nikon</maker>
+        <model>Coolpix P7800</model>
+        <mount>nikonP7800</mount>
+        <cropfactor>4.67</cropfactor>
+    </camera>
+
+    <camera>
         <maker>Nikon Corporation</maker>
         <maker lang="en">Nikon</maker>
         <model>Coolpix A</model>
@@ -695,6 +702,39 @@
         <calibration>
             <distortion model="ptlens" focal="18.5" a="0.00611" b="-0.01026" c="-0.01844"/>
             <tca model="poly3" focal="18.5" vr="1.0000922" vb="1.0000229"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Coolpix P7800 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>nikonP7800</mount>
+        <cropfactor>4.67</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Nikon Coolpix P7800 -->
+            <distortion model="ptlens" focal="6" a="-0.00644" b="-0.01027" c="0.01753"/>
+            <distortion model="ptlens" focal="7" a="-0.00228" b="-0.01209" c="0.03087"/>
+            <distortion model="ptlens" focal="8.2" a="-0.00585" b="0.00803" c="0.01475"/>
+            <distortion model="ptlens" focal="9.9" a="-0.00442" b="0.01551" c="-0.00154"/>
+            <distortion model="ptlens" focal="12.5" a="0.01527" b="-0.06092" c="0.09903"/>
+            <distortion model="ptlens" focal="15.9" a="-0.00529" b="0.00731" c="0.02763"/>
+            <distortion model="ptlens" focal="19.7" a="0.00713" b="-0.02789" c="0.05207"/>
+            <distortion model="ptlens" focal="25" a="-0.00902" b="0.0241" c="-0.00347"/>
+            <distortion model="ptlens" focal="32.6" a="-0.00725" b="0.01842" c="-0.00119"/>
+            <distortion model="ptlens" focal="42.8" a="-0.00937" b="0.02926" c="-0.00796"/>
+            <tca model="poly3" focal="6" vr="1.0001746" vb="1.0002787"/>
+            <tca model="poly3" focal="7" vr="1.0001291" vb="1.0002796"/>
+            <tca model="poly3" focal="8.2" vr="1.0001035" vb="1.0002686"/>
+            <tca model="poly3" focal="9.9" vr="1.0001177" vb="1.0002300"/>
+            <tca model="poly3" focal="12.5" vr="1.0001136" vb="1.0001188"/>
+            <tca model="poly3" focal="15.9" vr="1.0001461" vb="1.0000067"/>
+            <tca model="poly3" focal="19.7" vr="1.0001575" vb="0.9998596"/>
+            <tca model="poly3" focal="25" vr="1.0001193" vb="0.9996409"/>
+            <tca model="poly3" focal="32.6" vr="1.0000405" vb="0.9994710"/>
+            <tca model="poly3" focal="42.8" vr="0.9997493" vb="0.9998575"/>
         </calibration>
     </lens>
 
