@@ -5,7 +5,7 @@
 
 missing_packages = set()
 
-import subprocess, os, os.path, sys, multiprocessing, math, re, contextlib, glob, codecs, struct
+import subprocess, os, os.path, sys, multiprocessing, math, re, contextlib, glob, codecs, struct, argparse
 try:
     import numpy
 except ImportError:
@@ -33,6 +33,11 @@ try:
 except:
     dcraw_version = 0
 h_option = [] if 8.99 < dcraw_version < 9.18 else ["-h"]
+
+
+parser = argparse.ArgumentParser(description="Calibration generator for Lensfun.")
+parser.add_argument("--complex-tca", action="store_true", help="switches on non-linear polynomials for TCA")
+args = parser.parse_args()
 
 
 @contextlib.contextmanager
@@ -265,8 +270,6 @@ except IOError:
 # TCA correction
 #
 
-only_linear_tca = len(sys.argv) <= 1 or sys.argv[1] == "--simple-tca"
-
 def generate_tca_tiffs(filename):
     tca_filename = filename + ".tca"
     if not os.path.exists(tca_filename):
@@ -283,7 +286,7 @@ if os.path.exists("tca"):
         raw_files = find_raw_files()
         for filename, tiff_filename, tca_filename in pool.map(generate_tca_tiffs, raw_files):
             if filename:
-                output = subprocess.check_output(["tca_correct", "-o", "v" if only_linear_tca else "bv", tiff_filename],
+                output = subprocess.check_output(["tca_correct", "-o", "bv" if args.complex_tca else "v", tiff_filename],
                                                  stderr=open(os.devnull, "w")).splitlines()[-1].strip()
                 exif_data = file_exif_data[os.path.join("tca", filename)]
                 with open(tca_filename, "w") as outfile:
@@ -302,10 +305,10 @@ if os.path.exists("tca"):
 plot [0:1.8] {} * x**2 + {} title "red", {} * x**2 + {} title "blue"
 pause -1""".format(filename, data["br"], data["vr"], data["bb"], data["vb"]))
             calibration_lines.setdefault(lens_name, []).append((focal_length, 
-                """<tca model="poly3" focal="{0:g}" vr="{1}" vb="{2}"/>""".format(
-                    focal_length, data["vr"], data["vb"]) if only_linear_tca else
                 """<tca model="poly3" focal="{0:g}" br="{1}" vr="{2}" bb="{3}" vb="{4}"/>""".format(
-                    focal_length, data["br"], data["vr"], data["bb"], data["vb"])))
+                    focal_length, data["br"], data["vr"], data["bb"], data["vb"]) if args.complex_tca else
+                """<tca model="poly3" focal="{0:g}" vr="{1}" vb="{2}"/>""".format(
+                    focal_length, data["vr"], data["vb"])))
         for lens_name, lines in calibration_lines.items():
             lines.sort()
             lenses[lens_name].calibration_lines.extend(line[1] for line in lines)
