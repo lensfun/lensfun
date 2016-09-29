@@ -48,6 +48,13 @@
         <cropfactor>6</cropfactor>
     </camera>
 
+    <camera>
+        <maker>GitUp</maker>
+        <model>Git2</model>
+        <mount>git2</mount>
+        <cropfactor>5.57</cropfactor>
+    </camera>
+
     <lens>
         <maker>GoPro</maker>
         <model>HD2 &amp; compatibles</model>
@@ -133,6 +140,21 @@
         <calibration>
             <vignetting model="pa" focal="3.6" aperture="2.8" distance="10" k1="-0.9228" k2="0.5367" k3="-0.2985"/>
             <vignetting model="pa" focal="3.6" aperture="2.8" distance="1000" k1="-0.9228" k2="0.5367" k3="-0.2985"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>GitUp</maker>
+        <model>Git2 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>git2</mount>
+        <cropfactor>5.57</cropfactor>
+        <type>equisolid</type>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="poly3" focal="3" k1="0.01419"/>
+            <tca model="poly3" focal="3" br="-0.0000201" vr="1.0001473" bb="-0.0001084" vb="1.0005537"/>
         </calibration>
     </lens>
 
