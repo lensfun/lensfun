@@ -3194,6 +3194,7 @@
         <calibration>
             <distortion model="ptlens" focal="100" a="0.00406" b="-0.01754" c="0.02944"/>
             <!-- Taken with Canon EOS 5D Mark III -->
+            <tca model="poly3" focal="100" br="-0.0000648" vr="1.0005228" bb="0.0000895" vb="0.9997536"/>
             <vignetting model="pa" focal="100" aperture="2.8" distance="0.3" k1="-0.0002" k2="-0.4508" k3="0.2333"/>
             <vignetting model="pa" focal="100" aperture="2.8" distance="0.34" k1="0.0795" k2="-0.8174" k3="0.4748"/>
             <vignetting model="pa" focal="100" aperture="2.8" distance="0.39" k1="0.0625" k2="-0.8874" k3="0.5263"/>
