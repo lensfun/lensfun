@@ -343,4 +343,30 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Irix</maker>
+        <model>Irix 15mm f/2.4</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F</mount>
+        <mount>Pentax KAF</mount>
+        <aperture min="2.4" max="22"/>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D800 -->
+            <distortion model="ptlens" focal="15" a="-0.00136" b="-0.00782" c="0.00534"/>
+            <vignetting model="pa" focal="15" aperture="2.4" distance="10" k1="-1.73692" k2="1.78418" k3="-0.80744"/>
+            <vignetting model="pa" focal="15" aperture="2.4" distance="1000" k1="-1.73692" k2="1.78418" k3="-0.80744"/>
+            <vignetting model="pa" focal="15" aperture="2.8" distance="10" k1="-1.83889" k2="1.83878" k3="-0.77529"/>
+            <vignetting model="pa" focal="15" aperture="2.8" distance="1000" k1="-1.83889" k2="1.83878" k3="-0.77529"/>
+            <vignetting model="pa" focal="15" aperture="4" distance="10" k1="-0.66275" k2="-0.49148" k3="0.50918"/>
+            <vignetting model="pa" focal="15" aperture="4" distance="1000" k1="-0.66275" k2="-0.49148" k3="0.50918"/>
+            <vignetting model="pa" focal="15" aperture="5.6" distance="10" k1="-0.3307" k2="-0.80537" k3="0.53069"/>
+            <vignetting model="pa" focal="15" aperture="5.6" distance="1000" k1="-0.3307" k2="-0.80537" k3="0.53069"/>
+            <vignetting model="pa" focal="15" aperture="8" distance="10" k1="-0.64454" k2="0.41276" k3="-0.38224"/>
+            <vignetting model="pa" focal="15" aperture="8" distance="1000" k1="-0.64454" k2="0.41276" k3="-0.38224"/>
+            <vignetting model="pa" focal="15" aperture="22" distance="10" k1="-0.54125" k2="0.01735" k3="0.0838"/>
+            <vignetting model="pa" focal="15" aperture="22" distance="1000" k1="-0.54125" k2="0.01735" k3="0.0838"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
