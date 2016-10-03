@@ -476,11 +476,11 @@
         <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Alpha 7S -->
-            <distortion model="ptlens" focal="10" a="0.196017" b="-0.375554" c="0.167273" />
-            <distortion model="ptlens" focal="12" a="0.131602" b="-0.258384" c="0.136303" />
-            <distortion model="ptlens" focal="14" a="0.116361" b="-0.255284" c="0.189679" />
-            <distortion model="ptlens" focal="16" a="0.1015" b="-0.223082" c="0.169764" />
-            <distortion model="ptlens" focal="18" a="0.0633556" b="-0.132668" c="0.123128" />
+            <distortion model="ptlens" focal="10" a="0.196017" b="-0.375554" c="0.167273"/>
+            <distortion model="ptlens" focal="12" a="0.131602" b="-0.258384" c="0.136303"/>
+            <distortion model="ptlens" focal="14" a="0.116361" b="-0.255284" c="0.189679"/>
+            <distortion model="ptlens" focal="16" a="0.1015" b="-0.223082" c="0.169764"/>
+            <distortion model="ptlens" focal="18" a="0.0633556" b="-0.132668" c="0.123128"/>
         </calibration>
     </lens>
 
@@ -888,7 +888,7 @@
             <vignetting model="pa" focal="55" aperture="16" distance="1000" k1="-0.4737" k2="0.2267" k3="-0.0281"/>
             <vignetting model="pa" focal="55" aperture="22" distance="10" k1="-0.3082" k2="-0.0741" k3="0.1667"/>
             <vignetting model="pa" focal="55" aperture="22" distance="1000" k1="-0.3082" k2="-0.0741" k3="0.1667"/>
- </calibration>
+        </calibration>
     </lens>
 
     <lens>
@@ -1094,7 +1094,7 @@
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
-	    <!-- Taken with Sony ILCE-7M2 (A7 II) -->
+            <!-- Taken with Sony ILCE-7M2 (A7 II) -->
             <distortion model="ptlens" focal="16" a="0.00561" b="-0.00446" c="-0.04348"/>
             <distortion model="ptlens" focal="17" a="0.00759" b="-0.00806" c="-0.03342"/>
             <distortion model="ptlens" focal="18" a="0.00592" b="0.00259" c="-0.04474"/>
