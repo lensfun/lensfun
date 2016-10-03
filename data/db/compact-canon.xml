@@ -815,6 +815,14 @@
         <cropfactor>5.6</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot A495</model>
+        <model lang="en">PowerShot A495</model>
+        <mount>canonA495</mount>
+        <cropfactor>5.39</cropfactor>
+    </camera>
+
     <lens>
         <maker>Canon</maker>
         <model>Canon PowerShot Pro1 &amp; compatibles (Standard)</model>
@@ -2599,6 +2607,25 @@
             <vignetting model="pa" focal="80" aperture="7.1" distance="1000" k1="-0.0925" k2="-0.1107" k3="-0.1209"/>
             <vignetting model="pa" focal="80" aperture="8" distance="10" k1="-0.2243" k2="0.3069" k3="-0.3503"/>
             <vignetting model="pa" focal="80" aperture="8" distance="1000" k1="-0.2243" k2="0.3069" k3="-0.3503"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon Powershot A495 &amp; compatibles, with CHDK's DNG</model>
+        <model lang="en">fixed lens, with CHDK's DNG</model>
+        <model lang="de">festes Objektiv, mit CHDK-DNG</model>
+        <mount>canonA495</mount>
+        <cropfactor>5.39</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="6.6" a="0.00718" b="-0.033603" c="0.028263"/>
+            <distortion model="ptlens" focal="8.1" a="0.010729" b="-0.041438" c="0.033314"/>
+            <distortion model="ptlens" focal="9.8" a="-0.000152" b="-0.006941" c="0.006815"/>
+            <distortion model="ptlens" focal="12.1" a="-0.002237" b="-0.00272" c="0.011421"/>
+            <distortion model="ptlens" focal="14.8" a="0.00785" b="-0.036605" c="0.053183"/>
+            <distortion model="ptlens" focal="17.5" a="0.013399" b="-0.045269" c="0.048979"/>
+            <distortion model="ptlens" focal="21.6" a="0.004399" b="-0.009577" c="0.002762"/>
         </calibration>
     </lens>
 
