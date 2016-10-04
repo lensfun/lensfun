@@ -147,6 +147,14 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon PowerShot G16</model>
+        <model lang="en">PowerShot G16</model>
+        <mount>canonG16</mount>
+        <cropfactor>4.67</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon PowerShot SD550</model>
         <model lang="en">PowerShot SD550</model>
         <mount>canonSD500</mount>
@@ -2626,6 +2634,29 @@
             <distortion model="ptlens" focal="14.8" a="0.00785" b="-0.036605" c="0.053183"/>
             <distortion model="ptlens" focal="17.5" a="0.013399" b="-0.045269" c="0.048979"/>
             <distortion model="ptlens" focal="21.6" a="0.004399" b="-0.009577" c="0.002762"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <model>Canon PowerShot G16 &amp; compatibles (Standard)</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <maker>Canon</maker>
+        <model>Standard</model>
+        <mount>canonG16</mount>
+        <cropfactor>4.67</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="6.1" a="0.02662" b="-0.08597" c="0.00168"/>
+            <distortion model="ptlens" focal="9.3" a="0.00732" b="-0.02562" c="-0.00453"/>
+            <distortion model="ptlens" focal="12.5" a="-0.00131" b="0.00129" c="-0.00833"/>
+            <distortion model="ptlens" focal="19.7" a="0.00083" b="-0.00329" c="0.00391"/>
+            <distortion model="ptlens" focal="30.5" a="0.00382" b="0.00241" c="-0.01637"/>
+            <tca model="poly3" focal="6.1" vr="1.0005845" vb="1.0000965"/>
+            <tca model="poly3" focal="9.3" vr="1.0005620" vb="0.9999360"/>
+            <tca model="poly3" focal="12.5" vr="1.0003889" vb="0.9998557"/>
+            <tca model="poly3" focal="19.7" vr="1.0000832" vb="0.9997096"/>
+            <tca model="poly3" focal="30.5" vr="0.9998091" vb="0.9998656"/>
         </calibration>
     </lens>
 
