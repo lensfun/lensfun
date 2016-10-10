@@ -18,7 +18,8 @@ for correcting images based on detailed knowledge of lens properties and
 calibration data. Right now Lensfun is designed to correct distortion,
 transversal (also known as lateral) chromatic aberrations, and
 vignetting.  Furthermore, it can convert between different types of
-lenses, for example from fisheye into rectilinear.
+lenses, for example from fisheye into rectilinear.  And last but not
+least, it can correct the perspective, simulating a shift lens.
 
 @section contents Contents
 
@@ -38,6 +39,7 @@ lenses, for example from fisheye into rectilinear.
     <li>@ref filldb
     </ul>
 <li>@ref corrections
+<li>@ref perspective-correction
 <li>@ref programming
     <ul>
     <li>@ref basearch
@@ -627,6 +629,7 @@ apply them in the right order.  This is:
 <li>anti-TCA
 <li>undistortion
 <li>change of projection
+<li>perspective correction
 <li>scaling
 </ol>
 
@@ -691,12 +694,20 @@ a successful distortion correction.
 Therefore, the change of projection is perfomed \a after the image
 corrections.
 
+@subsection pc Perspective correction
+
+Lensfun can correct the effects of tilting of the camera, also known as
+perspective correction, see @ref perspective-correction.  In order for this to
+work properly, the distortion needs to be corrected, and the image needs to be
+converted to rectilinear projection if necessary.  Therefore, perspective
+correction is performed \a after the change of projection.
+
 @subsection scaling Scaling
 
-Often it is desirable to scale the resulting image, e.g. to eliminate
-black areas at the borders caused by one of the previous image
-operations.  This scaling affect the resulting image, therefore, it
-comes last in the processing.
+Often it is desirable to scale the resulting image, e.g. to eliminate black
+areas at the borders caused by one of the previous image operations.  Because
+all other transformations assume the pristine sensor image, in particular for
+assuming the correct focal length, scaling comes last in the processing.
 
 
 @section actualorder How it is really done
@@ -720,6 +731,7 @@ image manipulations the reverse way:
 
 <ol>
 <li>scaling
+<li>perspective correction
 <li>change of projection
 <li>undistortion
 <li>anti-TCA
@@ -732,9 +744,10 @@ coordinate.  This seems to be wrong at first because we want to undistort after
 all.  But given how undistortion is actually done, it makes sense.  The same is
 true for ::lfTCAModel.
 
-Note that in the sequence \a scaling → <em>change of projection</em> → \a
-undistortion → <em>anti-TCA</em>, the resulting coordinates of the previous
-step are the input coordinates for the respective next step.
+Note that in the sequence \a scaling → <em>perspective correction</em> →
+<em>change of projection</em> → \a undistortion → <em>anti-TCA</em>, the
+resulting coordinates of the previous step are the input coordinates for the
+respective next step.
 
 In reality, devignetting is performed first nevertheless, because it can be
 separated from all other operations, by calling
@@ -743,6 +756,201 @@ operations from scaling to anti-TCA.  Lensfun can do this in one function call
 with lfModifier::ApplySubpixelGeometryDistortion.  Finally, you do a lookup on
 the vignetting-corrected RAW data, using the transformed coordinates.
 
+
+@page perspective-correction Applying perspective correction
+
+Perspective correction, also known as perspective control or keystone
+correction, corrects parallel lines.  For example when taking a picture of a
+tower, it may be necessary to tilt the camera in order to have the whole tower
+in the viewframe.  But then, the verticals of the tower are not parallel in the
+picture.  Instead, the edges of the tower become narrower towards the top.
+
+In general, whenever you tilt a camera relatively to a plane in your image
+(e.g. the front wall of a building), you get so-called “aberrant lines”, i.e.,
+you lose the parallelity of lines (e.g. wall edges) on that plane.  Moreover,
+circles become ellipses.
+
+In some cases, such effects may be desired.  In all other cases, Lensfun offers
+correction for them.  All it needs are “control points”, i.e. points lying on
+lines that are supposed to be parallel.  Note that in most cases, Lensfun also
+needs the proper focal length and crop factor for perspective correction.
+
+You can use Lensfun's perspective correction in five different modes, which are
+distinguished by the number of control points given.  This table presents an
+overview:
+
+<table>
+  <tr><th>number of<br/>control points</th><th>type</th><th>short description</th>
+    <th>focal length<br/>necessary</th><th>full<br/>correction</th></tr>
+  <tr><td>4</td><td>lines</td><td>(1) & (2) define first line, (3) & (4) define second line, both should be parallel</td>
+    <td>yes</td><td>no</td></tr>
+  <tr><td>5</td><td>circle</td><td>points on (distorted) circle line</td>
+    <td>yes</td><td>no</td></tr>
+  <tr><td>6</td><td>lines</td><td>(1)–(4) as with 4 control points; (5) & (6) define line perpendicular to the other two</td>
+    <td>yes</td><td>yes</td></tr>
+  <tr><td>7</td><td>circle & line</td><td>(1)–(5) as with 5 control points; (6) & (7) define perfectly horizonal or vertical line</td>
+    <td>yes</td><td>no</td></tr>
+  <tr><td>8</td><td>lines</td><td>(1)–(6) as with 6 control points; (7) & (8) define line parallel to the (5)/(6) line</td>
+    <td>no</td><td>yes</td></tr>
+</table>
+
+In this table, “full correction” means that all lines that are parallel in the
+original (horizonal, vertical, diagonal, whatever, as long as they are within
+the plane) become parallel after the correction.  No full correction means that
+only lines in <i>one</i> direction are corrected.
+
+
+@section lines-based-pc Lines-based correction
+
+<div class="image-portrait43">
+\image html pc-8-points.svg "8 points: two horizontals, two verticals"
+</div>
+<div class="image-landscape">
+\image html pc-6-points.svg "6 points: two verticals, one horizonal"
+</div>
+<div class="image-landscape">
+\image html pc-4-points.svg "4 points: two verticals"
+</div>
+
+Using 4, 6, or 8 control points activates a lines-based correction using 2, 3,
+or 4 lines, respectively.  Each consecutive pair of points defines a line.  The
+ordering within a pair doesn't matter.  In the images, you see examples for
+placing the control points in each case.
+
+As you can see in the 8-points image, points may also share their coordinates.
+In the 6-points image, points 5 and 6 could be the same as 2 and 3,
+respectively.  But try to use lines as long as possible.
+
+Whether a line or a pair of lines is to be interpreted as vertical or
+horizontal, is decided by Lensfun by taking the best match.  For example in the
+8-points case, you could swap verticals and horizontals, and it would work
+either way.
+
+@section circle-based-pc Circle-based correction
+
+<div class="image-landscape">
+\image html pc-7-points.svg "7 points: one circle, one horizonal"
+</div>
+<div class="image-landscape">
+\image html pc-5-points.svg "5 points: one circle"
+</div>
+
+Using 5 or 7 control points activates a circle-based correction using an
+ellipse which is supposed to become a circle.  Mathematicaly, 5 points define
+an ellipse.  Two additional points may be used to define a horizonal or
+vertical line, whichever is closer.
+
+There is, unfortunately, an ambiguity to sort out: A circle may become an
+ellipse by tilting the camera upwards or downwards.  Without further
+information, Lensfun cannot know what happened in a particular image.  Thus, if
+you set the control points clockwise, Lensfun assumes that the first point is
+farther away from the camera than the centre of the circle.  Accordingly,
+counter-clockwise control points indicate that the first point is closer to the
+camera than the centre of the circle.  This may sound complicated but in most
+cases, the camera is tilted upwards like in the example images.  Then, just set
+the control points clockwise beginning at the top, and it works.
+
+@section pc-postprocessing Shifting, scaling, and rotating
+
+After a successful perspective correction, it is highly senseful to apply some
+post-processing.  Additionally to what is already in Lensfun's chain of
+transformations, it adds the following:
+
+<ul>
+<li>It shifts the image to that the original centre remains in the centre.  In
+some extreme cases, the original centre cannot be displayed anymore because it
+is beyond the vertex.  Then, the centre of the control points is used
+instead.</li>
+<li>It scales the image so that the centre of the image keeps its scale.</li>
+<li>It rotates the image so that lines supposed to be vertical or horizonal actually are.</li>
+</ul>
+
+@section pc-d-parameter The d parameter for fine-tuning
+
+\image html pc-d-parameter.svg "Relative tilting angle for different d values"
+
+Very often, a full correction of the perspective is not the artistically best
+option.  Instead, a slight undercorrection leads to a more pleasing result.
+For this and similar purposes, Lensfun offers a fine-tune parameter called “d”.
+It takes values from −1 to +1 with the following meaning:
+
+<table>
+  <tr><th>d</th><th>meaning</th></tr>
+  <tr><td>−1</td><td>no change of the image</td></tr>
+  <tr><td>0</td><td>perfect correction</td></tr>
+  <tr><td>+1</td><td>over-correction by 24%</td></tr>
+</table>
+
+Technically, by increasing d from −1 to 0, the tilting angle is decreased from
+the original value to 0.  Values of d greater than 0 increase the tilting angle
+to the opposite direction up to 24% of the original tilt.
+
+@section pc-tips Tips
+
+<ul>
+<li>Use lines which are as long as possible.</li>
+<li>Use circles which are as large as possible.</li>
+<li>Take care that pairs of lines which are supposed to be parallel are as far apart as possible.</li>
+<li>Use 8 points only if the focal length is unknown or inaccurate.</li>
+<li>Do not mark lines that are already parallel in the original image.</li>
+<li>Do not mark circles that are already perfectly circular in the original image.</li>
+</ul>
+
+
+@section pc-in-own-code How to implement perspective correction in own code
+
+Currently, perspective correction has its own initialiser
+lfModifier::EnablePerspectiveCorrection.  Typically, you will call this method
+immediately after lfModifier::Create and lfModifier::Initialize.  In plain C,
+you call ::lf_modifier_enable_perspective_correction immediately after
+::lf_modifier_new and ::lf_modifier_initialize.  The only real challenge is to
+get the control point coordinates.
+
+@subsection pc-coordinates Control point coordinates
+
+Control points are given using their pixel coordinates.  The origin of the
+coordinate system is in the top left corner, with the first pixel having the
+coordinates (0, 0).  The first coordinate is measured to the right, and the
+second is measured to the bottom.  For best accuracy, the coodinates do not
+refer to the pristine image.  Instead, the following transformations need to
+have been applied when the coordinates are determined:
+
+<ul>
+<li>distortion correction</li>
+<li>transformation into rectilinear, if necessary</li>
+</ul>
+
+Since for most lenses, both transformations don't change much, you can also use
+pristine RAW image coordinates lenses for simplicity, but this may lead to
+slightly inaccurate perspective correction, and fails for fisheyes.  In
+contrast, the following transformations <i>must not</i> have been applied when
+the coordinates are determined:
+
+<ul>
+<li>scaling</li>
+<li>rotation</li>
+<li>shift</li>
+<li>crop</li>
+<li>any other coordinate-changing transformation</li>
+</ul>
+
+Vignetting and TCA corrections don't matter.
+
+@subsection pc-suggestion-for-implementation Suggestions for getting control points
+
+If you wish to offer perspective correction in an interactive way, it is
+recommended to present a distortion-corrected, rectilinear image to the user.
+Then, the user picks coordinates in the image, and these coordinates are ready
+to be used for perspective correction directly.
+
+Another possibility is to let the used set control points in the really
+pristine image (without any transformations applied).  Then, you set up a
+modifier object only for distortion correction and – in case of a fisheye lens
+– for transformation into the rectilinear projection.  <i>It is important that
+you set the “reverse” option to “true” for this modifier.</i> Then, you send
+the control point coordinates through lfModifier::ApplyGeometryDistortion and
+get the coordinates for perspective correction.  Of course, for the actual
+correction, you need a different modifier object.
 
 @page programming Using this library in your programs
 

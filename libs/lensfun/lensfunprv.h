@@ -8,6 +8,7 @@
 
 #include <glib.h>
 #include <string.h>
+#include <vector>
 
 #define MEMBER_OFFSET(s,f)   ((unsigned int)(char *)&((s *)0)->f)
 #define ARRAY_LEN(a)         (sizeof (a) / sizeof (a [0]))
@@ -473,5 +474,13 @@ struct lfColorCallbackData : public lfCallbackData
 {
     lfModifyColorFunc callback;
 };
+
+// `dvector`, `matrix`, and `svg` are declared here to be able to test `svd` in
+// unit tests.
+
+typedef std::vector<double> dvector;
+typedef std::vector<dvector> matrix;
+
+dvector svd (matrix M);
 
 #endif /* __LENSFUNPRV_H__ */

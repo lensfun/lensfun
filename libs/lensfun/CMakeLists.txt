@@ -2,7 +2,7 @@
 SET(LENSFUN_SRC camera.cpp database.cpp lens.cpp 
                 mount.cpp lensfunprv.h cpuid.cpp 
                 mod-color-sse.cpp mod-color-sse2.cpp mod-color.cpp
-                mod-coord-sse.cpp mod-coord.cpp
+                mod-coord-sse.cpp mod-coord.cpp mod-pc.cpp
                 mod-subpix.cpp modifier.cpp auxfun.cpp
                 ../../include/lensfun/lensfun.h.in)
 IF(WIN32)

@@ -29,7 +29,7 @@ bool lfModifier::AddColorCallbackVignetting (
     memcpy (tmp, model.Terms, 3 * sizeof (float));
 
     if (model.Model == LF_VIGNETTING_MODEL_ACM)
-        tmp [4] = NormalizedInFocalLengths;
+        tmp [4] = 1 / FocalLengthNormalized;
     else
         // Damn! Hugin uses two different "normalized" coordinate systems:
         // for distortions it uses 1.0 = min(half width, half height) and

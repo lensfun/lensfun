@@ -25,6 +25,7 @@
 #include <stddef.h>
 
 #ifdef __cplusplus
+
 extern "C" {
 /** Helper macro to make C/C++ work similarly */
 #  define C_TYPEDEF(t,c)
@@ -1957,6 +1958,7 @@ typedef struct { float angle, dist; } lfPoint;
  * <li>Fix chromatic aberrations (TCA)
  * <li>Fix lens distortion
  * <li>Fix lens geometry
+ * <li>Fix perspective
  * <li>Scale the image
  * </ol>
  *
@@ -1969,6 +1971,7 @@ typedef struct { float angle, dist; } lfPoint;
  * </ol>
  * <li>Coordinates<ol>
  * <li>Scale the image
+ * <li>Fix perspective
  * <li>Fix lens geometry
  * <li>Fix lens distortion
  * </ol>
@@ -1984,11 +1987,11 @@ typedef struct { float angle, dist; } lfPoint;
  * in place.
  *
  * Then, the distortions introduced by the lens are removed (distortion and
- * geometry), and an additional scaling factor is applied if required.  This
- * operation requires building new image in a new allocated buffer: you cannot
- * modify the image in place, or bad things will happen.  Note that Lensfun
- * does not provide pixel interpolation routines.  You have to implement the
- * lookup in the original image yourself.
+ * geometry), perspective is corrected if desired, and an additional scaling
+ * factor is applied if required.  This operation requires building new image
+ * in a new allocated buffer: you cannot modify the image in place, or bad
+ * things will happen.  Note that Lensfun does not provide pixel interpolation
+ * routines.  You have to implement the lookup in the original image yourself.
  *
  * And finally, in the subpixel distortion stage, application corrects
  * transversal chromatic aberrations. For every target pixel coordinate the
@@ -2121,6 +2124,58 @@ struct LF_EXPORT lfModifier
     int Initialize (
         const lfLens *lens, lfPixelFormat format, float focal, float aperture,
         float distance, float scale, lfLensType targeom, int flags, bool reverse);
+
+    /**
+     * @brief Enable the perspective correction.
+     *
+     * Depending on the number of control points given, there are three
+     * possible modes:
+     *
+     * 4 control points: c0 and c1 define one vertical lines, c2 and c3 the
+     * other.  The focal length defined in the creation of the modifier is used
+     * to get the proper aspect ratio.
+     *
+     * 6 control points: c0 to c3 like above.  c4 and c5 define a horizontal
+     * line.  The focal length is used to get the proper aspect ratio.
+     *
+     * 8 control points: c0 to c5 like above.  c6 and c7 define a second
+     * horizontal line.  The focal length is not used.
+     *
+     * 5 control points: They all must lie on an ellipse that is actually a
+     * rotated circle.  If they lie in a clockwise ordering, the vertex is
+     * assumed to be above the ellipse centre in the image.  If they lie in a
+     * counter-clockwise ordering, the vertex is assumed to be below the
+     * ellipse.  The focal length is needed to find the proper vertex.
+     *
+     * 7 control points: c0 to c4 like above.  c5 and c6 define a horizontal
+     * line which is used to rotate the final image nicely.
+     *
+     * If the lines constructed from the first four control points for the 4, 6
+     * and 8 points case (or the last two for the 7 points case) are more
+     * horizontal than vertical, in all of the above, "horizontal" and
+     * "vertical" need to be swapped.
+     *
+     * All control points must be given as pixel coordinates in the original
+     * image.  For best precision, anti-distortion should have been applied
+     * before taking the coordinates.  Moreover, fisheye images must have been
+     * transformed into rectilinear of the same focal length.  In contrast,
+     * cropping, rotating, shifting, or scaling must be switched off.
+     *
+     * @param x
+     *     The x coordinates of the control points.
+     * @param y
+     *     The y coordinates of the control points.
+     * @param count
+     *     The number of control points.
+     * @param d
+     *     This parameter is supposed to be offered to the user as a slider.
+     *     It can take values from -1 to +1.  0 denotes the perfect correction.
+     *     -1 is the unchanged image.  +1 is an increase of the tilting angle
+     *     by 25%.
+     * @return
+     *     True if the perspective correction was enabled.
+     */
+    bool EnablePerspectiveCorrection (float *x, float *y, int count, float d);
 
     /**
      * @brief Destroy the modifier object.
@@ -2523,6 +2578,7 @@ private:
     static void ModifyCoord_Geom_ERect_Equisolid (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_Thoby_ERect (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_ERect_Thoby (void *data, float *iocoord, int count);
+    static void ModifyCoord_Perspective_Correction (void *data, float *iocoord, int count);
 #ifdef VECTORIZATION_SSE
     static void ModifyColor_DeVignetting_PA_SSE (
       void *data, float _x, float _y, lf_f32 *pixels, int comp_role, int count);
@@ -2548,11 +2604,8 @@ private:
     double NormScale, NormUnScale;
     /// Factor to transform from normalized into absolute coords (mm).  Needed
     /// for calculating the real focal length from the FOV, and for calculating
-    /// NormalizedInFocalLengths.
+    /// FocalLengthNormalized.
     double NormalizedInMillimeters;
-    /// Factor to transform from normalized into units of the focal length.
-    /// Needed for geometry transformation and the Adobe camera models.
-    double NormalizedInFocalLengths;
     /// Used for conversion from distortion to vignetting coordinate system of
     /// the calibration sensor
     double AspectRatioCorrection;
@@ -2566,6 +2619,15 @@ private:
 
     /// Maximal x and y value in normalized coordinates for the original image
     double MaxX, MaxY;
+
+    /// Nominal focal length (usually taken from EXIF data) in normalized
+    /// units.  Currently, it is needed for geometry transformation, the Adobe
+    /// camera models, and perspective correction.  On the long run, /all/
+    /// image data will be stored in lfModifier, once the Enable... methods are
+    /// written.
+    double FocalLengthNormalized;
+    /// Whether the transformations are applied reversely
+    bool Reverse;
 };
 
 #ifdef __cplusplus
@@ -2586,6 +2648,10 @@ LF_EXPORT int lf_modifier_initialize (
     lfModifier *modifier, const lfLens *lens, lfPixelFormat format,
     float focal, float aperture, float distance, float scale,
     lfLensType targeom, int flags, cbool reverse);
+
+/** @sa lfModifier::EnablePerspectiveCorrection */
+LF_EXPORT cbool lf_modifier_enable_perspective_correction (
+    lfModifier *modifier, float *x, float *y, int count, float d);
 
 /** @sa lfModifier::AddCoordCallback */
 LF_EXPORT void lf_modifier_add_coord_callback (

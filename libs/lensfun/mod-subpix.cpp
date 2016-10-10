@@ -69,8 +69,8 @@ bool lfModifier::AddSubpixelCallbackTCA (lfLensCalibTCA &model, bool reverse)
 
             case LF_TCA_MODEL_ACM:
                 memcpy (tmp, model.Terms, sizeof (float) * 12);
-                tmp [12] = NormalizedInFocalLengths;
-                tmp [13] = 1.0 / tmp [12];
+                tmp [12] = 1.0 / FocalLengthNormalized;
+                tmp [13] = FocalLengthNormalized;
                 AddSubpixelCallback (ModifyCoord_TCA_ACM, 500,
                                      tmp, 14 * sizeof (float));
                 return true;

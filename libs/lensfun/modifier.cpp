@@ -18,7 +18,7 @@ int lfModifier::Initialize (
     const lfLens *lens, lfPixelFormat format, float focal, float aperture,
     float distance, float scale, lfLensType targeom, int flags, bool reverse)
 {
-    NormalizedInFocalLengths = NormalizedInMillimeters / GetRealFocalLength(lens, focal);
+    FocalLengthNormalized = GetRealFocalLength (lens, focal) / NormalizedInMillimeters;
 
     int oflags = 0;
 
@@ -59,6 +59,8 @@ int lfModifier::Initialize (
         scale != 1.0)
         if (AddCoordCallbackScale (scale, reverse))
             oflags |= LF_MODIFY_SCALE;
+
+    Reverse = reverse;
 
     return oflags;
 }
@@ -154,12 +156,12 @@ void lfModifier::Destroy ()
 
   But the devil is in the details.  Geometry transformation has to happen in
   (3), so for only this step, all coordinates are scaled by
-  NormalizedInFocalLengths in lfModifier::AddCoordCallbackGeometry.  Moreover,
-  it is important to see that the conversion into (1) is pretty irrelevant.
-  (It is performed for that the resulting image is not ridiculously small; but
-  this could also be achieved with proper auto-scaling.)  Instead, really
-  critical is only the *back-transformation* from (1) into the pixel coordinate
-  system of the uncorrected, original bitmap.  This must be exactly correct.
+  FocalLengthNormalized in lfModifier::AddCoordCallbackGeometry.  Moreover, it
+  is important to see that the conversion into (1) is pretty irrelevant.  (It
+  is performed for that the resulting image is not ridiculously small; but this
+  could also be achieved with proper auto-scaling.)  Instead, really critical
+  is only the *back-transformation* from (1) into the pixel coordinate system
+  of the uncorrected, original bitmap.  This must be exactly correct.
   Otherwise, the strength of correction does not match with the position in the
   picture, and the correction cannot work.
 
