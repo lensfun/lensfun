@@ -359,11 +359,20 @@ int main (int argc, char **argv)
     // load database
     lfDatabase *ldb = new lfDatabase ();
 
+    if (opts.Verbose) {
+        g_print ("\rConfigured database search locations\n");
+        g_print ("\r  - System-wide database: %s\n", ldb->SystemLocation);
+        g_print ("\r  - System-wide database updates: %s\n", ldb->SystemUpdatesLocation);
+        g_print ("\r  - Current user database: %s\n", ldb->UserLocation);
+        g_print ("\r  - Current user database updates: %s\n\n", ldb->UserUpdatesLocation);
+    }
+
     if (ldb->Load () != LF_NO_ERROR) {
         delete ldb;
         g_print ("\rERROR: Database could not be loaded\n");
         return -1;
-    }
+    } else g_print ("\rDatabase loaded succesfully.\n\n");
+
 
     // try to find camera in the database
     const lfCamera *cam = NULL;

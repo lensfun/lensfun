@@ -22,9 +22,15 @@
 
 lfDatabase::lfDatabase ()
 {
-    HomeDataDir = g_build_filename (g_get_user_data_dir (),
+    UserLocation = g_build_filename (g_get_user_data_dir (),
                                     CONF_PACKAGE, NULL);
-    UserUpdatesDir = g_build_filename (HomeDataDir, "updates", DATABASE_SUBDIR, NULL);
+    UserUpdatesLocation = g_build_filename (UserLocation, "updates",
+                                       DATABASE_SUBDIR, NULL);
+    SystemLocation = g_build_filename (CONF_DATADIR, DATABASE_SUBDIR,
+                                       NULL);
+    SystemUpdatesLocation = g_build_filename (SYSTEM_DB_UPDATE_PATH,
+                                              DATABASE_SUBDIR, NULL);
+
     Mounts = g_ptr_array_new ();
     g_ptr_array_add ((GPtrArray *)Mounts, NULL);
     Cameras = g_ptr_array_new ();
@@ -48,8 +54,10 @@ lfDatabase::~lfDatabase ()
          delete static_cast<lfLens *> (g_ptr_array_index ((GPtrArray *)Lenses, i));
     g_ptr_array_free ((GPtrArray *)Lenses, TRUE);
 
-    g_free (HomeDataDir);
-    g_free (UserUpdatesDir);
+    g_free (UserLocation);
+    g_free (UserUpdatesLocation);
+    g_free (SystemLocation);
+    g_free (SystemUpdatesLocation);
 }
 
 lfDatabase *lfDatabase::Create ()
@@ -62,7 +70,7 @@ void lfDatabase::Destroy ()
     delete this;
 }
 
-bool lfDatabase::LoadDirectory (const gchar *dirname)
+lfError lfDatabase::LoadDirectory (const gchar *dirname)
 {
     bool database_found = false;
 
@@ -90,42 +98,39 @@ bool lfDatabase::LoadDirectory (const gchar *dirname)
         g_dir_close (dir);
     }
 
-    return database_found;
+    return database_found ? LF_NO_ERROR : LF_NO_DATABASE;
 }
 
 lfError lfDatabase::Load ()
 {
+  lfError err = LF_NO_ERROR;
+
+#ifdef PLATFORM_LINUX
     bool database_found = false;
 
-#ifndef PLATFORM_WINDOWS
-    gchar *main_dirname = g_build_filename (CONF_DATADIR, DATABASE_SUBDIR, NULL);
-#else
-    /* windows based OS */
-    extern gchar *_lf_get_database_dir ();
-    gchar *main_dirname = _lf_get_database_dir ();
-#endif
-    const gchar *system_updates_dirname = g_build_filename (SYSTEM_DB_UPDATE_PATH, DATABASE_SUBDIR, NULL);
-    const int timestamp_main =
-        _lf_read_database_timestamp (main_dirname);
+    const int timestamp_system =
+        _lf_read_database_timestamp (SystemLocation);
     const int timestamp_system_updates =
-        _lf_read_database_timestamp (system_updates_dirname);
+        _lf_read_database_timestamp (SystemUpdatesLocation);
     const int timestamp_user_updates =
-        _lf_read_database_timestamp (UserUpdatesDir);
-    if (timestamp_main > timestamp_system_updates)
-        if (timestamp_user_updates > timestamp_main)
-            database_found |= LoadDirectory (UserUpdatesDir);
+        _lf_read_database_timestamp (UserUpdatesLocation);
+    if (timestamp_system > timestamp_system_updates)
+        if (timestamp_user_updates > timestamp_system)
+            err = LoadDirectory (UserUpdatesLocation);
         else
-            database_found |= LoadDirectory (main_dirname);
+            err = LoadDirectory (SystemLocation);
     else
         if (timestamp_user_updates > timestamp_system_updates)
-            database_found |= LoadDirectory (UserUpdatesDir);
+            err = LoadDirectory (UserUpdatesLocation);
         else
-            database_found |= LoadDirectory (system_updates_dirname);
-    g_free (main_dirname);
+            err = LoadDirectory (SystemUpdatesLocation);
 
-    database_found |= LoadDirectory (HomeDataDir);
+    //err = LoadDirectory (UserLocation);
+#else
+  #error "Automatic database lookup is only available on Linux platform!"
+#endif
 
-    return database_found ? LF_NO_ERROR : LF_NO_DATABASE;
+    return err == LF_NO_ERROR ? LF_NO_ERROR : LF_NO_DATABASE;
 }
 
 lfError lfDatabase::Load (const char *filename)
@@ -821,13 +826,6 @@ lfError lfDatabase::Save (const char *filename,
                           const lfCamera *const *cameras,
                           const lfLens *const *lenses) const
 {
-    /* Special case: if filename begins with HomeDataDir and HomeDataDir
-     * does not exist, try to create it (since we're in charge for this dir).
-     */
-    if (g_str_has_prefix (filename, HomeDataDir) &&
-        g_file_test (HomeDataDir, G_FILE_TEST_IS_DIR))
-        g_mkdir (HomeDataDir, 0777);
-
     char *output = Save (mounts, cameras, lenses);
     if (!output)
         return lfError (-ENOMEM);
@@ -1397,7 +1395,7 @@ lfError lf_db_load (lfDatabase *db)
     return db->Load ();
 }
 
-cbool lf_db_load_directory (lfDatabase *db, const char *dirname)
+lfError lf_db_load_directory (lfDatabase *db, const char *dirname)
 {
     return db->LoadDirectory (dirname);
 }

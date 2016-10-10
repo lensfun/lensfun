@@ -8,21 +8,29 @@
 #define CONF_PACKAGE "lensfun"
 #define CONF_VERSION "@VERSION_MAJOR@.@VERSION_MINOR@.@VERSION_MICRO@.@VERSION_BUGFIX@"
 
-#cmakedefine PLATFORM_WINDOWS
+#if defined(__APPLE__)
+    #define PLATFORM_OSX
+#elif defined(_WIN32)
+    #define PLATFORM_WINDOWS
+#elif defined(__unix__)
+    #define PLATFORM_LINUX
+#endif
+
 
 #cmakedefine CMAKE_COMPILER_IS_GNUCC 
 #ifdef CMAKE_COMPILER_IS_GNUCC 
 #define CONF_COMPILER_GCC 1 
 #endif
 
-#ifndef PLATFORM_WINDOWS
-//fix path to data works only on *nix systems
-//on windows that data dir is relocatable
-#define CONF_DATADIR "${CMAKE_INSTALL_FULL_DATAROOTDIR}/lensfun"
-#define SYSTEM_DB_UPDATE_PATH "/${CMAKE_INSTALL_LOCALSTATEDIR}/lib/lensfun-updates"
-#else
-#define CONF_DATADIR "${LENSFUN_WINDOWS_DATADIR}"
-#define SYSTEM_DB_UPDATE_PATH "C:\\to\\be\\defined\\lensfun-updates"
+#if defined(PLATFORM_LINUX)
+  #define CONF_DATADIR "${CMAKE_INSTALL_FULL_DATAROOTDIR}/lensfun"
+  #define SYSTEM_DB_UPDATE_PATH "/${CMAKE_INSTALL_LOCALSTATEDIR}/lib/lensfun-updates"
+#elif defined(PLATFORM_WINDOWS)
+  #define CONF_DATADIR "C:\\to\\be\\defined\\lensfun"
+  #define SYSTEM_DB_UPDATE_PATH "C:\\to\\be\\defined\\lensfun-updates"
+#elif defined(PLATFORM_OSX)
+  #define CONF_DATADIR "/Library/to/be/defined/lensfun"
+  #define SYSTEM_DB_UPDATE_PATH "/Library/to/be/defined/lensfun-updates"
 #endif
 
 #define DATABASE_SUBDIR "version_${LENSFUN_DB_VERSION}"

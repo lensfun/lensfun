@@ -113,8 +113,7 @@ ENDIF()
 
 # some windows and MSVC specific settings
 IF(WIN32)
-  SET(PLATFORM_WINDOWS 1)  
-  
+
   IF (MSVC)
     IF(BUILD_STATIC)
       # compile everything for the static C runtime

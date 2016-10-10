@@ -1354,35 +1354,37 @@ enum
  *
  * This object contains a list of mounts, cameras and lenses through
  * which you can search. The objects are loaded from XML files
- * located in (default configuration):
- *
-\verbatim
-/usr/share/lensfun/
-/usr/local/share/lensfun/
-~/.local/share/lensfun/
-\endverbatim
+ * (see @ref dbsearch).
  *
  * Objects loaded later override objects loaded earlier.
  * Thus, if user modifies a object you must save it to its home directory
- * (see lfDatabase::HomeDataDir), where it will override any definitions
+ * (see lfDatabase::UserLocation), where it will override any definitions
  * from the system-wide database.
  *
  */
 struct LF_EXPORT lfDatabase
 {
     /** @brief Home lens database directory (something like "~/.local/share/lensfun") */
-    char *HomeDataDir;
+    char *UserLocation;
     /** @brief Home lens database directory for automatic updates (something
      * like "~/.local/share/lensfun/updates") */
-    char *UserUpdatesDir;
+    char *UserUpdatesLocation;
+    /** @brief System lens database directory (something like "/usr/share/lensfun") */
+    char *SystemLocation;
+    /** @brief System lens database directory for automatic updates (something
+    * like "/var/lib/lensfun-updates") */
+    char *SystemUpdatesLocation;
+
 
 #ifdef __cplusplus
     lfDatabase ();
     ~lfDatabase ();
 
     /**
-     * @brief Create a new empty database object. This function is deprecated and
-     * will be removed in the future. Use the standard constructor instead.
+     * @brief Create a new empty database object.
+     *
+     * This function is deprecated and will be removed in the future.
+     * Please use the standard constructor instead.
      */
     DEPRECATED static lfDatabase *Create ();
 
@@ -1397,14 +1399,12 @@ struct LF_EXPORT lfDatabase
     /**
      * @brief Open and parse all XML files in a given directory.
      *
-     * Returns true if valid Lensfun XML data was found and loaded
-     * sucessfully.
      * @param dirname
      *     The directory to be read.
      * @return
-     *     True if valid lensfun XML data was succesfully loaded.
+     *     LF_NO_ERROR or a error code.
      */
-    bool LoadDirectory (const char *dirname);
+    lfError LoadDirectory (const char *dirname);
 
     /**
      * @brief Find and load the lens database.
@@ -1702,7 +1702,7 @@ LF_EXPORT lfError lf_db_load (lfDatabase *db);
 LF_EXPORT lfError lf_db_load_file (lfDatabase *db, const char *filename);
 
 /** @sa lfDatabase::LoadDirectory(const char *) */
-LF_EXPORT cbool lf_db_load_directory (lfDatabase *db, const char *dirname);
+LF_EXPORT lfError lf_db_load_directory (lfDatabase *db, const char *dirname);
 
 /** @sa lfDatabase::Load(const char *, const char *, size_t) */
 LF_EXPORT lfError lf_db_load_data (lfDatabase *db, const char *errcontext,
