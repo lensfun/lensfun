@@ -8,6 +8,7 @@
 
 #include <glib.h>
 #include <string.h>
+#include <vector>
 
 #define MEMBER_OFFSET(s,f)   ((unsigned int)(char *)&((s *)0)->f)
 #define ARRAY_LEN(a)         (sizeof (a) / sizeof (a [0]))

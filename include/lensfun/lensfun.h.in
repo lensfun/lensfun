@@ -26,11 +26,6 @@
 
 #ifdef __cplusplus
 
-#include <vector>
-
-/** Multi-purpose array of float values. */
-typedef std::vector<float> fvector;
-
 extern "C" {
 /** Helper macro to make C/C++ work similarly */
 #  define C_TYPEDEF(t,c)
@@ -2213,6 +2208,8 @@ struct LF_EXPORT lfModifier
      *     The x coordinates of the control points.
      * @param y
      *     The y coordinates of the control points.
+     * @param count
+     *     The number of control points.
      * @param d
      *     This parameter is supposed to be offered to the user as a slider.
      *     It can take values from -1 to +1.  0 denotes the perfect correction.
@@ -2221,7 +2218,7 @@ struct LF_EXPORT lfModifier
      * @return
      *     True if the perspective correction was enabled.
      */
-    bool EnablePerspectiveCorrection (fvector x, fvector y, float d);
+    bool EnablePerspectiveCorrection (float *x, float *y, int count, float d);
 
     /**
      * @brief Destroy the modifier object.

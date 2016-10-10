@@ -543,14 +543,14 @@ matrix generate_rotation_matrix (double rho_1, double delta, double rho_2, doubl
     return M;
 }
 
-bool lfModifier::EnablePerspectiveCorrection (fvector x, fvector y, float d)
+bool lfModifier::EnablePerspectiveCorrection (float *x, float *y, int count, float d)
 {
     if (Reverse)
     {
         g_warning ("[Lensfun] reverse perspective correction is not yet implemented\n");
         return false;
     }
-    const int number_of_control_points = x.size();
+    const int number_of_control_points = count;
     if (number_of_control_points < 4 || number_of_control_points > 8 ||
         FocalLengthNormalized <= 0 && number_of_control_points != 8)
         return false;
@@ -689,6 +689,5 @@ void lfModifier::ModifyCoord_Perspective_Correction (void *data, float *iocoord,
 cbool lf_modifier_enable_perspective_correction (
     lfModifier *modifier, float *x, float *y, int count, float d)
 {
-    fvector x_ (x, x + count), y_ (y, y + count);
-    return modifier->EnablePerspectiveCorrection (x_, y_, d);
+    return modifier->EnablePerspectiveCorrection (x, y, count, d);
 }
