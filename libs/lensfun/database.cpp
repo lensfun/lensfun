@@ -1404,7 +1404,7 @@ lfError lf_db_load (lfDatabase *db)
     return db->Load ();
 }
 
-lfError lf_db_load_file (lfDatabase *db, const char *pathname)
+lfError lf_db_load_path (lfDatabase *db, const char *pathname)
 {
     return db->Load (pathname);
 }

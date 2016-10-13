@@ -1412,7 +1412,7 @@ struct LF_EXPORT lfDatabase
      * If the given path is a folder, all included XML files will be parsed for
      * valid lens data. If a loaded file contains the specification of a camera/lens that's
      * already in memory, it overrides that data.
-     * @param filename
+     * @param pathname
      *     The name of a XML file to load. Note that Lensfun does not support
      *     the full XML specification as it uses the glib's simple XML parser,
      *     so advanced XML features are not available.
@@ -1690,10 +1690,7 @@ LF_EXPORT void lf_db_destroy (lfDatabase *db);
 LF_EXPORT lfError lf_db_load (lfDatabase *db);
 
 /** @sa lfDatabase::Load(const char *) */
-LF_EXPORT lfError lf_db_load_file (lfDatabase *db, const char *filename);
-
-/** @sa lfDatabase::LoadDirectory(const char *) */
-LF_EXPORT lfError lf_db_load_directory (lfDatabase *db, const char *dirname);
+LF_EXPORT lfError lf_db_load_path (lfDatabase *db, const char *pathname);
 
 /** @sa lfDatabase::Load(const char *, const char *, size_t) */
 LF_EXPORT lfError lf_db_load_data (lfDatabase *db, const char *errcontext,
