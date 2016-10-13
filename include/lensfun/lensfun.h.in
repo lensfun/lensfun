@@ -1397,16 +1397,6 @@ struct LF_EXPORT lfDatabase
     DEPRECATED void Destroy ();
 
     /**
-     * @brief Open and parse all XML files in a given directory.
-     *
-     * @param dirname
-     *     The directory to be read.
-     * @return
-     *     LF_NO_ERROR or a error code.
-     */
-    lfError LoadDirectory (const char *dirname);
-
-    /**
      * @brief Find and load the lens database.
      * 
      * This function automatically tries to determine the location of the 
@@ -1417,9 +1407,10 @@ struct LF_EXPORT lfDatabase
     lfError Load ();
 
     /**
-     * @brief Load just a specific XML file.
+     * @brief Load the database from specific path (directory or file).
      *
-     * If the loaded file contains the specification of a camera/lens that's
+     * If the given path is a folder, all included XML files will be parsed for
+     * valid lens data. If a loaded file contains the specification of a camera/lens that's
      * already in memory, it overrides that data.
      * @param filename
      *     The name of a XML file to load. Note that Lensfun does not support
@@ -1428,7 +1419,7 @@ struct LF_EXPORT lfDatabase
      * @return
      *     LF_NO_ERROR or a error code.
      */
-    lfError Load (const char *filename);
+    lfError Load (const char *pathname);
 
     /**
      * @brief Load a set of camera/lenses from a memory array.

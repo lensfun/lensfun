@@ -42,6 +42,7 @@ static struct
     float Distance;
     Image::InterpolationMethod Interpolation;
     lfLensType TargetGeom;
+    const char *Database;
     bool Verbose;
 } opts =
 {
@@ -59,6 +60,7 @@ static struct
     1.0f,
     Image::I_LANCZOS,
     LF_RECTILINEAR,
+    NULL,
     false
 };
 
@@ -98,6 +100,7 @@ static void DisplayUsage ()
     g_print ("  -I#   --interpol=# Choose interpolation algorithm (n[earest], b[ilinear], l[anczos])\n");
     g_print ("\n");
     g_print ("  -o#   --output=#   Set file name for output image\n");
+    g_print ("        --database=# Only use the specified database folder or file\n");
     g_print ("        --verbose    Verbose output\n");
     g_print ("        --version    Display program version and exit\n");
     g_print ("  -h    --help       Display this help text\n");
@@ -122,6 +125,7 @@ static bool ParseParameters(int argc, char **argv)
         {"distance", required_argument, NULL, 'D'},
         {"interpol", required_argument, NULL, 'I'},
         {"help", no_argument, NULL, 'h'},
+        {"database", required_argument, NULL, 3},
         {"version", no_argument, NULL, 4},
         {"verbose", no_argument, NULL, 5},
         {0, 0, 0, 0}
@@ -216,6 +220,9 @@ static bool ParseParameters(int argc, char **argv)
             case 'h':
                 DisplayUsage ();
                 return false;
+            case 3:
+              opts.Database = optarg;
+              break;
             case 4:
                 DisplayVersion ();
                 return false;
@@ -360,14 +367,18 @@ int main (int argc, char **argv)
     lfDatabase *ldb = new lfDatabase ();
 
     if (opts.Verbose) {
-        g_print ("\rConfigured database search locations\n");
-        g_print ("\r  - System-wide database: %s\n", ldb->SystemLocation);
-        g_print ("\r  - System-wide database updates: %s\n", ldb->SystemUpdatesLocation);
-        g_print ("\r  - Current user database: %s\n", ldb->UserLocation);
-        g_print ("\r  - Current user database updates: %s\n\n", ldb->UserUpdatesLocation);
+        if (opts.Database == NULL) {
+          g_print ("\rConfigured database search locations\n");
+          g_print ("\r  - System-wide database: %s\n", ldb->SystemLocation);
+          g_print ("\r  - System-wide database updates: %s\n", ldb->SystemUpdatesLocation);
+          g_print ("\r  - Current user database: %s\n", ldb->UserLocation);
+          g_print ("\r  - Current user database updates: %s\n\n", ldb->UserUpdatesLocation);
+        } else {
+          g_print ("\rLooking for lens database in %s\n\n", opts.Database);
+        }
     }
 
-    if (ldb->Load () != LF_NO_ERROR) {
+    if (ldb->Load (opts.Database) != LF_NO_ERROR) {
         delete ldb;
         g_print ("\rERROR: Database could not be loaded\n");
         return -1;

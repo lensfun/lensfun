@@ -70,37 +70,6 @@ void lfDatabase::Destroy ()
     delete this;
 }
 
-lfError lfDatabase::LoadDirectory (const gchar *dirname)
-{
-    bool database_found = false;
-
-    GDir *dir = g_dir_open (dirname, 0, NULL);
-    if (dir)
-    {
-        GPatternSpec *ps = g_pattern_spec_new ("*.xml");
-        if (ps)
-        {
-            const gchar *fn;
-            while ((fn = g_dir_read_name (dir)))
-            {
-                size_t sl = strlen (fn);
-                if (g_pattern_match (ps, sl, fn, NULL))
-                {
-                    gchar *ffn = g_build_filename (dirname, fn, NULL);
-                    /* Ignore errors */
-                    if (Load (ffn) == LF_NO_ERROR)
-                        database_found = true;
-                    g_free (ffn);
-                }
-            }
-            g_pattern_spec_free (ps);
-        }
-        g_dir_close (dir);
-    }
-
-    return database_found ? LF_NO_ERROR : LF_NO_DATABASE;
-}
-
 lfError lfDatabase::Load ()
 {
   lfError err = LF_NO_ERROR;
@@ -116,16 +85,16 @@ lfError lfDatabase::Load ()
         _lf_read_database_timestamp (UserUpdatesLocation);
     if (timestamp_system > timestamp_system_updates)
         if (timestamp_user_updates > timestamp_system)
-            err = LoadDirectory (UserUpdatesLocation);
+            err = Load (UserUpdatesLocation);
         else
-            err = LoadDirectory (SystemLocation);
+            err = Load (SystemLocation);
     else
         if (timestamp_user_updates > timestamp_system_updates)
-            err = LoadDirectory (UserUpdatesLocation);
+            err = Load (UserUpdatesLocation);
         else
-            err = LoadDirectory (SystemUpdatesLocation);
+            err = Load (SystemUpdatesLocation);
 
-    //err = LoadDirectory (UserLocation);
+    Load (UserLocation);
 #else
   #error "Automatic database lookup is only available on Linux platform!"
 #endif
@@ -133,19 +102,59 @@ lfError lfDatabase::Load ()
     return err == LF_NO_ERROR ? LF_NO_ERROR : LF_NO_DATABASE;
 }
 
-lfError lfDatabase::Load (const char *filename)
+lfError lfDatabase::Load (const char *pathname)
 {
+
+  if (pathname == NULL)
+    return Load();
+
+  lfError e;
+
+  if (g_file_test (pathname, G_FILE_TEST_IS_DIR)) {
+
+    // if filename is a directory, try to open all XML files inside
+    bool database_found = false;
+    GDir *dir = g_dir_open (pathname, 0, NULL);
+    if (dir)
+    {
+        GPatternSpec *ps = g_pattern_spec_new ("*.xml");
+        if (ps)
+        {
+            const gchar *fn;
+            while ((fn = g_dir_read_name (dir)))
+            {
+                size_t sl = strlen (fn);
+                if (g_pattern_match (ps, sl, fn, NULL))
+                {
+                    gchar *ffn = g_build_filename (pathname, fn, NULL);
+                    /* Ignore errors */
+                    if (Load (ffn) == LF_NO_ERROR)
+                        database_found = true;
+                    g_free (ffn);
+                }
+            }
+            g_pattern_spec_free (ps);
+        }
+        g_dir_close (dir);
+    }
+    e = database_found ? LF_NO_ERROR : LF_NO_DATABASE;
+
+  } else {
+
+    // if filename is not a folder, load the file directly
     gchar *contents;
     gsize length;
     GError *err = NULL;
-    if (!g_file_get_contents (filename, &contents, &length, &err))
+    if (!g_file_get_contents (pathname, &contents, &length, &err))
         return lfError (err->code == G_FILE_ERROR_ACCES ? -EACCES : -ENOENT);
 
-    lfError e = Load (filename, contents, length);
+    e = Load (pathname, contents, length);
 
     g_free (contents);
 
-    return e;
+  }
+
+  return e;
 }
 
 //-----------------------------// XML parser //-----------------------------//
@@ -1395,14 +1404,9 @@ lfError lf_db_load (lfDatabase *db)
     return db->Load ();
 }
 
-lfError lf_db_load_directory (lfDatabase *db, const char *dirname)
+lfError lf_db_load_file (lfDatabase *db, const char *pathname)
 {
-    return db->LoadDirectory (dirname);
-}
-
-lfError lf_db_load_file (lfDatabase *db, const char *filename)
-{
-    return db->Load (filename);
+    return db->Load (pathname);
 }
 
 lfError lf_db_load_data (lfDatabase *db, const char *errcontext,
