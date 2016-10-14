@@ -17,17 +17,17 @@
 #endif
 
 
-#cmakedefine CMAKE_COMPILER_IS_GNUCC 
-#ifdef CMAKE_COMPILER_IS_GNUCC 
-#define CONF_COMPILER_GCC 1 
+#cmakedefine CMAKE_COMPILER_IS_GNUCC
+#ifdef CMAKE_COMPILER_IS_GNUCC
+#define CONF_COMPILER_GCC 1
 #endif
 
 #if defined(PLATFORM_LINUX)
   #define CONF_DATADIR "${CMAKE_INSTALL_FULL_DATAROOTDIR}/lensfun"
   #define SYSTEM_DB_UPDATE_PATH "/${CMAKE_INSTALL_LOCALSTATEDIR}/lib/lensfun-updates"
 #elif defined(PLATFORM_WINDOWS)
-  #define CONF_DATADIR "C:\\to\\be\\defined\\lensfun"
-  #define SYSTEM_DB_UPDATE_PATH "C:\\to\\be\\defined\\lensfun-updates"
+  #define CONF_DATADIR "${CMAKE_INSTALL_DATAROOTDIR}/lensfun"
+  #define SYSTEM_DB_UPDATE_PATH "${CMAKE_INSTALL_DATAROOTDIR}/lensfun-updates"
 #elif defined(PLATFORM_OSX)
   #define CONF_DATADIR "/Library/to/be/defined/lensfun"
   #define SYSTEM_DB_UPDATE_PATH "/Library/to/be/defined/lensfun-updates"

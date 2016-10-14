@@ -74,7 +74,6 @@ lfError lfDatabase::Load ()
 {
   lfError err = LF_NO_ERROR;
 
-#ifdef PLATFORM_LINUX
     bool database_found = false;
 
     const int timestamp_system =
@@ -95,10 +94,6 @@ lfError lfDatabase::Load ()
             err = Load (SystemUpdatesLocation);
 
     Load (UserLocation);
-#else
-  // TODO: automatic database lookup is not yet implemented 
-  // on non-Linux platforms
-#endif
 
     return err == LF_NO_ERROR ? LF_NO_ERROR : LF_NO_DATABASE;
 }
@@ -952,7 +947,7 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                             lenses [i]->AspectRatio);
 
             if (lenses [i]->CalibDistortion || lenses [i]->CalibTCA ||
-                lenses [i]->CalibVignetting || lenses [i]->CalibCrop || 
+                lenses [i]->CalibVignetting || lenses [i]->CalibCrop ||
                 lenses [i]->CalibFov)
                 g_string_append (output, "\t\t<calibration>\n");
 

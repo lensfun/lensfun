@@ -20,7 +20,9 @@ SET(LENSFUN_DB_VERSION 1)
 
 # check if some include are available
 INCLUDE(CheckIncludeFiles)
-CHECK_INCLUDE_FILES(regex.h HAVE_REGEX_H)
+IF(NOT WIN32)
+  CHECK_INCLUDE_FILES(regex.h HAVE_REGEX_H)
+ENDIF()
 CHECK_INCLUDE_FILES(endian.h HAVE_ENDIAN_H)
 
 # set include directories
@@ -54,16 +56,19 @@ IF(NOT CMAKE_BUILD_TYPE)
 ENDIF()
 
 # set local install prefix on windows
-IF(WIN32 AND CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)  
-  SET(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install" CACHE PATH "Install prefix for Lensfun" FORCE)    
+IF(WIN32 AND CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  SET(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install" CACHE PATH "Install prefix for Lensfun" FORCE)
 ENDIF()
+
+# overwrite some folders before GNUInstallDirs is loaded
+IF (WIN32)
+    SET(CMAKE_INSTALL_DATAROOTDIR "$ENV{ALLUSERSPROFILE}" CACHE PATH "read-only architecture-independent data root (share)")
+ENDIF()
+
 # get standard GNU install directories for the current platform
 INCLUDE(GNUInstallDirs)
 IF(NOT DEFINED CMAKE_INSTALL_DATAROOTDIR)
   SET(CMAKE_INSTALL_DATAROOTDIR "share" CACHE PATH "read-only architecture-independent data root (share)")
-ENDIF()
-IF (WIN32)
-    SET(LENSFUN_WINDOWS_DATADIR ${CMAKE_INSTALL_DATAROOTDIR}/lensfun CACHE PATH "Directory for library data files. This should be relative to the location where the lensfun.dll will be installed.")
 ENDIF()
 
 IF(BUILD_FOR_SSE)
@@ -80,7 +85,6 @@ IF(BUILD_FOR_SSE2)
 ENDIF()
 
 IF(WIN32)
-  INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/libs/getopt)
   # base path for searching for glib on windows
   IF(NOT GLIB2_BASE_DIR)
     SET(GLIB2_BASE_DIR "${SOURCE_BASE_DIR}/glib-2.28.1" CACHE STRING "Base path of glib2 dir." FORCE)
@@ -180,7 +184,7 @@ IF(BUILD_DOC)
 ENDIF()
 
 IF(WIN32 AND NOT BUILD_STATIC)
-  FIND_FILE(GLIB2_DLL 
+  FIND_FILE(GLIB2_DLL
             NAMES glib-2.dll glib-2-vs9.dll
             PATHS "${GLIB2_BASE_DIR}/bin"
             NO_SYSTEM_ENVIRONMENT_PATH)
