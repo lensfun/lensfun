@@ -1411,4 +1411,35 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Panasonic</maker>
+        <model>Lumix G 25mm f/1.7</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Olympus OMD E-M5 -->
+            <distortion model="ptlens" focal="25" a="0.006901" b="-0.043711" c="0.032678"/>
+            <tca model="poly3" focal="25" br="-0.0000310" vr="1.0000464" bb="0.0000044" vb="0.9999951"/>
+            <vignetting model="pa" focal="25" aperture="1.7" distance="0.18" k1="-1.0184" k2="0.3779" k3="0.0117"/>
+            <vignetting model="pa" focal="25" aperture="1.7" distance="1" k1="-1.5522" k2="1.8773" k3="-0.9593"/>
+            <vignetting model="pa" focal="25" aperture="1.7" distance="1000" k1="-1.4086" k2="1.7196" k3="-0.9633"/>
+            <vignetting model="pa" focal="25" aperture="2" distance="0.18" k1="-0.5043" k2="-0.5273" k3="0.4690"/>
+            <vignetting model="pa" focal="25" aperture="2" distance="1" k1="-0.6904" k2="0.1723" k3="-0.0371"/>
+            <vignetting model="pa" focal="25" aperture="2" distance="1000" k1="-0.7355" k2="0.3826" k3="-0.2315"/>
+            <vignetting model="pa" focal="25" aperture="2.8" distance="0.18" k1="-0.1273" k2="-0.3468" k3="0.1282"/>
+            <vignetting model="pa" focal="25" aperture="2.8" distance="1" k1="-0.2055" k2="0.2286" k3="-0.3541"/>
+            <vignetting model="pa" focal="25" aperture="2.8" distance="1000" k1="-0.2452" k2="0.4418" k3="-0.5389"/>
+            <vignetting model="pa" focal="25" aperture="4" distance="0.18" k1="-0.3545" k2="0.1948" k3="-0.0930"/>
+            <vignetting model="pa" focal="25" aperture="4" distance="1" k1="-0.1103" k2="-0.1576" k3="0.1029"/>
+            <vignetting model="pa" focal="25" aperture="4" distance="1000" k1="-0.2806" k2="0.2643" k3="-0.1542"/>
+            <vignetting model="pa" focal="25" aperture="5.6" distance="0.18" k1="-0.0582" k2="-0.4668" k3="0.3066"/>
+            <vignetting model="pa" focal="25" aperture="5.6" distance="1" k1="-0.5022" k2="0.5815" k3="-0.2616"/>
+            <vignetting model="pa" focal="25" aperture="5.6" distance="1000" k1="-0.2586" k2="0.1172" k3="0.0021"/>
+            <vignetting model="pa" focal="25" aperture="22" distance="0.18" k1="-0.3234" k2="0.0490" k3="0.0315"/>
+            <vignetting model="pa" focal="25" aperture="22" distance="1" k1="-0.4066" k2="0.4279" k3="-0.1961"/>
+            <vignetting model="pa" focal="25" aperture="22" distance="1000" k1="-0.2680" k2="0.1473" k3="-0.0109"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
