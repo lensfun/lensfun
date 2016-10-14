@@ -96,7 +96,8 @@ lfError lfDatabase::Load ()
 
     Load (UserLocation);
 #else
-  #error "Automatic database lookup is only available on Linux platform!"
+  // TODO: automatic database lookup is not yet implemented 
+  // on non-Linux platforms
 #endif
 
     return err == LF_NO_ERROR ? LF_NO_ERROR : LF_NO_DATABASE;
