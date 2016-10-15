@@ -102,18 +102,18 @@ void test_mod_projection_borders(lfFixture* lfFix, gconstpointer data)
                 LF_MODIFY_GEOMETRY, false);
 
             if (lfFix->mod->ApplyGeometryDistortion(0,0,1,1,res)) {
-                g_assert_false(isnan(res[0]));
-                g_assert_false(isnan(res[1]));
+                g_assert_false(std::isnan(res[0]));
+                g_assert_false(std::isnan(res[1]));
             }
 
             if (lfFix->mod->ApplyGeometryDistortion(in[0],in[1],1,1,res)) {
-                g_assert_false(isnan(res[0]));
-                g_assert_false(isnan(res[1]));
+                g_assert_false(std::isnan(res[0]));
+                g_assert_false(std::isnan(res[1]));
             }
 
             if (lfFix->mod->ApplyGeometryDistortion(in2[0],in2[1],1,1,res)) {
-                g_assert_false(isnan(res[0]));
-                g_assert_false(isnan(res[1]));
+                g_assert_false(std::isnan(res[0]));
+                g_assert_false(std::isnan(res[1]));
             }
 
             delete lfFix->mod;
