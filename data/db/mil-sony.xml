@@ -788,6 +788,34 @@
             <distortion focal="49" model="ptlens" a="0.00652285" b="0.000355028" c="0.00747157"/>
             <distortion focal="58" model="ptlens" a="0.0106412" b="-0.0116139" c="0.0218262"/>
             <distortion focal="70" model="ptlens" a="0.00952653" b="-0.0142895" c="0.0363005"/>
+            <!-- Taken with Sony A7 II -->
+            <tca model="poly3" focal="28" br="-0.0001882" vr="1.0005795" bb="0.0001886" vb="0.9997320"/>
+            <tca model="poly3" focal="30" br="-0.0001834" vr="1.0006067" bb="0.0001663" vb="0.9997188"/>
+            <tca model="poly3" focal="35" br="-0.0001167" vr="1.0004457" bb="0.0001192" vb="0.9997740"/>
+            <tca model="poly3" focal="42" br="-0.0001095" vr="1.0003811" bb="0.0000864" vb="0.9998108"/>
+            <tca model="poly3" focal="50" br="-0.0000632" vr="1.0003667" bb="0.0000586" vb="0.9998070"/>
+            <tca model="poly3" focal="60" br="-0.0000295" vr="1.0003004" bb="0.0000423" vb="0.9997824"/>
+            <tca model="poly3" focal="70" br="-0.0000446" vr="1.0002475" bb="0.0000515" vb="0.9998071"/>
+            <vignetting model="pa" focal="28" aperture="3.5" distance="10" k1="-0.9958" k2="0.6715" k3="-0.2346"/>
+            <vignetting model="pa" focal="28" aperture="3.5" distance="1000" k1="-0.9958" k2="0.6715" k3="-0.2346"/>
+            <vignetting model="pa" focal="28" aperture="4.5" distance="10" k1="-0.8656" k2="0.4586" k3="-0.1295"/>
+            <vignetting model="pa" focal="28" aperture="4.5" distance="1000" k1="-0.8656" k2="0.4586" k3="-0.1295"/>
+            <vignetting model="pa" focal="33" aperture="4" distance="10" k1="-0.6549" k2="0.0647" k3="0.1034"/>
+            <vignetting model="pa" focal="33" aperture="4" distance="1000" k1="-0.6549" k2="0.0647" k3="0.1034"/>
+            <vignetting model="pa" focal="34" aperture="4" distance="10" k1="-0.6043" k2="-0.0372" k3="0.1663"/>
+            <vignetting model="pa" focal="34" aperture="4" distance="1000" k1="-0.6043" k2="-0.0372" k3="0.1663"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="10" k1="-0.6119" k2="-0.0377" k3="0.1734"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="1000" k1="-0.6119" k2="-0.0377" k3="0.1734"/>
+            <vignetting model="pa" focal="43" aperture="4.5" distance="10" k1="-0.6179" k2="0.1041" k3="0.0656"/>
+            <vignetting model="pa" focal="43" aperture="4.5" distance="1000" k1="-0.6179" k2="0.1041" k3="0.0656"/>
+            <vignetting model="pa" focal="50" aperture="4.5" distance="10" k1="-0.5598" k2="0.0335" k3="0.1017"/>
+            <vignetting model="pa" focal="50" aperture="4.5" distance="1000" k1="-0.5598" k2="0.0335" k3="0.1017"/>
+            <vignetting model="pa" focal="59" aperture="5" distance="10" k1="-0.5872" k2="0.1618" k3="0.0081"/>
+            <vignetting model="pa" focal="59" aperture="5" distance="1000" k1="-0.5872" k2="0.1618" k3="0.0081"/>
+            <vignetting model="pa" focal="61" aperture="5.6" distance="10" k1="-0.5783" k2="0.1194" k3="0.0436"/>
+            <vignetting model="pa" focal="61" aperture="5.6" distance="1000" k1="-0.5783" k2="0.1194" k3="0.0436"/>
+            <vignetting model="pa" focal="70" aperture="5.6" distance="10" k1="-0.6097" k2="0.2252" k3="-0.0272"/>
+            <vignetting model="pa" focal="70" aperture="5.6" distance="1000" k1="-0.6097" k2="0.2252" k3="-0.0272"/>
             <!-- Taken with Sony A7R -->
             <vignetting model="pa" focal="28" aperture="5.6" distance="10" k1="-0.6402" k2="0.1132" k3="0.0503"/>
             <vignetting model="pa" focal="28" aperture="5.6" distance="1000" k1="-0.6402" k2="0.1132" k3="0.0503"/>
