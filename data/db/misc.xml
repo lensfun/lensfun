@@ -36,6 +36,13 @@
     </camera>
 
     <camera>
+        <maker>Microsoft</maker>
+        <model>Lumia 950</model>
+        <mount>lumia950</mount>
+        <cropfactor>6.02</cropfactor>
+    </camera>
+
+    <camera>
         <maker>SEIKO EPSON CORP.</maker>
         <maker lang="en">Epson</maker>
         <model>R-D1</model>
@@ -83,6 +90,19 @@
         <calibration>
             <distortion model="ptlens" focal="6.6" a="-0.01804" b="0.06109" c="-0.05264"/>
             <tca model="poly3" focal="6.6" br="-0.0000439" vr="1.0001865" bb="0.0000085" vb="0.9999709"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Lumia 950</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>lumia950</mount>
+        <cropfactor>6.02</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="4.3" a="-0.01625" b="0.04667" c="-0.03155"/>
         </calibration>
     </lens>
 
