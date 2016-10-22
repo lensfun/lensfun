@@ -29,8 +29,8 @@
   #define CONF_DATADIR "${CMAKE_INSTALL_DATAROOTDIR}/lensfun"
   #define SYSTEM_DB_UPDATE_PATH "${CMAKE_INSTALL_DATAROOTDIR}/lensfun-updates"
 #elif defined(PLATFORM_OSX)
-  #define CONF_DATADIR "/Library/to/be/defined/lensfun"
-  #define SYSTEM_DB_UPDATE_PATH "/Library/to/be/defined/lensfun-updates"
+  #define CONF_DATADIR "${CMAKE_INSTALL_FULL_DATAROOTDIR}/lensfun"
+  #define SYSTEM_DB_UPDATE_PATH "/${CMAKE_INSTALL_LOCALSTATEDIR}/lib/lensfun-updates"
 #endif
 
 #define DATABASE_SUBDIR "version_${LENSFUN_DB_VERSION}"
