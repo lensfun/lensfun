@@ -1365,15 +1365,15 @@ enum
 struct LF_EXPORT lfDatabase
 {
     /** @brief Home lens database directory (something like "~/.local/share/lensfun") */
-    char *UserLocation;
+    static const char *const UserLocation;
     /** @brief Home lens database directory for automatic updates (something
      * like "~/.local/share/lensfun/updates") */
-    char *UserUpdatesLocation;
+    static const char *const UserUpdatesLocation;
     /** @brief System lens database directory (something like "/usr/share/lensfun") */
-    char *SystemLocation;
+    static const char *const SystemLocation;
     /** @brief System lens database directory for automatic updates (something
     * like "/var/lib/lensfun-updates") */
-    char *SystemUpdatesLocation;
+    static const char *const SystemUpdatesLocation;
 
 
 #ifdef __cplusplus

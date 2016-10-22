@@ -20,17 +20,17 @@
 #  include <unistd.h>
 #endif
 
+const char* const lfDatabase::UserLocation = g_build_filename (g_get_user_data_dir (),
+                                CONF_PACKAGE, NULL);
+const char* const lfDatabase::UserUpdatesLocation = g_build_filename (lfDatabase::UserLocation, "updates",
+                                   DATABASE_SUBDIR, NULL);
+const char* const lfDatabase::SystemLocation = g_build_filename (CONF_DATADIR, DATABASE_SUBDIR,
+                                   NULL);
+const char* const lfDatabase::SystemUpdatesLocation = g_build_filename (SYSTEM_DB_UPDATE_PATH,
+                                          DATABASE_SUBDIR, NULL);
+
 lfDatabase::lfDatabase ()
 {
-    UserLocation = g_build_filename (g_get_user_data_dir (),
-                                    CONF_PACKAGE, NULL);
-    UserUpdatesLocation = g_build_filename (UserLocation, "updates",
-                                       DATABASE_SUBDIR, NULL);
-    SystemLocation = g_build_filename (CONF_DATADIR, DATABASE_SUBDIR,
-                                       NULL);
-    SystemUpdatesLocation = g_build_filename (SYSTEM_DB_UPDATE_PATH,
-                                              DATABASE_SUBDIR, NULL);
-
     Mounts = g_ptr_array_new ();
     g_ptr_array_add ((GPtrArray *)Mounts, NULL);
     Cameras = g_ptr_array_new ();
@@ -53,11 +53,6 @@ lfDatabase::~lfDatabase ()
     for (i = 0; i < ((GPtrArray *)Lenses)->len - 1; i++)
          delete static_cast<lfLens *> (g_ptr_array_index ((GPtrArray *)Lenses, i));
     g_ptr_array_free ((GPtrArray *)Lenses, TRUE);
-
-    g_free (UserLocation);
-    g_free (UserUpdatesLocation);
-    g_free (SystemLocation);
-    g_free (SystemUpdatesLocation);
 }
 
 lfDatabase *lfDatabase::Create ()
