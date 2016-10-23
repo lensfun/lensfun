@@ -24,7 +24,7 @@ const char* const lfDatabase::UserLocation = g_build_filename (g_get_user_data_d
                                 CONF_PACKAGE, NULL);
 const char* const lfDatabase::UserUpdatesLocation = g_build_filename (lfDatabase::UserLocation, "updates",
                                    DATABASE_SUBDIR, NULL);
-const char* const lfDatabase::SystemLocation = g_build_filename (CONF_DATADIR, DATABASE_SUBDIR,
+const char* const lfDatabase::SystemLocation = g_build_filename (SYSTEM_DB_PATH, DATABASE_SUBDIR,
                                    NULL);
 const char* const lfDatabase::SystemUpdatesLocation = g_build_filename (SYSTEM_DB_UPDATE_PATH,
                                           DATABASE_SUBDIR, NULL);
