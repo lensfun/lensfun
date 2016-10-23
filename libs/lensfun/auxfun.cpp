@@ -461,28 +461,6 @@ float _lf_interpolate (float y1, float y2, float y3, float y4, float t)
         (t3 - t2) * tg3;
 }
 
-long int _lf_read_database_timestamp (const gchar *dirname)
-{
-    long int timestamp = -1;
-    GDir *dir = g_dir_open (dirname, 0, NULL);
-    if (dir)
-    {
-        if (g_dir_read_name (dir))
-        {
-            gchar *filename = g_build_filename (dirname, "timestamp.txt", NULL);
-            std::ifstream timestamp_file (filename);
-            g_free (filename);
-            if (!timestamp_file.fail ())
-                timestamp_file >> timestamp;
-            else
-                timestamp = 0;
-        }
-        g_dir_close (dir);
-    }
-
-    return timestamp;
-}
-
 //------------------------// Fuzzy string matching //------------------------//
 
 lfFuzzyStrCmp::lfFuzzyStrCmp (const char *pattern, bool allwords)

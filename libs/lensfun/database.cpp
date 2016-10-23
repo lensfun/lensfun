@@ -65,6 +65,28 @@ void lfDatabase::Destroy ()
     delete this;
 }
 
+long int lfDatabase::ReadTimestamp (const char *dirname)
+{
+    long int timestamp = -1;
+    GDir *dir = g_dir_open (dirname, 0, NULL);
+    if (dir)
+    {
+        if (g_dir_read_name (dir))
+        {
+            gchar *filename = g_build_filename (dirname, "timestamp.txt", NULL);
+            std::ifstream timestamp_file (filename);
+            g_free (filename);
+            if (!timestamp_file.fail ())
+                timestamp_file >> timestamp;
+            else
+                timestamp = 0;
+        }
+        g_dir_close (dir);
+    }
+
+    return timestamp;
+}
+
 lfError lfDatabase::Load ()
 {
   lfError err = LF_NO_ERROR;
