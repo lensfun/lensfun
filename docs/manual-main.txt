@@ -560,56 +560,89 @@ Typically, they are the result of the very same parameter optimisation.
 
 @page dbsearch How database files are found and loaded
 
-In a typical application, all XML files are loaded automatically at startup.
-If the same object is defined in multiple files, later definitions override
-earlier definitions, e.g. user can override system-wide definitions by placing
-appropriately formatted XML files in its home directory.
+The database files could be loaded in two ways:
 
-A typical application will initialize the lens database by calling the method
-lfDatabase::Load() with no parameters. This method searches for all available
-XML files and loads them, ignoring files with errors.
+  1. Call lfDatabase::Load(const char *) to load single files. If the given path
+  points to a folder instead of a file, all included XML files will be parsed.
+  If the same object is defined in multiple files, or lfDatabase::Load(const char *)
+  is called several times for different paths, later definitions override
+  earlier definitions.
 
-The main place where Lensfun looks for database files usually is
-<b>/usr/share/lensfun/version_<i>x</i></b>, where <i>x</i> is the database
-format version (@ref db_versions).  However, this is configurable at
-compilation time, and for locally compiled Lensfun, it is mostly
-<b>/usr/local/share/lensfun/version_<i>x</i></b>.  A special directory is
-<b>/var/lib/lensfun-updates/version_<i>x</i></b>: If it exists and contains a
-newer database, it is loaded instead of the main place.  On Windows, this is
-something like <b>C:\\Documents and
-Settings\\\%User\%\\something\\version_<i>x</i></b> but I'm not sure exactly
-:-).
+  2. Call lfDatabase::Load() with no parameters. This will try to load the database
+  from several standardized locations. It also detects updated database versions
+  which where downloaded with the @ref lensfun-update-data
+  "lensfun-update-data" tool. A user can override system-wide lens profiles by
+  placing appropriately formatted XML files in its home directory. This method
+  should be preferred if Lensfun is installed system-wide (typically only for
+  Linux distributions with package managers).
 
-“Newer database” means that the file timestamp.txt, which is amongst the XML
-files, contains a larger value.  This value is the database timestamp in UNIX
-time.
+@section dblocations Pre-defined database locations
 
-After having read the global database, the user's home directory is
-searched. Usually, this is
-<b>~/.local/share/lensfun</b>.  The exact path can be found in the variable
-lfDatabase::HomeDataDir.  The subdirectory <b>updates/version_<i>x</i></b> may
-contain a user-specific DB update.  This represents an alternative to
-/var/lib/lensfun-updates/version_<i>x</i> for which no root priviledges are
-needed.
+Lensfun has four pre-defined database locations which are available from the following
+static class members:
 
-<b>~/.local/share/lensfun/version_<i>x</i></b> is also scanned with higher
-priority than the one without the version_<i>x</i>, so that the user can set
-entries specific for a database version.  This is useful only if you need to
-maintain two or more different Lensfun versions on your system.
+  1. lfDatabase::SystemUpdatesLocation
+  2. lfDatabase::SystemLocation
+  3. lfDatabase::UserUpdatesLocation
+  4. lfDatabase::UserLocation
 
-So sum it up for Linux and other Unix-like platforms, the load order is:
-<ol>
-  <li>the directory Lensfun's database was installed into (usually
-  /usr/share/{local/}lensfun/version_<i>x</i>), @em or
-  /var/lib/lensfun-updates/version_<i>x</i>, @em or
-  ~/.local/share/lensfun/updates/version_<i>x</i>, whatever is newest</li>
-  <li>~/.local/share/lensfun</li>
-  <li>~/.local/share/lensfun/version_<i>x</i></li>
-</ol>
+When lfDatabase::Load() is called without arguments, it first searches in
+lfDatabase::SystemLocation, lfDatabase::SystemUpdatesLocation and
+lfDatabase::UserUpdatesLocation. Only the folder with the newest database will
+be loaded, finally. The age of the database is determined based on the
+`timestamp.txt` file found in the database folder. It contains the UNIX time stamp
+of the last Git commit, hence a higher number identifies a more recent database.
 
-Another way to load database file is to load them one by one. For this you call
-lfDatabase::Load(const char *) for every XML file that must be loaded.
+Afterwards, lfDatabase::UserLocation is loaded without considering a `timestamp.txt`.
+This means that profiles in lfDatabase::UserLocation will always have the highest
+priority and will overwrite previously loaded profiles with the same name.
 
+@subsection db_unix Linux, UNIX and Mac OS X
+
+The system-wide database folders can be configured at compile time and are preset by
+the `GNUInstallDirs` CMake Module.
+
+lfDatabase::SystemLocation defaults to
+`${CMAKE_INSTALL_DATAROOTDIR}/lensfun/version_x`, where
+<i>x</i> denotes the database format version (@ref db_versions). <br>On Linux this
+is typically `/usr/share/lensfun/version_1` or similar.
+
+lfDatabase::SystemUpdatesLocation defaults to
+`${CMAKE_INSTALL_LOCALSTATEDIR}/lib/lensfun-updates/version_x`, where
+<i>x</i> denotes the database format version (@ref db_versions). <br>On Linux this
+is typically `/var/lib/lensfun-updated/version_1` or similar.
+
+The user folders are set at run time based on the current user name and home
+directory.
+
+lfDatabase::UserLocation is at `~/.local/share/lensfun/updates/version_x`, where
+<i>x</i> denotes the database format version (@ref db_versions).
+
+lfDatabase::UserLocation is at `~/.local/share/lensfun`.
+
+@subsection db_win Windows
+
+As `GNUInstallDirs` CMake Module does not create any meaningful output on Windows
+systems, `${CMAKE_INSTALL_DATAROOTDIR}` will be preset by the `%%ALLUSERSPROFILE%`
+environment variable.
+
+lfDatabase::SystemLocation defaults to
+`${CMAKE_INSTALL_DATAROOTDIR}/Lensfun/version_x`, where
+<i>x</i> denotes the database format version (@ref db_versions). <br>This
+is typically `C:/ProgramData/lensfun/version_1` or similar.
+
+lfDatabase::SystemUpdatesLocation defaults to
+`${CMAKE_INSTALL_DATAROOTDIR}/Lensfun-updates/version_x`, where
+<i>x</i> denotes the database format version (@ref db_versions). <br>This
+is typically `C:/ProgramData/lensfun-updates/version_1` or similar.
+
+The user folders are set at run time based on the current user name and home
+directory.
+
+lfDatabase::UserLocation is at `%%USERSPROFILE%/AppData/Local/lensfun/updates/version_x`,
+where <i>x</i> denotes the database format version (@ref db_versions).
+
+lfDatabase::UserLocation is at `%%USERSPROFILE%/AppData/Local/lensfun`.
 
 @page corrections How the corrections work
 
