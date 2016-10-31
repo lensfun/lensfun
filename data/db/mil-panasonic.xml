@@ -1394,13 +1394,15 @@
 
     <lens>
         <maker>Panasonic</maker>
-        <model>Lumix G Vario 14-140mm f/3.5-5.6</model>
+        <model>LUMIX G VARIO 14-140/F3.5-5.6 </model>
+        <model lang="en">Lumix G Vario 14-140mm f/3.5-5.6</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
+            <!-- Taken with Panasonic DMC-GH4 -->
+            <distortion model="ptlens" focal="14" a="0.02559" b="-0.09222" c="0.02687"/>
             <!-- Taken with Panasonic DMC-G70 -->
-            <distortion model="ptlens" focal="14" a="0.03621" b="-0.12936" c="0.0619"/>
             <distortion model="ptlens" focal="19" a="0.02193" b="-0.07774" c="0.0502"/>
             <distortion model="ptlens" focal="26" a="0.00635" b="-0.02395" c="0.02026"/>
             <distortion model="ptlens" focal="37" a="0.00188" b="-0.00037" c="-0.00532"/>
@@ -1408,6 +1410,18 @@
             <distortion model="ptlens" focal="69" a="-0.00526" b="0.02418" c="-0.02834"/>
             <distortion model="ptlens" focal="102" a="-0.00722" b="0.02631" c="-0.02095"/>
             <distortion model="ptlens" focal="140" a="0.00108" b="-0.00403" c="0.01137"/>
+            <!-- Taken with Panasonic DMC-GH4 -->
+            <tca model="poly3" focal="14" vr="1.0000856" vb="1.0004324"/>
+            <tca model="poly3" focal="24" vr="1.0000727" vb="1.0004073"/>
+            <tca model="poly3" focal="26" vr="1.0001132" vb="1.0003724"/>
+            <tca model="poly3" focal="34" vr="1.0000340" vb="1.0002853"/>
+            <tca model="poly3" focal="34" vr="1.0000412" vb="1.0003546"/>
+            <tca model="poly3" focal="46" vr="1.0000161" vb="1.0001541"/>
+            <tca model="poly3" focal="69" vr="1.0000019" vb="1.0000310"/>
+            <tca model="poly3" focal="73" vr="0.9999638" vb="1.0000271"/>
+            <tca model="poly3" focal="97" vr="0.9999140" vb="0.9999884"/>
+            <tca model="poly3" focal="102" vr="0.9998732" vb="0.9999608"/>
+            <tca model="poly3" focal="140" vr="0.9998222" vb="0.9998812"/>
         </calibration>
     </lens>
 
