@@ -76,6 +76,32 @@
     </lens>
 
     <lens>
+        <!-- Identifies itself at Sony cameras as “E 19mm F2.8”. -->
+        <maker>Sigma</maker>
+        <model>Sigma 19mm f/2.8 DN</model>
+        <mount>Sony E</mount>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony A6000 -->
+            <distortion model="ptlens" focal="19" a="0.015" b="-0.046" c="0.024"/>
+            <tca model="poly3" focal="19" br="-0.0000429" vr="1.0002002" bb="0.0000600" vb="0.9999543"/>
+            <vignetting model="pa" focal="19" aperture="2.8" distance="10" k1="-0.9506" k2="0.8975" k3="-0.3905"/>
+            <vignetting model="pa" focal="19" aperture="2.8" distance="1000" k1="-0.9506" k2="0.8975" k3="-0.3905"/>
+            <vignetting model="pa" focal="19" aperture="4" distance="10" k1="-0.4777" k2="-0.1800" k3="0.2351"/>
+            <vignetting model="pa" focal="19" aperture="4" distance="1000" k1="-0.4777" k2="-0.1800" k3="0.2351"/>
+            <vignetting model="pa" focal="19" aperture="8" distance="10" k1="-0.4955" k2="0.3092" k3="-0.1559"/>
+            <vignetting model="pa" focal="19" aperture="8" distance="1000" k1="-0.4955" k2="0.3092" k3="-0.1559"/>
+            <vignetting model="pa" focal="19" aperture="13" distance="10" k1="-0.4758" k2="0.2070" k3="-0.0488"/>
+            <vignetting model="pa" focal="19" aperture="13" distance="1000" k1="-0.4758" k2="0.2070" k3="-0.0488"/>
+            <vignetting model="pa" focal="19" aperture="18" distance="10" k1="-0.4840" k2="0.2244" k3="-0.0602"/>
+            <vignetting model="pa" focal="19" aperture="18" distance="1000" k1="-0.4840" k2="0.2244" k3="-0.0602"/>
+            <vignetting model="pa" focal="19" aperture="22" distance="10" k1="-0.4849" k2="0.2236" k3="-0.0597"/>
+            <vignetting model="pa" focal="19" aperture="22" distance="1000" k1="-0.4849" k2="0.2236" k3="-0.0597"/>
+        </calibration>
+    </lens>
+ 
+    <lens>
         <maker>Sigma</maker>
         <model>Sigma 19mm f/2.8 DN</model>
         <mount>Micro 4/3 System</mount>
