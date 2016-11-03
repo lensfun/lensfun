@@ -9,7 +9,6 @@
 #include <locale.h>
 #include <ctype.h>
 #include <math.h>
-#include <fstream>
 
 static const char *_lf_get_lang ()
 {

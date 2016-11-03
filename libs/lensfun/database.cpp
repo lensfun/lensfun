@@ -12,6 +12,7 @@
 #include <locale.h>
 #include <glib/gstdio.h>
 #include <math.h>
+#include <fstream>
 #include "windows/mathconstants.h"
 
 #ifdef PLATFORM_WINDOWS
@@ -94,11 +95,11 @@ lfError lfDatabase::Load ()
     bool database_found = false;
 
     const int timestamp_system =
-        _lf_read_database_timestamp (SystemLocation);
+        ReadTimestamp (SystemLocation);
     const int timestamp_system_updates =
-        _lf_read_database_timestamp (SystemUpdatesLocation);
+        ReadTimestamp (SystemUpdatesLocation);
     const int timestamp_user_updates =
-        _lf_read_database_timestamp (UserUpdatesLocation);
+        ReadTimestamp (UserUpdatesDir);
     if (timestamp_system > timestamp_system_updates)
         if (timestamp_user_updates > timestamp_system)
             err = Load (UserUpdatesLocation);
