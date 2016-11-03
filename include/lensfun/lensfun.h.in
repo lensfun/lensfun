@@ -1364,6 +1364,13 @@ enum
  */
 struct LF_EXPORT lfDatabase
 {
+    /** @brief Home lens database directory (deprecated). Replaced by lfDatabase::UserLocation. */
+    DEPRECATED char *HomeDataDir;
+    /** @brief Home lens database directory for automatic updates (deprecated). Replaced by lfDatabase::UserUpdatesLocation.*/
+    DEPRECATED char *UserUpdatesDir;
+
+#ifdef __cplusplus
+
     /** @brief Home lens database directory (something like "~/.local/share/lensfun") */
     static const char *const UserLocation;
     /** @brief Home lens database directory for automatic updates (something
@@ -1375,13 +1382,6 @@ struct LF_EXPORT lfDatabase
     * like "/var/lib/lensfun-updates") */
     static const char *const SystemUpdatesLocation;
 
-    /** @brief Home lens database directory (deprecated). Replaced by lfDatabase::UserLocation. */
-    DEPRECATED char *HomeDataDir;
-    /** @brief Home lens database directory for automatic updates (deprecated). Replaced by lfDatabase::UserUpdatesLocation.*/
-    DEPRECATED char *UserUpdatesDir;
-
-
-#ifdef __cplusplus
     lfDatabase ();
     ~lfDatabase ();
 
@@ -1699,6 +1699,15 @@ private:
 
 C_TYPEDEF (struct, lfDatabase)
 
+/** @sa lfDatabase::SystemLocation() */
+extern const char* const lf_db_system_location;
+/** @sa lfDatabase::SystemUpdatesLocation() */
+extern const char* const lf_db_system_updates_location;
+/** @sa lfDatabase::UserLocation() */
+extern const char* const lf_db_user_location;
+/** @sa lfDatabase::UserUpdatesLocation() */
+extern const char* const lf_db_user_updates_location;
+
 /**
  * @brief Create a new empty database object.
  *
@@ -1721,6 +1730,9 @@ LF_EXPORT lfDatabase *lf_db_new (void);
  *     lfDatabase::~lfDatabase
  */
 LF_EXPORT void lf_db_destroy (lfDatabase *db);
+
+/** @sa lfDatabase::ReadTimestamp() */
+LF_EXPORT long int lf_db_read_timestamp (lfDatabase *db, const char *dirname);
 
 /** @sa lfDatabase::Load() */
 LF_EXPORT lfError lf_db_load (lfDatabase *db);

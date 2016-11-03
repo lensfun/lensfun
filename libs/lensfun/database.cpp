@@ -1414,6 +1414,11 @@ void lfDatabase::AddLens (lfLens *lens)
 
 //---------------------------// The C interface //---------------------------//
 
+const char* const lf_db_system_location = lfDatabase::SystemLocation;
+const char* const lf_db_system_updates_location = lfDatabase::SystemUpdatesLocation;
+const char* const lf_db_user_location = lfDatabase::UserLocation;
+const char* const lf_db_user_updates_location = lfDatabase::UserUpdatesLocation;
+
 lfDatabase *lf_db_new ()
 {
     return new lfDatabase ();
@@ -1422,6 +1427,11 @@ lfDatabase *lf_db_new ()
 void lf_db_destroy (lfDatabase *db)
 {
     db->Destroy ();
+}
+
+long int lf_db_read_timestamp (const char *dirname)
+{
+    return lfDatabase::ReadTimestamp(dirname);
 }
 
 lfError lf_db_load (lfDatabase *db)
