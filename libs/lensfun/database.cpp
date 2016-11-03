@@ -32,6 +32,12 @@ const char* const lfDatabase::SystemUpdatesLocation = g_build_filename (SYSTEM_D
 
 lfDatabase::lfDatabase ()
 {
+
+    // Take care to replace all occurences with the respective static variables
+    // when the deprecated HomeDataDir and UserUpdatesDir variables are removed.
+    HomeDataDir = strdup(lfDatabase::UserLocation);
+    UserUpdatesDir = strdup(lfDatabase::UserUpdatesLocation);
+
     Mounts = g_ptr_array_new ();
     g_ptr_array_add ((GPtrArray *)Mounts, NULL);
     Cameras = g_ptr_array_new ();
@@ -88,6 +94,11 @@ long int lfDatabase::ReadTimestamp (const char *dirname)
     return timestamp;
 }
 
+bool lfDatabase::LoadDirectory (const gchar *dirname)
+{
+    return Load(dirname) == LF_NO_ERROR;
+}
+
 lfError lfDatabase::Load ()
 {
   lfError err = LF_NO_ERROR;
@@ -102,16 +113,16 @@ lfError lfDatabase::Load ()
         ReadTimestamp (UserUpdatesDir);
     if (timestamp_system > timestamp_system_updates)
         if (timestamp_user_updates > timestamp_system)
-            err = Load (UserUpdatesLocation);
+            err = Load (UserUpdatesDir);
         else
             err = Load (SystemLocation);
     else
         if (timestamp_user_updates > timestamp_system_updates)
-            err = Load (UserUpdatesLocation);
+            err = Load (UserUpdatesDir);
         else
             err = Load (SystemUpdatesLocation);
 
-    Load (UserLocation);
+    Load (HomeDataDir);
 
     return err == LF_NO_ERROR ? LF_NO_ERROR : LF_NO_DATABASE;
 }
@@ -1416,6 +1427,16 @@ void lf_db_destroy (lfDatabase *db)
 lfError lf_db_load (lfDatabase *db)
 {
     return db->Load ();
+}
+
+lfError lf_db_load_file (lfDatabase *db, const char *filename)
+{
+    return db->Load (filename);
+}
+
+cbool lf_db_load_directory (lfDatabase *db, const char *dirname)
+{
+    return db->Load (dirname);
 }
 
 lfError lf_db_load_path (lfDatabase *db, const char *pathname)
