@@ -12,8 +12,8 @@ The source code is available from a git repository hosted at Sourceforge. You ca
 The build system is based on CMake. Enter the Lensfun folder and create the CMake build directory:
 
         >$ cd lensfun-code/
-        >$ mkdir cmake_build
-        >$ cd cmake_build/
+        >$ mkdir build
+        >$ cd build/
         >$ cmake ../
 
 Beneath many other files this should have created a Makefile that can now be used to compile and install as usual with

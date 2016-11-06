@@ -58,29 +58,30 @@ http://creativecommons.org/licenses/by-sa/
 BUILD INSTRUCTIONS
 ------------------
 
-The build system is based on CMake (http://www.cmake.org/). In order to 
-successfully configure and build the project the following tools are more 
+The build system is based on CMake (http://www.cmake.org/). In order to
+successfully configure and build the project the following tools are more
 or less required:
 
- - CMake 
- - GNU Make 
+ - CMake
  - Doxygen in order to generate the library documentation.
- - GLib 2.0 and later which is used for low-level I/O and XML parsing.
- - libpng is required to build and run test programs.
+ - GLib > 2.26 which is used for low-level I/O and XML parsing.
+ - GLib > 2.40 to build the unit tests with the GLib test framework.
+ - libpng is required to build and run the example implementation.
+ - xmllint to test the database XML validity
 
 First enter the Lensfun root folder and create a build directory.
 
     cd lensfun
-    mkdir cmake_build
+    mkdir build
 
-Enter the build directory and run CMake to configure your sources and create 
+Enter the build directory and run CMake to configure your sources and create
 the build files
 
-    cd cmake_build
+    cd build
     cmake ../
-    
+
 Run make/make install as usual
-    
+
     make
     make install
 

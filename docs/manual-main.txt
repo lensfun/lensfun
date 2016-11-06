@@ -26,6 +26,7 @@ least, it can correct the perspective, simulating a shift lens.
 <ul>
 <li>@ref license
 <li>@ref credits
+<li>@ref build
 <li>Command line programs
     <ul>
     <li>@ref lensfun-update-data
@@ -110,6 +111,63 @@ of this library:
 
 Also I would like to thank all the people sending profiles for the database. 
 
+
+@page build Build instructions
+
+The build system is based on CMake (http://www.cmake.org/). In order to
+successfully configure and build the project the following tools are more
+or less required:
+
+ - CMake
+ - Doxygen in order to generate the library documentation.
+ - GLib > 2.26 which is used for low-level I/O and XML parsing.
+ - GLib > 2.40 to build the unit tests with the GLib test framework.
+ - libpng is required to build and run the example implementation.
+ - xmllint to test the database XML validity
+
+First enter the Lensfun root folder and create a build directory.
+
+    cd lensfun
+    mkdir build
+
+Enter the build directory and run CMake to configure your sources and create
+the build files
+
+    cd build
+    cmake ../
+
+Run make/make install as usual
+
+    make
+    make install
+
+The following CMake options can be set (defaults are upper case):
+
+    -DCMAKE_BUILD_TYPE=DEBUG|Release        select debug or release build mode
+    -DINSTALL_HELPER_SCRIPTS=off|ON         install various helper scripts
+    -DCMAKE_INSTALL_PREFIX=/USR/LOCAL       install prefix
+
+    -DBUILD_STATIC=OFF|on       build static or shared lib
+    -DBUILD_TESTS=OFF|on        build also the test programs
+    -DBUILD_LENSTOOL=OFF|on     build Lensfun reference implementation
+    -DBUILD_FOR_SSE=off|ON      build with SSE optimisation
+    -DBUILD_FOR_SSE2=off|ON     build with SSE2 optimisaiton
+    -DBUILD_DOC=OFF|on          build documentation
+
+If you want to have more detailed output when running 'make' you can simply add
+'VERBOSE=1' to the make command line.
+
+You can also build packages with cmake:
+
+    Add -DCPACK_BINARY_DEB:BOOL=ON or -DCPACK_BINARY_RPM:BOOL=ON to the
+    command line and then "make package". (But this is not extensively tested.)
+
+Please note that running cmake again does NOT reset all options to default or
+reconfigure all variables. To restart with a clean configuration delete all files
+in your cmake_build folder.
+
+If you prefer setting the configuration with a GUI or want to get an extensive
+overview of all available settings and cache values you can run cmake-gui.
 
 @page lensfun-update-data Updating Lensfun's database: lensfun‑update-data
 
