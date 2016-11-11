@@ -1155,6 +1155,31 @@
             <tca model="poly3" focal="20" vr="1.0002" vb="1.0002"/>
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Panasonic</maker>
+        <model>Lumix G Vario 35-100/f4.0-5.6 Asph. Mega OIS</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Olympus E-PL7 -->
+            <distortion model="ptlens" focal="35" a="0.00663258" b="-0.0185251" c="0.0134508"/>
+            <distortion model="ptlens" focal="40" a="0.00258479" b="-0.00661156" c="0.00697864"/>
+            <distortion model="ptlens" focal="45" a="0.000553098" b="0.00439218" c="-0.00355882"/>
+            <distortion model="ptlens" focal="50" a="0.000346598" b="0.00614855" c="-0.00173778"/>
+            <distortion model="ptlens" focal="62" a="-0.000115581" b="0.00511291" c="0.00988016"/>
+            <distortion model="ptlens" focal="78" a="-0.0104497" b="0.039446" c="-0.0251468"/>
+            <distortion model="ptlens" focal="100" a="-0.0131383" b="0.0562571" c="-0.0528326"/>
+            <tca model="poly3" focal="35" vr="1.0001700" vb="1.0003000"/>
+            <tca model="poly3" focal="40" vr="1.0000925" vb="1.0002249"/>
+            <tca model="poly3" focal="45" vr="1.0000558" vb="1.0001441"/>
+            <tca model="poly3" focal="50" vr="1.0000459" vb="1.0001676"/>
+            <tca model="poly3" focal="62" vr="0.9999844" vb="1.0000683"/>
+            <tca model="poly3" focal="78" vr="0.9999536" vb="0.9999292"/>
+            <tca model="poly3" focal="100" vr="0.9999000" vb="0.9996000"/>
+        </calibration>
+    </lens>
 
     <lens>
         <maker>Panasonic</maker>
