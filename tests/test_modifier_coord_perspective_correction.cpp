@@ -172,8 +172,6 @@ void test_mod_coord_pc_0_points (lfFixture *lfFix, gconstpointer data)
     for (int i = 0; i < 10; i++)
     {
         g_assert_false (lfFix->mod->ApplyGeometryDistortion (100.0f * i, 100.0f * i, 1, 1, coords));
-        g_assert_cmpfloat (fabs (coords [0]), <=, epsilon);
-        g_assert_cmpfloat (fabs (coords [1]), <=, epsilon);
     }
 }
 
