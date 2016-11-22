@@ -915,4 +915,17 @@
         </calibration>
     </lens>
 
+     <lens>
+        <maker>Tamron</maker>
+        <model>Tamron 200mm f/3.5-22 CT-200 BBAR</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Olympus E-PL7 -->
+            <distortion model="ptlens" focal="200" a="0" b="0.000003" c="0"/>
+            <tca model="poly3" focal="200" vr="0.9996500" vb="0.9999927"/>
+        </calibration>
+    </lens>
+    
 </lensdatabase>
