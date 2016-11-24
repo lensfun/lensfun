@@ -7,6 +7,7 @@
 #include "lensfun.h"
 #include "lensfunprv.h"
 #include <math.h>
+#include <stdexcept>
 #include "windows/mathconstants.h"
 
 lfModifier *lfModifier::Create (const lfLens *lens, float crop, int width, int height)
@@ -18,104 +19,43 @@ int lfModifier::Initialize (
     const lfLens *lens, lfPixelFormat format, float focal, float aperture,
     float distance, float scale, lfLensType targeom, int flags, bool reverse)
 {
-    FocalLengthNormalized = GetRealFocalLength (lens, focal) / NormalizedInMillimeters;
+
+    PixelFormat = format;
+    Reverse = reverse;
 
     int oflags = 0;
 
     if (flags & LF_MODIFY_TCA)
     {
-        lfLensCalibTCA lctca;
-        if (lens->InterpolateTCA (focal, lctca))
-            if (AddSubpixelCallbackTCA (lctca, reverse))
-                oflags |= LF_MODIFY_TCA;
+        if (EnableTCACorrection(focal))
+            oflags |= LF_MODIFY_TCA;
     }
 
     if (flags & LF_MODIFY_VIGNETTING)
     {
-        lfLensCalibVignetting lcv;
-        if (lens->InterpolateVignetting (focal, aperture, distance, lcv))
-            if (AddColorCallbackVignetting (lcv, format, reverse))
-                oflags |= LF_MODIFY_VIGNETTING;
+        if (EnableVignettingCorrection(focal, aperture, distance))
+            oflags |= LF_MODIFY_VIGNETTING;
     }
 
     if (flags & LF_MODIFY_DISTORTION)
     {
-        lfLensCalibDistortion lcd;
-        if (lens->InterpolateDistortion (focal, lcd))
-            if (AddCoordCallbackDistortion (lcd, reverse))
-                oflags |= LF_MODIFY_DISTORTION;
+        if (EnableDistortionCorrection(focal))
+            oflags |= LF_MODIFY_DISTORTION;
     }
 
     if (flags & LF_MODIFY_GEOMETRY &&
-        lens->Type != targeom)
+        Lens->Type != targeom)
     {
-        if (reverse ?
-            AddCoordCallbackGeometry (targeom, lens->Type) :
-            AddCoordCallbackGeometry (lens->Type, targeom))
+        if (EnableProjectionTransform(focal, targeom))
             oflags |= LF_MODIFY_GEOMETRY;
     }
 
     if (flags & LF_MODIFY_SCALE &&
         scale != 1.0)
-        if (AddCoordCallbackScale (scale, reverse))
+        if (EnableScaling(scale))
             oflags |= LF_MODIFY_SCALE;
 
-    Reverse = reverse;
-
     return oflags;
-}
-
-float lfModifier::GetRealFocalLength (const lfLens *lens, float focal)
-{
-    float result = focal;
-    lfLensCalibFov fov_raw;
-    if (lens && lens->InterpolateFov (focal, fov_raw))
-    {
-        float fov = fov_raw.FieldOfView * M_PI / 180.0;
-        float half_width_in_millimeters = NormalizedInMillimeters * lens->AspectRatio;
-        // See also SrcPanoImage::calcFocalLength in Hugin.
-        switch (lens->Type)
-        {
-            case LF_UNKNOWN:
-                break;
-
-            case LF_RECTILINEAR:
-                result = half_width_in_millimeters / tan (fov / 2.0);
-                break;
-
-            case LF_FISHEYE:
-            case LF_PANORAMIC:
-            case LF_EQUIRECTANGULAR:
-                result = half_width_in_millimeters / (fov / 2.0);
-                break;
-
-            case LF_FISHEYE_ORTHOGRAPHIC:
-                result = half_width_in_millimeters / sin (fov / 2.0);
-                break;
-
-            case LF_FISHEYE_STEREOGRAPHIC:
-                result = half_width_in_millimeters / (2 * tan (fov / 4.0));
-                break;
-
-            case LF_FISHEYE_EQUISOLID:
-                result = half_width_in_millimeters / (2 * sin (fov / 4.0));
-                break;
-
-            case LF_FISHEYE_THOBY:
-                result = half_width_in_millimeters / (1.47 * sin (0.713 * fov / 2.0));
-                break;
-
-            default:
-                // This should never happen
-                result = NAN;
-        }
-        return result;
-    }
-    lfLensCalibDistortion lcd;
-    if (lens->InterpolateDistortion (focal, lcd))
-        if (lcd.RealFocal > 0)
-            return lcd.RealFocal;
-    return result;
 }
 
 void lfModifier::Destroy ()
@@ -187,6 +127,12 @@ lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
     ColorCallbacks = g_ptr_array_new ();
     CoordCallbacks = g_ptr_array_new ();
 
+    // copy lens object to store the lens data internally
+    if (lens)
+        Lens = new lfLens(*lens);
+    else
+        throw std::invalid_argument("Lens is NULL!");
+
     // Avoid divide overflows on singular cases.  The "- 1" is due to the fact
     // that `Width` and `Height` are measured at the pixel centres (they are
     // actually transformed) instead at their outer rims.
@@ -206,18 +152,12 @@ lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
     }
     else
         calibration_cropfactor = calibration_aspect_ratio = NAN;
-    AspectRatioCorrection = sqrt (calibration_aspect_ratio * calibration_aspect_ratio + 1);
+    double aspect_ratio_correction = sqrt (calibration_aspect_ratio * calibration_aspect_ratio + 1);
 
     double coordinate_correction =
         1.0 / sqrt (image_aspect_ratio * image_aspect_ratio + 1) *
         calibration_cropfactor / crop *
-        AspectRatioCorrection;
-
-    // In NormalizedInMillimeters, we un-do all factors of
-    // coordinate_correction that refer to the calibration sensor because
-    // NormalizedInMillimeters is supposed to transform to image coordinates.
-    NormalizedInMillimeters = sqrt (36.0*36.0 + 24.0*24.0) / 2.0 /
-        AspectRatioCorrection / calibration_cropfactor;
+        aspect_ratio_correction;
 
     // The scale to transform {-size/2 .. 0 .. size/2-1} to {-1 .. 0 .. +1}
     NormScale = 2.0 / size * coordinate_correction;
@@ -228,10 +168,78 @@ lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
     // Geometric lens center in normalized coordinates
     CenterX = Width / size * coordinate_correction + (lens ? lens->CenterX : 0.0);
     CenterY = Height / size * coordinate_correction + (lens ? lens->CenterY : 0.0);
+}
 
-    // Used for autoscaling
-    MaxX = Width / 2.0 * NormScale;
-    MaxY = Height / 2.0 * NormScale;
+lfModifier::lfModifier (const lfLens *lens,
+                        float imgcrop, int imgwidth, int imgheight,
+                        lfPixelFormat pixel_format, bool reverse /* = false */)
+    : Reverse(reverse), PixelFormat(pixel_format)
+{
+    SubpixelCallbacks = g_ptr_array_new ();
+    ColorCallbacks = g_ptr_array_new ();
+    CoordCallbacks = g_ptr_array_new ();
+
+    // copy lens object to store the lens data internally
+    if (lens)
+        Lens = new lfLens(*lens);
+    else
+        throw std::invalid_argument("Lens is NULL!");
+
+    // Avoid divide overflows on singular cases.  The "- 1" is due to the fact
+    // that `Width` and `Height` are measured at the pixel centres (they are
+    // actually transformed) instead at their outer rims.
+    Width = double (imgwidth >= 2 ? imgwidth - 1 : 1);
+    Height = double (imgheight >= 2 ? imgheight - 1 : 1);
+
+    // Image "size"
+    double size = Width < Height ? Width : Height;
+    double image_aspect_ratio = Width < Height ? Height / Width : Width / Height;
+
+    double aspect_ratio_correction = sqrt (Lens->AspectRatio * Lens->AspectRatio + 1);
+
+    double coordinate_correction =
+        1.0 / sqrt (image_aspect_ratio * image_aspect_ratio + 1) *
+        Lens->CropFactor / imgcrop *
+        aspect_ratio_correction;
+
+    // The scale to transform {-size/2 .. 0 .. size/2-1} to {-1 .. 0 .. +1}
+    NormScale = 2.0 / size * coordinate_correction;
+
+    // The scale to transform {-1 .. 0 .. +1} to {-size/2 .. 0 .. size/2-1}
+    NormUnScale = size * 0.5 / coordinate_correction;
+
+    // Geometric lens center in normalized coordinates
+    CenterX = Width / size * coordinate_correction + (lens ? lens->CenterX : 0.0);
+    CenterY = Height / size * coordinate_correction + (lens ? lens->CenterY : 0.0);
+}
+
+double _normalize_focal_length(const lfLens *lens, float focal)
+{
+    double aspect_ratio_correction = sqrt (lens->AspectRatio * lens->AspectRatio + 1);
+    double normalized_in_millimeters = sqrt (36.0*36.0 + 24.0*24.0) /
+                                            (2.0 * aspect_ratio_correction * lens->CropFactor);
+    return focal / normalized_in_millimeters;
+}
+
+bool lfModifier::EnableScaling (float scale)
+{
+    if (scale == 1.0)
+        return false;
+
+    float tmp [1];
+
+    // Inverse scale factor
+    if (scale == 0.0)
+    {
+        scale = GetAutoScale (Reverse);
+        if (scale == 0.0)
+            return false;
+    }
+
+    tmp [0] = Reverse ? scale : 1.0 / scale;
+    int priority = Reverse ? 900 : 100;
+    AddCoordCallback (ModifyCoord_Scale, priority, tmp, sizeof (tmp));
+    return true;
 }
 
 static void free_callback_list (void *arr)
@@ -254,6 +262,7 @@ lfModifier::~lfModifier ()
     free_callback_list (SubpixelCallbacks);
     free_callback_list (ColorCallbacks);
     free_callback_list (CoordCallbacks);
+    delete Lens;
 }
 
 static gint _lf_coordcb_compare (gconstpointer a, gconstpointer b)
@@ -284,12 +293,19 @@ void lfModifier::AddCallback (void *arr, lfCallbackData *d,
 lfModifier *lf_modifier_new (
     const lfLens *lens, float crop, int width, int height)
 {
-    return new lfModifier (lens, crop, width, height);
+    try
+    {
+        return new lfModifier (lens, crop, width, height);
+    }
+    catch (const std::exception& e)
+    {
+        return NULL;
+    }
 }
 
 void lf_modifier_destroy (lfModifier *modifier)
 {
-    modifier->Destroy ();
+    delete modifier;
 }
 
 int lf_modifier_initialize (

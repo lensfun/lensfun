@@ -8,121 +8,130 @@
 #include "lensfunprv.h"
 #include <math.h>
 
+bool lfModifier::EnableVignettingCorrection(float focal, float aperture, float distance)
+{
+    lfLensCalibVignetting lcv;
+
+    if (Lens->InterpolateVignetting (focal, aperture, distance, lcv))
+    {
+        float tmp [5];
+
+    #define ADD_CALLBACK(func, type, prio) \
+        AddColorCallback ( \
+            (lfModifyColorFunc)(void (*)(void *, float, float, type *, int, int)) \
+            lfModifier::func, prio, tmp, 5 * sizeof (float)) \
+
+        memcpy (tmp, lcv.Terms, 3 * sizeof (float));
+
+        if (lcv.Model == LF_VIGNETTING_MODEL_ACM)
+            tmp [4] = 1.0 / _normalize_focal_length(Lens, focal);
+        else
+        {
+            // Damn! Hugin uses two different "normalized" coordinate systems:
+            // for distortions it uses 1.0 = min(half width, half height) and
+            // for vignetting it uses 1.0 = half diagonal length. We have
+            // to compute a transition coefficient as lfModifier works in
+            // the first coordinate system.
+            double aspect_ratio_correction = sqrt (Lens->AspectRatio * Lens->AspectRatio + 1);
+            tmp [4] = 1.0 / aspect_ratio_correction;
+        }
+        tmp [3] = tmp [4] * NormScale;
+
+        if (Reverse)
+            switch (lcv.Model)
+            {
+                case LF_VIGNETTING_MODEL_PA:
+                case LF_VIGNETTING_MODEL_ACM:
+                    switch (PixelFormat)
+                    {
+                        case LF_PF_U8:
+                            ADD_CALLBACK (ModifyColor_Vignetting_PA, lf_u8, 250);
+                            break;
+
+                        case LF_PF_U16:
+                            ADD_CALLBACK (ModifyColor_Vignetting_PA, lf_u16, 250);
+                            break;
+
+                        case LF_PF_U32:
+                            ADD_CALLBACK (ModifyColor_Vignetting_PA, lf_u32, 250);
+                            break;
+
+                        case LF_PF_F32:
+                            ADD_CALLBACK (ModifyColor_Vignetting_PA, lf_f32, 250);
+                            break;
+
+                        case LF_PF_F64:
+                            ADD_CALLBACK (ModifyColor_Vignetting_PA, lf_f64, 250);
+                            break;
+
+                        default:
+                            return false;
+                    }
+                    break;
+
+                default:
+                    return false;
+            }
+        else
+            switch (lcv.Model)
+            {
+                case LF_VIGNETTING_MODEL_PA:
+                case LF_VIGNETTING_MODEL_ACM:
+                    switch (PixelFormat)
+                    {
+                        case LF_PF_U8:
+                            ADD_CALLBACK (ModifyColor_DeVignetting_PA, lf_u8, 750);
+                            break;
+
+                        case LF_PF_U16:
+    #ifdef VECTORIZATION_SSE2
+                            if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE2)
+                                ADD_CALLBACK (ModifyColor_DeVignetting_PA_SSE2, lf_u16, 750);
+                            else
+    #endif
+                            ADD_CALLBACK (ModifyColor_DeVignetting_PA, lf_u16, 750);
+                            break;
+
+                        case LF_PF_U32:
+                            ADD_CALLBACK (ModifyColor_DeVignetting_PA, lf_u32, 750);
+                            break;
+
+                        case LF_PF_F32:
+    #ifdef VECTORIZATION_SSE
+                            if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
+                                ADD_CALLBACK (ModifyColor_DeVignetting_PA_SSE, lf_f32, 750);
+                            else
+    #endif
+                            ADD_CALLBACK (ModifyColor_DeVignetting_PA, lf_f32, 750);
+                            break;
+
+                        case LF_PF_F64:
+                            ADD_CALLBACK (ModifyColor_DeVignetting_PA, lf_f64, 750);
+                            break;
+
+                        default:
+                            return false;
+                    }
+                    break;
+
+                default:
+                    return false;
+            }
+
+    #undef ADD_CALLBACK
+
+        return true;
+    }
+    else
+        return false;
+}
+
 void lfModifier::AddColorCallback (
     lfModifyColorFunc callback, int priority, void *data, size_t data_size)
 {
     lfColorCallbackData *d = new lfColorCallbackData ();
     d->callback = callback;
     AddCallback (ColorCallbacks, d, priority, data, data_size);
-}
-
-bool lfModifier::AddColorCallbackVignetting (
-    lfLensCalibVignetting &model, lfPixelFormat format, bool reverse)
-{
-    float tmp [5];
-
-#define ADD_CALLBACK(func, type, prio) \
-    AddColorCallback ( \
-        (lfModifyColorFunc)(void (*)(void *, float, float, type *, int, int)) \
-        lfModifier::func, prio, tmp, 5 * sizeof (float)) \
-
-    memcpy (tmp, model.Terms, 3 * sizeof (float));
-
-    if (model.Model == LF_VIGNETTING_MODEL_ACM)
-        tmp [4] = 1 / FocalLengthNormalized;
-    else
-        // Damn! Hugin uses two different "normalized" coordinate systems:
-        // for distortions it uses 1.0 = min(half width, half height) and
-        // for vignetting it uses 1.0 = half diagonal length. We have
-        // to compute a transition coefficient as lfModifier works in
-        // the first coordinate system.
-        tmp [4] = 1.0 / AspectRatioCorrection;
-    tmp [3] = tmp [4] * NormScale;
-
-    if (reverse)
-        switch (model.Model)
-        {
-            case LF_VIGNETTING_MODEL_PA:
-            case LF_VIGNETTING_MODEL_ACM:
-                switch (format)
-                {
-                    case LF_PF_U8:
-                        ADD_CALLBACK (ModifyColor_Vignetting_PA, lf_u8, 250);
-                        break;
-
-                    case LF_PF_U16:
-                        ADD_CALLBACK (ModifyColor_Vignetting_PA, lf_u16, 250);
-                        break;
-
-                    case LF_PF_U32:
-                        ADD_CALLBACK (ModifyColor_Vignetting_PA, lf_u32, 250);
-                        break;
-
-                    case LF_PF_F32:
-                        ADD_CALLBACK (ModifyColor_Vignetting_PA, lf_f32, 250);
-                        break;
-
-                    case LF_PF_F64:
-                        ADD_CALLBACK (ModifyColor_Vignetting_PA, lf_f64, 250);
-                        break;
-
-                    default:
-                        return false;
-                }
-                break;
-
-            default:
-                return false;
-        }
-    else
-        switch (model.Model)
-        {
-            case LF_VIGNETTING_MODEL_PA:
-            case LF_VIGNETTING_MODEL_ACM:
-                switch (format)
-                {
-                    case LF_PF_U8:
-                        ADD_CALLBACK (ModifyColor_DeVignetting_PA, lf_u8, 750);
-                        break;
-
-                    case LF_PF_U16:
-#ifdef VECTORIZATION_SSE2
-                        if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE2)
-                            ADD_CALLBACK (ModifyColor_DeVignetting_PA_SSE2, lf_u16, 750);
-                        else
-#endif
-                        ADD_CALLBACK (ModifyColor_DeVignetting_PA, lf_u16, 750);
-                        break;
-
-                    case LF_PF_U32:
-                        ADD_CALLBACK (ModifyColor_DeVignetting_PA, lf_u32, 750);
-                        break;
-
-                    case LF_PF_F32:
-#ifdef VECTORIZATION_SSE
-                        if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
-                            ADD_CALLBACK (ModifyColor_DeVignetting_PA_SSE, lf_f32, 750);
-                        else
-#endif
-                        ADD_CALLBACK (ModifyColor_DeVignetting_PA, lf_f32, 750);
-                        break;
-
-                    case LF_PF_F64:
-                        ADD_CALLBACK (ModifyColor_DeVignetting_PA, lf_f64, 750);
-                        break;
-
-                    default:
-                        return false;
-                }
-                break;
-
-            default:
-                return false;
-        }
-
-#undef ADD_CALLBACK
-
-    return true;
 }
 
 bool lfModifier::ApplyColorModification (
@@ -335,13 +344,6 @@ void lf_modifier_add_color_callback (
     void *data, size_t data_size)
 {
     modifier->AddColorCallback (callback, priority, data, data_size);
-}
-
-cbool lf_modifier_add_color_callback_vignetting (
-    lfModifier *modifier, lfLensCalibVignetting *model,
-    lfPixelFormat format, cbool reverse)
-{
-    return modifier->AddColorCallbackVignetting (*model, format, reverse);
 }
 
 cbool lf_modifier_apply_color_modification (

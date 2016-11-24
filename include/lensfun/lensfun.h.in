@@ -2046,6 +2046,9 @@ struct LF_EXPORT lfModifier
      *     The height of the image you want to correct.
      */
     lfModifier (const lfLens *lens, float crop, int width, int height);
+
+    lfModifier (const lfLens *lens, float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse = false);
+
     ~lfModifier ();
 
     /**
@@ -2125,6 +2128,17 @@ struct LF_EXPORT lfModifier
         const lfLens *lens, lfPixelFormat format, float focal, float aperture,
         float distance, float scale, lfLensType targeom, int flags, bool reverse);
 
+    bool EnableDistortionCorrection (float focal);
+
+    bool EnableTCACorrection (float focal);
+
+    bool EnableVignettingCorrection (float focal, float aperture, float distance);
+
+    bool EnableProjectionTransform (float focal, lfLensType target_projection);
+
+    bool EnableScaling (float scale);
+
+
     /**
      * @brief Enable the perspective correction.
      *
@@ -2175,7 +2189,7 @@ struct LF_EXPORT lfModifier
      * @return
      *     True if the perspective correction was enabled.
      */
-    bool EnablePerspectiveCorrection (float *x, float *y, int count, float d);
+    bool EnablePerspectiveCorrection (float focal, float *x, float *y, int count, float d);
 
     /**
      * @brief Destroy the modifier object.
@@ -2242,88 +2256,6 @@ struct LF_EXPORT lfModifier
      */
     void AddColorCallback (lfModifyColorFunc callback, int priority,
                            void *data, size_t data_size);
-
-    /**
-     * @brief Add the stock TCA correcting callback into the chain.
-     *
-     * The TCA correction callback always has a fixed priority of 500.
-     * The behaviour is undefined if you'll add more than one TCA
-     * correction callback to a modifier.
-     * @param model
-     *     Lens TCA model data.
-     * @param reverse
-     *     If true, the reverse model will be applied, e.g. simulate
-     *     a lens' TCA on a clean image.
-     * @return
-     *     True if TCA model is valid and the callback was added to chain.
-     */
-    bool AddSubpixelCallbackTCA (lfLensCalibTCA &model, bool reverse = false);
-
-    /**
-     * @brief Add the stock lens vignetting correcting callback into the chain.
-     * The vignetting correction callback always has a fixed priority of
-     * 250 when rectifying a image or 750 when doing reverse transform.
-     * @param model
-     *     Lens vignetting model data.
-     * @param format
-     *     Pixel format of your image (bits per pixel component)
-     * @param reverse
-     *     If true, the reverse model will be applied, e.g. simulate
-     *     a lens' vignetting on a clean image.
-     * @return
-     *     True if vignetting model is valid and the callback was added to chain.
-     */
-    bool AddColorCallbackVignetting (lfLensCalibVignetting &model, lfPixelFormat format,
-                                     bool reverse = false);
-
-    /**
-     * @brief Add the stock lens distortion correcting callback into the chain.
-     *
-     * The distortion correction callback always has a fixed priority of 750
-     * when rectifying a image and 250 on reverse transform.
-     * @param model
-     *     Lens distortion model data.
-     * @param reverse
-     *     If true, the reverse model will be applied, e.g. simulate
-     *     a lens' distortion on a clean image.
-     * @return
-     *     True if distortion model is valid and the callback was added to chain.
-     */
-    bool AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool reverse = false);
-
-    /**
-     * @brief Add the stock lens geometry rectification callback into the
-     * chain.
-     *
-     * The geometry correction callback always has a fixed priority of 500.
-     * @param from
-     *     The lens model for source image.
-     * @param to
-     *     The lens model for target image.
-     * @param focal
-     *     Lens focal length in mm.  Deprecated.
-     * @return
-     *     True if a library has a callback for given from->to conversion.
-     */
-    bool AddCoordCallbackGeometry (lfLensType from, lfLensType to, float focal = 0);
-
-    /**
-     * @brief Add the stock image scaling callback into the chain.
-     *
-     * The scaling callback always has a fixed priority of 100.
-     * Note that scaling should be always the first operation to perform
-     * no matter if we're doing a forward or reverse transform.
-     * @param scale
-     *     Image scale. If equal to 0.0, the image is automatically scaled
-     *     so that there won't be any unfilled gaps in the resulting image.
-     *     Note that all coordinate distortion callbacks must be already
-     *     added to the stack for this to work correctly!
-     * @param reverse
-     *     If true, the reverse model will be applied.
-     * @return
-     *     True if the callback was added to chain.
-     */
-    bool AddCoordCallbackScale (float scale, bool reverse = false);
 
     /**
      * @brief Compute the automatic scale factor for the image.
@@ -2602,13 +2534,6 @@ private:
     double CenterX, CenterY;
     /// The coefficients for conversion to and from normalized coords
     double NormScale, NormUnScale;
-    /// Factor to transform from normalized into absolute coords (mm).  Needed
-    /// for calculating the real focal length from the FOV, and for calculating
-    /// FocalLengthNormalized.
-    double NormalizedInMillimeters;
-    /// Used for conversion from distortion to vignetting coordinate system of
-    /// the calibration sensor
-    double AspectRatioCorrection;
 
     /// A list of subpixel coordinate modifier callbacks.
     void *SubpixelCallbacks;
@@ -2617,17 +2542,14 @@ private:
     /// A list of pixel coordinate modifier callbacks.
     void *CoordCallbacks;
 
-    /// Maximal x and y value in normalized coordinates for the original image
-    double MaxX, MaxY;
-
-    /// Nominal focal length (usually taken from EXIF data) in normalized
-    /// units.  Currently, it is needed for geometry transformation, the Adobe
-    /// camera models, and perspective correction.  On the long run, /all/
-    /// image data will be stored in lfModifier, once the Enable... methods are
-    /// written.
-    double FocalLengthNormalized;
     /// Whether the transformations are applied reversely
-    bool Reverse;
+    cbool Reverse;
+
+    /// The lens data
+    lfLens* Lens;
+
+    /// Image pixel format
+    lfPixelFormat PixelFormat;
 };
 
 #ifdef __cplusplus
@@ -2651,7 +2573,7 @@ LF_EXPORT int lf_modifier_initialize (
 
 /** @sa lfModifier::EnablePerspectiveCorrection */
 LF_EXPORT cbool lf_modifier_enable_perspective_correction (
-    lfModifier *modifier, float *x, float *y, int count, float d);
+    lfModifier *modifier, float focal, float *x, float *y, int count, float d);
 
 /** @sa lfModifier::AddCoordCallback */
 LF_EXPORT void lf_modifier_add_coord_callback (

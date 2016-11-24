@@ -475,6 +475,8 @@ struct lfColorCallbackData : public lfCallbackData
     lfModifyColorFunc callback;
 };
 
+double _normalize_focal_length(const lfLens *lens, float focal);
+
 // `dvector`, `matrix`, and `svg` are declared here to be able to test `svd` in
 // unit tests.
 

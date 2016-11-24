@@ -31,266 +31,143 @@
 #include <math.h>
 #include "windows/mathconstants.h"
 
-void lfModifier::AddCoordCallback (
-    lfModifyCoordFunc callback, int priority, void *data, size_t data_size)
+bool lfModifier::EnableDistortionCorrection (float focal)
 {
-    lfCoordCallbackData *d = new lfCoordCallbackData ();
-    d->callback = callback;
-    AddCallback (CoordCallbacks, d, priority, data, data_size);
-}
+    lfLensCalibDistortion lcd;
+    if (Lens->InterpolateDistortion (focal, lcd))
+    {
+        float tmp [7];
 
-bool lfModifier::AddCoordCallbackDistortion (lfLensCalibDistortion &model, bool reverse)
-{
-    float tmp [7];
-
-    if (reverse)
-        switch (model.Model)
-        {
-            case LF_DIST_MODEL_POLY3:
-                if (!model.Terms [0])
-                    return false;
-                // See "Note about PT-based distortion models" at the top of
-                // this file.
-                tmp [0] = pow (1 - model.Terms [0], 3) / model.Terms [0];
-                AddCoordCallback (ModifyCoord_UnDist_Poly3, 250,
-                                  tmp, sizeof (float));
-                break;
-
-            case LF_DIST_MODEL_POLY5:
-                AddCoordCallback (ModifyCoord_UnDist_Poly5, 250,
-                                  model.Terms, sizeof (float) * 2);
-                break;
-
-            case LF_DIST_MODEL_PTLENS:
+        if (Reverse)
+            switch (lcd.Model)
             {
-                // See "Note about PT-based distortion models" at the top of
-                // this file.
-                float d = 1 - model.Terms [0] - model.Terms [1] - model.Terms [2];
-                tmp [0] = model.Terms [0] / pow (d, 4);
-                tmp [1] = model.Terms [1] / pow (d, 3);
-                tmp [2] = model.Terms [2] / pow (d, 2);
-#ifdef VECTORIZATION_SSE
-                if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
-                    AddCoordCallback (ModifyCoord_UnDist_PTLens_SSE, 250,
-                                      tmp, sizeof (float) * 3);
-                else
-#endif
-                AddCoordCallback (ModifyCoord_UnDist_PTLens, 250,
-                                  tmp, sizeof (float) * 3);
-                break;
-            }
-            case LF_DIST_MODEL_ACM:
-                g_warning ("[lensfun] \"acm\" distortion model is not yet implemented "
-                           "for reverse correction");
-                return false;
-
-            default:
-                return false;
-        }
-    else
-        switch (model.Model)
-        {
-            case LF_DIST_MODEL_POLY3:
-                // See "Note about PT-based distortion models" at the top of
-                // this file.
-                tmp [0] = model.Terms [0] / pow (1 - model.Terms [0], 3);
-#ifdef VECTORIZATION_SSE
-                if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
-                    AddCoordCallback (ModifyCoord_Dist_Poly3_SSE, 750,
+                case LF_DIST_MODEL_POLY3:
+                    if (!lcd.Terms [0])
+                        return false;
+                    // See "Note about PT-based distortion models" at the top of
+                    // this file.
+                    tmp [0] = pow (1 - lcd.Terms [0], 3) / lcd.Terms [0];
+                    AddCoordCallback (ModifyCoord_UnDist_Poly3, 250,
                                       tmp, sizeof (float));
-                else
-#endif
-                AddCoordCallback (ModifyCoord_Dist_Poly3, 750,
-                                  tmp, sizeof (float));
-                break;
+                    break;
 
-            case LF_DIST_MODEL_POLY5:
-                AddCoordCallback (ModifyCoord_Dist_Poly5, 750,
-                                  model.Terms, sizeof (float) * 2);
-                break;
+                case LF_DIST_MODEL_POLY5:
+                    AddCoordCallback (ModifyCoord_UnDist_Poly5, 250,
+                                      lcd.Terms, sizeof (float) * 2);
+                    break;
 
-            case LF_DIST_MODEL_PTLENS:
-            {
-                // See "Note about PT-based distortion models" at the top of
-                // this file.
-                float d = 1 - model.Terms [0] - model.Terms [1] - model.Terms [2];
-                tmp [0] = model.Terms [0] / pow (d, 4);
-                tmp [1] = model.Terms [1] / pow (d, 3);
-                tmp [2] = model.Terms [2] / pow (d, 2);
-#ifdef VECTORIZATION_SSE
-                if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
-                    AddCoordCallback (ModifyCoord_Dist_PTLens_SSE, 750,
+                case LF_DIST_MODEL_PTLENS:
+                {
+                    // See "Note about PT-based distortion models" at the top of
+                    // this file.
+                    float d = 1 - lcd.Terms [0] - lcd.Terms [1] - lcd.Terms [2];
+                    tmp [0] = lcd.Terms [0] / pow (d, 4);
+                    tmp [1] = lcd.Terms [1] / pow (d, 3);
+                    tmp [2] = lcd.Terms [2] / pow (d, 2);
+    #ifdef VECTORIZATION_SSE
+                    if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
+                        AddCoordCallback (ModifyCoord_UnDist_PTLens_SSE, 250,
+                                          tmp, sizeof (float) * 3);
+                    else
+    #endif
+                    AddCoordCallback (ModifyCoord_UnDist_PTLens, 250,
                                       tmp, sizeof (float) * 3);
-                else
-#endif
-                AddCoordCallback (ModifyCoord_Dist_PTLens, 750,
-                                  tmp, sizeof (float) * 3);
-                break;
+                    break;
+                }
+                case LF_DIST_MODEL_ACM:
+                    g_warning ("[lensfun] \"acm\" distortion model is not yet implemented "
+                               "for reverse correction");
+                    return false;
+
+                default:
+                    return false;
             }
-            case LF_DIST_MODEL_ACM:
-                memcpy (tmp, model.Terms, sizeof (float) * 5);
-                tmp [5] = 1 / FocalLengthNormalized;
-                tmp [6] = FocalLengthNormalized;
-                AddCoordCallback (ModifyCoord_Dist_ACM, 750,
-                                  tmp, sizeof (float) * 7);
-                break;
+        else
+            switch (lcd.Model)
+            {
+                case LF_DIST_MODEL_POLY3:
+                    // See "Note about PT-based distortion models" at the top of
+                    // this file.
+                    tmp [0] = lcd.Terms [0] / pow (1 - lcd.Terms [0], 3);
+    #ifdef VECTORIZATION_SSE
+                    if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
+                        AddCoordCallback (ModifyCoord_Dist_Poly3_SSE, 750,
+                                          tmp, sizeof (float));
+                    else
+    #endif
+                    AddCoordCallback (ModifyCoord_Dist_Poly3, 750,
+                                      tmp, sizeof (float));
+                    break;
 
-            default:
-                return false;
-        }
+                case LF_DIST_MODEL_POLY5:
+                    AddCoordCallback (ModifyCoord_Dist_Poly5, 750,
+                                      lcd.Terms, sizeof (float) * 2);
+                    break;
 
-    return true;
+                case LF_DIST_MODEL_PTLENS:
+                {
+                    // See "Note about PT-based distortion models" at the top of
+                    // this file.
+                    float d = 1 - lcd.Terms [0] - lcd.Terms [1] - lcd.Terms [2];
+                    tmp [0] = lcd.Terms [0] / pow (d, 4);
+                    tmp [1] = lcd.Terms [1] / pow (d, 3);
+                    tmp [2] = lcd.Terms [2] / pow (d, 2);
+    #ifdef VECTORIZATION_SSE
+                    if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
+                        AddCoordCallback (ModifyCoord_Dist_PTLens_SSE, 750,
+                                          tmp, sizeof (float) * 3);
+                    else
+    #endif
+                    AddCoordCallback (ModifyCoord_Dist_PTLens, 750,
+                                      tmp, sizeof (float) * 3);
+                    break;
+                }
+                case LF_DIST_MODEL_ACM:
+                    memcpy (tmp, lcd.Terms, sizeof (float) * 5);
+                    tmp [6] = _normalize_focal_length(Lens, focal);
+                    tmp [5] = 1.0 / tmp [6];
+                    AddCoordCallback (ModifyCoord_Dist_ACM, 750,
+                                      tmp, sizeof (float) * 7);
+                    break;
+
+                default:
+                    return false;
+            }
+
+        return true;
+    }
+    else
+        return false;
 }
 
-double lfModifier::AutoscaleResidualDistance (float *coord) const
+bool lfModifier::EnableProjectionTransform (float focal, lfLensType target_projection)
 {
-    double result = coord [0] - MaxX;
-    double intermediate = -MaxX - coord [0];
-    if (intermediate > result) result = intermediate;
-    intermediate = coord [1] - MaxY;
-    if (intermediate > result) result = intermediate;
-    intermediate = -MaxY - coord [1];
-    return intermediate > result ? intermediate : result;
-}
+    if(target_projection == LF_UNKNOWN)
+        return false;
+    if(Lens->Type == LF_UNKNOWN)
+        return false;
 
-float lfModifier::GetTransformedDistance (lfPoint point) const
-{
-    double dist = point.dist;
-    double sa = sin (point.angle);
-    double ca = cos (point.angle);
+    lfLensCalibDistortion lcd;
+    double real_focal = 0;
+    if (Lens->InterpolateDistortion (focal, lcd))
+        real_focal = lcd.RealFocal;
+    else
+        real_focal = focal;
 
-    // We have to find the radius ru in the direction of the given point which
-    // distorts to the original (distorted) image edge.  We will use Newton's
-    // method for minimizing the distance between the distorted point at ru and
-    // the original edge.
-    float ru = dist; // Initial approximation
-    float dx = 0.0001F;
-    for (int countdown = 50; ; countdown--)
+    lfLensType from = target_projection;
+    lfLensType to = Lens->Type;
+
+    if (Reverse)
     {
-        float res [2];
-
-        res [0] = ca * ru; res [1] = sa * ru;
-        for (int j = 0; j < (int)((GPtrArray *)CoordCallbacks)->len; j++)
-        {
-            lfCoordCallbackData *cd =
-                (lfCoordCallbackData *)g_ptr_array_index ((GPtrArray *)CoordCallbacks, j);
-            cd->callback (cd->data, res, 1);
-        }
-        double rd = AutoscaleResidualDistance (res);
-        if (rd > -NEWTON_EPS * 100 && rd < NEWTON_EPS * 100)
-            break;
-
-        if (!countdown)
-            // e.g. for some ultrawide fisheyes corners extend to infinity
-            // so function never converge ...
-            return -1;
-
-        // Compute approximative function prime in (x,y)
-        res [0] = ca * (ru + dx); res [1] = sa * (ru + dx);
-        for (int j = 0; j < (int)((GPtrArray *)CoordCallbacks)->len; j++)
-        {
-            lfCoordCallbackData *cd =
-                (lfCoordCallbackData *)g_ptr_array_index ((GPtrArray *)CoordCallbacks, j);
-            cd->callback (cd->data, res, 1);
-        }
-        double rd1 = AutoscaleResidualDistance (res);
-
-        // If rd1 is very close to rd, this means our delta is too small
-        // and we can hit the precision limit of the float format...
-        if (absolute (rd1 - rd) < 0.00001)
-        {
-            dx *= 2;
-            continue;
-        }
-
-        // dy/dx;
-        double prime = (rd1 - rd) / dx;
-
-        ru -= rd / prime;
+        from = Lens->Type;
+        to = target_projection;
     }
 
-    return ru;
-}
-
-float lfModifier::GetAutoScale (bool reverse)
-{
-    // Compute the scale factor automatically
-    const float subpixel_scale = ((GPtrArray *)SubpixelCallbacks)->len == 0 ? 1.0 : 1.001;
-
-    if (((GPtrArray *)CoordCallbacks)->len == 0)
-        return subpixel_scale;
-
-    // 3 2 1
-    // 4   0
-    // 5 6 7
-    lfPoint point [8];
-
-    point [1].angle = atan2 (Height, Width);
-    point [3].angle = M_PI - point [1].angle;
-    point [5].angle = M_PI + point [1].angle;
-    point [7].angle = 2 * M_PI - point [1].angle;
-
-    point [0].angle = 0.0F;
-    point [2].angle = float (M_PI / 2.0);
-    point [4].angle = float (M_PI);
-    point [6].angle = float (M_PI * 3.0 / 2.0);
-
-    point [1].dist = point [3].dist = point [5].dist = point [7].dist =
-        sqrt (pow (Width, 2) + pow (Height, 2)) * 0.5 * NormScale;
-    point [0].dist = point [4].dist = Width * 0.5 * NormScale;
-    point [2].dist = point [6].dist = Height * 0.5 * NormScale;
-
-    float scale = 0.01F;
-    for (int i = 0; i < 8; i++)
-    {
-        float transformed_distance = GetTransformedDistance (point [i]);
-        float point_scale = point [i].dist / transformed_distance;
-        if (point_scale > scale)
-            scale = point_scale;
-    }
-    // 1 permille is our limit of accuracy (in rare cases, we may be even
-    // worse, depending on what happens between the test points), so assure
-    // that we really have no black borders left.
-    scale *= 1.001;
-    scale *= subpixel_scale;
-
-    return reverse ? 1.0 / scale : scale;
-}
-
-bool lfModifier::AddCoordCallbackScale (float scale, bool reverse)
-{
-    float tmp [1];
-
-    // Inverse scale factor
-    if (scale == 0.0)
-    {
-        scale = GetAutoScale (reverse);
-        if (scale == 0.0)
-            return false;
-    }
-
-    tmp [0] = reverse ? scale : 1.0 / scale;
-    int priority = reverse ? 900 : 100;
-    AddCoordCallback (ModifyCoord_Scale, priority, tmp, sizeof (tmp));
-    return true;
-}
-
-bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float focal /*=0*/)
-{
-    if (focal)
-        g_warning ("[lensfun] The 'focal' parameter to "
-                   "lfModifier::AddCoordCallbackGeometry () is deprecated.");
 
     float tmp [2];
-    tmp [0] = 1 / FocalLengthNormalized;
-    tmp [1] = FocalLengthNormalized;
+    tmp [1] = _normalize_focal_length(Lens, focal);
+    tmp [0] = 1.0 / tmp[1];
 
-    if(from == to)
-        return false;
-    if(from == LF_UNKNOWN)
-        return false;
-    if(to == LF_UNKNOWN)
-        return false;
     // handle special cases
     switch (from)
     {
@@ -469,6 +346,134 @@ bool lfModifier::AddCoordCallbackGeometry (lfLensType from, lfLensType to, float
             break;
     };
     return true;
+}
+
+void lfModifier::AddCoordCallback (
+    lfModifyCoordFunc callback, int priority, void *data, size_t data_size)
+{
+    lfCoordCallbackData *d = new lfCoordCallbackData ();
+    d->callback = callback;
+    AddCallback (CoordCallbacks, d, priority, data, data_size);
+}
+
+double lfModifier::AutoscaleResidualDistance (float *coord) const
+{
+
+    // Maximal x and y value in normalized coordinates for the original image
+    double max_x = Width / 2.0 * NormScale;
+    double max_y = Height / 2.0 * NormScale;
+
+    double result = coord [0] - max_x;
+    double intermediate = -max_x - coord [0];
+    if (intermediate > result) result = intermediate;
+    intermediate = coord [1] - max_y;
+    if (intermediate > result) result = intermediate;
+    intermediate = -max_y - coord [1];
+    return intermediate > result ? intermediate : result;
+}
+
+float lfModifier::GetTransformedDistance (lfPoint point) const
+{
+    double dist = point.dist;
+    double sa = sin (point.angle);
+    double ca = cos (point.angle);
+
+    // We have to find the radius ru in the direction of the given point which
+    // distorts to the original (distorted) image edge.  We will use Newton's
+    // method for minimizing the distance between the distorted point at ru and
+    // the original edge.
+    float ru = dist; // Initial approximation
+    float dx = 0.0001F;
+    for (int countdown = 50; ; countdown--)
+    {
+        float res [2];
+
+        res [0] = ca * ru; res [1] = sa * ru;
+        for (int j = 0; j < (int)((GPtrArray *)CoordCallbacks)->len; j++)
+        {
+            lfCoordCallbackData *cd =
+                (lfCoordCallbackData *)g_ptr_array_index ((GPtrArray *)CoordCallbacks, j);
+            cd->callback (cd->data, res, 1);
+        }
+        double rd = AutoscaleResidualDistance (res);
+        if (rd > -NEWTON_EPS * 100 && rd < NEWTON_EPS * 100)
+            break;
+
+        if (!countdown)
+            // e.g. for some ultrawide fisheyes corners extend to infinity
+            // so function never converge ...
+            return -1;
+
+        // Compute approximative function prime in (x,y)
+        res [0] = ca * (ru + dx); res [1] = sa * (ru + dx);
+        for (int j = 0; j < (int)((GPtrArray *)CoordCallbacks)->len; j++)
+        {
+            lfCoordCallbackData *cd =
+                (lfCoordCallbackData *)g_ptr_array_index ((GPtrArray *)CoordCallbacks, j);
+            cd->callback (cd->data, res, 1);
+        }
+        double rd1 = AutoscaleResidualDistance (res);
+
+        // If rd1 is very close to rd, this means our delta is too small
+        // and we can hit the precision limit of the float format...
+        if (absolute (rd1 - rd) < 0.00001)
+        {
+            dx *= 2;
+            continue;
+        }
+
+        // dy/dx;
+        double prime = (rd1 - rd) / dx;
+
+        ru -= rd / prime;
+    }
+
+    return ru;
+}
+
+float lfModifier::GetAutoScale (bool reverse)
+{
+    // Compute the scale factor automatically
+    const float subpixel_scale = ((GPtrArray *)SubpixelCallbacks)->len == 0 ? 1.0 : 1.001;
+
+    if (((GPtrArray *)CoordCallbacks)->len == 0)
+        return subpixel_scale;
+
+    // 3 2 1
+    // 4   0
+    // 5 6 7
+    lfPoint point [8];
+
+    point [1].angle = atan2 (Height, Width);
+    point [3].angle = M_PI - point [1].angle;
+    point [5].angle = M_PI + point [1].angle;
+    point [7].angle = 2 * M_PI - point [1].angle;
+
+    point [0].angle = 0.0F;
+    point [2].angle = float (M_PI / 2.0);
+    point [4].angle = float (M_PI);
+    point [6].angle = float (M_PI * 3.0 / 2.0);
+
+    point [1].dist = point [3].dist = point [5].dist = point [7].dist =
+        sqrt (pow (Width, 2) + pow (Height, 2)) * 0.5 * NormScale;
+    point [0].dist = point [4].dist = Width * 0.5 * NormScale;
+    point [2].dist = point [6].dist = Height * 0.5 * NormScale;
+
+    float scale = 0.01F;
+    for (int i = 0; i < 8; i++)
+    {
+        float transformed_distance = GetTransformedDistance (point [i]);
+        float point_scale = point [i].dist / transformed_distance;
+        if (point_scale > scale)
+            scale = point_scale;
+    }
+    // 1 permille is our limit of accuracy (in rare cases, we may be even
+    // worse, depending on what happens between the test points), so assure
+    // that we really have no black borders left.
+    scale *= 1.001;
+    scale *= subpixel_scale;
+
+    return reverse ? 1.0 / scale : scale;
 }
 
 bool lfModifier::ApplyGeometryDistortion (
@@ -1227,24 +1232,6 @@ void lf_modifier_add_coord_callback (
     void *data, size_t data_size)
 {
     modifier->AddCoordCallback (callback, priority, data, data_size);
-}
-
-cbool lf_modifier_add_coord_callback_distortion (
-    lfModifier *modifier, lfLensCalibDistortion *model, cbool reverse)
-{
-    return modifier->AddCoordCallbackDistortion (*model, reverse);
-}
-
-cbool lf_modifier_add_coord_callback_geometry (
-    lfModifier *modifier, lfLensType from, lfLensType to)
-{
-    return modifier->AddCoordCallbackGeometry (from, to);
-}
-
-cbool lf_modifier_add_coord_callback_scale (
-    lfModifier *modifier, float scale, cbool reverse)
-{
-    return modifier->AddCoordCallbackScale (scale, reverse);
 }
 
 float lf_modifier_get_auto_scale (lfModifier *modifier, cbool reverse)

@@ -8,79 +8,85 @@
 #include "lensfunprv.h"
 #include <math.h>
 
+bool lfModifier::EnableTCACorrection (float focal)
+{
+    lfLensCalibTCA lctca;
+    if (Lens->InterpolateTCA (focal, lctca))
+    {
+        float tmp [14];
+
+        if (Reverse)
+            switch (lctca.Model)
+            {
+                case LF_TCA_MODEL_NONE:
+                    break;
+
+                case LF_TCA_MODEL_LINEAR:
+                    for (int i = 0; i < 2; i++)
+                    {
+                        if (!lctca.Terms [i])
+                            return false;
+                        tmp [i] = 1.0 / lctca.Terms [i];
+                    }
+                    AddSubpixelCallback (ModifyCoord_UnTCA_Linear, 500,
+                                         tmp, 2 * sizeof (float));
+                    return true;
+
+                case LF_TCA_MODEL_POLY3:
+                    AddSubpixelCallback (ModifyCoord_UnTCA_Poly3, 500,
+                                         lctca.Terms, 6 * sizeof (float));
+                    return true;
+
+                case LF_TCA_MODEL_ACM:
+                    g_warning ("[lensfun] \"acm\" TCA model is not yet implemented "
+                               "for reverse correction");
+                    return false;
+
+                default:
+                    // keep gcc 4.4+ happy
+                    break;
+            }
+        else
+            switch (lctca.Model)
+            {
+                case LF_TCA_MODEL_NONE:
+                    break;
+
+                case LF_TCA_MODEL_LINEAR:
+                    AddSubpixelCallback (ModifyCoord_TCA_Linear, 500,
+                                         lctca.Terms, 2 * sizeof (float));
+                    return true;
+
+                case LF_TCA_MODEL_POLY3:
+                    AddSubpixelCallback (ModifyCoord_TCA_Poly3, 500,
+                                         lctca.Terms, 6 * sizeof (float));
+                    return true;
+
+                case LF_TCA_MODEL_ACM:
+                    memcpy (tmp, lctca.Terms, sizeof (float) * 12);
+                    tmp [13] = _normalize_focal_length(Lens, focal);
+                    tmp [12] = 1.0 / tmp[13];
+                    AddSubpixelCallback (ModifyCoord_TCA_ACM, 500,
+                                         tmp, 14 * sizeof (float));
+                    return true;
+
+                default:
+                    // keep gcc 4.4+ happy
+                    break;
+            }
+
+        return false;
+    }
+    else
+        return false;
+}
+
 void lfModifier::AddSubpixelCallback (
     lfSubpixelCoordFunc callback, int priority, void *data, size_t data_size)
 {
     lfSubpixelCallbackData *d = new lfSubpixelCallbackData ();
     d->callback = callback;
     AddCallback (SubpixelCallbacks, d, priority, data, data_size);
-}
-
-bool lfModifier::AddSubpixelCallbackTCA (lfLensCalibTCA &model, bool reverse)
-{
-    float tmp [14];
-
-    if (reverse)
-        switch (model.Model)
-        {
-            case LF_TCA_MODEL_NONE:
-                break;
-
-            case LF_TCA_MODEL_LINEAR:
-                for (int i = 0; i < 2; i++)
-                {
-                    if (!model.Terms [i])
-                        return false;
-                    tmp [i] = 1.0 / model.Terms [i];
-                }
-                AddSubpixelCallback (ModifyCoord_UnTCA_Linear, 500,
-                                     tmp, 2 * sizeof (float));
-                return true;
-
-            case LF_TCA_MODEL_POLY3:
-                AddSubpixelCallback (ModifyCoord_UnTCA_Poly3, 500,
-                                     model.Terms, 6 * sizeof (float));
-                return true;
-
-            case LF_TCA_MODEL_ACM:
-                g_warning ("[lensfun] \"acm\" TCA model is not yet implemented "
-                           "for reverse correction");
-                return false;
-
-            default:
-                // keep gcc 4.4+ happy
-                break;
-        }
-    else
-        switch (model.Model)
-        {
-            case LF_TCA_MODEL_NONE:
-                break;
-
-            case LF_TCA_MODEL_LINEAR:
-                AddSubpixelCallback (ModifyCoord_TCA_Linear, 500,
-                                     model.Terms, 2 * sizeof (float));
-                return true;
-
-            case LF_TCA_MODEL_POLY3:
-                AddSubpixelCallback (ModifyCoord_TCA_Poly3, 500,
-                                     model.Terms, 6 * sizeof (float));
-                return true;
-
-            case LF_TCA_MODEL_ACM:
-                memcpy (tmp, model.Terms, sizeof (float) * 12);
-                tmp [12] = 1.0 / FocalLengthNormalized;
-                tmp [13] = FocalLengthNormalized;
-                AddSubpixelCallback (ModifyCoord_TCA_ACM, 500,
-                                     tmp, 14 * sizeof (float));
-                return true;
-
-            default:
-                // keep gcc 4.4+ happy
-                break;
-        }
-
-    return false;
 }
 
 bool lfModifier::ApplySubpixelDistortion (
@@ -384,12 +390,6 @@ void lf_modifier_add_subpixel_callback (
     void *data, size_t data_size)
 {
     modifier->AddSubpixelCallback (callback, priority, data, data_size);
-}
-
-cbool lf_modifier_add_subpixel_callback_TCA (
-    lfModifier *modifier, lfLensCalibTCA *model, cbool reverse)
-{
-    return modifier->AddSubpixelCallbackTCA (*model, reverse);
 }
 
 cbool lf_modifier_apply_subpixel_distortion (
