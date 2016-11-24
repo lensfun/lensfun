@@ -143,20 +143,11 @@ lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
     double size = Width < Height ? Width : Height;
     double image_aspect_ratio = Width < Height ? Height / Width : Width / Height;
 
-    double calibration_cropfactor;
-    double calibration_aspect_ratio;
-    if (lens)
-    {
-        calibration_cropfactor = lens->CropFactor;
-        calibration_aspect_ratio = lens->AspectRatio;
-    }
-    else
-        calibration_cropfactor = calibration_aspect_ratio = NAN;
-    double aspect_ratio_correction = sqrt (calibration_aspect_ratio * calibration_aspect_ratio + 1);
+    double aspect_ratio_correction = sqrt (Lens->AspectRatio * Lens->AspectRatio + 1);
 
     double coordinate_correction =
         1.0 / sqrt (image_aspect_ratio * image_aspect_ratio + 1) *
-        calibration_cropfactor / crop *
+        Lens->CropFactor / crop *
         aspect_ratio_correction;
 
     // The scale to transform {-size/2 .. 0 .. size/2-1} to {-1 .. 0 .. +1}
@@ -166,8 +157,8 @@ lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
     NormUnScale = size * 0.5 / coordinate_correction;
 
     // Geometric lens center in normalized coordinates
-    CenterX = Width / size * coordinate_correction + (lens ? lens->CenterX : 0.0);
-    CenterY = Height / size * coordinate_correction + (lens ? lens->CenterY : 0.0);
+    CenterX = Width / size * coordinate_correction + Lens->CenterX;
+    CenterY = Height / size * coordinate_correction + Lens->CenterY;
 }
 
 lfModifier::lfModifier (const lfLens *lens,
@@ -209,8 +200,8 @@ lfModifier::lfModifier (const lfLens *lens,
     NormUnScale = size * 0.5 / coordinate_correction;
 
     // Geometric lens center in normalized coordinates
-    CenterX = Width / size * coordinate_correction + (lens ? lens->CenterX : 0.0);
-    CenterY = Height / size * coordinate_correction + (lens ? lens->CenterY : 0.0);
+    CenterX = Width / size * coordinate_correction + Lens->CenterX;
+    CenterY = Height / size * coordinate_correction + Lens->CenterY;
 }
 
 double _normalize_focal_length(const lfLens *lens, float focal)
