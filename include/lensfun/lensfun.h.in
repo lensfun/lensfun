@@ -2045,11 +2045,7 @@ struct LF_EXPORT lfModifier
      * @param height
      *     The height of the image you want to correct.
      */
-    lfModifier (const lfLens *lens, float crop, int width, int height);
-
-    lfModifier (const lfLens *lens, float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse = false);
-
-    ~lfModifier ();
+    DEPRECATED lfModifier (const lfLens *lens, float crop, int width, int height);
 
     /**
      * @brief Create an empty image modifier object.
@@ -2124,9 +2120,21 @@ struct LF_EXPORT lfModifier
      *     A set of LF_MODIFY_XXX flags in effect. This is the @a flags argument
      *     with dropped bits for operations which are actually no-ops.
      */
-    int Initialize (
+    DEPRECATED int Initialize (
         const lfLens *lens, lfPixelFormat format, float focal, float aperture,
         float distance, float scale, lfLensType targeom, int flags, bool reverse);
+
+    /**
+     * @brief Destroy the modifier object.
+     *
+     * This function is deprecated and will be removed in the future.
+     * Please use the standard destructor instead.
+     */
+    DEPRECATED void Destroy ();
+
+    lfModifier (const lfLens *lens, float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse = false);
+
+    ~lfModifier ();
 
     bool EnableDistortionCorrection (float focal);
 
@@ -2190,14 +2198,6 @@ struct LF_EXPORT lfModifier
      *     True if the perspective correction was enabled.
      */
     bool EnablePerspectiveCorrection (float focal, float *x, float *y, int count, float d);
-
-    /**
-     * @brief Destroy the modifier object.
-     *
-     * This function is deprecated and will be removed in the future. 
-     * Please use the standard destructor instead.
-     */
-    DEPRECATED void Destroy ();
 
     /**
      * @brief Add a user-defined callback to the coordinate correction chain.
