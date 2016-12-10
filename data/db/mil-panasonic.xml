@@ -379,6 +379,27 @@
             <vignetting model="pa" focal="42" aperture="22" distance="1000" k1="-0.1522" k2="-0.1439" k3="0.0785"/>
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Panasonic</maker>
+        <model>Lumix G Vario 12-60mm f3.5-5.6 Asph. Power OIS</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+          <!-- Taken with Panasonic DMC-G80 -->
+            <distortion model="ptlens" focal="12" a="0.0287212" b="-0.0853854" c="-0.0106763"/>
+            <distortion model="ptlens" focal="15" a="-0.00918518" b="0.053883" c="-0.127008"/>
+            <distortion model="ptlens" focal="18" a="0.00962417" b="-0.0250619" c="0.015732"/>
+            <distortion model="ptlens" focal="30" a="0.00636623" b="-0.015593" c="0.0327523"/>
+            <distortion model="ptlens" focal="60" a="0" b="0.00784641" c="0"/>
+            <tca model="poly3" focal="12" vr="1.0001087" vb="1.0003009"/>
+            <tca model="poly3" focal="15" vr="1.0000481" vb="1.0005000"/>
+            <tca model="poly3" focal="18" vr="1.0000464" vb="1.0004000"/>
+            <tca model="poly3" focal="30" vr="1.0001128" vb="1.0000466"/>
+            <tca model="poly3" focal="60" vr="0.9999674" vb="0.9999320"/>
+        </calibration>
+    </lens>
 
     <lens>
         <maker>Panasonic</maker>
