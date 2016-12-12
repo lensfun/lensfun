@@ -2364,6 +2364,17 @@
             <!-- Taken with Nikon D800 -->
             <distortion model="poly3" focal="105" k1="-0.00131"/>
             <tca model="poly3" focal="105" br="-0.0000282" vr="0.9999225" bb="0.0000075" vb="0.9999279"/>
+	    <!-- Taken with Nikon D810 -->
+            <vignetting model="pa" focal="105" aperture="2.8" distance="10" k1="-1.6279" k2="1.8493" k3="-0.9319"/>
+            <vignetting model="pa" focal="105" aperture="2.8" distance="1000" k1="-1.6279" k2="1.8493" k3="-0.9319"/>
+            <vignetting model="pa" focal="105" aperture="4" distance="10" k1="0.1058" k2="-0.9844" k3="0.4094"/>
+            <vignetting model="pa" focal="105" aperture="4" distance="1000" k1="0.1058" k2="-0.9844" k3="0.4094"/>
+            <vignetting model="pa" focal="105" aperture="5.6" distance="10" k1="-0.0224" k2="0.2310" k3="-0.4180"/>
+            <vignetting model="pa" focal="105" aperture="5.6" distance="1000" k1="-0.0224" k2="0.2310" k3="-0.4180"/>
+            <vignetting model="pa" focal="105" aperture="8" distance="10" k1="-0.0786" k2="0.3183" k3="-0.2995"/>
+            <vignetting model="pa" focal="105" aperture="8" distance="1000" k1="-0.0786" k2="0.3183" k3="-0.2995"/>
+            <vignetting model="pa" focal="105" aperture="32" distance="10" k1="-0.0451" k2="0.1358" k3="-0.0981"/>
+            <vignetting model="pa" focal="105" aperture="32" distance="1000" k1="-0.0451" k2="0.1358" k3="-0.0981"/>
         </calibration>
     </lens>
 
