@@ -163,8 +163,18 @@
         <cropfactor>2</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="12" a="-0.005" b="-0.016" c="-0.014"/>
-            <tca model="poly3" focal="12" br="0.0000749" vr="1.0001239" bb="0.0000350" vb="1.0000181"/>
+            <distortion model="ptlens" focal="12" b="-0.028892"/>
+            <tca model="poly3" focal="12" br="0.0000301" vr="1.0003354" bb="0.0000561" vb="0.9999414"/>
+            <vignetting model="pa" focal="12" aperture="2" distance="10" k1="-0.6818" k2="-0.1021" k3="0.1981"/>
+            <vignetting model="pa" focal="12" aperture="2" distance="1000" k1="-0.6818" k2="-0.1021" k3="0.1981"/>
+            <vignetting model="pa" focal="12" aperture="2.8" distance="10" k1="-0.1391" k2="-0.0336" k3="-0.1603"/>
+            <vignetting model="pa" focal="12" aperture="2.8" distance="1000" k1="-0.1391" k2="-0.0336" k3="-0.1603"/>
+            <vignetting model="pa" focal="12" aperture="4" distance="10" k1="-0.2327" k2="-0.0190" k3="0.0492"/>
+            <vignetting model="pa" focal="12" aperture="4" distance="1000" k1="-0.2327" k2="-0.0190" k3="0.0492"/>
+            <vignetting model="pa" focal="12" aperture="5.6" distance="10" k1="-0.1964" k2="-0.0877" k3="0.0884"/>
+            <vignetting model="pa" focal="12" aperture="5.6" distance="1000" k1="-0.1964" k2="-0.0877" k3="0.0884"/>
+            <vignetting model="pa" focal="12" aperture="22" distance="10" k1="-0.2630" k2="0.0244" k3="0.0320"/>
+            <vignetting model="pa" focal="12" aperture="22" distance="1000" k1="-0.2630" k2="0.0244" k3="0.0320"/>
         </calibration>
     </lens>
 
