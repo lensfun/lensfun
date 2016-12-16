@@ -394,4 +394,30 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Arsenal</maker>
+        <model>MC Volna-3 80mm f/2.8</model>
+        <mount>Kiev 88</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <!-- Taken with Sony SLT-A58 -->
+            <distortion model="ptlens" focal="80" a="0" b="0.00056" c="0"/>
+            <tca model="poly3" focal="80" br="0.0000342" vr="0.9999946" bb="-0.0000372" vb="1.0000073"/>
+            <vignetting model="pa" focal="80" aperture="2.8" distance="10" k1="-0.2252" k2="0.1874" k3="-0.0974"/>
+            <vignetting model="pa" focal="80" aperture="2.8" distance="1000" k1="-0.2252" k2="0.1874" k3="-0.0974"/>
+            <vignetting model="pa" focal="80" aperture="4" distance="10" k1="-0.1469" k2="0.1321" k3="-0.0693"/>
+            <vignetting model="pa" focal="80" aperture="4" distance="1000" k1="-0.1469" k2="0.1321" k3="-0.0693"/>
+            <vignetting model="pa" focal="80" aperture="5.6" distance="10" k1="-0.1378" k2="0.0952" k3="-0.0479"/>
+            <vignetting model="pa" focal="80" aperture="5.6" distance="1000" k1="-0.1378" k2="0.0952" k3="-0.0479"/>
+            <vignetting model="pa" focal="80" aperture="8" distance="10" k1="-0.1454" k2="0.1123" k3="-0.0586"/>
+            <vignetting model="pa" focal="80" aperture="8" distance="1000" k1="-0.1454" k2="0.1123" k3="-0.0586"/>
+            <vignetting model="pa" focal="80" aperture="11" distance="10" k1="-0.0939" k2="0.0021" k3="0.0103"/>
+            <vignetting model="pa" focal="80" aperture="11" distance="1000" k1="-0.0939" k2="0.0021" k3="0.0103"/>
+            <vignetting model="pa" focal="80" aperture="16" distance="10" k1="-0.1052" k2="0.0621" k3="-0.0394"/>
+            <vignetting model="pa" focal="80" aperture="16" distance="1000" k1="-0.1052" k2="0.0621" k3="-0.0394"/>
+            <vignetting model="pa" focal="80" aperture="22" distance="10" k1="-0.1423" k2="0.1459" k3="-0.0848"/>
+            <vignetting model="pa" focal="80" aperture="22" distance="1000" k1="-0.1423" k2="0.1459" k3="-0.0848"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>

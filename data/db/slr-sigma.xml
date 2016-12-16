@@ -3087,4 +3087,31 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 24mm f/2.8 Super Wide II</model>
+        <mount>Minolta AF</mount>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <!-- Taken with Sony SLT-A58 -->
+            <distortion model="ptlens" focal="24" a="0" b="-0.0085" c="0"/>
+            <tca model="poly3" focal="24" br="-0.0000150" vr="1.0004690" bb="0.0000578" vb="0.9998126"/>
+            <vignetting model="pa" focal="24" aperture="2.8" distance="10" k1="-0.4802" k2="0.0226" k3="0.0796"/>
+            <vignetting model="pa" focal="24" aperture="2.8" distance="1000" k1="-0.4802" k2="0.0226" k3="0.0796"/>
+            <vignetting model="pa" focal="24" aperture="4" distance="10" k1="-0.2279" k2="0.1426" k3="-0.1368"/>
+            <vignetting model="pa" focal="24" aperture="4" distance="1000" k1="-0.2279" k2="0.1426" k3="-0.1368"/>
+            <vignetting model="pa" focal="24" aperture="5.6" distance="10" k1="-0.2030" k2="-0.0007" k3="0.0504"/>
+            <vignetting model="pa" focal="24" aperture="5.6" distance="1000" k1="-0.2030" k2="-0.0007" k3="0.0504"/>
+            <vignetting model="pa" focal="24" aperture="8" distance="10" k1="-0.2408" k2="-0.0286" k3="0.1041"/>
+            <vignetting model="pa" focal="24" aperture="8" distance="1000" k1="-0.2408" k2="-0.0286" k3="0.1041"/>
+            <vignetting model="pa" focal="24" aperture="11" distance="10" k1="-0.2906" k2="0.1036" k3="0.0015"/>
+            <vignetting model="pa" focal="24" aperture="11" distance="1000" k1="-0.2906" k2="0.1036" k3="0.0015"/>
+            <vignetting model="pa" focal="24" aperture="16" distance="10" k1="-0.2988" k2="0.1251" k3="-0.0185"/>
+            <vignetting model="pa" focal="24" aperture="16" distance="1000" k1="-0.2988" k2="0.1251" k3="-0.0185"/>
+            <vignetting model="pa" focal="24" aperture="22" distance="10" k1="-0.3216" k2="0.1949" k3="-0.0724"/>
+            <vignetting model="pa" focal="24" aperture="22" distance="1000" k1="-0.3216" k2="0.1949" k3="-0.0724"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
