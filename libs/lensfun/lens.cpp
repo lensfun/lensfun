@@ -121,11 +121,7 @@ lfLens::~lfLens ()
     lf_free (Maker);
     lf_free (Model);
     _lf_list_free ((void **)Mounts);
-    _lf_list_free ((void **)CalibDistortion);
-    _lf_list_free ((void **)CalibTCA);
-    _lf_list_free ((void **)CalibVignetting);
-    _lf_list_free ((void **)CalibCrop);
-    _lf_list_free ((void **)CalibFov);
+
     if (!--_lf_lens_regex_refs)
         _lf_free_lens_regex ();
 }
@@ -150,26 +146,11 @@ lfLens::lfLens (const lfLens &other)
     AspectRatio = other.AspectRatio;
     Type = other.Type;
 
-    CalibDistortion = NULL;
-    if (other.CalibDistortion)
-        for (int i = 0; other.CalibDistortion [i]; i++)
-            AddCalibDistortion (other.CalibDistortion [i]);
-    CalibTCA = NULL;
-    if (other.CalibTCA)
-        for (int i = 0; other.CalibTCA [i]; i++)
-            AddCalibTCA (other.CalibTCA [i]);
-    CalibVignetting = NULL;
-    if (other.CalibVignetting)
-        for (int i = 0; other.CalibVignetting [i]; i++)
-            AddCalibVignetting (other.CalibVignetting [i]);
-    CalibCrop = NULL;
-    if (other.CalibCrop)
-        for (int i = 0; other.CalibCrop [i]; i++)
-            AddCalibCrop (other.CalibCrop [i]);
-    CalibFov = NULL;
-    if (other.CalibFov)
-        for (int i = 0; other.CalibFov [i]; i++)
-            AddCalibFov (other.CalibFov [i]);
+    CalibDistortion = other.CalibDistortion;
+    CalibTCA = other.CalibTCA;
+    CalibVignetting = other.CalibVignetting;
+    CalibCrop = other.CalibCrop;
+    CalibFov = other.CalibFov;
 }
 
 lfLens &lfLens::operator = (const lfLens &other)
@@ -194,26 +175,11 @@ lfLens &lfLens::operator = (const lfLens &other)
     AspectRatio = other.AspectRatio;
     Type = other.Type;
 
-    lf_free (CalibDistortion); CalibDistortion = NULL;
-    if (other.CalibDistortion)
-        for (int i = 0; other.CalibDistortion [i]; i++)
-            AddCalibDistortion (other.CalibDistortion [i]);
-    lf_free (CalibTCA); CalibTCA = NULL;
-    if (other.CalibTCA)
-        for (int i = 0; other.CalibTCA [i]; i++)
-            AddCalibTCA (other.CalibTCA [i]);
-    lf_free (CalibVignetting); CalibVignetting = NULL;
-    if (other.CalibVignetting)
-        for (int i = 0; other.CalibVignetting [i]; i++)
-            AddCalibVignetting (other.CalibVignetting [i]);
-    lf_free (CalibCrop); CalibCrop = NULL;
-    if (other.CalibCrop)
-        for (int i = 0; other.CalibCrop [i]; i++)
-            AddCalibCrop (other.CalibCrop [i]);
-    lf_free (CalibFov); CalibFov = NULL;
-    if (other.CalibFov)
-        for (int i = 0; other.CalibFov [i]; i++)
-            AddCalibFov (other.CalibFov [i]);
+    CalibDistortion = other.CalibDistortion;
+    CalibTCA = other.CalibTCA;
+    CalibVignetting = other.CalibVignetting;
+    CalibCrop = other.CalibCrop;
+    CalibFov = other.CalibFov;
 
     return *this;
 }
@@ -254,56 +220,51 @@ void lfLens::GuessParameters ()
     if (!MinAperture || !MinFocal)
     {
         // Try to find out the range of focal lengths using calibration data
-        if (CalibDistortion)
-            for (int i = 0; CalibDistortion [i]; i++)
-            {
-                float f = CalibDistortion [i]->Focal;
-                if (f < minf)
-                    minf = f;
-                if (f > maxf)
-                    maxf = f;
-            }
-        if (CalibTCA)
-            for (int i = 0; CalibTCA [i]; i++)
-            {
-                float f = CalibTCA [i]->Focal;
-                if (f < minf)
-                    minf = f;
-                if (f > maxf)
-                    maxf = f;
-            }
-        if (CalibVignetting)
-            for (int i = 0; CalibVignetting [i]; i++)
-            {
-                float f = CalibVignetting [i]->Focal;
-                float a = CalibVignetting [i]->Aperture;
-                if (f < minf)
-                    minf = f;
-                if (f > maxf)
-                    maxf = f;
-                if (a < mina)
-                    mina = a;
-                if (a > maxa)
-                    maxa = a;
-            }
-        if (CalibCrop)
-            for (int i=0; CalibCrop [i]; i++)
-            {
-                float f = CalibCrop [i]->Focal;
-                if (f < minf)
-                    minf = f;
-                if (f > maxf)
-                    maxf = f;
-            }
-        if (CalibFov)
-            for (int i=0; CalibFov [i]; i++)
-            {
-                float f = CalibFov [i]->Focal;
-                if (f < minf)
-                    minf = f;
-                if (f > maxf)
-                    maxf = f;
-            }
+        for (int i = 0; i < CalibDistortion.size(); i++)
+        {
+            float f = CalibDistortion [i].Focal;
+            if (f < minf)
+                minf = f;
+            if (f > maxf)
+                maxf = f;
+        }
+        for (int i = 0; i < CalibTCA.size(); i++)
+        {
+            float f = CalibTCA [i].Focal;
+            if (f < minf)
+                minf = f;
+            if (f > maxf)
+                maxf = f;
+        }
+        for (int i = 0; i < CalibVignetting.size(); i++)
+        {
+            float f = CalibVignetting [i].Focal;
+            float a = CalibVignetting [i].Aperture;
+            if (f < minf)
+                minf = f;
+            if (f > maxf)
+                maxf = f;
+            if (a < mina)
+                mina = a;
+            if (a > maxa)
+                maxa = a;
+        }
+        for (int i = 0; i < CalibCrop.size(); i++)
+        {
+            float f = CalibCrop [i].Focal;
+            if (f < minf)
+                minf = f;
+            if (f > maxf)
+                maxf = f;
+        }
+        for (int i = 0; i < CalibFov.size(); i++)
+        {
+            float f = CalibFov [i].Focal;
+            if (f < minf)
+                minf = f;
+            if (f > maxf)
+                maxf = f;
+        }
 
     }
 
@@ -685,24 +646,13 @@ static bool cmp_distortion (const void *x1, const void *x2)
 
 void lfLens::AddCalibDistortion (const lfLensCalibDistortion *dc)
 {
-    // Avoid "dereferencing type-punned pointer will break strict-aliasing rules" warning
-    union
-    {
-        lfLensCalibDistortion ***cd;
-        void ***arr;
-    } x = { &CalibDistortion };
-    _lf_addobj (x.arr, dc, sizeof (*dc), cmp_distortion);
+    CalibDistortion.push_back(*dc);
 }
 
 bool lfLens::RemoveCalibDistortion (int idx)
 {
     // Avoid "dereferencing type-punned pointer will break strict-aliasing rules" warning
-    union
-    {
-        lfLensCalibDistortion ***cd;
-        void ***arr;
-    } x = { &CalibDistortion };
-    return _lf_delobj (x.arr, idx);
+    CalibDistortion.erase(CalibDistortion.begin() + idx);
 }
 
 static bool cmp_tca (const void *x1, const void *x2)
@@ -714,24 +664,12 @@ static bool cmp_tca (const void *x1, const void *x2)
 
 void lfLens::AddCalibTCA (const lfLensCalibTCA *tcac)
 {
-    // Avoid "dereferencing type-punned pointer will break strict-aliasing rules" warning
-    union
-    {
-        lfLensCalibTCA ***ctca;
-        void ***arr;
-    } x = { &CalibTCA };
-    _lf_addobj (x.arr, tcac, sizeof (*tcac), cmp_tca);
+    CalibTCA.push_back(*tcac);
 }
 
 bool lfLens::RemoveCalibTCA (int idx)
 {
-    // Avoid "dereferencing type-punned pointer will break strict-aliasing rules" warning
-    union
-    {
-        lfLensCalibTCA ***ctca;
-        void ***arr;
-    } x = { &CalibTCA };
-    return _lf_delobj (x.arr, idx);
+    CalibTCA.erase(CalibTCA.begin() + idx);
 }
 
 static bool cmp_vignetting (const void *x1, const void *x2)
@@ -745,24 +683,12 @@ static bool cmp_vignetting (const void *x1, const void *x2)
 
 void lfLens::AddCalibVignetting (const lfLensCalibVignetting *vc)
 {
-    // Avoid "dereferencing type-punned pointer will break strict-aliasing rules" warning
-    union
-    {
-        lfLensCalibVignetting ***cv;
-        void ***arr;
-    } x = { &CalibVignetting };
-    _lf_addobj (x.arr, vc, sizeof (*vc), cmp_vignetting);
+    CalibVignetting.push_back(*vc);
 }
 
 bool lfLens::RemoveCalibVignetting (int idx)
 {
-    // Avoid "dereferencing type-punned pointer will break strict-aliasing rules" warning
-    union
-    {
-        lfLensCalibVignetting ***cv;
-        void ***arr;
-    } x = { &CalibVignetting };
-    return _lf_delobj (x.arr, idx);
+    CalibVignetting.erase(CalibVignetting.begin() + idx);
 }
 
 static bool cmp_lenscrop (const void *x1, const void *x2)
@@ -774,24 +700,12 @@ static bool cmp_lenscrop (const void *x1, const void *x2)
 
 void lfLens::AddCalibCrop (const lfLensCalibCrop *lcc)
 {
-    // Avoid "dereferencing type-punned pointer will break strict-aliasing rules" warning
-    union
-    {
-        lfLensCalibCrop ***cd;
-        void ***arr;
-    } x = { &CalibCrop };
-    _lf_addobj (x.arr, lcc, sizeof (*lcc), cmp_lenscrop);
+    CalibCrop.push_back(*lcc);
 }
 
 bool lfLens::RemoveCalibCrop (int idx)
 {
-    // Avoid "dereferencing type-punned pointer will break strict-aliasing rules" warning
-    union
-    {
-        lfLensCalibCrop ***cd;
-        void ***arr;
-    } x = { &CalibCrop };
-    return _lf_delobj (x.arr, idx);
+    CalibCrop.erase(CalibCrop.begin() + idx);
 }
 
 static bool cmp_lensfov (const void *x1, const void *x2)
@@ -803,24 +717,12 @@ static bool cmp_lensfov (const void *x1, const void *x2)
 
 void lfLens::AddCalibFov (const lfLensCalibFov *lcf)
 {
-    // Avoid "dereferencing type-punned pointer will break strict-aliasing rules" warning
-    union
-    {
-        lfLensCalibFov ***cd;
-        void ***arr;
-    } x = { &CalibFov };
-    _lf_addobj (x.arr, lcf, sizeof (*lcf), cmp_lensfov);
+    CalibFov.push_back(*lcf);
 }
 
 bool lfLens::RemoveCalibFov (int idx)
 {
-    // Avoid "dereferencing type-punned pointer will break strict-aliasing rules" warning
-    union
-    {
-        lfLensCalibFov ***cd;
-        void ***arr;
-    } x = { &CalibFov };
-    return _lf_delobj (x.arr, idx);
+    CalibFov.erase(CalibFov.begin() + idx);
 }
 
 static int __insert_spline (void **spline, float *spline_dist, float dist, void *val)
@@ -984,7 +886,7 @@ static void __parameter_scales (float values [], int number_of_values,
 
 bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) const
 {
-    if (!CalibDistortion)
+    if (CalibDistortion.empty())
         return false;
 
     union
@@ -996,31 +898,30 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
     lfDistortionModel dm = LF_DIST_MODEL_NONE;
 
     memset (spline, 0, sizeof (spline));
-    for (int i = 0; CalibDistortion [i]; i++)
+    for (const lfLensCalibDistortion& c : CalibDistortion)
     {
-        lfLensCalibDistortion *c = CalibDistortion [i];
-        if (c->Model == LF_DIST_MODEL_NONE)
+        if (c.Model == LF_DIST_MODEL_NONE)
             continue;
 
         // Take into account just the first encountered lens model
         if (dm == LF_DIST_MODEL_NONE)
-            dm = c->Model;
-        else if (dm != c->Model)
+            dm = c.Model;
+        else if (dm != c.Model)
         {
             g_warning ("[Lensfun] lens %s/%s has multiple distortion models defined\n",
                        Maker, Model);
             continue;
         }
 
-        float df = focal - c->Focal;
+        float df = focal - c.Focal;
         if (df == 0.0)
         {
             // Exact match found, don't care to interpolate
-            res = *c;
+            res = c;
             return true;
         }
-
-        __insert_spline (spline_ptr, spline_dist, df, c);
+        lfLensCalibDistortion cp = c;
+        __insert_spline (spline_ptr, spline_dist, df, &cp);
     }
 
     if (!spline [1] || !spline [2])
@@ -1063,7 +964,7 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
 
 bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
 {
-    if (!CalibTCA)
+    if (CalibTCA.empty())
         return false;
 
     union
@@ -1075,31 +976,30 @@ bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
     lfTCAModel tcam = LF_TCA_MODEL_NONE;
 
     memset (&spline, 0, sizeof (spline));
-    for (int i = 0; CalibTCA [i]; i++)
+    for (const lfLensCalibTCA& c : CalibTCA)
     {
-        lfLensCalibTCA *c = CalibTCA [i];
-        if (c->Model == LF_TCA_MODEL_NONE)
+        if (c.Model == LF_TCA_MODEL_NONE)
             continue;
 
         // Take into account just the first encountered lens model
         if (tcam == LF_TCA_MODEL_NONE)
-            tcam = c->Model;
-        else if (tcam != c->Model)
+            tcam = c.Model;
+        else if (tcam != c.Model)
         {
             g_warning ("[Lensfun] lens %s/%s has multiple TCA models defined\n",
                        Maker, Model);
             continue;
         }
 
-        float df = focal - c->Focal;
+        float df = focal - c.Focal;
         if (df == 0.0)
         {
             // Exact match found, don't care to interpolate
-            res = *c;
+            res = c;
             return true;
         }
-
-        __insert_spline (spline_ptr, spline_dist, df, c);
+        lfLensCalibTCA cp = c;
+        __insert_spline (spline_ptr, spline_dist, df, &cp);
     }
 
     if (!spline [1] || !spline [2])
@@ -1160,7 +1060,7 @@ static float __vignetting_dist (
 bool lfLens::InterpolateVignetting (
     float focal, float aperture, float distance, lfLensCalibVignetting &res) const
 {
-    if (!CalibVignetting)
+    if (CalibVignetting.empty())
         return false;
 
     lfVignettingModel vm = LF_VIGNETTING_MODEL_NONE;
@@ -1176,25 +1076,24 @@ bool lfLens::InterpolateVignetting (
     const float power = 3.5;
 
     float smallest_interpolation_distance = FLT_MAX;
-    for (int i = 0; CalibVignetting [i]; i++)
+    for (const lfLensCalibVignetting& c : CalibVignetting)
     {
-        const lfLensCalibVignetting* c = CalibVignetting [i];
         // Take into account just the first encountered lens model
         if (vm == LF_VIGNETTING_MODEL_NONE)
         {
-            vm = c->Model;
+            vm = c.Model;
             res.Model = vm;
         } 
-        else if (vm != c->Model)
+        else if (vm != c.Model)
         {
             g_warning ("[Lensfun] lens %s/%s has multiple vignetting models defined\n",
                        Maker, Model);
             continue;
         }
 
-        float interpolation_distance = __vignetting_dist (this, *c, focal, aperture, distance);
+        float interpolation_distance = __vignetting_dist (this, c, focal, aperture, distance);
         if (interpolation_distance < 0.0001) {
-            res = *c;
+            res = c;
             return true;
         }
 
@@ -1202,9 +1101,9 @@ bool lfLens::InterpolateVignetting (
         float weighting = fabs (1.0 / pow (interpolation_distance, power));
         for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
         {
-            float values [1] = {c->Focal};
+            float values [1] = {c.Focal};
             __parameter_scales (values, 1, LF_MODIFY_VIGNETTING, vm, i);
-            res.Terms [i] += weighting * c->Terms [i] * values [0];
+            res.Terms [i] += weighting * c.Terms [i] * values [0];
         }
         total_weighting += weighting;
     }
@@ -1227,7 +1126,7 @@ bool lfLens::InterpolateVignetting (
 
 bool lfLens::InterpolateCrop (float focal, lfLensCalibCrop &res) const
 {
-    if (!CalibCrop)
+    if (CalibCrop.empty())
         return false;
 
     union
@@ -1239,31 +1138,31 @@ bool lfLens::InterpolateCrop (float focal, lfLensCalibCrop &res) const
     lfCropMode cm = LF_NO_CROP;
 
     memset (spline, 0, sizeof (spline));
-    for (int i = 0; CalibCrop [i]; i++)
+    for (const lfLensCalibCrop& c : CalibCrop)
     {
-        lfLensCalibCrop *c = CalibCrop [i];
-        if (c->CropMode == LF_NO_CROP)
+        if (c.CropMode == LF_NO_CROP)
             continue;
 
         // Take into account just the first encountered crop mode
         if (cm == LF_NO_CROP)
-            cm = c->CropMode;
-        else if (cm != c->CropMode)
+            cm = c.CropMode;
+        else if (cm != c.CropMode)
         {
             g_warning ("[Lensfun] lens %s/%s has multiple crop modes defined\n",
                        Maker, Model);
             continue;
         }
 
-        float df = focal - c->Focal;
+        float df = focal - c.Focal;
         if (df == 0.0)
         {
             // Exact match found, don't care to interpolate
-            res = *c;
+            res = c;
             return true;
         }
 
-        __insert_spline (spline_ptr, spline_dist, df, c);
+        lfLensCalibCrop cp = c;
+        __insert_spline (spline_ptr, spline_dist, df, &cp);
     }
 
     if (!spline [1] || !spline [2])
@@ -1295,7 +1194,7 @@ bool lfLens::InterpolateCrop (float focal, lfLensCalibCrop &res) const
 
 bool lfLens::InterpolateFov (float focal, lfLensCalibFov &res) const
 {
-    if (!CalibFov)
+    if (CalibFov.empty())
         return false;
 
     union
@@ -1307,22 +1206,23 @@ bool lfLens::InterpolateFov (float focal, lfLensCalibFov &res) const
 
     memset (spline, 0, sizeof (spline));
     int counter=0;
-    for (int i = 0; CalibFov [i]; i++)
+
+    for (const lfLensCalibFov& c : CalibFov)
     {
-        lfLensCalibFov *c = CalibFov [i];
-        if (c->FieldOfView == 0)
+        if (c.FieldOfView == 0)
             continue;
 
         counter++;
-        float df = focal - c->Focal;
+        float df = focal - c.Focal;
         if (df == 0.0)
         {
             // Exact match found, don't care to interpolate
-            res = *c;
+            res = c;
             return true;
         }
 
-        __insert_spline (spline_ptr, spline_dist, df, c);
+        lfLensCalibFov cp = c;
+        __insert_spline (spline_ptr, spline_dist, df, &cp);
     }
 
     //no valid data found

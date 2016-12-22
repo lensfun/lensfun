@@ -26,6 +26,8 @@
 
 #ifdef __cplusplus
 
+#include <vector>
+
 extern "C" {
 /** Helper macro to make C/C++ work similarly */
 #  define C_TYPEDEF(t,c)
@@ -886,20 +888,22 @@ struct LF_EXPORT lfLens
     float AspectRatio;
     /** Lens type */
     lfLensType Type;
-    /** Lens distortion calibration data, NULL-terminated (unsorted) */
-    lfLensCalibDistortion **CalibDistortion;
-    /** Lens TCA calibration data, NULL-terminated (unsorted) */
-    lfLensCalibTCA **CalibTCA;
-    /** Lens vignetting calibration data, NULL-terminated (unsorted) */
-    lfLensCalibVignetting **CalibVignetting;
-    /** Crop data, NULL-terminated (unsorted) */
-    lfLensCalibCrop **CalibCrop;
-    /** Field of view calibration data, NULL-terminated (unsorted) */
-    lfLensCalibFov **CalibFov;
-    /** Lens matching score, used while searching: not actually a lens parameter */
     int Score;
 
 #ifdef __cplusplus
+
+    /** Lens distortion calibration data, NULL-terminated (unsorted) */
+    std::vector<lfLensCalibDistortion> CalibDistortion;
+    /** Lens TCA calibration data, NULL-terminated (unsorted) */
+    std::vector<lfLensCalibTCA> CalibTCA;
+    /** Lens vignetting calibration data, NULL-terminated (unsorted) */
+    std::vector<lfLensCalibVignetting> CalibVignetting;
+    /** Crop data, NULL-terminated (unsorted) */
+    std::vector<lfLensCalibCrop> CalibCrop;
+    /** Field of view calibration data, NULL-terminated (unsorted) */
+    std::vector<lfLensCalibFov> CalibFov;
+    /** Lens matching score, used while searching: not actually a lens parameter */
+
     /**
      * @brief Create a new lens object, initializing all fields to default values.
      */

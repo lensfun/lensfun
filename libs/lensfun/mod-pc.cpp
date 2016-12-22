@@ -72,7 +72,6 @@ using std::log;
 using std::pow;
 using std::sin;
 using std::sqrt;
-using std::isnan;
 
 dvector normalize (double x, double y)
 {
