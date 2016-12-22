@@ -725,7 +725,7 @@ bool lfLens::RemoveCalibFov (int idx)
     CalibFov.erase(CalibFov.begin() + idx);
 }
 
-static int __insert_spline (void **spline, float *spline_dist, float dist, void *val)
+static int __insert_spline (const void **spline, float *spline_dist, float dist, const void *val)
 {
     if (dist < 0)
     {
@@ -891,8 +891,8 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
 
     union
     {
-        lfLensCalibDistortion *spline [4];
-        void *spline_ptr [4];
+        const lfLensCalibDistortion *spline [4];
+        const void *spline_ptr [4];
     };
     float spline_dist [4] = { -FLT_MAX, -FLT_MAX, FLT_MAX, FLT_MAX };
     lfDistortionModel dm = LF_DIST_MODEL_NONE;
@@ -920,8 +920,7 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
             res = c;
             return true;
         }
-        lfLensCalibDistortion cp = c;
-        __insert_spline (spline_ptr, spline_dist, df, &cp);
+        __insert_spline (spline_ptr, spline_dist, df, &c);
     }
 
     if (!spline [1] || !spline [2])
@@ -969,8 +968,8 @@ bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
 
     union
     {
-        lfLensCalibTCA *spline [4];
-        void *spline_ptr [4];
+        const lfLensCalibTCA *spline [4];
+        const void *spline_ptr [4];
     };
     float spline_dist [4] = { -FLT_MAX, -FLT_MAX, FLT_MAX, FLT_MAX };
     lfTCAModel tcam = LF_TCA_MODEL_NONE;
@@ -1131,8 +1130,8 @@ bool lfLens::InterpolateCrop (float focal, lfLensCalibCrop &res) const
 
     union
     {
-        lfLensCalibCrop *spline [4];
-        void *spline_ptr [4];
+        const lfLensCalibCrop *spline [4];
+        const void *spline_ptr [4];
     };
     float spline_dist [4] = { -FLT_MAX, -FLT_MAX, FLT_MAX, FLT_MAX };
     lfCropMode cm = LF_NO_CROP;
@@ -1199,8 +1198,8 @@ bool lfLens::InterpolateFov (float focal, lfLensCalibFov &res) const
 
     union
     {
-        lfLensCalibFov *spline [4];
-        void *spline_ptr [4];
+        const lfLensCalibFov *spline [4];
+        const void *spline_ptr [4];
     };
     float spline_dist [4] = { -FLT_MAX, -FLT_MAX, FLT_MAX, FLT_MAX };
 
