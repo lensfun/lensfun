@@ -646,10 +646,10 @@ bool lfModifier::EnablePerspectiveCorrection (float focal, float *x, float *y, i
 
     /* The occurances of factors and denominators here avoid additional
        operations in the inner loop of perspective_correction_callback. */
-    float tmp[] = {A [0][0] * mapping_scale, A [0][1] * mapping_scale, A [0][2] * norm_focal,
-                   A [1][0] * mapping_scale, A [1][1] * mapping_scale, A [1][2] * norm_focal,
-                   A [2][0] / center_coords [2], A [2][1] / center_coords [2], A [2][2],
-                   Delta_a / mapping_scale, Delta_b / mapping_scale};
+    float tmp[] = {(float) (A [0][0] * mapping_scale), (float) (A [0][1] * mapping_scale), (float) (A [0][2] * norm_focal),
+                   (float) (A [1][0] * mapping_scale), (float) (A [1][1] * mapping_scale),  (float) (A [1][2] * norm_focal),
+                   (float) (A [2][0] / center_coords [2]), (float) (A [2][1] / center_coords [2]), (float) A [2][2],
+                   (float) (Delta_a / mapping_scale), (float) (Delta_b / mapping_scale)};
     AddCoordCallback (ModifyCoord_Perspective_Correction, 300, tmp, sizeof (tmp));
     return true;
 }

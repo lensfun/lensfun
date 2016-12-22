@@ -92,9 +92,9 @@ guint _lf_detect_cpu_features ()
 {
 #define cpuid(cmd) \
     __asm volatile ( \
-        "push %%"R_BX"\n" \
+        "push %%" R_BX "\n" \
         "cpuid\n" \
-        "pop %%"R_BX"\n" \
+        "pop %%" R_BX "\n" \
        : "=a" (ax), "=c" (cx),  "=d" (dx) \
        : "0" (cmd))
 
