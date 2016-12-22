@@ -1609,4 +1609,33 @@
         </calibration>
     </lens>
 
+    <lens>
+        <!-- This lens is actually from Asahi.  But
+             https://sourceforge.net/p/lensfun/features/77/ suggests to call it
+             a Pentax lens. -->
+        <maker>Pentax</maker>
+        <model>Super-Takumar 55mm f/1.8</model>
+        <mount>M42</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <!-- Taken with Sony SLT-A58 -->
+            <distortion model="ptlens" focal="55" a="0" b="-0.00012" c="0"/>
+            <tca model="poly3" focal="55" br="-0.0000267" vr="1.0000445" bb="0.0000021" vb="0.9999832"/>
+            <vignetting model="pa" focal="55" aperture="1.8" distance="10" k1="-0.6803" k2="0.5250" k3="-0.2020"/>
+            <vignetting model="pa" focal="55" aperture="1.8" distance="1000" k1="-0.6803" k2="0.5250" k3="-0.2020"/>
+            <vignetting model="pa" focal="55" aperture="2.8" distance="10" k1="-0.2143" k2="0.1688" k3="-0.0836"/>
+            <vignetting model="pa" focal="55" aperture="2.8" distance="1000" k1="-0.2143" k2="0.1688" k3="-0.0836"/>
+            <vignetting model="pa" focal="55" aperture="4" distance="10" k1="-0.2404" k2="0.2739" k3="-0.1533"/>
+            <vignetting model="pa" focal="55" aperture="4" distance="1000" k1="-0.2404" k2="0.2739" k3="-0.1533"/>
+            <vignetting model="pa" focal="55" aperture="5.6" distance="10" k1="-0.1623" k2="0.0872" k3="-0.0380"/>
+            <vignetting model="pa" focal="55" aperture="5.6" distance="1000" k1="-0.1623" k2="0.0872" k3="-0.0380"/>
+            <vignetting model="pa" focal="55" aperture="8" distance="10" k1="-0.0924" k2="-0.1354" k3="0.1294"/>
+            <vignetting model="pa" focal="55" aperture="8" distance="1000" k1="-0.0924" k2="-0.1354" k3="0.1294"/>
+            <vignetting model="pa" focal="55" aperture="11" distance="10" k1="-0.1800" k2="0.0518" k3="0.0326"/>
+            <vignetting model="pa" focal="55" aperture="11" distance="1000" k1="-0.1800" k2="0.0518" k3="0.0326"/>
+            <vignetting model="pa" focal="55" aperture="16" distance="10" k1="-0.2170" k2="0.1550" k3="-0.0377"/>
+            <vignetting model="pa" focal="55" aperture="16" distance="1000" k1="-0.2170" k2="0.1550" k3="-0.0377"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>

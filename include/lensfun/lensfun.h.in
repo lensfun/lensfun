@@ -23,6 +23,7 @@
 #define __LENSFUN_H__
 
 #include <stddef.h>
+#include <stdbool.h>
 
 #ifdef __cplusplus
 
@@ -674,7 +675,7 @@ enum lfVignettingModel
      * @brief Pablo D'Angelo vignetting model
      * (which is a more general variant of the \f$\cos^4\f$ law).
      *
-     * \f[C_d = C_s \cdot (1 + k_1 r^2 + k_2 r^4 + k_3 r^6)\f]
+     * \f[C_d = C_s / (1 + k_1 r^2 + k_2 r^4 + k_3 r^6)\f]
      * The corresponding XML attributes are called “k1”, “k2”, and “k3”.  They
      * default to 0.
      * Ref: http://hugin.sourceforge.net/tech/

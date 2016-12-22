@@ -332,7 +332,9 @@ def collect_exif_data():
                            "fff", "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx",
                            "pxn", "r3d", "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f", "jpg", "jpeg"]
     raw_files = []
-    for root, __, filenames in os.walk(directory):
+    ignored_directories = {"__MACOSX"}
+    for root, dirnames, filenames in os.walk(directory, topdown=True):
+        dirnames[:] = [directory for directory in dirnames if directory not in ignored_directories]
         for filename in filenames:
             if os.path.splitext(filename)[1].lower()[1:] in raw_file_extensions:
                 raw_files.append(os.path.join(root, filename))
