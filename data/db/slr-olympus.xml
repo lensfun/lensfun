@@ -855,4 +855,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Olympus</maker>
+        <model>Zuiko Auto-S 50mm f/1.8</model>
+        <mount>Olympus OM</mount>
+        <cropfactor>1.613</cropfactor>
+        <calibration>
+            <!-- Taken with Canon M -->
+            <distortion model="ptlens" focal="50" a="0.00004" b="0.00389" c="-0.01321"/>
+            <tca model="poly3" focal="50" vr="0.9999506" vb="0.9999648"/>
+            <vignetting model="pa" focal="50" aperture="1.8" distance="10" k1="-0.8671" k2="0.7934" k3="-0.3523"/>
+            <vignetting model="pa" focal="50" aperture="1.8" distance="1000" k1="-0.8671" k2="0.7934" k3="-0.3523"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="10" k1="-0.0651" k2="-0.0319" k3="0.0334"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="1000" k1="-0.0651" k2="-0.0319" k3="0.0334"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="10" k1="-0.0648" k2="-0.0231" k3="0.0267"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="1000" k1="-0.0648" k2="-0.0231" k3="0.0267"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="10" k1="-0.0494" k2="-0.0551" k3="0.0491"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="1000" k1="-0.0494" k2="-0.0551" k3="0.0491"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="10" k1="-0.0023" k2="-0.2127" k3="0.1554"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="1000" k1="-0.0023" k2="-0.2127" k3="0.1554"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>

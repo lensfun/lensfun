@@ -9,11 +9,11 @@ import subprocess, os, os.path, sys, multiprocessing, math, re, contextlib, glob
 try:
     import numpy
 except ImportError:
-    missing_packages.add("python-numpy")
+    missing_packages.add("python3-numpy")
 try:
     from scipy.optimize.minpack import leastsq
 except ImportError:
-    missing_packages.add("python-scipy")
+    missing_packages.add("python3-scipy")
 def test_program(program, package_name):
     try:
         subprocess.call([program], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))

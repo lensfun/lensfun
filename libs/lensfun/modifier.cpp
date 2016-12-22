@@ -112,7 +112,7 @@ float lfModifier::GetRealFocalLength (const lfLens *lens, float focal)
         return result;
     }
     lfLensCalibDistortion lcd;
-    if (lens->InterpolateDistortion (focal, lcd))
+    if (lens && lens->InterpolateDistortion (focal, lcd))
         if (lcd.RealFocal > 0)
             return lcd.RealFocal;
     return result;

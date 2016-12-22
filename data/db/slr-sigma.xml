@@ -2008,6 +2008,41 @@
 
     <lens>
         <maker>Sigma</maker>
+        <model>Sigma 10-20mm f/3.5 EX DC HSM</model>
+        <mount>Nikon F AF</mount>
+        <mount>Sigma SA</mount>
+        <mount>Canon EF-S</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D5300 -->
+            <distortion model="ptlens" focal="10" a="-0.00146205" b="-0.00282501" c="-0.00694692"/>
+            <distortion model="ptlens" focal="11" a="0.0282063" b="-0.0989236" c="0.0843501"/>
+            <distortion model="ptlens" focal="12" a="0.0227213" b="-0.0914936" c="0.101055"/>
+            <distortion model="ptlens" focal="13" a="0.0252605" b="-0.10769" c="0.135309"/>
+            <distortion model="ptlens" focal="14" a="0.0116422" b="-0.0475321" c="0.0596043"/>
+            <distortion model="ptlens" focal="15" a="0.0210822" b="-0.0845071" c="0.114456"/>
+            <distortion model="ptlens" focal="16" a="0.021271" b="-0.070938" c="0.0781483"/>
+            <distortion model="ptlens" focal="17" a="-0.00248171" b="0.0157054" c="-0.0212513"/>
+            <distortion model="ptlens" focal="18" a="-0.00363957" b="0.00196858" c="0.0169272"/>
+            <distortion model="ptlens" focal="19" a="0.0281811" b="-0.0867922" c="0.0880965"/>
+            <distortion model="ptlens" focal="20" a="0.00197062" b="0.00221418" c="-0.00762991"/>
+            <tca model="poly3" focal="10" vr="1.0006758" vb="1.0000414"/>
+            <tca model="poly3" focal="11" vr="1.0005340" vb="1.0001038"/>
+            <tca model="poly3" focal="12" vr="1.0003423" vb="1.0001883"/>
+            <tca model="poly3" focal="13" vr="1.0002477" vb="1.0002743"/>
+            <tca model="poly3" focal="14" vr="1.0002078" vb="1.0002983"/>
+            <tca model="poly3" focal="15" vr="1.0001897" vb="1.0002843"/>
+            <tca model="poly3" focal="17" vr="1.0001920" vb="1.0002480"/>
+            <tca model="poly3" focal="18" vr="1.0002629" vb="1.0001467"/>
+            <tca model="poly3" focal="19" vr="1.0003036" vb="1.0001080"/>
+            <tca model="poly3" focal="20" vr="1.0003424" vb="1.0000668"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
         <model>Sigma 17-70mm f/2.8-4 DC Macro OS HSM</model>
         <mount>Nikon F AF</mount>
         <mount>Sigma SA</mount>
@@ -2979,7 +3014,7 @@
 
     <lens>
         <maker>Sigma</maker>
-        <model>Sigma 17-70mm F2.8-4 DC MACRO OS HSM Contemporary</model>
+        <model>Sigma 17-70mm f/2.8-4 DC MACRO OS HSM Contemporary</model>
         <model lang="en">Sigma 17-70mm f/2.8-4 DC Macro OS HSM | C</model>
         <mount>Nikon F AF</mount>
         <mount>Sigma SA</mount>
@@ -3049,6 +3084,33 @@
             <vignetting model="pa" focal="70" aperture="11" distance="1000" k1="-0.1501" k2="0.0901" k3="-0.0588"/>
             <vignetting model="pa" focal="70" aperture="22" distance="10" k1="-0.1712" k2="0.1244" k3="-0.0783"/>
             <vignetting model="pa" focal="70" aperture="22" distance="1000" k1="-0.1712" k2="0.1244" k3="-0.0783"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 24mm f/2.8 Super Wide II</model>
+        <mount>Minolta AF</mount>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <!-- Taken with Sony SLT-A58 -->
+            <distortion model="ptlens" focal="24" a="0" b="-0.0085" c="0"/>
+            <tca model="poly3" focal="24" br="-0.0000150" vr="1.0004690" bb="0.0000578" vb="0.9998126"/>
+            <vignetting model="pa" focal="24" aperture="2.8" distance="10" k1="-0.4802" k2="0.0226" k3="0.0796"/>
+            <vignetting model="pa" focal="24" aperture="2.8" distance="1000" k1="-0.4802" k2="0.0226" k3="0.0796"/>
+            <vignetting model="pa" focal="24" aperture="4" distance="10" k1="-0.2279" k2="0.1426" k3="-0.1368"/>
+            <vignetting model="pa" focal="24" aperture="4" distance="1000" k1="-0.2279" k2="0.1426" k3="-0.1368"/>
+            <vignetting model="pa" focal="24" aperture="5.6" distance="10" k1="-0.2030" k2="-0.0007" k3="0.0504"/>
+            <vignetting model="pa" focal="24" aperture="5.6" distance="1000" k1="-0.2030" k2="-0.0007" k3="0.0504"/>
+            <vignetting model="pa" focal="24" aperture="8" distance="10" k1="-0.2408" k2="-0.0286" k3="0.1041"/>
+            <vignetting model="pa" focal="24" aperture="8" distance="1000" k1="-0.2408" k2="-0.0286" k3="0.1041"/>
+            <vignetting model="pa" focal="24" aperture="11" distance="10" k1="-0.2906" k2="0.1036" k3="0.0015"/>
+            <vignetting model="pa" focal="24" aperture="11" distance="1000" k1="-0.2906" k2="0.1036" k3="0.0015"/>
+            <vignetting model="pa" focal="24" aperture="16" distance="10" k1="-0.2988" k2="0.1251" k3="-0.0185"/>
+            <vignetting model="pa" focal="24" aperture="16" distance="1000" k1="-0.2988" k2="0.1251" k3="-0.0185"/>
+            <vignetting model="pa" focal="24" aperture="22" distance="10" k1="-0.3216" k2="0.1949" k3="-0.0724"/>
+            <vignetting model="pa" focal="24" aperture="22" distance="1000" k1="-0.3216" k2="0.1949" k3="-0.0724"/>
         </calibration>
     </lens>
 
