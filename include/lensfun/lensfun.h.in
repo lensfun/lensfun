@@ -456,6 +456,36 @@ LF_EXPORT cbool lf_camera_check (lfCamera *camera);
  * @{
  */
 
+struct lfLensCalibAttributes
+{
+    /**
+     * The horizontal shift of all lens distortions.
+     * Note that distortion and TCA uses same geometrical lens center.
+     * It is given as a relative value to avoide dependency on the
+     * image and/or sensor sizes. The calibrated delta X and Y values are
+     * numbers in the -0.5 .. +0.5 range. For 1 we take the maximal image
+     * dimension (width or height) - this is related to the fact that the
+     * lens has a circular field of projection disregarding sensor size.
+     */
+    float CenterX;
+    /** The vertical shift of all lens distortions. (0,0) for geometric center */
+    float CenterY;
+    /** Crop factor at which calibration measurements were taken.  Must be defined. */
+    float CropFactor;
+    /** Aspect ratio of the images used for calibration measurements. */
+    float AspectRatio;
+
+    #ifdef __cplusplus
+    bool operator==(const lfLensCalibAttributes& other)
+    {
+        return CenterX == other.CenterX &&
+               CenterY == other.CenterY &&
+               CropFactor == other.CropFactor &&
+               AspectRatio == other.AspectRatio;
+    }
+    #endif
+};
+
 /**
  * @brief The Lensfun library implements several lens distortion models.
  * This enum lists them.
@@ -555,6 +585,8 @@ struct lfLensCalibDistortion
     cbool RealFocalMeasured;
     /** @brief Distortion coefficients, dependent on model (a,b,c or k1 or k1,k2) */
     float Terms [5];
+    /** @brief Pointer to the calibration settings */
+    const lfLensCalibAttributes* attr;
 };
 
 C_TYPEDEF (struct, lfLensCalibDistortion)
@@ -647,6 +679,8 @@ struct lfLensCalibTCA
     float Focal;
     /** @brief The coefficients for TCA, dependent on model; separate for R and B */
     float Terms [12];
+    /** @brief Pointer to the calibration settings */
+    const lfLensCalibAttributes* attr;
 };
 
 C_TYPEDEF (struct, lfLensCalibTCA)
@@ -715,6 +749,8 @@ struct lfLensCalibVignetting
     float Distance;
     /** @brief Lens vignetting model coefficients (depending on model) */
     float Terms [3];
+    /** @brief Pointer to the calibration settings */
+    const lfLensCalibAttributes* attr;
 };
 
 C_TYPEDEF (struct, lfLensCalibVignetting)
@@ -752,6 +788,8 @@ struct lfLensCalibCrop
      *  where the crop circle can extend above the image border.
      */
     float Crop [4];
+    /** @brief Pointer to the calibration settings */
+    const lfLensCalibAttributes* attr;
 };
 
 C_TYPEDEF (struct, lfLensCalibCrop)
@@ -777,9 +815,27 @@ struct lfLensCalibFov
      *  stored in this field 
      */
     float FieldOfView;
+    /** @brief Pointer to the calibration settings */
+    const lfLensCalibAttributes* attr;
 };
 
 C_TYPEDEF (struct, lfLensCalibFov)
+
+struct lfLensCalibrationSet
+{
+    lfLensCalibAttributes attr;
+
+    /** Lens distortion calibration data */
+    std::vector<lfLensCalibDistortion> CalibDistortion;
+    /** Lens TCA calibration data */
+    std::vector<lfLensCalibTCA> CalibTCA;
+    /** Lens vignetting calibration data */
+    std::vector<lfLensCalibVignetting> CalibVignetting;
+    /** Crop data */
+    std::vector<lfLensCalibCrop> CalibCrop;
+    /** Field of view calibration data */
+    std::vector<lfLensCalibFov> CalibFov;
+};
 
 /**
  * @brief This structure describes a single parameter for some lens model.
@@ -871,39 +927,12 @@ struct LF_EXPORT lfLens
     float MaxAperture;
     /** Available mounts (NULL-terminated list) (ex: { "QBM", NULL }) */
     char **Mounts;
-    /**
-     * The horizontal shift of all lens distortions.
-     * Note that distortion and TCA uses same geometrical lens center.
-     * It is given as a relative value to avoide dependency on the
-     * image and/or sensor sizes. The calibrated delta X and Y values are
-     * numbers in the -0.5 .. +0.5 range. For 1 we take the maximal image
-     * dimension (width or height) - this is related to the fact that the
-     * lens has a circular field of projection disregarding sensor size.
-     */
-    float CenterX;
-    /** The vertical shift of all lens distortions. (0,0) for geometric center */
-    float CenterY;
-    /** Crop factor at which calibration measurements were taken.  Must be defined. */
-    float CropFactor;
-    /** Aspect ratio of the images used for calibration measurements. */
-    float AspectRatio;
     /** Lens type */
     lfLensType Type;
+    /** Lens matching score, used while searching: not actually a lens parameter */
     int Score;
 
 #ifdef __cplusplus
-
-    /** Lens distortion calibration data, NULL-terminated (unsorted) */
-    std::vector<lfLensCalibDistortion> CalibDistortion;
-    /** Lens TCA calibration data, NULL-terminated (unsorted) */
-    std::vector<lfLensCalibTCA> CalibTCA;
-    /** Lens vignetting calibration data, NULL-terminated (unsorted) */
-    std::vector<lfLensCalibVignetting> CalibVignetting;
-    /** Crop data, NULL-terminated (unsorted) */
-    std::vector<lfLensCalibCrop> CalibCrop;
-    /** Field of view calibration data, NULL-terminated (unsorted) */
-    std::vector<lfLensCalibFov> CalibFov;
-    /** Lens matching score, used while searching: not actually a lens parameter */
 
     /**
      * @brief Create a new lens object, initializing all fields to default values.
@@ -966,7 +995,7 @@ struct LF_EXPORT lfLens
      * @param dc
      *     The distortion calibration structure.
      */
-    void AddCalibDistortion (const lfLensCalibDistortion *dc);
+    void AddCalibDistortion (const lfLensCalibDistortion *dc, const lfLensCalibAttributes *cs);
 
     /**
      * @brief Remove a calibration entry from the distortion calibration data.
@@ -984,7 +1013,7 @@ struct LF_EXPORT lfLens
      * @param tcac
      *     The transversal chromatic aberration calibration structure.
      */
-    void AddCalibTCA (const lfLensCalibTCA *tcac);
+    void AddCalibTCA (const lfLensCalibTCA *tcac, const lfLensCalibAttributes *cs);
 
     /**
      * @brief Remove a calibration entry from the TCA calibration data.
@@ -1001,7 +1030,7 @@ struct LF_EXPORT lfLens
      * @param vc
      *     The vignetting calibration structure.
      */
-    void AddCalibVignetting (const lfLensCalibVignetting *vc);
+    void AddCalibVignetting (const lfLensCalibVignetting *vc, const lfLensCalibAttributes *cs);
 
     /**
      * @brief Remove a calibration entry from the vignetting calibration data.
@@ -1018,7 +1047,7 @@ struct LF_EXPORT lfLens
      * @param cc 
      *     The lens crop structure.
      */
-    void AddCalibCrop (const lfLensCalibCrop *cc);
+    void AddCalibCrop (const lfLensCalibCrop *cc, const lfLensCalibAttributes *cs);
 
     /**
      * @brief Remove a lens crop entry from the lens crop structure.
@@ -1038,7 +1067,7 @@ struct LF_EXPORT lfLens
      * @param cf
      *     The lens fov structure.
      */
-    DEPRECATED void AddCalibFov (const lfLensCalibFov *cf);
+    DEPRECATED void AddCalibFov (const lfLensCalibFov *cf, const lfLensCalibAttributes *cs);
 
     /**
      * @brief Remove a field of view  entry from the lens fov structure.
@@ -1207,6 +1236,11 @@ struct LF_EXPORT lfLens
      *     The resulting interpolated information data.
      */
     DEPRECATED bool InterpolateFov (float focal, lfLensCalibFov &res) const;
+
+    typedef std::vector<lfLensCalibrationSet> lfLensCalibrations;
+    lfLensCalibrations Calibrations;
+
+    bool GetCalibrationSet(const lfLensCalibAttributes *ca, lfLensCalibrationSet** cs);
 #endif
 };
 

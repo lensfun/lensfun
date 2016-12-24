@@ -152,6 +152,7 @@ typedef struct
     lfMount *mount;
     lfCamera *camera;
     lfLens *lens;
+    lfLensCalibAttributes calib_attr;
     gchar *lang;
     const gchar *stack [16];
     size_t stack_depth;
@@ -255,7 +256,10 @@ static void _xml_start_element (GMarkupParseContext *context,
         // still 0 (aka "unknown") for dummy lfLens instances created ad hoc
         // for search matching.
         pd->lens->Type = LF_RECTILINEAR;
-        pd->lens->AspectRatio = 1.5;
+        pd->calib_attr.CenterX = 0.0;
+        pd->calib_attr.CenterY = 0.0;
+        pd->calib_attr.CropFactor  = 1.0;
+        pd->calib_attr.AspectRatio = 1.5;
         if (!__chk_no_attrs(element_name, attribute_names, error)) return;
     }
     else if (!strcmp (element_name, "focal"))
@@ -295,9 +299,9 @@ static void _xml_start_element (GMarkupParseContext *context,
 
         for (i = 0; attribute_names [i]; i++)
             if (!strcmp (attribute_names [i], "x"))
-                pd->lens->CenterX = atof (attribute_values [i]);
+                pd->calib_attr.CenterX = atof (attribute_values [i]);
             else if (!strcmp (attribute_names [i], "y"))
-                pd->lens->CenterY = atof (attribute_values [i]);
+                pd->calib_attr.CenterY = atof (attribute_values [i]);
             else
                 goto bad_attr;
     }
@@ -311,6 +315,7 @@ static void _xml_start_element (GMarkupParseContext *context,
     {
         if (!ctx || strcmp (ctx, "lens"))
             goto bad_ctx;
+        // todo: read and add calibration setting
         if (!__chk_no_attrs(element_name, attribute_names, error)) return;
     }
     else if (!strcmp (element_name, "distortion"))
@@ -376,7 +381,7 @@ static void _xml_start_element (GMarkupParseContext *context,
         else
             dc.RealFocal = dc.Focal;
 
-        pd->lens->AddCalibDistortion (&dc);
+        pd->lens->AddCalibDistortion (&dc, &pd->calib_attr);
     }
     else if (!strcmp (element_name, "tca"))
     {
@@ -437,7 +442,7 @@ static void _xml_start_element (GMarkupParseContext *context,
             else
                 goto unk_attr;
 
-        pd->lens->AddCalibTCA (&tcac);
+        pd->lens->AddCalibTCA (&tcac, &pd->calib_attr);
     }
     else if (!strcmp (element_name, "vignetting"))
     {
@@ -476,7 +481,7 @@ static void _xml_start_element (GMarkupParseContext *context,
             else
                 goto unk_attr;
 
-        pd->lens->AddCalibVignetting (&vc);
+        pd->lens->AddCalibVignetting (&vc, &pd->calib_attr);
     }
     else if (!strcmp (element_name, "crop"))
     {
@@ -514,7 +519,7 @@ static void _xml_start_element (GMarkupParseContext *context,
                 goto unk_attr;
             }
 
-        pd->lens->AddCalibCrop (&lcc);
+        pd->lens->AddCalibCrop (&lcc, &pd->calib_attr);
     }
     else if (!strcmp (element_name, "field_of_view"))
     {
@@ -538,7 +543,7 @@ static void _xml_start_element (GMarkupParseContext *context,
                 goto unk_attr;
             }
 
-        pd->lens->AddCalibFov (&lcf);
+        pd->lens->AddCalibFov (&lcf, &pd->calib_attr);
     }
     /* Handle multi-language strings */
     else if (!strcmp (element_name, "maker") ||
@@ -696,7 +701,7 @@ static void _xml_text (GMarkupParseContext *context,
         if (pd->camera)
             pd->camera->CropFactor = atof (text);
         else if (pd->lens)
-            pd->lens->CropFactor = atof (text);
+            pd->calib_attr.CropFactor = atof (text);
         else
             goto bad_ctx;
     }
@@ -706,9 +711,9 @@ static void _xml_text (GMarkupParseContext *context,
         {
             const char *colon = strpbrk (text, ":");
             if (colon)
-                pd->lens->AspectRatio = atof (text) / atof (colon + 1);
+                pd->calib_attr.AspectRatio = atof (text) / atof (colon + 1);
             else
-                pd->lens->AspectRatio = atof (text);
+                pd->calib_attr.AspectRatio = atof (text);
         }
         else
             goto bad_ctx;
@@ -934,23 +939,27 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                                 lenses [i]->Type == LF_FISHEYE_THOBY ? "fisheye_thoby" :
                                 "rectilinear");
 
-            if (lenses [i]->CenterX || lenses [i]->CenterY)
-                _lf_xml_printf (output, "\t\t<center x=\"%g\" y=\"%g\" />\n",
-                                lenses [i]->CenterX, lenses [i]->CenterY);
+            if (!lenses [i]->Calibrations.empty())
+            {
+                if (lenses [i]->Calibrations[0].attr.CenterX || lenses [i]->Calibrations[0].attr.CenterY)
+                    _lf_xml_printf (output, "\t\t<center x=\"%g\" y=\"%g\" />\n",
+                                lenses [i]->Calibrations[0].attr.CenterX, lenses [i]->Calibrations[0].attr.CenterY);
+                if (lenses [i]->Calibrations[0].attr.AspectRatio > 0.0)
+                    _lf_xml_printf (output, "\t\t<cropfactor>%g</cropfactor>\n",
+                                lenses [i]->Calibrations[0].attr.CropFactor);
+                if (lenses [i]->Calibrations[0].attr.AspectRatio != 1.5)
+                    _lf_xml_printf (output, "\t\t<aspect-ratio>%g</aspect-ratio>\n",
+                                lenses [i]->Calibrations[0].attr.AspectRatio);
+            }
 
-            _lf_xml_printf (output, "\t\t<cropfactor>%g</cropfactor>\n",
-                            lenses [i]->CropFactor);
-            _lf_xml_printf (output, "\t\t<aspect-ratio>%g</aspect-ratio>\n",
-                            lenses [i]->AspectRatio);
-
-            if (!lenses [i]->CalibDistortion.empty() || !lenses [i]->CalibTCA.empty() ||
-                !lenses [i]->CalibVignetting.empty() || !lenses [i]->CalibCrop.empty() ||
-                !lenses [i]->CalibFov.empty())
+            if (!lenses [i]->Calibrations[0].CalibDistortion.empty() || !lenses [i]->Calibrations[0].CalibTCA.empty() ||
+                !lenses [i]->Calibrations[0].CalibVignetting.empty() || !lenses [i]->Calibrations[0].CalibCrop.empty() ||
+                !lenses [i]->Calibrations[0].CalibFov.empty())
                 g_string_append (output, "\t\t<calibration>\n");
 
-            if (!lenses [i]->CalibDistortion.empty())
+            if (!lenses [i]->Calibrations[0].CalibDistortion.empty())
             {
-                for (const lfLensCalibDistortion& cd : lenses [i]->CalibDistortion)
+                for (const lfLensCalibDistortion& cd : lenses [i]->Calibrations[0].CalibDistortion)
                 {
                     _lf_xml_printf (output, "\t\t\t<distortion focal=\"%g\" ",
                                     cd.Focal);
@@ -989,9 +998,9 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                 }
             }
 
-            if (!lenses [i]->CalibTCA.empty())
+            if (!lenses [i]->Calibrations[0].CalibTCA.empty())
             {
-                for (const lfLensCalibTCA& ctca : lenses [i]->CalibTCA)
+                for (const lfLensCalibTCA& ctca : lenses [i]->Calibrations[0].CalibTCA)
                 {
                     _lf_xml_printf (output, "\t\t\t<tca focal=\"%g\" ", ctca.Focal);
                     switch (ctca.Model)
@@ -1027,9 +1036,9 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                 }
             }
 
-            if (!lenses [i]->CalibVignetting.empty())
+            if (!lenses [i]->Calibrations[0].CalibVignetting.empty())
             {
-                for (const lfLensCalibVignetting& cv : lenses [i]->CalibVignetting)
+                for (const lfLensCalibVignetting& cv : lenses [i]->Calibrations[0].CalibVignetting)
                 {
                     _lf_xml_printf (output, "\t\t\t<vignetting focal=\"%g\" aperture=\"%g\" distance=\"%g\" ",
                                     cv.Focal, cv.Aperture, cv.Distance);
@@ -1052,9 +1061,9 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                 }
             }
 
-            if (!lenses [i]->CalibCrop.empty())
+            if (!lenses [i]->Calibrations[0].CalibCrop.empty())
             {
-                for (const lfLensCalibCrop& lcc: lenses [i]->CalibCrop)
+                for (const lfLensCalibCrop& lcc: lenses [i]->Calibrations[0].CalibCrop)
                 {
                     _lf_xml_printf (output, "\t\t\t<crop focal=\"%g\" ",
                                     lcc.Focal);
@@ -1080,9 +1089,9 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                 }
             }
 
-            if (!lenses [i]->CalibFov.empty())
+            if (!lenses [i]->Calibrations[0].CalibFov.empty())
             {
-                for (const lfLensCalibFov& lcf: lenses [i]->CalibFov)
+                for (const lfLensCalibFov& lcf: lenses [i]->Calibrations[0].CalibFov)
                 {
                     if (lcf.FieldOfView > 0)
                     {
@@ -1092,9 +1101,9 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                 }
             }
 
-            if (!lenses [i]->CalibDistortion.empty() || !lenses [i]->CalibTCA.empty() ||
-                !lenses [i]->CalibVignetting.empty() || !lenses [i]->CalibCrop.empty() ||
-                !lenses [i]->CalibFov.empty())
+            if (!lenses [i]->Calibrations[0].CalibDistortion.empty() || !lenses [i]->Calibrations[0].CalibTCA.empty() ||
+                !lenses [i]->Calibrations[0].CalibVignetting.empty() || !lenses [i]->Calibrations[0].CalibCrop.empty() ||
+                !lenses [i]->Calibrations[0].CalibFov.empty())
                 g_string_append (output, "\t\t</calibration>\n");
 
             g_string_append (output, "\t</lens>\n\n");
@@ -1107,6 +1116,7 @@ char *lfDatabase::Save (const lfMount *const *mounts,
     free(old_numeric);
 
     return g_string_free (output, FALSE);
+    return 0;
 }
 
 static gint __find_camera_compare (gconstpointer a, gconstpointer b)
@@ -1220,7 +1230,7 @@ const lfLens **lfDatabase::FindLenses (const lfCamera *camera,
         lens.AddMount (camera->Mount);
     // Guess lens parameters from lens model name
     lens.GuessParameters ();
-    lens.CropFactor = camera ? camera->CropFactor : 0.0;
+    //lens.Calibrations[0].attr.CropFactor = camera ? camera->CropFactor : 0.0;
     return FindLenses (&lens, sflags);
 }
 

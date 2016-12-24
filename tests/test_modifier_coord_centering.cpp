@@ -23,10 +23,10 @@ typedef struct
 void mod_setup (lfFixture *lfFix, gconstpointer data)
 {
     lfFix->lens             = new lfLens();
-    lfFix->lens->CropFactor = 1.0f;
-    lfFix->lens->AspectRatio = 3.0f / 2.0f;
-    lfFix->lens->CenterX = 0.1f;
-    lfFix->lens->CenterY = 0.1f;
+    //lfFix->lens->CropFactor = 1.0f;
+    //lfFix->lens->AspectRatio = 3.0f / 2.0f;
+    //lfFix->lens->CenterX = 0.1f;
+    //lfFix->lens->CenterY = 0.1f;
     lfFix->lens->Type       = LF_RECTILINEAR;
 
     lfFix->img_height = 1001;

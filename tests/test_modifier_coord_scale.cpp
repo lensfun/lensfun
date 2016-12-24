@@ -42,7 +42,7 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
   lfTestParams *p = (lfTestParams *)data;
 
   lfFix->lens             = new lfLens();
-  lfFix->lens->CropFactor = 1.0f;
+  //lfFix->lens->CropFactor = 1.0f;
   lfFix->lens->Type       = LF_RECTILINEAR;
 
   lfFix->img_height = 300;

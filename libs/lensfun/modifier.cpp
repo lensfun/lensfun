@@ -143,11 +143,11 @@ lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
     double size = Width < Height ? Width : Height;
     double image_aspect_ratio = Width < Height ? Height / Width : Width / Height;
 
-    double aspect_ratio_correction = sqrt (Lens->AspectRatio * Lens->AspectRatio + 1);
+    double aspect_ratio_correction = sqrt (Lens->Calibrations[0].attr.AspectRatio * Lens->Calibrations[0].attr.AspectRatio + 1);
 
     double coordinate_correction =
         1.0 / sqrt (image_aspect_ratio * image_aspect_ratio + 1) *
-        Lens->CropFactor / crop *
+        Lens->Calibrations[0].attr.CropFactor / crop *
         aspect_ratio_correction;
 
     // The scale to transform {-size/2 .. 0 .. size/2-1} to {-1 .. 0 .. +1}
@@ -157,8 +157,8 @@ lfModifier::lfModifier (const lfLens *lens, float crop, int width, int height)
     NormUnScale = size * 0.5 / coordinate_correction;
 
     // Geometric lens center in normalized coordinates
-    CenterX = Width / size * coordinate_correction + Lens->CenterX;
-    CenterY = Height / size * coordinate_correction + Lens->CenterY;
+    CenterX = Width / size * coordinate_correction + Lens->Calibrations[0].attr.CenterX;
+    CenterY = Height / size * coordinate_correction + Lens->Calibrations[0].attr.CenterY;
 }
 
 lfModifier::lfModifier (const lfLens *lens,
@@ -186,11 +186,11 @@ lfModifier::lfModifier (const lfLens *lens,
     double size = Width < Height ? Width : Height;
     double image_aspect_ratio = Width < Height ? Height / Width : Width / Height;
 
-    double aspect_ratio_correction = sqrt (Lens->AspectRatio * Lens->AspectRatio + 1);
+    double aspect_ratio_correction = sqrt (Lens->Calibrations[0].attr.AspectRatio * Lens->Calibrations[0].attr.AspectRatio + 1);
 
     double coordinate_correction =
         1.0 / sqrt (image_aspect_ratio * image_aspect_ratio + 1) *
-        Lens->CropFactor / imgcrop *
+        Lens->Calibrations[0].attr.CropFactor / imgcrop *
         aspect_ratio_correction;
 
     // The scale to transform {-size/2 .. 0 .. size/2-1} to {-1 .. 0 .. +1}
@@ -200,15 +200,15 @@ lfModifier::lfModifier (const lfLens *lens,
     NormUnScale = size * 0.5 / coordinate_correction;
 
     // Geometric lens center in normalized coordinates
-    CenterX = Width / size * coordinate_correction + Lens->CenterX;
-    CenterY = Height / size * coordinate_correction + Lens->CenterY;
+    CenterX = Width / size * coordinate_correction + Lens->Calibrations[0].attr.CenterX;
+    CenterY = Height / size * coordinate_correction + Lens->Calibrations[0].attr.CenterY;
 }
 
 double _normalize_focal_length(const lfLens *lens, float focal)
 {
-    double aspect_ratio_correction = sqrt (lens->AspectRatio * lens->AspectRatio + 1);
+    double aspect_ratio_correction = sqrt (lens->Calibrations[0].attr.AspectRatio * lens->Calibrations[0].attr.AspectRatio + 1);
     double normalized_in_millimeters = sqrt (36.0*36.0 + 24.0*24.0) /
-                                            (2.0 * aspect_ratio_correction * lens->CropFactor);
+                                            (2.0 * aspect_ratio_correction * lens->Calibrations[0].attr.CropFactor);
     return focal / normalized_in_millimeters;
 }
 

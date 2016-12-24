@@ -106,13 +106,21 @@ static void _lf_free_lens_regex ()
 static int _lf_lens_regex_refs = 0;
 
 lfLens::lfLens ()
-{
-    // Defaults for attributes are "unknown" (mostly 0).  Otherwise, ad hoc
-    // lfLens instances used for searches could not be matched against database
-    // lenses easily.  If you need defaults for database tags, set them when
-    // reading the database.
-    memset (this, 0, sizeof (*this));
+{   
+    Maker = NULL;
+    Model = NULL;
+    MinFocal = 0.0;
+    MaxFocal = 0.0;
+    MinAperture = 0.0;
+    MaxAperture = 0.0;
+    Mounts = NULL;
     Type = LF_UNKNOWN;
+
+    /*lfLensCalibAttributes cs = {0.0, 0.0, 1.0, 1.5};
+    lfLensCalibrationSet default_calib;
+    default_calib.attr = cs;
+    Calibrations.push_back(default_calib);*/
+
     _lf_lens_regex_refs++;
 }
 
@@ -140,17 +148,9 @@ lfLens::lfLens (const lfLens &other)
         for (int i = 0; other.Mounts [i]; i++)
             AddMount (other.Mounts [i]);
 
-    CenterX = other.CenterX;
-    CenterY = other.CenterY;
-    CropFactor = other.CropFactor;
-    AspectRatio = other.AspectRatio;
+    // todo: update settings refs
+    Calibrations = other.Calibrations;
     Type = other.Type;
-
-    CalibDistortion = other.CalibDistortion;
-    CalibTCA = other.CalibTCA;
-    CalibVignetting = other.CalibVignetting;
-    CalibCrop = other.CalibCrop;
-    CalibFov = other.CalibFov;
 }
 
 lfLens &lfLens::operator = (const lfLens &other)
@@ -169,17 +169,9 @@ lfLens &lfLens::operator = (const lfLens &other)
         for (int i = 0; other.Mounts [i]; i++)
             AddMount (other.Mounts [i]);
 
-    CenterX = other.CenterX;
-    CenterY = other.CenterY;
-    CropFactor = other.CropFactor;
-    AspectRatio = other.AspectRatio;
+    // todo: update settings refs
+    Calibrations = other.Calibrations;
     Type = other.Type;
-
-    CalibDistortion = other.CalibDistortion;
-    CalibTCA = other.CalibTCA;
-    CalibVignetting = other.CalibVignetting;
-    CalibCrop = other.CalibCrop;
-    CalibFov = other.CalibFov;
 
     return *this;
 }
@@ -220,52 +212,47 @@ void lfLens::GuessParameters ()
     if (!MinAperture || !MinFocal)
     {
         // Try to find out the range of focal lengths using calibration data
-        for (int i = 0; i < CalibDistortion.size(); i++)
-        {
-            float f = CalibDistortion [i].Focal;
-            if (f < minf)
-                minf = f;
-            if (f > maxf)
-                maxf = f;
+        for (const lfLensCalibrationSet& calibset: Calibrations) {
+            for (auto c: calibset.CalibDistortion)
+            {
+                if (c.Focal < minf)
+                    minf = c.Focal;
+                if (c.Focal > maxf)
+                    maxf = c.Focal;
+            }
+            for (auto c: calibset.CalibTCA)
+            {
+                if (c.Focal < minf)
+                    minf = c.Focal;
+                if (c.Focal > maxf)
+                    maxf = c.Focal;
+            }
+            for (auto c: calibset.CalibVignetting)
+            {
+                if (c.Focal < minf)
+                    minf = c.Focal;
+                if (c.Focal > maxf)
+                    maxf = c.Focal;
+                if (c.Aperture < mina)
+                    mina = c.Aperture;
+                if (c.Aperture > maxa)
+                    maxa = c.Aperture;
+            }
+            for (auto c: calibset.CalibCrop)
+            {
+                if (c.Focal < minf)
+                    minf = c.Focal;
+                if (c.Focal > maxf)
+                    maxf = c.Focal;
+            }
+            for (auto c: calibset.CalibFov)
+            {
+                if (c.Focal < minf)
+                    minf = c.Focal;
+                if (c.Focal > maxf)
+                    maxf = c.Focal;
+            }
         }
-        for (int i = 0; i < CalibTCA.size(); i++)
-        {
-            float f = CalibTCA [i].Focal;
-            if (f < minf)
-                minf = f;
-            if (f > maxf)
-                maxf = f;
-        }
-        for (int i = 0; i < CalibVignetting.size(); i++)
-        {
-            float f = CalibVignetting [i].Focal;
-            float a = CalibVignetting [i].Aperture;
-            if (f < minf)
-                minf = f;
-            if (f > maxf)
-                maxf = f;
-            if (a < mina)
-                mina = a;
-            if (a > maxa)
-                maxa = a;
-        }
-        for (int i = 0; i < CalibCrop.size(); i++)
-        {
-            float f = CalibCrop [i].Focal;
-            if (f < minf)
-                minf = f;
-            if (f > maxf)
-                maxf = f;
-        }
-        for (int i = 0; i < CalibFov.size(); i++)
-        {
-            float f = CalibFov [i].Focal;
-            if (f < minf)
-                minf = f;
-            if (f > maxf)
-                maxf = f;
-        }
-
     }
 
     if (minf != INT_MAX && !MinFocal)
@@ -288,10 +275,14 @@ bool lfLens::Check ()
 {
     GuessParameters ();
 
-    if (!Model || !Mounts || CropFactor <= 0 ||
-        MinFocal > MaxFocal || (MaxAperture && MinAperture > MaxAperture) ||
-        AspectRatio < 1)
+    if (!Model || !Mounts || MinFocal > MaxFocal ||
+        (MaxAperture && MinAperture > MaxAperture) )
         return false;
+
+    for (auto& calibset: Calibrations)
+        if (calibset.attr.CropFactor <= 0 ||
+            calibset.attr.AspectRatio < 1)
+            return false;
 
     return true;
 }
@@ -644,15 +635,37 @@ static bool cmp_distortion (const void *x1, const void *x2)
     return (d1->Focal == d2->Focal);
 }
 
-void lfLens::AddCalibDistortion (const lfLensCalibDistortion *dc)
+bool lfLens::GetCalibrationSet(const lfLensCalibAttributes *ca, lfLensCalibrationSet** cs)
 {
-    CalibDistortion.push_back(*dc);
+    // try find a matching calibset
+    for (auto& c: Calibrations)
+    {
+        if (c.attr == *ca)
+        {
+            *cs = &c;
+            return true;
+        }
+    }
+
+    // nothing found, create a new one
+    lfLensCalibrationSet new_cs;
+    new_cs.attr = *ca;
+    Calibrations.push_back(new_cs);
+    *cs = &Calibrations.back();
+    return true;
+}
+
+void lfLens::AddCalibDistortion (const lfLensCalibDistortion *dc, const lfLensCalibAttributes *cs)
+{
+    lfLensCalibrationSet* calibSet;
+    GetCalibrationSet(cs, &calibSet);
+    calibSet->CalibDistortion.push_back(*dc);
 }
 
 bool lfLens::RemoveCalibDistortion (int idx)
 {
     // Avoid "dereferencing type-punned pointer will break strict-aliasing rules" warning
-    CalibDistortion.erase(CalibDistortion.begin() + idx);
+    //CalibDistortion.erase(CalibDistortion.begin() + idx);
 }
 
 static bool cmp_tca (const void *x1, const void *x2)
@@ -662,14 +675,16 @@ static bool cmp_tca (const void *x1, const void *x2)
     return (t1->Focal == t2->Focal);
 }
 
-void lfLens::AddCalibTCA (const lfLensCalibTCA *tcac)
+void lfLens::AddCalibTCA (const lfLensCalibTCA *tcac, const lfLensCalibAttributes *cs)
 {
-    CalibTCA.push_back(*tcac);
+    lfLensCalibrationSet* calibSet;
+    GetCalibrationSet(cs, &calibSet);
+    calibSet->CalibTCA.push_back(*tcac);
 }
 
 bool lfLens::RemoveCalibTCA (int idx)
 {
-    CalibTCA.erase(CalibTCA.begin() + idx);
+    //CalibTCA.erase(CalibTCA.begin() + idx);
 }
 
 static bool cmp_vignetting (const void *x1, const void *x2)
@@ -681,14 +696,16 @@ static bool cmp_vignetting (const void *x1, const void *x2)
            (v1->Aperture == v2->Aperture);
 }
 
-void lfLens::AddCalibVignetting (const lfLensCalibVignetting *vc)
+void lfLens::AddCalibVignetting (const lfLensCalibVignetting *vc, const lfLensCalibAttributes *cs)
 {
-    CalibVignetting.push_back(*vc);
+    lfLensCalibrationSet* calibSet;
+    GetCalibrationSet(cs, &calibSet);
+    calibSet->CalibVignetting.push_back(*vc);
 }
 
 bool lfLens::RemoveCalibVignetting (int idx)
 {
-    CalibVignetting.erase(CalibVignetting.begin() + idx);
+    //CalibVignetting.erase(CalibVignetting.begin() + idx);
 }
 
 static bool cmp_lenscrop (const void *x1, const void *x2)
@@ -698,14 +715,16 @@ static bool cmp_lenscrop (const void *x1, const void *x2)
     return (d1->Focal == d2->Focal);
 }
 
-void lfLens::AddCalibCrop (const lfLensCalibCrop *lcc)
+void lfLens::AddCalibCrop (const lfLensCalibCrop *lcc, const lfLensCalibAttributes *cs)
 {
-    CalibCrop.push_back(*lcc);
+    lfLensCalibrationSet* calibSet;
+    GetCalibrationSet(cs, &calibSet);
+    calibSet->CalibCrop.push_back(*lcc);
 }
 
 bool lfLens::RemoveCalibCrop (int idx)
 {
-    CalibCrop.erase(CalibCrop.begin() + idx);
+    //CalibCrop.erase(CalibCrop.begin() + idx);
 }
 
 static bool cmp_lensfov (const void *x1, const void *x2)
@@ -715,14 +734,16 @@ static bool cmp_lensfov (const void *x1, const void *x2)
     return (d1->Focal == d2->Focal);
 }
 
-void lfLens::AddCalibFov (const lfLensCalibFov *lcf)
+void lfLens::AddCalibFov (const lfLensCalibFov *lcf, const lfLensCalibAttributes *cs)
 {
-    CalibFov.push_back(*lcf);
+    lfLensCalibrationSet* calibSet;
+    GetCalibrationSet(cs, &calibSet);
+    calibSet->CalibFov.push_back(*lcf);
 }
 
 bool lfLens::RemoveCalibFov (int idx)
 {
-    CalibFov.erase(CalibFov.begin() + idx);
+    //CalibFov.erase(CalibFov.begin() + idx);
 }
 
 static int __insert_spline (const void **spline, float *spline_dist, float dist, const void *val)
@@ -886,8 +907,11 @@ static void __parameter_scales (float values [], int number_of_values,
 
 bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) const
 {
-    if (CalibDistortion.empty())
+    if (Calibrations.empty())
         return false;
+
+    // TODO: find matching calibration set
+    const lfLensCalibrationSet* calib_set = &Calibrations[0];
 
     union
     {
@@ -898,7 +922,7 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
     lfDistortionModel dm = LF_DIST_MODEL_NONE;
 
     memset (spline, 0, sizeof (spline));
-    for (const lfLensCalibDistortion& c : CalibDistortion)
+    for (const lfLensCalibDistortion& c : calib_set->CalibDistortion)
     {
         if (c.Model == LF_DIST_MODEL_NONE)
             continue;
@@ -963,8 +987,11 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
 
 bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
 {
-    if (CalibTCA.empty())
+    if (Calibrations.empty())
         return false;
+
+    // TODO: find matching calibration set
+    const lfLensCalibrationSet* calib_set = &Calibrations[0];
 
     union
     {
@@ -975,7 +1002,7 @@ bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
     lfTCAModel tcam = LF_TCA_MODEL_NONE;
 
     memset (&spline, 0, sizeof (spline));
-    for (const lfLensCalibTCA& c : CalibTCA)
+    for (const lfLensCalibTCA& c : calib_set->CalibTCA)
     {
         if (c.Model == LF_TCA_MODEL_NONE)
             continue;
@@ -1059,8 +1086,11 @@ static float __vignetting_dist (
 bool lfLens::InterpolateVignetting (
     float focal, float aperture, float distance, lfLensCalibVignetting &res) const
 {
-    if (CalibVignetting.empty())
+    if (Calibrations.empty())
         return false;
+
+    // TODO: find matching calibration set
+    const lfLensCalibrationSet* calib_set = &Calibrations[0];
 
     lfVignettingModel vm = LF_VIGNETTING_MODEL_NONE;
     res.Focal = focal;
@@ -1075,7 +1105,7 @@ bool lfLens::InterpolateVignetting (
     const float power = 3.5;
 
     float smallest_interpolation_distance = FLT_MAX;
-    for (const lfLensCalibVignetting& c : CalibVignetting)
+    for (const lfLensCalibVignetting& c : calib_set->CalibVignetting)
     {
         // Take into account just the first encountered lens model
         if (vm == LF_VIGNETTING_MODEL_NONE)
@@ -1125,8 +1155,11 @@ bool lfLens::InterpolateVignetting (
 
 bool lfLens::InterpolateCrop (float focal, lfLensCalibCrop &res) const
 {
-    if (CalibCrop.empty())
+    if (Calibrations.empty())
         return false;
+
+    // TODO: find matching calibration set
+    const lfLensCalibrationSet* calib_set = &Calibrations[0];
 
     union
     {
@@ -1137,7 +1170,7 @@ bool lfLens::InterpolateCrop (float focal, lfLensCalibCrop &res) const
     lfCropMode cm = LF_NO_CROP;
 
     memset (spline, 0, sizeof (spline));
-    for (const lfLensCalibCrop& c : CalibCrop)
+    for (const lfLensCalibCrop& c : calib_set->CalibCrop)
     {
         if (c.CropMode == LF_NO_CROP)
             continue;
@@ -1193,8 +1226,11 @@ bool lfLens::InterpolateCrop (float focal, lfLensCalibCrop &res) const
 
 bool lfLens::InterpolateFov (float focal, lfLensCalibFov &res) const
 {
-    if (CalibFov.empty())
+    if (Calibrations.empty())
         return false;
+
+    // TODO: find matching calibration set
+    const lfLensCalibrationSet* calib_set = &Calibrations[0];
 
     union
     {
@@ -1206,7 +1242,7 @@ bool lfLens::InterpolateFov (float focal, lfLensCalibFov &res) const
     memset (spline, 0, sizeof (spline));
     int counter=0;
 
-    for (const lfLensCalibFov& c : CalibFov)
+    for (const lfLensCalibFov& c : calib_set->CalibFov)
     {
         if (c.FieldOfView == 0)
             continue;
@@ -1287,7 +1323,7 @@ gint _lf_lens_compare (gconstpointer a, gconstpointer b)
     if (cmp != 0)
         return cmp;
 
-    return int ((i1->CropFactor - i2->CropFactor) * 100);
+    return int ((i1->Calibrations[0].attr.CropFactor - i2->Calibrations[0].attr.CropFactor) * 100);
 }
 
 static int _lf_compare_num (float a, float b)
@@ -1312,24 +1348,25 @@ int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
         if (pattern->Type != match->Type)
             return 0;
 
-    if (pattern->CropFactor > 0.01 && pattern->CropFactor < match->CropFactor * 0.96)
-        return 0;
+    if (!pattern->Calibrations.empty() && !match->Calibrations.empty()) {
+        if (pattern->Calibrations[0].attr.CropFactor > 0.01 && pattern->Calibrations[0].attr.CropFactor < match->Calibrations[0].attr.CropFactor * 0.96)
+            return 0;
 
-    if (pattern->CropFactor >= match->CropFactor * 1.41)
-        score += 2;
-    else if (pattern->CropFactor >= match->CropFactor * 1.31)
-        score += 4;
-    else if (pattern->CropFactor >= match->CropFactor * 1.21)
-        score += 6;
-    else if (pattern->CropFactor >= match->CropFactor * 1.11)
-        score += 8;
-    else if (pattern->CropFactor >= match->CropFactor * 1.01)
-        score += 10;
-    else if (pattern->CropFactor >= match->CropFactor)
-        score += 5;
-    else if (pattern->CropFactor >= match->CropFactor * 0.96)
-        score += 3;
-
+        if (pattern->Calibrations[0].attr.CropFactor >= match->Calibrations[0].attr.CropFactor * 1.41)
+            score += 2;
+        else if (pattern->Calibrations[0].attr.CropFactor >= match->Calibrations[0].attr.CropFactor * 1.31)
+            score += 4;
+        else if (pattern->Calibrations[0].attr.CropFactor >= match->Calibrations[0].attr.CropFactor * 1.21)
+            score += 6;
+        else if (pattern->Calibrations[0].attr.CropFactor >= match->Calibrations[0].attr.CropFactor * 1.11)
+            score += 8;
+        else if (pattern->Calibrations[0].attr.CropFactor >= match->Calibrations[0].attr.CropFactor * 1.01)
+            score += 10;
+        else if (pattern->Calibrations[0].attr.CropFactor >= match->Calibrations[0].attr.CropFactor)
+            score += 5;
+        else if (pattern->Calibrations[0].attr.CropFactor >= match->Calibrations[0].attr.CropFactor * 0.96)
+            score += 3;
+    }
     switch (_lf_compare_num (pattern->MinFocal, match->MinFocal))
     {
         case -1:
@@ -1370,14 +1407,16 @@ int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
             break;
     }
 
-    switch (_lf_compare_num (pattern->AspectRatio, match->AspectRatio))
-    {
-        case -1:
-            return 0;
+    if (!pattern->Calibrations.empty() && !match->Calibrations.empty()) {
+        switch (_lf_compare_num (pattern->Calibrations[0].attr.AspectRatio, match->Calibrations[0].attr.AspectRatio))
+        {
+            case -1:
+                return 0;
 
-        case +1:
-            score += 10;
-            break;
+            case +1:
+                score += 10;
+                break;
+        }
     }
 
     if (compat_mounts && !compat_mounts [0])
@@ -1524,7 +1563,7 @@ cbool lf_lens_interpolate_fov (const lfLens *lens, float focal,
 
 void lf_lens_add_calib_distortion (lfLens *lens, const lfLensCalibDistortion *dc)
 {
-    lens->AddCalibDistortion (dc);
+    lens->AddCalibDistortion (dc, NULL);
 }
 
 cbool lf_lens_remove_calib_distortion (lfLens *lens, int idx)
@@ -1534,7 +1573,7 @@ cbool lf_lens_remove_calib_distortion (lfLens *lens, int idx)
 
 void lf_lens_add_calib_tca (lfLens *lens, const lfLensCalibTCA *tcac)
 {
-    lens->AddCalibTCA (tcac);
+    lens->AddCalibTCA (tcac, NULL);
 }
 
 cbool lf_lens_remove_calib_tca (lfLens *lens, int idx)
@@ -1544,7 +1583,7 @@ cbool lf_lens_remove_calib_tca (lfLens *lens, int idx)
 
 void lf_lens_add_calib_vignetting (lfLens *lens, const lfLensCalibVignetting *vc)
 {
-    lens->AddCalibVignetting (vc);
+    lens->AddCalibVignetting (vc, NULL);
 }
 
 cbool lf_lens_remove_calib_vignetting (lfLens *lens, int idx)
@@ -1554,7 +1593,7 @@ cbool lf_lens_remove_calib_vignetting (lfLens *lens, int idx)
 
 void lf_lens_add_calib_crop (lfLens *lens, const lfLensCalibCrop *lcc)
 {
-    lens->AddCalibCrop (lcc);
+    lens->AddCalibCrop (lcc, NULL);
 }
 
 cbool lf_lens_remove_calib_crop (lfLens *lens, int idx)
@@ -1565,7 +1604,7 @@ cbool lf_lens_remove_calib_crop (lfLens *lens, int idx)
 
 void lf_lens_add_calib_fov (lfLens *lens, const lfLensCalibFov *lcf)
 {
-    lens->AddCalibFov (lcf);
+    lens->AddCalibFov (lcf, NULL);
 }
 
 cbool lf_lens_remove_calib_fov (lfLens *lens, int idx)

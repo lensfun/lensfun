@@ -19,8 +19,8 @@ typedef struct
 void mod_setup (lfFixture *lfFix, gconstpointer data)
 {
     lfFix->lens             = new lfLens();
-    lfFix->lens->CropFactor = 1.0f;
-    lfFix->lens->AspectRatio = 4.0f / 3.0f;
+    //lfFix->lens->CropFactor = 1.0f;
+    //lfFix->lens->AspectRatio = 4.0f / 3.0f;
     lfFix->lens->Type       = LF_RECTILINEAR;
 
     lfFix->img_height = 1000;
@@ -41,8 +41,8 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
 void mod_setup_portrait (lfFixture *lfFix, gconstpointer data)
 {
     lfFix->lens             = new lfLens();
-    lfFix->lens->CropFactor = 1.534f;
-    lfFix->lens->AspectRatio = 1.5f;
+    //lfFix->lens->CropFactor = 1.534f;
+    //lfFix->lens->AspectRatio = 1.5f;
     lfFix->lens->Type       = LF_RECTILINEAR;
 
     lfFix->img_height = 1500;
@@ -99,7 +99,7 @@ void test_mod_coord_pc_svd (lfFixture *lfFix, gconstpointer data)
 void test_mod_coord_pc_4_points (lfFixture *lfFix, gconstpointer data)
 {
     // Bases on DSC02275.json
-    const float epsilon = std::numeric_limits<float>::epsilon() * 1e3;
+    const float epsilon = std::numeric_limits<float>::epsilon() * 5e3;
 
     float x[] = {503, 1063, 509, 1066};
     float y[] = {150, 197, 860, 759};
@@ -121,7 +121,7 @@ void test_mod_coord_pc_4_points (lfFixture *lfFix, gconstpointer data)
 void test_mod_coord_pc_4_points_portrait (lfFixture *lfFix, gconstpointer data)
 {
     // Bases on DSC02277.json
-    const float epsilon = std::numeric_limits<float>::epsilon();
+    const float epsilon = std::numeric_limits<float>::epsilon() * 2e3;
 
     float x[] = {145, 208, 748, 850};
     float y[] = {1060, 666, 668, 1060};
@@ -143,7 +143,7 @@ void test_mod_coord_pc_4_points_portrait (lfFixture *lfFix, gconstpointer data)
 void test_mod_coord_pc_8_points (lfFixture *lfFix, gconstpointer data)
 {
     // Bases on DSC02278.json
-    const float epsilon = std::numeric_limits<float>::epsilon() * 2e3;
+    const float epsilon = std::numeric_limits<float>::epsilon() * 5e3;
 
     float x[] = {615, 264, 1280, 813, 615, 1280, 264, 813};
     float y[] = {755, 292, 622, 220, 755, 622, 292, 220};
@@ -180,7 +180,7 @@ void test_mod_coord_pc_0_points (lfFixture *lfFix, gconstpointer data)
 void test_mod_coord_pc_5_points (lfFixture *lfFix, gconstpointer data)
 {
     // Bases on DSC02281.json
-    const float epsilon = std::numeric_limits<float>::epsilon() * 1e3;
+    const float epsilon = std::numeric_limits<float>::epsilon() * 5e3;
 
     float x[] = {661, 594, 461, 426, 530};
     float y[] = {501, 440, 442, 534, 562};
@@ -202,7 +202,7 @@ void test_mod_coord_pc_5_points (lfFixture *lfFix, gconstpointer data)
 void test_mod_coord_pc_7_points (lfFixture *lfFix, gconstpointer data)
 {
     // Bases on DSC02281_with_7_points.json
-    const float epsilon = std::numeric_limits<float>::epsilon() * 1e2;
+    const float epsilon = std::numeric_limits<float>::epsilon() * 5e3;
 
     float x[] = {661, 594, 461, 426, 530, 302, 815};
     float y[] = {501, 440, 442, 534, 562, 491, 279};

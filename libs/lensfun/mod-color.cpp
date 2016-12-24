@@ -32,7 +32,9 @@ bool lfModifier::EnableVignettingCorrection(float focal, float aperture, float d
             // for vignetting it uses 1.0 = half diagonal length. We have
             // to compute a transition coefficient as lfModifier works in
             // the first coordinate system.
-            double aspect_ratio_correction = sqrt (Lens->AspectRatio * Lens->AspectRatio + 1);
+            double aspect_ratio_correction = sqrt (Lens->Calibrations[0].attr.AspectRatio *
+                                                   Lens->Calibrations[0].attr.AspectRatio
+                                                   + 1);
             tmp [4] = 1.0 / aspect_ratio_correction;
         }
         tmp [3] = tmp [4] * NormScale;

@@ -64,6 +64,7 @@ void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
 void test_verify_dist_poly5 (lfFixture *lfFix, gconstpointer data)
 {
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "Canon PowerShot G12");
+    g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Canon PowerShot G12 & compatibles (Standard)");
 
     g_print(lenses[0]->Model);
@@ -133,11 +134,11 @@ int main (int argc, char **argv)
   g_test_add ("/modifier/coord/dist/verify_poly3", lfFixture, NULL,
               mod_setup, test_verify_dist_poly3, mod_teardown);
 
-  g_test_add ("/modifier/coord/dist/verify_poly5", lfFixture, NULL,
-              mod_setup, test_verify_dist_poly5, mod_teardown);
-
   g_test_add ("/modifier/coord/dist/verify_ptlens", lfFixture, NULL,
               mod_setup, test_verify_dist_ptlens, mod_teardown);
+
+  g_test_add ("/modifier/coord/dist/verify_poly5", lfFixture, NULL,
+              mod_setup, test_verify_dist_poly5, mod_teardown);
 
   return g_test_run();
 }
