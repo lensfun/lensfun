@@ -457,24 +457,6 @@ public:
     int Compare (const lfMLstr match);
 };
 
-/// Subpixel distortion callback
-struct lfSubpixelCallbackData : public lfCallbackData
-{
-    lfSubpixelCoordFunc callback;
-};
-
-/// A single pixel coordinate modifier callback.
-struct lfCoordCallbackData : public lfCallbackData
-{
-    lfModifyCoordFunc callback;
-};
-
-/// A single pixel color modifier callback.
-struct lfColorCallbackData : public lfCallbackData
-{
-    lfModifyColorFunc callback;
-};
-
 double _normalize_focal_length(const lfLens *lens, float focal);
 
 // `dvector`, `matrix`, and `svg` are declared here to be able to test `svd` in

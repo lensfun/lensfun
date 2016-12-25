@@ -8,91 +8,108 @@
 #include "lensfunprv.h"
 #include <math.h>
 
-bool lfModifier::EnableTCACorrection (float focal)
+bool lfModifier::EnableTCACorrection (lfLensCalibTCA& lctca)
+{
+    if (Reverse)
+        switch (lctca.Model)
+        {
+            case LF_TCA_MODEL_NONE:
+                break;
+
+            case LF_TCA_MODEL_LINEAR:
+                for (int i = 0; i < 2; i++)
+                {
+                    if (!lctca.Terms [i])
+                        return false;
+                    lctca.Terms [i] = 1.0 / lctca.Terms [i];
+                }
+                AddSubpixTCACallback(lctca, ModifyCoord_TCA_Linear, 500);
+                return true;
+
+            case LF_TCA_MODEL_POLY3:
+                AddSubpixTCACallback(lctca, ModifyCoord_UnTCA_Poly3, 500);
+                return true;
+
+            case LF_TCA_MODEL_ACM:
+                g_warning ("[lensfun] \"acm\" TCA model is not yet implemented "
+                           "for reverse correction");
+                return false;
+
+            default:
+                // keep gcc 4.4+ happy
+                break;
+        }
+    else
+        switch (lctca.Model)
+        {
+            case LF_TCA_MODEL_NONE:
+                break;
+
+            case LF_TCA_MODEL_LINEAR:
+                AddSubpixTCACallback(lctca, ModifyCoord_TCA_Linear, 500);
+                return true;
+
+            case LF_TCA_MODEL_POLY3:
+                AddSubpixTCACallback(lctca, ModifyCoord_TCA_Poly3, 500);
+                return true;
+
+            case LF_TCA_MODEL_ACM:
+                //memcpy (tmp, lctca.Terms, sizeof (float) * 12);
+                //tmp [13] = _normalize_focal_length(lens, focal);
+                //tmp [12] = 1.0 / tmp[13];
+
+                AddSubpixTCACallback(lctca, ModifyCoord_TCA_ACM, 500);
+                return true;
+
+            default:
+                // keep gcc 4.4+ happy
+                break;
+        }
+
+    return false;
+}
+
+bool lfModifier::EnableTCACorrection (const lfLens* lens, float focal)
 {
     lfLensCalibTCA lctca;
-    if (Lens->InterpolateTCA (focal, lctca))
+    if (lens->InterpolateTCA (focal, lctca))
     {
-        float tmp [14];
-
-        if (Reverse)
-            switch (lctca.Model)
-            {
-                case LF_TCA_MODEL_NONE:
-                    break;
-
-                case LF_TCA_MODEL_LINEAR:
-                    for (int i = 0; i < 2; i++)
-                    {
-                        if (!lctca.Terms [i])
-                            return false;
-                        tmp [i] = 1.0 / lctca.Terms [i];
-                    }
-                    AddSubpixelCallback (ModifyCoord_UnTCA_Linear, 500,
-                                         tmp, 2 * sizeof (float));
-                    return true;
-
-                case LF_TCA_MODEL_POLY3:
-                    AddSubpixelCallback (ModifyCoord_UnTCA_Poly3, 500,
-                                         lctca.Terms, 6 * sizeof (float));
-                    return true;
-
-                case LF_TCA_MODEL_ACM:
-                    g_warning ("[lensfun] \"acm\" TCA model is not yet implemented "
-                               "for reverse correction");
-                    return false;
-
-                default:
-                    // keep gcc 4.4+ happy
-                    break;
-            }
-        else
-            switch (lctca.Model)
-            {
-                case LF_TCA_MODEL_NONE:
-                    break;
-
-                case LF_TCA_MODEL_LINEAR:
-                    AddSubpixelCallback (ModifyCoord_TCA_Linear, 500,
-                                         lctca.Terms, 2 * sizeof (float));
-                    return true;
-
-                case LF_TCA_MODEL_POLY3:
-                    AddSubpixelCallback (ModifyCoord_TCA_Poly3, 500,
-                                         lctca.Terms, 6 * sizeof (float));
-                    return true;
-
-                case LF_TCA_MODEL_ACM:
-                    memcpy (tmp, lctca.Terms, sizeof (float) * 12);
-                    tmp [13] = _normalize_focal_length(Lens, focal);
-                    tmp [12] = 1.0 / tmp[13];
-                    AddSubpixelCallback (ModifyCoord_TCA_ACM, 500,
-                                         tmp, 14 * sizeof (float));
-                    return true;
-
-                default:
-                    // keep gcc 4.4+ happy
-                    break;
-            }
-
-        return false;
+        EnableTCACorrection(lctca);
     }
     else
         return false;
 }
 
-void lfModifier::AddSubpixelCallback (
-    lfSubpixelCoordFunc callback, int priority, void *data, size_t data_size)
+void lfModifier::AddSubpixTCACallback (lfLensCalibTCA& lcd, lfModifySubpixCoordFunc func, int priority)
 {
-    lfSubpixelCallbackData *d = new lfSubpixelCallbackData ();
-    d->callback = callback;
-    AddCallback (SubpixelCallbacks, d, priority, data, data_size);
+    lfSubpixTCACallback* cd = new lfSubpixTCACallback;
+
+    cd->callback = func;
+    cd->priority = priority;
+
+    double image_aspect_ratio = Width < Height ? Height / Width : Width / Height;
+    cd->coordinate_correction =
+            sqrt (lcd.attr->AspectRatio * lcd.attr->AspectRatio + 1) /
+            sqrt (image_aspect_ratio * image_aspect_ratio + 1) *
+            lcd.attr->CropFactor / Crop;
+
+    cd->centerX = lcd.attr->CenterX;
+    cd->centerY = lcd.attr->CenterY;
+    memcpy(cd->Terms, lcd.Terms, sizeof(lcd.Terms));
+
+    double aspect_ratio_correction = sqrt (lcd.attr->AspectRatio * lcd.attr->AspectRatio + 1);
+    double normalized_in_millimeters = sqrt (36.0*36.0 + 24.0*24.0) /
+                                            (2.0 * aspect_ratio_correction * lcd.attr->CropFactor);
+
+    cd->norm_focal = lcd.Focal / normalized_in_millimeters;
+
+    SubpixelCallbacks.insert(cd);
 }
 
 bool lfModifier::ApplySubpixelDistortion (
     float xu, float yu, int width, int height, float *res) const
 {
-    if (((GPtrArray *)SubpixelCallbacks)->len <= 0 || height <= 0)
+    if (SubpixelCallbacks.size() <= 0 || height <= 0)
         return false; // nothing to do
 
     // All callbacks work with normalized coordinates
@@ -111,12 +128,8 @@ bool lfModifier::ApplySubpixelDistortion (
             out += 6;
         }
 
-        for (i = 0; i < (int)((GPtrArray *)SubpixelCallbacks)->len; i++)
-        {
-            lfSubpixelCallbackData *cd =
-                (lfSubpixelCallbackData *)g_ptr_array_index ((GPtrArray *)SubpixelCallbacks, i);
-            cd->callback (cd->data, res, width);
-        }
+        for (auto cb : SubpixelCallbacks)
+            cb->callback (cb, res, width);
 
         // Convert normalized coordinates back into natural coordiates
         for (i = width * 3; i > 0; i--)
@@ -133,8 +146,7 @@ bool lfModifier::ApplySubpixelDistortion (
 bool lfModifier::ApplySubpixelGeometryDistortion (
     float xu, float yu, int width, int height, float *res) const
 {
-    if ((((GPtrArray *)SubpixelCallbacks)->len <= 0 && ((GPtrArray *)CoordCallbacks)->len <= 0)
-     || height <= 0)
+    if ((SubpixelCallbacks.size() <= 0 && CoordCallbacks.size() <= 0) || height <= 0)
         return false; // nothing to do
 
     // All callbacks work with normalized coordinates
@@ -153,19 +165,11 @@ bool lfModifier::ApplySubpixelGeometryDistortion (
             out += 6;
         }
 
-        for (i = 0; i < (int)((GPtrArray *)CoordCallbacks)->len; i++)
-        {
-            lfCoordCallbackData *cd =
-                (lfCoordCallbackData *)g_ptr_array_index ((GPtrArray *)CoordCallbacks, i);
-            cd->callback (cd->data, res, width * 3);
-        }
+        for (auto cb : CoordCallbacks)
+            cb->callback (cb, res, width * 3);
 
-        for (i = 0; i < (int)((GPtrArray *)SubpixelCallbacks)->len; i++)
-        {
-            lfSubpixelCallbackData *cd =
-                (lfSubpixelCallbackData *)g_ptr_array_index ((GPtrArray *)SubpixelCallbacks, i);
-            cd->callback (cd->data, res, width);
-        }
+        for (auto cb : SubpixelCallbacks)
+            cb->callback (cb, res, width);
 
         // Convert normalized coordinates back into natural coordiates
         for (i = width * 3; i > 0; i--)
@@ -179,53 +183,41 @@ bool lfModifier::ApplySubpixelGeometryDistortion (
     return true;
 }
 
-void lfModifier::ModifyCoord_UnTCA_Linear (void *data, float *iocoord, int count)
-{
-    float *param = (float *)data;
-    float k_r = param [0];
-    float k_b = param [1];
-
-    for (float *end = iocoord + count * 2 * 3; iocoord < end; iocoord += 6)
-    {
-        iocoord [0] *= k_r;
-        iocoord [1] *= k_r;
-        iocoord [4] *= k_b;
-        iocoord [5] *= k_b;
-    }
-}
-
 void lfModifier::ModifyCoord_TCA_Linear (void *data, float *iocoord, int count)
 {
-    float *param = (float *)data;
-    float k_r = param [0];
-    float k_b = param [1];
+    lfSubpixTCACallback* cddata = (lfSubpixTCACallback*) data;
+    const float k_r = cddata->Terms [0];
+    const float k_b = cddata->Terms [1];
 
     for (float *end = iocoord + count * 2 * 3; iocoord < end; iocoord += 6)
     {
-        iocoord [0] *= k_r;
-        iocoord [1] *= k_r;
-        iocoord [4] *= k_b;
-        iocoord [5] *= k_b;
+        const float x = iocoord [0] * cddata->coordinate_correction - cddata->centerX;
+        const float y = iocoord [1] * cddata->coordinate_correction - cddata->centerY;
+
+        iocoord [0] = (x * k_r - cddata->centerX) / cddata->coordinate_correction;
+        iocoord [1] = (y * k_r - cddata->centerY) / cddata->coordinate_correction;
+        iocoord [4] = (x * k_b - cddata->centerX) / cddata->coordinate_correction;
+        iocoord [5] = (y * k_b - cddata->centerY) / cddata->coordinate_correction;
     }
 }
 
 void lfModifier::ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int count)
 {
-    const float *param = (float *)data;
-    const float vr = param [0];
-    const float vb = param [1];
-    const float cr = param [2];
-    const float cb = param [3];
-    const float br = param [4];
-    const float bb = param [5];
+    lfSubpixTCACallback* cddata = (lfSubpixTCACallback*) data;
+    const float vr = cddata->Terms [0];
+    const float vb = cddata->Terms [1];
+    const float cr = cddata->Terms [2];
+    const float cb = cddata->Terms [3];
+    const float br = cddata->Terms [4];
+    const float bb = cddata->Terms [5];
 
     for (float *end = iocoord + count * 2 * 3; iocoord < end; iocoord += 6)
     {
         float x, y;
         double rd, ru, ru2;
 
-        x = iocoord [0];
-        y = iocoord [1];
+        x = iocoord [0] * cddata->coordinate_correction - cddata->centerX;
+        y = iocoord [1] * cddata->coordinate_correction - cddata->centerY;
         rd = sqrt (x * x + y * y);
         if (rd == 0.0)
             goto next_subpixel_r;
@@ -253,13 +245,13 @@ void lfModifier::ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int count)
         if (ru > 0.0)
         {
             ru /= rd;
-            iocoord [0] = x * ru;
-            iocoord [1] = y * ru;
+            iocoord [0] = (x * ru - cddata->centerX) / cddata->coordinate_correction;
+            iocoord [1] = (y * ru - cddata->centerY) / cddata->coordinate_correction;
         }
 next_subpixel_r:
 
-        x = iocoord [4];
-        y = iocoord [5];
+        x = iocoord [4] * cddata->coordinate_correction - cddata->centerX;
+        y = iocoord [5] * cddata->coordinate_correction - cddata->centerY;
         rd = sqrt (x * x + y * y);
         if (rd == 0.0)
             goto next_subpixel_b;
@@ -281,8 +273,8 @@ next_subpixel_r:
         if (ru > 0.0)
         {
             ru /= rd;
-            iocoord [4] = x * ru;
-            iocoord [5] = y * ru;
+            iocoord [4] = (x * ru - cddata->centerX) / cddata->coordinate_correction;
+            iocoord [5] = (y * ru - cddata->centerY) / cddata->coordinate_correction;
         }
 next_subpixel_b:;
     }
@@ -291,70 +283,70 @@ next_subpixel_b:;
 void lfModifier::ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count)
 {
     // Rd = Ru * (b * Ru^2 + c * Ru + v)
-    const float *param = (float *)data;
-    const float vr = param [0];
-    const float vb = param [1];
-    const float cr = param [2];
-    const float cb = param [3];
-    const float br = param [4];
-    const float bb = param [5];
+    lfSubpixTCACallback* cddata = (lfSubpixTCACallback*) data;
+    const float vr = cddata->Terms [0];
+    const float vb = cddata->Terms [1];
+    const float cr = cddata->Terms [2];
+    const float cb = cddata->Terms [3];
+    const float br = cddata->Terms [4];
+    const float bb = cddata->Terms [5];
 
     float x, y, ru2, poly2;
     // Optimize for the case when c == 0 (avoid two square roots per pixel)
     if (cr == 0.0 && cb == 0.0)
         for (float *end = iocoord + count * 2 * 3; iocoord < end; iocoord += 6)
         {
-            x = iocoord [0];
-            y = iocoord [1];
+            x = iocoord [0] * cddata->coordinate_correction - cddata->centerX;
+            y = iocoord [1] * cddata->coordinate_correction - cddata->centerY;
             ru2 = x * x + y * y;
             poly2 = br * ru2 + vr;
-            iocoord [0] = x * poly2;
-            iocoord [1] = y * poly2;
+            iocoord [0] = (x * poly2 - cddata->centerX) / cddata->coordinate_correction;
+            iocoord [1] = (y * poly2 - cddata->centerY) / cddata->coordinate_correction;
 
-            x = iocoord [4];
-            y = iocoord [5];
+            x = iocoord [4] * cddata->coordinate_correction - cddata->centerX;
+            y = iocoord [5] * cddata->coordinate_correction - cddata->centerY;
             ru2 = x * x + y * y;
             poly2 = bb * ru2 + vb;
-            iocoord [4] = x * poly2;
-            iocoord [5] = y * poly2;
+            iocoord [4] = (x * poly2 - cddata->centerX) / cddata->coordinate_correction;
+            iocoord [5] = (y * poly2 - cddata->centerY) / cddata->coordinate_correction;
         }
     else
         for (float *end = iocoord + count * 2 * 3; iocoord < end; iocoord += 6)
         {
-            x = iocoord [0];
-            y = iocoord [1];
+            x = iocoord [0] * cddata->coordinate_correction - cddata->centerX;
+            y = iocoord [1] * cddata->coordinate_correction - cddata->centerY;
             ru2 = x * x + y * y;
             poly2 = br * ru2 + cr * sqrt (ru2) + vr;
-            iocoord [0] = x * poly2;
-            iocoord [1] = y * poly2;
+            iocoord [0] = (x * poly2 - cddata->centerX) / cddata->coordinate_correction;
+            iocoord [1] = (y * poly2 - cddata->centerY) / cddata->coordinate_correction;
 
-            x = iocoord [4];
-            y = iocoord [5];
+            x = iocoord [4] * cddata->coordinate_correction - cddata->centerX;
+            y = iocoord [5] * cddata->coordinate_correction - cddata->centerY;
             ru2 = x * x + y * y;
             poly2 = bb * ru2 + cb * sqrt (ru2) + vb;
-            iocoord [4] = x * poly2;
-            iocoord [5] = y * poly2;
+            iocoord [4] = (x * poly2 - cddata->centerX) / cddata->coordinate_correction;
+            iocoord [5] = (y * poly2 - cddata->centerY) / cddata->coordinate_correction;
         }
 }
 
 void lfModifier::ModifyCoord_TCA_ACM (void *data, float *iocoord, int count)
 {
     // Rd = Ru * (b * Ru^2 + c * Ru + v)
-    const float *param = (float *)data;
-    const float alpha0 = param [0];
-    const float beta0 = param [1];
-    const float alpha1 = param [2];
-    const float beta1 = param [3];
-    const float alpha2 = param [4];
-    const float beta2 = param [5];
-    const float alpha3 = param [6];
-    const float beta3 = param [7];
-    const float alpha4 = param [8];
-    const float beta4 = param [9];
-    const float alpha5 = param [10];
-    const float beta5 = param [11];
-    const float ACMScale = param [12];
-    const float ACMUnScale = param [13];
+    lfSubpixTCACallback* cddata = (lfSubpixTCACallback*) data;
+    const float alpha0 = cddata->Terms [0];
+    const float beta0 = cddata->Terms [1];
+    const float alpha1 = cddata->Terms [2];
+    const float beta1 = cddata->Terms [3];
+    const float alpha2 = cddata->Terms [4];
+    const float beta2 = cddata->Terms [5];
+    const float alpha3 = cddata->Terms [6];
+    const float beta3 = cddata->Terms [7];
+    const float alpha4 = cddata->Terms [8];
+    const float beta4 = cddata->Terms [9];
+    const float alpha5 = cddata->Terms [10];
+    const float beta5 = cddata->Terms [11];
+    const float ACMScale = 1.0 / cddata->norm_focal;
+    const float ACMUnScale = cddata->norm_focal;
 
     float x, y, ru2, ru4, common_term;
     for (float *end = iocoord + count * 2 * 3; iocoord < end; iocoord += 6)
@@ -363,34 +355,31 @@ void lfModifier::ModifyCoord_TCA_ACM (void *data, float *iocoord, int count)
         // it is already distorted for the distortion correction.  However, in
         // context of TCA correction, it is undistorted, so Lensfun calls it
         // "ru".
-        x = iocoord [0] * ACMScale;
-        y = iocoord [1] * ACMScale;
+        x = iocoord [0] * ACMScale * cddata->coordinate_correction - cddata->centerX;
+        y = iocoord [1] * ACMScale * cddata->coordinate_correction - cddata->centerY;
         ru2 = x * x + y * y;
         ru4 = ru2 * ru2;
         common_term = 1.0 + alpha1 * ru2 + alpha2 * ru4 + alpha3 * ru4 * ru2 +
                       2 * (alpha4 * y + alpha5 * x);
         iocoord [0] = alpha0 * (x * common_term + alpha5 * ru2) * ACMUnScale;
         iocoord [1] = alpha0 * (y * common_term + alpha4 * ru2) * ACMUnScale;
+        iocoord [0] = (iocoord [0] - cddata->centerX) / cddata->coordinate_correction;
+        iocoord [1] = (iocoord [1] - cddata->centerY) / cddata->coordinate_correction;
 
-        x = iocoord [4] * ACMScale;
-        y = iocoord [5] * ACMScale;
+        x = iocoord [4] * ACMScale * cddata->coordinate_correction - cddata->centerX;
+        y = iocoord [5] * ACMScale * cddata->coordinate_correction - cddata->centerY;
         ru2 = x * x + y * y;
         ru4 = ru2 * ru2;
         common_term = 1.0 + beta1 * ru2 + beta2 * ru4 + beta3 * ru4 * ru2 +
                       2 * (beta4 * y + beta5 * x);
         iocoord [4] = beta0 * (x * common_term + beta5 * ru2) * ACMUnScale;
         iocoord [5] = beta0 * (y * common_term + beta4 * ru2) * ACMUnScale;
+        iocoord [4] = (iocoord [4] - cddata->centerX) / cddata->coordinate_correction;
+        iocoord [5] = (iocoord [5] - cddata->centerY) / cddata->coordinate_correction;
     }
 }
 
 //---------------------------// The C interface //---------------------------//
-
-void lf_modifier_add_subpixel_callback (
-    lfModifier *modifier, lfSubpixelCoordFunc callback, int priority,
-    void *data, size_t data_size)
-{
-    modifier->AddSubpixelCallback (callback, priority, data, data_size);
-}
 
 cbool lf_modifier_apply_subpixel_distortion (
     lfModifier *modifier, float xu, float yu, int width, int height, float *res)

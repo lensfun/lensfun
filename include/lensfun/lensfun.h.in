@@ -28,6 +28,7 @@
 #ifdef __cplusplus
 
 #include <vector>
+#include <set>
 
 extern "C" {
 /** Helper macro to make C/C++ work similarly */
@@ -2175,13 +2176,17 @@ struct LF_EXPORT lfModifier
 
     ~lfModifier ();
 
-    bool EnableDistortionCorrection (float focal);
+    bool EnableDistortionCorrection (lfLensCalibDistortion& lcd);
+    bool EnableDistortionCorrection (const lfLens* lens, float focal);
 
-    bool EnableTCACorrection (float focal);
+    bool EnableTCACorrection (lfLensCalibTCA& lctca);
+    bool EnableTCACorrection (const lfLens* lens, float focal);
 
-    bool EnableVignettingCorrection (float focal, float aperture, float distance);
+    bool EnableVignettingCorrection (lfLensCalibVignetting& lcv);
+    bool EnableVignettingCorrection (const lfLens* lens, float focal, float aperture, float distance);
 
-    bool EnableProjectionTransform (float focal, lfLensType target_projection);
+    bool EnableProjectionTransform (const lfLens* lens, float focal, lfLensType target_projection);
+    //bool EnableProjectionTransform (float focal, lfLensType target_projection);
 
     bool EnableScaling (float scale);
 
@@ -2237,64 +2242,6 @@ struct LF_EXPORT lfModifier
      *     True if the perspective correction was enabled.
      */
     bool EnablePerspectiveCorrection (float focal, float *x, float *y, int count, float d);
-
-    /**
-     * @brief Add a user-defined callback to the coordinate correction chain.
-     * @param callback
-     *     The callback to be called for every strip of pixels.
-     * @param priority
-     *     Callback priority (0-999). Callbacks are always called in
-     *     increasing priority order.
-     * @param data
-     *     A pointer to additional user data. A copy of this data
-     *     is made internally, so client application may do whatever
-     *     it needs with this data after this call.
-     * @param data_size
-     *     User data size in bytes. If data size is zero, the data is not
-     *     copied and instead a verbatim copy of the 'data' parameter
-     *     is passed to the callback.
-     */
-    void AddCoordCallback (lfModifyCoordFunc callback, int priority,
-                           void *data, size_t data_size);
-
-    /**
-     * @brief Add a user-defined callback to the subpixel coordinate
-     * rectification chain.
-     * @param callback
-     *     The callback to be called for every strip of pixels.
-     * @param priority
-     *     Callback priority (0-999). Callbacks are always called in
-     *     increasing priority order.
-     * @param data
-     *     A pointer to additional user data. A copy of this data
-     *     is made internally, so client application may do whatever
-     *     it needs with this data after this call.
-     * @param data_size
-     *     User data size in bytes. If data size is zero, the data is not
-     *     copied and instead a verbatim copy of the 'data' parameter
-     *     is passed to the callback.
-     */
-    void AddSubpixelCallback (lfSubpixelCoordFunc callback, int priority,
-                              void *data, size_t data_size);
-
-    /**
-     * @brief Add a user-defined callback to the color modification chain.
-     * @param callback
-     *     The callback to be called for every strip of pixels.
-     * @param priority
-     *     Callback priority (0-999). Callbacks are always called in
-     *     increasing priority order.
-     * @param data
-     *     A pointer to additional user data. A copy of this data
-     *     is made internally, so client application may do whatever
-     *     it needs with this data after this call.
-     * @param data_size
-     *     User data size in bytes. If data size is zero, the data is not
-     *     copied and instead a verbatim copy of the 'data' parameter
-     *     is passed to the callback.
-     */
-    void AddColorCallback (lfModifyColorFunc callback, int priority,
-                           void *data, size_t data_size);
 
     /**
      * @brief Compute the automatic scale factor for the image.
@@ -2443,7 +2390,132 @@ struct LF_EXPORT lfModifier
     bool ApplySubpixelGeometryDistortion (float xu, float yu, int width, int height,
                                           float *res) const;
 
-private:
+private:    
+
+    /// Common ancestor for lfCoordCallbackData and lfColorCallbackData
+    struct lfCallbackData
+    {
+        virtual  ~lfCallbackData() {}
+        int priority;
+
+        bool operator>(const lfCallbackData& c) const { return priority > c. priority; }
+        bool operator<(const lfCallbackData& c) const { return priority < c. priority; }
+    };
+
+    /**
+     * @brief A callback function which modifies the separate coordinates for all color
+     * components for every pixel in a strip.
+     *
+     * This kind of callbacks are used in the second stage of image modification.
+     * @param data
+     *     A opaque pointer to some data.
+     * @param iocoord
+     *     A pointer to an array of count*3 pixel coordinates (X,Y).
+     *     The first coordinate pair is for the R component, second for G
+     *     and third for B of same pixel. There are count*2*3 floats total
+     *     in this array.
+     * @param count
+     *     Number of coordinate groups to handle.
+     */
+    typedef void (*lfModifySubpixCoordFunc) (void *data, float *iocoord, int count);
+
+    /**
+     * @brief A callback function which modifies the colors of a strip of pixels
+     *
+     * This kind of callbacks are used in the first stage of image modification.
+     * @param data
+     *     A opaque pointer to some data.
+     * @param x
+     *     The X coordinate of the beginning of the strip. For next pixels
+     *     the X coordinate increments sequentialy.
+     * @param y
+     *     The Y coordinate of the pixel strip. This is a constant across
+     *     all pixels of the strip.
+     * @param pixels
+     *     A pointer to pixel data. It is the responsability of the function
+     *     inserting the callback into the chain to provide a callback operating
+     *     with the correct pixel format.
+     * @param comp_role
+     *     The role of every pixel component. This is a bitfield, made by one
+     *     of the LF_CR_X macros which defines the roles of every pixel field.
+     *     For example, LF_CR_4(RED,GREEN,BLUE,UNKNOWN) will define a RGBA
+     *     (or RGBX) pixel format, and the UNKNOWN field will not be modified.
+     * @param count
+     *     Number of pixels to process.
+     */
+    typedef void (*lfModifyColorFunc) (void *data, float x, float y,
+                                       void *pixels, int comp_role, int count);
+
+    /**
+     * @brief A callback function which modifies the coordinates of a strip of pixels.
+     *
+     * This kind of callbacks are used in third stage of image modification.
+     * @param data
+     *     A opaque pointer to some data.
+     * @param iocoord
+     *     A pointer to an array @a count pixel coordinates (X,Y).
+     *     The function must replace the coordinates with their new values.
+     * @param count
+     *     Number of coordinate groups to handle.
+     */
+    typedef void (*lfModifyCoordFunc) (void *data, float *iocoord, int count);
+
+    /// Subpixel distortion callback
+    struct lfSubpixelCallback : public lfCallbackData
+    {
+        lfModifySubpixCoordFunc callback;
+    };
+
+    struct lfSubpixTCACallback : public lfSubpixelCallback
+    {
+        float coordinate_correction;
+        float norm_focal;
+        float centerX;
+        float centerY;
+        float Terms [12];
+    };
+
+    /// A single pixel coordinate modifier callback.
+    struct lfCoordCallback : public lfCallbackData
+    {
+        lfModifyCoordFunc callback;
+    };
+
+    struct lfCoordDistCallbackData : public lfCoordCallback
+    {
+        float coordinate_correction;
+        float centerX;
+        float centerY;
+        float norm_focal;
+        float Terms [5];
+    };
+
+    struct lfCoordScaleCallbackData : public lfCoordCallback
+    {
+        float scale_factor;
+    };
+
+    struct lfCoordGeomCallbackData : public lfCoordCallback
+    {
+        float norm_focal;
+    };
+
+    /// A single pixel color modifier callback.
+    struct lfColorCallback : public lfCallbackData
+    {
+        lfModifyColorFunc callback;
+    };
+
+    struct lfColorVignCallbackData : public lfColorCallback
+    {
+        float coordinate_correction;
+        float NormScale;
+        float centerX;
+        float centerY;
+        float Terms [3];
+    };
+
+
     /**
      * @brief Determine the real focal length.
      *
@@ -2476,8 +2548,19 @@ private:
      */
     float GetRealFocalLength (const lfLens *lens, float focal);
 
-    void AddCallback (void *arr, lfCallbackData *d,
-                      int priority, void *data, size_t data_size);
+    void AddSubpixTCACallback (lfLensCalibTCA& lcd, lfModifySubpixCoordFunc func, int priority);
+
+    void AddCoordGeomCallback (float norm_focal, lfModifyCoordFunc func, int priority);
+    void AddCoordDistCallback (lfLensCalibDistortion& lcd, lfModifyCoordFunc func, int priority);
+
+    void AddColorVignCallback (lfLensCalibVignetting& lcv, lfModifyColorFunc func, int priority);
+
+    /// A set of subpixel coordinate modifier callbacks.
+    std::set<lfSubpixelCallback*> SubpixelCallbacks;
+    /// A set of pixel color modifier callbacks.
+    std::set<lfColorCallback*> ColorCallbacks;
+    /// A set of pixel coordinate modifier callbacks.
+    std::set<lfCoordCallback*> CoordCallbacks;
 
     /**
      * @brief Calculate distance between point and image edge.
@@ -2509,7 +2592,6 @@ private:
      */
     float GetTransformedDistance (lfPoint point) const;
 
-    static void ModifyCoord_UnTCA_Linear (void *data, float *iocoord, int count);
     static void ModifyCoord_TCA_Linear (void *data, float *iocoord, int count);
     static void ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int count);
     static void ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count);
@@ -2569,23 +2651,15 @@ private:
     /// Coordinate grid width and height; these are the original image
     /// dimensions minus one.
     double Width, Height;
+    /// Image crop factor
+    double Crop;
     /// The center of distortions in normalized coordinates
     double CenterX, CenterY;
     /// The coefficients for conversion to and from normalized coords
     double NormScale, NormUnScale;
 
-    /// A list of subpixel coordinate modifier callbacks.
-    void *SubpixelCallbacks;
-    /// A list of pixel color modifier callbacks.
-    void *ColorCallbacks;
-    /// A list of pixel coordinate modifier callbacks.
-    void *CoordCallbacks;
-
     /// Whether the transformations are applied reversely
     cbool Reverse;
-
-    /// The lens data
-    lfLens* Lens;
 
     /// Image pixel format
     lfPixelFormat PixelFormat;
@@ -2613,42 +2687,6 @@ LF_EXPORT int lf_modifier_initialize (
 /** @sa lfModifier::EnablePerspectiveCorrection */
 LF_EXPORT cbool lf_modifier_enable_perspective_correction (
     lfModifier *modifier, float focal, float *x, float *y, int count, float d);
-
-/** @sa lfModifier::AddCoordCallback */
-LF_EXPORT void lf_modifier_add_coord_callback (
-    lfModifier *modifier, lfModifyCoordFunc callback, int priority,
-    void *data, size_t data_size);
-
-/** @sa lfModifier::AddSubpixelCallback */
-LF_EXPORT void lf_modifier_add_subpixel_callback (
-    lfModifier *modifier, lfSubpixelCoordFunc callback, int priority,
-    void *data, size_t data_size);
-
-/** @sa lfModifier::AddColorCallback */
-LF_EXPORT void lf_modifier_add_color_callback (
-    lfModifier *modifier, lfModifyColorFunc callback, int priority,
-    void *data, size_t data_size);
-
-/** @sa lfModifier::AddSubpixelCallbackTCA */
-LF_EXPORT cbool lf_modifier_add_subpixel_callback_TCA (
-    lfModifier *modifier, lfLensCalibTCA *model, cbool reverse);
-
-/** @sa lfModifier::AddColorCallbackVignetting */
-LF_EXPORT cbool lf_modifier_add_color_callback_vignetting (
-    lfModifier *modifier, lfLensCalibVignetting *model,
-    lfPixelFormat format, cbool reverse);
-
-/** @sa lfModifier::AddCoordCallbackDistortion */
-LF_EXPORT cbool lf_modifier_add_coord_callback_distortion (
-    lfModifier *modifier, lfLensCalibDistortion *model, cbool reverse);
-
-/** @sa lfModifier::AddCoordCallbackGeometry */
-LF_EXPORT cbool lf_modifier_add_coord_callback_geometry (
-    lfModifier *modifier, lfLensType from, lfLensType to);
-
-/** @sa lfModifier::AddCoordCallbackScale */
-LF_EXPORT cbool lf_modifier_add_coord_callback_scale (
-    lfModifier *modifier, float scale, cbool reverse);
 
 /** @sa lfModifier::GetAutoScale */
 LF_EXPORT float lf_modifier_get_auto_scale (

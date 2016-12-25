@@ -114,7 +114,7 @@ lfLens::lfLens ()
     MinAperture = 0.0;
     MaxAperture = 0.0;
     Mounts = NULL;
-    Type = LF_UNKNOWN;
+    Type = LF_RECTILINEAR;
 
     /*lfLensCalibAttributes cs = {0.0, 0.0, 1.0, 1.5};
     lfLensCalibrationSet default_calib;
@@ -659,7 +659,9 @@ void lfLens::AddCalibDistortion (const lfLensCalibDistortion *dc, const lfLensCa
 {
     lfLensCalibrationSet* calibSet;
     GetCalibrationSet(cs, &calibSet);
-    calibSet->CalibDistortion.push_back(*dc);
+    lfLensCalibDistortion calibDist = *dc;
+    calibDist.attr = &calibSet->attr;
+    calibSet->CalibDistortion.push_back(calibDist);
 }
 
 bool lfLens::RemoveCalibDistortion (int idx)
@@ -956,12 +958,14 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
         else
             return false;
 
+        res.attr  = &calib_set->attr;
         return true;
     }
 
     // No exact match found, interpolate the model parameters
     res.Model = dm;
     res.Focal = focal;
+    res.attr  = &calib_set->attr;
 
     float t = (focal - spline [1]->Focal) / (spline [2]->Focal - spline [1]->Focal);
 
@@ -1022,6 +1026,7 @@ bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
         {
             // Exact match found, don't care to interpolate
             res = c;
+            res.attr = &calib_set->attr;
             return true;
         }
         lfLensCalibTCA cp = c;
@@ -1037,12 +1042,14 @@ bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
         else
             return false;
 
+        res.attr = &calib_set->attr;
         return true;
     }
 
     // No exact match found, interpolate the model parameters
     res.Model = tcam;
     res.Focal = focal;
+    res.attr = &calib_set->attr;
 
     float t = (focal - spline [1]->Focal) / (spline [2]->Focal - spline [1]->Focal);
 
@@ -1096,6 +1103,7 @@ bool lfLens::InterpolateVignetting (
     res.Focal = focal;
     res.Aperture = aperture;
     res.Distance = distance;
+    res.attr = &calib_set->attr;
     for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
         res.Terms [i] = 0;
 
@@ -1123,6 +1131,7 @@ bool lfLens::InterpolateVignetting (
         float interpolation_distance = __vignetting_dist (this, c, focal, aperture, distance);
         if (interpolation_distance < 0.0001) {
             res = c;
+            res.attr = &calib_set->attr;
             return true;
         }
 

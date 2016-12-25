@@ -551,7 +551,9 @@ bool lfModifier::EnablePerspectiveCorrection (float focal, float *x, float *y, i
         return false;
     }
     const int number_of_control_points = count;
-    double norm_focal = _normalize_focal_length(Lens, focal);
+    double norm_focal = focal / sqrt (36.0*36.0 + 24.0*24.0) *
+                        (2.0 * sqrt(1.5*1.5 + 1) * 1.0);
+
     if (number_of_control_points < 4 || number_of_control_points > 8 ||
         norm_focal <= 0 && number_of_control_points != 8)
         return false;
@@ -650,7 +652,7 @@ bool lfModifier::EnablePerspectiveCorrection (float focal, float *x, float *y, i
                    (float) (A [1][0] * mapping_scale), (float) (A [1][1] * mapping_scale),  (float) (A [1][2] * norm_focal),
                    (float) (A [2][0] / center_coords [2]), (float) (A [2][1] / center_coords [2]), (float) A [2][2],
                    (float) (Delta_a / mapping_scale), (float) (Delta_b / mapping_scale)};
-    AddCoordCallback (ModifyCoord_Perspective_Correction, 300, tmp, sizeof (tmp));
+    //AddCoordCallback (ModifyCoord_Perspective_Correction, 300, tmp, sizeof (tmp));
     return true;
 }
 
