@@ -646,41 +646,46 @@ bool lfModifier::EnablePerspectiveCorrection (float focal, float *x, float *y, i
         Delta_b = - sin (alpha) * Delta_a_old + cos (alpha) * Delta_b;
     }
 
+    lfCoordPerspCallbackData* cd = new lfCoordPerspCallbackData;
+
+    cd->callback = ModifyCoord_Perspective_Correction;
+    cd->priority = 300;
+
     /* The occurances of factors and denominators here avoid additional
        operations in the inner loop of perspective_correction_callback. */
-    float tmp[] = {(float) (A [0][0] * mapping_scale), (float) (A [0][1] * mapping_scale), (float) (A [0][2] * norm_focal),
-                   (float) (A [1][0] * mapping_scale), (float) (A [1][1] * mapping_scale),  (float) (A [1][2] * norm_focal),
-                   (float) (A [2][0] / center_coords [2]), (float) (A [2][1] / center_coords [2]), (float) A [2][2],
-                   (float) (Delta_a / mapping_scale), (float) (Delta_b / mapping_scale)};
-    //AddCoordCallback (ModifyCoord_Perspective_Correction, 300, tmp, sizeof (tmp));
+    cd->A [0][0] = A [0][0] * mapping_scale;
+    cd->A [0][1] = A [0][1] * mapping_scale;
+    cd->A [0][2] = A [0][2] * norm_focal;
+    cd->A [1][1] = A [1][0] * mapping_scale;
+    cd->A [1][1] = A [1][1] * mapping_scale;
+    cd->A [1][2] = A [1][2] * norm_focal;
+    cd->A [2][0] = A [2][0] / center_coords [2];
+    cd->A [2][1] = A [2][1] / center_coords [2];
+    cd->A [2][2] = A [2][2];
+
+    cd->delta_a = Delta_a / mapping_scale;
+    cd->delta_b = Delta_b / mapping_scale;
+
+    CoordCallbacks.insert(cd);
+
     return true;
 }
 
 void lfModifier::ModifyCoord_Perspective_Correction (void *data, float *iocoord, int count)
 {
-    float *param = (float *)data;
-    float A11 = param [0];
-    float A12 = param [1];
-    float A13 = param [2];
-    float A21 = param [3];
-    float A22 = param [4];
-    float A23 = param [5];
-    float A31 = param [6];
-    float A32 = param [7];
-    float A33 = param [8];
-    float Delta_a = param [9];
-    float Delta_b = param [10];
+    lfCoordPerspCallbackData* cddata = (lfCoordPerspCallbackData*) data;
+    float (*A)[3] = cddata->A;
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x, y, z_;
-        x = iocoord [0] + Delta_a;
-        y = iocoord [1] + Delta_b;
-        z_ = A31 * x + A32 * y + A33;
+        x = iocoord [0] + cddata->delta_a;
+        y = iocoord [1] + cddata->delta_b;
+        z_ = A[2][0] * x + A[2][1] * y + A[2][2];
         if (z_ > 0)
         {
-            iocoord [0] = (A11 * x + A12 * y + A13) / z_;
-            iocoord [1] = (A21 * x + A22 * y + A23) / z_;
+            iocoord [0] = (A[0][0] * x + A[0][1] * y + A[0][2]) / z_;
+            iocoord [1] = (A[1][0] * x + A[1][1] * y + A[1][2]) / z_;
         }
         else
             iocoord [0] = iocoord [1] = 1.6e16F;

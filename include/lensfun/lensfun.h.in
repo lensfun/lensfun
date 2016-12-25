@@ -2458,6 +2458,12 @@ private:
         float norm_focal;
     };
 
+    struct lfCoordPerspCallbackData : public lfCoordCallback
+    {
+        float A [3][3];
+        float delta_a, delta_b;
+    };
+
     /// A single pixel color modifier callback.
     struct lfColorCallback : public lfCallbackData
     {
