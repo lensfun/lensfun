@@ -1029,8 +1029,7 @@ bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
             res.attr = &calib_set->attr;
             return true;
         }
-        lfLensCalibTCA cp = c;
-        __insert_spline (spline_ptr, spline_dist, df, &cp);
+        __insert_spline (spline_ptr, spline_dist, df, &c);
     }
 
     if (!spline [1] || !spline [2])
@@ -1201,9 +1200,7 @@ bool lfLens::InterpolateCrop (float focal, lfLensCalibCrop &res) const
             res = c;
             return true;
         }
-
-        lfLensCalibCrop cp = c;
-        __insert_spline (spline_ptr, spline_dist, df, &cp);
+        __insert_spline (spline_ptr, spline_dist, df, &c);
     }
 
     if (!spline [1] || !spline [2])
@@ -1264,9 +1261,7 @@ bool lfLens::InterpolateFov (float focal, lfLensCalibFov &res) const
             res = c;
             return true;
         }
-
-        lfLensCalibFov cp = c;
-        __insert_spline (spline_ptr, spline_dist, df, &cp);
+        __insert_spline (spline_ptr, spline_dist, df, &c);
     }
 
     //no valid data found
