@@ -2130,7 +2130,7 @@ struct LF_EXPORT lfModifier
      */
     DEPRECATED void Destroy ();
 
-    lfModifier (const lfLens *lens, float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse = false);
+    lfModifier (float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse = false);
 
     ~lfModifier ();
 

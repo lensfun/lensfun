@@ -145,8 +145,7 @@ lfModifier::lfModifier (const lfLens*, float crop, int width, int height)
     CenterY = Height / size;
 }
 
-lfModifier::lfModifier (const lfLens*,
-                        float imgcrop, int imgwidth, int imgheight,
+lfModifier::lfModifier (float imgcrop, int imgwidth, int imgheight,
                         lfPixelFormat pixel_format, bool reverse /* = false */)
     : Reverse(reverse), PixelFormat(pixel_format), Crop(imgcrop)
 {
