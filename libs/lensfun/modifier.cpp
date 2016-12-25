@@ -202,6 +202,12 @@ bool lfModifier::EnableScaling (float scale)
 
 lfModifier::~lfModifier ()
 {
+    for (auto cb : CoordCallbacks)
+        delete cb;
+    for (auto cb : SubpixelCallbacks)
+        delete cb;
+    for (auto cb : ColorCallbacks)
+        delete cb;
 }
 
 //---------------------------// The C interface //---------------------------//
