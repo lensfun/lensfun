@@ -8,7 +8,7 @@
 #include "lensfunprv.h"
 #include <math.h>
 
-bool lfModifier::EnableTCACorrection (lfLensCalibTCA& lctca)
+bool lfModifier::EnableTCACorrection (const lfLensCalibTCA& lctca)
 {
     if (Reverse)
         switch (lctca.Model)
@@ -17,13 +17,16 @@ bool lfModifier::EnableTCACorrection (lfLensCalibTCA& lctca)
                 break;
 
             case LF_TCA_MODEL_LINEAR:
-                for (int i = 0; i < 2; i++)
                 {
-                    if (!lctca.Terms [i])
-                        return false;
-                    lctca.Terms [i] = 1.0 / lctca.Terms [i];
+                    lfLensCalibTCA lctca_ = lctca;
+                    for (int i = 0; i < 2; i++)
+                    {
+                        if (!lctca.Terms [i])
+                            return false;
+                        lctca_.Terms [i] = 1.0 / lctca.Terms [i];
+                    }
+                    AddSubpixTCACallback(lctca_, ModifyCoord_TCA_Linear, 500);
                 }
-                AddSubpixTCACallback(lctca, ModifyCoord_TCA_Linear, 500);
                 return true;
 
             case LF_TCA_MODEL_POLY3:
@@ -54,10 +57,6 @@ bool lfModifier::EnableTCACorrection (lfLensCalibTCA& lctca)
                 return true;
 
             case LF_TCA_MODEL_ACM:
-                //memcpy (tmp, lctca.Terms, sizeof (float) * 12);
-                //tmp [13] = _normalize_focal_length(lens, focal);
-                //tmp [12] = 1.0 / tmp[13];
-
                 AddSubpixTCACallback(lctca, ModifyCoord_TCA_ACM, 500);
                 return true;
 
@@ -80,7 +79,7 @@ bool lfModifier::EnableTCACorrection (const lfLens* lens, float focal)
         return false;
 }
 
-void lfModifier::AddSubpixTCACallback (lfLensCalibTCA& lcd, lfModifySubpixCoordFunc func, int priority)
+void lfModifier::AddSubpixTCACallback (const lfLensCalibTCA& lcd, lfModifySubpixCoordFunc func, int priority)
 {
     lfSubpixTCACallback* cd = new lfSubpixTCACallback;
 

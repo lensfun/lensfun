@@ -8,7 +8,7 @@
 #include "lensfunprv.h"
 #include <math.h>
 
-bool lfModifier::EnableVignettingCorrection(lfLensCalibVignetting& lcv)
+bool lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv)
 {
 #define ADD_CALLBACK(lcv, func, type, prio) \
     AddColorVignCallback ( lcv, \
@@ -114,7 +114,7 @@ bool lfModifier::EnableVignettingCorrection (const lfLens* lens, float focal, fl
         return false;
 }
 
-void lfModifier::AddColorVignCallback (lfLensCalibVignetting& lcv, lfModifyColorFunc func, int priority)
+void lfModifier::AddColorVignCallback (const lfLensCalibVignetting& lcv, lfModifyColorFunc func, int priority)
 {
     lfColorVignCallbackData* cd = new lfColorVignCallbackData;
 

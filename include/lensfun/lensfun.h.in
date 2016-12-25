@@ -2134,13 +2134,13 @@ struct LF_EXPORT lfModifier
 
     ~lfModifier ();
 
-    bool EnableDistortionCorrection (lfLensCalibDistortion& lcd);
+    bool EnableDistortionCorrection (const lfLensCalibDistortion& lcd);
     bool EnableDistortionCorrection (const lfLens* lens, float focal);
 
-    bool EnableTCACorrection (lfLensCalibTCA& lctca);
+    bool EnableTCACorrection (const lfLensCalibTCA& lctca);
     bool EnableTCACorrection (const lfLens* lens, float focal);
 
-    bool EnableVignettingCorrection (lfLensCalibVignetting& lcv);
+    bool EnableVignettingCorrection (const lfLensCalibVignetting& lcv);
     bool EnableVignettingCorrection (const lfLens* lens, float focal, float aperture, float distance);
 
     bool EnableProjectionTransform (const lfLens* lens, float focal, lfLensType target_projection);
@@ -2479,6 +2479,15 @@ private:
         float Terms [3];
     };
 
+    /// A set of subpixel coordinate modifier callbacks.
+    std::set<lfSubpixelCallback*> SubpixelCallbacks;
+    /// A set of pixel color modifier callbacks.
+    std::set<lfColorCallback*> ColorCallbacks;
+    /// A set of pixel coordinate modifier callbacks.
+    std::set<lfCoordCallback*> CoordCallbacks;
+
+    // A test point in the autoscale algorithm
+    typedef struct { float angle, dist; } lfPoint;
 
     /**
      * @brief Determine the real focal length.
@@ -2512,22 +2521,10 @@ private:
      */
     float GetRealFocalLength (const lfLens *lens, float focal);
 
-    void AddSubpixTCACallback (lfLensCalibTCA& lcd, lfModifySubpixCoordFunc func, int priority);
-
+    void AddSubpixTCACallback (const lfLensCalibTCA& lcd, lfModifySubpixCoordFunc func, int priority);
     void AddCoordGeomCallback (float norm_focal, lfModifyCoordFunc func, int priority);
-    void AddCoordDistCallback (lfLensCalibDistortion& lcd, lfModifyCoordFunc func, int priority);
-
-    void AddColorVignCallback (lfLensCalibVignetting& lcv, lfModifyColorFunc func, int priority);
-
-    /// A set of subpixel coordinate modifier callbacks.
-    std::set<lfSubpixelCallback*> SubpixelCallbacks;
-    /// A set of pixel color modifier callbacks.
-    std::set<lfColorCallback*> ColorCallbacks;
-    /// A set of pixel coordinate modifier callbacks.
-    std::set<lfCoordCallback*> CoordCallbacks;
-
-    // A test point in the autoscale algorithm
-    typedef struct { float angle, dist; } lfPoint;
+    void AddCoordDistCallback (const lfLensCalibDistortion& lcd, lfModifyCoordFunc func, int priority);
+    void AddColorVignCallback (const lfLensCalibVignetting& lcv, lfModifyColorFunc func, int priority);
 
     /**
      * @brief Calculate distance between point and image edge.
