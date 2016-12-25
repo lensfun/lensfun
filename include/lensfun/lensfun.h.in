@@ -457,6 +457,12 @@ LF_EXPORT cbool lf_camera_check (lfCamera *camera);
  * @{
  */
 
+/**
+ * @brief Lens calibration attributes.
+ *
+ * This struct holds information about the images which were used to create
+ * the calibration data.
+ */
 struct lfLensCalibAttributes
 {
     /**
@@ -552,7 +558,7 @@ C_TYPEDEF (enum, lfDistortionModel)
 
 /**
  * @brief Lens distortion calibration data.
-
+ *
  * Lens distortion depends only of focal length. The library will interpolate
  * the coefficients values if data for the exact focal length is not available.
  */
@@ -822,22 +828,6 @@ struct lfLensCalibFov
 
 C_TYPEDEF (struct, lfLensCalibFov)
 
-struct lfLensCalibrationSet
-{
-    lfLensCalibAttributes attr;
-
-    /** Lens distortion calibration data */
-    std::vector<lfLensCalibDistortion> CalibDistortion;
-    /** Lens TCA calibration data */
-    std::vector<lfLensCalibTCA> CalibTCA;
-    /** Lens vignetting calibration data */
-    std::vector<lfLensCalibVignetting> CalibVignetting;
-    /** Crop data */
-    std::vector<lfLensCalibCrop> CalibCrop;
-    /** Field of view calibration data */
-    std::vector<lfLensCalibFov> CalibFov;
-};
-
 /**
  * @brief This structure describes a single parameter for some lens model.
  */
@@ -991,12 +981,14 @@ struct LF_EXPORT lfLens
     /**
      * @brief Add a new distortion calibration structure to the pool.
      *
-     * The objects is copied, thus you can reuse it as soon as
+     * The objects are copied, thus you can reuse it as soon as
      * this function returns.
-     * @param dc
+     * @param lcd
      *     The distortion calibration structure.
+     * @param lcattr
+     *     The calibration attributes structure.
      */
-    void AddCalibDistortion (const lfLensCalibDistortion *dc, const lfLensCalibAttributes *cs);
+    void AddCalibDistortion (lfLensCalibDistortion lcd, const lfLensCalibAttributes& lcattr);
 
     /**
      * @brief Remove a calibration entry from the distortion calibration data.
@@ -1011,10 +1003,12 @@ struct LF_EXPORT lfLens
      *
      * The objects is copied, thus you can reuse it as soon as
      * this function returns.
-     * @param tcac
+     * @param lctca
      *     The transversal chromatic aberration calibration structure.
+     * @param lcattr
+     *     The calibration attributes structure.
      */
-    void AddCalibTCA (const lfLensCalibTCA *tcac, const lfLensCalibAttributes *cs);
+    void AddCalibTCA (lfLensCalibTCA lctca, const lfLensCalibAttributes& lcattr);
 
     /**
      * @brief Remove a calibration entry from the TCA calibration data.
@@ -1028,10 +1022,12 @@ struct LF_EXPORT lfLens
      *
      * The objects is copied, thus you can reuse it as soon as
      * this function returns.
-     * @param vc
+     * @param lcv
      *     The vignetting calibration structure.
+     * @param lcattr
+     *     The calibration attributes structure.
      */
-    void AddCalibVignetting (const lfLensCalibVignetting *vc, const lfLensCalibAttributes *cs);
+    void AddCalibVignetting (lfLensCalibVignetting lcv, const lfLensCalibAttributes& lcattr);
 
     /**
      * @brief Remove a calibration entry from the vignetting calibration data.
@@ -1045,10 +1041,12 @@ struct LF_EXPORT lfLens
      *
      * The objects is copied, thus you can reuse it as soon as
      * this function returns.
-     * @param cc 
+     * @param lcc
      *     The lens crop structure.
+     * @param lcattr
+     *     The calibration attributes structure.
      */
-    void AddCalibCrop (const lfLensCalibCrop *cc, const lfLensCalibAttributes *cs);
+    void AddCalibCrop (lfLensCalibCrop lcc, const lfLensCalibAttributes& lcattr);
 
     /**
      * @brief Remove a lens crop entry from the lens crop structure.
@@ -1058,17 +1056,19 @@ struct LF_EXPORT lfLens
     bool RemoveCalibCrop (int idx);
 
     /**
-     * @brief Add a new lens fov structure to the pool. 
+     * @brief Add a new lens fov structure to the pool.
      *
-     * The Field of View (FOV) database entry is deprecated since Lensfun 
+     * The Field of View (FOV) database entry is deprecated since Lensfun
      * version 0.3 and will be removed in future releases.
      *
      * The objects is copied, thus you can reuse it as soon as
      * this function returns.
-     * @param cf
+     * @param lcf
      *     The lens fov structure.
+     * @param lcattr
+     *     The calibration attributes structure.
      */
-    DEPRECATED void AddCalibFov (const lfLensCalibFov *cf, const lfLensCalibAttributes *cs);
+    DEPRECATED void AddCalibFov (lfLensCalibFov lcf, const lfLensCalibAttributes& lcattr);
 
     /**
      * @brief Remove a field of view  entry from the lens fov structure.
@@ -1238,10 +1238,35 @@ struct LF_EXPORT lfLens
      */
     DEPRECATED bool InterpolateFov (float focal, lfLensCalibFov &res) const;
 
+    /**
+     *  @brief A set of calibration data.
+     *
+     *  This struct bundles a set of calibrations which are based on images
+     *  taken with the attributes in attr.
+     *
+     */
+    struct lfLensCalibrationSet
+    {
+        /** Attributes of the images which were used to create the calibration data */
+        lfLensCalibAttributes attr;
+
+        /** Lens distortion calibration data */
+        std::vector<lfLensCalibDistortion> CalibDistortion;
+        /** Lens TCA calibration data */
+        std::vector<lfLensCalibTCA> CalibTCA;
+        /** Lens vignetting calibration data */
+        std::vector<lfLensCalibVignetting> CalibVignetting;
+        /** Crop data */
+        std::vector<lfLensCalibCrop> CalibCrop;
+        /** Field of view calibration data */
+        std::vector<lfLensCalibFov> CalibFov;
+    };
+
     typedef std::vector<lfLensCalibrationSet> lfLensCalibrations;
     lfLensCalibrations Calibrations;
 
-    bool GetCalibrationSet(const lfLensCalibAttributes *ca, lfLensCalibrationSet** cs);
+    private:
+        bool GetCalibrationSet(const lfLensCalibAttributes& lcattr, lfLensCalibrationSet** lcs);
 #endif
 };
 
@@ -1901,76 +1926,9 @@ C_TYPEDEF (enum, lfComponentRole)
                                  ((LF_CR_ ## e) << 16) | ((LF_CR_ ## f) << 20) | \
                                  ((LF_CR_ ## g) << 24) | ((LF_CR_ ## h) << 28))
 
-/**
- * @brief A callback function which modifies the separate coordinates for all color
- * components for every pixel in a strip.
- *
- * This kind of callbacks are used in the second stage of image modification.
- * @param data
- *     A opaque pointer to some data.
- * @param iocoord
- *     A pointer to an array of count*3 pixel coordinates (X,Y).
- *     The first coordinate pair is for the R component, second for G
- *     and third for B of same pixel. There are count*2*3 floats total
- *     in this array.
- * @param count
- *     Number of coordinate groups to handle.
- */
-typedef void (*lfSubpixelCoordFunc) (void *data, float *iocoord, int count);
-
-/**
- * @brief A callback function which modifies the colors of a strip of pixels
- *
- * This kind of callbacks are used in the first stage of image modification.
- * @param data
- *     A opaque pointer to some data.
- * @param x
- *     The X coordinate of the beginning of the strip. For next pixels
- *     the X coordinate increments sequentialy.
- * @param y
- *     The Y coordinate of the pixel strip. This is a constant across
- *     all pixels of the strip.
- * @param pixels
- *     A pointer to pixel data. It is the responsability of the function
- *     inserting the callback into the chain to provide a callback operating
- *     with the correct pixel format.
- * @param comp_role
- *     The role of every pixel component. This is a bitfield, made by one
- *     of the LF_CR_X macros which defines the roles of every pixel field.
- *     For example, LF_CR_4(RED,GREEN,BLUE,UNKNOWN) will define a RGBA
- *     (or RGBX) pixel format, and the UNKNOWN field will not be modified.
- * @param count
- *     Number of pixels to process.
- */
-typedef void (*lfModifyColorFunc) (void *data, float x, float y,
-                                   void *pixels, int comp_role, int count);
-
-/**
- * @brief A callback function which modifies the coordinates of a strip of pixels.
- *
- * This kind of callbacks are used in third stage of image modification.
- * @param data
- *     A opaque pointer to some data.
- * @param iocoord
- *     A pointer to an array @a count pixel coordinates (X,Y).
- *     The function must replace the coordinates with their new values.
- * @param count
- *     Number of coordinate groups to handle.
- */
-typedef void (*lfModifyCoordFunc) (void *data, float *iocoord, int count);
-
 // @cond
-    
-/// Common ancestor for lfCoordCallbackData and lfColorCallbackData
-struct lfCallbackData
-{
-    int priority;
-    void *data;
-    size_t data_size;
-};
 
-// A test point in the autoscale algorithm
-typedef struct { float angle, dist; } lfPoint;
+
 
 // @endcond
 
@@ -2390,7 +2348,7 @@ struct LF_EXPORT lfModifier
     bool ApplySubpixelGeometryDistortion (float xu, float yu, int width, int height,
                                           float *res) const;
 
-private:    
+private:
 
     /// Common ancestor for lfCoordCallbackData and lfColorCallbackData
     struct lfCallbackData
@@ -2561,6 +2519,9 @@ private:
     std::set<lfColorCallback*> ColorCallbacks;
     /// A set of pixel coordinate modifier callbacks.
     std::set<lfCoordCallback*> CoordCallbacks;
+
+    // A test point in the autoscale algorithm
+    typedef struct { float angle, dist; } lfPoint;
 
     /**
      * @brief Calculate distance between point and image edge.

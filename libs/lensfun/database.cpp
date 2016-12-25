@@ -381,7 +381,7 @@ static void _xml_start_element (GMarkupParseContext *context,
         else
             dc.RealFocal = dc.Focal;
 
-        pd->lens->AddCalibDistortion (&dc, &pd->calib_attr);
+        pd->lens->AddCalibDistortion (dc, pd->calib_attr);
     }
     else if (!strcmp (element_name, "tca"))
     {
@@ -442,7 +442,7 @@ static void _xml_start_element (GMarkupParseContext *context,
             else
                 goto unk_attr;
 
-        pd->lens->AddCalibTCA (&tcac, &pd->calib_attr);
+        pd->lens->AddCalibTCA (tcac, pd->calib_attr);
     }
     else if (!strcmp (element_name, "vignetting"))
     {
@@ -481,7 +481,7 @@ static void _xml_start_element (GMarkupParseContext *context,
             else
                 goto unk_attr;
 
-        pd->lens->AddCalibVignetting (&vc, &pd->calib_attr);
+        pd->lens->AddCalibVignetting (vc, pd->calib_attr);
     }
     else if (!strcmp (element_name, "crop"))
     {
@@ -519,7 +519,7 @@ static void _xml_start_element (GMarkupParseContext *context,
                 goto unk_attr;
             }
 
-        pd->lens->AddCalibCrop (&lcc, &pd->calib_attr);
+        pd->lens->AddCalibCrop (lcc, pd->calib_attr);
     }
     else if (!strcmp (element_name, "field_of_view"))
     {
@@ -543,7 +543,7 @@ static void _xml_start_element (GMarkupParseContext *context,
                 goto unk_attr;
             }
 
-        pd->lens->AddCalibFov (&lcf, &pd->calib_attr);
+        pd->lens->AddCalibFov (lcf, pd->calib_attr);
     }
     /* Handle multi-language strings */
     else if (!strcmp (element_name, "maker") ||
