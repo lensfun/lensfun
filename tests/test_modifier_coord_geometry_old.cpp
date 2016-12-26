@@ -31,10 +31,12 @@ typedef struct
 
 typedef struct
 {
-  bool                   reverse;
-  gchar                 *distortionModel;
-  lfLensCalibDistortion  calib;
-  size_t                 alignment;
+  bool        reverse;
+  gchar      *sourceType;
+  lfLensType  sourceLensType;
+  gchar      *targetType;
+  lfLensType  targetLensType;
+  size_t      alignment;
 } lfTestParams;
 
 // setup a standard lens
@@ -43,17 +45,18 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
   lfTestParams *p = (lfTestParams *)data;
 
   lfFix->lens             = new lfLens();
-  lfFix->lens->Type       = LF_RECTILINEAR;
+  //lfFix->lens->CropFactor = 1.0f;
+  lfFix->lens->Type       = p->sourceLensType;
 
-  lfLensCalibAttributes cs = {0.0, 0.0, 1.0, 1.5};
-  lfFix->lens->AddCalibDistortion(p->calib, cs);
+  lfFix->img_height = 300;
+  lfFix->img_width  = 300;
 
-  lfFix->img_height = 299;
-  lfFix->img_width  = 299;
+  lfFix->mod = new lfModifier(lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
 
-  lfFix->mod = new lfModifier(1.0f, lfFix->img_width, lfFix->img_height, LF_PF_F32, p->reverse);
-
-  lfFix->mod->EnableDistortionCorrection(lfFix->lens, 24.0f);
+  lfFix->mod->Initialize(
+    lfFix->lens, LF_PF_F32,
+    24.0f, 2.8f, 1000.0f, 1.0f, p->targetLensType,
+    LF_MODIFY_GEOMETRY, p->reverse);
 
   lfFix->coordBuff = NULL;
 
@@ -77,7 +80,7 @@ void mod_teardown(lfFixture *lfFix, gconstpointer data)
   delete lfFix->lens;
 }
 
-void test_mod_coord_distortion(lfFixture *lfFix, gconstpointer data)
+void test_mod_coord_geometry(lfFixture *lfFix, gconstpointer data)
 {
   for(size_t y = 0; y < lfFix->img_height; y++)
   {
@@ -90,7 +93,7 @@ void test_mod_coord_distortion(lfFixture *lfFix, gconstpointer data)
 }
 
 #ifdef _OPENMP
-void test_mod_coord_distortion_parallel(lfFixture *lfFix, gconstpointer data)
+void test_mod_coord_geometry_parallel(lfFixture *lfFix, gconstpointer data)
 {
   #pragma omp parallel for schedule(static)
   for(size_t y = 0; y < lfFix->img_height; y++)
@@ -110,10 +113,11 @@ gchar *describe(lfTestParams *p, const char *prefix)
   g_snprintf(alignment, sizeof(alignment), "%lu-byte", p->alignment);
 
   return g_strdup_printf(
-           "/%s/%s/%s/%s",
+           "/%s/%s/%s/%s/%s",
            prefix,
-           p->reverse ? "UnDist" : "Dist",
-           p->distortionModel,
+           p->reverse ? "unGeom" : "Geom",
+           p->sourceType,
+           p->targetType,
            p->alignment == 0 ? "unaligned" : alignment
          );
 }
@@ -123,13 +127,13 @@ void add_set_item(lfTestParams *p)
   gchar *desc = NULL;
 
   desc = describe(p, "modifier/coord/serialFor");
-  g_test_add(desc, lfFixture, p, mod_setup, test_mod_coord_distortion, mod_teardown);
+  g_test_add(desc, lfFixture, p, mod_setup, test_mod_coord_geometry, mod_teardown);
   g_free(desc);
   desc = NULL;
 
 #ifdef _OPENMP
   desc = describe(p, "modifier/coord/parallelFor");
-  g_test_add(desc, lfFixture, p, mod_setup, test_mod_coord_distortion_parallel, mod_teardown);
+  g_test_add(desc, lfFixture, p, mod_setup, test_mod_coord_geometry_parallel, mod_teardown);
   g_free(desc);
   desc = NULL;
 #endif
@@ -139,7 +143,8 @@ void free_params(gpointer mem)
 {
   lfTestParams *p = (lfTestParams *)mem;
 
-  g_free(p->distortionModel);
+  g_free(p->sourceType);
+  g_free(p->targetType);
   g_free(mem);
 }
 
@@ -157,43 +162,44 @@ int main(int argc, char **argv)
 
   for(std::vector<bool>::iterator it_reverse = reverse.begin(); it_reverse != reverse.end(); ++it_reverse)
   {
-    std::map<std::string, lfLensCalibDistortion> distortCalib;
-    // ??? + Canon EF 85mm f/1.2L II USM
-    distortCalib["LF_DIST_MODEL_POLY3"] = (lfLensCalibDistortion)
-    {
-      LF_DIST_MODEL_POLY3, 85.0f, 85.3502f, false, { -0.00412}
-    };
-    //Canon PowerShot G12 (fixed lens)
-    distortCalib["LF_DIST_MODEL_POLY5"] = (lfLensCalibDistortion)
-    {
-      LF_DIST_MODEL_POLY5, 6.1f, 6.1f, false, { -0.030571633, 0.004658548}
-    };
-    //Canon EOS 5D Mark III + Canon EF 24-70mm f/2.8L II USM
-    distortCalib["LF_DIST_MODEL_PTLENS"] = (lfLensCalibDistortion)
-    {
-      LF_DIST_MODEL_PTLENS, 24.0f, 24.46704f, false, {0.02964, -0.07853, 0.02943}
-    };
+    std::map<std::string, lfLensType> lensType;
+    lensType["LF_RECTILINEAR"]           = LF_RECTILINEAR;
+    lensType["LF_FISHEYE"]               = LF_FISHEYE;
+    lensType["LF_PANORAMIC"]             = LF_PANORAMIC;
+    lensType["LF_EQUIRECTANGULAR"]       = LF_EQUIRECTANGULAR;
+    lensType["LF_FISHEYE_ORTHOGRAPHIC"]  = LF_FISHEYE_ORTHOGRAPHIC;
+    lensType["LF_FISHEYE_STEREOGRAPHIC"] = LF_FISHEYE_STEREOGRAPHIC;
+    lensType["LF_FISHEYE_EQUISOLID"]     = LF_FISHEYE_EQUISOLID;
+    lensType["LF_FISHEYE_THOBY"]         = LF_FISHEYE_THOBY;
 
-    for(std::map<std::string, lfLensCalibDistortion>::iterator it_distortCalib = distortCalib.begin(); it_distortCalib != distortCalib.end(); ++it_distortCalib)
+    for(std::map<std::string, lfLensType>::iterator it_sourceType = lensType.begin(); it_sourceType != lensType.end(); ++it_sourceType)
     {
-      std::vector<size_t> align;
-      align.push_back(0);
-      align.push_back(4  * sizeof(float)); // SSE
-      //align.push_back(8  * sizeof(float)); // AVX
-      //align.push_back(16 * sizeof(float)); // AVX512
-
-      for(std::vector<size_t>::iterator it_align = align.begin(); it_align != align.end(); ++it_align)
+      for(std::map<std::string, lfLensType>::iterator it_targetType = lensType.begin(); it_targetType != lensType.end(); ++it_targetType)
       {
-        lfTestParams *p = (lfTestParams *)g_malloc(sizeof(lfTestParams));
+        if(it_sourceType->second == it_targetType->second)
+          continue;
 
-        p->reverse         = *it_reverse;
-        p->distortionModel = g_strdup(it_distortCalib->first.c_str());
-        p->calib           = it_distortCalib->second;
-        p->alignment       = *it_align;
+        std::vector<size_t> align;
+        align.push_back(0);
+        align.push_back(4  * sizeof(float)); // SSE
+        //align.push_back(8  * sizeof(float)); // AVX
+        //align.push_back(16 * sizeof(float)); // AVX512
 
-        add_set_item(p);
+        for(std::vector<size_t>::iterator it_align = align.begin(); it_align != align.end(); ++it_align)
+        {
+          lfTestParams *p = (lfTestParams *)g_malloc(sizeof(lfTestParams));
 
-        slist = g_slist_append(slist, p);
+          p->reverse        = *it_reverse;
+          p->sourceType     = g_strdup(it_sourceType->first.c_str());
+          p->sourceLensType = it_sourceType->second;
+          p->targetType     = g_strdup(it_targetType->first.c_str());
+          p->targetLensType = it_targetType->second;
+          p->alignment      = *it_align;
+
+          add_set_item(p);
+
+          slist = g_slist_append(slist, p);
+        }
       }
     }
   }

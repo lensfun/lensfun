@@ -11,17 +11,25 @@ typedef struct
   void       *coordBuff;
   size_t      img_width, img_height;
   float       focal;
+  lfLens     *lens;
   lfModifier *mod;
 } lfFixture;
 
 // setup a standard lens
 void mod_setup (lfFixture *lfFix, gconstpointer data)
 {
+    lfFix->lens             = new lfLens();
+    //lfFix->lens->CropFactor = 1.0f;
+    //lfFix->lens->AspectRatio = 4.0f / 3.0f;
+    lfFix->lens->Type       = LF_RECTILINEAR;
+
     lfFix->img_height = 1000;
     lfFix->img_width  = 1500;
     lfFix->focal      = 50.89f;
+    lfFix->mod = lfModifier::Create (lfFix->lens, 1.534f, lfFix->img_width, lfFix->img_height);
 
-    lfFix->mod = new lfModifier (1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
+    lfFix->mod->Initialize(lfFix->lens, LF_PF_F32, lfFix->focal, 2.8f, 1000.0f, 1.0f, LF_RECTILINEAR,
+                           0, false);
 
     lfFix->coordBuff = NULL;
 
@@ -32,11 +40,19 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
 // setup a standard image in portrait mode
 void mod_setup_portrait (lfFixture *lfFix, gconstpointer data)
 {
+    lfFix->lens             = new lfLens();
+    //lfFix->lens->CropFactor = 1.534f;
+    //lfFix->lens->AspectRatio = 1.5f;
+    lfFix->lens->Type       = LF_RECTILINEAR;
+
     lfFix->img_height = 1500;
     lfFix->img_width  = 1000;
     lfFix->focal      = 50.89f;
 
-    lfFix->mod = new lfModifier (1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
+    lfFix->mod = lfModifier::Create (lfFix->lens, 1.534f, lfFix->img_width, lfFix->img_height);
+
+    lfFix->mod->Initialize(lfFix->lens, LF_PF_F32, lfFix->focal, 2.8f, 1000.0f, 1.0f, LF_RECTILINEAR,
+                           0, false);
 
     lfFix->coordBuff = NULL;
 
@@ -48,7 +64,8 @@ void mod_teardown (lfFixture *lfFix, gconstpointer data)
 {
     g_free (lfFix->coordBuff);
 
-    delete lfFix->mod;
+    lfFix->mod->Destroy();
+    delete lfFix->lens;
 }
 
 void test_mod_coord_pc_svd (lfFixture *lfFix, gconstpointer data)

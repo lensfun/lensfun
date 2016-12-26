@@ -45,18 +45,14 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
   lfTestParams *p = (lfTestParams *)data;
 
   lfFix->lens             = new lfLens();
-  //lfFix->lens->CropFactor = 1.0f;
   lfFix->lens->Type       = p->sourceLensType;
 
   lfFix->img_height = 300;
   lfFix->img_width  = 300;
 
-  lfFix->mod = new lfModifier(lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
+  lfFix->mod = new lfModifier(1.0f, lfFix->img_width, lfFix->img_height, LF_PF_F32, p->reverse);
 
-  lfFix->mod->Initialize(
-    lfFix->lens, LF_PF_F32,
-    24.0f, 2.8f, 1000.0f, 1.0f, p->targetLensType,
-    LF_MODIFY_GEOMETRY, p->reverse);
+  lfFix->mod->EnableProjectionTransform(lfFix->lens, 24.0f, p->targetLensType);
 
   lfFix->coordBuff = NULL;
 

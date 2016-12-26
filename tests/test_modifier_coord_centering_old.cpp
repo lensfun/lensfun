@@ -15,18 +15,27 @@ typedef struct
 {
   void       *coordBuff;
   size_t      img_width, img_height;
+  lfLens     *lens;
   lfModifier *mod;
 } lfFixture;
 
 // setup a standard lens
 void mod_setup (lfFixture *lfFix, gconstpointer data)
 {
+    lfFix->lens             = new lfLens();
+    //lfFix->lens->CropFactor = 1.0f;
+    //lfFix->lens->AspectRatio = 3.0f / 2.0f;
+    //lfFix->lens->CenterX = 0.1f;
+    //lfFix->lens->CenterY = 0.1f;
+    lfFix->lens->Type       = LF_RECTILINEAR;
+
     lfFix->img_height = 1001;
     lfFix->img_width  = 1501;
 
-    lfFix->mod = new lfModifier (10.0f, lfFix->img_width, lfFix->img_height, LF_PF_F32, true);
+    lfFix->mod = new lfModifier (lfFix->lens, 10.0f, lfFix->img_width, lfFix->img_height);
 
-    lfFix->mod->EnableScaling(2.0f);
+    lfFix->mod->Initialize (lfFix->lens, LF_PF_F32, 50.89f, 2.8f, 1000.0f, 2.0f, LF_RECTILINEAR,
+                            LF_MODIFY_SCALE, true);
 
     lfFix->coordBuff = NULL;
 
@@ -37,7 +46,9 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
 void mod_teardown (lfFixture *lfFix, gconstpointer data)
 {
     g_free (lfFix->coordBuff);
+
     delete lfFix->mod;
+    delete lfFix->lens;
 }
 
 void test_mod_coord_scaling_only (lfFixture *lfFix, gconstpointer data)
