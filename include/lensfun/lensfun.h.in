@@ -493,6 +493,8 @@ struct lfLensCalibAttributes
     #endif
 };
 
+C_TYPEDEF (struct, lfLensCalibAttributes)
+
 /**
  * @brief The Lensfun library implements several lens distortion models.
  * This enum lists them.
