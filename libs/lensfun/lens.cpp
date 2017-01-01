@@ -712,6 +712,12 @@ bool lfLens::RemoveCalibFov (int idx)
     //CalibFov.erase(CalibFov.begin() + idx);
 }
 
+
+void lfLens::RemoveCalibrations()
+{
+    Calibrations.clear();
+}
+
 static int __insert_spline (const void **spline, float *spline_dist, float dist, const void *val)
 {
     if (dist < 0)
@@ -1578,4 +1584,9 @@ void lf_lens_add_calib_fov (lfLens *lens, const lfLensCalibFov lcf)
 cbool lf_lens_remove_calib_fov (lfLens *lens, int idx)
 {
     return lens->RemoveCalibFov (idx);
+}
+
+void lf_lens_remove_calibrations (lfLens *lens)
+{
+    lens->RemoveCalibrations();
 }

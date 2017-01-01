@@ -1094,6 +1094,12 @@ struct LF_EXPORT lfLens
     DEPRECATED bool RemoveCalibFov (int idx);
 
     /**
+     * @brief Remove all calibrations from the lens.
+     *
+     */
+    void RemoveCalibrations();
+
+    /**
      * @brief This method fills some fields if they are missing but
      * can be derived from other fields.
      *
@@ -1389,6 +1395,9 @@ DEPRECATED LF_EXPORT void lf_lens_add_calib_fov (lfLens *lens, const lfLensCalib
 
 /** @sa lfLens::RemoveCalibFov */
 DEPRECATED LF_EXPORT cbool lf_lens_remove_calib_fov (lfLens *lens, int idx);
+
+/** @sa lfLens::RemoveCalibrations */
+LF_EXPORT void lf_lens_remove_calibrations (lfLens *lens);
 
 /** @} */
 
