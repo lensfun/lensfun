@@ -341,4 +341,35 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tokina</maker>
+        <model>Tokina AF 11-20mm f/2.8 AT-X Pro DX</model>
+        <mount>Nikon F AF</mount>
+        <mount>Canon EF</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D7100 -->
+            <distortion model="ptlens" focal="11" a="0.0208245" b="-0.102661" c="0.119784"/>
+            <distortion model="ptlens" focal="12" a="0.0184073" b="-0.0959803" c="0.122961"/>
+            <distortion model="ptlens" focal="13" a="0.0105086" b="-0.0609049" c="0.0765821"/>
+            <distortion model="ptlens" focal="14" a="0.0136053" b="-0.0713775" c="0.0945721"/>
+            <distortion model="ptlens" focal="15" a="0.0117778" b="-0.0645345" c="0.0896602"/>
+            <distortion model="ptlens" focal="16" a="0.00946502" b="-0.0533771" c="0.0752513"/>
+            <distortion model="ptlens" focal="17" a="0.00429998" b="-0.0333455" c="0.0541844"/>
+            <distortion model="ptlens" focal="18" a="0.0113016" b="-0.0590116" c="0.085224"/>
+            <distortion model="ptlens" focal="19" a="0.012295" b="-0.0592084" c="0.08115"/>
+            <distortion model="ptlens" focal="20" a="0.00989974" b="-0.0490091" c="0.066505"/>
+            <tca model="poly3" focal="11" vr="0.9999717" vb="1.0006045"/>
+            <tca model="poly3" focal="12" vr="0.9999696" vb="1.0004258"/>
+            <tca model="poly3" focal="13" vr="0.9999683" vb="1.0003920"/>
+            <tca model="poly3" focal="14" vr="0.9999754" vb="1.0001797"/>
+            <tca model="poly3" focal="15" vr="0.9999905" vb="1.0002846"/>
+            <tca model="poly3" focal="16" vr="0.9999995" vb="1.0000997"/>
+            <tca model="poly3" focal="17" vr="1.0000301" vb="1.0001604"/>
+            <tca model="poly3" focal="18" vr="1.0000409" vb="1.0001612"/>
+            <tca model="poly3" focal="19" vr="1.0000531" vb="1.0001149"/>
+            <tca model="poly3" focal="20" vr="1.0000661" vb="1.0001206"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
