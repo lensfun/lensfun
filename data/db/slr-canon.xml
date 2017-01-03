@@ -2274,6 +2274,26 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon EF 70-200mm f/2.8L IS II USM + 2x extender</model>
+        <model lang="en">Canon EF 70-200mm f/2.8L IS II USM + 2× ext.</model>
+        <model lang="de">Canon EF 70-200mm f/2.8L IS II USM + 2×-Konv.</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 5D Mark III -->
+            <distortion model="poly3" focal="140" k1="-0.00468"/>
+            <distortion model="poly3" focal="178" k1="-0.00355"/>
+            <distortion model="poly3" focal="238" k1="-0.00237"/>
+            <distortion model="poly3" focal="400" k1="-0.00093"/>
+            <tca model="poly3" focal="140" vr="1.0000739" vb="1.0000602"/>
+            <tca model="poly3" focal="178" vr="1.0000314" vb="1.0000274"/>
+            <tca model="poly3" focal="238" vr="0.9999896" vb="1.0000007"/>
+            <tca model="poly3" focal="400" vr="0.9999295" vb="1.0000002"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon EF 70-200mm f/4L USM</model>
         <mount>Canon EF</mount>
         <cropfactor>1</cropfactor>
