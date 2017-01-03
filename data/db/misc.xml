@@ -422,4 +422,32 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Meike</maker>
+        <model>Meike 35mm f/1.7</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.528</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-Pro2 -->
+            <distortion model="ptlens" focal="35" a="-0.00688" b="0.00111" c="-0.00744"/>
+            <tca model="poly3" focal="35" vr="0.9999442" vb="0.9998993"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Meike</maker>
+        <model>Meike 50mm f/2.0</model>
+        <mount>Fujifilm X</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Sony E</mount>
+        <mount>Nikon CX</mount>
+        <mount>Canon EF-M</mount>
+        <cropfactor>1.528</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-Pro2 -->
+            <distortion model="poly3" focal="50" k1="0.013"/>
+            <tca model="poly3" focal="50" vr="0.9999023" vb="0.9996490"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
