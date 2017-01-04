@@ -2017,27 +2017,14 @@
         <cropfactor>1.534</cropfactor>
         <calibration>
             <!-- Taken with Nikon D5300 -->
-            <distortion model="ptlens" focal="10" a="-0.00146205" b="-0.00282501" c="-0.00694692"/>
-            <distortion model="ptlens" focal="11" a="0.0282063" b="-0.0989236" c="0.0843501"/>
-            <distortion model="ptlens" focal="12" a="0.0227213" b="-0.0914936" c="0.101055"/>
-            <distortion model="ptlens" focal="13" a="0.0252605" b="-0.10769" c="0.135309"/>
-            <distortion model="ptlens" focal="14" a="0.0116422" b="-0.0475321" c="0.0596043"/>
-            <distortion model="ptlens" focal="15" a="0.0210822" b="-0.0845071" c="0.114456"/>
-            <distortion model="ptlens" focal="16" a="0.021271" b="-0.070938" c="0.0781483"/>
-            <distortion model="ptlens" focal="17" a="-0.00248171" b="0.0157054" c="-0.0212513"/>
-            <distortion model="ptlens" focal="18" a="-0.00363957" b="0.00196858" c="0.0169272"/>
-            <distortion model="ptlens" focal="19" a="0.0281811" b="-0.0867922" c="0.0880965"/>
-            <distortion model="ptlens" focal="20" a="0.00197062" b="0.00221418" c="-0.00762991"/>
-            <tca model="poly3" focal="10" vr="1.0006758" vb="1.0000414"/>
-            <tca model="poly3" focal="11" vr="1.0005340" vb="1.0001038"/>
-            <tca model="poly3" focal="12" vr="1.0003423" vb="1.0001883"/>
-            <tca model="poly3" focal="13" vr="1.0002477" vb="1.0002743"/>
-            <tca model="poly3" focal="14" vr="1.0002078" vb="1.0002983"/>
-            <tca model="poly3" focal="15" vr="1.0001897" vb="1.0002843"/>
-            <tca model="poly3" focal="17" vr="1.0001920" vb="1.0002480"/>
-            <tca model="poly3" focal="18" vr="1.0002629" vb="1.0001467"/>
-            <tca model="poly3" focal="19" vr="1.0003036" vb="1.0001080"/>
-            <tca model="poly3" focal="20" vr="1.0003424" vb="1.0000668"/>
+            <distortion model="ptlens" focal="10" a="0.02808" b="-0.08735" c="0.04973"/>
+            <distortion model="ptlens" focal="12" a="0.00373" b="-0.01794" c="0.00897"/>
+            <distortion model="ptlens" focal="15" a="0" b="0.00152" c="0"/>
+            <distortion model="ptlens" focal="20" a="0.00402" b="-0.00924" c="0.01313"/>
+            <tca model="poly3" focal="10" br="0.0002913" vr="1.0002670" bb="-0.0001825" vb="1.0003122"/>
+            <tca model="poly3" focal="12" br="0.0002742" vr="0.9999810" bb="-0.0001957" vb="1.0005030"/>
+            <tca model="poly3" focal="15" br="0.0001903" vr="0.9999240" bb="-0.0002265" vb="1.0006545"/>
+            <tca model="poly3" focal="20" br="0.0002157" vr="1.0000313" bb="-0.0001685" vb="1.0003235"/>
         </calibration>
     </lens>
 
