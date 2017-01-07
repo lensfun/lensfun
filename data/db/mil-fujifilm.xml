@@ -810,6 +810,19 @@
 
     <lens>
         <maker>Fujifilm</maker>
+        <model>XF23mmF2 R WR</model>
+        <model lang="en">XF 23mm f/2 R WR</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-T10 -->
+            <distortion model="ptlens" focal="23" a="0.0289722" b="-0.0763625" c="0.0493558"/>
+            <tca model="poly3" focal="23" vr="1.0001000" vb="1.0003000"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fujifilm</maker>
         <model>XF56mmF1.2 R APD</model>
         <model lang="en">XF 56mm f/1.2 R APD</model>
         <mount>Fujifilm X</mount>
