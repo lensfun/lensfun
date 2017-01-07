@@ -1835,7 +1835,7 @@
         <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Nikon D810 -->
-            <distortion model="ptlens" focal="24" a="0" b="-0.000508073" c="0"/>
+            <distortion model="poly3" focal="24" k1="-0.000508073"/>
             <tca model="poly3" focal="24" vr="1.0002000" vb="1.0000500"/>
         </calibration>
     </lens>
