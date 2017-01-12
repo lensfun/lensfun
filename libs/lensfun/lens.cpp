@@ -628,11 +628,20 @@ const char *lfLens::GetLensTypeDesc (lfLensType type, const char **details)
     return NULL;
 }
 
-bool lfLens::GetCalibrationSet(const lfLensCalibAttributes& lcattr, lfLensCalibrationSet** lcs)
+bool lfLens::GetCalibrationSet(const lfLensCalibAttributes* lcattr, lfLensCalibrationSet** lcs)
 {
+
+    // Use Calibrations[0] if no calibration data is set
+    // Achieves backwards compatibility to Lensfun API before 0.4.0
+    if (lcattr == NULL)
+    {
+        *lcs = &Calibrations[0];
+        return true;
+    }
+
     // try find a matching calibset
     for (auto& c: Calibrations)
-        if (c.attr == lcattr)
+        if (c.attr == *lcattr)
         {
             *lcs = &c;
             return true;
@@ -640,16 +649,16 @@ bool lfLens::GetCalibrationSet(const lfLensCalibAttributes& lcattr, lfLensCalibr
 
     // nothing found, create a new one
     lfLensCalibrationSet new_cs;
-    new_cs.attr = lcattr;
+    new_cs.attr = *lcattr;
     Calibrations.push_back(new_cs);
     *lcs = &Calibrations.back();
     return true;
 }
 
-void lfLens::AddCalibDistortion (lfLensCalibDistortion lcd, const lfLensCalibAttributes &lcattr)
+void lfLens::AddCalibDistortion (lfLensCalibDistortion lcd)
 {
     lfLensCalibrationSet* calibSet;
-    GetCalibrationSet(lcattr, &calibSet);
+    GetCalibrationSet(lcd.attr, &calibSet);
     lcd.attr = &calibSet->attr;
     calibSet->CalibDistortion.push_back(lcd);
 }
@@ -660,10 +669,10 @@ bool lfLens::RemoveCalibDistortion (int idx)
     //CalibDistortion.erase(CalibDistortion.begin() + idx);
 }
 
-void lfLens::AddCalibTCA (lfLensCalibTCA lctca, const lfLensCalibAttributes &lcattr)
+void lfLens::AddCalibTCA (lfLensCalibTCA lctca)
 {
     lfLensCalibrationSet* calibSet;
-    GetCalibrationSet(lcattr, &calibSet);
+    GetCalibrationSet(lctca.attr, &calibSet);
     lctca.attr = &calibSet->attr;
     calibSet->CalibTCA.push_back(lctca);
 }
@@ -673,10 +682,10 @@ bool lfLens::RemoveCalibTCA (int idx)
     //CalibTCA.erase(CalibTCA.begin() + idx);
 }
 
-void lfLens::AddCalibVignetting (lfLensCalibVignetting lcv, const lfLensCalibAttributes &lcattr)
+void lfLens::AddCalibVignetting (lfLensCalibVignetting lcv)
 {
     lfLensCalibrationSet* calibSet;
-    GetCalibrationSet(lcattr, &calibSet);
+    GetCalibrationSet(lcv.attr, &calibSet);
     lcv.attr = &calibSet->attr;
     calibSet->CalibVignetting.push_back(lcv);
 }
@@ -686,10 +695,10 @@ bool lfLens::RemoveCalibVignetting (int idx)
     //CalibVignetting.erase(CalibVignetting.begin() + idx);
 }
 
-void lfLens::AddCalibCrop (lfLensCalibCrop lcc, const lfLensCalibAttributes &lcattr)
+void lfLens::AddCalibCrop (lfLensCalibCrop lcc)
 {
     lfLensCalibrationSet* calibSet;
-    GetCalibrationSet(lcattr, &calibSet);
+    GetCalibrationSet(lcc.attr, &calibSet);
     lcc.attr = &calibSet->attr;
     calibSet->CalibCrop.push_back(lcc);
 }
@@ -699,10 +708,10 @@ bool lfLens::RemoveCalibCrop (int idx)
     //CalibCrop.erase(CalibCrop.begin() + idx);
 }
 
-void lfLens::AddCalibFov (lfLensCalibFov lcf, const lfLensCalibAttributes& lcattr)
+void lfLens::AddCalibFov (lfLensCalibFov lcf)
 {
     lfLensCalibrationSet* calibSet;
-    GetCalibrationSet(lcattr, &calibSet);
+    GetCalibrationSet(lcf.attr, &calibSet);
     lcf.attr = &calibSet->attr;
     calibSet->CalibFov.push_back(lcf);
 }
@@ -1537,7 +1546,7 @@ cbool lf_lens_interpolate_fov (const lfLens *lens, float focal,
 
 void lf_lens_add_calib_distortion (lfLens *lens, lfLensCalibDistortion dc)
 {
-    //lens->AddCalibDistortion (dc, NULL);
+    lens->AddCalibDistortion (dc);
 }
 
 cbool lf_lens_remove_calib_distortion (lfLens *lens, int idx)
@@ -1545,9 +1554,9 @@ cbool lf_lens_remove_calib_distortion (lfLens *lens, int idx)
     return lens->RemoveCalibDistortion (idx);
 }
 
-void lf_lens_add_calib_tca (lfLens *lens, const lfLensCalibTCA tcac)
+void lf_lens_add_calib_tca (lfLens *lens, lfLensCalibTCA tcac)
 {
-   // lens->AddCalibTCA (tcac, NULL);
+   lens->AddCalibTCA (tcac);
 }
 
 cbool lf_lens_remove_calib_tca (lfLens *lens, int idx)
@@ -1555,9 +1564,9 @@ cbool lf_lens_remove_calib_tca (lfLens *lens, int idx)
     return lens->RemoveCalibTCA (idx);
 }
 
-void lf_lens_add_calib_vignetting (lfLens *lens, const lfLensCalibVignetting vc)
+void lf_lens_add_calib_vignetting (lfLens *lens, lfLensCalibVignetting vc)
 {
-    //lens->AddCalibVignetting (vc, NULL);
+    lens->AddCalibVignetting (vc);
 }
 
 cbool lf_lens_remove_calib_vignetting (lfLens *lens, int idx)
@@ -1567,7 +1576,7 @@ cbool lf_lens_remove_calib_vignetting (lfLens *lens, int idx)
 
 void lf_lens_add_calib_crop (lfLens *lens, lfLensCalibCrop lcc)
 {
-    //lens->AddCalibCrop (lcc, NULL);
+    lens->AddCalibCrop (lcc);
 }
 
 cbool lf_lens_remove_calib_crop (lfLens *lens, int idx)
@@ -1576,9 +1585,9 @@ cbool lf_lens_remove_calib_crop (lfLens *lens, int idx)
 }
 
 
-void lf_lens_add_calib_fov (lfLens *lens, const lfLensCalibFov lcf)
+void lf_lens_add_calib_fov (lfLens *lens, lfLensCalibFov lcf)
 {
-    //lens->AddCalibFov (lcf, NULL);
+    lens->AddCalibFov (lcf);
 }
 
 cbool lf_lens_remove_calib_fov (lfLens *lens, int idx)

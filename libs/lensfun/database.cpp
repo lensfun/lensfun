@@ -325,6 +325,7 @@ static void _xml_start_element (GMarkupParseContext *context,
 
         lfLensCalibDistortion dc;
         memset (&dc, 0, sizeof (dc));
+        dc.attr = &pd->calib_attr;
         for (i = 0; attribute_names [i]; i++)
             if (!strcmp (attribute_names [i], "model"))
             {
@@ -381,7 +382,7 @@ static void _xml_start_element (GMarkupParseContext *context,
         else
             dc.RealFocal = dc.Focal;
 
-        pd->lens->AddCalibDistortion (dc, pd->calib_attr);
+        pd->lens->AddCalibDistortion (dc);
     }
     else if (!strcmp (element_name, "tca"))
     {
@@ -390,6 +391,7 @@ static void _xml_start_element (GMarkupParseContext *context,
 
         lfLensCalibTCA tcac;
         memset (&tcac, 0, sizeof (tcac));
+        tcac.attr = &pd->calib_attr;
         tcac.Terms [0] = tcac.Terms [1] = 1.0;
         for (i = 0; attribute_names [i]; i++)
             if (!strcmp (attribute_names [i], "model"))
@@ -442,7 +444,7 @@ static void _xml_start_element (GMarkupParseContext *context,
             else
                 goto unk_attr;
 
-        pd->lens->AddCalibTCA (tcac, pd->calib_attr);
+        pd->lens->AddCalibTCA (tcac);
     }
     else if (!strcmp (element_name, "vignetting"))
     {
@@ -451,6 +453,7 @@ static void _xml_start_element (GMarkupParseContext *context,
 
         lfLensCalibVignetting vc;
         memset (&vc, 0, sizeof (vc));
+        vc.attr = &pd->calib_attr;
         for (i = 0; attribute_names [i]; i++)
             if (!strcmp (attribute_names [i], "model"))
             {
@@ -481,7 +484,7 @@ static void _xml_start_element (GMarkupParseContext *context,
             else
                 goto unk_attr;
 
-        pd->lens->AddCalibVignetting (vc, pd->calib_attr);
+        pd->lens->AddCalibVignetting (vc);
     }
     else if (!strcmp (element_name, "crop"))
     {
@@ -490,6 +493,7 @@ static void _xml_start_element (GMarkupParseContext *context,
 
         lfLensCalibCrop lcc;
         memset (&lcc, 0, sizeof (lcc));
+        lcc.attr = &pd->calib_attr;
         for (i = 0; attribute_names [i]; i++)
             if (!strcmp (attribute_names [i], "focal"))
                 lcc.Focal = atof (attribute_values [i]);
@@ -519,7 +523,7 @@ static void _xml_start_element (GMarkupParseContext *context,
                 goto unk_attr;
             }
 
-        pd->lens->AddCalibCrop (lcc, pd->calib_attr);
+        pd->lens->AddCalibCrop (lcc);
     }
     else if (!strcmp (element_name, "field_of_view"))
     {
@@ -533,6 +537,7 @@ static void _xml_start_element (GMarkupParseContext *context,
 
         lfLensCalibFov lcf;
         memset (&lcf, 0, sizeof (lcf));
+        lcf.attr = &pd->calib_attr;
         for (i = 0; attribute_names [i]; i++)
             if (!strcmp (attribute_names [i], "focal"))
                 lcf.Focal = atof (attribute_values [i]);
@@ -543,7 +548,7 @@ static void _xml_start_element (GMarkupParseContext *context,
                 goto unk_attr;
             }
 
-        pd->lens->AddCalibFov (lcf, pd->calib_attr);
+        pd->lens->AddCalibFov (lcf);
     }
     /* Handle multi-language strings */
     else if (!strcmp (element_name, "maker") ||

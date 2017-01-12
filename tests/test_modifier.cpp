@@ -19,8 +19,8 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
     lfFix->lens->Type        = LF_RECTILINEAR;
 
     lfLensCalibAttributes    lensSetting = { 0.0, 0.0, 1.0, 1.0 };
-    lfLensCalibDistortion lensCalibDist = {LF_DIST_MODEL_POLY3, 12.0f, 10.8f, false, {0.1}};
-    lfFix->lens->AddCalibDistortion(lensCalibDist, lensSetting);
+    lfLensCalibDistortion lensCalibDist = {LF_DIST_MODEL_POLY3, 12.0f, 10.8f, false, {0.1}, &lensSetting};
+    lfFix->lens->AddCalibDistortion(lensCalibDist);
 
     // width and height have to be odd, so we have a non fractional center position
     lfFix->img_height = 301;

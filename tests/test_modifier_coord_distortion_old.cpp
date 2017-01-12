@@ -46,7 +46,8 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
   lfFix->lens->Type       = LF_RECTILINEAR;
 
   lfLensCalibAttributes cs = {0.0, 0.0, 1.0, 1.5};
-  lfFix->lens->AddCalibDistortion(p->calib, cs);
+  p->calib.attr = &cs;
+  lfFix->lens->AddCalibDistortion(p->calib);
 
   lfFix->img_height = 299;
   lfFix->img_width  = 299;
