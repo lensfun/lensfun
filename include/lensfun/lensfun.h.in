@@ -1002,7 +1002,7 @@ struct LF_EXPORT lfLens
      * @param lcattr
      *     The calibration attributes structure.
      */
-    void AddCalibDistortion (lfLensCalibDistortion lcd);
+    void AddCalibDistortion (const lfLensCalibDistortion *lcd);
 
     /**
      * @brief Remove a calibration entry from the distortion calibration data.
@@ -1022,7 +1022,7 @@ struct LF_EXPORT lfLens
      * @param lcattr
      *     The calibration attributes structure.
      */
-    void AddCalibTCA (lfLensCalibTCA lctca);
+    void AddCalibTCA (const lfLensCalibTCA *lctca);
 
     /**
      * @brief Remove a calibration entry from the TCA calibration data.
@@ -1041,7 +1041,7 @@ struct LF_EXPORT lfLens
      * @param lcattr
      *     The calibration attributes structure.
      */
-    void AddCalibVignetting (lfLensCalibVignetting lcv);
+    void AddCalibVignetting (const lfLensCalibVignetting *lcv);
 
     /**
      * @brief Remove a calibration entry from the vignetting calibration data.
@@ -1060,7 +1060,7 @@ struct LF_EXPORT lfLens
      * @param lcattr
      *     The calibration attributes structure.
      */
-    void AddCalibCrop (lfLensCalibCrop lcc);
+    void AddCalibCrop (const lfLensCalibCrop *lcc);
 
     /**
      * @brief Remove a lens crop entry from the lens crop structure.
@@ -1082,7 +1082,7 @@ struct LF_EXPORT lfLens
      * @param lcattr
      *     The calibration attributes structure.
      */
-    DEPRECATED void AddCalibFov (lfLensCalibFov lcf);
+    DEPRECATED void AddCalibFov (const lfLensCalibFov *lcf);
 
     /**
      * @brief Remove a field of view  entry from the lens fov structure.
