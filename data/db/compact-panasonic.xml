@@ -195,18 +195,31 @@
     <camera>
         <maker>Panasonic</maker>
         <model>DMC-FZ40</model>
-        <variant>3:2</variant>
         <!-- Same camera as FZ45 for non-European markets -->
         <mount>panasonicDMCFZ45</mount>
-        <cropfactor>5.69</cropfactor>
+        <cropfactor>5.60</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Panasonic</maker>
+        <model>DMC-FZ40 (3:2)</model>
+        <!-- Same camera as FZ45 for non-European markets -->
+        <mount>panasonicDMCFZ45</mount>
+        <cropfactor>5.81</cropfactor>
     </camera>
 
     <camera>
         <maker>Panasonic</maker>
         <model>DMC-FZ45</model>
-        <variant>3:2</variant>
         <mount>panasonicDMCFZ45</mount>
-        <cropfactor>5.69</cropfactor>
+        <cropfactor>5.60</cropfactor>
+    </camera>
+    
+    <camera>
+        <maker>Panasonic</maker>
+        <model>DMC-FZ45 (3:2)</model>
+        <mount>panasonicDMCFZ45</mount>
+        <cropfactor>5.81</cropfactor>
     </camera>
     
     <camera>
@@ -226,10 +239,17 @@
     <camera>
         <maker>Panasonic</maker>
         <model>DMC-FZ100</model>
-        <variant>3:2</variant>
         <!-- Same lens as FZ45 -->
         <mount>panasonicDMCFZ45</mount>
-        <cropfactor>5.69</cropfactor>
+        <cropfactor>5.60</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Panasonic</maker>
+        <model>DMC-FZ100 (3:2)</model>
+        <!-- Same lens as FZ45 -->
+        <mount>panasonicDMCFZ45</mount>
+        <cropfactor>5.81</cropfactor>
     </camera>
 
     <camera>
@@ -514,12 +534,15 @@
     </lens>
 
     <lens>
+        <!-- This lens is made for camera with a native aspect ratio of 4:3 but
+             unfortunately we have 3:2 data.  The crop factor is not that
+             different, though. -->
         <maker>Panasonic</maker>
         <model>DMC-FZ45 &amp; compatibles (Standard)</model>
         <model lang="en">fixed lens</model>
         <model lang="de">festes Objektiv</model>
         <mount>panasonicDMCFZ45</mount>
-        <cropfactor>5.69</cropfactor>
+        <cropfactor>5.81</cropfactor>
         <aspect-ratio>3:2</aspect-ratio>
         <calibration>
             <distortion model="ptlens" focal="4.5" a="0.00326892" b="-0.0150012" c="-0.0488601"/>
