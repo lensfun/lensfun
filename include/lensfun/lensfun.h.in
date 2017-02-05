@@ -842,6 +842,72 @@ struct lfLensCalibFov
 
 C_TYPEDEF (struct, lfLensCalibFov)
 
+#ifdef __cplusplus
+/**
+ *  @brief A set of calibration data.
+ *
+ *  This struct bundles a set of calibrations which are based on images
+ *  taken with the attributes in attr.
+ *
+ */
+struct lfLensCalibrationSet
+{
+    /** Attributes of the images which were used to create the calibration data */
+    lfLensCalibAttributes attr;
+
+    /** Lens distortion calibration data */
+    std::vector<lfLensCalibDistortion*> CalibDistortion;
+    /** Lens TCA calibration data */
+    std::vector<lfLensCalibTCA*> CalibTCA;
+    /** Lens vignetting calibration data */
+    std::vector<lfLensCalibVignetting*> CalibVignetting;
+    /** Crop data */
+    std::vector<lfLensCalibCrop*> CalibCrop;
+    /** Field of view calibration data */
+    std::vector<lfLensCalibFov*> CalibFov;
+
+    lfLensCalibrationSet() {}
+
+    lfLensCalibrationSet(const lfLensCalibrationSet &other)
+    {
+        attr = other.attr;
+        for (auto *cb : other.CalibDistortion)
+            CalibDistortion.push_back(new lfLensCalibDistortion(*cb));
+        for (auto *cb : other.CalibVignetting)
+            CalibVignetting.push_back(new lfLensCalibVignetting(*cb));
+        for (auto *cb : other.CalibTCA)
+            CalibTCA.push_back(new lfLensCalibTCA(*cb));
+        for (auto *cb : other.CalibCrop)
+            CalibCrop.push_back(new lfLensCalibCrop(*cb));
+        for (auto *cb : other.CalibFov)
+            CalibFov.push_back(new lfLensCalibFov(*cb));
+    }
+
+    ~lfLensCalibrationSet()
+    {
+        for (auto cb : CalibDistortion)
+            delete cb;
+        for (auto cb : CalibVignetting)
+            delete cb;
+        for (auto cb : CalibTCA)
+            delete cb;
+        for (auto cb : CalibCrop)
+            delete cb;
+        for (auto cb : CalibFov)
+            delete cb;
+    }
+
+    bool empty()
+    {
+        return CalibDistortion.empty() && CalibTCA.empty() && CalibVignetting.empty() &&
+               CalibCrop.empty() && CalibFov.empty();
+    }
+};
+typedef std::vector<lfLensCalibrationSet*> lfLensCalibrations;
+#else
+// TODO: add an alternative C compatible structure
+#endif
+
 /**
  * @brief This structure describes a single parameter for some lens model.
  */
@@ -934,6 +1000,32 @@ struct LF_EXPORT lfLens
     char **Mounts;
     /** Lens type */
     lfLensType Type;
+    /**
+     * The horizontal shift of all lens distortions.
+     * Note that distortion and TCA uses same geometrical lens center.
+     * It is given as a relative value to avoide dependency on the
+     * image and/or sensor sizes. The calibrated delta X and Y values are
+     * numbers in the -0.5 .. +0.5 range. For 1 we take the maximal image
+     * dimension (width or height) - this is related to the fact that the
+     * lens has a circular field of projection disregarding sensor size.
+     */
+    DEPRECATED float CenterX;
+    /** The vertical shift of all lens distortions. (0,0) for geometric center */
+    DEPRECATED float CenterY;
+    /** Crop factor at which calibration measurements were taken.  Must be defined. */
+    DEPRECATED float CropFactor;
+    /** Aspect ratio of the images used for calibration measurements. */
+    DEPRECATED float AspectRatio;
+    /** Lens distortion calibration data, NULL-terminated (unsorted) */
+    DEPRECATED lfLensCalibDistortion **CalibDistortion;
+    /** Lens TCA calibration data, NULL-terminated (unsorted) */
+    DEPRECATED lfLensCalibTCA **CalibTCA;
+    /** Lens vignetting calibration data, NULL-terminated (unsorted) */
+    DEPRECATED lfLensCalibVignetting **CalibVignetting;
+    /** Crop data, NULL-terminated (unsorted) */
+    DEPRECATED lfLensCalibCrop **CalibCrop;
+    /** Field of view calibration data, NULL-terminated (unsorted) */
+    DEPRECATED lfLensCalibFov **CalibFov;
     /** Lens matching score, used while searching: not actually a lens parameter */
     int Score;
 
@@ -1009,7 +1101,7 @@ struct LF_EXPORT lfLens
      * @param idx
      *     The calibration data index (zero-based).
      */
-    bool RemoveCalibDistortion (int idx);
+    DEPRECATED bool RemoveCalibDistortion (int idx);
 
     /**
      * @brief Add a new transversal chromatic aberration calibration structure
@@ -1029,7 +1121,7 @@ struct LF_EXPORT lfLens
      * @param idx
      *     The calibration data index (zero-based).
      */
-    bool RemoveCalibTCA (int idx);
+    DEPRECATED bool RemoveCalibTCA (int idx);
 
     /**
      * @brief Add a new vignetting calibration structure to the pool.
@@ -1048,7 +1140,7 @@ struct LF_EXPORT lfLens
      * @param idx
      *     The calibration data index (zero-based).
      */
-    bool RemoveCalibVignetting (int idx);
+    DEPRECATED bool RemoveCalibVignetting (int idx);
 
     /**
      * @brief Add a new lens crop structure to the pool.
@@ -1067,7 +1159,7 @@ struct LF_EXPORT lfLens
      * @param idx
      *     The lens crop data index (zero-based).
      */
-    bool RemoveCalibCrop (int idx);
+    DEPRECATED bool RemoveCalibCrop (int idx);
 
     /**
      * @brief Add a new lens fov structure to the pool.
@@ -1258,34 +1350,11 @@ struct LF_EXPORT lfLens
      */
     DEPRECATED bool InterpolateFov (float focal, lfLensCalibFov &res) const;
 
-    /**
-     *  @brief A set of calibration data.
-     *
-     *  This struct bundles a set of calibrations which are based on images
-     *  taken with the attributes in attr.
-     *
-     */
-    struct lfLensCalibrationSet
-    {
-        /** Attributes of the images which were used to create the calibration data */
-        lfLensCalibAttributes attr;
-
-        /** Lens distortion calibration data */
-        std::vector<lfLensCalibDistortion> CalibDistortion;
-        /** Lens TCA calibration data */
-        std::vector<lfLensCalibTCA> CalibTCA;
-        /** Lens vignetting calibration data */
-        std::vector<lfLensCalibVignetting> CalibVignetting;
-        /** Crop data */
-        std::vector<lfLensCalibCrop> CalibCrop;
-        /** Field of view calibration data */
-        std::vector<lfLensCalibFov> CalibFov;
-    };
-
-    typedef std::vector<lfLensCalibrationSet> lfLensCalibrations;
-    lfLensCalibrations Calibrations;
+    const lfLensCalibrations& GetCalibrations() const;
 
     private:
+        void UpdateLegacyCalibPointers();
+        lfLensCalibrations Calibrations;
         bool GetCalibrationSet(const lfLensCalibAttributes* lcattr, lfLensCalibrationSet** lcs);
 #endif
 };
@@ -1753,10 +1822,10 @@ struct LF_EXPORT lfDatabase
     void AddLens (lfLens *lens);
 
 private:
-#endif
     void *Mounts;
     void *Cameras;
     void *Lenses;
+#endif
 };
 
 C_TYPEDEF (struct, lfDatabase)

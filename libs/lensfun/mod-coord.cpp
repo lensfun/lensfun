@@ -152,15 +152,15 @@ bool lfModifier::EnableProjectionTransform (const lfLens* lens, float focal, lfL
 
     float norm_focal = 0.0;
     double real_focal = focal;
-    if (!lens->Calibrations.empty())
+    if (!lens->GetCalibrations().empty())
     {
         lfLensCalibDistortion lcd;
         if (lens->InterpolateDistortion (focal, lcd))
             real_focal = lcd.RealFocal;
 
-        double aspect_ratio_correction = sqrt (lens->Calibrations[0].attr.AspectRatio * lens->Calibrations[0].attr.AspectRatio + 1);
+        double aspect_ratio_correction = sqrt (lens->GetCalibrations()[0]->attr.AspectRatio * lens->GetCalibrations()[0]->attr.AspectRatio + 1);
         double normalized_in_millimeters = sqrt (36.0*36.0 + 24.0*24.0) /
-                                                (2.0 * aspect_ratio_correction * lens->Calibrations[0].attr.CropFactor);
+                                                (2.0 * aspect_ratio_correction * lens->GetCalibrations()[0]->attr.CropFactor);
         norm_focal = real_focal / normalized_in_millimeters;
     }
     else

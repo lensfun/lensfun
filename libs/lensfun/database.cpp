@@ -260,6 +260,10 @@ static void _xml_start_element (GMarkupParseContext *context,
         pd->calib_attr.CenterY = 0.0;
         pd->calib_attr.CropFactor  = 1.0;
         pd->calib_attr.AspectRatio = 1.5;
+        pd->lens->CenterX = 0.0;
+        pd->lens->CenterY = 0.0;
+        pd->lens->CropFactor  = 1.0;
+        pd->lens->AspectRatio = 1.5;
         if (!__chk_no_attrs(element_name, attribute_names, error)) return;
     }
     else if (!strcmp (element_name, "focal"))
@@ -299,9 +303,15 @@ static void _xml_start_element (GMarkupParseContext *context,
 
         for (i = 0; attribute_names [i]; i++)
             if (!strcmp (attribute_names [i], "x"))
-                pd->calib_attr.CenterX = atof (attribute_values [i]);
+            {
+                pd->calib_attr.CenterX = atof (attribute_values [i]);                     
+                pd->lens->CenterX = pd->calib_attr.CenterX;
+            }
             else if (!strcmp (attribute_names [i], "y"))
+            {
                 pd->calib_attr.CenterY = atof (attribute_values [i]);
+                pd->lens->CenterY = pd->calib_attr.CenterY;
+            }
             else
                 goto bad_attr;
     }
@@ -706,7 +716,10 @@ static void _xml_text (GMarkupParseContext *context,
         if (pd->camera)
             pd->camera->CropFactor = atof (text);
         else if (pd->lens)
+        {
             pd->calib_attr.CropFactor = atof (text);
+            pd->lens->CropFactor = pd->calib_attr.CropFactor;
+        }
         else
             goto bad_ctx;
     }
@@ -719,6 +732,7 @@ static void _xml_text (GMarkupParseContext *context,
                 pd->calib_attr.AspectRatio = atof (text) / atof (colon + 1);
             else
                 pd->calib_attr.AspectRatio = atof (text);
+                pd->lens->AspectRatio = pd->calib_attr.AspectRatio;
         }
         else
             goto bad_ctx;
@@ -944,56 +958,55 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                                 lenses [i]->Type == LF_FISHEYE_THOBY ? "fisheye_thoby" :
                                 "rectilinear");
 
-            if (!lenses [i]->Calibrations.empty())
+            lfLensCalibrations calibs = lenses [i]->GetCalibrations();
+            if (!calibs.empty())
             {
-                if (lenses [i]->Calibrations[0].attr.CenterX || lenses [i]->Calibrations[0].attr.CenterY)
+                if (calibs[0]->attr.CenterX || calibs[0]->attr.CenterY)
                     _lf_xml_printf (output, "\t\t<center x=\"%g\" y=\"%g\" />\n",
-                                lenses [i]->Calibrations[0].attr.CenterX, lenses [i]->Calibrations[0].attr.CenterY);
-                if (lenses [i]->Calibrations[0].attr.AspectRatio > 0.0)
+                                calibs[0]->attr.CenterX, calibs[0]->attr.CenterY);
+                if (calibs[0]->attr.AspectRatio > 0.0)
                     _lf_xml_printf (output, "\t\t<cropfactor>%g</cropfactor>\n",
-                                lenses [i]->Calibrations[0].attr.CropFactor);
-                if (lenses [i]->Calibrations[0].attr.AspectRatio != 1.5)
+                                calibs[0]->attr.CropFactor);
+                if (calibs[0]->attr.AspectRatio != 1.5)
                     _lf_xml_printf (output, "\t\t<aspect-ratio>%g</aspect-ratio>\n",
-                                lenses [i]->Calibrations[0].attr.AspectRatio);
+                                calibs[0]->attr.AspectRatio);
             }
 
-            if (!lenses [i]->Calibrations[0].CalibDistortion.empty() || !lenses [i]->Calibrations[0].CalibTCA.empty() ||
-                !lenses [i]->Calibrations[0].CalibVignetting.empty() || !lenses [i]->Calibrations[0].CalibCrop.empty() ||
-                !lenses [i]->Calibrations[0].CalibFov.empty())
+            if (!calibs[0]->empty())
                 g_string_append (output, "\t\t<calibration>\n");
 
-            if (!lenses [i]->Calibrations[0].CalibDistortion.empty())
+            if (!calibs[0]->CalibDistortion.empty())
             {
-                for (const lfLensCalibDistortion& cd : lenses [i]->Calibrations[0].CalibDistortion)
+                for (const lfLensCalibDistortion* cd : calibs[0]->CalibDistortion)
                 {
                     _lf_xml_printf (output, "\t\t\t<distortion focal=\"%g\" ",
-                                    cd.Focal);
-                    if (cd.RealFocal > 0)
-                    _lf_xml_printf (output, "real-focal=\"%g\" ", cd.RealFocal);
-                    switch (cd.Model)
+                                    cd->Focal);
+                    if (cd->RealFocal > 0)
+                    _lf_xml_printf (output, "real-focal=\"%g\" ", cd->RealFocal);
+                    switch (cd->Model)
                     {
                         case LF_DIST_MODEL_POLY3:
                             _lf_xml_printf (
                                 output, "model=\"poly3\" k1=\"%g\" />\n",
-                                cd.Terms [0]);
+                                cd->Terms [0]);
                             break;
 
                         case LF_DIST_MODEL_POLY5:
                             _lf_xml_printf (
                                 output, "model=\"poly5\" k1=\"%g\" k2=\"%g\" />\n",
-                                cd.Terms [0], cd.Terms [1]);
+                                cd->Terms [0], cd->Terms [1]);
                             break;
 
                         case LF_DIST_MODEL_PTLENS:
                             _lf_xml_printf (
                                 output, "model=\"ptlens\" a=\"%g\" b=\"%g\" c=\"%g\" />\n",
-                                cd.Terms [0], cd.Terms [1], cd.Terms [2]);
+                                cd->Terms [0], cd->Terms [1], cd->Terms [2]);
                             break;
 
                         case LF_DIST_MODEL_ACM:
                             _lf_xml_printf (
                                 output, "model=\"acm\" k1=\"%g\" k2=\"%g\" k3=\"%g\" k4=\"%g\" k5=\"%g\" />\n",
-                                cd.Terms [0], cd.Terms [1], cd.Terms [2], cd.Terms [3], cd.Terms [4]);
+                                cd->Terms [0], cd->Terms [1], cd->Terms [2], cd->Terms [3], cd->Terms [4]);
                             break;
 
                         default:
@@ -1003,23 +1016,23 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                 }
             }
 
-            if (!lenses [i]->Calibrations[0].CalibTCA.empty())
+            if (!calibs[0]->CalibTCA.empty())
             {
-                for (const lfLensCalibTCA& ctca : lenses [i]->Calibrations[0].CalibTCA)
+                for (const lfLensCalibTCA* ctca : calibs[0]->CalibTCA)
                 {
-                    _lf_xml_printf (output, "\t\t\t<tca focal=\"%g\" ", ctca.Focal);
-                    switch (ctca.Model)
+                    _lf_xml_printf (output, "\t\t\t<tca focal=\"%g\" ", ctca->Focal);
+                    switch (ctca->Model)
                     {
                         case LF_TCA_MODEL_LINEAR:
                             _lf_xml_printf (output, "model=\"linear\" kr=\"%g\" kb=\"%g\" />\n",
-                                            ctca.Terms [0], ctca.Terms [1]);
+                                            ctca->Terms [0], ctca->Terms [1]);
                             break;
 
                         case LF_TCA_MODEL_POLY3:
                             _lf_xml_printf (output, "model=\"poly3\" vr=\"%g\" vb=\"%g\" "
                                             "cr=\"%g\" cb=\"%g\" br=\"%g\" bb=\"%g\" />\n",
-                                            ctca.Terms [0], ctca.Terms [1], ctca.Terms [2],
-                                            ctca.Terms [3], ctca.Terms [4], ctca.Terms [5]);
+                                            ctca->Terms [0], ctca->Terms [1], ctca->Terms [2],
+                                            ctca->Terms [3], ctca->Terms [4], ctca->Terms [5]);
                             break;
 
                         case LF_TCA_MODEL_ACM:
@@ -1028,10 +1041,10 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                                             "beta2=\"%g\" alpha3=\"%g\" beta3=\"%g\" "
                                             "alpha4=\"%g\" beta4=\"%g\" alpha5=\"%g\" "
                                             "beta5=\"%g\" />\n",
-                                            ctca.Terms [0], ctca.Terms [1], ctca.Terms [2],
-                                            ctca.Terms [3], ctca.Terms [4], ctca.Terms [5],
-                                            ctca.Terms [6], ctca.Terms [7], ctca.Terms [8],
-                                            ctca.Terms [9], ctca.Terms [10], ctca.Terms [11]);
+                                            ctca->Terms [0], ctca->Terms [1], ctca->Terms [2],
+                                            ctca->Terms [3], ctca->Terms [4], ctca->Terms [5],
+                                            ctca->Terms [6], ctca->Terms [7], ctca->Terms [8],
+                                            ctca->Terms [9], ctca->Terms [10], ctca->Terms [11]);
                             break;
 
                         default:
@@ -1041,22 +1054,22 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                 }
             }
 
-            if (!lenses [i]->Calibrations[0].CalibVignetting.empty())
+            if (!calibs[0]->CalibVignetting.empty())
             {
-                for (const lfLensCalibVignetting& cv : lenses [i]->Calibrations[0].CalibVignetting)
+                for (const lfLensCalibVignetting* cv : calibs[0]->CalibVignetting)
                 {
                     _lf_xml_printf (output, "\t\t\t<vignetting focal=\"%g\" aperture=\"%g\" distance=\"%g\" ",
-                                    cv.Focal, cv.Aperture, cv.Distance);
-                    switch (cv.Model)
+                                    cv->Focal, cv->Aperture, cv->Distance);
+                    switch (cv->Model)
                     {
                         case LF_VIGNETTING_MODEL_PA:
                             _lf_xml_printf (output, "model=\"pa\" k1=\"%g\" k2=\"%g\" k3=\"%g\" />\n",
-                                            cv.Terms [0], cv.Terms [1], cv.Terms [2]);
+                                            cv->Terms [0], cv->Terms [1], cv->Terms [2]);
                             break;
 
                         case LF_VIGNETTING_MODEL_ACM:
                             _lf_xml_printf (output, "model=\"acm\" alpha1=\"%g\" alpha2=\"%g\" alpha3=\"%g\" />\n",
-                                            cv.Terms [0], cv.Terms [1], cv.Terms [2]);
+                                            cv->Terms [0], cv->Terms [1], cv->Terms [2]);
                             break;
 
                         default:
@@ -1066,24 +1079,24 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                 }
             }
 
-            if (!lenses [i]->Calibrations[0].CalibCrop.empty())
+            if (!calibs[0]->CalibCrop.empty())
             {
-                for (const lfLensCalibCrop& lcc: lenses [i]->Calibrations[0].CalibCrop)
+                for (const lfLensCalibCrop* lcc: calibs[0]->CalibCrop)
                 {
                     _lf_xml_printf (output, "\t\t\t<crop focal=\"%g\" ",
-                                    lcc.Focal);
-                    switch (lcc.CropMode)
+                                    lcc->Focal);
+                    switch (lcc->CropMode)
                     {
                         case LF_CROP_RECTANGLE:
                             _lf_xml_printf (
                                 output, "mode=\"crop_rectangle\" left=\"%g\" right=\"%g\" top=\"%g\" bottom=\"%g\" />\n",
-                                lcc.Crop [0], lcc.Crop [1], lcc.Crop [2], lcc.Crop [3]);
+                                lcc->Crop [0], lcc->Crop [1], lcc->Crop [2], lcc->Crop [3]);
                             break;
 
                         case LF_CROP_CIRCLE:
                             _lf_xml_printf (
                                 output, "mode=\"crop_circle\" left=\"%g\" right=\"%g\" top=\"%g\" bottom=\"%g\" />\n",
-                                lcc.Crop [0], lcc.Crop [1], lcc.Crop [2], lcc.Crop [3]);
+                                lcc->Crop [0], lcc->Crop [1], lcc->Crop [2], lcc->Crop [3]);
                             break;
 
                         case LF_NO_CROP:
@@ -1094,21 +1107,19 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                 }
             }
 
-            if (!lenses [i]->Calibrations[0].CalibFov.empty())
+            if (!calibs[0]->CalibFov.empty())
             {
-                for (const lfLensCalibFov& lcf: lenses [i]->Calibrations[0].CalibFov)
+                for (const lfLensCalibFov* lcf: calibs[0]->CalibFov)
                 {
-                    if (lcf.FieldOfView > 0)
+                    if (lcf->FieldOfView > 0)
                     {
                         _lf_xml_printf (output, "\t\t\t<field_of_view focal=\"%g\" fov=\"%g\" />\n",
-                            lcf.Focal, lcf.FieldOfView);
+                            lcf->Focal, lcf->FieldOfView);
                     };
                 }
             }
 
-            if (!lenses [i]->Calibrations[0].CalibDistortion.empty() || !lenses [i]->Calibrations[0].CalibTCA.empty() ||
-                !lenses [i]->Calibrations[0].CalibVignetting.empty() || !lenses [i]->Calibrations[0].CalibCrop.empty() ||
-                !lenses [i]->Calibrations[0].CalibFov.empty())
+            if (!calibs[0]->empty())
                 g_string_append (output, "\t\t</calibration>\n");
 
             g_string_append (output, "\t</lens>\n\n");
