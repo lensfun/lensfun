@@ -457,8 +457,6 @@ public:
     int Compare (const lfMLstr match);
 };
 
-double _normalize_focal_length(const lfLens *lens, float focal);
-
 // `dvector`, `matrix`, and `svg` are declared here to be able to test `svd` in
 // unit tests.
 

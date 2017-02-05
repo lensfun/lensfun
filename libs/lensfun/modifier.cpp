@@ -169,14 +169,6 @@ lfModifier::lfModifier (float imgcrop, int imgwidth, int imgheight,
     CenterY = Height / size;
 }
 
-double _normalize_focal_length(const lfLens *lens, float focal)
-{
-    double aspect_ratio_correction = sqrt (lens->Calibrations[0].attr.AspectRatio * lens->Calibrations[0].attr.AspectRatio + 1);
-    double normalized_in_millimeters = sqrt (36.0*36.0 + 24.0*24.0) /
-                                            (2.0 * aspect_ratio_correction * lens->Calibrations[0].attr.CropFactor);
-    return focal / normalized_in_millimeters;
-}
-
 bool lfModifier::EnableScaling (float scale)
 {
     if (scale == 1.0)
