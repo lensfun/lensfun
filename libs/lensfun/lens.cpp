@@ -43,6 +43,15 @@ static struct
     },
 };
 
+static struct
+{
+    bool compiled;
+    regex_t rex;
+} extender_magnification_regex =
+{
+    false
+};
+
 static float _lf_parse_float (const char *model, const regmatch_t &match)
 {
     char tmp [100];
@@ -223,6 +232,13 @@ void lfLens::AddMount (const char *val)
 
 void lfLens::GuessParameters ()
 {
+    if (!extender_magnification_regex.compiled)
+    {
+        regcomp (&extender_magnification_regex.rex, "[0-9](\\.[0.9]+)?x",
+                 REG_EXTENDED | REG_ICASE);
+        extender_magnification_regex.compiled = true;
+    }
+
     float minf = float (INT_MAX), maxf = float (INT_MIN);
     float mina = float (INT_MAX), maxa = float (INT_MIN);
 
@@ -235,7 +251,8 @@ void lfLens::GuessParameters ()
         !strstr (Model, "reducer") &&
         !strstr (Model, "booster") &&
         !strstr (Model, "extender") &&
-        !strstr (Model, "converter"))
+        !strstr (Model, "converter") &&
+        regexec (&extender_magnification_regex.rex, Model, 0, NULL, 0))
         _lf_parse_lens_name (Model, minf, maxf, mina);
 
     if (!MinAperture || !MinFocal)

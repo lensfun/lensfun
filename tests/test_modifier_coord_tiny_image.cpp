@@ -1,6 +1,8 @@
 /* This checks for off-by-one errors which occure most clearly in extremely
  * small images. */
 
+#include <locale.h>
+
 #include <string>
 #include <limits>
 #include <cmath>

@@ -40,6 +40,13 @@
 
     <camera>
         <maker>Fujifilm</maker>
+        <model>X-E2S</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Fujifilm</maker>
         <model>X-T1</model>
         <mount>Fujifilm X</mount>
         <cropfactor>1.529</cropfactor>
@@ -736,13 +743,11 @@
         <model>XF35mmF2 R WR</model>
         <model lang="en">XF 35mm f/2 WR</model>
         <mount>Fujifilm X</mount>
-        <cropfactor>1.529</cropfactor>
+        <cropfactor>1.528</cropfactor>
         <calibration>
+            <!-- Taken with Fujifilm X-Pro2 -->
+            <distortion model="ptlens" focal="35" a="0.00956" b="-0.07057" c="0.07334"/>
             <!-- Taken with Fujifilm X-E2 -->
-            <!-- The subject was not really trustworthy for distortion
-                 measurement.  I asked the uploader to upload a better
-                 image. -->
-            <distortion model="poly3" focal="35" k1="-0.02597"/>
             <tca model="poly3" focal="35" vr="1.0000774" vb="0.9999724"/>
         </calibration>
     </lens>
@@ -800,6 +805,20 @@
             <vignetting model="pa" focal="16" aperture="11" distance="1000" k1="-0.5074" k2="0.2009" k3="-0.0563"/>
             <vignetting model="pa" focal="16" aperture="16" distance="10" k1="-0.5182" k2="0.2205" k3="-0.0699"/>
             <vignetting model="pa" focal="16" aperture="16" distance="1000" k1="-0.5182" k2="0.2205" k3="-0.0699"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>XF23mmF2 R WR</model>
+        <model lang="en">XF 23mm f/2 R WR</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-T10 -->
+            <!-- The target was not really trustworthy. -->
+            <distortion model="ptlens" focal="23" a="0.0289722" b="-0.0763625" c="0.0493558"/>
+            <tca model="poly3" focal="23" vr="1.0001000" vb="1.0003000"/>
         </calibration>
     </lens>
 

@@ -1,6 +1,11 @@
 <!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
 <lensdatabase version="2">
 
+    <mount>
+        <name>Tamron Adaptall</name>
+        <compat>Generic</compat>
+    </mount>
+
     <lens>
         <maker>Tamron</maker>
         <model>Tamron SP AF 10-24mm f/3.5-4.5 Di II LD Aspherical (IF)</model>
@@ -918,12 +923,12 @@
      <lens>
         <maker>Tamron</maker>
         <model>Tamron 200mm f/3.5 CT-200 BBAR</model>
-        <mount>Micro 4/3 System</mount>
+        <mount>Tamron Adaptall</mount>
         <cropfactor>2</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <!-- Taken with Olympus E-PL7 -->
-            <distortion model="ptlens" focal="200" a="0" b="0.000003" c="0"/>
+            <distortion model="poly3" focal="200" k1="0.000003"/>
             <tca model="poly3" focal="200" vr="0.9996500" vb="0.9999927"/>
         </calibration>
     </lens>

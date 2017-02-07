@@ -2,6 +2,8 @@
  * quite some time, Lensfun erroneously set the optical axis in image sensor
  * coordinates instead of lens coordinates.  */
 
+#include <locale.h>
+
 #include <string>
 #include <limits>
 #include <cmath>

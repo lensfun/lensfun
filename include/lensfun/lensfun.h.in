@@ -1512,35 +1512,42 @@ enum
  *
  * This object contains a list of mounts, cameras and lenses through
  * which you can search. The objects are loaded from XML files
- * located in (default configuration):
- *
-\verbatim
-/usr/share/lensfun/
-/usr/local/share/lensfun/
-~/.local/share/lensfun/
-\endverbatim
+ * (see @ref dbsearch).
  *
  * Objects loaded later override objects loaded earlier.
  * Thus, if user modifies a object you must save it to its home directory
- * (see lfDatabase::HomeDataDir), where it will override any definitions
+ * (see lfDatabase::UserLocation), where it will override any definitions
  * from the system-wide database.
  *
  */
 struct LF_EXPORT lfDatabase
 {
-    /** @brief Home lens database directory (something like "~/.local/share/lensfun") */
-    char *HomeDataDir;
-    /** @brief Home lens database directory for automatic updates (something
-     * like "~/.local/share/lensfun/updates") */
-    char *UserUpdatesDir;
+    /** @brief Home lens database directory (deprecated). Replaced by lfDatabase::UserLocation. */
+    DEPRECATED char *HomeDataDir;
+    /** @brief Home lens database directory for automatic updates (deprecated). Replaced by lfDatabase::UserUpdatesLocation.*/
+    DEPRECATED char *UserUpdatesDir;
 
 #ifdef __cplusplus
+
+    /** @brief Home lens database directory (something like "~/.local/share/lensfun") */
+    static const char *const UserLocation;
+    /** @brief Home lens database directory for automatic updates (something
+     * like "~/.local/share/lensfun/updates") */
+    static const char *const UserUpdatesLocation;
+    /** @brief System lens database directory (something like "/usr/share/lensfun") */
+    static const char *const SystemLocation;
+    /** @brief System lens database directory for automatic updates (something
+    * like "/var/lib/lensfun-updates") */
+    static const char *const SystemUpdatesLocation;
+
     lfDatabase ();
     ~lfDatabase ();
 
     /**
-     * @brief Create a new empty database object. This function is deprecated and
-     * will be removed in the future. Use the standard constructor instead.
+     * @brief Create a new empty database object.
+     *
+     * This function is deprecated and will be removed in the future.
+     * Please use the standard constructor instead.
      */
     DEPRECATED static lfDatabase *Create ();
 
@@ -1553,16 +1560,35 @@ struct LF_EXPORT lfDatabase
     DEPRECATED void Destroy ();
 
     /**
-     * @brief Open and parse all XML files in a given directory.
+     * @brief Scans for the timestamp of a Lensfun database.
      *
-     * Returns true if valid Lensfun XML data was found and loaded
-     * sucessfully.
+     * "database" means here a directory containing XML files.  If it also contains
+     * a file timestamp.txt, its content is interpreted as a string-encoded
+     * floating point value, representing the timestamp in seconds since the Epoch
+     * (UNIX time).  If it is not present, 0 is returned.  If the directory is not
+     * found or empty, a negative value is returned.
      * @param dirname
-     *     The directory to be read.
+     *     the name of the directory containing a Lensfun database
      * @return
-     *     True if valid lensfun XML data was succesfully loaded.
+     *     the UNIX timestamp when database was last updated.
      */
-    bool LoadDirectory (const char *dirname);
+     static long int ReadTimestamp (const char *dirname);
+
+     /**
+      * @brief Open and parse all XML files in a given directory.
+      *
+      * Returns true if valid Lensfun XML data was found and loaded
+      * sucessfully.
+      *
+      * This function is deprecated and will be removed in the future.
+      * Please use the lfDatabase::Load(const char *pathname) syntax instead.
+      *
+      * @param dirname
+      *     The directory to be read.
+      * @return
+      *     True if valid lensfun XML data was succesfully loaded.
+      */
+     DEPRECATED bool LoadDirectory (const char *dirname);
 
     /**
      * @brief Find and load the lens database.
@@ -1575,18 +1601,19 @@ struct LF_EXPORT lfDatabase
     lfError Load ();
 
     /**
-     * @brief Load just a specific XML file.
+     * @brief Load the database from specific path (directory or file).
      *
-     * If the loaded file contains the specification of a camera/lens that's
+     * If the given path is a folder, all included XML files will be parsed for
+     * valid lens data. If a loaded file contains the specification of a camera/lens that's
      * already in memory, it overrides that data.
-     * @param filename
+     * @param pathname
      *     The name of a XML file to load. Note that Lensfun does not support
      *     the full XML specification as it uses the glib's simple XML parser,
      *     so advanced XML features are not available.
      * @return
      *     LF_NO_ERROR or a error code.
      */
-    lfError Load (const char *filename);
+    lfError Load (const char *pathname);
 
     /**
      * @brief Load a set of camera/lenses from a memory array.
@@ -1830,6 +1857,15 @@ private:
 
 C_TYPEDEF (struct, lfDatabase)
 
+/** @sa lfDatabase::SystemLocation() */
+extern const char* const lf_db_system_location;
+/** @sa lfDatabase::SystemUpdatesLocation() */
+extern const char* const lf_db_system_updates_location;
+/** @sa lfDatabase::UserLocation() */
+extern const char* const lf_db_user_location;
+/** @sa lfDatabase::UserUpdatesLocation() */
+extern const char* const lf_db_user_updates_location;
+
 /**
  * @brief Create a new empty database object.
  *
@@ -1853,14 +1889,20 @@ LF_EXPORT lfDatabase *lf_db_new (void);
  */
 LF_EXPORT void lf_db_destroy (lfDatabase *db);
 
+/** @sa lfDatabase::ReadTimestamp() */
+LF_EXPORT long int lf_db_read_timestamp (lfDatabase *db, const char *dirname);
+
 /** @sa lfDatabase::Load() */
 LF_EXPORT lfError lf_db_load (lfDatabase *db);
 
-/** @sa lfDatabase::Load(const char *) */
-LF_EXPORT lfError lf_db_load_file (lfDatabase *db, const char *filename);
+/** @sa lfDatabase::Load(const char *). Deprecated, use lf_db_load_path() instead. */
+DEPRECATED LF_EXPORT lfError lf_db_load_file (lfDatabase *db, const char *filename);
 
-/** @sa lfDatabase::LoadDirectory(const char *) */
-LF_EXPORT cbool lf_db_load_directory (lfDatabase *db, const char *dirname);
+/** @sa lfDatabase::LoadDirectory(const char *). Deprecated, use lf_db_load_path() instead. */
+DEPRECATED LF_EXPORT cbool lf_db_load_directory (lfDatabase *db, const char *dirname);
+
+/** @sa lfDatabase::Load(const char *) */
+LF_EXPORT lfError lf_db_load_path (lfDatabase *db, const char *pathname);
 
 /** @sa lfDatabase::Load(const char *, const char *, size_t) */
 LF_EXPORT lfError lf_db_load_data (lfDatabase *db, const char *errcontext,
