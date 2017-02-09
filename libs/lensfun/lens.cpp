@@ -125,6 +125,12 @@ lfLens::lfLens ()
     Mounts = NULL;
     Type = LF_RECTILINEAR;
 
+    // init legacy attributes
+    CropFactor = 1.0;
+    AspectRatio = 1.5;
+    CenterX = 0.0;
+    CenterY = 0.0;
+
     CalibDistortion = NULL;
     CalibTCA = NULL;
     CalibVignetting = NULL;
@@ -1038,7 +1044,7 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
         return false;
 
     // TODO: find matching calibration set
-    const lfLensCalibrationSet* calib_set = Calibrations[0];
+    const lfLensCalibrationSet* calib_set = GetCalibrations()[0];
 
     union
     {
@@ -1120,7 +1126,7 @@ bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
         return false;
 
     // TODO: find matching calibration set
-    const lfLensCalibrationSet* calib_set = Calibrations[0];
+    const lfLensCalibrationSet* calib_set = GetCalibrations()[0];
 
     union
     {
@@ -1221,7 +1227,7 @@ bool lfLens::InterpolateVignetting (
         return false;
 
     // TODO: find matching calibration set
-    const lfLensCalibrationSet* calib_set = Calibrations[0];
+    const lfLensCalibrationSet* calib_set = GetCalibrations()[0];
 
     lfVignettingModel vm = LF_VIGNETTING_MODEL_NONE;
     res.Focal = focal;
@@ -1292,7 +1298,7 @@ bool lfLens::InterpolateCrop (float focal, lfLensCalibCrop &res) const
         return false;
 
     // TODO: find matching calibration set
-    const lfLensCalibrationSet* calib_set = Calibrations[0];
+    const lfLensCalibrationSet* calib_set = GetCalibrations()[0];
 
     union
     {
@@ -1361,7 +1367,7 @@ bool lfLens::InterpolateFov (float focal, lfLensCalibFov &res) const
         return false;
 
     // TODO: find matching calibration set
-    const lfLensCalibrationSet* calib_set = Calibrations[0];
+    const lfLensCalibrationSet* calib_set = GetCalibrations()[0];
 
     union
     {
@@ -1420,6 +1426,15 @@ bool lfLens::InterpolateFov (float focal, lfLensCalibFov &res) const
 
 const lfLensCalibrations& lfLens::GetCalibrations() const
 {
+    // sync legacy structures
+    if (!Calibrations.empty())
+    {
+        Calibrations[0]->attr.CropFactor = CropFactor;
+        Calibrations[0]->attr.AspectRatio = AspectRatio;
+        Calibrations[0]->attr.CenterX = CenterX;
+        Calibrations[0]->attr.CenterY = CenterY;
+    }
+
     return Calibrations;
 }
 
@@ -1493,7 +1508,7 @@ gint _lf_lens_compare (gconstpointer a, gconstpointer b)
 
     const lfLensCalibrations c1 = i1->GetCalibrations();
     const lfLensCalibrations c2 = i2->GetCalibrations();
-    return int ((c1[0]->attr.CropFactor - c2[0]->attr.CropFactor) * 100);
+    return int ((i1->CropFactor - i2->CropFactor) * 100);
 }
 
 static int _lf_compare_num (float a, float b)

@@ -606,7 +606,7 @@ struct lfLensCalibDistortion
     cbool RealFocalMeasured;
     /** @brief Distortion coefficients, dependent on model (a,b,c or k1 or k1,k2) */
     float Terms [5];
-    /** @brief Pointer to the calibration settings */
+    /** @brief Pointer to the calibration settings (currently unused). */
     const lfLensCalibAttributes* attr;
 };
 
@@ -700,7 +700,7 @@ struct lfLensCalibTCA
     float Focal;
     /** @brief The coefficients for TCA, dependent on model; separate for R and B */
     float Terms [12];
-    /** @brief Pointer to the calibration settings */
+    /** @brief Pointer to the calibration settings (currently unused). */
     const lfLensCalibAttributes* attr;
 };
 
@@ -770,7 +770,7 @@ struct lfLensCalibVignetting
     float Distance;
     /** @brief Lens vignetting model coefficients (depending on model) */
     float Terms [3];
-    /** @brief Pointer to the calibration settings */
+    /** @brief Pointer to the calibration settings (currently unused). */
     const lfLensCalibAttributes* attr;
 };
 
@@ -809,7 +809,7 @@ struct lfLensCalibCrop
      *  where the crop circle can extend above the image border.
      */
     float Crop [4];
-    /** @brief Pointer to the calibration settings */
+    /** @brief Pointer to the calibration settings (currently unused). */
     const lfLensCalibAttributes* attr;
 };
 
@@ -836,7 +836,7 @@ struct lfLensCalibFov
      *  stored in this field 
      */
     float FieldOfView;
-    /** @brief Pointer to the calibration settings */
+    /** @brief Pointer to the calibration settings (currently unused).*/
     const lfLensCalibAttributes* attr;
 };
 

@@ -993,15 +993,16 @@ char *lfDatabase::Save (const lfMount *const *mounts,
             lfLensCalibrations calibs = lenses [i]->GetCalibrations();
             if (!calibs.empty())
             {
-                if (calibs[0]->attr.CenterX || calibs[0]->attr.CenterY)
+                // save legacy attributes
+                if (lenses [i]->CenterX || lenses [i]->CenterY)
                     _lf_xml_printf (output, "\t\t<center x=\"%g\" y=\"%g\" />\n",
-                                calibs[0]->attr.CenterX, calibs[0]->attr.CenterY);
-                if (calibs[0]->attr.AspectRatio > 0.0)
+                                lenses [i]->CenterX, lenses [i]->CenterY);
+                if (lenses [i]->CropFactor > 0.0)
                     _lf_xml_printf (output, "\t\t<cropfactor>%g</cropfactor>\n",
-                                calibs[0]->attr.CropFactor);
-                if (calibs[0]->attr.AspectRatio != 1.5)
+                                lenses [i]->CropFactor);
+                if (lenses [i]->AspectRatio != 1.5)
                     _lf_xml_printf (output, "\t\t<aspect-ratio>%g</aspect-ratio>\n",
-                                calibs[0]->attr.AspectRatio);
+                                lenses [i]->AspectRatio);
             }
 
             if (!calibs[0]->empty())
@@ -1278,7 +1279,10 @@ const lfLens **lfDatabase::FindLenses (const lfCamera *camera,
         lens.AddMount (camera->Mount);
     // Guess lens parameters from lens model name
     lens.GuessParameters ();
-    //lens.Calibrations[0].attr.CropFactor = camera ? camera->CropFactor : 0.0;
+
+    // achieve backwards compatibility to lensfun prior to 0.4.0
+    lens.CropFactor = camera ? camera->CropFactor : 0.0;
+
     return FindLenses (&lens, sflags);
 }
 
