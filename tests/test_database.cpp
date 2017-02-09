@@ -28,26 +28,31 @@ void test_DB_lens_search(lfFixture* lfFix, gconstpointer data)
     lenses = lfFix->db->FindLenses (NULL, NULL, "pEntax 50-200 ED");
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "smc Pentax-DA 50-200mm f/4-5.6 DA ED");
+    g_assert_true(lfLens(*lenses[0]).Check());
     lf_free (lenses);
 
     lenses = lfFix->db->FindLenses (NULL, NULL, "smc Pentax-DA 50-200mm f/4-5.6 DA ED");
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "smc Pentax-DA 50-200mm f/4-5.6 DA ED");
+    g_assert_true(lfLens(*lenses[0]).Check());
     lf_free (lenses);
 
     lenses = lfFix->db->FindLenses (NULL, NULL, "PENTAX fa 28mm 2.8");
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "smc Pentax-FA 28mm f/2.8 AL");
+    g_assert_true(lfLens(*lenses[0]).Check());
     lf_free (lenses);
 
     /*lenses = lfFix->db->FindLenses (NULL, NULL, "Fotasy M3517 35mm f/1.7");
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Fotasy M3517 35mm f/1.7");
+    g_assert_true(lenses[0]->Check());
     lf_free (lenses);
 
     lenses = lfFix->db->FindLenses (NULL, NULL, "Minolta MD 35mm 1/2.8");
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Minolta MD 35mm 1/2.8");
+    g_assert_true(lenses[0]->Check());
     lf_free (lenses);*/
 }
 
@@ -59,16 +64,19 @@ void test_DB_cam_search(lfFixture* lfFix, gconstpointer data)
     cameras = lfFix->db->FindCamerasExt("pentax", "K100D");
     g_assert_nonnull(cameras);
     g_assert_cmpstr(cameras[0]->Model, ==, "Pentax K100D");
+    g_assert_true(lfCamera(*cameras[0]).Check());
     lf_free (cameras);
 
     cameras = lfFix->db->FindCamerasExt(NULL, "K 100 D");
     g_assert_nonnull(cameras);
     g_assert_cmpstr(cameras[0]->Model, ==, "Pentax K100D");
+    g_assert_true(lfCamera(*cameras[0]).Check());
     lf_free (cameras);
 
     cameras = lfFix->db->FindCamerasExt(NULL, "PentAX K100 D");
     g_assert_nonnull(cameras);
     g_assert_cmpstr(cameras[0]->Model, ==, "Pentax K100D");
+    g_assert_true(lfCamera(*cameras[0]).Check());
     lf_free (cameras);
 
 }

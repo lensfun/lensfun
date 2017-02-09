@@ -32,6 +32,7 @@ void mod_teardown (lfFixture *lfFix, gconstpointer data)
 
 void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
 {
+    // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "pEntax 50-200 ED");
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "smc Pentax-DA 50-200mm f/4-5.6 DA ED");
@@ -55,12 +56,36 @@ void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
         g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, 1e-3);
     }
 
-    mod->Destroy();
+    delete mod;
+
+    // manually create a lens object
+    lfLensCalibDistortion lensCalibDist;
+    lenses[0]->InterpolateDistortion(80.89f, lensCalibDist);
+    lfLens* lens = new lfLens();
+    lens->AddCalibDistortion(&lensCalibDist);
+    lens->CropFactor = lenses[0]->CropFactor;
+    lens->AspectRatio = lenses[0]->AspectRatio;
+
+    mod = new lfModifier (1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
+    mod->EnableDistortionCorrection(lens, 80.89f);
+
+    for (int i = 0; i < sizeof(x) / sizeof(float); i++)
+    {
+        g_assert_true(mod->ApplyGeometryDistortion (x[i], y[i], 1, 1, coords));
+        //g_print("\n%.8f, %.8f\n", coords[0], coords[1]);
+        g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, 1e-3);
+        g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, 1e-3);
+    }
+
+    delete mod;
+    delete lens;
+
     lf_free (lenses);
 }
 
 void test_verify_dist_poly5 (lfFixture *lfFix, gconstpointer data)
 {
+    // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "Canon PowerShot G12");
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Canon PowerShot G12 & compatibles (Standard)");
@@ -86,12 +111,13 @@ void test_verify_dist_poly5 (lfFixture *lfFix, gconstpointer data)
         g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, 1e-3);
     }
 
-    mod->Destroy();
+    delete mod;
     lf_free (lenses);
 }
 
 void test_verify_dist_ptlens (lfFixture *lfFix, gconstpointer data)
 {
+    // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "PENTAX-F 28-80mm");
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "PENTAX-F 28-80mm f/3.5-4.5");
@@ -115,12 +141,13 @@ void test_verify_dist_ptlens (lfFixture *lfFix, gconstpointer data)
         g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, 1e-3);
     }
 
-    mod->Destroy();
+    delete mod;
     lf_free (lenses);
 }
 
 void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
 {
+    // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "Olympus ED 14-42mm");
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Olympus Zuiko Digital ED 14-42mm f/3.5-5.6");
@@ -144,12 +171,38 @@ void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
         g_assert_cmpfloat (fabs (coords [2] - expected [i]), <=, 1e-3);
     }
 
-    mod->Destroy();
+    delete mod;
+
+    // manually create a lens object
+    lfLensCalibVignetting lensCalibVign;
+    lenses[0]->InterpolateVignetting(17.89f, 5.0f, 1000.0f, lensCalibVign);
+    lfLens* lens = new lfLens();
+    lens->AddCalibVignetting(&lensCalibVign);
+    lens->CropFactor = lenses[0]->CropFactor;
+    lens->AspectRatio = lenses[0]->AspectRatio;
+
+    mod = new lfModifier (2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
+    mod->EnableVignettingCorrection(lens, 17.89f, 5.0f, 1000.0f);
+
+    coords[0] = 16000; coords[1] = 16000; coords[2] = 16000;
+    for (int i = 0; i < sizeof(x) / sizeof(float); i++)
+    {
+        g_assert_true(mod->ApplyColorModification(&coords[0], x[i], y[i], 1, 1, LF_CR_3(RED,GREEN,BLUE), 0));
+        //g_print("\n%d, %d, %d\n", coords[0], coords[1], coords[2]);
+        g_assert_cmpfloat (fabs (coords [0] - expected [i]), <=, 1e-3);
+        g_assert_cmpfloat (fabs (coords [1] - expected [i]), <=, 1e-3);
+        g_assert_cmpfloat (fabs (coords [2] - expected [i]), <=, 1e-3);
+    }
+
+    delete mod;
+    delete lens;
+
     lf_free (lenses);
 }
 
 void test_verify_subpix_linear (lfFixture *lfFix, gconstpointer data)
 {
+    // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "Olympus ED 14-42mm");
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Olympus Zuiko Digital ED 14-42mm f/3.5-5.6");
@@ -177,12 +230,13 @@ void test_verify_subpix_linear (lfFixture *lfFix, gconstpointer data)
             g_assert_cmpfloat (fabs (coords [j] - expected [i][j]), <=, 1e-3);
     }
 
-    mod->Destroy();
+    delete mod;
     lf_free (lenses);
 }
 
 void test_verify_subpix_poly3 (lfFixture *lfFix, gconstpointer data)
 {
+    // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "Olympus ED 14-42mm");
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Olympus Zuiko Digital ED 14-42mm f/3.5-5.6");
@@ -210,7 +264,31 @@ void test_verify_subpix_poly3 (lfFixture *lfFix, gconstpointer data)
             g_assert_cmpfloat (fabs (coords [j] - expected [i][j]), <=, 1e-3);
     }
 
-    mod->Destroy();
+    delete mod;
+
+    // manually create a lens object
+    lfLensCalibTCA lensCalibTCA;
+    lenses[0]->InterpolateTCA(26.89f, lensCalibTCA);
+    lfLens* lens = new lfLens();
+    lens->AddCalibTCA(&lensCalibTCA);
+    lens->CropFactor = lenses[0]->CropFactor;
+    lens->AspectRatio = lenses[0]->AspectRatio;
+
+    mod = new lfModifier (2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
+    mod->EnableTCACorrection(lens, 26.89f);
+
+    for (int i = 0; i < sizeof(x) / sizeof(float); i++)
+    {
+        float coords [6];
+        g_assert_true(mod->ApplySubpixelDistortion (x[i], y[i], 1, 1, coords));
+        //g_print("{%.8f, %.8f, %.8f, %.8f, %.8f, %.8f},\n", coords[0], coords[1], coords[2], coords[3], coords[4], coords[5]);
+        for (int j = 0; j < 6; j++)
+            g_assert_cmpfloat (fabs (coords [j] - expected [i][j]), <=, 1e-3);
+    }
+
+    delete lens;
+    delete mod;
+
     lf_free (lenses);
 }
 
