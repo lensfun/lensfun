@@ -61,12 +61,12 @@ bool lfMount::Check ()
     return true;
 }
 
-gint _lf_mount_compare (gconstpointer a, gconstpointer b)
+bool _lf_mount_compare (lfMount *a, lfMount *b)
 {
     lfMount *i1 = (lfMount *)a;
     lfMount *i2 = (lfMount *)b;
 
-    return _lf_strcmp (i1->Name, i2->Name);
+    return _lf_strcmp (i1->Name, i2->Name) == 0;
 }
 
 //---------------------------// The C interface //---------------------------//

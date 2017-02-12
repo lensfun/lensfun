@@ -240,7 +240,7 @@ extern int _lf_mlstrcmp (const char *s1, const lfMLstr s2);
  * @return
  *     Positive if a > b, negative if a < b, zero if they are equal.
  */
-extern gint _lf_mount_compare (gconstpointer a, gconstpointer b);
+extern bool _lf_mount_compare(lfMount *a, lfMount *b);
 
 /**
  * @brief Comparison function for camera sorting and finding.

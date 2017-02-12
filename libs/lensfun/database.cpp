@@ -13,6 +13,7 @@
 #include <glib/gstdio.h>
 #include <math.h>
 #include <fstream>
+#include <algorithm>
 #include "windows/mathconstants.h"
 
 #ifdef PLATFORM_WINDOWS
@@ -37,29 +38,16 @@ lfDatabase::lfDatabase ()
     // when the deprecated HomeDataDir and UserUpdatesDir variables are removed.
     HomeDataDir = strdup(lfDatabase::UserLocation);
     UserUpdatesDir = strdup(lfDatabase::UserUpdatesLocation);
-
-    Mounts = g_ptr_array_new ();
-    g_ptr_array_add ((GPtrArray *)Mounts, NULL);
-    Cameras = g_ptr_array_new ();
-    g_ptr_array_add ((GPtrArray *)Cameras, NULL);
-    Lenses = g_ptr_array_new ();
-    g_ptr_array_add ((GPtrArray *)Lenses, NULL);
 }
 
 lfDatabase::~lfDatabase ()
 {
-    size_t i;
-    for (i = 0; i < ((GPtrArray *)Mounts)->len - 1; i++)
-         delete static_cast<lfMount *> (g_ptr_array_index ((GPtrArray *)Mounts, i));
-    g_ptr_array_free ((GPtrArray *)Mounts, TRUE);
-
-    for (i = 0; i < ((GPtrArray *)Cameras)->len - 1; i++)
-         delete static_cast<lfCamera *> (g_ptr_array_index ((GPtrArray *)Cameras, i));
-    g_ptr_array_free ((GPtrArray *)Cameras, TRUE);
-
-    for (i = 0; i < ((GPtrArray *)Lenses)->len - 1; i++)
-         delete static_cast<lfLens *> (g_ptr_array_index ((GPtrArray *)Lenses, i));
-    g_ptr_array_free ((GPtrArray *)Lenses, TRUE);
+    for (auto m : Mounts)
+        delete m;
+    for (auto c : Cameras)
+        delete c;
+    for (auto l : Lenses)
+        delete l;
 }
 
 lfDatabase *lfDatabase::Create ()
@@ -180,6 +168,11 @@ lfError lfDatabase::Load (const char *pathname)
   }
 
   return e;
+}
+
+lfError lfDatabase::Load (const char *data, size_t data_size)
+{
+    return Load("MEMORY", data, data_size);
 }
 
 //-----------------------------// XML parser //-----------------------------//
@@ -364,8 +357,18 @@ static void _xml_start_element (GMarkupParseContext *context,
     {
         if (!ctx || strcmp (ctx, "lens"))
             goto bad_ctx;
-        // todo: read and add calibration setting
-        if (!__chk_no_attrs(element_name, attribute_names, error)) return;
+
+        for (i = 0; attribute_names [i]; i++)
+            if (!strcmp (attribute_names [i], "cropfactor"))
+                pd->calib_attr.CropFactor = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "aspect-ratio"))
+                pd->calib_attr.AspectRatio = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "center-x"))
+                pd->calib_attr.CenterX = atof (attribute_values [i]);
+            else if (!strcmp (attribute_names [i], "center-y"))
+                pd->calib_attr.CenterY = atof (attribute_values [i]);
+            else
+                goto bad_attr;
     }
     else if (!strcmp (element_name, "distortion"))
     {
@@ -830,13 +833,6 @@ lfError lfDatabase::Load (const char *errcontext, const char *data, size_t data_
     old_numeric = strdup(old_numeric);
     setlocale(LC_NUMERIC,"C");
 
-    /* eek! GPtrArray does not have a method to insert a pointer
-     into middle of the array... We have to remove the trailing
-     NULL and re-append it after loading ... */
-    g_ptr_array_remove_index_fast ((GPtrArray *)Mounts, ((GPtrArray *)Mounts)->len - 1);
-    g_ptr_array_remove_index_fast ((GPtrArray *)Cameras, ((GPtrArray *)Cameras)->len - 1);
-    g_ptr_array_remove_index_fast ((GPtrArray *)Lenses, ((GPtrArray *)Lenses)->len - 1);
-
     lfParserData pd;
     memset (&pd, 0, sizeof (pd));
     pd.db = this;
@@ -859,11 +855,6 @@ lfError lfDatabase::Load (const char *errcontext, const char *data, size_t data_
 
     g_markup_parse_context_free (mpc);
 
-    /* Re-add the trailing NULL */
-    g_ptr_array_add ((GPtrArray *)Mounts, NULL);
-    g_ptr_array_add ((GPtrArray *)Cameras, NULL);
-    g_ptr_array_add ((GPtrArray *)Lenses, NULL);
-
     /* Restore numeric format */
     setlocale (LC_NUMERIC, old_numeric);
     free(old_numeric);
@@ -873,18 +864,7 @@ lfError lfDatabase::Load (const char *errcontext, const char *data, size_t data_
 
 lfError lfDatabase::Save (const char *filename) const
 {
-    return Save (filename,
-                 (lfMount **)((GPtrArray *)Mounts)->pdata,
-                 (lfCamera **)((GPtrArray *)Cameras)->pdata,
-                 (lfLens **)((GPtrArray *)Lenses)->pdata);
-}
-
-lfError lfDatabase::Save (const char *filename,
-                          const lfMount *const *mounts,
-                          const lfCamera *const *cameras,
-                          const lfLens *const *lenses) const
-{
-    char *output = Save (mounts, cameras, lenses);
+    char *output = Save ();
     if (!output)
         return lfError (-ENOMEM);
 
@@ -904,9 +884,7 @@ lfError lfDatabase::Save (const char *filename,
     return ol ? LF_NO_ERROR : lfError (-ENOSPC);
 }
 
-char *lfDatabase::Save (const lfMount *const *mounts,
-                        const lfCamera *const *cameras,
-                        const lfLens *const *lenses)
+char *lfDatabase::Save () const
 {
     /* Temporarily drop numeric format to "C" */
     char *old_numeric = setlocale (LC_NUMERIC, NULL);
@@ -919,244 +897,234 @@ char *lfDatabase::Save (const lfMount *const *mounts,
     g_string_append (output, "<!DOCTYPE lensdatabase SYSTEM \"lensfun-database.dtd\">\n");
     g_string_append (output, "<lensdatabase>\n\n");
 
-    if (mounts)
-        for (i = 0; mounts [i]; i++)
+    for (auto* m: Mounts)
+    {
+        g_string_append (output, "\t<mount>\n");
+        _lf_xml_printf_mlstr (output, "\t\t", "name",
+                                    m->Name);
+        if (m->Compat)
+            for (j = 0; m->Compat [j]; j++)
+                _lf_xml_printf (output, "\t\t<compat>%s</compat>\n",
+                                m->Compat [j]);
+        g_string_append (output, "\t</mount>\n\n");
+    }
+
+    for (auto* c: Cameras)
+    {
+        g_string_append (output, "\t<camera>\n");
+
+        _lf_xml_printf_mlstr (output, "\t\t", "maker", c->Maker);
+        _lf_xml_printf_mlstr (output, "\t\t", "model", c->Model);
+        _lf_xml_printf_mlstr (output, "\t\t", "variant", c->Variant);
+        _lf_xml_printf (output, "\t\t<mount>%s</mount>\n",
+                        c->Mount);
+        _lf_xml_printf (output, "\t\t<cropfactor>%g</cropfactor>\n",
+                        c->CropFactor);
+
+        g_string_append (output, "\t</camera>\n\n");
+    }
+
+
+    for (auto* l: Lenses)
+    {
+        g_string_append (output, "\t<lens>\n");
+
+        _lf_xml_printf_mlstr (output, "\t\t", "maker", l->Maker);
+        _lf_xml_printf_mlstr (output, "\t\t", "model", l->Model);
+        if (l->MinFocal)
         {
-            g_string_append (output, "\t<mount>\n");
-            _lf_xml_printf_mlstr (output, "\t\t", "name",
-                                        mounts [i]->Name);
-            if (mounts [i]->Compat)
-                for (j = 0; mounts [i]->Compat [j]; j++)
-                    _lf_xml_printf (output, "\t\t<compat>%s</compat>\n",
-                                    mounts [i]->Compat [j]);
-            g_string_append (output, "\t</mount>\n\n");
+            if (l->MinFocal == l->MaxFocal)
+                _lf_xml_printf (output, "\t\t<focal value=\"%g\" />\n",
+                                l->MinFocal);
+            else
+                _lf_xml_printf (output, "\t\t<focal min=\"%g\" max=\"%g\" />\n",
+                                l->MinFocal, l->MaxFocal);
+        }
+        if (l->MinAperture)
+        {
+            if (l->MinAperture == l->MaxAperture)
+                _lf_xml_printf (output, "\t\t<aperture value=\"%g\" />\n",
+                                l->MinAperture);
+            else
+                _lf_xml_printf (output, "\t\t<aperture min=\"%g\" max=\"%g\" />\n",
+                                l->MinAperture, l->MaxAperture);
         }
 
-    if (cameras)
-        for (i = 0; cameras [i]; i++)
-        {
-            g_string_append (output, "\t<camera>\n");
+        if (l->Mounts)
+            for (j = 0; l->Mounts [j]; j++)
+                _lf_xml_printf (output, "\t\t<mount>%s</mount>\n",
+                                l->Mounts [j]);
 
-            _lf_xml_printf_mlstr (output, "\t\t", "maker", cameras [i]->Maker);
-            _lf_xml_printf_mlstr (output, "\t\t", "model", cameras [i]->Model);
-            _lf_xml_printf_mlstr (output, "\t\t", "variant", cameras [i]->Variant);
-            _lf_xml_printf (output, "\t\t<mount>%s</mount>\n",
-                            cameras [i]->Mount);
+        if (l->Type != LF_RECTILINEAR)
+            _lf_xml_printf (output, "\t\t<type>%s</type>\n",
+                            l->Type == LF_FISHEYE ? "fisheye" :
+                            l->Type == LF_PANORAMIC ? "panoramic" :
+                            l->Type == LF_EQUIRECTANGULAR ? "equirectangular" :
+                            l->Type == LF_FISHEYE_ORTHOGRAPHIC ? "orthographic" :
+                            l->Type == LF_FISHEYE_STEREOGRAPHIC ? "stereographic" :
+                            l->Type == LF_FISHEYE_EQUISOLID ? "equisolid" :
+                            l->Type == LF_FISHEYE_THOBY ? "fisheye_thoby" :
+                            "rectilinear");
+
+        // save legacy attributes
+        if (l->CenterX || l->CenterY)
+            _lf_xml_printf (output, "\t\t<center x=\"%g\" y=\"%g\" />\n",
+                        l->CenterX, l->CenterY);
+        if (l->CropFactor > 0.0)
             _lf_xml_printf (output, "\t\t<cropfactor>%g</cropfactor>\n",
-                            cameras [i]->CropFactor);
+                        l->CropFactor);
+        if (l->AspectRatio != 1.5)
+            _lf_xml_printf (output, "\t\t<aspect-ratio>%g</aspect-ratio>\n",
+                        l->AspectRatio);
 
-            g_string_append (output, "\t</camera>\n\n");
-        }
-
-    if (lenses)
-        for (i = 0; lenses [i]; i++)
+        lfLensCalibrations calibrations = l->GetCalibrations();
+        for (auto *calib : calibrations)
         {
-            g_string_append (output, "\t<lens>\n");
+            if (calib->empty())
+                continue;
 
-            _lf_xml_printf_mlstr (output, "\t\t", "maker", lenses [i]->Maker);
-            _lf_xml_printf_mlstr (output, "\t\t", "model", lenses [i]->Model);
-            if (lenses [i]->MinFocal)
+            g_string_append (output, "\t\t<calibration ");
+            if (calib->attr.CenterX || calib->attr.CenterY)
+                _lf_xml_printf (output, "center-x=\"%g\" center-y=\"%g\" ", calib->attr.CenterX, calib->attr.CenterY);
+            if (calib->attr.CropFactor > 0.0)
+                _lf_xml_printf (output, "cropfactor=\"%g\" ", calib->attr.CropFactor);
+            if (calib->attr.AspectRatio != 1.5)
+                _lf_xml_printf (output, "aspect-ratio=\"%g\" ", calib->attr.AspectRatio);
+            g_string_append (output, ">\n");
+
+            for (const lfLensCalibDistortion* cd : calib->CalibDistortion)
             {
-                if (lenses [i]->MinFocal == lenses [i]->MaxFocal)
-                    _lf_xml_printf (output, "\t\t<focal value=\"%g\" />\n",
-                                    lenses [i]->MinFocal);
-                else
-                    _lf_xml_printf (output, "\t\t<focal min=\"%g\" max=\"%g\" />\n",
-                                    lenses [i]->MinFocal, lenses [i]->MaxFocal);
-            }
-            if (lenses [i]->MinAperture)
-            {
-                if (lenses [i]->MinAperture == lenses [i]->MaxAperture)
-                    _lf_xml_printf (output, "\t\t<aperture value=\"%g\" />\n",
-                                    lenses [i]->MinAperture);
-                else
-                    _lf_xml_printf (output, "\t\t<aperture min=\"%g\" max=\"%g\" />\n",
-                                    lenses [i]->MinAperture, lenses [i]->MaxAperture);
-            }
-
-            if (lenses [i]->Mounts)
-                for (j = 0; lenses [i]->Mounts [j]; j++)
-                    _lf_xml_printf (output, "\t\t<mount>%s</mount>\n",
-                                    lenses [i]->Mounts [j]);
-
-            if (lenses [i]->Type != LF_RECTILINEAR)
-                _lf_xml_printf (output, "\t\t<type>%s</type>\n",
-                                lenses [i]->Type == LF_FISHEYE ? "fisheye" :
-                                lenses [i]->Type == LF_PANORAMIC ? "panoramic" :
-                                lenses [i]->Type == LF_EQUIRECTANGULAR ? "equirectangular" :
-                                lenses [i]->Type == LF_FISHEYE_ORTHOGRAPHIC ? "orthographic" :
-                                lenses [i]->Type == LF_FISHEYE_STEREOGRAPHIC ? "stereographic" :
-                                lenses [i]->Type == LF_FISHEYE_EQUISOLID ? "equisolid" :
-                                lenses [i]->Type == LF_FISHEYE_THOBY ? "fisheye_thoby" :
-                                "rectilinear");
-
-            lfLensCalibrations calibs = lenses [i]->GetCalibrations();
-            if (!calibs.empty())
-            {
-                // save legacy attributes
-                if (lenses [i]->CenterX || lenses [i]->CenterY)
-                    _lf_xml_printf (output, "\t\t<center x=\"%g\" y=\"%g\" />\n",
-                                lenses [i]->CenterX, lenses [i]->CenterY);
-                if (lenses [i]->CropFactor > 0.0)
-                    _lf_xml_printf (output, "\t\t<cropfactor>%g</cropfactor>\n",
-                                lenses [i]->CropFactor);
-                if (lenses [i]->AspectRatio != 1.5)
-                    _lf_xml_printf (output, "\t\t<aspect-ratio>%g</aspect-ratio>\n",
-                                lenses [i]->AspectRatio);
-            }
-
-            if (!calibs[0]->empty())
-                g_string_append (output, "\t\t<calibration>\n");
-
-            if (!calibs[0]->CalibDistortion.empty())
-            {
-                for (const lfLensCalibDistortion* cd : calibs[0]->CalibDistortion)
+                _lf_xml_printf (output, "\t\t\t<distortion focal=\"%g\" ",
+                                cd->Focal);
+                if (cd->RealFocal > 0)
+                _lf_xml_printf (output, "real-focal=\"%g\" ", cd->RealFocal);
+                switch (cd->Model)
                 {
-                    _lf_xml_printf (output, "\t\t\t<distortion focal=\"%g\" ",
-                                    cd->Focal);
-                    if (cd->RealFocal > 0)
-                    _lf_xml_printf (output, "real-focal=\"%g\" ", cd->RealFocal);
-                    switch (cd->Model)
-                    {
-                        case LF_DIST_MODEL_POLY3:
-                            _lf_xml_printf (
-                                output, "model=\"poly3\" k1=\"%g\" />\n",
-                                cd->Terms [0]);
-                            break;
+                    case LF_DIST_MODEL_POLY3:
+                        _lf_xml_printf (
+                            output, "model=\"poly3\" k1=\"%g\" />\n",
+                            cd->Terms [0]);
+                        break;
 
-                        case LF_DIST_MODEL_POLY5:
-                            _lf_xml_printf (
-                                output, "model=\"poly5\" k1=\"%g\" k2=\"%g\" />\n",
-                                cd->Terms [0], cd->Terms [1]);
-                            break;
+                    case LF_DIST_MODEL_POLY5:
+                        _lf_xml_printf (
+                            output, "model=\"poly5\" k1=\"%g\" k2=\"%g\" />\n",
+                            cd->Terms [0], cd->Terms [1]);
+                        break;
 
-                        case LF_DIST_MODEL_PTLENS:
-                            _lf_xml_printf (
-                                output, "model=\"ptlens\" a=\"%g\" b=\"%g\" c=\"%g\" />\n",
-                                cd->Terms [0], cd->Terms [1], cd->Terms [2]);
-                            break;
+                    case LF_DIST_MODEL_PTLENS:
+                        _lf_xml_printf (
+                            output, "model=\"ptlens\" a=\"%g\" b=\"%g\" c=\"%g\" />\n",
+                            cd->Terms [0], cd->Terms [1], cd->Terms [2]);
+                        break;
 
-                        case LF_DIST_MODEL_ACM:
-                            _lf_xml_printf (
-                                output, "model=\"acm\" k1=\"%g\" k2=\"%g\" k3=\"%g\" k4=\"%g\" k5=\"%g\" />\n",
-                                cd->Terms [0], cd->Terms [1], cd->Terms [2], cd->Terms [3], cd->Terms [4]);
-                            break;
+                    case LF_DIST_MODEL_ACM:
+                        _lf_xml_printf (
+                            output, "model=\"acm\" k1=\"%g\" k2=\"%g\" k3=\"%g\" k4=\"%g\" k5=\"%g\" />\n",
+                            cd->Terms [0], cd->Terms [1], cd->Terms [2], cd->Terms [3], cd->Terms [4]);
+                        break;
 
-                        default:
-                            _lf_xml_printf (output, "model=\"none\" />\n");
-                            break;
-                    }
+                    default:
+                        _lf_xml_printf (output, "model=\"none\" />\n");
+                        break;
                 }
             }
 
-            if (!calibs[0]->CalibTCA.empty())
+            for (const lfLensCalibTCA* ctca : calib->CalibTCA)
             {
-                for (const lfLensCalibTCA* ctca : calibs[0]->CalibTCA)
+                _lf_xml_printf (output, "\t\t\t<tca focal=\"%g\" ", ctca->Focal);
+                switch (ctca->Model)
                 {
-                    _lf_xml_printf (output, "\t\t\t<tca focal=\"%g\" ", ctca->Focal);
-                    switch (ctca->Model)
-                    {
-                        case LF_TCA_MODEL_LINEAR:
-                            _lf_xml_printf (output, "model=\"linear\" kr=\"%g\" kb=\"%g\" />\n",
-                                            ctca->Terms [0], ctca->Terms [1]);
-                            break;
+                    case LF_TCA_MODEL_LINEAR:
+                        _lf_xml_printf (output, "model=\"linear\" kr=\"%g\" kb=\"%g\" />\n",
+                                        ctca->Terms [0], ctca->Terms [1]);
+                        break;
 
-                        case LF_TCA_MODEL_POLY3:
-                            _lf_xml_printf (output, "model=\"poly3\" vr=\"%g\" vb=\"%g\" "
-                                            "cr=\"%g\" cb=\"%g\" br=\"%g\" bb=\"%g\" />\n",
-                                            ctca->Terms [0], ctca->Terms [1], ctca->Terms [2],
-                                            ctca->Terms [3], ctca->Terms [4], ctca->Terms [5]);
-                            break;
+                    case LF_TCA_MODEL_POLY3:
+                        _lf_xml_printf (output, "model=\"poly3\" vr=\"%g\" vb=\"%g\" "
+                                        "cr=\"%g\" cb=\"%g\" br=\"%g\" bb=\"%g\" />\n",
+                                        ctca->Terms [0], ctca->Terms [1], ctca->Terms [2],
+                                        ctca->Terms [3], ctca->Terms [4], ctca->Terms [5]);
+                        break;
 
-                        case LF_TCA_MODEL_ACM:
-                            _lf_xml_printf (output, "model=\"acm\" alpha0=\"%g\" beta0=\"%g\" "
-                                            "alpha1=\"%g\" beta1=\"%g\" alpha2=\"%g\" "
-                                            "beta2=\"%g\" alpha3=\"%g\" beta3=\"%g\" "
-                                            "alpha4=\"%g\" beta4=\"%g\" alpha5=\"%g\" "
-                                            "beta5=\"%g\" />\n",
-                                            ctca->Terms [0], ctca->Terms [1], ctca->Terms [2],
-                                            ctca->Terms [3], ctca->Terms [4], ctca->Terms [5],
-                                            ctca->Terms [6], ctca->Terms [7], ctca->Terms [8],
-                                            ctca->Terms [9], ctca->Terms [10], ctca->Terms [11]);
-                            break;
+                    case LF_TCA_MODEL_ACM:
+                        _lf_xml_printf (output, "model=\"acm\" alpha0=\"%g\" beta0=\"%g\" "
+                                        "alpha1=\"%g\" beta1=\"%g\" alpha2=\"%g\" "
+                                        "beta2=\"%g\" alpha3=\"%g\" beta3=\"%g\" "
+                                        "alpha4=\"%g\" beta4=\"%g\" alpha5=\"%g\" "
+                                        "beta5=\"%g\" />\n",
+                                        ctca->Terms [0], ctca->Terms [1], ctca->Terms [2],
+                                        ctca->Terms [3], ctca->Terms [4], ctca->Terms [5],
+                                        ctca->Terms [6], ctca->Terms [7], ctca->Terms [8],
+                                        ctca->Terms [9], ctca->Terms [10], ctca->Terms [11]);
+                        break;
 
-                        default:
-                            _lf_xml_printf (output, "model=\"none\" />\n");
-                            break;
-                    }
+                    default:
+                        _lf_xml_printf (output, "model=\"none\" />\n");
+                        break;
                 }
             }
 
-            if (!calibs[0]->CalibVignetting.empty())
+            for (const lfLensCalibVignetting* cv : calib->CalibVignetting)
             {
-                for (const lfLensCalibVignetting* cv : calibs[0]->CalibVignetting)
+                _lf_xml_printf (output, "\t\t\t<vignetting focal=\"%g\" aperture=\"%g\" distance=\"%g\" ",
+                                cv->Focal, cv->Aperture, cv->Distance);
+                switch (cv->Model)
                 {
-                    _lf_xml_printf (output, "\t\t\t<vignetting focal=\"%g\" aperture=\"%g\" distance=\"%g\" ",
-                                    cv->Focal, cv->Aperture, cv->Distance);
-                    switch (cv->Model)
-                    {
-                        case LF_VIGNETTING_MODEL_PA:
-                            _lf_xml_printf (output, "model=\"pa\" k1=\"%g\" k2=\"%g\" k3=\"%g\" />\n",
-                                            cv->Terms [0], cv->Terms [1], cv->Terms [2]);
-                            break;
+                    case LF_VIGNETTING_MODEL_PA:
+                        _lf_xml_printf (output, "model=\"pa\" k1=\"%g\" k2=\"%g\" k3=\"%g\" />\n",
+                                        cv->Terms [0], cv->Terms [1], cv->Terms [2]);
+                        break;
 
-                        case LF_VIGNETTING_MODEL_ACM:
-                            _lf_xml_printf (output, "model=\"acm\" alpha1=\"%g\" alpha2=\"%g\" alpha3=\"%g\" />\n",
-                                            cv->Terms [0], cv->Terms [1], cv->Terms [2]);
-                            break;
+                    case LF_VIGNETTING_MODEL_ACM:
+                        _lf_xml_printf (output, "model=\"acm\" alpha1=\"%g\" alpha2=\"%g\" alpha3=\"%g\" />\n",
+                                        cv->Terms [0], cv->Terms [1], cv->Terms [2]);
+                        break;
 
-                        default:
-                            _lf_xml_printf (output, "model=\"none\" />\n");
-                            break;
-                    }
+                    default:
+                        _lf_xml_printf (output, "model=\"none\" />\n");
+                        break;
                 }
             }
 
-            if (!calibs[0]->CalibCrop.empty())
+            for (const lfLensCalibCrop* lcc: calib->CalibCrop)
             {
-                for (const lfLensCalibCrop* lcc: calibs[0]->CalibCrop)
+                _lf_xml_printf (output, "\t\t\t<crop focal=\"%g\" ",
+                                lcc->Focal);
+                switch (lcc->CropMode)
                 {
-                    _lf_xml_printf (output, "\t\t\t<crop focal=\"%g\" ",
-                                    lcc->Focal);
-                    switch (lcc->CropMode)
-                    {
-                        case LF_CROP_RECTANGLE:
-                            _lf_xml_printf (
-                                output, "mode=\"crop_rectangle\" left=\"%g\" right=\"%g\" top=\"%g\" bottom=\"%g\" />\n",
-                                lcc->Crop [0], lcc->Crop [1], lcc->Crop [2], lcc->Crop [3]);
-                            break;
+                    case LF_CROP_RECTANGLE:
+                        _lf_xml_printf (
+                            output, "mode=\"crop_rectangle\" left=\"%g\" right=\"%g\" top=\"%g\" bottom=\"%g\" />\n",
+                            lcc->Crop [0], lcc->Crop [1], lcc->Crop [2], lcc->Crop [3]);
+                        break;
 
-                        case LF_CROP_CIRCLE:
-                            _lf_xml_printf (
-                                output, "mode=\"crop_circle\" left=\"%g\" right=\"%g\" top=\"%g\" bottom=\"%g\" />\n",
-                                lcc->Crop [0], lcc->Crop [1], lcc->Crop [2], lcc->Crop [3]);
-                            break;
+                    case LF_CROP_CIRCLE:
+                        _lf_xml_printf (
+                            output, "mode=\"crop_circle\" left=\"%g\" right=\"%g\" top=\"%g\" bottom=\"%g\" />\n",
+                            lcc->Crop [0], lcc->Crop [1], lcc->Crop [2], lcc->Crop [3]);
+                        break;
 
-                        case LF_NO_CROP:
-                        default:
-                            _lf_xml_printf (output, "mode=\"no_crop\" />\n");
-                            break;
-                    }
+                    case LF_NO_CROP:
+                    default:
+                        _lf_xml_printf (output, "mode=\"no_crop\" />\n");
+                        break;
                 }
             }
 
-            if (!calibs[0]->CalibFov.empty())
+            for (const lfLensCalibFov* lcf: calib->CalibFov)
             {
-                for (const lfLensCalibFov* lcf: calibs[0]->CalibFov)
+                if (lcf->FieldOfView > 0)
                 {
-                    if (lcf->FieldOfView > 0)
-                    {
-                        _lf_xml_printf (output, "\t\t\t<field_of_view focal=\"%g\" fov=\"%g\" />\n",
-                            lcf->Focal, lcf->FieldOfView);
-                    };
-                }
+                    _lf_xml_printf (output, "\t\t\t<field_of_view focal=\"%g\" fov=\"%g\" />\n",
+                        lcf->Focal, lcf->FieldOfView);
+                };
             }
 
-            if (!calibs[0]->empty())
-                g_string_append (output, "\t\t</calibration>\n");
-
-            g_string_append (output, "\t</lens>\n\n");
+            g_string_append (output, "\t\t</calibration>\n");
         }
+        g_string_append (output, "\t</lens>\n\n");
+    }
 
     g_string_append (output, "</lensdatabase>\n");
 
@@ -1168,20 +1136,17 @@ char *lfDatabase::Save (const lfMount *const *mounts,
     return 0;
 }
 
-static gint __find_camera_compare (gconstpointer a, gconstpointer b)
-{
-    lfCamera *i1 = (lfCamera *)a;
-    lfCamera *i2 = (lfCamera *)b;
-
-    if (i1->Maker && i2->Maker)
+int __find_camera_compare (lfCamera *a, lfCamera *b)
+{    
+    if (a->Maker && b->Maker)
     {
-        int cmp = _lf_strcmp (i1->Maker, i2->Maker);
+        int cmp = _lf_strcmp (a->Maker, b->Maker);
         if (cmp != 0)
             return cmp;
     }
 
-    if (i1->Model && i2->Model)
-        return _lf_strcmp (i1->Model, i2->Model);
+    if (a->Model && b->Model)
+        return _lf_strcmp (a->Model, b->Model);
 
     return 0;
 }
@@ -1196,33 +1161,28 @@ const lfCamera **lfDatabase::FindCameras (const char *maker, const char *model) 
     lfCamera tc;
     tc.SetMaker (maker);
     tc.SetModel (model);
-    int idx = _lf_ptr_array_find_sorted ((GPtrArray *)Cameras, &tc, __find_camera_compare);
-    if (idx < 0)
-        return NULL;
 
-    guint idx1 = idx;
-    while (idx1 > 0 &&
-           __find_camera_compare (g_ptr_array_index ((GPtrArray *)Cameras, idx1 - 1), &tc) == 0)
-        idx1--;
+    std::vector<lfCamera*> search_result;
+    for (auto c: Cameras)
+    {
+        if (__find_camera_compare(c, &tc))
+            search_result.push_back(c);
+    }
+    std::sort(search_result.begin(), search_result.end(), __find_camera_compare);
 
-    guint idx2 = idx;
-    while (++idx2 < ((GPtrArray *)Cameras)->len - 1 &&
-           __find_camera_compare (g_ptr_array_index ((GPtrArray *)Cameras, idx2), &tc) == 0)
-        ;
+    const lfCamera **ret = g_new (const lfCamera *, search_result.size() + 1);
+    memcpy(ret, search_result.data(), search_result.size() * sizeof(lfCamera*));
 
-    const lfCamera **ret = g_new (const lfCamera *, idx2 - idx1 + 1);
-    for (guint i = idx1; i < idx2; i++)
-        ret [i - idx1] = (lfCamera *)g_ptr_array_index ((GPtrArray *)Cameras, i);
-    ret [idx2 - idx1] = NULL;
+    // Add a NULL to mark termination of the array
+    ret[search_result.size()] = NULL;
+
     return ret;
 }
 
-static gint _lf_compare_camera_score (gconstpointer a, gconstpointer b)
+bool _lf_compare_camera_score (lfCamera *a, lfCamera *b)
 {
-    lfCamera *i1 = (lfCamera *)a;
-    lfCamera *i2 = (lfCamera *)b;
 
-    return i2->Score - i1->Score;
+    return a->Score > b->Score;
 }
 
 const lfCamera **lfDatabase::FindCamerasExt (const char *maker, const char *model,
@@ -1233,34 +1193,38 @@ const lfCamera **lfDatabase::FindCamerasExt (const char *maker, const char *mode
     if (model && !*model)
         model = NULL;
 
-    GPtrArray *ret = g_ptr_array_new ();
-
     lfFuzzyStrCmp fcmaker (maker, (sflags & LF_SEARCH_LOOSE) == 0);
     lfFuzzyStrCmp fcmodel (model, (sflags & LF_SEARCH_LOOSE) == 0);
 
-    for (size_t i = 0; i < ((GPtrArray *)Cameras)->len - 1; i++)
+    std::vector<lfCamera*> search_result;
+    for (auto dbcam: Cameras)
     {
-        lfCamera *dbcam = static_cast<lfCamera *> (g_ptr_array_index ((GPtrArray *)Cameras, i));
         int score1 = 0, score2 = 0;
         if ((!maker || (score1 = fcmaker.Compare (dbcam->Maker))) &&
             (!model || (score2 = fcmodel.Compare (dbcam->Model))))
         {
             dbcam->Score = score1 + score2;
-            _lf_ptr_array_insert_sorted (ret, dbcam, _lf_compare_camera_score);
+            search_result.push_back(dbcam);
         }
     }
 
-    // Add a NULL to mark termination of the array
-    if (ret->len)
-        g_ptr_array_add (ret, NULL);
+    std::sort(search_result.begin(), search_result.end(), _lf_compare_camera_score);
 
-    // Free the GPtrArray but not the actual list.
-    return (const lfCamera **) (g_ptr_array_free (ret, FALSE));
+    const lfCamera **ret = g_new (const lfCamera *, search_result.size() + 1);
+    memcpy(ret, search_result.data(), search_result.size() * sizeof(lfCamera*));
+
+    // Add a NULL to mark termination of the array
+    ret[search_result.size()] = NULL;
+
+    return ret;
 }
 
-const lfCamera *const *lfDatabase::GetCameras () const
+const lfCamera *const *lfDatabase::GetCameras ()
 {
-    return (lfCamera **)((GPtrArray *)Cameras)->pdata;
+    size_t size = Cameras.size();
+    Cameras.reserve(size + 1);
+    Cameras.data()[size] = NULL;
+    return Cameras.data();
 }
 
 const lfLens **lfDatabase::FindLenses (const lfCamera *camera,
@@ -1308,99 +1272,105 @@ static gint _lf_compare_lens_details (gconstpointer a, gconstpointer b)
     return _lf_lens_name_compare (i1, i2);
 }
 
-static void _lf_add_compat_mounts (
-    const lfDatabase *This, const lfLens *lens, GPtrArray *mounts, char *mount)
-{
-    const lfMount *m = This->FindMount (mount);
-    if (m && m->Compat)
-        for (int i = 0; m->Compat [i]; i++)
-        {
-            mount = m->Compat [i];
-
-            int idx = _lf_ptr_array_find_sorted (mounts, mount, (GCompareFunc)_lf_strcmp);
-            if (idx >= 0)
-                continue; // mount already in the list
-
-            // Check if the mount is not already in the main list
-            bool already = false;
-            for (int j = 0; lens->Mounts [j]; j++)
-                if (!_lf_strcmp (mount, lens->Mounts [j]))
-                {
-                    already = true;
-                    break;
-                }
-            if (!already)
-                _lf_ptr_array_insert_sorted (mounts, mount, (GCompareFunc)_lf_strcmp);
-        }
-}
-
 const lfLens **lfDatabase::FindLenses (const lfLens *lens, int sflags) const
 {
-    GPtrArray *ret = g_ptr_array_new ();
-    GPtrArray *mounts = g_ptr_array_new ();
+    //GPtrArray *ret = g_ptr_array_new ();
+
+    std::vector<char*> mounts;
+    std::vector<lfLens*>  search_res;
+
+    //GPtrArray *mounts = g_ptr_array_new ();
 
     lfFuzzyStrCmp fc (lens->Model, (sflags & LF_SEARCH_LOOSE) == 0);
 
     // Create a list of compatible mounts
     if (lens->Mounts)
-        for (int i = 0; lens->Mounts [i]; i++)
-            _lf_add_compat_mounts (this, lens, mounts, lens->Mounts [i]);
-    g_ptr_array_add (mounts, NULL);
+        for (int i = 0; lens->Mounts [i]; i++) {
+            const lfMount *m = FindMount (lens->Mounts[i]);
+            if (m->Compat)
+                for (int i = 0; m->Compat [i]; i++)
+                {
+                    char* mount = m->Compat [i];
+
+                    // Check if the mount is not already in the main list
+                    bool already = false;
+                    for (int j = 0; lens->Mounts [j]; j++)
+                        if (_lf_strcmp (mount, lens->Mounts [j]) == 0)
+                        {
+                            already = true;
+                            break;
+                        }
+                    if (!already)
+                        mounts.push_back(mount);
+                }
+
+        }
+    std::unique(mounts.begin(), mounts.end());
+    size_t l = mounts.size();
+    mounts.reserve(l + 1);
+    mounts.data()[l] = nullptr;
 
     int score;
     const bool sort_and_uniquify = (sflags & LF_SEARCH_SORT_AND_UNIQUIFY) != 0;
-    for (size_t i = 0; i < ((GPtrArray *)Lenses)->len - 1; i++)
+
+    for (auto dblens: Lenses)
     {
-        lfLens *dblens = static_cast<lfLens *> (g_ptr_array_index ((GPtrArray *)Lenses, i));
-        if ((score = _lf_lens_compare_score (
-            lens, dblens, &fc, (const char **)mounts->pdata)) > 0)
+        if (score = _lf_lens_compare_score (lens, dblens, &fc, (const char**)mounts.data()) > 0)
         {
             dblens->Score = score;
-            if (sort_and_uniquify) {
+            if (sort_and_uniquify)
+            {
                 bool already = false;
-                for (size_t i = 0; i < ret->len; i++)
+                for (auto &s: search_res)
                 {
-                    const lfLens *previous_lens = static_cast<lfLens *> (g_ptr_array_index (ret, i));
-                    if (!_lf_lens_name_compare (previous_lens, dblens))
+                    if (!_lf_lens_name_compare (s, dblens))
                     {
-                        if (dblens->Score > previous_lens->Score)
-                            ret->pdata[i] = dblens;
+                        if (dblens->Score > s->Score)
+                            s = dblens;
                         already = true;
                         break;
                     }
                 }
                 if (!already)
-                    _lf_ptr_array_insert_sorted (ret, dblens, _lf_compare_lens_details);
+                    search_res.push_back(dblens);
             }
             else
-                _lf_ptr_array_insert_sorted (ret, dblens, _lf_compare_lens_score);
+                search_res.push_back(dblens);
         }
     }
 
+    if (sort_and_uniquify)
+        std::sort(search_res.begin(), search_res.end(), _lf_compare_lens_details);
+
+    const lfLens **ret = g_new (const lfLens *, search_res.size() + 1);
+    memcpy(ret, search_res.data(), search_res.size() * sizeof(lfCamera*));
+
     // Add a NULL to mark termination of the array
-    if (ret->len)
-        g_ptr_array_add (ret, NULL);
+    ret[search_res.size()] = NULL;
 
-    g_ptr_array_free (mounts, TRUE);
-
-    // Free the GPtrArray but not the actual list.
-    return (const lfLens **) (g_ptr_array_free (ret, FALSE));
+    return ret;
 }
 
-const lfLens *const *lfDatabase::GetLenses () const
+const lfLens *const *lfDatabase::GetLenses ()
 {
-    return (lfLens **)((GPtrArray *)Lenses)->pdata;
+    size_t size = Lenses.size();
+    Lenses.reserve(size + 1);
+    Lenses.data()[size] = NULL;
+    return Lenses.data();
 }
 
 const lfMount *lfDatabase::FindMount (const char *mount) const
 {
     lfMount tm;
     tm.SetName (mount);
-    int idx = _lf_ptr_array_find_sorted ((GPtrArray *)Mounts, &tm, _lf_mount_compare);
-    if (idx < 0)
-        return NULL;
 
-    return (const lfMount *)g_ptr_array_index ((GPtrArray *)Mounts, idx);
+    for (auto m: Mounts)
+    {
+        if (_lf_mount_compare(m, &tm))
+            return m;
+    }
+
+    return NULL;
 }
 
 const char *lfDatabase::MountName (const char *mount) const
@@ -1411,27 +1381,27 @@ const char *lfDatabase::MountName (const char *mount) const
     return lf_mlstr_get (m->Name);
 }
 
-const lfMount * const *lfDatabase::GetMounts () const
+const lfMount * const *lfDatabase::GetMounts ()
 {
-    return (lfMount **)((GPtrArray *)Mounts)->pdata;
+    size_t size = Mounts.size();
+    Mounts.reserve(size + 1);
+    Mounts.data()[size] = NULL;
+    return Mounts.data();
 }
 
 void lfDatabase::AddMount (lfMount *mount)
 {
-    _lf_ptr_array_insert_unique (
-        (GPtrArray *)Mounts, mount, _lf_mount_compare, (GDestroyNotify)lf_mount_destroy);
+    Mounts.push_back(mount);
 }
 
 void lfDatabase::AddCamera (lfCamera *camera)
 {
-    _lf_ptr_array_insert_unique (
-        (GPtrArray *)Cameras, camera, _lf_camera_compare, (GDestroyNotify)lf_camera_destroy);
+    Cameras.push_back(camera);
 }
 
 void lfDatabase::AddLens (lfLens *lens)
 {
-    _lf_ptr_array_insert_unique (
-        (GPtrArray *)Lenses, lens, _lf_lens_compare, (GDestroyNotify)lf_lens_destroy);
+    Lenses.push_back(lens);
 }
 
 //---------------------------// The C interface //---------------------------//
@@ -1476,10 +1446,9 @@ lfError lf_db_load_path (lfDatabase *db, const char *pathname)
     return db->Load (pathname);
 }
 
-lfError lf_db_load_data (lfDatabase *db, const char *errcontext,
-                         const char *data, size_t data_size)
+lfError lf_db_load_data (lfDatabase *db, const char *data, size_t data_size)
 {
-    return db->Load (errcontext, data, data_size);
+    return db->Load (data, data_size);
 }
 
 lfError lf_db_save_all (const lfDatabase *db, const char *filename)
@@ -1487,19 +1456,14 @@ lfError lf_db_save_all (const lfDatabase *db, const char *filename)
     return db->Save (filename);
 }
 
-lfError lf_db_save_file (const lfDatabase *db, const char *filename,
-                         const lfMount *const *mounts,
-                         const lfCamera *const *cameras,
-                         const lfLens *const *lenses)
+lfError lf_db_save_file (const lfDatabase *db, const char *filename)
 {
-    return db->Save (filename, mounts, cameras, lenses);
+    return db->Save (filename);
 }
 
-char *lf_db_save (const lfMount *const *mounts,
-                  const lfCamera *const *cameras,
-                  const lfLens *const *lenses)
+char *lf_db_save (const lfDatabase *db)
 {
-    return lfDatabase::Save (mounts, cameras, lenses);
+    return db->Save ();
 }
 
 const lfCamera **lf_db_find_cameras (const lfDatabase *db,
@@ -1514,7 +1478,7 @@ const lfCamera **lf_db_find_cameras_ext (
     return db->FindCamerasExt (maker, model, sflags);
 }
 
-const lfCamera *const *lf_db_get_cameras (const lfDatabase *db)
+const lfCamera *const *lf_db_get_cameras (lfDatabase *db)
 {
     return db->GetCameras ();
 }
@@ -1530,7 +1494,7 @@ const lfLens **lf_db_find_lenses (const lfDatabase *db, const lfLens *lens, int 
     return db->FindLenses (lens, sflags);
 }
 
-const lfLens *const *lf_db_get_lenses (const lfDatabase *db)
+const lfLens *const *lf_db_get_lenses (lfDatabase *db)
 {
     return db->GetLenses ();
 }
@@ -1545,7 +1509,7 @@ const char *lf_db_mount_name (const lfDatabase *db, const char *mount)
     return db->MountName (mount);
 }
 
-const lfMount * const *lf_db_get_mounts (const lfDatabase *db)
+const lfMount * const *lf_db_get_mounts (lfDatabase *db)
 {
     return db->GetMounts ();
 }

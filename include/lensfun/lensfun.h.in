@@ -1616,20 +1616,16 @@ struct LF_EXPORT lfDatabase
     lfError Load (const char *pathname);
 
     /**
-     * @brief Load a set of camera/lenses from a memory array.
+     * @brief Load a database from memory.
      *
-     * This is the lowest-level loading function.
-     * @param errcontext
-     *     The error context to be displayed in error messages
-     *     (usually this is the name of the file to which data belongs).
      * @param data
      *     The XML data.
      * @param data_size
-     *     XML data size in bytes.
+     *     Data size in bytes.
      * @return
      *     LF_NO_ERROR or a error code.
      */
-    lfError Load (const char *errcontext, const char *data, size_t data_size);
+    lfError Load (const char *data, size_t data_size);
 
     /**
      * @brief Save the whole database to a file.
@@ -1641,38 +1637,12 @@ struct LF_EXPORT lfDatabase
     lfError Save (const char *filename) const;
 
     /**
-     * @brief Save a set of camera and lens descriptions to a file.
-     * @param filename
-     *     The file name to write the XML stream into.
-     * @param mounts
-     *     A list of mounts to be written to the file. Can be NULL.
-     * @param cameras
-     *     A list of cameras to be written to the file. Can be NULL.
-     * @param lenses
-     *     A list of lenses to be written to the file. Can be NULL.
+     * @brief Save the database into a memory array.
      * @return
-     *     LF_NO_ERROR or a error code.
-     */
-    lfError Save (const char *filename,
-                  const lfMount *const *mounts,
-                  const lfCamera *const *cameras,
-                  const lfLens *const *lenses) const;
-
-    /**
-     * @brief Save a set of camera and lens descriptions into a memory array.
-     * @param mounts
-     *     A list of mounts to be written to the file. Can be NULL.
-     * @param cameras
-     *     A list of cameras to be written to the file. Can be NULL.
-     * @param lenses
-     *     A list of lenses to be written to the file. Can be NULL.
-     * @return
-     *     A pointer to an allocated string with the output.
+     *     A pointer to an allocated string with the XML data.
      *     Free it with lf_free().
      */
-    static char *Save (const lfMount *const *mounts,
-                       const lfCamera *const *cameras,
-                       const lfLens *const *lenses);
+    char *Save () const;
 
     /**
      * @brief Find a set of cameras that fit given criteria.
@@ -1730,7 +1700,7 @@ struct LF_EXPORT lfDatabase
      *     The list is valid only until the lens database is modified.
      *     The returned pointer does not have to be freed.
      */
-    const lfCamera *const *GetCameras () const;
+    const lfCamera *const *GetCameras ();
 
     /**
      * @brief Parse a human-friendly lens description (ex: "smc PENTAX-F 35-105mm F4-5.6"
@@ -1798,7 +1768,7 @@ struct LF_EXPORT lfDatabase
      *     The list is valid only until the lens database is modified.
      *     The returned pointer does not have to be freed.
      */
-    const lfLens *const *GetLenses () const;
+    const lfLens *const *GetLenses ();
 
     /**
      * @brief Return the lfMount structure given the (basic) mount name.
@@ -1825,7 +1795,7 @@ struct LF_EXPORT lfDatabase
      *     The list is valid only until the mount database is modified.
      *     The returned pointer does not have to be freed.
      */
-    const lfMount *const *GetMounts () const;
+    const lfMount *const *GetMounts ();
 
     /**
      * @brief Add a mount to the database.
@@ -1849,9 +1819,12 @@ struct LF_EXPORT lfDatabase
     void AddLens (lfLens *lens);
 
 private:
-    void *Mounts;
-    void *Cameras;
-    void *Lenses;
+
+    lfError Load (const char *errcontext, const char *data, size_t data_size);
+
+    std::vector<lfMount*>  Mounts;
+    std::vector<lfCamera*> Cameras;
+    std::vector<lfLens*>   Lenses;
 #endif
 };
 
@@ -1931,7 +1904,7 @@ LF_EXPORT const lfCamera **lf_db_find_cameras_ext (
     const lfDatabase *db, const char *maker, const char *model, int sflags);
 
 /** @sa lfDatabase::GetCameras */
-LF_EXPORT const lfCamera *const *lf_db_get_cameras (const lfDatabase *db);
+LF_EXPORT const lfCamera *const *lf_db_get_cameras (lfDatabase *db);
 
 /** @sa lfDatabase::FindLenses(const lfCamera *, const char *, const char *) */
 LF_EXPORT const lfLens **lf_db_find_lenses_hd (
@@ -1943,7 +1916,7 @@ LF_EXPORT const lfLens **lf_db_find_lenses (
     const lfDatabase *db, const lfLens *lens, int sflags);
 
 /** @sa lfDatabase::GetLenses */
-LF_EXPORT const lfLens *const *lf_db_get_lenses (const lfDatabase *db);
+LF_EXPORT const lfLens *const *lf_db_get_lenses (lfDatabase *db);
 
 /** @sa lfDatabase::FindMount */
 LF_EXPORT const lfMount *lf_db_find_mount (const lfDatabase *db, const char *mount);
@@ -1952,7 +1925,7 @@ LF_EXPORT const lfMount *lf_db_find_mount (const lfDatabase *db, const char *mou
 LF_EXPORT const char *lf_db_mount_name (const lfDatabase *db, const char *mount);
 
 /** @sa lfDatabase::GetMounts */
-LF_EXPORT const lfMount *const *lf_db_get_mounts (const lfDatabase *db);
+LF_EXPORT const lfMount *const *lf_db_get_mounts (lfDatabase *db);
 
 /** @} */
 
