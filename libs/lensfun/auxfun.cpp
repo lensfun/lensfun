@@ -158,11 +158,6 @@ void _lf_setstr (gchar **var, const gchar *val)
     *var = g_strdup (val);
 }
 
-void _lf_addstr (gchar ***var, const gchar *val)
-{
-    _lf_addobj ((void ***)var, val, strlen (val) + 1, NULL);
-}
-
 void _lf_addobj (void ***var, const void *val, size_t val_size,
                  bool (*cmpf) (const void *, const void *))
 {
@@ -187,21 +182,9 @@ alloc_copy:
     memcpy ((*var) [n], val, val_size);
 }
 
-bool _lf_delobj (void ***var, int idx)
+void _lf_addstr (gchar ***var, const gchar *val)
 {
-    if (!(*var))
-        return false;
-
-    int len;
-    for (len = 0; (*var) [len]; len++)
-        ;
-    if (idx < 0 || idx >= len)
-        return false;
-
-    g_free ((*var) [idx]);
-    memmove (&(*var) [idx], &(*var) [idx + 1], (len - idx) * sizeof (void *));
-    (*var) = (void **)g_realloc (*var, len * sizeof (void *));
-    return true;
+    _lf_addobj ((void ***)var, val, strlen (val) + 1, NULL);
 }
 
 void _lf_xml_printf (GString *output, const char *format, ...)
@@ -271,64 +254,6 @@ done:
     memmove (root + m + 1, root + m, (length - m) * sizeof (void *));
     root [m] = item;
     return m;
-}
-
-int _lf_ptr_array_insert_unique (
-    GPtrArray *array, void *item, GCompareFunc compare, GDestroyNotify dest)
-{
-    int idx1, idx2;
-    int idx = _lf_ptr_array_insert_sorted (array, item, compare);
-    void **root = array->pdata;
-    int length = array->len;
-
-    for (idx1 = idx - 1; idx1 >= 0 && compare (root [idx1], item) == 0; idx1--)
-        ;
-    for (idx2 = idx + 1; idx2 < length && compare (root [idx2], item) == 0; idx2++)
-        ;
-
-    if (dest)
-        for (int i = idx1 + 1; i < idx2; i++)
-            if (i != idx)
-                dest (g_ptr_array_index (array, i));
-
-    if (idx2 - idx - 1)
-        g_ptr_array_remove_range (array, idx + 1, idx2 - idx - 1);
-    if (idx - idx1 - 1)
-        g_ptr_array_remove_range (array, idx1 + 1, idx - idx1 - 1);
-
-    return idx1 + 1;
-}
-
-int _lf_ptr_array_find_sorted (
-    const GPtrArray *array, void *item, GCompareFunc compare)
-{
-    int length = array->len;
-    if (!length)
-      return -1;
-
-    void **root = array->pdata;
-
-    int l = 0, r = length - 1;
-    int m = 0, cmp = 0;
-
-    // Skip trailing NULL, if any
-    if (!root [r])
-        r--;
-
-    while (l <= r)
-    {
-        m = (l + r) / 2;
-        cmp = compare (root [m], item);
-
-        if (cmp == 0)
-            return m;
-        else if (cmp < 0)
-            l = m + 1;
-        else
-            r = m - 1;
-    }
-
-    return -1;
 }
 
 int _lf_strcmp (const char *s1, const char *s2)
