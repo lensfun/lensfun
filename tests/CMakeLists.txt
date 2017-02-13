@@ -6,6 +6,10 @@ ADD_EXECUTABLE(test_modifier test_modifier.cpp)
 TARGET_LINK_LIBRARIES(test_modifier lensfun ${COMMON_LIBS})
 ADD_TEST(Modifier test_modifier)
 
+ADD_EXECUTABLE(test_modifier_performance test_modifier_performance.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_performance lensfun ${COMMON_LIBS})
+ADD_TEST(NAME Modifier_performance WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND test_modifier_performance)
+
 find_package(OpenMP)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 
