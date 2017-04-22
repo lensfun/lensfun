@@ -874,6 +874,37 @@
 
     <lens>
         <maker>Sigma</maker>
+        <model>Sigma 18-200mm f/3.5-6.3 DC Macro OS HSM</model>
+        <mount>Sigma SA</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Canon EF-S</mount>
+        <mount>Pentax KAF</mount>
+        <mount>Minolta AF</mount>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D5100 -->
+            <distortion model="ptlens" focal="18" a="0.0339" b="-0.09259" c="0.0422"/>
+            <distortion model="ptlens" focal="29" a="0.01507" b="-0.0127" c="-0.00968"/>
+            <distortion model="ptlens" focal="40" a="0.01561" b="-0.02938" c="0.03695"/>
+            <distortion model="ptlens" focal="46" a="0.0041" b="0.01011" c="-0.00717"/>
+            <distortion model="ptlens" focal="55" a="0.00528" b="0.00855" c="-0.00916"/>
+            <distortion model="ptlens" focal="75" a="0.00358" b="0.00249" c="0.00666"/>
+            <distortion model="ptlens" focal="150" a="-0.003" b="0.0208" c="-0.01599"/>
+            <distortion model="ptlens" focal="200" a="0.00829" b="-0.03221" c="0.05916"/>
+            <tca model="poly3" focal="18" vr="1.00057005" vb="1.0000905"/>
+            <tca model="poly3" focal="29" vr="1.00035965" vb="1.0001179"/>
+            <tca model="poly3" focal="40" vr="1.0002583" vb="1.00010395"/>
+            <tca model="poly3" focal="46" vr="1.0002037" vb="1.0000894"/>
+            <tca model="poly3" focal="55" vr="1.0001795" vb="1.0000672"/>
+            <tca model="poly3" focal="75" vr="1.00004435" vb="1.0000036"/>
+            <tca model="poly3" focal="150" vr="0.99996925" vb="0.99983965"/>
+            <tca model="poly3" focal="200" vr="0.99993265" vb="0.99964265"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
         <model>Sigma 24-60mm f/2.8 EX DG</model>
         <mount>Nikon F AF</mount>
         <mount>Canon EF</mount>
