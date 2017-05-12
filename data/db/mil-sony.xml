@@ -878,6 +878,26 @@
 
     <lens>
         <maker>Sony</maker>
+        <model>FE 70-300mm f/4.5-5.6 G OSS</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 7S -->
+            <distortion model="ptlens" focal="70" a="0" b="0.00893573" c="0"/>
+            <distortion model="ptlens" focal="82" a="0" b="0.00852839" c="0"/>
+            <distortion model="ptlens" focal="98" a="0" b="0.00826276" c="0"/>
+            <distortion model="ptlens" focal="168" a="0" b="0.00630631" c="0"/>
+            <distortion model="ptlens" focal="300" a="0" b="0.00320709" c="0"/>
+            <tca model="poly3" focal="70" br="-0.0000069" vr="1.0001619" bb="0.0000001" vb="1.0000208"/>
+            <tca model="poly3" focal="82" br="-0.0000223" vr="1.0001261" bb="-0.0000394" vb="1.0001048"/>
+            <tca model="poly3" focal="98" br="0.0000178" vr="1.0000291" bb="-0.0000346" vb="1.0001251"/>
+            <tca model="poly3" focal="168" br="0.0000108" vr="0.9999182" bb="-0.0000878" vb="1.0001374"/>
+            <tca model="poly3" focal="300" br="0.0000676" vr="0.9997305" bb="-0.0000371" vb="1.0000310"/>
+        </calibration>
+    </lens>
+    
+    <lens>
+        <maker>Sony</maker>
         <model>FE 35mm f/1.4 ZA</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
@@ -1156,7 +1176,7 @@
 
     <lens>
         <maker>Sony</maker>
-        <model>FE 16-35mm F4 ZA OSS</model>
+        <model>FE 16-35mm f/4 ZA OSS</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
