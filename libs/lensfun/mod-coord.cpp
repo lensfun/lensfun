@@ -1263,3 +1263,14 @@ cbool lf_modifier_apply_geometry_distortion (
 {
     return modifier->ApplyGeometryDistortion (xu, yu, width, height, res);
 }
+
+cbool lf_modifier_enable_distortion_correction (lfModifier *modifier, const lfLens* lens, float focal)
+{
+    return modifier->EnableDistortionCorrection(lens, focal);
+}
+
+cbool lf_modifier_enable_projection_transform (
+    lfModifier *modifier, const lfLens* lens, float focal, lfLensType target_projection)
+{
+    return modifier->EnableProjectionTransform(lens, focal, target_projection);
+}

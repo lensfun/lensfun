@@ -2818,17 +2818,38 @@ extern "C" {
 C_TYPEDEF (struct, lfModifier)
 
 /** @sa lfModifier::Create */
-LF_EXPORT lfModifier *lf_modifier_new (
+DEPRECATED LF_EXPORT lfModifier *lf_modifier_create (
     const lfLens *lens, float crop, int width, int height);
 
-/** @sa lfModifier::Destroy */
+/** @sa lfModifier::lfModifier */
+LF_EXPORT lfModifier *lf_modifier_new (
+    float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse);
+
+/** @sa lfModifier::~lfModifier */
 LF_EXPORT void lf_modifier_destroy (lfModifier *modifier);
 
 /** @sa lfModifier::Initialize */
-LF_EXPORT int lf_modifier_initialize (
+DEPRECATED LF_EXPORT int lf_modifier_initialize (
     lfModifier *modifier, const lfLens *lens, lfPixelFormat format,
     float focal, float aperture, float distance, float scale,
     lfLensType targeom, int flags, cbool reverse);
+
+/** @sa lfModifier::EnableScaling */
+LF_EXPORT cbool lf_modifier_enable_scaling (lfModifier *modifier, float scale);
+
+/** @sa lfModifier::EnableDistortionCorrection */
+LF_EXPORT cbool lf_modifier_enable_distortion_correction (lfModifier *modifier, const lfLens* lens, float focal);
+
+/** @sa lfModifier::EnableTCACorrection */
+LF_EXPORT cbool lf_modifier_enable_tca_correction (lfModifier *modifier, const lfLens* lens, float focal);
+
+/** @sa lfModifier::EnableVignettingCorrection */
+LF_EXPORT cbool lf_modifier_enable_vignetting_correction (
+    lfModifier *modifier, const lfLens* lens, float focal, float aperture, float distance);
+
+/** @sa lfModifier::EnableProjectionTransform */
+LF_EXPORT cbool lf_modifier_enable_projection_transform (
+    lfModifier *modifier, const lfLens* lens, float focal, lfLensType target_projection);
 
 /** @sa lfModifier::EnablePerspectiveCorrection */
 LF_EXPORT cbool lf_modifier_enable_perspective_correction (

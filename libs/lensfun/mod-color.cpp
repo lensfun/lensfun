@@ -360,3 +360,9 @@ cbool lf_modifier_apply_color_modification (
     return modifier->ApplyColorModification (
         pixels, x, y, width, height, comp_role, row_stride);
 }
+
+cbool lf_modifier_enable_vignetting_correction (
+    lfModifier *modifier, const lfLens* lens, float focal, float aperture, float distance)
+{
+    return modifier->EnableVignettingCorrection(lens, focal, aperture, distance);
+}

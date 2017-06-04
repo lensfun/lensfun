@@ -391,3 +391,8 @@ cbool lf_modifier_apply_subpixel_geometry_distortion (
 {
     return modifier->ApplySubpixelGeometryDistortion (xu, yu, width, height, res);
 }
+
+cbool lf_modifier_enable_tca_correction (lfModifier *modifier, const lfLens* lens, float focal)
+{
+    return modifier->EnableTCACorrection(lens, focal);
+}

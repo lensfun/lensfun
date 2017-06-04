@@ -205,6 +205,12 @@ lfModifier::~lfModifier ()
 //---------------------------// The C interface //---------------------------//
 
 lfModifier *lf_modifier_new (
+    float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse)
+{
+    return new lfModifier(imgcrop, imgwidth, imgheight, pixel_format, reverse);
+}
+
+lfModifier *lf_modifier_create (
     const lfLens *lens, float crop, int width, int height)
 {
     try
@@ -229,4 +235,9 @@ int lf_modifier_initialize (
 {
     return modifier->Initialize (lens, format, focal, aperture, distance,
                                  scale, targeom, flags, reverse);
+}
+
+cbool lf_modifier_enable_scaling (lfModifier *modifier, float scale)
+{
+    return modifier->EnableScaling(scale);
 }
