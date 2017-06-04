@@ -1540,7 +1540,9 @@ struct LF_EXPORT lfDatabase
     * like "/var/lib/lensfun-updates") */
     static const char *const SystemUpdatesLocation;
 
+    /** @brief Database object constructor. */
     lfDatabase ();
+    /** @brief Database object destructor. */
     ~lfDatabase ();
 
     /**
@@ -2237,22 +2239,125 @@ struct LF_EXPORT lfModifier
      */
     DEPRECATED void Destroy ();
 
+    /**
+     * @brief Create an empty image modifier object.
+     *
+     * Before using the returned object you must enable the desired
+     * kind of correction.
+     *
+     * You must provide the original image width/height even if you
+     * plan to correct just a part of the image.
+     *
+     * @param imgcrop
+     *     The crop factor for the image to be processed. The distortion
+     *     models will take this into account if lens models were measured
+     *     on a camera with a different crop factor.
+     * @param imgwidth
+     *     The width of the image you want to correct.
+     * @param imgheight
+     *     The height of the image you want to correct.
+     * @param pixel_format
+     *     Pixel format of your image (bits per pixel component).
+     * @param reverse
+     *     If this parameter is true, a reverse transform will be prepared.
+     *     That is, you take a undistorted image at input and convert it so
+     *     that it will look as if it would be a shot made with @a lens.
+     */
     lfModifier (float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse = false);
 
+    /** @brief Modifier object destructor. */
     ~lfModifier ();
 
+    /**
+     * @brief Enable distortion correction.
+     *
+     * @param lcd
+     *     Lens calibration data to be used for the correction.
+     * @return
+     *     True if the distortion correction was enabled.
+     */
     bool EnableDistortionCorrection (const lfLensCalibDistortion& lcd);
+    /**
+     * @brief Enable distortion correction.
+     *
+     * @param lens
+     *     Lens object to be used for the correction.
+     * @param focal
+     *     The focal length in mm at which the image was taken.
+     * @return
+     *     True if the distortion correction was enabled.
+     */
     bool EnableDistortionCorrection (const lfLens* lens, float focal);
 
+    /**
+     * @brief Enable TCA correction.
+     *
+     * @param lctca
+     *     Lens calibration data to be used for the correction.
+     * @return
+     *     True if the distortion correction was enabled.
+     */
     bool EnableTCACorrection (const lfLensCalibTCA& lctca);
+    /**
+     * @brief Enable TCA correction.
+     *
+     * @param lens
+     *     Lens object to be used for the correction.
+     * @param focal
+     *     The focal length in mm at which the image was taken.
+     * @return
+     *     True if the distortion correction was enabled.
+     */
     bool EnableTCACorrection (const lfLens* lens, float focal);
 
+    /**
+     * @brief Enable vignetting correction.
+     *
+     * @param lcv
+     *     Lens calibration data to be used for the correction.
+     * @return
+     *     True if the distortion correction was enabled.
+     */
     bool EnableVignettingCorrection (const lfLensCalibVignetting& lcv);
+    /**
+     * @brief Enable vignetting correction.
+     *
+     * @param lens
+     *     Lens object to be used for the correction.
+     * @param focal
+     *     The focal length in mm at which the image was taken.
+     * @param aperture
+     *     The aperture (f-number) at which the image was taken.
+     * @param distance
+     *     The approximative focus distance in meters (distance > 0).
+     * @return
+     *     True if the distortion correction was enabled.
+     */
     bool EnableVignettingCorrection (const lfLens* lens, float focal, float aperture, float distance);
 
+    /**
+     * @brief Enable projection transform.
+     *
+     * @param lens
+     *     Lens object to be used for the transform.
+     * @param focal
+     *     The focal length in mm at which the image was taken.
+     * @param target_projection
+     *     The target projection type.
+     * @return
+     *     True if the distortion correction was enabled.
+     */
     bool EnableProjectionTransform (const lfLens* lens, float focal, lfLensType target_projection);
     //bool EnableProjectionTransform (float focal, lfLensType target_projection);
 
+    /**
+     * @brief Enable image scaling.
+     *
+     * @param scale
+     *     Scale factor.
+     * @return
+     *     True if the scaling was enabled.
+     */
     bool EnableScaling (float scale);
 
 
@@ -2292,6 +2397,8 @@ struct LF_EXPORT lfModifier
      * transformed into rectilinear of the same focal length.  In contrast,
      * cropping, rotating, shifting, or scaling must be switched off.
      *
+     * @param focal
+     *     The focal length in mm at which the image was taken.
      * @param x
      *     The x coordinates of the control points.
      * @param y
