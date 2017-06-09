@@ -123,6 +123,14 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon Powershot G9 X</model>
+        <model lang="en">PowerShot G9 X</model>
+        <mount>canonG9X</mount>
+        <cropfactor>2.72</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon PowerShot G10</model>
         <model lang="en">PowerShot G10</model>
         <mount>canonG10</mount>
@@ -2649,6 +2657,25 @@
             <vignetting model="pa" focal="36.8" aperture="8" distance="1000" k1="-0.1842" k2="0.0868" k3="-0.0198"/>
             <vignetting model="pa" focal="36.8" aperture="11" distance="10" k1="-0.1869" k2="0.0890" k3="-0.0178"/>
             <vignetting model="pa" focal="36.8" aperture="11" distance="1000" k1="-0.1869" k2="0.0890" k3="-0.0178"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon Powershot G9 X &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>canonG9X</mount>
+        <cropfactor>2.72</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="10.2" a="0.0263809" b="-0.139829" c="0.0743743"/>
+            <distortion model="ptlens" focal="16.017" a="0" b="-0.0219906" c="0"/>
+            <distortion model="ptlens" focal="20.144" a="0" b="-0.0118092" c="0"/>
+            <distortion model="ptlens" focal="30.6" a="0" b="-0.00463501" c="0"/>
+            <tca model="poly3" focal="10.2" vr="1.0002000" vb="1.0006000"/>
+            <tca model="poly3" focal="16" vr="1.0002000" vb="1.0004000"/>
+            <tca model="poly3" focal="20.1" vr="1.0003000" vb="1.0006000"/>
+            <tca model="poly3" focal="30.6" vr="1.0002000" vb="1.0001000"/>
         </calibration>
     </lens>
 
