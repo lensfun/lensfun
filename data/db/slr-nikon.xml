@@ -3657,4 +3657,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S DX Micro Nikkor 40mm f/2.8G</model>
+	<model lang="en">Nikkor AF-S 40mm f/2.8G DX Micro</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+	    <!-- Taken with Nikon D5500 -->
+            <distortion model="ptlens" focal="40" a="0" b="0.00139" c="0"/>
+            <tca model="poly3" focal="40" vr="1.0002635" vb="0.9999669"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
