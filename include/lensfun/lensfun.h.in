@@ -1909,18 +1909,22 @@ typedef void (*lfModifyColorFunc) (void *data, float x, float y,
 typedef void (*lfModifyCoordFunc) (void *data, float *iocoord, int count);
 
 // @cond
-    
+#ifdef __cplusplus
+
 /// Common ancestor for lfCoordCallbackData and lfColorCallbackData
 struct lfCallbackData
 {
     int priority;
     void *data;
     size_t data_size;
+
+    virtual ~lfCallbackData() {};
 };
 
 // A test point in the autoscale algorithm
 typedef struct { float angle, dist; } lfPoint;
 
+#endif
 // @endcond
 
 /**
