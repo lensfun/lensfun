@@ -165,6 +165,32 @@
 
     <lens>
         <maker>Tamron</maker>
+        <model>AF 18-200mm f/3.5-6.3 Di II VC</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.558</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D3100 -->
+            <distortion model="ptlens" focal="18" a="0.0298292" b="-0.0940382" c="0.0506931"/>
+            <distortion model="ptlens" focal="22" a="0.0149817" b="-0.0355325" c="0.000773928"/>
+            <distortion model="ptlens" focal="24" a="0.0200663" b="-0.0558794" c="0.0398833"/>
+            <distortion model="ptlens" focal="34" a="0.00628528" b="-0.00786548" c="0.00859007"/>
+            <distortion model="ptlens" focal="50" a="0" b="0.00994697" c="0"/>
+            <distortion model="ptlens" focal="70" a="0" b="0.0103828" c="0"/>
+            <distortion model="ptlens" focal="200" a="0" b="0.00576273" c="0"/>
+            <tca model="poly3" focal="18" br="0.0000508" vr="1.0002554" bb="-0.0000059" vb="1.0000861"/>
+            <tca model="poly3" focal="22" br="0.0000208" vr="1.0002333" bb="0.0000146" vb="1.0000145"/>
+            <tca model="poly3" focal="24" br="0.0000015" vr="1.0002557" bb="0.0000169" vb="0.9999944"/>
+            <tca model="poly3" focal="34" br="-0.0000434" vr="1.0002636" bb="0.0000028" vb="1.0000406"/>
+            <tca model="poly3" focal="50" br="-0.0000503" vr="1.0001624" bb="-0.0000313" vb="1.0001154"/>
+            <tca model="poly3" focal="70" br="-0.0000034" vr="0.9999576" bb="-0.0000581" vb="1.0001889"/>
+            <tca model="poly3" focal="200" br="-0.0000280" vr="0.9995631" bb="0.0000112" vb="0.9998334"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Tamron</maker>
         <model>Tamron AF 18-200mm f/3.5-6.3 XR Di II LD Aspherical (IF) Macro</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
@@ -920,7 +946,7 @@
         </calibration>
     </lens>
 
-     <lens>
+    <lens>
         <maker>Tamron</maker>
         <model>Tamron 200mm f/3.5 CT-200 BBAR</model>
         <mount>Tamron Adaptall</mount>
@@ -932,5 +958,5 @@
             <tca model="poly3" focal="200" vr="0.9996500" vb="0.9999927"/>
         </calibration>
     </lens>
-    
+
 </lensdatabase>
