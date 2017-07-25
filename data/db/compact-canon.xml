@@ -123,6 +123,14 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon Powershot G9 X</model>
+        <model lang="en">PowerShot G9 X</model>
+        <mount>canonG9X</mount>
+        <cropfactor>2.72</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon PowerShot G10</model>
         <model lang="en">PowerShot G10</model>
         <mount>canonG10</mount>
@@ -709,6 +717,14 @@
         <model lang="en">PowerShot SX150 IS</model>
         <mount>canonSX150IS</mount>
         <cropfactor>5.62</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot SX10 IS</model>
+        <model lang="en">PowerShot SX10 IS</model>
+        <mount>canonSX10IS</mount>
+        <cropfactor>5.6</cropfactor>
     </camera>
 
     <camera>
@@ -2646,6 +2662,25 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon Powershot G9 X &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>canonG9X</mount>
+        <cropfactor>2.72</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="10.2" a="0.0263809" b="-0.139829" c="0.0743743"/>
+            <distortion model="ptlens" focal="16.017" a="0" b="-0.0219906" c="0"/>
+            <distortion model="ptlens" focal="20.144" a="0" b="-0.0118092" c="0"/>
+            <distortion model="ptlens" focal="30.6" a="0" b="-0.00463501" c="0"/>
+            <tca model="poly3" focal="10.2" vr="1.0002000" vb="1.0006000"/>
+            <tca model="poly3" focal="16" vr="1.0002000" vb="1.0004000"/>
+            <tca model="poly3" focal="20.1" vr="1.0003000" vb="1.0006000"/>
+            <tca model="poly3" focal="30.6" vr="1.0002000" vb="1.0001000"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon PowerShot S100 &amp; compatibles</model>
         <model lang="en">fixed lens</model>
         <model lang="de">festes Objektiv</model>
@@ -2966,6 +3001,33 @@
             <tca model="poly3" focal="12.5" vr="1.0003889" vb="0.9998557"/>
             <tca model="poly3" focal="19.7" vr="1.0000832" vb="0.9997096"/>
             <tca model="poly3" focal="30.5" vr="0.9998091" vb="0.9998656"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon PowerShot SX10 IS</model>
+        <mount>canonSX10IS</mount>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <cropfactor>5.6</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="7.9" a="0.02144" b="-0.0514" c="0.02812"/>
+            <distortion model="ptlens" focal="13.7" a="0.00104" b="0.00887" c="0.01012"/>
+            <distortion model="ptlens" focal="23" a="0.00606" b="-0.01354" c="0.01202"/>
+            <distortion model="ptlens" focal="33.5" a="0.00333" b="-0.01698" c="0.03222"/>
+            <distortion model="ptlens" focal="49.8" a="-0.00278" b="-0.00161" c="0.01773"/>
+            <distortion model="ptlens" focal="67.4" a="0.00474" b="-0.02254" c="0.03282"/>
+            <distortion model="ptlens" focal="95.5" a="0.01336" b="-0.04402" c="0.05062"/>
+            <tca model="poly3" focal="7.9" vr="1.0002362" vb="1.0000038"/>
+            <tca model="poly3" focal="13.7" vr="1.0001858" vb="0.9999953"/>
+            <tca model="poly3" focal="23" vr="1.0002228" vb="0.9998707"/>
+            <tca model="poly3" focal="31.7" vr="1.0002011" vb="0.9997086"/>
+            <tca model="poly3" focal="33.5" vr="1.0002194" vb="0.9996814"/>
+            <tca model="poly3" focal="49.8" vr="1.0001195" vb="0.9999249"/>
+            <tca model="poly3" focal="67.4" vr="1.0000258" vb="0.9998699"/>
+            <tca model="poly3" focal="95.5" vr="0.9999331" vb="0.9999027"/>
         </calibration>
     </lens>
 

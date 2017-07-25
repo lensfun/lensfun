@@ -959,4 +959,27 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tamron</maker>
+        <model>Tamron SP 15-30mm f/2.8 Di VC USD (A012)</model>
+        <model lang="en">Tamron SP 15-30mm f/2.8 Di VC USD</model>
+        <mount>Nikon F AF</mount>
+        <mount>Canon EF</mount>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D750 -->
+            <distortion model="ptlens" focal="15" a="0.00365" b="-0.0373" c="0.04147"/>
+            <distortion model="ptlens" focal="18" a="0.00298" b="-0.02252" c="0.03197"/>
+            <distortion model="ptlens" focal="20" a="0.00184" b="-0.00975" c="0.01751"/>
+            <distortion model="ptlens" focal="24" a="-0.00091" b="0.0071" c="0.00024"/>
+            <distortion model="ptlens" focal="30" a="0.00987" b="-0.02288" c="0.02592"/>
+            <tca model="poly3" focal="15" vr="1.0002123" vb="1.0000492"/>
+            <tca model="poly3" focal="18" vr="1.0001493" vb="1.0001207"/>
+            <tca model="poly3" focal="20" vr="1.0000941" vb="1.0001934"/>
+            <tca model="poly3" focal="24" vr="1.0000410" vb="1.0001929"/>
+            <tca model="poly3" focal="30" vr="1.0000710" vb="1.0000933"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
