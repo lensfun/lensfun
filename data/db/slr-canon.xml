@@ -5379,4 +5379,30 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon FDn 200mm 1:4</model>
+        <mount>Canon FD</mount>
+        <focal value="200"/>
+        <aperture min="4" max="32"/>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony 6000 (ILCE-6000) -->
+            <distortion model="ptlens" focal="200" a="-0.002" b="0.013" c="-0.015"/>
+            <tca model="poly3" focal="0" br="0.0000246" vr="0.9998495" bb="0.0000047" vb="0.9999254"/>
+            <vignetting model="pa" focal="200" aperture="4" distance="10" k1="-0.7047" k2="0.7085" k3="-0.3430"/>
+            <vignetting model="pa" focal="200" aperture="4" distance="1000" k1="-0.7047" k2="0.7085" k3="-0.3430"/>
+            <vignetting model="pa" focal="200" aperture="5.6" distance="10" k1="-0.0931" k2="0.0384" k3="-0.0328"/>
+            <vignetting model="pa" focal="200" aperture="5.6" distance="1000" k1="-0.0931" k2="0.0384" k3="-0.0328"/>
+            <vignetting model="pa" focal="200" aperture="8" distance="10" k1="-0.0981" k2="0.0434" k3="-0.0273"/>
+            <vignetting model="pa" focal="200" aperture="8" distance="1000" k1="-0.0981" k2="0.0434" k3="-0.0273"/>
+            <vignetting model="pa" focal="200" aperture="11" distance="10" k1="-0.1057" k2="0.0641" k3="-0.0392"/>
+            <vignetting model="pa" focal="200" aperture="11" distance="1000" k1="-0.1057" k2="0.0641" k3="-0.0392"/>
+            <vignetting model="pa" focal="200" aperture="16" distance="10" k1="-0.1133" k2="0.0913" k3="-0.0606"/>
+            <vignetting model="pa" focal="200" aperture="16" distance="1000" k1="-0.1133" k2="0.0913" k3="-0.0606"/>
+            <vignetting model="pa" focal="200" aperture="32" distance="10" k1="-0.1152" k2="0.0984" k3="-0.0667"/>
+            <vignetting model="pa" focal="200" aperture="32" distance="1000" k1="-0.1152" k2="0.0984" k3="-0.0667"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
