@@ -69,6 +69,13 @@
         <cropfactor>5.57</cropfactor>
     </camera>
 
+    <camera>
+        <maker>DJI</maker>
+        <model>Mavic Pro FC220</model>
+        <mount>djiMavicProFC220</mount>
+        <cropfactor>5.64</cropfactor>
+    </camera>
+
     <lens>
         <maker>GoPro</maker>
         <model>HD2 &amp; compatibles</model>
@@ -183,6 +190,22 @@
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <distortion model="poly3" focal="3" k1="-0.03012"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>DJI</maker>
+        <model>Mavic Pro FC220 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>djiMavicProFC220</mount>
+        <cropfactor>5.64</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="4.7" a="0" b="-0.014" c="0.033" />
+            <tca model="poly3" focal="4.7" br="-0.0000054" vr="1.0000535" bb="-0.0000279" vb="1.0000246" />
+            <vignetting model="pa" focal="4.7" aperture="2.2" distance="10" k1="-1.550" k2="1.055" k3="-0.195"/>
+            <vignetting model="pa" focal="4.7" aperture="2.2" distance="1000" k1="-1.550" k2="1.055" k3="-0.195" />
         </calibration>
     </lens>
 
