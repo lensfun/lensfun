@@ -4961,6 +4961,32 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon FDn 135mm 1:2.8</model>
+        <mount>Canon FD</mount>
+        <focal value="135"/>
+        <aperture min="2.8" max="32"/>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony 6000 (ILCE-6000) -->
+            <distortion model="ptlens" focal="135" a="0" b="0" c="0.002"/>
+            <tca model="poly3" focal="135" br="0.0000077" vr="0.9997611" bb="-0.0000082" vb="1.0000087"/>
+            <vignetting model="pa" focal="135" aperture="2.8" distance="10" k1="-0.7505" k2="0.7072" k3="-0.3224"/>
+            <vignetting model="pa" focal="135" aperture="2.8" distance="1000" k1="-0.7505" k2="0.7072" k3="-0.3224"/>
+            <vignetting model="pa" focal="135" aperture="4" distance="10" k1="-0.0929" k2="-0.0085" k3="-0.0595"/>
+            <vignetting model="pa" focal="135" aperture="4" distance="1000" k1="-0.0929" k2="-0.0085" k3="-0.0595"/>
+            <vignetting model="pa" focal="135" aperture="5.6" distance="10" k1="-0.1298" k2="0.1127" k3="-0.0764"/>
+            <vignetting model="pa" focal="135" aperture="5.6" distance="1000" k1="-0.1298" k2="0.1127" k3="-0.0764"/>
+            <vignetting model="pa" focal="135" aperture="8" distance="10" k1="-0.1334" k2="0.1220" k3="-0.0760"/>
+            <vignetting model="pa" focal="135" aperture="8" distance="1000" k1="-0.1334" k2="0.1220" k3="-0.0760"/>
+            <vignetting model="pa" focal="135" aperture="16" distance="10" k1="-0.1424" k2="0.1495" k3="-0.0947"/>
+            <vignetting model="pa" focal="135" aperture="16" distance="1000" k1="-0.1424" k2="0.1495" k3="-0.0947"/>
+            <vignetting model="pa" focal="135" aperture="32" distance="10" k1="-0.1149" k2="0.0817" k3="-0.0542"/>
+            <vignetting model="pa" focal="135" aperture="32" distance="1000" k1="-0.1149" k2="0.0817" k3="-0.0542"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon EF 16-35mm f/4L IS USM</model>
         <mount>Canon EF</mount>
         <cropfactor>1.005</cropfactor>
