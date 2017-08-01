@@ -568,6 +568,40 @@
 
     <lens>
         <maker>Sigma</maker>
+        <model>Sigma 17-70mm f/2.8-4.5 DC Macro</model>
+        <mount>Sigma SA</mount>
+        <mount>Canon EF</mount>
+        <mount>Minolta AF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Pentax KAF</mount>
+        <focal min="17" max="70"/>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="17" a="0.031263" b="-0.089484" c="0.047399"/>
+            <distortion model="ptlens" focal="18" a="0.017675" b="-0.048197" c="0.014054"/>
+            <distortion model="ptlens" focal="20" a="0.014725" b="-0.040264" c="0.012628"/>
+            <distortion model="ptlens" focal="24" a="0.008501" b="-0.023096" c="0.009412"/>
+            <distortion model="ptlens" focal="28" a="0.003668" b="-0.010545" c="0.008709"/>
+            <distortion model="ptlens" focal="35" a="-0.001997" b="0.009906" c="-0.008335"/>
+            <distortion model="ptlens" focal="40" a="0.003405" b="-0.008959" c="0.014824"/>
+            <distortion model="ptlens" focal="55" a="0.004657" b="-0.013650" c="0.019375"/>
+            <distortion model="ptlens" focal="60" a="0.004897" b="-0.014984" c="0.021181"/>
+            <distortion model="ptlens" focal="70" a="0.002967" b="-0.006018" c="0.010103"/>
+            <tca model="poly3" focal="17" br="-0.0000294" vr="1.0004094" bb="0.0000336" vb="1.0001121"/>
+            <tca model="poly3" focal="18" br="-0.0000591" vr="1.0004470" bb="-0.0000243" vb="1.0001583"/>
+            <tca model="poly3" focal="20" br="-0.0000266" vr="1.0003825" bb="-0.0000132" vb="1.0001103"/>
+            <tca model="poly3" focal="24" br="-0.0000426" vr="1.0003567" bb="-0.0000248" vb="1.0001072"/>
+            <tca model="poly3" focal="28" br="-0.0000137" vr="1.0002523" bb="-0.0000325" vb="1.0000912"/>
+            <tca model="poly3" focal="35" br="-0.0000249" vr="1.0001652" bb="-0.0000519" vb="1.0000952"/>
+            <tca model="poly3" focal="40" br="0.0000041" vr="1.0000439" bb="-0.0000461" vb="1.0000461"/>
+            <tca model="poly3" focal="55" br="0.0000086" vr="0.9999241" bb="-0.0000332" vb="1.0000037"/>
+            <tca model="poly3" focal="60" br="0.0000021" vr="0.9998370" bb="-0.0000442" vb="1.0000019"/>
+            <tca model="poly3" focal="70" br="-0.0000229" vr="0.9997803" bb="-0.0000332" vb="0.9999803"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
         <model>Sigma 18-50mm f/2.8 EX DC</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
