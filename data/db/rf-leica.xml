@@ -64,6 +64,18 @@
 
     <lens>
         <maker>Leica</maker>
+        <model>Elmarit-M 2.8/90</model>
+        <model lang="en">Elmarit-M 90mm f/2.8</model>
+        <mount>Leica M</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Leica M (Typ 240) -->
+            <distortion model="ptlens" focal="90" a="-0.00423" b="0.01406" c="-0.00692"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Leica</maker>
         <model>Summilux-M 1.4/35 ASPH</model>
         <mount>Leica M</mount>
         <cropfactor>1</cropfactor>
