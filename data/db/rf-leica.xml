@@ -15,6 +15,13 @@
         <compat>Generic</compat>
     </mount>
 
+    <camera>
+        <maker>Leica</maker>
+        <model>M (Typ 240)</model>
+        <mount>Leica M</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
     <lens>
         <maker>Leica</maker>
         <model>Elmarit-M 2.8/21 ASPH</model>
@@ -41,6 +48,18 @@
         <model>Elmarit-M 2.8/28</model>
         <mount>Leica M</mount>
         <cropfactor>1</cropfactor>
+    </lens>
+
+    <lens>
+        <maker>Leica</maker>
+        <model>Elmarit-M 2.8/28</model>
+        <model lang="en">Elmarit-M 28mm f/2.8 ASPH</model>
+        <mount>Leica M</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with LEICA M (Typ 240) -->
+            <distortion model="ptlens" focal="28" a="0.00349" b="-0.00508" c="-0.01721"/>
+        </calibration>
     </lens>
 
     <lens>
