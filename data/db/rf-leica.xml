@@ -24,7 +24,7 @@
         <mount>Leica M</mount>
         <cropfactor>1</cropfactor>
         <calibration>
-	    <!-- Taken with LEICA M (Typ 240) -->
+            <!-- Taken with LEICA M (Typ 240) -->
             <distortion model="ptlens" focal="28" a="0.00349" b="-0.00508" c="-0.01721"/>
         </calibration>
     </lens>
@@ -36,19 +36,20 @@
         <mount>Leica M</mount>
         <cropfactor>1</cropfactor>
         <calibration>
-	    <!-- Taken with Leica M (Typ 240) -->
+            <!-- Taken with Leica M (Typ 240) -->
             <distortion model="ptlens" focal="90" a="-0.00423" b="0.01406" c="-0.00692"/>
         </calibration>
     </lens>
 
     <lens>
         <maker>Leica</maker>
-        <model>Summicron-M 1:2/50</model><!-- Model 11819/11825/11826/11816 -->
+        <model>Summicron-M 1:2/50</model>
+        <!-- Model 11819/11825/11826/11816 -->
         <model lang="en">Summicron-M 50mm f/2</model>
         <mount>Leica M</mount>
         <cropfactor>1</cropfactor>
         <calibration>
-	    <!-- Taken Leica M (Typ 240) -->
+            <!-- Taken Leica M (Typ 240) -->
             <distortion model="poly3" focal="50" k1="-0.00072"/>
             <tca model="poly3" focal="50" vr="0.9999915" vb="0.9998735"/>
         </calibration>
