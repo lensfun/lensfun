@@ -46,4 +46,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Leica</maker>
+        <model>Summicron-M 1:2/50</model><!-- Model 11819/11825/11826/11816 -->
+        <model lang="en">Summicron-M 50mm f/2</model>
+        <mount>Leica M</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken Leica M (Typ 240) -->
+            <distortion model="poly3" focal="50" k1="-0.00072"/>
+            <tca model="poly3" focal="50" vr="0.9999915" vb="0.9998735"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
