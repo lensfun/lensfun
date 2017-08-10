@@ -1275,6 +1275,11 @@ static gint _lf_compare_lens_details (gconstpointer a, gconstpointer b)
     return _lf_lens_name_compare (i1, i2);
 }
 
+bool _lf_sort_lens_details (lfLens* a, lfLens* b)
+{
+    return _lf_compare_lens_details(a, b) < 0;
+}
+
 const lfLens **lfDatabase::FindLenses (const lfLens *lens, int sflags) const
 {
     //GPtrArray *ret = g_ptr_array_new ();
@@ -1290,7 +1295,7 @@ const lfLens **lfDatabase::FindLenses (const lfLens *lens, int sflags) const
     if (lens->Mounts)
         for (int i = 0; lens->Mounts [i]; i++) {
             const lfMount *m = FindMount (lens->Mounts[i]);
-            if (m->Compat)
+            if ((m != NULL) && (m->Compat))
                 for (int i = 0; m->Compat [i]; i++)
                 {
                     char* mount = m->Compat [i];
@@ -1343,7 +1348,7 @@ const lfLens **lfDatabase::FindLenses (const lfLens *lens, int sflags) const
     }
 
     if (sort_and_uniquify)
-        std::sort(search_res.begin(), search_res.end(), _lf_compare_lens_details);
+        std::sort(search_res.begin(), search_res.end(), _lf_sort_lens_details);
 
     const lfLens **ret = g_new (const lfLens *, search_res.size() + 1);
     memcpy(ret, search_res.data(), search_res.size() * sizeof(lfCamera*));
