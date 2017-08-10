@@ -42,6 +42,9 @@ lfDatabase::lfDatabase ()
 
 lfDatabase::~lfDatabase ()
 {
+    free(HomeDataDir);
+    free(UserUpdatesDir);
+
     for (auto m : Mounts)
         delete m;
     for (auto c : Cameras)

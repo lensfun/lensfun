@@ -1801,6 +1801,9 @@ struct LF_EXPORT lfDatabase
 
     /**
      * @brief Add a mount to the database.
+     *
+     * Ownership will be transferred to the lfDatabase class and the respective
+     * object will be deleted when the database object is deleted.
      * @param mount
      *     the mount to add
      */
@@ -1808,6 +1811,9 @@ struct LF_EXPORT lfDatabase
 
     /**
      * @brief Add a camera to the database.
+     *
+     * Ownership will be transferred to the lfDatabase class and the respective
+     * object will be deleted when the database object is deleted.
      * @param camera
      *     the camera to add
      */
@@ -1815,6 +1821,9 @@ struct LF_EXPORT lfDatabase
 
     /**
      * @brief Add a lens to the database.
+     *
+     * Ownership will be transferred to the lfDatabase class and the respective
+     * object will be deleted when the database object is deleted.
      * @param lens
      *     the lens to add
      */

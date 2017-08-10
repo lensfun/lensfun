@@ -101,11 +101,11 @@ void test_DB_save(lfFixture* lfFix, gconstpointer data)
     db2->AddLens(lens);
     db2->Save("test_db.xml");
 
-    delete camera;
-    delete lens;
+    delete db2;
 
     lf_free (lenses);
     lf_free (cameras);
+
 }
 
 int main (int argc, char **argv)
