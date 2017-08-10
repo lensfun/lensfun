@@ -1274,48 +1274,38 @@ static gint _lf_compare_lens_details (gconstpointer a, gconstpointer b)
 
 const lfLens **lfDatabase::FindLenses (const lfLens *lens, int sflags) const
 {
-    //GPtrArray *ret = g_ptr_array_new ();
-
-    std::vector<char*> mounts;
-    std::vector<lfLens*>  search_res;
-
-    //GPtrArray *mounts = g_ptr_array_new ();
+    std::vector<std::string> compat_mounts;
+    std::vector<lfLens*> search_res;
 
     lfFuzzyStrCmp fc (lens->Model, (sflags & LF_SEARCH_LOOSE) == 0);
 
     // Create a list of compatible mounts
-    if (lens->Mounts)
-        for (int i = 0; lens->Mounts [i]; i++) {
-            const lfMount *m = FindMount (lens->Mounts[i]);
-            if (m->Compat)
-                for (int i = 0; m->Compat [i]; i++)
+    for (const auto mount_name: lens->GetMountNames())
+    {
+        const auto mount = FindMount (mount_name.c_str());
+        const auto compat = mount->GetCompats();
+        for (auto mc: compat)
+        {
+            // Check if the mount is not already in the main list
+            bool already = false;
+            for (const auto mount_name: lens->GetMountNames())
+                if (_lf_strcmp (mc.c_str(), mount_name.c_str()) == 0)
                 {
-                    char* mount = m->Compat [i];
-
-                    // Check if the mount is not already in the main list
-                    bool already = false;
-                    for (int j = 0; lens->Mounts [j]; j++)
-                        if (_lf_strcmp (mount, lens->Mounts [j]) == 0)
-                        {
-                            already = true;
-                            break;
-                        }
-                    if (!already)
-                        mounts.push_back(mount);
+                    already = true;
+                    break;
                 }
-
+            if (!already)
+                compat_mounts.emplace_back(mc);
         }
-    std::unique(mounts.begin(), mounts.end());
-    size_t l = mounts.size();
-    mounts.reserve(l + 1);
-    mounts.data()[l] = nullptr;
+    }
+    std::unique(compat_mounts.begin(), compat_mounts.end());
 
     int score;
     const bool sort_and_uniquify = (sflags & LF_SEARCH_SORT_AND_UNIQUIFY) != 0;
 
     for (auto dblens: Lenses)
     {
-        if (score = _lf_lens_compare_score (lens, dblens, &fc, (const char**)mounts.data()) > 0)
+        if (score = _lf_lens_compare_score (lens, dblens, &fc, compat_mounts))
         {
             dblens->Score = score;
             if (sort_and_uniquify)
@@ -1364,9 +1354,9 @@ const lfMount *lfDatabase::FindMount (const char *mount) const
     lfMount tm;
     tm.SetName (mount);
 
-    for (auto m: Mounts)
+    for (const auto m: Mounts)
     {
-        if (_lf_mount_compare(m, &tm))
+        if (tm != *m)
             return m;
     }
 

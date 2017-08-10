@@ -137,54 +137,12 @@ LF_EXPORT lfMLstr lf_mlstr_dup (const lfMLstr str)
     return ret;
 }
 
-void _lf_list_free (void **list)
-{
-    int i;
-
-    if (!list)
-        return;
-
-    for (i = 0; list [i]; i++)
-        g_free (list [i]);
-
-    g_free (list);
-}
-
 void _lf_setstr (gchar **var, const gchar *val)
 {
     if (*var)
         g_free (*var);
 
     *var = g_strdup (val);
-}
-
-void _lf_addobj (void ***var, const void *val, size_t val_size,
-                 bool (*cmpf) (const void *, const void *))
-{
-    int n = 0;
-
-    if (*var)
-        for (n = 0; (*var) [n]; n++)
-            if (cmpf && cmpf (val, (*var) [n]))
-            {
-                g_free ((*var) [n]);
-                goto alloc_copy;
-                return;
-            }
-
-    n++;
-
-    (*var) = (void **)g_realloc (*var, (n + 1) * sizeof (void *));
-    (*var) [n--] = NULL;
-
-alloc_copy:
-    (*var) [n] = g_malloc (val_size);
-    memcpy ((*var) [n], val, val_size);
-}
-
-void _lf_addstr (gchar ***var, const gchar *val)
-{
-    _lf_addobj ((void ***)var, val, strlen (val) + 1, NULL);
 }
 
 void _lf_xml_printf (GString *output, const char *format, ...)

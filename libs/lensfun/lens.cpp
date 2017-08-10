@@ -144,7 +144,6 @@ lfLens::~lfLens ()
 {
     lf_free (Maker);
     lf_free (Model);
-    _lf_list_free ((void **)Mounts);
 
     for (auto *calibset : Calibrations)
         delete calibset;
@@ -170,9 +169,8 @@ lfLens::lfLens (const lfLens &other)
     Type = other.Type;
 
     Mounts = NULL;
-    if (other.Mounts)
-        for (int i = 0; other.Mounts [i]; i++)
-            AddMount (other.Mounts [i]);
+    for (const auto m: other.GetMountNames())
+        AddMount(m.c_str());
 
     for (auto *calibset : other.Calibrations)
         Calibrations.push_back(new lfLensCalibrationSet(*calibset));
@@ -198,10 +196,9 @@ lfLens &lfLens::operator = (const lfLens &other)
     MaxAperture = other.MaxAperture;
     Type = other.Type;
 
-    lf_free (Mounts); Mounts = NULL;
-    if (other.Mounts)
-        for (int i = 0; other.Mounts [i]; i++)
-            AddMount (other.Mounts [i]);
+    Mounts = NULL;
+    for (const auto m: other.GetMountNames())
+        AddMount(m.c_str());
 
     for (auto *calibset : Calibrations)
         delete calibset;
@@ -233,7 +230,10 @@ void lfLens::SetModel (const char *val, const char *lang)
 void lfLens::AddMount (const char *val)
 {
     if (val)
-        _lf_addstr (&Mounts, val);
+    {
+        MountNames.emplace(std::string(val));
+        // TODO: update legacy Mounts Pointer
+    }
 }
 
 void lfLens::GuessParameters ()
@@ -327,7 +327,7 @@ bool lfLens::Check ()
 {
     GuessParameters ();
 
-    if (!Model || !Mounts || MinFocal > MaxFocal ||
+    if (!Model || MountNames.empty() || MinFocal > MaxFocal ||
         (MaxAperture && MinAperture > MaxAperture) )
         return false;
 
@@ -1438,6 +1438,11 @@ const lfLensCalibrations& lfLens::GetCalibrations() const
     return Calibrations;
 }
 
+const std::set<std::string> &lfLens::GetMountNames() const
+{
+    return MountNames;
+}
+
 void lfLens::UpdateLegacyCalibPointers()
 {
 
@@ -1523,7 +1528,7 @@ static int _lf_compare_num (float a, float b)
 }
 
 int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
-                            lfFuzzyStrCmp *fuzzycmp, const char **compat_mounts)
+                            lfFuzzyStrCmp *fuzzycmp, const std::vector<std::string>& compat_mounts)
 {
     int score = 0;
 
@@ -1606,33 +1611,30 @@ int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
         }
     }
 
-    if (compat_mounts && !compat_mounts [0])
-        compat_mounts = NULL;
-
     // Check the lens mount, if specified
-    if (match->Mounts && (pattern->Mounts || compat_mounts))
+    const auto match_mounts   = match->GetMountNames();
+    const auto pattern_mounts = pattern->GetMountNames();
+    if (!match_mounts.empty() && (!pattern_mounts.empty() || !compat_mounts.empty()))
     {
         bool matching_mount_found = false;
 
-        if (pattern->Mounts)
-            for (int i = 0; pattern->Mounts [i]; i++)
-                for (int j = 0; match->Mounts [j]; j++)
-                    if (!_lf_strcmp (pattern->Mounts [i], match->Mounts [j]))
-                    {
-                        matching_mount_found = true;
-                        score += 10;
-                        goto exit_mount_search;
-                    }
+        for (const auto& pm: pattern_mounts)
+            for (const auto& mm: match_mounts)
+                if (!_lf_strcmp (pm.c_str(), mm.c_str()))
+                {
+                    matching_mount_found = true;
+                    score += 10;
+                    goto exit_mount_search;
+                }
 
-        if (compat_mounts)
-            for (int i = 0; compat_mounts [i]; i++)
-                for (int j = 0; match->Mounts [j]; j++)
-                    if (!_lf_strcmp (compat_mounts [i], match->Mounts [j]))
-                    {
-                        matching_mount_found = true;
-                        score += 9;
-                        goto exit_mount_search;
-                    }
+        for (const auto& cm: compat_mounts)
+            for (const auto& mm: match_mounts)
+                if (!_lf_strcmp (cm.c_str(), mm.c_str()))
+                {
+                    matching_mount_found = true;
+                    score += 9;
+                    goto exit_mount_search;
+                }
 
     exit_mount_search:
         if (!matching_mount_found)

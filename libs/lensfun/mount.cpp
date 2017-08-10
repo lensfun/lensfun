@@ -13,34 +13,39 @@ lfMount::lfMount ()
     // lfLens instances used for searches could not be matched against database
     // lenses easily.  If you need defaults for database tags, set them when
     // reading the database.
-    memset (this, 0, sizeof (*this));
+    Name = NULL;
+    Compat = NULL;
 }
 
 lfMount::~lfMount ()
 {
     lf_free (Name);
-    _lf_list_free ((void **)Compat);
 }
 
 lfMount::lfMount (const lfMount &other)
 {
     Name = lf_mlstr_dup (other.Name);
     Compat = NULL;
-    if (other.Compat)
-        for (int i = 0; other.Compat [i]; i++)
-                AddCompat (other.Compat [i]);
+    MountCompat = other.GetCompats();
 }
 
 lfMount &lfMount::operator = (const lfMount &other)
 {
     lf_free (Name);
     Name = lf_mlstr_dup (other.Name);
-    lf_free (Compat); Compat = NULL;
-    if (other.Compat)
-        for (int i = 0; other.Compat [i]; i++)
-                AddCompat (other.Compat [i]);
+    Compat = NULL;
+    MountCompat = other.GetCompats();
 
     return *this;
+}
+
+bool lfMount::operator == (const lfMount& other)
+{
+    return _lf_strcmp (Name, other.Name) == 0;
+}
+bool lfMount::operator != (const lfMount& other)
+{
+    return _lf_strcmp (Name, other.Name) != 0;
 }
 
 void lfMount::SetName (const char *val, const char *lang)
@@ -50,7 +55,13 @@ void lfMount::SetName (const char *val, const char *lang)
 
 void lfMount::AddCompat (const char *val)
 {
-    _lf_addstr (&Compat, val);
+    MountCompat.emplace(std::string(val));
+    // TODO: update legacy Compat pointers
+}
+
+const std::set<std::string> lfMount::GetCompats () const
+{
+    return MountCompat;
 }
 
 bool lfMount::Check ()
@@ -59,14 +70,6 @@ bool lfMount::Check ()
         return false;
 
     return true;
-}
-
-bool _lf_mount_compare (lfMount *a, lfMount *b)
-{
-    lfMount *i1 = (lfMount *)a;
-    lfMount *i2 = (lfMount *)b;
-
-    return _lf_strcmp (i1->Name, i2->Name) == 0;
 }
 
 //---------------------------// The C interface //---------------------------//

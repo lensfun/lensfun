@@ -64,13 +64,6 @@ template<typename T> static inline T clampd (double x, double min, double max)
 }
 
 /**
- * @brief Free a list of pointers.
- * @param list
- *     A NULL-terminated list of pointers
- */
-extern void _lf_list_free (void **list);
-
-/**
  * @brief Make a copy of given value into given variable using g_strdup,
  * freeing the old value if defined.
  * @param var
@@ -79,15 +72,6 @@ extern void _lf_list_free (void **list);
  *     The value to assign to the variable
  */
 extern void _lf_setstr (gchar **var, const gchar *val);
-
-/**
- * @brief Add a string to the end of a string list.
- * @param var
- *     A pointer to an array of strings.
- * @param val
- *     The value to be added to the array.
- */
-extern void _lf_addstr (gchar ***var, const gchar *val);
 
 /**
  * @brief Appends a formatted string to a dynamically-growing string
@@ -147,35 +131,6 @@ extern int _lf_strcmp (const char *s1, const char *s2);
  * the result of strcmp() with the first (default) string is returned.
  */
 extern int _lf_mlstrcmp (const char *s1, const lfMLstr s2);
-
-/**
- * @brief Comparison function for mount sorting and finding.
- *
- * Since this function is used when reading the database, it effectively
- * enforces the primary key for mounts, which is their Name.
- * @param a
- *     A pointer to first lfMount object.
- * @param b
- *     A pointer to second lfMount object.
- * @return
- *     Positive if a > b, negative if a < b, zero if they are equal.
- */
-extern bool _lf_mount_compare(lfMount *a, lfMount *b);
-
-/**
- * @brief Comparison function for camera sorting and finding.
- *
- * Since this function is used when reading the database, it effectively
- * enforces the primary key for cameras, which is the combination of the
- * attributes Maker, Model, and Variant.
- * @param a
- *     A pointer to first lfCamera object.
- * @param b
- *     A pointer to second lfCamera object.
- * @return
- *     Positive if a > b, negative if a < b, zero if they are equal.
- */
-extern gint _lf_camera_compare (gconstpointer a, gconstpointer b);
 
 /**
  * @brief Comparison helper function for lens sorting and finding.
@@ -264,17 +219,16 @@ extern float _lf_interpolate (float y1, float y2, float y3, float y4, float t);
  * @param match
  *     The object to match against.
  * @param fuzzycmp
- *     A fuzzy comparator initialized with pattern->Model
+ *     A fuzzy comparator initialized with pattern->Model.
  * @param compat_mounts
- *     An additional list of compatible mounts, can be NULL.
- *     This does not include the mounts from pattern->Mounts.
+ *     An additional list of compatible mounts.
  * @return
  *     A numeric score in the range 0 to 100, where 100 means that
  *     every field matches and 0 means that at least one field is
  *     fundamentally different.
  */
 extern int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
-                                   lfFuzzyStrCmp *fuzzycmp, const char **compat_mounts);
+                                   lfFuzzyStrCmp *fuzzycmp, const std::vector<std::string> &compat_mounts);
 
 enum
 {

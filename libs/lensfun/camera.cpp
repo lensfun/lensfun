@@ -95,19 +95,3 @@ cbool lf_camera_check (lfCamera *camera)
 {
     return camera->Check ();
 }
-
-gint _lf_camera_compare (gconstpointer a, gconstpointer b)
-{
-    lfCamera *i1 = (lfCamera *)a;
-    lfCamera *i2 = (lfCamera *)b;
-
-    int cmp = _lf_strcmp (i1->Maker, i2->Maker);
-    if (cmp != 0)
-        return cmp;
-
-    cmp = _lf_strcmp (i1->Model, i2->Model);
-    if (cmp != 0)
-        return cmp;
-
-    return _lf_strcmp (i1->Variant, i2->Variant);
-}

@@ -27,6 +27,7 @@
 
 #ifdef __cplusplus
 
+#include <string>
 #include <vector>
 #include <set>
 
@@ -214,7 +215,7 @@ struct LF_EXPORT lfMount
      */
     lfMLstr Name;
     /** A list of compatible mounts */
-    char **Compat;
+    DEPRECATED char **Compat;
 
 #ifdef __cplusplus
     /**
@@ -257,11 +258,22 @@ struct LF_EXPORT lfMount
     void AddCompat (const char *val);
 
     /**
+     * @brief Return the list of compatible mounts.
+     */
+    const std::set<std::string> GetCompats () const;
+
+    /**
      * @brief Check if a mount object is valid.
      * @return
      *     true if required fields are ok.
      */
     bool Check ();
+
+    bool operator == (const lfMount& other);
+    bool operator != (const lfMount& other);
+
+private:
+    std::set<std::string> MountCompat;
 #endif
 };
 
@@ -997,7 +1009,7 @@ struct LF_EXPORT lfLens
     /** Biggest f-number possible (ex: 22). */
     float MaxAperture;
     /** Available mounts (NULL-terminated list) (ex: { "QBM", NULL }) */
-    char **Mounts;
+    DEPRECATED char **Mounts;
     /** Lens type */
     lfLensType Type;
     /**
@@ -1351,10 +1363,14 @@ struct LF_EXPORT lfLens
     DEPRECATED bool InterpolateFov (float focal, lfLensCalibFov &res) const;
 
     const lfLensCalibrations& GetCalibrations() const;
+    const std::set<std::string>& GetMountNames() const;
 
     private:
         void UpdateLegacyCalibPointers();
+
         lfLensCalibrations Calibrations;
+        std::set<std::string> MountNames;
+
         bool GetCalibrationSet(const lfLensCalibAttributes* lcattr, lfLensCalibrationSet** lcs);
 #endif
 };
