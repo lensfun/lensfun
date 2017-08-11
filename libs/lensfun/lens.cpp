@@ -153,12 +153,6 @@ lfLens::~lfLens ()
         _lf_free_lens_regex ();
 }
 
-static bool cmp_distortion (const void *x1, const void *x2);
-static bool cmp_vignetting (const void *x1, const void *x2);
-static bool cmp_tca (const void *x1, const void *x2);
-static bool cmp_lenscrop (const void *x1, const void *x2);
-static bool cmp_lensfov (const void *x1, const void *x2);
-
 lfLens::lfLens (const lfLens &other)
 {
     Maker = lf_mlstr_dup (other.Maker);
@@ -717,13 +711,6 @@ bool lfLens::GetCalibrationSet(const lfLensCalibAttributes* lcattr, lfLensCalibr
     return true;
 }
 
-static bool cmp_distortion (const void *x1, const void *x2)
-{
-    const lfLensCalibDistortion *d1 = static_cast<const lfLensCalibDistortion *> (x1);
-    const lfLensCalibDistortion *d2 = static_cast<const lfLensCalibDistortion *> (x2);
-    return (d1->Focal == d2->Focal);
-}
-
 void lfLens::AddCalibDistortion (const lfLensCalibDistortion *plcd)
 {
     lfLensCalibrationSet* calibSet;
@@ -748,13 +735,6 @@ bool lfLens::RemoveCalibDistortion (int idx)
     UpdateLegacyCalibPointers();
 }
 
-static bool cmp_tca (const void *x1, const void *x2)
-{
-    const lfLensCalibTCA *t1 = static_cast<const lfLensCalibTCA *> (x1);
-    const lfLensCalibTCA *t2 = static_cast<const lfLensCalibTCA *> (x2);
-    return (t1->Focal == t2->Focal);
-}
-
 void lfLens::AddCalibTCA (const lfLensCalibTCA *plctca)
 {
     lfLensCalibrationSet* calibSet;
@@ -776,15 +756,6 @@ bool lfLens::RemoveCalibTCA (int idx)
     delete Calibrations[0]->CalibTCA[idx];
     Calibrations[0]->CalibTCA.erase(Calibrations[0]->CalibTCA.begin() + idx);
     UpdateLegacyCalibPointers();
-}
-
-static bool cmp_vignetting (const void *x1, const void *x2)
-{
-    const lfLensCalibVignetting *v1 = static_cast<const lfLensCalibVignetting *> (x1);
-    const lfLensCalibVignetting *v2 = static_cast<const lfLensCalibVignetting *> (x2);
-    return (v1->Focal == v2->Focal) &&
-           (v1->Distance == v2->Distance) &&
-           (v1->Aperture == v2->Aperture);
 }
 
 void lfLens::AddCalibVignetting (const lfLensCalibVignetting *plcv)
@@ -811,13 +782,6 @@ bool lfLens::RemoveCalibVignetting (int idx)
     UpdateLegacyCalibPointers();
 }
 
-static bool cmp_lenscrop (const void *x1, const void *x2)
-{
-    const lfLensCalibCrop *d1 = static_cast<const lfLensCalibCrop *> (x1);
-    const lfLensCalibCrop *d2 = static_cast<const lfLensCalibCrop *> (x2);
-    return (d1->Focal == d2->Focal);
-}
-
 void lfLens::AddCalibCrop (const lfLensCalibCrop *plcc)
 {
     lfLensCalibrationSet* calibSet;
@@ -840,13 +804,6 @@ bool lfLens::RemoveCalibCrop (int idx)
     Calibrations[0]->CalibCrop.erase(Calibrations[0]->CalibCrop.begin() + idx);
 
     UpdateLegacyCalibPointers();
-}
-
-static bool cmp_lensfov (const void *x1, const void *x2)
-{
-    const lfLensCalibFov *d1 = static_cast<const lfLensCalibFov *> (x1);
-    const lfLensCalibFov *d2 = static_cast<const lfLensCalibFov *> (x2);
-    return (d1->Focal == d2->Focal);
 }
 
 void lfLens::AddCalibFov (const lfLensCalibFov *plcf)
