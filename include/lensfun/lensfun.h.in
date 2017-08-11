@@ -2574,6 +2574,13 @@ private:
         bool operator>(const lfCallbackData& c) const { return c < *this; }
     };
 
+    struct lfCallBackDataPtrComp
+    {
+        bool operator () (const lfCallbackData* lhs, const lfCallbackData* rhs) const {
+            return *lhs < *rhs;
+        }
+    };
+
     /**
      * @brief A callback function which modifies the separate coordinates for all color
      * components for every pixel in a strip.
@@ -2694,11 +2701,11 @@ private:
     };
 
     /// A set of subpixel coordinate modifier callbacks.
-    std::set<lfSubpixelCallback*> SubpixelCallbacks;
+    std::set<lfSubpixelCallback*, lfCallBackDataPtrComp> SubpixelCallbacks;
     /// A set of pixel color modifier callbacks.
-    std::set<lfColorCallback*> ColorCallbacks;
+    std::set<lfColorCallback*, lfCallBackDataPtrComp> ColorCallbacks;
     /// A set of pixel coordinate modifier callbacks.
-    std::set<lfCoordCallback*> CoordCallbacks;
+    std::set<lfCoordCallback*, lfCallBackDataPtrComp> CoordCallbacks;
 
     // A test point in the autoscale algorithm
     typedef struct { float angle, dist; } lfPoint;
