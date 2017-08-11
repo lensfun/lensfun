@@ -2703,11 +2703,11 @@ private:
     };
 
     /// A set of subpixel coordinate modifier callbacks.
-    std::set<lfSubpixelCallback*, lfCallBackDataPtrComp> SubpixelCallbacks;
+    std::multiset<lfSubpixelCallback*, lfCallBackDataPtrComp> SubpixelCallbacks;
     /// A set of pixel color modifier callbacks.
-    std::set<lfColorCallback*, lfCallBackDataPtrComp> ColorCallbacks;
+    std::multiset<lfColorCallback*, lfCallBackDataPtrComp> ColorCallbacks;
     /// A set of pixel coordinate modifier callbacks.
-    std::set<lfCoordCallback*, lfCallBackDataPtrComp> CoordCallbacks;
+    std::multiset<lfCoordCallback*, lfCallBackDataPtrComp> CoordCallbacks;
 
     // A test point in the autoscale algorithm
     typedef struct { float angle, dist; } lfPoint;
