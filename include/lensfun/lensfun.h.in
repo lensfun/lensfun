@@ -1745,25 +1745,6 @@ struct LF_EXPORT lfDatabase
                                const char *model, int sflags = 0) const;
 
     /**
-     * @brief Find a set of lenses that fit certain criteria.
-     * @param lens
-     *     The approximative lense. Uncertain fields may be NULL.
-     *     The "CropFactor" field defines the minimal value for crop factor;
-     *     no lenses with crop factor larger than that will be returned.
-     *     The Mounts field will be scanned for allowed mounts, if NULL
-     *     any mounts are considered compatible.
-     * @param sflags
-     *     Additional flags influencing the search algorithm.
-     *     This is a combination of LF_SEARCH_XXX flags.
-     * @return
-     *     A NULL-terminated list of lenses matching the search criteria
-     *     or NULL if none. Release memory with lf_free(). The list is ordered
-     *     in the most-likely to least-likely order, e.g. the first returned
-     *     value is the most likely match.
-     */
-    const lfLens **FindLenses (const lfLens *lens, int sflags = 0) const;
-
-    /**
      * @brief Retrieve a full list of lenses.
      * @return
      *     An NULL-terminated list containing all lenses loaded until now.
@@ -1918,13 +1899,14 @@ LF_EXPORT const lfCamera **lf_db_find_cameras_ext (
 LF_EXPORT const lfCamera *const *lf_db_get_cameras (lfDatabase *db);
 
 /** @sa lfDatabase::FindLenses(const lfCamera *, const char *, const char *) */
-LF_EXPORT const lfLens **lf_db_find_lenses_hd (
+DEPRECATED LF_EXPORT const lfLens **lf_db_find_lenses_hd (
     const lfDatabase *db, const lfCamera *camera, const char *maker,
     const char *lens, int sflags);
 
-/** @sa lfDatabase::FindLenses(const lfCamera *, const lfLens *) */
+/** @sa lfDatabase::FindLenses(const lfCamera *, const char *, const char *) */
 LF_EXPORT const lfLens **lf_db_find_lenses (
-    const lfDatabase *db, const lfLens *lens, int sflags);
+    const lfDatabase *db, const lfCamera *camera,
+    const char *maker, const char *lens, int sflags);
 
 /** @sa lfDatabase::GetLenses */
 LF_EXPORT const lfLens *const *lf_db_get_lenses (lfDatabase *db);
