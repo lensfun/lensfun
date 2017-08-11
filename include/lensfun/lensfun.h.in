@@ -2570,8 +2570,8 @@ private:
         virtual  ~lfCallbackData() {}
         int priority;
 
-        bool operator>(const lfCallbackData& c) const { return priority > c. priority; }
         bool operator<(const lfCallbackData& c) const { return priority < c. priority; }
+        bool operator>(const lfCallbackData& c) const { return c < *this; }
     };
 
     /**
