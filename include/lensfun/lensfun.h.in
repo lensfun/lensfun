@@ -2570,8 +2570,8 @@ private:
         virtual  ~lfCallbackData() {}
         int priority;
 
-        bool operator<(const lfCallbackData& c) const { return priority < c. priority; }
-        bool operator>(const lfCallbackData& c) const { return c < *this; }
+        bool operator<(const lfCallbackData& c) const { return priority < c.priority; }
+        bool operator>(const lfCallbackData& c) const { return priority > c.priority; }
     };
 
     /// Comparator for pointers to lfCallbackData so that the callback chains
@@ -2579,7 +2579,7 @@ private:
     struct lfCallBackDataPtrComp
     {
         bool operator () (const lfCallbackData* lhs, const lfCallbackData* rhs) const {
-            return *lhs < *rhs;
+            return lhs->priority < rhs->priority;
         }
     };
 
