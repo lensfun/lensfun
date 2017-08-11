@@ -2574,6 +2574,8 @@ private:
         bool operator>(const lfCallbackData& c) const { return c < *this; }
     };
 
+    /// Comparator for pointers to lfCallbackData so that the callback chains
+    /// are ordered by priority.
     struct lfCallBackDataPtrComp
     {
         bool operator () (const lfCallbackData* lhs, const lfCallbackData* rhs) const {
