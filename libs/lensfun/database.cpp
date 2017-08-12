@@ -1178,13 +1178,19 @@ const lfCamera **lfDatabase::FindCameras (const char *maker, const char *model) 
     }
     std::sort(search_result.begin(), search_result.end(), _lf_sort_camera_compare);
 
-    const lfCamera **ret = g_new (const lfCamera *, search_result.size() + 1);
-    memcpy(ret, search_result.data(), search_result.size() * sizeof(lfCamera*));
 
-    // Add a NULL to mark termination of the array
-    ret[search_result.size()] = NULL;
+    if (search_result.size() > 0)
+    {
+        const lfCamera **ret = g_new (const lfCamera *, search_result.size() + 1);
+        memcpy(ret, search_result.data(), search_result.size() * sizeof(lfCamera*));
 
-    return ret;
+        // Add a NULL to mark termination of the array
+        ret[search_result.size()] = NULL;
+
+        return ret;
+    }
+    else
+        return NULL;
 }
 
 bool _lf_compare_camera_score (lfCamera *a, lfCamera *b)
