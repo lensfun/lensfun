@@ -122,13 +122,6 @@ extern void _lf_xml_printf_mlstr (GString *output, const char *prefix,
                                   const char *element, const lfMLstr val);
 
 /**
- * @brief Get the XML id of the given distortion model
- * @param model
- *     The model.
- */
-extern const char *_lf_get_distortion_model_id (lfDistortionModel model);
-
-/**
  * @brief Something like a very advanced strcmp().
  *
  * It doesn't segfault if one or both strings are NULL:
@@ -147,22 +140,6 @@ extern int _lf_strcmp (const char *s1, const char *s2);
  * the result of strcmp() with the first (default) string is returned.
  */
 extern int _lf_mlstrcmp (const char *s1, const lfMLstr s2);
-
-/**
-/**
- * @brief Comparison function for camera sorting and finding.
- *
- * Since this function is used when reading the database, it effectively
- * enforces the primary key for cameras, which is the combination of the
- * attributes Maker, Model, and Variant.
- * @param a
- *     A pointer to first lfCamera object.
- * @param b
- *     A pointer to second lfCamera object.
- * @return
- *     Positive if a > b, negative if a < b, zero if they are equal.
- */
-extern gint _lf_camera_compare (gconstpointer a, gconstpointer b);
 
 /**
  * @brief Comparison helper function for lens sorting and finding.
