@@ -233,6 +233,11 @@ struct LF_EXPORT lfMount
     lfMount &operator = (const lfMount &other);
 
     /**
+     * Comparison operator
+     */
+    bool operator == (const lfMount& other);
+
+    /**
      * @brief Destroy a mount object. All allocated fields are freed.
      */
     ~lfMount ();

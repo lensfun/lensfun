@@ -149,19 +149,6 @@ extern int _lf_strcmp (const char *s1, const char *s2);
 extern int _lf_mlstrcmp (const char *s1, const lfMLstr s2);
 
 /**
- * @brief Comparison function for mount sorting and finding.
- *
- * Since this function is used when reading the database, it effectively
- * enforces the primary key for mounts, which is their Name.
- * @param a
- *     A pointer to first lfMount object.
- * @param b
- *     A pointer to second lfMount object.
- * @return
- *     Positive if a > b, negative if a < b, zero if they are equal.
- */
-extern bool _lf_mount_compare(lfMount *a, lfMount *b);
-
 /**
  * @brief Comparison function for camera sorting and finding.
  *

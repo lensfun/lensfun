@@ -1525,7 +1525,7 @@ const lfMount *lfDatabase::FindMount (const char *mount) const
 
     for (auto m: Mounts)
     {
-        if (_lf_mount_compare(m, &tm))
+        if (*m == tm)
             return m;
     }
 

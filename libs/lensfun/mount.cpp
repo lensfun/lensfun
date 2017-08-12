@@ -43,6 +43,11 @@ lfMount &lfMount::operator = (const lfMount &other)
     return *this;
 }
 
+bool lfMount::operator == (const lfMount& other)
+{
+    return _lf_strcmp (Name, other.Name) == 0;
+}
+
 void lfMount::SetName (const char *val, const char *lang)
 {
     Name = lf_mlstr_add (Name, lang, val);
@@ -61,13 +66,6 @@ bool lfMount::Check ()
     return true;
 }
 
-bool _lf_mount_compare (lfMount *a, lfMount *b)
-{
-    lfMount *i1 = (lfMount *)a;
-    lfMount *i2 = (lfMount *)b;
-
-    return _lf_strcmp (i1->Name, i2->Name) == 0;
-}
 
 //---------------------------// The C interface //---------------------------//
 
