@@ -2566,8 +2566,17 @@ private:
         virtual  ~lfCallbackData() {}
         int priority;
 
-        bool operator>(const lfCallbackData& c) const { return priority > c. priority; }
-        bool operator<(const lfCallbackData& c) const { return priority < c. priority; }
+        bool operator<(const lfCallbackData& c) const { return priority < c.priority; }
+        bool operator>(const lfCallbackData& c) const { return priority > c.priority; }
+    };
+
+    /// Comparator for pointers to lfCallbackData so that the callback chains
+    /// are ordered by priority.
+    struct lfCallBackDataPtrComp
+    {
+        bool operator () (const lfCallbackData* lhs, const lfCallbackData* rhs) const {
+            return lhs->priority < rhs->priority;
+        }
     };
 
     /**
@@ -2690,11 +2699,11 @@ private:
     };
 
     /// A set of subpixel coordinate modifier callbacks.
-    std::set<lfSubpixelCallback*> SubpixelCallbacks;
+    std::multiset<lfSubpixelCallback*, lfCallBackDataPtrComp> SubpixelCallbacks;
     /// A set of pixel color modifier callbacks.
-    std::set<lfColorCallback*> ColorCallbacks;
+    std::multiset<lfColorCallback*, lfCallBackDataPtrComp> ColorCallbacks;
     /// A set of pixel coordinate modifier callbacks.
-    std::set<lfCoordCallback*> CoordCallbacks;
+    std::multiset<lfCoordCallback*, lfCallBackDataPtrComp> CoordCallbacks;
 
     // A test point in the autoscale algorithm
     typedef struct { float angle, dist; } lfPoint;
