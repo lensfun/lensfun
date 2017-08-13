@@ -681,11 +681,11 @@ void lfModifier::ModifyCoord_Perspective_Correction (void *data, float *iocoord,
         float x, y, z_;
         x = iocoord [0] + cddata->delta_a;
         y = iocoord [1] + cddata->delta_b;
-        z_ = A[2][0] * x + A[2][1] * y + A[2][2];
+        z_ = A [2][0] * x + A [2][1] * y + A [2][2];
         if (z_ > 0)
         {
-            iocoord [0] = (A[0][0] * x + A[0][1] * y + A[0][2]) / z_;
-            iocoord [1] = (A[1][0] * x + A[1][1] * y + A[1][2]) / z_;
+            iocoord [0] = (A [0][0] * x + A [0][1] * y + A [0][2]) / z_;
+            iocoord [1] = (A [1][0] * x + A [1][1] * y + A [1][2]) / z_;
         }
         else
             iocoord [0] = iocoord [1] = 1.6e16F;
