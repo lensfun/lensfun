@@ -2041,17 +2041,8 @@ C_TYPEDEF (enum, lfComponentRole)
  * @brief A modifier object contains optimized data required to rectify a
  * image.
  *
- * You can either create an empty modifier object and then enable the
- * required modification functions individually, or you can take
- * a lens object, which contains a set of correction models, and
- * create a modifier object from it.
- *
- * Normally, you will create an instance of lfModifier and initialise
- * immediately it with lfModifier::Initialize, passing a valid lens object in
- * both cases.  Users of the plain C interface will use lf_modifier_new() and
- * lf_modifier_initialize() instead.
- *
- * Every image modification has a corresponding inverse function,
+ * The desired image modifications are added by the EnableXXX() member
+ * functions. Every image modification has a corresponding inverse function,
  * e.g. the library allows both to correct lens distortions and to
  * simulate lens characteristics.
  *
