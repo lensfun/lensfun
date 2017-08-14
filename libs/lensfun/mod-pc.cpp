@@ -715,6 +715,27 @@ void lfModifier::ModifyCoord_Perspective_Correction (void *data, float *iocoord,
     }
 }
 
+void lfModifier::ModifyCoord_Perspective_Distortion (void *data, float *iocoord, int count)
+{
+    lfCoordPerspCallbackData* cddata = (lfCoordPerspCallbackData*) data;
+    float (*A)[3] = cddata->A;
+
+    for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
+    {
+        float x, y, z_;
+        x = iocoord [0];
+        y = iocoord [1];
+        z_ = A [2][0] * x + A [2][1] * y + A [2][2];
+        if (z_ > 0)
+        {
+            iocoord [0] = (A [0][0] * x + A [0][1] * y) / z_ - cddata->delta_a;
+            iocoord [1] = (A [1][0] * x + A [1][1] * y) / z_ - cddata->delta_b;
+        }
+        else
+            iocoord [0] = iocoord [1] = 1.6e16F;
+    }
+}
+
 //---------------------------// The C interface //---------------------------//
 
 cbool lf_modifier_enable_perspective_correction (
