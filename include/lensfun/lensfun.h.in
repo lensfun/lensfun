@@ -274,12 +274,23 @@ C_TYPEDEF (struct, lfMount)
 
 /**
  * @brief Create a new mount object.
+ *
+ * This function is deprecated, use lf_mount_create () instead.
  * @return
  *     A new empty mount object.
  * @sa
  *     lfMount::lfMount()
  */
-LF_EXPORT lfMount *lf_mount_new ();
+DEPRECATED LF_EXPORT lfMount *lf_mount_new ();
+
+/**
+ * @brief Create a new mount object.
+ * @return
+ *     A new empty mount object.
+ * @sa
+ *     lfMount::lfMount()
+ */
+LF_EXPORT lfMount *lf_mount_create();
 
 /**
  * @brief Destroy a lfMount object.
@@ -419,12 +430,24 @@ C_TYPEDEF (struct, lfCamera)
 
 /**
  * @brief Create a new camera object.
+ *
+ * This function is deprecated, use lf_camera_create () instead.
  * @return
  *     A new empty camera object.
  * @sa
  *     lfCamera::lfCamera
  */
-LF_EXPORT lfCamera *lf_camera_new ();
+DEPRECATED LF_EXPORT lfCamera *lf_camera_new ();
+
+/**
+ * @brief Create a new camera object.
+ *
+ * @return
+ *     A new empty camera object.
+ * @sa
+ *     lfCamera::lfCamera
+ */
+LF_EXPORT lfCamera *lf_camera_create ();
 
 /**
  * @brief Destroy a lfCamera object.
@@ -1368,12 +1391,24 @@ C_TYPEDEF (struct, lfLens)
 
 /**
  * @brief Create a new lens object.
+ *
+ * This function is deprecated, use lf_lens_create () instead.
  * @return
  *     A new empty lens object.
  * @sa
  *     lfLens::lfLens
  */
-LF_EXPORT lfLens *lf_lens_new ();
+DEPRECATED LF_EXPORT lfLens *lf_lens_new ();
+
+/**
+ * @brief Create a new lens object.
+ *
+ * @return
+ *     A new empty lens object.
+ * @sa
+ *     lfLens::lfLens
+ */
+LF_EXPORT lfLens *lf_lens_create ();
 
 /**
  * @brief Destroy a lfLens object.
@@ -1839,6 +1874,17 @@ extern const char* const lf_db_user_updates_location;
 /**
  * @brief Create a new empty database object.
  *
+ * This function is deprecated, use lf_db_create () instead.
+ * @return
+ *     A new empty database object.
+ * @sa
+ *     lfDatabase::lfDatabase
+ */
+DEPRECATED LF_EXPORT lfDatabase *lf_db_new (void);
+
+/**
+ * @brief Create a new empty database object.
+ *
  * Usually the application will want to do this at startup,
  * after which it would be a good idea to call lf_db_load().
  * @return
@@ -1846,7 +1892,7 @@ extern const char* const lf_db_user_updates_location;
  * @sa
  *     lfDatabase::lfDatabase
  */
-LF_EXPORT lfDatabase *lf_db_new (void);
+LF_EXPORT lfDatabase *lf_db_create (void);
 
 /**
  * @brief Destroy the database object.
@@ -2813,12 +2859,12 @@ extern "C" {
 
 C_TYPEDEF (struct, lfModifier)
 
-/** @sa lfModifier::Create */
-DEPRECATED LF_EXPORT lfModifier *lf_modifier_create (
+/** @sa lfModifier::lfModifier */
+DEPRECATED LF_EXPORT lfModifier *lf_modifier_new (
     const lfLens *lens, float crop, int width, int height);
 
 /** @sa lfModifier::lfModifier */
-LF_EXPORT lfModifier *lf_modifier_new (
+LF_EXPORT lfModifier *lf_modifier_create (
     float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse);
 
 /** @sa lfModifier::~lfModifier */

@@ -204,13 +204,13 @@ lfModifier::~lfModifier ()
 
 //---------------------------// The C interface //---------------------------//
 
-lfModifier *lf_modifier_new (
+lfModifier *lf_modifier_create (
     float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse)
 {
     return new lfModifier(imgcrop, imgwidth, imgheight, pixel_format, reverse);
 }
 
-lfModifier *lf_modifier_create (
+lfModifier *lf_modifier_new (
     const lfLens *lens, float crop, int width, int height)
 {
     try

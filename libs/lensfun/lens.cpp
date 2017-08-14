@@ -1462,6 +1462,11 @@ lfLens *lf_lens_new ()
     return new lfLens ();
 }
 
+lfLens *lf_lens_create ()
+{
+    return new lfLens ();
+}
+
 void lf_lens_destroy (lfLens *lens)
 {
     delete lens;

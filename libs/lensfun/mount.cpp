@@ -71,6 +71,11 @@ lfMount *lf_mount_new ()
     return new lfMount ();
 }
 
+lfMount *lf_mount_create ()
+{
+    return new lfMount ();
+}
+
 void lf_mount_destroy (lfMount *mount)
 {
     delete mount;

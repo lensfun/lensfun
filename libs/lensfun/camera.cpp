@@ -81,6 +81,11 @@ lfCamera *lf_camera_new ()
     return new lfCamera ();
 }
 
+lfCamera *lf_camera_create ()
+{
+    return new lfCamera ();
+}
+
 void lf_camera_destroy (lfCamera *camera)
 {
     delete camera;

@@ -1581,6 +1581,12 @@ lfDatabase *lf_db_new ()
     return new lfDatabase ();
 }
 
+lfDatabase *lf_db_create ()
+{
+    return new lfDatabase ();
+}
+
+
 void lf_db_destroy (lfDatabase *db)
 {
     db->Destroy ();
