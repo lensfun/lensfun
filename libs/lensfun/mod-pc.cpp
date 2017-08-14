@@ -184,6 +184,30 @@ dvector svd (matrix M)
     return result;
 }
 
+/* This returns the determinant of a 3×3 matrix (rule of Sarrus).
+ */
+double determinant (matrix M) {
+    return M [0][0] * M [1][1] * M [2][2] + M [0][1] * M [1][2] * M [2][0] + M [0][2] * M [1][0] * M [2][1] -
+           M [0][2] * M [1][1] * M [2][0] - M [0][0] * M [1][2] * M [2][1] - M [0][1] * M [1][0] * M [2][2];
+}
+
+/* This returns the inverse of the given 3×3 matrix.
+ */
+matrix inverse_matrix (matrix M) {
+    matrix result (3, dvector (3));
+    double det_inv = 1.0 / determinant (M);
+    result [0][0] = det_inv * (M [1][1] * M [2][2] - M [1][2] * M [2][1]);
+    result [0][1] = det_inv * (M [0][2] * M [2][1] - M [0][1] * M [2][2]);
+    result [0][2] = det_inv * (M [0][1] * M [1][2] - M [0][2] * M [1][1]);
+    result [1][0] = det_inv * (M [1][2] * M [2][0] - M [1][0] * M [2][2]);
+    result [1][1] = det_inv * (M [0][0] * M [2][2] - M [0][2] * M [2][0]);
+    result [1][2] = det_inv * (M [0][2] * M [1][0] - M [0][0] * M [1][2]);
+    result [2][0] = det_inv * (M [1][0] * M [2][1] - M [1][1] * M [2][0]);
+    result [2][1] = det_inv * (M [0][1] * M [2][0] - M [0][0] * M [2][1]);
+    result [2][2] = det_inv * (M [0][0] * M [1][1] - M [0][1] * M [1][0]);
+    return result;
+}
+
 void ellipse_analysis (dvector x, dvector y, double f_normalized, double &x_v, double &y_v,
                        double &center_x, double &center_y)
 {
