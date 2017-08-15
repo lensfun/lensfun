@@ -569,11 +569,6 @@ matrix generate_rotation_matrix (double rho_1, double delta, double rho_2, doubl
 
 bool lfModifier::EnablePerspectiveCorrection (float focal, float *x, float *y, int count, float d)
 {
-    if (Reverse)
-    {
-        g_warning ("[Lensfun] reverse perspective correction is not yet implemented\n");
-        return false;
-    }
     const int number_of_control_points = count;
     double norm_focal = focal / 7.82268578879;
 
@@ -671,23 +666,29 @@ bool lfModifier::EnablePerspectiveCorrection (float focal, float *x, float *y, i
 
     lfCoordPerspCallbackData* cd = new lfCoordPerspCallbackData;
 
-    cd->callback = ModifyCoord_Perspective_Correction;
-    cd->priority = 300;
+    if (!Reverse) {
+        cd->callback = ModifyCoord_Perspective_Correction;
+        cd->priority = 300;
+    } else {
+        cd->callback = ModifyCoord_Perspective_Distortion;
+        cd->priority = 700;
+        A = inverse_matrix (A);
+    }
 
-    /* The occurances of factors and denominators here avoid additional
-       operations in the inner loop of perspective_correction_callback. */
-    cd->A [0][0] = A [0][0] * mapping_scale;
-    cd->A [0][1] = A [0][1] * mapping_scale;
-    cd->A [0][2] = A [0][2] * norm_focal;
-    cd->A [1][1] = A [1][0] * mapping_scale;
-    cd->A [1][1] = A [1][1] * mapping_scale;
-    cd->A [1][2] = A [1][2] * norm_focal;
-    cd->A [2][0] = A [2][0] / center_coords [2];
-    cd->A [2][1] = A [2][1] / center_coords [2];
+    cd->A [0][0] = A [0][0];
+    cd->A [0][1] = A [0][1];
+    cd->A [0][2] = A [0][2];
+    cd->A [1][0] = A [1][0];
+    cd->A [1][1] = A [1][1];
+    cd->A [1][2] = A [1][2];
+    cd->A [2][0] = A [2][0];
+    cd->A [2][1] = A [2][1];
     cd->A [2][2] = A [2][2];
+    cd->norm_focal = norm_focal;
+    cd->center_coords_2 = center_coords [2];
 
-    cd->delta_a = Delta_a / mapping_scale;
-    cd->delta_b = Delta_b / mapping_scale;
+    cd->delta_a = Delta_a;
+    cd->delta_b = Delta_b;
 
     CoordCallbacks.insert(cd);
 
@@ -698,17 +699,22 @@ void lfModifier::ModifyCoord_Perspective_Correction (void *data, float *iocoord,
 {
     lfCoordPerspCallbackData* cddata = (lfCoordPerspCallbackData*) data;
     float (*A)[3] = cddata->A;
+    float norm_focal = cddata->norm_focal;
+    float center_coords_2 = cddata->center_coords_2;
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        float x, y, z_;
-        x = iocoord [0] + cddata->delta_a;
-        y = iocoord [1] + cddata->delta_b;
-        z_ = A [2][0] * x + A [2][1] * y + A [2][2];
+        float x, y, z, z_;
+        x = iocoord [0] + cddata->delta_a / (norm_focal / center_coords_2);
+        y = iocoord [1] + cddata->delta_b / (norm_focal / center_coords_2);
+        z = center_coords_2;
+        iocoord [0] = A [0][0] * x + A [0][1] * y + A [0][2] * z;
+        iocoord [1] = A [1][0] * x + A [1][1] * y + A [1][2] * z;
+                 z_ = A [2][0] * x + A [2][1] * y + A [2][2] * z;
         if (z_ > 0)
         {
-            iocoord [0] = (A [0][0] * x + A [0][1] * y + A [0][2]) / z_;
-            iocoord [1] = (A [1][0] * x + A [1][1] * y + A [1][2]) / z_;
+            iocoord [0] *= norm_focal / z_;
+            iocoord [1] *= norm_focal / z_;
         }
         else
             iocoord [0] = iocoord [1] = 1.6e16F;
@@ -719,17 +725,24 @@ void lfModifier::ModifyCoord_Perspective_Distortion (void *data, float *iocoord,
 {
     lfCoordPerspCallbackData* cddata = (lfCoordPerspCallbackData*) data;
     float (*A)[3] = cddata->A;
+    float norm_focal = cddata->norm_focal;
+    float center_coords_2 = cddata->center_coords_2;
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        float x, y, z_;
+        float x, y, z, z_;
         x = iocoord [0];
         y = iocoord [1];
-        z_ = A [2][0] * x + A [2][1] * y + A [2][2];
+        z = norm_focal;
+        iocoord [0] = A [0][0] * x + A [0][1] * y + A [0][2] * z;
+        iocoord [1] = A [1][0] * x + A [1][1] * y + A [1][2] * z;
+                 z_ = A [2][0] * x + A [2][1] * y + A [2][2] * z;
         if (z_ > 0)
         {
-            iocoord [0] = (A [0][0] * x + A [0][1] * y) / z_ - cddata->delta_a;
-            iocoord [1] = (A [1][0] * x + A [1][1] * y) / z_ - cddata->delta_b;
+            iocoord [0] *= center_coords_2 / z_;
+            iocoord [1] *= center_coords_2 / z_;
+            iocoord [0] -= cddata->delta_a / (norm_focal / center_coords_2);
+            iocoord [1] -= cddata->delta_b / (norm_focal / center_coords_2);
         }
         else
             iocoord [0] = iocoord [1] = 1.6e16F;
