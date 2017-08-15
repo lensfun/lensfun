@@ -9,10 +9,6 @@
 
 lfMount::lfMount ()
 {
-    // Defaults for attributes are "unknown" (mostly 0).  Otherwise, ad hoc
-    // lfLens instances used for searches could not be matched against database
-    // lenses easily.  If you need defaults for database tags, set them when
-    // reading the database.
     Name = NULL;
     Compat = NULL;
 }
@@ -43,10 +39,6 @@ bool lfMount::operator == (const lfMount& other)
 {
     return _lf_strcmp (Name, other.Name) == 0;
 }
-bool lfMount::operator != (const lfMount& other)
-{
-    return _lf_strcmp (Name, other.Name) != 0;
-}
 
 void lfMount::SetName (const char *val, const char *lang)
 {
@@ -72,9 +64,15 @@ bool lfMount::Check ()
     return true;
 }
 
+
 //---------------------------// The C interface //---------------------------//
 
 lfMount *lf_mount_new ()
+{
+    return new lfMount ();
+}
+
+lfMount *lf_mount_create ()
 {
     return new lfMount ();
 }

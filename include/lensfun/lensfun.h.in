@@ -234,6 +234,11 @@ struct LF_EXPORT lfMount
     lfMount &operator = (const lfMount &other);
 
     /**
+     * Comparison operator
+     */
+    bool operator == (const lfMount& other);
+
+    /**
      * @brief Destroy a mount object. All allocated fields are freed.
      */
     ~lfMount ();
@@ -269,9 +274,6 @@ struct LF_EXPORT lfMount
      */
     bool Check ();
 
-    bool operator == (const lfMount& other);
-    bool operator != (const lfMount& other);
-
 private:
     std::set<std::string> MountCompat;
 #endif
@@ -281,12 +283,23 @@ C_TYPEDEF (struct, lfMount)
 
 /**
  * @brief Create a new mount object.
+ *
+ * This function is deprecated, use lf_mount_create () instead.
  * @return
  *     A new empty mount object.
  * @sa
  *     lfMount::lfMount()
  */
-LF_EXPORT lfMount *lf_mount_new ();
+DEPRECATED LF_EXPORT lfMount *lf_mount_new ();
+
+/**
+ * @brief Create a new mount object.
+ * @return
+ *     A new empty mount object.
+ * @sa
+ *     lfMount::lfMount()
+ */
+LF_EXPORT lfMount *lf_mount_create();
 
 /**
  * @brief Destroy a lfMount object.
@@ -426,12 +439,24 @@ C_TYPEDEF (struct, lfCamera)
 
 /**
  * @brief Create a new camera object.
+ *
+ * This function is deprecated, use lf_camera_create () instead.
  * @return
  *     A new empty camera object.
  * @sa
  *     lfCamera::lfCamera
  */
-LF_EXPORT lfCamera *lf_camera_new ();
+DEPRECATED LF_EXPORT lfCamera *lf_camera_new ();
+
+/**
+ * @brief Create a new camera object.
+ *
+ * @return
+ *     A new empty camera object.
+ * @sa
+ *     lfCamera::lfCamera
+ */
+LF_EXPORT lfCamera *lf_camera_create ();
 
 /**
  * @brief Destroy a lfCamera object.
@@ -1379,12 +1404,24 @@ C_TYPEDEF (struct, lfLens)
 
 /**
  * @brief Create a new lens object.
+ *
+ * This function is deprecated, use lf_lens_create () instead.
  * @return
  *     A new empty lens object.
  * @sa
  *     lfLens::lfLens
  */
-LF_EXPORT lfLens *lf_lens_new ();
+DEPRECATED LF_EXPORT lfLens *lf_lens_new ();
+
+/**
+ * @brief Create a new lens object.
+ *
+ * @return
+ *     A new empty lens object.
+ * @sa
+ *     lfLens::lfLens
+ */
+LF_EXPORT lfLens *lf_lens_create ();
 
 /**
  * @brief Destroy a lfLens object.
@@ -1761,25 +1798,6 @@ struct LF_EXPORT lfDatabase
                                const char *model, int sflags = 0) const;
 
     /**
-     * @brief Find a set of lenses that fit certain criteria.
-     * @param lens
-     *     The approximative lense. Uncertain fields may be NULL.
-     *     The "CropFactor" field defines the minimal value for crop factor;
-     *     no lenses with crop factor larger than that will be returned.
-     *     The Mounts field will be scanned for allowed mounts, if NULL
-     *     any mounts are considered compatible.
-     * @param sflags
-     *     Additional flags influencing the search algorithm.
-     *     This is a combination of LF_SEARCH_XXX flags.
-     * @return
-     *     A NULL-terminated list of lenses matching the search criteria
-     *     or NULL if none. Release memory with lf_free(). The list is ordered
-     *     in the most-likely to least-likely order, e.g. the first returned
-     *     value is the most likely match.
-     */
-    const lfLens **FindLenses (const lfLens *lens, int sflags = 0) const;
-
-    /**
      * @brief Retrieve a full list of lenses.
      * @return
      *     An NULL-terminated list containing all lenses loaded until now.
@@ -1817,6 +1835,9 @@ struct LF_EXPORT lfDatabase
 
     /**
      * @brief Add a mount to the database.
+     *
+     * Ownership will be transferred to the lfDatabase class and the respective
+     * object will be deleted when the database object is deleted.
      * @param mount
      *     the mount to add
      */
@@ -1824,6 +1845,9 @@ struct LF_EXPORT lfDatabase
 
     /**
      * @brief Add a camera to the database.
+     *
+     * Ownership will be transferred to the lfDatabase class and the respective
+     * object will be deleted when the database object is deleted.
      * @param camera
      *     the camera to add
      */
@@ -1831,6 +1855,9 @@ struct LF_EXPORT lfDatabase
 
     /**
      * @brief Add a lens to the database.
+     *
+     * Ownership will be transferred to the lfDatabase class and the respective
+     * object will be deleted when the database object is deleted.
      * @param lens
      *     the lens to add
      */
@@ -1860,6 +1887,17 @@ extern const char* const lf_db_user_updates_location;
 /**
  * @brief Create a new empty database object.
  *
+ * This function is deprecated, use lf_db_create () instead.
+ * @return
+ *     A new empty database object.
+ * @sa
+ *     lfDatabase::lfDatabase
+ */
+DEPRECATED LF_EXPORT lfDatabase *lf_db_new (void);
+
+/**
+ * @brief Create a new empty database object.
+ *
  * Usually the application will want to do this at startup,
  * after which it would be a good idea to call lf_db_load().
  * @return
@@ -1867,7 +1905,7 @@ extern const char* const lf_db_user_updates_location;
  * @sa
  *     lfDatabase::lfDatabase
  */
-LF_EXPORT lfDatabase *lf_db_new (void);
+LF_EXPORT lfDatabase *lf_db_create (void);
 
 /**
  * @brief Destroy the database object.
@@ -1925,13 +1963,14 @@ LF_EXPORT const lfCamera **lf_db_find_cameras_ext (
 LF_EXPORT const lfCamera *const *lf_db_get_cameras (lfDatabase *db);
 
 /** @sa lfDatabase::FindLenses(const lfCamera *, const char *, const char *) */
-LF_EXPORT const lfLens **lf_db_find_lenses_hd (
+DEPRECATED LF_EXPORT const lfLens **lf_db_find_lenses_hd (
     const lfDatabase *db, const lfCamera *camera, const char *maker,
     const char *lens, int sflags);
 
-/** @sa lfDatabase::FindLenses(const lfCamera *, const lfLens *) */
+/** @sa lfDatabase::FindLenses(const lfCamera *, const char *, const char *) */
 LF_EXPORT const lfLens **lf_db_find_lenses (
-    const lfDatabase *db, const lfLens *lens, int sflags);
+    const lfDatabase *db, const lfCamera *camera,
+    const char *maker, const char *lens, int sflags);
 
 /** @sa lfDatabase::GetLenses */
 LF_EXPORT const lfLens *const *lf_db_get_lenses (lfDatabase *db);
@@ -2061,17 +2100,8 @@ C_TYPEDEF (enum, lfComponentRole)
  * @brief A modifier object contains optimized data required to rectify a
  * image.
  *
- * You can either create an empty modifier object and then enable the
- * required modification functions individually, or you can take
- * a lens object, which contains a set of correction models, and
- * create a modifier object from it.
- *
- * Normally, you will create an instance of lfModifier and initialise
- * immediately it with lfModifier::Initialize, passing a valid lens object in
- * both cases.  Users of the plain C interface will use lf_modifier_new() and
- * lf_modifier_initialize() instead.
- *
- * Every image modification has a corresponding inverse function,
+ * The desired image modifications are added by the EnableXXX() member
+ * functions. Every image modification has a corresponding inverse function,
  * e.g. the library allows both to correct lens distortions and to
  * simulate lens characteristics.
  *
@@ -2586,8 +2616,17 @@ private:
         virtual  ~lfCallbackData() {}
         int priority;
 
-        bool operator>(const lfCallbackData& c) const { return priority > c. priority; }
-        bool operator<(const lfCallbackData& c) const { return priority < c. priority; }
+        bool operator<(const lfCallbackData& c) const { return priority < c.priority; }
+        bool operator>(const lfCallbackData& c) const { return priority > c.priority; }
+    };
+
+    /// Comparator for pointers to lfCallbackData so that the callback chains
+    /// are ordered by priority.
+    struct lfCallBackDataPtrComp
+    {
+        bool operator () (const lfCallbackData* lhs, const lfCallbackData* rhs) const {
+            return lhs->priority < rhs->priority;
+        }
     };
 
     /**
@@ -2710,11 +2749,11 @@ private:
     };
 
     /// A set of subpixel coordinate modifier callbacks.
-    std::set<lfSubpixelCallback*> SubpixelCallbacks;
+    std::multiset<lfSubpixelCallback*, lfCallBackDataPtrComp> SubpixelCallbacks;
     /// A set of pixel color modifier callbacks.
-    std::set<lfColorCallback*> ColorCallbacks;
+    std::multiset<lfColorCallback*, lfCallBackDataPtrComp> ColorCallbacks;
     /// A set of pixel coordinate modifier callbacks.
-    std::set<lfCoordCallback*> CoordCallbacks;
+    std::multiset<lfCoordCallback*, lfCallBackDataPtrComp> CoordCallbacks;
 
     // A test point in the autoscale algorithm
     typedef struct { float angle, dist; } lfPoint;
@@ -2833,12 +2872,12 @@ extern "C" {
 
 C_TYPEDEF (struct, lfModifier)
 
-/** @sa lfModifier::Create */
-DEPRECATED LF_EXPORT lfModifier *lf_modifier_create (
+/** @sa lfModifier::lfModifier */
+DEPRECATED LF_EXPORT lfModifier *lf_modifier_new (
     const lfLens *lens, float crop, int width, int height);
 
 /** @sa lfModifier::lfModifier */
-LF_EXPORT lfModifier *lf_modifier_new (
+LF_EXPORT lfModifier *lf_modifier_create (
     float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse);
 
 /** @sa lfModifier::~lfModifier */

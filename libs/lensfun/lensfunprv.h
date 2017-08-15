@@ -106,13 +106,6 @@ extern void _lf_xml_printf_mlstr (GString *output, const char *prefix,
                                   const char *element, const lfMLstr val);
 
 /**
- * @brief Get the XML id of the given distortion model
- * @param model
- *     The model.
- */
-extern const char *_lf_get_distortion_model_id (lfDistortionModel model);
-
-/**
  * @brief Something like a very advanced strcmp().
  *
  * It doesn't segfault if one or both strings are NULL:
@@ -166,21 +159,6 @@ extern gint _lf_lens_parameters_compare (const lfLens *i1, const lfLens *i2);
 extern gint _lf_lens_name_compare (const lfLens *i1, const lfLens *i2);
 
 /**
- * @brief Comparison function for lens sorting and finding.
- *
- * Since this function is used when reading the database, it effectively
- * enforces the primary key for lenses, which is the combination of the
- * attributes Maker, Model, and CropFactor.
- * @param a
- *     A pointer to first lfLens object.
- * @param b
- *     A pointer to second lfLens object.
- * @return
- *     Positive if a > b, negative if a < b, zero if they are equal.
- */
-extern gint _lf_lens_compare (gconstpointer a, gconstpointer b);
-
-/**
  * @brief Get an interpolated value.
  *
  * Currently this uses a kind of Catmull-Rom splines with linear
@@ -203,32 +181,6 @@ extern gint _lf_lens_compare (gconstpointer a, gconstpointer b);
  *     between points 2 and 3.
  */
 extern float _lf_interpolate (float y1, float y2, float y3, float y4, float t);
-
-/**
- * @brief Compare a lens with a pattern and return a matching score.
- *
- * The comparison is quasi-intelligent: the order of words in a name
- * does not matter; the more words from match are present in the pattern,
- * the higher is score. Numeric parameters have to coincide or not be specified
- * at all, otherwise the score drops to zero (well, a 1% tolerance is allowed
- * for rounding errors etc).
- * @param pattern
- *     A pattern to compare against. Unsure fields should be set to NULL.
- *     It is generally a good idea to call GuessParameters() first since
- *     that may give additional info for quicker comparison.
- * @param match
- *     The object to match against.
- * @param fuzzycmp
- *     A fuzzy comparator initialized with pattern->Model.
- * @param compat_mounts
- *     An additional list of compatible mounts.
- * @return
- *     A numeric score in the range 0 to 100, where 100 means that
- *     every field matches and 0 means that at least one field is
- *     fundamentally different.
- */
-extern int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
-                                   lfFuzzyStrCmp *fuzzycmp, const std::vector<std::string> &compat_mounts);
 
 enum
 {

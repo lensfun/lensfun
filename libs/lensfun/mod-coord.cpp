@@ -171,13 +171,13 @@ bool lfModifier::EnableProjectionTransform (const lfLens* lens, float focal, lfL
         norm_focal = real_focal / normalized_in_millimeters;
     }
 
-    lfLensType from = target_projection;
-    lfLensType to = lens->Type;
+    lfLensType from = lens->Type;
+    lfLensType to = target_projection;
 
     if (Reverse)
     {
-        from = lens->Type;
-        to = target_projection;
+        from = target_projection;
+        to = lens->Type;
     }
 
     // handle special cases

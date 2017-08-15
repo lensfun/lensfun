@@ -152,12 +152,6 @@ lfLens::~lfLens ()
         _lf_free_lens_regex ();
 }
 
-static bool cmp_distortion (const void *x1, const void *x2);
-static bool cmp_vignetting (const void *x1, const void *x2);
-static bool cmp_tca (const void *x1, const void *x2);
-static bool cmp_lenscrop (const void *x1, const void *x2);
-static bool cmp_lensfov (const void *x1, const void *x2);
-
 lfLens::lfLens (const lfLens &other)
 {
     Maker = lf_mlstr_dup (other.Maker);
@@ -717,13 +711,6 @@ bool lfLens::GetCalibrationSet(const lfLensCalibAttributes* lcattr, lfLensCalibr
     return true;
 }
 
-static bool cmp_distortion (const void *x1, const void *x2)
-{
-    const lfLensCalibDistortion *d1 = static_cast<const lfLensCalibDistortion *> (x1);
-    const lfLensCalibDistortion *d2 = static_cast<const lfLensCalibDistortion *> (x2);
-    return (d1->Focal == d2->Focal);
-}
-
 void lfLens::AddCalibDistortion (const lfLensCalibDistortion *plcd)
 {
     lfLensCalibrationSet* calibSet;
@@ -748,13 +735,6 @@ bool lfLens::RemoveCalibDistortion (int idx)
     UpdateLegacyCalibPointers();
 }
 
-static bool cmp_tca (const void *x1, const void *x2)
-{
-    const lfLensCalibTCA *t1 = static_cast<const lfLensCalibTCA *> (x1);
-    const lfLensCalibTCA *t2 = static_cast<const lfLensCalibTCA *> (x2);
-    return (t1->Focal == t2->Focal);
-}
-
 void lfLens::AddCalibTCA (const lfLensCalibTCA *plctca)
 {
     lfLensCalibrationSet* calibSet;
@@ -776,15 +756,6 @@ bool lfLens::RemoveCalibTCA (int idx)
     delete Calibrations[0]->CalibTCA[idx];
     Calibrations[0]->CalibTCA.erase(Calibrations[0]->CalibTCA.begin() + idx);
     UpdateLegacyCalibPointers();
-}
-
-static bool cmp_vignetting (const void *x1, const void *x2)
-{
-    const lfLensCalibVignetting *v1 = static_cast<const lfLensCalibVignetting *> (x1);
-    const lfLensCalibVignetting *v2 = static_cast<const lfLensCalibVignetting *> (x2);
-    return (v1->Focal == v2->Focal) &&
-           (v1->Distance == v2->Distance) &&
-           (v1->Aperture == v2->Aperture);
 }
 
 void lfLens::AddCalibVignetting (const lfLensCalibVignetting *plcv)
@@ -811,13 +782,6 @@ bool lfLens::RemoveCalibVignetting (int idx)
     UpdateLegacyCalibPointers();
 }
 
-static bool cmp_lenscrop (const void *x1, const void *x2)
-{
-    const lfLensCalibCrop *d1 = static_cast<const lfLensCalibCrop *> (x1);
-    const lfLensCalibCrop *d2 = static_cast<const lfLensCalibCrop *> (x2);
-    return (d1->Focal == d2->Focal);
-}
-
 void lfLens::AddCalibCrop (const lfLensCalibCrop *plcc)
 {
     lfLensCalibrationSet* calibSet;
@@ -840,13 +804,6 @@ bool lfLens::RemoveCalibCrop (int idx)
     Calibrations[0]->CalibCrop.erase(Calibrations[0]->CalibCrop.begin() + idx);
 
     UpdateLegacyCalibPointers();
-}
-
-static bool cmp_lensfov (const void *x1, const void *x2)
-{
-    const lfLensCalibFov *d1 = static_cast<const lfLensCalibFov *> (x1);
-    const lfLensCalibFov *d2 = static_cast<const lfLensCalibFov *> (x2);
-    return (d1->Focal == d2->Focal);
 }
 
 void lfLens::AddCalibFov (const lfLensCalibFov *plcf)
@@ -1502,172 +1459,15 @@ gint _lf_lens_name_compare (const lfLens *i1, const lfLens *i2)
     return _lf_strcmp (i1->Model, i2->Model);
 }
 
-gint _lf_lens_compare (gconstpointer a, gconstpointer b)
-{
-    lfLens *i1 = (lfLens *)a;
-    lfLens *i2 = (lfLens *)b;
-
-    int cmp = _lf_lens_name_compare (i1, i2);
-    if (cmp != 0)
-        return cmp;
-
-    const lfLensCalibrations c1 = i1->GetCalibrations();
-    const lfLensCalibrations c2 = i2->GetCalibrations();
-    return int ((i1->CropFactor - i2->CropFactor) * 100);
-}
-
-static int _lf_compare_num (float a, float b)
-{
-    if (!a || !b)
-        return 0; // neutral
-
-    float r = a / b;
-    if (r <= 0.99 || r >= 1.01)
-        return -1; // strong no
-    return +1; // strong yes
-}
-
-int _lf_lens_compare_score (const lfLens *pattern, const lfLens *match,
-                            lfFuzzyStrCmp *fuzzycmp, const std::vector<std::string>& compat_mounts)
-{
-    int score = 0;
-
-    // Compare numeric fields first since that's easy.
-
-    if (pattern->Type != LF_UNKNOWN)
-        if (pattern->Type != match->Type)
-            return 0;
-
-    const lfLensCalibrations pc = pattern->GetCalibrations();
-    const lfLensCalibrations mc = match->GetCalibrations();
-    if (!pc.empty() && !mc.empty()) {
-        if (pc[0]->attr.CropFactor > 0.01 && pc[0]->attr.CropFactor < mc[0]->attr.CropFactor * 0.96)
-            return 0;
-
-        if (pc[0]->attr.CropFactor >= mc[0]->attr.CropFactor * 1.41)
-            score += 2;
-        else if (pc[0]->attr.CropFactor >= mc[0]->attr.CropFactor * 1.31)
-            score += 4;
-        else if (pc[0]->attr.CropFactor >= mc[0]->attr.CropFactor * 1.21)
-            score += 6;
-        else if (pc[0]->attr.CropFactor >= mc[0]->attr.CropFactor * 1.11)
-            score += 8;
-        else if (pc[0]->attr.CropFactor >= mc[0]->attr.CropFactor * 1.01)
-            score += 10;
-        else if (pc[0]->attr.CropFactor >= mc[0]->attr.CropFactor)
-            score += 5;
-        else if (pc[0]->attr.CropFactor >= mc[0]->attr.CropFactor * 0.96)
-            score += 3;
-    }
-    switch (_lf_compare_num (pattern->MinFocal, match->MinFocal))
-    {
-        case -1:
-            return 0;
-
-        case +1:
-            score += 10;
-            break;
-    }
-
-    switch (_lf_compare_num (pattern->MaxFocal, match->MaxFocal))
-    {
-        case -1:
-            return 0;
-
-        case +1:
-            score += 10;
-            break;
-    }
-
-    switch (_lf_compare_num (pattern->MinAperture, match->MinAperture))
-    {
-        case -1:
-            return 0;
-
-        case +1:
-            score += 10;
-            break;
-    }
-
-    switch (_lf_compare_num (pattern->MaxAperture, match->MaxAperture))
-    {
-        case -1:
-            return 0;
-
-        case +1:
-            score += 10;
-            break;
-    }
-
-    if (!pc.empty() && !mc.empty()) {
-        switch (_lf_compare_num (pc[0]->attr.AspectRatio, mc[0]->attr.AspectRatio))
-        {
-            case -1:
-                return 0;
-
-            case +1:
-                score += 10;
-                break;
-        }
-    }
-
-    // Check the lens mount, if specified
-    const auto match_mounts   = match->GetMountNames();
-    const auto pattern_mounts = pattern->GetMountNames();
-    if (!match_mounts.empty() && (!pattern_mounts.empty() || !compat_mounts.empty()))
-    {
-        bool matching_mount_found = false;
-
-        for (const auto& pm: pattern_mounts)
-            for (const auto& mm: match_mounts)
-                if (!_lf_strcmp (pm.c_str(), mm.c_str()))
-                {
-                    matching_mount_found = true;
-                    score += 10;
-                    goto exit_mount_search;
-                }
-
-        for (const auto& cm: compat_mounts)
-            for (const auto& mm: match_mounts)
-                if (!_lf_strcmp (cm.c_str(), mm.c_str()))
-                {
-                    matching_mount_found = true;
-                    score += 9;
-                    goto exit_mount_search;
-                }
-
-    exit_mount_search:
-        if (!matching_mount_found)
-            return 0;
-    }
-
-    // If maker is specified, check it using our patented _lf_strcmp(tm) technology
-    if (pattern->Maker && match->Maker)
-    {
-        if (_lf_mlstrcmp (pattern->Maker, match->Maker) != 0)
-            return 0; // Bah! different maker.
-        else
-            score += 10; // Good doggy, here's a cookie
-    }
-
-    // And now the most complex part - compare models
-    if (pattern->Model && match->Model)
-    {
-        int _score = fuzzycmp->Compare (match->Model);
-        if (!_score)
-            return 0; // Model does not match
-        _score = (_score * 4) / 10;
-        if (!_score)
-            _score = 1;
-        score += _score;
-    }
-
-    return score;
-}
 
 //---------------------------// The C interface //---------------------------//
 
 lfLens *lf_lens_new ()
+{
+    return new lfLens ();
+}
+
+lfLens *lf_lens_create ()
 {
     return new lfLens ();
 }

@@ -42,6 +42,9 @@ lfDatabase::lfDatabase ()
 
 lfDatabase::~lfDatabase ()
 {
+    free(HomeDataDir);
+    free(UserUpdatesDir);
+
     for (auto m : Mounts)
         delete m;
     for (auto c : Cameras)
@@ -1151,6 +1154,11 @@ int __find_camera_compare (lfCamera *a, lfCamera *b)
     return 0;
 }
 
+bool _lf_sort_camera_compare (lfCamera* a, lfCamera* b)
+{
+    return __find_camera_compare(a, b) < 0;
+}
+
 const lfCamera **lfDatabase::FindCameras (const char *maker, const char *model) const
 {
     if (maker && !*maker)
@@ -1165,18 +1173,24 @@ const lfCamera **lfDatabase::FindCameras (const char *maker, const char *model) 
     std::vector<lfCamera*> search_result;
     for (auto c: Cameras)
     {
-        if (__find_camera_compare(c, &tc))
+        if (!__find_camera_compare(c, &tc))
             search_result.push_back(c);
     }
-    std::sort(search_result.begin(), search_result.end(), __find_camera_compare);
+    std::sort(search_result.begin(), search_result.end(), _lf_sort_camera_compare);
 
-    const lfCamera **ret = g_new (const lfCamera *, search_result.size() + 1);
-    memcpy(ret, search_result.data(), search_result.size() * sizeof(lfCamera*));
 
-    // Add a NULL to mark termination of the array
-    ret[search_result.size()] = NULL;
+    if (search_result.size() > 0)
+    {
+        const lfCamera **ret = g_new (const lfCamera *, search_result.size() + 1);
+        memcpy(ret, search_result.data(), search_result.size() * sizeof(lfCamera*));
 
-    return ret;
+        // Add a NULL to mark termination of the array
+        ret[search_result.size()] = NULL;
+
+        return ret;
+    }
+    else
+        return NULL;
 }
 
 bool _lf_compare_camera_score (lfCamera *a, lfCamera *b)
@@ -1210,13 +1224,18 @@ const lfCamera **lfDatabase::FindCamerasExt (const char *maker, const char *mode
 
     std::sort(search_result.begin(), search_result.end(), _lf_compare_camera_score);
 
-    const lfCamera **ret = g_new (const lfCamera *, search_result.size() + 1);
-    memcpy(ret, search_result.data(), search_result.size() * sizeof(lfCamera*));
+    if (search_result.size() > 0)
+    {
+        const lfCamera **ret = g_new (const lfCamera *, search_result.size() + 1);
+        memcpy(ret, search_result.data(), search_result.size() * sizeof(lfCamera*));
 
-    // Add a NULL to mark termination of the array
-    ret[search_result.size()] = NULL;
+        // Add a NULL to mark termination of the array
+        ret[search_result.size()] = NULL;
 
-    return ret;
+        return ret;
+    }
+    else
+        return NULL;
 }
 
 const lfCamera *const *lfDatabase::GetCameras ()
@@ -1227,35 +1246,172 @@ const lfCamera *const *lfDatabase::GetCameras ()
     return Cameras.data();
 }
 
-const lfLens **lfDatabase::FindLenses (const lfCamera *camera,
-                                       const char *maker, const char *model,
-                                       int sflags) const
+static int _lf_compare_num (float a, float b)
 {
-    if (maker && !*maker)
-        maker = NULL;
-    if (model && !*model)
-        model = NULL;
+    if (!a || !b)
+        return 0; // neutral
 
-    lfLens lens;
-    lens.SetMaker (maker);
-    lens.SetModel (model);
-    if (camera)
-        lens.AddMount (camera->Mount);
-    // Guess lens parameters from lens model name
-    lens.GuessParameters ();
-
-    // achieve backwards compatibility to lensfun prior to 0.4.0
-    lens.CropFactor = camera ? camera->CropFactor : 0.0;
-
-    return FindLenses (&lens, sflags);
+    float r = a / b;
+    if (r <= 0.99 || r >= 1.01)
+        return -1; // strong no
+    return +1; // strong yes
 }
 
-static gint _lf_compare_lens_score (gconstpointer a, gconstpointer b)
+/**
+ * @brief Compare a lens with a pattern and return a matching score.
+ *
+ * The comparison is quasi-intelligent: the order of words in a name
+ * does not matter; the more words from match are present in the pattern,
+ * the higher is score. Numeric parameters have to coincide or not be specified
+ * at all, otherwise the score drops to zero (well, a 1% tolerance is allowed
+ * for rounding errors etc).
+ * @param pattern
+ *     A pattern to compare against. Unsure fields should be set to NULL.
+ *     It is generally a good idea to call GuessParameters() first since
+ *     that may give additional info for quicker comparison.
+ * @param match
+ *     The object to match against.
+ * @param camera
+ *      The camera.
+ * @param fuzzycmp
+ *     A fuzzy comparator initialized with pattern->Model
+ * @param compat_mounts
+ *     An additional list of compatible mounts, can be NULL.
+ *     This does not include the mounts from pattern->Mounts.
+ * @return
+ *     A numeric score in the range 0 to 100, where 100 means that
+ *     every field matches and 0 means that at least one field is
+ *     fundamentally different.
+ */
+int _lf_lens_calculate_score (const lfLens *pattern, const lfLens *match, const lfCamera *camera,
+                            lfFuzzyStrCmp *fuzzycmp, const char **compat_mounts)
+{
+    int score = 0;
+
+    // Compare numeric fields first since that's easy.
+
+    const lfLensCalibrations mc = match->GetCalibrations();
+    if (camera != NULL && !mc.empty()) {
+        if (camera->CropFactor > 0.01 && camera->CropFactor < mc[0]->attr.CropFactor * 0.96)
+            return 0;
+
+        if (camera->CropFactor >= mc[0]->attr.CropFactor * 1.41)
+            score += 2;
+        else if (camera->CropFactor >= mc[0]->attr.CropFactor * 1.31)
+            score += 4;
+        else if (camera->CropFactor >= mc[0]->attr.CropFactor * 1.21)
+            score += 6;
+        else if (camera->CropFactor >= mc[0]->attr.CropFactor * 1.11)
+            score += 8;
+        else if (camera->CropFactor >= mc[0]->attr.CropFactor * 1.01)
+            score += 10;
+        else if (camera->CropFactor >= mc[0]->attr.CropFactor)
+            score += 5;
+        else if (camera->CropFactor >= mc[0]->attr.CropFactor * 0.96)
+            score += 3;
+    }
+    switch (_lf_compare_num (pattern->MinFocal, match->MinFocal))
+    {
+        case -1:
+            return 0;
+
+        case +1:
+            score += 10;
+            break;
+    }
+
+    switch (_lf_compare_num (pattern->MaxFocal, match->MaxFocal))
+    {
+        case -1:
+            return 0;
+
+        case +1:
+            score += 10;
+            break;
+    }
+
+    switch (_lf_compare_num (pattern->MinAperture, match->MinAperture))
+    {
+        case -1:
+            return 0;
+
+        case +1:
+            score += 10;
+            break;
+    }
+
+    switch (_lf_compare_num (pattern->MaxAperture, match->MaxAperture))
+    {
+        case -1:
+            return 0;
+
+        case +1:
+            score += 10;
+            break;
+    }
+
+    if (compat_mounts && !compat_mounts [0])
+        compat_mounts = NULL;
+
+    // Check the lens mount, if specified
+    if (match->Mounts && (camera || compat_mounts))
+    {
+        bool matching_mount_found = false;
+
+        if (camera && camera->Mount)
+            for (int j = 0; match->Mounts [j]; j++)
+                if (!_lf_strcmp (camera->Mount, match->Mounts [j]))
+                {
+                    matching_mount_found = true;
+                    score += 10;
+                    goto exit_mount_search;
+                }
+
+        if (compat_mounts)
+            for (int i = 0; compat_mounts [i]; i++)
+                for (int j = 0; match->Mounts [j]; j++)
+                    if (!_lf_strcmp (compat_mounts [i], match->Mounts [j]))
+                    {
+                        matching_mount_found = true;
+                        score += 9;
+                        goto exit_mount_search;
+                    }
+
+    exit_mount_search:
+        if (!matching_mount_found)
+            return 0;
+    }
+
+    // If maker is specified, check it using our patented _lf_strcmp(tm) technology
+    if (pattern->Maker && match->Maker)
+    {
+        if (_lf_mlstrcmp (pattern->Maker, match->Maker) != 0)
+            return 0; // Bah! different maker.
+        else
+            score += 10; // Good doggy, here's a cookie
+    }
+
+    // And now the most complex part - compare models
+    if (pattern->Model && match->Model)
+    {
+        int _score = fuzzycmp->Compare (match->Model);
+        if (!_score)
+            return 0; // Model does not match
+        _score = (_score * 4) / 10;
+        if (!_score)
+            _score = 1;
+        score += _score;
+    }
+
+    return score;
+}
+
+static bool _lf_compare_lens_score (gconstpointer a, gconstpointer b)
 {
     lfLens *i1 = (lfLens *)a;
     lfLens *i2 = (lfLens *)b;
 
-    return i2->Score - i1->Score;
+    return i2->Score < i1->Score;
 }
 
 static gint _lf_compare_lens_details (gconstpointer a, gconstpointer b)
@@ -1272,40 +1428,52 @@ static gint _lf_compare_lens_details (gconstpointer a, gconstpointer b)
     return _lf_lens_name_compare (i1, i2);
 }
 
-const lfLens **lfDatabase::FindLenses (const lfLens *lens, int sflags) const
+bool _lf_sort_lens_details (lfLens* a, lfLens* b)
 {
-    std::vector<std::string> compat_mounts;
-    std::vector<lfLens*> search_res;
+    return _lf_compare_lens_details(a, b) < 0;
+}
 
-    lfFuzzyStrCmp fc (lens->Model, (sflags & LF_SEARCH_LOOSE) == 0);
+
+const lfLens **lfDatabase::FindLenses (const lfCamera *camera,
+                                       const char *maker, const char *model,
+                                       int sflags) const
+{
+    if (maker && !*maker)
+        maker = NULL;
+    if (model && !*model)
+        model = NULL;
+
+    lfLens lens;
+    lens.SetMaker (maker);
+    lens.SetModel (model);
+
+    // Guess lens parameters from lens model name
+    lens.GuessParameters ();
+
+    std::vector<char*> mounts;
+    std::vector<lfLens*>  search_res;
+
+    lfFuzzyStrCmp fc (lens.Model, (sflags & LF_SEARCH_LOOSE) == 0);
 
     // Create a list of compatible mounts
-    for (const auto mount_name: lens->GetMountNames())
+    if ((camera != NULL) && (camera->Mount))
     {
-        const auto mount = FindMount (mount_name.c_str());
-        const auto compat = mount->GetCompats();
-        for (auto mc: compat)
-        {
-            // Check if the mount is not already in the main list
-            bool already = false;
-            for (const auto mount_name: lens->GetMountNames())
-                if (_lf_strcmp (mc.c_str(), mount_name.c_str()) == 0)
-                {
-                    already = true;
-                    break;
-                }
-            if (!already)
-                compat_mounts.emplace_back(mc);
-        }
+        const lfMount *m = FindMount (camera->Mount);
+        if ((m != NULL) && (m->Compat))
+            for (int i = 0; m->Compat [i]; i++)
+                mounts.push_back(m->Compat [i]);
     }
-    std::unique(compat_mounts.begin(), compat_mounts.end());
+
+    size_t l = mounts.size();
+    mounts.reserve(l + 1);
+    mounts.data()[l] = NULL;
 
     int score;
     const bool sort_and_uniquify = (sflags & LF_SEARCH_SORT_AND_UNIQUIFY) != 0;
 
     for (auto dblens: Lenses)
     {
-        if (score = _lf_lens_compare_score (lens, dblens, &fc, compat_mounts))
+        if ((score = _lf_lens_calculate_score (&lens, dblens, camera, &fc, (const char**)mounts.data())) > 0)
         {
             dblens->Score = score;
             if (sort_and_uniquify)
@@ -1330,16 +1498,23 @@ const lfLens **lfDatabase::FindLenses (const lfLens *lens, int sflags) const
     }
 
     if (sort_and_uniquify)
-        std::sort(search_res.begin(), search_res.end(), _lf_compare_lens_details);
+        std::sort(search_res.begin(), search_res.end(), _lf_sort_lens_details);
+    else
+        std::sort(search_res.begin(), search_res.end(), _lf_compare_lens_score);
 
-    const lfLens **ret = g_new (const lfLens *, search_res.size() + 1);
-    memcpy(ret, search_res.data(), search_res.size() * sizeof(lfCamera*));
+    if (search_res.size() > 0)
+    {
+        const lfLens **ret = g_new (const lfLens *, search_res.size() + 1);
+        memcpy(ret, search_res.data(), search_res.size() * sizeof(lfLens*));
 
-    // Add a NULL to mark termination of the array
-    ret[search_res.size()] = NULL;
-
-    return ret;
+        // Add a NULL to mark termination of the array
+        ret[search_res.size()] = NULL;
+        return ret;
+    }
+    else
+        return NULL;
 }
+
 
 const lfLens *const *lfDatabase::GetLenses ()
 {
@@ -1356,7 +1531,7 @@ const lfMount *lfDatabase::FindMount (const char *mount) const
 
     for (const auto m: Mounts)
     {
-        if (tm != *m)
+        if (*m == tm)
             return m;
     }
 
@@ -1405,6 +1580,12 @@ lfDatabase *lf_db_new ()
 {
     return new lfDatabase ();
 }
+
+lfDatabase *lf_db_create ()
+{
+    return new lfDatabase ();
+}
+
 
 void lf_db_destroy (lfDatabase *db)
 {
@@ -1479,10 +1660,12 @@ const lfLens **lf_db_find_lenses_hd (const lfDatabase *db, const lfCamera *camer
     return db->FindLenses (camera, maker, lens, sflags);
 }
 
-const lfLens **lf_db_find_lenses (const lfDatabase *db, const lfLens *lens, int sflags)
+const lfLens **lf_db_find_lenses (const lfDatabase *db, const lfCamera *camera,
+                                    const char *maker, const char *lens, int sflags)
 {
-    return db->FindLenses (lens, sflags);
+    return db->FindLenses (camera, maker, lens, sflags);
 }
+
 
 const lfLens *const *lf_db_get_lenses (lfDatabase *db)
 {
