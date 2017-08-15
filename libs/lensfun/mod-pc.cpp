@@ -669,26 +669,35 @@ bool lfModifier::EnablePerspectiveCorrection (float focal, float *x, float *y, i
     if (!Reverse) {
         cd->callback = ModifyCoord_Perspective_Correction;
         cd->priority = 300;
+
+        /* The occurances of factors and denominators here avoid additional
+           operations in the inner loop of perspective_correction_callback. */
+        cd->A [0][0] = A [0][0] * mapping_scale;
+        cd->A [0][1] = A [0][1] * mapping_scale;
+        cd->A [0][2] = A [0][2] * mapping_scale * center_coords [2];
+        cd->A [1][0] = A [1][0] * mapping_scale;
+        cd->A [1][1] = A [1][1] * mapping_scale;
+        cd->A [1][2] = A [1][2] * mapping_scale * center_coords [2];
+        cd->A [2][0] = A [2][0] / center_coords [2];
+        cd->A [2][1] = A [2][1] / center_coords [2];
+        cd->A [2][2] = A [2][2];
     } else {
         cd->callback = ModifyCoord_Perspective_Distortion;
         cd->priority = 700;
         A = inverse_matrix (A);
+
+        /* The occurances of factors and denominators here avoid additional
+           operations in the inner loop of perspective_correction_callback. */
+        cd->A [0][0] = A [0][0];
+        cd->A [0][1] = A [0][1];
+        cd->A [0][2] = A [0][2] * mapping_scale * center_coords [2];
+        cd->A [1][0] = A [1][0];
+        cd->A [1][1] = A [1][1];
+        cd->A [1][2] = A [1][2] * mapping_scale * center_coords [2];
+        cd->A [2][0] = A [2][0] / center_coords [2];
+        cd->A [2][1] = A [2][1] / center_coords [2];
+        cd->A [2][2] = A [2][2] * mapping_scale;
     }
-
-    /* The occurances of factors and denominators here avoid additional
-       operations in the inner loop of perspective_correction_callback. */
-    cd->A [0][0] = A [0][0] * mapping_scale;
-    cd->A [0][1] = A [0][1] * mapping_scale;
-    cd->A [0][2] = A [0][2] * mapping_scale * center_coords [2];
-    cd->A [1][0] = A [1][0] * mapping_scale;
-    cd->A [1][1] = A [1][1] * mapping_scale;
-    cd->A [1][2] = A [1][2] * mapping_scale * center_coords [2];
-    cd->A [2][0] = A [2][0] / center_coords [2];
-    cd->A [2][1] = A [2][1] / center_coords [2];
-    cd->A [2][2] = A [2][2];
-    cd->norm_focal = norm_focal;
-    cd->center_coords_2 = center_coords [2];
-
 
     cd->delta_a = Delta_a / mapping_scale;
     cd->delta_b = Delta_b / mapping_scale;
@@ -722,22 +731,22 @@ void lfModifier::ModifyCoord_Perspective_Correction (void *data, float *iocoord,
 
 void lfModifier::ModifyCoord_Perspective_Distortion (void *data, float *iocoord, int count)
 {
+    /* This callback could be merged into ModifyCoord_Perspective_Correction if
+     * we had a dedicated panning callback. */
     lfCoordPerspCallbackData* cddata = (lfCoordPerspCallbackData*) data;
     float (*A)[3] = cddata->A;
-    float norm_focal = cddata->norm_focal;
-    float center_coords_2 = cddata->center_coords_2;
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         double x, y, z_;
         x = iocoord [0];
         y = iocoord [1];
-        z_ = A [2][0] * x + A [2][1] * y + A [2][2] * (norm_focal / center_coords_2);
+        z_ = A [2][0] * x + A [2][1] * y + A [2][2];
         if (z_ > 0)
         {
             double z_inv_ = 1.0 / z_;
-            iocoord [0] = (A [0][0] * x + A [0][1] * y + A [0][2] * norm_focal / center_coords_2) / (norm_focal / center_coords_2) * z_inv_;
-            iocoord [1] = (A [1][0] * x + A [1][1] * y + A [1][2] * norm_focal / center_coords_2) / (norm_focal / center_coords_2) * z_inv_;
+            iocoord [0] = (A [0][0] * x + A [0][1] * y + A [0][2]) * z_inv_;
+            iocoord [1] = (A [1][0] * x + A [1][1] * y + A [1][2]) * z_inv_;
             iocoord [0] -= cddata->delta_a;
             iocoord [1] -= cddata->delta_b;
         }
