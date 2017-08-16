@@ -2393,6 +2393,8 @@ struct LF_EXPORT lfModifier
      * transformed into rectilinear of the same focal length.  In contrast,
      * cropping, rotating, shifting, or scaling must be switched off.
      *
+     * @param lens
+     *     Lens object to be used for the transform.
      * @param focal
      *     The focal length in mm at which the image was taken.
      * @param x
