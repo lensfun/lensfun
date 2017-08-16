@@ -293,6 +293,36 @@ void test_verify_subpix_poly3 (lfFixture *lfFix, gconstpointer data)
 }
 
 
+void test_verify_geom_fisheye_rectlinear (lfFixture *lfFix, gconstpointer data)
+{
+    // select a lens from database
+    const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "M.Zuiko Digital ED 8mm f/1.8 Fisheye");
+    g_assert_nonnull(lenses);
+    g_assert_cmpstr(lenses[0]->Model, ==, "Olympus M.Zuiko Digital ED 8mm f/1.8 Fisheye Pro");
+
+    lfModifier* mod = new lfModifier (2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
+
+    mod->EnableProjectionTransform(lenses[0], 8.0f, LF_RECTILINEAR);
+
+    float x[] = {0, 751, 810, 1270};
+    float y[] = {0, 497, 937, 100};
+
+    float expected_x[] = {248.98896790, 751.00000000, 802.23010254, 1151.07922363};
+    float expected_y[] = {165.93727112, 497.00000000, 880.81262207, 191.27542114};
+
+    float coords [2];
+    for (int i = 0; i < sizeof(x) / sizeof(float); i++)
+    {
+        g_assert_true(mod->ApplyGeometryDistortion (x[i], y[i], 1, 1, coords));
+        //g_print("\n%.8f, %.8f\n", coords[0], coords[1]);
+        g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, 1e-1);
+        g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, 1e-1);
+    }
+
+    mod->Destroy();
+    lf_free (lenses);
+}
+
 
 int main (int argc, char **argv)
 {
@@ -309,6 +339,9 @@ int main (int argc, char **argv)
 
   g_test_add ("/modifier/coord/dist/verify_poly5", lfFixture, NULL,
               mod_setup, test_verify_dist_poly5, mod_teardown);
+
+  g_test_add ("/modifier/coord/geom/verify_equisolid_linrect", lfFixture, NULL,
+              mod_setup, test_verify_geom_fisheye_rectlinear, mod_teardown);
 
   g_test_add ("/modifier/color/vignetting/verify_pa", lfFixture, NULL,
               mod_setup, test_verify_vignetting_pa, mod_teardown);
