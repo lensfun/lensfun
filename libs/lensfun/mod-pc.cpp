@@ -567,10 +567,10 @@ matrix generate_rotation_matrix (double rho_1, double delta, double rho_2, doubl
     return M;
 }
 
-bool lfModifier::EnablePerspectiveCorrection (float focal, float *x, float *y, int count, float d)
+bool lfModifier::EnablePerspectiveCorrection (const lfLens* lens, float focal, float *x, float *y, int count, float d)
 {
     const int number_of_control_points = count;
-    double norm_focal = focal / 7.82268578879;
+    double norm_focal = GetNormalizedFocalLength (focal, lens);
 
     if (number_of_control_points < 4 || number_of_control_points > 8 ||
         norm_focal <= 0 && number_of_control_points != 8)
@@ -758,7 +758,7 @@ void lfModifier::ModifyCoord_Perspective_Distortion (void *data, float *iocoord,
 //---------------------------// The C interface //---------------------------//
 
 cbool lf_modifier_enable_perspective_correction (
-    lfModifier *modifier, float focal, float *x, float *y, int count, float d)
+    lfModifier *modifier, const lfLens* lens, float focal, float *x, float *y, int count, float d)
 {
-    return modifier->EnablePerspectiveCorrection (focal, x, y, count, d);
+    return modifier->EnablePerspectiveCorrection (lens, focal, x, y, count, d);
 }

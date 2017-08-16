@@ -2409,7 +2409,7 @@ struct LF_EXPORT lfModifier
      * @return
      *     True if the perspective correction was enabled.
      */
-    bool EnablePerspectiveCorrection (float focal, float *x, float *y, int count, float d);
+    bool EnablePerspectiveCorrection (const lfLens* lens, float focal, float *x, float *y, int count, float d);
 
     /**
      * @brief Compute the automatic scale factor for the image.
@@ -2859,7 +2859,7 @@ LF_EXPORT cbool lf_modifier_enable_projection_transform (
 
 /** @sa lfModifier::EnablePerspectiveCorrection */
 LF_EXPORT cbool lf_modifier_enable_perspective_correction (
-    lfModifier *modifier, float focal, float *x, float *y, int count, float d);
+    lfModifier *modifier, const lfLens* lens, float focal, float *x, float *y, int count, float d);
 
 /** @sa lfModifier::GetAutoScale */
 LF_EXPORT float lf_modifier_get_auto_scale (
