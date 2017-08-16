@@ -2780,6 +2780,22 @@ private:
      */
     float GetTransformedDistance (lfPoint point) const;
 
+    /**
+     * @brief Calculate the real focal length in normalized coordinates.
+     *
+     * Some image operators need a different coordinate system, namely all
+     * coordinates in units of the focal length.  This routine returns the
+     * conversion factor this this.  If the "lens" parameter is not given, the
+     * nominal focal length (normalized) is returned instead of the real one.
+     * @param focal
+     *     The nominal focal length.
+     * @param lens
+     *     The lens used for the image.
+     * @return
+     *     The focal length in normalized image coordinates.
+     */
+    float GetNormalizedFocalLength (float focal, const lfLens* lens) const;
+
     static void ModifyCoord_TCA_Linear (void *data, float *iocoord, int count);
     static void ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int count);
     static void ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count);

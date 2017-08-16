@@ -150,26 +150,7 @@ bool lfModifier::EnableProjectionTransform (const lfLens* lens, float focal, lfL
     if(lens->Type == LF_UNKNOWN)
         return false;
 
-    float norm_focal = 0.0;
-    double real_focal = focal;
-    if (!lens->GetCalibrations().empty())
-    {
-        lfLensCalibDistortion lcd;
-        if (lens->InterpolateDistortion (focal, lcd))
-            real_focal = lcd.RealFocal;
-
-        double aspect_ratio_correction = sqrt (lens->GetCalibrations()[0]->attr.AspectRatio * lens->GetCalibrations()[0]->attr.AspectRatio + 1);
-        double normalized_in_millimeters = sqrt (36.0*36.0 + 24.0*24.0) /
-                                                (2.0 * aspect_ratio_correction * lens->GetCalibrations()[0]->attr.CropFactor);
-        norm_focal = real_focal / normalized_in_millimeters;
-    }
-    else
-    {
-        double aspect_ratio_correction = sqrt (1.5*1.5 + 1);
-        double normalized_in_millimeters = sqrt (36.0*36.0 + 24.0*24.0) /
-                                                (2.0 * aspect_ratio_correction * 1.0);
-        norm_focal = real_focal / normalized_in_millimeters;
-    }
+    float norm_focal = GetNormalizedFocalLength (focal, lens);
 
     lfLensType from = lens->Type;
     lfLensType to = target_projection;
@@ -351,11 +332,7 @@ void lfModifier::AddCoordDistCallback (const lfLensCalibDistortion& lcd, lfModif
     cd->centerY = lcd.attr->CenterY;
     memcpy(cd->Terms, lcd.Terms, sizeof(lcd.Terms));
 
-    double aspect_ratio_correction = sqrt (lcd.attr->AspectRatio * lcd.attr->AspectRatio + 1);
-    double normalized_in_millimeters = sqrt (36.0*36.0 + 24.0*24.0) /
-                                            (2.0 * aspect_ratio_correction * lcd.attr->CropFactor);
-
-    cd->norm_focal = lcd.Focal / normalized_in_millimeters;
+    cd->norm_focal = GetNormalizedFocalLength (lcd.Focal, NULL);
 
     CoordCallbacks.insert(cd);
 }

@@ -201,6 +201,16 @@ lfModifier::~lfModifier ()
         delete cb;
 }
 
+float lfModifier::GetNormalizedFocalLength (float focal, const lfLens* lens) const
+{
+    double real_focal = focal;
+    lfLensCalibDistortion lcd;
+    if (lens && lens->InterpolateDistortion (focal, lcd))
+        real_focal = lcd.RealFocal;
+    double normalized_in_millimeters = 12.0 / Crop;
+    return real_focal / normalized_in_millimeters;
+}
+
 //---------------------------// The C interface //---------------------------//
 
 lfModifier *lf_modifier_create (
