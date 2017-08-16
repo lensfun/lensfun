@@ -83,8 +83,7 @@ void lfModifier::Destroy ()
 
   The constructor lfModifier::lfModifier is the central method that
   handles the coordinate systems.  It does so by providing the scaling factors
-  between them: NormScale (and NormUnScale = 1/NormScale),
-  NormalizedInMillimeters, and AspectRatioCorrection.
+  between them: NormScale and NormUnScale = 1/NormScale.
 
   Have a look at lfModifier::ApplySubpixelGeometryDistortion to see the
   coordinate systems (1) and (3) in action.  First, the original pixel
