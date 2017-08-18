@@ -3622,6 +3622,30 @@
         </calibration>
     </lens>
 
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF-S 18-135mm f/3.5-5.6 IS USM</model>
+        <model lang="en">Canon EF-S 18-135mm f/3.5-5.6 IS USM</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.605</cropfactor>
+        <calibration>
+	    <!-- Taken with Canon EOS 7D Mark II -->
+            <distortion model="ptlens" focal="18" a="0.03204" b="-0.1012" c="0.05836"/>
+            <distortion model="ptlens" focal="24" a="0.01797" b="-0.03941" c="0.01144"/>
+            <distortion model="ptlens" focal="35" a="0.00739" b="-0.00442" c="-0.00773"/>
+            <distortion model="ptlens" focal="50" a="0.0073" b="-0.01862" c="0.0332"/>
+            <distortion model="ptlens" focal="85" a="0.00239" b="0.00461" c="-0.00297"/>
+            <distortion model="ptlens" focal="135" a="0.0167" b="-0.05074" c="0.0676"/>
+            <tca model="poly3" focal="18" vr="1.0010276" vb="1.0002780"/>
+            <tca model="poly3" focal="24" vr="1.0005628" vb="1.0006195"/>
+            <tca model="poly3" focal="35" vr="1.0005569" vb="1.0005824"/>
+            <tca model="poly3" focal="50" vr="1.0002666" vb="1.0001993"/>
+            <tca model="poly3" focal="85" vr="0.9998140" vb="0.9999427"/>
+            <tca model="poly3" focal="135" vr="0.9991194" vb="0.9999430"/>
+        </calibration>
+    </lens>
+
     <lens>
         <maker>Canon</maker>
         <model>Canon EF-S 18-135mm f/3.5-5.6 IS STM</model>
@@ -5493,3 +5517,4 @@
     </lens>
 
 </lensdatabase>
+
