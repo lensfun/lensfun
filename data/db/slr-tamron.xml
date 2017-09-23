@@ -55,6 +55,71 @@
     </lens>
 
     <lens>
+        <!-- This is an alias of Tamron SP AF 17-50mm f/2.8 XR Di II LD
+             Aspherical (IF).  According to da...@corr.eu.org, they are
+             optically equivalent. -->
+        <maker>Tamron</maker>
+        <model>Tamron AF 17-50mm f/2.8 XR Di-II LD (Model A16)</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Pentax KAF</mount>
+        <mount>Sony Alpha</mount>
+        <!-- Average crop factor of non-Canon APS-C cameras -->
+        <cropfactor>1.53</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="17" a="0.02667" b="-0.07161" c="0.02012"/>
+            <distortion model="ptlens" focal="24" a="0.02791" b="-0.08057" c="0.07132"/>
+            <distortion model="ptlens" focal="35" a="-0.01098" b="0.0448" c="-0.04755"/>
+            <distortion model="ptlens" focal="50" a="-0.00372" b="0.01796" c="-0.01334"/>
+            <tca model="poly3" focal="17" br="0.0000205" vr="1.0005975" bb="-0.0001325" vb="1.0008428"/>
+            <tca model="poly3" focal="24" br="-0.0000073" vr="1.0004585" bb="-0.0000382" vb="1.0004269"/>
+            <tca model="poly3" focal="35" br="-0.0000351" vr="1.0002419" bb="-0.0000228" vb="1.0001575"/>
+            <tca model="poly3" focal="50" br="-0.0000294" vr="1.0000100" bb="-0.0000149" vb="0.9999915"/>
+            <!-- Taken with Sony Alpha 77 -->
+            <vignetting model="pa" focal="17" aperture="2.8" distance="10" k1="-0.2015" k2="-0.5991" k3="0.2021"/>
+            <vignetting model="pa" focal="17" aperture="2.8" distance="1000" k1="-0.2015" k2="-0.5991" k3="0.2021"/>
+            <vignetting model="pa" focal="17" aperture="4" distance="10" k1="-0.3924" k2="0.1323" k3="-0.1185"/>
+            <vignetting model="pa" focal="17" aperture="4" distance="1000" k1="-0.3924" k2="0.1323" k3="-0.1185"/>
+            <vignetting model="pa" focal="17" aperture="5.6" distance="10" k1="-0.3503" k2="-0.0386" k3="0.0456"/>
+            <vignetting model="pa" focal="17" aperture="5.6" distance="1000" k1="-0.3503" k2="-0.0386" k3="0.0456"/>
+            <vignetting model="pa" focal="17" aperture="32" distance="10" k1="-0.4127" k2="0.0918" k3="-0.0471"/>
+            <vignetting model="pa" focal="17" aperture="32" distance="1000" k1="-0.4127" k2="0.0918" k3="-0.0471"/>
+            <vignetting model="pa" focal="24" aperture="2.8" distance="10" k1="-0.2976" k2="0.0425" k3="-0.2040"/>
+            <vignetting model="pa" focal="24" aperture="2.8" distance="1000" k1="-0.2976" k2="0.0425" k3="-0.2040"/>
+            <vignetting model="pa" focal="24" aperture="4" distance="10" k1="-0.2861" k2="0.0804" k3="-0.0491"/>
+            <vignetting model="pa" focal="24" aperture="4" distance="1000" k1="-0.2861" k2="0.0804" k3="-0.0491"/>
+            <vignetting model="pa" focal="24" aperture="5.6" distance="10" k1="-0.2603" k2="-0.0123" k3="0.0309"/>
+            <vignetting model="pa" focal="24" aperture="5.6" distance="1000" k1="-0.2603" k2="-0.0123" k3="0.0309"/>
+            <vignetting model="pa" focal="24" aperture="32" distance="10" k1="-0.3228" k2="0.1211" k3="-0.0654"/>
+            <vignetting model="pa" focal="24" aperture="32" distance="1000" k1="-0.3228" k2="0.1211" k3="-0.0654"/>
+            <vignetting model="pa" focal="28" aperture="2.8" distance="10" k1="-0.3567" k2="0.2365" k3="-0.3538"/>
+            <vignetting model="pa" focal="28" aperture="2.8" distance="1000" k1="-0.3567" k2="0.2365" k3="-0.3538"/>
+            <vignetting model="pa" focal="28" aperture="4" distance="10" k1="-0.2659" k2="0.1765" k3="-0.1376"/>
+            <vignetting model="pa" focal="28" aperture="4" distance="1000" k1="-0.2659" k2="0.1765" k3="-0.1376"/>
+            <vignetting model="pa" focal="28" aperture="5.6" distance="10" k1="-0.2206" k2="0.0051" k3="0.0147"/>
+            <vignetting model="pa" focal="28" aperture="5.6" distance="1000" k1="-0.2206" k2="0.0051" k3="0.0147"/>
+            <vignetting model="pa" focal="28" aperture="32" distance="10" k1="-0.2776" k2="0.1262" k3="-0.0790"/>
+            <vignetting model="pa" focal="28" aperture="32" distance="1000" k1="-0.2776" k2="0.1262" k3="-0.0790"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="10" k1="-0.4103" k2="0.3490" k3="-0.4316"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="1000" k1="-0.4103" k2="0.3490" k3="-0.4316"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="10" k1="-0.2610" k2="0.2866" k3="-0.2427"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="1000" k1="-0.2610" k2="0.2866" k3="-0.2427"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="10" k1="-0.1945" k2="0.0220" k3="-0.0015"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="1000" k1="-0.1945" k2="0.0220" k3="-0.0015"/>
+            <vignetting model="pa" focal="35" aperture="32" distance="10" k1="-0.2517" k2="0.1336" k3="-0.1043"/>
+            <vignetting model="pa" focal="35" aperture="32" distance="1000" k1="-0.2517" k2="0.1336" k3="-0.1043"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="10" k1="-0.4909" k2="0.4324" k3="-0.4813"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="1000" k1="-0.4909" k2="0.4324" k3="-0.4813"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="10" k1="-0.2722" k2="0.4692" k3="-0.4292"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="1000" k1="-0.2722" k2="0.4692" k3="-0.4292"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="10" k1="-0.1685" k2="0.0381" k3="-0.0172"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="1000" k1="-0.1685" k2="0.0381" k3="-0.0172"/>
+            <vignetting model="pa" focal="50" aperture="32" distance="10" k1="-0.2221" k2="0.1291" k3="-0.1026"/>
+            <vignetting model="pa" focal="50" aperture="32" distance="1000" k1="-0.2221" k2="0.1291" k3="-0.1026"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <maker>Tamron</maker>
         <model>Tamron SP AF 17-50mm f/2.8 XR Di II LD Aspherical (IF)</model>
         <mount>Canon EF</mount>
@@ -307,7 +372,7 @@
 
     <lens>
         <maker>Tamron</maker>
-        <model>Tamron SP AF 28-75mm f/2.8 XR Di LD Aspherical (IF) Macro</model>
+        <model>Tamron SP AF 28-75mm f/2.8 XR Di LD Aspherical (IF) Macro (A09)</model>
         <model lang="en">Tamron SP AF 28-75mm f/2.8 XR Di</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
