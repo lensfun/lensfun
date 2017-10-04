@@ -878,4 +878,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>Minolta/Sony AF 500mm F8 Reflex</model>
+        <model lang="en">Sony AF 500mm F8 Reflex</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Sony Alpha 850 -->
+            <vignetting model="pa" focal="500" aperture="8" distance="10" k1="-1.6969" k2="1.9089" k3="-0.8470"/>
+            <vignetting model="pa" focal="500" aperture="8" distance="1000" k1="-1.6969" k2="1.9089" k3="-0.8470"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
