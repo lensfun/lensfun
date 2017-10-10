@@ -1053,4 +1053,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>XF100-400mmF4.5-5.6 R LM OIS WR + 1.4x</model>
+        <model lang="en">XF 100-400mm f/4.5-5.6 R LM OIS WR + 1.4x</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-T20 -->
+            <distortion model="ptlens" focal="140" a="-0.00910152" b="0.0158002" c="-0.00149072"/>
+            <distortion model="ptlens" focal="179.6" a="-0.00888393" b="0.0194124" c="-0.0126484"/>
+            <distortion model="ptlens" focal="265.6" a="-0.011946" b="0.0330465" c="-0.032717"/>
+            <distortion model="ptlens" focal="406.8" a="-0.0146274" b="0.039903" c="-0.0372351"/>
+            <distortion model="ptlens" focal="560" a="-0.0170416" b="0.0529422" c="-0.0613742"/>
+            <tca model="poly3" focal="140" vr="1.00000" vb="1.00000"/>
+            <tca model="poly3" focal="179.6" vr="1.00000" vb="0.99990"/>
+            <tca model="poly3" focal="265.6" vr="0.99970" vb="0.99980"/>
+            <tca model="poly3" focal="406.8" vr="0.99950" vb="0.99970"/>
+            <tca model="poly3" focal="560" vr="0.99930" vb="0.99950"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
