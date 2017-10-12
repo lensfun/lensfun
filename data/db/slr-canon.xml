@@ -5516,5 +5516,16 @@
         </calibration>
     </lens>
 
-</lensdatabase>
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 24mm f/2.8 IS USM</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.613</cropfactor>
+        <calibration>
+	    <!-- Taken with Canon EOS 100D -->
+            <distortion model="ptlens" focal="24" a="0" b="-0.00591" c="0"/>
+            <tca model="poly3" focal="24" vr="1.0004660" vb="0.9998842"/>
+        </calibration>
+    </lens>
 
+</lensdatabase>
