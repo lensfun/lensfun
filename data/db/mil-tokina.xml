@@ -1,0 +1,16 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
+<lensdatabase version="2">
+
+    <lens>
+        <maker>Tokina</maker>
+        <model>E 20mm f/2</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 7R -->
+            <distortion model="ptlens" focal="20" a="0.0236801" b="-0.0528733" c="0.0242738"/>
+            <tca model="poly3" focal="20" vr="1.0001" vb="1.00005"/>
+        </calibration>
+    </lens>
+
+</lensdatabase>

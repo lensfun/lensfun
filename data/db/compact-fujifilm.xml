@@ -172,6 +172,13 @@
 
     <camera>
         <maker>Fujifilm</maker>
+        <model>X70</model>
+        <mount>fujix70</mount>
+        <cropfactor>1.5375</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Fujifilm</maker>
         <model>X20</model>
         <!-- Optically equivalent to X10, see
              https://secure.flickr.com/groups/darktable/discuss/72157646611511061/ and
@@ -968,6 +975,17 @@
             <vignetting model="pa" focal="158.6" aperture="8" distance="1000" k1="-0.5619" k2="0.4321" k3="-0.0672"/>
             <vignetting model="pa" focal="158.6" aperture="11" distance="10" k1="-0.5375" k2="0.3770" k3="-0.0282"/>
             <vignetting model="pa" focal="158.6" aperture="11" distance="1000" k1="-0.5375" k2="0.3770" k3="-0.0282"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>X70 &amp; compatibles (Standard)</model>
+        <mount>fujix70</mount>
+        <cropfactor>1.5375</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18.5" a="0.0246309" b="-0.0712065" c="0.0634822"/>
+            <tca model="poly3" focal="18.5" br="-0.0002189" vr="1.0006596" bb="0.0002054" vb="0.9994221"/>
         </calibration>
     </lens>
 

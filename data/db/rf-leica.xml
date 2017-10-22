@@ -1,9 +1,4 @@
 <!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
-<!--
-    I have created this file to have a place where I can drop all information
-    that I can find about Leica rangefinder cameras and lenses. It's far from
-    being complete; feel free to extend this file.
--->
 <lensdatabase version="2">
 
     <mount>
@@ -15,130 +10,49 @@
         <compat>Generic</compat>
     </mount>
 
-    <lens>
+    <camera>
         <maker>Leica</maker>
-        <model>Elmarit-M 2.8/21 ASPH</model>
+        <model>Leica M (Typ 240)</model>
         <mount>Leica M</mount>
         <cropfactor>1</cropfactor>
+    </camera>
+
+    <lens>
+        <maker>Leica</maker>
+        <model>Elmarit-M 1:2.8/28</model>
+        <model lang="en">Elmarit-M 28mm f/2.8 ASPH</model>
+        <mount>Leica M</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with LEICA M (Typ 240) -->
+            <distortion model="ptlens" focal="28" a="0.00349" b="-0.00508" c="-0.01721"/>
+        </calibration>
     </lens>
 
     <lens>
         <maker>Leica</maker>
-        <model>Elmarit-M 2.8/21</model>
+        <model>Elmarit-M 1:2.8/90</model>
+        <model lang="en">Elmarit-M 90mm f/2.8</model>
         <mount>Leica M</mount>
         <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Leica M (Typ 240) -->
+            <distortion model="ptlens" focal="90" a="-0.00423" b="0.01406" c="-0.00692"/>
+        </calibration>
     </lens>
 
     <lens>
         <maker>Leica</maker>
-        <model>Elmarit-M 24mm f/2.8 ASPH</model>
+        <model>Summicron-M 1:2/50</model>
+        <!-- Model 11819/11825/11826/11816 -->
+        <model lang="en">Summicron-M 50mm f/2</model>
         <mount>Leica M</mount>
         <cropfactor>1</cropfactor>
-    </lens>
-
-    <lens>
-        <maker>Leica</maker>
-        <model>Elmarit-M 2.8/28</model>
-        <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
-    </lens>
-
-    <lens>
-        <maker>Leica</maker>
-        <model>Summilux-M 1.4/35 ASPH</model>
-        <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
-    </lens>
-
-    <lens>
-        <maker>Leica</maker>
-        <model>Summilux-M 1.4/35</model>
-        <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
-    </lens>
-
-    <lens>
-        <maker>Leica</maker>
-        <model>Summicron-M 2/35 ASPH</model>
-        <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
-    </lens>
-
-    <lens>
-        <maker>Leica</maker>
-        <model>Noctilux-M 1/50</model>
-        <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
-    </lens>
-
-    <lens>
-        <maker>Leica</maker>
-        <model>Sumilux-M 1.4/50</model>
-        <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
-    </lens>
-
-    <lens>
-        <maker>Leica</maker>
-        <model>Summicron-M 2/50</model>
-        <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
-    </lens>
-
-    <lens>
-        <maker>Leica</maker>
-        <model>Elmar-M 2.8/50</model>
-        <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
-    </lens>
-
-    <lens>
-        <maker>Leica</maker>
-        <model>Summilux-M 1.4/75</model>
-        <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
-    </lens>
-
-    <lens>
-        <maker>Leica</maker>
-        <model>APO-Summicron-M 2/90 ASPH</model>
-        <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
-    </lens>
-
-    <lens>
-        <maker>Leica</maker>
-        <model>Apo-Telyt-M 3.4/135</model>
-        <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
-    </lens>
-
-    <lens>
-        <maker>Leica</maker>
-        <model>Elmarit-M 2.8/135</model>
-        <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
-    </lens>
-
-    <lens>
-        <maker>Leica</maker>
-        <model>Tri-Elmar 4/28</model>
-        <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
-    </lens>
-
-    <lens>
-        <maker>Leica</maker>
-        <model>Tri-Elmar 4/35</model>
-        <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
-    </lens>
-
-    <lens>
-        <maker>Leica</maker>
-        <model>Tri-Elmar 4/50</model>
-        <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken Leica M (Typ 240) -->
+            <distortion model="poly3" focal="50" k1="-0.00072"/>
+            <tca model="poly3" focal="50" vr="0.9999915" vb="0.9998735"/>
+        </calibration>
     </lens>
 
 </lensdatabase>

@@ -5,9 +5,6 @@ SET(LENSFUN_SRC camera.cpp database.cpp lens.cpp
                 mod-coord-sse.cpp mod-coord.cpp mod-pc.cpp
                 mod-subpix.cpp modifier.cpp auxfun.cpp
                 ../../include/lensfun/lensfun.h.in)
-IF(WIN32)
-  LIST(APPEND LENSFUN_SRC windows/auxfun.cpp)
-ENDIF()
 
 SET_SOURCE_FILES_PROPERTIES(mod-color-sse.cpp mod-coord-sse.cpp
   PROPERTIES COMPILE_FLAGS "${VECTORIZATION_SSE_FLAGS}")

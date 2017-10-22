@@ -1,6 +1,13 @@
 <!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
 <lensdatabase version="2">
 
+    <camera>
+        <maker>Sigma</maker>
+        <model>sd Quattro</model>
+        <mount>Sigma SA</mount>
+        <cropfactor>1.523</cropfactor>
+    </camera>
+
     <lens>
         <maker>Sigma</maker>
         <model>E 30mm f/2.8</model>
@@ -100,7 +107,7 @@
             <vignetting model="pa" focal="19" aperture="22" distance="1000" k1="-0.4849" k2="0.2236" k3="-0.0597"/>
         </calibration>
     </lens>
- 
+
     <lens>
         <maker>Sigma</maker>
         <model>Sigma 19mm f/2.8 DN</model>
@@ -135,13 +142,15 @@
 
     <lens>
         <maker>Sigma</maker>
-        <model>30mm f/1.4 DC DN</model>
+        <model>30mm f/1.4 DC DN | Contemporary 016</model>
+        <model lang="en">30mm f/1.4 DC DN</model>
         <mount>Sony E</mount>
         <mount>Micro 4/3 System</mount>
         <cropfactor>1.534</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="30" a="-0.005" b="0" c="-0.013"/>
-            <tca model="poly3" focal="30" br="-0.0000655" vr="1.0002716" bb="0.0001493" vb="0.9998514"/>
+            <!-- Taken with Sony 6000 (ILCE-6000) -->
+            <distortion model="ptlens" focal="30" a="-0.00399" b="-0.00701" c="-0.00069"/>
+            <tca model="poly3" focal="30" br="-0.0000662" vr="1.0002242" bb="0.0001122" vb="0.9999295"/>
             <vignetting model="pa" focal="30" aperture="1.4" distance="10" k1="-0.7397" k2="0.2898" k3="-0.0725"/>
             <vignetting model="pa" focal="30" aperture="1.4" distance="1000" k1="-0.7397" k2="0.2898" k3="-0.0725"/>
             <vignetting model="pa" focal="30" aperture="2" distance="10" k1="-0.0294" k2="-0.7454" k3="0.3732"/>
@@ -156,20 +165,6 @@
             <vignetting model="pa" focal="30" aperture="13" distance="1000" k1="-0.2189" k2="0.1170" k3="-0.0418"/>
             <vignetting model="pa" focal="30" aperture="16" distance="10" k1="-0.2179" k2="0.1129" k3="-0.0401"/>
             <vignetting model="pa" focal="30" aperture="16" distance="1000" k1="-0.2179" k2="0.1129" k3="-0.0401"/>
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Sigma</maker>
-        <model>30mm f/1.4 DC DN | C 016</model>
-        <model lang="en">30mm f/1.4 DC DN | Contemporary 016</model>
-        <mount>Sony E</mount>
-        <mount>Micro 4/3 System</mount>
-        <cropfactor>1.534</cropfactor>
-        <calibration>
-            <!-- Taken with Sony 6000 (ILCE-6000) -->
-            <distortion model="ptlens" focal="30" a="-0.00399" b="-0.00701" c="-0.00069"/>
-            <tca model="poly3" focal="30" br="-0.0000662" vr="1.0002242" bb="0.0001122" vb="0.9999295"/>
         </calibration>
     </lens>
 

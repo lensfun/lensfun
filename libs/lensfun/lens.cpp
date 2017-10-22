@@ -363,15 +363,15 @@ const char *lfLens::GetDistortionModelDesc (
     static const lfParameter param_poly5_k2 = { "k2", -0.2F, 0.2F, 0.0F };
     static const lfParameter *param_poly5 [] = { &param_poly3_k1, &param_poly5_k2, NULL };
 
-    static const lfParameter param_ptlens_a = { "a", -0.2F, 0.2F, 0.0F };
-    static const lfParameter param_ptlens_b = { "b", -0.2F, 0.2F, 0.0F };
-    static const lfParameter param_ptlens_c = { "c", -0.2F, 0.2F, 0.0F };
+    static const lfParameter param_ptlens_a = { "a", -0.5F, 0.5F, 0.0F };
+    static const lfParameter param_ptlens_b = { "b", -1.0F, 1.0F, 0.0F };
+    static const lfParameter param_ptlens_c = { "c", -1.0F, 1.0F, 0.0F };
     static const lfParameter *param_ptlens [] = {
         &param_ptlens_a, &param_ptlens_b, &param_ptlens_c, NULL };
 
-    static const lfParameter param_acm_k3 = { "k3", -0.2F, 0.2F, 0.0F };
-    static const lfParameter param_acm_k4 = { "k4", -0.2F, 0.2F, 0.0F };
-    static const lfParameter param_acm_k5 = { "k5", -0.2F, 0.2F, 0.0F };
+    static const lfParameter param_acm_k3 = { "k3", -1.0F, 1.0F, 0.0F };
+    static const lfParameter param_acm_k4 = { "k4", -1.0F, 1.0F, 0.0F };
+    static const lfParameter param_acm_k5 = { "k5", -1.0F, 1.0F, 0.0F };
     static const lfParameter *param_acm [] = {
         &param_poly3_k1, &param_poly5_k2, &param_acm_k3,
         &param_acm_k4, &param_acm_k5, NULL };
@@ -535,15 +535,15 @@ const char *lfLens::GetVignettingModelDesc (
 {
     static const lfParameter *param_none [] = { NULL };
 
-    static const lfParameter param_pa_k1 = { "k1", -1.0, 2.0, 0.0 };
-    static const lfParameter param_pa_k2 = { "k2", -1.0, 2.0, 0.0 };
-    static const lfParameter param_pa_k3 = { "k3", -1.0, 2.0, 0.0 };
+    static const lfParameter param_pa_k1 = { "k1", -3.0, 1.0, 0.0 };
+    static const lfParameter param_pa_k2 = { "k2", -5.0, 10.0, 0.0 };
+    static const lfParameter param_pa_k3 = { "k3", -5.0, 10.0, 0.0 };
     static const lfParameter *param_pa [] =
     { &param_pa_k1, &param_pa_k2, &param_pa_k3, NULL };
 
-    static const lfParameter param_acm_alpha1 = { "alpha1", -1.0, 2.0, 0.0 };
-    static const lfParameter param_acm_alpha2 = { "alpha2", -1.0, 2.0, 0.0 };
-    static const lfParameter param_acm_alpha3 = { "alpha3", -1.0, 2.0, 0.0 };
+    static const lfParameter param_acm_alpha1 = { "alpha1", -1.0, 1.0, 0.0 };
+    static const lfParameter param_acm_alpha2 = { "alpha2", -5.0, 10.0, 0.0 };
+    static const lfParameter param_acm_alpha3 = { "alpha3", -5.0, 10.0, 0.0 };
     static const lfParameter *param_acm [] =
     { &param_acm_alpha1, &param_acm_alpha2, &param_acm_alpha3, NULL };
 

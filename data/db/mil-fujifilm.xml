@@ -87,6 +87,13 @@
         <cropfactor>1.529</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Fujifilm</maker>
+        <model>X-T20</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+    </camera>
+
     <lens>
         <maker>Fujifilm</maker>
         <model>XF18-55mmF2.8-4 R LM OIS</model>
@@ -819,6 +826,20 @@
             <!-- The target was not really trustworthy. -->
             <distortion model="ptlens" focal="23" a="0.0289722" b="-0.0763625" c="0.0493558"/>
             <tca model="poly3" focal="23" vr="1.0001000" vb="1.0003000"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>XF50mmF2 R WR</model>
+        <model lang="en">XF 50mm f/2 R WR</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.528</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-Pro2 -->
+            <!-- Target was not optimal (broken sections of line) but results are probably ok -->
+            <distortion model="poly3" focal="50" k1="0.00279448"/>
+            <tca model="poly3" focal="50" vr="1.0001084" vb="0.9999234"/>
         </calibration>
     </lens>
 

@@ -66,6 +66,13 @@
         <cropfactor>6.34</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Nokia</maker>
+        <model>Lumia 1520</model>
+        <mount>lumia1520</mount>
+        <cropfactor>6.26</cropfactor>
+    </camera>
+
     <!-- I think this is also known under the brand "Michael Lens" or "Movie
          Lens", and with f/1.6.  The correction data actually was submitted as
          "CCTV Movie Lens HD-MC 35mm/F1.6".  The distortion model is not perfect,
@@ -447,6 +454,17 @@
             <!-- Taken with Fujifilm X-Pro2 -->
             <distortion model="poly3" focal="50" k1="0.013"/>
             <tca model="poly3" focal="50" vr="0.9999023" vb="0.9996490"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Standard</model>
+        <mount>lumia1520</mount>
+        <cropfactor>6.26</cropfactor>
+        <aspect-ratio>16:9</aspect-ratio>
+        <calibration>
+            <distortion model="poly3" focal="4.5" k1="0.00674"/>
         </calibration>
     </lens>
 

@@ -232,4 +232,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>1 Nikkor AW 10mm f/2.8</model>
+        <mount>Nikon CX</mount>
+        <cropfactor>2.727</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon AW1 -->
+            <distortion model="ptlens" focal="10" a="0.0120353" b="-0.035894" c="0.0124636"/>
+            <tca model="poly3" focal="10" br="-0.0001550" vr="1.0006279" bb="0.0001309" vb="0.9998205"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
