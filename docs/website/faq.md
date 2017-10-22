@@ -16,6 +16,7 @@ weight: 6
        source programs today use the <a href="http://www.exiv2.org/">exiv2 library</a> to retrieve 
        the camera and lens information. You can use the command line tool `exiv2` to see if 
        the retrieved information is correct:
+
            $> exiv2 -pt 2938031.jpeg |grep -i 'lens\|model\|make'
 
 * __How do I know if a certain lens and camera combination will be recognized by Lensfun?__
@@ -42,7 +43,9 @@ weight: 6
     Most open source programs today use the <a href="http://www.exiv2.org/">exiv2 library</a> to 
     retrieve the camera and lens information. You can use the command line tool `exiv2` to see if 
     the retrieved information is correct:
+
            $> exiv2 -pt 2938031.jpeg |grep -i 'lens\|model\|make'
+
     If the lens name is not correct in the above output please report a bug at the 
     <a href="http://dev.exiv2.org/projects/exiv2/issues">exiv2 issue tracker</a>
     
