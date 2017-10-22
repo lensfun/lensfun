@@ -83,8 +83,7 @@ void lfModifier::Destroy ()
 
   The constructor lfModifier::lfModifier is the central method that
   handles the coordinate systems.  It does so by providing the scaling factors
-  between them: NormScale (and NormUnScale = 1/NormScale),
-  NormalizedInMillimeters, and AspectRatioCorrection.
+  between them: NormScale and NormUnScale = 1/NormScale.
 
   Have a look at lfModifier::ApplySubpixelGeometryDistortion to see the
   coordinate systems (1) and (3) in action.  First, the original pixel
@@ -200,6 +199,16 @@ lfModifier::~lfModifier ()
         delete cb;
     for (auto cb : ColorCallbacks)
         delete cb;
+}
+
+float lfModifier::GetNormalizedFocalLength (float focal, const lfLens* lens) const
+{
+    double real_focal = focal;
+    lfLensCalibDistortion lcd;
+    if (lens && lens->InterpolateDistortion (focal, lcd))
+        real_focal = lcd.RealFocal;
+    double normalized_in_millimeters = 12.0 / Crop;
+    return real_focal / normalized_in_millimeters;
 }
 
 //---------------------------// The C interface //---------------------------//

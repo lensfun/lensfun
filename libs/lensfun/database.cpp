@@ -94,8 +94,6 @@ lfError lfDatabase::Load ()
 {
   lfError err = LF_NO_ERROR;
 
-    bool database_found = false;
-
     const int timestamp_system =
         ReadTimestamp (SystemLocation);
     const int timestamp_system_updates =
@@ -777,7 +775,7 @@ static void _xml_text (GMarkupParseContext *context,
                 pd->calib_attr.AspectRatio = atof (text) / atof (colon + 1);
             else
                 pd->calib_attr.AspectRatio = atof (text);
-                pd->lens->AspectRatio = pd->calib_attr.AspectRatio;
+            pd->lens->AspectRatio = pd->calib_attr.AspectRatio;
         }
         else
             goto bad_ctx;
@@ -894,7 +892,6 @@ char *lfDatabase::Save () const
     old_numeric = strdup(old_numeric);
     setlocale(LC_NUMERIC,"C");
 
-    int i, j;
     GString *output = g_string_sized_new (1024);
 
     g_string_append (output, "<!DOCTYPE lensdatabase SYSTEM \"lensfun-database.dtd\">\n");
@@ -906,7 +903,7 @@ char *lfDatabase::Save () const
         _lf_xml_printf_mlstr (output, "\t\t", "name",
                                     m->Name);
         if (m->Compat)
-            for (j = 0; m->Compat [j]; j++)
+            for (int j = 0; m->Compat [j]; j++)
                 _lf_xml_printf (output, "\t\t<compat>%s</compat>\n",
                                 m->Compat [j]);
         g_string_append (output, "\t</mount>\n\n");
@@ -954,7 +951,7 @@ char *lfDatabase::Save () const
         }
 
         if (l->Mounts)
-            for (j = 0; l->Mounts [j]; j++)
+            for (int j = 0; l->Mounts [j]; j++)
                 _lf_xml_printf (output, "\t\t<mount>%s</mount>\n",
                                 l->Mounts [j]);
 

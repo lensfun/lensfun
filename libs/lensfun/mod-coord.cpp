@@ -150,26 +150,7 @@ bool lfModifier::EnableProjectionTransform (const lfLens* lens, float focal, lfL
     if(lens->Type == LF_UNKNOWN)
         return false;
 
-    float norm_focal = 0.0;
-    double real_focal = focal;
-    if (!lens->GetCalibrations().empty())
-    {
-        lfLensCalibDistortion lcd;
-        if (lens->InterpolateDistortion (focal, lcd))
-            real_focal = lcd.RealFocal;
-
-        double aspect_ratio_correction = sqrt (lens->GetCalibrations()[0]->attr.AspectRatio * lens->GetCalibrations()[0]->attr.AspectRatio + 1);
-        double normalized_in_millimeters = sqrt (36.0*36.0 + 24.0*24.0) /
-                                                (2.0 * aspect_ratio_correction * lens->GetCalibrations()[0]->attr.CropFactor);
-        norm_focal = real_focal / normalized_in_millimeters;
-    }
-    else
-    {
-        double aspect_ratio_correction = sqrt (1.5*1.5 + 1);
-        double normalized_in_millimeters = sqrt (36.0*36.0 + 24.0*24.0) /
-                                                (2.0 * aspect_ratio_correction * 1.0);
-        norm_focal = real_focal / normalized_in_millimeters;
-    }
+    float norm_focal = GetNormalizedFocalLength (focal, lens);
 
     lfLensType from = lens->Type;
     lfLensType to = target_projection;
@@ -351,11 +332,7 @@ void lfModifier::AddCoordDistCallback (const lfLensCalibDistortion& lcd, lfModif
     cd->centerY = lcd.attr->CenterY;
     memcpy(cd->Terms, lcd.Terms, sizeof(lcd.Terms));
 
-    double aspect_ratio_correction = sqrt (lcd.attr->AspectRatio * lcd.attr->AspectRatio + 1);
-    double normalized_in_millimeters = sqrt (36.0*36.0 + 24.0*24.0) /
-                                            (2.0 * aspect_ratio_correction * lcd.attr->CropFactor);
-
-    cd->norm_focal = lcd.Focal / normalized_in_millimeters;
+    cd->norm_focal = GetNormalizedFocalLength (lcd.Focal, NULL);
 
     CoordCallbacks.insert(cd);
 }
@@ -405,7 +382,7 @@ float lfModifier::GetTransformedDistance (lfPoint point) const
         float res [2];
 
         res [0] = ca * ru; res [1] = sa * ru;
-        for (int j = 0; j < CoordCallbacks.size(); j++)
+        for (unsigned int j = 0; j < CoordCallbacks.size(); j++)
         {
             //lfCoordCallbackData *cd =
             //    (lfCoordCallbackData *)g_ptr_array_index ((GPtrArray *)CoordCallbacks, j);
@@ -422,7 +399,7 @@ float lfModifier::GetTransformedDistance (lfPoint point) const
 
         // Compute approximative function prime in (x,y)
         res [0] = ca * (ru + dx); res [1] = sa * (ru + dx);
-        for (int j = 0; j < CoordCallbacks.size(); j++)
+        for (unsigned int j = 0; j < CoordCallbacks.size(); j++)
         {
             //lfCoordCallbackData *cd =
            //     (lfCoordCallbackData *)g_ptr_array_index ((GPtrArray *)CoordCallbacks, j);

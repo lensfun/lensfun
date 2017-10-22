@@ -72,9 +72,7 @@ bool lfModifier::EnableTCACorrection (const lfLens* lens, float focal)
 {
     lfLensCalibTCA lctca;
     if (lens->InterpolateTCA (focal, lctca))
-    {
-        EnableTCACorrection(lctca);
-    }
+        return EnableTCACorrection(lctca);
     else
         return false;
 }
@@ -96,11 +94,7 @@ void lfModifier::AddSubpixTCACallback (const lfLensCalibTCA& lcd, lfModifySubpix
     cd->centerY = lcd.attr->CenterY;
     memcpy(cd->Terms, lcd.Terms, sizeof(lcd.Terms));
 
-    double aspect_ratio_correction = sqrt (lcd.attr->AspectRatio * lcd.attr->AspectRatio + 1);
-    double normalized_in_millimeters = sqrt (36.0*36.0 + 24.0*24.0) /
-                                            (2.0 * aspect_ratio_correction * lcd.attr->CropFactor);
-
-    cd->norm_focal = lcd.Focal / normalized_in_millimeters;
+    cd->norm_focal = GetNormalizedFocalLength(lcd.Focal, NULL);
 
     SubpixelCallbacks.insert(cd);
 }

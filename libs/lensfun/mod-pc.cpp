@@ -477,11 +477,13 @@ void calculate_angles (dvector x, dvector y, double &f_normalized,
         rho_h = determine_rho_h (rho, delta, dvector (x.begin() + 4, x.begin() + 6),
                                  dvector (y.begin() + 4, y.begin() + 6), f_normalized, center_x, center_y);
         if (std::isnan (rho_h))
+        {
             if (number_of_control_points == 8)
                 rho_h = determine_rho_h (rho, delta, dvector (x.begin() + 6, x.begin() + 8),
                                          dvector (y.begin() + 6, y.begin() + 8), f_normalized, center_x, center_y);
             else
                 rho_h = 0;
+        }
     }
     center_of_control_points_x = center_x;
     center_of_control_points_y = center_y;
@@ -552,11 +554,10 @@ bool lfModifier::EnablePerspectiveCorrection (float focal, float *x, float *y, i
         return false;
     }
     const int number_of_control_points = count;
-    double norm_focal = focal / sqrt (36.0*36.0 + 24.0*24.0) *
-                        (2.0 * sqrt(1.5*1.5 + 1) * 1.0);
+    double norm_focal = focal / 7.82268578879;
 
     if (number_of_control_points < 4 || number_of_control_points > 8 ||
-        norm_focal <= 0 && number_of_control_points != 8)
+        (norm_focal <= 0 && number_of_control_points != 8))
         return false;
     if (d < -1)
         d = -1;
