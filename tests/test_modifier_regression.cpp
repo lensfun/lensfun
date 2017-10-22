@@ -48,7 +48,7 @@ void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
     float expected_y[] = {-9.35532570, 497.00000000, 938.97027588, 96.02919769};
 
     float coords [2];
-    for (int i = 0; i < sizeof(x) / sizeof(float); i++)
+    for (unsigned int i = 0; i < sizeof(x) / sizeof(float); i++)
     {
         g_assert_true(mod->ApplyGeometryDistortion (x[i], y[i], 1, 1, coords));
         //g_print("\n%.8f, %.8f\n", coords[0], coords[1]);
@@ -69,7 +69,7 @@ void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
     mod = new lfModifier (1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
     mod->EnableDistortionCorrection(lens, 80.89f);
 
-    for (int i = 0; i < sizeof(x) / sizeof(float); i++)
+    for (unsigned int i = 0; i < sizeof(x) / sizeof(float); i++)
     {
         g_assert_true(mod->ApplyGeometryDistortion (x[i], y[i], 1, 1, coords));
         //g_print("\n%.8f, %.8f\n", coords[0], coords[1]);

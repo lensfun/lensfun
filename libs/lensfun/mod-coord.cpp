@@ -382,7 +382,7 @@ float lfModifier::GetTransformedDistance (lfPoint point) const
         float res [2];
 
         res [0] = ca * ru; res [1] = sa * ru;
-        for (int j = 0; j < CoordCallbacks.size(); j++)
+        for (unsigned int j = 0; j < CoordCallbacks.size(); j++)
         {
             //lfCoordCallbackData *cd =
             //    (lfCoordCallbackData *)g_ptr_array_index ((GPtrArray *)CoordCallbacks, j);
@@ -399,7 +399,7 @@ float lfModifier::GetTransformedDistance (lfPoint point) const
 
         // Compute approximative function prime in (x,y)
         res [0] = ca * (ru + dx); res [1] = sa * (ru + dx);
-        for (int j = 0; j < CoordCallbacks.size(); j++)
+        for (unsigned int j = 0; j < CoordCallbacks.size(); j++)
         {
             //lfCoordCallbackData *cd =
            //     (lfCoordCallbackData *)g_ptr_array_index ((GPtrArray *)CoordCallbacks, j);

@@ -733,6 +733,8 @@ bool lfLens::RemoveCalibDistortion (int idx)
     Calibrations[0]->CalibDistortion.erase(Calibrations[0]->CalibDistortion.begin() + idx);
 
     UpdateLegacyCalibPointers();
+
+    return true;
 }
 
 void lfLens::AddCalibTCA (const lfLensCalibTCA *plctca)
@@ -755,7 +757,10 @@ bool lfLens::RemoveCalibTCA (int idx)
     // This is a legacy method, hence we assume all data is in Calibrations[0]
     delete Calibrations[0]->CalibTCA[idx];
     Calibrations[0]->CalibTCA.erase(Calibrations[0]->CalibTCA.begin() + idx);
+
     UpdateLegacyCalibPointers();
+
+    return true;
 }
 
 void lfLens::AddCalibVignetting (const lfLensCalibVignetting *plcv)
@@ -780,6 +785,8 @@ bool lfLens::RemoveCalibVignetting (int idx)
     Calibrations[0]->CalibVignetting.erase(Calibrations[0]->CalibVignetting.begin() + idx);
 
     UpdateLegacyCalibPointers();
+
+    return true;
 }
 
 void lfLens::AddCalibCrop (const lfLensCalibCrop *plcc)
@@ -804,6 +811,8 @@ bool lfLens::RemoveCalibCrop (int idx)
     Calibrations[0]->CalibCrop.erase(Calibrations[0]->CalibCrop.begin() + idx);
 
     UpdateLegacyCalibPointers();
+
+    return true;
 }
 
 void lfLens::AddCalibFov (const lfLensCalibFov *plcf)
@@ -828,6 +837,8 @@ bool lfLens::RemoveCalibFov (int idx)
     Calibrations[0]->CalibFov.erase(Calibrations[0]->CalibFov.begin() + idx);
 
     UpdateLegacyCalibPointers();
+
+    return true;
 }
 
 

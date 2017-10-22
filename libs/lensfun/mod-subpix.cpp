@@ -72,9 +72,7 @@ bool lfModifier::EnableTCACorrection (const lfLens* lens, float focal)
 {
     lfLensCalibTCA lctca;
     if (lens->InterpolateTCA (focal, lctca))
-    {
-        EnableTCACorrection(lctca);
-    }
+        return EnableTCACorrection(lctca);
     else
         return false;
 }
