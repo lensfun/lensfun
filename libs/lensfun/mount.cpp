@@ -16,13 +16,19 @@ lfMount::lfMount ()
 lfMount::~lfMount ()
 {
     lf_free (Name);
+    for (char* m: MountCompat)
+        free(m);
 }
 
 lfMount::lfMount (const lfMount &other)
 {
     Name = lf_mlstr_dup (other.Name);
     Compat = NULL;
-    MountCompat = other.GetCompats();
+
+    MountCompat.clear();
+    const char* const* otherMounts = other.GetCompats();
+    for (int i = 0; otherMounts[i]; i++)
+        AddCompat(otherMounts[i]);
 }
 
 lfMount &lfMount::operator = (const lfMount &other)
@@ -30,7 +36,11 @@ lfMount &lfMount::operator = (const lfMount &other)
     lf_free (Name);
     Name = lf_mlstr_dup (other.Name);
     Compat = NULL;
-    MountCompat = other.GetCompats();
+
+    MountCompat.clear();
+    const char* const* otherMounts = other.GetCompats();
+    for (int i = 0; otherMounts[i]; i++)
+        AddCompat(otherMounts[i]);
 
     return *this;
 }
@@ -47,13 +57,25 @@ void lfMount::SetName (const char *val, const char *lang)
 
 void lfMount::AddCompat (const char *val)
 {
-    MountCompat.emplace(std::string(val));
-    // TODO: update legacy Compat pointers
+    if (val)
+    {
+        char* p = (char*)malloc(strlen(val));
+        strcpy(p, val);
+        MountCompat.push_back(p);
+
+        // add terminating NULL
+        size_t s = MountCompat.size();
+        MountCompat.reserve(s+1);
+        MountCompat[s] = NULL;
+
+        // legacy compat pointer
+        Compat = (char**)MountCompat.data();
+    }
 }
 
-const std::set<std::string> lfMount::GetCompats () const
+const char* const* lfMount::GetCompats() const
 {
-    return MountCompat;
+    return MountCompat.data();
 }
 
 bool lfMount::Check ()
@@ -85,4 +107,14 @@ void lf_mount_destroy (lfMount *mount)
 cbool lf_mount_check (lfMount *mount)
 {
     return mount->Check ();
+}
+
+void lf_mount_add_compat (lfMount *mount, const char *val)
+{
+    mount->AddCompat(val);
+}
+
+const char* const* lf_mount_get_compats (lfMount *mount)
+{
+    return mount->GetCompats();
 }

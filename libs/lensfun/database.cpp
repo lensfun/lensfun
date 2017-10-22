@@ -1281,7 +1281,7 @@ static int _lf_compare_num (float a, float b)
  *     fundamentally different.
  */
 int _lf_lens_calculate_score (const lfLens *pattern, const lfLens *match, const lfCamera *camera,
-                            lfFuzzyStrCmp *fuzzycmp, const char **compat_mounts)
+                            lfFuzzyStrCmp *fuzzycmp, const char* const* compat_mounts)
 {
     int score = 0;
 
@@ -1447,30 +1447,25 @@ const lfLens **lfDatabase::FindLenses (const lfCamera *camera,
     // Guess lens parameters from lens model name
     lens.GuessParameters ();
 
-    std::vector<char*> mounts;
     std::vector<lfLens*>  search_res;
 
     lfFuzzyStrCmp fc (lens.Model, (sflags & LF_SEARCH_LOOSE) == 0);
 
-    // Create a list of compatible mounts
+    // get a list of compatible mounts
+    const char* const* compat_mounts = NULL;
     if ((camera != NULL) && (camera->Mount))
     {
-        const lfMount *m = FindMount (camera->Mount);
-        if ((m != NULL) && (m->Compat))
-            for (int i = 0; m->Compat [i]; i++)
-                mounts.push_back(m->Compat [i]);
+        const lfMount* m = FindMount(camera->Mount);
+        if (m)
+            compat_mounts = m->GetCompats();
     }
-
-    size_t l = mounts.size();
-    mounts.reserve(l + 1);
-    mounts.data()[l] = NULL;
 
     int score;
     const bool sort_and_uniquify = (sflags & LF_SEARCH_SORT_AND_UNIQUIFY) != 0;
 
     for (auto dblens: Lenses)
     {
-        if ((score = _lf_lens_calculate_score (&lens, dblens, camera, &fc, (const char**)mounts.data())) > 0)
+        if ((score = _lf_lens_calculate_score (&lens, dblens, camera, &fc, compat_mounts)) > 0)
         {
             dblens->Score = score;
             if (sort_and_uniquify)

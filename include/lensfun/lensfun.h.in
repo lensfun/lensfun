@@ -263,9 +263,9 @@ struct LF_EXPORT lfMount
     void AddCompat (const char *val);
 
     /**
-     * @brief Return the list of compatible mounts.
+     * @brief Return a list of compatible mounts.
      */
-    const std::set<std::string> GetCompats () const;
+    const char* const* GetCompats () const;
 
     /**
      * @brief Check if a mount object is valid.
@@ -275,7 +275,7 @@ struct LF_EXPORT lfMount
     bool Check ();
 
 private:
-    std::set<std::string> MountCompat;
+    std::vector<char*> MountCompat;
 #endif
 };
 
@@ -325,6 +325,12 @@ LF_EXPORT void lf_mount_copy (lfMount *dest, const lfMount *source);
 
 /** @sa lfMount::Check */
 LF_EXPORT cbool lf_mount_check (lfMount *mount);
+
+/** @sa lfMount::AddCompat */
+LF_EXPORT void lf_mount_add_compat (lfMount *mount, const char *val);
+
+/** @sa lfMount::GetCompats */
+LF_EXPORT const char* const* lf_mount_get_compats (lfMount *mount);
 
 /** @} */
 
@@ -1388,13 +1394,13 @@ struct LF_EXPORT lfLens
     DEPRECATED bool InterpolateFov (float focal, lfLensCalibFov &res) const;
 
     const lfLensCalibrations& GetCalibrations() const;
-    const std::set<std::string>& GetMountNames() const;
+    const char* const* GetMountNames() const;
 
     private:
         void UpdateLegacyCalibPointers();
 
         lfLensCalibrations Calibrations;
-        std::set<std::string> MountNames;
+        std::vector<char*> MountNames;
 
         bool GetCalibrationSet(const lfLensCalibAttributes* lcattr, lfLensCalibrationSet** lcs);
 #endif
@@ -1450,6 +1456,12 @@ LF_EXPORT cbool lf_lens_check (lfLens *lens);
 
 /** @sa lfLens::GuessParameters */
 LF_EXPORT void lf_lens_guess_parameters (lfLens *lens);
+
+/** @sa lfLens::AddMount */
+LF_EXPORT void lf_lens_add_mount (lfLens *lens, const char *val);
+
+/** @sa lfLens::GetMountNames */
+LF_EXPORT const char* const* lf_lens_get_mount_names (lfLens *lens);
 
 /** @sa lfLens::GetDistortionModelDesc */
 LF_EXPORT const char *lf_get_distortion_model_desc (

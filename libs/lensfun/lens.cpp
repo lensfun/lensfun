@@ -148,6 +148,9 @@ lfLens::~lfLens ()
     for (auto *calibset : Calibrations)
         delete calibset;
 
+    for (char* m: MountNames)
+        free(m);
+
     if (!--_lf_lens_regex_refs)
         _lf_free_lens_regex ();
 }
@@ -163,8 +166,10 @@ lfLens::lfLens (const lfLens &other)
     Type = other.Type;
 
     Mounts = NULL;
-    for (const auto m: other.GetMountNames())
-        AddMount(m.c_str());
+    MountNames.clear();
+    const char* const* otherMounts = other.GetMountNames();
+    for (int i = 0; otherMounts[i]; i++)
+        AddMount(otherMounts[i]);
 
     for (auto *calibset : other.Calibrations)
         Calibrations.push_back(new lfLensCalibrationSet(*calibset));
@@ -191,8 +196,10 @@ lfLens &lfLens::operator = (const lfLens &other)
     Type = other.Type;
 
     Mounts = NULL;
-    for (const auto m: other.GetMountNames())
-        AddMount(m.c_str());
+    MountNames.clear();
+    const char* const* otherMounts = other.GetMountNames();
+    for (int i = 0; otherMounts[i]; i++)
+        AddMount(otherMounts[i]);
 
     for (auto *calibset : Calibrations)
         delete calibset;
@@ -225,8 +232,17 @@ void lfLens::AddMount (const char *val)
 {
     if (val)
     {
-        MountNames.emplace(std::string(val));
-        // TODO: update legacy Mounts Pointer
+        char* p = (char*)malloc(strlen(val));
+        strcpy(p, val);
+        MountNames.push_back(p);
+
+        // add terminating NULL
+        size_t s = MountNames.size();
+        MountNames.reserve(s+1);
+        MountNames[s] = NULL;
+
+        // legacy mount pointer
+        Mounts = (char**)MountNames.data();
     }
 }
 
@@ -1406,9 +1422,9 @@ const lfLensCalibrations& lfLens::GetCalibrations() const
     return Calibrations;
 }
 
-const std::set<std::string> &lfLens::GetMountNames() const
+const char* const* lfLens::GetMountNames() const
 {
-    return MountNames;
+    return MountNames.data();
 }
 
 void lfLens::UpdateLegacyCalibPointers()
@@ -1501,6 +1517,16 @@ void lf_lens_guess_parameters (lfLens *lens)
 cbool lf_lens_check (lfLens *lens)
 {
     return lens->Check ();
+}
+
+void lf_lens_add_mount (lfLens *lens, const char *val)
+{
+    lens->AddMount(val);
+}
+
+const char* const* lf_lens_get_mount_names (lfLens *lens)
+{
+    return lens->GetMountNames();
 }
 
 const char *lf_get_distortion_model_desc (
