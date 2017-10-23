@@ -2283,6 +2283,13 @@
             <distortion model="ptlens" focal="135" a="0.00091" b="0.00263" c="-0.00627"/>
             <distortion model="ptlens" focal="160" a="-0.00014" b="0.00502" c="-0.00361"/>
             <distortion model="ptlens" focal="200" a="0.00255" b="-0.00438" c="0.01481"/>
+            <!--  Taken with a Canon 5D Mark IV  -->
+            <tca model="poly3" focal="70" br="0.0000171" vr="1.0000644" bb="-0.0000030" vb="1.0000288"/>
+            <tca model="poly3" focal="88" br="0.0000040" vr="1.0000583" bb="-0.0000056" vb="1.0000250"/>
+            <tca model="poly3" focal="100" br="-0.0000002" vr="1.0000446" bb="-0.0000080" vb="1.0000233"/>
+            <tca model="poly3" focal="120" br="0.0000030" vr="1.0000206" bb="-0.0000136" vb="1.0000219"/>
+            <tca model="poly3" focal="135" br="0.0000083" vr="0.9999870" bb="-0.0000138" vb="1.0000133"/>
+            <tca model="poly3" focal="200" br="0.0000041" vr="0.9998857" bb="-0.0000289" vb="1.0000341"/>
             <!-- Taken with Canon EOS 5D Mark III -->
             <vignetting model="pa" focal="70" aperture="2.8" distance="1.1" k1="-0.6903" k2="0.4915" k3="-0.4215"/>
             <vignetting model="pa" focal="70" aperture="2.8" distance="2.2" k1="-0.7032" k2="0.5010" k3="-0.3688"/>
