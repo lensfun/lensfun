@@ -76,6 +76,13 @@
         <cropfactor>5.64</cropfactor>
     </camera>
 
+    <camera>
+        <maker>DJI</maker>
+        <model>FC6310</model>
+        <mount>djiFC6310</mount>
+        <cropfactor>2.73</cropfactor>
+    </camera>
+
     <lens>
         <maker>GoPro</maker>
         <model>HD2 &amp; compatibles</model>
@@ -206,6 +213,20 @@
             <tca model="poly3" focal="4.7" br="-0.0000054" vr="1.0000535" bb="-0.0000279" vb="1.0000246"/>
             <vignetting model="pa" focal="4.7" aperture="2.2" distance="10" k1="-1.550" k2="1.055" k3="-0.195"/>
             <vignetting model="pa" focal="4.7" aperture="2.2" distance="1000" k1="-1.550" k2="1.055" k3="-0.195"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>DJI</maker>
+        <model>FC6310 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>djiFC6310</mount>
+        <cropfactor>2.73</cropfactor>
+        <aspect-ratio>16:9</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="8.8" a="0.00961599" b="-0.0582928" c="-0.00551691"/>
+            <tca model="poly3" focal="8.8" vr="1.0000759" vb="1.0000033"/>
         </calibration>
     </lens>
 

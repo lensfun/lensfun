@@ -878,4 +878,49 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>Minolta/Sony AF 500mm F8 Reflex</model>
+        <model lang="en">Sony AF 500mm F8 Reflex</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Sony Alpha 850 -->
+            <distortion model="ptlens" focal="500" a="0.00847" b="-0.02444" c="0.03796"/>
+            <vignetting model="pa" focal="500" aperture="8" distance="10" k1="-1.6969" k2="1.9089" k3="-0.8470"/>
+            <vignetting model="pa" focal="500" aperture="8" distance="1000" k1="-1.6969" k2="1.9089" k3="-0.8470"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>Minolta/Sony AF 100mm F2.8 Macro (D)</model>
+        <model lang="en">Sony AF 100mm F2.8 Macro</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Sony Alpha 850 -->
+            <distortion model="ptlens" focal="100" a="0" b="0.00185" c="0"/>
+            <tca model="poly3" focal="100" vr="0.9999809" vb="0.9999706"/>
+            <vignetting model="pa" focal="100" aperture="2.8" distance="10" k1="-0.4740" k2="-0.3542" k3="0.1846"/>
+            <vignetting model="pa" focal="100" aperture="2.8" distance="1000" k1="-0.4740" k2="-0.3542" k3="0.1846"/>
+            <vignetting model="pa" focal="100" aperture="3.2" distance="10" k1="-0.0322" k2="-1.0545" k3="0.5042"/>
+            <vignetting model="pa" focal="100" aperture="3.2" distance="1000" k1="-0.0322" k2="-1.0545" k3="0.5042"/>
+            <vignetting model="pa" focal="100" aperture="3.5" distance="10" k1="0.1671" k2="-1.1228" k3="0.4358"/>
+            <vignetting model="pa" focal="100" aperture="3.5" distance="1000" k1="0.1671" k2="-1.1228" k3="0.4358"/>
+            <vignetting model="pa" focal="100" aperture="4" distance="10" k1="0.0521" k2="-0.2357" k3="-0.2361"/>
+            <vignetting model="pa" focal="100" aperture="4" distance="1000" k1="0.0521" k2="-0.2357" k3="-0.2361"/>
+            <vignetting model="pa" focal="100" aperture="5" distance="10" k1="-0.2049" k2="0.5998" k3="-0.6548"/>
+            <vignetting model="pa" focal="100" aperture="5" distance="1000" k1="-0.2049" k2="0.5998" k3="-0.6548"/>
+            <vignetting model="pa" focal="100" aperture="6.3" distance="10" k1="-0.2753" k2="0.5974" k3="-0.5031"/>
+            <vignetting model="pa" focal="100" aperture="6.3" distance="1000" k1="-0.2753" k2="0.5974" k3="-0.5031"/>
+            <vignetting model="pa" focal="100" aperture="8" distance="10" k1="-0.1544" k2="0.1559" k3="-0.1031"/>
+            <vignetting model="pa" focal="100" aperture="8" distance="1000" k1="-0.1544" k2="0.1559" k3="-0.1031"/>
+            <vignetting model="pa" focal="100" aperture="11" distance="10" k1="-0.1292" k2="0.0701" k3="-0.0314"/>
+            <vignetting model="pa" focal="100" aperture="11" distance="1000" k1="-0.1292" k2="0.0701" k3="-0.0314"/>
+            <vignetting model="pa" focal="100" aperture="16" distance="10" k1="-0.1260" k2="0.0558" k3="-0.0187"/>
+            <vignetting model="pa" focal="100" aperture="16" distance="1000" k1="-0.1260" k2="0.0558" k3="-0.0187"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
