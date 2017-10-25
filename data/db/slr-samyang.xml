@@ -91,8 +91,8 @@
         <mount>Canon EF-M</mount>
         <cropfactor>1.534</cropfactor>
         <calibration>
-          <!-- taken with Nikon D5500 -->
-            <distortion model="ptlens" focal="16" a="0" b="-0.006111" c="0"/>
+            <!-- taken with Nikon D5500 -->
+            <distortion model="poly3" focal="16" k1="-0.006111"/>
             <tca model="poly3" focal="16" vr="1.0002000" vb="1.0003000"/>
         </calibration>
     </lens>
