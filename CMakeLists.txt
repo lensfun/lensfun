@@ -16,7 +16,7 @@ SET(VERSION_BUGFIX 0)
 SET(VERSION_API 1)
 # This is the version of the *shipped* database, which is not necessarily the
 # highest version number supported
-SET(LENSFUN_DB_VERSION 1)
+SET(LENSFUN_DB_VERSION 2)
 
 # check if some include are available
 INCLUDE(CheckIncludeFiles)
