@@ -265,6 +265,7 @@ void lfLens::GuessParameters ()
         !strstr (Model, "booster") &&
         !strstr (Model, "extender") &&
         !strstr (Model, "converter") &&
+        !strstr (Model, "magnifier") &&
         regexec (&extender_magnification_regex.rex, Model, 0, NULL, 0))
         _lf_parse_lens_name (Model, minf, maxf, mina);
 
