@@ -612,17 +612,20 @@
     <lens>
         <maker>Pentax</maker>
         <model>smc Pentax-DA 18-135mm f/3.5-5.6 ED AL IF DC WR</model>
+        <model lang="en">smc PENTAX-DA 18-135mm f/3.5-5.6 ED AL IF DC WR</model>
         <mount>Pentax K</mount>
         <!-- Average crop factor of Pentax APS-C cameras -->
         <cropfactor>1.53</cropfactor>
         <calibration>
-            <distortion model="poly3" focal="18" k1="-0.02615"/>
-            <distortion model="poly3" focal="24" k1="-0.00343"/>
-            <distortion model="ptlens" focal="36" a="0.01095" b="-0.01774" c="0.01645"/>
-            <distortion model="poly3" focal="53" k1="0.00971"/>
-            <distortion model="ptlens" focal="68" a="-0.00032" b="0.00979" c="-0.00265"/>
-            <distortion model="poly3" focal="100" k1="0.00771"/>
-            <distortion model="poly3" focal="135" k1="0.00701"/>
+	    <!-- Distortion only: taken with Pentax K-30 -->
+	    <!-- c param manually adjusted for better correction -->
+            <distortion model="ptlens" focal="18" a="0.02393" b="-0.05763" c="0.00100"/>
+            <distortion model="ptlens" focal="21" a="0.01763" b="-0.05222" c="0.03794"/>
+            <distortion model="ptlens" focal="28" a="0.01089" b="-0.02102" c="0.01433"/>
+            <distortion model="ptlens" focal="36" a="-0.00227" b="0.02123" c="-0.01979"/>
+            <distortion model="ptlens" focal="60" a="0.00341" b="0.00207" c="-0.0044"/>
+            <distortion model="ptlens" focal="115" a="0.00593" b="-0.02413" c="0.04608"/>
+            <distortion model="ptlens" focal="135" a="-0.00175" b="0.0149" c="-0.01197"/>
             <tca model="poly3" focal="18" br="0.0001" vr="1.00017" bb="0.00005" vb="1.00048"/>
             <tca model="poly3" focal="24" br="0.000" vr="1.00013" bb="0.0001" vb="1.000223"/>
             <tca model="poly3" focal="36" br="-0.000019" vr="1.00003" bb="-0.00005" vb="1.00023"/>
