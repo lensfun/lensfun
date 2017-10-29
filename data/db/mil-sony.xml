@@ -1003,7 +1003,7 @@
             <vignetting model="pa" focal="55" aperture="16" distance="1000" k1="-0.6680" k2="0.6426" k3="-0.2307"/>
             <vignetting model="pa" focal="55" aperture="22" distance="10" k1="-0.6921" k2="0.6663" k3="-0.2238"/>
             <vignetting model="pa" focal="55" aperture="22" distance="1000" k1="-0.6921" k2="0.6663" k3="-0.2238"/>
-         </calibration>
+        </calibration>
     </lens>
 
     <lens>
@@ -1349,9 +1349,9 @@
 
     <lens>
         <maker>Sony</maker>
-        <model>FE 85mm F1.8</model>
+        <model>FE 85mm f/1.8</model>
         <mount>Sony E</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="85" a="-.011" b=".029" c="-.022"/>
             <tca model="poly3" focal="85" vr="0.9999630" vb="0.9998815"/>
