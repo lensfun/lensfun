@@ -2428,6 +2428,19 @@
         <model>Nikon AI-S Nikkor 500mm f/8.0 Reflex</model>
         <model lang="en">Nikkor AI-S 500mm f/8.0 Reflex</model>
         <mount>Nikon F AI-S</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon 3D -->
+            <distortion model="poly3" focal="500" k1="0.00282"/>
+            <tca model="poly3" focal="500" vr="0.9999785" vb="0.9999698"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AI-S Nikkor 500mm f/8.0 Reflex</model>
+        <model lang="en">Nikkor AI-S 500mm f/8.0 Reflex</model>
+        <mount>Nikon F AI-S</mount>
         <!-- Average crop factor of Nikon APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
@@ -3690,6 +3703,133 @@
             <tca model="poly3" focal="135" vr="0.9999275" vb="0.9999038"/>
             <tca model="poly3" focal="200" vr="0.9998593" vb="0.9997647"/>
             <tca model="poly3" focal="300" vr="0.9997757" vb="0.9997447"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S DX Nikkor 35mm f/1.8G</model>
+        <model lang="en">Nikkor AF-S 35mm f/1.8G DX</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon 3D -->
+            <distortion model="ptlens" focal="35" a="0.01504" b="-0.05387" c="0.03379"/>
+            <tca model="poly3" focal="35" vr="1.0002896" vb="1.0003004"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF Nikkor 35-70mm f/2.8</model>
+        <model lang="en">Nikkor AF 35-70mm f/2.8</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon 3D -->
+            <distortion model="ptlens" focal="35" a="0.01027" b="-0.03727" c="0.02147"/>
+            <distortion model="ptlens" focal="40" a="0.00645" b="-0.02212" c="0.01511"/>
+            <distortion model="ptlens" focal="44" a="0.00592" b="-0.01678" c="0.01032"/>
+            <distortion model="ptlens" focal="48" a="0.00372" b="-0.00651" c="0.00434"/>
+            <distortion model="ptlens" focal="58" a="0.00198" b="-0.00029" c="0.00444"/>
+            <distortion model="ptlens" focal="70" a="0.00308" b="-0.00151" c="0.0072"/>
+            <tca model="poly3" focal="35" vr="1.0001919" vb="1.0000261"/>
+            <tca model="poly3" focal="40" vr="1.0001573" vb="0.9999960"/>
+            <tca model="poly3" focal="44" vr="1.0001904" vb="0.9999758"/>
+            <tca model="poly3" focal="48" vr="1.0001616" vb="0.9999739"/>
+            <tca model="poly3" focal="58" vr="1.0001055" vb="0.9999782"/>
+            <tca model="poly3" focal="70" vr="1.0000968" vb="0.9999608"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AI-S Nikkor 50mm f/1.4</model>
+        <model lang="en">Nikkor AI-S 50mm f/1.4</model>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon 3D -->
+            <distortion model="ptlens" focal="50" a="0.00762" b="-0.03144" c="0.02936"/>
+            <tca model="poly3" focal="50" vr="1.0000689" vb="0.9999818"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AI-S Nikkor 50mm f/1.8</model>
+        <model lang="en">Nikkor AI-S 50mm f/1.8</model>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon 3D -->
+            <distortion model="poly3" focal="50" k1="-0.0004"/>
+            <tca model="poly3" focal="50" vr="1.0000763" vb="0.9998909"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AI-S Nikkor 135mm f/2.8</model>
+        <model lang="en">Nikkor AI-S 135mm f/2.8</model>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon 3D -->
+            <distortion model="poly3" focal="135" k1="0.00204"/>
+            <tca model="poly3" focal="135" vr="0.9998352" vb="0.9999342"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF Nikkor 180mm f/2.8D IF-ED</model>
+        <model lang="en">Nikkor AF 180mm f/2.8D IF-ED</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon 3D -->
+            <distortion model="poly3" focal="180" k1="0.00414"/>
+            <tca model="poly3" focal="180" vr="0.9998346" vb="0.9998166"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AI-S Nikkor 200mm f/4</model>
+        <model lang="en">Nikkor AI-S 200mm f/4</model>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon 3D -->
+            <distortion model="poly3" focal="200" k1="0.00338"/>
+            <tca model="poly3" focal="200" vr="0.9997286" vb="0.9998411"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AI-S Nikkor 400mm f/3.5</model>
+        <model lang="en">Nikkor AI-S 400mm f/3.5</model>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon 3D -->
+            <distortion model="ptlens" focal="400" a="0.00965" b="-0.03022" c="0.03424"/>
+            <tca model="poly3" focal="400" vr="0.9998761" vb="0.9998796"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AI-S Nikkor 400mm f/3.5 + TC14B teleconverter</model>
+        <model lang="en">Nikkor AI-S 400mm f/3.5 + TC14B teleconverter</model>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon 3D -->
+            <distortion model="poly3" focal="600" k1="0.00217"/>
+            <tca model="poly3" focal="600" vr="0.9998468" vb="0.9997375"/>
         </calibration>
     </lens>
 

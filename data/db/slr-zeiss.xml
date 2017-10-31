@@ -2,6 +2,17 @@
 <lensdatabase version="2">
 
     <lens>
+        <maker>Zeiss</maker>
+        <model>Carl Zeiss Distagon T* 2/35 ZF.2</model>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="35" a="0.00786" b="-0.02862" c="0.01911"/>
+            <tca model="poly3" focal="35" vr="1.0001515" vb="1.0001430"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <!-- Also update copy at "Carl Zeiss Distagon T* 2,8/21 ZE" below. -->
         <maker>Zeiss</maker>
         <model>Carl Zeiss Distagon T* 2,8/21 ZF.2</model>
