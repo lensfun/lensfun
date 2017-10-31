@@ -500,6 +500,30 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon EOS 200D</model>
+        <model lang="en">EOS 200D</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.613</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon EOS REBEL SL2</model>
+        <model lang="en">EOS Rebel SL2</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.613</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon EOS Kiss X9</model>
+        <model lang="en">EOS Kiss X9</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.613</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon EOS 7D</model>
         <model lang="en">EOS 7D</model>
         <mount>Canon EF-S</mount>
@@ -5859,6 +5883,29 @@
             <!-- Taken with Canon EOS 100D -->
             <distortion model="poly3" focal="24" k1="-0.00591"/>
             <tca model="poly3" focal="24" vr="1.0004660" vb="0.9998842"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>EF-S18-55mm f/4-5.6 IS STM</model>
+        <model lang="en">Canon EF-S 18-55mm f/4-5.6 IS STM</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.613</cropfactor>
+        <calibration>
+	    <!-- Taken with Canon EOS 200D (REBEL SL2, Kiss X9) -->
+            <distortion model="ptlens" focal="18" a="0.02902" b="-0.09036" c="0.05046"/>
+            <distortion model="ptlens" focal="21" a="0.01029" b="-0.02863" c="0.00527"/>
+            <distortion model="ptlens" focal="24" a="0.0077" b="-0.02034" c="0.01097"/>
+            <distortion model="ptlens" focal="35" a="0.00212" b="0.0022" c="0.00277"/>
+            <distortion model="ptlens" focal="43" a="0.00365" b="0.00127" c="0.00006"/>
+            <distortion model="ptlens" focal="55" a="0.00202" b="0.00333" c="0.00486"/>
+            <tca model="poly3" focal="18" vr="1.0004571" vb="1.0000234"/>
+            <tca model="poly3" focal="21" vr="1.0004275" vb="1.0000163"/>
+            <tca model="poly3" focal="24" vr="1.0004164" vb="0.9999815"/>
+            <tca model="poly3" focal="35" vr="1.0002990" vb="0.9999459"/>
+            <tca model="poly3" focal="43" vr="1.0000810" vb="0.9999898"/>
+            <tca model="poly3" focal="55" vr="0.9999927" vb="1.0000311"/>
         </calibration>
     </lens>
 
