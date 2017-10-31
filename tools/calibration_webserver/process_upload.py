@@ -286,6 +286,8 @@ def call_exiv2(raw_file_group):
         except ValueError:
             # Field value was empty
             continue
+        else:
+            field_value = field_value.strip()
         exif_data = result.setdefault(filepath, [None, None, None, float("nan"), float("nan")])
         if fieldname == "Make":
             exif_data[0] = field_value
