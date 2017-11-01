@@ -3833,4 +3833,27 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S Nikkor 70-200mm f/2.8E FL ED VR</model>
+        <model lang="en">Nikkor AF-S 70-200mm f/2.8E FL ED VR</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D750 -->
+            <distortion model="poly3" focal="70" k1="-0.00045"/>
+            <distortion model="poly3" focal="85" k1="0.00344"/>
+            <distortion model="poly3" focal="105" k1="0.0065"/>
+            <distortion model="poly3" focal="135" k1="0.00793"/>
+            <distortion model="poly3" focal="160" k1="0.00816"/>
+            <distortion model="poly3" focal="200" k1="0.00873"/>
+            <tca model="poly3" focal="70" vr="1.0000767" vb="1.0001289"/>
+            <tca model="poly3" focal="85" vr="1.0000226" vb="1.0000882"/>
+            <tca model="poly3" focal="105" vr="0.9999887" vb="1.0000729"/>
+            <tca model="poly3" focal="135" vr="0.9999568" vb="1.0000255"/>
+            <tca model="poly3" focal="160" vr="0.9999367" vb="0.9999862"/>
+            <tca model="poly3" focal="200" vr="0.9999579" vb="0.9998847"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
