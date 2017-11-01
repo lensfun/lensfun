@@ -1829,4 +1829,19 @@
         </calibration>
     </lens>
 
+    <lens>
+        <!-- This lens is actually from Asahi.  But
+             https://sourceforge.net/p/lensfun/features/77/ suggests to call it
+             a Pentax lens. -->
+        <maker>Pentax</maker>
+        <model>Super-Takumar 50mm f/1.4</model>
+        <mount>M42</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony A7R II -->
+            <distortion model="poly3" focal="50" k1="-0.0055"/>
+            <tca model="poly3" focal="50" vr="1.0001502" vb="0.9998892"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
