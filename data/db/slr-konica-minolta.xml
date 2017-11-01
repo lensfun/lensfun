@@ -263,4 +263,34 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Minolta</maker>
+        <model>Minolta AF 135mm f/2.8</model>
+        <mount>Minolta AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony A850 -->
+            <distortion model="poly3" focal="135" k1="0.00136"/>
+            <tca model="poly3" focal="135" vr="0.9998722" vb="0.9999076"/>
+            <vignetting model="pa" focal="135" aperture="2.8" distance="10" k1="-0.9880" k2="0.4795" k3="-0.0632"/>
+            <vignetting model="pa" focal="135" aperture="2.8" distance="1000" k1="-0.9880" k2="0.4795" k3="-0.0632"/>
+            <vignetting model="pa" focal="135" aperture="3.2" distance="10" k1="-0.4583" k2="-0.5567" k3="0.4936"/>
+            <vignetting model="pa" focal="135" aperture="3.2" distance="1000" k1="-0.4583" k2="-0.5567" k3="0.4936"/>
+            <vignetting model="pa" focal="135" aperture="3.5" distance="10" k1="0.1686" k2="-1.4470" k3="0.8710"/>
+            <vignetting model="pa" focal="135" aperture="3.5" distance="1000" k1="0.1686" k2="-1.4470" k3="0.8710"/>
+            <vignetting model="pa" focal="135" aperture="4" distance="10" k1="0.2360" k2="-0.9887" k3="0.4454"/>
+            <vignetting model="pa" focal="135" aperture="4" distance="1000" k1="0.2360" k2="-0.9887" k3="0.4454"/>
+            <vignetting model="pa" focal="135" aperture="5" distance="10" k1="-0.0214" k2="0.0833" k3="-0.1933"/>
+            <vignetting model="pa" focal="135" aperture="5" distance="1000" k1="-0.0214" k2="0.0833" k3="-0.1933"/>
+            <vignetting model="pa" focal="135" aperture="6.3" distance="10" k1="-0.0433" k2="0.1037" k3="-0.0855"/>
+            <vignetting model="pa" focal="135" aperture="6.3" distance="1000" k1="-0.0433" k2="0.1037" k3="-0.0855"/>
+            <vignetting model="pa" focal="135" aperture="8" distance="10" k1="-0.1249" k2="0.1968" k3="-0.1170"/>
+            <vignetting model="pa" focal="135" aperture="8" distance="1000" k1="-0.1249" k2="0.1968" k3="-0.1170"/>
+            <vignetting model="pa" focal="135" aperture="11" distance="10" k1="-0.1124" k2="0.1442" k3="-0.0612"/>
+            <vignetting model="pa" focal="135" aperture="11" distance="1000" k1="-0.1124" k2="0.1442" k3="-0.0612"/>
+            <vignetting model="pa" focal="135" aperture="16" distance="10" k1="-0.1185" k2="0.1469" k3="-0.0561"/>
+            <vignetting model="pa" focal="135" aperture="16" distance="1000" k1="-0.1185" k2="0.1469" k3="-0.0561"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
