@@ -3364,4 +3364,34 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma DT 18-300mm f/3.5-6.3 DC Macro</model>
+        <mount>Sony Alpha</mount>
+        <mount>Canon EF-S</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sigma SA</mount>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony A77V -->
+            <distortion model="ptlens" focal="18" a="0.04288" b="-0.11689" c="0.06181"/>
+            <distortion model="ptlens" focal="24" a="0.03568" b="-0.09156" c="0.0758"/>
+            <distortion model="ptlens" focal="28" a="0.02554" b="-0.05083" c="0.0415"/>
+            <distortion model="ptlens" focal="35" a="0.0084" b="0.01399" c="-0.03436"/>
+            <distortion model="ptlens" focal="55" a="-0.00445" b="0.05235" c="-0.07144"/>
+            <distortion model="ptlens" focal="90" a="0" b="0.01236" c="0"/>
+            <distortion model="ptlens" focal="210" a="0" b="0.00509" c="0"/>
+            <distortion model="ptlens" focal="300" a="0" b="0.00662" c="0"/>
+            <tca model="poly3" focal="18" vr="1.0005829" vb="1.0000237"/>
+            <tca model="poly3" focal="24" vr="1.0004884" vb="1.0000201"/>
+            <tca model="poly3" focal="28" vr="1.0004243" vb="1.0000124"/>
+            <tca model="poly3" focal="35" vr="1.0002965" vb="1.0000111"/>
+            <tca model="poly3" focal="55" vr="1.0002048" vb="1.0000052"/>
+            <tca model="poly3" focal="90" vr="1.0000398" vb="1.0000027"/>
+            <tca model="poly3" focal="210" vr="0.9999862" vb="0.9999853"/>
+            <tca model="poly3" focal="300" vr="0.9999898" vb="0.9999770"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
