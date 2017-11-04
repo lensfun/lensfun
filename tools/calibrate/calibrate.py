@@ -89,7 +89,7 @@ class Lens(object):
 def generate_raw_conversion_call(filename, dcraw_options):
     basename, extension = os.path.splitext(filename)
     extension = extension[1:]
-    if extension.lower() in ["jpg", "tif"]:
+    if extension.lower() in ["jpg", "jpeg", "tif"]:
         return ["convert", filename, basename + ".tiff"]
     else:
         return ["dcraw", "-T", "-t", "0"] + dcraw_options + [filename]
@@ -97,7 +97,7 @@ def generate_raw_conversion_call(filename, dcraw_options):
 
 raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf", "fff",
                        "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx", "pxn", "r3d",
-                       "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f", "jpg", "tif"]
+                       "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f", "jpg", "jpeg", "tif"]
 def find_raw_files():
     result = []
     for file_extension in raw_file_extensions:
