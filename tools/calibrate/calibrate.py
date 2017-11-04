@@ -90,7 +90,11 @@ def generate_raw_conversion_call(filename, dcraw_options):
     basename, extension = os.path.splitext(filename)
     extension = extension[1:]
     if extension.lower() in ["jpg", "jpeg", "tif"]:
-        return ["convert", filename, basename + ".tiff"]
+        result = ["convert", filename]
+        if "-4" in dcraw_options:
+            result.extend(["-colorspace", "RGB", "-depth", "16"])
+        result.append("tiff:-" if "-c" in dcraw_options else basename + ".tiff")
+        return result
     else:
         return ["dcraw", "-T", "-t", "0"] + dcraw_options + [filename]
 
