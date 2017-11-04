@@ -3153,20 +3153,22 @@
         <mount>Canon EF</mount>
         <mount>Nikon F</mount>
         <mount>Sigma SA</mount>
-        <cropfactor>1.605</cropfactor>
+        <cropfactor>1.534</cropfactor>
         <calibration>
-            <!-- Taken with Canon EOS 7D Mark II -->
-            <distortion model="ptlens" focal="50" a="0.00595" b="-0.02621" c="0.02484"/>
-            <distortion model="ptlens" focal="60" a="0.00255" b="-0.00766" c="0.00479"/>
-            <distortion model="ptlens" focal="70" a="-0.00085" b="0.00568" c="-0.00515"/>
-            <distortion model="ptlens" focal="85" a="0.00304" b="-0.00662" c="0.01071"/>
-            <distortion model="ptlens" focal="100" a="-0.00115" b="0.01147" c="-0.00831"/>
-            <tca model="poly3" focal="50" vr="1.0005412" vb="0.9999618"/>
-            <tca model="poly3" focal="60" vr="1.0004842" vb="0.9999661"/>
-            <tca model="poly3" focal="70" vr="1.0004081" vb="0.9999722"/>
-            <tca model="poly3" focal="85" vr="1.0002939" vb="0.9999802"/>
-            <tca model="poly3" focal="100" vr="1.0002253" vb="0.9999808"/>
             <!-- Taken with Nikon D7200 -->
+            <distortion model="poly3" focal="50" k1="-0.00448"/>
+            <distortion model="poly3" focal="52" k1="-0.00349"/>
+            <distortion model="poly3" focal="60" k1="-0.0008"/>
+            <distortion model="poly3" focal="70" k1="0.00243"/>
+            <distortion model="poly3" focal="85" k1="0.00539"/>
+            <distortion model="poly3" focal="100" k1="0.00679"/>
+            <tca model="poly3" focal="50" br="-0.0000253" vr="1.0006888" bb="0.0000730" vb="0.9999195"/>
+            <tca model="poly3" focal="52" br="-0.0000241" vr="1.0006917" bb="0.0000901" vb="0.9999048"/>
+            <tca model="poly3" focal="55" br="-0.0000029" vr="1.0006391" bb="0.0000682" vb="0.9999260"/>
+            <tca model="poly3" focal="60" br="0.0000102" vr="1.0005849" bb="0.0000702" vb="0.9999362"/>
+            <tca model="poly3" focal="70" br="0.0000447" vr="1.0004367" bb="0.0000381" vb="0.9999805"/>
+            <tca model="poly3" focal="85" br="0.0000310" vr="1.0003197" bb="0.0000184" vb="0.9999978"/>
+            <tca model="poly3" focal="100" br="0.0000106" vr="1.0002518" bb="0.0000064" vb="1.0000197"/>
             <vignetting model="pa" focal="50" aperture="1.8" distance="10" k1="-0.6722" k2="0.3712" k3="-0.2237"/>
             <vignetting model="pa" focal="50" aperture="1.8" distance="1000" k1="-0.6722" k2="0.3712" k3="-0.2237"/>
             <vignetting model="pa" focal="50" aperture="2.8" distance="10" k1="0.1832" k2="-0.3861" k3="-0.0678"/>
