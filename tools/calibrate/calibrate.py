@@ -263,7 +263,8 @@ except IOError:
                 for length in sorted(focal_lengths[lens_name]):
                     outfile.write("distortion({0}mm) = , , \n".format(length))
         else:
-            outfile.write("""# No RAW images found.  Please have a look at
+            outfile.write("""# No RAW images found (or no focal lengths in them).
+# Please have a look at
 # http://wilson.bronger.org/lens_calibration_tutorial/
 """)
     print("I wrote a template lenses.txt.  Please fill this file with proper information.  Abort.")
@@ -367,7 +368,7 @@ def evaluate_image_set(exif_data, filepaths):
             for i, line in enumerate(image_data.splitlines(True)):
                 header_size += len(line)
                 if i == 0:
-                    assert line == b"P5\n"
+                    assert line == b"P5\n", "Wrong image format (must be NetPGM binary)"
                 else:
                     line = line.partition(b"#")[0].strip()
                     if line:
@@ -375,7 +376,7 @@ def evaluate_image_set(exif_data, filepaths):
                             width, height = line.split()
                             width, height = int(width), int(height)
                         else:
-                            assert line == b"65535"
+                            assert line == b"65535", "Wrong grayscale depth: {} (must be 65535)".format(int(line))
                             break
             half_diagonal = math.hypot(width // 2, height // 2)
             image_data = struct.unpack("!{0}s{1}H".format(header_size, width * height), image_data)[1:]
