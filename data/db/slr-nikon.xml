@@ -2212,6 +2212,17 @@
         <cropfactor>1</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="35" a="0.001968" b="-0.009475" c="0"/>
+            <!-- Taken with Nikon D3 -->
+            <vignetting model="pa" focal="35" aperture="2" distance="10" k1="-1.6691" k2="1.6789" k3="-0.7358"/>
+            <vignetting model="pa" focal="35" aperture="2" distance="1000" k1="-1.6691" k2="1.6789" k3="-0.7358"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="10" k1="-0.4608" k2="-0.4247" k3="0.3332"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="1000" k1="-0.4608" k2="-0.4247" k3="0.3332"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="10" k1="-0.2960" k2="-0.1757" k3="0.0421"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="1000" k1="-0.2960" k2="-0.1757" k3="0.0421"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="10" k1="-0.4347" k2="0.2874" k3="-0.1813"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="1000" k1="-0.4347" k2="0.2874" k3="-0.1813"/>
+            <vignetting model="pa" focal="35" aperture="22" distance="10" k1="-0.4186" k2="0.1698" k3="-0.0435"/>
+            <vignetting model="pa" focal="35" aperture="22" distance="1000" k1="-0.4186" k2="0.1698" k3="-0.0435"/>
         </calibration>
     </lens>
 
