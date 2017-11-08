@@ -1388,4 +1388,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 24-70mm F2.8 GM</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Sony ILCE-7RM2 (Alpha 7R II) -->
+            <distortion model="ptlens" focal="24" a="0.02824" b="-0.07818" c="0.03129"/>
+            <distortion model="ptlens" focal="30" a="0.01769" b="-0.03891" c="0.01588"/>
+            <distortion model="ptlens" focal="38" a="0.01259" b="-0.01412" c="-0.00168"/>
+            <distortion model="ptlens" focal="47" a="0.00944" b="-0.01195" c="0.01741"/>
+            <distortion model="ptlens" focal="56" a="0.00279" b="0.01446" c="-0.01735"/>
+            <distortion model="ptlens" focal="70" a="0.00719" b="-0.01275" c="0.0241"/>
+            <tca model="poly3" focal="24" vr="1.0001797" vb="1.0001569"/>
+            <tca model="poly3" focal="30" vr="1.0000661" vb="1.0001623"/>
+            <tca model="poly3" focal="38" vr="1.0000277" vb="1.0001063"/>
+            <tca model="poly3" focal="47" vr="0.9999782" vb="1.0000259"/>
+            <tca model="poly3" focal="56" vr="0.9999437" vb="0.9999462"/>
+            <tca model="poly3" focal="70" vr="0.9998908" vb="0.9998780"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
