@@ -483,4 +483,21 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Miranda</maker>
+        <model>Miranda 28mm f/2.8 MC</model>
+        <mount>Contax/Yashica</mount>
+        <mount>Canon FD</mount>
+        <mount>M42</mount>
+        <mount>Nikon F</mount>
+        <mount>Pentax K</mount>
+        <mount>Minolta MD</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="28" a="0.01614" b="-0.05197" c="0.02005"/>
+            <tca model="poly3" focal="28" vr="1.0005257" vb="0.9998678"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
