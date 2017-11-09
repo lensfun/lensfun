@@ -1409,6 +1409,18 @@
         <maker>Pentax</maker>
         <model>smc Pentax-A 50mm f/1.7</model>
         <mount>Pentax KA</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="poly3" focal="50" k1="-0.00348"/>
+            <tca model="poly3" focal="50" vr="0.9999940" vb="1.0000320"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-A 50mm f/1.7</model>
+        <mount>Pentax KA</mount>
         <cropfactor>1.526</cropfactor>
         <calibration>
             <!-- Taken with Pentax K-5 -->
