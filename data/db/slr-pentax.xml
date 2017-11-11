@@ -775,6 +775,25 @@
     </lens>
 
     <lens>
+        <maker>Pentax</maker>
+        <model>HD PENTAX-DA 55-300mm F4-5.8 ED WR</model>
+        <mount>Pentax KAF3</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="55" a="0.00917" b="-0.03664" c="0.02573"/>
+            <distortion model="ptlens" focal="77.5" a="0" b="0.01961" c="0"/>
+            <distortion model="ptlens" focal="107.5" a="0" b="0.02241" c="0"/>
+            <distortion model="ptlens" focal="150" a="0" b="0.02426" c="0"/>
+            <distortion model="ptlens" focal="300" a="0" b="0.01784" c="0"/>
+            <tca model="poly3" focal="55" vr="1.0002190" vb="0.9999780"/>
+            <tca model="poly3" focal="77.5" vr="1.0000514" vb="0.9999319"/>
+            <tca model="poly3" focal="107.5" vr="0.9999875" vb="0.9999069"/>
+            <tca model="poly3" focal="150" vr="0.9999301" vb="0.9996422"/>
+            <tca model="poly3" focal="300" vr="0.9997730" vb="0.9992534"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <!-- This is a copy of the smc Pentax-DA L 55-300mm f/4-5.8 ED below.
              Please keep in sync. -->
         <maker>Pentax</maker>
