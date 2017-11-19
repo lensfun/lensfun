@@ -3467,4 +3467,27 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 18-300mm f/3.5-6.3 DC Macro OS HSM</model>
+        <mount>Sigma SA</mount>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1.613</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS 77D -->
+            <distortion model="ptlens" focal="18" a="0.024859" b="-0.068706" c="0.031927"/>
+            <distortion model="ptlens" focal="28" a="0.018089" b="-0.03859" c="0.040445"/>
+            <distortion model="ptlens" focal="37" a="0.009138" b="-0.009452" c="0.018907"/>
+            <distortion model="ptlens" focal="50" a="0.00743" b="-0.008639" c="0.023313"/>
+            <distortion model="ptlens" focal="80" a="0.003064" b="0.000314" c="0.013691"/>
+            <distortion model="ptlens" focal="90" a="0.004472" b="-0.005575" c="0.019443"/>
+            <distortion model="ptlens" focal="135" a="0.012101" b="-0.035257" c="0.046084"/>
+            <distortion model="ptlens" focal="200" a="0.003779" b="-0.007214" c="0.008125"/>
+            <distortion model="ptlens" focal="300" a="0.006747" b="-0.021998" c="0.038091"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
