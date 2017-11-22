@@ -3963,3 +3963,29 @@
     </lens>
 
 </lensdatabase>
+<lensdatabase>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S Nikkor 300mm f/4D IF-ED</model>
+        <model lang="en">Nikkor AF-S 300mm f/4D IF-ED</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Nikon D3 -->
+            <distortion model="ptlens" focal="300" a="0" b="0.00357" c="0"/>
+            <tca model="poly3" focal="300" vr="0.9999216" vb="0.9999283"/>
+            <vignetting model="pa" focal="300" aperture="4" distance="10" k1="-1.2815" k2="1.4933" k3="-0.7174"/>
+            <vignetting model="pa" focal="300" aperture="4" distance="1000" k1="-1.2815" k2="1.4933" k3="-0.7174"/>
+            <vignetting model="pa" focal="300" aperture="5.6" distance="10" k1="-0.3694" k2="-0.2499" k3="0.2438"/>
+            <vignetting model="pa" focal="300" aperture="5.6" distance="1000" k1="-0.3694" k2="-0.2499" k3="0.2438"/>
+            <vignetting model="pa" focal="300" aperture="8" distance="10" k1="0.0668" k2="-0.4937" k3="0.1787"/>
+            <vignetting model="pa" focal="300" aperture="8" distance="1000" k1="0.0668" k2="-0.4937" k3="0.1787"/>
+            <vignetting model="pa" focal="300" aperture="11" distance="10" k1="-0.1471" k2="0.3722" k3="-0.3474"/>
+            <vignetting model="pa" focal="300" aperture="11" distance="1000" k1="-0.1471" k2="0.3722" k3="-0.3474"/>
+            <vignetting model="pa" focal="300" aperture="32" distance="10" k1="-0.1032" k2="0.0972" k3="-0.0284"/>
+            <vignetting model="pa" focal="300" aperture="32" distance="1000" k1="-0.1032" k2="0.0972" k3="-0.0284"/>
+        </calibration>
+    </lens>
+
+</lensdatabase>
