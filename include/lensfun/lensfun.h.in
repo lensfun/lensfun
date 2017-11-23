@@ -2455,6 +2455,8 @@ struct LF_EXPORT lfModifier
      * transformed into rectilinear of the same focal length.  In contrast,
      * cropping, rotating, shifting, or scaling must be switched off.
      *
+     * @param lens
+     *     Lens object to be used for the transform.
      * @param focal
      *     The focal length in mm at which the image was taken.
      * @param x
@@ -2471,7 +2473,7 @@ struct LF_EXPORT lfModifier
      * @return
      *     True if the perspective correction was enabled.
      */
-    bool EnablePerspectiveCorrection (float focal, float *x, float *y, int count, float d);
+    bool EnablePerspectiveCorrection (const lfLens* lens, float focal, float *x, float *y, int count, float d);
 
     /**
      * @brief Compute the automatic scale factor for the image.
@@ -2861,6 +2863,7 @@ private:
     static void ModifyCoord_Geom_Thoby_ERect (void *data, float *iocoord, int count);
     static void ModifyCoord_Geom_ERect_Thoby (void *data, float *iocoord, int count);
     static void ModifyCoord_Perspective_Correction (void *data, float *iocoord, int count);
+    static void ModifyCoord_Perspective_Distortion (void *data, float *iocoord, int count);
 #ifdef VECTORIZATION_SSE
     static void ModifyColor_DeVignetting_PA_SSE (
       void *data, float _x, float _y, lf_f32 *pixels, int comp_role, int count);
@@ -2936,7 +2939,7 @@ LF_EXPORT cbool lf_modifier_enable_projection_transform (
 
 /** @sa lfModifier::EnablePerspectiveCorrection */
 LF_EXPORT cbool lf_modifier_enable_perspective_correction (
-    lfModifier *modifier, float focal, float *x, float *y, int count, float d);
+    lfModifier *modifier, const lfLens* lens, float focal, float *x, float *y, int count, float d);
 
 /** @sa lfModifier::GetAutoScale */
 LF_EXPORT float lf_modifier_get_auto_scale (

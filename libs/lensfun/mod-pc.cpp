@@ -185,6 +185,30 @@ dvector svd (matrix M)
     return result;
 }
 
+/* This returns the determinant of a 3×3 matrix (rule of Sarrus).
+ */
+double determinant (matrix M) {
+    return M [0][0] * M [1][1] * M [2][2] + M [0][1] * M [1][2] * M [2][0] + M [0][2] * M [1][0] * M [2][1] -
+           M [0][2] * M [1][1] * M [2][0] - M [0][0] * M [1][2] * M [2][1] - M [0][1] * M [1][0] * M [2][2];
+}
+
+/* This returns the inverse of the given 3×3 matrix.
+ */
+matrix inverse_matrix (matrix M) {
+    matrix result (3, dvector (3));
+    double det_inv = 1.0 / determinant (M);
+    result [0][0] = det_inv * (M [1][1] * M [2][2] - M [1][2] * M [2][1]);
+    result [0][1] = det_inv * (M [0][2] * M [2][1] - M [0][1] * M [2][2]);
+    result [0][2] = det_inv * (M [0][1] * M [1][2] - M [0][2] * M [1][1]);
+    result [1][0] = det_inv * (M [1][2] * M [2][0] - M [1][0] * M [2][2]);
+    result [1][1] = det_inv * (M [0][0] * M [2][2] - M [0][2] * M [2][0]);
+    result [1][2] = det_inv * (M [0][2] * M [1][0] - M [0][0] * M [1][2]);
+    result [2][0] = det_inv * (M [1][0] * M [2][1] - M [1][1] * M [2][0]);
+    result [2][1] = det_inv * (M [0][1] * M [2][0] - M [0][0] * M [2][1]);
+    result [2][2] = det_inv * (M [0][0] * M [1][1] - M [0][1] * M [1][0]);
+    return result;
+}
+
 void ellipse_analysis (dvector x, dvector y, double f_normalized, double &x_v, double &y_v,
                        double &center_x, double &center_y)
 {
@@ -546,15 +570,10 @@ matrix generate_rotation_matrix (double rho_1, double delta, double rho_2, doubl
     return M;
 }
 
-bool lfModifier::EnablePerspectiveCorrection (float focal, float *x, float *y, int count, float d)
+bool lfModifier::EnablePerspectiveCorrection (const lfLens* lens, float focal, float *x, float *y, int count, float d)
 {
-    if (Reverse)
-    {
-        g_warning ("[Lensfun] reverse perspective correction is not yet implemented\n");
-        return false;
-    }
     const int number_of_control_points = count;
-    double norm_focal = focal / 7.82268578879;
+    double norm_focal = GetNormalizedFocalLength (focal, lens);
 
     if (number_of_control_points < 4 || number_of_control_points > 8 ||
         (norm_focal <= 0 && number_of_control_points != 8))
@@ -650,20 +669,38 @@ bool lfModifier::EnablePerspectiveCorrection (float focal, float *x, float *y, i
 
     lfCoordPerspCallbackData* cd = new lfCoordPerspCallbackData;
 
-    cd->callback = ModifyCoord_Perspective_Correction;
-    cd->priority = 300;
+    if (!Reverse) {
+        cd->callback = ModifyCoord_Perspective_Correction;
+        cd->priority = 300;
 
-    /* The occurances of factors and denominators here avoid additional
-       operations in the inner loop of perspective_correction_callback. */
-    cd->A [0][0] = A [0][0] * mapping_scale;
-    cd->A [0][1] = A [0][1] * mapping_scale;
-    cd->A [0][2] = A [0][2] * norm_focal;
-    cd->A [1][1] = A [1][0] * mapping_scale;
-    cd->A [1][1] = A [1][1] * mapping_scale;
-    cd->A [1][2] = A [1][2] * norm_focal;
-    cd->A [2][0] = A [2][0] / center_coords [2];
-    cd->A [2][1] = A [2][1] / center_coords [2];
-    cd->A [2][2] = A [2][2];
+        /* The occurances of factors and denominators here avoid additional
+           operations in the inner loop of perspective_correction_callback. */
+        cd->A [0][0] = A [0][0] * mapping_scale;
+        cd->A [0][1] = A [0][1] * mapping_scale;
+        cd->A [0][2] = A [0][2] * mapping_scale * center_coords [2];
+        cd->A [1][0] = A [1][0] * mapping_scale;
+        cd->A [1][1] = A [1][1] * mapping_scale;
+        cd->A [1][2] = A [1][2] * mapping_scale * center_coords [2];
+        cd->A [2][0] = A [2][0] / center_coords [2];
+        cd->A [2][1] = A [2][1] / center_coords [2];
+        cd->A [2][2] = A [2][2];
+    } else {
+        cd->callback = ModifyCoord_Perspective_Distortion;
+        cd->priority = 700;
+        A = inverse_matrix (A);
+
+        /* The occurances of factors and denominators here avoid additional
+           operations in the inner loop of perspective_correction_callback. */
+        cd->A [0][0] = A [0][0];
+        cd->A [0][1] = A [0][1];
+        cd->A [0][2] = A [0][2] * mapping_scale * center_coords [2];
+        cd->A [1][0] = A [1][0];
+        cd->A [1][1] = A [1][1];
+        cd->A [1][2] = A [1][2] * mapping_scale * center_coords [2];
+        cd->A [2][0] = A [2][0] / center_coords [2];
+        cd->A [2][1] = A [2][1] / center_coords [2];
+        cd->A [2][2] = A [2][2] * mapping_scale;
+    }
 
     cd->delta_a = Delta_a / mapping_scale;
     cd->delta_b = Delta_b / mapping_scale;
@@ -680,14 +717,41 @@ void lfModifier::ModifyCoord_Perspective_Correction (void *data, float *iocoord,
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        float x, y, z_;
+        double x, y, z_;
         x = iocoord [0] + cddata->delta_a;
         y = iocoord [1] + cddata->delta_b;
         z_ = A [2][0] * x + A [2][1] * y + A [2][2];
         if (z_ > 0)
         {
-            iocoord [0] = (A [0][0] * x + A [0][1] * y + A [0][2]) / z_;
-            iocoord [1] = (A [1][0] * x + A [1][1] * y + A [1][2]) / z_;
+            double z_inv_ = 1.0 / z_;
+            iocoord [0] = (A [0][0] * x + A [0][1] * y + A [0][2]) * z_inv_;
+            iocoord [1] = (A [1][0] * x + A [1][1] * y + A [1][2]) * z_inv_;
+        }
+        else
+            iocoord [0] = iocoord [1] = 1.6e16F;
+    }
+}
+
+void lfModifier::ModifyCoord_Perspective_Distortion (void *data, float *iocoord, int count)
+{
+    /* This callback could be merged into ModifyCoord_Perspective_Correction if
+     * we had a dedicated panning callback. */
+    lfCoordPerspCallbackData* cddata = (lfCoordPerspCallbackData*) data;
+    float (*A)[3] = cddata->A;
+
+    for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
+    {
+        double x, y, z_;
+        x = iocoord [0];
+        y = iocoord [1];
+        z_ = A [2][0] * x + A [2][1] * y + A [2][2];
+        if (z_ > 0)
+        {
+            double z_inv_ = 1.0 / z_;
+            iocoord [0] = (A [0][0] * x + A [0][1] * y + A [0][2]) * z_inv_;
+            iocoord [1] = (A [1][0] * x + A [1][1] * y + A [1][2]) * z_inv_;
+            iocoord [0] -= cddata->delta_a;
+            iocoord [1] -= cddata->delta_b;
         }
         else
             iocoord [0] = iocoord [1] = 1.6e16F;
@@ -697,7 +761,7 @@ void lfModifier::ModifyCoord_Perspective_Correction (void *data, float *iocoord,
 //---------------------------// The C interface //---------------------------//
 
 cbool lf_modifier_enable_perspective_correction (
-    lfModifier *modifier, float focal, float *x, float *y, int count, float d)
+    lfModifier *modifier, const lfLens* lens, float focal, float *x, float *y, int count, float d)
 {
-    return modifier->EnablePerspectiveCorrection (focal, x, y, count, d);
+    return modifier->EnablePerspectiveCorrection (lens, focal, x, y, count, d);
 }
