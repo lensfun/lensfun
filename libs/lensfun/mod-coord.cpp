@@ -382,12 +382,9 @@ float lfModifier::GetTransformedDistance (lfPoint point) const
         float res [2];
 
         res [0] = ca * ru; res [1] = sa * ru;
-        for (unsigned int j = 0; j < CoordCallbacks.size(); j++)
-        {
-            //lfCoordCallbackData *cd =
-            //    (lfCoordCallbackData *)g_ptr_array_index ((GPtrArray *)CoordCallbacks, j);
-            //cd->callback (cd->data, res, 1);
-        }
+        for (auto cb : CoordCallbacks)
+            cb->callback (cb, res, 1);
+
         double rd = AutoscaleResidualDistance (res);
         if (rd > -NEWTON_EPS * 100 && rd < NEWTON_EPS * 100)
             break;
@@ -399,12 +396,9 @@ float lfModifier::GetTransformedDistance (lfPoint point) const
 
         // Compute approximative function prime in (x,y)
         res [0] = ca * (ru + dx); res [1] = sa * (ru + dx);
-        for (unsigned int j = 0; j < CoordCallbacks.size(); j++)
-        {
-            //lfCoordCallbackData *cd =
-           //     (lfCoordCallbackData *)g_ptr_array_index ((GPtrArray *)CoordCallbacks, j);
-            //cd->callback (cd->data, res, 1);
-        }
+        for (auto cb : CoordCallbacks)
+            cb->callback (cb, res, 1);
+
         double rd1 = AutoscaleResidualDistance (res);
 
         // If rd1 is very close to rd, this means our delta is too small
