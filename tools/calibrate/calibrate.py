@@ -166,6 +166,103 @@ def call_exiv2(candidate_group):
     for filename, exif_data in result.copy().items():
         result[filename] = tuple(exif_data)
     return result
+def generate_tca_tiffs(filename):
+    tca_filename = filename + ".tca"
+    if not os.path.exists(tca_filename):
+        tiff_filename = os.path.splitext(filename)[0] + ".tiff"
+        if not os.path.exists(tiff_filename):
+            subprocess.check_call(generate_raw_conversion_call(filename, ["-4", "-o", "0", "-M"]))
+        return filename, tiff_filename, tca_filename
+    return None, None, None
+
+def evaluate_image_set(exif_data, filepaths):
+    output_filename = "{0}--{1}--{2}--{3}".format(*exif_data).replace(" ", "_").replace("/", "__").replace(":", "___"). \
+                      replace("*", "++").replace("=", "##")
+    gnuplot_filename = "{0}.gp".format(output_filename)
+    try:
+        gnuplot_line = codecs.open(gnuplot_filename, encoding="utf-8").readlines()[3]
+        match = re.match(r'     [-e.0-9]+ \* \(1 \+ \((?P<k1>[-e.0-9]+)\) \* x\*\*2 \+ \((?P<k2>[-e.0-9]+)\) \* x\*\*4 \+ '
+                         r'\((?P<k3>[-e.0-9]+)\) \* x\*\*6\) title "fit"', gnuplot_line)
+        k1, k2, k3 = [float(k) for k in match.groups()]
+    except IOError:
+        radii, intensities = [], []
+        for filepath in filepaths:
+            maximal_radius = 1
+            try:
+                sidecar_file = open(os.path.splitext(filepath)[0] + ".txt")
+            except FileNotFoundError:
+                pass
+            else:
+                for line in sidecar_file:
+                    if line.startswith("maximal_radius"):
+                        maximal_radius = float(line.partition(":")[2])
+            dcraw_process = subprocess.Popen(generate_raw_conversion_call(filepath, ["-4", "-M", "-o", "0", "-c"] + h_option),
+                                             stdout=subprocess.PIPE)
+            image_data = subprocess.check_output(
+                ["convert", "tiff:-", "-set", "colorspace", "RGB", "-resize", "250", "pgm:-"], stdin=dcraw_process.stdout,
+                stderr=open(os.devnull, "w"))
+            width, height = None, None
+            header_size = 0
+            for i, line in enumerate(image_data.splitlines(True)):
+                header_size += len(line)
+                if i == 0:
+                    assert line == b"P5\n", "Wrong image format (must be NetPGM binary)"
+                else:
+                    line = line.partition(b"#")[0].strip()
+                    if line:
+                        if not width:
+                            width, height = line.split()
+                            width, height = int(width), int(height)
+                        else:
+                            assert line == b"65535", "Wrong grayscale depth: {} (must be 65535)".format(int(line))
+                            break
+            half_diagonal = math.hypot(width // 2, height // 2)
+            image_data = struct.unpack("!{0}s{1}H".format(header_size, width * height), image_data)[1:]
+            for i, intensity in enumerate(image_data):
+                y, x = divmod(i, width)
+                radius = math.hypot(x - width // 2, y - height // 2) / half_diagonal
+                if radius <= maximal_radius:
+                    radii.append(radius)
+                    intensities.append(intensity)
+        all_points_filename = "{0}-all_points.dat".format(output_filename)
+        with open(all_points_filename, "w") as outfile:
+            for radius, intensity in zip(radii, intensities):
+                outfile.write("{0} {1}\n".format(radius, intensity))
+        number_of_bins = 16
+        bins = [[] for i in range(number_of_bins)]
+        for radius, intensity in zip(radii, intensities):
+            # The zeroth and the last bin are only half bins which means that their
+            # means are skewed.  But this is okay: For the zeroth, the curve is
+            # supposed to be horizontal anyway, and for the last, it underestimates
+            # the vignetting at the rim which is a good thing (too much of
+            # correction is bad).
+            bin_index = int(round(radius / maximal_radius * (number_of_bins - 1)))
+            bins[bin_index].append(intensity)
+        radii = [i / (number_of_bins - 1) * maximal_radius for i in range(number_of_bins)]
+        intensities = [numpy.median(bin) for bin in bins]
+        bins_filename = "{0}-bins.dat".format(output_filename)
+        with open(bins_filename, "w") as outfile:
+            for radius, intensity in zip(radii, intensities):
+                outfile.write("{0} {1}\n".format(radius, intensity))
+        radii, intensities = numpy.array(radii), numpy.array(intensities)
+
+        def fit_function(radius, A, k1, k2, k3):
+            return A * (1 + k1 * radius**2 + k2 * radius**4 + k3 * radius**6)
+
+        A, k1, k2, k3 = leastsq(lambda p, x, y: y - fit_function(x, *p), [30000, -0.3, 0, 0], args=(radii, intensities))[0]
+
+        lens_name, focal_length, aperture, distance = exif_data
+        if distance == float("inf"):
+            distance = "∞"
+        codecs.open(gnuplot_filename, "w", encoding="utf-8").write("""set grid
+set title "{6}, {7} mm, f/{8}, {9} m"
+plot "{0}" with dots title "samples", "{1}" with linespoints lw 4 title "average", \\
+     {2} * (1 + ({3}) * x**2 + ({4}) * x**4 + ({5}) * x**6) title "fit"
+pause -1
+""".format(all_points_filename, bins_filename, A, k1, k2, k3, lens_name, focal_length, aperture, distance))
+
+    return (k1, k2, k3)
+
 pool = multiprocessing.Pool()
 for group_exif_data in pool.map(call_exiv2, candidate_groups):
     file_exif_data.update(group_exif_data)
@@ -275,15 +372,6 @@ except IOError:
 # TCA correction
 #
 
-def generate_tca_tiffs(filename):
-    tca_filename = filename + ".tca"
-    if not os.path.exists(tca_filename):
-        tiff_filename = os.path.splitext(filename)[0] + ".tiff"
-        if not os.path.exists(tiff_filename):
-            subprocess.check_call(generate_raw_conversion_call(filename, ["-4", "-o", "0", "-M"]))
-        return filename, tiff_filename, tca_filename
-    return None, None, None
-
 if os.path.exists("tca"):
     with chdir("tca"):
         pool = multiprocessing.Pool()
@@ -336,94 +424,6 @@ for vignetting_directory in glob.glob("vignetting*"):
             images.setdefault(exif_data, []).append(os.path.join(vignetting_directory, filename))
 
 vignetting_db_entries = {}
-
-def evaluate_image_set(exif_data, filepaths):
-    output_filename = "{0}--{1}--{2}--{3}".format(*exif_data).replace(" ", "_").replace("/", "__").replace(":", "___"). \
-                      replace("*", "++").replace("=", "##")
-    gnuplot_filename = "{0}.gp".format(output_filename)
-    try:
-        gnuplot_line = codecs.open(gnuplot_filename, encoding="utf-8").readlines()[3]
-        match = re.match(r'     [-e.0-9]+ \* \(1 \+ \((?P<k1>[-e.0-9]+)\) \* x\*\*2 \+ \((?P<k2>[-e.0-9]+)\) \* x\*\*4 \+ '
-                         r'\((?P<k3>[-e.0-9]+)\) \* x\*\*6\) title "fit"', gnuplot_line)
-        k1, k2, k3 = [float(k) for k in match.groups()]
-    except IOError:
-        radii, intensities = [], []
-        for filepath in filepaths:
-            maximal_radius = 1
-            try:
-                sidecar_file = open(os.path.splitext(filepath)[0] + ".txt")
-            except FileNotFoundError:
-                pass
-            else:
-                for line in sidecar_file:
-                    if line.startswith("maximal_radius"):
-                        maximal_radius = float(line.partition(":")[2])
-            dcraw_process = subprocess.Popen(generate_raw_conversion_call(filepath, ["-4", "-M", "-o", "0", "-c"] + h_option),
-                                             stdout=subprocess.PIPE)
-            image_data = subprocess.check_output(
-                ["convert", "tiff:-", "-set", "colorspace", "RGB", "-resize", "250", "pgm:-"], stdin=dcraw_process.stdout,
-                stderr=open(os.devnull, "w"))
-            width, height = None, None
-            header_size = 0
-            for i, line in enumerate(image_data.splitlines(True)):
-                header_size += len(line)
-                if i == 0:
-                    assert line == b"P5\n", "Wrong image format (must be NetPGM binary)"
-                else:
-                    line = line.partition(b"#")[0].strip()
-                    if line:
-                        if not width:
-                            width, height = line.split()
-                            width, height = int(width), int(height)
-                        else:
-                            assert line == b"65535", "Wrong grayscale depth: {} (must be 65535)".format(int(line))
-                            break
-            half_diagonal = math.hypot(width // 2, height // 2)
-            image_data = struct.unpack("!{0}s{1}H".format(header_size, width * height), image_data)[1:]
-            for i, intensity in enumerate(image_data):
-                y, x = divmod(i, width)
-                radius = math.hypot(x - width // 2, y - height // 2) / half_diagonal
-                if radius <= maximal_radius:
-                    radii.append(radius)
-                    intensities.append(intensity)
-        all_points_filename = "{0}-all_points.dat".format(output_filename)
-        with open(all_points_filename, "w") as outfile:
-            for radius, intensity in zip(radii, intensities):
-                outfile.write("{0} {1}\n".format(radius, intensity))
-        number_of_bins = 16
-        bins = [[] for i in range(number_of_bins)]
-        for radius, intensity in zip(radii, intensities):
-            # The zeroth and the last bin are only half bins which means that their
-            # means are skewed.  But this is okay: For the zeroth, the curve is
-            # supposed to be horizontal anyway, and for the last, it underestimates
-            # the vignetting at the rim which is a good thing (too much of
-            # correction is bad).
-            bin_index = int(round(radius / maximal_radius * (number_of_bins - 1)))
-            bins[bin_index].append(intensity)
-        radii = [i / (number_of_bins - 1) * maximal_radius for i in range(number_of_bins)]
-        intensities = [numpy.median(bin) for bin in bins]
-        bins_filename = "{0}-bins.dat".format(output_filename)
-        with open(bins_filename, "w") as outfile:
-            for radius, intensity in zip(radii, intensities):
-                outfile.write("{0} {1}\n".format(radius, intensity))
-        radii, intensities = numpy.array(radii), numpy.array(intensities)
-
-        def fit_function(radius, A, k1, k2, k3):
-            return A * (1 + k1 * radius**2 + k2 * radius**4 + k3 * radius**6)
-
-        A, k1, k2, k3 = leastsq(lambda p, x, y: y - fit_function(x, *p), [30000, -0.3, 0, 0], args=(radii, intensities))[0]
-
-        lens_name, focal_length, aperture, distance = exif_data
-        if distance == float("inf"):
-            distance = "∞"
-        codecs.open(gnuplot_filename, "w", encoding="utf-8").write("""set grid
-set title "{6}, {7} mm, f/{8}, {9} m"
-plot "{0}" with dots title "samples", "{1}" with linespoints lw 4 title "average", \\
-     {2} * (1 + ({3}) * x**2 + ({4}) * x**4 + ({5}) * x**6) title "fit"
-pause -1
-""".format(all_points_filename, bins_filename, A, k1, k2, k3, lens_name, focal_length, aperture, distance))
-
-    return (k1, k2, k3)
 
 pool = multiprocessing.Pool()
 results = {}
