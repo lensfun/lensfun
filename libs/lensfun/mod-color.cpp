@@ -63,9 +63,9 @@ bool lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv)
 
                     case LF_PF_U16:
 #ifdef VECTORIZATION_SSE2
-                        //if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE2)
-                            //ADD_CALLBACK (ModifyColor_DeVignetting_PA_SSE2, lf_u16, 750);
-                        //else
+                        if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE2)
+                            ADD_CALLBACK (lcv, ModifyColor_DeVignetting_PA_SSE2, lf_u16, 750);
+                        else
 #endif
                         ADD_CALLBACK (lcv, ModifyColor_DeVignetting_PA, lf_u16, 750);
                         break;
@@ -76,9 +76,9 @@ bool lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv)
 
                     case LF_PF_F32:
 #ifdef VECTORIZATION_SSE
-                        //if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
-                            //ADD_CALLBACK (ModifyColor_DeVignetting_PA_SSE, lf_f32, 750);
-                        //else
+                        if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
+                            ADD_CALLBACK (lcv, ModifyColor_DeVignetting_PA_SSE, lf_f32, 750);
+                        else
 #endif
                         ADD_CALLBACK (lcv, ModifyColor_DeVignetting_PA, lf_f32, 750);
                         break;

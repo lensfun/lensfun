@@ -62,10 +62,9 @@ bool lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd)
                 lcd_.Terms [1] /= pow (d, 3);
                 lcd_.Terms [2] /= pow (d, 2);
 #ifdef VECTORIZATION_SSE
-                //if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
-                    //AddCoordCallback (ModifyCoord_UnDist_PTLens_SSE, 250,
-                                  //    tmp, sizeof (float) * 3);
-                //else
+                if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
+                    AddCoordDistCallback (lcd_, ModifyCoord_UnDist_PTLens_SSE, 250);
+                else
 #endif
                 AddCoordDistCallback (lcd_, ModifyCoord_UnDist_PTLens, 250);
                 break;
@@ -89,9 +88,8 @@ bool lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd)
                     lcd_.Terms [0] = lcd.Terms [0] / pow (1 - lcd.Terms [0], 3);
     #ifdef VECTORIZATION_SSE
                     if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
-                        //AddCoordCallback (ModifyCoord_Dist_Poly3_SSE, 750,
-                              //            tmp, sizeof (float));
-                    //else
+                        AddCoordDistCallback (lcd_, ModifyCoord_Dist_Poly3_SSE, 750);
+                    else
     #endif
                     AddCoordDistCallback (lcd_, ModifyCoord_Dist_Poly3, 750);
                 }
@@ -113,9 +111,8 @@ bool lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd)
                     lcd_.Terms [2] /= pow (d, 2);
     #ifdef VECTORIZATION_SSE
                     if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
-                        //AddCoordCallback (ModifyCoord_Dist_PTLens_SSE, 750,
-                         //                 tmp, sizeof (float) * 3);
-                    //else
+                        AddCoordDistCallback (lcd_, ModifyCoord_Dist_PTLens_SSE, 750);
+                    else
     #endif
                     AddCoordDistCallback (lcd_, ModifyCoord_Dist_PTLens, 750);
                 }
