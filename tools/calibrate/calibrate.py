@@ -109,16 +109,6 @@ def find_raw_files():
         result.extend(glob.glob("*." + file_extension.upper()))
     return result
 
-
-#
-# Collect EXIF data
-#
-
-file_exif_data = {}
-filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)")
-missing_lens_model_warning_printed = False
-exiv2_candidates = []
-
 def browse_directory(directory):
     if os.path.exists(directory):
         with chdir(directory):
@@ -131,17 +121,6 @@ def browse_directory(directory):
                          replace("_", " "), float(match.group("focal_length")), float(match.group("aperture")))
                 else:
                     exiv2_candidates.append(full_filename)
-browse_directory("distortion")
-browse_directory("tca")
-for directory in glob.glob("vignetting*"):
-    browse_directory(directory)
-candidates_per_group = len(exiv2_candidates) // multiprocessing.cpu_count() + 1
-candidate_groups = []
-while exiv2_candidates:
-    candidate_group = exiv2_candidates[:candidates_per_group]
-    if candidate_group:
-        candidate_groups.append(candidate_group)
-    del exiv2_candidates[:candidates_per_group]
 def call_exiv2(candidate_group):
     exiv2_process = subprocess.Popen(
         ["exiv2", "-PEkt", "-g", "Exif.Photo.LensModel", "-g", "Exif.Photo.FocalLength", "-g", "Exif.Photo.FNumber"]
@@ -262,6 +241,28 @@ pause -1
 """.format(all_points_filename, bins_filename, A, k1, k2, k3, lens_name, focal_length, aperture, distance))
 
     return (k1, k2, k3)
+
+#
+# Collect EXIF data
+#
+
+file_exif_data = {}
+filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)")
+missing_lens_model_warning_printed = False
+exiv2_candidates = []
+
+
+browse_directory("distortion")
+browse_directory("tca")
+for directory in glob.glob("vignetting*"):
+    browse_directory(directory)
+candidates_per_group = len(exiv2_candidates) // multiprocessing.cpu_count() + 1
+candidate_groups = []
+while exiv2_candidates:
+    candidate_group = exiv2_candidates[:candidates_per_group]
+    if candidate_group:
+        candidate_groups.append(candidate_group)
+    del exiv2_candidates[:candidates_per_group]
 
 pool = multiprocessing.Pool()
 for group_exif_data in pool.map(call_exiv2, candidate_groups):
