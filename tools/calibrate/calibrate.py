@@ -19,8 +19,14 @@ def test_program(program, package_name):
         subprocess.call([program], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
     except OSError:
         missing_packages.add(package_name)
+convert_program = "convert"
+if os.name == 'nt':
+    # on Windows, there is a system binary called convert.exe to convert FAT partitions to NTFS, so we need to call
+    # the ImageMagick's convert.exe by full path; this path can be set in the environment variable IM_CONVERT,
+    # or the default installation path is used
+    convert_program = os.environ.get("IM_CONVERT", "C:\\Program Files\\ImageMagick\\convert.exe")
 test_program("dcraw", "dcraw")
-test_program("convert", "imagemagick")
+test_program(convert_program, "imagemagick")
 test_program("tca_correct", "hugin-tools")
 test_program("exiv2", "exiv2")
 if missing_packages:
@@ -90,7 +96,7 @@ def generate_raw_conversion_call(filename, dcraw_options):
     basename, extension = os.path.splitext(filename)
     extension = extension[1:]
     if extension.lower() in ["jpg", "jpeg", "tif"]:
-        result = ["convert", filename]
+        result = [convert_program, filename]
         if "-4" in dcraw_options:
             result.extend(["-colorspace", "RGB", "-depth", "16"])
         result.append("tiff:-" if "-c" in dcraw_options else basename + ".tiff")
@@ -178,7 +184,7 @@ def evaluate_image_set(exif_data, filepaths):
             dcraw_process = subprocess.Popen(generate_raw_conversion_call(filepath, ["-4", "-M", "-o", "0", "-c"] + h_option),
                                              stdout=subprocess.PIPE)
             image_data = subprocess.check_output(
-                ["convert", "tiff:-", "-set", "colorspace", "RGB", "-resize", "250", "pgm:-"], stdin=dcraw_process.stdout,
+                [convert_program, "tiff:-", "-set", "colorspace", "RGB", "-resize", "250", "pgm:-"], stdin=dcraw_process.stdout,
                 stderr=open(os.devnull, "w"))
             width, height = None, None
             header_size = 0
