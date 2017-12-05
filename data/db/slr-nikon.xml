@@ -2217,6 +2217,18 @@
 
     <lens>
         <maker>Nikon</maker>
+        <model>Nikkor AF 35mm f/2.8 PC</model>
+        <mount>Nikon F</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D600 -->
+            <distortion model="poly3" focal="35" k1="-0.00434903"/>
+            <tca model="poly3" focal="35" vr="1.0003" vb="0.9999"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
         <model>Nikon AI Nikkor 45mm f/2.8 GN</model>
         <model lang="en">Nikkor AI 45mm f/2.8 GN</model>
         <mount>Nikon F AI</mount>
