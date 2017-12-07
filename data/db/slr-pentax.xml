@@ -699,6 +699,26 @@
 
     <lens>
         <maker>Pentax</maker>
+        <model>HD Pentax-D FA 28-105mm f/3.5-5.6 ED DC WR</model>
+        <mount>Pentax KAF3</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="28" a="0.0165845" b="-0.0455463" c="-0.000358805"/>
+            <distortion model="ptlens" focal="40" a="0.00653256" b="-0.00768683" c="-0.00543098"/>
+            <distortion model="ptlens" focal="58" a="0" b="0.00741997" c="0"/>
+            <distortion model="ptlens" focal="73" a="0" b="0.00819869" c="0"/>
+            <distortion model="ptlens" focal="105" a="0" b="0.00850785" c="0"/>
+            <tca model="poly3" focal="28" vr="1.0002510" vb="1.0001311"/>
+            <tca model="poly3" focal="40" vr="1.0001204" vb="1.0000619"/>
+            <tca model="poly3" focal="58" vr="1.0000364" vb="0.9999813"/>
+            <tca model="poly3" focal="73" vr="0.9999050" vb="0.9999360"/>
+            <tca model="poly3" focal="105" vr="0.9995892" vb="0.9999858"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
         <model>smc Pentax-DA 50-200mm f/4-5.6 DA ED</model>
         <mount>Pentax KAF2</mount>
         <!-- Average crop factor of Pentax APS-C cameras -->
