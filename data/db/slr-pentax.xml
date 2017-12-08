@@ -1622,6 +1622,18 @@
 
     <lens>
         <maker>Pentax</maker>
+        <model>smc Pentax-DA 50mm f/1.8</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="poly3" focal="50" k1="-0.00402783"/>
+            <tca model="poly3" focal="50" vr="0.9999" vb="1.00015"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
         <model>HD Pentax-DA 20-40mm f/2.8-4 ED Limited DC WR</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.526</cropfactor>
