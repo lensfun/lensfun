@@ -1072,6 +1072,18 @@
     </lens>
 
     <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-DA 35mm f/2.4 AL</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="35" a="0.00866394" b="-0.0287026" c="0.0165992"/>
+            <tca model="poly3" focal="35" br="-0.0001285" vr="1.0004220" bb="0.0001057" vb="0.9998225"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <!-- This is an alias of smc Pentax-DA 70mm f/2.4 Limited.  According
              to da...@corr.eu.org, they are optically equivalent. -->
         <maker>Pentax</maker>
