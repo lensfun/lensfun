@@ -769,6 +769,27 @@
 
     <lens>
         <maker>Olympus</maker>
+          <model>Olympus M.12-100mm f/4.0</model>
+          <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Olympus E-M10 -->
+            <distortion model="ptlens" focal="12" a="0.0302425" b="-0.103301" c="0.0149435"/>
+            <distortion model="ptlens" focal="16" a="0.0232202" b="-0.0880392" c="0.0518276"/>
+            <distortion model="ptlens" focal="24" a="0" b="0.000992914" c="0"/>
+            <distortion model="ptlens" focal="34" a="0" b="0.0111465" c="0"/>
+            <distortion model="ptlens" focal="100" a="0" b="0.0169433" c="0"/>
+            <tca model="poly3" focal="12" vr="1.0004182" vb="1.0003503"/>
+            <tca model="poly3" focal="16" vr="1.0001892" vb="1.0004774"/>
+            <tca model="poly3" focal="24" vr="1.0000102" vb="1.0005202"/>
+            <tca model="poly3" focal="34" vr="0.9999279" vb="1.0005088"/>
+            <tca model="poly3" focal="100" vr="0.9997545" vb="0.9997572"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Olympus</maker>
         <model>Olympus M.Zuiko Digital 25mm f/1.8</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2</cropfactor>
