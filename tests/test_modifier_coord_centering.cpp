@@ -24,16 +24,16 @@ typedef struct
 // setup a standard lens
 void mod_setup (lfFixture *lfFix, gconstpointer data)
 {
-    lfFix->lens             = new lfLens();
+    lfFix->lens             = new lfLens ();
     lfLensCalibDistortion calib_data = {
         LF_DIST_MODEL_POLY3, 50.0f, 50.0f, false, {-0.1}
     };
     lfFix->lens->AddCalibDistortion (&calib_data);
-    lfFix->lens->CropFactor = 1.0f;
+    lfFix->lens->CropFactor  = 1.0f;
     lfFix->lens->AspectRatio = 3.0f / 2.0f;
-    lfFix->lens->CenterX = 0.1f;
-    lfFix->lens->CenterY = 0.1f;
-    lfFix->lens->Type       = LF_RECTILINEAR;
+    lfFix->lens->CenterX     = 0.1f;
+    lfFix->lens->CenterY     = 0.1f;
+    lfFix->lens->Type        = LF_RECTILINEAR;
 
     lfFix->img_height = 1001;
     lfFix->img_width  = 1501;
