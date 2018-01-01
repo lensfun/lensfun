@@ -208,7 +208,7 @@ void lfModifier::ModifyCoord_Dist_Poly3_SSE (void *data, float *iocoord, int cou
     c0 = _mm_unpacklo_ps(x, y);
     c1 = _mm_unpackhi_ps(x, y);
 
-    //_mm_store_ps (&iocoord [8 * i], c0);
+    _mm_store_ps (&iocoord [8 * i], c0);
     _mm_store_ps (&iocoord [8 * i + 4], c1);
   }
 
