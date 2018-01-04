@@ -32,6 +32,29 @@
 
     <lens>
         <maker>Tamron</maker>
+        <!-- currently exiv2 0.26 translates this as a Canon 11-14mm lens -->
+        <model>508</model>
+        <model lang="en">Tamron 10-24mm f/3.5-4.5 Di II VC HLD</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.6</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS 70D -->
+            <distortion model="poly3" focal="10" k1="-0.0158494"/>
+            <distortion model="poly3" focal="13" k1="-0.00687779"/>
+            <distortion model="poly3" focal="16" k1="-0.000681061"/>
+            <distortion model="poly3" focal="20" k1="0.00368512"/>
+            <distortion model="poly3" focal="24" k1="0.00491874"/>
+            <tca model="poly3" focal="10" vr="1.0005274" vb="0.9999258"/>
+            <tca model="poly3" focal="13" vr="1.0001195" vb="1.0000929"/>
+            <tca model="poly3" focal="16" vr="0.9999640" vb="1.0002714"/>
+            <tca model="poly3" focal="20" vr="0.9998870" vb="1.0002527"/>
+            <tca model="poly3" focal="24" vr="0.9999772" vb="1.0001111"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Tamron</maker>
         <model>Tamron SP AF 17-35mm f/2.8-4 Di LD Aspherical (IF)</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
