@@ -965,6 +965,18 @@
 
     <lens>
         <maker>Pentax</maker>
+        <model>smc Pentax-FA 77mm f/1.8 Limited</model>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K1 -->
+            <distortion model="poly3" focal="77" k1="0.001454"/>
+            <tca model="poly3" focal="77" vr="0.9998536" vb="0.9999614"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
         <model>Takumar 135mm f/2.5 Bayonet</model>
         <mount>Pentax K</mount>
         <!-- Average crop factor of Pentax APS-C cameras -->
