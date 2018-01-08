@@ -4714,6 +4714,26 @@
     <lens>
         <maker>Canon</maker>
         <model>Canon EF 70-300mm f/4-5.6L IS USM</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.605</cropfactor>
+        <calibration>
+	    <!-- Taken with Canon EOS 7D Mark II -->
+            <distortion model="ptlens" focal="70" a="-0.00045" b="-0.00205" c="-0.00015"/>
+            <distortion model="ptlens" focal="100" a="0.00011" b="-0.00117" c="0.0046"/>
+            <distortion model="ptlens" focal="135" a="-0.00049" b="0.00448" c="-0.00148"/>
+            <distortion model="ptlens" focal="200" a="-0.00028" b="0.00333" c="0.00188"/>
+            <distortion model="ptlens" focal="300" a="-0.00786" b="0.03374" c="-0.03568"/>
+            <tca model="poly3" focal="70" br="-0.0000198" vr="1.0003652" bb="0.0000198" vb="0.9999893"/>
+            <tca model="poly3" focal="100" br="-0.0000398" vr="1.0003224" bb="0.0000367" vb="0.9999341"/>
+            <tca model="poly3" focal="135" br="-0.0000330" vr="1.0002305" bb="0.0000249" vb="0.9998913"/>
+            <tca model="poly3" focal="200" br="-0.0000294" vr="1.0000548" bb="0.0000233" vb="0.9998503"/>
+            <tca model="poly3" focal="300" br="-0.0000232" vr="0.9998321" bb="-0.0000109" vb="0.9998920"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 70-300mm f/4-5.6L IS USM</model>
         <mount>Canon EF</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -5930,5 +5950,6 @@
             <tca model="poly3" focal="105" vr="0.9997316" vb="0.9998092"/>
         </calibration>
     </lens>
+
 
 </lensdatabase>
