@@ -871,6 +871,14 @@
         <cropfactor>5.39</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot A490</model>
+        <model lang="en">PowerShot A490</model>
+        <mount>canonA495</mount>
+        <cropfactor>5.39</cropfactor>
+    </camera>
+
     <lens>
         <maker>Canon</maker>
         <model>Canon PowerShot Pro1 &amp; compatibles (Standard)</model>
@@ -2979,6 +2987,13 @@
             <distortion model="ptlens" focal="14.8" a="0.00785" b="-0.036605" c="0.053183"/>
             <distortion model="ptlens" focal="17.5" a="0.013399" b="-0.045269" c="0.048979"/>
             <distortion model="ptlens" focal="21.6" a="0.004399" b="-0.009577" c="0.002762"/>
+            <tca model="poly3" focal="6.6" vr="1.0000104" vb="1.0003301"/>
+            <tca model="poly3" focal="8.1" vr="1.0000362" vb="1.0002662"/>
+            <tca model="poly3" focal="9.8" vr="0.9999975" vb="1.0003260"/>
+            <tca model="poly3" focal="12.1" vr="1.0000547" vb="1.0001204"/>
+            <tca model="poly3" focal="14.8" vr="1.0000441" vb="1.0001638"/>
+            <tca model="poly3" focal="17.5" vr="1.0000386" vb="1.0001477"/>
+            <tca model="poly3" focal="21.6" vr="1.0000313" vb="1.0001422"/>
         </calibration>
     </lens>
 
