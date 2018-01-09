@@ -483,4 +483,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Petri</maker>
+        <model>AUTO PETRI 1:2.8 f=28mm</model>
+        <model lang="en">Auto Petri 28mm f/2.8</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+	    <!-- Taken with Fujifilm X-M1 -->
+            <distortion model="ptlens" focal="28" a="0.00434" b="-0.0172" c="0.00123"/>
+            <tca model="poly3" focal="28" br="-0.0000279" vr="1.0014112" bb="0.0000139" vb="0.9988365"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
