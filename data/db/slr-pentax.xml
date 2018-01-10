@@ -1886,6 +1886,22 @@
 
     <lens>
         <maker>Pentax</maker>
+        <model>HD PENTAX-D FA 150-450mm F4.5-5.6 ED DC AW</model>
+        <mount>Pentax KAF3</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="poly3" focal="150" k1="0.00772173"/>
+            <distortion model="poly3" focal="250" k1="0.00799477"/>
+            <distortion model="poly3" focal="450" k1="0.00547256"/>
+            <tca model="poly3" focal="150" vr="1.0002226" vb="1.0000038"/>
+            <tca model="poly3" focal="250" vr="1.0000519" vb="0.9999295"/>
+            <tca model="poly3" focal="450" vr="0.9998498" vb="0.9997845"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
         <model>smc Pentax-DA L 50-200mm f/4-5.6 ED WR</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.534</cropfactor>
