@@ -1753,6 +1753,22 @@
 
     <lens>
         <maker>Sigma</maker>
+        <model>Sigma 35mm F1.4 DG HSM</model>
+        <mount>Canon EF</mount>
+        <mount>Sigma SA</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="35" a="0" b="-0.00111476" c="0"/>
+            <tca model="poly3" focal="35" vr="1.0001811" vb="0.9999722"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
         <model>Sigma 50mm f/1.4 EX DG HSM</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
