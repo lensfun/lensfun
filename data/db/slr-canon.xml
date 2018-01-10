@@ -2288,6 +2288,31 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon EF-S 55-250mm f/4-5.6 IS STM</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.611</cropfactor>
+        <calibration>
+	    <!-- Taken with Canon EOS 200D -->
+            <distortion model="ptlens" focal="55" a="0.00157" b="-0.01287" c="0.00756"/>
+            <distortion model="ptlens" focal="70" a="0.00466" b="-0.01919" c="0.01512"/>
+            <distortion model="ptlens" focal="100" a="0.00317" b="-0.01381" c="0.02015"/>
+            <distortion model="ptlens" focal="146" a="0.00949" b="-0.03441" c="0.04646"/>
+            <distortion model="ptlens" focal="180" a="0.01009" b="-0.03746" c="0.05289"/>
+            <distortion model="ptlens" focal="250" a="0.01707" b="-0.06654" c="0.09149"/>
+            <tca model="poly3" focal="55" vr="1.0001246" vb="1.0001476"/>
+            <tca model="poly3" focal="70" vr="1.0000732" vb="1.0001415"/>
+            <tca model="poly3" focal="79" vr="1.0000121" vb="1.0001146"/>
+            <tca model="poly3" focal="100" vr="0.9999748" vb="1.0000980"/>
+            <tca model="poly3" focal="124" vr="0.9999380" vb="1.0000776"/>
+            <tca model="poly3" focal="146" vr="0.9999229" vb="1.0000630"/>
+            <tca model="poly3" focal="180" vr="0.9999124" vb="0.9999919"/>
+            <tca model="poly3" focal="218" vr="0.9995" vb="0.9999627"/>
+            <tca model="poly3" focal="250" vr="0.9995" vb="0.9999617"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon EF 70-200mm f/2.8L USM</model>
         <mount>Canon EF</mount>
         <cropfactor>1</cropfactor>
@@ -5950,6 +5975,5 @@
             <tca model="poly3" focal="105" vr="0.9997316" vb="0.9998092"/>
         </calibration>
     </lens>
-
 
 </lensdatabase>
