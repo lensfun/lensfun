@@ -1992,6 +1992,8 @@
         <cropfactor>1</cropfactor>
         <calibration>
 	    <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="35" a="0.01494" b="-0.04536" c="0.03628"/>
+            <tca model="poly3" focal="35" br="-0.0002488" vr="1.0004726" bb="0.0004055" vb="0.9996175"/>
             <vignetting model="pa" focal="35" aperture="2.8" distance="10" k1="-0.5990" k2="-0.2392" k3="0.1103"/>
             <vignetting model="pa" focal="35" aperture="2.8" distance="1000" k1="-0.5990" k2="-0.2392" k3="0.1103"/>
             <vignetting model="pa" focal="35" aperture="4" distance="10" k1="-0.0239" k2="-0.5539" k3="-0.0118"/>
@@ -2004,5 +2006,6 @@
             <vignetting model="pa" focal="35" aperture="11" distance="1000" k1="-0.4161" k2="0.6735" k3="-0.6253"/>
         </calibration>
     </lens>
+
 
 </lensdatabase>
