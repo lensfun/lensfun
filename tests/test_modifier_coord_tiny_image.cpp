@@ -49,7 +49,7 @@ void test_mod_coord_scaling_only (lfFixture *lfFix, gconstpointer data)
                                     -9.0f,  5.5f, 1.0f,  5.5f, 11.0f,  5.5};
     std::vector<float> coords (2 * 3 * 2);
     g_assert_true (lfFix->mod->ApplyGeometryDistortion (0, 0, 3, 2, &coords [0]));
-    for (int i = 0; i < coords.size(); i++)
+    for (unsigned int i = 0; i < coords.size(); i++)
         g_assert_cmpfloat (fabs (coords [i] - expected_coordinates [i]), <=, epsilon);
 }
 
