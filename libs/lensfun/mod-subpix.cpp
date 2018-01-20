@@ -187,10 +187,10 @@ void lfModifier::ModifyCoord_TCA_Linear (void *data, float *iocoord, int count)
         const float x = iocoord [0] * cddata->coordinate_correction - cddata->centerX;
         const float y = iocoord [1] * cddata->coordinate_correction - cddata->centerY;
 
-        iocoord [0] = (x * k_r - cddata->centerX) / cddata->coordinate_correction;
-        iocoord [1] = (y * k_r - cddata->centerY) / cddata->coordinate_correction;
-        iocoord [4] = (x * k_b - cddata->centerX) / cddata->coordinate_correction;
-        iocoord [5] = (y * k_b - cddata->centerY) / cddata->coordinate_correction;
+        iocoord [0] = (x * k_r + cddata->centerX) / cddata->coordinate_correction;
+        iocoord [1] = (y * k_r + cddata->centerY) / cddata->coordinate_correction;
+        iocoord [4] = (x * k_b + cddata->centerX) / cddata->coordinate_correction;
+        iocoord [5] = (y * k_b + cddata->centerY) / cddata->coordinate_correction;
     }
 }
 
@@ -238,8 +238,8 @@ void lfModifier::ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int count)
         if (ru > 0.0)
         {
             ru /= rd;
-            iocoord [0] = (x * ru - cddata->centerX) / cddata->coordinate_correction;
-            iocoord [1] = (y * ru - cddata->centerY) / cddata->coordinate_correction;
+            iocoord [0] = (x * ru + cddata->centerX) / cddata->coordinate_correction;
+            iocoord [1] = (y * ru + cddata->centerY) / cddata->coordinate_correction;
         }
 next_subpixel_r:
 
@@ -266,8 +266,8 @@ next_subpixel_r:
         if (ru > 0.0)
         {
             ru /= rd;
-            iocoord [4] = (x * ru - cddata->centerX) / cddata->coordinate_correction;
-            iocoord [5] = (y * ru - cddata->centerY) / cddata->coordinate_correction;
+            iocoord [4] = (x * ru + cddata->centerX) / cddata->coordinate_correction;
+            iocoord [5] = (y * ru + cddata->centerY) / cddata->coordinate_correction;
         }
 next_subpixel_b:;
     }
@@ -293,15 +293,15 @@ void lfModifier::ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count)
             y = iocoord [1] * cddata->coordinate_correction - cddata->centerY;
             ru2 = x * x + y * y;
             poly2 = br * ru2 + vr;
-            iocoord [0] = (x * poly2 - cddata->centerX) / cddata->coordinate_correction;
-            iocoord [1] = (y * poly2 - cddata->centerY) / cddata->coordinate_correction;
+            iocoord [0] = (x * poly2 + cddata->centerX) / cddata->coordinate_correction;
+            iocoord [1] = (y * poly2 + cddata->centerY) / cddata->coordinate_correction;
 
             x = iocoord [4] * cddata->coordinate_correction - cddata->centerX;
             y = iocoord [5] * cddata->coordinate_correction - cddata->centerY;
             ru2 = x * x + y * y;
             poly2 = bb * ru2 + vb;
-            iocoord [4] = (x * poly2 - cddata->centerX) / cddata->coordinate_correction;
-            iocoord [5] = (y * poly2 - cddata->centerY) / cddata->coordinate_correction;
+            iocoord [4] = (x * poly2 + cddata->centerX) / cddata->coordinate_correction;
+            iocoord [5] = (y * poly2 + cddata->centerY) / cddata->coordinate_correction;
         }
     else
         for (float *end = iocoord + count * 2 * 3; iocoord < end; iocoord += 6)
@@ -310,15 +310,15 @@ void lfModifier::ModifyCoord_TCA_Poly3 (void *data, float *iocoord, int count)
             y = iocoord [1] * cddata->coordinate_correction - cddata->centerY;
             ru2 = x * x + y * y;
             poly2 = br * ru2 + cr * sqrt (ru2) + vr;
-            iocoord [0] = (x * poly2 - cddata->centerX) / cddata->coordinate_correction;
-            iocoord [1] = (y * poly2 - cddata->centerY) / cddata->coordinate_correction;
+            iocoord [0] = (x * poly2 + cddata->centerX) / cddata->coordinate_correction;
+            iocoord [1] = (y * poly2 + cddata->centerY) / cddata->coordinate_correction;
 
             x = iocoord [4] * cddata->coordinate_correction - cddata->centerX;
             y = iocoord [5] * cddata->coordinate_correction - cddata->centerY;
             ru2 = x * x + y * y;
             poly2 = bb * ru2 + cb * sqrt (ru2) + vb;
-            iocoord [4] = (x * poly2 - cddata->centerX) / cddata->coordinate_correction;
-            iocoord [5] = (y * poly2 - cddata->centerY) / cddata->coordinate_correction;
+            iocoord [4] = (x * poly2 + cddata->centerX) / cddata->coordinate_correction;
+            iocoord [5] = (y * poly2 + cddata->centerY) / cddata->coordinate_correction;
         }
 }
 
@@ -356,8 +356,8 @@ void lfModifier::ModifyCoord_TCA_ACM (void *data, float *iocoord, int count)
                       2 * (alpha4 * y + alpha5 * x);
         iocoord [0] = alpha0 * (x * common_term + alpha5 * ru2) * ACMUnScale;
         iocoord [1] = alpha0 * (y * common_term + alpha4 * ru2) * ACMUnScale;
-        iocoord [0] = (iocoord [0] - cddata->centerX) / cddata->coordinate_correction;
-        iocoord [1] = (iocoord [1] - cddata->centerY) / cddata->coordinate_correction;
+        iocoord [0] = (iocoord [0] + cddata->centerX) / cddata->coordinate_correction;
+        iocoord [1] = (iocoord [1] + cddata->centerY) / cddata->coordinate_correction;
 
         x = iocoord [4] * ACMScale * cddata->coordinate_correction - cddata->centerX;
         y = iocoord [5] * ACMScale * cddata->coordinate_correction - cddata->centerY;
@@ -367,8 +367,8 @@ void lfModifier::ModifyCoord_TCA_ACM (void *data, float *iocoord, int count)
                       2 * (beta4 * y + beta5 * x);
         iocoord [4] = beta0 * (x * common_term + beta5 * ru2) * ACMUnScale;
         iocoord [5] = beta0 * (y * common_term + beta4 * ru2) * ACMUnScale;
-        iocoord [4] = (iocoord [4] - cddata->centerX) / cddata->coordinate_correction;
-        iocoord [5] = (iocoord [5] - cddata->centerY) / cddata->coordinate_correction;
+        iocoord [4] = (iocoord [4] + cddata->centerX) / cddata->coordinate_correction;
+        iocoord [5] = (iocoord [5] + cddata->centerY) / cddata->coordinate_correction;
     }
 }
 

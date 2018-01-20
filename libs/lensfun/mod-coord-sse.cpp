@@ -89,8 +89,8 @@ void lfModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int 
 
     // ru /= rd
     ru = _mm_mul_ps (ru, _mm_rcp_ps(rd));
-    x = _mm_sub_ps(_mm_mul_ps (x, ru), cx);
-    y = _mm_sub_ps(_mm_mul_ps (y, ru), cy);
+    x = _mm_add_ps(_mm_mul_ps (x, ru), cx);
+    y = _mm_add_ps(_mm_mul_ps (y, ru), cy);
     x = _mm_div_ps (x, cc);
     y = _mm_div_ps (y, cc);
 
@@ -148,8 +148,8 @@ void lfModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int co
     t = _mm_add_ps (t, _mm_mul_ps (ru, c_));
     poly3 = _mm_add_ps (t, _mm_add_ps (poly3, one));
 
-    x = _mm_sub_ps(_mm_mul_ps (x, poly3), cx);
-    y = _mm_sub_ps(_mm_mul_ps (y, poly3), cy);
+    x = _mm_add_ps(_mm_mul_ps (x, poly3), cx);
+    y = _mm_add_ps(_mm_mul_ps (y, poly3), cy);
     x = _mm_div_ps (x, cc);
     y = _mm_div_ps (y, cc);
 
@@ -200,8 +200,8 @@ void lfModifier::ModifyCoord_Dist_Poly3_SSE (void *data, float *iocoord, int cou
     // Calculate poly3 = k1_ * ru * ru + 1;
     __m128 poly3 = _mm_add_ps (_mm_mul_ps (_mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y)), k1_), one);
 
-    x = _mm_sub_ps(_mm_mul_ps (x, poly3), cx);
-    y = _mm_sub_ps(_mm_mul_ps (y, poly3), cy);
+    x = _mm_add_ps(_mm_mul_ps (x, poly3), cx);
+    y = _mm_add_ps(_mm_mul_ps (y, poly3), cy);
     x = _mm_div_ps (x, cc);
     y = _mm_div_ps (y, cc);
 

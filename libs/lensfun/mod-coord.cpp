@@ -548,8 +548,8 @@ void lfModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count
             continue; // Negative radius does not make sense at all
 
         ru /= rd;
-        iocoord [0] = (x * ru - cddata->centerX) / cddata->coordinate_correction;
-        iocoord [1] = (y * ru - cddata->centerY) / cddata->coordinate_correction;
+        iocoord [0] = (x * ru + cddata->centerX) / cddata->coordinate_correction;
+        iocoord [1] = (y * ru + cddata->centerY) / cddata->coordinate_correction;
 
     next_pixel:
         ;
@@ -570,8 +570,8 @@ void lfModifier::ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int count)
         const float y = iocoord [1] * cddata->coordinate_correction - cddata->centerY;
         const float poly2 = 1 + k1_ * (x * x + y * y);
 
-        iocoord [0] = (x * poly2 - cddata->centerX) / cddata->coordinate_correction;
-        iocoord [1] = (y * poly2 - cddata->centerY) / cddata->coordinate_correction;
+        iocoord [0] = (x * poly2 + cddata->centerX) / cddata->coordinate_correction;
+        iocoord [1] = (y * poly2 + cddata->centerY) / cddata->coordinate_correction;
     }
 }
 
@@ -608,8 +608,8 @@ void lfModifier::ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int count
             continue; // Negative radius does not make sense at all
 
         ru /= rd;
-        iocoord [0] = (x * ru - cddata->centerX) / cddata->coordinate_correction;
-        iocoord [1] = (y * ru - cddata->centerY) / cddata->coordinate_correction;
+        iocoord [0] = (x * ru + cddata->centerX) / cddata->coordinate_correction;
+        iocoord [1] = (y * ru + cddata->centerY) / cddata->coordinate_correction;
 
     next_pixel:
         ;
@@ -630,8 +630,8 @@ void lfModifier::ModifyCoord_Dist_Poly5 (void *data, float *iocoord, int count)
         const float ru2 = x * x + y * y;
         const float poly4 = (1.0 + k1 * ru2 + k2 * ru2 * ru2);
 
-        iocoord [0] = (x * poly4 - cddata->centerX) / cddata->coordinate_correction;
-        iocoord [1] = (y * poly4 - cddata->centerY) / cddata->coordinate_correction;
+        iocoord [0] = (x * poly4 + cddata->centerX) / cddata->coordinate_correction;
+        iocoord [1] = (y * poly4 + cddata->centerY) / cddata->coordinate_correction;
     }
 }
 
@@ -669,8 +669,8 @@ void lfModifier::ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int coun
             continue; // Negative radius does not make sense at all
 
         ru /= rd;
-        iocoord [0] = (x * ru - cddata->centerX) / cddata->coordinate_correction;
-        iocoord [1] = (y * ru - cddata->centerY) / cddata->coordinate_correction;
+        iocoord [0] = (x * ru + cddata->centerX) / cddata->coordinate_correction;
+        iocoord [1] = (y * ru + cddata->centerY) / cddata->coordinate_correction;
 
     next_pixel:
         ;
@@ -695,8 +695,8 @@ void lfModifier::ModifyCoord_Dist_PTLens (void *data, float *iocoord, int count)
         const float r = sqrtf (ru2);
         const float poly3 = a_ * ru2 * r + b_ * ru2 + c_ * r + 1;
 
-        iocoord [0] = (x * poly3 - cddata->centerX) / cddata->coordinate_correction;
-        iocoord [1] = (y * poly3 - cddata->centerY) / cddata->coordinate_correction;
+        iocoord [0] = (x * poly3 + cddata->centerX) / cddata->coordinate_correction;
+        iocoord [1] = (y * poly3 + cddata->centerY) / cddata->coordinate_correction;
     }
 }
 
@@ -721,8 +721,8 @@ void lfModifier::ModifyCoord_Dist_ACM (void *data, float *iocoord, int count)
 
         iocoord [0] = (x * common_term + k5 * ru2) / ACMScale;
         iocoord [1] = (y * common_term + k4 * ru2) / ACMScale;
-        iocoord [0] = (iocoord [0] - cddata->centerX) / cddata->coordinate_correction;
-        iocoord [1] = (iocoord [1] - cddata->centerY) / cddata->coordinate_correction;
+        iocoord [0] = (iocoord [0] + cddata->centerX) / cddata->coordinate_correction;
+        iocoord [1] = (iocoord [1] + cddata->centerY) / cddata->coordinate_correction;
     }
 }
 
