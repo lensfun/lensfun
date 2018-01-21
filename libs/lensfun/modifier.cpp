@@ -23,39 +23,22 @@ int lfModifier::Initialize (
     PixelFormat = format;
     Reverse = reverse;
 
-    int oflags = 0;
-
     if (flags & LF_MODIFY_TCA)
-    {
-        if (EnableTCACorrection(lens, focal))
-            oflags |= LF_MODIFY_TCA;
-    }
+        EnableTCACorrection(lens, focal);
 
     if (flags & LF_MODIFY_VIGNETTING)
-    {
-        if (EnableVignettingCorrection(lens, focal, aperture, distance))
-            oflags |= LF_MODIFY_VIGNETTING;
-    }
+        EnableVignettingCorrection(lens, focal, aperture, distance);
 
     if (flags & LF_MODIFY_DISTORTION)
-    {
-        if (EnableDistortionCorrection(lens, focal))
-            oflags |= LF_MODIFY_DISTORTION;
-    }
+        EnableDistortionCorrection(lens, focal);
 
-    if (flags & LF_MODIFY_GEOMETRY &&
-        lens->Type != targeom)
-    {
-        if (EnableProjectionTransform(lens, focal, targeom))
-            oflags |= LF_MODIFY_GEOMETRY;
-    }
+    if (flags & LF_MODIFY_GEOMETRY && lens->Type != targeom)
+        EnableProjectionTransform(lens, focal, targeom);
 
-    if (flags & LF_MODIFY_SCALE &&
-        scale != 1.0)
-        if (EnableScaling(scale))
-            oflags |= LF_MODIFY_SCALE;
+    if (flags & LF_MODIFY_SCALE && scale != 1.0)
+        EnableScaling(scale);
 
-    return oflags;
+    return enabledMods;
 }
 
 void lfModifier::Destroy ()
@@ -142,6 +125,8 @@ lfModifier::lfModifier (const lfLens*, float crop, int width, int height)
     // Geometric lens center in normalized coordinates
     CenterX = Width / size;
     CenterY = Height / size;
+
+    enabledMods = 0;
 }
 
 lfModifier::lfModifier (float imgcrop, int imgwidth, int imgheight,
@@ -166,9 +151,11 @@ lfModifier::lfModifier (float imgcrop, int imgwidth, int imgheight,
     // Geometric lens center in normalized coordinates
     CenterX = Width / size;
     CenterY = Height / size;
+
+    enabledMods = 0;
 }
 
-bool lfModifier::EnableScaling (float scale)
+int lfModifier::EnableScaling (float scale)
 {
     if (scale == 1.0)
         return false;
@@ -188,7 +175,9 @@ bool lfModifier::EnableScaling (float scale)
     cd->scale_factor = Reverse ? scale : 1.0 / scale;
 
     CoordCallbacks.insert(cd);
-    return true;
+
+    enabledMods |= LF_MODIFY_SCALE;
+    return enabledMods;
 }
 
 lfModifier::~lfModifier ()

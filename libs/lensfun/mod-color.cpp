@@ -8,7 +8,7 @@
 #include "lensfunprv.h"
 #include <math.h>
 
-bool lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv)
+int lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv)
 {
 #define ADD_CALLBACK(lcv, func, type, prio) \
     AddColorVignCallback ( lcv, \
@@ -43,12 +43,12 @@ bool lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv)
                         break;
 
                     default:
-                        return false;
+                        return enabledMods;
                 }
                 break;
 
             default:
-                return false;
+                return enabledMods;
         }
     else
         switch (lcv.Model)
@@ -88,30 +88,31 @@ bool lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv)
                         break;
 
                     default:
-                        return false;
+                        return enabledMods;
                 }
                 break;
 
             default:
-                return false;
+                return enabledMods;
         }
 
 #undef ADD_CALLBACK
 
+    enabledMods |= LF_MODIFY_VIGNETTING;
     return true;
 }
 
 
-bool lfModifier::EnableVignettingCorrection (const lfLens* lens, float focal, float aperture, float distance)
+int lfModifier::EnableVignettingCorrection (const lfLens* lens, float focal, float aperture, float distance)
 {
     lfLensCalibVignetting lcv;
 
     if (lens->InterpolateVignetting (focal, aperture, distance, lcv))
     {
-        return EnableVignettingCorrection(lcv);
+        EnableVignettingCorrection(lcv);
     }
-    else
-        return false;
+
+    return enabledMods;
 }
 
 void lfModifier::AddColorVignCallback (const lfLensCalibVignetting& lcv, lfModifyColorFunc func, int priority)

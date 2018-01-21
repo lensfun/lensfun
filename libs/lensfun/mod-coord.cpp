@@ -31,14 +31,14 @@
 #include <math.h>
 #include "windows/mathconstants.h"
 
-bool lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd)
+int lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd)
 {
     if (Reverse)
         switch (lcd.Model)
         {
             case LF_DIST_MODEL_POLY3:
                 if (lcd.Terms [0] == 0)
-                    return false;
+                    return enabledMods;
                 // See "Note about PT-based distortion models" at the top of
                 // this file.
                 {
@@ -72,10 +72,10 @@ bool lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd)
             case LF_DIST_MODEL_ACM:
                 g_warning ("[lensfun] \"acm\" distortion model is not yet implemented "
                            "for reverse correction");
-                return false;
+                return enabledMods;
 
             default:
-                return false;
+                return enabledMods;
         }
     else
         switch (lcd.Model)
@@ -123,29 +123,30 @@ bool lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd)
                 break;
 
             default:
-                return false;
+                return enabledMods;
         }
 
-    return true;
+    enabledMods |= LF_MODIFY_DISTORTION;
+    return enabledMods;
 }
 
-bool lfModifier::EnableDistortionCorrection (const lfLens* lens, float focal)
+int lfModifier::EnableDistortionCorrection (const lfLens* lens, float focal)
 {
     lfLensCalibDistortion lcd;
     if (lens->InterpolateDistortion (focal, lcd))
     {
-        return EnableDistortionCorrection (lcd);
+        EnableDistortionCorrection (lcd);
     }
-    else
-        return false;
+
+    return enabledMods;
 }
 
-bool lfModifier::EnableProjectionTransform (const lfLens* lens, float focal, lfLensType target_projection)
+int lfModifier::EnableProjectionTransform (const lfLens* lens, float focal, lfLensType target_projection)
 {
     if(target_projection == LF_UNKNOWN)
-        return false;
+        return enabledMods;
     if(lens->Type == LF_UNKNOWN)
-        return false;
+        return enabledMods;
 
     float norm_focal = GetNormalizedFocalLength (focal, lens);
 

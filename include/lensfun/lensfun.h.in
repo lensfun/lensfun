@@ -2011,18 +2011,20 @@ LF_EXPORT const lfMount *const *lf_db_get_mounts (lfDatabase *db);
 enum
 {
     /** Correct (or apply) lens transversal chromatic aberrations */
-    LF_MODIFY_TCA        = 0x00000001,
+    LF_MODIFY_TCA         = 0x00000001,
     /** Correct (or apply) lens vignetting */
-    LF_MODIFY_VIGNETTING = 0x00000002,
+    LF_MODIFY_VIGNETTING  = 0x00000002,
     /* Value 0x00000004 is deprecated. */
     /** Correct (or apply) lens distortion */
-    LF_MODIFY_DISTORTION = 0x00000008,
+    LF_MODIFY_DISTORTION  = 0x00000008,
     /** Convert image geometry */
-    LF_MODIFY_GEOMETRY   = 0x00000010,
+    LF_MODIFY_GEOMETRY    = 0x00000010,
     /** Additional resize of image */
-    LF_MODIFY_SCALE      = 0x00000020,
+    LF_MODIFY_SCALE       = 0x00000020,
+    /** Perspective Correction */
+    LF_MODIFY_PERSPECTIVE = 0x00000040,
     /** Apply all possible corrections */
-    LF_MODIFY_ALL        = ~0
+    LF_MODIFY_ALL         = ~0
 };
 
 /** @brief A list of pixel formats supported by internal colour callbacks */
@@ -2332,9 +2334,9 @@ struct LF_EXPORT lfModifier
      * @param lcd
      *     Lens calibration data to be used for the correction.
      * @return
-     *     True if the distortion correction was enabled.
+     *     A set of LF_MODIFY_XXX flags in effect.
      */
-    bool EnableDistortionCorrection (const lfLensCalibDistortion& lcd);
+    int EnableDistortionCorrection (const lfLensCalibDistortion& lcd);
     /**
      * @brief Enable distortion correction.
      *
@@ -2343,9 +2345,9 @@ struct LF_EXPORT lfModifier
      * @param focal
      *     The focal length in mm at which the image was taken.
      * @return
-     *     True if the distortion correction was enabled.
+     *     A set of LF_MODIFY_XXX flags in effect.
      */
-    bool EnableDistortionCorrection (const lfLens* lens, float focal);
+    int EnableDistortionCorrection (const lfLens* lens, float focal);
 
     /**
      * @brief Enable TCA correction.
@@ -2353,9 +2355,9 @@ struct LF_EXPORT lfModifier
      * @param lctca
      *     Lens calibration data to be used for the correction.
      * @return
-     *     True if the distortion correction was enabled.
+     *     A set of LF_MODIFY_XXX flags in effect.
      */
-    bool EnableTCACorrection (const lfLensCalibTCA& lctca);
+    int EnableTCACorrection (const lfLensCalibTCA& lctca);
     /**
      * @brief Enable TCA correction.
      *
@@ -2364,9 +2366,9 @@ struct LF_EXPORT lfModifier
      * @param focal
      *     The focal length in mm at which the image was taken.
      * @return
-     *     True if the distortion correction was enabled.
+     *     A set of LF_MODIFY_XXX flags in effect.
      */
-    bool EnableTCACorrection (const lfLens* lens, float focal);
+    int EnableTCACorrection (const lfLens* lens, float focal);
 
     /**
      * @brief Enable vignetting correction.
@@ -2374,9 +2376,9 @@ struct LF_EXPORT lfModifier
      * @param lcv
      *     Lens calibration data to be used for the correction.
      * @return
-     *     True if the distortion correction was enabled.
+     *     A set of LF_MODIFY_XXX flags in effect.
      */
-    bool EnableVignettingCorrection (const lfLensCalibVignetting& lcv);
+    int EnableVignettingCorrection (const lfLensCalibVignetting& lcv);
     /**
      * @brief Enable vignetting correction.
      *
@@ -2389,9 +2391,9 @@ struct LF_EXPORT lfModifier
      * @param distance
      *     The approximative focus distance in meters (distance > 0).
      * @return
-     *     True if the distortion correction was enabled.
+     *     A set of LF_MODIFY_XXX flags in effect.
      */
-    bool EnableVignettingCorrection (const lfLens* lens, float focal, float aperture, float distance);
+    int EnableVignettingCorrection (const lfLens* lens, float focal, float aperture, float distance);
 
     /**
      * @brief Enable projection transform.
@@ -2403,20 +2405,20 @@ struct LF_EXPORT lfModifier
      * @param target_projection
      *     The target projection type.
      * @return
-     *     True if the distortion correction was enabled.
+     *     A set of LF_MODIFY_XXX flags in effect.
      */
-    bool EnableProjectionTransform (const lfLens* lens, float focal, lfLensType target_projection);
+    int EnableProjectionTransform (const lfLens* lens, float focal, lfLensType target_projection);
     //bool EnableProjectionTransform (float focal, lfLensType target_projection);
 
     /**
      * @brief Enable image scaling.
-     *
+     *     
      * @param scale
      *     Scale factor.
      * @return
-     *     True if the scaling was enabled.
+     *     A set of LF_MODIFY_XXX flags in effect.
      */
-    bool EnableScaling (float scale);
+    int EnableScaling (float scale);
 
 
     /**
@@ -2471,9 +2473,9 @@ struct LF_EXPORT lfModifier
      *     -1 is the unchanged image.  +1 is an increase of the tilting angle
      *     by 25%.
      * @return
-     *     True if the perspective correction was enabled.
+     *     A set of LF_MODIFY_XXX flags in effect.
      */
-    bool EnablePerspectiveCorrection (const lfLens* lens, float focal, float *x, float *y, int count, float d);
+    int EnablePerspectiveCorrection (const lfLens* lens, float focal, float *x, float *y, int count, float d);
 
     /**
      * @brief Compute the automatic scale factor for the image.
@@ -2895,6 +2897,9 @@ private:
 
     /// Image pixel format
     lfPixelFormat PixelFormat;
+
+    /// Indicates which modifications are enabled in this lfModifier
+    int enabledMods;
 };
 
 #ifdef __cplusplus

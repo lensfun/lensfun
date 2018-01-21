@@ -570,14 +570,14 @@ matrix generate_rotation_matrix (double rho_1, double delta, double rho_2, doubl
     return M;
 }
 
-bool lfModifier::EnablePerspectiveCorrection (const lfLens* lens, float focal, float *x, float *y, int count, float d)
+int lfModifier::EnablePerspectiveCorrection (const lfLens* lens, float focal, float *x, float *y, int count, float d)
 {
     const int number_of_control_points = count;
     double norm_focal = GetNormalizedFocalLength (focal, lens);
 
     if (number_of_control_points < 4 || number_of_control_points > 8 ||
         (norm_focal <= 0 && number_of_control_points != 8))
-        return false;
+        return enabledMods;
     if (d < -1)
         d = -1;
     if (d > 1)
@@ -600,7 +600,7 @@ bool lfModifier::EnablePerspectiveCorrection (const lfLens* lens, float focal, f
     catch (svd_no_convergence &e)
     {
         g_warning ("[Lensfun] %s", e.what());
-        return false;
+        return enabledMods;
     }
 
     // Transform center point to get shift
@@ -638,7 +638,7 @@ bool lfModifier::EnablePerspectiveCorrection (const lfLens* lens, float focal, f
     }
     }
     if (center_coords [2] <= 0)
-        return false;
+        return enabledMods;
     // This is the mapping scale in the image center
     double mapping_scale = norm_focal / center_coords [2];
 
@@ -707,7 +707,8 @@ bool lfModifier::EnablePerspectiveCorrection (const lfLens* lens, float focal, f
 
     CoordCallbacks.insert(cd);
 
-    return true;
+    enabledMods |= LF_MODIFY_PERSPECTIVE;
+    return enabledMods;
 }
 
 void lfModifier::ModifyCoord_Perspective_Correction (void *data, float *iocoord, int count)

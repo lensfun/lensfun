@@ -8,7 +8,7 @@
 #include "lensfunprv.h"
 #include <math.h>
 
-bool lfModifier::EnableTCACorrection (const lfLensCalibTCA& lctca)
+int lfModifier::EnableTCACorrection (const lfLensCalibTCA& lctca)
 {
     if (Reverse)
         switch (lctca.Model)
@@ -27,16 +27,18 @@ bool lfModifier::EnableTCACorrection (const lfLensCalibTCA& lctca)
                     }
                     AddSubpixTCACallback(lctca_, ModifyCoord_TCA_Linear, 500);
                 }
-                return true;
+                enabledMods |= LF_MODIFY_TCA;
+                return enabledMods;
 
             case LF_TCA_MODEL_POLY3:
                 AddSubpixTCACallback(lctca, ModifyCoord_UnTCA_Poly3, 500);
-                return true;
+                enabledMods |= LF_MODIFY_TCA;
+                return enabledMods;
 
             case LF_TCA_MODEL_ACM:
                 g_warning ("[lensfun] \"acm\" TCA model is not yet implemented "
                            "for reverse correction");
-                return false;
+                return enabledMods;
 
             default:
                 // keep gcc 4.4+ happy
@@ -50,31 +52,34 @@ bool lfModifier::EnableTCACorrection (const lfLensCalibTCA& lctca)
 
             case LF_TCA_MODEL_LINEAR:
                 AddSubpixTCACallback(lctca, ModifyCoord_TCA_Linear, 500);
-                return true;
+                enabledMods |= LF_MODIFY_TCA;
+                return enabledMods;
 
             case LF_TCA_MODEL_POLY3:
                 AddSubpixTCACallback(lctca, ModifyCoord_TCA_Poly3, 500);
-                return true;
+                enabledMods |= LF_MODIFY_TCA;
+                return enabledMods;
 
             case LF_TCA_MODEL_ACM:
                 AddSubpixTCACallback(lctca, ModifyCoord_TCA_ACM, 500);
-                return true;
+                enabledMods |= LF_MODIFY_TCA;
+                return enabledMods;
 
             default:
                 // keep gcc 4.4+ happy
                 break;
         }
 
-    return false;
+    return enabledMods;
 }
 
-bool lfModifier::EnableTCACorrection (const lfLens* lens, float focal)
+int lfModifier::EnableTCACorrection (const lfLens* lens, float focal)
 {
     lfLensCalibTCA lctca;
     if (lens->InterpolateTCA (focal, lctca))
-        return EnableTCACorrection(lctca);
-    else
-        return false;
+        EnableTCACorrection(lctca);
+
+    return enabledMods;
 }
 
 void lfModifier::AddSubpixTCACallback (const lfLensCalibTCA& lcd, lfModifySubpixCoordFunc func, int priority)
