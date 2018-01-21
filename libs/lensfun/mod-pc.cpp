@@ -761,7 +761,7 @@ void lfModifier::ModifyCoord_Perspective_Distortion (void *data, float *iocoord,
 
 //---------------------------// The C interface //---------------------------//
 
-cbool lf_modifier_enable_perspective_correction (
+int lf_modifier_enable_perspective_correction (
     lfModifier *modifier, const lfLens* lens, float focal, float *x, float *y, int count, float d)
 {
     return modifier->EnablePerspectiveCorrection (lens, focal, x, y, count, d);

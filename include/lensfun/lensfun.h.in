@@ -2926,16 +2926,16 @@ DEPRECATED LF_EXPORT int lf_modifier_initialize (
     lfLensType targeom, int flags, cbool reverse);
 
 /** @sa lfModifier::EnableScaling */
-LF_EXPORT cbool lf_modifier_enable_scaling (lfModifier *modifier, float scale);
+LF_EXPORT int lf_modifier_enable_scaling (lfModifier *modifier, float scale);
 
 /** @sa lfModifier::EnableDistortionCorrection */
-LF_EXPORT cbool lf_modifier_enable_distortion_correction (lfModifier *modifier, const lfLens* lens, float focal);
+LF_EXPORT int lf_modifier_enable_distortion_correction (lfModifier *modifier, const lfLens* lens, float focal);
 
 /** @sa lfModifier::EnableTCACorrection */
-LF_EXPORT cbool lf_modifier_enable_tca_correction (lfModifier *modifier, const lfLens* lens, float focal);
+LF_EXPORT int lf_modifier_enable_tca_correction (lfModifier *modifier, const lfLens* lens, float focal);
 
 /** @sa lfModifier::EnableVignettingCorrection */
-LF_EXPORT cbool lf_modifier_enable_vignetting_correction (
+LF_EXPORT int lf_modifier_enable_vignetting_correction (
     lfModifier *modifier, const lfLens* lens, float focal, float aperture, float distance);
 
 /** @sa lfModifier::EnableProjectionTransform */
@@ -2943,7 +2943,7 @@ LF_EXPORT cbool lf_modifier_enable_projection_transform (
     lfModifier *modifier, const lfLens* lens, float focal, lfLensType target_projection);
 
 /** @sa lfModifier::EnablePerspectiveCorrection */
-LF_EXPORT cbool lf_modifier_enable_perspective_correction (
+LF_EXPORT int lf_modifier_enable_perspective_correction (
     lfModifier *modifier, const lfLens* lens, float focal, float *x, float *y, int count, float d);
 
 /** @sa lfModifier::GetAutoScale */

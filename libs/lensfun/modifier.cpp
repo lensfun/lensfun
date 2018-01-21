@@ -235,7 +235,7 @@ int lf_modifier_initialize (
                                  scale, targeom, flags, reverse);
 }
 
-cbool lf_modifier_enable_scaling (lfModifier *modifier, float scale)
+int lf_modifier_enable_scaling (lfModifier *modifier, float scale)
 {
     return modifier->EnableScaling(scale);
 }
