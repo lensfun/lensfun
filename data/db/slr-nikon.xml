@@ -235,6 +235,15 @@
     <camera>
         <maker>Nikon Corporation</maker>
         <maker lang="en">Nikon</maker>
+        <model>Nikon D850</model>
+        <model lang="en">D850</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Nikon Corporation</maker>
+        <maker lang="en">Nikon</maker>
         <model>Nikon D3000</model>
         <model lang="en">D3000</model>
         <mount>Nikon F AF</mount>
@@ -4001,6 +4010,27 @@
             <vignetting model="pa" focal="300" aperture="11" distance="1000" k1="-0.1471" k2="0.3722" k3="-0.3474"/>
             <vignetting model="pa" focal="300" aperture="32" distance="10" k1="-0.1032" k2="0.0972" k3="-0.0284"/>
             <vignetting model="pa" focal="300" aperture="32" distance="1000" k1="-0.1032" k2="0.0972" k3="-0.0284"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S Nikkor 24-70mm F2.8E ED VR</model>
+	<model lang="en">Nikkor AF-S 24-70mm f/2.8E ED VR</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Nikon D850 -->
+            <distortion model="ptlens" focal="24" a="0.00178" b="-0.01599" c="-0.00487"/>
+            <distortion model="ptlens" focal="29" a="0.00446" b="-0.01304" c="-0.00296"/>
+            <distortion model="ptlens" focal="36" a="0.01193" b="-0.02852" c="0.02462"/>
+            <distortion model="ptlens" focal="50" a="0.00497" b="0.00361" c="-0.00688"/>
+            <distortion model="ptlens" focal="70" a="0.00199" b="0.00241" c="0.00969"/>
+            <tca model="poly3" focal="24" br="-0.0000996" vr="1.0004428" bb="0.0000625" vb="1.0000169"/>
+            <tca model="poly3" focal="29" br="-0.0000455" vr="1.0001779" bb="0.0000744" vb="1.0001026"/>
+            <tca model="poly3" focal="36" br="-0.0000254" vr="1.0000223" bb="0.0000966" vb="1.0002193"/>
+            <tca model="poly3" focal="50" br="0.0000074" vr="0.9999053" bb="-0.0000161" vb="1.0002326"/>
+            <tca model="poly3" focal="70" br="0.0000130" vr="0.9999752" bb="0.0000012" vb="0.9999608"/>
         </calibration>
     </lens>
 
