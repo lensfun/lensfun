@@ -931,4 +931,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>Carl Zeiss Vario-Sonnar T* 16-35mm F2.8 ZA SSM II (SAL1635Z2)</model>
+        <model lang="en">Zeiss Vario-Sonnar T* 16-35mm F2.8 ZA SSM II</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with ILCA-99M2 / Alpha 99II -->
+            <distortion model="ptlens" focal="16" a="0.02199" b="-0.0563" c="0.01126"/>
+            <distortion model="ptlens" focal="18" a="0.00909" b="-0.01349" c="-0.02347"/>
+            <distortion model="ptlens" focal="22" a="0.01202" b="-0.02528" c="0.00129"/>
+            <distortion model="ptlens" focal="26" a="0.0055" b="-0.00256" c="-0.00988"/>
+            <distortion model="ptlens" focal="35" a="0.01055" b="-0.02025" c="0.0176"/>
+            <tca model="poly3" focal="16" br="-0.0000023" vr="1.0003061" bb="0.0000937" vb="1.0000319"/>
+            <tca model="poly3" focal="18" br="0.0000567" vr="1.0002389" bb="-0.0000228" vb="1.0000695"/>
+            <tca model="poly3" focal="22" br="0.0000353" vr="1.0001440" bb="-0.0000209" vb="1.0001207"/>
+            <tca model="poly3" focal="26" br="0.0000000" vr="1.0001027" bb="-0.0000177" vb="1.0001683"/>
+            <tca model="poly3" focal="35" br="0.0000061" vr="1.0000246" bb="-0.0000072" vb="1.0001181"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
