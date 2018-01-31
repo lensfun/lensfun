@@ -952,4 +952,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>Carl Zeiss Vario-Sonnar T* 24-70mm F2.8 ZA SSM II (SAL2470Z2)</model>
+        <model lang="en">Zeiss Vario-Sonnar T* 24-70mm f/2.8 ZA SSM II</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with ILCA-99M2 / Alpha 99II -->
+            <distortion model="ptlens" focal="24" a="0.03099" b="-0.085" c="0.04233"/>
+            <distortion model="ptlens" focal="35" a="0.00583" b="-0.00673" c="-0.00871"/>
+            <distortion model="ptlens" focal="50" a="0.00017" b="0.00585" c="-0.00432"/>
+            <distortion model="ptlens" focal="55" a="-0.00052" b="0.00278" c="0.00905"/>
+            <distortion model="ptlens" focal="70" a="0.00618" b="-0.01676" c="0.0279"/>
+            <tca model="poly3" focal="24" br="-0.0000834" vr="1.0004089" bb="0.0000714" vb="1.0000509"/>
+            <tca model="poly3" focal="35" br="-0.0000234" vr="1.0001771" bb="0.0000232" vb="0.9999435"/>
+            <tca model="poly3" focal="50" br="-0.0000311" vr="1.0000977" bb="0.0000192" vb="0.9998846"/>
+            <tca model="poly3" focal="55" br="-0.0000339" vr="1.0000128" bb="0.0000287" vb="0.9998556"/>
+            <tca model="poly3" focal="70" br="-0.0000515" vr="0.9999645" bb="0.0000446" vb="0.9998402"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
