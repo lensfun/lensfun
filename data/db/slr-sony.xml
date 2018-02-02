@@ -973,4 +973,20 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+	<model>Sony 70-300mm F4.5-5.6 G SSM II (SAL70300G2)</model>
+	<model lang="en">Sony 70-300mm f/4.5-5.6 G SSM II</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with ILCA-99M2 / Alpha 99II -->
+            <distortion model="ptlens" focal="70" a="0.00376" b="-0.00221" c="0.00606"/>
+            <distortion model="ptlens" focal="120" a="-0.00278" b="0.02458" c="-0.02186"/>
+            <distortion model="ptlens" focal="160" a="0.00212" b="0.00438" c="0.00456"/>
+            <distortion model="ptlens" focal="200" a="0.00087" b="0.01555" c="-0.01626"/>
+            <distortion model="ptlens" focal="300" a="0.00073" b="0.00793" c="-0.00082"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
