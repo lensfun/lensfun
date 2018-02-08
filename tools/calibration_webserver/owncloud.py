@@ -86,10 +86,10 @@ def sync():
     """Syncs the local ownCloud directory with the ownCloud server.  It prevents
     two synchronisations being performed at the same time.
 
-    :raises LockError: if the lock could not be acquired even after retrying 60
-      times within one hour.
+    :raises LockError: if the lock could not be acquired even after retrying
+      every minute for 6 hours.
     """
-    cycles_left = 60
+    cycles_left = 60 * 6
     while cycles_left:
         with OwncloudLock() as locked:
             if locked:
