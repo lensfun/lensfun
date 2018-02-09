@@ -4034,4 +4034,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-P DX Nikkor 10-20mm F4.5-5.6 VR 168</model>
+	<model lang="en">Nikkor AF-P 10-20mm f/4.5-5.6G DX VR</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+	    <!-- Taken with Nikon D7200 -->
+            <distortion model="ptlens" focal="10" a="0.01265" b="-0.08749" c="0.1144"/>
+            <distortion model="ptlens" focal="12" a="-0.00673" b="-0.00799" c="0.02749"/>
+            <distortion model="ptlens" focal="14" a="-0.00359" b="-0.0087" c="0.02532"/>
+            <distortion model="ptlens" focal="16" a="-0.00256" b="-0.00316" c="0.01315"/>
+            <distortion model="ptlens" focal="20" a="-0.00325" b="0.00544" c="-0.00065"/>
+            <tca model="poly3" focal="10" br="-0.0000032" vr="1.0007529" bb="0.0000386" vb="1.0000732"/>
+            <tca model="poly3" focal="12" br="0.0001340" vr="1.0005158" bb="0.0000026" vb="1.0001274"/>
+            <tca model="poly3" focal="14" br="0.0001856" vr="1.0002542" bb="-0.0000795" vb="1.0002859"/>
+            <tca model="poly3" focal="16" br="0.0001505" vr="1.0001841" bb="-0.0000752" vb="1.0003352"/>
+            <tca model="poly3" focal="18" br="0.0001426" vr="1.0001261" bb="0.0000066" vb="1.0002335"/>
+            <tca model="poly3" focal="20" br="0.0000488" vr="1.0001530" bb="-0.0000368" vb="1.0002910"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
