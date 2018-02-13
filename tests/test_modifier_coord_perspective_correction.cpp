@@ -145,7 +145,7 @@ void test_mod_coord_pc_8_points (lfFixture *lfFix, gconstpointer data)
     float coords [2];
     for (int i = 0; i < 10; i++)
     {
-        g_assert_true (lfFix->mod->ApplyGeometryDistortion (100.0f * i, 100.0f * i, 1, 1, coords) & LF_MODIFY_PERSPECTIVE);
+        g_assert_true (lfFix->mod->ApplyGeometryDistortion (100.0f * i, 100.0f * i, 1, 1, coords));
         g_assert_cmpfloat (fabs (coords [0] - expected_x [i]), <=, epsilon);
         g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, epsilon);
     }
