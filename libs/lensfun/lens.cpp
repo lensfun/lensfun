@@ -8,111 +8,14 @@
 #include "lensfunprv.h"
 #include <limits.h>
 #include <stdlib.h>
-#include <regex.h>
+#include <regex>
 #include <string.h>
 #include <locale.h>
 #include <math.h>
 #include "windows/mathconstants.h"
 #include <algorithm>
 
-static struct
-{
-    const char *regex;
-    guchar matchidx [3];
-    bool compiled;
-    regex_t rex;
-} lens_name_regex [] =
-{
-    {
-        // [min focal]-[max focal]mm f/[min aperture]-[max aperture]
-        "([[:space:]]+|^)([0-9]+[0-9.]*)(-[0-9]+[0-9.]*)?(mm)?[[:space:]]+(f/|f|1/|1:)?([0-9.]+)(-[0-9.]+)?",
-        { 2, 3, 6 },
-        false
-    },
-    {
-        // 1:[min aperture]-[max aperture] [min focal]-[max focal]mm
-        "[[:space:]]+1:([0-9.]+)(-[0-9.]+)?[[:space:]]+([0-9.]+)(-[0-9.]+)?(mm)?",
-        { 3, 4, 1 },
-        false
-    },
-    {
-        // [min aperture]-[max aperture]/[min focal]-[max focal]
-        "([0-9.]+)(-[0-9.]+)?[[:space:]]*/[[:space:]]*([0-9.]+)(-[0-9.]+)?",
-        { 3, 4, 1 },
-        false
-    },
-};
-
-static struct
-{
-    bool compiled;
-    regex_t rex;
-} extender_magnification_regex =
-{
-    false
-};
-
-static float _lf_parse_float (const char *model, const regmatch_t &match)
-{
-    char tmp [100];
-    const char *src = model + match.rm_so;
-    int len = match.rm_eo - match.rm_so;
-
-    // Skip '-' since it's not a minus sign but rather the separator
-    if (*src == '-')
-        src++, len--;
-    strncpy (tmp, src, len);
-    tmp [len] = 0;
-
-    return atof (tmp);
-}
-
-static bool _lf_parse_lens_name (const char *model,
-                                 float &minf, float &maxf,
-                                 float &mina)
-{
-    if (!model)
-        return false;
-
-    for (size_t i = 0; i < ARRAY_LEN (lens_name_regex); i++)
-    {
-        if (!lens_name_regex [i].compiled)
-        {
-            regcomp (&lens_name_regex [i].rex, lens_name_regex [i].regex,
-                     REG_EXTENDED | REG_ICASE);
-            lens_name_regex [i].compiled = true;
-        }
-
-        regmatch_t matches [10];
-        if (regexec (&lens_name_regex [i].rex, model, 10, matches, 0))
-            continue;
-
-        guchar *matchidx = lens_name_regex [i].matchidx;
-        if (matches [matchidx [0]].rm_so != -1)
-            minf = _lf_parse_float (model, matches [matchidx [0]]);
-        if (matches [matchidx [1]].rm_so != -1)
-            maxf = _lf_parse_float (model, matches [matchidx [1]]);
-        if (matches [matchidx [2]].rm_so != -1)
-            mina = _lf_parse_float (model, matches [matchidx [2]]);
-        return true;
-    }
-
-    return false;
-}
-
-static void _lf_free_lens_regex ()
-{
-    for (size_t i = 0; i < ARRAY_LEN (lens_name_regex); i++)
-        if (lens_name_regex [i].compiled)
-        {
-            regfree (&lens_name_regex [i].rex);
-            lens_name_regex [i].compiled = false;
-        }
-}
-
 //------------------------------------------------------------------------//
-
-static int _lf_lens_regex_refs = 0;
 
 lfLens::lfLens ()
 {
@@ -136,8 +39,6 @@ lfLens::lfLens ()
     CalibVignetting = NULL;
     CalibCrop = NULL;
     CalibFov = NULL;
-
-    _lf_lens_regex_refs++;
 }
 
 lfLens::~lfLens ()
@@ -150,9 +51,6 @@ lfLens::~lfLens ()
 
     for (char* m: MountNames)
         free(m);
-
-    if (!--_lf_lens_regex_refs)
-        _lf_free_lens_regex ();
 }
 
 lfLens::lfLens (const lfLens &other)
@@ -246,15 +144,27 @@ void lfLens::AddMount (const char *val)
     }
 }
 
+std::regex lens_name_regexes [3] = {
+    // [min focal]-[max focal]mm f/[min aperture]-[max aperture]
+    std::regex("[^:]*?([0-9]+[0-9.]*)[-]?([0-9]+[0-9.]*)?(mm)[[:space:]]+(f/|f|1/|1:)?([0-9.]+)(-[0-9.]+)?.*"),
+
+    // 1:[min aperture]-[max aperture] [min focal]-[max focal]mm
+    std::regex(".*?1:([0-9.]+)[-]?([0-9.]+)?[[:space:]]+([0-9.]+)[-]?([0-9.]+)?(mm)?.*"),
+
+    // [min aperture]-[max aperture]/[min focal]-[max focal]
+    std::regex(".*?([0-9.]+)[-]?([0-9.]+)?[\\s]*/[\\s]*([0-9.]+)[-]?([0-9.]+)?.*"),
+};
+
+guchar lens_name_matches [3][3] = {
+    { 1, 2, 5 },
+    { 3, 4, 1 },
+    { 3, 4, 1 }
+};
+
+std::regex extender_magnification_regex (".*?[0-9](\\.[0.9]+)?x.*");
+
 void lfLens::GuessParameters ()
 {
-    if (!extender_magnification_regex.compiled)
-    {
-        regcomp (&extender_magnification_regex.rex, "[0-9](\\.[0.9]+)?x",
-                 REG_EXTENDED | REG_ICASE);
-        extender_magnification_regex.compiled = true;
-    }
-
     float minf = float (INT_MAX), maxf = float (INT_MIN);
     float mina = float (INT_MAX), maxa = float (INT_MIN);
 
@@ -268,8 +178,25 @@ void lfLens::GuessParameters ()
         !strstr (Model, "booster") &&
         !strstr (Model, "extender") &&
         !strstr (Model, "converter") &&
-        regexec (&extender_magnification_regex.rex, Model, 0, NULL, 0))
-        _lf_parse_lens_name (Model, minf, maxf, mina);
+        !std::regex_match(Model, extender_magnification_regex))
+    {
+        for (size_t i = 0; i < ARRAY_LEN (lens_name_regexes); i++)
+        {
+            std::cmatch matches;
+            if (std::regex_match(Model, matches, lens_name_regexes[i])) {
+                guchar *matchidx = lens_name_matches[i];
+
+                if (matches [matchidx [0]].matched)
+                    minf = atof(matches [matchidx [0]].str().c_str());
+                if (matches [matchidx [1]].matched)
+                    maxf = atof(matches [matchidx [1]].str().c_str());
+                if (matches [matchidx [2]].matched)
+                    mina = atof(matches [matchidx [2]].str().c_str());
+
+                break;
+            }
+        }
+    }
 
     if (!MinAperture || !MinFocal)
     {

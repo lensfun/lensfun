@@ -5,6 +5,10 @@ ADD_EXECUTABLE(test_database test_database.cpp)
 TARGET_LINK_LIBRARIES(test_database lensfun ${COMMON_LIBS})
 ADD_TEST(NAME Database WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND test_database)
 
+ADD_EXECUTABLE(test_lens test_lens.cpp)
+TARGET_LINK_LIBRARIES(test_lens lensfun ${COMMON_LIBS})
+ADD_TEST(Lens test_lens)
+
 ADD_EXECUTABLE(test_modifier test_modifier.cpp)
 TARGET_LINK_LIBRARIES(test_modifier lensfun ${COMMON_LIBS})
 ADD_TEST(Modifier test_modifier)
