@@ -1296,6 +1296,21 @@
     </lens>
 
     <lens>
+        <!-- This is a lens from before 1996. -->
+        <maker>Sigma</maker>
+        <model>Sigma 28-70mm f/2.8 AF</model>
+        <mount>Minolta AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony A7II and mount adapter LA-EA4 -->
+            <distortion model="ptlens" focal="28" a="0.0146" b="-0.0486" c="0.005"/>
+            <distortion model="ptlens" focal="35" a="0.0061" b="-0.0223" c="0.0020"/>
+            <distortion model="ptlens" focal="50" a="-0.0004" b="0.0015" c="-0.0043"/>
+            <distortion model="ptlens" focal="70" a="0.0028" b="-0.0045" c="0.0071"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <maker>Sigma</maker>
         <model>Sigma 28-300mm f/3.5-6.3 Macro ASP IF</model>
         <mount>Sigma SA</mount>
