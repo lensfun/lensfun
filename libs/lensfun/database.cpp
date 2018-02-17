@@ -290,9 +290,6 @@ static void _xml_start_element (GMarkupParseContext *context,
         if (!ctx || strcmp (ctx, "lensdatabase"))
             goto bad_ctx;
         pd->lens = new lfLens ();
-        // Set default values for lens database entries.  This way, they are
-        // still 0 (aka "unknown") for dummy lfLens instances created ad hoc
-        // for search matching.
         pd->lens->Type = LF_RECTILINEAR;
         pd->lens->AspectRatio = 1.5;
         if (!__chk_no_attrs(element_name, attribute_names, error)) return;
