@@ -214,13 +214,15 @@ void test_mod_coord_pc_7_points (lfFixture *lfFix, gconstpointer data)
     }
 }
 
+typedef std::vector<float> fvector;
+
 void test_mod_coord_pc_performance (lfFixture *lfFix, gconstpointer data)
 {
     float temp_x[] = {145, 208, 748, 850};
     float temp_y[] = {1060, 666, 668, 1060};
     fvector x (temp_x, temp_x + 4);
     fvector y (temp_y, temp_y + 4);
-    g_assert_true (lfFix->mod->enable_perspective_correction (x, y, 0));
+    g_assert_true (lfFix->mod->EnablePerspectiveCorrection (lfFix->lens, lfFix->focal, x.data(), y.data(), 7, 0) & LF_MODIFY_PERSPECTIVE);
     fvector coords (6000 * 4000 * 2);
     unsigned int start = clock();
     lfFix->mod->ApplyGeometryDistortion (0, 0, 6000, 4000, &coords [0]);
