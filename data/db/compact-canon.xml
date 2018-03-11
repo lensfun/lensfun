@@ -59,6 +59,14 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon PowerShot G7</model>
+        <model lang="en">PowerShot G7</model>
+        <mount>canonG7</mount>
+        <cropfactor>4.843</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon PowerShot G7 X</model>
         <model lang="en">PowerShot G7 X (3:2)</model>
         <mount>canonG7X</mount>
@@ -2571,6 +2579,28 @@
             <tca model="poly3" focal="23.2" vr="1.0000605" vb="0.9997287"/>
             <tca model="poly3" focal="30.3" vr="0.9999841" vb="0.9998124"/>
             <tca model="poly3" focal="40" vr="0.9999261" vb="0.9997613"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon PowerShot G7 &amp; compatibles (Standard)</model>
+        <model lang="en">fixed lens</model>
+        <mount>canonG7</mount>
+        <cropfactor>4.843</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="7.4" a="0.01524" b="-0.04187" c="0"/>
+            <distortion model="ptlens" focal="8.2" a="0.02388" b="-0.05622" c="0"/>
+            <distortion model="ptlens" focal="9.03" a="0.02001" b="-0.04515" c="0"/>
+            <distortion model="ptlens" focal="9.86" a="0.01247" b="-0.02718" c="0"/>
+            <distortion model="ptlens" focal="10.67" a="0.01247" b="-0.02718" c="0"/>
+            <distortion model="ptlens" focal="12.73" a="0" b="-0.0004" c="0"/>
+            <distortion model="ptlens" focal="14.78" a="0" b="0.00042" c="0"/>
+            <distortion model="ptlens" focal="16.82" a="0" b="0.00021" c="0"/>
+            <distortion model="ptlens" focal="21.92" a="0" b="0.00107" c="0"/>
+            <distortion model="ptlens" focal="29.16" a="0" b="0.00078" c="0"/>
+            <distortion model="ptlens" focal="36.8" a="0" b="0.00298" c="0"/>
+            <distortion model="ptlens" focal="44.4" a="0" b="0.00672" c="0"/>
         </calibration>
     </lens>
 
