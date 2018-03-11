@@ -278,5 +278,5 @@ script::
     find . -name "*.dat" -exec rm {} \;
     find . -name "*.xmp" -exec rm {} \;
 
-Commit yor results to the Lensfun's master branch on GitHub.  Or, if you want
+Commit your results to the Lensfun's master branch on GitHub.  Or, if you want
 feedback first, create a pull request.
