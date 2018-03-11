@@ -955,7 +955,11 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
         return false;
 
     // TODO: find matching calibration set
-    const lfLensCalibrationSet* calib_set = GetCalibrations()[0];
+    const lfLensCalibrationSet* calib_set = Calibrations[0];
+    Calibrations[0]->attr.CropFactor = CropFactor;
+    Calibrations[0]->attr.AspectRatio = AspectRatio;
+    Calibrations[0]->attr.CenterX = CenterX;
+    Calibrations[0]->attr.CenterY = CenterY;
 
     union
     {
@@ -1037,7 +1041,11 @@ bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
         return false;
 
     // TODO: find matching calibration set
-    const lfLensCalibrationSet* calib_set = GetCalibrations()[0];
+    const lfLensCalibrationSet* calib_set = Calibrations[0];
+    Calibrations[0]->attr.CropFactor = CropFactor;
+    Calibrations[0]->attr.AspectRatio = AspectRatio;
+    Calibrations[0]->attr.CenterX = CenterX;
+    Calibrations[0]->attr.CenterY = CenterY;
 
     union
     {
@@ -1138,7 +1146,11 @@ bool lfLens::InterpolateVignetting (
         return false;
 
     // TODO: find matching calibration set
-    const lfLensCalibrationSet* calib_set = GetCalibrations()[0];
+    const lfLensCalibrationSet* calib_set = Calibrations[0];
+    Calibrations[0]->attr.CropFactor = CropFactor;
+    Calibrations[0]->attr.AspectRatio = AspectRatio;
+    Calibrations[0]->attr.CenterX = CenterX;
+    Calibrations[0]->attr.CenterY = CenterY;
 
     lfVignettingModel vm = LF_VIGNETTING_MODEL_NONE;
     res.Focal = focal;
@@ -1209,7 +1221,11 @@ bool lfLens::InterpolateCrop (float focal, lfLensCalibCrop &res) const
         return false;
 
     // TODO: find matching calibration set
-    const lfLensCalibrationSet* calib_set = GetCalibrations()[0];
+    const lfLensCalibrationSet* calib_set = Calibrations[0];
+    Calibrations[0]->attr.CropFactor = CropFactor;
+    Calibrations[0]->attr.AspectRatio = AspectRatio;
+    Calibrations[0]->attr.CenterX = CenterX;
+    Calibrations[0]->attr.CenterY = CenterY;
 
     union
     {
@@ -1278,7 +1294,11 @@ bool lfLens::InterpolateFov (float focal, lfLensCalibFov &res) const
         return false;
 
     // TODO: find matching calibration set
-    const lfLensCalibrationSet* calib_set = GetCalibrations()[0];
+    const lfLensCalibrationSet* calib_set = Calibrations[0];
+    Calibrations[0]->attr.CropFactor = CropFactor;
+    Calibrations[0]->attr.AspectRatio = AspectRatio;
+    Calibrations[0]->attr.CenterX = CenterX;
+    Calibrations[0]->attr.CenterY = CenterY;
 
     union
     {
@@ -1335,18 +1355,9 @@ bool lfLens::InterpolateFov (float focal, lfLensCalibFov &res) const
     return true;
 }
 
-const lfLensCalibrations& lfLens::GetCalibrations() const
+const lfLensCalibrationSet* const* lfLens::GetCalibrationSets() const
 {
-    // sync legacy structures
-    if (!Calibrations.empty())
-    {
-        Calibrations[0]->attr.CropFactor = CropFactor;
-        Calibrations[0]->attr.AspectRatio = AspectRatio;
-        Calibrations[0]->attr.CenterX = CenterX;
-        Calibrations[0]->attr.CenterY = CenterY;
-    }
-
-    return Calibrations;
+    return (lfLensCalibrationSet**) Calibrations.data();
 }
 
 const char* const* lfLens::GetMountNames() const

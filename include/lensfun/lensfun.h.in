@@ -898,17 +898,6 @@ struct lfLensCalibrationSet
     /** Attributes of the images which were used to create the calibration data */
     lfLensCalibAttributes attr;
 
-    /** Lens distortion calibration data */
-    std::vector<lfLensCalibDistortion*> CalibDistortion;
-    /** Lens TCA calibration data */
-    std::vector<lfLensCalibTCA*> CalibTCA;
-    /** Lens vignetting calibration data */
-    std::vector<lfLensCalibVignetting*> CalibVignetting;
-    /** Crop data */
-    std::vector<lfLensCalibCrop*> CalibCrop;
-    /** Field of view calibration data */
-    std::vector<lfLensCalibFov*> CalibFov;
-
     lfLensCalibrationSet() {}
 
     lfLensCalibrationSet(const lfLensCalibrationSet &other)
@@ -940,13 +929,34 @@ struct lfLensCalibrationSet
             delete cb;
     }
 
-    bool empty()
+    bool Empty() const
     {
         return CalibDistortion.empty() && CalibTCA.empty() && CalibVignetting.empty() &&
                CalibCrop.empty() && CalibFov.empty();
     }
+
+    bool HasDistortion() const { return !CalibDistortion.empty(); }
+    bool HasTCA() const { return !CalibTCA.empty(); }
+    bool HasVignetting() const { return !CalibVignetting.empty(); }
+    bool HasCrop() const { return !CalibCrop.empty(); }
+    bool HasFov() const { return !CalibFov.empty(); }
+
+  private:
+
+    /** Lens distortion calibration data */
+    std::vector<lfLensCalibDistortion*> CalibDistortion;
+    /** Lens TCA calibration data */
+    std::vector<lfLensCalibTCA*> CalibTCA;
+    /** Lens vignetting calibration data */
+    std::vector<lfLensCalibVignetting*> CalibVignetting;
+    /** Crop data */
+    std::vector<lfLensCalibCrop*> CalibCrop;
+    /** Field of view calibration data */
+    std::vector<lfLensCalibFov*> CalibFov;
+
+    friend class lfDatabase;
+    friend class lfLens;
 };
-typedef std::vector<lfLensCalibrationSet*> lfLensCalibrations;
 #else
 // TODO: add an alternative C compatible structure
 #endif
@@ -1393,16 +1403,19 @@ struct LF_EXPORT lfLens
      */
     DEPRECATED bool InterpolateFov (float focal, lfLensCalibFov &res) const;
 
-    const lfLensCalibrations& GetCalibrations() const;
+    //const std::vector<lfLensCalibrationSet*>& GetCalibrationsVector() const;
+    const lfLensCalibrationSet* const* GetCalibrationSets() const;
     const char* const* GetMountNames() const;
 
     private:
         void UpdateLegacyCalibPointers();
 
-        lfLensCalibrations Calibrations;
+        std::vector<lfLensCalibrationSet*> Calibrations;
         std::vector<char*> MountNames;
 
         bool GetCalibrationSet(const lfLensCalibAttributes* lcattr, lfLensCalibrationSet** lcs);
+
+        friend class lfDatabase;
 #endif
 };
 
@@ -1876,6 +1889,35 @@ struct LF_EXPORT lfDatabase
     void AddLens (lfLens *lens);
 
 private:
+
+    /**
+     * @brief Compare a lens with a pattern and return a matching score.
+     *
+     * The comparison is quasi-intelligent: the order of words in a name
+     * does not matter; the more words from match are present in the pattern,
+     * the higher is score. Numeric parameters have to coincide or not be specified
+     * at all, otherwise the score drops to zero (well, a 1% tolerance is allowed
+     * for rounding errors etc).
+     * @param pattern
+     *     A pattern to compare against. Unsure fields should be set to NULL.
+     *     It is generally a good idea to call GuessParameters() first since
+     *     that may give additional info for quicker comparison.
+     * @param match
+     *     The object to match against.
+     * @param camera
+     *      The camera.
+     * @param fuzzycmp
+     *     A fuzzy comparator initialized with pattern->Model
+     * @param compat_mounts
+     *     An additional list of compatible mounts, can be NULL.
+     *     This does not include the mounts from pattern->Mounts.
+     * @return
+     *     A numeric score in the range 0 to 100, where 100 means that
+     *     every field matches and 0 means that at least one field is
+     *     fundamentally different.
+     */
+    int MatchScore (const lfLens *pattern, const lfLens *match, const lfCamera *camera,
+                                void *fuzzycmp, const char* const* compat_mounts) const;
 
     lfError Load (const char *errcontext, const char *data, size_t data_size);
 

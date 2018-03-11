@@ -977,10 +977,9 @@ char *lfDatabase::Save () const
             _lf_xml_printf (output, "\t\t<aspect-ratio>%g</aspect-ratio>\n",
                         l->AspectRatio);
 
-        lfLensCalibrations calibrations = l->GetCalibrations();
-        for (auto *calib : calibrations)
+        for (auto *calib : l->Calibrations)
         {
-            if (calib->empty())
+            if (calib->Empty())
                 continue;
 
             g_string_append (output, "\t\t<calibration ");
@@ -1254,40 +1253,14 @@ static int _lf_compare_num (float a, float b)
     return +1; // strong yes
 }
 
-/**
- * @brief Compare a lens with a pattern and return a matching score.
- *
- * The comparison is quasi-intelligent: the order of words in a name
- * does not matter; the more words from match are present in the pattern,
- * the higher is score. Numeric parameters have to coincide or not be specified
- * at all, otherwise the score drops to zero (well, a 1% tolerance is allowed
- * for rounding errors etc).
- * @param pattern
- *     A pattern to compare against. Unsure fields should be set to NULL.
- *     It is generally a good idea to call GuessParameters() first since
- *     that may give additional info for quicker comparison.
- * @param match
- *     The object to match against.
- * @param camera
- *      The camera.
- * @param fuzzycmp
- *     A fuzzy comparator initialized with pattern->Model
- * @param compat_mounts
- *     An additional list of compatible mounts, can be NULL.
- *     This does not include the mounts from pattern->Mounts.
- * @return
- *     A numeric score in the range 0 to 100, where 100 means that
- *     every field matches and 0 means that at least one field is
- *     fundamentally different.
- */
-int _lf_lens_calculate_score (const lfLens *pattern, const lfLens *match, const lfCamera *camera,
-                            lfFuzzyStrCmp *fuzzycmp, const char* const* compat_mounts)
+int lfDatabase::MatchScore (const lfLens *pattern, const lfLens *match, const lfCamera *camera,
+                            void *fuzzycmp, const char* const* compat_mounts) const
 {
     int score = 0;
 
     // Compare numeric fields first since that's easy.
 
-    const lfLensCalibrations mc = match->GetCalibrations();
+    const auto mc = match->Calibrations;
     if (camera != NULL && !mc.empty()) {
         if (camera->CropFactor > 0.01 && camera->CropFactor < mc[0]->attr.CropFactor * 0.96)
             return 0;
@@ -1391,7 +1364,8 @@ int _lf_lens_calculate_score (const lfLens *pattern, const lfLens *match, const 
     // And now the most complex part - compare models
     if (pattern->Model && match->Model)
     {
-        int _score = fuzzycmp->Compare (match->Model);
+
+        int _score = static_cast<lfFuzzyStrCmp*>(fuzzycmp)->Compare (match->Model);
         if (!_score)
             return 0; // Model does not match
         _score = (_score * 4) / 10;
@@ -1465,7 +1439,7 @@ const lfLens **lfDatabase::FindLenses (const lfCamera *camera,
 
     for (auto dblens: Lenses)
     {
-        if ((score = _lf_lens_calculate_score (&lens, dblens, camera, &fc, compat_mounts)) > 0)
+        if ((score = MatchScore (&lens, dblens, camera, &fc, compat_mounts)) > 0)
         {
             dblens->Score = score;
             if (sort_and_uniquify)
