@@ -135,9 +135,7 @@ void lfLens::AddMount (const char *val)
         MountNames.push_back(p);
 
         // add terminating NULL
-        size_t s = MountNames.size();
-        MountNames.reserve(s+1);
-        MountNames[s] = NULL;
+        _lf_terminate_vec(MountNames);
 
         // legacy mount pointer
         Mounts = (char**)MountNames.data();
@@ -630,6 +628,7 @@ bool lfLens::GetCalibrationSet(const lfLensCalibAttributes* lcattr, lfLensCalibr
     {
         if (Calibrations.empty())
             Calibrations.push_back(new lfLensCalibrationSet());
+        _lf_terminate_vec(Calibrations);
         Calibrations[0]->attr.CropFactor = CropFactor;
         Calibrations[0]->attr.AspectRatio = AspectRatio;
         Calibrations[0]->attr.CenterX = CenterX;
@@ -650,6 +649,7 @@ bool lfLens::GetCalibrationSet(const lfLensCalibAttributes* lcattr, lfLensCalibr
     lfLensCalibrationSet* new_cs = new lfLensCalibrationSet();
     new_cs->attr = *lcattr;
     Calibrations.push_back(new_cs);
+    _lf_terminate_vec(Calibrations);
     *lcs = Calibrations.back();
     return true;
 }
@@ -1356,35 +1356,22 @@ const char* const* lfLens::GetMountNames() const
 
 void lfLens::UpdateLegacyCalibPointers()
 {
-
     if (!Calibrations.empty())
     {
-        int size = 0;
+        _lf_terminate_vec(Calibrations[0]->CalibDistortion);
+        CalibDistortion = (lfLensCalibDistortion**) Calibrations[0]->CalibDistortion.data();
 
-        size = Calibrations[0]->CalibDistortion.size();
-        Calibrations[0]->CalibDistortion.reserve(size + 1);
-        Calibrations[0]->CalibDistortion.data()[size] = NULL;
-        CalibDistortion = (lfLensCalibDistortion**) (Calibrations[0]->CalibDistortion.data());
+        _lf_terminate_vec(Calibrations[0]->CalibTCA);
+        CalibTCA = (lfLensCalibTCA**) Calibrations[0]->CalibTCA.data();
 
-        size = Calibrations[0]->CalibTCA.size();
-        Calibrations[0]->CalibTCA.reserve(size + 1);
-        Calibrations[0]->CalibTCA.data()[size] = NULL;
-        CalibTCA = (lfLensCalibTCA**) (Calibrations[0]->CalibTCA.data());
+        _lf_terminate_vec(Calibrations[0]->CalibVignetting);
+        CalibVignetting = (lfLensCalibVignetting**) Calibrations[0]->CalibVignetting.data();
 
-        size = Calibrations[0]->CalibVignetting.size();
-        Calibrations[0]->CalibVignetting.reserve(size + 1);
-        Calibrations[0]->CalibVignetting.data()[size] = NULL;
-        CalibVignetting = (lfLensCalibVignetting**) (Calibrations[0]->CalibVignetting.data());
+        _lf_terminate_vec(Calibrations[0]->CalibCrop);
+        CalibCrop = (lfLensCalibCrop**) Calibrations[0]->CalibCrop.data();
 
-        size = Calibrations[0]->CalibCrop.size();
-        Calibrations[0]->CalibCrop.reserve(size + 1);
-        Calibrations[0]->CalibCrop.data()[size] = NULL;
-        CalibCrop = (lfLensCalibCrop**) (Calibrations[0]->CalibCrop.data());
-
-        size = Calibrations[0]->CalibFov.size();
-        Calibrations[0]->CalibFov.reserve(size + 1);
-        Calibrations[0]->CalibFov.data()[size] = NULL;
-        CalibFov = (lfLensCalibFov**) (Calibrations[0]->CalibFov.data());
+        _lf_terminate_vec(Calibrations[0]->CalibFov);
+        CalibFov = (lfLensCalibFov**) Calibrations[0]->CalibFov.data();
     }
 }
 

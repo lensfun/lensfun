@@ -64,9 +64,7 @@ void lfMount::AddCompat (const char *val)
         MountCompat.push_back(p);
 
         // add terminating NULL
-        size_t s = MountCompat.size();
-        MountCompat.reserve(s+1);
-        MountCompat[s] = NULL;
+        _lf_terminate_vec(MountCompat);
 
         // legacy compat pointer
         Compat = (char**)MountCompat.data();

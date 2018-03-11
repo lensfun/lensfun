@@ -266,6 +266,14 @@ public:
     int Compare (const lfMLstr match);
 };
 
+template <class T>
+void _lf_terminate_vec(std::vector<T> &v)
+{
+    int size = v.size();
+    v.reserve(size+1);
+    v.data()[size] = NULL;
+}
+
 // `dvector`, `matrix`, and `svg` are declared here to be able to test `svd` in
 // unit tests.
 
