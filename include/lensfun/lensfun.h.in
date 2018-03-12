@@ -1354,7 +1354,19 @@ struct LF_EXPORT lfLens
      * @param res
      *     The resulting interpolated model.
      */
-    bool InterpolateDistortion (float focal, lfLensCalibDistortion &res) const;
+    DEPRECATED bool InterpolateDistortion (float focal, lfLensCalibDistortion &res) const;
+
+    /**
+     * @brief Interpolate lens geometry distortion data for given focal length
+     *  and crop factor.
+     * @param crop
+     *     Crop factor of the image for which we need geometry distortion parameters.
+     * @param focal
+     *     The focal length in mm at which we need geometry distortion parameters.
+     * @param res
+     *     The resulting interpolated model.
+     */
+    bool InterpolateDistortion (float crop, float focal, lfLensCalibDistortion &res) const;
 
     /**
      * @brief Interpolate lens TCA calibration data for given focal length.
@@ -1363,7 +1375,18 @@ struct LF_EXPORT lfLens
      * @param res
      *     The resulting interpolated model.
      */
-    bool InterpolateTCA (float focal, lfLensCalibTCA &res) const;
+    DEPRECATED bool InterpolateTCA (float focal, lfLensCalibTCA &res) const;
+
+    /**
+     * @brief Interpolate lens TCA calibration data for given focal length.
+     * @param crop
+     *     Crop factor of the image for which we need TCA parameters.
+     * @param focal
+     *     The focal length in mm at which we need TCA parameters.
+     * @param res
+     *     The resulting interpolated model.
+     */
+    bool InterpolateTCA (float crop, float focal, lfLensCalibTCA &res) const;
 
     /**
      * @brief Interpolate lens vignetting model parameters for given focal length,
@@ -1378,8 +1401,26 @@ struct LF_EXPORT lfLens
      * @param res
      *     The resulting interpolated model.
      */
-    bool InterpolateVignetting (
+    DEPRECATED bool InterpolateVignetting (
         float focal, float aperture, float distance, lfLensCalibVignetting &res) const;
+
+    /**
+     * @brief Interpolate lens vignetting model parameters for given focal length,
+     * aperture, and focus distance.
+     * @param crop
+     *     Crop factor of the image for which we need vignetting parameters.
+     * @param focal
+     *     The focal length in mm for which we need vignetting parameters.
+     * @param aperture
+     *     The aperture (f-number) for which we need vignetting parameters.
+     * @param distance
+     *     The focus distance in meters (distance > 0) for which we need
+     *     vignetting parameters.
+     * @param res
+     *     The resulting interpolated model.
+     */
+    bool InterpolateVignetting (
+        float crop, float focal, float aperture, float distance, lfLensCalibVignetting &res) const;
 
     /**
      * @brief Interpolate lens crop data for given focal length.
@@ -1388,20 +1429,44 @@ struct LF_EXPORT lfLens
      * @param res
      *     The resulting interpolated information data.
      */
-    bool InterpolateCrop (float focal, lfLensCalibCrop &res) const;
+    DEPRECATED bool InterpolateCrop (float focal, lfLensCalibCrop &res) const;
+
+    /**
+     * @brief Interpolate lens crop data for given focal length.
+     * @param crop
+     *     Crop factor of the image for which we need image parameters.
+     * @param focal
+     *     The focal length in mm at which we need image parameters.
+     * @param res
+     *     The resulting interpolated information data.
+     */
+    bool InterpolateCrop (float crop, float focal, lfLensCalibCrop &res) const;
 
     /**
      * @brief Interpolate lens fov data for given focal length.
      *
      * The Field of View (FOV) database entry is deprecated since Lensfun 
      * version 0.3 and will be removed in future releases.
-     *
      * @param focal
      *     The focal length in mm at which we need image parameters.
      * @param res
      *     The resulting interpolated information data.
      */
     DEPRECATED bool InterpolateFov (float focal, lfLensCalibFov &res) const;
+
+    /**
+     * @brief Interpolate lens fov data for given focal length.
+     *
+     * The Field of View (FOV) database entry is deprecated since Lensfun
+     * version 0.3 and will be removed in future releases.
+     * @param crop
+     *     Crop factor of the image for which we need image parameters.
+     * @param focal
+     *     The focal length in mm at which we need image parameters.
+     * @param res
+     *     The resulting interpolated information data.
+     */
+    DEPRECATED bool InterpolateFov (float crop, float focal, lfLensCalibFov &res) const;
 
     //const std::vector<lfLensCalibrationSet*>& GetCalibrationsVector() const;
     const lfLensCalibrationSet* const* GetCalibrationSets() const;
@@ -1413,7 +1478,8 @@ struct LF_EXPORT lfLens
         std::vector<lfLensCalibrationSet*> Calibrations;
         std::vector<char*> MountNames;
 
-        bool GetCalibrationSet(const lfLensCalibAttributes* lcattr, lfLensCalibrationSet** lcs);
+        lfLensCalibrationSet* GetClosestCalibrationSet(const float crop) const;
+        lfLensCalibrationSet* GetCalibrationSet(const lfLensCalibAttributes* lcattr);
 
         friend class lfDatabase;
 #endif

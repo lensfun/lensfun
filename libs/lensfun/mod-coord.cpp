@@ -133,7 +133,7 @@ int lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd)
 int lfModifier::EnableDistortionCorrection (const lfLens* lens, float focal)
 {
     lfLensCalibDistortion lcd;
-    if (lens->InterpolateDistortion (focal, lcd))
+    if (lens->InterpolateDistortion (Crop, focal, lcd))
     {
         EnableDistortionCorrection (lcd);
     }

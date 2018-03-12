@@ -60,7 +60,7 @@ void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
 
     // manually create a lens object
     lfLensCalibDistortion lensCalibDist;
-    lenses[0]->InterpolateDistortion(80.89f, lensCalibDist);
+    lenses[0]->InterpolateDistortion(1.534f, 80.89f, lensCalibDist);
     lfLens* lens = new lfLens();
     lens->AddCalibDistortion(&lensCalibDist);
     lens->CropFactor = lenses[0]->CropFactor;

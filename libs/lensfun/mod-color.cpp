@@ -107,7 +107,7 @@ int lfModifier::EnableVignettingCorrection (const lfLens* lens, float focal, flo
 {
     lfLensCalibVignetting lcv;
 
-    if (lens->InterpolateVignetting (focal, aperture, distance, lcv))
+    if (lens->InterpolateVignetting (Crop, focal, aperture, distance, lcv))
     {
         EnableVignettingCorrection(lcv);
     }

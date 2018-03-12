@@ -1260,25 +1260,35 @@ int lfDatabase::MatchScore (const lfLens *pattern, const lfLens *match, const lf
 
     // Compare numeric fields first since that's easy.
 
-    const auto mc = match->Calibrations;
-    if (camera != NULL && !mc.empty()) {
-        if (camera->CropFactor > 0.01 && camera->CropFactor < mc[0]->attr.CropFactor * 0.96)
-            return 0;
+    if (camera != NULL && !match->Calibrations.empty()) {
 
-        if (camera->CropFactor >= mc[0]->attr.CropFactor * 1.41)
-            score += 2;
-        else if (camera->CropFactor >= mc[0]->attr.CropFactor * 1.31)
-            score += 4;
-        else if (camera->CropFactor >= mc[0]->attr.CropFactor * 1.21)
-            score += 6;
-        else if (camera->CropFactor >= mc[0]->attr.CropFactor * 1.11)
-            score += 8;
-        else if (camera->CropFactor >= mc[0]->attr.CropFactor * 1.01)
-            score += 10;
-        else if (camera->CropFactor >= mc[0]->attr.CropFactor)
-            score += 5;
-        else if (camera->CropFactor >= mc[0]->attr.CropFactor * 0.96)
-            score += 3;
+        int crop_score = 0;
+
+        for (auto& mc : match->Calibrations)
+        {
+            if (camera->CropFactor > 0.01 && camera->CropFactor < mc->attr.CropFactor * 0.96)
+                continue;
+
+            if (camera->CropFactor >= mc->attr.CropFactor * 1.41)
+                crop_score = std::max(2, crop_score);
+            else if (camera->CropFactor >= mc->attr.CropFactor * 1.31)
+                crop_score = std::max(4, crop_score);
+            else if (camera->CropFactor >= mc->attr.CropFactor * 1.21)
+                crop_score = std::max(6, crop_score);
+            else if (camera->CropFactor >= mc->attr.CropFactor * 1.11)
+                crop_score = std::max(8, crop_score);
+            else if (camera->CropFactor >= mc->attr.CropFactor * 1.01)
+                crop_score = std::max(10, crop_score);
+            else if (camera->CropFactor >= mc->attr.CropFactor)
+                crop_score = std::max(5, crop_score);
+            else if (camera->CropFactor >= mc->attr.CropFactor * 0.96)
+                crop_score = std::max(3, crop_score);
+        }
+
+        if (crop_score == 0)
+            return 0;
+        else
+            score += crop_score;
     }
     switch (_lf_compare_num (pattern->MinFocal, match->MinFocal))
     {
