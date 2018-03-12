@@ -974,7 +974,17 @@ bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) con
 bool lfLens::InterpolateDistortion (float crop, float focal, lfLensCalibDistortion &res) const
 {
     // find calibration set with closest crop factor
-    lfLensCalibrationSet* calib_set = GetClosestCalibrationSet(crop);
+    lfLensCalibrationSet* calib_set = nullptr;
+    float crop_ratio = 1e6f;
+    for (auto c : Calibrations)
+    {
+        const float r = crop / c->attr.CropFactor;
+        if (c->HasDistortion() && (r >= 0.96) && (r < crop_ratio))
+        {
+            crop_ratio = r;
+            calib_set = c;
+        }
+    }
     if (calib_set == nullptr)
         return false;
     if (calib_set == Calibrations[0])
@@ -1068,7 +1078,17 @@ bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
 bool lfLens::InterpolateTCA (float crop, float focal, lfLensCalibTCA &res) const
 {
     // find calibration set with closest crop factor
-    lfLensCalibrationSet* calib_set = GetClosestCalibrationSet(crop);
+    lfLensCalibrationSet* calib_set = nullptr;
+    float crop_ratio = 1e6f;
+    for (auto c : Calibrations)
+    {
+        const float r = crop / c->attr.CropFactor;
+        if (c->HasTCA() && (r >= 0.96) && (r < crop_ratio))
+        {
+            crop_ratio = r;
+            calib_set = c;
+        }
+    }
     if (calib_set == nullptr)
         return false;
     if (calib_set == Calibrations[0])
@@ -1182,7 +1202,17 @@ bool lfLens::InterpolateVignetting (float crop,
     float focal, float aperture, float distance, lfLensCalibVignetting &res) const
 {
     // find calibration set with closest crop factor
-    lfLensCalibrationSet* calib_set = GetClosestCalibrationSet(crop);
+    lfLensCalibrationSet* calib_set = nullptr;
+    float crop_ratio = 1e6f;
+    for (auto c : Calibrations)
+    {
+        const float r = crop / c->attr.CropFactor;
+        if (c->HasVignetting() && (r >= 0.96) && (r < crop_ratio))
+        {
+            crop_ratio = r;
+            calib_set = c;
+        }
+    }
     if (calib_set == nullptr)
         return false;
     if (calib_set == Calibrations[0])
@@ -1265,7 +1295,17 @@ bool lfLens::InterpolateCrop (float focal, lfLensCalibCrop &res) const
 bool lfLens::InterpolateCrop (float crop, float focal, lfLensCalibCrop &res) const
 {
     // find calibration set with closest crop factor
-    lfLensCalibrationSet* calib_set = GetClosestCalibrationSet(crop);
+    lfLensCalibrationSet* calib_set = nullptr;
+    float crop_ratio = 1e6f;
+    for (auto c : Calibrations)
+    {
+        const float r = crop / c->attr.CropFactor;
+        if (c->HasCrop() && (r >= 0.96) && (r < crop_ratio))
+        {
+            crop_ratio = r;
+            calib_set = c;
+        }
+    }
     if (calib_set == nullptr)
         return false;
     if (calib_set == Calibrations[0])
@@ -1346,7 +1386,17 @@ bool lfLens::InterpolateFov (float focal, lfLensCalibFov &res) const
 bool lfLens::InterpolateFov (float crop, float focal, lfLensCalibFov &res) const
 {
     // find calibration set with closest crop factor
-    lfLensCalibrationSet* calib_set = GetClosestCalibrationSet(crop);
+    lfLensCalibrationSet* calib_set = nullptr;
+    float crop_ratio = 1e6f;
+    for (auto c : Calibrations)
+    {
+        const float r = crop / c->attr.CropFactor;
+        if (c->HasFov() && (r >= 0.96) && (r < crop_ratio))
+        {
+            crop_ratio = r;
+            calib_set = c;
+        }
+    }
     if (calib_set == nullptr)
         return false;
     if (calib_set == Calibrations[0])
