@@ -49,31 +49,44 @@ static void PrintLens (const lfLens *lens, const lfDatabase *ldb)
     g_print ("  %s / %s\n",
              lf_mlstr_get (lens->Maker),
              lf_mlstr_get (lens->Model));
-    g_print ("    |- Crop factor: %g\n", lens->CropFactor);
-    g_print ("    |- Aspect ratio: %g\n", lens->AspectRatio);
 
     if (lens->MinFocal != lens->MaxFocal)
-        g_print ("    |- Focal: %g-%gmm\n", lens->MinFocal, lens->MaxFocal);
+	g_print ("    |- Focal: %g-%gmm\n", lens->MinFocal, lens->MaxFocal);
     else
         g_print ("    |- Focal: %gmm\n", lens->MinFocal);
 
-    g_print ("    |- Min-Aperture: f/%g\n", lens->MinAperture);
-    g_print ("    |- Center: %g,%g\n", lens->CenterX, lens->CenterY);
+    if (lens->MaxAperture > 0.f)
+	g_print ("    |- Aperture: f/%g - f/%g\n", lens->MinAperture, lens->MaxAperture);
+    else
+	g_print ("    |- Aperture: f/%g\n", lens->MinAperture);
+
     g_print ("    |- Compatible mounts: ");
-    if (lens->Mounts)
-        for (int j = 0; lens->Mounts [j]; j++)
-            g_print ("%s, ", lf_db_mount_name (ldb, lens->Mounts [j]));    
+    const char* const* lm = lens->GetMountNames();
+    if (lm)
+	for (int j = 0; lm[j]; j++)
+	    g_print ("%s, ", ldb->MountName(lm[j]));
     g_print ("\n");
 
-    g_print ("    |- Calibration data: ");
-    if (lens->CalibTCA)
-        g_print ("tca, ");
-    if (lens->CalibVignetting)
-        g_print ("vign, ");
-    if (lens->CalibDistortion)
-        g_print ("dist,");
-    g_print ("\n");
+    g_print ("    |- Calibration data:\n");
+    const lfLensCalibrationSet* const* calibrations = lens->GetCalibrationSets();
+    if (calibrations)
+    {
+	for (int j = 0; calibrations[j] != NULL; j++)
+	{
+	    g_print ("       |- Crop %g, Aspect ratio %g, Center %g/%g, [",
+	             calibrations[j]->attr.CropFactor,
+	             calibrations[j]->attr.AspectRatio,
+	             calibrations[j]->attr.CenterX, calibrations[j]->attr.CenterY);
 
+	    if (calibrations[j]->HasTCA())
+		g_print ("tca, ");
+	    if (calibrations[j]->HasVignetting())
+		g_print ("vign, ");
+	    if (calibrations[j]->HasDistortion())
+		g_print ("dist,");
+	    g_print ("]\n");
+	}
+    }
 }
 
 
