@@ -218,4 +218,38 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang 85mm f/1.4 IF UMC Aspherical</model>
+        <mount>Canon EF</mount>
+        <mount>Canon EF-M</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Nikon F AI</mount>
+        <mount>4/3 System</mount>
+        <mount>Pentax KAF</mount>
+        <mount>Samsung NX</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D800 -->
+            <distortion model="ptlens" focal="85" a="0.00027" b="-0.00193" c="0.00014"/>
+            <vignetting model="pa" focal="85" aperture="1.4" distance="10" k1="-1.29066" k2="1.24194" k3="-0.57384"/>
+            <vignetting model="pa" focal="85" aperture="1.4" distance="1000" k1="-1.29066" k2="1.24194" k3="-0.57384"/>
+            <vignetting model="pa" focal="85" aperture="2" distance="10" k1="-0.38493" k2="-0.29475" k3="0.19413"/>
+            <vignetting model="pa" focal="85" aperture="2" distance="1000" k1="-0.38493" k2="-0.29475" k3="0.19413"/>
+            <vignetting model="pa" focal="85" aperture="2.8" distance="10" k1="-0.23968" k2="-0.02248" k3="-0.12371"/>
+            <vignetting model="pa" focal="85" aperture="2.8" distance="1000" k1="-0.23968" k2="-0.02248" k3="-0.12371"/>
+            <vignetting model="pa" focal="85" aperture="4" distance="10" k1="-0.37368" k2="0.37764" k3="-0.2984"/>
+            <vignetting model="pa" focal="85" aperture="4" distance="1000" k1="-0.37368" k2="0.37764" k3="-0.2984"/>
+            <vignetting model="pa" focal="85" aperture="5.6" distance="10" k1="-0.3077" k2="0.10947" k3="-0.02896"/>
+            <vignetting model="pa" focal="85" aperture="5.6" distance="1000" k1="-0.3077" k2="0.10947" k3="-0.02896"/>
+            <vignetting model="pa" focal="85" aperture="8" distance="10" k1="-0.32946" k2="0.159" k3="-0.05216"/>
+            <vignetting model="pa" focal="85" aperture="8" distance="1000" k1="-0.32946" k2="0.159" k3="-0.05216"/>
+            <vignetting model="pa" focal="85" aperture="22" distance="10" k1="-0.34871" k2="0.19902" k3="-0.07667"/>
+            <vignetting model="pa" focal="85" aperture="22" distance="1000" k1="-0.34871" k2="0.19902" k3="-0.07667"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
