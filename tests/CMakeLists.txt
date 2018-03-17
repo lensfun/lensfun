@@ -49,5 +49,9 @@ ADD_EXECUTABLE(test_modifier_coord_regression test_modifier_coord_regression.cpp
 TARGET_LINK_LIBRARIES(test_modifier_coord_regression lensfun ${COMMON_LIBS})
 ADD_TEST(NAME Modifier_coord_regression WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND test_modifier_coord_regression)
 
+ADD_EXECUTABLE(test_lffuzzystrcmp test_lffuzzystrcmp.cpp)
+TARGET_LINK_LIBRARIES(test_lffuzzystrcmp lensfun ${COMMON_LIBS})
+ADD_TEST(test_lffuzzystrcmp test_lffuzzystrcmp)
+
 FIND_PACKAGE(PythonInterp REQUIRED)
 ADD_TEST(NAME Database_integrity COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/check_database/check_database.py ${CMAKE_SOURCE_DIR}/data/db)
