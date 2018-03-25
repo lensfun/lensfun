@@ -99,6 +99,26 @@
 
     <lens>
         <maker>Samyang</maker>
+        <model>Samyang 20mm f/1.8 ED AS UMC</model>
+        <mount>Pentax K</mount>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AI</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Sony E</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Samsung NX</mount>
+        <mount>Canon EF-M</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="20" a="0.00825994" b="-0.022059" c="-0.00358632"/>
+            <tca model="poly3" focal="20" br="-0.0000969" vr="1.0006016" bb="0.0001520" vb="0.9996378"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Samyang</maker>
         <model>Samyang 500mm f/6.3 MC IF Mirror Lens</model>
         <model lang="de">Samyang 500mm f/6.3 MC IF Spiegelobjektiv</model>
         <mount>T2</mount>

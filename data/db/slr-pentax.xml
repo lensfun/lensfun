@@ -396,6 +396,80 @@
 
     <lens>
         <maker>Pentax</maker>
+        <model>HD Pentax-D FA 15-30mm f/2.8 ED SDM WR</model>
+        <mount>Pentax K</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- This is an exact copy of Tamron SP 15-30mm f/2.8 Di VC USD
+                 (A012)
+                 -->
+            <!-- Taken with Nikon D750 -->
+            <distortion model="ptlens" focal="15" a="0.00365" b="-0.0373" c="0.04147"/>
+            <distortion model="ptlens" focal="18" a="0.00298" b="-0.02252" c="0.03197"/>
+            <distortion model="ptlens" focal="20" a="0.00184" b="-0.00975" c="0.01751"/>
+            <distortion model="ptlens" focal="24" a="-0.00091" b="0.0071" c="0.00024"/>
+            <distortion model="ptlens" focal="30" a="0.00987" b="-0.02288" c="0.02592"/>
+            <tca model="poly3" focal="15" vr="1.0002123" vb="1.0000492"/>
+            <tca model="poly3" focal="18" vr="1.0001493" vb="1.0001207"/>
+            <tca model="poly3" focal="20" vr="1.0000941" vb="1.0001934"/>
+            <tca model="poly3" focal="24" vr="1.0000410" vb="1.0001929"/>
+            <tca model="poly3" focal="30" vr="1.0000710" vb="1.0000933"/>
+            <!-- Taken with Pentax K-1, from rebranded HD Pentax-D FA 15-30mm f/2.8 ED SDM WR -->
+            <vignetting model="pa" focal="15" aperture="2.8" distance="10" k1="-0.8185" k2="-0.0629" k3="0.1225"/>
+            <vignetting model="pa" focal="15" aperture="2.8" distance="1000" k1="-0.8185" k2="-0.0629" k3="0.1225"/>
+            <vignetting model="pa" focal="15" aperture="4" distance="10" k1="-1.0067" k2="0.8354" k3="-0.5230"/>
+            <vignetting model="pa" focal="15" aperture="4" distance="1000" k1="-1.0067" k2="0.8354" k3="-0.5230"/>
+            <vignetting model="pa" focal="15" aperture="5.6" distance="10" k1="-0.9948" k2="0.7210" k3="-0.3207"/>
+            <vignetting model="pa" focal="15" aperture="5.6" distance="1000" k1="-0.9948" k2="0.7210" k3="-0.3207"/>
+            <vignetting model="pa" focal="15" aperture="8" distance="10" k1="-0.9660" k2="0.5942" k3="-0.1989"/>
+            <vignetting model="pa" focal="15" aperture="8" distance="1000" k1="-0.9660" k2="0.5942" k3="-0.1989"/>
+            <vignetting model="pa" focal="15" aperture="11" distance="10" k1="-0.9694" k2="0.6024" k3="-0.2026"/>
+            <vignetting model="pa" focal="15" aperture="11" distance="1000" k1="-0.9694" k2="0.6024" k3="-0.2026"/>
+            <vignetting model="pa" focal="18.1" aperture="2.8" distance="10" k1="-0.7878" k2="-0.1466" k3="0.2421"/>
+            <vignetting model="pa" focal="18.1" aperture="2.8" distance="1000" k1="-0.7878" k2="-0.1466" k3="0.2421"/>
+            <vignetting model="pa" focal="18.1" aperture="4" distance="10" k1="-0.8753" k2="0.5395" k3="-0.2819"/>
+            <vignetting model="pa" focal="18.1" aperture="4" distance="1000" k1="-0.8753" k2="0.5395" k3="-0.2819"/>
+            <vignetting model="pa" focal="18.1" aperture="5.6" distance="10" k1="-0.9110" k2="0.6518" k3="-0.2737"/>
+            <vignetting model="pa" focal="18.1" aperture="5.6" distance="1000" k1="-0.9110" k2="0.6518" k3="-0.2737"/>
+            <vignetting model="pa" focal="18.1" aperture="8" distance="10" k1="-0.8824" k2="0.5745" k3="-0.2141"/>
+            <vignetting model="pa" focal="18.1" aperture="8" distance="1000" k1="-0.8824" k2="0.5745" k3="-0.2141"/>
+            <vignetting model="pa" focal="18.1" aperture="11" distance="10" k1="-0.8629" k2="0.5330" k3="-0.1840"/>
+            <vignetting model="pa" focal="18.1" aperture="11" distance="1000" k1="-0.8629" k2="0.5330" k3="-0.1840"/>
+            <vignetting model="pa" focal="20" aperture="2.8" distance="10" k1="-0.7201" k2="-0.2020" k3="0.2723"/>
+            <vignetting model="pa" focal="20" aperture="2.8" distance="1000" k1="-0.7201" k2="-0.2020" k3="0.2723"/>
+            <vignetting model="pa" focal="20" aperture="4" distance="10" k1="-0.7570" k2="0.2497" k3="-0.0941"/>
+            <vignetting model="pa" focal="20" aperture="4" distance="1000" k1="-0.7570" k2="0.2497" k3="-0.0941"/>
+            <vignetting model="pa" focal="20" aperture="5.6" distance="10" k1="-0.8678" k2="0.6453" k3="-0.2874"/>
+            <vignetting model="pa" focal="20" aperture="5.6" distance="1000" k1="-0.8678" k2="0.6453" k3="-0.2874"/>
+            <vignetting model="pa" focal="20" aperture="8" distance="10" k1="-0.8633" k2="0.6230" k3="-0.2634"/>
+            <vignetting model="pa" focal="20" aperture="8" distance="1000" k1="-0.8633" k2="0.6230" k3="-0.2634"/>
+            <vignetting model="pa" focal="20" aperture="11" distance="10" k1="-0.8724" k2="0.6467" k3="-0.2780"/>
+            <vignetting model="pa" focal="20" aperture="11" distance="1000" k1="-0.8724" k2="0.6467" k3="-0.2780"/>
+            <vignetting model="pa" focal="24.4" aperture="2.8" distance="10" k1="-0.9452" k2="0.1494" k3="0.1346"/>
+            <vignetting model="pa" focal="24.4" aperture="2.8" distance="1000" k1="-0.9452" k2="0.1494" k3="0.1346"/>
+            <vignetting model="pa" focal="24.4" aperture="4" distance="10" k1="-0.6402" k2="-0.0731" k3="0.1258"/>
+            <vignetting model="pa" focal="24.4" aperture="4" distance="1000" k1="-0.6402" k2="-0.0731" k3="0.1258"/>
+            <vignetting model="pa" focal="24.4" aperture="5.6" distance="10" k1="-0.7285" k2="0.5012" k3="-0.2600"/>
+            <vignetting model="pa" focal="24.4" aperture="5.6" distance="1000" k1="-0.7285" k2="0.5012" k3="-0.2600"/>
+            <vignetting model="pa" focal="24.4" aperture="8" distance="10" k1="-0.7011" k2="0.3935" k3="-0.1482"/>
+            <vignetting model="pa" focal="24.4" aperture="8" distance="1000" k1="-0.7011" k2="0.3935" k3="-0.1482"/>
+            <vignetting model="pa" focal="24.4" aperture="11" distance="10" k1="-0.6841" k2="0.3640" k3="-0.1287"/>
+            <vignetting model="pa" focal="24.4" aperture="11" distance="1000" k1="-0.6841" k2="0.3640" k3="-0.1287"/>
+            <vignetting model="pa" focal="30" aperture="2.8" distance="10" k1="-1.3575" k2="1.1946" k3="-0.4851"/>
+            <vignetting model="pa" focal="30" aperture="2.8" distance="1000" k1="-1.3575" k2="1.1946" k3="-0.4851"/>
+            <vignetting model="pa" focal="30" aperture="4" distance="10" k1="-0.5400" k2="-0.1638" k3="0.1808"/>
+            <vignetting model="pa" focal="30" aperture="4" distance="1000" k1="-0.5400" k2="-0.1638" k3="0.1808"/>
+            <vignetting model="pa" focal="30" aperture="5.6" distance="10" k1="-0.5789" k2="0.3359" k3="-0.1888"/>
+            <vignetting model="pa" focal="30" aperture="5.6" distance="1000" k1="-0.5789" k2="0.3359" k3="-0.1888"/>
+            <vignetting model="pa" focal="30" aperture="8" distance="10" k1="-0.5502" k2="0.2220" k3="-0.0707"/>
+            <vignetting model="pa" focal="30" aperture="8" distance="1000" k1="-0.5502" k2="0.2220" k3="-0.0707"/>
+            <vignetting model="pa" focal="30" aperture="11" distance="10" k1="-0.5707" k2="0.2672" k3="-0.0974"/>
+            <vignetting model="pa" focal="30" aperture="11" distance="1000" k1="-0.5707" k2="0.2672" k3="-0.0974"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
         <model>HD Pentax-DA 16-85mm f/3.5-5.6 ED DC WR</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.526</cropfactor>
@@ -612,7 +686,6 @@
     <lens>
         <maker>Pentax</maker>
         <model>smc Pentax-DA 18-135mm f/3.5-5.6 ED AL IF DC WR</model>
-        <model lang="en">smc PENTAX-DA 18-135mm f/3.5-5.6 ED AL IF DC WR</model>
         <mount>Pentax K</mount>
         <!-- Average crop factor of Pentax APS-C cameras -->
         <cropfactor>1.53</cropfactor>
@@ -699,6 +772,44 @@
 
     <lens>
         <maker>Pentax</maker>
+        <model>HD Pentax-D FA 28-105mm f/3.5-5.6 ED DC WR</model>
+        <mount>Pentax KAF3</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="28" a="0.0165845" b="-0.0455463" c="-0.000358805"/>
+            <distortion model="ptlens" focal="40" a="0.00653256" b="-0.00768683" c="-0.00543098"/>
+            <distortion model="ptlens" focal="58" a="0" b="0.00741997" c="0"/>
+            <distortion model="ptlens" focal="73" a="0" b="0.00819869" c="0"/>
+            <distortion model="ptlens" focal="105" a="0" b="0.00850785" c="0"/>
+            <tca model="poly3" focal="28" vr="1.0002510" vb="1.0001311"/>
+            <tca model="poly3" focal="40" vr="1.0001204" vb="1.0000619"/>
+            <tca model="poly3" focal="58" vr="1.0000364" vb="0.9999813"/>
+            <tca model="poly3" focal="73" vr="0.9999050" vb="0.9999360"/>
+            <tca model="poly3" focal="105" vr="0.9995892" vb="0.9999858"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>HD Pentax-D FA 70-200mm f/2.8 ED DC AW</model>
+        <mount>Pentax KAF3</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="poly3" focal="70" k1="-0.00933819"/>
+            <distortion model="poly3" focal="108" k1="-0.000743662"/>
+            <distortion model="poly3" focal="140" k1="0.00393503"/>
+            <distortion model="poly3" focal="200" k1="0.00628692"/>
+            <tca model="poly3" focal="70" vr="1.0002338" vb="1.0000437"/>
+            <tca model="poly3" focal="108" vr="1.0000771" vb="1.0001445"/>
+            <tca model="poly3" focal="140" vr="0.9999756" vb="1.0001374"/>
+            <tca model="poly3" focal="200" vr="0.9999045" vb="1.0000246"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
         <model>smc Pentax-DA 50-200mm f/4-5.6 DA ED</model>
         <mount>Pentax KAF2</mount>
         <!-- Average crop factor of Pentax APS-C cameras -->
@@ -771,6 +882,26 @@
             <vignetting model="pa" focal="200" aperture="16" distance="1000" k1="-0.0857" k2="0.0459" k3="-0.0106"/>
             <vignetting model="pa" focal="200" aperture="32" distance="10" k1="-0.0787" k2="0.0275" k3="0.0014"/>
             <vignetting model="pa" focal="200" aperture="32" distance="1000" k1="-0.0787" k2="0.0275" k3="0.0014"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>HD Pentax-DA 55-300mm f/4-5.8 ED WR</model>
+        <mount>Pentax KAF3</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="55" a="0.00917" b="-0.03664" c="0.02573"/>
+            <distortion model="ptlens" focal="77.5" a="0" b="0.01961" c="0"/>
+            <distortion model="ptlens" focal="107.5" a="0" b="0.02241" c="0"/>
+            <distortion model="ptlens" focal="150" a="0" b="0.02426" c="0"/>
+            <distortion model="ptlens" focal="300" a="0" b="0.01784" c="0"/>
+            <tca model="poly3" focal="55" vr="1.0002190" vb="0.9999780"/>
+            <tca model="poly3" focal="77.5" vr="1.0000514" vb="0.9999319"/>
+            <tca model="poly3" focal="107.5" vr="0.9999875" vb="0.9999069"/>
+            <tca model="poly3" focal="150" vr="0.9999301" vb="0.9996422"/>
+            <tca model="poly3" focal="300" vr="0.9997730" vb="0.9992534"/>
         </calibration>
     </lens>
 
@@ -926,6 +1057,18 @@
 
     <lens>
         <maker>Pentax</maker>
+        <model>smc Pentax-FA 77mm f/1.8 Limited</model>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K1 -->
+            <distortion model="poly3" focal="77" k1="0.001454"/>
+            <tca model="poly3" focal="77" vr="0.9998536" vb="0.9999614"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
         <model>Takumar 135mm f/2.5 Bayonet</model>
         <mount>Pentax K</mount>
         <!-- Average crop factor of Pentax APS-C cameras -->
@@ -990,6 +1133,18 @@
 
     <lens>
         <maker>Pentax</maker>
+        <model>smc Pentax-D FA Macro 100mm f/2.8 WR</model>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="poly3" focal="100" k1="-0.00138"/>
+            <tca model="poly3" focal="100" vr="1.0000068" vb="0.9998818"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
         <model>smc Pentax-M 150mm f/3.5</model>
         <mount>Pentax K</mount>
         <!-- Average crop factor of Pentax APS-C cameras -->
@@ -1029,6 +1184,18 @@
             <vignetting model="pa" focal="35" aperture="16" distance="1000" k1="-0.2197" k2="0.0419" k3="-0.0017"/>
             <vignetting model="pa" focal="35" aperture="22" distance="10" k1="-0.2166" k2="0.0363" k3="0.0025"/>
             <vignetting model="pa" focal="35" aperture="22" distance="1000" k1="-0.2166" k2="0.0363" k3="0.0025"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-DA 35mm f/2.4 AL</model>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="35" a="0.00556398" b="-0.0130605" c="-0.00889064"/>
+            <tca model="poly3" focal="35" br="-0.0000898" vr="1.0003099" bb="0.0001118" vb="0.9998355"/>
         </calibration>
     </lens>
 
@@ -1409,6 +1576,18 @@
         <maker>Pentax</maker>
         <model>smc Pentax-A 50mm f/1.7</model>
         <mount>Pentax KA</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="poly3" focal="50" k1="-0.00348"/>
+            <tca model="poly3" focal="50" vr="0.9999940" vb="1.0000320"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-A 50mm f/1.7</model>
+        <mount>Pentax KA</mount>
         <cropfactor>1.526</cropfactor>
         <calibration>
             <!-- Taken with Pentax K-5 -->
@@ -1566,6 +1745,18 @@
             <!-- Taken with Pentax K-5 II s -->
             <distortion model="poly3" focal="50" k1="-0.00214"/>
             <tca model="poly3" focal="50" vr="0.9999693" vb="1.0000394"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-DA 50mm f/1.8</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="poly3" focal="50" k1="-0.00402783"/>
+            <tca model="poly3" focal="50" vr="0.9999" vb="1.00015"/>
         </calibration>
     </lens>
 
@@ -1761,6 +1952,22 @@
 
     <lens>
         <maker>Pentax</maker>
+        <model>HD Pentax-D FA 150-450mm f/4.5-5.6 ED DC AW</model>
+        <mount>Pentax KAF3</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="poly3" focal="150" k1="0.00772173"/>
+            <distortion model="poly3" focal="250" k1="0.00799477"/>
+            <distortion model="poly3" focal="450" k1="0.00547256"/>
+            <tca model="poly3" focal="150" vr="1.0002226" vb="1.0000038"/>
+            <tca model="poly3" focal="250" vr="1.0000519" vb="0.9999295"/>
+            <tca model="poly3" focal="450" vr="0.9998498" vb="0.9997845"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
         <model>smc Pentax-DA L 50-200mm f/4-5.6 ED WR</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.534</cropfactor>
@@ -1860,6 +2067,54 @@
             <tca model="poly3" focal="35" br="0.0000457" vr="1.0004519" bb="-0.0000735" vb="0.9998598"/>
             <tca model="poly3" focal="50" br="0.0000118" vr="1.0000938" bb="-0.0000862" vb="0.9998401"/>
             <tca model="poly3" focal="70" br="-0.0000161" vr="0.9997567" bb="-0.0000354" vb="0.9997991"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-DA 35mm f/2.8 Macro Limited</model>
+        <mount>Pentax KAF3</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="35" a="0.01494" b="-0.04536" c="0.03628"/>
+            <tca model="poly3" focal="35" br="-0.0002488" vr="1.0004726" bb="0.0004055" vb="0.9996175"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="10" k1="-0.5990" k2="-0.2392" k3="0.1103"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="1000" k1="-0.5990" k2="-0.2392" k3="0.1103"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="10" k1="-0.0239" k2="-0.5539" k3="-0.0118"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="1000" k1="-0.0239" k2="-0.5539" k3="-0.0118"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="10" k1="-0.2993" k2="0.4647" k3="-0.7017"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="1000" k1="-0.2993" k2="0.4647" k3="-0.7017"/>
+            <vignetting model="pa" focal="35" aperture="8" distance="10" k1="-0.4227" k2="0.7528" k3="-0.7591"/>
+            <vignetting model="pa" focal="35" aperture="8" distance="1000" k1="-0.4227" k2="0.7528" k3="-0.7591"/>
+            <vignetting model="pa" focal="35" aperture="11" distance="10" k1="-0.4161" k2="0.6735" k3="-0.6253"/>
+            <vignetting model="pa" focal="35" aperture="11" distance="1000" k1="-0.4161" k2="0.6735" k3="-0.6253"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc PENTAX-FA 77mm F1.8 Limited</model>
+        <mount>Pentax KAF3</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="77.5" a="0" b="0.00174" c="0"/>
+            <tca model="poly3" focal="77.5" br="0.0000317" vr="1.0000491" bb="-0.0000720" vb="0.9996759"/>
+            <vignetting model="pa" focal="77.5" aperture="1.8" distance="10" k1="-1.3375" k2="1.3579" k3="-0.6336"/>
+            <vignetting model="pa" focal="77.5" aperture="1.8" distance="1000" k1="-1.3375" k2="1.3579" k3="-0.6336"/>
+            <vignetting model="pa" focal="77.5" aperture="2" distance="10" k1="-0.8871" k2="0.3955" k3="-0.0728"/>
+            <vignetting model="pa" focal="77.5" aperture="2" distance="1000" k1="-0.8871" k2="0.3955" k3="-0.0728"/>
+            <vignetting model="pa" focal="77.5" aperture="2.8" distance="10" k1="-0.2028" k2="0.1041" k3="-0.1821"/>
+            <vignetting model="pa" focal="77.5" aperture="2.8" distance="1000" k1="-0.2028" k2="0.1041" k3="-0.1821"/>
+            <vignetting model="pa" focal="77.5" aperture="4" distance="10" k1="-0.2092" k2="-0.0059" k3="0.0327"/>
+            <vignetting model="pa" focal="77.5" aperture="4" distance="1000" k1="-0.2092" k2="-0.0059" k3="0.0327"/>
+            <vignetting model="pa" focal="77.5" aperture="5.6" distance="10" k1="-0.2048" k2="-0.0228" k3="0.0436"/>
+            <vignetting model="pa" focal="77.5" aperture="5.6" distance="1000" k1="-0.2048" k2="-0.0228" k3="0.0436"/>
+            <vignetting model="pa" focal="77.5" aperture="8" distance="10" k1="-0.2176" k2="0.0126" k3="0.0147"/>
+            <vignetting model="pa" focal="77.5" aperture="8" distance="1000" k1="-0.2176" k2="0.0126" k3="0.0147"/>
+            <vignetting model="pa" focal="77.5" aperture="11" distance="10" k1="-0.2172" k2="0.0074" k3="0.0174"/>
+            <vignetting model="pa" focal="77.5" aperture="11" distance="1000" k1="-0.2172" k2="0.0074" k3="0.0174"/>
         </calibration>
     </lens>
 

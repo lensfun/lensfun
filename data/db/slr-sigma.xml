@@ -2008,9 +2008,9 @@
         <mount>Pentax KAF</mount>
         <cropfactor>1</cropfactor>
         <calibration>
-            <!-- Taken with Nikon D800 -->
-            <distortion model="ptlens" focal="35" a="0.00542" b="-0.01856" c="0.017"/>
-            <tca model="poly3" focal="35" br="-0.0000475" vr="1.0001547" bb="0.0000608" vb="0.9999185"/>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="poly3" focal="35" k1="-0.00111476"/>
+            <tca model="poly3" focal="35" vr="1.0001811" vb="0.9999722"/>
             <!-- Taken with Canon 6D -->
             <vignetting model="pa" focal="35" aperture="1.4" distance="10" k1="-2.1367" k2="2.3253" k3="-1.0155"/>
             <vignetting model="pa" focal="35" aperture="1.4" distance="1000" k1="-2.1367" k2="2.3253" k3="-1.0155"/>
