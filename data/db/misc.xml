@@ -545,7 +545,7 @@
         <mount>Micro 4/3 System</mount>
         <cropfactor>2</cropfactor>
         <calibration>
-            <distortion focal="7.5" model="ptlens" a="0" b="-0.007" c="0"/>
+            <distortion focal="7.5" model="poly3" k1="-0.007"/>
             <tca focal="7.5" model="poly3" vb="1.0004" vr="1.0004"/>
         </calibration>
     </lens>
