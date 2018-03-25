@@ -1139,7 +1139,7 @@
         <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Pentax K-1 -->
-            <distortion model="ptlens" focal="100" a="0" b="-0.00138" c="0"/>
+            <distortion model="poly3" focal="100" k1="-0.00138"/>
             <tca model="poly3" focal="100" vr="1.0000068" vb="0.9998818"/>
         </calibration>
     </lens>
