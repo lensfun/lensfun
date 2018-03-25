@@ -83,6 +83,48 @@
     </lens>
 
     <lens>
+        <!-- Identifies itself at Sony cameras as “E 60mm F2.8”. -->
+        <maker>Sigma</maker>
+        <model>Sigma 60mm f/2.8 DN</model>
+        <mount>Sony E</mount>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-6000 Alpha 6000 -->
+            <distortion model="ptlens" focal="60" a="-0.00009308" b="-0.000526315" c="0.0120559"/>
+            <tca model="poly3" focal="60" vr="0.9999531" vb="1.0000223"/>
+            <vignetting model="pa" focal="60" aperture="2.8" distance="10" k1="-0.6640" k2="0.3253" k3="-0.0355"/>
+            <vignetting model="pa" focal="60" aperture="2.8" distance="1000" k1="-0.6640" k2="0.3253" k3="-0.0355"/>
+            <vignetting model="pa" focal="60" aperture="3.2" distance="10" k1="-0.3209" k2="-0.2241" k3="0.2368"/>
+            <vignetting model="pa" focal="60" aperture="3.2" distance="1000" k1="-0.3209" k2="-0.2241" k3="0.2368"/>
+            <vignetting model="pa" focal="60" aperture="3.5" distance="10" k1="-0.1184" k2="-0.5010" k3="0.3303"/>
+            <vignetting model="pa" focal="60" aperture="3.5" distance="1000" k1="-0.1184" k2="-0.5010" k3="0.3303"/>
+            <vignetting model="pa" focal="60" aperture="4" distance="10" k1="-0.1262" k2="-0.2162" k3="0.1169"/>
+            <vignetting model="pa" focal="60" aperture="4" distance="1000" k1="-0.1262" k2="-0.2162" k3="0.1169"/>
+            <vignetting model="pa" focal="60" aperture="4.5" distance="10" k1="-0.2177" k2="0.2018" k3="-0.1577"/>
+            <vignetting model="pa" focal="60" aperture="4.5" distance="1000" k1="-0.2177" k2="0.2018" k3="-0.1577"/>
+            <vignetting model="pa" focal="60" aperture="5" distance="10" k1="-0.2179" k2="0.2126" k3="-0.2123"/>
+            <vignetting model="pa" focal="60" aperture="5" distance="1000" k1="-0.2179" k2="0.2126" k3="-0.2123"/>
+            <vignetting model="pa" focal="60" aperture="5.6" distance="10" k1="-0.2117" k2="0.1512" k3="-0.1221"/>
+            <vignetting model="pa" focal="60" aperture="5.6" distance="1000" k1="-0.2117" k2="0.1512" k3="-0.1221"/>
+            <vignetting model="pa" focal="60" aperture="6.3" distance="10" k1="-0.1922" k2="0.0544" k3="-0.0240"/>
+            <vignetting model="pa" focal="60" aperture="6.3" distance="1000" k1="-0.1922" k2="0.0544" k3="-0.0240"/>
+            <vignetting model="pa" focal="60" aperture="7.1" distance="10" k1="-0.2025" k2="0.0653" k3="-0.0249"/>
+            <vignetting model="pa" focal="60" aperture="7.1" distance="1000" k1="-0.2025" k2="0.0653" k3="-0.0249"/>
+            <vignetting model="pa" focal="60" aperture="8" distance="10" k1="-0.2134" k2="0.0830" k3="-0.0355"/>
+            <vignetting model="pa" focal="60" aperture="8" distance="1000" k1="-0.2134" k2="0.0830" k3="-0.0355"/>
+            <vignetting model="pa" focal="60" aperture="9" distance="10" k1="-0.2114" k2="0.0690" k3="-0.0256"/>
+            <vignetting model="pa" focal="60" aperture="9" distance="1000" k1="-0.2114" k2="0.0690" k3="-0.0256"/>
+            <vignetting model="pa" focal="60" aperture="10" distance="10" k1="-0.1979" k2="0.0283" k3="-0.0013"/>
+            <vignetting model="pa" focal="60" aperture="10" distance="1000" k1="-0.1979" k2="0.0283" k3="-0.0013"/>
+            <vignetting model="pa" focal="60" aperture="11" distance="10" k1="-0.1825" k2="-0.0147" k3="0.0267"/>
+            <vignetting model="pa" focal="60" aperture="11" distance="1000" k1="-0.1825" k2="-0.0147" k3="0.0267"/>
+            <vignetting model="pa" focal="60" aperture="22" distance="10" k1="-0.0984" k2="-0.2008" k3="0.1171"/>
+            <vignetting model="pa" focal="60" aperture="22" distance="1000" k1="-0.0984" k2="-0.2008" k3="0.1171"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <!-- Identifies itself at Sony cameras as “E 19mm F2.8”. -->
         <maker>Sigma</maker>
         <model>Sigma 19mm f/2.8 DN</model>
@@ -165,47 +207,6 @@
             <vignetting model="pa" focal="30" aperture="13" distance="1000" k1="-0.2189" k2="0.1170" k3="-0.0418"/>
             <vignetting model="pa" focal="30" aperture="16" distance="10" k1="-0.2179" k2="0.1129" k3="-0.0401"/>
             <vignetting model="pa" focal="30" aperture="16" distance="1000" k1="-0.2179" k2="0.1129" k3="-0.0401"/>
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Sigma</maker>
-        <model>E 60mm f/2.8</model>
-        <model lang="en">Sigma 60mm f/2.8 DN</model>
-        <mount>Sony E</mount>
-        <cropfactor>1.534</cropfactor>
-        <calibration>
-            <!-- Taken with ILCE-6000 Alpha 6000 -->
-            <distortion model="ptlens" focal="60" a="-0.00009308" b="-0.000526315" c="0.0120559"/>
-            <tca model="poly3" focal="60" vr="0.9999531" vb="1.0000223"/>
-            <vignetting model="pa" focal="60" aperture="2.8" distance="10" k1="-0.6640" k2="0.3253" k3="-0.0355"/>
-            <vignetting model="pa" focal="60" aperture="2.8" distance="1000" k1="-0.6640" k2="0.3253" k3="-0.0355"/>
-            <vignetting model="pa" focal="60" aperture="3.2" distance="10" k1="-0.3209" k2="-0.2241" k3="0.2368"/>
-            <vignetting model="pa" focal="60" aperture="3.2" distance="1000" k1="-0.3209" k2="-0.2241" k3="0.2368"/>
-            <vignetting model="pa" focal="60" aperture="3.5" distance="10" k1="-0.1184" k2="-0.5010" k3="0.3303"/>
-            <vignetting model="pa" focal="60" aperture="3.5" distance="1000" k1="-0.1184" k2="-0.5010" k3="0.3303"/>
-            <vignetting model="pa" focal="60" aperture="4" distance="10" k1="-0.1262" k2="-0.2162" k3="0.1169"/>
-            <vignetting model="pa" focal="60" aperture="4" distance="1000" k1="-0.1262" k2="-0.2162" k3="0.1169"/>
-            <vignetting model="pa" focal="60" aperture="4.5" distance="10" k1="-0.2177" k2="0.2018" k3="-0.1577"/>
-            <vignetting model="pa" focal="60" aperture="4.5" distance="1000" k1="-0.2177" k2="0.2018" k3="-0.1577"/>
-            <vignetting model="pa" focal="60" aperture="5" distance="10" k1="-0.2179" k2="0.2126" k3="-0.2123"/>
-            <vignetting model="pa" focal="60" aperture="5" distance="1000" k1="-0.2179" k2="0.2126" k3="-0.2123"/>
-            <vignetting model="pa" focal="60" aperture="5.6" distance="10" k1="-0.2117" k2="0.1512" k3="-0.1221"/>
-            <vignetting model="pa" focal="60" aperture="5.6" distance="1000" k1="-0.2117" k2="0.1512" k3="-0.1221"/>
-            <vignetting model="pa" focal="60" aperture="6.3" distance="10" k1="-0.1922" k2="0.0544" k3="-0.0240"/>
-            <vignetting model="pa" focal="60" aperture="6.3" distance="1000" k1="-0.1922" k2="0.0544" k3="-0.0240"/>
-            <vignetting model="pa" focal="60" aperture="7.1" distance="10" k1="-0.2025" k2="0.0653" k3="-0.0249"/>
-            <vignetting model="pa" focal="60" aperture="7.1" distance="1000" k1="-0.2025" k2="0.0653" k3="-0.0249"/>
-            <vignetting model="pa" focal="60" aperture="8" distance="10" k1="-0.2134" k2="0.0830" k3="-0.0355"/>
-            <vignetting model="pa" focal="60" aperture="8" distance="1000" k1="-0.2134" k2="0.0830" k3="-0.0355"/>
-            <vignetting model="pa" focal="60" aperture="9" distance="10" k1="-0.2114" k2="0.0690" k3="-0.0256"/>
-            <vignetting model="pa" focal="60" aperture="9" distance="1000" k1="-0.2114" k2="0.0690" k3="-0.0256"/>
-            <vignetting model="pa" focal="60" aperture="10" distance="10" k1="-0.1979" k2="0.0283" k3="-0.0013"/>
-            <vignetting model="pa" focal="60" aperture="10" distance="1000" k1="-0.1979" k2="0.0283" k3="-0.0013"/>
-            <vignetting model="pa" focal="60" aperture="11" distance="10" k1="-0.1825" k2="-0.0147" k3="0.0267"/>
-            <vignetting model="pa" focal="60" aperture="11" distance="1000" k1="-0.1825" k2="-0.0147" k3="0.0267"/>
-            <vignetting model="pa" focal="60" aperture="22" distance="10" k1="-0.0984" k2="-0.2008" k3="0.1171"/>
-            <vignetting model="pa" focal="60" aperture="22" distance="1000" k1="-0.0984" k2="-0.2008" k3="0.1171"/>
         </calibration>
     </lens>
 
