@@ -13,6 +13,13 @@ ADD_EXECUTABLE(test_modifier test_modifier.cpp)
 TARGET_LINK_LIBRARIES(test_modifier lensfun ${COMMON_LIBS})
 ADD_TEST(Modifier test_modifier)
 
+ADD_EXECUTABLE(test_modifier_performance test_modifier_performance.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_performance lensfun ${COMMON_LIBS})
+ADD_TEST(NAME Modifier_performance WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND test_modifier_performance)
+
+find_package(OpenMP)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+
 ADD_EXECUTABLE(test_modifier_color test_modifier_color.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_color lensfun ${COMMON_LIBS})
 ADD_TEST(Modifier_color test_modifier_color)
@@ -94,6 +101,10 @@ ADD_TEST(Modifier_coord_centering_deprecated test_modifier_coord_centering_old)
 ADD_EXECUTABLE(test_modifier_regression_old test_modifier_regression_old.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_regression_old lensfun ${COMMON_LIBS})
 ADD_TEST(NAME Modifier_regression_deprecated WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND test_modifier_regression_old)
+
+ADD_EXECUTABLE(test_lffuzzystrcmp test_lffuzzystrcmp.cpp)
+TARGET_LINK_LIBRARIES(test_lffuzzystrcmp lensfun ${COMMON_LIBS})
+ADD_TEST(test_lffuzzystrcmp test_lffuzzystrcmp)
 
 FIND_PACKAGE(PythonInterp REQUIRED)
 ADD_TEST(NAME Database_integrity COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/check_database/check_database.py ${CMAKE_SOURCE_DIR}/data/db)

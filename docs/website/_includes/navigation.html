@@ -1,14 +1,14 @@
-
 <div id="navigation">
 
 <ul>
-{% sorted_for node in site.pages sort_by:weight %}
+{% assign sorted_pages = (site.pages | sort: 'weight') %}
+{% for node in sorted_pages %}
 {% if page.url == node.url %}
   <li class="active"><a href="{{node.url}}" class="active">{{node.linktitle}}</a></li>
 {% else %}
   <li><a href="{{node.url}}">{{node.linktitle}}</a></li>
 {% endif %}
-{% endsorted_for %}
+{% endfor %}
 </ul>
 
 </div>

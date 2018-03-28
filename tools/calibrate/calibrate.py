@@ -89,15 +89,19 @@ class Lens(object):
 def generate_raw_conversion_call(filename, dcraw_options):
     basename, extension = os.path.splitext(filename)
     extension = extension[1:]
-    if extension.lower() in ["jpg", "tif"]:
-        return ["convert", filename, basename + ".tiff"]
+    if extension.lower() in ["jpg", "jpeg", "tif"]:
+        result = ["convert", filename]
+        if "-4" in dcraw_options:
+            result.extend(["-colorspace", "RGB", "-depth", "16"])
+        result.append("tiff:-" if "-c" in dcraw_options else basename + ".tiff")
+        return result
     else:
         return ["dcraw", "-T", "-t", "0"] + dcraw_options + [filename]
 
 
 raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf", "fff",
                        "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx", "pxn", "r3d",
-                       "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f", "jpg", "tif"]
+                       "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f", "jpg", "jpeg", "tif"]
 def find_raw_files():
     result = []
     for file_extension in raw_file_extensions:
@@ -259,7 +263,8 @@ except IOError:
                 for length in sorted(focal_lengths[lens_name]):
                     outfile.write("distortion({0}mm) = , , \n".format(length))
         else:
-            outfile.write("""# No RAW images found.  Please have a look at
+            outfile.write("""# No RAW images found (or no focal lengths in them).
+# Please have a look at
 # http://wilson.bronger.org/lens_calibration_tutorial/
 """)
     print("I wrote a template lenses.txt.  Please fill this file with proper information.  Abort.")
@@ -363,7 +368,7 @@ def evaluate_image_set(exif_data, filepaths):
             for i, line in enumerate(image_data.splitlines(True)):
                 header_size += len(line)
                 if i == 0:
-                    assert line == b"P5\n"
+                    assert line == b"P5\n", "Wrong image format (must be NetPGM binary)"
                 else:
                     line = line.partition(b"#")[0].strip()
                     if line:
@@ -371,7 +376,7 @@ def evaluate_image_set(exif_data, filepaths):
                             width, height = line.split()
                             width, height = int(width), int(height)
                         else:
-                            assert line == b"65535"
+                            assert line == b"65535", "Wrong grayscale depth: {} (must be 65535)".format(int(line))
                             break
             half_diagonal = math.hypot(width // 2, height // 2)
             image_data = struct.unpack("!{0}s{1}H".format(header_size, width * height), image_data)[1:]

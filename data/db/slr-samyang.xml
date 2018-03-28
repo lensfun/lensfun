@@ -81,6 +81,44 @@
 
     <lens>
         <maker>Samyang</maker>
+        <model>Samyang 16mm f/2.0 ED AS UMC CS</model>
+        <mount>Nikon F AF</mount>
+        <mount>Canon EF</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Samsung NX</mount>
+        <mount>Canon EF-M</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- taken with Nikon D5500 -->
+            <distortion model="poly3" focal="16" k1="-0.006111"/>
+            <tca model="poly3" focal="16" vr="1.0002000" vb="1.0003000"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang 20mm f/1.8 ED AS UMC</model>
+        <mount>Pentax K</mount>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AI</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Sony E</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Samsung NX</mount>
+        <mount>Canon EF-M</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="20" a="0.00825994" b="-0.022059" c="-0.00358632"/>
+            <tca model="poly3" focal="20" br="-0.0000969" vr="1.0006016" bb="0.0001520" vb="0.9996378"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Samyang</maker>
         <model>Samyang 500mm f/6.3 MC IF Mirror Lens</model>
         <model lang="de">Samyang 500mm f/6.3 MC IF Spiegelobjektiv</model>
         <mount>T2</mount>
@@ -185,6 +223,52 @@
             <vignetting model="pa" focal="135" aperture="4.0" distance="100" k1="-0.069" k2="-0.16" k3="-0.06"/>
             <vignetting model="pa" focal="135" aperture="5.6" distance="100" k1="-0.14" k2="0.11" k3="-0.15"/>
             <vignetting model="pa" focal="135" aperture="8.0" distance="100" k1="-0.11" k2="0" k3="0"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang 35mm f/1.4 AS UMC</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.605</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS 7D Mark II -->
+            <distortion model="ptlens" focal="35" a="-0.00182" b="0.00936" c="-0.02772"/>
+            <tca model="poly3" focal="35" vr="1.0002038" vb="1.0000399"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang 85mm f/1.4 IF UMC Aspherical</model>
+        <mount>Canon EF</mount>
+        <mount>Canon EF-M</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Nikon F AI</mount>
+        <mount>4/3 System</mount>
+        <mount>Pentax KAF</mount>
+        <mount>Samsung NX</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D800 -->
+            <distortion model="ptlens" focal="85" a="0.00027" b="-0.00193" c="0.00014"/>
+            <vignetting model="pa" focal="85" aperture="1.4" distance="10" k1="-1.29066" k2="1.24194" k3="-0.57384"/>
+            <vignetting model="pa" focal="85" aperture="1.4" distance="1000" k1="-1.29066" k2="1.24194" k3="-0.57384"/>
+            <vignetting model="pa" focal="85" aperture="2" distance="10" k1="-0.38493" k2="-0.29475" k3="0.19413"/>
+            <vignetting model="pa" focal="85" aperture="2" distance="1000" k1="-0.38493" k2="-0.29475" k3="0.19413"/>
+            <vignetting model="pa" focal="85" aperture="2.8" distance="10" k1="-0.23968" k2="-0.02248" k3="-0.12371"/>
+            <vignetting model="pa" focal="85" aperture="2.8" distance="1000" k1="-0.23968" k2="-0.02248" k3="-0.12371"/>
+            <vignetting model="pa" focal="85" aperture="4" distance="10" k1="-0.37368" k2="0.37764" k3="-0.2984"/>
+            <vignetting model="pa" focal="85" aperture="4" distance="1000" k1="-0.37368" k2="0.37764" k3="-0.2984"/>
+            <vignetting model="pa" focal="85" aperture="5.6" distance="10" k1="-0.3077" k2="0.10947" k3="-0.02896"/>
+            <vignetting model="pa" focal="85" aperture="5.6" distance="1000" k1="-0.3077" k2="0.10947" k3="-0.02896"/>
+            <vignetting model="pa" focal="85" aperture="8" distance="10" k1="-0.32946" k2="0.159" k3="-0.05216"/>
+            <vignetting model="pa" focal="85" aperture="8" distance="1000" k1="-0.32946" k2="0.159" k3="-0.05216"/>
+            <vignetting model="pa" focal="85" aperture="22" distance="10" k1="-0.34871" k2="0.19902" k3="-0.07667"/>
+            <vignetting model="pa" focal="85" aperture="22" distance="1000" k1="-0.34871" k2="0.19902" k3="-0.07667"/>
         </calibration>
     </lens>
 

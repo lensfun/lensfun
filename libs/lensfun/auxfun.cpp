@@ -380,11 +380,16 @@ void lfFuzzyStrCmp::Split (const char *str, GPtrArray *dest)
             break;
 
         const char *word = str++;
+        int strip_suffix = 0;
 
         // Split into words based on character class
         if (isdigit (*word))
+        {
             while (*str && (isdigit (*str) || *str == '.'))
                 str++;
+            if (str - word >= 2 && *(str - 2) == '.' && *(str - 1) == '0')
+                strip_suffix = 2;
+        }
         else if (ispunct (*word))
             while (*str && ispunct (*str))
                 str++;
@@ -399,7 +404,7 @@ void lfFuzzyStrCmp::Split (const char *str, GPtrArray *dest)
             && *word != '*' && *word != '+')
             continue;
 
-        gchar *item = g_utf8_casefold (word, str - word);
+        gchar *item = g_utf8_casefold (word, str - word - strip_suffix);
         _lf_ptr_array_insert_sorted (dest, item, (GCompareFunc)strcmp);
     }
 }

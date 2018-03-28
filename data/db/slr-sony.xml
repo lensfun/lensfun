@@ -70,10 +70,18 @@
 
     <camera>
         <maker>Sony</maker>
+        <model>ILCA-68</model>
+        <model lang="en">Alpha 68</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.534</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Sony</maker>
         <model>SLT-A77V</model>
         <model lang="en">Alpha 77</model>
         <mount>Sony Alpha</mount>
-        <cropfactor>1.523</cropfactor>
+        <cropfactor>1.534</cropfactor>
     </camera>
 
     <camera>
@@ -113,7 +121,7 @@
         <model>DSLR-A200</model>
         <model lang="en">Alpha 200</model>
         <mount>Sony Alpha</mount>
-        <cropfactor>1.534</cropfactor>
+        <cropfactor>1.523</cropfactor>
     </camera>
 
     <camera>
@@ -232,6 +240,14 @@
         <maker>Sony</maker>
         <model>DSLR-A900</model>
         <model lang="en">Alpha 900</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Sony</maker>
+        <model>ILCA-99M2</model>
+        <model lang="en">Alpha 99 II</model>
         <mount>Sony Alpha</mount>
         <cropfactor>1</cropfactor>
     </camera>
@@ -867,6 +883,109 @@
             <distortion model="ptlens" focal="75" a="0.00283" b="-0.00043" c="0.01781"/>
             <distortion model="ptlens" focal="130" a="-0.00506" b="0.04556" c="-0.07297"/>
             <distortion model="ptlens" focal="250" a="-0.00828" b="0.02298" c="-0.005"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>Minolta/Sony AF 500mm F8 Reflex</model>
+        <model lang="en">Sony AF 500mm F8 Reflex</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 850 -->
+            <distortion model="ptlens" focal="500" a="0.00847" b="-0.02444" c="0.03796"/>
+            <vignetting model="pa" focal="500" aperture="8" distance="10" k1="-1.6969" k2="1.9089" k3="-0.8470"/>
+            <vignetting model="pa" focal="500" aperture="8" distance="1000" k1="-1.6969" k2="1.9089" k3="-0.8470"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>Minolta/Sony AF 100mm F2.8 Macro (D)</model>
+        <model lang="en">Sony AF 100mm F2.8 Macro</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 850 -->
+            <distortion model="ptlens" focal="100" a="0" b="0.00185" c="0"/>
+            <tca model="poly3" focal="100" vr="0.9999809" vb="0.9999706"/>
+            <vignetting model="pa" focal="100" aperture="2.8" distance="10" k1="-0.4740" k2="-0.3542" k3="0.1846"/>
+            <vignetting model="pa" focal="100" aperture="2.8" distance="1000" k1="-0.4740" k2="-0.3542" k3="0.1846"/>
+            <vignetting model="pa" focal="100" aperture="3.2" distance="10" k1="-0.0322" k2="-1.0545" k3="0.5042"/>
+            <vignetting model="pa" focal="100" aperture="3.2" distance="1000" k1="-0.0322" k2="-1.0545" k3="0.5042"/>
+            <vignetting model="pa" focal="100" aperture="3.5" distance="10" k1="0.1671" k2="-1.1228" k3="0.4358"/>
+            <vignetting model="pa" focal="100" aperture="3.5" distance="1000" k1="0.1671" k2="-1.1228" k3="0.4358"/>
+            <vignetting model="pa" focal="100" aperture="4" distance="10" k1="0.0521" k2="-0.2357" k3="-0.2361"/>
+            <vignetting model="pa" focal="100" aperture="4" distance="1000" k1="0.0521" k2="-0.2357" k3="-0.2361"/>
+            <vignetting model="pa" focal="100" aperture="5" distance="10" k1="-0.2049" k2="0.5998" k3="-0.6548"/>
+            <vignetting model="pa" focal="100" aperture="5" distance="1000" k1="-0.2049" k2="0.5998" k3="-0.6548"/>
+            <vignetting model="pa" focal="100" aperture="6.3" distance="10" k1="-0.2753" k2="0.5974" k3="-0.5031"/>
+            <vignetting model="pa" focal="100" aperture="6.3" distance="1000" k1="-0.2753" k2="0.5974" k3="-0.5031"/>
+            <vignetting model="pa" focal="100" aperture="8" distance="10" k1="-0.1544" k2="0.1559" k3="-0.1031"/>
+            <vignetting model="pa" focal="100" aperture="8" distance="1000" k1="-0.1544" k2="0.1559" k3="-0.1031"/>
+            <vignetting model="pa" focal="100" aperture="11" distance="10" k1="-0.1292" k2="0.0701" k3="-0.0314"/>
+            <vignetting model="pa" focal="100" aperture="11" distance="1000" k1="-0.1292" k2="0.0701" k3="-0.0314"/>
+            <vignetting model="pa" focal="100" aperture="16" distance="10" k1="-0.1260" k2="0.0558" k3="-0.0187"/>
+            <vignetting model="pa" focal="100" aperture="16" distance="1000" k1="-0.1260" k2="0.0558" k3="-0.0187"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>Carl Zeiss Vario-Sonnar T* 16-35mm f/2.8 ZA SSM II (SAL1635Z2)</model>
+        <model lang="en">Zeiss Vario-Sonnar T* 16-35mm f/2.8 ZA SSM II</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with ILCA-99M2 / Alpha 99II -->
+            <distortion model="ptlens" focal="16" a="0.02199" b="-0.0563" c="0.01126"/>
+            <distortion model="ptlens" focal="18" a="0.00909" b="-0.01349" c="-0.02347"/>
+            <distortion model="ptlens" focal="22" a="0.01202" b="-0.02528" c="0.00129"/>
+            <distortion model="ptlens" focal="26" a="0.0055" b="-0.00256" c="-0.00988"/>
+            <distortion model="ptlens" focal="35" a="0.01055" b="-0.02025" c="0.0176"/>
+            <tca model="poly3" focal="16" br="-0.0000023" vr="1.0003061" bb="0.0000937" vb="1.0000319"/>
+            <tca model="poly3" focal="18" br="0.0000567" vr="1.0002389" bb="-0.0000228" vb="1.0000695"/>
+            <tca model="poly3" focal="22" br="0.0000353" vr="1.0001440" bb="-0.0000209" vb="1.0001207"/>
+            <tca model="poly3" focal="26" br="0.0000000" vr="1.0001027" bb="-0.0000177" vb="1.0001683"/>
+            <tca model="poly3" focal="35" br="0.0000061" vr="1.0000246" bb="-0.0000072" vb="1.0001181"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>Carl Zeiss Vario-Sonnar T* 24-70mm f/2.8 ZA SSM II (SAL2470Z2)</model>
+        <model lang="en">Zeiss Vario-Sonnar T* 24-70mm f/2.8 ZA SSM II</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with ILCA-99M2 / Alpha 99II -->
+            <distortion model="ptlens" focal="24" a="0.03099" b="-0.085" c="0.04233"/>
+            <distortion model="ptlens" focal="35" a="0.00583" b="-0.00673" c="-0.00871"/>
+            <distortion model="ptlens" focal="50" a="0.00017" b="0.00585" c="-0.00432"/>
+            <distortion model="ptlens" focal="55" a="-0.00052" b="0.00278" c="0.00905"/>
+            <distortion model="ptlens" focal="70" a="0.00618" b="-0.01676" c="0.0279"/>
+            <tca model="poly3" focal="24" br="-0.0000834" vr="1.0004089" bb="0.0000714" vb="1.0000509"/>
+            <tca model="poly3" focal="35" br="-0.0000234" vr="1.0001771" bb="0.0000232" vb="0.9999435"/>
+            <tca model="poly3" focal="50" br="-0.0000311" vr="1.0000977" bb="0.0000192" vb="0.9998846"/>
+            <tca model="poly3" focal="55" br="-0.0000339" vr="1.0000128" bb="0.0000287" vb="0.9998556"/>
+            <tca model="poly3" focal="70" br="-0.0000515" vr="0.9999645" bb="0.0000446" vb="0.9998402"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>Sony 70-300mm f/4.5-5.6 G SSM II (SAL70300G2)</model>
+        <model lang="en">Sony 70-300mm f/4.5-5.6 G SSM II</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with ILCA-99M2 / Alpha 99II -->
+            <distortion model="ptlens" focal="70" a="0.00376" b="-0.00221" c="0.00606"/>
+            <distortion model="ptlens" focal="120" a="-0.00278" b="0.02458" c="-0.02186"/>
+            <distortion model="ptlens" focal="160" a="0.00212" b="0.00438" c="0.00456"/>
+            <distortion model="ptlens" focal="200" a="0.00087" b="0.01555" c="-0.01626"/>
+            <distortion model="ptlens" focal="300" a="0.00073" b="0.00793" c="-0.00082"/>
         </calibration>
     </lens>
 

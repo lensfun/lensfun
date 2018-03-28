@@ -285,9 +285,6 @@ static void _xml_start_element (GMarkupParseContext *context,
         if (!ctx || strcmp (ctx, "lensdatabase"))
             goto bad_ctx;
         pd->lens = new lfLens ();
-        // Set default values for lens database entries.  This way, they are
-        // still 0 (aka "unknown") for dummy lfLens instances created ad hoc
-        // for search matching.
         pd->lens->Type = LF_RECTILINEAR;
         pd->calib_attr.CenterX = 0.0;
         pd->calib_attr.CenterY = 0.0;

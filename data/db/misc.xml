@@ -50,6 +50,13 @@
     </camera>
 
     <camera>
+        <maker>Microsoft</maker>
+        <model>Lumia 950 XL</model>
+        <mount>lumia950</mount>
+        <cropfactor>6.02</cropfactor>
+    </camera>
+
+    <camera>
         <maker>SEIKO EPSON CORP.</maker>
         <maker lang="en">Epson</maker>
         <model>R-D1</model>
@@ -64,6 +71,13 @@
         <model lang="en">LG G4</model>
         <mount>lgH815</mount>
         <cropfactor>6.34</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Nokia</maker>
+        <model>Lumia 1520</model>
+        <mount>lumia1520</mount>
+        <cropfactor>6.26</cropfactor>
     </camera>
 
     <!-- I think this is also known under the brand "Michael Lens" or "Movie
@@ -447,6 +461,99 @@
             <!-- Taken with Fujifilm X-Pro2 -->
             <distortion model="poly3" focal="50" k1="0.013"/>
             <tca model="poly3" focal="50" vr="0.9999023" vb="0.9996490"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Meike</maker>
+        <model>Meike MK-F 28mm f/2.8</model>
+        <mount>Fujifilm X</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Sony E</mount>
+        <mount>Nikon CX</mount>
+        <mount>Canon EF-M</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-E1 -->
+            <distortion model="poly3" focal="28" k1="-0.01253"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Standard</model>
+        <mount>lumia1520</mount>
+        <cropfactor>6.26</cropfactor>
+        <aspect-ratio>16:9</aspect-ratio>
+        <calibration>
+            <distortion model="poly3" focal="4.5" k1="0.00674"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Miranda</maker>
+        <model>Miranda 28mm f/2.8 MC</model>
+        <mount>Contax/Yashica</mount>
+        <mount>Canon FD</mount>
+        <mount>M42</mount>
+        <mount>Nikon F</mount>
+        <mount>Pentax K</mount>
+        <mount>Minolta MD</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="28" a="0.01614" b="-0.05197" c="0.02005"/>
+            <tca model="poly3" focal="28" vr="1.0005257" vb="0.9998678"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Petri</maker>
+        <model>Auto Petri 1:2.8 f=28mm</model>
+        <mount>M42</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-M1 -->
+            <distortion model="ptlens" focal="28" a="0.00434" b="-0.0172" c="0.00123"/>
+            <tca model="poly3" focal="28" br="-0.0000279" vr="1.0014112" bb="0.0000139" vb="0.9988365"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Venus</maker>
+        <model>Laowa 12mm f/2.8 Zero-D</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F</mount>
+        <mount>Pentax KAF3</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="poly3" focal="12" k1="-0.00271"/>
+            <tca model="poly3" focal="12" br="-0.0000201" vr="1.0001695" bb="0.0000467" vb="1.0001452"/>
+            <vignetting model="pa" focal="12" aperture="2.8" distance="10" k1="-1.4633" k2="0.9148" k3="-0.2398"/>
+            <vignetting model="pa" focal="12" aperture="2.8" distance="1000" k1="-1.4633" k2="0.9148" k3="-0.2398"/>
+            <vignetting model="pa" focal="12" aperture="4" distance="10" k1="-0.5343" k2="-0.0402" k3="0.0632"/>
+            <vignetting model="pa" focal="12" aperture="4" distance="1000" k1="-0.5343" k2="-0.0402" k3="0.0632"/>
+            <vignetting model="pa" focal="12" aperture="5.6" distance="10" k1="-0.5432" k2="-0.0425" k3="0.0792"/>
+            <vignetting model="pa" focal="12" aperture="5.6" distance="1000" k1="-0.5432" k2="-0.0425" k3="0.0792"/>
+            <vignetting model="pa" focal="12" aperture="8" distance="10" k1="-0.5623" k2="-0.0122" k3="0.0677"/>
+            <vignetting model="pa" focal="12" aperture="8" distance="1000" k1="-0.5623" k2="-0.0122" k3="0.0677"/>
+            <vignetting model="pa" focal="12" aperture="11" distance="10" k1="-0.5727" k2="-0.0010" k3="0.0658"/>
+            <vignetting model="pa" focal="12" aperture="11" distance="1000" k1="-0.5727" k2="-0.0010" k3="0.0658"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Venus</maker>
+        <model>Laowa 7.5mm f/2.0</model>
+        <mount>Micro 4/3 System</mount>
+        <focal value="7.5"/>
+        <cropfactor>2</cropfactor>
+        <calibration>
+            <distortion focal="7.5" model="poly3" k1="-0.007"/>
+            <tca focal="7.5" model="poly3" vb="1.0004" vr="1.0004"/>
         </calibration>
     </lens>
 

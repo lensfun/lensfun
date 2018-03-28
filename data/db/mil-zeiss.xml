@@ -107,4 +107,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Zeiss Batis 2.8/18</model>
+        <model lang="en">Batis 18mm f/2.8</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 7S -->
+            <distortion model="ptlens" focal="18" a="0.03666" b="-0.0936845" c="0.0413531"/>
+            <tca model="poly3" focal="18" br="-0.0000385" vr="1.0001447" bb="0.0000468" vb="0.9999362"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>

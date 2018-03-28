@@ -2,6 +2,28 @@
 <lensdatabase version="2">
 
     <lens>
+        <maker>Zeiss</maker>
+        <model>Carl Zeiss Distagon T* 2/35 ZF.2</model>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D3 -->
+            <distortion model="ptlens" focal="35" a="0.00786" b="-0.02862" c="0.01911"/>
+            <tca model="poly3" focal="35" vr="1.0001515" vb="1.0001430"/>
+            <vignetting model="pa" focal="35" aperture="2" distance="10" k1="-1.9515" k2="2.1666" k3="-0.9851"/>
+            <vignetting model="pa" focal="35" aperture="2" distance="1000" k1="-1.9515" k2="2.1666" k3="-0.9851"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="10" k1="-1.2284" k2="0.5638" k3="-0.0563"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="1000" k1="-1.2284" k2="0.5638" k3="-0.0563"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="10" k1="-0.2027" k2="-0.7027" k3="0.3671"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="1000" k1="-0.2027" k2="-0.7027" k3="0.3671"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="10" k1="-0.4527" k2="0.3264" k3="-0.2138"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="1000" k1="-0.4527" k2="0.3264" k3="-0.2138"/>
+            <vignetting model="pa" focal="35" aperture="22" distance="10" k1="-0.4222" k2="0.1561" k3="-0.0315"/>
+            <vignetting model="pa" focal="35" aperture="22" distance="1000" k1="-0.4222" k2="0.1561" k3="-0.0315"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <!-- Also update copy at "Carl Zeiss Distagon T* 2,8/21 ZE" below. -->
         <maker>Zeiss</maker>
         <model>Carl Zeiss Distagon T* 2,8/21 ZF.2</model>
@@ -41,7 +63,7 @@
     <lens>
         <maker>Zeiss</maker>
         <model>Zeiss Distagon T* 25mm f/2.8 ZF.2</model>
-        <mount>Nokon F AI-S</mount>
+        <mount>Nikon F AI-S</mount>
         <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Nikon D810 -->
