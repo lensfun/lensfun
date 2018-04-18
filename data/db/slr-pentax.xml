@@ -2118,4 +2118,27 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Pentax</maker>
+        <model>Pentax SMC Takumar 50mm f/1.4</model>
+        <mount>M42</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Sony ILCE-7RM2 (α7R II) -->
+            <distortion model="poly3" focal="50" k1="-0.00355"/>
+            <tca model="poly3" focal="50" br="-0.0001747" vr="1.0004813" bb="0.0003380" vb="0.9992411"/>
+            <vignetting model="pa" focal="50" aperture="1.4" distance="10" k1="-1.6131" k2="1.4080" k3="-0.5884"/>
+            <vignetting model="pa" focal="50" aperture="1.4" distance="1000" k1="-1.6131" k2="1.4080" k3="-0.5884"/>
+            <vignetting model="pa" focal="50" aperture="2" distance="10" k1="0.1586" k2="-1.8367" k3="1.0393"/>
+            <vignetting model="pa" focal="50" aperture="2" distance="1000" k1="0.1586" k2="-1.8367" k3="1.0393"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="10" k1="-0.1789" k2="0.1681" k3="-0.4441"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="1000" k1="-0.1789" k2="0.1681" k3="-0.4441"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="10" k1="-0.2742" k2="0.2474" k3="-0.1873"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="1000" k1="-0.2742" k2="0.2474" k3="-0.1873"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="10" k1="-0.2816" k2="0.1855" k3="-0.1058"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="1000" k1="-0.2816" k2="0.1855" k3="-0.1058"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
