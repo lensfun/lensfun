@@ -557,4 +557,27 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Chinon</maker>
+        <model>Auto Chinon 35mm f/2.8</model>
+        <mount>M42</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Sony ILCE-7RM2 (α7R II) -->
+            <distortion model="ptlens" focal="35" a="0.00676" b="-0.02119" c="0.0148"/>
+            <tca model="poly3" focal="35" br="-0.0003422" vr="1.0010988" bb="0.0004953" vb="0.9988583"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="10" k1="-1.8879" k2="1.9261" k3="-0.9102"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="1000" k1="-1.8879" k2="1.9261" k3="-0.9102"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="10" k1="-0.5654" k2="-0.5759" k3="0.3493"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="1000" k1="-0.5654" k2="-0.5759" k3="0.3493"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="10" k1="-0.1632" k2="-0.6339" k3="0.1456"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="1000" k1="-0.1632" k2="-0.6339" k3="0.1456"/>
+            <vignetting model="pa" focal="35" aperture="8" distance="10" k1="-0.3381" k2="0.0891" k3="-0.3079"/>
+            <vignetting model="pa" focal="35" aperture="8" distance="1000" k1="-0.3381" k2="0.0891" k3="-0.3079"/>
+            <vignetting model="pa" focal="35" aperture="22" distance="10" k1="-0.6057" k2="0.5505" k3="-0.3104"/>
+            <vignetting model="pa" focal="35" aperture="22" distance="1000" k1="-0.6057" k2="0.5505" k3="-0.3104"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
