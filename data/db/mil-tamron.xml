@@ -24,4 +24,37 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tamron</maker>
+        <model>14-150mm F/3.5-5.8 DiIII C001:</model>
+	<model lang="en">Tamron 14-150mm f/3.5-5.8 Di III</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+	    <!-- Taken with Panasonic Lumix DMC-G3 -->
+            <distortion model="ptlens" focal="14" a="0.06657" b="-0.20902" c="0.12266"/>
+            <distortion model="ptlens" focal="20" a="0.03126" b="-0.08739" c="0.05677"/>
+            <distortion model="ptlens" focal="38" a="0.01076" b="-0.01787" c="0.018"/>
+            <distortion model="ptlens" focal="61" a="0.01127" b="-0.02019" c="0.02326"/>
+            <distortion model="ptlens" focal="76" a="0.00016" b="0.01433" c="-0.01212"/>
+            <distortion model="ptlens" focal="100" a="0.01462" b="-0.03854" c="0.04819"/>
+            <distortion model="ptlens" focal="128" a="0.00831" b="-0.01378" c="0.01699"/>
+            <distortion model="ptlens" focal="150" a="0.00724" b="-0.01835" c="0.03019"/>
+            <tca model="poly3" focal="14" br="0.0001504" vr="1.0003246" bb="-0.0000439" vb="1.0000961"/>
+            <tca model="poly3" focal="20" br="0.0000721" vr="1.0002828" bb="-0.0000045" vb="1.0000867"/>
+            <tca model="poly3" focal="25" br="-0.0000002" vr="1.0004130" bb="0.0000293" vb="1.0000230"/>
+            <tca model="poly3" focal="38" br="0.0000282" vr="1.0003339" bb="-0.0000079" vb="1.0000251"/>
+            <tca model="poly3" focal="50" br="0.0000610" vr="1.0001871" bb="-0.0000342" vb="0.9999845"/>
+            <tca model="poly3" focal="61" br="0.0000888" vr="1.0000970" bb="-0.0000583" vb="0.9999843"/>
+            <tca model="poly3" focal="70" br="0.0000617" vr="1.0000200" bb="-0.0000596" vb="0.9999980"/>
+            <tca model="poly3" focal="76" br="0.0000003" vr="1.0000677" bb="-0.0000173" vb="0.9999375"/>
+            <tca model="poly3" focal="90" br="-0.0000013" vr="1.0000542" bb="-0.0000102" vb="0.9999093"/>
+            <tca model="poly3" focal="100" br="0.0000261" vr="0.9999456" bb="-0.0000171" vb="0.9999041"/>
+            <tca model="poly3" focal="113" br="0.0000472" vr="0.9998752" bb="0.0000198" vb="0.9998888"/>
+            <tca model="poly3" focal="128" br="0.0000727" vr="0.9997643" bb="0.0000194" vb="0.9998470"/>
+            <tca model="poly3" focal="150" br="-0.0000040" vr="0.9996655" bb="0.0000130" vb="0.9998822"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
