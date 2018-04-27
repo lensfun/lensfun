@@ -1984,6 +1984,22 @@
 
     <lens>
         <maker>Sigma</maker>
+        <model>Sigma 17-50mm f/2.8 EX DC HSM</model>
+        <mount>Pentax KAF3</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1; apparently this APS-C lens is being used on these. -->
+            <distortion model="ptlens" focal="17" a="0.235921" b="-0.485918" c="0.275462"/>
+            <distortion model="ptlens" focal="29" a="0.0452721" b="-0.0834592" c="0.0606782"/>
+            <distortion model="ptlens" focal="50" a="0" b="0.0170492" c="0"/>
+            <tca model="poly3" focal="17" vr="1.0004372" vb="1.0000921"/>
+            <tca model="poly3" focal="29" vr="1.0001869" vb="1.0000265"/>
+            <tca model="poly3" focal="50" vr="0.9998004" vb="1.0000668"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
         <model>Sigma 24mm f/1.4 DG HSM [A]</model>
         <mount>Nikon F AF</mount>
         <mount>Sigma SA</mount>
