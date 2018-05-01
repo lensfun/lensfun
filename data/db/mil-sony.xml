@@ -1418,4 +1418,41 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 24-105mm F4 G OSS</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with ILCE-7M2 Alpha 7 II -->
+            <distortion model="ptlens" focal="24" a="0.02663" b="-0.09353" c="0.06181"/>
+            <distortion model="ptlens" focal="34" a="0.01877" b="-0.05229" c="0.06004"/>
+            <distortion model="ptlens" focal="35" a="0.00834" b="-0.01574" c="0.02165"/>
+            <distortion model="ptlens" focal="50" a="0.00165" b="0.01134" c="0.00573"/>
+            <distortion model="ptlens" focal="84" a="0.00887" b="-0.0159" c="0.04425"/>
+            <distortion model="ptlens" focal="105" a="0.00911" b="-0.01675" c="0.04082"/>
+            <tca model="poly3" focal="24" br="-0.0000108" vr="1.0002746" bb="0.0000000" vb="1.0001331"/>
+            <tca model="poly3" focal="34" br="-0.0000247" vr="1.0002110" bb="0.0000056" vb="1.0000645"/>
+            <tca model="poly3" focal="35" br="-0.0000231" vr="1.0002002" bb="0.0000077" vb="1.0000571"/>
+            <tca model="poly3" focal="49" br="-0.0000144" vr="1.0001460" bb="0.0000087" vb="0.9999890"/>
+            <tca model="poly3" focal="50" br="-0.0000194" vr="1.0001466" bb="0.0000148" vb="0.9999712"/>
+            <tca model="poly3" focal="68" br="-0.0000225" vr="1.0000968" bb="0.0000053" vb="0.9998833"/>
+            <tca model="poly3" focal="83" br="-0.0000146" vr="0.9999934" bb="-0.0000028" vb="0.9998880"/>
+            <tca model="poly3" focal="84" br="-0.0000147" vr="1.0000012" bb="0.0000027" vb="0.9998746"/>
+            <tca model="poly3" focal="105" br="-0.0000330" vr="0.9998964" bb="0.0000001" vb="0.9999045"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 50mm F1.8</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with ILCE-7M2 Alpha 7 II -->
+	    <distortion model="poly3" focal="50" k1="-0.00109"/>
+            <tca model="poly3" focal="50" br="-0.0000433" vr="1.0001119" bb="0.0000582" vb="0.9998432"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
