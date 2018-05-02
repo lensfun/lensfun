@@ -580,4 +580,18 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Voigtländer</maker>
+        <model>Voigtlander Super Wide Heliar III</model>
+        <model lang="en">Super Wide-Heliar 15mm f/4.5 Aspherical III</model>
+        <model lang="de">Super Wide-Heliar 15mm f/4,5 Asphärisch III</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with ILCE-7RM2 Alpha 7R II -->
+            <distortion model="poly3" focal="15" k1="-0.00287"/>
+            <tca model="poly3" focal="15" br="-0.0000500" vr="1.0003065" bb="0.0000755" vb="0.9999375"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
