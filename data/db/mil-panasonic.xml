@@ -1798,4 +1798,36 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Panasonic</maker>
+        <model>LEICA DG 8-18/F2.8-4.0</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="8" a="0.01817" b="-0.09703" c="0.06238"/>
+            <distortion model="ptlens" focal="9" a="0.01059" b="-0.06816" c="0.0357"/>
+            <distortion model="ptlens" focal="10" a="0.00228" b="-0.03977" c="0.02225"/>
+            <distortion model="ptlens" focal="11" a="-0.00077" b="-0.0256" c="0.01571"/>
+            <distortion model="ptlens" focal="12" a="-0.00513" b="-0.00664" c="0.00152"/>
+            <distortion model="ptlens" focal="13" a="-0.0127" b="0.01902" c="-0.0139"/>
+            <distortion model="ptlens" focal="14" a="-0.01172" b="0.01719" c="-0.00699"/>
+            <distortion model="ptlens" focal="15" a="-0.01907" b="0.04576" c="-0.03171"/>
+            <distortion model="ptlens" focal="16" a="-0.01782" b="0.04616" c="-0.03388"/>
+            <distortion model="ptlens" focal="17" a="-0.01968" b="0.0522" c="-0.03806"/>
+            <distortion model="ptlens" focal="18" a="-0.01347" b="0.035" c="-0.02218"/>
+            <tca model="poly3" focal="8" vr="1.0001199" vb="0.9999879"/>
+            <tca model="poly3" focal="9" vr="1.0000874" vb="0.9999872"/>
+            <tca model="poly3" focal="10" vr="1.0000705" vb="1.0000054"/>
+            <tca model="poly3" focal="11" vr="1.0000684" vb="1.0000136"/>
+            <tca model="poly3" focal="12" vr="1.0000504" vb="1.0000227"/>
+            <tca model="poly3" focal="13" vr="1.0000029" vb="1.0000309"/>
+            <tca model="poly3" focal="14" vr="1.0000132" vb="1.0000356"/>
+            <tca model="poly3" focal="15" vr="1.0000117" vb="1.0000473"/>
+            <tca model="poly3" focal="16" vr="1.0000168" vb="1.0000450"/>
+            <tca model="poly3" focal="17" vr="1.0000081" vb="1.0000398"/>
+            <tca model="poly3" focal="18" vr="1.0000101" vb="1.0000409"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
