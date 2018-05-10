@@ -46,7 +46,8 @@ void test_DB_lens_search(lfFixture* lfFix, gconstpointer data)
 
     // search lens for a certain camera considering mount compatibilities
     const lfCamera **cameras = NULL;
-    cameras = lfFix->db->FindCamerasExt("pentax", "k70");
+    cameras = lfFix->db->FindCamerasExt("Ricoh", "k-70");
+    g_assert_nonnull(cameras);
 
     lenses = lfFix->db->FindLenses (cameras[0], NULL, "Fotasy M3517 35mm");
     g_assert_nonnull(lenses);

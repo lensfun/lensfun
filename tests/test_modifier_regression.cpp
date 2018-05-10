@@ -120,7 +120,7 @@ void test_verify_dist_ptlens (lfFixture *lfFix, gconstpointer data)
     // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "PENTAX-F 28-80mm");
     g_assert_nonnull(lenses);
-    g_assert_cmpstr(lenses[0]->Model, ==, "PENTAX-F 28-80mm f/3.5-4.5");
+    g_assert_cmpstr(lenses[0]->Model, ==, "Pentax-F 28-80mm f/3.5-4.5");
 
     lfModifier* mod = new lfModifier (1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
 
