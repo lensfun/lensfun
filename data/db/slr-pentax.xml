@@ -1879,6 +1879,24 @@
     </lens>
 
     <lens>
+	    <maker>Pentax</maker>
+	    <model>smc Pentax-DA L 18-50mm f/4-5.6 DC WR RE</model>
+	    <mount>Pentax KAF3</mount>
+	    <cropfactor>1</cropfactor>
+	    <calibration>
+		    <!-- Taqken with Pentax K1; apparently this APS-C lens is being used on these -->
+		    <distortion model="ptlens" focal="18" a="0.0434503" b="-0.109204" c="0.03667"/> 
+		    <distortion model="ptlens" focal="24" a="0.0244552" b="-0.061887" c="0.0268412"/>
+		    <distortion model="ptlens" focal="34" a="0" b="0.0062517" c="0"/>
+		    <distortion model="ptlens" focal="50" a="0" b="0.00861152" c="0"/>
+		    <tca model="poly3" focal="18" vr="1.0005107" vb="1.0000802"/>
+		    <tca model="poly3" focal="24" vr="1.0003677" vb="1.0000938"/>
+		    <tca model="poly3" focal="34" vr="1.0002289" vb="1.0000649"/>
+		    <tca model="poly3" focal="50" vr="1.0001285" vb="1.0000191"/>
+	    </calibration>
+    </lens>
+
+    <lens>
         <maker>Pentax</maker>
         <model>HD Pentax-DA 18-50mm f/4-5.6 DC WR RE</model>
         <mount>Pentax KAF3</mount>
