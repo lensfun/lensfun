@@ -10,6 +10,10 @@
 * Due to the previous changes, the database format is now at version 2.
 * Torsten Bronger's calibration tutorial, his webserver code for receiving calibration images, and his calibration script are now part of Lensfun's source code.
 
+Breaking changes:
+
+* C interface: all lf_lens_interpolate_...() functions now require an additional crop parameter
+
 New interchangeable lenses:
 
 * Beroflex 1:8 500mm

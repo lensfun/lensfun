@@ -1572,33 +1572,33 @@ const char *lf_get_lens_type_desc (enum lfLensType type, const char **details)
     return lfLens::GetLensTypeDesc (type, details);
 }
 
-cbool lf_lens_interpolate_distortion (const lfLens *lens, float focal,
+cbool lf_lens_interpolate_distortion (const lfLens *lens, float crop, float focal,
     lfLensCalibDistortion *res)
 {
-    return lens->InterpolateDistortion (focal, *res);
+    return lens->InterpolateDistortion (crop, focal, *res);
 }
 
-cbool lf_lens_interpolate_tca (const lfLens *lens, float focal, lfLensCalibTCA *res)
+cbool lf_lens_interpolate_tca (const lfLens *lens, float crop, float focal, lfLensCalibTCA *res)
 {
-    return lens->InterpolateTCA (focal, *res);
+    return lens->InterpolateTCA (crop, focal, *res);
 }
 
-cbool lf_lens_interpolate_vignetting (const lfLens *lens, float focal, float aperture,
+cbool lf_lens_interpolate_vignetting (const lfLens *lens, float crop, float focal, float aperture,
     float distance, lfLensCalibVignetting *res)
 {
-    return lens->InterpolateVignetting (focal, aperture, distance, *res);
+    return lens->InterpolateVignetting (crop, focal, aperture, distance, *res);
 }
 
-cbool lf_lens_interpolate_crop (const lfLens *lens, float focal,
+cbool lf_lens_interpolate_crop (const lfLens *lens, float crop, float focal,
     lfLensCalibCrop *res)
 {
-    return lens->InterpolateCrop (focal, *res);
+    return lens->InterpolateCrop (crop, focal, *res);
 }
 
-cbool lf_lens_interpolate_fov (const lfLens *lens, float focal,
+cbool lf_lens_interpolate_fov (const lfLens *lens, float crop, float focal,
     lfLensCalibFov *res)
 {
-    return lens->InterpolateFov (focal, *res);
+    return lens->InterpolateFov (crop, focal, *res);
 }
 
 void lf_lens_add_calib_distortion (lfLens *lens, const lfLensCalibDistortion *dc)

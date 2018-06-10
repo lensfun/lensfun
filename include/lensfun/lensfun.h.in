@@ -1605,22 +1605,22 @@ LF_EXPORT const char *lf_get_lens_type_desc (
     enum lfLensType type, const char **details);
 
 /** @sa lfLens::InterpolateDistortion */
-LF_EXPORT cbool lf_lens_interpolate_distortion (const lfLens *lens, float focal,
+LF_EXPORT cbool lf_lens_interpolate_distortion (const lfLens *lens, float crop, float focal,
     lfLensCalibDistortion *res);
 
 /** @sa lfLens::InterpolateTCA */
-LF_EXPORT cbool lf_lens_interpolate_tca (const lfLens *lens, float focal, lfLensCalibTCA *res);
+LF_EXPORT cbool lf_lens_interpolate_tca (const lfLens *lens, float crop, float focal, lfLensCalibTCA *res);
 
 /** @sa lfLens::InterpolateVignetting */
-LF_EXPORT cbool lf_lens_interpolate_vignetting (const lfLens *lens, float focal, float aperture,
+LF_EXPORT cbool lf_lens_interpolate_vignetting (const lfLens *lens, float crop, float focal, float aperture,
     float distance, lfLensCalibVignetting *res);
 
 /** @sa lfLens::InterpolateCrop */
-LF_EXPORT cbool lf_lens_interpolate_crop (const lfLens *lens, float focal,
+LF_EXPORT cbool lf_lens_interpolate_crop (const lfLens *lens, float crop, float focal,
     lfLensCalibCrop *res);
 
 /** @sa lfLens::InterpolateFov */
-DEPRECATED LF_EXPORT cbool lf_lens_interpolate_fov (const lfLens *lens, float focal,
+DEPRECATED LF_EXPORT cbool lf_lens_interpolate_fov (const lfLens *lens, float crop, float focal,
     lfLensCalibFov *res);
 
 /** @sa lfLens::AddCalibDistortion */
