@@ -12,9 +12,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 # version
 SET(VERSION_MAJOR 0)
 SET(VERSION_MINOR 3)
-SET(VERSION_MICRO 2)
+SET(VERSION_MICRO 99)
 SET(VERSION_BUGFIX 0)
-SET(VERSION_API 1)
+SET(VERSION_API 2)
 # This is the version of the *shipped* database, which is not necessarily the
 # highest version number supported
 SET(LENSFUN_DB_VERSION 2)
