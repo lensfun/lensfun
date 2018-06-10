@@ -885,12 +885,11 @@ struct lfLensCalibFov
 
 C_TYPEDEF (struct, lfLensCalibFov)
 
-#ifdef __cplusplus
 /**
  *  @brief A set of calibration data.
  *
  *  This struct bundles a set of calibrations which are based on images
- *  taken with the attributes in attr.
+ *  taken with the same attributes.
  *
  */
 struct lfLensCalibrationSet
@@ -898,6 +897,7 @@ struct lfLensCalibrationSet
     /** Attributes of the images which were used to create the calibration data */
     lfLensCalibAttributes Attributes;
 
+#ifdef __cplusplus
     lfLensCalibrationSet(lfLensCalibAttributes attributes) : Attributes(attributes) {}
 
     lfLensCalibrationSet(const lfLensCalibrationSet &other)
@@ -956,10 +956,9 @@ struct lfLensCalibrationSet
 
     friend class lfDatabase;
     friend class lfLens;
-};
-#else
-// TODO: add an alternative C compatible structure
 #endif
+};
+
 
 /**
  * @brief This structure describes a single parameter for some lens model.
@@ -1353,6 +1352,9 @@ struct LF_EXPORT lfLens
      *     The focal length in mm at which we need geometry distortion parameters.
      * @param res
      *     The resulting interpolated model.
+     * @return
+     *     False if there is not sufficient calibration data for the
+     *     requested parameters, otherwise it returns true.
      */
     DEPRECATED bool InterpolateDistortion (float focal, lfLensCalibDistortion &res) const;
 
@@ -1365,6 +1367,9 @@ struct LF_EXPORT lfLens
      *     The focal length in mm at which we need geometry distortion parameters.
      * @param res
      *     The resulting interpolated model.
+     * @return
+     *     False if there is not sufficient calibration data for the
+     *     requested parameters, otherwise it returns true.
      */
     bool InterpolateDistortion (float crop, float focal, lfLensCalibDistortion &res) const;
 
@@ -1374,6 +1379,9 @@ struct LF_EXPORT lfLens
      *     The focal length in mm at which we need TCA parameters.
      * @param res
      *     The resulting interpolated model.
+     * @return
+     *     False if there is not sufficient calibration data for the
+     *     requested parameters, otherwise it returns true.
      */
     DEPRECATED bool InterpolateTCA (float focal, lfLensCalibTCA &res) const;
 
@@ -1385,6 +1393,9 @@ struct LF_EXPORT lfLens
      *     The focal length in mm at which we need TCA parameters.
      * @param res
      *     The resulting interpolated model.
+     * @return
+     *     False if there is not sufficient calibration data for the
+     *     requested parameters, otherwise it returns true.
      */
     bool InterpolateTCA (float crop, float focal, lfLensCalibTCA &res) const;
 
@@ -1400,6 +1411,9 @@ struct LF_EXPORT lfLens
      *     vignetting parameters.
      * @param res
      *     The resulting interpolated model.
+     * @return
+     *     False if there is not sufficient calibration data for the
+     *     requested parameters, otherwise it returns true.
      */
     DEPRECATED bool InterpolateVignetting (
         float focal, float aperture, float distance, lfLensCalibVignetting &res) const;
@@ -1418,6 +1432,9 @@ struct LF_EXPORT lfLens
      *     vignetting parameters.
      * @param res
      *     The resulting interpolated model.
+     * @return
+     *     False if there is not sufficient calibration data for the
+     *     requested parameters, otherwise it returns true.
      */
     bool InterpolateVignetting (
         float crop, float focal, float aperture, float distance, lfLensCalibVignetting &res) const;
@@ -1428,6 +1445,9 @@ struct LF_EXPORT lfLens
      *     The focal length in mm at which we need image parameters.
      * @param res
      *     The resulting interpolated information data.
+     * @return
+     *     False if there is not sufficient calibration data for the
+     *     requested parameters, otherwise it returns true.
      */
     DEPRECATED bool InterpolateCrop (float focal, lfLensCalibCrop &res) const;
 
@@ -1439,6 +1459,9 @@ struct LF_EXPORT lfLens
      *     The focal length in mm at which we need image parameters.
      * @param res
      *     The resulting interpolated information data.
+     * @return
+     *     False if there is not sufficient calibration data for the
+     *     requested parameters, otherwise it returns true.
      */
     bool InterpolateCrop (float crop, float focal, lfLensCalibCrop &res) const;
 
@@ -1451,6 +1474,9 @@ struct LF_EXPORT lfLens
      *     The focal length in mm at which we need image parameters.
      * @param res
      *     The resulting interpolated information data.
+     * @return
+     *     False if there is not sufficient calibration data for the
+     *     requested parameters, otherwise it returns true.
      */
     DEPRECATED bool InterpolateFov (float focal, lfLensCalibFov &res) const;
 
@@ -1465,11 +1491,27 @@ struct LF_EXPORT lfLens
      *     The focal length in mm at which we need image parameters.
      * @param res
      *     The resulting interpolated information data.
+     * @return
+     *     False if there is not sufficient calibration data for the
+     *     requested parameters, otherwise it returns true.
      */
     DEPRECATED bool InterpolateFov (float crop, float focal, lfLensCalibFov &res) const;
 
-    //const std::vector<lfLensCalibrationSet*>& GetCalibrationsVector() const;
+
+    /**
+     * @brief Get a list of all calibration sets.
+     *
+     * @return
+     *     A null-terminated list of all calibration sets.
+     */
     const lfLensCalibrationSet* const* GetCalibrationSets() const;
+
+    /**
+     * @brief Get a list of all mount names.
+     *
+     * @return
+     *     A null-terminated list of all mount names.
+     */
     const char* const* GetMountNames() const;
 
     private:
