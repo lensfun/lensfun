@@ -375,7 +375,7 @@ static void _xml_start_element (GMarkupParseContext *context,
 
         lfLensCalibDistortion dc;
         memset (&dc, 0, sizeof (dc));
-        dc.attr = &pd->calib_attr;
+        dc.CalibAttr = pd->calib_attr;
         for (i = 0; attribute_names [i]; i++)
             if (!strcmp (attribute_names [i], "model"))
             {
@@ -441,7 +441,7 @@ static void _xml_start_element (GMarkupParseContext *context,
 
         lfLensCalibTCA tcac;
         memset (&tcac, 0, sizeof (tcac));
-        tcac.attr = &pd->calib_attr;
+        tcac.CalibAttr = pd->calib_attr;
         tcac.Terms [0] = tcac.Terms [1] = 1.0;
         for (i = 0; attribute_names [i]; i++)
             if (!strcmp (attribute_names [i], "model"))
@@ -503,7 +503,7 @@ static void _xml_start_element (GMarkupParseContext *context,
 
         lfLensCalibVignetting vc;
         memset (&vc, 0, sizeof (vc));
-        vc.attr = &pd->calib_attr;
+        vc.CalibAttr = pd->calib_attr;
         for (i = 0; attribute_names [i]; i++)
             if (!strcmp (attribute_names [i], "model"))
             {
@@ -543,7 +543,7 @@ static void _xml_start_element (GMarkupParseContext *context,
 
         lfLensCalibCrop lcc;
         memset (&lcc, 0, sizeof (lcc));
-        lcc.attr = &pd->calib_attr;
+        lcc.CalibAttr = pd->calib_attr;
         for (i = 0; attribute_names [i]; i++)
             if (!strcmp (attribute_names [i], "focal"))
                 lcc.Focal = atof (attribute_values [i]);
@@ -587,7 +587,7 @@ static void _xml_start_element (GMarkupParseContext *context,
 
         lfLensCalibFov lcf;
         memset (&lcf, 0, sizeof (lcf));
-        lcf.attr = &pd->calib_attr;
+        lcf.CalibAttr = pd->calib_attr;
         for (i = 0; attribute_names [i]; i++)
             if (!strcmp (attribute_names [i], "focal"))
                 lcf.Focal = atof (attribute_values [i]);
@@ -980,12 +980,12 @@ char *lfDatabase::Save () const
                 continue;
 
             g_string_append (output, "\t\t<calibration ");
-            if (calib->attr.CenterX || calib->attr.CenterY)
-                _lf_xml_printf (output, "center-x=\"%g\" center-y=\"%g\" ", calib->attr.CenterX, calib->attr.CenterY);
-            if (calib->attr.CropFactor > 0.0)
-                _lf_xml_printf (output, "cropfactor=\"%g\" ", calib->attr.CropFactor);
-            if (calib->attr.AspectRatio != 1.5)
-                _lf_xml_printf (output, "aspect-ratio=\"%g\" ", calib->attr.AspectRatio);
+            if (calib->Attributes.CenterX || calib->Attributes.CenterY)
+                _lf_xml_printf (output, "center-x=\"%g\" center-y=\"%g\" ", calib->Attributes.CenterX, calib->Attributes.CenterY);
+            if (calib->Attributes.CropFactor > 0.0)
+                _lf_xml_printf (output, "cropfactor=\"%g\" ", calib->Attributes.CropFactor);
+            if (calib->Attributes.AspectRatio != 1.5)
+                _lf_xml_printf (output, "aspect-ratio=\"%g\" ", calib->Attributes.AspectRatio);
             g_string_append (output, ">\n");
 
             for (const lfLensCalibDistortion* cd : calib->CalibDistortion)
@@ -1263,22 +1263,22 @@ int lfDatabase::MatchScore (const lfLens *pattern, const lfLens *match, const lf
 
         for (auto& mc : match->Calibrations)
         {
-            if (camera->CropFactor > 0.01 && camera->CropFactor < mc->attr.CropFactor * 0.96)
+            if (camera->CropFactor > 0.01 && camera->CropFactor < mc->Attributes.CropFactor * 0.96)
                 continue;
 
-            if (camera->CropFactor >= mc->attr.CropFactor * 1.41)
+            if (camera->CropFactor >= mc->Attributes.CropFactor * 1.41)
                 crop_score = std::max(2, crop_score);
-            else if (camera->CropFactor >= mc->attr.CropFactor * 1.31)
+            else if (camera->CropFactor >= mc->Attributes.CropFactor * 1.31)
                 crop_score = std::max(4, crop_score);
-            else if (camera->CropFactor >= mc->attr.CropFactor * 1.21)
+            else if (camera->CropFactor >= mc->Attributes.CropFactor * 1.21)
                 crop_score = std::max(6, crop_score);
-            else if (camera->CropFactor >= mc->attr.CropFactor * 1.11)
+            else if (camera->CropFactor >= mc->Attributes.CropFactor * 1.11)
                 crop_score = std::max(8, crop_score);
-            else if (camera->CropFactor >= mc->attr.CropFactor * 1.01)
+            else if (camera->CropFactor >= mc->Attributes.CropFactor * 1.01)
                 crop_score = std::max(10, crop_score);
-            else if (camera->CropFactor >= mc->attr.CropFactor)
+            else if (camera->CropFactor >= mc->Attributes.CropFactor)
                 crop_score = std::max(5, crop_score);
-            else if (camera->CropFactor >= mc->attr.CropFactor * 0.96)
+            else if (camera->CropFactor >= mc->Attributes.CropFactor * 0.96)
                 crop_score = std::max(3, crop_score);
         }
 

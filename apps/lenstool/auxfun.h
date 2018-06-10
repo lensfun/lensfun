@@ -74,9 +74,9 @@ static void PrintLens (const lfLens *lens, const lfDatabase *ldb)
 	for (int j = 0; calibrations[j] != NULL; j++)
 	{
 	    g_print ("       |- Crop %g, Aspect ratio %g, Center %g/%g, [",
-	             calibrations[j]->attr.CropFactor,
-	             calibrations[j]->attr.AspectRatio,
-	             calibrations[j]->attr.CenterX, calibrations[j]->attr.CenterY);
+	             calibrations[j]->Attributes.CropFactor,
+	             calibrations[j]->Attributes.AspectRatio,
+	             calibrations[j]->Attributes.CenterX, calibrations[j]->Attributes.CenterY);
 
 	    if (calibrations[j]->HasTCA())
 		g_print ("tca, ");

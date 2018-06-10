@@ -649,8 +649,8 @@ struct lfLensCalibDistortion
     cbool RealFocalMeasured;
     /** @brief Distortion coefficients, dependent on model (a,b,c or k1 or k1,k2) */
     float Terms [5];
-    /** @brief Pointer to the calibration settings (currently unused). */
-    const lfLensCalibAttributes* attr;
+    /** @brief Calibration settings (currently unused). */
+    lfLensCalibAttributes CalibAttr;
 };
 
 C_TYPEDEF (struct, lfLensCalibDistortion)
@@ -744,7 +744,7 @@ struct lfLensCalibTCA
     /** @brief The coefficients for TCA, dependent on model; separate for R and B */
     float Terms [12];
     /** @brief Pointer to the calibration settings (currently unused). */
-    const lfLensCalibAttributes* attr;
+    lfLensCalibAttributes CalibAttr;
 };
 
 C_TYPEDEF (struct, lfLensCalibTCA)
@@ -814,7 +814,7 @@ struct lfLensCalibVignetting
     /** @brief Lens vignetting model coefficients (depending on model) */
     float Terms [3];
     /** @brief Pointer to the calibration settings (currently unused). */
-    const lfLensCalibAttributes* attr;
+    lfLensCalibAttributes CalibAttr;
 };
 
 C_TYPEDEF (struct, lfLensCalibVignetting)
@@ -853,7 +853,7 @@ struct lfLensCalibCrop
      */
     float Crop [4];
     /** @brief Pointer to the calibration settings (currently unused). */
-    const lfLensCalibAttributes* attr;
+    lfLensCalibAttributes CalibAttr;
 };
 
 C_TYPEDEF (struct, lfLensCalibCrop)
@@ -880,7 +880,7 @@ struct lfLensCalibFov
      */
     float FieldOfView;
     /** @brief Pointer to the calibration settings (currently unused).*/
-    const lfLensCalibAttributes* attr;
+    lfLensCalibAttributes CalibAttr;
 };
 
 C_TYPEDEF (struct, lfLensCalibFov)
@@ -896,13 +896,13 @@ C_TYPEDEF (struct, lfLensCalibFov)
 struct lfLensCalibrationSet
 {
     /** Attributes of the images which were used to create the calibration data */
-    lfLensCalibAttributes attr;
+    lfLensCalibAttributes Attributes;
 
-    lfLensCalibrationSet() {}
+    lfLensCalibrationSet(lfLensCalibAttributes attributes) : Attributes(attributes) {}
 
     lfLensCalibrationSet(const lfLensCalibrationSet &other)
     {
-        attr = other.attr;
+        Attributes = other.Attributes;
         for (auto *cb : other.CalibDistortion)
             CalibDistortion.push_back(new lfLensCalibDistortion(*cb));
         for (auto *cb : other.CalibVignetting)
@@ -1479,7 +1479,7 @@ struct LF_EXPORT lfLens
         std::vector<char*> MountNames;
 
         lfLensCalibrationSet* GetClosestCalibrationSet(const float crop) const;
-        lfLensCalibrationSet* GetCalibrationSet(const lfLensCalibAttributes* lcattr);
+        lfLensCalibrationSet* GetCalibrationSetForAttributes(const lfLensCalibAttributes lcattr);
 
         friend class lfDatabase;
 #endif

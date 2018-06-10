@@ -125,7 +125,7 @@ void lfModifier::AddColorVignCallback (const lfLensCalibVignetting& lcv, lfModif
     if (lcv.Model == LF_VIGNETTING_MODEL_ACM)
     {
         cd->coordinate_correction = sqrt (36.0*36.0 + 24.0*24.0)  /
-                                    sqrt (lcv.attr->AspectRatio * lcv.attr->AspectRatio + 1)
+                                    sqrt (lcv.CalibAttr.AspectRatio * lcv.CalibAttr.AspectRatio + 1)
                                     / ( Crop * 2.0 * lcv.Focal);
     }
     else
@@ -136,14 +136,14 @@ void lfModifier::AddColorVignCallback (const lfLensCalibVignetting& lcv, lfModif
         // to compute a transition coefficient as lfModifier works in
         // the first coordinate system.
         double image_aspect_ratio = Width < Height ? Height / Width : Width / Height;
-        cd->coordinate_correction  = lcv.attr->CropFactor / Crop /
+        cd->coordinate_correction  = lcv.CalibAttr.CropFactor / Crop /
                                      sqrt (image_aspect_ratio * image_aspect_ratio + 1);
 
     }
 
     cd->NormScale = NormScale;
-    cd->centerX = lcv.attr->CenterX;
-    cd->centerY = lcv.attr->CenterY;
+    cd->centerX = lcv.CalibAttr.CenterX;
+    cd->centerY = lcv.CalibAttr.CenterY;
     memcpy(cd->Terms, lcv.Terms, sizeof(lcv.Terms));
 
     ColorCallbacks.insert(cd);

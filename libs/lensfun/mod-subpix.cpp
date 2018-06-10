@@ -91,12 +91,12 @@ void lfModifier::AddSubpixTCACallback (const lfLensCalibTCA& lcd, lfModifySubpix
 
     double image_aspect_ratio = Width < Height ? Height / Width : Width / Height;
     cd->coordinate_correction =
-            sqrt (lcd.attr->AspectRatio * lcd.attr->AspectRatio + 1) /
+            sqrt (lcd.CalibAttr.AspectRatio * lcd.CalibAttr.AspectRatio + 1) /
             sqrt (image_aspect_ratio * image_aspect_ratio + 1) *
-            lcd.attr->CropFactor / Crop;
+            lcd.CalibAttr.CropFactor / Crop;
 
-    cd->centerX = lcd.attr->CenterX;
-    cd->centerY = lcd.attr->CenterY;
+    cd->centerX = lcd.CalibAttr.CenterX;
+    cd->centerY = lcd.CalibAttr.CenterY;
     memcpy(cd->Terms, lcd.Terms, sizeof(lcd.Terms));
 
     cd->norm_focal = GetNormalizedFocalLength(lcd.Focal, NULL);
