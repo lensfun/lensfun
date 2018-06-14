@@ -148,6 +148,11 @@ int lfModifier::EnableProjectionTransform (const lfLens* lens, float focal, lfLe
     if(lens->Type == LF_UNKNOWN)
         return enabledMods;
 
+    // try to get a real focal length estimate
+    lfLensCalibDistortion lcd;
+    if (lens && lens->InterpolateDistortion (Crop, focal, lcd))
+        focal = lcd.RealFocal;
+
     float norm_focal = GetNormalizedFocalLength (focal, lens);
 
     lfLensType from = lens->Type;
