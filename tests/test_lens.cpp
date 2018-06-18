@@ -70,6 +70,15 @@ void test_lens_guess_parameter()
     g_assert_cmpfloat(lens->MinAperture, ==, 1.7f);
     delete lens;
 
+    lens = new lfLens();
+    lens->SetMaker("Vivitar");
+    lens->SetModel("Vivitar Series One 70-210mm 1:3.5 SN 22...");
+    lens->GuessParameters();
+    g_assert_cmpfloat(lens->MinFocal, ==, 70.0f);
+    g_assert_cmpfloat(lens->MaxFocal, ==, 210.0f);
+    g_assert_cmpfloat(lens->MinAperture, ==, 3.5f);
+    delete lens;
+
     // check if extenders are ignored
     lens = new lfLens();
     lens->SetMaker("Canon");
