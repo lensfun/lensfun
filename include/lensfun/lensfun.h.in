@@ -23,7 +23,16 @@
 #define __LENSFUN_H__
 
 #include <stddef.h>
-#include <stdbool.h>
+
+#ifndef __cplusplus
+    #if (defined(_MSC_VER) && (_MSC_VER < 1800) // Visual studio up to VS2013 does not have stdbool.h
+        typedef int bool;
+        #define true 1
+        #define false 0
+    #else
+        #include <stdbool.h>
+    #endif
+#endif
 
 #ifdef __cplusplus
 
