@@ -57,7 +57,7 @@ static struct
     0,
     0,
     0,
-    1.0f,
+    1000.0f,
     Image::I_LANCZOS,
     LF_RECTILINEAR,
     NULL,
