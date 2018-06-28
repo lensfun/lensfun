@@ -72,7 +72,6 @@ using std::log;
 using std::pow;
 using std::sin;
 using std::sqrt;
-using std::isnan;
 
 dvector normalize (double x, double y)
 {
@@ -491,7 +490,7 @@ void calculate_angles (dvector x, dvector y, double &f_normalized,
             y_perpendicular_line [1] = center_y;
         }
         rho_h = determine_rho_h (rho, delta, x_perpendicular_line, y_perpendicular_line, f_normalized, center_x, center_y);
-        if (isnan (rho_h))
+        if (std::isnan (rho_h))
             rho_h = 0;
     }
     else if (number_of_control_points == 5 || number_of_control_points == 7)
@@ -500,7 +499,7 @@ void calculate_angles (dvector x, dvector y, double &f_normalized,
     {
         rho_h = determine_rho_h (rho, delta, dvector (x.begin() + 4, x.begin() + 6),
                                  dvector (y.begin() + 4, y.begin() + 6), f_normalized, center_x, center_y);
-        if (isnan (rho_h))
+        if (std::isnan (rho_h))
         {
             if (number_of_control_points == 8)
                 rho_h = determine_rho_h (rho, delta, dvector (x.begin() + 6, x.begin() + 8),
