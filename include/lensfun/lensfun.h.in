@@ -25,7 +25,7 @@
 #include <stddef.h>
 
 #ifndef __cplusplus
-    #if (defined(_MSC_VER) && (_MSC_VER < 1800) // Visual studio up to VS2013 does not have stdbool.h
+    #if (defined(_MSC_VER) && (_MSC_VER < 1800)) // Visual studio up to VS2013 does not have stdbool.h
         typedef int bool;
         #define true 1
         #define false 0
