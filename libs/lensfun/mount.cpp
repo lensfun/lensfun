@@ -6,6 +6,7 @@
 #include "config.h"
 #include "lensfun.h"
 #include "lensfunprv.h"
+#include <stdlib.h>
 
 lfMount::lfMount ()
 {
