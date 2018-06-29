@@ -2,14 +2,14 @@
 0.3.2 --> 0.3.95 (alpha preview of next release)
 =======================================
 
-__NOTE:__ This is an alpha release and snapshot of the current development. During the last years, major parts of lensfun's internals have been restructured and refactored to make Lensfun ready for the future. We believe many things have been improved and we tackled some issues that have been discussed for a long time. However, nothing is perfect. We highly encourage all users of Lensfun to try this alpha version, help us to improve whatever is necessary and get a stable release, soon. An up-to-date list of open issues and discussion points can be found in the [Wiki at Sourceforge](https://sourceforge.net/p/lensfun/wiki/Release%20schedule/).
+__NOTE:__ This is an alpha release and snapshot of the current development.
 
 Apart from the breaking changes listed at the end, all changes should be backwards compatible but many functions and variables have been marked as deprecated to encourage the use of the new improved API.
 
 __General changes__
 
-* Static `lfXX::Create()` and `lfXX:Destroy()` methods of various Lensfun classe are now marked as deprecated. C++ new/delete syntax should be used instead.
 * Added support for the Adobe Camera Model (ACM) for distortion, TCA, and vignetting. It also covers fisheye models. Lensfun includes a script which can convert Adobe lens profiles into Lensfun.
+* New perspective correction feature
 * The `<distortion>` tag now may have a `real-focal` attribute with the actual focal length at this particular nominal focal length.  It replaces the `<real-focal-length>` tag.
 * Due to the previous changes, the database format is now at version 2.
 * Binary version number has been incremented to version 2.
@@ -17,6 +17,7 @@ __General changes__
 * Lensfun is now internally prepared to support multiple calibrations per lens, e.g. for different crop factors.
 * Internally make use of C++ STL containers instead of glib arrays or proprietary container formats.
 * Use various C++11 features, hence compilation now requires a compiler supporting C++11.
+* Static `lfXX::Create()` and `lfXX:Destroy()` methods of various Lensfun classe are now marked as deprecated. C++ new/delete syntax should be used instead.
 * Remove dependency to POSIX `regex.h` and TRE regex on windows, instead use `std::regex` on all platforms.
 * CMAKE: glib > 2.26 is now only required when tests are being build.
 * CMAKE: various fixes (paths, OS compatibility).
