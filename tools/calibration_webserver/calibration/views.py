@@ -14,6 +14,7 @@ config = configparser.ConfigParser()
 config.read(os.path.expanduser("~/calibration_webserver.ini"))
 
 upload_directory = config["General"]["uploads_root"]
+cache_root = config["General"]["cache_root"]
 admin = "{} <{}>".format(config["General"]["admin_name"], config["General"]["admin_email"])
 allowed_extensions = (".tar.gz", ".tgz", ".tar.bz2", ".tbz2", ".bz2", ".tar.xz", ".txz", ".tar", ".rar", ".7z", ".zip")
 file_extension_pattern = re.compile("(" + "|".join(allowed_extensions).replace(".", "\\.") + ")$", re.IGNORECASE)
@@ -207,7 +208,7 @@ def show_issues(request, id_):
                     lens_model_name.replace("*", "++").replace("=", "##").replace(":", "___").replace("/", "__").replace(" ", "_"),
                     focal_length, aperture, filename)))
             json.dump((None, []), open(os.path.join(directory, "result.json"), "w"), ensure_ascii=True)
-            shutil.rmtree("/var/cache/apache2/calibrate/" + id_)
+            shutil.rmtree(os.path.join(cache_root, id_))
             spawn_daemon("/usr/bin/env", "python3",
                          os.path.join(os.path.abspath(os.path.dirname(__file__)), "..", "process_upload.py"),
                          "amended", directory, env={"PYTHONPATH": python_path})
@@ -219,7 +220,7 @@ def show_issues(request, id_):
 
 
 def thumbnail(request, id_, hash_):
-    filepath = os.path.join("/var/cache/apache2/calibrate", id_, hash_ + ".jpeg")
+    filepath = os.path.join(cache_root, id_, hash_ + ".jpeg")
     if not os.path.exists(filepath):
         raise django.http.Http404(filepath)
     response = django.http.HttpResponse()
