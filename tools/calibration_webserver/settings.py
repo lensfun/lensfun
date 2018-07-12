@@ -11,7 +11,7 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 config = configparser.ConfigParser()
-config.read(os.path.expanduser("~/calibration_webserver.ini"))
+assert config.read(os.path.expanduser("~/calibration_webserver.ini"))
 
 ADMINS = (
     (config["General"]["admin_name"], config["General"]["admin_email"]),
