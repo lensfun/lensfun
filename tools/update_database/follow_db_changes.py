@@ -35,7 +35,7 @@ parser.add_argument("--upload", action="store_true", help="Upload the files to S
 args = parser.parse_args()
 
 config = configparser.ConfigParser()
-config.read(os.path.expanduser("~/calibration_webserver.ini"))
+assert config.read(os.path.expanduser("~/calibration_webserver.ini"))
 
 github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
 lensfun = github.get_organization("lensfun").get_repo("lensfun")
