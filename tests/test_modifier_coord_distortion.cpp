@@ -43,7 +43,6 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
   lfTestParams *p = (lfTestParams *)data;
 
   lfFix->lens             = new lfLens();
-  lfFix->lens->CropFactor = 1.0f;
   lfFix->lens->Type       = LF_RECTILINEAR;
 
   lfFix->lens->AddCalibDistortion(&p->calib);
@@ -51,12 +50,9 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
   lfFix->img_height = 299;
   lfFix->img_width  = 299;
 
-  lfFix->mod = new lfModifier(lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
+  lfFix->mod = new lfModifier(1.0f, lfFix->img_width, lfFix->img_height, LF_PF_F32, p->reverse);
 
-  lfFix->mod->Initialize(
-    lfFix->lens, LF_PF_F32,
-    24.0f, 2.8f, 1000.0f, 1.0f, LF_RECTILINEAR,
-    LF_MODIFY_DISTORTION, p->reverse);
+  lfFix->mod->EnableDistortionCorrection(lfFix->lens, 24.0f);
 
   lfFix->coordBuff = NULL;
 
@@ -160,21 +156,24 @@ int main(int argc, char **argv)
 
   for(std::vector<bool>::iterator it_reverse = reverse.begin(); it_reverse != reverse.end(); ++it_reverse)
   {
+
+    lfLensCalibAttributes cs = {0.0, 0.0, 1.0, 1.5};
+
     std::map<std::string, lfLensCalibDistortion> distortCalib;
     // ??? + Canon EF 85mm f/1.2L II USM
     distortCalib["LF_DIST_MODEL_POLY3"] = (lfLensCalibDistortion)
     {
-      LF_DIST_MODEL_POLY3, 85.0f, 85.3502f, false, { -0.00412}
+      LF_DIST_MODEL_POLY3, 85.0f, 85.3502f, false, { -0.00412}, cs
     };
     //Canon PowerShot G12 (fixed lens)
     distortCalib["LF_DIST_MODEL_POLY5"] = (lfLensCalibDistortion)
     {
-      LF_DIST_MODEL_POLY5, 6.1f, 6.1f, false, { -0.030571633, 0.004658548}
+      LF_DIST_MODEL_POLY5, 6.1f, 6.1f, false, { -0.030571633, 0.004658548}, cs
     };
     //Canon EOS 5D Mark III + Canon EF 24-70mm f/2.8L II USM
     distortCalib["LF_DIST_MODEL_PTLENS"] = (lfLensCalibDistortion)
     {
-      LF_DIST_MODEL_PTLENS, 24.0f, 24.46704f, false, {0.02964, -0.07853, 0.02943}
+      LF_DIST_MODEL_PTLENS, 24.0f, 24.46704f, false, {0.02964, -0.07853, 0.02943}, cs
     };
 
     for(std::map<std::string, lfLensCalibDistortion>::iterator it_distortCalib = distortCalib.begin(); it_distortCalib != distortCalib.end(); ++it_distortCalib)

@@ -6,41 +6,49 @@
 #include "config.h"
 #include "lensfun.h"
 #include "lensfunprv.h"
+#include <stdlib.h>
 
 lfMount::lfMount ()
 {
-    // Defaults for attributes are "unknown" (mostly 0).  Otherwise, ad hoc
-    // lfLens instances used for searches could not be matched against database
-    // lenses easily.  If you need defaults for database tags, set them when
-    // reading the database.
-    memset (this, 0, sizeof (*this));
+    Name = NULL;
+    Compat = NULL;
 }
 
 lfMount::~lfMount ()
 {
     lf_free (Name);
-    _lf_list_free ((void **)Compat);
+    for (char* m: MountCompat)
+        free(m);
 }
 
 lfMount::lfMount (const lfMount &other)
 {
     Name = lf_mlstr_dup (other.Name);
     Compat = NULL;
-    if (other.Compat)
-        for (int i = 0; other.Compat [i]; i++)
-                AddCompat (other.Compat [i]);
+
+    MountCompat.clear();
+    const char* const* otherMounts = other.GetCompats();
+    for (int i = 0; otherMounts[i]; i++)
+        AddCompat(otherMounts[i]);
 }
 
 lfMount &lfMount::operator = (const lfMount &other)
 {
     lf_free (Name);
     Name = lf_mlstr_dup (other.Name);
-    lf_free (Compat); Compat = NULL;
-    if (other.Compat)
-        for (int i = 0; other.Compat [i]; i++)
-                AddCompat (other.Compat [i]);
+    Compat = NULL;
+
+    MountCompat.clear();
+    const char* const* otherMounts = other.GetCompats();
+    for (int i = 0; otherMounts[i]; i++)
+        AddCompat(otherMounts[i]);
 
     return *this;
+}
+
+bool lfMount::operator == (const lfMount& other)
+{
+    return _lf_strcmp (Name, other.Name) == 0;
 }
 
 void lfMount::SetName (const char *val, const char *lang)
@@ -50,7 +58,23 @@ void lfMount::SetName (const char *val, const char *lang)
 
 void lfMount::AddCompat (const char *val)
 {
-    _lf_addstr (&Compat, val);
+    if (val)
+    {
+        char* p = (char*)malloc(strlen(val));
+        strcpy(p, val);
+        MountCompat.push_back(p);
+
+        // add terminating NULL
+        _lf_terminate_vec(MountCompat);
+
+        // legacy compat pointer
+        Compat = (char**)MountCompat.data();
+    }
+}
+
+const char* const* lfMount::GetCompats() const
+{
+    return MountCompat.data();
 }
 
 bool lfMount::Check ()
@@ -61,17 +85,15 @@ bool lfMount::Check ()
     return true;
 }
 
-gint _lf_mount_compare (gconstpointer a, gconstpointer b)
-{
-    lfMount *i1 = (lfMount *)a;
-    lfMount *i2 = (lfMount *)b;
-
-    return _lf_strcmp (i1->Name, i2->Name);
-}
 
 //---------------------------// The C interface //---------------------------//
 
 lfMount *lf_mount_new ()
+{
+    return new lfMount ();
+}
+
+lfMount *lf_mount_create ()
 {
     return new lfMount ();
 }
@@ -84,4 +106,14 @@ void lf_mount_destroy (lfMount *mount)
 cbool lf_mount_check (lfMount *mount)
 {
     return mount->Check ();
+}
+
+void lf_mount_add_compat (lfMount *mount, const char *val)
+{
+    mount->AddCompat(val);
+}
+
+const char* const* lf_mount_get_compats (lfMount *mount)
+{
+    return mount->GetCompats();
 }

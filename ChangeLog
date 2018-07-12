@@ -1,14 +1,53 @@
 =======================================
-    UPCOMING RELEASE
+0.3.2 --> 0.3.95 (alpha preview of next release)
 =======================================
 
-* Static lfXX::Create() and lfXX:Destroy() methods of various Lensfun classe are now marked as deprecated. C++ new/delete syntax should be used instead.
-* CMAKE: glib > 2.26 is now only required when tests are being build.
-* CMAKE: various fixes (paths, OS compatibility)
-* Added support for the Adobe Camera Model (ACM) for distortion, TCA, and vignetting.  It also cover fisheye models.  Lensfun includes a script which can convert Adobe lens profiles into Lensfun.
-* The <distortion> tag now may have a "real-focal" attribute with the actual focal length at this particular nominal focal length.  It replaces the <real-focal-length> tag.
+__NOTE:__ This is an alpha release and snapshot of the current development. During the last years, major parts of lensfun's internals have been restructured and refactored to make Lensfun ready for the future. We believe many things have been improved and we tackled some issues that have been discussed for a long time. However, nothing is perfect. We highly encourage all users of Lensfun to try this alpha version, help us to improve whatever is necessary and get a stable release, soon. An up-to-date list of open issues and discussion points can be found in the [Wiki at Sourceforge](https://sourceforge.net/p/lensfun/wiki/Release%20schedule/).
+
+Apart from the breaking changes listed at the end, all changes should be backwards compatible but many functions and variables have been marked as deprecated to encourage the use of the new improved API.
+
+__General changes__
+
+* Static `lfXX::Create()` and `lfXX:Destroy()` methods of various Lensfun classe are now marked as deprecated. C++ new/delete syntax should be used instead.
+* Added support for the Adobe Camera Model (ACM) for distortion, TCA, and vignetting. It also covers fisheye models. Lensfun includes a script which can convert Adobe lens profiles into Lensfun.
+* The `<distortion>` tag now may have a `real-focal` attribute with the actual focal length at this particular nominal focal length.  It replaces the `<real-focal-length>` tag.
 * Due to the previous changes, the database format is now at version 2.
+* Binary version number has been incremented to version 2.
 * Torsten Bronger's calibration tutorial, his webserver code for receiving calibration images, and his calibration script are now part of Lensfun's source code.
+* Lensfun is now internally prepared to support multiple calibrations per lens, e.g. for different crop factors.
+* Internally make use of C++ STL containers instead of glib arrays or proprietary container formats.
+* Use various C++11 features, hence compilation now requires a compiler supporting C++11.
+* Remove dependency to POSIX `regex.h` and TRE regex on windows, instead use `std::regex` on all platforms.
+* CMAKE: glib > 2.26 is now only required when tests are being build.
+* CMAKE: various fixes (paths, OS compatibility).
+
+__lfDatabase__
+
+* New static constants `UserLocation`, `UserUpdatesLocation`, `SystemLocation`, `SystemUpdatesLocation` to retrieve the path of the various database locations.
+* The non-const `HomeDataDir` and `UserUpdatesDir` variables are deprecated.
+* Well-defined database search locations on OS X and Windows platforms.
+* `lfDatabase::Load()` got all necessary overloads to load database files, folders and from memory locations. The `lfDatabase::LoadDirectory()` method is now deprecated.
+
+__lfLens__
+
+A lens does not have a crop factor, but the camera which has been used to get the calibration image. Previously, the lfLens class had a crop factor member variable which was quite misleading and limiting its extensibility. Therefore, all image or camera attributes (`CropFactor`, `AspectRatio` and `CenterX/Y`) have been deprecated and are now part of a new lfLensCalibrationSet structure. Every lfLens class is now prepared to hold multiple calibration sets, e.g. for different crop factors and aspect ratios.
+
+* The direct access to calibration data in `CalibDistortion`, `CalibTCA`, `CalibVignetting`, `CalibCrop`, `CalibFov` is deprecated.
+* The `Interpolate...()`` functions now require the target crop factor as a parameter, the previous Interpolate() functions are deprecated.
+
+__lfModifier__
+
+New constructor syntax, the constructor now only requires the general image parameters. All other parameters which are specific to a certain correction type are now passed along in the new `Enable...()` functions which enable the different correction types.
+
+__Breaking changes__
+
+* C interface: all `lf_lens_interpolate_...()` functions now require an additional crop parameter.
+
+__Profiles__
+
+Overall we received __208 new profiles__ and __64 profile updates__. Thanks to all the contributors!
+
+(List on June 14th)
 
 New interchangeable lenses:
 
@@ -16,75 +55,332 @@ New interchangeable lenses:
 * Canon EF 8-15mm f/4L Fisheye USM
 * Canon EF 14mm f/2.8L II USM
 * Canon EF 20mm f/2.8 USM
+* Canon EF 24mm f/2.8 IS USM
 * Canon EF 35mm f/1.4L USM
+* Canon EF 35mm f/2 IS USM
 * Canon EF 40mm f/2.8 STM
-* Canon EF 50mm f/1.8 II
+* Canon EF 50mm f/1.8 STM
+* Canon EF 50mm f/2.5 Compact Macro
+* Canon EF 70-200mm f/2.8L IS USM + EF 2× II ext.
+* Canon EF 70-200mm f/2.8L IS II USM + EF 2× III ext.
 * Canon EF 85mm f/1.2L II USM
 * Canon EF 90-300mm f/4.5-5.6
-* Canon EF 100mm f/2.8 Macro USM
+* Canon EF 300mm f/4L IS USM
+* Canon EF 300mm f/4L IS USM + 1.4× ext.
+* Canon EF-M 15-45mm f/3.5-6.3 IS STM
+* Canon EF-M 55-200mm f/4.5-6.3 IS STM
+* Canon EF-S 18-55mm f/4-5.6 IS STM
+* Canon EF-S 55-250mm f/4-5.6 IS II
+* Canon EF-S 55-250mm f/4-5.6 IS STM
+* Canon FDn 135mm 1:2.8
+* Canon FDn 200mm 1:4
+* Fujifilm XF 10-24mm f/4 R OIS
 * Fujifilm XF 14mm f/2.8 R
 * Fujifilm XF 16mm f/1.4 R WR
+* Fujifilm XF 16-55mm f/2.8 R LM WR
+* Fujifilm XF 18-135mm f/3.5-5.6R LM OIS WR
+* Fujifilm XF 23mm f/2 R WR
 * Fujifilm XF 35mm f/2 R WR
+* Fujifilm XF 50mm f/2 R WR
+* Fujifilm XF 56mm f/1.2 R
 * Fujifilm XF 56mm f/1.2 R APD
+* Fujifilm XF 100-400mm f/4.5-5.6 R LM OIS WR
+* Fujifilm XF 100-400mm f/4.5-5.6 R LM OIS WR + 1.4× conv.
+* Irix 15mm f/2.4
+* KIZ MIR-1B 37mm f/2.8
+* Leica Elmarit-M 28mm f/2.8 ASPH
+* Leica Elmarit-M 90mm f/2.8
+* Leica DG Vario-Elmarit 12-60mm f/2.8-4.0 Asph. Power OIS
+* Leica Summicron-M 50mm f/2
+* Meike 35mm f/1.7
+* Meike 50mm f/2.0
+* Meike MK-F 28mm f/2.8
+* Minolta AF 100-300mm f/4.5-5.6 APO (D)
+* Minolta AF 135mm f/2.8
+* Miranda 28mm f/2.8 MC
+* MTO-500 500mm f/8 mirror lens
+* Nikon 1 Nikkor 10mm f/2.8
+* Nikon 1 Nikkor 18.5mm f/1.8
+* Nikon 1 Nikkor AW 10mm f/2.8
+* Nikkor 55mm f/3.5 Micro
+* Nikkor AF 28-70mm f/3.5-4.5D
+* Nikkor AF 35-70mm f/2.8
+* Nikkor AF 35mm f/2.8 PC “black knob”
+* Nikkor AF 105mm f/2D DC
+* Nikkor AF 135mm f/2D DC
+* Nikkor AF 180mm f/2.8D IF-ED
+* Nikkor AF-P 10-20mm f/4.5-5.6G DX VR
+* Nikkor AF-P 18-55mm f/3.5-5.6G DX VR
+* Nikkor AF-P 70-300mm f/4.5-6.3G DX ED VR
 * Nikkor AF-S DX 16-80mm f/2.8-4E ED VR
 * Nikkor AF-S DX 18-300mm f/3.5-5.6G ED VR
+* Nikkor AF-S 24-70mm f/2.8E ED VR
+* Nikkor AF-S 35mm f/1.8G ED
+* Nikkor AF-S 40mm f/2.8G DX Micro
+* Nikkor AF-S 70-200mm f/2.8E FL ED VR
+* Nikkor AF-S 70-200mm f/2.8G ED VR II
+* Nikkor AF-S 300mm f/4D IF-ED
+* Nikkor AI-S 200mm f/4
+* Nikkor AI-S 300mm f/4.5
+* Nikkor AI-S 400mm f/3.5
+* Nikkor AI-S 400mm f/3.5 + TC14B teleconverter
+* Olympus M.Zuiko Digital ED 12mm f/2.0
+* Olympus M.Zuiko Digital ED 12-100mm f/4.0 IS Pro
+* Olympus M.Zuiko Digital ED 40-150mm f/2.8 Pro
+* Olympus M.Zuiko Digital ED 40-150mm f/2.8 Pro + 1.4× conv.
+* Olympus Zuiko Digital ED 14-35mm F2.0 SWD
+* Olympus Zuiko Auto-S 50mm f/1.8
+* Panasonic Lumix G 25mm f/1.7
+* Panasonic Lumix G 42.5mm f/1.7
+* Panasonic Lumix G Vario 12-60mm f/3.5-5.6 Asph. Power OIS
+* Panasonic Lumix G Vario 14-140mm f/3.5-5.6
+* Panasonic Lumix G Vario 35-100mm f/4.0-5.6 Asph. Mega OIS
+* HD Pentax-D FA 15-30mm f/2.8 ED SDM WR
+* HD Pentax-D FA 150-450mm f/4.5-5.6 ED DC AW<
+* HD Pentax-D FA 24-70mm f/2.8 ED SDM WR
+* HD Pentax-D FA 28-105mm f/3.5-5.6 ED DC WR
+* HD Pentax-D FA 70-200mm f/2.8 ED DC AW
+* HD Pentax-DA 16-85mm f/3.5-5.6 ED DC WR
+* HD Pentax-DA 18-50mm f/4-5.6 DC WR RE
+* HD Pentax-DA 21mm f/3.2 ED AL Limited
+* HD Pentax-DA 55-300mm f/4-5.8 ED WR
+* HD Pentax-DA 70mm f/2.4 Limited
+* Pentax-F 28-80mm f/3.5-4.5
 * Pentax-DA L 18-50mm F4-5.6 DC WR RE
 * Pentax-DA 40mm f/2.8 XS
 * Pentax-DA L 50-200mm f/4-5.6 ED WR
 * Pentax-M Macro 1:4 100mm
+* smc Pentax-DA 17-70mm f/4 AL [IF] SDM
+* smc Pentax-DA L 18-50mm f/4-5.6 DC WR RE
+* smc Pentax-DA 18-250mm f/3.5-6.3 ED AL [IF]
+* smc Pentax-DA 35mm f/2.8 Macro Limited
+* smc Pentax-DA 40mm f/2.8 XS
+* smc Pentax-DA L 50-200mm f/4-5.6 ED WR
+* smc Pentax-DA 70mm f/2.4 Limited
+* smc Pentax-FA 28mm f/2.8 AL
+* smc Pentax-FA 77mm f/1.8 Limited
+* smc Pentax-M 50mm f/1.7
+* smc Pentax-M Macro 1:4 100mm
+* Pentax Super-Takumar 50mm f/1.4
+* Pentax Super-Takumar 55mm f/1.8
 * Samsung NX 10mm f/3.5 Fisheye
+* Samyang 16mm f/2.0 ED AS UMC CS
+* Samyang 20mm f/1.8 ED AS UMC
+* Samyang 85mm f/1.4 IF UMC Aspherical
+* Samyang 135mm f/2 ED UMC
 * Sigma 4.5mm f/2.8 EX DC HSM circular fisheye
-* Sony FE 28mm f/2 + Sony SEL075 UWC
+* Sigma 17-70mm f/2.8-4 DC Macro OS HSM | C
+* Sigma 18-200mm f/3.5-6.3 DC Macro OS HSM
+* Sigma 20mm f/1.4 DG HSM | A
+* Sigma 24mm f/1.4 DG HSM [A]
+* Sigma 24mm f/2.8 Super Wide II
+* Sigma 28-70mm f/2.8 AF
+* Sigma 30mm f/1.4 DC DN
+* Sigma 50-100mm f/1.8 DC HSM Art
+* Sigma 70mm f/2.8 EX DG Macro
+* Sigma 70-300mm f/4-5.6 DG OS
+* Sigma 85mm f/1.4 EX DG HSM
+* Sigma 100-300mm f/4 APO EX DG HSM + Kenko Teleplus PRO 300 AF 1.4× DGX ext.
+* Sigma 150-600mm f/5-6.3 DG OS HSM | C
+* Sigma DT 18-300mm f/3.5-6.3 DC Macro
+* Sony 70-300mm f/4.5-5.6 G SSM II
+* Sony AF DT 18-250mm f/3.5-6.3
 * Sony AF DT 30mm f/2.8 SAM Macro
+* Sony AF 100mm F2.8 Macro
+* Sony AF 500mm F8 Reflex
+* Sony E 10-18mm f/4 OSS
+* Sony FE 16-35mm f/4 ZA OSS
+* Sony FE 24-240mm f/3.5-6.3 OSS
+* Sony FE 24-70mm f/2.8 GM
+* Sony FE 28mm f/2 + Sony SEL075 UWC
+* Sony FE 35mm f/1.4 ZA
+* Sony FE 70-200mm f/4 G OSS
+* Sony FE 70-300mm f/4.5-5.6 G OSS
+* Sony FE 85mm f/1.8
 * Sony FE 90mm f/2.8 Macro G OSS
-* Tamron SP 70-200mm f/2.8 Di VC USD A009
+* Sony Zeiss Vario-Sonnar T* 16-35mm f/2.8 ZA SSM II
+* Sony Zeiss Vario-Sonnar T* 24-70mm f/2.8 ZA SSM II
+* Tamron 10-24mm f/3.5-4.5 Di II VC HLD
+* Tamron 28-300mm f/3.5-6.3 Di VC PZD
+* Tamron 200mm f/3.5 CT-200 BBAR
+* Tamron AF 17-50mm f/2.8 XR Di-II LD (Model A16)
+* Tamron AF 18-200mm f/3.5-6.3 Di II VC
+* Tamron AF 18-270mm F/3.5-6.3 Di II VC LD Aspherical (IF) Macro
 * Tamron AF 80-210mm f/4.5-5.6 280D
+* Tamron SP 15-30mm f/2.8 Di VC USD
+* Tamron SP AF 17-50mm f/2.8 XR Di II VC LD Aspherical (IF)
+* Tamron SP 70-200mm f/2.8 Di VC USD A009
+* Tamron SP 90mm f/2.8 Di VC USD Macro 1:1
+* Tokina E 20mm f/2
+* Tokina AF 11-20mm f/2.8 AT-X Pro DX
+* Tokina AF 28-80mm f/2.8 AT-X 280 Pro
+* Tokina AF 100mm f/2.8 AT-X Pro D M100 Macro
+* Tokina AF 80-200mm f/2.8 AT-X 828 Pro
+* Venus Laowa 12mm f/2.8 Zero-D
+* Venus Laowa 7.5mm f/2.0
+* Yongnuo YN 35mm f/2
+* Zeiss Batis 18mm f/2.8
 * Zeiss Batis 25mm f/2
+* Zeiss Batis 85mm f/1.8
 * Zeiss Distagon T* 25mm f/2.8 ZF.2
+* Zeiss Distagon T* 2/35 ZF.2
+* Zeiss Loxia 21mm f/2.8
+* Zeiss Loxia 50mm f/2 Planar T*
+* Zeiss Touit 32mm f/1.8
 
 New compact, smartphone, and action cameras:
 
 * AEE SD19
+* Canon PowerShot A495
+* Canon PowerShot G5 X
+* Canon PowerShot G7
+* Canon PowerShot G9 X
+* Canon PowerShot SX10 IS
+* Canon PowerShot SX160 IS
+* Canon PowerShot SX30 IS
+* DJI	Phantom 3 Pro FC300X
+* DJI FC6310
+* DJI Mavic Pro FC220
+* Fujifilm X-S1
+* Fujifilm X70
+* GitUp Git2
+* GoPro HD2
 * GoPro Hero3+ black
+* GoPro Hero4 black
+* Leica Q (Typ 116)
+* Nikon Coolpix A
+* Nikon Coolpix P7800
 * Olympus XZ-2
 * Olympus Stylus TG-1, TG-2, TG-3, TG-4
+* Panasonic DMC-FZ40
+* Panasonic DMC-LX10
+* Panasonic DMC-TZ100
+* Samsung Galaxy S7
 * Sony Xperia Z3
+* Sony RX1 R II
+* Sony RX10
 * Sony RX10 II
+* Sony RX10 III
+* Sony Xperia Z3
 
 New interchangable lens cameras:
 
-* Canon EOS 80D
+* Canon EOS-1D X Mark II
 * Canon EOS 1300D
+* Canon EOS 200D
+* Canon EOS 5D Mark IV
+* Canon EOS 77D
+* Canon EOS 80D
+* Canon EOS 800D
+* Canon EOS 2000D
+* Canon EOS 4000D
+* Canon EOS Kiss X9
+* Canon EOS Kiss X90
+* Canon EOS Rebel SL2
+* Canon EOS Rebel T6i
+* Canon EOS Rebel T6
+* Canon EOS Rebel T7i
+* Canon EOS Rebel T7
+* Canon EOS Rebel T100
+* Canon EOS M5
+* Canon EOS M6
+* Canon EOS M10
+* Canon EOS M50
+* Canon EOS M100
+* Fuji X-E2S
+* Fuji X-Pro2
+* Fuji X-T10
+* Fuji X-T2
+* Fuji X-T20
+* Nikon D3400
 * Nikon D4s
+* Nikon D850
+* Nikon D5600
+* Nikon D7500
+* Olympus E-M10 II
+* Olympus E-M10 III
+* Olympus E-M1MarkII
+* Olympus E-PL8
+* Olympus PEN-F
+* Pentax KP
 * Pentax K-1
+* Pentax K-3 II
+* Pentax K-70
+* Sigma sd Quattro
+* Sony Alpha 6300
+* Sony Alpha 6500
+* Sony Alpha 68
+* Sony Alpha 7R II
+* Sony Alpha 9
+* Sony Alpha 99 II
 
 Additional/updated data for:
 
 * Canon EF-S 10-22mm f/3.5-4.6 USM
+* Canon EF-S 17-55mm f/2.8 IS USM
+* Canon EF-S 17-85mm f/4-5.6 IS USM
+* Canon EF-S 18-55mm f/3.5-5.6 IS
+* Canon EF-S 18-135mm f/3.5-5.6 IS USM
+* Canon EF-S 24mm f/2.8 STM
 * Canon EF 16-35mm f/2.8L USM
 * Canon EF-S 17-55mm f/2.8 IS USM
 * Canon EF-S 18-55mm f/3.5-5.6 IS
-* Canon EF 24-105mm f/4L IS USM
-* Canon EF 50mm f/1.4 USM
-* Canon EF 70-300mm f/4.5-5.6 DO IS USM
-* Canon EF 100-400mm f/4.5-5.6L IS USM
 * Canon EF 24-70mm f/4L IS USM
+* Canon EF 24-105mm f/4L IS USM
+* Canon EF 35mm f/1.4L USM
+* Canon EF 50mm f/1.4 USM
+* Canon EF 70-200mm f/2.8L IS USM
+* Canon EF 70-300mm f/4.5-5.6 DO IS USM
+* Canon EF 70-300mm f/4-5.6L IS USM
+* Canon EF 85mm f/1.2L II USM
+* Canon EF 100mm f/2.8L Macro IS USM
+* Canon EF 100-400mm f/4.5-5.6L IS USM
 * Fujifilm XF 23mm f/1.4 R
 * Fujifilm XF 27mm f/2.8
 * Fujifilm XF 35mm f/1.4 R
 * Fujifilm XF 60mm f/2.4 R Macro
 * Fujifilm XF 18-55mm f/2.8-4 R LM OIS
 * Fujifilm XF 55-200mm f/3.5-4.8 R LM OIS
+* Leica DG Summilux 25mm f/1.4 Asph.
 * Nikkor AF-S 16-80mm f/2.8-4E DX ED VR
+* Nikkor AF-S 35mm f/1.8G DX
+* Nikkor AF-S 85mm f/1.8G
+* Nikkor AF-S VR 105mm f/2.8G IF-ED
+* Nikkor AF 50mm f/1.4D
+* Nikkor AF 60mm f/2.8D Micro
+* Nikkor AI-S 50mm f/1.4
+* Nikkor AI-S 50mm f/1.8
+* Nikkor AI-S 135mm f/2.8
+* Nikkor AI-S 500mm f/8.0 Reflex
 * Olympus Zuiko Digital ED 9-18mm f/4.0-5.6
 * Olympus Zuiko Digital ED 14-54mm f/2.8-3.5
 * Olympus M.Zuiko Digital 25mm f/1.8
+* Panasonic Lumix G Vario 12-32mm f/3.5-5.6 Asph. Mega OIS
 * Pentax FA 28mm f/2.8
 * Pentax FA 50mm f/1.4
+* smc Pentax-DA 35mm f/2.4 AL
+* smc Pentax-A 50mm f/1.7
+* smc Pentax-DA 50mm f/1.8
+* smc Pentax-D FA Macro 100mm f/2.8 WR
+* smc Pentax-FA 50mm f/1.4
 * Samyang 12mm f/2.0 NCS CS
-* Sigma 8mm f/3.5 EX DG Circular
+* Samyang 35mm f/1.4 AS UMC
+* Sigma 8mm f/3.5 EX DG Circular fisheye
+* Sigma 10-20mm f/3.5 EX DC HSM
 * Sigma 17-50mm f/2.8 EX DC OS HSM
+* Sigma 17-70mm f/2.8-4.5 DC Macro
+* Sigma 19mm f/2.8 DN
+* Sigma 60mm f/2.8 DN
+* Sigma 100-300mm f/4 APO EX DG HSM
+* Sigma 105mm f/2.8 EX DG OS HSM Macro
+* Sony FE 28-70mm f/3.5-5.6 OSS
 * Voigländer Ultron 40mm f/2 SL_II Asph.
+
+* Canon IXUS 80 IS
+* Canon PowerShot A610
+* Canon PowerShot A640
+* Canon Powershot G16
+* Panasonic DMC-LF1
 
 =======================================
   0.3.1 --> 0.3.2  (2015-11-16)

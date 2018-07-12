@@ -7,31 +7,25 @@ GET_FILENAME_COMPONENT(SOURCE_BASE_DIR ${CMAKE_SOURCE_DIR} PATH CACHE)
 
 #  global setup
 project(lensfun C CXX)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 
 # version
 SET(VERSION_MAJOR 0)
 SET(VERSION_MINOR 3)
-SET(VERSION_MICRO 2)
+SET(VERSION_MICRO 95)
 SET(VERSION_BUGFIX 0)
-SET(VERSION_API 1)
+SET(VERSION_API 2)
 # This is the version of the *shipped* database, which is not necessarily the
 # highest version number supported
 SET(LENSFUN_DB_VERSION 2)
 
 # check if some include are available
 INCLUDE(CheckIncludeFiles)
-IF(NOT WIN32)
-  CHECK_INCLUDE_FILES(regex.h HAVE_REGEX_H)
-ENDIF()
 CHECK_INCLUDE_FILES(endian.h HAVE_ENDIAN_H)
 
 # set include directories
 INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR})
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include/lensfun)
-IF(NOT HAVE_REGEX_H)
-  INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include/regex)
-  INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/libs/regex)
-ENDIF()
 
 IF(CMAKE_SYSTEM_PROCESSOR MATCHES "[XxIi][0-9]?86|[Aa][Mm][Dd]64")
   SET(X86_ON ON)
@@ -165,9 +159,6 @@ ADD_SUBDIRECTORY(apps)
 
 # install include files
 INSTALL(FILES ${CMAKE_BINARY_DIR}/lensfun.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/lensfun)
-IF(NOT HAVE_REGEX_H)
-  INSTALL(FILES include/regex/regex.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/regex)
-ENDIF()
 
 # install db files
 FILE(GLOB DATABASE_FILES data/db/*.xml)
