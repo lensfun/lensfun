@@ -225,7 +225,8 @@ class InvalidRaw(Exception):
 
 
 invalid_lens_model_name_pattern = re.compile(r"^\(\d+\)$|, | or |\||manual lens|unknown", re.IGNORECASE)
-"""Lens model names which must be assumed to be invalid like “(234)”."""
+"""Lens model names which must be assumed to be invalid like “(234)”.
+"""
 
 
 def call_exiv2(raw_file_group):
