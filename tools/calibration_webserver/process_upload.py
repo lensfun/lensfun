@@ -29,10 +29,13 @@ background, it processes the uploaded archive while the user is presented a
 success message in their browser.
 """
 
-import hashlib, sys, os, subprocess, json, re, multiprocessing, smtplib, configparser
+import hashlib, sys, os, subprocess, json, re, multiprocessing, smtplib, configparser, logging
 from email.mime.text import MIMEText
 from github import Github
 from calibration_webserver import owncloud
+
+
+logging.basicConfig(level=logging.DEBUG, filename="/var/log/process_upload.log")
 
 
 config = configparser.ConfigParser()
@@ -53,6 +56,7 @@ def send_email(to, subject, body):
     :type subject: str
     :type body: str
     """
+    logging.debug("Send mail with subject “{}”".format(subject))
     message = MIMEText(body)
     message["Subject"] = subject
     message["From"] = admin
@@ -457,6 +461,7 @@ class GithubConfiguration:
         self.calibration_request_label = self.lensfun.get_label("calibration request")
 
 
+logging.info("Started process_upload with arguments: {}".format(sys.argv[1:]))
 operation = sys.argv[1]
 if operation == "initial":
     filepath = sys.argv[2]
@@ -473,7 +478,9 @@ if operation == "initial":
         missing_data = tag_image_files(file_exif_data)
         write_result_and_exit(None, missing_data)
     except Exception as error:
+        logging.critical(repr(error))
         send_email(admin, "Error in calibration upload " + upload_id, repr(error))
+    logging.info("Successfully exited process_upload")
 elif operation == "amended":
     directory = sys.argv[2]
     upload_id = os.path.basename(directory)
@@ -482,6 +489,9 @@ elif operation == "amended":
         github = GithubConfiguration()
         handle_successful_upload()
     except Exception as error:
+        logging.critical(repr(error))
         send_email(admin, "Error in calibration upload " + upload_id, repr(error))
+    logging.info("Successfully exited process_upload")
 else:
+    logging.crtitical("Invalid operation")
     raise Exception("Invalid operation")
