@@ -258,7 +258,7 @@ def call_exiv2(raw_file_group):
     elif exiv2_process.returncode == 1:
         raise InvalidRaw("""I could not read some of your RAW files.\nI attach the error output of exiv2:\n\n"""
                          + error.decode("utf-8").replace(directory + "/", ""))
-    result = {}
+    result = {filepath: [None, None, None, float("nan"), float("nan")] for filepath in raw_file_group}
     for line in output.splitlines():
         # Sometimes, values have trailing rubbish
         line = line.partition(b"\x00")[0].decode("utf-8")
@@ -295,7 +295,7 @@ def call_exiv2(raw_file_group):
             continue
         else:
             field_value = field_value.strip()
-        exif_data = result.setdefault(filepath, [None, None, None, float("nan"), float("nan")])
+        exif_data = result[filepath]
         if fieldname == "Make":
             exif_data[0] = field_value
         elif fieldname == "Model":
