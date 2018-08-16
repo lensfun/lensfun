@@ -411,6 +411,7 @@ def tag_image_files(file_exif_data):
         exif_lens_model, exif_focal_length, exif_aperture = exif_data[2:]
         if not filepath_pattern.match(os.path.splitext(os.path.basename(filepath))[0]):
             if exif_lens_model and exif_focal_length and exif_aperture:
+                logging.debug("All EXIF data found in " + filepath)
                 if exif_focal_length == int(exif_focal_length):
                     focal_length = format(int(exif_focal_length), "03")
                 else:
@@ -419,6 +420,7 @@ def tag_image_files(file_exif_data):
                     exif_lens_model, focal_length, exif_aperture, filename). \
                           replace(":", "___").replace("/", "__").replace(" ", "_").replace("*", "++").replace("=", "##")))
             else:
+                logging.info("Missing EXIF data in " + filepath)
                 missing_data.append((filepath, exif_lens_model, exif_focal_length, exif_aperture))
     if missing_data:
         try:
