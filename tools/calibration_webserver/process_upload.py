@@ -29,10 +29,10 @@ background, it processes the uploaded archive while the user is presented a
 success message in their browser.
 """
 
-import hashlib, sys, os, subprocess, json, re, multiprocessing, smtplib, configparser, logging
+import sys, os, subprocess, json, re, multiprocessing, smtplib, configparser, logging
 from email.mime.text import MIMEText
 from github import Github
-from calibration_webserver import owncloud
+from calibration_webserver import owncloud, utils
 
 
 logging.basicConfig(level=logging.DEBUG, filename="/var/log/process_upload.log")
@@ -386,25 +386,6 @@ def check_data(file_exif_data):
         write_result_and_exit("Multiple camera models found.")
 
 
-def generate_thumbnail(raw_filepath, cache_dir):
-    """Generates a thumbnail for the given image.  The thumbnail is written into
-    the cache dir, given by ``cache_root`` in the INI file.  This is a helper
-    routine for `tag_image_files` in order to make the thumbnail generation
-    parallel.
-
-    :param str raw_filepath: filepath of the RAW image file
-    :param str cache_dir: root path of the thumbnail cache
-    """
-    hash_ = hashlib.sha1()
-    hash_.update(raw_filepath.encode("utf-8"))
-    out_filepath = os.path.join(cache_dir, hash_.hexdigest() + ".jpeg")
-    if os.path.splitext(raw_filepath)[1].lower() in [".jpeg", ".jpg"]:
-        subprocess.Popen(["convert", raw_filepath, "-resize", "131072@", out_filepath]).wait()
-    else:
-        dcraw = subprocess.Popen(["dcraw", "-h", "-T", "-c", raw_filepath], stdout=subprocess.PIPE)
-        subprocess.Popen(["convert", "-", "-resize", "131072@", out_filepath], stdin=dcraw.stdout).wait()
-
-
 def tag_image_files(file_exif_data):
     """Renames the image files so that essential EXIF data is in the filename.
     Moreover, this function collects files with missing EXIF data, creates
@@ -445,7 +426,7 @@ def tag_image_files(file_exif_data):
         except FileExistsError:
             pass
         pool = multiprocessing.Pool()
-        pool.starmap(generate_thumbnail, [(data[0], cache_dir) for data in missing_data])
+        pool.starmap(utils.generate_thumbnail, [(data[0], cache_dir) for data in missing_data])
         pool.close()
         pool.join()
     return missing_data
