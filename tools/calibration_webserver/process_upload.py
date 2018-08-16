@@ -476,5 +476,5 @@ elif operation == "amended":
         send_email(admin, "Error in calibration upload " + upload_id, repr(error))
     logging.info("Successfully exited process_upload")
 else:
-    logging.crtitical("Invalid operation")
+    logging.critical("Invalid operation")
     raise Exception("Invalid operation")
