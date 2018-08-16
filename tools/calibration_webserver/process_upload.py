@@ -386,15 +386,14 @@ def check_data(file_exif_data):
         write_result_and_exit("Multiple camera models found.")
 
 
-def generate_thumbnail(raw_filepath):
+def generate_thumbnail(raw_filepath, cache_dir):
     """Generates a thumbnail for the given image.  The thumbnail is written into
     the cache dir, given by ``cache_root`` in the INI file.  This is a helper
     routine for `tag_image_files` in order to make the thumbnail generation
     parallel.
 
-    :param raw_filepath: filepath of the RAW image file
-
-    :type raw_filepath: str
+    :param str raw_filepath: filepath of the RAW image file
+    :param str cache_dir: root path of the thumbnail cache
     """
     hash_ = hashlib.sha1()
     hash_.update(raw_filepath.encode("utf-8"))
@@ -446,7 +445,7 @@ def tag_image_files(file_exif_data):
         except FileExistsError:
             pass
         pool = multiprocessing.Pool()
-        pool.map(generate_thumbnail, [data[0] for data in missing_data])
+        pool.starmap(generate_thumbnail, [(data[0], cache_dir) for data in missing_data])
         pool.close()
         pool.join()
     return missing_data
