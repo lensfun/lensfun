@@ -93,7 +93,7 @@ def sync():
     while cycles_left:
         with OwncloudLock() as locked:
             if locked:
-                subprocess.run(["owncloudcmd", "--silent", "--non-interactive", "--user", config["ownCloud"]["login"],
+                subprocess.run(["owncloudcmd", "--non-interactive", "--user", config["ownCloud"]["login"],
                                 "--password", config["ownCloud"]["password"], config["ownCloud"]["local_root"],
                                 config["ownCloud"]["server_url"]], check=True)
                 return
