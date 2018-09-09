@@ -575,6 +575,19 @@
 
     <lens>
         <maker>Tamron</maker>
+        <model>Tamron SP 35mm f/1.8 Di VC USD F012</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- profiled with a Nikon D810 -->
+            <distortion model="ptlens" focal="35" a="0.0032" b="-0.01061" c="0.00557" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Tamron</maker>
         <model>Tamron AF 70-300mm f/4-5.6 LD Macro 1:2</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
