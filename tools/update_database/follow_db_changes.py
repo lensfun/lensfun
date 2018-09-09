@@ -35,7 +35,7 @@ parser.add_argument("--upload", action="store_true", help="Upload the files to S
 args = parser.parse_args()
 
 config = configparser.ConfigParser()
-config.read(os.path.expanduser("~/calibration_webserver.ini"))
+assert config.read(os.path.expanduser("~/calibration_webserver.ini"))
 
 github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
 lensfun = github.get_organization("lensfun").get_repo("lensfun")
@@ -221,8 +221,10 @@ def send_email(to, subject, body):
     message["From"] = admin
     message["To"] = to
     smtp_connection = smtplib.SMTP(config["SMTP"]["machine"], config["SMTP"]["port"])
-    smtp_connection.starttls()
-    smtp_connection.login(config["SMTP"]["login"], config["SMTP"]["password"])
+    if config["SMTP"].get("TLS", "off").lower() in {"on", "true", "yes"}:
+        smtp_connection.starttls()
+    if "login" in config["SMTP"]:
+        smtp_connection.login(config["SMTP"]["login"], config["SMTP"]["password"])
     smtp_connection.sendmail(admin, [to, config["General"]["admin_email"]], message.as_string())
 
 

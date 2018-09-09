@@ -2,18 +2,21 @@
 # -*- coding: utf-8 -*-
 
 import hashlib, os, subprocess, json, shutil, mimetypes, re, configparser
+from urllib.parse import quote_plus
 import django.forms as forms
 from django.shortcuts import render
 from django.forms.utils import ValidationError
 import django.core.urlresolvers
 import django.http
 from django.utils.encoding import iri_to_uri
+from utils import generate_thumbnail, RawNotFound
 
 
 config = configparser.ConfigParser()
 config.read(os.path.expanduser("~/calibration_webserver.ini"))
 
 upload_directory = config["General"]["uploads_root"]
+cache_root = config["General"]["cache_root"]
 admin = "{} <{}>".format(config["General"]["admin_name"], config["General"]["admin_email"])
 allowed_extensions = (".tar.gz", ".tgz", ".tar.bz2", ".tbz2", ".bz2", ".tar.xz", ".txz", ".tar", ".rar", ".7z", ".zip")
 file_extension_pattern = re.compile("(" + "|".join(allowed_extensions).replace(".", "\\.") + ")$", re.IGNORECASE)
@@ -189,7 +192,8 @@ def show_issues(request, id_):
     for data in missing_data:
         hash_ = hashlib.sha1()
         hash_.update(data[0].encode("utf-8"))
-        thumbnails.append("/calibration/thumbnails/{0}/{1}".format(id_, hash_.hexdigest()))
+        thumbnails.append("/calibration/thumbnails/{0}/{1}?raw={2}".format(
+            id_, hash_.hexdigest(), quote_plus(os.path.relpath(data[0], directory))))
     if request.method == "POST":
         exif_forms = [ExifForm(data, i==0, request.POST, prefix=str(i)) for i, data in enumerate(missing_data)]
         if all([exif_form.is_valid() for exif_form in exif_forms]):
@@ -207,7 +211,7 @@ def show_issues(request, id_):
                     lens_model_name.replace("*", "++").replace("=", "##").replace(":", "___").replace("/", "__").replace(" ", "_"),
                     focal_length, aperture, filename)))
             json.dump((None, []), open(os.path.join(directory, "result.json"), "w"), ensure_ascii=True)
-            shutil.rmtree("/var/cache/apache2/calibrate/" + id_)
+            shutil.rmtree(os.path.join(cache_root, id_))
             spawn_daemon("/usr/bin/env", "python3",
                          os.path.join(os.path.abspath(os.path.dirname(__file__)), "..", "process_upload.py"),
                          "amended", directory, env={"PYTHONPATH": python_path})
@@ -219,9 +223,14 @@ def show_issues(request, id_):
 
 
 def thumbnail(request, id_, hash_):
-    filepath = os.path.join("/var/cache/apache2/calibrate", id_, hash_ + ".jpeg")
+    raw_filepath = os.path.join(upload_directory, id_, request.GET.get("raw"))
+    cache_dir = os.path.join(cache_root, id_)
+    filepath = os.path.join(cache_dir, hash_ + ".jpeg")
     if not os.path.exists(filepath):
-        raise django.http.Http404(filepath)
+        try:
+            generate_thumbnail(raw_filepath, cache_dir)
+        except RawNotFound:
+            raise django.http.Http404("{1}/{2}.jpeg".format(id_, hash_))
     response = django.http.HttpResponse()
     response["X-Sendfile"] = filepath
     response["Content-Type"] = mimetypes.guess_type(filepath)[0] or "application/octet-stream"
