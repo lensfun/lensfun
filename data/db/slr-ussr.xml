@@ -174,6 +174,32 @@
     </lens>
 
     <lens>
+        <maker>KMZ</maker>
+        <model>MC Helios-44M-4 58mm 1:2</model>
+        <mount>M42</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 7 (ICLE-7) -->
+            <distortion model="ptlens" focal="58" a="-0.00118" b="0.0026" c="0.00307"/>
+            <tca model="poly3" focal="58" vr="1.0000244" vb="0.9998950"/>
+            <vignetting model="pa" focal="58" aperture="2" distance="10" k1="-1.5157" k2="1.4622" k3="-0.6442"/>
+            <vignetting model="pa" focal="58" aperture="2" distance="1000" k1="-1.5157" k2="1.4622" k3="-0.6442"/>
+            <vignetting model="pa" focal="58" aperture="2.8" distance="10" k1="-1.5114" k2="1.4514" k3="-0.6371"/>
+            <vignetting model="pa" focal="58" aperture="2.8" distance="1000" k1="-1.5114" k2="1.4514" k3="-0.6371"/>
+            <vignetting model="pa" focal="58" aperture="4" distance="10" k1="-0.4827" k2="-0.5145" k3="0.4079"/>
+            <vignetting model="pa" focal="58" aperture="4" distance="1000" k1="-0.4827" k2="-0.5145" k3="0.4079"/>
+            <vignetting model="pa" focal="58" aperture="5.6" distance="10" k1="-0.3326" k2="0.0788" k3="-0.1385"/>
+            <vignetting model="pa" focal="58" aperture="5.6" distance="1000" k1="-0.3326" k2="0.0788" k3="-0.1385"/>
+            <vignetting model="pa" focal="58" aperture="8" distance="10" k1="-0.4123" k2="0.2916" k3="-0.1671"/>
+            <vignetting model="pa" focal="58" aperture="8" distance="1000" k1="-0.4123" k2="0.2916" k3="-0.1671"/>
+            <vignetting model="pa" focal="58" aperture="11" distance="10" k1="-0.4014" k2="0.1920" k3="-0.0575"/>
+            <vignetting model="pa" focal="58" aperture="11" distance="1000" k1="-0.4014" k2="0.1920" k3="-0.0575"/>
+            <vignetting model="pa" focal="58" aperture="16" distance="10" k1="-0.4313" k2="0.2398" k3="-0.0788"/>
+            <vignetting model="pa" focal="58" aperture="16" distance="1000" k1="-0.4313" k2="0.2398" k3="-0.0788"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <maker>MTO</maker>
         <model>MTO-500 500mm f/8 mirror lens</model>
         <mount>M39/1</mount>
@@ -211,6 +237,31 @@
 
     <lens>
         <maker>KMZ</maker>
+        <model>MIR-1B 37mm f/2.8</model>
+        <model lang="ru">МИР-1B 2.8/37</model>
+        <mount>M42</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 7 (ICLE-7) -->
+            <distortion model="ptlens" focal="37" a="-0.00258" b="0.00265" c="-0.00597"/>
+            <tca model="poly3" focal="37" vr="1.0007173" vb="0.9996082"/>
+            <vignetting model="pa" focal="37" aperture="2.8" distance="10" k1="-1.6228" k2="1.3237" k3="-0.4952"/>
+            <vignetting model="pa" focal="37" aperture="2.8" distance="1000" k1="-1.6228" k2="1.3237" k3="-0.4952"/>
+            <vignetting model="pa" focal="37" aperture="4" distance="10" k1="-0.4822" k2="-0.1325" k3="0.0056"/>
+            <vignetting model="pa" focal="37" aperture="4" distance="1000" k1="-0.4822" k2="-0.1325" k3="0.0056"/>
+            <vignetting model="pa" focal="37" aperture="5.6" distance="10" k1="-0.7316" k2="0.9182" k3="-0.7431"/>
+            <vignetting model="pa" focal="37" aperture="5.6" distance="1000" k1="-0.7316" k2="0.9182" k3="-0.7431"/>
+            <vignetting model="pa" focal="37" aperture="8" distance="10" k1="-0.8365" k2="1.1581" k3="-0.8080"/>
+            <vignetting model="pa" focal="37" aperture="8" distance="1000" k1="-0.8365" k2="1.1581" k3="-0.8080"/>
+            <vignetting model="pa" focal="37" aperture="11" distance="10" k1="-0.7839" k2="0.8668" k3="-0.5129"/>
+            <vignetting model="pa" focal="37" aperture="11" distance="1000" k1="-0.7839" k2="0.8668" k3="-0.5129"/>
+            <vignetting model="pa" focal="37" aperture="16" distance="10" k1="-0.7313" k2="0.6077" k3="-0.2711"/>
+            <vignetting model="pa" focal="37" aperture="16" distance="1000" k1="-0.7313" k2="0.6077" k3="-0.2711"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>KMZ</maker>
         <model>Helios-40 85mm f/1.5</model>
         <mount>M39</mount>
         <mount>Sony E</mount>
@@ -234,4 +285,57 @@
             <vignetting model="pa" focal="85" aperture="22" distance="1000" k1="-0.3336" k2="0.5497" k3="-0.3824"/>
         </calibration>
     </lens>
+
+    <lens>
+        <maker>KMZ</maker>
+        <model>Industar-50-2 3.5/50</model>
+        <model lang="ru">ИНДУСТАР-50-2 3.5/50</model>
+        <mount>M42</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 7 (ICLE-7) -->
+            <distortion model="ptlens" focal="50" a="-0.00315" b="0.00702" c="-0.01166"/>
+            <tca model="poly3" focal="50" vr="0.9999629" vb="1.0000398"/>
+            <vignetting model="pa" focal="50" aperture="3.5" distance="10" k1="-1.5486" k2="1.3102" k3="-0.5054"/>
+            <vignetting model="pa" focal="50" aperture="3.5" distance="1000" k1="-1.5486" k2="1.3102" k3="-0.5054"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="10" k1="-0.8208" k2="-0.1761" k3="0.3118"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="1000" k1="-0.8208" k2="-0.1761" k3="0.3118"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="10" k1="-0.2457" k2="-0.4768" k3="0.2272"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="1000" k1="-0.2457" k2="-0.4768" k3="0.2272"/>
+            <vignetting model="pa" focal="50" aperture="8" distance="10" k1="-0.4180" k2="0.3224" k3="-0.2980"/>
+            <vignetting model="pa" focal="50" aperture="8" distance="1000" k1="-0.4180" k2="0.3224" k3="-0.2980"/>
+            <vignetting model="pa" focal="50" aperture="11" distance="10" k1="-0.4220" k2="0.2411" k3="-0.1319"/>
+            <vignetting model="pa" focal="50" aperture="11" distance="1000" k1="-0.4220" k2="0.2411" k3="-0.1319"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="10" k1="-0.4402" k2="0.2049" k3="-0.0582"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="1000" k1="-0.4402" k2="0.2049" k3="-0.0582"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>KMZ</maker>
+        <model>Jupiter-37AM MC 3.5/135</model>
+        <model lang="ru">ЮПИТЕР-37AM MC 3.5/135</model>
+        <mount>M42</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 7 (ICLE-7) -->
+            <distortion model="ptlens" focal="135" a="-0.00449" b="0.01789" c="-0.01472"/>
+            <tca model="poly3" focal="135" vr="0.9998876" vb="0.9999208"/>
+            <vignetting model="pa" focal="135" aperture="3.5" distance="10" k1="-0.8129" k2="0.4379" k3="-0.1231"/>
+            <vignetting model="pa" focal="135" aperture="3.5" distance="1000" k1="-0.8129" k2="0.4379" k3="-0.1231"/>
+            <vignetting model="pa" focal="135" aperture="4" distance="10" k1="-0.3404" k2="-0.3344" k3="0.2545"/>
+            <vignetting model="pa" focal="135" aperture="4" distance="1000" k1="-0.3404" k2="-0.3344" k3="0.2545"/>
+            <vignetting model="pa" focal="135" aperture="5.6" distance="10" k1="-0.2732" k2="0.2851" k3="-0.2178"/>
+            <vignetting model="pa" focal="135" aperture="5.6" distance="1000" k1="-0.2732" k2="0.2851" k3="-0.2178"/>
+            <vignetting model="pa" focal="135" aperture="8" distance="10" k1="-0.3211" k2="0.3207" k3="-0.1718"/>
+            <vignetting model="pa" focal="135" aperture="8" distance="1000" k1="-0.3211" k2="0.3207" k3="-0.1718"/>
+            <vignetting model="pa" focal="135" aperture="11" distance="10" k1="-0.3909" k2="0.4519" k3="-0.2439"/>
+            <vignetting model="pa" focal="135" aperture="11" distance="1000" k1="-0.3909" k2="0.4519" k3="-0.2439"/>
+            <vignetting model="pa" focal="135" aperture="16" distance="10" k1="-0.4722" k2="0.6167" k3="-0.3386"/>
+            <vignetting model="pa" focal="135" aperture="16" distance="1000" k1="-0.4722" k2="0.6167" k3="-0.3386"/>
+            <vignetting model="pa" focal="135" aperture="22" distance="10" k1="-0.5032" k2="0.6805" k3="-0.3744"/>
+            <vignetting model="pa" focal="135" aperture="22" distance="1000" k1="-0.5032" k2="0.6805" k3="-0.3744"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
