@@ -2020,6 +2020,19 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>EF35mm f/1.4L II USM (750)</model>
+        <model lang="en">Canon EF 35mm f/1.4L II USM</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.605</cropfactor>
+        <calibration>
+	    <!-- Taken with Canon EOS 7D Mark II -->
+            <distortion model="ptlens" focal="35" a="-0.00078" b="0.00402" c="-0.0076"/>
+            <tca model="poly3" focal="35" vr="1.0001674" vb="1.0000167"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon EF 35mm f/2 IS USM</model>
         <mount>Canon EF</mount>
         <cropfactor>1.005</cropfactor>
@@ -6063,5 +6076,6 @@
             <tca model="poly3" focal="105" vr="0.9997316" vb="0.9998092"/>
         </calibration>
     </lens>
+
 
 </lensdatabase>

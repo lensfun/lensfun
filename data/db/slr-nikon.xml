@@ -4337,4 +4337,23 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>200-500mm F5.6 174</model>
+	<model lang="en">Nikkor AF-S 200-500mm f/5.6E ED VR</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+	    <!-- Taken with Nikon D5200 -->
+            <distortion model="ptlens" focal="200" a="0.01845" b="-0.06595" c="0.07949"/>
+            <distortion model="ptlens" focal="300" a="-0.00704" b="0.03211" c="-0.04097"/>
+            <distortion model="ptlens" focal="400" a="0" b="0.00196" c="0"/>
+            <distortion model="ptlens" focal="500" a="0" b="0.00159" c="0"/>
+            <tca model="poly3" focal="200" vr="1.0000257" vb="0.9999549"/>
+            <tca model="poly3" focal="300" vr="0.9999355" vb="0.9999671"/>
+            <tca model="poly3" focal="400" vr="0.9998119" vb="0.9999143"/>
+            <tca model="poly3" focal="500" vr="0.9998470" vb="0.9998154"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>

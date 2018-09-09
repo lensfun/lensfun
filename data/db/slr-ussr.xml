@@ -209,4 +209,29 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>KMZ</maker>
+        <model>Helios-40 85mm f/1.5</model>
+        <mount>M39</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Sony ILCE-7RM2 (α7R II) -->
+            <!--distortion model="ptlens" focal="85" a="0.00602" b="-0.02119" c="0.01281"/-->
+    	    <distortion model="poly3" focal="85" k1="-0.0005"/>
+            <tca model="poly3" focal="85" br="-0.0000113" vr="1.0000399" bb="0.0000226" vb="0.9999277"/>
+            <vignetting model="pa" focal="85" aperture="1.5" distance="10" k1="-1.3463" k2="1.1093" k3="-0.4522"/>
+            <vignetting model="pa" focal="85" aperture="1.5" distance="1000" k1="-1.3463" k2="1.1093" k3="-0.4522"/>
+            <vignetting model="pa" focal="85" aperture="2" distance="10" k1="0.1210" k2="-1.3938" k3="0.7640"/>
+            <vignetting model="pa" focal="85" aperture="2" distance="1000" k1="0.1210" k2="-1.3938" k3="0.7640"/>
+            <vignetting model="pa" focal="85" aperture="2.8" distance="10" k1="-0.1160" k2="0.2234" k3="-0.3780"/>
+            <vignetting model="pa" focal="85" aperture="2.8" distance="1000" k1="-0.1160" k2="0.2234" k3="-0.3780"/>
+            <vignetting model="pa" focal="85" aperture="4" distance="10" k1="-0.2429" k2="0.5260" k3="-0.4397"/>
+            <vignetting model="pa" focal="85" aperture="4" distance="1000" k1="-0.2429" k2="0.5260" k3="-0.4397"/>
+            <vignetting model="pa" focal="85" aperture="5.6" distance="10" k1="-0.2369" k2="0.4137" k3="-0.3046"/>
+            <vignetting model="pa" focal="85" aperture="5.6" distance="1000" k1="-0.2369" k2="0.4137" k3="-0.3046"/>
+            <vignetting model="pa" focal="85" aperture="22" distance="10" k1="-0.3336" k2="0.5497" k3="-0.3824"/>
+            <vignetting model="pa" focal="85" aperture="22" distance="1000" k1="-0.3336" k2="0.5497" k3="-0.3824"/>
+        </calibration>
+    </lens>
 </lensdatabase>

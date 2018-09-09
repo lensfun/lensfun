@@ -176,6 +176,14 @@
         <cropfactor>2</cropfactor>
     </camera>
 
+    
+    <camera>
+        <maker>Panasonic</maker>
+        <model>DC-G9</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+    </camera>
+    
     <camera>
         <maker>Panasonic</maker>
         <model>DMC-G80</model>
@@ -987,6 +995,32 @@
             <vignetting model="pa" focal="140" aperture="22" distance="1" k1="0.0092" k2="0.0086" k3="-0.0156"/>
             <vignetting model="pa" focal="140" aperture="22" distance="3" k1="-0.0056" k2="0.0098" k3="-0.0061"/>
             <vignetting model="pa" focal="140" aperture="22" distance="1000" k1="-0.0267" k2="0.0536" k3="-0.0313"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Panasonic</maker>
+        <model>LEICA DG NOCTICRON 42.5/F1.2 </model>
+        <model lang="en">Leica DG Nocticron 42.5mm f/1.2 Asph. Power OIS</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="43" a="0.00946" b="-0.02442" c="0.00801"/>
+            <tca model="poly3" focal="43" vr="1.0000801" vb="0.9999418"/>
+            <tca model="poly3" focal="43" vr="1.0000934" vb="0.9999244"/>
+            <vignetting model="pa" focal="43" aperture="1.2" distance="10" k1="-1.0996" k2="1.0355" k3="-0.4621"/>
+            <vignetting model="pa" focal="43" aperture="1.2" distance="1000" k1="-1.0996" k2="1.0355" k3="-0.4621"/>
+            <vignetting model="pa" focal="43" aperture="1.4" distance="10" k1="-0.8536" k2="0.5817" k3="-0.2334"/>
+            <vignetting model="pa" focal="43" aperture="1.4" distance="1000" k1="-0.8536" k2="0.5817" k3="-0.2334"/>
+            <vignetting model="pa" focal="43" aperture="2" distance="10" k1="-0.0988" k2="0.1679" k3="-0.3077"/>
+            <vignetting model="pa" focal="43" aperture="2" distance="1000" k1="-0.0988" k2="0.1679" k3="-0.3077"/>
+            <vignetting model="pa" focal="43" aperture="2.8" distance="10" k1="-0.1708" k2="0.3010" k3="-0.1892"/>
+            <vignetting model="pa" focal="43" aperture="2.8" distance="1000" k1="-0.1708" k2="0.3010" k3="-0.1892"/>
+            <vignetting model="pa" focal="43" aperture="4" distance="10" k1="-0.1411" k2="0.1633" k3="-0.0857"/>
+            <vignetting model="pa" focal="43" aperture="4" distance="1000" k1="-0.1411" k2="0.1633" k3="-0.0857"/>
+            <vignetting model="pa" focal="43" aperture="16" distance="10" k1="-0.1069" k2="0.0413" k3="-0.0442"/>
+            <vignetting model="pa" focal="43" aperture="16" distance="1000" k1="-0.1069" k2="0.0413" k3="-0.0442"/>
         </calibration>
     </lens>
 
@@ -1809,6 +1843,39 @@
             <vignetting model="pa" focal="60" aperture="8" distance="1000" k1="-0.0889" k2="0.0803" k3="-0.0372"/>
             <vignetting model="pa" focal="60" aperture="22" distance="10" k1="-0.1006" k2="0.1202" k3="-0.0668"/>
             <vignetting model="pa" focal="60" aperture="22" distance="1000" k1="-0.1006" k2="0.1202" k3="-0.0668"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Panasonic</maker>
+        <model>LEICA DG 8-18/F2.8-4.0</model>
+        <model lang="en">Leica DG Vario-Elmarit 8-18mm f/2.8-4 Asph.</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="8" a="0.01817" b="-0.09703" c="0.06238"/>
+            <distortion model="ptlens" focal="9" a="0.01059" b="-0.06816" c="0.0357"/>
+            <distortion model="ptlens" focal="10" a="0.00228" b="-0.03977" c="0.02225"/>
+            <distortion model="ptlens" focal="11" a="-0.00077" b="-0.0256" c="0.01571"/>
+            <distortion model="ptlens" focal="12" a="-0.00513" b="-0.00664" c="0.00152"/>
+            <distortion model="ptlens" focal="13" a="-0.0127" b="0.01902" c="-0.0139"/>
+            <distortion model="ptlens" focal="14" a="-0.01172" b="0.01719" c="-0.00699"/>
+            <distortion model="ptlens" focal="15" a="-0.01907" b="0.04576" c="-0.03171"/>
+            <distortion model="ptlens" focal="16" a="-0.01782" b="0.04616" c="-0.03388"/>
+            <distortion model="ptlens" focal="17" a="-0.01968" b="0.0522" c="-0.03806"/>
+            <distortion model="ptlens" focal="18" a="-0.01347" b="0.035" c="-0.02218"/>
+            <tca model="poly3" focal="8" vr="1.0001199" vb="0.9999879"/>
+            <tca model="poly3" focal="9" vr="1.0000874" vb="0.9999872"/>
+            <tca model="poly3" focal="10" vr="1.0000705" vb="1.0000054"/>
+            <tca model="poly3" focal="11" vr="1.0000684" vb="1.0000136"/>
+            <tca model="poly3" focal="12" vr="1.0000504" vb="1.0000227"/>
+            <tca model="poly3" focal="13" vr="1.0000029" vb="1.0000309"/>
+            <tca model="poly3" focal="14" vr="1.0000132" vb="1.0000356"/>
+            <tca model="poly3" focal="15" vr="1.0000117" vb="1.0000473"/>
+            <tca model="poly3" focal="16" vr="1.0000168" vb="1.0000450"/>
+            <tca model="poly3" focal="17" vr="1.0000081" vb="1.0000398"/>
+            <tca model="poly3" focal="18" vr="1.0000101" vb="1.0000409"/>
         </calibration>
     </lens>
 
