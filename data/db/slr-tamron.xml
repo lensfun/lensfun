@@ -740,6 +740,32 @@
 
     <lens>
         <maker>Tamron</maker>
+        <model>Tamron AF 18-270mm F/3.5-6.3 Di II VC PZD</model>
+        <mount>Nikon F AF</mount>
+        <mount>Canon EF</mount>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+	    <!-- Taken with Nikon D5200 -->
+            <distortion model="ptlens" focal="18" a="0.03114" b="-0.09352" c="0.03527"/>
+            <distortion model="ptlens" focal="35" a="0.01296" b="-0.0183" c="0.01978"/>
+            <distortion model="ptlens" focal="55" a="0.00815" b="-0.00726" c="0.01783"/>
+            <distortion model="ptlens" focal="70" a="0.00177" b="0.01086" c="0.00346"/>
+            <distortion model="ptlens" focal="100" a="0.01658" b="-0.04948" c="0.07965"/>
+            <distortion model="ptlens" focal="220" a="0.01412" b="-0.04874" c="0.08114"/>
+            <distortion model="ptlens" focal="270" a="-0.00135" b="0.01576" c="-0.01023"/>
+            <tca model="poly3" focal="18" br="-0.0000535" vr="1.0006285" bb="-0.0000050" vb="1.0001994"/>
+            <tca model="poly3" focal="35" br="-0.0000025" vr="1.0001518" bb="-0.0000068" vb="1.0001214"/>
+            <tca model="poly3" focal="55" br="0.0000002" vr="1.0000913" bb="-0.0000334" vb="1.0001062"/>
+            <tca model="poly3" focal="70" br="-0.0000225" vr="1.0000630" bb="-0.0000155" vb="1.0000248"/>
+            <tca model="poly3" focal="100" br="-0.0000112" vr="1.0000312" bb="-0.0000918" vb="0.9999776"/>
+            <tca model="poly3" focal="220" br="-0.0000039" vr="0.9998904" bb="-0.0001444" vb="0.9993302"/>
+            <tca model="poly3" focal="270" br="0.0000270" vr="0.9997897" bb="0.0001235" vb="0.9986236"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Tamron</maker>
         <model>Tamron SP AF 90mm f/2.8 Di Macro 1:1</model>
         <mount>Nikon F AF</mount>
         <mount>Canon EF</mount>
@@ -1226,5 +1252,6 @@
             <vignetting model="pa" focal="30" aperture="11" distance="1000" k1="-0.5707" k2="0.2672" k3="-0.0974"/>
         </calibration>
     </lens>
+
 
 </lensdatabase>
