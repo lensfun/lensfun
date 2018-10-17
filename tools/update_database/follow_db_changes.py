@@ -22,6 +22,7 @@ downloaded manually by people who use Lensfun <= 0.2.8.
 """
 
 import glob, os, subprocess, calendar, json, time, tarfile, io, argparse, shutil, configparser, smtplib, textwrap
+from subprocess import DEVNULL
 from email.mime.text import MIMEText
 from lxml import etree
 from github import Github
@@ -84,18 +85,17 @@ def update_git_repository():
     except FileNotFoundError:
         os.chdir(root)
         subprocess.check_call(["git", "clone", "git://git.code.sf.net/p/lensfun/code", "lensfun-git"],
-                              stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
+                              stdout=DEVNULL, stderr=DEVNULL)
         os.chdir(root + "lensfun-git")
         db_was_updated = True
     else:
-        subprocess.check_call(["git", "fetch"], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
+        subprocess.check_call(["git", "fetch"], stdout=DEVNULL, stderr=DEVNULL)
         changed_files = subprocess.check_output(["git", "diff", "--name-only", "master..origin/master"],
-                                                stderr=open(os.devnull, "w")).decode("utf-8").splitlines()
+                                                stderr=DEVNULL).decode("utf-8").splitlines()
         db_was_updated = any(filename.startswith("data/db/") for filename in changed_files)
 
-    subprocess.check_call(["git", "checkout", "master"], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
-    subprocess.check_call(["git", "reset", "--hard", "origin/master"],
-                          stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
+    subprocess.check_call(["git", "checkout", "master"], stdout=DEVNULL, stderr=DEVNULL)
+    subprocess.check_call(["git", "reset", "--hard", "origin/master"], stdout=DEVNULL, stderr=DEVNULL)
     return db_was_updated
 
 
