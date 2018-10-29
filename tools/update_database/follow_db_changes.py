@@ -299,12 +299,12 @@ Thank you for your work so far nevertheless!
 
 
 def close_github_issues():
-    for issue in lensfun.get_issues(state="", labels=[calibration_request_label, successful_label]):
+    for issue in lensfun.get_issues(state="all", labels=[calibration_request_label, successful_label]):
         try:
             process_issue(issue, successful=True)
         except (OriginatorFileNotReadable, OSError) as error:
             issue.create_comment(str(error))
-    for issue in lensfun.get_issues(state="", labels=[calibration_request_label, unsuccessful_label]):
+    for issue in lensfun.get_issues(state="all", labels=[calibration_request_label, unsuccessful_label]):
         try:
             process_issue(issue, successful=False)
         except (OriginatorFileNotReadable, OSError) as error:
