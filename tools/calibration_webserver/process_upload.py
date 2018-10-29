@@ -416,8 +416,7 @@ def tag_image_files(file_exif_data):
                 else:
                     focal_length = format(exif_focal_length, "05.1f")
                 os.rename(filepath, os.path.join(os.path.dirname(filepath), "{}--{}mm--{}_{}".format(
-                    exif_lens_model, focal_length, exif_aperture, filename). \
-                          replace(":", "___").replace("/", "__").replace(" ", "_").replace("*", "++").replace("=", "##")))
+                    exif_lens_model, focal_length, exif_aperture, filename)))
             else:
                 logging.info("Missing EXIF data in " + filepath)
                 missing_data.append((filepath, exif_lens_model, exif_focal_length, exif_aperture))
@@ -443,11 +442,51 @@ class GithubConfiguration:
         self.calibration_request_label = self.lensfun.get_label("calibration request")
 
 
+def quote_directory(path):
+    """Walks through `path` and escapes all names of files and directories.  After
+    this operation, the directory can be safely transferred with ownCloud.
+    Moreover, Hugin will not complain about the filenames.  *Important*: This
+    function is idempotent.
+
+    :param str path: the path to the directory to be escaped
+    """
+    def quote_filename_component(name):
+        """Escapes `name` so that it can be safely used as a filename in ownCloud or
+        Hugin.  *Important*: This function is idempotent.
+
+        :param str name: the name to be escaped
+
+        :returns:
+          the escaped name
+
+        :rtype: str
+        """
+        assert "/" not in name
+        name = name.replace(":", "___").replace("/", "__").replace(" ", "_").replace("*", "++").replace("=", "##")
+        result = ""
+        for char in name:
+            if char in ';%?><|"~&':
+                result += f"{{{ord(char)}}}"
+            else:
+                result += char
+        return result
+
+    for root, dirnames, filenames in os.walk(path, topdown=False):
+        for filename in filenames + dirnames:
+            quoted_filename = quote_filename_component(filename)
+            if quoted_filename != filename:
+                os.rename(os.path.join(root, filename), os.path.join(root, quoted_filename))
+    quoted_path = "/".join(quote_filename_component(component) for component in path.split("/"))
+    if quoted_path != path:
+        os.rename(path, quoted_path)
+
+
 logging.info("Started process_upload with arguments: {}".format(sys.argv[1:]))
 operation = sys.argv[1]
 if operation == "initial":
     filepath = sys.argv[2]
     directory = os.path.abspath(os.path.dirname(filepath))
+    quote_directory(directory)
     upload_id = os.path.basename(directory)
     try:
         cache_dir = os.path.join(config["General"]["cache_root"], upload_id)
@@ -465,6 +504,7 @@ if operation == "initial":
     logging.info("Successfully exited process_upload")
 elif operation == "amended":
     directory = sys.argv[2]
+    quote_directory(directory)
     upload_id = os.path.basename(directory)
     try:
         email_address = json.load(open(os.path.join(directory, "originator.json")))

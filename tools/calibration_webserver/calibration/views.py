@@ -208,8 +208,7 @@ def show_issues(request, id_):
                 filepath = data[0]
                 filename = os.path.basename(filepath)
                 os.rename(filepath, os.path.join(os.path.dirname(filepath), "{}--{}mm--{}_{}".format(
-                    lens_model_name.replace("*", "++").replace("=", "##").replace(":", "___").replace("/", "__").replace(" ", "_"),
-                    focal_length, aperture, filename)))
+                    lens_model_name, focal_length, aperture, filename)))
             json.dump((None, []), open(os.path.join(directory, "result.json"), "w"), ensure_ascii=True)
             shutil.rmtree(os.path.join(cache_root, id_))
             spawn_daemon("/usr/bin/env", "python3",

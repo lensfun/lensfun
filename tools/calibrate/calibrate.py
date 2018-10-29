@@ -40,6 +40,25 @@ parser.add_argument("--complex-tca", action="store_true", help="switches on non-
 args = parser.parse_args()
 
 
+def unquote_filename_component(name):
+    """Unescapes `name` so that special escaping is replaced by the actual
+    characters.  This undoes the work of
+    `tools.calibration_webserver.process_upload.quote_directory` (or more
+    accurately, the ``quote_filename_component`` function therein).
+
+    :param str name: the name to be unescaped
+
+    :returns:
+      the unescaped name
+
+    :rtype: str
+    """
+    assert "/" not in name
+    name = re.sub(r"\{(\d+)\}", lambda match: chr(int(match.group(1))), name)
+    name = name.replace("##", "=").replace("++", "*").replace("___", ":").replace("__", "/").replace("_", " ")
+    return name
+
+
 @contextlib.contextmanager
 def chdir(dirname=None):
     curdir = os.getcwd()
@@ -127,8 +146,8 @@ def browse_directory(directory):
                 match = filepath_pattern.match(os.path.splitext(filename)[0])
                 if match:
                     file_exif_data[full_filename] = \
-                        (match.group("lens_model").replace("##", "=").replace("++", "*").replace("___", ":").replace("__", "/").
-                         replace("_", " "), float(match.group("focal_length")), float(match.group("aperture")))
+                        (unquote_filename_component(match.group("lens_model")),
+                         float(match.group("focal_length")), float(match.group("aperture")))
                 else:
                     exiv2_candidates.append(full_filename)
 browse_directory("distortion")
