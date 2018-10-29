@@ -24,7 +24,8 @@ float trunc (float x)
 #define unlink _unlink
 #else
 #include <unistd.h>
-#include <math.h>
+#define _USE_MATH_DEFINES
+#include <cmath>
 #endif
 
 // A support of 3 gives an overall sharper looking image, but
