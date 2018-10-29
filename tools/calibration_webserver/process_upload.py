@@ -94,8 +94,7 @@ def send_success_email(issue_link):
 
     :type issue_link: str
     """
-    send_email(email_address, "Your calibration upload " + upload_id,
-               """Hi!
+    send_email(email_address, "Your calibration upload " + upload_id, """Hi!
 
 Thank you for your images upload!  You can follow progress on GitHub
 at <{}>.  If you
