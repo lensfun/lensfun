@@ -502,8 +502,8 @@ if operation == "initial":
         missing_data = tag_image_files(file_exif_data)
         write_result_and_exit(None, missing_data)
     except Exception as error:
-        logging.critical(repr(error))
-        send_email(admin, "Error in calibration upload " + upload_id, repr(error))
+        logging.critical(str(error))
+        send_email(admin, "Error in calibration upload " + upload_id, str(error))
     logging.info("Successfully exited process_upload")
 elif operation == "amended":
     directory = sys.argv[2]
@@ -514,8 +514,8 @@ elif operation == "amended":
         github = GithubConfiguration()
         handle_successful_upload()
     except Exception as error:
-        logging.critical(repr(error))
-        send_email(admin, "Error in calibration upload " + upload_id, repr(error))
+        logging.critical(str(error))
+        send_email(admin, "Error in calibration upload " + upload_id, str(error))
     logging.info("Successfully exited process_upload")
 else:
     logging.critical("Invalid operation")
