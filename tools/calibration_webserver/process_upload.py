@@ -202,9 +202,12 @@ def extract_archive():
         else:
             # Must be ZIP (else, fail)
             subprocess.check_call(["unzip", filepath, "-d", directory])
-    except subprocess.CalledProcessError:
+    except subprocess.CalledProcessError as error:
         write_result_and_exit("I could not unpack your file.  Supported file formats:\n"
                               ".gz, .tgz, .bz2, .tbz2, .tb2, .xz, .txz, .tar, .rar, .7z, .zip.")
+        send_email(admin, "Error when extracting calibration upload " + upload_id,
+                   "Error: {}\n\ndirectory: {}\nfilepath: {}".format(
+                       error, directory, filepath))
     os.remove(filepath)
     for filename, contents in protected_files.items():
         path = os.path.join(directory, filename)
