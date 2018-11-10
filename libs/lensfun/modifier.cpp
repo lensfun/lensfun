@@ -242,7 +242,7 @@ int lf_modifier_enable_scaling (lfModifier *modifier, float scale)
     return modifier->EnableScaling(scale);
 }
 
-int lf_modifier_get_mod_flags()
+int lf_modifier_get_mod_flags (lfModifier *modifier)
 {
     return modifier->GetModFlags();
 }

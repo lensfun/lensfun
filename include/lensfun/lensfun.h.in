@@ -3100,7 +3100,7 @@ LF_EXPORT int lf_modifier_enable_perspective_correction (
     lfModifier *modifier, const lfLens* lens, float focal, float *x, float *y, int count, float d);
 
 /** @sa lfModifier::GetModFlags */
-LF_EXPORT float lf_modifier_get_mod_flags ();
+LF_EXPORT int lf_modifier_get_mod_flags (lfModifier *modifier);
 
 /** @sa lfModifier::GetAutoScale */
 LF_EXPORT float lf_modifier_get_auto_scale (
