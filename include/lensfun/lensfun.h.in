@@ -1152,8 +1152,6 @@ struct LF_EXPORT lfLens
      * this function returns.
      * @param lcd
      *     The distortion calibration structure.
-     * @param lcattr
-     *     The calibration attributes structure.
      */
     void AddCalibDistortion (const lfLensCalibDistortion *lcd);
 
@@ -1172,8 +1170,6 @@ struct LF_EXPORT lfLens
      * this function returns.
      * @param lctca
      *     The transversal chromatic aberration calibration structure.
-     * @param lcattr
-     *     The calibration attributes structure.
      */
     void AddCalibTCA (const lfLensCalibTCA *lctca);
 
@@ -1191,8 +1187,6 @@ struct LF_EXPORT lfLens
      * this function returns.
      * @param lcv
      *     The vignetting calibration structure.
-     * @param lcattr
-     *     The calibration attributes structure.
      */
     void AddCalibVignetting (const lfLensCalibVignetting *lcv);
 
@@ -1210,8 +1204,6 @@ struct LF_EXPORT lfLens
      * this function returns.
      * @param lcc
      *     The lens crop structure.
-     * @param lcattr
-     *     The calibration attributes structure.
      */
     void AddCalibCrop (const lfLensCalibCrop *lcc);
 
@@ -1232,8 +1224,6 @@ struct LF_EXPORT lfLens
      * this function returns.
      * @param lcf
      *     The lens fov structure.
-     * @param lcattr
-     *     The calibration attributes structure.
      */
     DEPRECATED void AddCalibFov (const lfLensCalibFov *lcf);
 
