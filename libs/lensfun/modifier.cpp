@@ -180,6 +180,12 @@ int lfModifier::EnableScaling (float scale)
     return enabledMods;
 }
 
+
+int lfModifier::GetModFlags()
+{
+    return enabledMods;
+}
+
 lfModifier::~lfModifier ()
 {
     for (auto cb : CoordCallbacks)
@@ -234,4 +240,9 @@ int lf_modifier_initialize (
 int lf_modifier_enable_scaling (lfModifier *modifier, float scale)
 {
     return modifier->EnableScaling(scale);
+}
+
+int lf_modifier_get_mod_flags()
+{
+    return modifier->GetModFlags();
 }

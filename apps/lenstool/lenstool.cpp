@@ -476,33 +476,42 @@ int main (int argc, char **argv)
         delete img;
         delete ldb;
         return -1;
-    }
-    int modflags = 0;
+    }    
 
     // Enable desired modifications
     if (opts.ModifyFlags & LF_MODIFY_TCA)
-        modflags |= mod->EnableTCACorrection(lens, opts.Focal);
-    if (modflags & LF_MODIFY_VIGNETTING)
-        modflags |= mod->EnableVignettingCorrection(lens, opts.Focal, opts.Aperture, opts.Distance);
-    if (modflags & LF_MODIFY_DISTORTION)
-        modflags |= mod->EnableDistortionCorrection(lens, opts.Focal);
-    if (modflags & LF_MODIFY_GEOMETRY)
-        modflags |= mod->EnableProjectionTransform(lens, opts.Focal, opts.TargetGeom);
+        mod->EnableTCACorrection(lens, opts.Focal);
+
+    if (opts.ModifyFlags & LF_MODIFY_VIGNETTING)
+        mod->EnableVignettingCorrection(lens, opts.Focal, opts.Aperture, opts.Distance);
+
+    if (opts.ModifyFlags & LF_MODIFY_DISTORTION)
+        mod->EnableDistortionCorrection(lens, opts.Focal);
+
+    if (opts.ModifyFlags & LF_MODIFY_GEOMETRY)
+        mod->EnableProjectionTransform(lens, opts.Focal, opts.TargetGeom);
+
     if (opts.Scale != 1.0)
-        modflags |= mod->EnableScaling(opts.Scale);
+        mod->EnableScaling(opts.Scale);
 
     // Check if modifications could have been enabled
     g_print("~ Selected modifications: ");
+    const int modflags = mod->GetModFlags();
     if (modflags & LF_MODIFY_TCA)
         g_print ("[tca]");
-    if (modflags & LF_MODIFY_VIGNETTING)
+
+    if (modflags & LF_MODIFY_VIGNETTING)        
         g_print ("[vign]");
+
     if (modflags & LF_MODIFY_DISTORTION)
         g_print ("[dist]");
+
     if (modflags & LF_MODIFY_GEOMETRY)
         g_print ("[geom]");
+
     if (opts.Scale != 1.0)
         g_print ("[scale]");
+
     if (modflags==0)
         g_print ("[NOTHING]");
     g_print ("\n");
