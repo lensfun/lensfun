@@ -71,6 +71,7 @@ lfLens::lfLens (const lfLens &other)
 
     for (auto *calibset : other.Calibrations)
         Calibrations.push_back(new lfLensCalibrationSet(*calibset));
+    _lf_terminate_vec(Calibrations);
 
     // Copy legacy lens attributes
     CenterX = other.CenterX;
@@ -104,6 +105,7 @@ lfLens &lfLens::operator = (const lfLens &other)
     Calibrations.clear();
     for (auto *calibset : other.Calibrations)
         Calibrations.push_back(new lfLensCalibrationSet(*calibset));
+    _lf_terminate_vec(Calibrations);
 
     // Copy legacy lens attributes
     CenterX = other.CenterX;
@@ -645,6 +647,7 @@ lfLensCalibrationSet* lfLens::GetCalibrationSetForAttributes(const lfLensCalibAt
         if (Calibrations.empty())
             Calibrations.emplace_back(new lfLensCalibrationSet(lcattr));
         _lf_terminate_vec(Calibrations);
+
         Calibrations[0]->Attributes.CropFactor = CropFactor;
         Calibrations[0]->Attributes.AspectRatio = AspectRatio;
         Calibrations[0]->Attributes.CenterX = CenterX;
