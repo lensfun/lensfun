@@ -216,6 +216,14 @@
         <mount>sonyRX100III</mount>
         <cropfactor>2.73</cropfactor>
     </camera>
+    
+    <camera>
+        <maker>Sony</maker>
+        <model>DSC-RX100M6</model>
+        <model lang="en">RX100 VI</model>
+        <mount>sonyRX100VI</model>
+        <cropfactor>2.73</cropfactor>
+    </camera>
 
     <camera>
         <maker>Sony</maker>
@@ -1156,6 +1164,28 @@
             <tca model="poly3" focal="16.6" br="0.0000075" vr="1.0002936" bb="-0.0000085" vb="1.0000657"/>
             <tca model="poly3" focal="20" br="-0.0000081" vr="1.0003041" bb="0.0000035" vb="1.0000616"/>
             <tca model="poly3" focal="25.7" br="-0.0000121" vr="1.0002604" bb="0.0000035" vb="1.0000797"/>
+        </calibration>
+    </lens>
+    
+    <lens>
+        <maker>Sony</maker>
+        <model>Standard</model>
+        <mount>sonyRX100VI</mount>
+        <cropfactor>2.73</cropfactor>
+        <aspect-ratio>3:2</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="9" a="0.05" b="-0.177" c="0.049"/>
+            <distortion model="ptlens" focal="12" a="0.019" b="-0.07" c="0.007"/>
+            <distortion model="ptlens" focal="14.4" a="-0.012" b="0.049" c="-0.096"/>
+            <distortion model="ptlens" focal="20.3" a="0.021" b="-0.046" c="0.026"/>
+            <distortion model="ptlens" focal="21.1" a="0.008" b="-0.02" c="0.029"/>
+            <distortion model="ptlens" focal="29.7" a="-0.003" b="0.039" c="-0.045"/>
+            <distortion model="ptlens" focal="30.9" a="0.018" b="-0.03" c="0.027"/>
+            <distortion model="ptlens" focal="32.1" a="-0.021" b="0.095" c="-0.098"/>
+            <distortion model="ptlens" focal="41.9" a="-0.024" b="0.079" c="-0.05"/>
+            <distortion model="ptlens" focal="45.2" a="0.035" b="-0.097" c="0.125"/>
+            <distortion model="ptlens" focal="71" a="-0.034" b="0.142" c="-0.132"/>
+            <distortion model="ptlens" focal="72" a="-0.004" b="0.034" c="-0.01"/>
         </calibration>
     </lens>
 
