@@ -11,7 +11,7 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 config = configparser.ConfigParser()
-config.read(os.path.expanduser("~/calibration_webserver.ini"))
+assert config.read(os.path.expanduser("~/calibration_webserver.ini"))
 
 ADMINS = (
     (config["General"]["admin_name"], config["General"]["admin_email"]),
@@ -19,9 +19,9 @@ ADMINS = (
 
 EMAIL_HOST = config["SMTP"]["machine"]
 EMAIL_PORT = config["SMTP"]["port"]
-EMAIL_HOST_USER = config["SMTP"]["login"]
-EMAIL_HOST_PASSWORD = config["SMTP"]["password"]
-EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config["SMTP"].get("login")
+EMAIL_HOST_PASSWORD = config["SMTP"].get("password")
+EMAIL_USE_TLS = config["SMTP"].get("TLS", "off").lower() in {"on", "true", "yes"}
 DEFAULT_FROM_EMAIL = config["General"]["admin_email"]
 
 #TEST_RUNNER = "django.test.runner.DiscoverRunner"

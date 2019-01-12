@@ -48,12 +48,15 @@ body {
 }
 
 #top-navigation li {
-  float:right;
   list-style: none;
-  margin: 0; 
+  margin: 0;
   padding:0;
   padding-right: 0.5em;
   margin-left:1.3em;
+}
+
+#top-navigation > ul > li {
+  float:right;
   border-right: 0.1em solid white;
 }
 
@@ -126,7 +129,7 @@ strong {
 
 a:link {
   background:transparent;
-  text-decoration:none;  
+  text-decoration:none;
   color:#ffffff;
 }
 a:visited {

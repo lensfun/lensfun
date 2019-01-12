@@ -9,11 +9,11 @@
 
 lfCamera::lfCamera ()
 {
-    // Defaults for attributes are "unknown" (mostly 0).  Otherwise, ad hoc
-    // lfLens instances used for searches could not be matched against database
-    // lenses easily.  If you need defaults for database tags, set them when
-    // reading the database.
-    memset (this, 0, sizeof (*this));
+    Maker = NULL;
+    Model = NULL;
+    Variant = NULL;
+    Mount = NULL;
+    CropFactor = 0.0f;
 }
 
 lfCamera::~lfCamera ()
@@ -81,6 +81,11 @@ lfCamera *lf_camera_new ()
     return new lfCamera ();
 }
 
+lfCamera *lf_camera_create ()
+{
+    return new lfCamera ();
+}
+
 void lf_camera_destroy (lfCamera *camera)
 {
     delete camera;
@@ -94,20 +99,4 @@ void lf_camera_copy (lfCamera *dest, const lfCamera *source)
 cbool lf_camera_check (lfCamera *camera)
 {
     return camera->Check ();
-}
-
-gint _lf_camera_compare (gconstpointer a, gconstpointer b)
-{
-    lfCamera *i1 = (lfCamera *)a;
-    lfCamera *i2 = (lfCamera *)b;
-
-    int cmp = _lf_strcmp (i1->Maker, i2->Maker);
-    if (cmp != 0)
-        return cmp;
-
-    cmp = _lf_strcmp (i1->Model, i2->Model);
-    if (cmp != 0)
-        return cmp;
-
-    return _lf_strcmp (i1->Variant, i2->Variant);
 }

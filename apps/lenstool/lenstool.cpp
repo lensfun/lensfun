@@ -57,7 +57,7 @@ static struct
     0,
     0,
     0,
-    1.0f,
+    1000.0f,
     Image::I_LANCZOS,
     LF_RECTILINEAR,
     NULL,
@@ -437,8 +437,6 @@ int main (int argc, char **argv)
     // assume standard values if parameters are not specified
     if (cam)
         opts.Crop = cam->CropFactor;
-    else if (!opts.Crop)
-        opts.Crop = lens->CropFactor;    
     if (!opts.Focal)
         opts.Focal = lens->MinFocal;
     if (!opts.Aperture)
@@ -472,29 +470,48 @@ int main (int argc, char **argv)
     }
     g_print ("done.\n~ Image size [%ux%u].\n", img->width, img->height);
 
-    lfModifier *mod = new lfModifier (lens, opts.Crop, img->width, img->height);
+    lfModifier *mod = new lfModifier (opts.Crop, img->width, img->height, LF_PF_U8, opts.Inverse);
     if (!mod) {
         g_print ("\rWarning: failed to create modifier\n");
         delete img;
         delete ldb;
         return -1;
-    }
-    int modflags = mod->Initialize (
-        lens, LF_PF_U8, opts.Focal,
-        opts.Aperture, opts.Distance, opts.Scale, opts.TargetGeom,
-        opts.ModifyFlags, opts.Inverse);
+    }    
 
+    // Enable desired modifications
+    if (opts.ModifyFlags & LF_MODIFY_TCA)
+        mod->EnableTCACorrection(lens, opts.Focal);
+
+    if (opts.ModifyFlags & LF_MODIFY_VIGNETTING)
+        mod->EnableVignettingCorrection(lens, opts.Focal, opts.Aperture, opts.Distance);
+
+    if (opts.ModifyFlags & LF_MODIFY_DISTORTION)
+        mod->EnableDistortionCorrection(lens, opts.Focal);
+
+    if (opts.ModifyFlags & LF_MODIFY_GEOMETRY)
+        mod->EnableProjectionTransform(lens, opts.Focal, opts.TargetGeom);
+
+    if (opts.Scale != 1.0)
+        mod->EnableScaling(opts.Scale);
+
+    // Check if modifications could have been enabled
     g_print("~ Selected modifications: ");
+    const int modflags = mod->GetModFlags();
     if (modflags & LF_MODIFY_TCA)
         g_print ("[tca]");
-    if (modflags & LF_MODIFY_VIGNETTING)
+
+    if (modflags & LF_MODIFY_VIGNETTING)        
         g_print ("[vign]");
+
     if (modflags & LF_MODIFY_DISTORTION)
         g_print ("[dist]");
+
     if (modflags & LF_MODIFY_GEOMETRY)
         g_print ("[geom]");
+
     if (opts.Scale != 1.0)
         g_print ("[scale]");
+
     if (modflags==0)
         g_print ("[NOTHING]");
     g_print ("\n");

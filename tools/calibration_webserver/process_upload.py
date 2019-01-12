@@ -29,10 +29,13 @@ background, it processes the uploaded archive while the user is presented a
 success message in their browser.
 """
 
-import hashlib, sys, os, subprocess, json, re, multiprocessing, smtplib, configparser
+import sys, os, subprocess, json, re, multiprocessing, smtplib, configparser, logging
 from email.mime.text import MIMEText
 from github import Github
-from calibration_webserver import owncloud
+from calibration_webserver import owncloud, utils
+
+
+logging.basicConfig(level=logging.DEBUG, filename="/var/log/process_upload.log")
 
 
 config = configparser.ConfigParser()
@@ -53,13 +56,16 @@ def send_email(to, subject, body):
     :type subject: str
     :type body: str
     """
+    logging.debug("Send mail with subject “{}”".format(subject))
     message = MIMEText(body)
     message["Subject"] = subject
     message["From"] = admin
     message["To"] = to
     smtp_connection = smtplib.SMTP(config["SMTP"]["machine"], config["SMTP"]["port"])
-    smtp_connection.starttls()
-    smtp_connection.login(config["SMTP"]["login"], config["SMTP"]["password"])
+    if config["SMTP"].get("TLS", "off").lower() in {"on", "true", "yes"}:
+        smtp_connection.starttls()
+    if "login" in config["SMTP"]:
+        smtp_connection.login(config["SMTP"]["login"], config["SMTP"]["password"])
     smtp_connection.sendmail(admin, [to, config["General"]["admin_email"]], message.as_string())
 
 
@@ -88,8 +94,7 @@ def send_success_email(issue_link):
 
     :type issue_link: str
     """
-    send_email(email_address, "Your calibration upload " + upload_id,
-               """Hi!
+    send_email(email_address, "Your calibration upload " + upload_id, """Hi!
 
 Thank you for your images upload!  You can follow progress on GitHub
 at <{}>.  If you
@@ -197,9 +202,12 @@ def extract_archive():
         else:
             # Must be ZIP (else, fail)
             subprocess.check_call(["unzip", filepath, "-d", directory])
-    except subprocess.CalledProcessError:
+    except subprocess.CalledProcessError as error:
         write_result_and_exit("I could not unpack your file.  Supported file formats:\n"
                               ".gz, .tgz, .bz2, .tbz2, .tb2, .xz, .txz, .tar, .rar, .7z, .zip.")
+        send_email(admin, "Error when extracting calibration upload " + upload_id,
+                   "Error: {}\n\ndirectory: {}\nfilepath: {}".format(
+                       error, directory, filepath))
     os.remove(filepath)
     for filename, contents in protected_files.items():
         path = os.path.join(directory, filename)
@@ -219,7 +227,8 @@ class InvalidRaw(Exception):
 
 
 invalid_lens_model_name_pattern = re.compile(r"^\(\d+\)$|, | or |\||manual lens|unknown", re.IGNORECASE)
-"""Lens model names which must be assumed to be invalid like “(234)”."""
+"""Lens model names which must be assumed to be invalid like “(234)”.
+"""
 
 
 def call_exiv2(raw_file_group):
@@ -251,7 +260,7 @@ def call_exiv2(raw_file_group):
     elif exiv2_process.returncode == 1:
         raise InvalidRaw("""I could not read some of your RAW files.\nI attach the error output of exiv2:\n\n"""
                          + error.decode("utf-8").replace(directory + "/", ""))
-    result = {}
+    result = {filepath: [None, None, None, float("nan"), float("nan")] for filepath in raw_file_group}
     for line in output.splitlines():
         # Sometimes, values have trailing rubbish
         line = line.partition(b"\x00")[0].decode("utf-8")
@@ -288,7 +297,7 @@ def call_exiv2(raw_file_group):
             continue
         else:
             field_value = field_value.strip()
-        exif_data = result.setdefault(filepath, [None, None, None, float("nan"), float("nan")])
+        exif_data = result[filepath]
         if fieldname == "Make":
             exif_data[0] = field_value
         elif fieldname == "Model":
@@ -379,26 +388,6 @@ def check_data(file_exif_data):
         write_result_and_exit("Multiple camera models found.")
 
 
-def generate_thumbnail(raw_filepath):
-    """Generates a thumbnail for the given image.  The thumbnail is written into
-    the cache dir, given by ``cache_root`` in the INI file.  This is a helper
-    routine for `tag_image_files` in order to make the thumbnail generation
-    parallel.
-
-    :param raw_filepath: filepath of the RAW image file
-
-    :type raw_filepath: str
-    """
-    hash_ = hashlib.sha1()
-    hash_.update(raw_filepath.encode("utf-8"))
-    out_filepath = os.path.join(cache_dir, hash_.hexdigest() + ".jpeg")
-    if os.path.splitext(raw_filepath)[1].lower() in [".jpeg", ".jpg"]:
-        subprocess.Popen(["convert", raw_filepath, "-resize", "131072@", out_filepath]).wait()
-    else:
-        dcraw = subprocess.Popen(["dcraw", "-h", "-T", "-c", raw_filepath], stdout=subprocess.PIPE)
-        subprocess.Popen(["convert", "-", "-resize", "131072@", out_filepath], stdin=dcraw.stdout).wait()
-
-
 def tag_image_files(file_exif_data):
     """Renames the image files so that essential EXIF data is in the filename.
     Moreover, this function collects files with missing EXIF data, creates
@@ -424,14 +413,15 @@ def tag_image_files(file_exif_data):
         exif_lens_model, exif_focal_length, exif_aperture = exif_data[2:]
         if not filepath_pattern.match(os.path.splitext(os.path.basename(filepath))[0]):
             if exif_lens_model and exif_focal_length and exif_aperture:
+                logging.debug("All EXIF data found in " + filepath)
                 if exif_focal_length == int(exif_focal_length):
                     focal_length = format(int(exif_focal_length), "03")
                 else:
                     focal_length = format(exif_focal_length, "05.1f")
                 os.rename(filepath, os.path.join(os.path.dirname(filepath), "{}--{}mm--{}_{}".format(
-                    exif_lens_model, focal_length, exif_aperture, filename). \
-                          replace(":", "___").replace("/", "__").replace(" ", "_").replace("*", "++").replace("=", "##")))
+                    exif_lens_model, focal_length, exif_aperture, filename)))
             else:
+                logging.info("Missing EXIF data in " + filepath)
                 missing_data.append((filepath, exif_lens_model, exif_focal_length, exif_aperture))
     if missing_data:
         try:
@@ -439,7 +429,7 @@ def tag_image_files(file_exif_data):
         except FileExistsError:
             pass
         pool = multiprocessing.Pool()
-        pool.map(generate_thumbnail, [data[0] for data in missing_data])
+        pool.starmap(utils.generate_thumbnail, [(data[0], cache_dir) for data in missing_data])
         pool.close()
         pool.join()
     return missing_data
@@ -455,10 +445,51 @@ class GithubConfiguration:
         self.calibration_request_label = self.lensfun.get_label("calibration request")
 
 
+def quote_directory(path):
+    """Walks through `path` and escapes all names of files and directories.  After
+    this operation, the directory can be safely transferred with ownCloud.
+    Moreover, Hugin will not complain about the filenames.  *Important*: This
+    function is idempotent.
+
+    :param str path: the path to the directory to be escaped
+    """
+    def quote_filename_component(name):
+        """Escapes `name` so that it can be safely used as a filename in ownCloud or
+        Hugin.  *Important*: This function is idempotent.
+
+        :param str name: the name to be escaped
+
+        :returns:
+          the escaped name
+
+        :rtype: str
+        """
+        assert "/" not in name
+        name = name.replace(":", "___").replace("/", "__").replace(" ", "_").replace("*", "++").replace("=", "##")
+        result = ""
+        for char in name:
+            if char in ';%?><|"~&':
+                result += f"{{{ord(char)}}}"
+            else:
+                result += char
+        return result
+
+    for root, dirnames, filenames in os.walk(path, topdown=False):
+        for filename in filenames + dirnames:
+            quoted_filename = quote_filename_component(filename)
+            if quoted_filename != filename:
+                os.rename(os.path.join(root, filename), os.path.join(root, quoted_filename))
+    quoted_path = "/".join(quote_filename_component(component) for component in path.split("/"))
+    if quoted_path != path:
+        os.rename(path, quoted_path)
+
+
+logging.info("Started process_upload with arguments: {}".format(sys.argv[1:]))
 operation = sys.argv[1]
 if operation == "initial":
     filepath = sys.argv[2]
     directory = os.path.abspath(os.path.dirname(filepath))
+    quote_directory(directory)
     upload_id = os.path.basename(directory)
     try:
         cache_dir = os.path.join(config["General"]["cache_root"], upload_id)
@@ -471,15 +502,21 @@ if operation == "initial":
         missing_data = tag_image_files(file_exif_data)
         write_result_and_exit(None, missing_data)
     except Exception as error:
-        send_email(admin, "Error in calibration upload " + upload_id, repr(error))
+        logging.critical(str(error))
+        send_email(admin, "Error in calibration upload " + upload_id, str(error))
+    logging.info("Successfully exited process_upload")
 elif operation == "amended":
     directory = sys.argv[2]
+    quote_directory(directory)
     upload_id = os.path.basename(directory)
     try:
         email_address = json.load(open(os.path.join(directory, "originator.json")))
         github = GithubConfiguration()
         handle_successful_upload()
     except Exception as error:
-        send_email(admin, "Error in calibration upload " + upload_id, repr(error))
+        logging.critical(str(error))
+        send_email(admin, "Error in calibration upload " + upload_id, str(error))
+    logging.info("Successfully exited process_upload")
 else:
+    logging.critical("Invalid operation")
     raise Exception("Invalid operation")

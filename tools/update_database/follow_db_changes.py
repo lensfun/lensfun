@@ -22,6 +22,7 @@ downloaded manually by people who use Lensfun <= 0.2.8.
 """
 
 import glob, os, subprocess, calendar, json, time, tarfile, io, argparse, shutil, configparser, smtplib, textwrap
+from subprocess import DEVNULL
 from email.mime.text import MIMEText
 from lxml import etree
 from github import Github
@@ -35,7 +36,7 @@ parser.add_argument("--upload", action="store_true", help="Upload the files to S
 args = parser.parse_args()
 
 config = configparser.ConfigParser()
-config.read(os.path.expanduser("~/calibration_webserver.ini"))
+assert config.read(os.path.expanduser("~/calibration_webserver.ini")), os.path.expanduser("~/calibration_webserver.ini")
 
 github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
 lensfun = github.get_organization("lensfun").get_repo("lensfun")
@@ -84,18 +85,17 @@ def update_git_repository():
     except FileNotFoundError:
         os.chdir(root)
         subprocess.check_call(["git", "clone", "git://git.code.sf.net/p/lensfun/code", "lensfun-git"],
-                              stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
+                              stdout=DEVNULL, stderr=DEVNULL)
         os.chdir(root + "lensfun-git")
         db_was_updated = True
     else:
-        subprocess.check_call(["git", "fetch"], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
+        subprocess.check_call(["git", "fetch"], stdout=DEVNULL, stderr=DEVNULL)
         changed_files = subprocess.check_output(["git", "diff", "--name-only", "master..origin/master"],
-                                                stderr=open(os.devnull, "w")).decode("utf-8").splitlines()
+                                                stderr=DEVNULL).decode("utf-8").splitlines()
         db_was_updated = any(filename.startswith("data/db/") for filename in changed_files)
 
-    subprocess.check_call(["git", "checkout", "master"], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
-    subprocess.check_call(["git", "reset", "--hard", "origin/master"],
-                          stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
+    subprocess.check_call(["git", "checkout", "master"], stdout=DEVNULL, stderr=DEVNULL)
+    subprocess.check_call(["git", "reset", "--hard", "origin/master"], stdout=DEVNULL, stderr=DEVNULL)
     return db_was_updated
 
 
@@ -221,8 +221,10 @@ def send_email(to, subject, body):
     message["From"] = admin
     message["To"] = to
     smtp_connection = smtplib.SMTP(config["SMTP"]["machine"], config["SMTP"]["port"])
-    smtp_connection.starttls()
-    smtp_connection.login(config["SMTP"]["login"], config["SMTP"]["password"])
+    if config["SMTP"].get("TLS", "off").lower() in {"on", "true", "yes"}:
+        smtp_connection.starttls()
+    if "login" in config["SMTP"]:
+        smtp_connection.login(config["SMTP"]["login"], config["SMTP"]["password"])
     smtp_connection.sendmail(admin, [to, config["General"]["admin_email"]], message.as_string())
 
 
@@ -297,12 +299,12 @@ Thank you for your work so far nevertheless!
 
 
 def close_github_issues():
-    for issue in lensfun.get_issues(state="", labels=[calibration_request_label, successful_label]):
+    for issue in lensfun.get_issues(state="all", labels=[calibration_request_label, successful_label]):
         try:
             process_issue(issue, successful=True)
         except (OriginatorFileNotReadable, OSError) as error:
             issue.create_comment(str(error))
-    for issue in lensfun.get_issues(state="", labels=[calibration_request_label, unsuccessful_label]):
+    for issue in lensfun.get_issues(state="all", labels=[calibration_request_label, unsuccessful_label]):
         try:
             process_issue(issue, successful=False)
         except (OriginatorFileNotReadable, OSError) as error:
