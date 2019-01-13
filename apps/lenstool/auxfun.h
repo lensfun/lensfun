@@ -9,7 +9,7 @@ static float _atof (const char *s)
     if (end && *end)
     {
         g_print ("ERROR: Invalid number `%s', parsed as %g\n", s, r);
-        g_print ("Use your locale-specific number format (e.g. ',' or '.' etc)\n");
+        g_print ("%s", "Use your locale-specific number format (e.g. ',' or '.' etc)\n");
         exit (-1);
     }
     return r;
@@ -44,7 +44,7 @@ static void PrintCamera (const lfCamera *camera, const lfDatabase *ldb)
     g_print ("    |- Crop factor: %g\n", camera->CropFactor);
 }
 
-static void PrintLens (const lfLens *lens, const lfDatabase *ldb)
+static void PrintLens (const lfLens *lens, const lfDatabase *ldb, bool verbose = false)
 {
     g_print ("  %s / %s\n",
              lf_mlstr_get (lens->Maker),
@@ -60,32 +60,47 @@ static void PrintLens (const lfLens *lens, const lfDatabase *ldb)
     else
 	g_print ("    |- Aperture: f/%g\n", lens->MinAperture);
 
-    g_print ("    |- Compatible mounts: ");
+    g_print ("%s", "    |- Compatible mounts: ");
     const char* const* lm = lens->GetMountNames();
     if (lm)
 	for (int j = 0; lm[j]; j++)
 	    g_print ("%s, ", ldb->MountName(lm[j]));
-    g_print ("\n");
+    g_print ("%s", "\n");
 
-    g_print ("    |- Calibration data:\n");
-    const lfLensCalibrationSet* const* calibrations = lens->GetCalibrationSets();
-    if (calibrations)
+    g_print ("%s", "    |- Calibrations: [");
+
+    int calibFlags = lens->AvailableModifications(-1.0f);
+
+    if (calibFlags & LF_MODIFY_TCA)
+        g_print ("%s", "tca, ");
+    if (calibFlags & LF_MODIFY_VIGNETTING)
+        g_print ("%s", "vign, ");
+    if (calibFlags & LF_MODIFY_DISTORTION)
+        g_print ("%s", "dist,");
+    g_print ("%s", "]\n");
+
+    if (verbose)
     {
-	for (int j = 0; calibrations[j] != NULL; j++)
-	{
-	    g_print ("       |- Crop %g, Aspect ratio %g, Center %g/%g, [",
-	             calibrations[j]->Attributes.CropFactor,
-	             calibrations[j]->Attributes.AspectRatio,
-	             calibrations[j]->Attributes.CenterX, calibrations[j]->Attributes.CenterY);
+        g_print ("%s", "    |- Calibration data:\n");
+        const lfLensCalibrationSet* const* calibrations = lens->GetCalibrationSets();
+        if (calibrations != nullptr)
+        {
+            for (int j = 0; calibrations[j] != NULL; j++)
+            {
+                g_print ("       |- Crop %g, Aspect ratio %g, Center %g/%g, [",
+                         calibrations[j]->Attributes.CropFactor,
+                         calibrations[j]->Attributes.AspectRatio,
+                         calibrations[j]->Attributes.CenterX, calibrations[j]->Attributes.CenterY);
 
-	    if (calibrations[j]->HasTCA())
-		g_print ("tca, ");
-	    if (calibrations[j]->HasVignetting())
-		g_print ("vign, ");
-	    if (calibrations[j]->HasDistortion())
-		g_print ("dist,");
-	    g_print ("]\n");
-	}
+                if (calibrations[j]->HasTCA())
+                    g_print ("%s", "tca, ");
+                if (calibrations[j]->HasVignetting())
+                    g_print ("%s", "vign, ");
+                if (calibrations[j]->HasDistortion())
+                    g_print ("%s", "dist,");
+                g_print ("%s", "]\n");
+            }
+        }
     }
 }
 

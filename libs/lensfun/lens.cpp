@@ -1447,6 +1447,29 @@ bool lfLens::InterpolateFov (float crop, float focal, lfLensCalibFov &res) const
     return true;
 }
 
+int lfLens::AvailableModifications(float crop) const
+{
+    int possibleMods = 0;
+
+    for (auto c : Calibrations)
+    {
+        const float r = crop / c->Attributes.CropFactor;
+        if ((r >= 0.96) || (crop < 1e-6f))
+        {
+            if (c->HasDistortion())
+                possibleMods |= LF_MODIFY_DISTORTION;
+
+            if (c->HasTCA())
+                possibleMods |= LF_MODIFY_TCA;
+
+            if (c->HasVignetting())
+                possibleMods |= LF_MODIFY_VIGNETTING;
+        }
+    }
+
+    return possibleMods;
+}
+
 const lfLensCalibrationSet* const* lfLens::GetCalibrationSets() const
 {
     return (lfLensCalibrationSet**) Calibrations.data();
@@ -1658,4 +1681,9 @@ cbool lf_lens_remove_calib_fov (lfLens *lens, int idx)
 void lf_lens_remove_calibrations (lfLens *lens)
 {
     lens->RemoveCalibrations();
+}
+
+int lf_lens_available_modifications (lfLens *lens, float crop)
+{
+    return lens->AvailableModifications(crop);
 }

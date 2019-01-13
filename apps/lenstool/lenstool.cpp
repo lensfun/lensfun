@@ -412,10 +412,10 @@ int main (int argc, char **argv)
         if (cam && lens) {
             g_print("%s", "Matching lens and camera combination found in the database:\n");
             PrintCamera(cam, ldb);
-            PrintLens(lens, ldb);
+            PrintLens(lens, ldb, opts.Verbose);
         } else if (!cam && lens) {
             g_print("%s", "Matching lens found in the database:\n");
-            PrintLens(lens, ldb);
+            PrintLens(lens, ldb, opts.Verbose);
         } else if (!lens && cam) {
             g_print("%s", "Matching camera found in the database:\n");
             PrintCamera(cam, ldb);

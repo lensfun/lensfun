@@ -1496,6 +1496,25 @@ struct LF_EXPORT lfLens
      */
     DEPRECATED bool InterpolateFov (float crop, float focal, lfLensCalibFov &res) const;
 
+    /**
+     * @brief Get a flag with the available modifications for this lens considering the
+     * image crop factor.
+     *
+     * Not all lens profiles have sufficient amount of calibration data to do all
+     * kinds of corrections for all possible image crop factors. For example, sometimes
+     * vignetting is only available for a crop of 1.5 but has not been measured for a
+     * full frame crop of 1.0.
+     *
+     * For crop -1.0 a flag with enabled bits for all available calibrations in the lens
+     * profile is returned ignoring the crop factor.
+     *
+     * @param crop
+     *     Crop factor of the image for which we want to apply the corrections or -1.0
+     *     to get a flag of all available calibrations.
+     * @return
+     *     A set of LF_MODIFY_XXX flags.
+     */
+    int  AvailableModifications(float crop) const;
 
     /**
      * @brief Get a list of all calibration sets.
@@ -1654,6 +1673,9 @@ DEPRECATED LF_EXPORT cbool lf_lens_remove_calib_fov (lfLens *lens, int idx);
 
 /** @sa lfLens::RemoveCalibrations */
 LF_EXPORT void lf_lens_remove_calibrations (lfLens *lens);
+
+/** @sa lfLens::AvailableModifications */
+LF_EXPORT int lf_lens_available_modifications (lfLens *lens, float crop);
 
 /** @} */
 
