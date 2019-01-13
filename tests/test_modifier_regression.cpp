@@ -90,7 +90,7 @@ void test_verify_dist_poly5 (lfFixture *lfFix, gconstpointer data)
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Canon PowerShot G12 & compatibles (Standard)");
 
-    g_print(lenses[0]->Model);
+    g_print("%s", lenses[0]->Model);
 
     lfModifier* mod = new lfModifier (4.6f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
 
