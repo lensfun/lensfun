@@ -1626,25 +1626,25 @@ DEPRECATED LF_EXPORT cbool lf_lens_interpolate_fov (const lfLens *lens, float cr
 LF_EXPORT void lf_lens_add_calib_distortion (lfLens *lens, const lfLensCalibDistortion *dc);
 
 /** @sa lfLens::RemoveCalibDistortion */
-LF_EXPORT cbool lf_lens_remove_calib_distortion (lfLens *lens, int idx);
+DEPRECATED LF_EXPORT cbool lf_lens_remove_calib_distortion (lfLens *lens, int idx);
 
 /** @sa lfLens::AddCalibTCA */
 LF_EXPORT void lf_lens_add_calib_tca (lfLens *lens, const lfLensCalibTCA *tcac);
 
 /** @sa lfLens::RemoveCalibTCA */
-LF_EXPORT cbool lf_lens_remove_calib_tca (lfLens *lens, int idx);
+DEPRECATED LF_EXPORT cbool lf_lens_remove_calib_tca (lfLens *lens, int idx);
 
 /** @sa lfLens::AddCalibVignetting */
 LF_EXPORT void lf_lens_add_calib_vignetting (lfLens *lens, const lfLensCalibVignetting *vc);
 
 /** @sa lfLens::RemoveCalibVignetting */
-LF_EXPORT cbool lf_lens_remove_calib_vignetting (lfLens *lens, int idx);
+DEPRECATED LF_EXPORT cbool lf_lens_remove_calib_vignetting (lfLens *lens, int idx);
 
 /** @sa lfLens::AddCalibCrop */
 LF_EXPORT void lf_lens_add_calib_crop (lfLens *lens, const lfLensCalibCrop *cc);
 
 /** @sa lfLens::RemoveCalibCrop */
-LF_EXPORT cbool lf_lens_remove_calib_crop (lfLens *lens, int idx);
+DEPRECATED LF_EXPORT cbool lf_lens_remove_calib_crop (lfLens *lens, int idx);
 
 /** @sa lfLens::AddCalibFov */
 DEPRECATED LF_EXPORT void lf_lens_add_calib_fov (lfLens *lens, const lfLensCalibFov *cf);
