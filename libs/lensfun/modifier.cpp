@@ -131,7 +131,7 @@ lfModifier::lfModifier (const lfLens*, float crop, int width, int height)
 
 lfModifier::lfModifier (float imgcrop, int imgwidth, int imgheight,
                         lfPixelFormat pixel_format, bool reverse /* = false */)
-    : Reverse(reverse), PixelFormat(pixel_format), Crop(imgcrop)
+    : Crop(imgcrop), Reverse(reverse), PixelFormat(pixel_format)
 {
     // Avoid divide overflows on singular cases.  The "- 1" is due to the fact
     // that `Width` and `Height` are measured at the pixel centres (they are
