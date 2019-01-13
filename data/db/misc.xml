@@ -674,4 +674,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>SLR Magic</maker>
+        <model>SLR Magic 8mm f/4</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- taken with Olympus E-M5 -->
+            <distortion model="poly3" focal="8" k1="-0.00737723"/>
+            <tca model="poly3" focal="8" vr="1.0006528" vb="0.9994821"/>
+            <vignetting model="pa" focal="8" aperture="4.0" distance="10" k1="-0.9506" k2="0.1688" k3="0.1096"/>
+            <vignetting model="pa" focal="8" aperture="4.0" distance="1000" k1="-0.9506" k2="0.1688" k3="0.1096"/>
+            <vignetting model="pa" focal="8" aperture="5.6" distance="10" k1="-1.0826" k2="0.8051" k3="-0.3432"/>
+            <vignetting model="pa" focal="8" aperture="5.6" distance="1000" k1="-1.0826" k2="0.8051" k3="-0.3432"/>
+            <vignetting model="pa" focal="8" aperture="8.0" distance="10" k1="-1.0924" k2="0.7963" k3="-0.2940"/>
+            <vignetting model="pa" focal="8" aperture="8.0" distance="1000" k1="-1.0924" k2="0.7963" k3="-0.2940"/>
+            <vignetting model="pa" focal="8" aperture="16.0" distance="10" k1="-1.1580" k2="0.9371" k3="-0.3760"/>
+            <vignetting model="pa" focal="8" aperture="16.0" distance="1000" k1="-1.1580" k2="0.9371" k3="-0.3760"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
