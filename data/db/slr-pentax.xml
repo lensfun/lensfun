@@ -2178,4 +2178,22 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-FA 28-70mm f/4 AL</model>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="28" a="0" b="-0.0159544" c="0"/>
+            <distortion model="ptlens" focal="37" a="0" b="-0.00482476" c="0"/>
+            <distortion model="ptlens" focal="50" a="0" b="0.00250797" c="0"/>
+            <distortion model="ptlens" focal="70" a="0" b="0.00605134" c="0"/>
+            <tca model="poly3" focal="28" vr="1.0004675" vb="0.9999703"/>
+            <tca model="poly3" focal="37" vr="1.0002036" vb="1.0000212"/>
+            <tca model="poly3" focal="50" vr="1.0000128" vb="1.0000486"/>
+            <tca model="poly3" focal="70" vr="0.9999436" vb="1.0001435"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
