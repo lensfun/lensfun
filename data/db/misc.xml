@@ -554,6 +554,16 @@
         <calibration>
             <distortion focal="7.5" model="poly3" k1="-0.007"/>
             <tca focal="7.5" model="poly3" vb="1.0004" vr="1.0004"/>
+            <vignetting model="pa" focal="7.5" aperture="2" distance="10" k1="-1.7433" k2="1.4986" k3="-0.5986"/>
+            <vignetting model="pa" focal="7.5" aperture="2" distance="1000" k1="-1.7433" k2="1.4986" k3="-0.5986"/>
+            <vignetting model="pa" focal="7.5" aperture="2.8" distance="10" k1="-1.2662" k2="0.6289" k3="-0.1519"/>
+            <vignetting model="pa" focal="7.5" aperture="2.8" distance="1000" k1="-1.2662" k2="0.6289" k3="-0.1519"/>
+            <vignetting model="pa" focal="7.5" aperture="4" distance="10" k1="-1.0301" k2="0.3360" k3="-0.0337"/>
+            <vignetting model="pa" focal="7.5" aperture="4" distance="1000" k1="-1.0301" k2="0.3360" k3="-0.0337"/>
+            <vignetting model="pa" focal="7.5" aperture="5.6" distance="10" k1="-1.1262" k2="0.7912" k3="-0.3604"/>
+            <vignetting model="pa" focal="7.5" aperture="5.6" distance="1000" k1="-1.1262" k2="0.7912" k3="-0.3604"/>
+            <vignetting model="pa" focal="7.5" aperture="22" distance="10" k1="-1.1726" k2="0.8492" k3="-0.2879"/>
+            <vignetting model="pa" focal="7.5" aperture="22" distance="1000" k1="-1.1726" k2="0.8492" k3="-0.2879"/>
         </calibration>
     </lens>
 
