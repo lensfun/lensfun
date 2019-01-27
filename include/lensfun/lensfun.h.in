@@ -2102,7 +2102,7 @@ LF_EXPORT lfDatabase *lf_db_create (void);
 LF_EXPORT void lf_db_destroy (lfDatabase *db);
 
 /** @sa lfDatabase::ReadTimestamp() */
-LF_EXPORT long int lf_db_read_timestamp (lfDatabase *db, const char *dirname);
+LF_EXPORT long int lf_db_read_timestamp (const char *dirname);
 
 /** @sa lfDatabase::Load() */
 LF_EXPORT lfError lf_db_load (lfDatabase *db);
