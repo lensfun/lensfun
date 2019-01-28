@@ -2027,6 +2027,24 @@
 
     <lens>
         <maker>Pentax</maker>
+        <model>smc Pentax-DA L 50-200mm f/4-5.6 ED WR</model>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="poly3" focal="50"  k1="-0.0115879"/>
+            <distortion model="poly3" focal="67.5"  k1="0.0052576"/>
+            <distortion model="poly3" focal="80"  k1="0.0137754"/>
+            <distortion model="poly3" focal="200"  k1="0.0202866"/>
+            <tca model="poly3" focal="50" vr="1.0000914" vb="1.0000996"/>
+            <tca model="poly3" focal="67.5" vr="0.9999968" vb="1.0001589"/>
+            <tca model="poly3" focal="80" vr="0.9999374" vb="1.0002043"/>
+            <tca model="poly3" focal="200" vr="0.9998614" vb="0.9999141"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
         <model>smc Pentax-DA 17-70mm f/4 AL [IF] SDM</model>
         <mount>Pentax KAF2</mount>
         <!-- Average crop factor of Pentax APS-C cameras -->
