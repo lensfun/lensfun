@@ -38,9 +38,6 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
 
     lfFix->mod = new lfModifier (lfFix->lens, 10.0f, lfFix->img_width, lfFix->img_height);
 
-    lfFix->mod->Initialize (lfFix->lens, LF_PF_F32, 50.89f, 2.8f, 1000.0f, 2.0f, LF_RECTILINEAR,
-                            LF_MODIFY_DISTORTION, true);
-
     lfFix->coordBuff = NULL;
 
     const size_t bufsize = 2 * lfFix->img_width * lfFix->img_height * sizeof (float);
@@ -56,6 +53,9 @@ void mod_teardown (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_scaling_only (lfFixture *lfFix, gconstpointer data)
 {
+    lfFix->mod->Initialize (lfFix->lens, LF_PF_F32, 50.89f, 2.8f, 1000.0f, 2.0f, LF_RECTILINEAR,
+                            LF_MODIFY_SCALE, true);
+
     const float epsilon = 1e-3f;
     float expected_x[] = {-1250.0f, -1050.0f, -850.000061f, -649.999939f, -450.0f,
                           -250.000046f, -49.9999466f, 150.000015f, 349.999969f, 550.0f};
@@ -72,6 +72,9 @@ void test_mod_coord_scaling_only (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_distortion (lfFixture *lfFix, gconstpointer data)
 {
+    lfFix->mod->Initialize (lfFix->lens, LF_PF_F32, 50.89f, 2.8f, 1000.0f, 2.0f, LF_RECTILINEAR,
+                            LF_MODIFY_DISTORTION, true);
+
     const float epsilon = 1e-3f;
     float expected_x[] = {-9.85383224f, 92.4854813f, 194.413666f, 295.973877f, 397.20752f,
                           498.15506f, 598.85614f, 699.348938f, 799.671326f, 899.860474f};
@@ -93,8 +96,8 @@ int main (int argc, char **argv)
 
   g_test_init (&argc, &argv, NULL);
 
-  //g_test_add ("/modifier/coord/centering/scaling", lfFixture, NULL,
-  //            mod_setup, test_mod_coord_scaling_only, mod_teardown);
+  g_test_add ("/modifier/coord/centering/scaling", lfFixture, NULL,
+              mod_setup, test_mod_coord_scaling_only, mod_teardown);
 
   g_test_add ("/modifier/coord/centering/distortion", lfFixture, NULL,
               mod_setup, test_mod_coord_distortion, mod_teardown);

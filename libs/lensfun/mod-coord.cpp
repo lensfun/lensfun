@@ -130,10 +130,10 @@ int lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd)
     return enabledMods;
 }
 
-int lfModifier::EnableDistortionCorrection (const lfLens* lens, float focal)
+int lfModifier::EnableDistortionCorrection ()
 {
     lfLensCalibDistortion lcd;
-    if (lens->InterpolateDistortion (Crop, focal, lcd))
+    if (Lens->InterpolateDistortion (Crop, Focal, lcd))
     {
         EnableDistortionCorrection (lcd);
     }
@@ -141,27 +141,29 @@ int lfModifier::EnableDistortionCorrection (const lfLens* lens, float focal)
     return enabledMods;
 }
 
-int lfModifier::EnableProjectionTransform (const lfLens* lens, float focal, lfLensType target_projection)
+int lfModifier::EnableProjectionTransform (lfLensType target_projection)
 {
-    if(target_projection == LF_UNKNOWN)
+    if(target_projection == LF_UNKNOWN || target_projection == Lens->Type)
         return enabledMods;
-    if(lens->Type == LF_UNKNOWN)
+    if(Lens->Type == LF_UNKNOWN)
         return enabledMods;
+
+    float norm_focal;
 
     // try to get a real focal length estimate
     lfLensCalibDistortion lcd;
-    if (lens && lens->InterpolateDistortion (Crop, focal, lcd))
-        focal = lcd.RealFocal;
+    if (Lens->InterpolateDistortion (Crop, Focal, lcd))
+        norm_focal = GetNormalizedFocalLength (lcd.RealFocal);
+    else
+        norm_focal = GetNormalizedFocalLength (Focal);
 
-    float norm_focal = GetNormalizedFocalLength (focal, lens);
-
-    lfLensType from = lens->Type;
+    lfLensType from = Lens->Type;
     lfLensType to = target_projection;
 
     if (Reverse)
     {
         from = target_projection;
-        to = lens->Type;
+        to = Lens->Type;
     }
 
     // handle special cases
@@ -327,15 +329,15 @@ void lfModifier::AddCoordDistCallback (const lfLensCalibDistortion& lcd, lfModif
 
     double image_aspect_ratio = Width < Height ? Height / Width : Width / Height;
     cd->coordinate_correction =
-            sqrt (lcd.CalibAttr.AspectRatio * lcd.CalibAttr.AspectRatio + 1) /
+            lcd.CalibAttr.CropFactor / Crop /
             sqrt (image_aspect_ratio * image_aspect_ratio + 1) *
-            lcd.CalibAttr.CropFactor / Crop;
+            sqrt (lcd.CalibAttr.AspectRatio * lcd.CalibAttr.AspectRatio + 1);
 
-    cd->centerX = lcd.CalibAttr.CenterX;
-    cd->centerY = lcd.CalibAttr.CenterY;
+    cd->centerX = Lens->CenterX;
+    cd->centerY = Lens->CenterY;
     memcpy(cd->Terms, lcd.Terms, sizeof(lcd.Terms));
 
-    cd->norm_focal = GetNormalizedFocalLength (lcd.Focal, NULL);
+    cd->norm_focal = GetNormalizedFocalLength (lcd.Focal);
 
     CoordCallbacks.insert(cd);
 }
@@ -503,12 +505,14 @@ bool lfModifier::ApplyGeometryDistortion (
 
 void lfModifier::ModifyCoord_Scale (void *data, float *iocoord, int count)
 {
-    float scale = ((lfCoordScaleCallbackData *)data)->scale_factor;
+    lfCoordScaleCallbackData* cddata = (lfCoordScaleCallbackData*) data;
+
+    const float scale = ((lfCoordScaleCallbackData *)data)->scale_factor;
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        iocoord [0] *= scale;
-        iocoord [1] *= scale;
+        iocoord [0] = (iocoord [0] - cddata->centerX) * scale;
+        iocoord [1] = (iocoord [1] - cddata->centerY) * scale;
     }
 }
 
@@ -1238,13 +1242,13 @@ cbool lf_modifier_apply_geometry_distortion (
     return modifier->ApplyGeometryDistortion (xu, yu, width, height, res);
 }
 
-int lf_modifier_enable_distortion_correction (lfModifier *modifier, const lfLens* lens, float focal)
+int lf_modifier_enable_distortion_correction (lfModifier *modifier)
 {
-    return modifier->EnableDistortionCorrection(lens, focal);
+    return modifier->EnableDistortionCorrection();
 }
 
 int lf_modifier_enable_projection_transform (
-    lfModifier *modifier, const lfLens* lens, float focal, lfLensType target_projection)
+    lfModifier *modifier, lfLensType target_projection)
 {
-    return modifier->EnableProjectionTransform(lens, focal, target_projection);
+    return modifier->EnableProjectionTransform(target_projection);
 }

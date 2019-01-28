@@ -20,20 +20,22 @@ int lfModifier::Initialize (
     float distance, float scale, lfLensType targeom, int flags, bool reverse)
 {
 
+    Lens = lens;
+    Focal = focal;
     PixelFormat = format;
     Reverse = reverse;
 
     if (flags & LF_MODIFY_TCA)
-        EnableTCACorrection(lens, focal);
+        EnableTCACorrection();
 
     if (flags & LF_MODIFY_VIGNETTING)
-        EnableVignettingCorrection(lens, focal, aperture, distance);
+        EnableVignettingCorrection(aperture, distance);
 
     if (flags & LF_MODIFY_DISTORTION)
-        EnableDistortionCorrection(lens, focal);
+        EnableDistortionCorrection();
 
     if (flags & LF_MODIFY_GEOMETRY && lens->Type != targeom)
-        EnableProjectionTransform(lens, focal, targeom);
+        EnableProjectionTransform(targeom);
 
     if (flags & LF_MODIFY_SCALE && scale != 1.0)
         EnableScaling(scale);
@@ -129,9 +131,9 @@ lfModifier::lfModifier (const lfLens*, float crop, int width, int height)
     enabledMods = 0;
 }
 
-lfModifier::lfModifier (float imgcrop, int imgwidth, int imgheight,
+lfModifier::lfModifier (const lfLens *lens, float imgfocal, float imgcrop, int imgwidth, int imgheight,
                         lfPixelFormat pixel_format, bool reverse /* = false */)
-    : Crop(imgcrop), Reverse(reverse), PixelFormat(pixel_format)
+    : Focal(imgfocal), Crop(imgcrop), Reverse(reverse), PixelFormat(pixel_format), Lens(lens)
 {
     // Avoid divide overflows on singular cases.  The "- 1" is due to the fact
     // that `Width` and `Height` are measured at the pixel centres (they are
@@ -173,6 +175,8 @@ int lfModifier::EnableScaling (float scale)
     cd->callback = ModifyCoord_Scale;
     cd->priority = Reverse ? 900 : 100;
     cd->scale_factor = Reverse ? scale : 1.0 / scale;
+    cd->centerX = Lens->CenterX;
+    cd->centerY = Lens->CenterY;
 
     CoordCallbacks.insert(cd);
 
@@ -196,7 +200,7 @@ lfModifier::~lfModifier ()
         delete cb;
 }
 
-float lfModifier::GetNormalizedFocalLength (float focal, const lfLens* lens) const
+float lfModifier::GetNormalizedFocalLength (float focal) const
 {
     const double normalized_in_millimeters = 12.0 / Crop;
     return static_cast<float>(static_cast<double>(focal) / normalized_in_millimeters);
@@ -205,9 +209,9 @@ float lfModifier::GetNormalizedFocalLength (float focal, const lfLens* lens) con
 //---------------------------// The C interface //---------------------------//
 
 lfModifier *lf_modifier_create (
-    float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse)
+    const lfLens* lens, float imgfocal, float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse)
 {
-    return new lfModifier(imgcrop, imgwidth, imgheight, pixel_format, reverse);
+    return new lfModifier(lens, imgfocal, imgcrop, imgwidth, imgheight, pixel_format, reverse);
 }
 
 lfModifier *lf_modifier_new (

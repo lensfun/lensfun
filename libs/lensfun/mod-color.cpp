@@ -103,11 +103,11 @@ int lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv)
 }
 
 
-int lfModifier::EnableVignettingCorrection (const lfLens* lens, float focal, float aperture, float distance)
+int lfModifier::EnableVignettingCorrection (float aperture, float distance)
 {
     lfLensCalibVignetting lcv;
 
-    if (lens->InterpolateVignetting (Crop, focal, aperture, distance, lcv))
+    if (Lens->InterpolateVignetting (Crop, Focal, aperture, distance, lcv))
     {
         EnableVignettingCorrection(lcv);
     }
@@ -142,8 +142,8 @@ void lfModifier::AddColorVignCallback (const lfLensCalibVignetting& lcv, lfModif
     }
 
     cd->NormScale = NormScale;
-    cd->centerX = lcv.CalibAttr.CenterX;
-    cd->centerY = lcv.CalibAttr.CenterY;
+    cd->centerX = Lens->CenterX;
+    cd->centerY = Lens->CenterY;
     memcpy(cd->Terms, lcv.Terms, sizeof(lcv.Terms));
 
     ColorCallbacks.insert(cd);
@@ -363,7 +363,7 @@ cbool lf_modifier_apply_color_modification (
 }
 
 int lf_modifier_enable_vignetting_correction (
-    lfModifier *modifier, const lfLens* lens, float focal, float aperture, float distance)
+    lfModifier *modifier, float aperture, float distance)
 {
-    return modifier->EnableVignettingCorrection(lens, focal, aperture, distance);
+    return modifier->EnableVignettingCorrection(aperture, distance);
 }

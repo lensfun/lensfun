@@ -103,7 +103,7 @@ void test_mod_coord_pc_4_points (lfFixture *lfFix, gconstpointer data)
 
     float x[] = {503, 1063, 509, 1066};
     float y[] = {150, 197, 860, 759};
-    g_assert_true (lfFix->mod->EnablePerspectiveCorrection (lfFix->lens, lfFix->focal, x, y, 4, 0));
+    g_assert_true (lfFix->mod->EnablePerspectiveCorrection (x, y, 4, 0));
 
     float expected_x[] = {194.493073f, 283.405487f, 366.993439f, 445.721252f, 520.000793f,
                           590.199036f, 656.642883f, 719.625977f, 779.411743f, 836.237793f};
@@ -125,7 +125,7 @@ void test_mod_coord_pc_4_points_portrait (lfFixture *lfFix, gconstpointer data)
 
     float x[] = {145, 208, 748, 850};
     float y[] = {1060, 666, 668, 1060};
-    g_assert_true (lfFix->mod->EnablePerspectiveCorrection (lfFix->lens, lfFix->focal, x, y, 4, 0));
+    g_assert_true (lfFix->mod->EnablePerspectiveCorrection (x, y, 4, 0));
 
     float expected_x[] = {71.1361389f, 147.872391f, 228.271774f, 312.602936f, 401.16153f,
                           494.273651f, 592.299683f, 695.639282f, 804.73645f, 920.086121f};
@@ -147,7 +147,7 @@ void test_mod_coord_pc_8_points (lfFixture *lfFix, gconstpointer data)
 
     float x[] = {615, 264, 1280, 813, 615, 1280, 264, 813};
     float y[] = {755, 292, 622, 220, 755, 622, 292, 220};
-    g_assert_true (lfFix->mod->EnablePerspectiveCorrection (lfFix->lens, lfFix->focal, x, y, 8, 0));
+    g_assert_true (lfFix->mod->EnablePerspectiveCorrection (x, y, 8, 0));
 
     float expected_x[] = {-111.952522f, 7.50310612f, 129.942596f, 255.479279f, 384.231903f,
                           516.325867f, 651.893066f, 791.071838f, 934.008728f, 1080.85803f};
@@ -168,7 +168,7 @@ void test_mod_coord_pc_0_points (lfFixture *lfFix, gconstpointer data)
     const float epsilon = std::numeric_limits<float>::epsilon();
 
     float empty_list [0];
-    g_assert_false (lfFix->mod->EnablePerspectiveCorrection (lfFix->lens, lfFix->focal, empty_list, empty_list, 0, 0));
+    g_assert_false (lfFix->mod->EnablePerspectiveCorrection (empty_list, empty_list, 0, 0));
 
     float coords [2];
     for (int i = 0; i < 10; i++)
@@ -184,7 +184,7 @@ void test_mod_coord_pc_5_points (lfFixture *lfFix, gconstpointer data)
 
     float x[] = {661, 594, 461, 426, 530};
     float y[] = {501, 440, 442, 534, 562};
-    g_assert_true (lfFix->mod->EnablePerspectiveCorrection (lfFix->lens, lfFix->focal, x, y, 5, 0));
+    g_assert_true (lfFix->mod->EnablePerspectiveCorrection (x, y, 5, 0));
 
     float expected_x[] = {-115.68116f, 22.0659332f, 151.887817f, 274.449463f, 390.343201f,
                           500.098785f, 604.191345f, 703.048096f, 797.054382f, 886.558716f};
@@ -206,7 +206,7 @@ void test_mod_coord_pc_7_points (lfFixture *lfFix, gconstpointer data)
 
     float x[] = {661, 594, 461, 426, 530, 302, 815};
     float y[] = {501, 440, 442, 534, 562, 491, 279};
-    g_assert_true (lfFix->mod->EnablePerspectiveCorrection (lfFix->lens, lfFix->focal, x, y, 7, 0));
+    g_assert_true (lfFix->mod->EnablePerspectiveCorrection (x, y, 7, 0));
 
     float expected_x[] = {-138.188828f, 3.89117932f, 144.488388f, 283.626099f, 421.326416f,
                           557.611816f, 692.50415f, 826.024231f, 958.193237f, 1089.03137f};
