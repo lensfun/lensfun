@@ -34,11 +34,11 @@ void lfModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int 
 
   lfCoordDistCallbackData* cddata = (lfCoordDistCallbackData*) data;
 
-  __m128 a_ = _mm_set_ps1 (cddata->Terms [0]);
-  __m128 b_ = _mm_set_ps1 (cddata->Terms [1]);
-  __m128 c_ = _mm_set_ps1 (cddata->Terms [2]);
-  __m128 cx = _mm_set_ps1 (cddata->centerX);
-  __m128 cy = _mm_set_ps1 (cddata->centerY);
+  __m128 a_ = _mm_set_ps1 (cddata->terms [0]);
+  __m128 b_ = _mm_set_ps1 (cddata->terms [1]);
+  __m128 c_ = _mm_set_ps1 (cddata->terms [2]);
+  __m128 cx = _mm_set_ps1 (cddata->center_x);
+  __m128 cy = _mm_set_ps1 (cddata->center_y);
   __m128 cc = _mm_set_ps1 (cddata->coordinate_correction);
   __m128 very_small = _mm_set_ps1 (1e-15);
   __m128 one = _mm_set_ps1 (1.0f);
@@ -120,11 +120,11 @@ void lfModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int co
   lfCoordDistCallbackData* cddata = (lfCoordDistCallbackData*) data;
 
   // Rd = Ru * (a_ * Ru^3 + b_ * Ru^2 + c_ * Ru + 1)
-  __m128 a_ = _mm_set_ps1 (cddata->Terms [0]);
-  __m128 b_ = _mm_set_ps1 (cddata->Terms [1]);
-  __m128 c_ = _mm_set_ps1 (cddata->Terms [2]);
-  __m128 cx = _mm_set_ps1 (cddata->centerX);
-  __m128 cy = _mm_set_ps1 (cddata->centerY);
+  __m128 a_ = _mm_set_ps1 (cddata->terms [0]);
+  __m128 b_ = _mm_set_ps1 (cddata->terms [1]);
+  __m128 c_ = _mm_set_ps1 (cddata->terms [2]);
+  __m128 cx = _mm_set_ps1 (cddata->center_x);
+  __m128 cy = _mm_set_ps1 (cddata->center_y);
   __m128 cc = _mm_set_ps1 (cddata->coordinate_correction);
   __m128 one = _mm_set_ps1 (1.0f);
 
@@ -180,9 +180,9 @@ void lfModifier::ModifyCoord_Dist_Poly3_SSE (void *data, float *iocoord, int cou
   lfCoordDistCallbackData* cddata = (lfCoordDistCallbackData*) data;
 
   // Rd = Ru * (1 + k1 * Ru^2)
-  __m128 k1_ = _mm_set_ps1 (cddata->Terms [0]);
-  __m128 cx = _mm_set_ps1 (cddata->centerX);
-  __m128 cy = _mm_set_ps1 (cddata->centerY);
+  __m128 k1_ = _mm_set_ps1 (cddata->terms [0]);
+  __m128 cx = _mm_set_ps1 (cddata->center_x);
+  __m128 cy = _mm_set_ps1 (cddata->center_y);
   __m128 cc = _mm_set_ps1 (cddata->coordinate_correction);
   __m128 one = _mm_set_ps1 (1.0f);
 

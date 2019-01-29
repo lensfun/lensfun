@@ -40,7 +40,7 @@ int lfModifier::Initialize (
     if (flags & LF_MODIFY_SCALE && scale != 1.0)
         EnableScaling(scale);
 
-    return enabledMods;
+    return EnabledMods;
 }
 
 void lfModifier::Destroy ()
@@ -128,7 +128,7 @@ lfModifier::lfModifier (const lfLens*, float crop, int width, int height)
     CenterX = Width / size;
     CenterY = Height / size;
 
-    enabledMods = 0;
+    EnabledMods = 0;
 }
 
 lfModifier::lfModifier (const lfLens *lens, float imgfocal, float imgcrop, int imgwidth, int imgheight,
@@ -154,7 +154,7 @@ lfModifier::lfModifier (const lfLens *lens, float imgfocal, float imgcrop, int i
     CenterX = Width / size;
     CenterY = Height / size;
 
-    enabledMods = 0;
+    EnabledMods = 0;
 }
 
 int lfModifier::EnableScaling (float scale)
@@ -175,19 +175,19 @@ int lfModifier::EnableScaling (float scale)
     cd->callback = ModifyCoord_Scale;
     cd->priority = Reverse ? 900 : 100;
     cd->scale_factor = Reverse ? scale : 1.0 / scale;
-    cd->centerX = Lens->CenterX;
-    cd->centerY = Lens->CenterY;
+    cd->center_x = Lens->CenterX;
+    cd->center_y = Lens->CenterY;
 
     CoordCallbacks.insert(cd);
 
-    enabledMods |= LF_MODIFY_SCALE;
-    return enabledMods;
+    EnabledMods |= LF_MODIFY_SCALE;
+    return EnabledMods;
 }
 
 
 int lfModifier::GetModFlags()
 {
-    return enabledMods;
+    return EnabledMods;
 }
 
 lfModifier::~lfModifier ()

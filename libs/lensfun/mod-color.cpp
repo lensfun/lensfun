@@ -43,12 +43,12 @@ int lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv)
                         break;
 
                     default:
-                        return enabledMods;
+                        return EnabledMods;
                 }
                 break;
 
             default:
-                return enabledMods;
+                return EnabledMods;
         }
     else
         switch (lcv.Model)
@@ -88,17 +88,17 @@ int lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv)
                         break;
 
                     default:
-                        return enabledMods;
+                        return EnabledMods;
                 }
                 break;
 
             default:
-                return enabledMods;
+                return EnabledMods;
         }
 
 #undef ADD_CALLBACK
 
-    enabledMods |= LF_MODIFY_VIGNETTING;
+    EnabledMods |= LF_MODIFY_VIGNETTING;
     return true;
 }
 
@@ -112,7 +112,7 @@ int lfModifier::EnableVignettingCorrection (float aperture, float distance)
         EnableVignettingCorrection(lcv);
     }
 
-    return enabledMods;
+    return EnabledMods;
 }
 
 void lfModifier::AddColorVignCallback (const lfLensCalibVignetting& lcv, lfModifyColorFunc func, int priority)
@@ -141,10 +141,10 @@ void lfModifier::AddColorVignCallback (const lfLensCalibVignetting& lcv, lfModif
 
     }
 
-    cd->NormScale = NormScale;
-    cd->centerX = Lens->CenterX;
-    cd->centerY = Lens->CenterY;
-    memcpy(cd->Terms, lcv.Terms, sizeof(lcv.Terms));
+    cd->norm_scale = NormScale;
+    cd->center_x = Lens->CenterX;
+    cd->center_y = Lens->CenterY;
+    memcpy(cd->terms, lcv.Terms, sizeof(lcv.Terms));
 
     ColorCallbacks.insert(cd);
 }
@@ -287,8 +287,8 @@ template<typename T> void lfModifier::ModifyColor_Vignetting_PA (
 
     float cc = cddata->coordinate_correction;
 
-    x = x * cc - cddata->centerX;
-    y = y * cc - cddata->centerY;
+    x = x * cc - cddata->center_x;
+    y = y * cc - cddata->center_y;
 
     // For faster computation we will compute r^2 here, and
     // further compute just the delta:
@@ -297,22 +297,22 @@ template<typename T> void lfModifier::ModifyColor_Vignetting_PA (
     // 1.0 pixels should be multiplied by NormScale, so it's really:
     // ((x+ns)*(x+ns)+y*y) - (x*x + y*y) = 2 * ns * x + ns^2
     float r2 = x * x + y * y;
-    float d1 = 2.0 * cc * cddata->NormScale;
-    float d2 = cc * cddata->NormScale * cc * cddata->NormScale;
+    float d1 = 2.0 * cc * cddata->norm_scale;
+    float d2 = cc * cddata->norm_scale * cc * cddata->norm_scale;
 
     int cr = 0;
     while (count--)
     {
         float r4 = r2 * r2;
         float r6 = r4 * r2;
-        float c = 1.0 + cddata->Terms [0] * r2 + cddata->Terms [1] * r4 + cddata->Terms [2] * r6;
+        float c = 1.0 + cddata->terms [0] * r2 + cddata->terms [1] * r4 + cddata->terms [2] * r6;
         if (!cr)
             cr = comp_role;
 
         pixels = apply_multiplier<T> (pixels, c, cr);
 
         r2 += d1 * x + d2;
-        x += cc * cddata->NormScale;
+        x += cc * cddata->norm_scale;
     }
 }
 
@@ -323,8 +323,8 @@ template<typename T> void lfModifier::ModifyColor_DeVignetting_PA (
 
     float cc = cddata->coordinate_correction;
 
-    x = x * cc - cddata->centerX;
-    y = y * cc - cddata->centerY;
+    x = x * cc - cddata->center_x;
+    y = y * cc - cddata->center_y;
 
     // For faster computation we will compute r^2 here, and
     // further compute just the delta:
@@ -333,22 +333,22 @@ template<typename T> void lfModifier::ModifyColor_DeVignetting_PA (
     // 1.0 pixels should be multiplied by NormScale, so it's really:
     // ((x+ns)*(x+ns)+y*y) - (x*x + y*y) = 2 * ns * x + ns^2
     float r2 = x * x + y * y;
-    float d1 = 2.0 * cc * cddata->NormScale;
-    float d2 = cc * cddata->NormScale * cc * cddata->NormScale;
+    float d1 = 2.0 * cc * cddata->norm_scale;
+    float d2 = cc * cddata->norm_scale * cc * cddata->norm_scale;
 
     int cr = 0;
     while (count--)
     {
         float r4 = r2 * r2;
         float r6 = r4 * r2;
-        float c = 1.0 + cddata->Terms [0] * r2 + cddata->Terms [1] * r4 + cddata->Terms [2] * r6;
+        float c = 1.0 + cddata->terms [0] * r2 + cddata->terms [1] * r4 + cddata->terms [2] * r6;
         if (!cr)
             cr = comp_role;
 
         pixels = apply_multiplier<T> (pixels, 1.0f / c, cr);
 
         r2 += d1 * x + d2;
-        x += cc * cddata->NormScale;
+        x += cc * cddata->norm_scale;
     }
 }
 

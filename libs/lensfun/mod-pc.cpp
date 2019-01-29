@@ -576,7 +576,7 @@ int lfModifier::EnablePerspectiveCorrection (float *x, float *y, int count, floa
 
     if (number_of_control_points < 4 || number_of_control_points > 8 ||
         (norm_focal <= 0 && number_of_control_points != 8))
-        return enabledMods;
+        return EnabledMods;
     if (d < -1)
         d = -1;
     if (d > 1)
@@ -599,7 +599,7 @@ int lfModifier::EnablePerspectiveCorrection (float *x, float *y, int count, floa
     catch (svd_no_convergence &e)
     {
         g_warning ("[Lensfun] %s", e.what());
-        return enabledMods;
+        return EnabledMods;
     }
 
     // Transform center point to get shift
@@ -637,7 +637,7 @@ int lfModifier::EnablePerspectiveCorrection (float *x, float *y, int count, floa
     }
     }
     if (center_coords [2] <= 0)
-        return enabledMods;
+        return EnabledMods;
     // This is the mapping scale in the image center
     double mapping_scale = norm_focal / center_coords [2];
 
@@ -706,8 +706,8 @@ int lfModifier::EnablePerspectiveCorrection (float *x, float *y, int count, floa
 
     CoordCallbacks.insert(cd);
 
-    enabledMods |= LF_MODIFY_PERSPECTIVE;
-    return enabledMods;
+    EnabledMods |= LF_MODIFY_PERSPECTIVE;
+    return EnabledMods;
 }
 
 void lfModifier::ModifyCoord_Perspective_Correction (void *data, float *iocoord, int count)

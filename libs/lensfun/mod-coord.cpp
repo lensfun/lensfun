@@ -38,7 +38,7 @@ int lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd)
         {
             case LF_DIST_MODEL_POLY3:
                 if (lcd.Terms [0] == 0)
-                    return enabledMods;
+                    return EnabledMods;
                 // See "Note about PT-based distortion models" at the top of
                 // this file.
                 {
@@ -72,10 +72,10 @@ int lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd)
             case LF_DIST_MODEL_ACM:
                 g_warning ("[lensfun] \"acm\" distortion model is not yet implemented "
                            "for reverse correction");
-                return enabledMods;
+                return EnabledMods;
 
             default:
-                return enabledMods;
+                return EnabledMods;
         }
     else
         switch (lcd.Model)
@@ -123,11 +123,11 @@ int lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd)
                 break;
 
             default:
-                return enabledMods;
+                return EnabledMods;
         }
 
-    enabledMods |= LF_MODIFY_DISTORTION;
-    return enabledMods;
+    EnabledMods |= LF_MODIFY_DISTORTION;
+    return EnabledMods;
 }
 
 int lfModifier::EnableDistortionCorrection ()
@@ -138,15 +138,15 @@ int lfModifier::EnableDistortionCorrection ()
         EnableDistortionCorrection (lcd);
     }
 
-    return enabledMods;
+    return EnabledMods;
 }
 
 int lfModifier::EnableProjectionTransform (lfLensType target_projection)
 {
     if(target_projection == LF_UNKNOWN || target_projection == Lens->Type)
-        return enabledMods;
+        return EnabledMods;
     if(Lens->Type == LF_UNKNOWN)
-        return enabledMods;
+        return EnabledMods;
 
     float norm_focal;
 
@@ -333,9 +333,9 @@ void lfModifier::AddCoordDistCallback (const lfLensCalibDistortion& lcd, lfModif
             sqrt (image_aspect_ratio * image_aspect_ratio + 1) *
             sqrt (lcd.CalibAttr.AspectRatio * lcd.CalibAttr.AspectRatio + 1);
 
-    cd->centerX = Lens->CenterX;
-    cd->centerY = Lens->CenterY;
-    memcpy(cd->Terms, lcd.Terms, sizeof(lcd.Terms));
+    cd->center_x = Lens->CenterX;
+    cd->center_y = Lens->CenterY;
+    memcpy(cd->terms, lcd.Terms, sizeof(lcd.Terms));
 
     cd->norm_focal = GetNormalizedFocalLength (lcd.Focal);
 
@@ -511,8 +511,8 @@ void lfModifier::ModifyCoord_Scale (void *data, float *iocoord, int count)
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        iocoord [0] = (iocoord [0] - cddata->centerX) * scale;
-        iocoord [1] = (iocoord [1] - cddata->centerY) * scale;
+        iocoord [0] = (iocoord [0] - cddata->center_x) * scale;
+        iocoord [1] = (iocoord [1] - cddata->center_y) * scale;
     }
 }
 
@@ -521,12 +521,12 @@ void lfModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count
     lfCoordDistCallbackData* cddata = (lfCoordDistCallbackData*) data;
 
     // See "Note about PT-based distortion models" at the top of this file.
-    const float inv_k1_ = cddata->Terms[0];
+    const float inv_k1_ = cddata->terms[0];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        const float x = iocoord [0] * cddata->coordinate_correction - cddata->centerX;
-        const float y = iocoord [1] * cddata->coordinate_correction - cddata->centerY;
+        const float x = iocoord [0] * cddata->coordinate_correction - cddata->center_x;
+        const float y = iocoord [1] * cddata->coordinate_correction - cddata->center_y;
         const double rd = sqrt (x * x + y * y);
         if (rd == 0.0)
             continue;
@@ -558,8 +558,8 @@ void lfModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count
             continue; // Negative radius does not make sense at all
 
         ru /= rd;
-        iocoord [0] = (x * ru + cddata->centerX) / cddata->coordinate_correction;
-        iocoord [1] = (y * ru + cddata->centerY) / cddata->coordinate_correction;
+        iocoord [0] = (x * ru + cddata->center_x) / cddata->coordinate_correction;
+        iocoord [1] = (y * ru + cddata->center_y) / cddata->coordinate_correction;
 
     next_pixel:
         ;
@@ -572,16 +572,16 @@ void lfModifier::ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int count)
 
     // See "Note about PT-based distortion models" at the top of this file.
     // Rd = Ru * (1 + k1_ * Ru^2)
-    const float k1_ = cddata->Terms [0];
+    const float k1_ = cddata->terms [0];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        const float x = iocoord [0] * cddata->coordinate_correction - cddata->centerX;
-        const float y = iocoord [1] * cddata->coordinate_correction - cddata->centerY;
+        const float x = iocoord [0] * cddata->coordinate_correction - cddata->center_x;
+        const float y = iocoord [1] * cddata->coordinate_correction - cddata->center_y;
         const float poly2 = 1 + k1_ * (x * x + y * y);
 
-        iocoord [0] = (x * poly2 + cddata->centerX) / cddata->coordinate_correction;
-        iocoord [1] = (y * poly2 + cddata->centerY) / cddata->coordinate_correction;
+        iocoord [0] = (x * poly2 + cddata->center_x) / cddata->coordinate_correction;
+        iocoord [1] = (y * poly2 + cddata->center_y) / cddata->coordinate_correction;
     }
 }
 
@@ -589,13 +589,13 @@ void lfModifier::ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int count
 {
     lfCoordDistCallbackData* cddata = (lfCoordDistCallbackData*) data;
 
-    float k1 = cddata->Terms [0];
-    float k2 = cddata->Terms [1];
+    float k1 = cddata->terms [0];
+    float k2 = cddata->terms [1];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        const float x = iocoord [0] * cddata->coordinate_correction - cddata->centerX;
-        const float y = iocoord [1] * cddata->coordinate_correction - cddata->centerY;
+        const float x = iocoord [0] * cddata->coordinate_correction - cddata->center_x;
+        const float y = iocoord [1] * cddata->coordinate_correction - cddata->center_y;
         double rd = sqrt (x * x + y * y);
         if (rd == 0.0)
             continue;
@@ -618,8 +618,8 @@ void lfModifier::ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int count
             continue; // Negative radius does not make sense at all
 
         ru /= rd;
-        iocoord [0] = (x * ru + cddata->centerX) / cddata->coordinate_correction;
-        iocoord [1] = (y * ru + cddata->centerY) / cddata->coordinate_correction;
+        iocoord [0] = (x * ru + cddata->center_x) / cddata->coordinate_correction;
+        iocoord [1] = (y * ru + cddata->center_y) / cddata->coordinate_correction;
 
     next_pixel:
         ;
@@ -630,18 +630,18 @@ void lfModifier::ModifyCoord_Dist_Poly5 (void *data, float *iocoord, int count)
 {
     lfCoordDistCallbackData* cddata = (lfCoordDistCallbackData*) data;
     // Rd = Ru * (1 + k1 * Ru^2 + k2 * Ru^4)
-    const float k1 = cddata->Terms [0];
-    const float k2 = cddata->Terms [1];
+    const float k1 = cddata->terms [0];
+    const float k2 = cddata->terms [1];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        const float x = iocoord [0] * cddata->coordinate_correction - cddata->centerX;
-        const float y = iocoord [1] * cddata->coordinate_correction - cddata->centerY;
+        const float x = iocoord [0] * cddata->coordinate_correction - cddata->center_x;
+        const float y = iocoord [1] * cddata->coordinate_correction - cddata->center_y;
         const float ru2 = x * x + y * y;
         const float poly4 = (1.0 + k1 * ru2 + k2 * ru2 * ru2);
 
-        iocoord [0] = (x * poly4 + cddata->centerX) / cddata->coordinate_correction;
-        iocoord [1] = (y * poly4 + cddata->centerY) / cddata->coordinate_correction;
+        iocoord [0] = (x * poly4 + cddata->center_x) / cddata->coordinate_correction;
+        iocoord [1] = (y * poly4 + cddata->center_y) / cddata->coordinate_correction;
     }
 }
 
@@ -650,14 +650,14 @@ void lfModifier::ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int coun
     lfCoordDistCallbackData* cddata = (lfCoordDistCallbackData*) data;
 
     // See "Note about PT-based distortion models" at the top of this file.
-    float a_ = cddata->Terms [0];
-    float b_ = cddata->Terms [1];
-    float c_ = cddata->Terms [2];
+    float a_ = cddata->terms [0];
+    float b_ = cddata->terms [1];
+    float c_ = cddata->terms [2];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        const float x = iocoord [0] * cddata->coordinate_correction - cddata->centerX;
-        const float y = iocoord [1] * cddata->coordinate_correction - cddata->centerY;
+        const float x = iocoord [0] * cddata->coordinate_correction - cddata->center_x;
+        const float y = iocoord [1] * cddata->coordinate_correction - cddata->center_y;
         double rd = sqrt (x * x + y * y);
         if (rd == 0.0)
             continue;
@@ -679,8 +679,8 @@ void lfModifier::ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int coun
             continue; // Negative radius does not make sense at all
 
         ru /= rd;
-        iocoord [0] = (x * ru + cddata->centerX) / cddata->coordinate_correction;
-        iocoord [1] = (y * ru + cddata->centerY) / cddata->coordinate_correction;
+        iocoord [0] = (x * ru + cddata->center_x) / cddata->coordinate_correction;
+        iocoord [1] = (y * ru + cddata->center_y) / cddata->coordinate_correction;
 
     next_pixel:
         ;
@@ -693,20 +693,20 @@ void lfModifier::ModifyCoord_Dist_PTLens (void *data, float *iocoord, int count)
 
     // See "Note about PT-based distortion models" at the top of this file.
     // Rd = Ru * (a_ * Ru^3 + b_ * Ru^2 + c_ * Ru + 1)
-    const float a_ = cddata->Terms [0];
-    const float b_ = cddata->Terms [1];
-    const float c_ = cddata->Terms [2];
+    const float a_ = cddata->terms [0];
+    const float b_ = cddata->terms [1];
+    const float c_ = cddata->terms [2];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        const float x = iocoord [0] * cddata->coordinate_correction - cddata->centerX;
-        const float y = iocoord [1] * cddata->coordinate_correction - cddata->centerY;
+        const float x = iocoord [0] * cddata->coordinate_correction - cddata->center_x;
+        const float y = iocoord [1] * cddata->coordinate_correction - cddata->center_y;
         const float ru2 = x * x + y * y;
         const float r = sqrtf (ru2);
         const float poly3 = a_ * ru2 * r + b_ * ru2 + c_ * r + 1;
 
-        iocoord [0] = (x * poly3 + cddata->centerX) / cddata->coordinate_correction;
-        iocoord [1] = (y * poly3 + cddata->centerY) / cddata->coordinate_correction;
+        iocoord [0] = (x * poly3 + cddata->center_x) / cddata->coordinate_correction;
+        iocoord [1] = (y * poly3 + cddata->center_y) / cddata->coordinate_correction;
     }
 }
 
@@ -714,25 +714,25 @@ void lfModifier::ModifyCoord_Dist_ACM (void *data, float *iocoord, int count)
 {
     lfCoordDistCallbackData* cddata = (lfCoordDistCallbackData*) data;
 
-    const float k1 = cddata->Terms [0];
-    const float k2 = cddata->Terms [1];
-    const float k3 = cddata->Terms [2];
-    const float k4 = cddata->Terms [3];
-    const float k5 = cddata->Terms [4];
+    const float k1 = cddata->terms [0];
+    const float k2 = cddata->terms [1];
+    const float k3 = cddata->terms [2];
+    const float k4 = cddata->terms [3];
+    const float k5 = cddata->terms [4];
     const float ACMScale = 1.0f / cddata->norm_focal;
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        const float x = (iocoord [0] * cddata->coordinate_correction - cddata->centerX) * ACMScale;
-        const float y = (iocoord [1] * cddata->coordinate_correction - cddata->centerY) * ACMScale;
+        const float x = (iocoord [0] * cddata->coordinate_correction - cddata->center_x) * ACMScale;
+        const float y = (iocoord [1] * cddata->coordinate_correction - cddata->center_y) * ACMScale;
         const float ru2 = x * x + y * y;
         const float ru4 = ru2 * ru2;
         const float common_term = 1.0 + k1 * ru2 + k2 * ru4 + k3 * ru4 * ru2 + 2 * (k4 * y + k5 * x);
 
         iocoord [0] = (x * common_term + k5 * ru2) / ACMScale;
         iocoord [1] = (y * common_term + k4 * ru2) / ACMScale;
-        iocoord [0] = (iocoord [0] + cddata->centerX) / cddata->coordinate_correction;
-        iocoord [1] = (iocoord [1] + cddata->centerY) / cddata->coordinate_correction;
+        iocoord [0] = (iocoord [0] + cddata->center_x) / cddata->coordinate_correction;
+        iocoord [1] = (iocoord [1] + cddata->center_y) / cddata->coordinate_correction;
     }
 }
 

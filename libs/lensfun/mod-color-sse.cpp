@@ -39,19 +39,19 @@ void lfModifier::ModifyColor_DeVignetting_PA_SSE (
     lfColorVignCallbackData* cddata = (lfColorVignCallbackData*) data;
 
     const float cc = cddata->coordinate_correction;
-    float x = _x * cc - cddata->centerX;
-    float y = _y * cc - cddata->centerY;
+    float x = _x * cc - cddata->center_x;
+    float y = _y * cc - cddata->center_y;
 
     __m128 x2 = _mm_set_ps1 (x);
 
     __m128 r2 = _mm_set_ps1 (x * x + y * y);
-    __m128 d1 = _mm_set_ps1 (2.0 * cddata->coordinate_correction * cddata->NormScale);
-    __m128 p0 = _mm_set_ps1 (cddata->Terms [0]);
-    __m128 p1 = _mm_set_ps1 (cddata->Terms [1]);
-    __m128 p2 = _mm_set_ps1 (cddata->Terms [2]);
-    __m128 p3 = _mm_set_ps1 (cddata->coordinate_correction * cddata->NormScale);
+    __m128 d1 = _mm_set_ps1 (2.0 * cddata->coordinate_correction * cddata->norm_scale);
+    __m128 p0 = _mm_set_ps1 (cddata->terms [0]);
+    __m128 p1 = _mm_set_ps1 (cddata->terms [1]);
+    __m128 p2 = _mm_set_ps1 (cddata->terms [2]);
+    __m128 p3 = _mm_set_ps1 (cddata->coordinate_correction * cddata->norm_scale);
     __m128 one = _mm_set_ps1 (1.0f);
-    __m128 d2 = _mm_set_ps1 (cddata->coordinate_correction * cddata->NormScale * cddata->coordinate_correction * cddata->NormScale);
+    __m128 d2 = _mm_set_ps1 (cddata->coordinate_correction * cddata->norm_scale * cddata->coordinate_correction * cddata->norm_scale);
 
     // SSE Loop processes 1 pixel/loop
     for (int i = 0; i < count; i++)

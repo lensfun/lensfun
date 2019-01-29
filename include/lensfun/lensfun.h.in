@@ -2795,8 +2795,8 @@ private:
         virtual  ~lfCallbackData() {}
         int priority;
 
-        float centerX = 0.0f;
-        float centerY = 0.0f;
+        float center_x = 0.0f;
+        float center_y = 0.0f;
 
         bool operator<(const lfCallbackData& c) const { return priority < c.priority; }
         bool operator>(const lfCallbackData& c) const { return priority > c.priority; }
@@ -2879,7 +2879,7 @@ private:
     {
         float coordinate_correction;
         float norm_focal;
-        float Terms [12];
+        float terms [12];
     };
 
     /// A single pixel coordinate modifier callback.
@@ -2892,7 +2892,7 @@ private:
     {
         float coordinate_correction;
         float norm_focal;
-        float Terms [5];
+        float terms [5];
     };
 
     struct lfCoordScaleCallbackData : public lfCoordCallback
@@ -2920,8 +2920,8 @@ private:
     struct lfColorVignCallbackData : public lfColorCallback
     {
         float coordinate_correction;
-        float NormScale;
-        float Terms [3];
+        float norm_scale;
+        float terms [3];
     };
 
     /// A set of subpixel coordinate modifier callbacks.
@@ -3061,7 +3061,7 @@ private:
     const lfLens* Lens;
 
     /// Indicates which modifications are enabled in this lfModifier
-    int enabledMods;
+    int EnabledMods;
 };
 
 #ifdef __cplusplus
