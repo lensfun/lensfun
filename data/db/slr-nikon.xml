@@ -4243,7 +4243,7 @@
         </calibration>
     </lens>
 
-    <!-- Added Jacques Le Clerc) Manual Lens - No CPU -->
+
     <lens>
         <maker>Nikon</maker>
         <model>Nikon AI-S Nikkor 105mm f/2.5</model>
@@ -4252,6 +4252,10 @@
         <mount>Nikon F AI-S</mount>
         <cropfactor>1</cropfactor>
         <calibration>
+            <!-- Taken with Nikon D3 -->
+            <distortion model="ptlens" focal="105" a="0" b="-0.00039" c="0"/>
+            <tca model="poly3" focal="105" vr="0.9998613" vb="0.9998255"/>
+	    <!-- Added Jacques Le Clerc) Manual Lens - No CPU -->
             <vignetting model="pa" focal="105" aperture="2.5" distance="0.01" k1="-1.2726" k2="1.2576" k3="-0.5724"/>
             <vignetting model="pa" focal="105" aperture="2.5" distance="1000" k1="-1.2726" k2="1.2576" k3="-0.5724"/>
             <vignetting model="pa" focal="105" aperture="2.8" distance="0.01" k1="-0.7166" k2="0.1303" k3="0.0684"/>
