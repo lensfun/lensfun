@@ -2594,6 +2594,23 @@
         <mount>Canon EF</mount>
         <cropfactor>1.62</cropfactor>
         <calibration>
+            <!-- Submitted by calibration upload 2fc12b #313 -->		
+            <distortion focal="70" model="ptlens" a="-0.00077" b="-0.00037" c="-0.0038" />
+            <distortion focal="80" model="ptlens" a="0.00472" b="-0.02025" c="0.02352" />
+            <distortion focal="85" model="ptlens" a="-0.00247" b="0.00964" c="-0.01219" />
+            <distortion focal="105" model="ptlens" a="-0.00083" b="0.00174" c="0.00074" />
+            <distortion focal="110" model="ptlens" a="0.00386" b="-0.01299" c="0.01392" />
+            <distortion focal="120" model="ptlens" a="0.00418" b="-0.01345" c="0.01546" />
+            <distortion focal="140" model="ptlens" a="-0.00181" b="0.00744" c="-0.00667" />
+            <distortion focal="200" model="ptlens" a="0.00408" b="-0.00997" c="0.00969" />
+            <tca model="poly3" focal="70" vr="1.000351" vb="1.0000622"/>
+            <tca model="poly3" focal="80" vr="0.9999255" vb="0.9999259"/>
+            <tca model="poly3" focal="85" vr="0.9998840" vb="1.0000314"/>
+            <tca model="poly3" focal="105" vr="0.9996874" vb="1.0000143"/>
+            <tca model="poly3" focal="110" vr="0.9999465" vb="1.000028"/>
+            <tca model="poly3" focal="120" vr="1.0008615" vb="0.9999955"/>
+            <tca model="poly3" focal="140" vr="0.9999548" vb="0.9996983"/>
+            <tca model="poly3" focal="200" vr="0.9997362" vb="1.0000525"/>
             <!-- Taken with Canon EOS 7D -->
             <vignetting model="pa" focal="70" aperture="2.8" distance="10" k1="-0.2445" k2="0.1287" k3="-0.0538"/>
             <vignetting model="pa" focal="70" aperture="2.8" distance="1000" k1="-0.2445" k2="0.1287" k3="-0.0538"/>
