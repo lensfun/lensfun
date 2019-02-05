@@ -6233,6 +6233,17 @@
         <calibration>
             <!-- Taken with Canon 6D -->
             <distortion model="ptlens" focal="50" a="0.0061844" b="-0.0313122" c="0.0314815"/>
+            <!-- Taken with 5D III upload 514b8f #317-->
+            <vignetting model="pa" focal="50" aperture="1.8" distance="10" k1="-1.5829" k2="1.2949" k3="-0.5012" />
+            <vignetting model="pa" focal="50" aperture="1.8" distance="1000" k1="-1.5829" k2="1.2949" k3="-0.5012" />
+            <vignetting model="pa" focal="50" aperture="2.5" distance="10" k1="-0.0364" k2="-1.3199" k3="0.7328" />
+            <vignetting model="pa" focal="50" aperture="2.5" distance="1000" k1="-0.0364" k2="-1.3199" k3="0.7328" />
+            <vignetting model="pa" focal="50" aperture="3.5" distance="10" k1="-0.4165" k2="0.4098" k3="-0.4114" />
+            <vignetting model="pa" focal="50" aperture="3.5" distance="1000" k1="-0.4165" k2="0.4098" k3="-0.4114" />
+            <vignetting model="pa" focal="50" aperture="5" distance="10" k1="-0.3328" k2="-0.0205" k3="0.0859" />
+            <vignetting model="pa" focal="50" aperture="5" distance="1000" k1="-0.3328" k2="-0.0205" k3="0.0859" />
+            <vignetting model="pa" focal="50" aperture="22" distance="10" k1="-0.3209" k2="-0.0747" k3="0.1209" />
+            <vignetting model="pa" focal="50" aperture="22" distance="1000" k1="-0.3209" k2="-0.0747" k3="0.1209" />
         </calibration>
     </lens>
 
