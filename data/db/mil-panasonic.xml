@@ -1827,7 +1827,19 @@
         <cropfactor>2</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <!-- Taken with Panasonic DMC-GH5 -->
+	<!-- Taken with Panasonic DMC-GH5 -->
+            <distortion model="ptlens" focal="12" a="0.024491" b="-0.0867323" c="0.015304"/>
+            <distortion model="ptlens" focal="18" a="0.0113015" b="-0.0334604" c="0.0101537"/>
+            <distortion model="ptlens" focal="25" a="0" b="0.00247064" c="0"/>
+            <distortion model="ptlens" focal="40" a="0" b="0.00512035" c="0"/>
+            <distortion model="ptlens" focal="50" a="0" b="0.00367001" c="0"/>
+            <distortion model="poly3" focal="60" k1="0.0030586"/>
+            <tca model="poly3" focal="12" vr="1.0001339" vb="1.0000310"/>
+            <tca model="poly3" focal="18" vr="1.0001283" vb="0.9999388"/>
+            <tca model="poly3" focal="25" vr="1.0000860" vb="0.9999629"/>
+            <tca model="poly3" focal="40" vr="0.9999446" vb="1.0000084"/>
+            <tca model="poly3" focal="50" vr="0.9999025" vb="1.0000180"/>
+            <tca model="poly3" focal="60" vr="0.9999361" vb="0.9999539"/>
             <vignetting model="pa" focal="12" aperture="2.8" distance="10" k1="0.0501" k2="-1.3211" k3="0.5870"/>
             <vignetting model="pa" focal="12" aperture="2.8" distance="1000" k1="0.0501" k2="-1.3211" k3="0.5870"/>
             <vignetting model="pa" focal="12" aperture="4" distance="10" k1="-0.2899" k2="0.3653" k3="-0.6210"/>
