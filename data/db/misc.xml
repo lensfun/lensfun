@@ -741,4 +741,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <!-- Possibly same optics as the similar Venus Laowa lens -->
+	    <maker>Opteka</maker>
+	    <model>Opteka 15mm f/4 Wide Macro 1:1</model>
+	    <mount>Nikon F</mount>
+        <mount>Canon EF</mount>
+	    <cropfactor>1</cropfactor>
+	    <calibration>
+	        <distortion model="ptlens" focal="0" a="0.05114" b="-0.13551" c="0.04398"/>
+	    </calibration>
+	</lens>
+
 </lensdatabase>
