@@ -1453,6 +1453,18 @@
 
     <lens>
         <maker>Sony</maker>
+        <model>FE 35mm f/2.8 ZA</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony A7R3 -->
+            <distortion model="ptlens" focal="35" a="-0.0159484" b="0.0263877" c="0.00680668"/>
+            <tca model="poly3" focal="35" vr="1.0001116" vb="1.0001005"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
         <model>FE 50mm F1.8</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
