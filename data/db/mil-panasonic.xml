@@ -668,38 +668,17 @@
         <cropfactor>2</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="poly3" focal="14" k1="-0.028"/>
-            <distortion model="poly3" focal="15" k1="-0.027"/>
-            <distortion model="poly3" focal="16" k1="-0.027"/>
-            <distortion model="poly3" focal="17" k1="-0.026"/>
-            <distortion model="poly3" focal="18" k1="-0.022"/>
-            <distortion model="poly3" focal="19" k1="-0.021"/>
-            <distortion model="poly3" focal="20" k1="-0.018"/>
-            <distortion model="poly3" focal="21" k1="-0.017"/>
-            <distortion model="poly3" focal="22" k1="-0.016"/>
-            <distortion model="poly3" focal="23" k1="-0.016"/>
-            <distortion model="poly3" focal="24" k1="-0.013"/>
-            <distortion model="poly3" focal="25" k1="-0.011"/>
-            <distortion model="poly3" focal="26" k1="-0.011"/>
-            <distortion model="poly3" focal="27" k1="-0.011"/>
-            <distortion model="poly3" focal="28" k1="-0.011"/>
-            <distortion model="poly3" focal="29" k1="-0.008"/>
-            <distortion model="poly3" focal="30" k1="-0.008"/>
-            <distortion model="poly3" focal="31" k1="-0.007"/>
-            <distortion model="poly3" focal="32" k1="-0.006"/>
-            <distortion model="poly3" focal="33" k1="-0.006"/>
-            <distortion model="poly3" focal="34" k1="-0.006"/>
-            <distortion model="poly3" focal="35" k1="-0.005"/>
-            <distortion model="poly3" focal="36" k1="-0.005"/>
-            <distortion model="poly3" focal="37" k1="-0.005"/>
-            <distortion model="poly3" focal="38" k1="-0.003"/>
-            <distortion model="poly3" focal="39" k1="-0.003"/>
-            <distortion model="poly3" focal="40" k1="-0.003"/>
-            <distortion model="poly3" focal="41" k1="-0.002"/>
-            <distortion model="poly3" focal="42" k1="-0.002"/>
-            <distortion model="poly3" focal="43" k1="-0.002"/>
-            <distortion model="poly3" focal="44" k1="-0.002"/>
-            <distortion model="poly3" focal="45" k1="-0.002"/>
+            <distortion focal="14" model="ptlens" a="0.025592" b="-0.090127" c="0.015798"/>
+            <distortion focal="16" model="ptlens" a="0.01809" b="-0.073058" c="0.022836"/>
+            <distortion focal="18" model="ptlens" a="0.012509" b="-0.059775" c="0.024515"/>
+            <distortion focal="21" model="ptlens" a="0.007897" b="-0.037455" c="0.009952"/>
+            <distortion focal="24" model="ptlens" a="0.003023" b="-0.018247" c="-0.004231"/>
+            <distortion focal="26" model="ptlens" a="0.003449" b="-0.019627" c="0.003703"/>
+            <distortion focal="30" model="ptlens" a="0.010133" b="-0.036009" c="0.020535"/>
+            <distortion focal="34" model="ptlens" a="-0.002539" b="0.00401" c="-0.012615"/>
+            <distortion focal="37" model="ptlens" a="0.000292" b="-0.002104" c="-0.005641"/>
+            <distortion focal="40" model="ptlens" a="-0.003796" b="0.009287" c="-0.011851"/>
+            <distortion focal="45" model="ptlens" a="-0,000847" b="0,003645" c="-0,008538"/>
             <tca model="poly3" focal="14" br="-0.0000208" cr="-0.0001450" vr="0.9999670" bb="0.0000551" cb="0.0004740" vb="0.9997706"/>
             <tca model="poly3" focal="15" br="-0.0000208" cr="-0.0001450" vr="0.9999670" bb="0.0000551" cb="0.0004740" vb="0.9997706"/>
             <tca model="poly3" focal="16" br="0.0000004" cr="0.0001262" vr="0.9999621" bb="0.0000448" cb="0.0003730" vb="0.9998125"/>
