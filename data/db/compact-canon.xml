@@ -561,6 +561,14 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon PowerShot A1200</model>
+        <model lang="en">Powershot A1200</model>
+        <mount>canonA1200</mount>
+        <cropfactor>5.61</cropfactor>
+     </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon PowerShot A610</model>
         <model lang="en">PowerShot A610</model>
         <mount>canonA610</mount>
@@ -2191,7 +2199,28 @@
             <distortion model="poly3" focal="70" k1="0.0042"/>
         </calibration>
     </lens>
-
+    
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon PowerShot A1200 &amp; compatibles (Standard)</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>canonA1200</mount>
+        <cropfactor>5.61</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- This camera doesn't produce RAW files -->
+            <distortion model="ptlens" focal="5" a="-0.00277" b="0.008202" c="-0.023857"/>
+            <distortion model="ptlens" focal="6.36" a="0.024534" b="-0.098974" c="0.102683"/>
+            <distortion model="ptlens" focal="7.41" a="0.017966" b="-0.069396" c="0.065749"/>
+            <distortion model="ptlens" focal="9.06" a="-0.019176" b="0.0528" c="-0.062398"/>
+            <distortion model="ptlens" focal="10.91" a="-0.014637" b="0.040343" c="-0.050821"/>
+            <distortion model="ptlens" focal="13.05" a="-0.013019" b="0.031076" c="-0.034525"/>
+            <distortion model="ptlens" focal="15.69" a="0.001945" b="-0.017517" c="0.020348"/>
+            <distortion model="ptlens" focal="20" a="-0.011521" b="0.03586" c="-0.044143"/>
+        </calibration>
+    </lens>
+ 
     <lens>
         <maker>Canon</maker>
         <model>Canon PowerShot A720 IS &amp; compatibles (Standard)</model>
