@@ -80,4 +80,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Zeiss Milvus 1.4/50</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony A7R3 + EF adapter -->
+            <distortion model="poly3" focal="50" k1="-0.002311"/>
+            <tca model="poly3" focal="50" vr="1.0000420" vb="0.9999673"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
