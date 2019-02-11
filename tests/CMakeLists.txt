@@ -1,5 +1,8 @@
 find_package(OpenMP)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+
+IF (OpenMP_FOUND)
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+ENDIF()
 
 ADD_EXECUTABLE(test_database test_database.cpp)
 TARGET_LINK_LIBRARIES(test_database lensfun ${COMMON_LIBS})
@@ -16,9 +19,6 @@ ADD_TEST(Modifier test_modifier)
 ADD_EXECUTABLE(test_modifier_performance test_modifier_performance.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_performance lensfun ${COMMON_LIBS})
 ADD_TEST(NAME Modifier_performance WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND test_modifier_performance)
-
-find_package(OpenMP)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 
 ADD_EXECUTABLE(test_modifier_color test_modifier_color.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_color lensfun ${COMMON_LIBS})
