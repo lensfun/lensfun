@@ -570,24 +570,28 @@
     </lens>
 
     <lens>
-        <maker>Panasonic</maker>
+        <maker>Leica</maker>
         <model>DMC-LX10 &amp; compatibles (Standard)</model>
         <model lang="en">fixed lens</model>
         <model lang="de">festes Objektiv</model>
+        <model lang="fr">objectif intégré</model>
         <mount>panasonicLX10</mount>
         <cropfactor>2.73</cropfactor>
         <calibration>
-            <!-- The images used may have been from a decentered copy, profile could probably be improved -->
-            <distortion model="ptlens" focal="8.8" a="0.010942" b="-0.029589" c="-0.127751"/>
-            <distortion model="ptlens" focal="11.1" a="0.004343" b="-0.006014" c="-0.108991"/>
-            <distortion model="ptlens" focal="14.4" a="-0.00119284" b="0.0103772" c="-0.0763527"/>
-            <distortion model="ptlens" focal="19.9" a="0" b="-0.00933063" c="0"/>
-            <distortion model="ptlens" focal="26.4" a="0" b="-0.00384733" c="0"/>
-            <tca model="poly3" focal="8.8" br="-0.0002023" vr="1.0006030" bb="0.0001420" vb="0.9999615"/>
-            <tca model="poly3" focal="11.1" br="-0.0001178" vr="1.0004125" bb="0.0000804" vb="0.9999734"/>
-            <tca model="poly3" focal="14.4" br="-0.0000867" vr="1.0002260" bb="0.0000798" vb="1.0000587"/>
-            <tca model="poly3" focal="19.9" br="-0.0000385" vr="1.0001308" bb="0.0000077" vb="1.0001186"/>
-            <tca model="poly3" focal="26.4" br="-0.0000296" vr="1.0000373" bb="0.0000082" vb="1.0001580"/>
+            <!-- Measures by JackDesBwa 2018-12-07, high confidence in distortion data -->
+            <distortion model="ptlens" focal="8.8" a="0.0340763561797834" b="-0.112939517866333" c="-0.00478327940864424" />
+            <distortion model="ptlens" focal="10.2" a="0.0172391103685697" b="-0.0612924484780965" c="-0.0280698750494415" />
+            <distortion model="ptlens" focal="12.8" a="0.00866002146059237" b="-0.0292113310751692" c="-0.0276457898618932" />
+            <distortion model="ptlens" focal="18.3" a="0.000715763353657251" b="0.000517766734734218" c="-0.0276992702354011" />
+            <distortion model="ptlens" focal="25.6" a="-0.00357626322440886" b="0.0155946441949497" c="-0.0302661402940034" />
+            <distortion model="ptlens" focal="26.4" a="-0.00148785096899753" b="0.00373506993924256" c="-0.0191184894423543" />
+            <!-- Measures by JackDesBwa 2018-12-08, might be improved: made with only one sample per entry -->
+            <tca model="poly3" focal="8.8" br="-0.0007508" cr="0.0011385" vr="1.0003461" bb="0.0006617" cb="-0.0008369" vb="1.0002150" />
+            <tca model="poly3" focal="10.2" br="-0.0005722" cr="0.0009598" vr="1.0002680" bb="0.0004560" cb="-0.0007134" vb="1.0002805" />
+            <tca model="poly3" focal="12.8" br="-0.0004294" cr="0.0006552" vr="1.0002534" bb="0.0003048" cb="-0.0004001" vb="1.0001558" />
+            <tca model="poly3" focal="18.3" br="-0.0003976" cr="0.0006771" vr="1.0000344" bb="0.0003645" cb="-0.0005774" vb="1.0002434" />
+            <tca model="poly3" focal="25.6" br="-0.0002063" cr="0.0003743" vr="1.0000380" bb="0.0001243" cb="-0.0002521" vb="1.0001199" />
+            <tca model="poly3" focal="26.4" br="-0.0001359" cr="0.0002246" vr="1.0000670" bb="0.0001583" cb="-0.0003384" vb="1.0001865" />
         </calibration>
     </lens>
 
