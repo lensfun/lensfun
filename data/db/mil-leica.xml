@@ -1,0 +1,26 @@
+ <mount>
+    <name>Leica L</name>
+    <compat>M42</compat>
+    <compat>M39/1</compat>
+    <compat>DKL</compat>
+    <compat>T2</compat>
+    <compat>Generic</compat>
+</mount>
+
+<camera>
+    <maker>LEICA CAMERA AG</maker>
+    <model>Leica CL</model>
+    <mount>Leica L</mount>
+    <cropfactor>1.53</cropfactor>
+</camera>
+
+<lens>
+    <maker>LEICA CAMERA AG</maker>
+    <model>Summicron TL 1:2 23 ASPH.</model>
+    <mount>Leica L</mount>
+    <cropfactor>1.53</cropfactor>
+    <calibration>
+        <distortion a="0.003295" model="ptlens" b="-0.024903" c="0.013932" focal="23"/>
+        <tca vb="0.9997527" bb="0.0002195" cb="-0.0001105" vr="1.0005565" br="-0.0002789" cr="0.0002358" model="poly3" focal="23"/>
+    </calibration>
+</lens>
