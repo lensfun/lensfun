@@ -927,6 +927,22 @@
         <cropfactor>5.61</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot SX700 HS</model>
+        <model lang="en">PowerShot SX700 HS</model>
+        <mount>canonSX710HS</mount>
+        <cropfactor>5.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot SX710 HS</model>
+        <model lang="en">PowerShot SX710 HS</model>
+        <mount>canonSX710HS</mount>
+        <cropfactor>5.6</cropfactor>
+    </camera>
+     
     <lens>
         <maker>Canon</maker>
         <model>Canon PowerShot Pro1 &amp; compatibles (Standard)</model>
@@ -3259,5 +3275,31 @@
             <tca model="poly3" focal="247" vr="1.0000000" vb="1.0000000"/>
         </calibration>
     </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon PowerShot SX710 HS &amp; compatibles, with CHDK's DNG</model>
+        <model lang="en">fixed lens, with CHDK's DNG</model>
+        <model lang="de">festes Objektiv, mit CHDK-DNG</model>
+        <mount>canonSX710HS</mount>
+        <cropfactor>5.6</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="4.5" a="0.03396" b="-0.11175" c="-0.01779" />
+            <distortion model="ptlens" focal="5.5" a="0.03289" b="-0.11253" c="0.02444" />
+            <distortion model="ptlens" focal="6.6" a="0.02218" b="-0.08388" c="0.03521" />
+            <distortion model="ptlens" focal="9.5" a="0.01211" b="-0.04143" c="0.02055" />
+            <distortion model="ptlens" focal="13.5" a="-0.0022" b="0.00264" c="-0.00558" />
+            <distortion model="ptlens" focal="18.2" a="-0.00212" b="0.00441" c="-0.00378" />
+            <distortion model="ptlens" focal="23.4" a="0.00328" b="-0.01242" c="0.01298" />
+            <distortion model="ptlens" focal="29.1" a="-0.00036" b="-0.00082" c="0.00209" />
+            <distortion model="ptlens" focal="36.2" a="0.00129" b="-0.00626" c="0.00705" />
+            <distortion model="ptlens" focal="46.3" a="0.00715" b="-0.02588" c="0.0244" />
+            <distortion model="ptlens" focal="46.3" a="0.00715" b="-0.02588" c="0.0244" />
+            <distortion model="ptlens" focal="62.9" a="0.00067" b="-0.00852" c="0.01085" />
+            <distortion model="ptlens" focal="92.0" a="-0.00306" b="0.00016" c="-0.00374" />
+            <distortion model="ptlens" focal="128.7" a="-0.0037" b="0.00365" c="-0.00582" />
+            <distortion model="ptlens" focal="135.0" a="0.00333" b="-0.02616" c="0.03388" />
+        </calibration>
 
 </lensdatabase>
