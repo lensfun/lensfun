@@ -74,6 +74,14 @@
     </camera>
 
     <camera>
+        <maker>Huawei</maker>
+        <model>CLT-L29</model>
+        <model lang="en">P20 Pro</model>
+        <mount>cltl29</mount>
+        <cropfactor>4.55</cropfactor>
+    </camera>
+
+    <camera>
         <maker>Nokia</maker>
         <model>Lumia 1520</model>
         <mount>lumia1520</mount>
@@ -359,6 +367,22 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Huawei</maker>
+        <model>Huawei P20 Pro &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>cltl29</mount>
+        <cropfactor>4.55</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="4" a="0.00215" b="-0.01025" c="0.02773"/>
+            <tca model="poly3" focal="4" vr="1.0000301" vb="1.0000056"/>
+            <vignetting model="pa" focal="4" aperture="1.8" distance="10" k1="-2.0558" k2="2.2822" k3="-1.0074"/>
+            <vignetting model="pa" focal="4" aperture="1.8" distance="1000" k1="-2.0558" k2="2.2822" k3="-1.0074"/>
+        </calibration>
+    </lens>
+ 
     <lens>
         <!-- This is *not* the mirror lens -->
         <maker>Beroflex</maker>
