@@ -6377,6 +6377,19 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon FD 200mm f/2.8 S.S.C.</model>
+        <mount>Canon FD</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 6300 -->
+            <distortion model="poly3" focal="200" k1="0.00162"/>
+	    <!-- TCA correction could probably be improved using a better copy of this lens -->
+            <tca model="poly3" focal="200" br="-0.0000307" vr="0.9999312" bb="-0.0000125" vb="0.9999748"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon EF 24mm f/2.8 IS USM</model>
         <mount>Canon EF-S</mount>
         <cropfactor>1.613</cropfactor>
