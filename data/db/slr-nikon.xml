@@ -4106,6 +4106,27 @@
 
     <lens>
         <maker>Nikon</maker>
+        <model>AF-P Nikkor 70-300mm f/4.5-5.6E ED VR</model>
+	<model lang="en">Nikkor AF-P 70-300mm f/4.5-5.6E ED VR</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with D850 -->
+            <distortion model="poly3" focal="70" k1="-0.005636"/>
+            <distortion model="poly3" focal="100" k1="-0.001539"/>
+            <distortion model="poly3" focal="125" k1="0.000726"/>
+            <distortion model="poly3" focal="185" k1="0.00048"/>
+            <distortion model="poly3" focal="300" k1="-0.000668"/>
+            <tca model="poly3" focal="70" vr="1.0000828" vb="1.0000233"/>
+            <tca model="poly3" focal="100" vr="1.0000526" vb="1.0000235"/>
+            <tca model="poly3" focal="125" vr="1.0000125" vb="1.0000104"/>
+            <tca model="poly3" focal="185" vr="0.9999616" vb="0.9999863"/>
+            <tca model="poly3" focal="300" vr="0.9998467" vb="0.9999508"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
         <model>Nikon AF-S DX Nikkor 35mm f/1.8G</model>
         <model lang="en">Nikkor AF-S 35mm f/1.8G DX</model>
         <mount>Nikon F AF</mount>
