@@ -571,6 +571,20 @@
 
     <lens>
         <maker>Venus</maker>
+        <model>Laowa 9mm f/2.8 Zero-D</model>
+        <mount>Fujifilm X</mount>
+        <mount>Sony E</mount>
+        <mount>Canon EF-M</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fuji X-T10 -->
+            <distortion model="poly3" focal="9" k1="0.000925"/>
+            <tca model="poly3" focal="9" vr="1.0001972" vb="1.0000750"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Venus</maker>
         <model>Laowa 7.5mm f/2.0</model>
         <mount>Micro 4/3 System</mount>
         <focal value="7.5"/>
