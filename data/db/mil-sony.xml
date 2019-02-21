@@ -1588,6 +1588,27 @@
 
     <lens>
         <maker>Sony</maker>
+        <model>FE 85mm f/1.4 GM</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+           <distortion model="ptlens" focal="85" a="0.002" b="0.001" c="-0.009" />
+           <tca model="poly3" focal="85.0" vr="1.0001739" vb="0.9998863" />
+           <vignetting model="pa" focal="85.0" aperture="1.4" distance="10" k1="0.0255248" k2="1.2726464" k3="1.1334426" />
+           <vignetting model="pa" focal="85.0" aperture="1.4" distance="1000" k1="0.0255248" k2="1.2726464" k3="1.1334426" />
+           <vignetting model="pa" focal="85.0" aperture="2.0" distance="10" k1="0.0727763" k2="-1.5312690" k3="0.8846760" />
+           <vignetting model="pa" focal="85.0" aperture="2.0" distance="1000" k1="0.0727763" k2="-1.5312690" k3="0.8846760" />
+           <vignetting model="pa" focal="85.0" aperture="2.8" distance="10" k1="-0.0376922" k2="-0.3484006" k3="-0.1197605" />
+           <vignetting model="pa" focal="85.0" aperture="2.8" distance="1000" k1="-0.0376922" k2="-0.3484006" k3="-0.1197605" />
+           <vignetting model="pa" focal="85.0" aperture="4.0" distance="10" k1="-0.2875749" k2="0.6343450" k3="-0.7626592" />
+           <vignetting model="pa" focal="85.0" aperture="4.0" distance="1000" k1="-0.2875749" k2="0.6343450" k3="-0.7626592" />
+           <vignetting model="pa" focal="85.0" aperture="16.0" distance="10" k1="-0.1971090" k2="0.0217729" k3="0.0098701" />
+           <vignetting model="pa" focal="85.0" aperture="16.0" distance="1000" k1="-0.1971090" k2="0.0217729" k3="0.0098701" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
         <model>FE 85mm f/1.8</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
