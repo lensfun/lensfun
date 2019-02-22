@@ -433,6 +433,22 @@
         <cropfactor>2.75</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Panasonic</maker>
+        <model>DC-ZS200</model>
+        <!-- North American version of TZ200 -->
+        <mount>panasonicZS200</mount>
+        <cropfactor>2.73</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Panasonic</maker>
+        <model>DC-TZ200</model>
+        <!-- International version of ZS200 -->
+        <mount>panasonicZS200</mount>
+        <cropfactor>2.73</cropfactor>
+    </camera>
+
     <lens>
         <maker>Leica</maker>
         <model>DMC-LX1 &amp; compatibles (Standard)</model>
@@ -1034,6 +1050,29 @@
             <tca model="poly3" focal="36.6" vr="1.0000000" vb="1.0000000"/>
             <tca model="poly3" focal="54.8" vr="0.9997000" vb="1.0000000"/>
             <tca model="poly3" focal="91" vr="0.9996000" vb="0.9995000"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Panasonic</maker>
+        <model>DC-ZS200 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>panasonicZS200</mount>
+        <cropfactor>2.73</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="8.8" a="0.00541426" b="-0.0447684" c="-0.0414862"/>
+            <distortion model="ptlens" focal="23.1" a="0" b="0.00117921" c="0"/>
+            <distortion model="ptlens" focal="36.4" a="0" b="-0.00126495" c="0"/>
+            <distortion model="ptlens" focal="75.2" a="0" b="-0.011197" c="0"/>
+            <distortion model="ptlens" focal="109.7" a="0" b="-0.0139365" c="0"/>
+            <distortion model="ptlens" focal="132" a="0" b="-0.0154332" c="0"/>
+            <tca model="poly3" focal="8.8" vr="1.0001106" vb="1.0002113"/>
+            <tca model="poly3" focal="23.1" vr="1.0000646" vb="1.0001836"/>
+            <tca model="poly3" focal="36.4" vr="0.9999912" vb="1.0001627"/>
+            <tca model="poly3" focal="75.2" vr="0.9998894" vb="1.0000325"/>
+            <tca model="poly3" focal="109.7" vr="0.9998627" vb="0.9998566"/>
+            <tca model="poly3" focal="132" vr="0.9998288" vb="0.9999032"/>
         </calibration>
     </lens>
 
