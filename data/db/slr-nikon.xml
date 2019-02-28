@@ -1447,6 +1447,26 @@
 
     <lens>
         <maker>Nikon</maker>
+        <model>Nikon AF Zoom-Nikkor 24-50mm f/3.3-4.5</model>
+        <model lang="en">Nikkor AF 24-50mm f/3.3-4.5</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Nikon D750 -->
+            <distortion model="ptlens" focal="24" a="0.02066" b="-0.06229" c="0.01467"/>
+            <distortion model="ptlens" focal="35" a="0.01041" b="-0.03848" c="0.02503"/>
+            <distortion model="ptlens" focal="42" a="-0.00155" b="0.00359" c="-0.01268"/>
+            <distortion model="ptlens" focal="50" a="-0.00169" b="0.00372" c="-0.01028"/>
+            <tca model="poly3" focal="24" vr="1.0001258" vb="1.0001678"/>
+            <tca model="poly3" focal="31" vr="1.0000642" vb="1.0002017"/>
+            <tca model="poly3" focal="38" vr="1.0001077" vb="1.0000725"/>
+            <tca model="poly3" focal="45" vr="1.0001319" vb="1.0000311"/>
+            <tca model="poly3" focal="50" vr="1.0001317" vb="1.0000524"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
         <model>Nikon AF Zoom-Nikkor 24-85mm f/2.8-4D IF</model>
         <model lang="en">Nikkor AF 24-85mm f/2.8-4D IF</model>
         <mount>Nikon F AF</mount>
