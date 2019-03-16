@@ -1978,5 +1978,21 @@
             <tca model="poly3" focal="18" vr="1.0000101" vb="1.0000409"/>
         </calibration>
     </lens>
-
+    <lens>
+        <maker>Panasonic</maker>
+        <model>LEICA DG 100-400/F4.0-6.3</model>
+        <model lang="en">Leica DG Vario-Elmar 100-400mm F4.0-6.3 Asph. Power OIS</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <calibration>
+           <distortion model="ptlens" focal="100.0" a="0.00883" b="-0.02791" c="0.03876" />
+           <distortion model="ptlens" focal="200.0" a="-0.02022" b="0.07278" c="-0.07288" />
+           <distortion model="ptlens" focal="300.0" a="-0.01836" b="0.0646" c="-0.06227" />
+           <distortion model="ptlens" focal="400.0" a="-0.02255" b="0.05774" c="-0.037" />
+           <tca model="poly3" focal="100.0" vr="0.9999555" vb="1.0004712" />
+           <tca model="poly3" focal="200.0" vr="0.9999139" vb="1.0000396" />
+           <tca model="poly3" focal="300.0" vr="0.9997850" vb="0.9999384" />
+           <tca model="poly3" focal="400.0" vr="0.9996906" vb="0.9998254" />
+        </calibration>
+    </lens>
 </lensdatabase>
