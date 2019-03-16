@@ -3394,7 +3394,6 @@
         <maker>Sigma</maker>
         <model>Sigma 150-600mm f/5-6.3 DG OS HSM | C</model>
         <mount>Canon EF</mount>
-        <mount>Nikon F AF</mount>
         <mount>Sigma SA</mount>
         <cropfactor>1.613</cropfactor>
         <calibration>
@@ -3547,6 +3546,32 @@
             <vignetting model="pa" focal="85" aperture="8" distance="1000" k1="-0.2590" k2="-0.1508" k3="0.1415"/>
             <vignetting model="pa" focal="85" aperture="11" distance="10" k1="-0.3057" k2="-0.0588" k3="0.0917"/>
             <vignetting model="pa" focal="85" aperture="11" distance="1000" k1="-0.3057" k2="-0.0588" k3="0.0917"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 150-600mm f/5-6.3 DG OS HSM | C</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+	    <!-- Taken with Nikon D7200 -->
+            <distortion model="ptlens" focal="150" a="0.0018" b="-0.0052" c="0.01201"/>
+            <distortion model="ptlens" focal="180" a="0.00017" b="-0.00372" c="0.00887"/>
+            <distortion model="ptlens" focal="200" a="0.00391" b="-0.01423" c="0.02658"/>
+            <distortion model="ptlens" focal="240" a="-0.00941" b="0.03773" c="-0.03886"/>
+            <distortion model="ptlens" focal="300" a="0.00061" b="0.00539" c="-0.00007"/>
+            <distortion model="ptlens" focal="390" a="0.00176" b="0.00297" c="-0.00874"/>
+            <distortion model="ptlens" focal="500" a="0.00878" b="-0.02946" c="0.04028"/>
+            <distortion model="ptlens" focal="600" a="0.01891" b="-0.06788" c="0.08652"/>
+            <tca model="poly3" focal="150" vr="1.0004379" vb="1.0000430"/>
+            <tca model="poly3" focal="180" vr="1.0003437" vb="1.0000067"/>
+            <tca model="poly3" focal="200" vr="1.0002431" vb="0.9999834"/>
+            <tca model="poly3" focal="240" vr="1.0000833" vb="0.9999500"/>
+            <tca model="poly3" focal="300" vr="0.9999668" vb="0.9999424"/>
+            <tca model="poly3" focal="390" vr="0.9997885" vb="0.9999205"/>
+            <tca model="poly3" focal="500" vr="0.9995707" vb="0.9998985"/>
+            <tca model="poly3" focal="600" vr="0.9994583" vb="0.9999065"/>
         </calibration>
     </lens>
 
