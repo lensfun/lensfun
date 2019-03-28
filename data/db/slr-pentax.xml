@@ -2468,4 +2468,30 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc PENTAX-F 28mm F2.8</model>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1.522</cropfactor>
+        <calibration>
+	    <!-- Taken with K-01 -->
+            <distortion model="ptlens" focal="28" a="0.00264" b="-0.01024" c="0.00489" />
+            <tca model="poly3" focal="28" br="0.0000072" vr="1.0003561" bb="0.0000565" vb="0.9998573" />
+            <vignetting model="pa" focal="28" aperture="2.8" distance="10" k1="-1.1033" k2="1.0965" k3="-0.4898" />
+            <vignetting model="pa" focal="28" aperture="2.8" distance="1000" k1="-1.1033" k2="1.0965" k3="-0.4898" />
+            <vignetting model="pa" focal="28" aperture="4" distance="10" k1="-0.2855" k2="-0.0275" k3="0.0059" />
+            <vignetting model="pa" focal="28" aperture="4" distance="1000" k1="-0.2855" k2="-0.0275" k3="0.0059" />
+            <vignetting model="pa" focal="28" aperture="5.6" distance="10" k1="-0.3413" k2="0.1215" k3="-0.0309" />
+            <vignetting model="pa" focal="28" aperture="5.6" distance="1000" k1="-0.3413" k2="0.1215" k3="-0.0309" />
+            <vignetting model="pa" focal="28" aperture="8" distance="10" k1="-0.3427" k2="0.1144" k3="-0.0240" />
+            <vignetting model="pa" focal="28" aperture="8" distance="1000" k1="-0.3427" k2="0.1144" k3="-0.0240" />
+            <vignetting model="pa" focal="28" aperture="11" distance="10" k1="-0.3492" k2="0.1265" k3="-0.0309" />
+            <vignetting model="pa" focal="28" aperture="11" distance="1000" k1="-0.3492" k2="0.1265" k3="-0.0309" />
+            <vignetting model="pa" focal="28" aperture="16" distance="10" k1="-0.3597" k2="0.1541" k3="-0.0477" />
+            <vignetting model="pa" focal="28" aperture="16" distance="1000" k1="-0.3597" k2="0.1541" k3="-0.0477" />
+            <vignetting model="pa" focal="28" aperture="22" distance="10" k1="-0.3630" k2="0.1491" k3="-0.0443" />
+            <vignetting model="pa" focal="28" aperture="22" distance="1000" k1="-0.3630" k2="0.1491" k3="-0.0443" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
