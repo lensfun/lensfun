@@ -419,7 +419,7 @@ def tag_image_files(file_exif_data):
                 else:
                     focal_length = format(exif_focal_length, "05.1f")
                 os.rename(filepath, os.path.join(os.path.dirname(filepath), "{}--{}mm--{}_{}".format(
-                    exif_lens_model, focal_length, exif_aperture, filename)))
+                    exif_lens_model, focal_length, exif_aperture, filename).replace("/", "__")))
             else:
                 logging.info("Missing EXIF data in " + filepath)
                 missing_data.append((filepath, exif_lens_model, exif_focal_length, exif_aperture))
@@ -465,7 +465,7 @@ def quote_directory(path):
         :rtype: str
         """
         assert "/" not in name
-        name = name.replace(":", "___").replace("/", "__").replace(" ", "_").replace("*", "++").replace("=", "##")
+        name = name.replace(":", "___").replace(" ", "_").replace("*", "++").replace("=", "##")
         result = ""
         for char in name:
             if char in ';%?><|"~&':
