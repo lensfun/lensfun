@@ -382,7 +382,7 @@
             <vignetting model="pa" focal="4" aperture="1.8" distance="1000" k1="-2.0558" k2="2.2822" k3="-1.0074"/>
         </calibration>
     </lens>
- 
+
     <lens>
         <!-- This is *not* the mirror lens -->
         <maker>Beroflex</maker>
@@ -648,7 +648,7 @@
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
-	    <!-- Taken with Sony ILCE-7RM2 (α7R II) -->
+            <!-- Taken with Sony ILCE-7RM2 (α7R II) -->
             <distortion model="ptlens" focal="35" a="0.00676" b="-0.02119" c="0.0148"/>
             <tca model="poly3" focal="35" br="-0.0003422" vr="1.0010988" bb="0.0004953" vb="0.9988583"/>
             <vignetting model="pa" focal="35" aperture="2.8" distance="10" k1="-1.8879" k2="1.9261" k3="-0.9102"/>
@@ -752,7 +752,7 @@
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
-	    <!-- Taken with ILCE-7RM2 Alpha 7R II -->
+            <!-- Taken with ILCE-7RM2 Alpha 7R II -->
             <distortion model="poly3" focal="15" k1="-0.00287"/>
             <tca model="poly3" focal="15" br="-0.0000500" vr="1.0003065" bb="0.0000755" vb="0.9999375"/>
         </calibration>
@@ -781,14 +781,14 @@
 
     <lens>
         <!-- Possibly same optics as the similar Venus Laowa lens -->
-	    <maker>Opteka</maker>
-	    <model>Opteka 15mm f/4 Wide Macro 1:1</model>
-	    <mount>Nikon F</mount>
+        <maker>Opteka</maker>
+        <model>Opteka 15mm f/4 Wide Macro 1:1</model>
+        <mount>Nikon F</mount>
         <mount>Canon EF</mount>
-	    <cropfactor>1</cropfactor>
-	    <calibration>
-	        <distortion model="ptlens" focal="15" a="0.05114" b="-0.13551" c="0.04398"/>
-	    </calibration>
-	</lens>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="15" a="0.05114" b="-0.13551" c="0.04398"/>
+        </calibration>
+    </lens>
 
 </lensdatabase>
