@@ -117,7 +117,7 @@ def sync_with_github():
     """
     upload_hash = upload_id.partition("_")[0]
     title = "Calibration upload " + upload_hash
-    for issue in github.lensfun.get_issues(state="", labels=[github.calibration_request_label]):
+    for issue in github.lensfun.get_issues(state="all", labels=[github.calibration_request_label]):
         if issue.title == title:
             issue.edit(state="open")
             issue.create_comment("The original uploader has uploaded the very same files again.  It should be discussed "
