@@ -113,6 +113,6 @@ if dangling_issues or dangling_directories:
             error_message += str(owncloud_directories[hash_].relative_to(owncloud_root)) + "\n"
     if unexplicably_dangling_hashes:
         error_message += "\nownCloud directories without GitHub issue for unknown reason:\n\n"
-        for hash_ in problem_hashes:
+        for hash_ in unexplicably_dangling_hashes:
             error_message += str(owncloud_directories[hash_].relative_to(owncloud_root)) + "\n"
     send_email(admin, "Lensfun: Inconsistencies between ownCloud and GitHub", error_message)
