@@ -513,7 +513,6 @@ operation = sys.argv[1]
 if operation == "initial":
     filepath = sys.argv[2]
     directory = os.path.abspath(os.path.dirname(filepath))
-    quote_directory(directory)
     upload_id = os.path.basename(directory)
     try:
         cache_dir = os.path.join(config["General"]["cache_root"], upload_id)
@@ -524,6 +523,7 @@ if operation == "initial":
         file_exif_data = collect_exif_data()
         check_data(file_exif_data)
         missing_data = tag_image_files(file_exif_data)
+        quote_directory(directory)
         write_result_and_exit(None, missing_data)
     except Exception as error:
         logging.critical(str(error))
