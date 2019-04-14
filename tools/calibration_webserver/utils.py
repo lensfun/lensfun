@@ -20,6 +20,10 @@ def generate_thumbnail(raw_filepath, cache_dir):
     hash_ = hashlib.sha1()
     hash_.update(raw_filepath.encode("utf-8"))
     out_filepath = os.path.join(cache_dir, hash_.hexdigest() + ".jpeg")
+    try:
+        os.mkdir(cache_dir)
+    except FileExistsError:
+        pass
     processes = []
     if os.path.splitext(raw_filepath)[1].lower() in [".jpeg", ".jpg"]:
         processes.append(subprocess.Popen(["convert", raw_filepath, "-resize", "131072@", out_filepath]))
