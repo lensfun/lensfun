@@ -482,15 +482,17 @@ def quote_directory(path):
         :rtype: str
         """
         assert "/" not in name
-        name = name.replace(":", "___").replace(" ", "_").replace("*", "++").replace("=", "##")
+        intermediate_name = name.replace(":", "___").replace(" ", "_").replace("*", "++").replace("=", "##")
         result = ""
-        for char in name:
+        for char in intermediate_name:
             if char in ';%?><|"~&':
                 result += f"{{{ord(char)}}}"
             else:
                 result += char
+        logging.debug(f"quoting {name} into {result}")
         return result
 
+    logging.debug(f"Quoting directory {path}")
     for root, dirnames, filenames in os.walk(path, topdown=False):
         for filename in filenames + dirnames:
             quoted_filename = quote_filename_component(filename)
