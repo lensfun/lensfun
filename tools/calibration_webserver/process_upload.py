@@ -181,13 +181,13 @@ def extract_archive():
     archive file is deleted.
     """
     def protect_files(protected_files):
-        result = {filename: None for filename in protected_files}
+        result = {}
         for filename in protected_files:
             path = os.path.join(directory, filename)
             try:
                 result[filename] = open(path, "rb").read()
             except FileNotFoundError:
-                pass
+                result[filename] = None
             else:
                 os.remove(path)
         return result
