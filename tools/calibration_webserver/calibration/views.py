@@ -221,7 +221,7 @@ def show_issues(request, id_):
                 os.rename(filepath, os.path.join(os.path.dirname(filepath), "{}--{}mm--{}_{}".format(
                     lens_model_name.replace("/", "__"), focal_length, aperture, filename)))
             json.dump((None, []), open(os.path.join(directory, "result.json"), "w"), ensure_ascii=True)
-            shutil.rmtree(os.path.join(cache_root, id_))
+            shutil.rmtree(os.path.join(cache_root, id_), ignore_errors=True)
             spawn_daemon("/usr/bin/env", "python3",
                          os.path.join(os.path.abspath(os.path.dirname(__file__)), "..", "process_upload.py"),
                          "amended", directory, env={"PYTHONPATH": python_path})
