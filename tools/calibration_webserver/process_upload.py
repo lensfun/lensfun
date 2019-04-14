@@ -172,6 +172,10 @@ def write_result_and_exit(error, missing_data=[]):
     sys.exit()
 
 
+class InvalidArchive(ValueError):
+    def __init__(self):
+        super().__init__("InvalidArchive")
+
 def extract_archive():
     """Extracts the archive (e.g. the tarball) which was uploaded.  Afterwards, the
     archive file is deleted.
@@ -212,10 +216,11 @@ def extract_archive():
             subprocess.check_call(["unrar", "x", filepath, directory])
         elif extension == ".7z":
             subprocess.check_call(["7z", "x", "-o" + directory, filepath])
-        else:
-            # Must be ZIP (else, fail)
+        elif extension == ".zip":
             subprocess.check_call(["unzip", filepath, "-d", directory])
-    except subprocess.CalledProcessError as error:
+        else:
+            raise InvalidArchive
+    except (subprocess.CalledProcessError, InvalidArchive) as error:
         send_email(admin, "Error when extracting calibration upload " + upload_id,
                    "Error: {}\n\ndirectory: {}\nfilepath: {}".format(
                        error, directory, filepath))
