@@ -176,15 +176,28 @@ def extract_archive():
     """Extracts the archive (e.g. the tarball) which was uploaded.  Afterwards, the
     archive file is deleted.
     """
-    protected_files = {"originator.json": None, "comments.txt": None}
-    for filename in protected_files:
-        path = os.path.join(directory, filename)
-        try:
-            protected_files[filename] = open(path, "rb").read()
-        except FileNotFoundError:
-            pass
-        else:
-            os.remove(path)
+    def protect_files(protected_files):
+        result = {filename: None for filename in protected_files}
+        for filename in protected_files:
+            path = os.path.join(directory, filename)
+            try:
+                result[filename] = open(path, "rb").read()
+            except FileNotFoundError:
+                pass
+            else:
+                os.remove(path)
+        return result
+    def restore_files(protected_files):
+        for filename, contents in protected_files.items():
+            path = os.path.join(directory, filename)
+            if os.path.exists(path):
+                index = 1
+                while os.path.exists("{}.{}".format(path, index)):
+                    index += 1
+                os.rename(path, "{}.{}".format(path, index))
+            if contents is not None:
+                open(path, "wb").write(contents)
+    protected_files = protect_files({"originator.json", "comments.txt"})
     extension = os.path.splitext(filepath)[1].lower()
     try:
         if extension in [".gz", ".tgz"]:
@@ -206,18 +219,12 @@ def extract_archive():
         send_email(admin, "Error when extracting calibration upload " + upload_id,
                    "Error: {}\n\ndirectory: {}\nfilepath: {}".format(
                        error, directory, filepath))
+        restore_files(protected_files)
         write_result_and_exit("I could not unpack your file.  Supported file formats:\n"
                               ".gz, .tgz, .bz2, .tbz2, .tb2, .xz, .txz, .tar, .rar, .7z, .zip.")
+    finally:
+        restore_files(protected_files)
     os.remove(filepath)
-    for filename, contents in protected_files.items():
-        path = os.path.join(directory, filename)
-        if os.path.exists(path):
-            index = 1
-            while os.path.exists("{}.{}".format(path, index)):
-                index += 1
-            os.rename(path, "{}.{}".format(path, index))
-        if contents is not None:
-            open(path, "wb").write(contents)
 
 
 class InvalidRaw(Exception):
