@@ -242,7 +242,7 @@ def thumbnail(request, id_, hash_):
         try:
             generate_thumbnail(raw_filepath, cache_dir)
         except RawNotFound:
-            raise django.http.Http404("{1}/{2}.jpeg".format(id_, hash_))
+            raise django.http.Http404("{}/{}.jpeg".format(id_, hash_))
     response = django.http.HttpResponse()
     response["X-Sendfile"] = filepath
     response["Content-Type"] = mimetypes.guess_type(filepath)[0] or "application/octet-stream"
