@@ -172,6 +172,9 @@ class ExifForm(forms.Form):
                 self.fields[fieldname].required = False
 
 
+class InvalidData(Exception):
+    pass
+
 def show_issues(request, id_):
     directory = os.path.join(upload_directory, id_)
     try:
@@ -196,15 +199,23 @@ def show_issues(request, id_):
             id_, hash_.hexdigest(), quote_plus(os.path.relpath(data[0], directory))))
     if request.method == "POST":
         exif_forms = [ExifForm(data, i==0, request.POST, prefix=str(i)) for i, data in enumerate(missing_data)]
-        if all([exif_form.is_valid() for exif_form in exif_forms]):
+        latest_lens_model_name = latest_focal_length = latest_aperture = None
+        try:
+            if not all([exif_form.is_valid() for exif_form in exif_forms]):
+                raise InvalidData
             for data, exif_form in zip(missing_data, exif_forms):
-                lens_model_name = exif_form.cleaned_data["lens_model_name"] or lens_model_name
-                focal_length = exif_form.cleaned_data["focal_length"] or focal_length
+                lens_model_name = exif_form.cleaned_data["lens_model_name"] or latest_lens_model_name
+                focal_length = exif_form.cleaned_data["focal_length"] or latest_focal_length
+                aperture = exif_form.cleaned_data["aperture"] or latest_aperture
+                if not (lens_model_name and focal_length and aperture):
+                    raise InvalidData
+                latest_lens_model_name = lens_model_name
+                latest_focal_length = focal_length
+                latest_aperture = aperture
                 if focal_length == int(focal_length):
                     focal_length = format(int(focal_length), "03")
                 else:
                     focal_length = format(focal_length, "05.1f")
-                aperture = exif_form.cleaned_data["aperture"] or aperture
                 filepath = data[0]
                 filename = os.path.basename(filepath)
                 os.rename(filepath, os.path.join(os.path.dirname(filepath), "{}--{}mm--{}_{}".format(
@@ -216,6 +227,8 @@ def show_issues(request, id_):
                          "amended", directory, env={"PYTHONPATH": python_path})
 
             return render(request, "calibration/success.html")
+        except InvalidData:
+            pass
     else:
         exif_forms = [ExifForm(data, i==0, prefix=str(i)) for i, data in enumerate(missing_data)]
     return render(request, "calibration/missing_exif.html", {"images": zip(filepaths, thumbnails, exif_forms)})
