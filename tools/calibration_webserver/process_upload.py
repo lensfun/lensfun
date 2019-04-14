@@ -491,8 +491,11 @@ def quote_directory(path):
             quoted_filename = quote_filename_component(filename)
             if quoted_filename != filename:
                 os.rename(os.path.join(root, filename), os.path.join(root, quoted_filename))
+    # FixMe: The following four lines are superfluous if the assertion is never
+    # triggered.
     quoted_path = "/".join(quote_filename_component(component) for component in path.split("/"))
     if quoted_path != path:
+        assert False, (quoted_path, path)
         os.rename(path, quoted_path)
 
 
