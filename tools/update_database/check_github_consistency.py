@@ -16,9 +16,10 @@ big problem, though, because follow_db_changes.py runs frequently enough to
 keep the directory up to date.
 """
 
-import re, configparser, os, json, smtplib
+import re, configparser, os, json, smtplib, datetime
 from pathlib import Path
 from email.mime.text import MIMEText
+import yaml
 from github import Github
 
 
@@ -82,6 +83,21 @@ def analyse_owncloud(dangling_directories, closed_hashes, owncloud_directories):
             error_hashes.add(hash_)
     return error_hashes, problem_hashes, existing_but_closed_hashes
 
+def filter_old_problem_hashes(problem_hashes, owncloud_directories):
+    result = set()
+    four_weeks = datetime.timedelta(28)
+    for hash_ in problem_hashes:
+        timestamp_path = owncloud_directories[hash_]/"consistency_check_timestamp.yaml"
+        now = datetime.datetime.now()
+        try:
+            timestamp = yaml.load(open(timestamp_path))
+        except FileNotFoundError:
+            timestamp = now
+            yaml.dump(timestamp, open(timestamp_path, "w"))
+        if now - timestamp > four_weeks:
+            result.add(hash_)
+    return result
+
 open_issues, open_hashes, closed_issues, closed_hashes, owncloud_directories, owncloud_hashes = \
     collect_hashes(lensfun, owncloud_root)
 
@@ -92,6 +108,8 @@ error_hashes, problem_hashes, existing_but_closed_hashes = \
     analyse_owncloud(dangling_directories, closed_hashes, owncloud_directories)
 
 unexplicably_dangling_hashes = dangling_directories - error_hashes - problem_hashes - existing_but_closed_hashes
+
+problem_hashes = filter_old_problem_hashes(problem_hashes, owncloud_directories)
 
 if dangling_issues or dangling_directories:
     error_message = "There are inconsistencies between ownCloud directories and GitHub issues.\n"
@@ -108,7 +126,8 @@ if dangling_issues or dangling_directories:
         for hash_ in error_hashes:
             error_message += str(owncloud_directories[hash_].relative_to(owncloud_root)) + "\n"
     if problem_hashes:
-        error_message += "\nownCloud directories with problems that need to be resolved by uploader:\n\n"
+        error_message += "\nownCloud directories with problems that need to be resolved by uploader\n" \
+            "for longer than four weeks:\n\n"
         for hash_ in problem_hashes:
             error_message += str(owncloud_directories[hash_].relative_to(owncloud_root)) + "\n"
     if unexplicably_dangling_hashes:
