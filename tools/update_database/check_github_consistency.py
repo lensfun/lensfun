@@ -111,7 +111,7 @@ unexplicably_dangling_hashes = dangling_directories - error_hashes - problem_has
 
 problem_hashes = filter_old_problem_hashes(problem_hashes, owncloud_directories)
 
-if dangling_issues or dangling_directories:
+if dangling_issues or existing_but_closed_hashes or error_hashes or problem_hashes or unexplicably_dangling_hashes:
     error_message = "There are inconsistencies between ownCloud directories and GitHub issues.\n"
     if dangling_issues:
         error_message += "\nOpen GitHub issues with no directory in ownCloud:\n\n"
