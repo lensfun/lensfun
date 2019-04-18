@@ -49,12 +49,13 @@ void lfModifier::ModifyColor_DeVignetting_PA_SSE2 (
         return ModifyColor_DeVignetting_PA(data, _x, _y, pixels, comp_role, count);
     }
 
-    float *param = (float *)data;
-    float p4 = param [4];
-    float p3 = param [3];
+    lfColorVignCallbackData* cddata = (lfColorVignCallbackData*) data;
 
-    float x = _x * p4;
-    float y = _y * p4;
+    const float p3 = cddata->coordinate_correction * cddata->NormScale;
+
+    const float cc = cddata->coordinate_correction;
+    float x = _x * cc - cddata->centerX;
+    float y = _y * cc - cddata->centerY;
 
     __m128 x2 = _mm_set_ps1 (x);
 
@@ -69,9 +70,9 @@ void lfModifier::ModifyColor_DeVignetting_PA_SSE2 (
  
     __m128 r2 = _mm_set_ps (t3, t2, t1, t0);
     __m128 d1_4 = _mm_set_ps1 (4.0f * 2.0 * p3);
-    __m128 p0 = _mm_set_ps1 (param [0]);
-    __m128 p1 = _mm_set_ps1 (param [1]);
-    __m128 p2 = _mm_set_ps1 (param [2]);
+    __m128 p0 = _mm_set_ps1 (cddata->Terms [0]);
+    __m128 p1 = _mm_set_ps1 (cddata->Terms [1]);
+    __m128 p2 = _mm_set_ps1 (cddata->Terms [2]);
     __m128 p3_4 = _mm_set_ps1 (p3 * 4.0f);
     __m128 one = _mm_set_ps1 (1.0f);
     __m128 frac = _mm_set_ps1 (1024.0f);

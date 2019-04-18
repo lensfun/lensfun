@@ -16,25 +16,18 @@ typedef struct
 {
   void       *coordBuff;
   size_t      img_width, img_height;
-  lfLens     *lens;
   lfModifier *mod;
 } lfFixture;
 
 // setup a standard lens
 void mod_setup (lfFixture *lfFix, gconstpointer data)
 {
-    lfFix->lens             = new lfLens();
-    lfFix->lens->CropFactor = 1.5f;
-    lfFix->lens->AspectRatio = 4.0f / 3.0f;
-    lfFix->lens->Type       = LF_RECTILINEAR;
-
     lfFix->img_height = 2;
     lfFix->img_width  = 3;
 
-    lfFix->mod = new lfModifier (lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
+    lfFix->mod = new lfModifier(1.0f, lfFix->img_width, lfFix->img_height, LF_PF_F32, true);
 
-    lfFix->mod->Initialize (lfFix->lens, LF_PF_F32, 50.89f, 2.8f, 1000.0f, 10.0f, LF_RECTILINEAR,
-                            LF_MODIFY_SCALE, true);
+    lfFix->mod->EnableScaling(10.0f);
 
     lfFix->coordBuff = NULL;
 
@@ -47,7 +40,6 @@ void mod_teardown (lfFixture *lfFix, gconstpointer data)
     g_free (lfFix->coordBuff);
 
     delete lfFix->mod;
-    delete lfFix->lens;
 }
 
 void test_mod_coord_scaling_only (lfFixture *lfFix, gconstpointer data)
@@ -57,7 +49,7 @@ void test_mod_coord_scaling_only (lfFixture *lfFix, gconstpointer data)
                                     -9.0f,  5.5f, 1.0f,  5.5f, 11.0f,  5.5};
     std::vector<float> coords (2 * 3 * 2);
     g_assert_true (lfFix->mod->ApplyGeometryDistortion (0, 0, 3, 2, &coords [0]));
-    for (int i = 0; i < coords.size(); i++)
+    for (unsigned int i = 0; i < coords.size(); i++)
         g_assert_cmpfloat (fabs (coords [i] - expected_coordinates [i]), <=, epsilon);
 }
 

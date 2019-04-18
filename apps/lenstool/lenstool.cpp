@@ -57,7 +57,7 @@ static struct
     0,
     0,
     0,
-    1.0f,
+    1000.0f,
     Image::I_LANCZOS,
     LF_RECTILINEAR,
     NULL,
@@ -69,41 +69,41 @@ static void DisplayVersion ()
 {
     g_print ("Lenstool reference implementation for Lensfun version %d.%d.%d\n",
         LF_VERSION_MAJOR, LF_VERSION_MINOR, LF_VERSION_MICRO);
-    g_print ("Copyright (C) 2007 Andrew Zabolotny\n\n");
-    g_print ("For distribution rules and conditions of use see the file\n");
-    g_print ("COPYING which is part of the distribution.\n");
+    g_print ("%s", "Copyright (C) 2007 Andrew Zabolotny\n\n");
+    g_print ("%s", "For distribution rules and conditions of use see the file\n");
+    g_print ("%s", "COPYING which is part of the distribution.\n");
 }
 
 static void DisplayUsage ()
 {
     DisplayVersion ();
-    g_print ("\nCommand-line options:\n\n");
-    g_print ("  -d    --distortion Apply lens distortion\n");
-    g_print ("  -g#   --geometry=# Convert image geometry to given (one of:\n");
-    g_print ("                     rectilinear,fisheye,panoramic,equirectangular,\n");
-    g_print ("                     orthographic, stereographic, equisolid, thoby)\n");
-    g_print ("  -t    --tca        Apply lens chromatic aberrations\n");
-    g_print ("  -v    --vignetting Apply lens vignetting\n");
-    g_print ("  -a    --all        Apply all possible corrections (tca, vign, dist)\n");
-    g_print ("  -i    --inverse    Inverse correction of the image (e.g. simulate\n");
-    g_print ("                     lens distortions instead of correcting them)\n");
-    g_print ("\n");
-    g_print ("  -C#   --camera=#   Camera name\n");
-    g_print ("  -c#   --crop=#     Set camera crop factor in case the camera is not given\n");
-    g_print ("\n");
-    g_print ("  -L#   --lens=#     Lens name to search for in the database\n");
-    g_print ("  -F#   --focal=#    Set focal length at which image has been taken\n");
-    g_print ("  -A#   --aperture=# Set aperture at which image has been taken\n");
-    g_print ("  -D#   --distance=# Set subject distance at which image has been taken\n");
-    g_print ("\n");
-    g_print ("  -s#   --scale=#    Apply additional scale on the image\n");
-    g_print ("  -I#   --interpol=# Choose interpolation algorithm (n[earest], b[ilinear], l[anczos])\n");
-    g_print ("\n");
-    g_print ("  -o#   --output=#   Set file name for output image\n");
-    g_print ("        --database=# Only use the specified database folder or file\n");
-    g_print ("        --verbose    Verbose output\n");
-    g_print ("        --version    Display program version and exit\n");
-    g_print ("  -h    --help       Display this help text\n");
+    g_print ("%s", "\nCommand-line options:\n\n");
+    g_print ("%s", "  -d    --distortion Apply lens distortion\n");
+    g_print ("%s", "  -g#   --geometry=# Convert image geometry to given (one of:\n");
+    g_print ("%s", "                     rectilinear,fisheye,panoramic,equirectangular,\n");
+    g_print ("%s", "                     orthographic, stereographic, equisolid, thoby)\n");
+    g_print ("%s", "  -t    --tca        Apply lens chromatic aberrations\n");
+    g_print ("%s", "  -v    --vignetting Apply lens vignetting\n");
+    g_print ("%s", "  -a    --all        Apply all possible corrections (tca, vign, dist)\n");
+    g_print ("%s", "  -i    --inverse    Inverse correction of the image (e.g. simulate\n");
+    g_print ("%s", "                     lens distortions instead of correcting them)\n");
+    g_print ("%s", "\n");
+    g_print ("%s", "  -C#   --camera=#   Camera name\n");
+    g_print ("%s", "  -c#   --crop=#     Set camera crop factor in case the camera is not given\n");
+    g_print ("%s", "\n");
+    g_print ("%s", "  -L#   --lens=#     Lens name to search for in the database\n");
+    g_print ("%s", "  -F#   --focal=#    Set focal length at which image has been taken\n");
+    g_print ("%s", "  -A#   --aperture=# Set aperture at which image has been taken\n");
+    g_print ("%s", "  -D#   --distance=# Set subject distance at which image has been taken\n");
+    g_print ("%s", "\n");
+    g_print ("%s", "  -s#   --scale=#    Apply additional scale on the image\n");
+    g_print ("%s", "  -I#   --interpol=# Choose interpolation algorithm (n[earest], b[ilinear], l[anczos])\n");
+    g_print ("%s", "\n");
+    g_print ("%s", "  -o#   --output=#   Set file name for output image\n");
+    g_print ("%s", "        --database=# Only use the specified database folder or file\n");
+    g_print ("%s", "        --verbose    Verbose output\n");
+    g_print ("%s", "        --version    Display program version and exit\n");
+    g_print ("%s", "  -h    --help       Display this help text\n");
 }
 
 static bool ParseParameters(int argc, char **argv)
@@ -163,7 +163,7 @@ static bool ParseParameters(int argc, char **argv)
                         opts.TargetGeom = LF_FISHEYE_THOBY;
                     else {
                         DisplayUsage();
-                        g_print ("\nTarget lens geometry must be one of 'rectilinear', 'fisheye', 'panoramic', 'equirectangular'\n'orthographic', 'stereographic', 'equisolid', 'thoby'\n");
+                        g_print ("%s", "\nTarget lens geometry must be one of 'rectilinear', 'fisheye', 'panoramic', 'equirectangular'\n'orthographic', 'stereographic', 'equisolid', 'thoby'\n");
                         return false;
                     }
                 }
@@ -239,13 +239,13 @@ static bool ParseParameters(int argc, char **argv)
 
     if (!opts.Lens && !opts.Camera) {
         DisplayUsage();
-        g_print ("\nAt least a lens or camera name is required to perform a database lookup!\n");
+        g_print ("%s", "\nAt least a lens or camera name is required to perform a database lookup!\n");
         return false;
     }
 
     if (!opts.Lens && opts.Input) {
         DisplayUsage();
-        g_print ("\nNo lens information (-L) supplied to process specified input image!\n");
+        g_print ("%s", "\nNo lens information (-L) supplied to process specified input image!\n");
         return false;
     }
 
@@ -368,7 +368,7 @@ int main (int argc, char **argv)
 
     if (opts.Verbose) {
         if (opts.Database == NULL) {
-          g_print ("\rConfigured database search locations\n");
+          g_print ("%s", "\rConfigured database search locations\n");
           g_print ("\r  - System-wide database: %s\n", ldb->SystemLocation);
           g_print ("\r  - System-wide database updates: %s\n", ldb->SystemUpdatesLocation);
           g_print ("\r  - Current user database: %s\n", ldb->UserLocation);
@@ -380,9 +380,9 @@ int main (int argc, char **argv)
 
     if (ldb->Load (opts.Database) != LF_NO_ERROR) {
         delete ldb;
-        g_print ("\rERROR: Database could not be loaded\n");
+        g_print ("%s", "\rERROR: Database could not be loaded\n");
         return -1;
-    } else g_print ("\rDatabase loaded succesfully.\n\n");
+    } else g_print ("%s", "\rDatabase loaded succesfully.\n\n");
 
 
     // try to find camera in the database
@@ -410,14 +410,14 @@ int main (int argc, char **argv)
     // print camera and lens information if in verbose mode or if no input file is specified
     if (opts.Verbose || !opts.Input) {
         if (cam && lens) {
-            g_print("Matching lens and camera combination found in the database:\n");
+            g_print("%s", "Matching lens and camera combination found in the database:\n");
             PrintCamera(cam, ldb);
-            PrintLens(lens, ldb);
+            PrintLens(lens, ldb, opts.Verbose);
         } else if (!cam && lens) {
-            g_print("Matching lens found in the database:\n");
-            PrintLens(lens, ldb);
+            g_print("%s", "Matching lens found in the database:\n");
+            PrintLens(lens, ldb, opts.Verbose);
         } else if (!lens && cam) {
-            g_print("Matching camera found in the database:\n");
+            g_print("%s", "Matching camera found in the database:\n");
             PrintCamera(cam, ldb);
         }
     } else {
@@ -437,8 +437,6 @@ int main (int argc, char **argv)
     // assume standard values if parameters are not specified
     if (cam)
         opts.Crop = cam->CropFactor;
-    else if (!opts.Crop)
-        opts.Crop = lens->CropFactor;    
     if (!opts.Focal)
         opts.Focal = lens->MinFocal;
     if (!opts.Aperture)
@@ -472,34 +470,53 @@ int main (int argc, char **argv)
     }
     g_print ("done.\n~ Image size [%ux%u].\n", img->width, img->height);
 
-    lfModifier *mod = new lfModifier (lens, opts.Crop, img->width, img->height);
+    lfModifier *mod = new lfModifier (opts.Crop, img->width, img->height, LF_PF_U8, opts.Inverse);
     if (!mod) {
-        g_print ("\rWarning: failed to create modifier\n");
+        g_print ("%s", "\rWarning: failed to create modifier\n");
         delete img;
         delete ldb;
         return -1;
-    }
-    int modflags = mod->Initialize (
-        lens, LF_PF_U8, opts.Focal,
-        opts.Aperture, opts.Distance, opts.Scale, opts.TargetGeom,
-        opts.ModifyFlags, opts.Inverse);
+    }    
 
-    g_print("~ Selected modifications: ");
-    if (modflags & LF_MODIFY_TCA)
-        g_print ("[tca]");
-    if (modflags & LF_MODIFY_VIGNETTING)
-        g_print ("[vign]");
-    if (modflags & LF_MODIFY_DISTORTION)
-        g_print ("[dist]");
-    if (modflags & LF_MODIFY_GEOMETRY)
-        g_print ("[geom]");
+    // Enable desired modifications
+    if (opts.ModifyFlags & LF_MODIFY_TCA)
+        mod->EnableTCACorrection(lens, opts.Focal);
+
+    if (opts.ModifyFlags & LF_MODIFY_VIGNETTING)
+        mod->EnableVignettingCorrection(lens, opts.Focal, opts.Aperture, opts.Distance);
+
+    if (opts.ModifyFlags & LF_MODIFY_DISTORTION)
+        mod->EnableDistortionCorrection(lens, opts.Focal);
+
+    if (opts.ModifyFlags & LF_MODIFY_GEOMETRY)
+        mod->EnableProjectionTransform(lens, opts.Focal, opts.TargetGeom);
+
     if (opts.Scale != 1.0)
-        g_print ("[scale]");
-    if (modflags==0)
-        g_print ("[NOTHING]");
-    g_print ("\n");
+        mod->EnableScaling(opts.Scale);
 
-    g_print("~ Run processing chain... ");
+    // Check if modifications could have been enabled
+    g_print("%s", "~ Selected modifications: ");
+    const int modflags = mod->GetModFlags();
+    if (modflags & LF_MODIFY_TCA)
+        g_print ("%s", "[tca]");
+
+    if (modflags & LF_MODIFY_VIGNETTING)        
+        g_print ("%s", "[vign]");
+
+    if (modflags & LF_MODIFY_DISTORTION)
+        g_print ("%s", "[dist]");
+
+    if (modflags & LF_MODIFY_GEOMETRY)
+        g_print ("%s", "[geom]");
+
+    if (opts.Scale != 1.0)
+        g_print ("%s", "[scale]");
+
+    if (modflags==0)
+        g_print ("%s", "[NOTHING]");
+    g_print ("%s", "\n");
+
+    g_print("%s", "~ Run processing chain... ");
 
     clock_t st;
     clock_t xt = clock ();
@@ -520,10 +537,10 @@ int main (int argc, char **argv)
     delete ldb;
 
     if (ok) {
-        g_print (" done\n");
+        g_print ("%s", " done\n");
         return 0;
     } else {
-        g_print (" FAILED\n");
+        g_print ("%s", " FAILED\n");
         return -1;
     }
 

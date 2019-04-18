@@ -8,127 +8,151 @@
 #include "lensfunprv.h"
 #include <math.h>
 
-void lfModifier::AddColorCallback (
-    lfModifyColorFunc callback, int priority, void *data, size_t data_size)
+int lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv)
 {
-    lfColorCallbackData *d = new lfColorCallbackData ();
-    d->callback = callback;
-    AddCallback (ColorCallbacks, d, priority, data, data_size);
-}
-
-bool lfModifier::AddColorCallbackVignetting (
-    lfLensCalibVignetting &model, lfPixelFormat format, bool reverse)
-{
-    float tmp [5];
-
-#define ADD_CALLBACK(func, type, prio) \
-    AddColorCallback ( \
+#define ADD_CALLBACK(lcv, func, type, prio) \
+    AddColorVignCallback ( lcv, \
         (lfModifyColorFunc)(void (*)(void *, float, float, type *, int, int)) \
-        lfModifier::func, prio, tmp, 5 * sizeof (float)) \
+        lfModifier::func, prio) \
 
-    memcpy (tmp, model.Terms, 3 * sizeof (float));
-
-    if (model.Model == LF_VIGNETTING_MODEL_ACM)
-        tmp [4] = 1 / FocalLengthNormalized;
-    else
-        // Damn! Hugin uses two different "normalized" coordinate systems:
-        // for distortions it uses 1.0 = min(half width, half height) and
-        // for vignetting it uses 1.0 = half diagonal length. We have
-        // to compute a transition coefficient as lfModifier works in
-        // the first coordinate system.
-        tmp [4] = 1.0 / AspectRatioCorrection;
-    tmp [3] = tmp [4] * NormScale;
-
-    if (reverse)
-        switch (model.Model)
+    if (Reverse)
+        switch (lcv.Model)
         {
             case LF_VIGNETTING_MODEL_PA:
             case LF_VIGNETTING_MODEL_ACM:
-                switch (format)
+                switch (PixelFormat)
                 {
                     case LF_PF_U8:
-                        ADD_CALLBACK (ModifyColor_Vignetting_PA, lf_u8, 250);
+                        ADD_CALLBACK(lcv, ModifyColor_Vignetting_PA, lf_u8, 250);
                         break;
 
                     case LF_PF_U16:
-                        ADD_CALLBACK (ModifyColor_Vignetting_PA, lf_u16, 250);
+                        ADD_CALLBACK (lcv, ModifyColor_Vignetting_PA, lf_u16, 250);
                         break;
 
                     case LF_PF_U32:
-                        ADD_CALLBACK (ModifyColor_Vignetting_PA, lf_u32, 250);
+                        ADD_CALLBACK (lcv, ModifyColor_Vignetting_PA, lf_u32, 250);
                         break;
 
                     case LF_PF_F32:
-                        ADD_CALLBACK (ModifyColor_Vignetting_PA, lf_f32, 250);
+                        ADD_CALLBACK (lcv, ModifyColor_Vignetting_PA, lf_f32, 250);
                         break;
 
                     case LF_PF_F64:
-                        ADD_CALLBACK (ModifyColor_Vignetting_PA, lf_f64, 250);
+                        ADD_CALLBACK (lcv, ModifyColor_Vignetting_PA, lf_f64, 250);
                         break;
 
                     default:
-                        return false;
+                        return enabledMods;
                 }
                 break;
 
             default:
-                return false;
+                return enabledMods;
         }
     else
-        switch (model.Model)
+        switch (lcv.Model)
         {
             case LF_VIGNETTING_MODEL_PA:
             case LF_VIGNETTING_MODEL_ACM:
-                switch (format)
+                switch (PixelFormat)
                 {
                     case LF_PF_U8:
-                        ADD_CALLBACK (ModifyColor_DeVignetting_PA, lf_u8, 750);
+                        ADD_CALLBACK (lcv, ModifyColor_DeVignetting_PA, lf_u8, 750);
                         break;
 
                     case LF_PF_U16:
 #ifdef VECTORIZATION_SSE2
                         if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE2)
-                            ADD_CALLBACK (ModifyColor_DeVignetting_PA_SSE2, lf_u16, 750);
+                            ADD_CALLBACK (lcv, ModifyColor_DeVignetting_PA_SSE2, lf_u16, 750);
                         else
 #endif
-                        ADD_CALLBACK (ModifyColor_DeVignetting_PA, lf_u16, 750);
+                        ADD_CALLBACK (lcv, ModifyColor_DeVignetting_PA, lf_u16, 750);
                         break;
 
                     case LF_PF_U32:
-                        ADD_CALLBACK (ModifyColor_DeVignetting_PA, lf_u32, 750);
+                        ADD_CALLBACK (lcv, ModifyColor_DeVignetting_PA, lf_u32, 750);
                         break;
 
                     case LF_PF_F32:
 #ifdef VECTORIZATION_SSE
                         if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
-                            ADD_CALLBACK (ModifyColor_DeVignetting_PA_SSE, lf_f32, 750);
+                            ADD_CALLBACK (lcv, ModifyColor_DeVignetting_PA_SSE, lf_f32, 750);
                         else
 #endif
-                        ADD_CALLBACK (ModifyColor_DeVignetting_PA, lf_f32, 750);
+                        ADD_CALLBACK (lcv, ModifyColor_DeVignetting_PA, lf_f32, 750);
                         break;
 
                     case LF_PF_F64:
-                        ADD_CALLBACK (ModifyColor_DeVignetting_PA, lf_f64, 750);
+                        ADD_CALLBACK (lcv, ModifyColor_DeVignetting_PA, lf_f64, 750);
                         break;
 
                     default:
-                        return false;
+                        return enabledMods;
                 }
                 break;
 
             default:
-                return false;
+                return enabledMods;
         }
 
 #undef ADD_CALLBACK
 
+    enabledMods |= LF_MODIFY_VIGNETTING;
     return true;
+}
+
+
+int lfModifier::EnableVignettingCorrection (const lfLens* lens, float focal, float aperture, float distance)
+{
+    lfLensCalibVignetting lcv;
+
+    if (lens->InterpolateVignetting (Crop, focal, aperture, distance, lcv))
+    {
+        EnableVignettingCorrection(lcv);
+    }
+
+    return enabledMods;
+}
+
+void lfModifier::AddColorVignCallback (const lfLensCalibVignetting& lcv, lfModifyColorFunc func, int priority)
+{
+    lfColorVignCallbackData* cd = new lfColorVignCallbackData;
+
+    cd->callback = func;
+    cd->priority = priority;
+
+    if (lcv.Model == LF_VIGNETTING_MODEL_ACM)
+    {
+        cd->coordinate_correction = sqrt (36.0*36.0 + 24.0*24.0)  /
+                                    sqrt (lcv.CalibAttr.AspectRatio * lcv.CalibAttr.AspectRatio + 1)
+                                    / ( Crop * 2.0 * lcv.Focal);
+    }
+    else
+    {
+        // Damn! Hugin uses two different "normalized" coordinate systems:
+        // for distortions it uses 1.0 = min(half width, half height) and
+        // for vignetting it uses 1.0 = half diagonal length. We have
+        // to compute a transition coefficient as lfModifier works in
+        // the first coordinate system.
+        double image_aspect_ratio = Width < Height ? Height / Width : Width / Height;
+        cd->coordinate_correction  = lcv.CalibAttr.CropFactor / Crop /
+                                     sqrt (image_aspect_ratio * image_aspect_ratio + 1);
+
+    }
+
+    cd->NormScale = NormScale;
+    cd->centerX = lcv.CalibAttr.CenterX;
+    cd->centerY = lcv.CalibAttr.CenterY;
+    memcpy(cd->Terms, lcv.Terms, sizeof(lcv.Terms));
+
+    ColorCallbacks.insert(cd);
 }
 
 bool lfModifier::ApplyColorModification (
     void *pixels, float x, float y, int width, int height, int comp_role, int row_stride) const
 {
-    if (((GPtrArray *)ColorCallbacks)->len <= 0 || height <= 0)
+    if (ColorCallbacks.size() <= 0 || height <= 0)
         return false; // nothing to do
 
     x = x * NormScale - CenterX;
@@ -136,12 +160,8 @@ bool lfModifier::ApplyColorModification (
 
     for (; height; y += NormScale, height--)
     {
-        for (int i = 0; i < (int)((GPtrArray *)ColorCallbacks)->len; i++)
-        {
-            lfColorCallbackData *cd =
-                (lfColorCallbackData *)g_ptr_array_index ((GPtrArray *)ColorCallbacks, i);
-            cd->callback (cd->data, x, y, pixels, comp_role, width);
-        }
+        for (auto cb : ColorCallbacks)
+            cb->callback (cb, x, y, pixels, comp_role, width);
         pixels = ((char *)pixels) + row_stride;
     }
 
@@ -263,10 +283,12 @@ template<>inline lf_u16 *apply_multiplier (lf_u16 *pixels, double c, int &cr)
 template<typename T> void lfModifier::ModifyColor_Vignetting_PA (
     void *data, float x, float y, T *pixels, int comp_role, int count)
 {
-    float *param = (float *)data;
+    lfColorVignCallbackData* cddata = (lfColorVignCallbackData*) data;
 
-    x *= param [4];
-    y *= param [4];
+    float cc = cddata->coordinate_correction;
+
+    x = x * cc - cddata->centerX;
+    y = y * cc - cddata->centerY;
 
     // For faster computation we will compute r^2 here, and
     // further compute just the delta:
@@ -275,32 +297,34 @@ template<typename T> void lfModifier::ModifyColor_Vignetting_PA (
     // 1.0 pixels should be multiplied by NormScale, so it's really:
     // ((x+ns)*(x+ns)+y*y) - (x*x + y*y) = 2 * ns * x + ns^2
     float r2 = x * x + y * y;
-    float d1 = 2.0 * param [3];
-    float d2 = param [3] * param [3];
+    float d1 = 2.0 * cc * cddata->NormScale;
+    float d2 = cc * cddata->NormScale * cc * cddata->NormScale;
 
     int cr = 0;
     while (count--)
     {
         float r4 = r2 * r2;
         float r6 = r4 * r2;
-        float c = 1.0 + param [0] * r2 + param [1] * r4 + param [2] * r6;
+        float c = 1.0 + cddata->Terms [0] * r2 + cddata->Terms [1] * r4 + cddata->Terms [2] * r6;
         if (!cr)
             cr = comp_role;
 
         pixels = apply_multiplier<T> (pixels, c, cr);
 
         r2 += d1 * x + d2;
-        x += param [3];
+        x += cc * cddata->NormScale;
     }
 }
 
 template<typename T> void lfModifier::ModifyColor_DeVignetting_PA (
     void *data, float x, float y, T *pixels, int comp_role, int count)
 {
-    float *param = (float *)data;
+    lfColorVignCallbackData* cddata = (lfColorVignCallbackData*) data;
 
-    x *= param [4];
-    y *= param [4];
+    float cc = cddata->coordinate_correction;
+
+    x = x * cc - cddata->centerX;
+    y = y * cc - cddata->centerY;
 
     // For faster computation we will compute r^2 here, and
     // further compute just the delta:
@@ -309,40 +333,26 @@ template<typename T> void lfModifier::ModifyColor_DeVignetting_PA (
     // 1.0 pixels should be multiplied by NormScale, so it's really:
     // ((x+ns)*(x+ns)+y*y) - (x*x + y*y) = 2 * ns * x + ns^2
     float r2 = x * x + y * y;
-    float d1 = 2.0 * param [3];
-    float d2 = param [3] * param [3];
+    float d1 = 2.0 * cc * cddata->NormScale;
+    float d2 = cc * cddata->NormScale * cc * cddata->NormScale;
 
     int cr = 0;
     while (count--)
     {
         float r4 = r2 * r2;
         float r6 = r4 * r2;
-        float c = 1.0 + param [0] * r2 + param [1] * r4 + param [2] * r6;
+        float c = 1.0 + cddata->Terms [0] * r2 + cddata->Terms [1] * r4 + cddata->Terms [2] * r6;
         if (!cr)
             cr = comp_role;
 
         pixels = apply_multiplier<T> (pixels, 1.0f / c, cr);
 
         r2 += d1 * x + d2;
-        x += param [3];
+        x += cc * cddata->NormScale;
     }
 }
 
 //---------------------------// The C interface //---------------------------//
-
-void lf_modifier_add_color_callback (
-    lfModifier *modifier, lfModifyColorFunc callback, int priority,
-    void *data, size_t data_size)
-{
-    modifier->AddColorCallback (callback, priority, data, data_size);
-}
-
-cbool lf_modifier_add_color_callback_vignetting (
-    lfModifier *modifier, lfLensCalibVignetting *model,
-    lfPixelFormat format, cbool reverse)
-{
-    return modifier->AddColorCallbackVignetting (*model, format, reverse);
-}
 
 cbool lf_modifier_apply_color_modification (
     lfModifier *modifier, void *pixels, float x, float y, int width, int height,
@@ -350,4 +360,10 @@ cbool lf_modifier_apply_color_modification (
 {
     return modifier->ApplyColorModification (
         pixels, x, y, width, height, comp_role, row_stride);
+}
+
+int lf_modifier_enable_vignetting_correction (
+    lfModifier *modifier, const lfLens* lens, float focal, float aperture, float distance)
+{
+    return modifier->EnableVignettingCorrection(lens, focal, aperture, distance);
 }

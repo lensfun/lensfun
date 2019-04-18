@@ -97,22 +97,19 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
   lfTestParams *p = (lfTestParams *)data;
 
   lfFix->lens             = new lfLens();
-  lfFix->lens->CropFactor = 1.0f;
   lfFix->lens->Type       = LF_RECTILINEAR;
 
   // Canon EOS 5D Mark III + Canon EF 24-70mm f/2.8L II USM
-  lfLensCalibVignetting lensCalibVign = {LF_VIGNETTING_MODEL_PA, 24.0f, 2.8f, 1000.0f, { -0.5334f, -0.7926f, 0.5243f}};
+  lfLensCalibAttributes   lensSetting = { 0.0, 0.0, 1.0, 1.5 };
+  lfLensCalibVignetting lensCalibVign = {LF_VIGNETTING_MODEL_PA, 24.0f, 2.8f, 1000.0f, { -0.5334f, -0.7926f, 0.5243f}, lensSetting};
   lfFix->lens->AddCalibVignetting(&lensCalibVign);
 
   lfFix->img_height = 299;
   lfFix->img_width  = 299;
 
-  lfFix->mod = new lfModifier(lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
+  lfFix->mod = new lfModifier(1.0f, lfFix->img_width, lfFix->img_height, cTypeToLfPixelFormat<T>(), p->reverse);
 
-  lfFix->mod->Initialize(
-    lfFix->lens, cTypeToLfPixelFormat<T>(),
-    24.0f, 2.8f, 1000.0f, 1.0f, LF_RECTILINEAR,
-    LF_MODIFY_VIGNETTING, p->reverse);
+  lfFix->mod->EnableVignettingCorrection(lfFix->lens, 24.0f, 2.8f, 1000.0f);
 
   lfFix->image = NULL;
 

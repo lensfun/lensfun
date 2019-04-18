@@ -48,12 +48,15 @@ body {
 }
 
 #top-navigation li {
-  float:right;
   list-style: none;
-  margin: 0; 
+  margin: 0;
   padding:0;
   padding-right: 0.5em;
   margin-left:1.3em;
+}
+
+#top-navigation > ul > li {
+  float:right;
   border-right: 0.1em solid white;
 }
 
@@ -101,10 +104,12 @@ table {
 }
 
 table th {
+    border: 1px solid gray;
     padding: 0.3em;
 }
 
 table td {
+    border: 1px solid gray;
     padding: 0.3em;
 }
 
@@ -120,9 +125,13 @@ table td {
     background-color: #181818;
 }
 
+strong {
+  color: white;
+}
+
 a:link {
   background:transparent;
-  text-decoration:none;  
+  text-decoration:none;
   color:#ffffff;
 }
 a:visited {

@@ -25,7 +25,6 @@ typedef struct
 {
   void       *coordBuff;
   size_t      img_width, img_height;
-  lfLens     *lens;
   lfModifier *mod;
 } lfFixture;
 
@@ -41,19 +40,12 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
 {
   lfTestParams *p = (lfTestParams *)data;
 
-  lfFix->lens             = new lfLens();
-  lfFix->lens->CropFactor = 1.0f;
-  lfFix->lens->Type       = LF_RECTILINEAR;
-
   lfFix->img_height = 300;
   lfFix->img_width  = 300;
 
-  lfFix->mod = new lfModifier(lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
+  lfFix->mod = new lfModifier(1.0f, lfFix->img_width, lfFix->img_height, LF_PF_F32, p->reverse);
 
-  lfFix->mod->Initialize(
-    lfFix->lens, LF_PF_F32,
-    24.0f, 2.8f, 1000.0f, p->scale, LF_RECTILINEAR,
-    LF_MODIFY_SCALE, p->reverse);
+  lfFix->mod->EnableScaling(p->scale);
 
   lfFix->coordBuff = NULL;
 
@@ -74,7 +66,6 @@ void mod_teardown(lfFixture *lfFix, gconstpointer data)
     lf_free_align(lfFix->coordBuff);
 
   delete lfFix->mod;
-  delete lfFix->lens;
 }
 
 void test_mod_coord_scale(lfFixture *lfFix, gconstpointer data)

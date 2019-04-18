@@ -18,6 +18,7 @@ IF (NOT GLIB2_FOUND OR NOT PKG_CONFIG_FOUND)
           /usr/lib64
           /opt/local/lib
           ${GLIB2_BASE_DIR}/lib
+          ${GLIB2_BASE_DIR}/include
           ${CMAKE_LIBRARY_PATH}
         PATH_SUFFIXES glib-2.0/include
     )

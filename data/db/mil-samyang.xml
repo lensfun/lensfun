@@ -87,6 +87,9 @@
         <model>Samyang 12mm f/2.0 NCS CS</model>
         <mount>Sony E</mount>
         <mount>Fujifilm X</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Samsung NX</mount>
+        <mount>Canon EF-M</mount>
         <cropfactor>1.534</cropfactor>
         <calibration>
             <!-- Taken with Sony NEX-7 -->
@@ -109,6 +112,29 @@
             <vignetting model="pa" focal="12" aperture="16" distance="1000" k1="-1.1239" k2="0.8343" k3="-0.2845"/>
             <vignetting model="pa" focal="12" aperture="22" distance="10" k1="-1.1410" k2="0.8662" k3="-0.3026"/>
             <vignetting model="pa" focal="12" aperture="22" distance="1000" k1="-1.1410" k2="0.8662" k3="-0.3026"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang AF 35mm f/2.8</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="35" a="-0.01307" b="0.03113" c="-0.02617"/>
+            <tca model="poly3" focal="35" vr="1.0000779" vb="1.0001644"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="10" k1="-0.8522900743508066" k2="0.3411632584595528" k3="-0.05296039620525643"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="1000" k1="-0.8522900743508066" k2="0.3411632584595528" k3="-0.05296039620525643"/>
+            <vignetting model="pa" focal="35" aperture="3.2" distance="10" k1="-0.7051169716117284" k2="0.06537655201820364" k3="0.09478211721767357"/>
+            <vignetting model="pa" focal="35" aperture="3.2" distance="1000" k1="-0.7051169716117284" k2="0.06537655201820364" k3="0.09478211721767357"/>
+            <vignetting model="pa" focal="35" aperture="4.5" distance="10" k1="-0.35910093585197833" k2="-0.24541192056278915" k3="0.15587472504298538"/>
+            <vignetting model="pa" focal="35" aperture="4.5" distance="1000" k1="-0.35910093585197833" k2="-0.24541192056278915" k3="0.15587472504298538"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="10" k1="-0.4376304869547293" k2="0.14420666448354602" k3="-0.1308035768627717"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="1000" k1="-0.4376304869547293" k2="0.14420666448354602" k3="-0.1308035768627717"/>
+            <vignetting model="pa" focal="35" aperture="10.0" distance="10" k1="-0.5466954731371074" k2="0.41921677896498233" k3="-0.2154772739312098"/>
+            <vignetting model="pa" focal="35" aperture="10.0" distance="1000" k1="-0.5466954731371074" k2="0.41921677896498233" k3="-0.2154772739312098"/>
+            <vignetting model="pa" focal="35" aperture="22.0" distance="10" k1="-0.5156175411692957" k2="0.26441866850979084" k3="-0.06685863655580566"/>
+            <vignetting model="pa" focal="35" aperture="22.0" distance="1000" k1="-0.5156175411692957" k2="0.26441866850979084" k3="-0.06685863655580566"/>
         </calibration>
     </lens>
 

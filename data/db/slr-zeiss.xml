@@ -10,6 +10,16 @@
             <!-- Taken with Nikon D3 -->
             <distortion model="ptlens" focal="35" a="0.00786" b="-0.02862" c="0.01911"/>
             <tca model="poly3" focal="35" vr="1.0001515" vb="1.0001430"/>
+            <vignetting model="pa" focal="35" aperture="2" distance="10" k1="-1.9515" k2="2.1666" k3="-0.9851"/>
+            <vignetting model="pa" focal="35" aperture="2" distance="1000" k1="-1.9515" k2="2.1666" k3="-0.9851"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="10" k1="-1.2284" k2="0.5638" k3="-0.0563"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="1000" k1="-1.2284" k2="0.5638" k3="-0.0563"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="10" k1="-0.2027" k2="-0.7027" k3="0.3671"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="1000" k1="-0.2027" k2="-0.7027" k3="0.3671"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="10" k1="-0.4527" k2="0.3264" k3="-0.2138"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="1000" k1="-0.4527" k2="0.3264" k3="-0.2138"/>
+            <vignetting model="pa" focal="35" aperture="22" distance="10" k1="-0.4222" k2="0.1561" k3="-0.0315"/>
+            <vignetting model="pa" focal="35" aperture="22" distance="1000" k1="-0.4222" k2="0.1561" k3="-0.0315"/>
         </calibration>
     </lens>
 
@@ -67,6 +77,19 @@
             <vignetting model="pa" focal="25" aperture="8" distance="1000" k1="-0.6634" k2="0.3401" k3="-0.1020"/>
             <vignetting model="pa" focal="25" aperture="22" distance="10" k1="-0.6497" k2="0.2995" k3="-0.0740"/>
             <vignetting model="pa" focal="25" aperture="22" distance="1000" k1="-0.6497" k2="0.2995" k3="-0.0740"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Zeiss Milvus 1.4/50</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony A7R3 + EF adapter -->
+            <distortion model="poly3" focal="50" k1="-0.002311"/>
+            <tca model="poly3" focal="50" br="-0.0000953" vr="1.0001884" bb="0.0001209" vb="0.9997801"/>
         </calibration>
     </lens>
 

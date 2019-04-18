@@ -372,4 +372,27 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tokina</maker>
+        <model>Tokina AF 100mm f/2.8 AT-X Pro D M100 Macro</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D3 -->
+            <distortion model="ptlens" focal="100" a="0" b="-0.0008" c="0"/>
+            <tca model="poly3" focal="100" vr="0.9999373" vb="0.9997349"/>
+            <vignetting model="pa" focal="100" aperture="2.8" distance="10" k1="-1.1489" k2="1.2314" k3="-0.5669"/>
+            <vignetting model="pa" focal="100" aperture="2.8" distance="1000" k1="-1.1489" k2="1.2314" k3="-0.5669"/>
+            <vignetting model="pa" focal="100" aperture="4" distance="10" k1="-0.6408" k2="0.2518" k3="-0.0046"/>
+            <vignetting model="pa" focal="100" aperture="4" distance="1000" k1="-0.6408" k2="0.2518" k3="-0.0046"/>
+            <vignetting model="pa" focal="100" aperture="5.6" distance="10" k1="-0.0271" k2="-0.6879" k3="0.4089"/>
+            <vignetting model="pa" focal="100" aperture="5.6" distance="1000" k1="-0.0271" k2="-0.6879" k3="0.4089"/>
+            <vignetting model="pa" focal="100" aperture="8" distance="10" k1="-0.2262" k2="0.2897" k3="-0.2456"/>
+            <vignetting model="pa" focal="100" aperture="8" distance="1000" k1="-0.2262" k2="0.2897" k3="-0.2456"/>
+            <vignetting model="pa" focal="100" aperture="32" distance="10" k1="-0.1772" k2="0.0435" k3="0.0307"/>
+            <vignetting model="pa" focal="100" aperture="32" distance="1000" k1="-0.1772" k2="0.0435" k3="0.0307"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>

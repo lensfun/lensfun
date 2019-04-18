@@ -5,21 +5,7 @@ layout: default
 weight: 6
 ---
 
-* __Why is my lens or camera not automatically recognized in image editor XYZ?__
-
-    There may be two reasons:
-    1. The camera and lens are not in the Lensfun database which is available on your computer. 
-       On Linux Lensfun is usually installed system wide by a package manager. On Windows and Mac
-       Lensfun is usually shipped together with the image editing application. Please check for updates!
-
-    2. The image editor was not able to properly read the EXIF data from the image. Most open 
-       source programs today use the <a href="http://www.exiv2.org/">exiv2 library</a> to retrieve 
-       the camera and lens information. You can use the command line tool `exiv2` to see if 
-       the retrieved information is correct:
-
-           $> exiv2 -pt 2938031.jpeg |grep -i 'lens\|model\|make'
-
-* __How do I know if a certain lens and camera combination will be recognized by Lensfun?__
+* __How do I know if a certain lens and camera combination will be supported by Lensfun?__
 
     Please check the <a href="/lenslist/">list of supported lenses</a> for the latest release. Before 
     you report a missing lens, camera, or even start calibration by your own, please also check the 

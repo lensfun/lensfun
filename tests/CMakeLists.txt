@@ -1,6 +1,16 @@
+find_package(OpenMP)
+
+IF (OpenMP_FOUND)
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+ENDIF()
+
 ADD_EXECUTABLE(test_database test_database.cpp)
 TARGET_LINK_LIBRARIES(test_database lensfun ${COMMON_LIBS})
 ADD_TEST(NAME Database WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND test_database)
+
+ADD_EXECUTABLE(test_lens test_lens.cpp)
+TARGET_LINK_LIBRARIES(test_lens lensfun ${COMMON_LIBS})
+ADD_TEST(Lens test_lens)
 
 ADD_EXECUTABLE(test_modifier test_modifier.cpp)
 TARGET_LINK_LIBRARIES(test_modifier lensfun ${COMMON_LIBS})
@@ -9,9 +19,6 @@ ADD_TEST(Modifier test_modifier)
 ADD_EXECUTABLE(test_modifier_performance test_modifier_performance.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_performance lensfun ${COMMON_LIBS})
 ADD_TEST(NAME Modifier_performance WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND test_modifier_performance)
-
-find_package(OpenMP)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 
 ADD_EXECUTABLE(test_modifier_color test_modifier_color.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_color lensfun ${COMMON_LIBS})
@@ -45,9 +52,59 @@ ADD_EXECUTABLE(test_modifier_coord_centering test_modifier_coord_centering.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_coord_centering lensfun ${COMMON_LIBS})
 ADD_TEST(Modifier_coord_centering test_modifier_coord_centering)
 
-ADD_EXECUTABLE(test_modifier_coord_regression test_modifier_coord_regression.cpp)
-TARGET_LINK_LIBRARIES(test_modifier_coord_regression lensfun ${COMMON_LIBS})
-ADD_TEST(NAME Modifier_coord_regression WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND test_modifier_coord_regression)
+ADD_EXECUTABLE(test_modifier_regression test_modifier_regression.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_regression lensfun ${COMMON_LIBS})
+ADD_TEST(NAME Modifier_regression WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND test_modifier_regression)
+
+
+### Deprecated API tests
+ADD_EXECUTABLE(test_database_old test_database_old.cpp)
+TARGET_LINK_LIBRARIES(test_database_old lensfun ${COMMON_LIBS})
+ADD_TEST(NAME Database_deprecated WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND test_database_old)
+
+ADD_EXECUTABLE(test_modifier_old test_modifier_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_old lensfun ${COMMON_LIBS})
+ADD_TEST(Modifier_deprecated test_modifier_old)
+
+ADD_EXECUTABLE(test_modifier_color_old test_modifier_color_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_color_old lensfun ${COMMON_LIBS})
+ADD_TEST(Modifier_color_deprecated test_modifier_color_old)
+
+ADD_EXECUTABLE(test_modifier_subpix_old test_modifier_subpix_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_subpix_old lensfun ${COMMON_LIBS})
+ADD_TEST(Modifier_subpix_deprecate test_modifier_subpix_old)
+
+ADD_EXECUTABLE(test_modifier_coord_scale_old test_modifier_coord_scale_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_coord_scale_old lensfun ${COMMON_LIBS})
+ADD_TEST(Modifier_coord_scale_deprecated test_modifier_coord_scale_old)
+
+ADD_EXECUTABLE(test_modifier_coord_perspective_correction_old test_modifier_coord_perspective_correction_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_coord_perspective_correction_old lensfun ${COMMON_LIBS})
+ADD_TEST(Modifier_coord_perspective_correction_deprecated test_modifier_coord_perspective_correction_old)
+
+ADD_EXECUTABLE(test_modifier_coord_distortion_old test_modifier_coord_distortion_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_coord_distortion_old lensfun ${COMMON_LIBS})
+ADD_TEST(Modifier_coord_distortion_deprecated test_modifier_coord_distortion_old)
+
+ADD_EXECUTABLE(test_modifier_coord_geometry_old test_modifier_coord_geometry_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_coord_geometry_old lensfun ${COMMON_LIBS})
+ADD_TEST(Modifier_coord_geometry_deprecated test_modifier_coord_geometry_old)
+
+ADD_EXECUTABLE(test_modifier_coord_tiny_image_old test_modifier_coord_tiny_image_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_coord_tiny_image_old lensfun ${COMMON_LIBS})
+ADD_TEST(Modifier_coord_tiny_image_deprecated test_modifier_coord_tiny_image_old)
+
+ADD_EXECUTABLE(test_modifier_coord_centering_old test_modifier_coord_centering_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_coord_centering_old lensfun ${COMMON_LIBS})
+ADD_TEST(Modifier_coord_centering_deprecated test_modifier_coord_centering_old)
+
+ADD_EXECUTABLE(test_modifier_regression_old test_modifier_regression_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_regression_old lensfun ${COMMON_LIBS})
+ADD_TEST(NAME Modifier_regression_deprecated WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND test_modifier_regression_old)
+
+ADD_EXECUTABLE(test_lffuzzystrcmp test_lffuzzystrcmp.cpp)
+TARGET_LINK_LIBRARIES(test_lffuzzystrcmp lensfun ${COMMON_LIBS})
+ADD_TEST(test_lffuzzystrcmp test_lffuzzystrcmp)
 
 FIND_PACKAGE(PythonInterp REQUIRED)
 ADD_TEST(NAME Database_integrity COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/check_database/check_database.py ${CMAKE_SOURCE_DIR}/data/db)
