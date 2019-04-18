@@ -1667,6 +1667,26 @@
 
     <lens>
         <maker>Sigma</maker>
+        <model>Sigma 14mm f/1.8 DG HSM | A</model>
+        <mount>Sigma SA</mount>
+        <mount>Canon EF</mount>
+        <mount>Nikon F</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="14" distance="100" a="-0.02652" b="0.05963" c="-0.0335"/>
+            <vignetting model="pa" focal="14" aperture="1.8" distance="100" k1="-1.24363" k2="1.1107" k3="-0.53021"/>
+            <vignetting model="pa" focal="14" aperture="2.0" distance="100" k1="-0.84122" k2="0.19916" k3="0.03588"/>
+            <vignetting model="pa" focal="14" aperture="2.8" distance="100" k1="-0.36408" k2="0.01363" k3="-0.11581"/>
+            <vignetting model="pa" focal="14" aperture="4.0" distance="100" k1="-0.44961" k2="0.29858" k3="-0.19607"/>
+            <vignetting model="pa" focal="14" aperture="5.6" distance="100" k1="-0.44592" k2="0.24421" k3="-0.11778"/>
+            <vignetting model="pa" focal="14" aperture="8.0" distance="100" k1="-0.46211" k2="0.27927" k3="-0.13969"/>
+            <vignetting model="pa" focal="14" aperture="16" distance="100" k1="-0.4712" k2="0.28029" k3="-0.13974"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
         <model>Sigma 14mm f/2.8 EX</model>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
