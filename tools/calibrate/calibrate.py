@@ -426,15 +426,11 @@ You have to rename them according to the scheme "Lens_name--16mm--1.4.RAW"
                     """set title "{}"
 plot [0:1.8] {} * x**2 + {} title "red", {} * x**2 + {} title "blue"
 pause -1""".format(filename, data["br"], data["vr"], data["bb"], data["vb"]))
-                try:
-                    calibration_lines.setdefault(lens_name, []).append((focal_length,
-                        """<tca model="poly3" focal="{0:g}" br="{1}" vr="{2}" bb="{3}" vb="{4}"/>""".format(
-                            focal_length, data["br"], data["vr"], data["bb"], data["vb"]) if args.complex_tca else
-                        """<tca model="poly3" focal="{0:g}" vr="{1}" vb="{2}"/>""".format(
-                            focal_length, data["vr"], data["vb"])))
-                except KeyError:
-                    print("""Lens "{0}" not found in lenses.txt.  Abort.""".format(lens_name))
-                    sys.exit()
+                calibration_lines.setdefault(lens_name, []).append((focal_length,
+                    """<tca model="poly3" focal="{0:g}" br="{1}" vr="{2}" bb="{3}" vb="{4}"/>""".format(
+                        focal_length, data["br"], data["vr"], data["bb"], data["vb"]) if args.complex_tca else
+                    """<tca model="poly3" focal="{0:g}" vr="{1}" vb="{2}"/>""".format(
+                        focal_length, data["vr"], data["vb"])))
             for lens_name, lines in calibration_lines.items():
                 lines.sort()
                 lenses[lens_name].calibration_lines.extend(line[1] for line in lines)
