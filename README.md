@@ -20,8 +20,8 @@ and vignetting.
 The interface is defined both using C++ style and plain C.
 The C interface is a wrapper around the C++ classes.
 
-Website: http://lensfun.sourceforge.net/  
-Sourceforge: http://sourceforge.net/projects/lensfun/  
+GitHub Project: https://github.com/lensfun/lensfun
+GitHub Page: https://lensfun.github.io/
 
 
 LICENSE
@@ -89,7 +89,7 @@ The following CMake options can be set (defaults are upper case):
 
     -DCMAKE_BUILD_TYPE=DEBUG|Release        select debug or release build mode
     -DINSTALL_HELPER_SCRIPTS=off|ON         install various helper scripts
-    -DCMAKE_INSTALL_PREFIX=/USR/LOCAL       install prefix 
+    -DCMAKE_INSTALL_PREFIX=/USR/LOCAL       install prefix
 
     -DBUILD_STATIC=OFF|on       build static or shared lib
     -DBUILD_TESTS=OFF|on        build also the test programs
@@ -98,7 +98,7 @@ The following CMake options can be set (defaults are upper case):
     -DBUILD_FOR_SSE2=off|ON     build with SSE2 optimisaiton
     -DBUILD_DOC=OFF|on          build documentation
 
-If you want to have more detailed output when running 'make' you can simply add 
+If you want to have more detailed output when running 'make' you can simply add
 'VERBOSE=1' to the make command line.
 
 You can also build packages with cmake:
@@ -106,11 +106,11 @@ You can also build packages with cmake:
     Add -DCPACK_BINARY_DEB:BOOL=ON or -DCPACK_BINARY_RPM:BOOL=ON to the
     command line and then "make package". (But this is not extensively tested.)
 
-Please note that running cmake again does NOT reset all options to default or 
+Please note that running cmake again does NOT reset all options to default or
 reconfigure all variables. To restart with a clean configuration delete all files
 in your cmake_build folder.
 
-If you prefer setting the configuration with a GUI or want to get an extensive 
+If you prefer setting the configuration with a GUI or want to get an extensive
 overview of all available settings and cache values run cmake-gui.
 
 
@@ -124,7 +124,7 @@ command:
 
 Also you can read it online at any time by pointing your browser to:
 
-	http://lensfun.sourceforge.net/manual/
+	https://lensfun.github.io/manual/latest
 
 The documentation on the site is updated every night from Git, so it always
 contains the latest info on the library.
@@ -137,15 +137,15 @@ Here goes a full list of people who have contributed to this library:
 
 CODE:
   > Andrew Zabolotny <zap@homelink.ru>
- 
+
 LENS DATA:
   > Tom Niemann: original open-source ptlens database.
 
 THANKS:
   > Pablo d'Angelo for the idea of a open-source lens database.
-  > 
+  >
   > The whole PanoTools team, for all math and knowledge I have borrowed from PanoTools:
-  > 
+  >
   > Helmut Dersch - The father of most (all?) open-source panorama creation tools.
   > Daniel M. German
   > Kevin Kratzke
@@ -163,4 +163,4 @@ Also I would like to thank the people that made valuable contributions to Lensfu
   > Thomas Modes
   > Torsten Bronger
 
-And of course great thanks to all the people sending profiles for the database. 
+And of course great thanks to all the people sending profiles for the database.
