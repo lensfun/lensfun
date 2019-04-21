@@ -429,4 +429,19 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF-M 11-22mm f/4-5.6 IS STM</model>
+        <mount>Canon EF-M</mount>
+        <cropfactor>1.613</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="11" a="0.00504" b="-0.01875" c="-0.00717"/>
+            <distortion model="ptlens" focal="12" a="0.00963" b="-0.04397" c="0.04193"/>
+            <distortion model="ptlens" focal="14" a="0.00072" b="0.01027" c="-0.04739"/>
+            <distortion model="ptlens" focal="17" a="0.00347" b="-0.0058" c="-0.00524"/>
+            <distortion model="ptlens" focal="18" a="0.01571" b="-0.0638" c="0.07361"/>
+            <distortion model="ptlens" focal="22" a="-0.00319" b="0.00802" c="-0.01067"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
