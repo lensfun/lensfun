@@ -85,6 +85,9 @@ Run make/make install as usual
     make
     make install
 
+After that, you may want to use ldconfig to add the necessary symlinks so that
+programs can find and use Lensfun.
+
 The following CMake options can be set (defaults are upper case):
 
     -DCMAKE_BUILD_TYPE=DEBUG|Release        select debug or release build mode
