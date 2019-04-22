@@ -83,6 +83,14 @@
         <cropfactor>2.73</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Hasselblad</maker>
+        <model>L1D-20c</model>
+        <model lang="en">DJI Mavic 2 Pro</model>
+        <mount>l1d20c</mount>
+        <cropfactor>2.8</cropfactor>
+    </camera>
+
     <lens>
         <maker>GoPro</maker>
         <model>HD2 &amp; compatibles</model>
@@ -227,6 +235,20 @@
         <calibration>
             <distortion model="ptlens" focal="8.8" a="0.00961599" b="-0.0582928" c="-0.00551691"/>
             <tca model="poly3" focal="8.8" vr="1.0000759" vb="1.0000033"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Hasselblad</maker>
+        <model>L1D-20c &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>l1d20c</mount>
+        <type>equisolid</type>
+        <cropfactor>2.8</cropfactor>
+        <aspect-ratio>3:2</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="10" a="-0.017" b="0.135" c="-0.148"/>
         </calibration>
     </lens>
 
