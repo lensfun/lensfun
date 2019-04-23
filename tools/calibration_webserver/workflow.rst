@@ -49,10 +49,11 @@ Workflow
    images were good, but the target was not really trustworthy” or “Images of
    ducks on a lake cannot be used for calibration”.  Note that it is not
    necessary to use this feature at all.
-6. File a pull request with the calibration results.  If you need feedback.
-   Else, commit them.
-7. When the pull request has been merged or the commit reviewed, the person in
-   charge for the Lensfun DB adds the label “successful” to the issue.
+6. If the images are unusable for calibration, add the label “unsuccessful” to
+   the issue.  You needn’t close it.
+7. If you need feedback, file a pull request with the calibration results.
+   Else, commit them to the ``master`` branch and mark the issue with the label
+   “successful”.
 8. A `cronjob`_ on Torsten's computer will remove this label once per hour,
    close the issue, and send an email to the uploader, possibly with the latest
    “@uploader” comment.
