@@ -34,7 +34,7 @@ Darktable detects the lens, focal length, and *f* number used for this
 photograph, and it then calls Lensfun to automatically rectify the photograph.
 Great, isn’t it?
 
-.. _`Lensfun`: http://lensfun.sourceforge.net/
+.. _`Lensfun`: http://lensfun.github.io
 .. _`distortion`: http://en.wikipedia.org/wiki/Distortion_(optics)
 .. _`transverse chromatic aberration`: http://en.wikipedia.org/wiki/Chromatic_aberration
 .. _`vignetting`: http://en.wikipedia.org/wiki/Vignetting
@@ -202,7 +202,7 @@ Chromatic aberration (TCA)
 
 .. [Taken from the `Lensfun homepage`_.]
 
-.. _`Lensfun homepage`: http://lensfun.sourceforge.net/lens-calibration/lens-tca.html
+.. _`Lensfun homepage`: https://lensfun.github.io/calibration-tutorial/lens-tca.html
 
 Look for a large object with sharp high-contrast edges throughout the
 image. Preferably, the edges should be black–white but anything close to that
@@ -281,13 +281,13 @@ The result is a ``lensfun.xml`` file.  Install it locally according to `How
 database files are found and loaded`_.  Check that there is also an entry for
 your camera and lens mount.  The `Lensfun manual`_ shows an example file.
 
-.. _`How database files are found and loaded`: http://lensfun.sourceforge.net/manual/dbsearch.html
-.. _`Lensfun manual`: http://lensfun.sourceforge.net/manual/dbformat.html
+.. _`How database files are found and loaded`: http://lensfun.github.io/manual/dbsearch.html
+.. _`Lensfun manual`: http://lensfun.github.io/manual/dbformat.html
 
 .. important:: Send your ``lensfun.xml`` to one of the `Lensfun maintainers`_!
     Thank you!
 
-.. _`Lensfun maintainers`: http://lensfun.sourceforge.net/calibration/
+.. _`Lensfun maintainers`: http://lensfun.github.io/calibration/
 
 
 .. [#] If you cannot get a picture of a building in your vicinity, don’t worry.

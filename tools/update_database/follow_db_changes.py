@@ -84,7 +84,7 @@ def update_git_repository():
         os.chdir(root + "lensfun-git")
     except FileNotFoundError:
         os.chdir(root)
-        subprocess.check_call(["git", "clone", "git://git.code.sf.net/p/lensfun/code", "lensfun-git"],
+        subprocess.check_call(["git", "clone", "https://github.com/lensfun/lensfun.git", "lensfun-git"],
                               stdout=DEVNULL, stderr=DEVNULL)
         os.chdir(root + "lensfun-git")
         db_was_updated = True
