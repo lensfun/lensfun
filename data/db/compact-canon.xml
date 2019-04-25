@@ -67,6 +67,14 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon PowerShot G3 X</model>
+        <model lang="en">PowerShot G3 X (3:2)</model>
+        <mount>canonG3X</mount>
+        <cropfactor>2.727</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon PowerShot G5 X</model>
         <model lang="en">PowerShot G5 X (3:2)</model>
         <mount>canonG7X</mount>
@@ -3368,6 +3376,36 @@
             <distortion model="ptlens" focal="92.0" a="-0.00306" b="0.00016" c="-0.00374"/>
             <distortion model="ptlens" focal="128.7" a="-0.0037" b="0.00365" c="-0.00582"/>
             <distortion model="ptlens" focal="135.0" a="0.00333" b="-0.02616" c="0.03388"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon PowerShot G3 X &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>canonG3X</mount>
+        <cropfactor>2.727</cropfactor>
+        <aspect-ratio>3:2</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="8.8" a="0.02271" b="-0.08978" c="-0.03043"/>
+            <distortion model="ptlens" focal="18.2" a="0.00158" b="-0.00132" c="-0.01188"/>
+            <distortion model="ptlens" focal="25.2" a="0.00913" b="-0.02665" c="0.03024"/>
+            <distortion model="ptlens" focal="31.7" a="0.00279" b="-0.0021" c="0.00316"/>
+            <distortion model="ptlens" focal="36.8" a="-0.00521" b="0.02578" c="-0.02522"/>
+            <distortion model="ptlens" focal="74.1" a="-0.00295" b="0.01588" c="-0.01285"/>
+            <distortion model="ptlens" focal="106" a="-0.00103" b="0.00852" c="-0.00062"/>
+            <distortion model="ptlens" focal="147.4" a="0.0052" b="-0.01375" c="0.02287"/>
+            <distortion model="ptlens" focal="220" a="0.0059" b="-0.00793" c="0.00504"/>
+            <tca model="poly3" focal="8.8" vr="1.0005379" vb="1.0000174"/>
+            <tca model="poly3" focal="18.2" vr="1.0002172" vb="1.0000926"/>
+            <tca model="poly3" focal="25.2" vr="1.0000860" vb="1.0001583"/>
+            <tca model="poly3" focal="31.7" vr="0.9999919" vb="1.0001972"/>
+            <tca model="poly3" focal="36.8" vr="0.9999741" vb="1.0001881"/>
+            <tca model="poly3" focal="74.1" vr="0.9999218" vb="1.0000238"/>
+            <tca model="poly3" focal="106" vr="0.9998593" vb="0.9999902"/>
+            <tca model="poly3" focal="147.4" vr="0.9998470" vb="0.9999026"/>
+            <tca model="poly3" focal="220" vr="0.9998333" vb="0.9998775"/>
         </calibration>
     </lens>
 
