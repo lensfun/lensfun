@@ -271,7 +271,8 @@ used for calibration in its present form.  Please read the
 instructions at http://wilson.bronger.org/calibration carefully and
 consider a re-upload.
 
-{}Please respond to this email if you have any further questions.
+{}You may find additional information at <{}>.
+Please respond to this email if you have any further questions.
 
 Thank you for your work so far nevertheless!
 
@@ -285,10 +286,11 @@ Thank you for your work so far nevertheless!
             if calibrator_comment.startswith(":"):
                 calibrator_comment = calibrator_comment[1:]
             calibrator_comment = textwrap.fill(calibrator_comment.strip(), width=68)
-            body = body.format("Additional information from the calibrator:\n" + calibrator_comment + "\n\n")
+            body = body.format("Additional information from the calibrator:\n" + calibrator_comment + "\n\n",
+                               issue.html_url)
             break
     else:
-        body = body.format("")
+        body = body.format("", issue.html_url)
     send_email(uploader_email, "Your calibration upload {} has been processed".format(upload_hash), body)
     if config["General"].get("archive_path"):
         destination = config["General"]["archive_path"]
