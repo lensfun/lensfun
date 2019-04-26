@@ -4718,4 +4718,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S Nikkor 18-35mm f/3.5-4.5G ED</model>
+        <model lang="en">Nikkor AF-S 18-35mm f/3.5-4.5G ED</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Nikon D610 -->
+            <distortion model="ptlens" focal="18" a="0.00919" b="-0.02694" c="-0.01432"/>
+            <distortion model="ptlens" focal="24" a="0.00382" b="-0.01445" c="-0.0043"/>
+            <distortion model="ptlens" focal="28" a="0.00147" b="-0.00844" c="-0.00135"/>
+            <distortion model="ptlens" focal="32" a="0.00176" b="-0.01065" c="0.00519"/>
+            <distortion model="ptlens" focal="35" a="0.00596" b="-0.02416" c="0.02137"/>
+            <tca model="poly3" focal="18" vr="1.0001603" vb="1.0001229"/>
+            <tca model="poly3" focal="24" vr="1.0001355" vb="1.0001050"/>
+            <tca model="poly3" focal="28" vr="1.0001508" vb="1.0000740"/>
+            <tca model="poly3" focal="32" vr="1.0001699" vb="1.0000483"/>
+            <tca model="poly3" focal="35" vr="1.0001831" vb="1.0000038"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
