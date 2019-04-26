@@ -1406,6 +1406,15 @@
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
 	    <!-- Taken with PEN-F -->
+            <distortion model="ptlens" focal="12" a="0.04987" b="-0.15678" c="0.07099"/>
+            <distortion model="ptlens" focal="14" a="0.02463" b="-0.08632" c="0.02731"/>
+            <distortion model="ptlens" focal="17" a="0.018" b="-0.0601" c="0.03151"/>
+            <distortion model="ptlens" focal="23" a="0.00332" b="-0.00565" c="-0.00059"/>
+            <distortion model="ptlens" focal="37" a="0.00197" b="0.00186" c="0.00797"/>
+            <distortion model="ptlens" focal="50" a="-0.00441" b="0.00826" c="0.01292"/>
+            <distortion model="ptlens" focal="70" a="0.00383" b="-0.00419" c="0.00734"/>
+            <distortion model="ptlens" focal="100" a="0.00987" b="-0.04487" c="0.07314"/>
+            <distortion model="ptlens" focal="200" a="0.00028" b="-0.00262" c="0.01329"/>
             <tca model="poly3" focal="12" br="0.0000136" vr="1.0003563" bb="0.0000160" vb="1.0001948"/>
             <tca model="poly3" focal="17" br="-0.0000989" vr="1.0003085" bb="0.0001091" vb="1.0002690"/>
             <tca model="poly3" focal="23" br="-0.0000724" vr="1.0001990" bb="0.0001434" vb="1.0002311"/>
