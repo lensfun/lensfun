@@ -271,7 +271,8 @@ used for calibration in its present form.  Please read the
 instructions at http://wilson.bronger.org/calibration carefully and
 consider a re-upload.
 
-{}You may find additional information at <{}>.
+{}You may find additional information at
+<{}>.
 Please respond to this email if you have any further questions.
 
 Thank you for your work so far nevertheless!
