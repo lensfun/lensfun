@@ -1176,14 +1176,20 @@
             <distortion model="ptlens" focal="72" a="0" b="0.006226" c="0"/>
             <distortion model="ptlens" focal="78" a="0" b="0.007095" c="0"/>
             <distortion model="ptlens" focal="85" a="0" b="0.007288" c="0"/>
-            <!-- Submitted in Calibration upload 2fc12b #313 -->
-            <tca model="poly3" focal="17" vr="1.0016077" vb="1.0004071"/>
-            <tca model="poly3" focal="26" vr="1.0011006" vb="1.0005858"/>
-            <tca model="poly3" focal="35" vr="1.0000899" vb="1.0001656"/>
-            <tca model="poly3" focal="38" vr="1.0003621" vb="1.0001747"/>
-            <tca model="poly3" focal="53" vr="0.9998833" vb="1.0000868"/>
-            <tca model="poly3" focal="72" vr="0.9999798" vb="1.0000044"/>
-            <tca model="poly3" focal="85" vr="0.9991007" vb="0.9999543"/>
+            <!-- Submitted in calibration upload 0daa81 #869 -->
+            <tca model="poly3" focal="17" br="-0.0000453" vr="1.0007600" bb="-0.0000006" vb="1.0000753"/>
+            <tca model="poly3" focal="22" br="-0.0000311" vr="1.0006021" bb="-0.0000002" vb="1.0001031"/>
+            <tca model="poly3" focal="28" br="-0.0000270" vr="1.0003630" bb="-0.0000103" vb="1.0001663"/>
+            <tca model="poly3" focal="33" br="-0.0000279" vr="1.0002572" bb="-0.0000145" vb="1.0001895"/>
+            <tca model="poly3" focal="38" br="-0.0000161" vr="1.0001173" bb="-0.0000210" vb="1.0002037"/>
+            <tca model="poly3" focal="44" br="-0.0000111" vr="1.0000478" bb="-0.0000313" vb="1.0001968"/>
+            <tca model="poly3" focal="53" br="0.0000165" vr="0.9999201" bb="-0.0000644" vb="1.0002119"/>
+            <tca model="poly3" focal="59" br="0.0000362" vr="0.9998414" bb="-0.0000819" vb="1.0001951"/>
+            <tca model="poly3" focal="66" br="0.0000306" vr="0.9998086" bb="-0.0000712" vb="1.0001463"/>
+            <tca model="poly3" focal="70" br="0.0000470" vr="0.9997508" bb="-0.0000698" vb="1.0001168"/>
+            <tca model="poly3" focal="75" br="0.0000354" vr="0.9997470" bb="-0.0000490" vb="1.0000368"/>
+            <tca model="poly3" focal="80" br="0.0000295" vr="0.9997343" bb="-0.0000594" vb="1.0000239"/>
+            <tca model="poly3" focal="85" br="0.0000362" vr="0.9996988" bb="-0.0000515" vb="0.9999948"/>
             <!-- Taken with Canon EOS 7D -->
             <vignetting model="pa" focal="17" aperture="4" distance="10" k1="-0.9839" k2="0.7916" k3="-0.4822"/>
             <vignetting model="pa" focal="17" aperture="4" distance="1000" k1="-0.9839" k2="0.7916" k3="-0.4822"/>
@@ -6456,5 +6462,6 @@
             <tca model="poly3" focal="24" vr="1.0002213" vb="1.0000311"/>
         </calibration>
     </lens>
+
 
 </lensdatabase>
