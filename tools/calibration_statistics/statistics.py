@@ -60,7 +60,7 @@ def collect_distortion_data(db_files):
                     max_b = b
                 if max_c is None or c > max_c:
                     max_c = c
-            if len(points) >= 3:
+            if 3 <= len(points):
                 line = []
                 for focal, inv_focal, a, b, c in points:
                     line.append((divide(focal - min_f, max_f - min_f),
