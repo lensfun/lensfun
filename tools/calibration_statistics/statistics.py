@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import glob, sys, os, inspect, subprocess, math
+import glob, sys, os, inspect, subprocess, math, argparse
 from xml.etree import ElementTree
 from pathlib import Path
 
 
-inverse = True
-in_focal_length = False
+parser = argparse.ArgumentParser(description="Statistical evaluation of Lensfun’s database.")
+parser.add_argument("--inverse", action="store_true")
+parser.add_argument("--in-focal-length", action="store_true")
+parser.add_argument("--root-dir", type=str)
+args = parser.parse_args()
 
 
 def divide(x, y):
@@ -32,7 +35,7 @@ def collect_distortion_data(db_files):
                     a, b, c = distortion.get("a", "0"), distortion.get("b", "0"), distortion.get("c", "0")
                 elif model == "poly3":
                     a, b, c = "0", distortion.attrib.get("k1", 0), "0"
-                if in_focal_length:
+                if args.in_focal_length:
                     a, b, c = float(a) * focal**3, float(b) * focal**2, float(c) * focal
                 else:
                     a, b, c = float(a), float(b), float(c)
@@ -78,7 +81,7 @@ def create_distortion_plots(data):
 
 
 def calculate_interpolation_error(data):
-    x_axis_index = 1 if inverse else 0
+    x_axis_index = 1 if args.inverse else 0
     error = 0
     N = 0
     for line in data:
@@ -95,12 +98,12 @@ def calculate_interpolation_error(data):
     return error / N
 
 
-try:
-    rootdir = Path(sys.argv[1])
-except IndexError:
-    rootdir = Path(os.path.dirname(__file__))/"../../data/db"
+if args.root_dir:
+    root_dir = args.root_dir
+else:
+    root_dir = Path(os.path.dirname(__file__))/"../../data/db"
 
-db_files = glob.glob(str(rootdir/"*.xml"))
+db_files = glob.glob(str(root_dir/"*.xml"))
 
 distortion_data = collect_distortion_data(db_files)
 create_distortion_plots(distortion_data)
