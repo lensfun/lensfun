@@ -77,8 +77,10 @@ def create_distortion_plots(data):
         print(file=outfile)
 
 
-def calculate_interpolation_error(data, exponents, r_max):
+def calculate_interpolation_error(data):
+    x_axis_index = 1 if inverse else 0
     error = 0
+    N = 0
     for line in data:
         for i in range(1, len(line) - 1):
             x_l, x_0, x_r = line[i - 1][x_axis_index], line[i][x_axis_index], line[i + 1][x_axis_index]
@@ -86,10 +88,11 @@ def calculate_interpolation_error(data, exponents, r_max):
                 y_l, y_0, y_r = line[i - 1][coefficient_index + 1], line[i][coefficient_index + 1], \
                     line[i + 1][coefficient_index + 1]
                 mean = y_l + (x_0 - x_l) / (x_r - x_l) * (y_r - y_l)
-                Δ = abs(y_0 - mean) * r_max ** exponents[coefficient_index]
+                Δ = divide(abs(y_0 - mean), abs(mean))
                 if not math.isnan(Δ):
                     error += Δ
-    return error
+                    N += 1
+    return error / N
 
 
 try:
@@ -101,4 +104,4 @@ db_files = glob.glob(str(rootdir/"*.xml"))
 
 distortion_data = collect_distortion_data(db_files)
 create_distortion_plots(distortion_data)
-print(calculate_interpolation_error(distortion_data, (4, 3, 2), 1))
+print(calculate_interpolation_error(distortion_data))
