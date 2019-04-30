@@ -108,3 +108,7 @@ db_files = glob.glob(str(root_dir/"*.xml"))
 distortion_data = collect_distortion_data(db_files)
 create_distortion_plots(distortion_data)
 print(calculate_interpolation_error(distortion_data))
+
+open("plot.gp", "w").write("""plot "distortion.dat" using {}:5 with lines
+pause -1
+""".format(2 if args.inverse else 1))
