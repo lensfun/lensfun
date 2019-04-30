@@ -6,6 +6,10 @@ from xml.etree import ElementTree
 from pathlib import Path
 
 
+inverse = True
+in_focal_length = False
+
+
 def divide(x, y):
     try:
         return x / y
@@ -28,7 +32,10 @@ def collect_distortion_data(db_files):
                     a, b, c = distortion.get("a", "0"), distortion.get("b", "0"), distortion.get("c", "0")
                 elif model == "poly3":
                     a, b, c = "0", distortion.attrib.get("k1", 0), "0"
-                a, b, c = float(a) * focal**3, float(b) * focal**2, float(c) * focal
+                if in_focal_length:
+                    a, b, c = float(a) * focal**3, float(b) * focal**2, float(c) * focal
+                else:
+                    a, b, c = float(a), float(b), float(c)
                 points.append((focal, inv_focal, a, b, c))
                 if min_f is None or focal < min_f:
                     min_f = focal
@@ -74,7 +81,7 @@ def calculate_interpolation_error(data, exponents, r_max):
     error = 0
     for line in data:
         for i in range(1, len(line) - 1):
-            x_l, x_0, x_r = line[i - 1][0], line[i][0], line[i + 1][0]
+            x_l, x_0, x_r = line[i - 1][x_axis_index], line[i][x_axis_index], line[i + 1][x_axis_index]
             for coefficient_index in range(len(line[0]) - 2):
                 y_l, y_0, y_r = line[i - 1][coefficient_index + 1], line[i][coefficient_index + 1], \
                     line[i + 1][coefficient_index + 1]
