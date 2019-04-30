@@ -90,9 +90,9 @@ def calculate_interpolation_error(data):
                 y_l, y_0, y_r = line[i - 1][coefficient_index + 2], line[i][coefficient_index + 2], \
                     line[i + 1][coefficient_index + 2]
                 mean = y_l + (x_0 - x_l) / (x_r - x_l) * (y_r - y_l)
-                Δ = divide(abs(y_0 - mean), abs(mean))
+                Δ = y_0 - mean
                 if not math.isnan(Δ):
-                    errors.setdefault(coefficient_index, []).append(Δ)
+                    errors.setdefault(coefficient_index, []).append(Δ**2)
     return [sum(errors[index]) / len(errors[index]) for index in sorted(errors)]
 
 
