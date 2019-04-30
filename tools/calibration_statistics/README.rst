@@ -21,8 +21,8 @@ This shows:
 The two other combinations of ``--inverse`` and ``-in-focal-length`` are worse, by the way.
 
 If you look at the resulting plot – for example, for the parameter b – you see
-that using the focal length fot the unit system results in very nicely linear
+that using the focal length for the unit system results in very nicely linear
 lines, even better than with ``--inverse``.  Unfortunately, an increased number
 of lines don’t follow this trend, resulting in the worse figures above.  I
 suspect changes of sign in the original curves result in difficult slopes when
-applying the transformaton into the focal length unit system.
+applying the transformation into the focal length unit system.
