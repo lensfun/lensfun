@@ -85,8 +85,8 @@ def calculate_interpolation_error(data):
         for i in range(1, len(line) - 1):
             x_l, x_0, x_r = line[i - 1][x_axis_index], line[i][x_axis_index], line[i + 1][x_axis_index]
             for coefficient_index in range(len(line[0]) - 2):
-                y_l, y_0, y_r = line[i - 1][coefficient_index + 1], line[i][coefficient_index + 1], \
-                    line[i + 1][coefficient_index + 1]
+                y_l, y_0, y_r = line[i - 1][coefficient_index + 2], line[i][coefficient_index + 2], \
+                    line[i + 1][coefficient_index + 2]
                 mean = y_l + (x_0 - x_l) / (x_r - x_l) * (y_r - y_l)
                 Δ = divide(abs(y_0 - mean), abs(mean))
                 if not math.isnan(Δ):
