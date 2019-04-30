@@ -1,15 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+"""This tool extracts the distortion coefficients from the database and makes
+statistics with them.  In particular, it makes plots and measures how well the
+data can be interpolated linerarly, in different coordinate systems.
+
+This scrips only looks at zoom lenses with at least 3 focal lengths.
+Otherwise, linear interpolation would be unnecessary or trivial.
+"""
+
 import glob, sys, os, inspect, subprocess, math, argparse
 from xml.etree import ElementTree
 from pathlib import Path
 
 
 parser = argparse.ArgumentParser(description="Statistical evaluation of Lensfun’s database.")
-parser.add_argument("--inverse", action="store_true")
-parser.add_argument("--in-focal-length", action="store_true")
-parser.add_argument("--root-dir", type=str)
+parser.add_argument("--inverse", action="store_true",
+                    help="Use the *inverse* focal length for the x axis of interpolation and plotting.")
+parser.add_argument("--in-focal-length", action="store_true",
+                    help="Use the focal length as the unith length for the pixel coordinate system.  This makes a "
+                    "transformation or the coefficients necessary, thus changing the y values of interpolation and plotting.")
+parser.add_argument("--root-dir", type=str, help="Root directory of the database.  Defaults to ../../data/db.")
 args = parser.parse_args()
 
 
@@ -21,6 +32,11 @@ def divide(x, y):
 
 
 def collect_distortion_data(db_files):
+    """Returns the slopes of a, b, c versus (inverse) focal length of all zoom
+    lenses with at least three focal lengths with calibration data.  The
+    returned tuples have five items with the values focal length, inverse focal
+    length, a, b, and c.
+    """
     lines = []
     for filepath in db_files:
         for lens in ElementTree.parse(filepath).getroot().findall("lens"):
@@ -81,6 +97,11 @@ def create_distortion_plots(data):
 
 
 def calculate_interpolation_error(data):
+    """Returns the linear interpolation errors for a, b, and c.  I take the linear
+    interpolation between two neighbours of a point and calculate the
+    difference to the value at point.  This is a measure of the difficulty to
+    interpolate linearly.  The results are averaged error squares.
+    """
     x_axis_index = 1 if args.inverse else 0
     errors = {}
     for line in data:
