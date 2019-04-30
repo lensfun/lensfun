@@ -82,7 +82,7 @@ def create_distortion_plots(data):
 
 def calculate_interpolation_error(data):
     x_axis_index = 1 if args.inverse else 0
-    errors = []
+    errors = {}
     for line in data:
         for i in range(1, len(line) - 1):
             x_l, x_0, x_r = line[i - 1][x_axis_index], line[i][x_axis_index], line[i + 1][x_axis_index]
@@ -92,8 +92,8 @@ def calculate_interpolation_error(data):
                 mean = y_l + (x_0 - x_l) / (x_r - x_l) * (y_r - y_l)
                 Δ = divide(abs(y_0 - mean), abs(mean))
                 if not math.isnan(Δ):
-                    errors.append(Δ)
-    return sum(errors) / len(errors)
+                    errors.setdefault(coefficient_index, []).append(Δ)
+    return [sum(errors[index]) / len(errors[index]) for index in sorted(errors)]
 
 
 if args.root_dir:
