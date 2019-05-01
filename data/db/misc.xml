@@ -74,6 +74,22 @@
     </camera>
 
     <camera>
+        <maker>Huawei</maker>
+        <model>CLT-L29</model>
+        <model lang="en">P20 Pro</model>
+        <mount>cltl29</mount>
+        <cropfactor>4.55</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Huawei</maker>
+        <model>WAS-LX1A</model>
+        <model lang="en">P10 Lite</model>
+        <mount>waslx1a</mount>
+        <cropfactor>6.88</cropfactor>
+    </camera>
+
+    <camera>
         <maker>Nokia</maker>
         <model>Lumia 1520</model>
         <mount>lumia1520</mount>
@@ -360,6 +376,36 @@
     </lens>
 
     <lens>
+        <maker>Huawei</maker>
+        <model>Huawei P20 Pro &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>cltl29</mount>
+        <cropfactor>4.55</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="4" a="0.00215" b="-0.01025" c="0.02773"/>
+            <tca model="poly3" focal="4" vr="1.0000301" vb="1.0000056"/>
+            <vignetting model="pa" focal="4" aperture="1.8" distance="10" k1="-2.0558" k2="2.2822" k3="-1.0074"/>
+            <vignetting model="pa" focal="4" aperture="1.8" distance="1000" k1="-2.0558" k2="2.2822" k3="-1.0074"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Huawei</maker>
+        <model>Huawei P10 Lite &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>waslx1a</mount>
+        <cropfactor>6.88</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <vignetting model="pa" focal="3.8" aperture="2.2" distance="10" k1="-1.8454" k2="1.9806" k3="-0.8722"/>
+            <vignetting model="pa" focal="3.8" aperture="2.2" distance="1000" k1="-1.8454" k2="1.9806" k3="-0.8722"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <!-- This is *not* the mirror lens -->
         <maker>Beroflex</maker>
         <model>Beroflex 1:8 500mm</model>
@@ -547,6 +593,20 @@
 
     <lens>
         <maker>Venus</maker>
+        <model>Laowa 9mm f/2.8 Zero-D</model>
+        <mount>Fujifilm X</mount>
+        <mount>Sony E</mount>
+        <mount>Canon EF-M</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fuji X-T10 -->
+            <distortion model="poly3" focal="9" k1="0.000925"/>
+            <tca model="poly3" focal="9" vr="1.0001972" vb="1.0000750"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Venus</maker>
         <model>Laowa 7.5mm f/2.0</model>
         <mount>Micro 4/3 System</mount>
         <focal value="7.5"/>
@@ -568,13 +628,49 @@
     </lens>
 
     <lens>
+        <maker>Venus</maker>
+        <model>Laowa 60mm f/2.8 2X Ultra-Macro</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F</mount>
+        <mount>Pentax K</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony A7R2 -->
+            <distortion model="poly3" focal="60" k1="0.021585"/>
+            <tca model="poly3" focal="60" vr="0.9999748" vb="0.9998767"/>
+            <vignetting model="pa" focal="60" aperture="2.8" distance="0.19" k1="-0.1757" k2="-1.1395" k3="0.7120"/>
+            <vignetting model="pa" focal="60" aperture="2.8" distance="0.24" k1="-0.7838" k2="-0.1978" k3="0.3011"/>
+            <vignetting model="pa" focal="60" aperture="2.8" distance="0.5" k1="-1.3510" k2="0.9135" k3="-0.3409"/>
+            <vignetting model="pa" focal="60" aperture="2.8" distance="1000" k1="-1.7160" k2="1.5394" k3="-0.6836"/>
+            <vignetting model="pa" focal="60" aperture="4" distance="0.19" k1="-0.2500" k2="-0.2053" k3="-0.0360"/>
+            <vignetting model="pa" focal="60" aperture="4" distance="0.24" k1="-0.2730" k2="-0.3838" k3="0.1499"/>
+            <vignetting model="pa" focal="60" aperture="4" distance="0.5" k1="-0.5879" k2="-0.2031" k3="0.1407"/>
+            <vignetting model="pa" focal="60" aperture="4" distance="1000" k1="-0.7409" k2="-0.3290" k3="0.2910"/>
+            <vignetting model="pa" focal="60" aperture="5.6" distance="0.19" k1="-0.4639" k2="0.5287" k3="-0.4665"/>
+            <vignetting model="pa" focal="60" aperture="5.6" distance="0.24" k1="-0.4404" k2="0.2814" k3="-0.2281"/>
+            <vignetting model="pa" focal="60" aperture="5.6" distance="0.5" k1="-0.5001" k2="0.0856" k3="-0.1720"/>
+            <vignetting model="pa" focal="60" aperture="5.6" distance="1000" k1="-0.3760" k2="-0.7935" k3="0.3933"/>
+            <vignetting model="pa" focal="60" aperture="8" distance="0.19" k1="-0.4102" k2="0.2519" k3="-0.1593"/>
+            <vignetting model="pa" focal="60" aperture="8" distance="0.24" k1="-0.4325" k2="0.2209" k3="-0.1331"/>
+            <vignetting model="pa" focal="60" aperture="8" distance="0.5" k1="-0.5270" k2="0.3592" k3="-0.3328"/>
+            <vignetting model="pa" focal="60" aperture="8" distance="1000" k1="-0.3410" k2="-0.5508" k3="0.1252"/>
+            <vignetting model="pa" focal="60" aperture="22" distance="0.19" k1="-0.3571" k2="0.0465" k3="0.0100"/>
+            <vignetting model="pa" focal="60" aperture="22" distance="0.24" k1="-0.4287" k2="0.2041" k3="-0.1157"/>
+            <vignetting model="pa" focal="60" aperture="22" distance="0.5" k1="-0.4276" k2="0.0314" k3="0.0094"/>
+            <vignetting model="pa" focal="60" aperture="22" distance="1000" k1="-0.5778" k2="0.7096" k3="-0.8909"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <maker>Chinon</maker>
         <model>Auto Chinon 35mm f/2.8</model>
         <mount>M42</mount>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
-	    <!-- Taken with Sony ILCE-7RM2 (α7R II) -->
+            <!-- Taken with Sony ILCE-7RM2 (α7R II) -->
             <distortion model="ptlens" focal="35" a="0.00676" b="-0.02119" c="0.0148"/>
             <tca model="poly3" focal="35" br="-0.0003422" vr="1.0010988" bb="0.0004953" vb="0.9988583"/>
             <vignetting model="pa" focal="35" aperture="2.8" distance="10" k1="-1.8879" k2="1.9261" k3="-0.9102"/>
@@ -672,15 +768,25 @@
 
     <lens>
         <maker>Voigtländer</maker>
-        <model>Voigtlander Super Wide Heliar III</model>
-        <model lang="en">Super Wide-Heliar 15mm f/4.5 Aspherical III</model>
-        <model lang="de">Super Wide-Heliar 15mm f/4,5 Asphärisch III</model>
+        <model>Voigtländer Super Wide-Heliar 15mm f/4.5 III</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
-	    <!-- Taken with ILCE-7RM2 Alpha 7R II -->
+            <!-- Taken with ILCE-7RM2 Alpha 7R II -->
             <distortion model="poly3" focal="15" k1="-0.00287"/>
             <tca model="poly3" focal="15" br="-0.0000500" vr="1.0003065" bb="0.0000755" vb="0.9999375"/>
+            <vignetting model="pa" focal="15" aperture="4.5" distance="10" k1="-1.1005" k2="0.9416" k3="-0.3623"/>
+            <vignetting model="pa" focal="15" aperture="4.5" distance="1000" k1="-1.1005" k2="0.9416" k3="-0.3623"/>
+            <vignetting model="pa" focal="15" aperture="5.6" distance="10" k1="-0.7943" k2="0.4826" k3="-0.1339"/>
+            <vignetting model="pa" focal="15" aperture="5.6" distance="1000" k1="-0.7943" k2="0.4826" k3="-0.1339"/>
+            <vignetting model="pa" focal="15" aperture="8" distance="10" k1="-1.5743" k2="1.6031" k3="-0.6387"/>
+            <vignetting model="pa" focal="15" aperture="8" distance="1000" k1="-1.5743" k2="1.6031" k3="-0.6387"/>
+            <vignetting model="pa" focal="15" aperture="11" distance="10" k1="-1.5062" k2="1.4643" k3="-0.5516"/>
+            <vignetting model="pa" focal="15" aperture="11" distance="1000" k1="-1.5062" k2="1.4643" k3="-0.5516"/>
+            <vignetting model="pa" focal="15" aperture="16" distance="10" k1="-1.5383" k2="1.5445" k3="-0.6138"/>
+            <vignetting model="pa" focal="15" aperture="16" distance="1000" k1="-1.5383" k2="1.5445" k3="-0.6138"/>
+            <vignetting model="pa" focal="15" aperture="22" distance="10" k1="-1.5521" k2="1.5483" k3="-0.5985"/>
+            <vignetting model="pa" focal="15" aperture="22" distance="1000" k1="-1.5521" k2="1.5483" k3="-0.5985"/>
         </calibration>
     </lens>
 
@@ -702,6 +808,18 @@
             <vignetting model="pa" focal="8" aperture="8.0" distance="1000" k1="-1.0924" k2="0.7963" k3="-0.2940"/>
             <vignetting model="pa" focal="8" aperture="16.0" distance="10" k1="-1.1580" k2="0.9371" k3="-0.3760"/>
             <vignetting model="pa" focal="8" aperture="16.0" distance="1000" k1="-1.1580" k2="0.9371" k3="-0.3760"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <!-- Possibly same optics as the similar Venus Laowa lens -->
+        <maker>Opteka</maker>
+        <model>Opteka 15mm f/4 Wide Macro 1:1</model>
+        <mount>Nikon F</mount>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="15" a="0.05114" b="-0.13551" c="0.04398"/>
         </calibration>
     </lens>
 

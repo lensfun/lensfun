@@ -219,6 +219,22 @@
 
     <camera>
         <maker>Sony</maker>
+        <model>DSC-RX100M6</model>
+        <model lang="en">RX100 VI</model>
+        <mount>sonyRX100VI</mount>
+        <cropfactor>2.66</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Sony</maker>
+        <model>DSC-RX100M5A</model>
+        <model lang="en">RX100 VA</model>
+        <mount>sonyRX100III</mount>
+        <cropfactor>2.73</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Sony</maker>
         <model>DSC-HX300</model>
         <mount>sonyHX300</mount>
         <cropfactor>5.58</cropfactor>
@@ -1156,6 +1172,31 @@
             <tca model="poly3" focal="16.6" br="0.0000075" vr="1.0002936" bb="-0.0000085" vb="1.0000657"/>
             <tca model="poly3" focal="20" br="-0.0000081" vr="1.0003041" bb="0.0000035" vb="1.0000616"/>
             <tca model="poly3" focal="25.7" br="-0.0000121" vr="1.0002604" bb="0.0000035" vb="1.0000797"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>DSC-RX100 VI &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>sonyRX100VI</mount>
+        <cropfactor>2.66</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="9.0" a="0.0550686" b="-0.187729" c="0.0499341"/>
+            <distortion model="ptlens" focal="12.01" a="0.0172382" b="-0.0693586" c="0.0118126"/>
+            <distortion model="ptlens" focal="14.4" a="0.0144882" b="-0.047442" c="0.0135358"/>
+            <distortion model="ptlens" focal="20.26" a="0" b="0.00488279" c="0"/>
+            <distortion model="ptlens" focal="29.67" a="0" b="0.0142525" c="0"/>
+            <distortion model="ptlens" focal="45.23" a="0" b="0.020598" c="0"/>
+            <distortion model="ptlens" focal="72.0" a="0" b="0.0224483" c="0"/>
+            <tca model="poly3" focal="9.0" vr="1.0002038" vb="1.0001300"/>
+            <tca model="poly3" focal="12.0" vr="1.0001358" vb="1.0001864"/>
+            <tca model="poly3" focal="14.4" vr="1.0001617" vb="1.0001882"/>
+            <tca model="poly3" focal="20.3" vr="1.0000805" vb="1.0001181"/>
+            <tca model="poly3" focal="29.7" vr="0.9999773" vb="1.0000212"/>
+            <tca model="poly3" focal="45.2" vr="0.9999109" vb="0.9999381"/>
+            <tca model="poly3" focal="72.0" vr="0.9999557" vb="0.9999281"/>
         </calibration>
     </lens>
 

@@ -989,4 +989,69 @@
         </calibration>
     </lens>
 
+    <lens>
+	<!-- optically identical lenses:
+	    Minolta AF 35mm F1.4
+	    Minolta AF 35mm F1.4 G RS
+	    (when aliases are available)
+	-->
+        <maker>Sony</maker>
+        <model>Sony 35mm F1.4 G (SAL35F14G)</model>
+        <model lang="en">Sony 35mm f/1.4 G</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Sony Alpha DSLR-A850 -->
+            <distortion model="ptlens" focal="35" a="0.00925" b="-0.02739" c="0.00756"/>
+            <tca model="poly3" focal="35" vr="1.0004101" vb="0.9998501"/>
+            <vignetting model="pa" focal="35" aperture="1.4" distance="10" k1="-1.4892" k2="1.1673" k3="-0.4339"/>
+            <vignetting model="pa" focal="35" aperture="1.4" distance="1000" k1="-1.4892" k2="1.1673" k3="-0.4339"/>
+            <vignetting model="pa" focal="35" aperture="1.6" distance="10" k1="-1.4923" k2="1.1749" k3="-0.4397"/>
+            <vignetting model="pa" focal="35" aperture="1.6" distance="1000" k1="-1.4923" k2="1.1749" k3="-0.4397"/>
+            <vignetting model="pa" focal="35" aperture="2" distance="10" k1="-0.2826" k2="-0.9863" k3="0.6171"/>
+            <vignetting model="pa" focal="35" aperture="2" distance="1000" k1="-0.2826" k2="-0.9863" k3="0.6171"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="10" k1="-0.3027" k2="0.0082" k3="-0.1350"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="1000" k1="-0.3027" k2="0.0082" k3="-0.1350"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="10" k1="-0.3846" k2="0.2839" k3="-0.2088"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="1000" k1="-0.3846" k2="0.2839" k3="-0.2088"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="10" k1="-0.3184" k2="0.0352" k3="0.0234"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="1000" k1="-0.3184" k2="0.0352" k3="0.0234"/>
+            <vignetting model="pa" focal="35" aperture="8" distance="10" k1="-0.3101" k2="0.0123" k3="0.0414"/>
+            <vignetting model="pa" focal="35" aperture="8" distance="1000" k1="-0.3101" k2="0.0123" k3="0.0414"/>
+            <vignetting model="pa" focal="35" aperture="22" distance="10" k1="-0.3321" k2="0.0550" k3="0.0180"/>
+            <vignetting model="pa" focal="35" aperture="22" distance="1000" k1="-0.3321" k2="0.0550" k3="0.0180"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>Sony Carl Zeiss Planar T* 50mm F1.4 ZA SSM (SALF0F14Z)</model>
+        <model lang="en">Zeiss Planar T* 50mm f/1.4 ZA SSM</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Sony Alpha DSLR-A850 -->
+            <distortion model="poly3" focal="50" k1="-0.00846"/>
+            <tca model="poly3" focal="50" vr="1.0001084" vb="0.9999690"/>
+            <vignetting model="pa" focal="50" aperture="1.4" distance="10" k1="-1.4954" k2="1.3418" k3="-0.6081"/>
+            <vignetting model="pa" focal="50" aperture="1.4" distance="1000" k1="-1.4954" k2="1.3418" k3="-0.6081"/>
+            <vignetting model="pa" focal="50" aperture="1.6" distance="10" k1="-1.4495" k2="1.2351" k3="-0.5454"/>
+            <vignetting model="pa" focal="50" aperture="1.6" distance="1000" k1="-1.4495" k2="1.2351" k3="-0.5454"/>
+            <vignetting model="pa" focal="50" aperture="2" distance="10" k1="-0.0118" k2="-1.1218" k3="0.5196"/>
+            <vignetting model="pa" focal="50" aperture="2" distance="1000" k1="-0.0118" k2="-1.1218" k3="0.5196"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="10" k1="-0.3277" k2="0.5024" k3="-0.5605"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="1000" k1="-0.3277" k2="0.5024" k3="-0.5605"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="10" k1="-0.2525" k2="0.1185" k3="-0.0790"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="1000" k1="-0.2525" k2="0.1185" k3="-0.0790"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="10" k1="-0.2360" k2="0.0516" k3="-0.0117"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="1000" k1="-0.2360" k2="0.0516" k3="-0.0117"/>
+            <vignetting model="pa" focal="50" aperture="8" distance="10" k1="-0.2343" k2="0.0399" k3="0.0034"/>
+            <vignetting model="pa" focal="50" aperture="8" distance="1000" k1="-0.2343" k2="0.0399" k3="0.0034"/>
+            <vignetting model="pa" focal="50" aperture="11" distance="10" k1="-0.2359" k2="0.0440" k3="0.0008"/>
+            <vignetting model="pa" focal="50" aperture="11" distance="1000" k1="-0.2359" k2="0.0440" k3="0.0008"/>
+            <vignetting model="pa" focal="50" aperture="22" distance="10" k1="-0.2444" k2="0.0525" k3="-0.0018"/>
+            <vignetting model="pa" focal="50" aperture="22" distance="1000" k1="-0.2444" k2="0.0525" k3="-0.0018"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>

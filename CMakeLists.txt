@@ -7,7 +7,12 @@ GET_FILENAME_COMPONENT(SOURCE_BASE_DIR ${CMAKE_SOURCE_DIR} PATH CACHE)
 
 #  global setup
 project(lensfun C CXX)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wformat-security")
+
+IF (MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
+ELSE()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wformat-security")
+ENDIF()
 
 # version
 SET(VERSION_MAJOR 0)
@@ -55,7 +60,7 @@ IF(WIN32 AND CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 ENDIF()
 
 # overwrite some folders before GNUInstallDirs is loaded
-IF (WIN32)
+IF (WIN32 AND NOT DEFINED CMAKE_INSTALL_DATAROOTDIR)
     SET(CMAKE_INSTALL_DATAROOTDIR "$ENV{ALLUSERSPROFILE}" CACHE PATH "read-only architecture-independent data root (share)")
 ENDIF()
 

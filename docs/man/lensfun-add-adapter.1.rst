@@ -90,7 +90,7 @@ Exit status:
 REPORTING BUGS
 ====================
 
-Report bugs at <http://sourceforge.net/p/lensfun/bugs/>.
+Report bugs at <https://github.com/lensfun/lensfun/issues>.
 
 COPYRIGHT
 =============

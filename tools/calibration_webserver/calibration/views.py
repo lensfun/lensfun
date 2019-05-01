@@ -132,7 +132,8 @@ def store_upload(uploaded_file, email_address, comments):
 class UploadForm(forms.Form):
     compressed_file = forms.FileField(label="Archive with RAW files", help_text="Must be a .tar.gz or a .zip file")
     email_address = forms.EmailField(label="Your email address")
-    comments = forms.CharField(label="optional comments", widget=forms.Textarea, required=False)
+    comments = forms.CharField(label="optional comments", widget=forms.Textarea, required=False,
+                               help_text="This text will be included in a public GitHub issue.")
 
     def clean_compressed_file(self):
         compressed_file = self.cleaned_data["compressed_file"]
@@ -172,6 +173,9 @@ class ExifForm(forms.Form):
                 self.fields[fieldname].required = False
 
 
+class InvalidData(Exception):
+    pass
+
 def show_issues(request, id_):
     directory = os.path.join(upload_directory, id_)
     try:
@@ -196,26 +200,36 @@ def show_issues(request, id_):
             id_, hash_.hexdigest(), quote_plus(os.path.relpath(data[0], directory))))
     if request.method == "POST":
         exif_forms = [ExifForm(data, i==0, request.POST, prefix=str(i)) for i, data in enumerate(missing_data)]
-        if all([exif_form.is_valid() for exif_form in exif_forms]):
+        latest_lens_model_name = latest_focal_length = latest_aperture = None
+        try:
+            if not all([exif_form.is_valid() for exif_form in exif_forms]):
+                raise InvalidData
             for data, exif_form in zip(missing_data, exif_forms):
-                lens_model_name = exif_form.cleaned_data["lens_model_name"] or lens_model_name
-                focal_length = exif_form.cleaned_data["focal_length"] or focal_length
+                lens_model_name = exif_form.cleaned_data["lens_model_name"] or latest_lens_model_name
+                focal_length = exif_form.cleaned_data["focal_length"] or latest_focal_length
+                aperture = exif_form.cleaned_data["aperture"] or latest_aperture
+                if not (lens_model_name and focal_length and aperture):
+                    raise InvalidData
+                latest_lens_model_name = lens_model_name
+                latest_focal_length = focal_length
+                latest_aperture = aperture
                 if focal_length == int(focal_length):
                     focal_length = format(int(focal_length), "03")
                 else:
                     focal_length = format(focal_length, "05.1f")
-                aperture = exif_form.cleaned_data["aperture"] or aperture
                 filepath = data[0]
                 filename = os.path.basename(filepath)
                 os.rename(filepath, os.path.join(os.path.dirname(filepath), "{}--{}mm--{}_{}".format(
-                    lens_model_name, focal_length, aperture, filename)))
+                    lens_model_name.replace("/", "__"), focal_length, aperture, filename)))
             json.dump((None, []), open(os.path.join(directory, "result.json"), "w"), ensure_ascii=True)
-            shutil.rmtree(os.path.join(cache_root, id_))
+            shutil.rmtree(os.path.join(cache_root, id_), ignore_errors=True)
             spawn_daemon("/usr/bin/env", "python3",
                          os.path.join(os.path.abspath(os.path.dirname(__file__)), "..", "process_upload.py"),
                          "amended", directory, env={"PYTHONPATH": python_path})
 
             return render(request, "calibration/success.html")
+        except InvalidData:
+            pass
     else:
         exif_forms = [ExifForm(data, i==0, prefix=str(i)) for i, data in enumerate(missing_data)]
     return render(request, "calibration/missing_exif.html", {"images": zip(filepaths, thumbnails, exif_forms)})
@@ -229,7 +243,7 @@ def thumbnail(request, id_, hash_):
         try:
             generate_thumbnail(raw_filepath, cache_dir)
         except RawNotFound:
-            raise django.http.Http404("{1}/{2}.jpeg".format(id_, hash_))
+            raise django.http.Http404("{}/{}.jpeg".format(id_, hash_))
     response = django.http.HttpResponse()
     response["X-Sendfile"] = filepath
     response["Content-Type"] = mimetypes.guess_type(filepath)[0] or "application/octet-stream"

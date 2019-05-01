@@ -26,6 +26,26 @@
 
     <lens>
         <maker>Samyang</maker>
+        <model>Samyang 10mm f/2.8 ED AS NCS CS</model>
+        <mount>Canon EF</mount>
+        <mount>Canon EF-M</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Nikon F AI</mount>
+        <mount>Pentax KAF</mount>
+        <mount>Samsung NX</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D7200 -->
+            <distortion model="ptlens" focal="10" a="0.0231729" b="-0.0727685" c="0.0380362"/>
+            <tca model="poly3" focal="10" vr="1.0005344" vb="1.0000549"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Samyang</maker>
         <!-- The "AE" is actually only on the Nikon variant.  It should be
              added as an alias rather than a merged lens model name. -->
         <model>Samyang 14mm f/2.8 AE ED AS IF UMC</model>

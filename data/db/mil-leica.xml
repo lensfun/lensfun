@@ -1,0 +1,60 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
+<lensdatabase version="2">
+
+    <mount>
+        <name>Leica L</name>
+        <compat>Leica M</compat>
+        <compat>M42</compat>
+        <compat>M39/1</compat>
+        <compat>DKL</compat>
+        <compat>T2</compat>
+        <compat>Generic</compat>
+    </mount>
+
+    <camera>
+        <maker>Leica Camera AG</maker>
+        <model>Leica SL (Typ 601)</model>
+        <mount>Leica L</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Leica Camera AG</maker>
+        <model>Leica T (Typ 701)</model>
+        <mount>Leica L</mount>
+        <cropfactor>1.53</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Leica Camera AG</maker>
+        <model>Leica TL</model>
+        <mount>Leica L</mount>
+        <cropfactor>1.53</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Leica Camera AG</maker>
+        <model>Leica TL2</model>
+        <mount>Leica L</mount>
+        <cropfactor>1.53</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Leica Camera AG</maker>
+        <model>Leica CL (Typ 7323)</model>
+        <mount>Leica L</mount>
+        <cropfactor>1.53</cropfactor>
+    </camera>
+
+    <lens>
+        <maker>Leica Camera AG</maker>
+        <model>Summicron TL 1:2 23 ASPH.</model>
+        <mount>Leica L</mount>
+        <cropfactor>1.53</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="23" a="0.003295" b="-0.024903" c="0.013932"/>
+            <tca model="poly3" focal="23" vb="0.9997527" bb="0.0002195" cb="-0.0001105" vr="1.0005565" br="-0.0002789" cr="0.0002358"/>
+        </calibration>
+    </lens>
+
+</lensdatabase>
