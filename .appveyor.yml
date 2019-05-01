@@ -1,0 +1,46 @@
+image: Visual Studio 2017
+configuration:
+  - Release
+  - Debug
+environment:
+  matrix:
+    - generator: Unix Makefiles
+      bitness: x
+    - generator: Unix Makefiles
+      bitness: i
+    - generator: Unix Makefiles
+      bitness: x
+      cmake_eflags: -DBUILD_STATIC=ON
+    - generator: Unix Makefiles
+      bitness: i
+      cmake_eflags: -DBUILD_STATIC=ON
+    - generator: Visual Studio 15 2017 Win64
+      bitness: x
+matrix:
+  fast_finish: true
+install:
+  - ps: $env:Path="C:\msys64\mingw64\bin;C:\msys64\mingw32\bin;C:\msys64\usr\bin;$env:Path"
+  - bash -lc exit
+  - pacman -Syyuu --noconfirm --ask=20
+  - pacman -Su --noconfirm --ask=20
+  - bash -lc 'pacboy -S --noconfirm --ask=20 cmake:%bitness% libpng:%bitness% libxml2:%bitness% toolchain:%bitness% glib2:%bitness%'
+  - ps: |
+      mkdir build
+      cd build
+      cmake .. -G"$env:generator" $env:cmake_eflags
+
+build_script:
+  - cmake --build . --config debug
+  - cmake --build . --target install --config release
+
+
+#artifacts:
+
+#deploy:
+#  - provider: GitHub
+#    artifact: $(APPVEYOR_PROJECT_NAME)
+#    auth_token:
+#      secure: 'sf0pQXlPI+X6LoAR8QUJB74jjzNxcLGOXI3H0nbxJq8llvGPG/TAUd87hq5iHZXo'
+#    prerelease: true
+#    on:
+#      appveyor_repo_tag: true
