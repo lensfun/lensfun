@@ -1281,12 +1281,26 @@
     <lens>
         <maker>Pentax</maker>
         <model>smc Pentax-FA 77mm f/1.8 Limited</model>
-        <mount>Pentax KAF</mount>
+        <mount>Pentax KAF3</mount>
         <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Pentax K1 -->
             <distortion model="poly3" focal="77" k1="0.001454"/>
             <tca model="poly3" focal="77" vr="0.9998536" vb="0.9999614"/>
+            <vignetting model="pa" focal="77" aperture="1.8" distance="10" k1="-1.3375" k2="1.3579" k3="-0.6336"/>
+            <vignetting model="pa" focal="77" aperture="1.8" distance="1000" k1="-1.3375" k2="1.3579" k3="-0.6336"/>
+            <vignetting model="pa" focal="77" aperture="2" distance="10" k1="-0.8871" k2="0.3955" k3="-0.0728"/>
+            <vignetting model="pa" focal="77" aperture="2" distance="1000" k1="-0.8871" k2="0.3955" k3="-0.0728"/>
+            <vignetting model="pa" focal="77" aperture="2.8" distance="10" k1="-0.2028" k2="0.1041" k3="-0.1821"/>
+            <vignetting model="pa" focal="77" aperture="2.8" distance="1000" k1="-0.2028" k2="0.1041" k3="-0.1821"/>
+            <vignetting model="pa" focal="77" aperture="4" distance="10" k1="-0.2092" k2="-0.0059" k3="0.0327"/>
+            <vignetting model="pa" focal="77" aperture="4" distance="1000" k1="-0.2092" k2="-0.0059" k3="0.0327"/>
+            <vignetting model="pa" focal="77" aperture="5.6" distance="10" k1="-0.2048" k2="-0.0228" k3="0.0436"/>
+            <vignetting model="pa" focal="77" aperture="5.6" distance="1000" k1="-0.2048" k2="-0.0228" k3="0.0436"/>
+            <vignetting model="pa" focal="77" aperture="8" distance="10" k1="-0.2176" k2="0.0126" k3="0.0147"/>
+            <vignetting model="pa" focal="77" aperture="8" distance="1000" k1="-0.2176" k2="0.0126" k3="0.0147"/>
+            <vignetting model="pa" focal="77" aperture="11" distance="10" k1="-0.2172" k2="0.0074" k3="0.0174"/>
+            <vignetting model="pa" focal="77" aperture="11" distance="1000" k1="-0.2172" k2="0.0074" k3="0.0174"/>
         </calibration>
     </lens>
 
@@ -2391,32 +2405,6 @@
             <vignetting model="pa" focal="35" aperture="8" distance="1000" k1="-0.4227" k2="0.7528" k3="-0.7591"/>
             <vignetting model="pa" focal="35" aperture="11" distance="10" k1="-0.4161" k2="0.6735" k3="-0.6253"/>
             <vignetting model="pa" focal="35" aperture="11" distance="1000" k1="-0.4161" k2="0.6735" k3="-0.6253"/>
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Pentax</maker>
-        <model>smc Pentax-FA 77mm f/1.8 Limited</model>
-        <mount>Pentax KAF3</mount>
-        <cropfactor>1</cropfactor>
-        <calibration>
-            <!-- Taken with Pentax K-1 -->
-            <distortion model="ptlens" focal="77.5" a="0" b="0.00174" c="0"/>
-            <tca model="poly3" focal="77.5" br="0.0000317" vr="1.0000491" bb="-0.0000720" vb="0.9996759"/>
-            <vignetting model="pa" focal="77.5" aperture="1.8" distance="10" k1="-1.3375" k2="1.3579" k3="-0.6336"/>
-            <vignetting model="pa" focal="77.5" aperture="1.8" distance="1000" k1="-1.3375" k2="1.3579" k3="-0.6336"/>
-            <vignetting model="pa" focal="77.5" aperture="2" distance="10" k1="-0.8871" k2="0.3955" k3="-0.0728"/>
-            <vignetting model="pa" focal="77.5" aperture="2" distance="1000" k1="-0.8871" k2="0.3955" k3="-0.0728"/>
-            <vignetting model="pa" focal="77.5" aperture="2.8" distance="10" k1="-0.2028" k2="0.1041" k3="-0.1821"/>
-            <vignetting model="pa" focal="77.5" aperture="2.8" distance="1000" k1="-0.2028" k2="0.1041" k3="-0.1821"/>
-            <vignetting model="pa" focal="77.5" aperture="4" distance="10" k1="-0.2092" k2="-0.0059" k3="0.0327"/>
-            <vignetting model="pa" focal="77.5" aperture="4" distance="1000" k1="-0.2092" k2="-0.0059" k3="0.0327"/>
-            <vignetting model="pa" focal="77.5" aperture="5.6" distance="10" k1="-0.2048" k2="-0.0228" k3="0.0436"/>
-            <vignetting model="pa" focal="77.5" aperture="5.6" distance="1000" k1="-0.2048" k2="-0.0228" k3="0.0436"/>
-            <vignetting model="pa" focal="77.5" aperture="8" distance="10" k1="-0.2176" k2="0.0126" k3="0.0147"/>
-            <vignetting model="pa" focal="77.5" aperture="8" distance="1000" k1="-0.2176" k2="0.0126" k3="0.0147"/>
-            <vignetting model="pa" focal="77.5" aperture="11" distance="10" k1="-0.2172" k2="0.0074" k3="0.0174"/>
-            <vignetting model="pa" focal="77.5" aperture="11" distance="1000" k1="-0.2172" k2="0.0074" k3="0.0174"/>
         </calibration>
     </lens>
 
