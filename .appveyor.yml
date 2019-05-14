@@ -14,19 +14,15 @@ environment:
 matrix:
   fast_finish: true
 install:
-  - cmd: |-
-      if "%bits%"=="32" (set bitness=i) else (set bitness=x)
-      if "%generator%"=="Unix Makefiles" (
-        set "PATH=C:\msys64\mingw64\bin;C:\msys64\mingw32\bin;C:\msys64\usr\bin;%Path%"
-        bash -lc exit >nul
-        pacman -Syyuu --noconfirm --ask=20
-        pacman -Su --noconfirm --ask=20
-        bash -lc 'pacboy -S --noconfirm --ask=20 cmake:%bitness% libpng:%bitness% libxml2:%bitness% toolchain:%bitness% glib2:%bitness%
-      ) else (
-        vcpkg install glib:x64-windows
-      )
-      mkdir build
-      cd build
+  - cmd: if "%bits%"=="32" (set bitness=i) else (set bitness=x)
+  - cmd: if "%generator%"=="Unix Makefiles" set "PATH=C:\msys64\mingw64\bin;C:\msys64\mingw32\bin;C:\msys64\usr\bin;%Path%"
+  - cmd: if "%generator%"=="Unix Makefiles" bash -lc exit >nul
+  - cmd: if "%generator%"=="Unix Makefiles" pacman -Syyuu --noconfirm --ask=20
+  - cmd: if "%generator%"=="Unix Makefiles" pacman -Su --noconfirm --ask=20
+  - cmd: if "%generator%"=="Unix Makefiles" bash -lc 'pacboy -S --noconfirm --ask=20 cmake:%bitness% libpng:%bitness% libxml2:%bitness% toolchain:%bitness% glib2:%bitness%
+  - cmd: if not "%generator%"=="Unix Makefiles" vcpkg install glib:x64-windows
+  - cmd: mkdir build
+  - cmd: cd build
   - ps: cmake .. -G"$env:generator" -DCMAKE_TOOLCHAIN_FILE=c:/Tools/vcpkg/scripts/buildsystems/vcpkg.cmake $env:cmake_eflags
 
 build_script:
