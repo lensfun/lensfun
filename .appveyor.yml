@@ -21,10 +21,8 @@ install:
         bash -lc exit > $null
         pacman -Syyuu --noconfirm --ask=20
         pacman -Su --noconfirm --ask=20
-        bash -lc 'pacboy -S --noconfirm --ask=20 cmake:$env:bitness libpng:$env:bitness libxml2:$env:bitness toolchain:$env:bitness glib2:$env:bitness
-      } else {
-        vcpkg install glib:x64-windows
-      }
+        bash -lc 'pacboy -S --noconfirm --ask=20 cmake:$env:bitness libpng:$env:bitness libxml2:$env:bitness toolchain:$env:bitness glib2:$env:bitness } else {
+        vcpkg install glib:x64-windows }
   - ps: mkdir build
   - ps: cd build
   - ps: cmake .. -G"$env:generator" -DCMAKE_TOOLCHAIN_FILE=c:/Tools/vcpkg/scripts/buildsystems/vcpkg.cmake $env:cmake_eflags
