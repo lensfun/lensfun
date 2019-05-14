@@ -14,19 +14,19 @@ environment:
 matrix:
   fast_finish: true
 install:
-  - ps: if ($env:bitness -eq "32") {$env:bitness=32} else {$env:bitness=64}
-  - cmd: |
+  - cmd: >-
+      if "%bits%"=="32" (set bitness=i) else (set bitness=x)
       if "%generator%"=="Unix Makefiles" (
         set "PATH=C:\msys64\mingw64\bin;C:\msys64\mingw32\bin;C:\msys64\usr\bin;%Path%"
-        bash -lc exit > $null
+        bash -lc exit >nul
         pacman -Syyuu --noconfirm --ask=20
         pacman -Su --noconfirm --ask=20
-        bash -lc 'pacboy -S --noconfirm --ask=20 cmake:$env:bitness libpng:$env:bitness libxml2:$env:bitness toolchain:$env:bitness glib2:$env:bitness
+        bash -lc 'pacboy -S --noconfirm --ask=20 cmake:%bitness% libpng:%bitness% libxml2:%bitness% toolchain:%bitness% glib2:%bitness%
       ) else (
         vcpkg install glib:x64-windows
       )
-  - ps: mkdir build
-  - ps: cd build
+      mkdir build
+      cd build
   - ps: cmake .. -G"$env:generator" -DCMAKE_TOOLCHAIN_FILE=c:/Tools/vcpkg/scripts/buildsystems/vcpkg.cmake $env:cmake_eflags
 
 build_script:
