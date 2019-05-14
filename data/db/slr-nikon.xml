@@ -4496,6 +4496,31 @@
 
     <lens>
         <maker>Nikon</maker>
+        <model>Nikon AF Nikkor 300mm f/4 IF-ED</model>
+        <model lang="en">Nikkor AF 300mm f/4 IF-ED</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D750 -->
+            <distortion model="ptlens" focal="300" a="-0.014" b="0.066" c="-0.175"/>
+            <tca model="poly3" focal="300" vr="0.9999566" vb="0.9999835"/>
+            <vignetting model="pa" focal="300" aperture="4" distance="10" k1="-1.1453" k2="1.3030" k3="-0.6562"/>
+            <vignetting model="pa" focal="300" aperture="4" distance="1000" k1="-1.1453" k2="1.3030" k3="-0.6562"/>
+            <vignetting model="pa" focal="300" aperture="5.6" distance="10" k1="0.0749" k2="-1.0984" k3="0.6570"/>
+            <vignetting model="pa" focal="300" aperture="5.6" distance="1000" k1="0.0749" k2="-1.0984" k3="0.6570"/>
+            <vignetting model="pa" focal="300" aperture="8" distance="10" k1="0.0259" k2="-0.2347" k3="-0.0600"/>
+            <vignetting model="pa" focal="300" aperture="8" distance="1000" k1="0.0259" k2="-0.2347" k3="-0.0600"/>
+            <vignetting model="pa" focal="300" aperture="11" distance="10" k1="-0.1379" k2="0.2682" k3="-0.2609"/>
+            <vignetting model="pa" focal="300" aperture="11" distance="1000" k1="-0.1379" k2="0.2682" k3="-0.2609"/>
+            <vignetting model="pa" focal="300" aperture="16" distance="10" k1="-0.0847" k2="0.0445" k3="-0.0344"/>
+            <vignetting model="pa" focal="300" aperture="16" distance="1000" k1="-0.0847" k2="0.0445" k3="-0.0344"/>
+            <vignetting model="pa" focal="300" aperture="32" distance="10" k1="-0.0621" k2="0.0062" k3="-0.0145"/>
+            <vignetting model="pa" focal="300" aperture="32" distance="1000" k1="-0.0621" k2="0.0062" k3="-0.0145"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
         <model>Nikon AF-S Nikkor 24-70mm f/2.8E ED VR 170</model>
         <model lang="en">Nikkor AF-S 24-70mm f/2.8E ED VR</model>
         <mount>Nikon F AF</mount>
