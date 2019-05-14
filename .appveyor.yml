@@ -21,9 +21,10 @@ install:
   - cmd: if "%generator%"=="Unix Makefiles" pacman -Su --noconfirm --ask=20
   - cmd: if "%generator%"=="Unix Makefiles" bash -lc 'pacboy -S --noconfirm --ask=20 cmake:%bitness% libpng:%bitness% libxml2:%bitness% toolchain:%bitness% glib2:%bitness%
   - cmd: if not "%generator%"=="Unix Makefiles" vcpkg install glib:x64-windows
+  - cmd: if not "%generator%"=="Unix Makefiles" set "cmake_eflags=-DCMAKE_TOOLCHAIN_FILE=c:/Tools/vcpkg/scripts/buildsystems/vcpkg.cmake %cmake_eflags%"
   - cmd: mkdir build
   - cmd: cd build
-  - ps: cmake .. -G"$env:generator" -DCMAKE_TOOLCHAIN_FILE=c:/Tools/vcpkg/scripts/buildsystems/vcpkg.cmake $env:cmake_eflags
+  - ps: cmake .. -G"$env:generator" $env:cmake_eflags
 
 build_script:
   - cmake --build . --config debug
