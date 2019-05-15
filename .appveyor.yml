@@ -4,6 +4,7 @@ configuration:
   - Debug
 cache:
   - c:\Tools\vcpkg\installed
+  - c:\Tools\msys64\var\cache\pacman
 environment:
   matrix:
     - generator: Unix Makefiles
@@ -27,8 +28,8 @@ install:
   - ps: cmake .. -G"$env:generator" $env:cmake_eflags
 
 build_script:
-  - cmake --build . --config debug
-  - cmake --build . --target install --config release
+  - cmd: cmake --build . --config %CONFIGURATION%
+  - cmd: cmake --build . --target install --config %CONFIGURATION%
 
 
 #artifacts:
