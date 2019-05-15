@@ -7,11 +7,11 @@ cache:
   - c:\Tools\msys64\var\cache\pacman
 environment:
   matrix:
+    - generator: Visual Studio 15 2017 Win64
+    - generator: Visual Studio 14 2015 Win64
     - generator: Unix Makefiles
     - generator: Unix Makefiles
       cmake_eflags: -DBUILD_STATIC=ON
-    - generator: Visual Studio 15 2017 Win64
-    - generator: Visual Studio 14 2015 Win64
 matrix:
   fast_finish: true
 install:
@@ -25,7 +25,7 @@ install:
   - cmd: if not "%generator%"=="Unix Makefiles" set "cmake_eflags=-DCMAKE_TOOLCHAIN_FILE=c:/Tools/vcpkg/scripts/buildsystems/vcpkg.cmake %cmake_eflags%"
   - cmd: mkdir build
   - cmd: cd build
-  - ps: cmake .. -G"$env:generator" $env:cmake_eflags
+  - ps: cmake .. -G"$env:generator" -DCMAKE_BUILD_TYPE=%CONFIGURATION% $env:cmake_eflags
 
 build_script:
   - cmd: cmake --build . --config %CONFIGURATION%
