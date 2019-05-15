@@ -23,12 +23,13 @@ install:
   - cmd: if "%generator%"=="Unix Makefiles" bash -lc 'pacboy -S --noconfirm --ask=20 cmake:%bitness% libpng:%bitness% libxml2:%bitness% toolchain:%bitness% glib2:%bitness%
   - cmd: if not "%generator%"=="Unix Makefiles" vcpkg install glib:x64-windows
   - cmd: if not "%generator%"=="Unix Makefiles" set "cmake_eflags=-DCMAKE_TOOLCHAIN_FILE=c:/Tools/vcpkg/scripts/buildsystems/vcpkg.cmake %cmake_eflags%"
+  - cmd: if "%generator:~0,6%"=="Visual" set "cmake_build_flags=/logger:^"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll^""
   - cmd: mkdir build
   - cmd: cd build
   - ps: cmake .. -G"$env:generator" -DCMAKE_BUILD_TYPE=%CONFIGURATION% $env:cmake_eflags
-
+# /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 build_script:
-  - cmd: cmake --build . --config %CONFIGURATION%
+  - cmd: cmake --build . --config %CONFIGURATION% -- %cmake_build_flags%
   - cmd: cmake --build . --target install --config %CONFIGURATION%
 
 
