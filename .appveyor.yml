@@ -6,6 +6,8 @@ cache:
   - c:\Tools\vcpkg\installed
   - c:\Tools\msys64\var\cache\pacman
 environment:
+  global:
+    pacman_flags: --noconfirm --ask=20 --color always
   matrix:
     - generator: Visual Studio 15 2017 Win64
     - generator: Visual Studio 14 2015 Win64
@@ -15,17 +17,28 @@ environment:
 matrix:
   fast_finish: true
 install:
-  - cmd: if "%bits%"=="32" (set bitness=i) else (set bitness=x)
-  - cmd: if "%generator%"=="Unix Makefiles" set "PATH=C:\msys64\mingw64\bin;C:\msys64\mingw32\bin;C:\msys64\usr\bin;%Path%"
-  - cmd: if "%generator%"=="Unix Makefiles" bash -lc exit >nul
-  - cmd: if "%generator%"=="Unix Makefiles" pacman -Sqyyuu --noconfirm --ask=20
-  - cmd: if "%generator%"=="Unix Makefiles" pacman -Squ --noconfirm --ask=20
-  - cmd: if "%generator%"=="Unix Makefiles" bash -lc 'pacboy -Sq --noconfirm --ask=20 cmake:%bitness% libpng:%bitness% libxml2:%bitness% toolchain:%bitness% glib2:%bitness%
-  - cmd: if not "%generator%"=="Unix Makefiles" vcpkg install glib:x64-windows
-  #- cmd: if not "%generator%"=="Unix Makefiles" set "cmake_eflags=-DCMAKE_TOOLCHAIN_FILE=c:/Tools/vcpkg/scripts/buildsystems/vcpkg.cmake %cmake_eflags%"
-  - cmd: if "%generator:~0,6%"=="Visual" set "cmake_build_flags=/logger:^"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll^" %cmake_build_flags%"
-  - cmd: mkdir build
-  - cmd: cd build
+  - cmd: >-
+      if "%bits%"=="32" (set bitness=mingw-w64-i686-) else (set bitness=mingw-w64-x86_64-) &&
+      if "%generator%"=="Unix Makefiles" (
+
+      set "PATH=C:\msys64\mingw64\bin;C:\msys64\mingw32\bin;C:\msys64\usr\bin;%Path%" &&
+      bash -lc exit >nul &&
+      pacman -Sqyyuu %pacman_flags% &&
+      pacman -Squ %pacman_flags% &&
+      pacboy -Sq %pacman_flags% %bitness%cmake %bitness%libpng %bitness%libxml2 %bitness%toolchain %bitness%glib2
+
+      ) else (
+
+      cd C:\Tools\vcpkg &&
+      git pull &&
+      .\bootstrap-vcpkg.bat &&
+      vcpkg install glib:x64-windows
+
+      ) &&
+      if "%generator:~0,6%"=="Visual" set "cmake_build_flags=/logger:^"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll^" %cmake_build_flags%" &&
+      mkdir build &&
+      cd build
+
   - ps: cmake .. -G"$env:generator" -DCMAKE_BUILD_TYPE=$env:CONFIGURATION $env:cmake_eflags
 # /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 build_script:
