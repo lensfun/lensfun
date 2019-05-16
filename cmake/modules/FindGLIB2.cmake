@@ -1,7 +1,7 @@
 if(NOT MSVC)
     include(FindPkgConfig)
     pkg_search_module(GLIB2 glib-2.0)
-else()
+elseif(ENV{VCPKG_ROOT})
     find_package(unofficial-glib CONFIG REQUIRED)
     if(unofficial-glib_FOUND)
         set(GLIB2_FOUND "${unofficial-glib_FOUND}")
