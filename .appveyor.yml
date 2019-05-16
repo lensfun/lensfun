@@ -14,22 +14,22 @@ environment:
     - generator: Unix Makefiles
     - generator: Unix Makefiles
       cmake_eflags: -DBUILD_STATIC=ON
-matrix:
-  fast_finish: true
 install:
   - if "%bits%"=="32" (set bitness=mingw-w64-i686-) else (set bitness=mingw-w64-x86_64-)
   - if "%generator%"=="Unix Makefiles" (
-        set "PATH=C:\msys64\mingw64\bin;C:\msys64\mingw32\bin;C:\msys64\usr\bin;%Path%" &&
-        bash -lc exit >nul &&
-        pacman -Sqyyuu %pacman_flags% &&
-        pacman -Squ %pacman_flags% &&
-        pacboy -Sq %pacman_flags% %bitness%cmake %bitness%libpng %bitness%libxml2 %bitness%toolchain %bitness%glib2
-      ) else (
-        cd C:\Tools\vcpkg &&
-        git pull &&
-        .\bootstrap-vcpkg.bat &&
-        vcpkg install glib:x64-windows
-      )
+      set "PATH=C:\msys64\mingw64\bin;C:\msys64\mingw32\bin;C:\msys64\usr\bin;%Path%" &&
+      bash -lc exit >nul &&
+      pacman -Sqyyuu %pacman_flags% &&
+      pacman -Squ %pacman_flags% &&
+      pacboy -Sq %pacman_flags% %bitness%cmake %bitness%libpng %bitness%libxml2 %bitness%toolchain %bitness%glib2
+    ) else (
+      cd C:\Tools\vcpkg &&
+      git pull -q &&
+      .\bootstrap-vcpkg.bat &&
+      vcpkg integrate install &&
+      vcpkg install glib:x64-windows &&
+    )
+  #set "cmake_eflags=-DCMAKE_TOOLCHAIN_FILE=c:/Tools/vcpkg/scripts/buildsystems/vcpkg.cmake %cmake_eflags%"
   - if "%generator:~0,6%"=="Visual" set "cmake_build_flags=/logger:^"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll^" %cmake_build_flags%"
   - mkdir build
   - cd build
