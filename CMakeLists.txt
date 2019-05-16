@@ -12,6 +12,11 @@ if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     message(STATUS "Found vcpkg toolchain")
 endif()
 
+# GNU install directories
+if(NOT MSVC)
+    include(GNUInstallDirs)
+endif()
+
 #  global setup
 project(lensfun C CXX)
 
