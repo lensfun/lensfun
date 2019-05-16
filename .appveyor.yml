@@ -17,28 +17,23 @@ environment:
 matrix:
   fast_finish: true
 install:
-  - cmd: >-
-      if "%bits%"=="32" (set bitness=mingw-w64-i686-) else (set bitness=mingw-w64-x86_64-) &&
+  - cmd: |-
+      if "%bits%"=="32" (set bitness=mingw-w64-i686-) else (set bitness=mingw-w64-x86_64-)
       if "%generator%"=="Unix Makefiles" (
-
-      set "PATH=C:\msys64\mingw64\bin;C:\msys64\mingw32\bin;C:\msys64\usr\bin;%Path%" &&
-      bash -lc exit >nul &&
-      pacman -Sqyyuu %pacman_flags% &&
-      pacman -Squ %pacman_flags% &&
-      pacboy -Sq %pacman_flags% %bitness%cmake %bitness%libpng %bitness%libxml2 %bitness%toolchain %bitness%glib2
-
+        set "PATH=C:\msys64\mingw64\bin;C:\msys64\mingw32\bin;C:\msys64\usr\bin;%Path%"
+        bash -lc exit >nul
+        pacman -Sqyyuu %pacman_flags%
+        pacman -Squ %pacman_flags%
+        pacboy -Sq %pacman_flags% %bitness%cmake %bitness%libpng %bitness%libxml2 %bitness%toolchain %bitness%glib2
       ) else (
-
-      cd C:\Tools\vcpkg &&
-      git pull &&
-      .\bootstrap-vcpkg.bat &&
-      vcpkg install glib:x64-windows
-
-      ) &&
-      if "%generator:~0,6%"=="Visual" set "cmake_build_flags=/logger:^"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll^" %cmake_build_flags%" &&
-      mkdir build &&
+        cd C:\Tools\vcpkg
+        git pull
+        .\bootstrap-vcpkg.bat
+        vcpkg install glib:x64-windows
+      )
+      if "%generator:~0,6%"=="Visual" set "cmake_build_flags=/logger:^"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll^" %cmake_build_flags%"
+      mkdir build
       cd build
-
   - ps: cmake .. -G"$env:generator" -DCMAKE_BUILD_TYPE=$env:CONFIGURATION $env:cmake_eflags
 # /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 build_script:
