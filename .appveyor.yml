@@ -3,8 +3,8 @@ configuration:
   - Release
   - Debug
 cache:
-  - c:\Tools\vcpkg\installed
-  - c:\Tools\msys64\var\cache\pacman
+  - C:\tools\vcpkg\installed\
+  - c:\Tools\msys64\var\cache\pacman\
 environment:
   global:
     pacman_flags: --noconfirm --ask=20 --color always
