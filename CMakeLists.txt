@@ -9,13 +9,14 @@ GET_FILENAME_COMPONENT(SOURCE_BASE_DIR ${CMAKE_SOURCE_DIR} PATH CACHE)
 if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
         CACHE STRING "")
-    message(STATUS "Found vcpkg toolchain")
+endif()
+if(DEFINED CMAKE_TOOLCHAIN_FILE)
+    message(STATUS "Using vcpkg toolchain")
 endif()
 
+
 # GNU install directories
-if(NOT MSVC)
-    include(GNUInstallDirs)
-endif()
+include(GNUInstallDirs)
 
 #  global setup
 project(lensfun C CXX)
