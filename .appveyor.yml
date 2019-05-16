@@ -27,7 +27,7 @@ install:
       git pull -q &&
       .\bootstrap-vcpkg.bat &&
       vcpkg integrate install &&
-      vcpkg install glib:x64-windows &&
+      vcpkg install glib:x64-windows
     )
   #set "cmake_eflags=-DCMAKE_TOOLCHAIN_FILE=c:/Tools/vcpkg/scripts/buildsystems/vcpkg.cmake %cmake_eflags%"
   - if "%generator:~0,6%"=="Visual" set "cmake_build_flags=/logger:^"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll^" %cmake_build_flags%"
