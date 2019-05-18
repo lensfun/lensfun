@@ -1,0 +1,101 @@
+language: cpp
+cache: ccache
+os:
+  - linux
+  - osx
+dist: xenial
+osx_image: xcode10.1
+compiler:
+  - clang
+  - gcc
+addons:
+  apt:
+    packages:
+      - cmake
+      - doxygen
+      - valgrind
+      - libpng-dev
+      - libxml2-utils
+      - llvm
+      - clang
+      - docutils-common
+      - libomp-dev
+      - lcov
+  homebrew:
+    packages:
+      - doxygen
+      - glib
+      - libpng
+      - libxml2
+      - ccache
+      - libomp
+notifications:
+  webhooks:
+    - https://coveralls.io/webhook
+env:
+  global:
+    - COVERALLS_PARALLEL=true
+  matrix:
+    - build_type=release
+    - build_type=release CMAKE_EFLAGS="-DBUILD_STATIC=ON -DBUILD_LENSTOOL=ON"
+    - build_type=debug
+    - build_type=debug CMAKE_EFLAGS="-DBUILD_STATIC=ON -DBUILD_LENSTOOL=ON"
+    - build_type=Coverage
+stages:
+  - name: test
+  - name: docs
+  - name: coveralls
+    if: type != pull_request
+  - name: valgrind
+    if: type != pull_request
+before_install:
+  - "sudo chown -R travis: $HOME/.ccache"
+  - mkdir -p $TRAVIS_BUILD_DIR/build
+install:
+  - pip install --user cpp-coveralls docutils
+  - export PATH=/Users/travis/Library/Python/2.7/bin:${PATH}
+  #- if [ $TRAVIS_OS_NAME = osx ]; then brew install --HEAD valgrind; fi
+script:
+  - &base_script |-
+    cd $TRAVIS_BUILD_DIR/build
+    cmake $TRAVIS_BUILD_DIR -G"${generator:-Unix Makefiles}" -DCMAKE_BUILD_TYPE=${build_type:-Release} -DBUILD_TESTS=ON -DBUILD_DOC=ON ${CMAKE_EFLAGS[@]}
+    cmake -j $(if [ $TRAVIS_OS_NAME = osx ]; then sysctl -n hw.ncpu; else nproc; fi) --build . &&
+    sudo cmake --build . --target install
+    cmake --build . --target docs
+    #ctest
+after_script: |-
+  if [[ "$build_type" = "Coverage" ]]; then
+    if [ $CC = "clang" ] && [ $TRAVIS_OS_NAME = linux ]; then
+      GCOV_FILE=llvm-cov GCOV_OPTIONS='gcov -pl'
+    else
+      GCOV_FILE=gcov GCOV_OPTIONS='\-lp'
+    fi
+    coveralls --root $TRAVIS_BUILD_DIR -E "build" --gcov $GCOV_FILE --gcov-options "$GCOV_OPTIONS"
+  fi
+before_cache:
+  - "sudo chown -R travis: $HOME/.ccache"
+matrix:
+  exclude:
+    - os: osx
+      compiler: gcc # gcc = clang in macOS, unecessary duplicate
+  include:
+    - name: docs
+      stage: docs
+      os: linux
+      dist: xenial
+      before_deploy:
+        - git clone https://github.com/lensfun/lensfun.github.io.git $TRAVIS_BUILD_DIR/lensfun_doc
+        - cd $TRAVIS_BUILD_DIR/lensfun_doc
+        - rm -rf manual/latest && mkdir manual/latest
+        - cp $TRAVIS_BUILD_DIR/build/doc_doxygen/* $TRAVIS_BUILD_DIR/lensfun_doc/manual/latest/
+      deploy:
+        provider: pages
+        local_dir: $TRAVIS_BUILD_DIR/lensfun_doc
+        skip_cleanup: true
+        github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+        keep_history: true
+        repo: lensfun/lensfun.github.io
+        target_branch: master
+        on:
+          repo: lensfun/lensfun
+          branch: master
