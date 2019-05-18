@@ -2,6 +2,7 @@
 #include <limits>
 #include <map>
 #include <cmath>
+#include <locale>
 
 #include "lensfun.h"
 #include "../libs/lensfun/lensfunprv.h"
