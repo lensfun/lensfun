@@ -13,7 +13,6 @@ addons:
     packages:
       - cmake
       - doxygen
-      - valgrind
       - libpng-dev
       - libxml2-utils
       - llvm
@@ -44,17 +43,12 @@ env:
 stages:
   - name: test
   - name: docs
-  - name: coveralls
-    if: type != pull_request
-  - name: valgrind
-    if: type != pull_request
 before_install:
   - "sudo chown -R travis: $HOME/.ccache"
   - mkdir -p $TRAVIS_BUILD_DIR/build
 install:
   - pip install --user cpp-coveralls docutils
   - export PATH=/Users/travis/Library/Python/2.7/bin:${PATH}
-  #- if [ $TRAVIS_OS_NAME = osx ]; then brew install --HEAD valgrind; fi
 script:
   - &base_script |-
     cd $TRAVIS_BUILD_DIR/build
