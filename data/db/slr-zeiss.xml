@@ -93,4 +93,34 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Touit 2.8/50M</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-E3 -->
+            <distortion model="ptlens" focal="50" a="0.001765" b="0.000264" c="-0.002461"/>
+            <tca model="poly3" focal="50" vr="1.0002192" vb="0.9999041"/>
+            <tca model="poly3" focal="50" vr="1.0002484" vb="0.9999072"/>
+            <tca model="poly3" focal="50" vr="1.0002575" vb="0.9998811"/>
+            <tca model="poly3" focal="50" vr="1.0002799" vb="0.9998747"/>
+            <tca model="poly3" focal="50" vr="1.0003135" vb="0.9998952"/>
+            <tca model="poly3" focal="50" vr="1.0003157" vb="0.9998979"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="10" k1="-1.3070" k2="0.9955" k3="-0.3573"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="1000" k1="-1.3070" k2="0.9955" k3="-0.3573"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="10" k1="-0.0770" k2="-0.7963" k3="0.4513"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="1000" k1="-0.0770" k2="-0.7963" k3="0.4513"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="10" k1="-0.1472" k2="-0.0518" k3="-0.0978"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="1000" k1="-0.1472" k2="-0.0518" k3="-0.0978"/>
+            <vignetting model="pa" focal="50" aperture="8" distance="10" k1="-0.2164" k2="0.0743" k3="-0.0545"/>
+            <vignetting model="pa" focal="50" aperture="8" distance="1000" k1="-0.2164" k2="0.0743" k3="-0.0545"/>
+            <vignetting model="pa" focal="50" aperture="11" distance="10" k1="-0.2074" k2="0.0286" k3="-0.0087"/>
+            <vignetting model="pa" focal="50" aperture="11" distance="1000" k1="-0.2074" k2="0.0286" k3="-0.0087"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="10" k1="-0.2239" k2="0.0707" k3="-0.0391"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="1000" k1="-0.2239" k2="0.0707" k3="-0.0391"/>
+            <vignetting model="pa" focal="50" aperture="22" distance="10" k1="-0.2226" k2="0.0553" k3="-0.0253"/>
+            <vignetting model="pa" focal="50" aperture="22" distance="1000" k1="-0.2226" k2="0.0553" k3="-0.0253"/>
+        </calibration>
+    </lens>
 </lensdatabase>
