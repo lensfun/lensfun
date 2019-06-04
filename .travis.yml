@@ -35,10 +35,10 @@ env:
   global:
     - COVERALLS_PARALLEL=true
   matrix:
-    - build_type=release
-    - build_type=release CMAKE_EFLAGS="-DBUILD_STATIC=ON -DBUILD_LENSTOOL=ON"
-    - build_type=debug
-    - build_type=debug CMAKE_EFLAGS="-DBUILD_STATIC=ON -DBUILD_LENSTOOL=ON"
+    - build_type=Release
+    - build_type=Release CMAKE_EFLAGS="-DBUILD_STATIC=ON -DBUILD_LENSTOOL=ON"
+    - build_type=Debug
+    - build_type=Debug CMAKE_EFLAGS="-DBUILD_STATIC=ON -DBUILD_LENSTOOL=ON"
     - build_type=Coverage
 stages:
   - name: test
@@ -50,12 +50,11 @@ install:
   - pip install --user cpp-coveralls docutils
   - export PATH=/Users/travis/Library/Python/2.7/bin:${PATH}
 script:
-  - &base_script |-
-    cd $TRAVIS_BUILD_DIR/build
-    cmake $TRAVIS_BUILD_DIR -G"${generator:-Unix Makefiles}" -DCMAKE_BUILD_TYPE=${build_type:-Release} -DBUILD_TESTS=ON -DBUILD_DOC=ON ${CMAKE_EFLAGS[@]}
-    cmake -j $(if [ $TRAVIS_OS_NAME = osx ]; then sysctl -n hw.ncpu; else nproc; fi) --build . &&
-    sudo cmake --build . --target install
-    cmake --build . --target docs
+  - cd $TRAVIS_BUILD_DIR/build
+  - cmake $TRAVIS_BUILD_DIR -G"${generator:-Unix Makefiles}" -DCMAKE_BUILD_TYPE=${build_type:-Release} -DBUILD_TESTS=ON -DBUILD_DOC=ON ${CMAKE_EFLAGS[@]}
+  - cmake -j $(if [ $TRAVIS_OS_NAME = osx ]; then sysctl -n hw.ncpu; else nproc; fi) --build .
+  - sudo cmake --build . --target install
+  - cmake --build . --target docs
     #ctest
 after_script: |-
   if [[ "$build_type" = "Coverage" ]]; then
