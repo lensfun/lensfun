@@ -1564,7 +1564,7 @@ void lf_lens_add_mount (lfLens *lens, const char *val)
     lens->AddMount(val);
 }
 
-const char* const* lf_lens_get_mount_names (lfLens *lens)
+const char* const* lf_lens_get_mount_names (const lfLens *lens)
 {
     return lens->GetMountNames();
 }
