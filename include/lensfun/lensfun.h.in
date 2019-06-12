@@ -1586,7 +1586,7 @@ LF_EXPORT void lf_lens_guess_parameters (lfLens *lens);
 LF_EXPORT void lf_lens_add_mount (lfLens *lens, const char *val);
 
 /** @sa lfLens::GetMountNames */
-LF_EXPORT const char* const* lf_lens_get_mount_names (lfLens *lens);
+LF_EXPORT const char* const* lf_lens_get_mount_names (const lfLens *lens);
 
 /** @sa lfLens::GetDistortionModelDesc */
 LF_EXPORT const char *lf_get_distortion_model_desc (
