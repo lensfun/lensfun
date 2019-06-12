@@ -460,7 +460,7 @@ class Image:
         output.
         """
         self.pixels.byteswap()
-        ppm_data = "P6\n{} {}\n65535\n".format(self.width, self.height).encode("ascii") + self.pixels.tostring()
+        ppm_data = "P6\n{} {}\n65535\n".format(self.width, self.height).encode("ascii") + self.pixels.tobytes()
         self.pixels.byteswap()
         if filepath.endswith(".ppm"):
             open(filepath, "wb").write(ppm_data)
@@ -527,7 +527,7 @@ class Image:
                 set_pixel(x, y)
 
 
-image = Image(width, int(round(width / aspect_ratio)))
+image = Image(width, round(width / aspect_ratio))
 image.create_grid(distortion, projection, tca_red, tca_blue)
 if args.vignetting:
     image.set_vignetting()
