@@ -68,7 +68,7 @@ The following things are particularly interesting to check:
 
 """
 
-import array, subprocess, math, os, argparse, sys
+import array, subprocess, math, os, argparse, sys, multiprocessing
 from math import sin, tan, atan, floor, ceil, sqrt
 from math import pi as π
 from xml.etree import ElementTree
@@ -365,6 +365,13 @@ def get_vignetting_function():
 vignetting = get_vignetting_function()
 
 
+def process_vignetting_for_line(y, pixels, width, r_vignetting):
+    for x in range(width):
+        offset = 3 * (y * width + x)
+        for index in range(3):
+            pixels[offset + index] = max(min(int(pixels[offset + index] * vignetting(r_vignetting(x, y))), 65535), 0)
+
+
 class Image:
 
     def __init__(self, width, height):
@@ -424,13 +431,12 @@ class Image:
         y = y / self.pixel_scaling - 1 - center_y
         return sqrt(x**2 + y**2) / self.aspect_ratio_correction * R_cf
 
-    def set_vignetting(self, function):
-        for y in range(self.height):
-            for x in range(self.width):
-                offset = 3 * (y * self.width + x)
-                for index in range(3):
-                    self.pixels[offset + index] = \
-                            max(min(int(self.pixels[offset + index] * function(self.r_vignetting(x, y))), 65535), 0)
+    def set_vignetting(self):
+        pool = multiprocessing.Pool()
+        pool.starmap(process_vignetting_for_line,
+                     ((y, self.pixels, self.width, self.r_vignetting) for y in range(self.height)))
+        pool.close()
+        pool.join()
 
     def rotate_by_90_degrees(self):
         """This changes the orientation to portrait.  Use this method shortly before
@@ -524,7 +530,7 @@ class Image:
 image = Image(width, int(round(width / aspect_ratio)))
 image.create_grid(distortion, projection, tca_red, tca_blue)
 if args.vignetting:
-    image.set_vignetting(vignetting)
+    image.set_vignetting()
 if portrait:
     image.rotate_by_90_degrees()
 image.write(args.outfile)
