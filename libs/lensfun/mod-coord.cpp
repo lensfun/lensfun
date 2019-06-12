@@ -327,14 +327,6 @@ void lfModifier::AddCoordDistCallback (const lfLensCalibDistortion& lcd, lfModif
     cd->callback = func;
     cd->priority = priority;
 
-    double image_aspect_ratio = Width < Height ? Height / Width : Width / Height;
-    cd->coordinate_correction =
-            lcd.CalibAttr.CropFactor / Crop /
-            sqrt (image_aspect_ratio * image_aspect_ratio + 1) *
-            sqrt (lcd.CalibAttr.AspectRatio * lcd.CalibAttr.AspectRatio + 1);
-
-    cd->center_x = Lens->CenterX;
-    cd->center_y = Lens->CenterY;
     memcpy(cd->terms, lcd.Terms, sizeof(lcd.Terms));
 
     cd->norm_focal = GetNormalizedFocalLength (lcd.Focal);
@@ -511,8 +503,8 @@ void lfModifier::ModifyCoord_Scale (void *data, float *iocoord, int count)
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        iocoord [0] = (iocoord [0] - cddata->center_x) * scale;
-        iocoord [1] = (iocoord [1] - cddata->center_y) * scale;
+        iocoord [0] = iocoord [0] * scale;
+        iocoord [1] = iocoord [1] * scale;
     }
 }
 
@@ -525,8 +517,8 @@ void lfModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        const float x = iocoord [0] * cddata->coordinate_correction - cddata->center_x;
-        const float y = iocoord [1] * cddata->coordinate_correction - cddata->center_y;
+        const float x = iocoord [0];
+        const float y = iocoord [1];
         const double rd = sqrt (x * x + y * y);
         if (rd == 0.0)
             continue;
@@ -558,8 +550,8 @@ void lfModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count
             continue; // Negative radius does not make sense at all
 
         ru /= rd;
-        iocoord [0] = (x * ru + cddata->center_x) / cddata->coordinate_correction;
-        iocoord [1] = (y * ru + cddata->center_y) / cddata->coordinate_correction;
+        iocoord [0] = x * ru;
+        iocoord [1] = y * ru;
 
     next_pixel:
         ;
@@ -576,12 +568,12 @@ void lfModifier::ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int count)
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        const float x = iocoord [0] * cddata->coordinate_correction - cddata->center_x;
-        const float y = iocoord [1] * cddata->coordinate_correction - cddata->center_y;
+        const float x = iocoord [0];
+        const float y = iocoord [1];
         const float poly2 = 1 + k1_ * (x * x + y * y);
 
-        iocoord [0] = (x * poly2 + cddata->center_x) / cddata->coordinate_correction;
-        iocoord [1] = (y * poly2 + cddata->center_y) / cddata->coordinate_correction;
+        iocoord [0] = x * poly2;
+        iocoord [1] = y * poly2;
     }
 }
 
@@ -594,8 +586,8 @@ void lfModifier::ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int count
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        const float x = iocoord [0] * cddata->coordinate_correction - cddata->center_x;
-        const float y = iocoord [1] * cddata->coordinate_correction - cddata->center_y;
+        const float x = iocoord [0];
+        const float y = iocoord [1];
         double rd = sqrt (x * x + y * y);
         if (rd == 0.0)
             continue;
@@ -618,8 +610,8 @@ void lfModifier::ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int count
             continue; // Negative radius does not make sense at all
 
         ru /= rd;
-        iocoord [0] = (x * ru + cddata->center_x) / cddata->coordinate_correction;
-        iocoord [1] = (y * ru + cddata->center_y) / cddata->coordinate_correction;
+        iocoord [0] = x * ru;
+        iocoord [1] = y * ru;
 
     next_pixel:
         ;
@@ -635,13 +627,13 @@ void lfModifier::ModifyCoord_Dist_Poly5 (void *data, float *iocoord, int count)
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        const float x = iocoord [0] * cddata->coordinate_correction - cddata->center_x;
-        const float y = iocoord [1] * cddata->coordinate_correction - cddata->center_y;
+        const float x = iocoord [0];
+        const float y = iocoord [1];
         const float ru2 = x * x + y * y;
         const float poly4 = (1.0 + k1 * ru2 + k2 * ru2 * ru2);
 
-        iocoord [0] = (x * poly4 + cddata->center_x) / cddata->coordinate_correction;
-        iocoord [1] = (y * poly4 + cddata->center_y) / cddata->coordinate_correction;
+        iocoord [0] = x * poly4;
+        iocoord [1] = y * poly4;
     }
 }
 
@@ -656,8 +648,8 @@ void lfModifier::ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int coun
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        const float x = iocoord [0] * cddata->coordinate_correction - cddata->center_x;
-        const float y = iocoord [1] * cddata->coordinate_correction - cddata->center_y;
+        const float x = iocoord [0];
+        const float y = iocoord [1];
         double rd = sqrt (x * x + y * y);
         if (rd == 0.0)
             continue;
@@ -679,8 +671,8 @@ void lfModifier::ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int coun
             continue; // Negative radius does not make sense at all
 
         ru /= rd;
-        iocoord [0] = (x * ru + cddata->center_x) / cddata->coordinate_correction;
-        iocoord [1] = (y * ru + cddata->center_y) / cddata->coordinate_correction;
+        iocoord [0] = x * ru;
+        iocoord [1] = y * ru;
 
     next_pixel:
         ;
@@ -699,14 +691,14 @@ void lfModifier::ModifyCoord_Dist_PTLens (void *data, float *iocoord, int count)
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        const float x = iocoord [0] * cddata->coordinate_correction - cddata->center_x;
-        const float y = iocoord [1] * cddata->coordinate_correction - cddata->center_y;
+        const float x = iocoord [0];
+        const float y = iocoord [1];
         const float ru2 = x * x + y * y;
         const float r = sqrtf (ru2);
         const float poly3 = a_ * ru2 * r + b_ * ru2 + c_ * r + 1;
 
-        iocoord [0] = (x * poly3 + cddata->center_x) / cddata->coordinate_correction;
-        iocoord [1] = (y * poly3 + cddata->center_y) / cddata->coordinate_correction;
+        iocoord [0] = x * poly3;
+        iocoord [1] = y * poly3;
     }
 }
 
@@ -723,16 +715,14 @@ void lfModifier::ModifyCoord_Dist_ACM (void *data, float *iocoord, int count)
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
-        const float x = (iocoord [0] * cddata->coordinate_correction - cddata->center_x) * ACMScale;
-        const float y = (iocoord [1] * cddata->coordinate_correction - cddata->center_y) * ACMScale;
+        const float x = iocoord [0] * ACMScale;
+        const float y = iocoord [1] * ACMScale;
         const float ru2 = x * x + y * y;
         const float ru4 = ru2 * ru2;
         const float common_term = 1.0 + k1 * ru2 + k2 * ru4 + k3 * ru4 * ru2 + 2 * (k4 * y + k5 * x);
 
         iocoord [0] = (x * common_term + k5 * ru2) / ACMScale;
         iocoord [1] = (y * common_term + k4 * ru2) / ACMScale;
-        iocoord [0] = (iocoord [0] + cddata->center_x) / cddata->coordinate_correction;
-        iocoord [1] = (iocoord [1] + cddata->center_y) / cddata->coordinate_correction;
     }
 }
 

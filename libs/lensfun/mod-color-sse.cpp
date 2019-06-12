@@ -18,7 +18,7 @@ typedef __SIZE_TYPE__ uintptr_t;
 #endif
 
 void lfModifier::ModifyColor_DeVignetting_PA_SSE (
-    void *data, float _x, float _y, lf_f32 *pixels, int comp_role, int count)
+    void *data, float x, float y, lf_f32 *pixels, int comp_role, int count)
 {
     int cr = comp_role;
 
@@ -33,14 +33,12 @@ void lfModifier::ModifyColor_DeVignetting_PA_SSE (
           (((cr >> 16) & 15) == LF_CR_END)) ||
         ((uintptr_t)(pixels) & 0xf))
     {
-        return ModifyColor_DeVignetting_PA(data, _x, _y, pixels, comp_role, count);
+        return ModifyColor_DeVignetting_PA(data, x, y, pixels, comp_role, count);
     }
 
     lfColorVignCallbackData* cddata = (lfColorVignCallbackData*) data;
 
     const float cc = cddata->coordinate_correction;
-    float x = _x * cc - cddata->center_x;
-    float y = _y * cc - cddata->center_y;
 
     __m128 x2 = _mm_set_ps1 (x);
 

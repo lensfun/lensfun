@@ -122,28 +122,7 @@ void lfModifier::AddColorVignCallback (const lfLensCalibVignetting& lcv, lfModif
     cd->callback = func;
     cd->priority = priority;
 
-    if (lcv.Model == LF_VIGNETTING_MODEL_ACM)
-    {
-        cd->coordinate_correction = sqrt (36.0*36.0 + 24.0*24.0)  /
-                                    sqrt (lcv.CalibAttr.AspectRatio * lcv.CalibAttr.AspectRatio + 1)
-                                    / ( Crop * 2.0 * lcv.Focal);
-    }
-    else
-    {
-        // Damn! Hugin uses two different "normalized" coordinate systems:
-        // for distortions it uses 1.0 = min(half width, half height) and
-        // for vignetting it uses 1.0 = half diagonal length. We have
-        // to compute a transition coefficient as lfModifier works in
-        // the first coordinate system.
-        double image_aspect_ratio = Width < Height ? Height / Width : Width / Height;
-        cd->coordinate_correction  = lcv.CalibAttr.CropFactor / Crop /
-                                     sqrt (image_aspect_ratio * image_aspect_ratio + 1);
-
-    }
-
     cd->norm_scale = NormScale;
-    cd->center_x = Lens->CenterX;
-    cd->center_y = Lens->CenterY;
     memcpy(cd->terms, lcv.Terms, sizeof(lcv.Terms));
 
     ColorCallbacks.insert(cd);
@@ -285,11 +264,6 @@ template<typename T> void lfModifier::ModifyColor_Vignetting_PA (
 {
     lfColorVignCallbackData* cddata = (lfColorVignCallbackData*) data;
 
-    float cc = cddata->coordinate_correction;
-
-    x = x * cc - cddata->center_x;
-    y = y * cc - cddata->center_y;
-
     // For faster computation we will compute r^2 here, and
     // further compute just the delta:
     // ((x+1)*(x+1)+y*y) - (x*x + y*y) = 2 * x + 1
@@ -297,8 +271,8 @@ template<typename T> void lfModifier::ModifyColor_Vignetting_PA (
     // 1.0 pixels should be multiplied by NormScale, so it's really:
     // ((x+ns)*(x+ns)+y*y) - (x*x + y*y) = 2 * ns * x + ns^2
     float r2 = x * x + y * y;
-    float d1 = 2.0 * cc * cddata->norm_scale;
-    float d2 = cc * cddata->norm_scale * cc * cddata->norm_scale;
+    float d1 = 2.0 * cddata->norm_scale;
+    float d2 = cddata->norm_scale * cddata->norm_scale;
 
     int cr = 0;
     while (count--)
@@ -312,7 +286,7 @@ template<typename T> void lfModifier::ModifyColor_Vignetting_PA (
         pixels = apply_multiplier<T> (pixels, c, cr);
 
         r2 += d1 * x + d2;
-        x += cc * cddata->norm_scale;
+        x += cddata->norm_scale;
     }
 }
 
@@ -321,11 +295,6 @@ template<typename T> void lfModifier::ModifyColor_DeVignetting_PA (
 {
     lfColorVignCallbackData* cddata = (lfColorVignCallbackData*) data;
 
-    float cc = cddata->coordinate_correction;
-
-    x = x * cc - cddata->center_x;
-    y = y * cc - cddata->center_y;
-
     // For faster computation we will compute r^2 here, and
     // further compute just the delta:
     // ((x+1)*(x+1)+y*y) - (x*x + y*y) = 2 * x + 1
@@ -333,8 +302,8 @@ template<typename T> void lfModifier::ModifyColor_DeVignetting_PA (
     // 1.0 pixels should be multiplied by NormScale, so it's really:
     // ((x+ns)*(x+ns)+y*y) - (x*x + y*y) = 2 * ns * x + ns^2
     float r2 = x * x + y * y;
-    float d1 = 2.0 * cc * cddata->norm_scale;
-    float d2 = cc * cddata->norm_scale * cc * cddata->norm_scale;
+    float d1 = 2.0 * cddata->norm_scale;
+    float d2 = cddata->norm_scale * cddata->norm_scale;
 
     int cr = 0;
     while (count--)
@@ -348,7 +317,7 @@ template<typename T> void lfModifier::ModifyColor_DeVignetting_PA (
         pixels = apply_multiplier<T> (pixels, 1.0f / c, cr);
 
         r2 += d1 * x + d2;
-        x += cc * cddata->norm_scale;
+        x += cddata->norm_scale;
     }
 }
 

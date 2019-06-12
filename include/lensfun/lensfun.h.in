@@ -2795,9 +2795,6 @@ private:
         virtual  ~lfCallbackData() {}
         int priority;
 
-        float center_x = 0.0f;
-        float center_y = 0.0f;
-
         bool operator<(const lfCallbackData& c) const { return priority < c.priority; }
         bool operator>(const lfCallbackData& c) const { return priority > c.priority; }
     };
@@ -2877,7 +2874,6 @@ private:
 
     struct lfSubpixTCACallback : public lfSubpixelCallback
     {
-        float coordinate_correction;
         float norm_focal;
         float terms [12];
     };
@@ -2890,7 +2886,6 @@ private:
 
     struct lfCoordDistCallbackData : public lfCoordCallback
     {
-        float coordinate_correction;
         float norm_focal;
         float terms [5];
     };
@@ -2919,7 +2914,6 @@ private:
 
     struct lfColorVignCallbackData : public lfColorCallback
     {
-        float coordinate_correction;
         float norm_scale;
         float terms [3];
     };
