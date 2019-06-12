@@ -375,7 +375,8 @@ def process_vignetting_for_line(y, pixels, width, r_vignetting):
 class Image:
 
     def __init__(self, width, height):
-        """width and height in pixels."""
+        """width and height in pixels.
+        """
         self.pixels = array.array("H", width * height * 3 * [16383])
         self.width = width
         self.height = height
