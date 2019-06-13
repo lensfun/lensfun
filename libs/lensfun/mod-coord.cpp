@@ -31,7 +31,7 @@
 #include <math.h>
 #include "windows/mathconstants.h"
 
-int lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd)
+int lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion lcd)
 {
     if (Reverse)
         switch (lcd.Model)
@@ -42,9 +42,8 @@ int lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd)
                 // See "Note about PT-based distortion models" at the top of
                 // this file.
                 {
-                    lfLensCalibDistortion lcd_ = lcd;
-                    lcd_.Terms [0] = pow (1 - lcd.Terms [0], 3) / lcd.Terms [0];
-                    AddCoordDistCallback (lcd_, ModifyCoord_UnDist_Poly3, 250);
+                    lcd.Terms [0] = pow (1 - lcd.Terms [0], 3) / lcd.Terms [0];
+                    AddCoordDistCallback (lcd, ModifyCoord_UnDist_Poly3, 250);
                 }
                 break;
 
@@ -56,17 +55,16 @@ int lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd)
             {
                 // See "Note about PT-based distortion models" at the top of
                 // this file.
-                lfLensCalibDistortion lcd_ = lcd;
                 float d = 1 - lcd.Terms [0] - lcd.Terms [1] - lcd.Terms [2];
-                lcd_.Terms [0] /= pow (d, 4);
-                lcd_.Terms [1] /= pow (d, 3);
-                lcd_.Terms [2] /= pow (d, 2);
+                lcd.Terms [0] /= pow (d, 4);
+                lcd.Terms [1] /= pow (d, 3);
+                lcd.Terms [2] /= pow (d, 2);
 #ifdef VECTORIZATION_SSE
                 if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
-                    AddCoordDistCallback (lcd_, ModifyCoord_UnDist_PTLens_SSE, 250);
+                    AddCoordDistCallback (lcd, ModifyCoord_UnDist_PTLens_SSE, 250);
                 else
 #endif
-                AddCoordDistCallback (lcd_, ModifyCoord_UnDist_PTLens, 250);
+                AddCoordDistCallback (lcd, ModifyCoord_UnDist_PTLens, 250);
                 break;
             }
             case LF_DIST_MODEL_ACM:
@@ -84,14 +82,13 @@ int lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd)
                 // See "Note about PT-based distortion models" at the top of
                 // this file.
                 {
-                    lfLensCalibDistortion lcd_ = lcd;
-                    lcd_.Terms [0] = lcd.Terms [0] / pow (1 - lcd.Terms [0], 3);
+                    lcd.Terms [0] = lcd.Terms [0] / pow (1 - lcd.Terms [0], 3);
     #ifdef VECTORIZATION_SSE
                     if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
-                        AddCoordDistCallback (lcd_, ModifyCoord_Dist_Poly3_SSE, 750);
+                        AddCoordDistCallback (lcd, ModifyCoord_Dist_Poly3_SSE, 750);
                     else
     #endif
-                    AddCoordDistCallback (lcd_, ModifyCoord_Dist_Poly3, 750);
+                    AddCoordDistCallback (lcd, ModifyCoord_Dist_Poly3, 750);
                 }
                 break;
 
@@ -104,17 +101,16 @@ int lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd)
                 // See "Note about PT-based distortion models" at the top of
                 // this file.
                 {
-                    lfLensCalibDistortion lcd_ = lcd;
                     float d = 1 - lcd.Terms [0] - lcd.Terms [1] - lcd.Terms [2];
-                    lcd_.Terms [0] /= pow (d, 4);
-                    lcd_.Terms [1] /= pow (d, 3);
-                    lcd_.Terms [2] /= pow (d, 2);
+                    lcd.Terms [0] /= pow (d, 4);
+                    lcd.Terms [1] /= pow (d, 3);
+                    lcd.Terms [2] /= pow (d, 2);
     #ifdef VECTORIZATION_SSE
                     if (_lf_detect_cpu_features () & LF_CPU_FLAG_SSE)
-                        AddCoordDistCallback (lcd_, ModifyCoord_Dist_PTLens_SSE, 750);
+                        AddCoordDistCallback (lcd, ModifyCoord_Dist_PTLens_SSE, 750);
                     else
     #endif
-                    AddCoordDistCallback (lcd_, ModifyCoord_Dist_PTLens, 750);
+                    AddCoordDistCallback (lcd, ModifyCoord_Dist_PTLens, 750);
                 }
                 break;
             }
