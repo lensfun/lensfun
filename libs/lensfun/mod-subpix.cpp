@@ -82,7 +82,7 @@ int lfModifier::EnableTCACorrection (const lfLens* lens, float focal)
     return enabledMods;
 }
 
-void lfModifier::AddSubpixTCACallback (const lfLensCalibTCA& lcd, lfModifySubpixCoordFunc func, int priority)
+void lfModifier::AddSubpixTCACallback (const lfLensCalibTCA& lctca, lfModifySubpixCoordFunc func, int priority)
 {
     lfSubpixTCACallback* cd = new lfSubpixTCACallback;
 
@@ -91,15 +91,15 @@ void lfModifier::AddSubpixTCACallback (const lfLensCalibTCA& lcd, lfModifySubpix
 
     double image_aspect_ratio = Width < Height ? Height / Width : Width / Height;
     cd->coordinate_correction =
-            sqrt (lcd.CalibAttr.AspectRatio * lcd.CalibAttr.AspectRatio + 1) /
+            sqrt (lctca.CalibAttr.AspectRatio * lctca.CalibAttr.AspectRatio + 1) /
             sqrt (image_aspect_ratio * image_aspect_ratio + 1) *
-            lcd.CalibAttr.CropFactor / Crop;
+            lctca.CalibAttr.CropFactor / Crop;
 
-    cd->centerX = lcd.CalibAttr.CenterX;
-    cd->centerY = lcd.CalibAttr.CenterY;
-    memcpy(cd->Terms, lcd.Terms, sizeof(lcd.Terms));
+    cd->centerX = lctca.CalibAttr.CenterX;
+    cd->centerY = lctca.CalibAttr.CenterY;
+    memcpy(cd->Terms, lctca.Terms, sizeof(lctca.Terms));
 
-    cd->norm_focal = GetNormalizedFocalLength(lcd.Focal, NULL);
+    cd->norm_focal = GetNormalizedFocalLength(lctca.Focal, NULL);
 
     SubpixelCallbacks.insert(cd);
 }
