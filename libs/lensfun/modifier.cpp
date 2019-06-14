@@ -141,7 +141,7 @@ float hugin_distortion_scale (float width, float height, float imgcrop, float re
 
 float hugin_vignetting_scale (float width, float height, float imgcrop, float real_focal)
 {
-    hugin_scale_in_millimeters = hypot (36.0, 24.0) / imgcrop / 2
+    const float hugin_scale_in_millimeters = hypot (36.0, 24.0) / imgcrop / 2;
     return real_focal / hugin_scale_in_millimeters;
 }
 
@@ -155,15 +155,13 @@ lfModifier::lfModifier (const lfLens *lens, float imgfocal, float imgcrop, int i
     Width = double (imgwidth >= 2 ? imgwidth - 1 : 1);
     Height = double (imgheight >= 2 ? imgheight - 1 : 1);
 
-    float real_focal;
-    // try to get a real focal length estimate
     lfLensCalibDistortion lcd;
     if (lens->InterpolateDistortion (imgcrop, imgfocal, lcd))
-        real_focal = lcd.RealFocal;
+        RealFocal = lcd.RealFocal;
     else
-        real_focal = imgfocal;
+        RealFocal = imgfocal;
 
-    NormScale = hypot (36.0, 24.0) / imgcrop / hypot (Width, Height) / real_focal;
+    NormScale = hypot (36.0, 24.0) / imgcrop / hypot (Width, Height) / RealFocal;
     NormUnScale = 1.0 / NormScale;
 
     // Geometric lens center in normalized coordinates
@@ -191,8 +189,6 @@ int lfModifier::EnableScaling (float scale)
     cd->callback = ModifyCoord_Scale;
     cd->priority = Reverse ? 900 : 100;
     cd->scale_factor = Reverse ? scale : 1.0 / scale;
-    cd->center_x = Lens->CenterX;
-    cd->center_y = Lens->CenterY;
 
     CoordCallbacks.insert(cd);
 

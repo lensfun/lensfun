@@ -2911,6 +2911,7 @@ private:
 
     struct lfColorVignCallbackData : public lfColorCallback
     {
+        float norm_scale;
         float terms [3];
     };
 
@@ -3037,6 +3038,9 @@ private:
     double Crop;
     /// Image focal length
     double Focal;
+    /// Real image focal length; used for alternative coordinate systems;
+    /// defaults to Focal
+    double RealFocal;
     /// The center of distortions in normalized coordinates
     double CenterX, CenterY;
     /// The coefficients for conversion to and from normalized coords

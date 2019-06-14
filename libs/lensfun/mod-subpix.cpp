@@ -8,15 +8,15 @@
 #include "lensfunprv.h"
 #include <math.h>
 
-lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistortion& lctca_, cbool Reverse)
+lfLensCalibTCA rescale_polynomial_coefficients (const lfLensCalibTCA& lctca_, double real_focal, cbool Reverse)
 {
     // FixMe: The ACM probably bases on the nominal focal length.  This needs
     // to be found out.  It this is true, we have to scale its coefficient by
     // the ratio of real and nominal focal length.
-    lfLensCalibDistortion lctca = lctca_;
+    lfLensCalibTCA lctca = lctca_;
     const float hugin_scale_in_millimeters =
         hypot (36.0, 24.0) / lctca.CalibAttr.CropFactor / hypot (lctca.CalibAttr.AspectRatio, 1) / 2.0;
-    const float hugin_scaling = lctca.RealFocal / hugin_scale_in_millimeters;
+    const float hugin_scaling = real_focal / hugin_scale_in_millimeters;
     switch (lctca.Model)
     {
         case LF_TCA_MODEL_LINEAR:
@@ -43,7 +43,7 @@ lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistorti
 
 int lfModifier::EnableTCACorrection (const lfLensCalibTCA& lctca_)
 {
-    const lfLensCalibTCA lctca = rescale_polynomial_coefficients (lctca_, Reverse);
+    const lfLensCalibTCA lctca = rescale_polynomial_coefficients (lctca_, RealFocal, Reverse);
     if (Reverse)
         switch (lctca.Model)
         {
@@ -115,8 +115,6 @@ void lfModifier::AddSubpixTCACallback (const lfLensCalibTCA& lctca, lfModifySubp
     cd->priority = priority;
 
     memcpy(cd->terms, lctca.Terms, sizeof(lctca.Terms));
-
-    cd->norm_focal = GetNormalizedFocalLength(lctca.Focal);
 
     SubpixelCallbacks.insert(cd);
 }

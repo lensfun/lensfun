@@ -31,7 +31,8 @@
 #include <math.h>
 #include "windows/mathconstants.h"
 
-lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistortion& lcd_, cbool Reverse)
+lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistortion& lcd_,
+                                                       double real_focal, cbool Reverse)
 {
     // FixMe: The ACM probably bases on the nominal focal length.  This needs
     // to be found out.  It this is true, we have to scale its coefficient by
@@ -39,7 +40,7 @@ lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistorti
     lfLensCalibDistortion lcd = lcd_;
     const float hugin_scale_in_millimeters =
         hypot (36.0, 24.0) / lcd.CalibAttr.CropFactor / hypot (lcd.CalibAttr.AspectRatio, 1) / 2.0;
-    const float hugin_scaling = lcd.RealFocal / hugin_scale_in_millimeters;
+    const float hugin_scaling = real_focal / hugin_scale_in_millimeters;
     switch (lcd.Model)
     {
         case LF_DIST_MODEL_POLY3:
@@ -76,7 +77,7 @@ lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistorti
 
 int lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd_)
 {
-    const lfLensCalibDistortion lcd = rescale_polynomial_coefficients (lcd_, Reverse);
+    const lfLensCalibDistortion lcd = rescale_polynomial_coefficients (lcd_, RealFocal, Reverse);
     if (Reverse)
         switch (lcd.Model)
         {
@@ -339,8 +340,6 @@ void lfModifier::AddCoordDistCallback (const lfLensCalibDistortion& lcd, lfModif
     cd->priority = priority;
 
     memcpy(cd->terms, lcd.Terms, sizeof(lcd.Terms));
-
-    cd->norm_focal = GetNormalizedFocalLength (lcd.Focal);
 
     CoordCallbacks.insert(cd);
 }
@@ -729,8 +728,8 @@ void lfModifier::ModifyCoord_Dist_ACM (void *data, float *iocoord, int count)
         const float ru4 = ru2 * ru2;
         const float common_term = 1.0 + k1 * ru2 + k2 * ru4 + k3 * ru4 * ru2 + 2 * (k4 * y + k5 * x);
 
-        iocoord [0] = x * common_term + k5 * ru2);
-        iocoord [1] = y * common_term + k4 * ru2);
+        iocoord [0] = x * common_term + k5 * ru2;
+        iocoord [1] = y * common_term + k4 * ru2;
     }
 }
 
@@ -796,7 +795,7 @@ void lfModifier::ModifyCoord_Geom_Rect_Panoramic (
         float x = iocoord [0];
         float y = iocoord [1];
 
-        iocoord [0] = atan (x * inv_dist);
+        iocoord [0] = atan (x);
         iocoord [1] = y * cos (iocoord [0]);
     }
 }
@@ -810,7 +809,7 @@ void lfModifier::ModifyCoord_Geom_FishEye_Panoramic (
         float y = iocoord [1];
 
         double r = sqrt (x * x + y * y);
-        double s = (r == 0.0) ? inv_dist : (sin (r) / r);
+        double s = (r == 0.0) ? 1.0 : (sin (r) / r);
 
         double vx = cos (r);      //  z' -> x
         double vy = s * x;        //  x' -> y
