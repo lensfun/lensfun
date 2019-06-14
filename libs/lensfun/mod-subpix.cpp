@@ -82,16 +82,16 @@ int lfModifier::EnableTCACorrection ()
     return EnabledMods;
 }
 
-void lfModifier::AddSubpixTCACallback (const lfLensCalibTCA& lcd, lfModifySubpixCoordFunc func, int priority)
+void lfModifier::AddSubpixTCACallback (const lfLensCalibTCA& lctca, lfModifySubpixCoordFunc func, int priority)
 {
     lfSubpixTCACallback* cd = new lfSubpixTCACallback;
 
     cd->callback = func;
     cd->priority = priority;
 
-    memcpy(cd->terms, lcd.Terms, sizeof(lcd.Terms));
+    memcpy(cd->terms, lctca.Terms, sizeof(lctca.Terms));
 
-    cd->norm_focal = GetNormalizedFocalLength(lcd.Focal);
+    cd->norm_focal = GetNormalizedFocalLength(lctca.Focal);
 
     SubpixelCallbacks.insert(cd);
 }

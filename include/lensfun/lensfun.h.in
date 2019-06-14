@@ -779,7 +779,7 @@ enum lfVignettingModel
      * in the coordinate system.  Everything is measured in units of the focal
      * length of the lens.
      *
-     * \f[C_d = C_s \cdot (1 + \alpha_1 r^2 + \alpha_2 r^4 + \alpha_3 r^6).\f]
+     * \f[C_d = C_s / (1 + \alpha_1 r^2 + \alpha_2 r^4 + \alpha_3 r^6).\f]
      * The corresponding XML attributes are called “alpha1”, “alpha2”, and
      * “alpha3”.  They default to 0.  Ref:
      * http://download.macromedia.com/pub/labs/lensprofile_creator/lensprofile_creator_cameramodel.pdf

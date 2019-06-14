@@ -591,9 +591,10 @@ int lfModifier::EnablePerspectiveCorrection (float *x, float *y, int count, floa
 
     double rho, delta, rho_h, alpha, center_of_control_points_x,
         center_of_control_points_y, z;
+    double f_normalized = norm_focal;
     try
     {
-        calculate_angles (x_, y_, norm_focal, rho, delta, rho_h, alpha,
+        calculate_angles (x_, y_, f_normalized, rho, delta, rho_h, alpha,
                           center_of_control_points_x, center_of_control_points_y);
     }
     catch (svd_no_convergence &e)
@@ -603,11 +604,11 @@ int lfModifier::EnablePerspectiveCorrection (float *x, float *y, int count, floa
     }
 
     // Transform center point to get shift
-    z = rotate_rho_delta_rho_h (rho, delta, rho_h, 0, 0, norm_focal) [2];
+    z = rotate_rho_delta_rho_h (rho, delta, rho_h, 0, 0, f_normalized) [2];
     /* If the image centre is too much outside, or even at infinity, take the
        center of gravity of the control points instead. */
     enum center_type { old_image_center, control_points_center };
-    center_type new_image_center = z <= 0 || norm_focal / z > 10 ? control_points_center : old_image_center;
+    center_type new_image_center = z <= 0 || f_normalized / z > 10 ? control_points_center : old_image_center;
 
     /* Generate a rotation matrix in forward direction, for getting the
        proper shift of the image center. */
@@ -617,22 +618,22 @@ int lfModifier::EnablePerspectiveCorrection (float *x, float *y, int count, floa
     switch (new_image_center) {
     case old_image_center:
     {
-        center_coords [0] = A [0][2] * norm_focal;
-        center_coords [1] = A [1][2] * norm_focal;
-        center_coords [2] = A [2][2] * norm_focal;
+        center_coords [0] = A [0][2] * f_normalized;
+        center_coords [1] = A [1][2] * f_normalized;
+        center_coords [2] = A [2][2] * f_normalized;
         break;
     }
     case control_points_center:
     {
         center_coords [0] = A [0][0] * center_of_control_points_x +
                             A [0][1] * center_of_control_points_y +
-                            A [0][2] * norm_focal;
+                            A [0][2] * f_normalized;
         center_coords [1] = A [1][0] * center_of_control_points_x +
                             A [1][1] * center_of_control_points_y +
-                            A [1][2] * norm_focal;
+                            A [1][2] * f_normalized;
         center_coords [2] = A [2][0] * center_of_control_points_x +
                             A [2][1] * center_of_control_points_y +
-                            A [2][2] * norm_focal;
+                            A [2][2] * f_normalized;
         break;
     }
     }
@@ -659,7 +660,7 @@ int lfModifier::EnablePerspectiveCorrection (float *x, float *y, int count, floa
     }
 
     double Delta_a, Delta_b;
-    central_projection (center_coords, norm_focal, Delta_a, Delta_b);
+    central_projection (center_coords, f_normalized, Delta_a, Delta_b);
     {
         double Delta_a_old = Delta_a;
         Delta_a = cos (alpha) * Delta_a + sin (alpha) * Delta_b;
