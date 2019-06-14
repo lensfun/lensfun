@@ -2874,7 +2874,6 @@ private:
 
     struct lfSubpixTCACallback : public lfSubpixelCallback
     {
-        float norm_focal;
         float terms [12];
     };
 
@@ -2886,7 +2885,6 @@ private:
 
     struct lfCoordDistCallbackData : public lfCoordCallback
     {
-        float norm_focal;
         float terms [5];
     };
 
@@ -2897,7 +2895,6 @@ private:
 
     struct lfCoordGeomCallbackData : public lfCoordCallback
     {
-        float norm_focal;
     };
 
     struct lfCoordPerspCallbackData : public lfCoordCallback
@@ -2914,7 +2911,6 @@ private:
 
     struct lfColorVignCallbackData : public lfColorCallback
     {
-        float norm_scale;
         float terms [3];
     };
 
@@ -2929,7 +2925,7 @@ private:
     typedef struct { float angle, dist; } lfPoint;
 
     void AddSubpixTCACallback (const lfLensCalibTCA& lcd, lfModifySubpixCoordFunc func, int priority);
-    void AddCoordGeomCallback (float norm_focal, lfModifyCoordFunc func, int priority);
+    void AddCoordGeomCallback (lfModifyCoordFunc func, int priority);
     void AddCoordDistCallback (const lfLensCalibDistortion& lcd, lfModifyCoordFunc func, int priority);
     void AddColorVignCallback (const lfLensCalibVignetting& lcv, lfModifyColorFunc func, int priority);
 

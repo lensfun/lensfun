@@ -572,10 +572,8 @@ matrix generate_rotation_matrix (double rho_1, double delta, double rho_2, doubl
 int lfModifier::EnablePerspectiveCorrection (float *x, float *y, int count, float d)
 {
     const int number_of_control_points = count;
-    double norm_focal = GetNormalizedFocalLength (Focal);
 
-    if (number_of_control_points < 4 || number_of_control_points > 8 ||
-        (norm_focal <= 0 && number_of_control_points != 8))
+    if (number_of_control_points < 4 || number_of_control_points > 8)
         return EnabledMods;
     if (d < -1)
         d = -1;
@@ -591,7 +589,7 @@ int lfModifier::EnablePerspectiveCorrection (float *x, float *y, int count, floa
 
     double rho, delta, rho_h, alpha, center_of_control_points_x,
         center_of_control_points_y, z;
-    double f_normalized = norm_focal;
+    double f_normalized = 1.0;
     try
     {
         calculate_angles (x_, y_, f_normalized, rho, delta, rho_h, alpha,
@@ -640,7 +638,7 @@ int lfModifier::EnablePerspectiveCorrection (float *x, float *y, int count, floa
     if (center_coords [2] <= 0)
         return EnabledMods;
     // This is the mapping scale in the image center
-    double mapping_scale = norm_focal / center_coords [2];
+    double mapping_scale = 1.0 / center_coords [2];
 
     // Finally, generate a rotation matrix in backward (lookup) direction
     {

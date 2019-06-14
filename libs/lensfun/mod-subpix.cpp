@@ -8,8 +8,39 @@
 #include "lensfunprv.h"
 #include <math.h>
 
-int lfModifier::EnableTCACorrection (const lfLensCalibTCA& lctca)
+lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistortion& lctca_, cbool Reverse)
 {
+    lfLensCalibDistortion lctca = lctca_;
+    const float hugin_scale_in_millimeters =
+        hypot (36.0, 24.0) / lctca.CalibAttr.CropFactor / hypot (lctca.CalibAttr.AspectRatio, 1) / 2.0;
+    const float hugin_scaling = lctca.RealFocal / hugin_scale_in_millimeters;
+    switch (lctca.Model)
+    {
+        case LF_TCA_MODEL_LINEAR:
+            for (int i = 0; i < 2; i++)
+            {
+                if (Reverse)
+                {
+                    if (lctca.Terms [i] != 0)
+                        lctca.Terms [i] = hugin_scaling / lctca.Terms [i];
+                }
+                else
+                    lctca.Terms [i] /= hugin_scaling;
+            }
+        case LF_TCA_MODEL_POLY3:
+            lctca.Terms [0] /= hugin_scaling;
+            lctca.Terms [1] /= hugin_scaling;
+            lctca.Terms [2] /= pow (hugin_scaling, 2);
+            lctca.Terms [3] /= pow (hugin_scaling, 2);
+            lctca.Terms [4] /= pow (hugin_scaling, 3);
+            lctca.Terms [5] /= pow (hugin_scaling, 3);
+    }
+    return lctca;
+}
+
+int lfModifier::EnableTCACorrection (const lfLensCalibTCA& lctca_)
+{
+    const lfLensCalibTCA lctca = rescale_polynomial_coefficients (lctca_, Reverse);
     if (Reverse)
         switch (lctca.Model)
         {
@@ -17,16 +48,7 @@ int lfModifier::EnableTCACorrection (const lfLensCalibTCA& lctca)
                 break;
 
             case LF_TCA_MODEL_LINEAR:
-                {
-                    lfLensCalibTCA lctca_ = lctca;
-                    for (int i = 0; i < 2; i++)
-                    {
-                        if (!lctca.Terms [i])
-                            return false;
-                        lctca_.Terms [i] = 1.0 / lctca.Terms [i];
-                    }
-                    AddSubpixTCACallback(lctca_, ModifyCoord_TCA_Linear, 500);
-                }
+                AddSubpixTCACallback(lctca, ModifyCoord_TCA_Linear, 500);
                 EnabledMods |= LF_MODIFY_TCA;
                 return EnabledMods;
 
@@ -335,8 +357,6 @@ void lfModifier::ModifyCoord_TCA_ACM (void *data, float *iocoord, int count)
     const float beta4 = cddata->terms [9];
     const float alpha5 = cddata->terms [10];
     const float beta5 = cddata->terms [11];
-    const float ACMScale = 1.0 / cddata->norm_focal;
-    const float ACMUnScale = cddata->norm_focal;
 
     float x, y, ru2, ru4, common_term;
     for (float *end = iocoord + count * 2 * 3; iocoord < end; iocoord += 6)
@@ -345,25 +365,25 @@ void lfModifier::ModifyCoord_TCA_ACM (void *data, float *iocoord, int count)
         // it is already distorted for the distortion correction.  However, in
         // context of TCA correction, it is undistorted, so Lensfun calls it
         // "ru".
-        x = iocoord [0] * ACMScale;
-        y = iocoord [1] * ACMScale;
+        x = iocoord [0];
+        y = iocoord [1];
         ru2 = x * x + y * y;
         ru4 = ru2 * ru2;
         common_term = 1.0 + alpha1 * ru2 + alpha2 * ru4 + alpha3 * ru4 * ru2 +
                       2 * (alpha4 * y + alpha5 * x);
-        iocoord [0] = alpha0 * (x * common_term + alpha5 * ru2) * ACMUnScale;
-        iocoord [1] = alpha0 * (y * common_term + alpha4 * ru2) * ACMUnScale;
+        iocoord [0] = alpha0 * (x * common_term + alpha5 * ru2);
+        iocoord [1] = alpha0 * (y * common_term + alpha4 * ru2);
         iocoord [0] = iocoord [0];
         iocoord [1] = iocoord [1];
 
-        x = iocoord [4] * ACMScale;
-        y = iocoord [5] * ACMScale;
+        x = iocoord [4];
+        y = iocoord [5];
         ru2 = x * x + y * y;
         ru4 = ru2 * ru2;
         common_term = 1.0 + beta1 * ru2 + beta2 * ru4 + beta3 * ru4 * ru2 +
                       2 * (beta4 * y + beta5 * x);
-        iocoord [4] = beta0 * (x * common_term + beta5 * ru2) * ACMUnScale;
-        iocoord [5] = beta0 * (y * common_term + beta4 * ru2) * ACMUnScale;
+        iocoord [4] = beta0 * (x * common_term + beta5 * ru2);
+        iocoord [5] = beta0 * (y * common_term + beta4 * ru2);
     }
 }
 

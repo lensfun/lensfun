@@ -131,6 +131,20 @@ lfModifier::lfModifier (const lfLens*, float crop, int width, int height)
     EnabledMods = 0;
 }
 
+float hugin_distortion_scale (float width, float height, float imgcrop, float real_focal)
+{
+    const float image_aspect_ratio = (width < height) ? height / width : width / height;
+    const float hugin_scale_in_millimeters =
+        hypot (36.0, 24.0) / imgcrop / sqrt (image_aspect_ratio * image_aspect_ratio + 1) / 2.0;
+    return real_focal / hugin_scale_in_millimeters;
+}
+
+float hugin_vignetting_scale (float width, float height, float imgcrop, float real_focal)
+{
+    hugin_scale_in_millimeters = hypot (36.0, 24.0) / imgcrop / 2
+    return real_focal / hugin_scale_in_millimeters;
+}
+
 lfModifier::lfModifier (const lfLens *lens, float imgfocal, float imgcrop, int imgwidth, int imgheight,
                         lfPixelFormat pixel_format, bool reverse /* = false */)
     : Focal(imgfocal), Crop(imgcrop), Reverse(reverse), PixelFormat(pixel_format), Lens(lens)
@@ -141,18 +155,20 @@ lfModifier::lfModifier (const lfLens *lens, float imgfocal, float imgcrop, int i
     Width = double (imgwidth >= 2 ? imgwidth - 1 : 1);
     Height = double (imgheight >= 2 ? imgheight - 1 : 1);
 
-    // Image "size"
-    double size = Width < Height ? Width : Height;
+    float real_focal;
+    // try to get a real focal length estimate
+    lfLensCalibDistortion lcd;
+    if (lens->InterpolateDistortion (imgcrop, imgfocal, lcd))
+        real_focal = lcd.RealFocal;
+    else
+        real_focal = imgfocal;
 
-    // The scale to transform {-size/2 .. 0 .. size/2-1} to {-1 .. 0 .. +1}
-    NormScale = 2.0 / size;
-
-    // The scale to transform {-1 .. 0 .. +1} to {-size/2 .. 0 .. size/2-1}
-    NormUnScale = size * 0.5;
+    NormScale = hypot (36.0, 24.0) / imgcrop / hypot (Width, Height) / real_focal;
+    NormUnScale = 1.0 / NormScale;
 
     // Geometric lens center in normalized coordinates
-    CenterX = Width / size;
-    CenterY = Height / size;
+    CenterX = Width * NormScale * 0.5;
+    CenterY = Height * NormScale * 0.5;
 
     EnabledMods = 0;
 }

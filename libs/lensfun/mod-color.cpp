@@ -8,13 +8,31 @@
 #include "lensfunprv.h"
 #include <math.h>
 
-int lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv)
+lfLensCalibVignetting rescale_polynomial_coefficients (const lfLensCalibVignetting& lcv_)
+{
+    lfLensCalibVignetting lcv = lcv_;
+    const float hugin_scale_in_millimeters = hypot (36.0, 24.0) / lcv.CalibAttr.CropFactor / 2.0;
+    const float hugin_scaling = lcv.RealFocal / hugin_scale_in_millimeters;
+    switch (lcv.Model)
+    {
+        case LF_VIGNETTING_MODEL_PA:
+            lcv.Terms [0] /= pow (hugin_scaling, 2);
+            lcv.Terms [1] /= pow (hugin_scaling, 4);
+            lcv.Terms [2] /= pow (hugin_scaling, 6);
+            break;
+        }
+    }
+    return lcv;
+}
+
+int lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv_)
 {
 #define ADD_CALLBACK(lcv, func, type, prio) \
     AddColorVignCallback ( lcv, \
         (lfModifyColorFunc)(void (*)(void *, float, float, type *, int, int)) \
         lfModifier::func, prio) \
 
+    const lfLensCalibVignetting lcv = rescale_polynomial_coefficients (lcv_);
     if (Reverse)
         switch (lcv.Model)
         {
