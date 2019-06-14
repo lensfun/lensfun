@@ -71,6 +71,9 @@ lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistorti
             lcd.Terms [2] /= pow (d * hugin_scaling, 2);
             break;
         }
+        default:
+            // keep gcc 4.4+ happy
+            break;
     }
     return lcd;
 }
@@ -505,8 +508,6 @@ bool lfModifier::ApplyGeometryDistortion (
 
 void lfModifier::ModifyCoord_Scale (void *data, float *iocoord, int count)
 {
-    lfCoordScaleCallbackData* cddata = (lfCoordScaleCallbackData*) data;
-
     const float scale = ((lfCoordScaleCallbackData *)data)->scale_factor;
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)

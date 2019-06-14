@@ -37,6 +37,9 @@ lfLensCalibTCA rescale_polynomial_coefficients (const lfLensCalibTCA& lctca_, do
             lctca.Terms [3] /= pow (hugin_scaling, 2);
             lctca.Terms [4] /= pow (hugin_scaling, 3);
             lctca.Terms [5] /= pow (hugin_scaling, 3);
+        default:
+            // keep gcc 4.4+ happy
+            break;
     }
     return lctca;
 }

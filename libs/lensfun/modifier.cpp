@@ -147,7 +147,7 @@ float hugin_vignetting_scale (float width, float height, float imgcrop, float re
 
 lfModifier::lfModifier (const lfLens *lens, float imgfocal, float imgcrop, int imgwidth, int imgheight,
                         lfPixelFormat pixel_format, bool reverse /* = false */)
-    : Focal(imgfocal), Crop(imgcrop), Reverse(reverse), PixelFormat(pixel_format), Lens(lens)
+    : Crop(imgcrop), Focal(imgfocal), Reverse(reverse), PixelFormat(pixel_format), Lens(lens)
 {
     // Avoid divide overflows on singular cases.  The "- 1" is due to the fact
     // that `Width` and `Height` are measured at the pixel centres (they are

@@ -23,6 +23,10 @@ lfLensCalibVignetting rescale_polynomial_coefficients (const lfLensCalibVignetti
             lcv.Terms [1] /= pow (hugin_scaling, 4);
             lcv.Terms [2] /= pow (hugin_scaling, 6);
             break;
+
+        default:
+            // keep gcc 4.4+ happy
+            break;
     }
     return lcv;
 }
