@@ -10,6 +10,9 @@
 
 lfLensCalibVignetting rescale_polynomial_coefficients (const lfLensCalibVignetting& lcv_)
 {
+    // FixMe: The ACM probably bases on the nominal focal length.  This needs
+    // to be found out.  It this is true, we have to scale its coefficient by
+    // the ratio of real and nominal focal length.
     lfLensCalibVignetting lcv = lcv_;
     const float hugin_scale_in_millimeters = hypot (36.0, 24.0) / lcv.CalibAttr.CropFactor / 2.0;
     const float hugin_scaling = lcv.RealFocal / hugin_scale_in_millimeters;

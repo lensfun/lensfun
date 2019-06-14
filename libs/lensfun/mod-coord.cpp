@@ -33,6 +33,9 @@
 
 lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistortion& lcd_, cbool Reverse)
 {
+    // FixMe: The ACM probably bases on the nominal focal length.  This needs
+    // to be found out.  It this is true, we have to scale its coefficient by
+    // the ratio of real and nominal focal length.
     lfLensCalibDistortion lcd = lcd_;
     const float hugin_scale_in_millimeters =
         hypot (36.0, 24.0) / lcd.CalibAttr.CropFactor / hypot (lcd.CalibAttr.AspectRatio, 1) / 2.0;
