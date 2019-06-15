@@ -3076,7 +3076,7 @@ DEPRECATED LF_EXPORT lfModifier *lf_modifier_new (
 
 /** @sa lfModifier::lfModifier */
 LF_EXPORT lfModifier *lf_modifier_create (
-    float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse);
+    const lfLens* lens, float imgfocal, float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse);
 
 /** @sa lfModifier::~lfModifier */
 LF_EXPORT void lf_modifier_destroy (lfModifier *modifier);
