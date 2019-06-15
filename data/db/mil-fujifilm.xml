@@ -115,6 +115,26 @@
         <cropfactor>1.529</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Fujifilm</maker>
+        <model>X-E3</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Fujifilm</maker>
+        <model>X-T30</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.534</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Fujifilm</maker>
+        <model>X-T3</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.534</cropfactor>
+    </camera>
     <lens>
         <maker>Fujifilm</maker>
         <model>XF18-55mmF2.8-4 R LM OIS</model>
@@ -1238,6 +1258,8 @@
         <mount>Fujifilm X</mount>
         <cropfactor>1.529</cropfactor>
         <calibration>
+	   <!-- Taken with Fujifilm X-E3 -->
+           <tca model="poly3" focal="16.0" br="-0.0001551" vr="1.0008127" bb="0.0000911" vb="1.0001705" />
 	   <!-- Taken with Fujifilm X-T2 -->
            <distortion model="ptlens" focal="16.0" a="0.01541" b="-0.07898" c="0.03191" />
            <vignetting model="pa" focal="16.0" aperture="2.8" distance="10" k1="-0.9400474" k2="-0.0358486" k3="0.2717647" />
@@ -1265,14 +1287,14 @@
            <distortion model="ptlens" focal="80.4" a="-0.0138" b="0.04737" c="-0.02928" />
            <distortion model="ptlens" focal="106.0" a="0.00212" b="-0.01066" c="0.02288" />
            <distortion model="ptlens" focal="140.0" a="0.00299" b="0.00907" c="-0.0176" />
-           <tca model="poly3" focal="50.0" vr="1.0001523" vb="0.9999804" />
-           <tca model="poly3" focal="63.4" vr="1.0001509" vb="0.9999782" />
-           <tca model="poly3" focal="66.0" vr="1.0000586" vb="0.9999495" />
-           <tca model="poly3" focal="83.8" vr="0.9999766" vb="0.9999455" />
-           <tca model="poly3" focal="87.1" vr="0.9999704" vb="0.9999520" />
-           <tca model="poly3" focal="94.5" vr="0.9999299" vb="0.9999387" />
-           <tca model="poly3" focal="106.0" vr="0.9998589" vb="0.9999196" />
-           <tca model="poly3" focal="140.0" vr="0.9995298" vb="0.9998870" />
+           <tca model="poly3" focal="50.0" br="-0.0001085" vr="1.0003050" bb="0.0000368" vb="0.9999276" />
+           <tca model="poly3" focal="63.4" br="-0.0000758" vr="1.0002636" bb="0.0000454" vb="0.9999152" />
+           <tca model="poly3" focal="66.0" br="-0.0000247" vr="1.0000931" bb="0.0000047" vb="0.9999428" />
+           <tca model="poly3" focal="83.8" br="0.0000385" vr="0.9999246" bb="0.0000087" vb="0.9999330" />
+           <tca model="poly3" focal="87.1" br="0.0000379" vr="0.9999193" bb="0.0000220" vb="0.9999206" />
+           <tca model="poly3" focal="94.5" br="0.0000978" vr="0.9997986" bb="-0.0000181" vb="0.9999628" />
+           <tca model="poly3" focal="106.0" br="0.0000562" vr="0.9997857" bb="-0.0000094" vb="0.9999326" />
+           <tca model="poly3" focal="140.0" br="0.0000909" vr="0.9994025" bb="-0.0000384" vb="0.9999416" />
            <vignetting model="pa" focal="50.0" aperture="2.8" distance="10" k1="-1.2348344" k2="1.4220996" k3="-0.7775112" />
            <vignetting model="pa" focal="50.0" aperture="2.8" distance="1000" k1="-1.2348344" k2="1.4220996" k3="-0.7775112" />
            <vignetting model="pa" focal="50.0" aperture="4.0" distance="10" k1="-0.0482560" k2="-0.1762125" k3="-0.1302043" />
