@@ -20,23 +20,16 @@ lfLensCalibTCA rescale_polynomial_coefficients (const lfLensCalibTCA& lctca_, do
     switch (lctca.Model)
     {
         case LF_TCA_MODEL_LINEAR:
-            for (int i = 0; i < 2; i++)
-            {
-                if (Reverse)
-                {
-                    if (lctca.Terms [i] != 0)
-                        lctca.Terms [i] = hugin_scaling / lctca.Terms [i];
-                }
-                else
-                    lctca.Terms [i] /= hugin_scaling;
-            }
+            if (Reverse)
+                for (int i = 0; i < 2; i++)
+                    lctca.Terms [i] = 1.0 / lctca.Terms [i];
+            break;
         case LF_TCA_MODEL_POLY3:
-            lctca.Terms [0] /= hugin_scaling;
-            lctca.Terms [1] /= hugin_scaling;
-            lctca.Terms [2] /= pow (hugin_scaling, 2);
-            lctca.Terms [3] /= pow (hugin_scaling, 2);
-            lctca.Terms [4] /= pow (hugin_scaling, 3);
-            lctca.Terms [5] /= pow (hugin_scaling, 3);
+            lctca.Terms [2] *= hugin_scaling;
+            lctca.Terms [3] *= hugin_scaling;
+            lctca.Terms [4] *= hugin_scaling * hugin_scaling;
+            lctca.Terms [5] *= hugin_scaling * hugin_scaling;
+            break;
         default:
             // keep gcc 4.4+ happy
             break;
