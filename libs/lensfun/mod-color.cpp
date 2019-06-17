@@ -19,9 +19,9 @@ lfLensCalibVignetting rescale_polynomial_coefficients (const lfLensCalibVignetti
     switch (lcv.Model)
     {
         case LF_VIGNETTING_MODEL_PA:
-            lcv.Terms [0] /= pow (hugin_scaling, 2);
-            lcv.Terms [1] /= pow (hugin_scaling, 4);
-            lcv.Terms [2] /= pow (hugin_scaling, 6);
+            lcv.Terms [0] *= pow (hugin_scaling, 2);
+            lcv.Terms [1] *= pow (hugin_scaling, 4);
+            lcv.Terms [2] *= pow (hugin_scaling, 6);
             break;
 
         default:
