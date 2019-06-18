@@ -28,7 +28,7 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
 
     lfFix->lens = new lfLens();
 
-    lfFix->mod = new lfModifier(lfFix->lens, 0.0f, 1.0f, lfFix->img_width, lfFix->img_height, LF_PF_F32, true);
+    lfFix->mod = new lfModifier(lfFix->lens, 1.0f, 1.0f, lfFix->img_width, lfFix->img_height, LF_PF_F32, true);
 
     lfFix->mod->EnableScaling(10.0f);
 
