@@ -131,20 +131,6 @@ lfModifier::lfModifier (const lfLens*, float crop, int width, int height)
     EnabledMods = 0;
 }
 
-float hugin_distortion_scale (float width, float height, float imgcrop, float real_focal)
-{
-    const float image_aspect_ratio = (width < height) ? height / width : width / height;
-    const float hugin_scale_in_millimeters =
-        hypot (36.0, 24.0) / imgcrop / sqrt (image_aspect_ratio * image_aspect_ratio + 1) / 2.0;
-    return real_focal / hugin_scale_in_millimeters;
-}
-
-float hugin_vignetting_scale (float width, float height, float imgcrop, float real_focal)
-{
-    const float hugin_scale_in_millimeters = hypot (36.0, 24.0) / imgcrop / 2;
-    return real_focal / hugin_scale_in_millimeters;
-}
-
 lfModifier::lfModifier (const lfLens *lens, float imgfocal, float imgcrop, int imgwidth, int imgheight,
                         lfPixelFormat pixel_format, bool reverse /* = false */)
     : Crop(imgcrop), Focal(imgfocal), Reverse(reverse), PixelFormat(pixel_format), Lens(lens)
