@@ -151,7 +151,7 @@ lfModifier::lfModifier (const lfLens *lens, float imgfocal, float imgcrop, int i
     NormUnScale = 1.0 / NormScale;
 
     // Geometric lens center in normalized coordinates
-    const float size = std::min(Width, Height);
+    const float size = std::min (Width, Height);
     CenterX = (Width / 2.0 + size / 2.0 * Lens->CenterX) * NormScale;
     CenterY = (Height / 2.0 + size / 2.0 * Lens->CenterY) * NormScale;
 
