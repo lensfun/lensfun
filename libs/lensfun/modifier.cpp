@@ -142,18 +142,18 @@ lfModifier::lfModifier (const lfLens *lens, float imgfocal, float imgcrop, int i
     Height = double (imgheight >= 2 ? imgheight - 1 : 1);
 
     lfLensCalibDistortion lcd;
-    if (lens->InterpolateDistortion (imgcrop, imgfocal, lcd))
+    if (Lens->InterpolateDistortion (Crop, Focal, lcd))
         RealFocal = lcd.RealFocal;
     else
-        RealFocal = imgfocal;
+        RealFocal = Focal;
 
-    NormScale = hypot (36.0, 24.0) / imgcrop / hypot (Width, Height) / RealFocal;
+    NormScale = hypot (36.0, 24.0) / Crop / hypot (Width, Height) / RealFocal;
     NormUnScale = 1.0 / NormScale;
 
     // Geometric lens center in normalized coordinates
     const float size = std::min(Width, Height);
-    CenterX = (Width / 2.0 + size / 2.0 * lens->CenterX) * NormScale;
-    CenterY = (Height / 2.0 + size / 2.0 * lens->CenterY) * NormScale;
+    CenterX = (Width / 2.0 + size / 2.0 * Lens->CenterX) * NormScale;
+    CenterY = (Height / 2.0 + size / 2.0 * Lens->CenterY) * NormScale;
 
     EnabledMods = 0;
 }
