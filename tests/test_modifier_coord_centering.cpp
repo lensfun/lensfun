@@ -59,10 +59,10 @@ void test_mod_coord_scaling_only (lfFixture *lfFix, gconstpointer data)
     lfFix->mod->EnableScaling(2.0f);
 
     const float epsilon = 1e-3f;
-    float expected_x[] = {-1250.0f, -1050.0f, -850.000061f, -649.999939f, -450.0f,
-                          -250.000046f, -49.9999466f, 150.000015f, 349.999969f, 550.0f};
-    float expected_y[] = {-1000.0f, -800.000061f, -599.999939f, -400.0f, -200.000046f,
-                          -7.4505806e-06f, 200.000031f, 399.999969f, 600.0f, 800.0f};
+    float expected_x[] = {-800.0f, -600.0f, -400.0f, -200.0f, 0.0f,
+                          200.0f, 400.0f, 600.0f, 800.0f, 1000.0f};
+    float expected_y[] = {-550.0f, -350.0f, -150.0f, 50.0f, 250.0f,
+                          450.0f, 650.0f, 850.0f, 1050.0f, 1250.0f};
     std::vector<float> coords (2);
     for (int i = 0; i < 10; i++)
     {
@@ -78,10 +78,10 @@ void test_mod_coord_distortion (lfFixture *lfFix, gconstpointer data)
     lfFix->mod->EnableDistortionCorrection();
 
     const float epsilon = 1e-3f;
-    float expected_x[] = {-9.85383224f, 92.4854813f, 194.413666f, 295.973877f, 397.20752f,
-                          498.15506f, 598.85614f, 699.348938f, 799.671326f, 899.860474f};
-    float expected_y[] = {-7.8831687f, 94.1190796f, 195.743805f, 297.033325f, 398.028809f,
-                          498.770081f, 599.296082f, 699.644897f, 799.853943f, 899.960144f};
+    float expected_x[] = {70.7124939f, 162.344666f, 253.775772f, 345.039917f, 436.170197f,
+                          527.19928f, 618.159302f, 709.082336f, 800.0f, 890.944153f};
+    float expected_y[] = {48.6148872f, 140.078674f, 231.369232f, 322.519958f, 413.563843f,
+                          504.533203f, 595.460144f, 686.376526f, 777.314087f, 868.304626f};
     std::vector<float> coords (2);
     for (int i = 0; i < 10; i++)
     {
