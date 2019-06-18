@@ -30,6 +30,7 @@
 #include "lensfunprv.h"
 #include <math.h>
 #include "windows/mathconstants.h"
+#include <limits>
 
 lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistortion& lcd_,
                                                        double real_focal, cbool Reverse)
@@ -537,13 +538,18 @@ void lfModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count
             if (fru >= -NEWTON_EPS && fru < NEWTON_EPS)
                 break;
             if (step > 5)
+            {
                 // Does not converge, no real solution in this area?
+                iocoord [0] = iocoord [1] = std::numeric_limits<double>::quiet_NaN();
                 goto next_pixel;
+            }
 
             ru -= fru / (3 * ru * ru + d_over_k1_);
         }
-        if (ru < 0.0)
+        if (ru < 0.0) {
+            iocoord [0] = iocoord [1] = std::numeric_limits<double>::quiet_NaN();
             continue; // Negative radius does not make sense at all
+        }
 
         ru /= rd;
         iocoord [0] = x * ru;
