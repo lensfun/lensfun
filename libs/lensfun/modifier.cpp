@@ -25,6 +25,19 @@ int lfModifier::Initialize (
     PixelFormat = format;
     Reverse = reverse;
 
+    lfLensCalibDistortion lcd;
+    if (Lens->InterpolateDistortion (Crop, Focal, lcd))
+        RealFocal = lcd.RealFocal;
+    else
+        RealFocal = Focal;
+
+    NormScale = hypot (36.0, 24.0) / Crop / hypot (Width, Height) / RealFocal;
+    NormUnScale = 1.0 / NormScale;
+
+    const float size = std::min (Width, Height);
+    CenterX = (Width / 2.0 + size / 2.0 * Lens->CenterX) * NormScale;
+    CenterY = (Height / 2.0 + size / 2.0 * Lens->CenterY) * NormScale;
+
     if (flags & LF_MODIFY_TCA)
         EnableTCACorrection();
 
@@ -114,19 +127,6 @@ lfModifier::lfModifier (const lfLens*, float crop, int width, int height)
     // actually transformed) instead at their outer rims.
     Width = double (width >= 2 ? width - 1 : 1);
     Height = double (height >= 2 ? height - 1 : 1);
-
-    // Image "size"
-    double size = Width < Height ? Width : Height;
-
-    // The scale to transform {-size/2 .. 0 .. size/2-1} to {-1 .. 0 .. +1}
-    NormScale = 2.0 / size;
-
-    // The scale to transform {-1 .. 0 .. +1} to {-size/2 .. 0 .. size/2-1}
-    NormUnScale = size * 0.5;
-
-    // Geometric lens center in normalized coordinates
-    CenterX = Width / size;
-    CenterY = Height / size;
 
     EnabledMods = 0;
 }
