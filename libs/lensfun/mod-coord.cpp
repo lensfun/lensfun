@@ -45,19 +45,23 @@ lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistorti
     switch (lcd.Model)
     {
         case LF_DIST_MODEL_POLY3:
-            lcd.Terms [1] = 1 - lcd.Terms [0];
-            lcd.Terms [0] *= pow (hugin_scaling, 2);
+        {
+            const float d = 1 - lcd.Terms [0];
+            lcd.Terms [0] *= pow (hugin_scaling, 2) / pow (d, 3);
             break;
+        }
         case LF_DIST_MODEL_POLY5:
             lcd.Terms [0] *= pow (hugin_scaling, 2);
             lcd.Terms [1] *= pow (hugin_scaling, 4);
             break;
         case LF_DIST_MODEL_PTLENS:
-            lcd.Terms [3] = 1 - lcd.Terms [0] - lcd.Terms [1] - lcd.Terms [2];
-            lcd.Terms [0] *= pow (hugin_scaling, 3);
-            lcd.Terms [1] *= pow (hugin_scaling, 2);
-            lcd.Terms [2] *= hugin_scaling;
+        {
+            const float d = 1 - lcd.Terms [0] - lcd.Terms [1] - lcd.Terms [2];
+            lcd.Terms [0] *= pow (hugin_scaling, 3) / pow (d, 4);
+            lcd.Terms [1] *= pow (hugin_scaling, 2) / pow (d, 3);
+            lcd.Terms [2] *= hugin_scaling / pow (d, 2);
             break;
+        }
         default:
             // keep gcc 4.4+ happy
             break;
@@ -510,7 +514,6 @@ void lfModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count
 
     // See "Note about PT-based distortion models" at the top of this file.
     const float inv_k1_ = 1.0 / cddata->terms[0];
-    const float d_over_k1_ = cddata->terms[1] * inv_k1_;
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
@@ -527,14 +530,14 @@ void lfModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count
         // method (and we don't use complex numbers in it, which is
         // required for a full solution!)
         //
-        // Original function: Rd = k1_ * Ru^3 + d_ * Ru
-        // Target function:   k1_ * Ru^3 + d_ * Ru - Rd = 0
-        // Divide by k1_:     Ru^3 + Ru * d_/k1_ - Rd/k1_ = 0
-        // Derivative:        3 * Ru^2 + d_/k1_
+        // Original function: Rd = k1_ * Ru^3 + Ru
+        // Target function:   k1_ * Ru^3 + Ru - Rd = 0
+        // Divide by k1_:     Ru^3 + Ru * k1_ - Rd/k1_ = 0
+        // Derivative:        3 * Ru^2 + k1_
         double ru = rd;
         for (int step = 0; ; step++)
         {
-            double fru = ru * ru * ru + ru * d_over_k1_ - rd_div_k1_;
+            double fru = ru * ru * ru + ru * inv_k1_ - rd_div_k1_;
             if (fru >= -NEWTON_EPS && fru < NEWTON_EPS)
                 break;
             if (step > 5)
@@ -544,7 +547,7 @@ void lfModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count
                 goto next_pixel;
             }
 
-            ru -= fru / (3 * ru * ru + d_over_k1_);
+            ru -= fru / (3 * ru * ru + inv_k1_);
         }
         if (ru < 0.0) {
             iocoord [0] = iocoord [1] = std::numeric_limits<double>::quiet_NaN();
@@ -567,13 +570,12 @@ void lfModifier::ModifyCoord_Dist_Poly3 (void *data, float *iocoord, int count)
     // See "Note about PT-based distortion models" at the top of this file.
     // Rd = Ru * (1 + k1_ * Ru^2)
     const float k1_ = cddata->terms [0];
-    const float d_ = cddata->terms [1];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         const float x = iocoord [0];
         const float y = iocoord [1];
-        const float poly2 = k1_ * (x * x + y * y) + d_;
+        const float poly2 = k1_ * (x * x + y * y) + 1;
 
         iocoord [0] = x * poly2;
         iocoord [1] = y * poly2;
@@ -648,7 +650,6 @@ void lfModifier::ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int coun
     float a_ = cddata->terms [0];
     float b_ = cddata->terms [1];
     float c_ = cddata->terms [2];
-    float d_ = cddata->terms [3];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
@@ -662,14 +663,14 @@ void lfModifier::ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int coun
         double ru = rd;
         for (int step = 0; ; step++)
         {
-            double fru = ru * (a_ * ru * ru * ru + b_ * ru * ru + c_ * ru + d_) - rd;
+            double fru = ru * (a_ * ru * ru * ru + b_ * ru * ru + c_ * ru + 1) - rd;
             if (fru >= -NEWTON_EPS && fru < NEWTON_EPS)
                 break;
             if (step > 5)
                 // Does not converge, no real solution in this area?
                 goto next_pixel;
 
-            ru -= fru / (4 * a_ * ru * ru * ru + 3 * b_ * ru * ru + 2 * c_ * ru + d_);
+            ru -= fru / (4 * a_ * ru * ru * ru + 3 * b_ * ru * ru + 2 * c_ * ru + 1);
         }
         if (ru < 0.0)
             continue; // Negative radius does not make sense at all
@@ -692,7 +693,6 @@ void lfModifier::ModifyCoord_Dist_PTLens (void *data, float *iocoord, int count)
     const float a_ = cddata->terms [0];
     const float b_ = cddata->terms [1];
     const float c_ = cddata->terms [2];
-    const float d_ = cddata->terms [3];
 
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
@@ -700,7 +700,7 @@ void lfModifier::ModifyCoord_Dist_PTLens (void *data, float *iocoord, int count)
         const float y = iocoord [1];
         const float ru2 = x * x + y * y;
         const float r = sqrtf (ru2);
-        const float poly3 = a_ * ru2 * r + b_ * ru2 + c_ * r + d_;
+        const float poly3 = a_ * ru2 * r + b_ * ru2 + c_ * r + 1;
 
         iocoord [0] = x * poly3;
         iocoord [1] = y * poly3;
