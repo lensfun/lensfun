@@ -638,7 +638,7 @@ int lfModifier::EnablePerspectiveCorrection (float *x, float *y, int count, floa
     if (center_coords [2] <= 0)
         return EnabledMods;
     // This is the mapping scale in the image center
-    double mapping_scale = 1.0 / center_coords [2];
+    double mapping_scale = f_normalized / center_coords [2];
 
     // Finally, generate a rotation matrix in backward (lookup) direction
     {
