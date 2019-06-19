@@ -78,10 +78,10 @@ void test_mod_coord_distortion (lfFixture *lfFix, gconstpointer data)
     lfFix->mod->EnableDistortionCorrection();
 
     const float epsilon = 1e-3f;
-    float expected_x[] = {70.7124939f, 162.344666f, 253.775772f, 345.039917f, 436.170197f,
-                          527.19928f, 618.159302f, 709.082336f, 800.0f, 890.944153f};
-    float expected_y[] = {48.6148872f, 140.078674f, 231.369232f, 322.519958f, 413.563843f,
-                          504.533203f, 595.460144f, 686.376526f, 777.314087f, 868.304626f};
+    float expected_x[] = {-2.285425f, 98.534126f, 199.126190f, 299.529083f, 400.0f,
+                          500.0f, 600.0f, 700.0f, 800.0f, 900.0f};
+    float expected_y[] = {-1.571215f, 99.057610f, 199.490311f, 299.764557f, 400.0f,
+                          500.0f, 600.0f, 700.0f, 800.0f, 900.0f};
     std::vector<float> coords (2);
     for (int i = 0; i < 10; i++)
     {
