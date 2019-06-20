@@ -31,7 +31,7 @@ int lfModifier::Initialize (
     else
         RealFocal = Focal;
 
-    NormScale = hypot (36.0, 24.0) / Crop / hypot (Width, Height) / RealFocal;
+    NormScale = hypot (36.0, 24.0) / Crop / hypot (Width + 1.0, Height + 1.0) / RealFocal;
     NormUnScale = 1.0 / NormScale;
 
     const float size = std::min (Width, Height);
@@ -147,7 +147,9 @@ lfModifier::lfModifier (const lfLens *lens, float imgfocal, float imgcrop, int i
     else
         RealFocal = Focal;
 
-    NormScale = hypot (36.0, 24.0) / Crop / hypot (Width, Height) / RealFocal;
+    // I add 1 pixel to width and height because sensor size is given for the
+    // outer rim of the pixel array.
+    NormScale = hypot (36.0, 24.0) / Crop / hypot (Width + 1.0, Height + 1.0) / RealFocal;
     NormUnScale = 1.0 / NormScale;
 
     // Geometric lens center in normalized coordinates
