@@ -199,12 +199,6 @@ lfModifier::~lfModifier ()
         delete cb;
 }
 
-float lfModifier::GetNormalizedFocalLength (float focal) const
-{
-    const double normalized_in_millimeters = 12.0 / Crop;
-    return static_cast<float>(static_cast<double>(focal) / normalized_in_millimeters);
-}
-
 //---------------------------// The C interface //---------------------------//
 
 lfModifier *lf_modifier_create (
