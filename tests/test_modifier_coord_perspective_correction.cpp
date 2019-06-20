@@ -38,6 +38,11 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
 // setup a standard image in portrait mode
 void mod_setup_portrait (lfFixture *lfFix, gconstpointer data)
 {
+    lfFix->lens             = new lfLens();
+    //lfFix->lens->CropFactor = 1.0f;
+    //lfFix->lens->AspectRatio = 4.0f / 3.0f;
+    lfFix->lens->Type       = LF_RECTILINEAR;
+
     lfFix->img_height = 1500;
     lfFix->img_width  = 1000;
     lfFix->focal      = 50.89f;
