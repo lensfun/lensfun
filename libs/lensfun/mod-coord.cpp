@@ -5,22 +5,23 @@
     Most of the math in this file has been borrowed from PanoTools.
     Thanks to the PanoTools team for their pioneering work.
 
+    See modifier.cpp for general info about the coordinate systems.
 
     Note about PT-based distortion models: Due to the "d" parameter in the
     PanoTools/Hugin formula for the modelling of distortion, its application
     shrinks the centre of the image by the factor d = (1 - a - b - c).  This
     means a change of the 35mm-equiv. focal length of the image.  Since this
     focal length is needed for proper projection transformation and perspective
-    correction, we either have to assume the changed focal length, or we have
-    to re-scale the image after distortion correction so that the focal length
-    is correct again.
+    correction, we have to re-scale the image after distortion correction so
+    that the focal length is correct again.
 
-    Lensfun's code takes the latter option: When adding the callback functions,
-    the parameters a, b, c are transformed into a' = a/d⁴, b' = b/d³, c' =
-    c/d², d' = 1.  (They are named a_, b_, c_ in the code.)  This effectively
-    scales the undistorted coordinates by 1/d, enlarging the corrected image by
-    d.  This way, the ugliness is isolated in a few lines of code, and Lensfun
-    can assume focal-length-preserving transformations all along.
+    Lensfun's code takes the latter option: In
+    "rescale_polynomial_coefficients", the parameters a, b, c are transformed
+    into a' = a/d⁴, b' = b/d³, c' = c/d², d' = 1.  (They are named a_, b_, c_
+    in the code.)  This effectively scales the undistorted coordinates by 1/d,
+    enlarging the corrected image by d.  This way, the ugliness is isolated in
+    a few lines of code, and Lensfun can assume focal-length-preserving
+    transformations all along.
 
     The same applies to the poly3 model, where a, b, c are 0, k1, 0.
 */

@@ -8,6 +8,8 @@
 #include "lensfunprv.h"
 #include <math.h>
 
+/* See modifier.cpp for general info about the coordinate systems. */
+
 lfLensCalibTCA rescale_polynomial_coefficients (const lfLensCalibTCA& lctca_, double real_focal, cbool Reverse)
 {
     // FixMe: The ACM probably bases on the nominal focal length.  This needs
