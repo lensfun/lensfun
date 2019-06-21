@@ -623,7 +623,8 @@ class LCPLens:
                         if "inspire 1 fc350" in self.model.lower():
                             focal_length = 20.7
                     else:
-                        focal_length = match.group(1)
+                        if match:
+                            focal_length = match.group(1)
                 if focal_length:
                     if self.old_format:
                         ElementTree.SubElement(entry, camera_ns + "FocalLength").text = focal_length
