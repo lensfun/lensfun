@@ -367,9 +367,10 @@ vignetting = get_vignetting_function()
 
 def process_vignetting_for_line(y, pixels, width, r_vignetting):
     for x in range(width):
-        offset = 3 * (y * width + x)
+        offset = 3 * x
         for index in range(3):
             pixels[offset + index] = max(min(int(pixels[offset + index] * vignetting(r_vignetting(x, y))), 65535), 0)
+    return y, pixels
 
 
 class Image:
@@ -434,8 +435,10 @@ class Image:
 
     def set_vignetting(self):
         pool = multiprocessing.Pool()
-        pool.starmap(process_vignetting_for_line,
-                     ((y, self.pixels, self.width, self.r_vignetting) for y in range(self.height)))
+        for y, result in pool.starmap(process_vignetting_for_line,
+                                      ((y, self.pixels[3 * (y * self.width):3 * ((y + 1) * self.width)],
+                                        self.width, self.r_vignetting) for y in range(self.height))):
+            self.pixels[3 * (y * self.width):3 * ((y + 1) * self.width)] = result
         pool.close()
         pool.join()
 
