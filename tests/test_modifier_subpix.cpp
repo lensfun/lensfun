@@ -50,9 +50,9 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
   lfFix->img_height = 300;
   lfFix->img_width  = 300;
 
-  lfFix->mod = new lfModifier(1.0f, lfFix->img_width, lfFix->img_height, LF_PF_F32, p->reverse);
+  lfFix->mod = new lfModifier(lfFix->lens, 24.0f, 1.0f, lfFix->img_width, lfFix->img_height, LF_PF_F32, p->reverse);
 
-  lfFix->mod->EnableTCACorrection(lfFix->lens, 24.0f);
+  lfFix->mod->EnableTCACorrection();
 
   lfFix->coordBuff = NULL;
 
@@ -156,7 +156,7 @@ int main(int argc, char **argv)
 
   for(std::vector<bool>::iterator it_reverse = reverse.begin(); it_reverse != reverse.end(); ++it_reverse)
   {
-    lfLensCalibAttributes cs = {0.0, 0.0, 1.0, 1.5};
+    lfLensCalibAttributes cs = {1.0, 1.5};
 
     std::map<std::string, lfLensCalibTCA> tcaCalib;
     // ??? + Nikon AF-S DX Nikkor 35mm f/1.8G

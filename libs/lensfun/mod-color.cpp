@@ -8,13 +8,39 @@
 #include "lensfunprv.h"
 #include <math.h>
 
-int lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv)
+/* See modifier.cpp for general info about the coordinate systems. */
+
+lfLensCalibVignetting rescale_polynomial_coefficients (const lfLensCalibVignetting& lcv_, double real_focal)
+{
+    // FixMe: The ACM probably bases on the nominal focal length.  This needs
+    // to be found out.  It this is true, we have to scale its coefficient by
+    // the ratio of real and nominal focal length.
+    lfLensCalibVignetting lcv = lcv_;
+    const float hugin_scale_in_millimeters = hypot (36.0, 24.0) / lcv.CalibAttr.CropFactor / 2.0;
+    const float hugin_scaling = real_focal / hugin_scale_in_millimeters;
+    switch (lcv.Model)
+    {
+        case LF_VIGNETTING_MODEL_PA:
+            lcv.Terms [0] *= pow (hugin_scaling, 2);
+            lcv.Terms [1] *= pow (hugin_scaling, 4);
+            lcv.Terms [2] *= pow (hugin_scaling, 6);
+            break;
+
+        default:
+            // keep gcc 4.4+ happy
+            break;
+    }
+    return lcv;
+}
+
+int lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv_)
 {
 #define ADD_CALLBACK(lcv, func, type, prio) \
     AddColorVignCallback ( lcv, \
         (lfModifyColorFunc)(void (*)(void *, float, float, type *, int, int)) \
         lfModifier::func, prio) \
 
+    const lfLensCalibVignetting lcv = rescale_polynomial_coefficients (lcv_, RealFocal);
     if (Reverse)
         switch (lcv.Model)
         {
@@ -43,12 +69,12 @@ int lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv)
                         break;
 
                     default:
-                        return enabledMods;
+                        return EnabledMods;
                 }
                 break;
 
             default:
-                return enabledMods;
+                return EnabledMods;
         }
     else
         switch (lcv.Model)
@@ -88,31 +114,31 @@ int lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv)
                         break;
 
                     default:
-                        return enabledMods;
+                        return EnabledMods;
                 }
                 break;
 
             default:
-                return enabledMods;
+                return EnabledMods;
         }
 
 #undef ADD_CALLBACK
 
-    enabledMods |= LF_MODIFY_VIGNETTING;
+    EnabledMods |= LF_MODIFY_VIGNETTING;
     return true;
 }
 
 
-int lfModifier::EnableVignettingCorrection (const lfLens* lens, float focal, float aperture, float distance)
+int lfModifier::EnableVignettingCorrection (float aperture, float distance)
 {
     lfLensCalibVignetting lcv;
 
-    if (lens->InterpolateVignetting (Crop, focal, aperture, distance, lcv))
+    if (Lens->InterpolateVignetting (Crop, Focal, aperture, distance, lcv))
     {
         EnableVignettingCorrection(lcv);
     }
 
-    return enabledMods;
+    return EnabledMods;
 }
 
 void lfModifier::AddColorVignCallback (const lfLensCalibVignetting& lcv, lfModifyColorFunc func, int priority)
@@ -122,29 +148,8 @@ void lfModifier::AddColorVignCallback (const lfLensCalibVignetting& lcv, lfModif
     cd->callback = func;
     cd->priority = priority;
 
-    if (lcv.Model == LF_VIGNETTING_MODEL_ACM)
-    {
-        cd->coordinate_correction = sqrt (36.0*36.0 + 24.0*24.0)  /
-                                    sqrt (lcv.CalibAttr.AspectRatio * lcv.CalibAttr.AspectRatio + 1)
-                                    / ( Crop * 2.0 * lcv.Focal);
-    }
-    else
-    {
-        // Damn! Hugin uses two different "normalized" coordinate systems:
-        // for distortions it uses 1.0 = min(half width, half height) and
-        // for vignetting it uses 1.0 = half diagonal length. We have
-        // to compute a transition coefficient as lfModifier works in
-        // the first coordinate system.
-        double image_aspect_ratio = Width < Height ? Height / Width : Width / Height;
-        cd->coordinate_correction  = lcv.CalibAttr.CropFactor / Crop /
-                                     sqrt (image_aspect_ratio * image_aspect_ratio + 1);
-
-    }
-
-    cd->NormScale = NormScale;
-    cd->centerX = lcv.CalibAttr.CenterX;
-    cd->centerY = lcv.CalibAttr.CenterY;
-    memcpy(cd->Terms, lcv.Terms, sizeof(lcv.Terms));
+    cd->norm_scale = NormScale;
+    memcpy(cd->terms, lcv.Terms, sizeof(lcv.Terms));
 
     ColorCallbacks.insert(cd);
 }
@@ -285,11 +290,6 @@ template<typename T> void lfModifier::ModifyColor_Vignetting_PA (
 {
     lfColorVignCallbackData* cddata = (lfColorVignCallbackData*) data;
 
-    float cc = cddata->coordinate_correction;
-
-    x = x * cc - cddata->centerX;
-    y = y * cc - cddata->centerY;
-
     // For faster computation we will compute r^2 here, and
     // further compute just the delta:
     // ((x+1)*(x+1)+y*y) - (x*x + y*y) = 2 * x + 1
@@ -297,22 +297,22 @@ template<typename T> void lfModifier::ModifyColor_Vignetting_PA (
     // 1.0 pixels should be multiplied by NormScale, so it's really:
     // ((x+ns)*(x+ns)+y*y) - (x*x + y*y) = 2 * ns * x + ns^2
     float r2 = x * x + y * y;
-    float d1 = 2.0 * cc * cddata->NormScale;
-    float d2 = cc * cddata->NormScale * cc * cddata->NormScale;
+    float d1 = 2.0 * cddata->norm_scale;
+    float d2 = cddata->norm_scale * cddata->norm_scale;
 
     int cr = 0;
     while (count--)
     {
         float r4 = r2 * r2;
         float r6 = r4 * r2;
-        float c = 1.0 + cddata->Terms [0] * r2 + cddata->Terms [1] * r4 + cddata->Terms [2] * r6;
+        float c = 1.0 + cddata->terms [0] * r2 + cddata->terms [1] * r4 + cddata->terms [2] * r6;
         if (!cr)
             cr = comp_role;
 
         pixels = apply_multiplier<T> (pixels, c, cr);
 
         r2 += d1 * x + d2;
-        x += cc * cddata->NormScale;
+        x += cddata->norm_scale;
     }
 }
 
@@ -321,11 +321,6 @@ template<typename T> void lfModifier::ModifyColor_DeVignetting_PA (
 {
     lfColorVignCallbackData* cddata = (lfColorVignCallbackData*) data;
 
-    float cc = cddata->coordinate_correction;
-
-    x = x * cc - cddata->centerX;
-    y = y * cc - cddata->centerY;
-
     // For faster computation we will compute r^2 here, and
     // further compute just the delta:
     // ((x+1)*(x+1)+y*y) - (x*x + y*y) = 2 * x + 1
@@ -333,22 +328,22 @@ template<typename T> void lfModifier::ModifyColor_DeVignetting_PA (
     // 1.0 pixels should be multiplied by NormScale, so it's really:
     // ((x+ns)*(x+ns)+y*y) - (x*x + y*y) = 2 * ns * x + ns^2
     float r2 = x * x + y * y;
-    float d1 = 2.0 * cc * cddata->NormScale;
-    float d2 = cc * cddata->NormScale * cc * cddata->NormScale;
+    float d1 = 2.0 * cddata->norm_scale;
+    float d2 = cddata->norm_scale * cddata->norm_scale;
 
     int cr = 0;
     while (count--)
     {
         float r4 = r2 * r2;
         float r6 = r4 * r2;
-        float c = 1.0 + cddata->Terms [0] * r2 + cddata->Terms [1] * r4 + cddata->Terms [2] * r6;
+        float c = 1.0 + cddata->terms [0] * r2 + cddata->terms [1] * r4 + cddata->terms [2] * r6;
         if (!cr)
             cr = comp_role;
 
         pixels = apply_multiplier<T> (pixels, 1.0f / c, cr);
 
         r2 += d1 * x + d2;
-        x += cc * cddata->NormScale;
+        x += cddata->norm_scale;
     }
 }
 
@@ -363,7 +358,7 @@ cbool lf_modifier_apply_color_modification (
 }
 
 int lf_modifier_enable_vignetting_correction (
-    lfModifier *modifier, const lfLens* lens, float focal, float aperture, float distance)
+    lfModifier *modifier, float aperture, float distance)
 {
-    return modifier->EnableVignettingCorrection(lens, focal, aperture, distance);
+    return modifier->EnableVignettingCorrection(aperture, distance);
 }

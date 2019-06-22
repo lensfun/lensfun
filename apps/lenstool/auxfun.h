@@ -60,6 +60,8 @@ static void PrintLens (const lfLens *lens, const lfDatabase *ldb, bool verbose =
     else
 	g_print ("    |- Aperture: f/%g\n", lens->MinAperture);
 
+    g_print ("    |- Center %g/%g\n", lens->CenterX, lens->CenterY);
+
     g_print ("%s", "    |- Compatible mounts: ");
     const char* const* lm = lens->GetMountNames();
     if (lm)
@@ -87,10 +89,9 @@ static void PrintLens (const lfLens *lens, const lfDatabase *ldb, bool verbose =
         {
             for (int j = 0; calibrations[j] != NULL; j++)
             {
-                g_print ("       |- Crop %g, Aspect ratio %g, Center %g/%g, [",
+                g_print ("       |- Crop %g, Aspect ratio %g, [",
                          calibrations[j]->Attributes.CropFactor,
-                         calibrations[j]->Attributes.AspectRatio,
-                         calibrations[j]->Attributes.CenterX, calibrations[j]->Attributes.CenterY);
+                         calibrations[j]->Attributes.AspectRatio);
 
                 if (calibrations[j]->HasTCA())
                     g_print ("%s", "tca, ");

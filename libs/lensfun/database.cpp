@@ -286,8 +286,6 @@ static void _xml_start_element (GMarkupParseContext *context,
             goto bad_ctx;
         pd->lens = new lfLens ();
         pd->lens->Type = LF_RECTILINEAR;
-        pd->calib_attr.CenterX = 0.0;
-        pd->calib_attr.CenterY = 0.0;
         pd->calib_attr.CropFactor  = 1.0;
         pd->calib_attr.AspectRatio = 1.5;
         pd->lens->CenterX = 0.0;
@@ -334,13 +332,11 @@ static void _xml_start_element (GMarkupParseContext *context,
         for (i = 0; attribute_names [i]; i++)
             if (!strcmp (attribute_names [i], "x"))
             {
-                pd->calib_attr.CenterX = atof (attribute_values [i]);                     
-                pd->lens->CenterX = pd->calib_attr.CenterX;
+                pd->lens->CenterX = atof (attribute_values [i]);
             }
             else if (!strcmp (attribute_names [i], "y"))
             {
-                pd->calib_attr.CenterY = atof (attribute_values [i]);
-                pd->lens->CenterY = pd->calib_attr.CenterY;
+                pd->lens->CenterY = atof (attribute_values [i]);
             }
             else
                 goto bad_attr;
@@ -361,10 +357,6 @@ static void _xml_start_element (GMarkupParseContext *context,
                 pd->calib_attr.CropFactor = atof (attribute_values [i]);
             else if (!strcmp (attribute_names [i], "aspect-ratio"))
                 pd->calib_attr.AspectRatio = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "center-x"))
-                pd->calib_attr.CenterX = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "center-y"))
-                pd->calib_attr.CenterY = atof (attribute_values [i]);
             else
                 goto bad_attr;
     }
@@ -980,8 +972,6 @@ char *lfDatabase::Save () const
                 continue;
 
             g_string_append (output, "\t\t<calibration ");
-            if (calib->Attributes.CenterX || calib->Attributes.CenterY)
-                _lf_xml_printf (output, "center-x=\"%g\" center-y=\"%g\" ", calib->Attributes.CenterX, calib->Attributes.CenterY);
             if (calib->Attributes.CropFactor > 0.0)
                 _lf_xml_printf (output, "cropfactor=\"%g\" ", calib->Attributes.CropFactor);
             if (calib->Attributes.AspectRatio != 1.5)

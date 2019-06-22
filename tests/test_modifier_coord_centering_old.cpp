@@ -38,9 +38,6 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
 
     lfFix->mod = new lfModifier (lfFix->lens, 10.0f, lfFix->img_width, lfFix->img_height);
 
-    lfFix->mod->Initialize (lfFix->lens, LF_PF_F32, 50.89f, 2.8f, 1000.0f, 2.0f, LF_RECTILINEAR,
-                            LF_MODIFY_DISTORTION, true);
-
     lfFix->coordBuff = NULL;
 
     const size_t bufsize = 2 * lfFix->img_width * lfFix->img_height * sizeof (float);
@@ -56,11 +53,14 @@ void mod_teardown (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_scaling_only (lfFixture *lfFix, gconstpointer data)
 {
+    lfFix->mod->Initialize (lfFix->lens, LF_PF_F32, 50.89f, 2.8f, 1000.0f, 2.0f, LF_RECTILINEAR,
+                            LF_MODIFY_SCALE, true);
+
     const float epsilon = 1e-3f;
-    float expected_x[] = {-1250.0f, -1050.0f, -850.000061f, -649.999939f, -450.0f,
-                          -250.000046f, -49.9999466f, 150.000015f, 349.999969f, 550.0f};
-    float expected_y[] = {-1000.0f, -800.000061f, -599.999939f, -400.0f, -200.000046f,
-                          -7.4505806e-06f, 200.000031f, 399.999969f, 600.0f, 800.0f};
+    float expected_x[] = {-800.0f, -600.0f, -400.0f, -200.0f, 0.0f,
+                          200.0f, 400.0f, 600.0f, 800.0f, 1000.0f};
+    float expected_y[] = {-550.0f, -350.0f, -150.0f, 50.0f, 250.0f,
+                          450.0f, 650.0f, 850.0f, 1050.0f, 1250.0f};
     std::vector<float> coords (2);
     for (int i = 0; i < 10; i++)
     {
@@ -72,11 +72,14 @@ void test_mod_coord_scaling_only (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_distortion (lfFixture *lfFix, gconstpointer data)
 {
+    lfFix->mod->Initialize (lfFix->lens, LF_PF_F32, 50.89f, 2.8f, 1000.0f, 2.0f, LF_RECTILINEAR,
+                            LF_MODIFY_DISTORTION, true);
+
     const float epsilon = 1e-3f;
-    float expected_x[] = {-9.85383224f, 92.4854813f, 194.413666f, 295.973877f, 397.20752f,
-                          498.15506f, 598.85614f, 699.348938f, 799.671326f, 899.860474f};
-    float expected_y[] = {-7.8831687f, 94.1190796f, 195.743805f, 297.033325f, 398.028809f,
-                          498.770081f, 599.296082f, 699.644897f, 799.853943f, 899.960144f};
+    float expected_x[] = {-2.2818394f, 98.536278f, 199.12755f, 299.52982f, 400.0f,
+                          500.0f, 600.0f, 700.0f, 800.0f, 900.0f};
+    float expected_y[] = {-1.5687886f, 99.059074f, 199.49104f, 299.76492f, 400.0f,
+                          500.0f, 600.0f, 700.0f, 800.0f, 900.0f};
     std::vector<float> coords (2);
     for (int i = 0; i < 10; i++)
     {
@@ -93,8 +96,8 @@ int main (int argc, char **argv)
 
   g_test_init (&argc, &argv, NULL);
 
-  //g_test_add ("/modifier/coord/centering/scaling", lfFixture, NULL,
-  //            mod_setup, test_mod_coord_scaling_only, mod_teardown);
+  g_test_add ("/modifier/coord/centering/scaling", lfFixture, NULL,
+              mod_setup, test_mod_coord_scaling_only, mod_teardown);
 
   g_test_add ("/modifier/coord/centering/distortion", lfFixture, NULL,
               mod_setup, test_mod_coord_distortion, mod_teardown);
