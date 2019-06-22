@@ -74,7 +74,7 @@ void lfModifier::Destroy ()
       focal length of the image to be corrected.  In most cases, this equals
       the nominal focal length as given as the "focal" attribute in the XML
       files.  However, for some lenses, the real focal length is known and
-      used.  This coordinate system is also used "normalized" coordinates.
+      used.  This coordinate system is also called "normalized" coordinates.
 
   (2) The Hugin-based distortion and TCA calibration models "ptlens", "poly3",
       "poly5", and "linear" use the Hugin coordinate system.  r = 1 is the
