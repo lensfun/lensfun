@@ -1,9 +1,9 @@
 #!/bin/sh
 
-# This file normalises the Lensfun database XML files in place.  It must be
-# called from within the DB directory.  It needs xmllint to be installed.
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
 
-for A in *.xml
+for A in "$SCRIPTPATH"/../../data/db/*.xml
 do
     XMLLINT_INDENT="    " xmllint --format --encode utf-8 "$A" > /tmp/lensfun_xmllint.xml
     sed 's+\( </\(lens\|mount\|camera\)>\)+\1\n+;s/\(<lensdatabase version=".\+">\)/\1\n/' < /tmp/lensfun_xmllint.xml \

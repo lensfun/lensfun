@@ -44,8 +44,8 @@ void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
 
-    float expected_x[] = {-14.03764153, 751.00000000, 810.27246094, 1275.17346191};
-    float expected_y[] = {-9.35532570, 497.00000000, 938.97027588, 96.02919769};
+    float expected_x[] = {-14.016061f, 751.0f, 810.27203f, 1275.1655f};
+    float expected_y[] = {-9.3409109f, 497.0f, 938.96729f, 96.035286f};
 
     float coords [2];
     for (int i = 0; i < sizeof(x) / sizeof(float); i++)
@@ -76,8 +76,8 @@ void test_verify_dist_poly5 (lfFixture *lfFix, gconstpointer data)
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
 
-    float expected_x[] = {28.85699272, 751.00000000, 809.50451660, 1260.12316895};
-    float expected_y[] = {19.23155594, 497.00000000, 933.41711426, 107.58076477};
+    float expected_x[] = {28.805828f, 751.0f, 809.50531f, 1260.1396f};
+    float expected_y[] = {19.197506f, 497.0f, 933.42279f, 107.56808f};
 
     float coords [2];
     for (int i = 0; i < sizeof(x) / sizeof(float); i++)
@@ -106,8 +106,8 @@ void test_verify_dist_ptlens (lfFixture *lfFix, gconstpointer data)
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
 
-    float expected_x[] = {29.04440117, 750.99969482, 808.74157715, 1255.12915039};
-    float expected_y[] = {19.35648155, 497.00045776, 927.89971924, 111.41387939};
+    float expected_x[] = {29.019449f, 750.99969f, 808.74231f, 1255.1388f};
+    float expected_y[] = {19.339846f, 497.00046f, 927.90521f, 111.40639f};
 
     float coords [2];
     for (int i = 0; i < sizeof(x) / sizeof(float); i++)
@@ -136,7 +136,7 @@ void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
 
-    lf_u16 expected[] = {22422, 22422, 24174, 28848};
+    lf_u16 expected[] = {22406, 22406, 24156, 28803};
 
     lf_u16 coords [3] = {16000, 16000, 16000};
     for (int i = 0; i < sizeof(x) / sizeof(float); i++)
@@ -235,8 +235,8 @@ void test_verify_geom_fisheye_rectlinear (lfFixture *lfFix, gconstpointer data)
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
 
-    float expected_x[] = {248.98896790, 751.00000000, 802.23010254, 1151.07922363};
-    float expected_y[] = {165.93727112, 497.00000000, 880.81262207, 191.27542114};
+    float expected_x[] = {248.78734f, 751.0f, 802.23956f, 1151.199f};
+    float expected_y[] = {165.80287f, 497.00003f, 880.88129f, 191.18344f};
 
     float coords [2];
     for (int i = 0; i < sizeof(x) / sizeof(float); i++)

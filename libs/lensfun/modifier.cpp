@@ -20,25 +20,40 @@ int lfModifier::Initialize (
     float distance, float scale, lfLensType targeom, int flags, bool reverse)
 {
 
+    Lens = lens;
+    Focal = focal;
     PixelFormat = format;
     Reverse = reverse;
 
+    lfLensCalibDistortion lcd;
+    if (Lens->InterpolateDistortion (Crop, Focal, lcd))
+        RealFocal = lcd.RealFocal;
+    else
+        RealFocal = Focal;
+
+    NormScale = hypot (36.0, 24.0) / Crop / hypot (Width + 1.0, Height + 1.0) / RealFocal;
+    NormUnScale = 1.0 / NormScale;
+
+    const float size = std::min (Width, Height);
+    CenterX = (Width / 2.0 + size / 2.0 * Lens->CenterX) * NormScale;
+    CenterY = (Height / 2.0 + size / 2.0 * Lens->CenterY) * NormScale;
+
     if (flags & LF_MODIFY_TCA)
-        EnableTCACorrection(lens, focal);
+        EnableTCACorrection();
 
     if (flags & LF_MODIFY_VIGNETTING)
-        EnableVignettingCorrection(lens, focal, aperture, distance);
+        EnableVignettingCorrection(aperture, distance);
 
     if (flags & LF_MODIFY_DISTORTION)
-        EnableDistortionCorrection(lens, focal);
+        EnableDistortionCorrection();
 
     if (flags & LF_MODIFY_GEOMETRY && lens->Type != targeom)
-        EnableProjectionTransform(lens, focal, targeom);
+        EnableProjectionTransform(targeom);
 
     if (flags & LF_MODIFY_SCALE && scale != 1.0)
         EnableScaling(scale);
 
-    return enabledMods;
+    return EnabledMods;
 }
 
 void lfModifier::Destroy ()
@@ -51,56 +66,45 @@ void lfModifier::Destroy ()
 /*
   About coordinate systems in Lensfun
 
-  Lensfun uses three coordinate systems.  In all of them, the centre of the
+  Lensfun uses multiple coordinate systems.  In all of them, the centre of the
   image is the origin.  There is a single coordinate "r" which is the distance
   from the origin.
 
-  (1) For scaling, distortion, and TCA correction, the so-called "normalised"
-      coordinate system is used.  r = 1 is the middle of the long edge, in
-      other words, the half height of the image (in landscape mode).
+  (1) The internal coordinate system is the natural system in units of the real
+      focal length of the image to be corrected.  In most cases, this equals
+      the nominal focal length as given as the "focal" attribute in the XML
+      files.  However, for some lenses, the real focal length is known and
+      used.  This coordinate system is also called "normalized" coordinates.
 
-  (2) For vignetting, r = 1 is the corner of the image.
+  (2) The Hugin-based distortion and TCA calibration models "ptlens", "poly3",
+      "poly5", and "linear" use the Hugin coordinate system.  r = 1 is the
+      middle of the long edge, in other words, the half height of the image (in
+      landscape mode).
 
-  (3) For geometry transformation and for all Adobe camera models, the unit
-      length is the focal length.
+  (3) For the vignetting model "pa", r = 1 is the corner of the image.
 
-  The constructor lfModifier::lfModifier is the central method that
-  handles the coordinate systems.  It does so by providing the scaling factors
-  between them: NormScale and NormUnScale = 1/NormScale.
+  The constructor lfModifier::lfModifier is the central method that handles the
+  coordinate system.  It does so by providing the scaling factors between (1)
+  and the image pixels: NormScale and NormUnScale = 1/NormScale.
 
   Have a look at lfModifier::ApplySubpixelGeometryDistortion to see the
-  coordinate systems (1) and (3) in action.  First, the original pixel
-  coordinates are converted into (1) by multiplying by NormScale.  Then,
-  scaling, geometry transformation, un-distortion, and un-TCA are performed, in
-  this order.  Remember that this means that the coordinates are *distorted*,
-  to make a proper lookup in the uncorrected, original bitmap.  For this to
-  work, the coordinates are finally divided by NormScale again.  Done.
+  coordinate system (1) in action.  First, the original pixel coordinates are
+  converted into (1) by multiplying by NormScale and shifting to the image
+  centre.  Then, scaling, geometry transformation, un-distortion, and un-TCA
+  are performed, in this order.  Remember that this means that the coordinates
+  are *distorted*, to make a proper lookup in the uncorrected, original bitmap.
+  For this to work, the coordinates are finally divided by NormScale again.
+  Done.
 
-  But the devil is in the details.  Geometry transformation has to happen in
-  (3), so for only this step, all coordinates are scaled by
-  FocalLengthNormalized in lfModifier::AddCoordCallbackGeometry.  Moreover, it
-  is important to see that the conversion into (1) is pretty irrelevant.  (It
-  is performed for that the resulting image is not ridiculously small; but this
-  could also be achieved with proper auto-scaling.)  Instead, really critical
-  is only the *back-transformation* from (1) into the pixel coordinate system
-  of the uncorrected, original bitmap.  This must be exactly correct.
-  Otherwise, the strength of correction does not match with the position in the
-  picture, and the correction cannot work.
-
-  And then there is vignetting.  All callbacks work in (1), and vignetting,
-  being the only colour modification so far, also gets its coordinates in (1).
-  Thus, lfModifier::AddColorCallbackVignetting appends two more floats to the
-  array of vignetting parameters for conversion into (2).
+  All non-natural coordinate systems (i.e., everything except (1)) require
+  special treatment.  Luckily, all polynomial-based models can be made fit for
+  (1) by re-scaling the coefficients.  This happens in functions in
+  mod-coord.cpp, mod-subpix.cpp, and mod-color.cpp, each one called
+  "rescale_polynomial_coefficients".
 
   Sometimes, a calibration is used that was made with another sensor size,
-  i.e. different crop factor and/or aspect ratio.  Then, coordinate_correction
-  in the following routine is different from 1.  It maps coordinates from (1)
-  of the image sensor to (1) of the calibration sensor.  It is a product of
-  three components: Converting to (2) of the image sensor, scaling by the ratio
-  of the cropfactors to (2) of the calibration sensor, and finally converting
-  to (1) of the calibration sensor.  The detour via (2) is necessary because
-  crop factors are defined by the sensor diagonal, as is (2).
-
+  i.e. different crop factor and/or aspect ratio.  This is also dealt with in
+  the "rescale_polynomial_coefficients" functions.
 */
 
 lfModifier::lfModifier (const lfLens*, float crop, int width, int height)
@@ -113,25 +117,12 @@ lfModifier::lfModifier (const lfLens*, float crop, int width, int height)
     Width = double (width >= 2 ? width - 1 : 1);
     Height = double (height >= 2 ? height - 1 : 1);
 
-    // Image "size"
-    double size = Width < Height ? Width : Height;
-
-    // The scale to transform {-size/2 .. 0 .. size/2-1} to {-1 .. 0 .. +1}
-    NormScale = 2.0 / size;
-
-    // The scale to transform {-1 .. 0 .. +1} to {-size/2 .. 0 .. size/2-1}
-    NormUnScale = size * 0.5;
-
-    // Geometric lens center in normalized coordinates
-    CenterX = Width / size;
-    CenterY = Height / size;
-
-    enabledMods = 0;
+    EnabledMods = 0;
 }
 
-lfModifier::lfModifier (float imgcrop, int imgwidth, int imgheight,
+lfModifier::lfModifier (const lfLens *lens, float imgfocal, float imgcrop, int imgwidth, int imgheight,
                         lfPixelFormat pixel_format, bool reverse /* = false */)
-    : Crop(imgcrop), Reverse(reverse), PixelFormat(pixel_format)
+    : Crop(imgcrop), Focal(imgfocal), Reverse(reverse), PixelFormat(pixel_format), Lens(lens)
 {
     // Avoid divide overflows on singular cases.  The "- 1" is due to the fact
     // that `Width` and `Height` are measured at the pixel centres (they are
@@ -139,20 +130,23 @@ lfModifier::lfModifier (float imgcrop, int imgwidth, int imgheight,
     Width = double (imgwidth >= 2 ? imgwidth - 1 : 1);
     Height = double (imgheight >= 2 ? imgheight - 1 : 1);
 
-    // Image "size"
-    double size = Width < Height ? Width : Height;
+    lfLensCalibDistortion lcd;
+    if (Lens->InterpolateDistortion (Crop, Focal, lcd))
+        RealFocal = lcd.RealFocal;
+    else
+        RealFocal = Focal;
 
-    // The scale to transform {-size/2 .. 0 .. size/2-1} to {-1 .. 0 .. +1}
-    NormScale = 2.0 / size;
-
-    // The scale to transform {-1 .. 0 .. +1} to {-size/2 .. 0 .. size/2-1}
-    NormUnScale = size * 0.5;
+    // I add 1 pixel to width and height because sensor size is given for the
+    // outer rim of the pixel array.
+    NormScale = hypot (36.0, 24.0) / Crop / hypot (Width + 1.0, Height + 1.0) / RealFocal;
+    NormUnScale = 1.0 / NormScale;
 
     // Geometric lens center in normalized coordinates
-    CenterX = Width / size;
-    CenterY = Height / size;
+    const double size = std::min (Width, Height);
+    CenterX = (Width / 2.0 + size / 2.0 * Lens->CenterX) * NormScale;
+    CenterY = (Height / 2.0 + size / 2.0 * Lens->CenterY) * NormScale;
 
-    enabledMods = 0;
+    EnabledMods = 0;
 }
 
 int lfModifier::EnableScaling (float scale)
@@ -176,14 +170,14 @@ int lfModifier::EnableScaling (float scale)
 
     CoordCallbacks.insert(cd);
 
-    enabledMods |= LF_MODIFY_SCALE;
-    return enabledMods;
+    EnabledMods |= LF_MODIFY_SCALE;
+    return EnabledMods;
 }
 
 
 int lfModifier::GetModFlags()
 {
-    return enabledMods;
+    return EnabledMods;
 }
 
 lfModifier::~lfModifier ()
@@ -196,18 +190,12 @@ lfModifier::~lfModifier ()
         delete cb;
 }
 
-float lfModifier::GetNormalizedFocalLength (float focal, const lfLens* lens) const
-{
-    const double normalized_in_millimeters = 12.0 / Crop;
-    return static_cast<float>(static_cast<double>(focal) / normalized_in_millimeters);
-}
-
 //---------------------------// The C interface //---------------------------//
 
 lfModifier *lf_modifier_create (
-    float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse)
+    const lfLens* lens, float imgfocal, float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse)
 {
-    return new lfModifier(imgcrop, imgwidth, imgheight, pixel_format, reverse);
+    return new lfModifier(lens, imgfocal, imgcrop, imgwidth, imgheight, pixel_format, reverse);
 }
 
 lfModifier *lf_modifier_new (

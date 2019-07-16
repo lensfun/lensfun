@@ -67,6 +67,14 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon PowerShot G3 X</model>
+        <model lang="en">PowerShot G3 X (3:2)</model>
+        <mount>canonG3X</mount>
+        <cropfactor>2.727</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon PowerShot G5 X</model>
         <model lang="en">PowerShot G5 X (3:2)</model>
         <mount>canonG7X</mount>
@@ -191,6 +199,14 @@
         <model lang="en">PowerShot G1 X Mark II</model>
         <mount>canonG1X2</mount>
         <cropfactor>1.93</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot G1 X Mark III</model>
+        <model lang="en">PowerShot G1 X Mark III</model>
+        <mount>canonG1X3</mount>
+        <cropfactor>1.608</cropfactor>
     </camera>
 
     <camera>
@@ -565,7 +581,7 @@
         <model lang="en">Powershot A1200</model>
         <mount>canonA1200</mount>
         <cropfactor>5.61</cropfactor>
-     </camera>
+    </camera>
 
     <camera>
         <maker>Canon</maker>
@@ -721,6 +737,14 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon DIGITAL IXUS 95 IS</model>
+        <model lang="en">IXUS 95 IS</model>
+        <mount>canonIxus80IS</mount>
+        <cropfactor>5.6</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon PowerShot SX1 IS</model>
         <model lang="en">PowerShot SX1 IS</model>
         <mount>canonSX1</mount>
@@ -805,6 +829,14 @@
         <model lang="en">PowerShot A640</model>
         <mount>canonA640</mount>
         <cropfactor>4.79</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot SX240 HS</model>
+        <model lang="en">PowerShot SX240 HS</model>
+        <mount>canonSX260HS</mount>
+        <cropfactor>5.56</cropfactor>
     </camera>
 
     <camera>
@@ -2651,6 +2683,49 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon PowerShot G1 X Mark III &amp; compatibles (Standard)</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>canonG1X3</mount>
+        <cropfactor>1.608</cropfactor>
+        <aspect-ratio>3:2</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="15.0" a="0.01079" b="-0.06596" c="0.02292"/>
+            <distortion model="ptlens" focal="15.7" a="0.01118" b="-0.06694" c="0.02574"/>
+            <distortion model="ptlens" focal="16.8" a="0.00895" b="-0.05911" c="0.03463"/>
+            <distortion model="ptlens" focal="17.1" a="0.00751" b="-0.05332" c="0.02866"/>
+            <distortion model="ptlens" focal="18.7" a="0.00353" b="-0.03648" c="0.02584"/>
+            <distortion model="ptlens" focal="20.8" a="0.00044" b="-0.02168" c="0.02397"/>
+            <distortion model="ptlens" focal="23.6" a="-0.00035" b="-0.01565" c="0.02743"/>
+            <distortion model="ptlens" focal="24.9" a="-0.00471" b="0.00172" c="0.01123"/>
+            <distortion model="ptlens" focal="27.4" a="-0.00323" b="0.00056" c="0.01404"/>
+            <distortion model="ptlens" focal="30.3" a="-0.00071" b="-0.00851" c="0.02829"/>
+            <distortion model="ptlens" focal="33.7" a="-0.00245" b="0.00253" c="0.01196"/>
+            <distortion model="ptlens" focal="36.6" a="-0.00097" b="-0.0013" c="0.01565"/>
+            <distortion model="ptlens" focal="39.5" a="-0.00337" b="0.0083" c="0.00073"/>
+            <distortion model="ptlens" focal="41.6" a="0.00294" b="-0.01769" c="0.03232"/>
+            <distortion model="ptlens" focal="43.4" a="0.00372" b="-0.01602" c="0.02337"/>
+            <distortion model="ptlens" focal="45.0" a="0.00082" b="-0.00466" c="0.00844"/>
+            <tca model="poly3" focal="15.0" vr="1.0004074" vb="1.0001550"/>
+            <tca model="poly3" focal="16.524" vr="1.0003814" vb="1.0001857"/>
+            <tca model="poly3" focal="18.138" vr="1.0003572" vb="1.0001986"/>
+            <tca model="poly3" focal="19.757" vr="1.0002881" vb="1.0002019"/>
+            <tca model="poly3" focal="21.384" vr="1.0002637" vb="1.0001880"/>
+            <tca model="poly3" focal="22.748" vr="1.0002319" vb="1.0001633"/>
+            <tca model="poly3" focal="24.669" vr="1.0002132" vb="1.0001771"/>
+            <tca model="poly3" focal="26.885" vr="1.0001920" vb="1.0001859"/>
+            <tca model="poly3" focal="29.688" vr="1.0001732" vb="1.0001645"/>
+            <tca model="poly3" focal="31.96" vr="1.0001689" vb="1.0001553"/>
+            <tca model="poly3" focal="34.258" vr="1.0001291" vb="1.0001203"/>
+            <tca model="poly3" focal="35.707" vr="1.0001209" vb="1.0001006"/>
+            <tca model="poly3" focal="39.227" vr="1.0001055" vb="1.0000931"/>
+            <tca model="poly3" focal="42.201" vr="1.0000873" vb="1.0000905"/>
+            <tca model="poly3" focal="45.0" vr="1.0000984" vb="1.0000931"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon PowerShot A4000 IS &amp; compatibles, with CHDK's DNG</model>
         <model lang="en">fixed lens, with CHDK's DNG</model>
         <model lang="de">festes Objektiv, mit CHDK-DNG</model>
@@ -3285,21 +3360,51 @@
         <cropfactor>5.6</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="4.5" a="0.03396" b="-0.11175" c="-0.01779" />
-            <distortion model="ptlens" focal="5.5" a="0.03289" b="-0.11253" c="0.02444" />
-            <distortion model="ptlens" focal="6.6" a="0.02218" b="-0.08388" c="0.03521" />
-            <distortion model="ptlens" focal="9.5" a="0.01211" b="-0.04143" c="0.02055" />
-            <distortion model="ptlens" focal="13.5" a="-0.0022" b="0.00264" c="-0.00558" />
-            <distortion model="ptlens" focal="18.2" a="-0.00212" b="0.00441" c="-0.00378" />
-            <distortion model="ptlens" focal="23.4" a="0.00328" b="-0.01242" c="0.01298" />
-            <distortion model="ptlens" focal="29.1" a="-0.00036" b="-0.00082" c="0.00209" />
-            <distortion model="ptlens" focal="36.2" a="0.00129" b="-0.00626" c="0.00705" />
-            <distortion model="ptlens" focal="46.3" a="0.00715" b="-0.02588" c="0.0244" />
-            <distortion model="ptlens" focal="46.3" a="0.00715" b="-0.02588" c="0.0244" />
-            <distortion model="ptlens" focal="62.9" a="0.00067" b="-0.00852" c="0.01085" />
-            <distortion model="ptlens" focal="92.0" a="-0.00306" b="0.00016" c="-0.00374" />
-            <distortion model="ptlens" focal="128.7" a="-0.0037" b="0.00365" c="-0.00582" />
-            <distortion model="ptlens" focal="135.0" a="0.00333" b="-0.02616" c="0.03388" />
+            <distortion model="ptlens" focal="4.5" a="0.03396" b="-0.11175" c="-0.01779"/>
+            <distortion model="ptlens" focal="5.5" a="0.03289" b="-0.11253" c="0.02444"/>
+            <distortion model="ptlens" focal="6.6" a="0.02218" b="-0.08388" c="0.03521"/>
+            <distortion model="ptlens" focal="9.5" a="0.01211" b="-0.04143" c="0.02055"/>
+            <distortion model="ptlens" focal="13.5" a="-0.0022" b="0.00264" c="-0.00558"/>
+            <distortion model="ptlens" focal="18.2" a="-0.00212" b="0.00441" c="-0.00378"/>
+            <distortion model="ptlens" focal="23.4" a="0.00328" b="-0.01242" c="0.01298"/>
+            <distortion model="ptlens" focal="29.1" a="-0.00036" b="-0.00082" c="0.00209"/>
+            <distortion model="ptlens" focal="36.2" a="0.00129" b="-0.00626" c="0.00705"/>
+            <distortion model="ptlens" focal="46.3" a="0.00715" b="-0.02588" c="0.0244"/>
+            <distortion model="ptlens" focal="46.3" a="0.00715" b="-0.02588" c="0.0244"/>
+            <distortion model="ptlens" focal="62.9" a="0.00067" b="-0.00852" c="0.01085"/>
+            <distortion model="ptlens" focal="92.0" a="-0.00306" b="0.00016" c="-0.00374"/>
+            <distortion model="ptlens" focal="128.7" a="-0.0037" b="0.00365" c="-0.00582"/>
+            <distortion model="ptlens" focal="135.0" a="0.00333" b="-0.02616" c="0.03388"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon PowerShot G3 X &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>canonG3X</mount>
+        <cropfactor>2.727</cropfactor>
+        <aspect-ratio>3:2</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="8.8" a="0.02271" b="-0.08978" c="-0.03043"/>
+            <distortion model="ptlens" focal="18.2" a="0.00158" b="-0.00132" c="-0.01188"/>
+            <distortion model="ptlens" focal="25.2" a="0.00913" b="-0.02665" c="0.03024"/>
+            <distortion model="ptlens" focal="31.7" a="0.00279" b="-0.0021" c="0.00316"/>
+            <distortion model="ptlens" focal="36.8" a="-0.00521" b="0.02578" c="-0.02522"/>
+            <distortion model="ptlens" focal="74.1" a="-0.00295" b="0.01588" c="-0.01285"/>
+            <distortion model="ptlens" focal="106" a="-0.00103" b="0.00852" c="-0.00062"/>
+            <distortion model="ptlens" focal="147.4" a="0.0052" b="-0.01375" c="0.02287"/>
+            <distortion model="ptlens" focal="220" a="0.0059" b="-0.00793" c="0.00504"/>
+            <tca model="poly3" focal="8.8" vr="1.0005379" vb="1.0000174"/>
+            <tca model="poly3" focal="18.2" vr="1.0002172" vb="1.0000926"/>
+            <tca model="poly3" focal="25.2" vr="1.0000860" vb="1.0001583"/>
+            <tca model="poly3" focal="31.7" vr="0.9999919" vb="1.0001972"/>
+            <tca model="poly3" focal="36.8" vr="0.9999741" vb="1.0001881"/>
+            <tca model="poly3" focal="74.1" vr="0.9999218" vb="1.0000238"/>
+            <tca model="poly3" focal="106" vr="0.9998593" vb="0.9999902"/>
+            <tca model="poly3" focal="147.4" vr="0.9998470" vb="0.9999026"/>
+            <tca model="poly3" focal="220" vr="0.9998333" vb="0.9998775"/>
         </calibration>
     </lens>
 

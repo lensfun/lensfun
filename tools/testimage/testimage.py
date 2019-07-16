@@ -68,7 +68,7 @@ The following things are particularly interesting to check:
 
 """
 
-import array, subprocess, math, os, argparse, sys
+import array, subprocess, math, os, argparse, sys, multiprocessing
 from math import sin, tan, atan, floor, ceil, sqrt
 from math import pi as π
 from xml.etree import ElementTree
@@ -365,10 +365,19 @@ def get_vignetting_function():
 vignetting = get_vignetting_function()
 
 
+def process_vignetting_for_line(y, pixels, width, r_vignetting):
+    for x in range(width):
+        offset = 3 * x
+        for index in range(3):
+            pixels[offset + index] = max(min(int(pixels[offset + index] * vignetting(r_vignetting(x, y))), 65535), 0)
+    return y, pixels
+
+
 class Image:
 
     def __init__(self, width, height):
-        """width and height in pixels."""
+        """width and height in pixels.
+        """
         self.pixels = array.array("H", width * height * 3 * [16383])
         self.width = width
         self.height = height
@@ -424,13 +433,14 @@ class Image:
         y = y / self.pixel_scaling - 1 - center_y
         return sqrt(x**2 + y**2) / self.aspect_ratio_correction * R_cf
 
-    def set_vignetting(self, function):
-        for y in range(self.height):
-            for x in range(self.width):
-                offset = 3 * (y * self.width + x)
-                for index in range(3):
-                    self.pixels[offset + index] = \
-                            max(min(int(self.pixels[offset + index] * function(self.r_vignetting(x, y))), 65535), 0)
+    def set_vignetting(self):
+        pool = multiprocessing.Pool()
+        for y, result in pool.starmap(process_vignetting_for_line,
+                                      ((y, self.pixels[3 * (y * self.width):3 * ((y + 1) * self.width)],
+                                        self.width, self.r_vignetting) for y in range(self.height))):
+            self.pixels[3 * (y * self.width):3 * ((y + 1) * self.width)] = result
+        pool.close()
+        pool.join()
 
     def rotate_by_90_degrees(self):
         """This changes the orientation to portrait.  Use this method shortly before
@@ -454,7 +464,7 @@ class Image:
         output.
         """
         self.pixels.byteswap()
-        ppm_data = "P6\n{} {}\n65535\n".format(self.width, self.height).encode("ascii") + self.pixels.tostring()
+        ppm_data = "P6\n{} {}\n65535\n".format(self.width, self.height).encode("ascii") + self.pixels.tobytes()
         self.pixels.byteswap()
         if filepath.endswith(".ppm"):
             open(filepath, "wb").write(ppm_data)
@@ -521,10 +531,10 @@ class Image:
                 set_pixel(x, y)
 
 
-image = Image(width, int(round(width / aspect_ratio)))
+image = Image(width, round(width / aspect_ratio))
 image.create_grid(distortion, projection, tca_red, tca_blue)
 if args.vignetting:
-    image.set_vignetting(vignetting)
+    image.set_vignetting()
 if portrait:
     image.rotate_by_90_degrees()
 image.write(args.outfile)

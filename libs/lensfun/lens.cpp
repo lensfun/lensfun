@@ -74,8 +74,6 @@ lfLens::lfLens (const lfLens &other)
     _lf_terminate_vec(Calibrations);
 
     // Copy legacy lens attributes
-    CenterX = other.CenterX;
-    CenterY = other.CenterY;
     CropFactor = other.CropFactor;
     AspectRatio = other.AspectRatio;
 
@@ -108,8 +106,6 @@ lfLens &lfLens::operator = (const lfLens &other)
     _lf_terminate_vec(Calibrations);
 
     // Copy legacy lens attributes
-    CenterX = other.CenterX;
-    CenterY = other.CenterY;
     CropFactor = other.CropFactor;
     AspectRatio = other.AspectRatio;
 
@@ -650,8 +646,6 @@ lfLensCalibrationSet* lfLens::GetCalibrationSetForAttributes(const lfLensCalibAt
 
         Calibrations[0]->Attributes.CropFactor = CropFactor;
         Calibrations[0]->Attributes.AspectRatio = AspectRatio;
-        Calibrations[0]->Attributes.CenterX = CenterX;
-        Calibrations[0]->Attributes.CenterY = CenterY;
         return Calibrations[0];
     }
 
@@ -976,8 +970,6 @@ bool lfLens::InterpolateDistortion (float crop, float focal, lfLensCalibDistorti
         // sync legacy attributes
         Calibrations[0]->Attributes.CropFactor = CropFactor;
         Calibrations[0]->Attributes.AspectRatio = AspectRatio;
-        Calibrations[0]->Attributes.CenterX = CenterX;
-        Calibrations[0]->Attributes.CenterY = CenterY;
     }
 
     union
@@ -1080,8 +1072,6 @@ bool lfLens::InterpolateTCA (float crop, float focal, lfLensCalibTCA &res) const
         // sync legacy attributes
         Calibrations[0]->Attributes.CropFactor = CropFactor;
         Calibrations[0]->Attributes.AspectRatio = AspectRatio;
-        Calibrations[0]->Attributes.CenterX = CenterX;
-        Calibrations[0]->Attributes.CenterY = CenterY;
     }
 
     union
@@ -1204,8 +1194,6 @@ bool lfLens::InterpolateVignetting (float crop,
         // sync legacy attributes
         Calibrations[0]->Attributes.CropFactor = CropFactor;
         Calibrations[0]->Attributes.AspectRatio = AspectRatio;
-        Calibrations[0]->Attributes.CenterX = CenterX;
-        Calibrations[0]->Attributes.CenterY = CenterY;
     }
 
     lfVignettingModel vm = LF_VIGNETTING_MODEL_NONE;
@@ -1297,8 +1285,6 @@ bool lfLens::InterpolateCrop (float crop, float focal, lfLensCalibCrop &res) con
         // sync legacy attributes
         Calibrations[0]->Attributes.CropFactor = CropFactor;
         Calibrations[0]->Attributes.AspectRatio = AspectRatio;
-        Calibrations[0]->Attributes.CenterX = CenterX;
-        Calibrations[0]->Attributes.CenterY = CenterY;
     }
 
     union
@@ -1388,8 +1374,6 @@ bool lfLens::InterpolateFov (float crop, float focal, lfLensCalibFov &res) const
         // sync legacy attributes
         Calibrations[0]->Attributes.CropFactor = CropFactor;
         Calibrations[0]->Attributes.AspectRatio = AspectRatio;
-        Calibrations[0]->Attributes.CenterX = CenterX;
-        Calibrations[0]->Attributes.CenterY = CenterY;
     }
 
     union
@@ -1564,7 +1548,7 @@ void lf_lens_add_mount (lfLens *lens, const char *val)
     lens->AddMount(val);
 }
 
-const char* const* lf_lens_get_mount_names (lfLens *lens)
+const char* const* lf_lens_get_mount_names (const lfLens *lens)
 {
     return lens->GetMountNames();
 }

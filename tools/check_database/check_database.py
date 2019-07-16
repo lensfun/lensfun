@@ -67,7 +67,7 @@ def check_xmllint(db_files):
         err = subprocess.call(["xmllint", 
                 "--valid", "--noout",
                 "--schema", os.path.join(db_path,"lensfun-database.xsd"),
-                filepath,], stderr=open(os.devnull, 'wb'), stdout=open(os.devnull, 'wb'))
+                filepath,])
 
         if err is not 0:
             print("ERROR: xmllint check failed for " + filepath)

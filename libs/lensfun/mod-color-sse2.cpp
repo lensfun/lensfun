@@ -31,7 +31,7 @@ typedef __SIZE_TYPE__ uintptr_t;
 #endif
 
 void lfModifier::ModifyColor_DeVignetting_PA_SSE2 (
-    void *data, float _x, float _y, lf_u16 *pixels, int comp_role, int count)
+    void *data, float x, float y, lf_u16 *pixels, int comp_role, int count)
 {
     int cr = comp_role;
 
@@ -46,16 +46,12 @@ void lfModifier::ModifyColor_DeVignetting_PA_SSE2 (
           (((cr >> 16) & 15) == LF_CR_END)) ||
         ((uintptr_t)(pixels) & 0xf))
     {
-        return ModifyColor_DeVignetting_PA(data, _x, _y, pixels, comp_role, count);
+        return ModifyColor_DeVignetting_PA(data, x, y, pixels, comp_role, count);
     }
 
     lfColorVignCallbackData* cddata = (lfColorVignCallbackData*) data;
 
-    const float p3 = cddata->coordinate_correction * cddata->NormScale;
-
-    const float cc = cddata->coordinate_correction;
-    float x = _x * cc - cddata->centerX;
-    float y = _y * cc - cddata->centerY;
+    const float p3 = cddata->norm_scale;
 
     __m128 x2 = _mm_set_ps1 (x);
 
@@ -70,9 +66,9 @@ void lfModifier::ModifyColor_DeVignetting_PA_SSE2 (
  
     __m128 r2 = _mm_set_ps (t3, t2, t1, t0);
     __m128 d1_4 = _mm_set_ps1 (4.0f * 2.0 * p3);
-    __m128 p0 = _mm_set_ps1 (cddata->Terms [0]);
-    __m128 p1 = _mm_set_ps1 (cddata->Terms [1]);
-    __m128 p2 = _mm_set_ps1 (cddata->Terms [2]);
+    __m128 p0 = _mm_set_ps1 (cddata->terms [0]);
+    __m128 p1 = _mm_set_ps1 (cddata->terms [1]);
+    __m128 p2 = _mm_set_ps1 (cddata->terms [2]);
     __m128 p3_4 = _mm_set_ps1 (p3 * 4.0f);
     __m128 one = _mm_set_ps1 (1.0f);
     __m128 frac = _mm_set_ps1 (1024.0f);
@@ -151,7 +147,7 @@ void lfModifier::ModifyColor_DeVignetting_PA_SSE2 (
     loop_count *= 4;
     count -= loop_count;
     if (count)
-        ModifyColor_DeVignetting_PA (data, _x + loop_count, _y + loop_count,
+        ModifyColor_DeVignetting_PA (data, x + loop_count, y + loop_count,
             &pixels [loop_count * 4], comp_role, count);
 }
 

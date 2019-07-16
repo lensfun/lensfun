@@ -34,12 +34,9 @@ void lfModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int 
 
   lfCoordDistCallbackData* cddata = (lfCoordDistCallbackData*) data;
 
-  __m128 a_ = _mm_set_ps1 (cddata->Terms [0]);
-  __m128 b_ = _mm_set_ps1 (cddata->Terms [1]);
-  __m128 c_ = _mm_set_ps1 (cddata->Terms [2]);
-  __m128 cx = _mm_set_ps1 (cddata->centerX);
-  __m128 cy = _mm_set_ps1 (cddata->centerY);
-  __m128 cc = _mm_set_ps1 (cddata->coordinate_correction);
+  __m128 a_ = _mm_set_ps1 (cddata->terms [0]);
+  __m128 b_ = _mm_set_ps1 (cddata->terms [1]);
+  __m128 c_ = _mm_set_ps1 (cddata->terms [2]);
   __m128 very_small = _mm_set_ps1 (1e-15);
   __m128 one = _mm_set_ps1 (1.0f);
 
@@ -52,8 +49,6 @@ void lfModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int 
     __m128 c1 = _mm_load_ps (&iocoord[8*i+4]);
     __m128 x = _mm_shuffle_ps (c1, c0, _MM_SHUFFLE (2, 0, 2, 0));
     __m128 y = _mm_shuffle_ps (c1, c0, _MM_SHUFFLE (3, 1, 3, 1));
-    x = _mm_sub_ps(_mm_mul_ps(x, cc), cx);
-    y = _mm_sub_ps(_mm_mul_ps(y, cc), cy);
 
     __m128 rd = _mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y));
 
@@ -74,7 +69,7 @@ void lfModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int 
       __m128 three = _mm_add_ps (one, two);
       __m128 four = _mm_add_ps (two, two);
 
-      // corr =  4 * a * ru * ru^2 + 3 * b * ru^2 + 2 * c * ru + d
+      // corr =  4 * a_ * ru * ru^2 + 3 * b_ * ru^2 + 2 * c_ * ru + 1
       __m128 corr = _mm_mul_ps (c_, ru);
       corr = _mm_add_ps (one, _mm_add_ps (corr, corr));
       t = _mm_mul_ps (ru_sq, _mm_mul_ps (three, b_));
@@ -89,10 +84,8 @@ void lfModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int 
 
     // ru /= rd
     ru = _mm_mul_ps (ru, _mm_rcp_ps(rd));
-    x = _mm_add_ps(_mm_mul_ps (x, ru), cx);
-    y = _mm_add_ps(_mm_mul_ps (y, ru), cy);
-    x = _mm_div_ps (x, cc);
-    y = _mm_div_ps (y, cc);
+    x = _mm_mul_ps (x, ru);
+    y = _mm_mul_ps (y, ru);
 
     c0 = _mm_unpacklo_ps(x, y);
     c1 = _mm_unpackhi_ps(x, y);
@@ -120,12 +113,9 @@ void lfModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int co
   lfCoordDistCallbackData* cddata = (lfCoordDistCallbackData*) data;
 
   // Rd = Ru * (a_ * Ru^3 + b_ * Ru^2 + c_ * Ru + 1)
-  __m128 a_ = _mm_set_ps1 (cddata->Terms [0]);
-  __m128 b_ = _mm_set_ps1 (cddata->Terms [1]);
-  __m128 c_ = _mm_set_ps1 (cddata->Terms [2]);
-  __m128 cx = _mm_set_ps1 (cddata->centerX);
-  __m128 cy = _mm_set_ps1 (cddata->centerY);
-  __m128 cc = _mm_set_ps1 (cddata->coordinate_correction);
+  __m128 a_ = _mm_set_ps1 (cddata->terms [0]);
+  __m128 b_ = _mm_set_ps1 (cddata->terms [1]);
+  __m128 c_ = _mm_set_ps1 (cddata->terms [2]);
   __m128 one = _mm_set_ps1 (1.0f);
 
   // SSE Loop processes 4 pixels/loop
@@ -136,8 +126,6 @@ void lfModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int co
     __m128 c1 = _mm_load_ps (&iocoord [8 * i + 4]);
     __m128 x = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (2, 0, 2, 0));
     __m128 y = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (3, 1, 3, 1));
-    x = _mm_sub_ps(_mm_mul_ps(x, cc), cx);
-    y = _mm_sub_ps(_mm_mul_ps(y, cc), cy);
 
     __m128 ru2 = _mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y));
     __m128 ru = _mm_rcp_ps (_mm_rsqrt_ps (ru2));
@@ -148,10 +136,8 @@ void lfModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int co
     t = _mm_add_ps (t, _mm_mul_ps (ru, c_));
     poly3 = _mm_add_ps (t, _mm_add_ps (poly3, one));
 
-    x = _mm_add_ps(_mm_mul_ps (x, poly3), cx);
-    y = _mm_add_ps(_mm_mul_ps (y, poly3), cy);
-    x = _mm_div_ps (x, cc);
-    y = _mm_div_ps (y, cc);
+    x = _mm_mul_ps (x, poly3);
+    y = _mm_mul_ps (y, poly3);
 
     c0 = _mm_unpacklo_ps(x, y);
     c1 = _mm_unpackhi_ps(x, y);
@@ -179,11 +165,8 @@ void lfModifier::ModifyCoord_Dist_Poly3_SSE (void *data, float *iocoord, int cou
 
   lfCoordDistCallbackData* cddata = (lfCoordDistCallbackData*) data;
 
-  // Rd = Ru * (1 + k1 * Ru^2)
-  __m128 k1_ = _mm_set_ps1 (cddata->Terms [0]);
-  __m128 cx = _mm_set_ps1 (cddata->centerX);
-  __m128 cy = _mm_set_ps1 (cddata->centerY);
-  __m128 cc = _mm_set_ps1 (cddata->coordinate_correction);
+  // Rd = Ru * (d_ + k1 * Ru^2)
+  __m128 k1_ = _mm_set_ps1 (cddata->terms [0]);
   __m128 one = _mm_set_ps1 (1.0f);
 
   // SSE Loop processes 4 pixels/loop
@@ -194,16 +177,12 @@ void lfModifier::ModifyCoord_Dist_Poly3_SSE (void *data, float *iocoord, int cou
     __m128 c1 = _mm_load_ps (&iocoord [8 * i + 4]);
     __m128 x = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (2, 0, 2, 0));
     __m128 y = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (3, 1, 3, 1));
-    x = _mm_sub_ps(_mm_mul_ps(x, cc), cx);
-    y = _mm_sub_ps(_mm_mul_ps(y, cc), cy);
 
     // Calculate poly3 = k1_ * ru * ru + 1;
     __m128 poly3 = _mm_add_ps (_mm_mul_ps (_mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y)), k1_), one);
 
-    x = _mm_add_ps(_mm_mul_ps (x, poly3), cx);
-    y = _mm_add_ps(_mm_mul_ps (y, poly3), cy);
-    x = _mm_div_ps (x, cc);
-    y = _mm_div_ps (y, cc);
+    x = _mm_mul_ps (x, poly3);
+    y = _mm_mul_ps (y, poly3);
 
     c0 = _mm_unpacklo_ps(x, y);
     c1 = _mm_unpackhi_ps(x, y);

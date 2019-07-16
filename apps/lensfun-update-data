@@ -132,8 +132,8 @@ def read_location(base_url):
                 for base_url in alternatives:
                     read_location(base_url)
 
-read_location("http://lensfun.sourceforge.net/db/")
-read_location("http://wilson.bronger.org/lensfun-db/")
+read_location("https://lensfun.sourceforge.net/db/")
+read_location("https://wilson.bronger.org/lensfun-db/")
 
 if not at_least_one_responsive_location:
     print("Fatal: No location was responsive.  Network down?")

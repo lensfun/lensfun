@@ -117,7 +117,7 @@ def sync_with_github():
     """
     upload_hash = upload_id.partition("_")[0]
     title = "Calibration upload " + upload_hash
-    for issue in github.lensfun.get_issues(state="", labels=[github.calibration_request_label]):
+    for issue in github.lensfun.get_issues(state="all", labels=[github.calibration_request_label]):
         if issue.title == title:
             issue.edit(state="open")
             issue.create_comment("The original uploader has uploaded the very same files again.  It should be discussed "
@@ -172,52 +172,69 @@ def write_result_and_exit(error, missing_data=[]):
     sys.exit()
 
 
+class InvalidArchive(ValueError):
+    def __init__(self):
+        super().__init__("InvalidArchive")
+
 def extract_archive():
     """Extracts the archive (e.g. the tarball) which was uploaded.  Afterwards, the
     archive file is deleted.
     """
-    protected_files = {"originator.json": None, "comments.txt": None}
-    for filename in protected_files:
-        path = os.path.join(directory, filename)
-        try:
-            protected_files[filename] = open(path, "rb").read()
-        except FileNotFoundError:
-            pass
-        else:
-            os.remove(path)
+    def protect_files(protected_files):
+        result = {}
+        for filename in protected_files:
+            path = os.path.join(directory, filename)
+            try:
+                result[filename] = open(path, "rb").read()
+            except FileNotFoundError:
+                result[filename] = None
+            else:
+                os.remove(path)
+        return result
+    def restore_files(protected_files):
+        for filename, contents in protected_files.items():
+            path = os.path.join(directory, filename)
+            if os.path.exists(path):
+                index = 1
+                while os.path.exists("{}.{}".format(path, index)):
+                    index += 1
+                os.rename(path, "{}.{}".format(path, index))
+            if contents is not None:
+                open(path, "wb").write(contents)
+    def call_unpacker(arguments):
+        return subprocess.run(arguments, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    protected_files = protect_files({"originator.json", "comments.txt"})
     extension = os.path.splitext(filepath)[1].lower()
     try:
         if extension in [".gz", ".tgz"]:
-            subprocess.check_call(["tar", "--directory", directory, "-xzf", filepath])
+            call_unpacker(["tar", "--directory", directory, "-xzf", filepath])
         elif extension in [".bz2", ".tbz2", ".tb2"]:
-            subprocess.check_call(["tar", "--directory", directory, "-xjf", filepath])
+            call_unpacker(["tar", "--directory", directory, "-xjf", filepath])
         elif extension in [".xz", ".txz"]:
-            subprocess.check_call(["tar", "--directory", directory, "-xJf", filepath])
+            call_unpacker(["tar", "--directory", directory, "-xJf", filepath])
         elif extension == ".tar":
-            subprocess.check_call(["tar", "--directory", directory, "-xf", filepath])
+            call_unpacker(["tar", "--directory", directory, "-xf", filepath])
         elif extension == ".rar":
-            subprocess.check_call(["unrar", "x", filepath, directory])
+            call_unpacker(["unrar", "x", filepath, directory])
         elif extension == ".7z":
-            subprocess.check_call(["7z", "x", "-o" + directory, filepath])
+            call_unpacker(["7z", "x", "-o" + directory, filepath])
+        elif extension == ".zip":
+            call_unpacker(["unzip", filepath, "-d", directory])
         else:
-            # Must be ZIP (else, fail)
-            subprocess.check_call(["unzip", filepath, "-d", directory])
+            raise InvalidArchive
     except subprocess.CalledProcessError as error:
+        send_email(admin, "Error when extracting calibration upload " + upload_id,
+                   "Error: {}\n\nstdout: {}\nstderr: {}".format(
+                       error, repr(error.stdout), repr(error.stderr)))
+        restore_files(protected_files)
+        write_result_and_exit("Unpacking your file resulted in an error.")
+    except InvalidArchive:
+        restore_files(protected_files)
         write_result_and_exit("I could not unpack your file.  Supported file formats:\n"
                               ".gz, .tgz, .bz2, .tbz2, .tb2, .xz, .txz, .tar, .rar, .7z, .zip.")
-        send_email(admin, "Error when extracting calibration upload " + upload_id,
-                   "Error: {}\n\ndirectory: {}\nfilepath: {}".format(
-                       error, directory, filepath))
+    finally:
+        restore_files(protected_files)
     os.remove(filepath)
-    for filename, contents in protected_files.items():
-        path = os.path.join(directory, filename)
-        if os.path.exists(path):
-            index = 1
-            while os.path.exists("{}.{}".format(path, index)):
-                index += 1
-            os.rename(path, "{}.{}".format(path, index))
-        if contents is not None:
-            open(path, "wb").write(contents)
 
 
 class InvalidRaw(Exception):
@@ -419,7 +436,7 @@ def tag_image_files(file_exif_data):
                 else:
                     focal_length = format(exif_focal_length, "05.1f")
                 os.rename(filepath, os.path.join(os.path.dirname(filepath), "{}--{}mm--{}_{}".format(
-                    exif_lens_model, focal_length, exif_aperture, filename)))
+                    exif_lens_model, focal_length, exif_aperture, filename).replace("/", "__")))
             else:
                 logging.info("Missing EXIF data in " + filepath)
                 missing_data.append((filepath, exif_lens_model, exif_focal_length, exif_aperture))
@@ -465,22 +482,29 @@ def quote_directory(path):
         :rtype: str
         """
         assert "/" not in name
-        name = name.replace(":", "___").replace("/", "__").replace(" ", "_").replace("*", "++").replace("=", "##")
+        intermediate_name = name.replace(":", "___").replace(" ", "_").replace("*", "++").replace("=", "##")
         result = ""
-        for char in name:
+        for char in intermediate_name:
             if char in ';%?><|"~&':
                 result += f"{{{ord(char)}}}"
             else:
                 result += char
+        logging.debug(f"quoting {name} into {result}")
         return result
 
+    logging.debug(f"Quoting directory {path}")
     for root, dirnames, filenames in os.walk(path, topdown=False):
         for filename in filenames + dirnames:
             quoted_filename = quote_filename_component(filename)
             if quoted_filename != filename:
-                os.rename(os.path.join(root, filename), os.path.join(root, quoted_filename))
+                old, new = os.path.join(root, filename), os.path.join(root, quoted_filename)
+                logging.debug(f"quoting '{old}' into {new}")
+                os.rename(old, new)
+    # FixMe: The following four lines are superfluous if the assertion is never
+    # triggered.
     quoted_path = "/".join(quote_filename_component(component) for component in path.split("/"))
     if quoted_path != path:
+        assert False, (quoted_path, path)
         os.rename(path, quoted_path)
 
 
@@ -489,7 +513,6 @@ operation = sys.argv[1]
 if operation == "initial":
     filepath = sys.argv[2]
     directory = os.path.abspath(os.path.dirname(filepath))
-    quote_directory(directory)
     upload_id = os.path.basename(directory)
     try:
         cache_dir = os.path.join(config["General"]["cache_root"], upload_id)
@@ -500,6 +523,7 @@ if operation == "initial":
         file_exif_data = collect_exif_data()
         check_data(file_exif_data)
         missing_data = tag_image_files(file_exif_data)
+        quote_directory(directory)
         write_result_and_exit(None, missing_data)
     except Exception as error:
         logging.critical(str(error))

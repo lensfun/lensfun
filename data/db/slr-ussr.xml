@@ -267,9 +267,9 @@
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
-	    <!-- Taken with Sony ILCE-7RM2 (α7R II) -->
+            <!-- Taken with Sony ILCE-7RM2 (α7R II) -->
             <!--distortion model="ptlens" focal="85" a="0.00602" b="-0.02119" c="0.01281"/-->
-    	    <distortion model="poly3" focal="85" k1="-0.0005"/>
+            <distortion model="poly3" focal="85" k1="-0.0005"/>
             <tca model="poly3" focal="85" br="-0.0000113" vr="1.0000399" bb="0.0000226" vb="0.9999277"/>
             <vignetting model="pa" focal="85" aperture="1.5" distance="10" k1="-1.3463" k2="1.1093" k3="-0.4522"/>
             <vignetting model="pa" focal="85" aperture="1.5" distance="1000" k1="-1.3463" k2="1.1093" k3="-0.4522"/>
