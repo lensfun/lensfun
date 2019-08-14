@@ -496,6 +496,36 @@
 
     <lens>
         <maker>Meike</maker>
+        <model>Meike 25mm f/1.8</model>
+        <mount>Canon EF-M</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.85</cropfactor>
+        <calibration>
+            <!-- Taken with Micro 4/3 System -->
+            <distortion model="ptlens" focal="25" a="0.002" b="-0.017" c="0.006"/>
+            <tca model="poly3" focal="0" vr="1.0004958" vb="0.9994230"/>
+            <vignetting model="pa" focal="25" aperture="1.8" distance="10" k1="-0.1260" k2="-0.7583" k3="0.4523"/>
+            <vignetting model="pa" focal="25" aperture="1.8" distance="1000" k1="-0.1260" k2="-0.7583" k3="0.4523"/>
+            <vignetting model="pa" focal="25" aperture="2" distance="10" k1="-0.2048" k2="0.1394" k3="-0.1356"/>
+            <vignetting model="pa" focal="25" aperture="2" distance="1000" k1="-0.2048" k2="0.1394" k3="-0.1356"/>
+            <vignetting model="pa" focal="25" aperture="2.8" distance="10" k1="-0.1906" k2="-0.0365" k3="0.0577"/>
+            <vignetting model="pa" focal="25" aperture="2.8" distance="1000" k1="-0.1906" k2="-0.0365" k3="0.0577"/>
+            <vignetting model="pa" focal="25" aperture="4" distance="10" k1="-0.3348" k2="0.0930" k3="-0.0131"/>
+            <vignetting model="pa" focal="25" aperture="4" distance="1000" k1="-0.3348" k2="0.0930" k3="-0.0131"/>
+            <vignetting model="pa" focal="25" aperture="5.6" distance="10" k1="-0.2468" k2="0.0438" k3="-0.0144"/>
+            <vignetting model="pa" focal="25" aperture="5.6" distance="1000" k1="-0.2468" k2="0.0438" k3="-0.0144"/>
+            <vignetting model="pa" focal="25" aperture="8" distance="10" k1="-0.2098" k2="-0.1602" k3="0.1317"/>
+            <vignetting model="pa" focal="25" aperture="8" distance="1000" k1="-0.2098" k2="-0.1602" k3="0.1317"/>
+            <vignetting model="pa" focal="25" aperture="11" distance="10" k1="-0.3529" k2="0.1837" k3="-0.0687"/>
+            <vignetting model="pa" focal="25" aperture="11" distance="1000" k1="-0.3529" k2="0.1837" k3="-0.0687"/>
+            <vignetting model="pa" focal="25" aperture="16" distance="10" k1="-0.5026" k2="0.5436" k3="-0.3066"/>
+            <vignetting model="pa" focal="25" aperture="16" distance="1000" k1="-0.5026" k2="0.5436" k3="-0.3066"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Meike</maker>
         <model>Meike 35mm f/1.7</model>
         <mount>Fujifilm X</mount>
         <cropfactor>1.528</cropfactor>
