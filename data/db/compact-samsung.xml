@@ -18,6 +18,14 @@
 
     <camera>
         <maker>Samsung</maker>
+        <model>SM-G950F</model>
+        <model lang="en">Galaxy S8</model>
+        <mount>samsungS8</mount>
+        <cropfactor>6.19</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Samsung</maker>
         <model>SM-N950U</model>
         <model lang="en">Galaxy S8</model>
         <mount>samsungS8wide</mount>
@@ -139,6 +147,17 @@
         <calibration>
             <distortion model="ptlens" focal="4.3" a="0.028436" b="-0.111992" c="0.127611"/>
             <tca model="poly3" focal="4.3" vr="1.0000210" vb="1.0000744"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Samsung</maker>
+        <model>SM-G950F</model>
+        <mount>samsungS8</mount>
+        <cropfactor>6.19</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="4.2" a="0.04069" b="-0.14767" c="0.17184"/>
         </calibration>
     </lens>
 

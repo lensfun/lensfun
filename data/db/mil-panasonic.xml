@@ -1987,4 +1987,19 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Panasonic</maker>
+        <model>Lumix G Macro 30mm f/2.8</model>
+        <mount>Micro 4/3 System</mount>
+        <focal value="30"/>
+        <aperture min="2.8" max="22"/>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+	    <!-- Taken with DMC-G6 -->
+            <distortion focal="30" model="ptlens" a="-0.0126" b="0.04708" c="-0.0467"/>
+            <tca model="poly3" focal="30" vr="1.0000618" vb="1.0001325"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>

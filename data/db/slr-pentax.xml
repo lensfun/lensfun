@@ -2509,4 +2509,20 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc PENTAX DA* 60-250mm F4 [IF] SDM</model>
+        <model lang="en">smc PENTAX DA* 60-250mm f/4 IF SDM</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+	    <!-- Taken with Pentax K-S2 -->
+            <distortion model="ptlens" focal="60" a="-0.00294" b="0.00889" c="-0.01651"/>
+            <distortion model="ptlens" focal="88" a="0.00211" b="-0.00301" c="-0.00178"/>
+            <distortion model="ptlens" focal="140" a="0.006" b="-0.02284" c="0.03739"/>
+            <distortion model="ptlens" focal="200" a="-0.0243" b="0.09971" c="-0.12575"/>
+            <distortion model="ptlens" focal="250" a="0.00399" b="-0.02097" c="0.04071"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>

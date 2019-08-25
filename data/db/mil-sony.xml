@@ -1794,4 +1794,19 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 12-24mm f/4 G</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- taken with ILCE-7M2 Alpha 7 II -->
+            <distortion model="ptlens" focal="12" a="0.04417" b="-0.14655" c="0.11253"/>
+            <distortion model="ptlens" focal="14" a="0.04492" b="-0.14653" c="0.14609"/>
+            <distortion model="ptlens" focal="17" a="0.02078" b="-0.05388" c="0.05404"/>
+            <distortion model="ptlens" focal="20" a="-0.00095" b="0.01986" c="-0.02276"/>
+            <distortion model="ptlens" focal="24" a="0.00383" b="-0.00203" c="0.00639"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
