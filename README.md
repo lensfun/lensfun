@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/lensfun/lensfun.svg?branch=master)](https://travis-ci.com/lensfun/lensfun)
+
 WHAT IS IT
 ----------
 
