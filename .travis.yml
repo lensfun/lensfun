@@ -73,6 +73,7 @@ matrix:
       compiler: gcc # gcc = clang in macOS, unecessary duplicate
   include:
     - name: docs
+      if: repo = lensfun/lensfun AND branch = master
       stage: docs
       os: linux
       dist: xenial
