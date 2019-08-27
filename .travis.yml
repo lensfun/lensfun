@@ -55,7 +55,7 @@ script:
   - cmake -j $(if [ $TRAVIS_OS_NAME = osx ]; then sysctl -n hw.ncpu; else nproc; fi) --build .
   - sudo cmake --build . --target install
   - cmake --build . --target docs
-    #ctest
+  - ctest
 after_script: |-
   if [[ "$build_type" = "Coverage" ]]; then
     if [ $CC = "clang" ] && [ $TRAVIS_OS_NAME = linux ]; then
