@@ -498,7 +498,7 @@ def quote_directory(path):
             quoted_filename = quote_filename_component(filename)
             if quoted_filename != filename:
                 old, new = os.path.join(root, filename), os.path.join(root, quoted_filename)
-                logging.debug(f"quoting '{old}' into {new}")
+                logging.info(f"renaming '{old}' into {new}")
                 os.rename(old, new)
     # FixMe: The following four lines are superfluous if the assertion is never
     # triggered.
