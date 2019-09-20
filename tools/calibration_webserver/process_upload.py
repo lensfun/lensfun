@@ -520,10 +520,10 @@ if operation == "initial":
         github = GithubConfiguration()
 
         extract_archive()
+        quote_directory(directory)
         file_exif_data = collect_exif_data()
         check_data(file_exif_data)
         missing_data = tag_image_files(file_exif_data)
-        quote_directory(directory)
         write_result_and_exit(None, missing_data)
     except Exception as error:
         logging.critical(str(error))
