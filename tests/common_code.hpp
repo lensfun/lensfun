@@ -7,7 +7,7 @@
 
 void *lf_alloc_align(size_t alignment, size_t size)
 {
-#if defined(__WIN32__)
+#ifdef _WIN32
   return _aligned_malloc(size, alignment);
 #else
   void *ptr = NULL;
@@ -16,7 +16,7 @@ void *lf_alloc_align(size_t alignment, size_t size)
   return ptr;
 #endif
 }
-#ifdef __WIN32__
+#ifdef _WIN32
 void lf_free_align(void *mem)
 {
   _aligned_free(mem);
