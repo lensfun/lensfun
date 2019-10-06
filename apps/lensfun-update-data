@@ -116,8 +116,8 @@ def read_location(base_url):
         print("Reading {} …".format(base_url + "versions.json"))
         try:
             response = urllib.request.urlopen(base_url + "versions.json")
-        except (urllib.error.HTTPError, urllib.error.URLError, ValueError) as e:
-            print("  Error: URL could not be opened, skipping: " + str(e))
+        except (urllib.error.HTTPError, ValueError):
+            print("  Error: URL could not be opened.")
         else:
             try:
                 timestamp, versions, alternatives = json.loads(response.read().decode("utf-8"))
