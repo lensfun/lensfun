@@ -5,6 +5,7 @@
 #include <limits>
 #include <cmath>
 #include <vector>
+#include <locale>
 
 #include "lensfun.h"
 #include "../libs/lensfun/lensfunprv.h"

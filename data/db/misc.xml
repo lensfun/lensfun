@@ -95,6 +95,14 @@
         <mount>lumia1520</mount>
         <cropfactor>6.26</cropfactor>
     </camera>
+    
+    <camera>
+        <maker>Honor</maker>
+        <model>DLI-L22</model>
+        <model lang="en">6A</model>
+        <mount>dlil22</mount>
+        <cropfactor>8.235</cropfactor>
+    </camera>
 
     <!-- I think this is also known under the brand "Michael Lens" or "Movie
          Lens", and with f/1.6.  The correction data actually was submitted as
@@ -166,6 +174,17 @@
             <tca model="poly3" focal="50" br="-0.0000159" vr="1.0000709" bb="0.0000131" vb="0.9999198"/>
         </calibration>
     </lens>
+    
+    <lens> 
+        <maker>Cosina</maker> 
+        <model>24mm 2.0 Macro</model> 
+        <mount>Pentax K</mount> 
+        <cropfactor>1.526</cropfactor> 
+        <calibration> 
+            <distortion model="ptlens" focal="24" a="0.00037" b="-0.00528" c="-0.00728" /> 
+            <tca model="poly3" focal="24" br="-0.0002357" vr="1.0013614" bb="0.0001470" vb="0.9995308" /> 
+        </calibration> 
+    </lens> 
 
     <lens>
         <maker>Mitakon</maker>
@@ -832,6 +851,31 @@
         <cropfactor>1</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="15" a="0.05114" b="-0.13551" c="0.04398"/>
+        </calibration>
+    </lens>
+    
+    <lens>
+        <maker>Honor</maker>
+        <model>Honor 6A &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>dlil22</mount>
+        <cropfactor>8.235</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+        <vignetting model="pa" focal="3.4" aperture="2.2" distance="10" k1="-2.3342" k2="2.8667" k3="-1.3321"/>
+        <vignetting model="pa" focal="3.4" aperture="2.2" distance="1000" k1="-2.3342" k2="2.8667" k3="-1.3321"/>
+        </calibration>
+    </lens>
+    
+    <lens>
+        <maker>Voigtlander</maker>
+        <model>Voigtlander HELIAR-HYPER WIDE 10mm F5.6</model>
+        <model lang="en">Voigtländer HELIAR-HYPER WIDE 10mm F5.6</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="10" a="0.00826274452427692" b="-0.0293303279554859" c="0.013498972758859"/>
         </calibration>
     </lens>
 

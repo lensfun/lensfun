@@ -2,6 +2,7 @@
 #include <limits>
 #include <map>
 #include <cmath>
+#include <locale>
 #include "xmmintrin.h"
 #include "time.h"
 

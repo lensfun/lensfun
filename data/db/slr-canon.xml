@@ -6463,5 +6463,24 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 22-55mm f/4-5.6 USM</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.613</cropfactor>
+        <calibration>
+	    <!-- Taken with EOS 750D -->
+            <distortion model="ptlens" focal="22" a="0.00117" b="-0.01071" c="-0.00445"/>
+            <distortion model="ptlens" focal="25" a="0.0041" b="-0.01879" c="0.01245"/>
+            <distortion model="ptlens" focal="33" a="0.0043" b="-0.01662" c="0.01769"/>
+            <distortion model="ptlens" focal="40" a="0.00022" b="0.00019" c="0.00202"/>
+            <distortion model="ptlens" focal="55" a="0.00388" b="-0.01017" c="0.01684"/>
+            <tca model="poly3" focal="22" vr="1.0006310" vb="0.9998847"/>
+            <tca model="poly3" focal="25" vr="1.0005335" vb="0.9999062"/>
+            <tca model="poly3" focal="33" vr="1.0003946" vb="0.9999238"/>
+            <tca model="poly3" focal="40" vr="1.0003361" vb="0.9999422"/>
+            <tca model="poly3" focal="55" vr="1.0001506" vb="0.9999685"/>
+        </calibration>
+    </lens>
 
 </lensdatabase>

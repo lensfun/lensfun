@@ -212,15 +212,29 @@
 
     <lens>
         <maker>Sigma</maker>
-        <model>SIGMA 16mm F1.4 DC DN | C 017</model>
-        <model lang="en">SIGMA 16mm F1.4 DC DN</model>
+        <model>Sigma 16mm f/1.4 DC DN | Contemporary C 017</model>
+        <model lang="en">Sigma 16mm f/1.4 DC DN C</model>
         <mount>Micro 4/3 System</mount>
+        <mount>Sony E</mount>
         <cropfactor>2</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <!-- taken with Olympus E-M1 mkII -->
             <distortion model="poly3" focal="16" k1="-0.010858"/>
             <tca model="poly3" focal="16" vr="1.0002659" vb="0.9999555"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 16mm f/1.4 DC DN | Contemporary C 017</model>
+        <model lang="en">Sigma 16mm f/1.4 DC DN C</model>
+        <mount>Micro 4/3 System</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony 6000 (ILCE-6000) -->
+            <distortion model="ptlens" focal="16" a="0.019888" b="-0.0654977" c="0.0396784"/>
         </calibration>
     </lens>
 
