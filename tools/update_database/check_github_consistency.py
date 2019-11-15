@@ -90,7 +90,7 @@ def filter_old_problem_hashes(problem_hashes, owncloud_directories):
         timestamp_path = owncloud_directories[hash_]/"consistency_check_timestamp.yaml"
         now = datetime.datetime.now()
         try:
-            timestamp = yaml.load(open(timestamp_path))
+            timestamp = yaml.safe_load(open(timestamp_path))
         except FileNotFoundError:
             timestamp = now
             yaml.dump(timestamp, open(timestamp_path, "w"))
