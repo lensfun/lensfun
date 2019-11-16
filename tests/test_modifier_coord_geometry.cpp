@@ -92,7 +92,7 @@ void test_mod_coord_geometry(lfFixture *lfFix, gconstpointer data)
 void test_mod_coord_geometry_parallel(lfFixture *lfFix, gconstpointer data)
 {
   #pragma omp parallel for schedule(static)
-  for(size_t y = 0; y < lfFix->img_height; y++)
+  for(int y = 0; y < static_cast<int>(lfFix->img_height); y++)
   {
     float *coordData = (float *)lfFix->coordBuff + (size_t)2 * y * lfFix->img_width;
 

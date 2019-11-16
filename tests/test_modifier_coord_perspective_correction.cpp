@@ -160,7 +160,7 @@ void test_mod_coord_pc_8_points (lfFixture *lfFix, gconstpointer data)
 void test_mod_coord_pc_0_points (lfFixture *lfFix, gconstpointer data)
 {
     // Bases on DSC02279.json
-    float empty_list [0];
+    float* empty_list = nullptr;
     g_assert_false (lfFix->mod->EnablePerspectiveCorrection (empty_list, empty_list, 0, 0) & LF_MODIFY_PERSPECTIVE);
 
     float coords [2];

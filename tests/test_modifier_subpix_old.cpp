@@ -97,7 +97,7 @@ void test_mod_subpix(lfFixture *lfFix, gconstpointer data)
 void test_mod_subpix_parallel(lfFixture *lfFix, gconstpointer data)
 {
   #pragma omp parallel for schedule(static)
-  for(size_t y = 0; y < lfFix->img_height; y++)
+  for(int y = 0; y < static_cast<int>(lfFix->img_height); y++)
   {
     float *coordData = (float *)lfFix->coordBuff + (size_t)2 * 3 * y * lfFix->img_width;
 
@@ -163,14 +163,14 @@ int main(int argc, char **argv)
   {
     std::map<std::string, lfLensCalibTCA> tcaCalib;
     // ??? + Nikon AF-S DX Nikkor 35mm f/1.8G
-    tcaCalib["LF_TCA_MODEL_LINEAR"] = (lfLensCalibTCA)
+    tcaCalib["LF_TCA_MODEL_LINEAR"] = lfLensCalibTCA
     {
-      LF_TCA_MODEL_LINEAR, 35.0f, {1.0003, 1.0003}
+      LF_TCA_MODEL_LINEAR, 35.0f, {1.0003f, 1.0003f}
     };
     // Canon EOS 5D Mark III + Canon EF 24-70mm f/2.8L II USM
-    tcaCalib["LF_TCA_MODEL_POLY3"] = (lfLensCalibTCA)
+    tcaCalib["LF_TCA_MODEL_POLY3"] = lfLensCalibTCA
     {
-      LF_TCA_MODEL_POLY3,  24.0f, {1.0002104, 1.0000529, 0.0f, 0.0f, -0.0000220, -0.0000000}
+      LF_TCA_MODEL_POLY3,  24.0f, {1.0002104f, 1.0000529f, 0.0f, 0.0f, -0.0000220f, -0.0000000f}
     };
 
     for(std::map<std::string, lfLensCalibTCA>::iterator it_tcaCalib = tcaCalib.begin(); it_tcaCalib != tcaCalib.end(); ++it_tcaCalib)

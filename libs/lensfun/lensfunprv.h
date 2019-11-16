@@ -9,6 +9,7 @@
 #include <glib.h>
 #include <string.h>
 #include <vector>
+#include "lensfun.h"
 
 #define MEMBER_OFFSET(s,f)   ((unsigned int)(char *)&((s *)0)->f)
 #define ARRAY_LEN(a)         (sizeof (a) / sizeof (a [0]))
@@ -18,8 +19,6 @@
 // half of the smallest image dimension (width or height)
 // adjusted for the lens calibration data/camera crop factors.
 #define NEWTON_EPS 0.00001
-
-class lfFuzzyStrCmp;
 
 /**
  * @brief Return the absolute value of a number.
@@ -71,7 +70,7 @@ template<typename T> static inline T clampd (double x, double min, double max)
  * @param val
  *     The value to assign to the variable
  */
-extern void _lf_setstr (gchar **var, const gchar *val);
+LF_EXPORT void _lf_setstr (gchar **var, const gchar *val);
 
 /**
  * @brief Appends a formatted string to a dynamically-growing string
@@ -81,7 +80,7 @@ extern void _lf_setstr (gchar **var, const gchar *val);
  * @param format
  *     The format string.
  */
-extern void _lf_xml_printf (GString *output, const char *format, ...);
+LF_EXPORT void _lf_xml_printf (GString *output, const char *format, ...);
 
 /**
  * @brief Output a multi-language value to output string.
@@ -102,7 +101,7 @@ extern void _lf_xml_printf (GString *output, const char *format, ...);
  * @param val
  *     The value of the multi-language string.
  */
-extern void _lf_xml_printf_mlstr (GString *output, const char *prefix,
+LF_EXPORT void _lf_xml_printf_mlstr (GString *output, const char *prefix,
                                   const char *element, const lfMLstr val);
 
 /**
@@ -114,7 +113,7 @@ extern void _lf_xml_printf_mlstr (GString *output, const char *prefix,
  * ignoring spaces at both ends of the string, compressing multiple
  * spaces into one and ignoring character case.
  */
-extern int _lf_strcmp (const char *s1, const char *s2);
+LF_EXPORT int _lf_strcmp (const char *s1, const char *s2);
 
 /**
  * @brief Same as _lf_strcmp(), but compares a string with a multi-language
@@ -123,7 +122,7 @@ extern int _lf_strcmp (const char *s1, const char *s2);
  * If it equals any of the translations, 0 is returned, otherwise
  * the result of strcmp() with the first (default) string is returned.
  */
-extern int _lf_mlstrcmp (const char *s1, const lfMLstr s2);
+LF_EXPORT int _lf_mlstrcmp (const char *s1, const lfMLstr s2);
 
 /**
  * @brief Comparison helper function for lens sorting and finding.
@@ -140,7 +139,7 @@ extern int _lf_mlstrcmp (const char *s1, const lfMLstr s2);
  * @return
  *     Positive if i1 > i2, negative if i1 < i2, zero if they are equal.
  */
-extern gint _lf_lens_parameters_compare (const lfLens *i1, const lfLens *i2);
+LF_EXPORT gint _lf_lens_parameters_compare (const lfLens *i1, const lfLens *i2);
 
 /**
  * @brief Comparison helper function for lens sorting and finding.
@@ -156,7 +155,7 @@ extern gint _lf_lens_parameters_compare (const lfLens *i1, const lfLens *i2);
  * @return
  *     Positive if i1 > i2, negative if i1 < i2, zero if they are equal.
  */
-extern gint _lf_lens_name_compare (const lfLens *i1, const lfLens *i2);
+LF_EXPORT gint _lf_lens_name_compare (const lfLens *i1, const lfLens *i2);
 
 /**
  * @brief Get an interpolated value.
@@ -180,7 +179,7 @@ extern gint _lf_lens_name_compare (const lfLens *i1, const lfLens *i2);
  *     Value from 0.0 to 1.0 selects a point on spline on the interval
  *     between points 2 and 3.
  */
-extern float _lf_interpolate (float y1, float y2, float y3, float y4, float t);
+LF_EXPORT float _lf_interpolate (float y1, float y2, float y3, float y4, float t);
 
 enum
 {
@@ -201,7 +200,7 @@ enum
  * @brief Detect supported CPU features (used for runtime selection of accelerated
  * functions for specific architecture extensions).
  */
-extern guint _lf_detect_cpu_features ();
+LF_EXPORT guint _lf_detect_cpu_features ();
 
 /**
  * @brief Google-in-your-pocket: a fuzzy string comparator.
@@ -210,7 +209,7 @@ extern guint _lf_detect_cpu_features ();
  * At construction the pattern is split into words and then the component
  * words from target are matched against them.
  */
-class lfFuzzyStrCmp
+class LF_EXPORT lfFuzzyStrCmp
 {
     GPtrArray *pattern_words;
     GPtrArray *match_words;
@@ -280,6 +279,6 @@ void _lf_terminate_vec(std::vector<T> &v)
 typedef std::vector<double> dvector;
 typedef std::vector<dvector> matrix;
 
-dvector svd (matrix M);
+LF_EXPORT dvector svd (matrix M);
 
 #endif /* __LENSFUNPRV_H__ */

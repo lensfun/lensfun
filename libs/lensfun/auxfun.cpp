@@ -374,7 +374,8 @@ void lfFuzzyStrCmp::Split (const char *str, GPtrArray *dest)
 
     while (*str)
     {
-        while (*str && isspace (*str))
+        // cast to unsigned as utf-8 may lead to negative otherwise (undefined behavior)
+        while (*str && isspace ((unsigned char)*str))
             str++;
         if (!*str)
             break;
@@ -383,24 +384,24 @@ void lfFuzzyStrCmp::Split (const char *str, GPtrArray *dest)
         int strip_suffix = 0;
 
         // Split into words based on character class
-        if (isdigit (*word))
+        if (isdigit ((unsigned char)*word))
         {
-            while (*str && (isdigit (*str) || *str == '.'))
+            while (*str && (isdigit ((unsigned char)*str) || *str == '.'))
                 str++;
             if (str - word >= 2 && *(str - 2) == '.' && *(str - 1) == '0')
                 strip_suffix = 2;
         }
-        else if (ispunct (*word))
-            while (*str && ispunct (*str))
+        else if (ispunct ((unsigned char)*word))
+            while (*str && ispunct ((unsigned char)*str))
                 str++;
         else
-            while (*str && !isspace (*str) && !isdigit (*str) && !ispunct (*str))
+            while (*str && !isspace ((unsigned char)*str) && !isdigit ((unsigned char)*str) && !ispunct ((unsigned char)*str))
                 str++;
 
         // Skip solitary symbols, including a single letter "f", except for "+"
         // and "*", which sometimes occur in lens model names as important
         // characters
-        if (str - word == 1 && (ispunct (*word) || tolower (*word) == 'f')
+        if (str - word == 1 && (ispunct ((unsigned char)*word) || tolower ((unsigned char)*word) == 'f')
             && *word != '*' && *word != '+')
             continue;
 

@@ -10,11 +10,11 @@ ADD_TEST(NAME Database WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND test_databa
 
 ADD_EXECUTABLE(test_lens test_lens.cpp)
 TARGET_LINK_LIBRARIES(test_lens lensfun ${COMMON_LIBS})
-ADD_TEST(Lens test_lens)
+ADD_TEST(NAME Lens COMMAND test_lens)
 
 ADD_EXECUTABLE(test_modifier test_modifier.cpp)
 TARGET_LINK_LIBRARIES(test_modifier lensfun ${COMMON_LIBS})
-ADD_TEST(Modifier test_modifier)
+ADD_TEST(NAME Modifier COMMAND test_modifier)
 
 ADD_EXECUTABLE(test_modifier_performance test_modifier_performance.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_performance lensfun ${COMMON_LIBS})
@@ -22,35 +22,35 @@ ADD_TEST(NAME Modifier_performance WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND
 
 ADD_EXECUTABLE(test_modifier_color test_modifier_color.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_color lensfun ${COMMON_LIBS})
-ADD_TEST(Modifier_color test_modifier_color)
+ADD_TEST(NAME Modifier_color COMMAND test_modifier_color)
 
 ADD_EXECUTABLE(test_modifier_subpix test_modifier_subpix.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_subpix lensfun ${COMMON_LIBS})
-ADD_TEST(Modifier_subpix test_modifier_subpix)
+ADD_TEST(NAME Modifier_subpix COMMAND test_modifier_subpix)
 
 ADD_EXECUTABLE(test_modifier_coord_scale test_modifier_coord_scale.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_coord_scale lensfun ${COMMON_LIBS})
-ADD_TEST(Modifier_coord_scale test_modifier_coord_scale)
+ADD_TEST(NAME Modifier_coord_scale COMMAND test_modifier_coord_scale)
 
 ADD_EXECUTABLE(test_modifier_coord_perspective_correction test_modifier_coord_perspective_correction.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_coord_perspective_correction lensfun ${COMMON_LIBS})
-ADD_TEST(Modifier_coord_perspective_correction test_modifier_coord_perspective_correction)
+ADD_TEST(NAME Modifier_coord_perspective_correction COMMAND test_modifier_coord_perspective_correction)
 
 ADD_EXECUTABLE(test_modifier_coord_distortion test_modifier_coord_distortion.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_coord_distortion lensfun ${COMMON_LIBS})
-ADD_TEST(Modifier_coord_distortion test_modifier_coord_distortion)
+ADD_TEST(NAME Modifier_coord_distortion COMMAND test_modifier_coord_distortion)
 
 ADD_EXECUTABLE(test_modifier_coord_geometry test_modifier_coord_geometry.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_coord_geometry lensfun ${COMMON_LIBS})
-ADD_TEST(Modifier_coord_geometry test_modifier_coord_geometry)
+ADD_TEST(NAME Modifier_coord_geometry COMMAND test_modifier_coord_geometry)
 
 ADD_EXECUTABLE(test_modifier_coord_tiny_image test_modifier_coord_tiny_image.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_coord_tiny_image lensfun ${COMMON_LIBS})
-ADD_TEST(Modifier_coord_tiny_image test_modifier_coord_tiny_image)
+ADD_TEST(NAME Modifier_coord_tiny_image COMMAND test_modifier_coord_tiny_image)
 
 ADD_EXECUTABLE(test_modifier_coord_centering test_modifier_coord_centering.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_coord_centering lensfun ${COMMON_LIBS})
-ADD_TEST(Modifier_coord_centering test_modifier_coord_centering)
+ADD_TEST(NAME Modifier_coord_centering COMMAND test_modifier_coord_centering)
 
 ADD_EXECUTABLE(test_modifier_regression test_modifier_regression.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_regression lensfun ${COMMON_LIBS})
@@ -64,39 +64,39 @@ ADD_TEST(NAME Database_deprecated WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND 
 
 ADD_EXECUTABLE(test_modifier_old test_modifier_old.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_old lensfun ${COMMON_LIBS})
-ADD_TEST(Modifier_deprecated test_modifier_old)
+ADD_TEST(NAME Modifier_deprecated COMMAND test_modifier_old)
 
 ADD_EXECUTABLE(test_modifier_color_old test_modifier_color_old.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_color_old lensfun ${COMMON_LIBS})
-ADD_TEST(Modifier_color_deprecated test_modifier_color_old)
+ADD_TEST(NAME Modifier_color_deprecated COMMAND test_modifier_color_old)
 
 ADD_EXECUTABLE(test_modifier_subpix_old test_modifier_subpix_old.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_subpix_old lensfun ${COMMON_LIBS})
-ADD_TEST(Modifier_subpix_deprecate test_modifier_subpix_old)
+ADD_TEST(NAME Modifier_subpix_deprecate COMMAND test_modifier_subpix_old)
 
 ADD_EXECUTABLE(test_modifier_coord_scale_old test_modifier_coord_scale_old.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_coord_scale_old lensfun ${COMMON_LIBS})
-ADD_TEST(Modifier_coord_scale_deprecated test_modifier_coord_scale_old)
+ADD_TEST(NAME Modifier_coord_scale_deprecated COMMAND test_modifier_coord_scale_old)
 
 ADD_EXECUTABLE(test_modifier_coord_perspective_correction_old test_modifier_coord_perspective_correction_old.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_coord_perspective_correction_old lensfun ${COMMON_LIBS})
-ADD_TEST(Modifier_coord_perspective_correction_deprecated test_modifier_coord_perspective_correction_old)
+ADD_TEST(NAME Modifier_coord_perspective_correction_deprecated COMMAND test_modifier_coord_perspective_correction_old)
 
 ADD_EXECUTABLE(test_modifier_coord_distortion_old test_modifier_coord_distortion_old.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_coord_distortion_old lensfun ${COMMON_LIBS})
-ADD_TEST(Modifier_coord_distortion_deprecated test_modifier_coord_distortion_old)
+ADD_TEST(NAME Modifier_coord_distortion_deprecated COMMAND test_modifier_coord_distortion_old)
 
 ADD_EXECUTABLE(test_modifier_coord_geometry_old test_modifier_coord_geometry_old.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_coord_geometry_old lensfun ${COMMON_LIBS})
-ADD_TEST(Modifier_coord_geometry_deprecated test_modifier_coord_geometry_old)
+ADD_TEST(NAME Modifier_coord_geometry_deprecated COMMAND test_modifier_coord_geometry_old)
 
 ADD_EXECUTABLE(test_modifier_coord_tiny_image_old test_modifier_coord_tiny_image_old.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_coord_tiny_image_old lensfun ${COMMON_LIBS})
-ADD_TEST(Modifier_coord_tiny_image_deprecated test_modifier_coord_tiny_image_old)
+ADD_TEST(NAME Modifier_coord_tiny_image_deprecated COMMAND test_modifier_coord_tiny_image_old)
 
 ADD_EXECUTABLE(test_modifier_coord_centering_old test_modifier_coord_centering_old.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_coord_centering_old lensfun ${COMMON_LIBS})
-ADD_TEST(Modifier_coord_centering_deprecated test_modifier_coord_centering_old)
+ADD_TEST(NAME Modifier_coord_centering_deprecated COMMAND test_modifier_coord_centering_old)
 
 ADD_EXECUTABLE(test_modifier_regression_old test_modifier_regression_old.cpp)
 TARGET_LINK_LIBRARIES(test_modifier_regression_old lensfun ${COMMON_LIBS})
@@ -104,7 +104,7 @@ ADD_TEST(NAME Modifier_regression_deprecated WORKING_DIRECTORY ${CMAKE_SOURCE_DI
 
 ADD_EXECUTABLE(test_lffuzzystrcmp test_lffuzzystrcmp.cpp)
 TARGET_LINK_LIBRARIES(test_lffuzzystrcmp lensfun ${COMMON_LIBS})
-ADD_TEST(test_lffuzzystrcmp test_lffuzzystrcmp)
+ADD_TEST(NAME test_lffuzzystrcmp COMMAND test_lffuzzystrcmp)
 
 FIND_PACKAGE(PythonInterp REQUIRED)
 ADD_TEST(NAME Database_integrity COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/check_database/check_database.py ${CMAKE_SOURCE_DIR}/data/db)

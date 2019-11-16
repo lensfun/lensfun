@@ -168,7 +168,7 @@ void test_mod_coord_pc_0_points (lfFixture *lfFix, gconstpointer data)
     // Bases on DSC02279.json
     const float epsilon = std::numeric_limits<float>::epsilon();
 
-    float empty_list [0];
+    float* empty_list = nullptr;
     g_assert_false (lfFix->mod->EnablePerspectiveCorrection (empty_list, empty_list, 0, 0));
 
     float coords [2];
