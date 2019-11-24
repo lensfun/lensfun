@@ -1580,9 +1580,9 @@ lfError lf_db_load_path (lfDatabase *db, const char *pathname)
     return db->Load (pathname);
 }
 
-lfError lf_db_load_data (lfDatabase *db, const char *data, size_t data_size)
+lfError lf_db_load_data (lfDatabase *db, const char *errcontext, const char *data, size_t data_size)
 {
-    return db->Load (data, data_size);
+    return db->Load (errcontext, data, data_size);
 }
 
 lfError lf_db_save_all (const lfDatabase *db, const char *filename)

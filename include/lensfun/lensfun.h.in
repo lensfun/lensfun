@@ -1823,6 +1823,25 @@ struct LF_EXPORT lfDatabase
     lfError Load (const char *data, size_t data_size);
 
     /**
+     * @brief Load a set of camera/lenses from a memory array.
+     *
+     * This function is deprecated and will be removed in the future.
+     * Please use the lfDatabase::Load(const char *data, size_t data_size) syntax instead.
+     * 
+     * This is the lowest-level loading function.
+     * @param errcontext
+     *     The error context to be displayed in error messages
+     *     (usually this is the name of the file to which data belongs).
+     * @param data
+     *     The XML data.
+     * @param data_size
+     *     XML data size in bytes.
+     * @return
+     *     LF_NO_ERROR or a error code.
+     */
+    DEPRECATED lfError Load (const char *errcontext, const char *data, size_t data_size);
+
+    /**
      * @brief Save the whole database to a file.
      * @param filename
      *     The file name to write the XML stream into.
@@ -2033,8 +2052,6 @@ private:
      */
     int MatchScore (const lfLens *pattern, const lfLens *match, const lfCamera *camera,
                                 void *fuzzycmp, const char* const* compat_mounts) const;
-
-    lfError Load (const char *errcontext, const char *data, size_t data_size);
 
     std::vector<lfMount*>  Mounts;
     std::vector<lfCamera*> Cameras;
