@@ -1258,6 +1258,35 @@
     </lens>
 
     <lens>
+	<!-- profile copied from first version, could be made an alias -->
+        <maker>Leica</maker>
+        <model>Leica DG Summilux 25mm f/1.4 II</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Olympus OMD E-M5 -->
+            <distortion model="ptlens" focal="25" a="-0.00305" b="-0.01088" c="-0.00658"/>
+            <tca model="poly3" focal="25" br="-0.0000700" vr="1.0002675" bb="0.0001262" vb="0.9998339"/>
+            <!-- Taken with DMC-GH5 -->
+            <vignetting model="pa" focal="25" aperture="1.4" distance="10" k1="-0.8588" k2="0.3576" k3="-0.1044"/>
+            <vignetting model="pa" focal="25" aperture="1.4" distance="1000" k1="-0.8588" k2="0.3576" k3="-0.1044"/>
+            <vignetting model="pa" focal="25" aperture="2" distance="10" k1="0.0401" k2="-0.6673" k3="0.2202"/>
+            <vignetting model="pa" focal="25" aperture="2" distance="1000" k1="0.0401" k2="-0.6673" k3="0.2202"/>
+            <vignetting model="pa" focal="25" aperture="2.8" distance="10" k1="-0.1024" k2="0.0271" k3="-0.0822"/>
+            <vignetting model="pa" focal="25" aperture="2.8" distance="1000" k1="-0.1024" k2="0.0271" k3="-0.0822"/>
+            <vignetting model="pa" focal="25" aperture="4" distance="10" k1="-0.0634" k2="-0.1164" k3="0.0488"/>
+            <vignetting model="pa" focal="25" aperture="4" distance="1000" k1="-0.0634" k2="-0.1164" k3="0.0488"/>
+            <vignetting model="pa" focal="25" aperture="5.6" distance="10" k1="-0.0818" k2="-0.0702" k3="0.0207"/>
+            <vignetting model="pa" focal="25" aperture="5.6" distance="1000" k1="-0.0818" k2="-0.0702" k3="0.0207"/>
+            <vignetting model="pa" focal="25" aperture="8" distance="10" k1="-0.0986" k2="-0.0376" k3="0.0036"/>
+            <vignetting model="pa" focal="25" aperture="8" distance="1000" k1="-0.0986" k2="-0.0376" k3="0.0036"/>
+            <vignetting model="pa" focal="25" aperture="16" distance="10" k1="-0.1848" k2="0.1521" k3="-0.0994"/>
+            <vignetting model="pa" focal="25" aperture="16" distance="1000" k1="-0.1848" k2="0.1521" k3="-0.0994"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <maker>Panasonic</maker>
         <model>Lumix G X Vario 35-100mm f/2.8 Power OIS</model>
         <model lang="en">Lumix G X Vario 35-100mm f/2.8</model>
