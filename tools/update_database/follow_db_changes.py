@@ -38,7 +38,7 @@ args = parser.parse_args()
 config = configparser.ConfigParser()
 assert config.read(os.path.expanduser("~/calibration_webserver.ini")), os.path.expanduser("~/calibration_webserver.ini")
 
-github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
+github = Github(config["GitHub"]["token"])
 lensfun = github.get_organization("lensfun").get_repo("lensfun")
 calibration_request_label = lensfun.get_label("calibration request")
 successful_label = lensfun.get_label("successful")

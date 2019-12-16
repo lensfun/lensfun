@@ -458,7 +458,7 @@ class GithubConfiguration:
     connection to the Lensfun project on GitHub.
     """
     def __init__(self):
-        self.github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
+        self.github = Github(config["GitHub"]["token"])
         self.lensfun = self.github.get_organization("lensfun").get_repo("lensfun")
         self.calibration_request_label = self.lensfun.get_label("calibration request")
 
