@@ -2102,9 +2102,8 @@ DEPRECATED LF_EXPORT cbool lf_db_load_directory (lfDatabase *db, const char *dir
 /** @sa lfDatabase::Load(const char *) */
 LF_EXPORT lfError lf_db_load_path (lfDatabase *db, const char *pathname);
 
-/** @sa lfDatabase::Load(const char *, const char *, size_t) */
-LF_EXPORT lfError lf_db_load_data (lfDatabase *db, const char *errcontext,
-                                   const char *data, size_t data_size);
+/** @sa lfDatabase::Load(const char *, size_t) */
+LF_EXPORT lfError lf_db_load_data (lfDatabase *db, const char *data, size_t data_size);
 
 /** @sa lfDatabase::Save(const char *) */
 LF_EXPORT lfError lf_db_save_all (const lfDatabase *db, const char *filename);
