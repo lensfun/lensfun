@@ -949,8 +949,8 @@ struct lfLensCalibrationSet
     /** Field of view calibration data */
     std::vector<lfLensCalibFov*> CalibFov;
 
-    friend class lfDatabase;
-    friend class lfLens;
+    friend struct lfDatabase;
+    friend struct lfLens;
 #endif
 };
 
@@ -1527,7 +1527,7 @@ struct LF_EXPORT lfLens
         lfLensCalibrationSet* GetClosestCalibrationSet(const float crop) const;
         lfLensCalibrationSet* GetCalibrationSetForAttributes(const lfLensCalibAttributes lcattr);
 
-        friend class lfDatabase;
+        friend struct lfDatabase;
 #endif
 };
 
