@@ -1580,9 +1580,14 @@ lfError lf_db_load_path (lfDatabase *db, const char *pathname)
     return db->Load (pathname);
 }
 
-lfError lf_db_load_data (lfDatabase *db, const char *data, size_t data_size)
+lfError lf_db_load_data (lfDatabase *db, const char *, const char *data, size_t data_size)
 {
     return db->Load (data, data_size);
+}
+
+lfError lf_db_load_str (lfDatabase *db, const char *xml, size_t data_size)
+{
+    return db->Load (xml, data_size);
 }
 
 lfError lf_db_save_all (const lfDatabase *db, const char *filename)
@@ -1590,12 +1595,7 @@ lfError lf_db_save_all (const lfDatabase *db, const char *filename)
     return db->Save (filename);
 }
 
-lfError lf_db_save_file (const lfDatabase *db, const char *filename)
-{
-    return db->Save (filename);
-}
-
-char *lf_db_save (const lfDatabase *db)
+char *lf_db_save_str (const lfDatabase *db)
 {
     return db->Save ();
 }
