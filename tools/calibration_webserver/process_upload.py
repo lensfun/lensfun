@@ -420,7 +420,7 @@ def tag_image_files(file_exif_data):
 
     :return:
       All files for which EXIF data is missing, as a list (filepath, lens
-      model, focal length, f-stop number).  Anythin missing is ``None``.
+      model, focal length, f-stop number).  Anything missing is ``None``.
 
     :rtype: list of (str, str or NoneType, float or NoneType, float or
       NoneType)
