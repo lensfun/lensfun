@@ -356,10 +356,11 @@ def collect_exif_data():
 
     :rtype: dict mapping str to (str, str, str, float, float)
     """
-    raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf",
-                           "fff", "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx",
-                           "pxn", "r3d", "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "tif", "tiff", "x3f",
-                           "jpg", "jpeg"]
+    raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cr3", "cap", "dcs", "dcr", "dng", "drf", "eip",
+                           "erf", "fff", "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef",
+                           "ptx", "pxn", "r3d", "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "tif", "tiff",
+                           "x3f", "jpg", "jpeg"]
+
     raw_files = []
     ignored_directories = {"__MACOSX"}
     for root, dirnames, filenames in os.walk(directory, topdown=True):
