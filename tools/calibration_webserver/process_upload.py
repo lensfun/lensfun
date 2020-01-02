@@ -374,7 +374,8 @@ def collect_exif_data():
     file_exif_data = {}
     if cr3_files:
         output = subprocess.run(["exiftool", "-s", "-Make", "-Model", "-LensModel", "-FocalLength", "-FNumber"] + raw_files,
-                                check=True, text=True, capture_output=True).stdout
+                                check=True, universal_newlines=True,
+                                stdout=subprocess.PIPE, stderr=subprocess.DEVNULL).stdout
         if len(raw_files) == 1:
             current_path = raw_files[0]
             file_exif_data[current_path] = [None, None, None, float("nan"), float("nan")]
