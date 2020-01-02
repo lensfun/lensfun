@@ -373,6 +373,7 @@ def collect_exif_data():
                 raw_files.append(os.path.join(root, filename))
     file_exif_data = {}
     if cr3_files:
+        write_result_and_exit("Sorry, we use dcraw and exiv2, and both don’t support CR3 files yet.")
         output = subprocess.run(["exiftool", "-s", "-Make", "-Model", "-LensModel", "-FocalLength", "-FNumber"] + raw_files,
                                 check=True, universal_newlines=True,
                                 stdout=subprocess.PIPE, stderr=subprocess.DEVNULL).stdout
