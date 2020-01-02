@@ -390,15 +390,15 @@
             <vignetting model="pa" focal="85" aperture="22" distance="1000" k1="-0.1501" k2="0.0956" k3="-0.0137"/>
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Minolta</maker>
         <model>Minolta AF 28-75mm F2.8 (D)</model>
-	<!-- This is an alias for Sony 28-75mm F2.8 SAM (SAL2875) -->
+        <!-- This is an alias for Sony 28-75mm F2.8 SAM (SAL2875) -->
         <mount>Minolta AF</mount>
         <cropfactor>1</cropfactor>
         <calibration>
-	    <!-- Taken with DSLR-A850 -->
+            <!-- Taken with DSLR-A850 -->
             <distortion model="ptlens" focal="28" a="0.01469" b="-0.034774" c="0"/>
             <distortion model="ptlens" focal="30" a="0.012441" b="-0.026997" c="0"/>
             <distortion model="ptlens" focal="35" a="0.009958" b="-0.018577" c="0"/>
