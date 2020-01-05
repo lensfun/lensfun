@@ -2,12 +2,16 @@
 0.3.95 --> 
 =======================================
 
+__lfDatabase__
+    * `lfDatabase::Save()` without arguments is deprecated
+    * `lfDatabase::Save(char*& xml, size_t& data_size)` has been added to write the database into an XML char string
+    * new `lf_db_load_str()` and `lf_db_save_str()` C-functions to load/save as XML string char array 
+
 __Breaking changes__
 
 * C interface: 
     * all `lf_lens_interpolate_...()` functions now require an additional crop parameter.
     * `lf_db_save()` and `lf_db_save_file()` have been removed
-    * new `lf_db_load_str()` and `lf_db_save_str()` functions to load/save as XML string char array 
 
 
 __Profiles__
