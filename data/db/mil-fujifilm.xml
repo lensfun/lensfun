@@ -1470,5 +1470,28 @@
             <vignetting model="pa" focal="35.0" aperture="16.0" distance="1000" k1="-0.3635652" k2="0.5847584" k3="-0.3423511"/>
         </calibration>
     </lens>
-
+        <lens>
+        <maker>FUJIFILM</maker>
+        <model>XF16-80mmF4 R OIS WR</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-T20 -->
+            <distortion model="ptlens" focal="16.0" a="0.03543" b="-0.14758" c="0.11619" />
+            <distortion model="ptlens" focal="21.2" a="-0.00485" b="0.01267" c="-0.00126" />
+            <distortion model="ptlens" focal="27.5" a="0.0038" b="-0.00947" c="0.03651" />
+            <distortion model="ptlens" focal="30.8" a="-0.00336" b="0.03028" c="-0.01928" />
+            <distortion model="ptlens" focal="54.5" a="-0.00982" b="0.04388" c="-0.01958" />
+            <distortion model="ptlens" focal="65.2" a="-0.00056" b="-0.00285" c="0.04402" />
+            <distortion model="ptlens" focal="80.0" a="-0.02685" b="0.08839" c="-0.04118" />
+            <tca model="poly3" focal="16.0" vr="1.0012249" vb="0.9998603" />
+            <tca model="poly3" focal="21.2" vr="1.0009280" vb="0.9998655" />
+            <tca model="poly3" focal="26.0" vr="1.0007957" vb="0.9998798" />
+            <tca model="poly3" focal="27.5" vr="1.0006966" vb="0.9998643" />
+            <tca model="poly3" focal="30.8" vr="1.0005755" vb="0.9998473" />
+            <tca model="poly3" focal="54.5" vr="0.9997921" vb="0.9999058" />
+            <tca model="poly3" focal="65.2" vr="0.9994331" vb="0.9999305" />
+            <tca model="poly3" focal="80.0" vr="0.9986901" vb="1.0000221" />
+        </calibration>
+    </lens>
 </lensdatabase>
