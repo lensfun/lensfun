@@ -1953,4 +1953,24 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 100-400mm f/4.5-5.6 GM OSS</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- taken with ILCE-9 α9 -->
+            <distortion model="poly3" focal="100" k1="0.00301"/>
+            <distortion model="poly3" focal="158" k1="0.00698"/>
+            <distortion model="poly3" focal="198" k1="0.00727"/>
+            <distortion model="poly3" focal="294" k1="0.0072"/>
+            <distortion model="poly3" focal="400" k1="0.00661"/>
+            <tca model="poly3" focal="100" vr="1.0001317" vb="1.0000276"/>
+            <tca model="poly3" focal="158" vr="1.0001303" vb="0.9999412"/>
+            <tca model="poly3" focal="198" vr="1.0000913" vb="0.9999411"/>
+            <tca model="poly3" focal="294" vr="0.9999624" vb="0.9999690"/>
+            <tca model="poly3" focal="400" vr="0.9998627" vb="0.9998931"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
