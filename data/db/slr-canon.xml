@@ -6491,4 +6491,27 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon FD 50mm f/1.4 S.C.C.</model>
+        <mount>Canon FD</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Sony ILCE-7RM2 and Canon FD to Sony E adapter -->
+            <distortion model="poly3" focal="50" k1="-0.00341"/>
+            <vignetting model="pa" focal="50" aperture="1.4" distance="10" k1="-1.6342" k2="1.3519" k3="-0.5462"/>
+            <vignetting model="pa" focal="50" aperture="1.4" distance="1000" k1="-1.6342" k2="1.3519" k3="-0.5462"/>
+            <vignetting model="pa" focal="50" aperture="2" distance="10" k1="0.1790" k2="-1.6048" k3="0.7748"/>
+            <vignetting model="pa" focal="50" aperture="2" distance="1000" k1="0.1790" k2="-1.6048" k3="0.7748"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="10" k1="-0.0107" k2="-0.3201" k3="-0.1473"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="1000" k1="-0.0107" k2="-0.3201" k3="-0.1473"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="10" k1="-0.1885" k2="0.1790" k3="-0.3443"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="1000" k1="-0.1885" k2="0.1790" k3="-0.3443"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="10" k1="-0.0964" k2="-0.2476" k3="0.1047"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="1000" k1="-0.0964" k2="-0.2476" k3="0.1047"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="10" k1="-0.0958" k2="-0.2781" k3="0.1486"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="1000" k1="-0.0958" k2="-0.2781" k3="0.1486"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
