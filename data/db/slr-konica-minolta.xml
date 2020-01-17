@@ -479,4 +479,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Minolta</maker>
+        <model>Minolta AF 50mm f/2.8 Macro</model>
+        <mount>Minolta AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Sony Alpha DSLR-A850 -->
+            <distortion model="poly3" focal="50" k1="0.00315"/>
+            <tca model="poly3" focal="50" vr="1.0001088" vb="0.9998685"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
