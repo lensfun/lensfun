@@ -503,4 +503,24 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Minolta</maker>
+        <model>Minolta AF 17-35mm f/2.8-4 (D)</model>
+        <mount>Minolta AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Sony Alpha DSLR-A850 -->
+            <distortion model="ptlens" focal="17" a="0.01903" b="-0.03662" c="-0.03053"/>
+            <distortion model="ptlens" focal="20" a="0.02872" b="-0.07426" c="0.03037"/>
+            <distortion model="ptlens" focal="24" a="0.02" b="-0.05279" c="0.03256"/>
+            <distortion model="ptlens" focal="28" a="0.00841" b="-0.01642" c="0.00904"/>
+            <distortion model="ptlens" focal="35" a="0.00858" b="-0.01802" c="0.0179"/>
+            <tca model="poly3" focal="17" vr="1.0002199" vb="1.0005639"/>
+            <tca model="poly3" focal="20" vr="1.0000356" vb="1.0006493"/>
+            <tca model="poly3" focal="24" vr="0.9999461" vb="1.0006839"/>
+            <tca model="poly3" focal="28" vr="0.9999083" vb="1.0006992"/>
+            <tca model="poly3" focal="35" vr="0.9999141" vb="1.0005449"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
