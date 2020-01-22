@@ -523,4 +523,24 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Minolta</maker>
+        <model>Minolta/Sony AF 24-105mm f/3.5-4.5 (D)</model>
+        <mount>Minolta AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Sony Alpha DSLR-A850 -->
+            <distortion model="ptlens" focal="24" a="0.05227" b="-0.15981" c="0.12322"/>
+            <distortion model="ptlens" focal="35" a="0.01318" b="-0.02634" c="0.02175"/>
+            <distortion model="ptlens" focal="50" a="-0.00059" b="0.03705" c="-0.06462"/>
+            <distortion model="ptlens" focal="70" a="0.00654" b="0.0071" c="-0.02471"/>
+            <distortion model="ptlens" focal="105" a="0.0047" b="0.00826" c="-0.0172"/>
+            <tca model="poly3" focal="24" vr="1.0003547" vb="1.0003263"/>
+            <tca model="poly3" focal="30" vr="1.0000660" vb="1.0004135"/>
+            <tca model="poly3" focal="50" vr="0.9999505" vb="1.0003131"/>
+            <tca model="poly3" focal="70" vr="0.9998155" vb="1.0000415"/>
+            <tca model="poly3" focal="105" vr="0.9997873" vb="0.9995707"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
