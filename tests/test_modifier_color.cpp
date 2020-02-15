@@ -158,7 +158,7 @@ void test_mod_color_parallel(lfFixture *lfFix, gconstpointer data)
   const lfTestParams *const p = (lfTestParams *)data;
 
   #pragma omp parallel for schedule(static)
-  for(size_t y = 0; y < lfFix->img_height; y++)
+  for(int y = 0; y < static_cast<int>(lfFix->img_height); y++)
   {
     T *imgdata = (T *)lfFix->image + (size_t)p->cpp * y * lfFix->img_width;
 

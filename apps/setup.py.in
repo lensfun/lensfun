@@ -8,5 +8,5 @@ from distutils.core import setup
 
 setup(name="lensfun",
       version="${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}",
-      package_dir={"": "${CMAKE_CURRENT_BINARY_DIR}"},
+      package_dir={"": r"${PY_PACKAGE_DIR}"},
       packages=["lensfun"])

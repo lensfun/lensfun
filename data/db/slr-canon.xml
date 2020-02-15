@@ -620,6 +620,14 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon EOS 90D</model>
+        <model lang="en">EOS 90D</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.613</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
         <model>Canon EOS 80D</model>
         <model lang="en">EOS 80D</model>
         <mount>Canon EF-S</mount>
@@ -6469,7 +6477,7 @@
         <mount>Canon EF-S</mount>
         <cropfactor>1.613</cropfactor>
         <calibration>
-	    <!-- Taken with EOS 750D -->
+            <!-- Taken with EOS 750D -->
             <distortion model="ptlens" focal="22" a="0.00117" b="-0.01071" c="-0.00445"/>
             <distortion model="ptlens" focal="25" a="0.0041" b="-0.01879" c="0.01245"/>
             <distortion model="ptlens" focal="33" a="0.0043" b="-0.01662" c="0.01769"/>
@@ -6480,6 +6488,29 @@
             <tca model="poly3" focal="33" vr="1.0003946" vb="0.9999238"/>
             <tca model="poly3" focal="40" vr="1.0003361" vb="0.9999422"/>
             <tca model="poly3" focal="55" vr="1.0001506" vb="0.9999685"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon FD 50mm f/1.4 S.C.C.</model>
+        <mount>Canon FD</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Sony ILCE-7RM2 and Canon FD to Sony E adapter -->
+            <distortion model="poly3" focal="50" k1="-0.00341"/>
+            <vignetting model="pa" focal="50" aperture="1.4" distance="10" k1="-1.6342" k2="1.3519" k3="-0.5462"/>
+            <vignetting model="pa" focal="50" aperture="1.4" distance="1000" k1="-1.6342" k2="1.3519" k3="-0.5462"/>
+            <vignetting model="pa" focal="50" aperture="2" distance="10" k1="0.1790" k2="-1.6048" k3="0.7748"/>
+            <vignetting model="pa" focal="50" aperture="2" distance="1000" k1="0.1790" k2="-1.6048" k3="0.7748"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="10" k1="-0.0107" k2="-0.3201" k3="-0.1473"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="1000" k1="-0.0107" k2="-0.3201" k3="-0.1473"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="10" k1="-0.1885" k2="0.1790" k3="-0.3443"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="1000" k1="-0.1885" k2="0.1790" k3="-0.3443"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="10" k1="-0.0964" k2="-0.2476" k3="0.1047"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="1000" k1="-0.0964" k2="-0.2476" k3="0.1047"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="10" k1="-0.0958" k2="-0.2781" k3="0.1486"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="1000" k1="-0.0958" k2="-0.2781" k3="0.1486"/>
         </calibration>
     </lens>
 

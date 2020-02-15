@@ -953,7 +953,15 @@
 
     <camera>
         <maker>Canon</maker>
-        <model>Canon Powershot SX60 HS</model>
+        <model>Canon PowerShot SX50 HS</model>
+        <model lang="en">Powershot SX50 HS</model>
+        <mount>canonSX50HS</mount>
+        <cropfactor>5.61</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon PowerShot SX60 HS</model>
         <model lang="en">Powershot SX60 HS</model>
         <mount>canonSX60HS</mount>
         <cropfactor>5.61</cropfactor>
@@ -2346,6 +2354,16 @@
             <distortion model="ptlens" focal="10.8" a="0.01574" b="-0.04867" c="0.03964"/>
             <distortion model="ptlens" focal="12.6" a="0" b="0.00126" c="0"/>
             <distortion model="ptlens" focal="29.2" a="0" b="0.00432" c="0"/>
+            <tca model="poly3" focal="7.3" br="-0.0002379" vr="1.0007459" bb="0.0001411" vb="0.9998445"/>
+            <tca model="poly3" focal="8.5" br="-0.0001739" vr="1.0008641" bb="0.0001019" vb="0.9997926"/>
+            <tca model="poly3" focal="9.6" br="-0.0000092" vr="1.0005671" bb="0.0000943" vb="0.9998540"/>
+            <tca model="poly3" focal="10.8" br="-0.0000025" vr="1.0003788" bb="0.0000541" vb="0.9999801"/>
+            <tca model="poly3" focal="12.6" br="-0.0000288" vr="1.0002463" bb="0.0000724" vb="0.9999956"/>
+            <tca model="poly3" focal="14.9" br="-0.0000697" vr="1.0002020" bb="0.0000472" vb="1.0000286"/>
+            <tca model="poly3" focal="17.3" br="-0.0000452" vr="1.0001646" bb="0.0000547" vb="1.0000672"/>
+            <tca model="poly3" focal="17.3" br="-0.0000765" vr="1.0001784" bb="0.0000155" vb="1.0000779"/>
+            <tca model="poly3" focal="29.2" br="-0.0000522" vr="1.0001390" bb="0.0000117" vb="1.0000064"/>
+            <tca model="poly3" focal="29.2" br="-0.0000600" vr="1.0001478" bb="0.0000210" vb="0.9999993"/>
             <vignetting model="pa" focal="7.3" aperture="2.9" distance="10" k1="-0.2680" k2="0.2617" k3="-0.4865"/>
             <vignetting model="pa" focal="7.3" aperture="2.9" distance="1000" k1="-0.2680" k2="0.2617" k3="-0.4865"/>
             <vignetting model="pa" focal="7.3" aperture="4.2" distance="10" k1="-0.4023" k2="0.6843" k3="-0.6517"/>
@@ -3329,7 +3347,37 @@
 
     <lens>
         <maker>Canon</maker>
-        <model>Standard</model>
+        <model>Canon PowerShot SX50 HS &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>canonSX50HS</mount>
+        <cropfactor>5.61</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="4.3" a="0.11315" b="-0.35673" c="0.20756"/>
+            <distortion model="ptlens" focal="5.4" a="0.03482" b="-0.12448" c="0.03951"/>
+            <distortion model="ptlens" focal="6.6" a="0.0209" b="-0.08127" c="0.03418"/>
+            <distortion model="ptlens" focal="10.5" a="0.00894" b="-0.02868" c="0.01166"/>
+            <distortion model="ptlens" focal="22.9" a="-0.00578" b="0.01887" c="-0.01359"/>
+            <distortion model="ptlens" focal="59.4" a="0.00933" b="-0.03209" c="0.03619"/>
+            <distortion model="ptlens" focal="83.3" a="0.00154" b="-0.00388" c="0.00317"/>
+            <distortion model="ptlens" focal="114.1" a="0.00811" b="-0.03616" c="0.05381"/>
+            <distortion model="ptlens" focal="171.6" a="-0.00046" b="0.00246" c="-0.00074"/>
+            <tca model="poly3" focal="4.3" br="-0.0001043" vr="1.0007027" bb="-0.0001937" vb="1.0005390"/>
+            <tca model="poly3" focal="5.4" br="0.0001533" vr="1.0003919" bb="-0.0001330" vb="1.0002888"/>
+            <tca model="poly3" focal="6.6" br="0.0002154" vr="1.0003798" bb="-0.0001087" vb="1.0002778"/>
+            <tca model="poly3" focal="10.5" br="0.0001054" vr="1.0004603" bb="-0.0000905" vb="1.0002981"/>
+            <tca model="poly3" focal="22.9" br="0.0000285" vr="1.0002460" bb="-0.0000486" vb="1.0001838"/>
+            <tca model="poly3" focal="59.4" br="0.0000069" vr="1.0000471" bb="-0.0000396" vb="1.0000078"/>
+            <tca model="poly3" focal="83.3" br="0.0000261" vr="0.9999951" bb="0.0000363" vb="0.9998268"/>
+            <tca model="poly3" focal="114.1" br="0.0000075" vr="0.9999950" bb="0.0000834" vb="0.9996870"/>
+            <tca model="poly3" focal="171.6" br="-0.0000004" vr="0.9999379" bb="0.0000368" vb="0.9998083"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon PowerShot SX60 HS &amp; compatibles</model>
         <mount>canonSX60HS</mount>
         <cropfactor>5.61</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>

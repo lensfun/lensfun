@@ -25,7 +25,7 @@ def generate_thumbnail(raw_filepath, cache_dir):
     except FileExistsError:
         pass
     processes = []
-    if os.path.splitext(raw_filepath)[1].lower() in [".jpeg", ".jpg"]:
+    if os.path.splitext(raw_filepath)[1].lower() in [".tif", ".tiff", ".jpeg", ".jpg"]:
         processes.append(subprocess.Popen(["convert", raw_filepath, "-resize", "131072@", out_filepath]))
     else:
         dcraw = subprocess.Popen(["dcraw", "-h", "-T", "-c", raw_filepath], stdout=subprocess.PIPE)

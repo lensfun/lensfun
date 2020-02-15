@@ -7,6 +7,7 @@
 #include "lensfun.h"
 #include "lensfunprv.h"
 #include <math.h>
+#include <algorithm>
 #include <stdexcept>
 #include "windows/mathconstants.h"
 

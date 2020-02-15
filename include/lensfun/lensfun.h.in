@@ -949,8 +949,8 @@ struct lfLensCalibrationSet
     /** Field of view calibration data */
     std::vector<lfLensCalibFov*> CalibFov;
 
-    friend class lfDatabase;
-    friend class lfLens;
+    friend struct lfDatabase;
+    friend struct lfLens;
 #endif
 };
 
@@ -1527,7 +1527,7 @@ struct LF_EXPORT lfLens
         lfLensCalibrationSet* GetClosestCalibrationSet(const float crop) const;
         lfLensCalibrationSet* GetCalibrationSetForAttributes(const lfLensCalibAttributes lcattr);
 
-        friend class lfDatabase;
+        friend struct lfDatabase;
 #endif
 };
 
@@ -1811,16 +1811,16 @@ struct LF_EXPORT lfDatabase
     lfError Load (const char *pathname);
 
     /**
-     * @brief Load a database from memory.
+     * @brief Load a database from a XML char string.
      *
-     * @param data
+     * @param xml
      *     The XML data.
      * @param data_size
      *     Data size in bytes.
      * @return
      *     LF_NO_ERROR or a error code.
      */
-    lfError Load (const char *data, size_t data_size);
+    lfError Load (const char *xml, size_t data_size);
 
     /**
      * @brief Save the whole database to a file.
@@ -1832,12 +1832,24 @@ struct LF_EXPORT lfDatabase
     lfError Save (const char *filename) const;
 
     /**
-     * @brief Save the database into a memory array.
+     * @brief Save the database into a XML char string.
      * @return
      *     A pointer to an allocated string with the XML data.
      *     Free it with lf_free().
      */
-    char *Save () const;
+    DEPRECATED char *Save () const;
+
+        /**
+     * @brief Save the database into a XML char string. The memory of the received
+     *     char string has to be released with lf_free().
+     * @param xml
+     *     Reference to a char pointer where the XML string will be stored.
+     * @param data_size
+     *     Length of the written char string.
+     * @return
+     *     LF_NO_ERROR or a error code.
+     */
+    lfError Save (char*& xml, size_t& data_size) const;
 
     /**
      * @brief Find a set of cameras that fit given criteria.
@@ -2102,23 +2114,17 @@ DEPRECATED LF_EXPORT cbool lf_db_load_directory (lfDatabase *db, const char *dir
 /** @sa lfDatabase::Load(const char *) */
 LF_EXPORT lfError lf_db_load_path (lfDatabase *db, const char *pathname);
 
-/** @sa lfDatabase::Load(const char *, const char *, size_t) */
-LF_EXPORT lfError lf_db_load_data (lfDatabase *db, const char *errcontext,
-                                   const char *data, size_t data_size);
+/** @sa lfDatabase::Load(const char *, size_t). Deprecated, use lf_db_load_str() instead. */
+DEPRECATED LF_EXPORT lfError lf_db_load_data (lfDatabase *db, const char *errcontext, const char *data, size_t data_size);
+
+/** @sa lfDatabase::Load(const char *, size_t) */
+LF_EXPORT lfError lf_db_load_str (lfDatabase *db, const char *xml, size_t data_size);
 
 /** @sa lfDatabase::Save(const char *) */
 LF_EXPORT lfError lf_db_save_all (const lfDatabase *db, const char *filename);
 
-/** @sa lfDatabase::Save(const char *, const lfMount *const *, const lfCamera *const *, const lfLens *const *) */
-LF_EXPORT lfError lf_db_save_file (const lfDatabase *db, const char *filename,
-                                   const lfMount *const *mounts,
-                                   const lfCamera *const *cameras,
-                                   const lfLens *const *lenses);
-
-/** @sa lfDatabase::Save(const lfMount *const *, const lfCamera *const *, const lfLens *const *) */
-LF_EXPORT char *lf_db_save (const lfMount *const *mounts,
-                            const lfCamera *const *cameras,
-                            const lfLens *const *lenses);
+/** @sa lfDatabase::Save(char*& xml, size_t& data_size) */
+LF_EXPORT lfError lf_db_save_str (const lfDatabase *db, char **xml, size_t* data_size);
 
 /** @sa lfDatabase::FindCameras */
 LF_EXPORT const lfCamera **lf_db_find_cameras (

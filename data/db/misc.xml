@@ -95,7 +95,7 @@
         <mount>lumia1520</mount>
         <cropfactor>6.26</cropfactor>
     </camera>
-    
+
     <camera>
         <maker>Honor</maker>
         <model>DLI-L22</model>
@@ -174,17 +174,17 @@
             <tca model="poly3" focal="50" br="-0.0000159" vr="1.0000709" bb="0.0000131" vb="0.9999198"/>
         </calibration>
     </lens>
-    
-    <lens> 
-        <maker>Cosina</maker> 
-        <model>24mm 2.0 Macro</model> 
-        <mount>Pentax K</mount> 
-        <cropfactor>1.526</cropfactor> 
-        <calibration> 
-            <distortion model="ptlens" focal="24" a="0.00037" b="-0.00528" c="-0.00728" /> 
-            <tca model="poly3" focal="24" br="-0.0002357" vr="1.0013614" bb="0.0001470" vb="0.9995308" /> 
-        </calibration> 
-    </lens> 
+
+    <lens>
+        <maker>Cosina</maker>
+        <model>24mm 2.0 Macro</model>
+        <mount>Pentax K</mount>
+        <cropfactor>1.526</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="24" a="0.00037" b="-0.00528" c="-0.00728"/>
+            <tca model="poly3" focal="24" br="-0.0002357" vr="1.0013614" bb="0.0001470" vb="0.9995308"/>
+        </calibration>
+    </lens>
 
     <lens>
         <maker>Mitakon</maker>
@@ -515,8 +515,41 @@
 
     <lens>
         <maker>Meike</maker>
+        <model>Meike 25mm f/1.8</model>
+        <mount>Canon EF-M</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Nikon CX</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-6000 -->
+            <distortion model="ptlens" focal="25" a="0.023" b="-0.067" c="0.05"/>
+            <tca model="poly3" focal="25" vr="1.0006443" vb="0.9995646"/>
+            <vignetting model="pa" focal="25" aperture="1.8" distance="10" k1="-0.6979" k2="-0.5158" k3="0.4266"/>
+            <vignetting model="pa" focal="25" aperture="1.8" distance="1000" k1="-0.6979" k2="-0.5158" k3="0.4266"/>
+            <vignetting model="pa" focal="25" aperture="2" distance="10" k1="-0.6704" k2="-0.4621" k3="0.3552"/>
+            <vignetting model="pa" focal="25" aperture="2" distance="1000" k1="-0.6704" k2="-0.4621" k3="0.3552"/>
+            <vignetting model="pa" focal="25" aperture="2.8" distance="10" k1="-0.4438" k2="-0.1696" k3="-0.0930"/>
+            <vignetting model="pa" focal="25" aperture="2.8" distance="1000" k1="-0.4438" k2="-0.1696" k3="-0.0930"/>
+            <vignetting model="pa" focal="25" aperture="4" distance="10" k1="-0.6661" k2="0.7509" k3="-0.7460"/>
+            <vignetting model="pa" focal="25" aperture="4" distance="1000" k1="-0.6661" k2="0.7509" k3="-0.7460"/>
+            <vignetting model="pa" focal="25" aperture="5.6" distance="10" k1="-0.6639" k2="0.6166" k3="-0.5545"/>
+            <vignetting model="pa" focal="25" aperture="5.6" distance="1000" k1="-0.6639" k2="0.6166" k3="-0.5545"/>
+            <vignetting model="pa" focal="25" aperture="8" distance="10" k1="-0.4373" k2="-0.1255" k3="0.0363"/>
+            <vignetting model="pa" focal="25" aperture="8" distance="1000" k1="-0.4373" k2="-0.1255" k3="0.0363"/>
+            <vignetting model="pa" focal="25" aperture="11" distance="10" k1="-0.3816" k2="-0.3348" k3="0.2288"/>
+            <vignetting model="pa" focal="25" aperture="11" distance="1000" k1="-0.3816" k2="-0.3348" k3="0.2288"/>
+            <vignetting model="pa" focal="25" aperture="16" distance="10" k1="-0.4139" k2="-0.2826" k3="0.2054"/>
+            <vignetting model="pa" focal="25" aperture="16" distance="1000" k1="-0.4139" k2="-0.2826" k3="0.2054"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Meike</maker>
         <model>Meike 35mm f/1.7</model>
         <mount>Fujifilm X</mount>
+        <mount>Sony E</mount>
         <cropfactor>1.528</cropfactor>
         <calibration>
             <!-- Taken with Fujifilm X-Pro2 -->
@@ -853,7 +886,7 @@
             <distortion model="ptlens" focal="15" a="0.05114" b="-0.13551" c="0.04398"/>
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Honor</maker>
         <model>Honor 6A &amp; compatibles</model>
@@ -863,11 +896,11 @@
         <cropfactor>8.235</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-        <vignetting model="pa" focal="3.4" aperture="2.2" distance="10" k1="-2.3342" k2="2.8667" k3="-1.3321"/>
-        <vignetting model="pa" focal="3.4" aperture="2.2" distance="1000" k1="-2.3342" k2="2.8667" k3="-1.3321"/>
+            <vignetting model="pa" focal="3.4" aperture="2.2" distance="10" k1="-2.3342" k2="2.8667" k3="-1.3321"/>
+            <vignetting model="pa" focal="3.4" aperture="2.2" distance="1000" k1="-2.3342" k2="2.8667" k3="-1.3321"/>
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Voigtlander</maker>
         <model>Voigtlander HELIAR-HYPER WIDE 10mm F5.6</model>
