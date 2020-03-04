@@ -104,6 +104,46 @@
         <cropfactor>8.235</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Apple</maker>
+        <model>iPhone XS</model>
+        <mount>iPhone XS</mount>
+        <cropfactor>6.118</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Apple</maker>
+        <model>iPhone XS (tele)</model>
+        <mount>iPhone XS (tele)</mount>
+        <cropfactor>8.667</cropfactor>
+    </camera>
+
+    <lens>
+        <maker>Apple</maker>
+        <model>iPhone XS back camera 4.25mm f/1.8</model>
+        <mount>iPhone XS</mount>
+        <cropfactor>6.118</cropfactor>
+        <calibration>
+           <!--FIXME <distortion model="ptlens" focal="4.25" a="1.093728" b="0.90354" c="-4.274552" /> -->
+           <tca model="poly3" focal="4.25" vr="1.0001039" vb="0.9999747" />
+           <vignetting model="pa" focal="4.25" aperture="1.8" distance="10" k1="-2.0800063" k2="2.2430616" k3="-0.9514921" />
+           <vignetting model="pa" focal="4.25" aperture="1.8" distance="1000" k1="-2.0800063" k2="2.2430616" k3="-0.9514921" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Apple</maker>
+        <model>iPhone XS back camera 6mm f/2.4</model>
+        <mount>iPhone XS (tele)</mount>
+        <cropfactor>8.667</cropfactor>
+        <calibration>
+           <distortion model="ptlens" focal="6.0" a="-0.044229" b="0.125299" c="-0.112978" />
+           <tca model="poly3" focal="6.0" vr="0.9999336" vb="0.9999870" />
+           <vignetting model="pa" focal="6.0" aperture="2.4" distance="10" k1="-0.7086498" k2="0.4294304" k3="-0.1153056" />
+           <vignetting model="pa" focal="6.0" aperture="2.4" distance="1000" k1="-0.7086498" k2="0.4294304" k3="-0.1153056" />
+        </calibration>
+    </lens>
+
     <!-- I think this is also known under the brand "Michael Lens" or "Movie
          Lens", and with f/1.6.  The correction data actually was submitted as
          "CCTV Movie Lens HD-MC 35mm/F1.6".  The distortion model is not perfect,
