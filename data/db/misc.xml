@@ -107,24 +107,27 @@
     <camera>
         <maker>Apple</maker>
         <model>iPhone XS</model>
-        <mount>iPhone XS</mount>
+        <mount>iPhoneXS</mount>
         <cropfactor>6.118</cropfactor>
     </camera>
 
     <camera>
         <maker>Apple</maker>
         <model>iPhone XS (tele)</model>
-        <mount>iPhone XS (tele)</mount>
+        <mount>iPhoneXStele</mount>
         <cropfactor>8.667</cropfactor>
     </camera>
 
     <lens>
         <maker>Apple</maker>
-        <model>iPhone XS back camera 4.25mm f/1.8</model>
-        <mount>iPhone XS</mount>
+        <model>iPhone XS back camera 4.25mm f/1.8 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>iPhoneXS</mount>
         <cropfactor>6.118</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-           <!--FIXME <distortion model="ptlens" focal="4.25" a="1.093728" b="0.90354" c="-4.274552" /> -->
+           <distortion model="ptlens" focal="4.25" a="0.02465" b="-0.089989" c="0.111108" />
            <tca model="poly3" focal="4.25" vr="1.0001039" vb="0.9999747" />
            <vignetting model="pa" focal="4.25" aperture="1.8" distance="10" k1="-2.0800063" k2="2.2430616" k3="-0.9514921" />
            <vignetting model="pa" focal="4.25" aperture="1.8" distance="1000" k1="-2.0800063" k2="2.2430616" k3="-0.9514921" />
@@ -133,9 +136,12 @@
 
     <lens>
         <maker>Apple</maker>
-        <model>iPhone XS back camera 6mm f/2.4</model>
-        <mount>iPhone XS (tele)</mount>
+        <model>iPhone XS back camera 6mm f/2.4 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>iPhoneXStele</mount>
         <cropfactor>8.667</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
         <calibration>
            <distortion model="ptlens" focal="6.0" a="-0.044229" b="0.125299" c="-0.112978" />
            <tca model="poly3" focal="6.0" vr="0.9999336" vb="0.9999870" />
