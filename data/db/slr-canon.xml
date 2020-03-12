@@ -6518,7 +6518,7 @@
         <model>Canon EF 15mm f/2.8 Fisheye</model>
         <mount>Canon EF</mount>
         <cropfactor>1.0</cropfactor>
-        <type>fisheye</type>
+   <!--     <type>fisheye</type> Comment: Not known? Test fail with this included! -->
         <calibration>
             <distortion model="ptlens" focal="15.0" a="-0.04365" b="0.1222" c="-0.16052" />
             <tca model="poly3" focal="15.0" br="-0.0000826" vr="1.0005883" bb="0.0000227" vb="1.0001173" />
