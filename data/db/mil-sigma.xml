@@ -237,5 +237,37 @@
             <distortion model="ptlens" focal="16" a="0.019888" b="-0.0654977" c="0.0396784"/>
         </calibration>
     </lens>
+    
+    <lens>
+        <!-- Thanks to peter-hb-1955 for the profile -->
+        <maker>Tamron</maker>
+        <model>E 28-75mm F2.8-2.8</model>
+        <type>rectilinear</type> 
+        <focal min="28" max="75" /> 
+        <aperture min="2.8" max="22" /> 
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="28.0" a="0.02351" b="-0.08149" c="0.06775" />
+            <distortion model="ptlens" focal="35.0" a="0.00735" b="-0.02064" c="0.0108" />
+            <distortion model="ptlens" focal="50.0" a="0.00425" b="-0.00564" c="0.00254" />
+            <distortion model="ptlens" focal="75.0" a="-0.01038" b="0.03211" c="-0.01916" />
+            <tca model="poly3" focal="28.0" vr="1.0003207" vb="1.0000327" />
+            <tca model="poly3" focal="35.0" vr="1.0001990" vb="1.0000686" />
+            <tca model="poly3" focal="36.0" vr="1.0001835" vb="1.0000632" />
+            <tca model="poly3" focal="50.0" vr="1.0000338" vb="1.0000447" />
+            <tca model="poly3" focal="75.0" vr="0.9999337" vb="0.9998330" />
+            <vignetting model="pa" focal="28.0" aperture="2.8" distance="10" k1="-1.6788936" k2="1.2384943" k3="-0.4099471" />
+            <vignetting model="pa" focal="28.0" aperture="2.8" distance="1000" k1="-1.6788936" k2="1.2384943" k3="-0.4099471" />
+            <vignetting model="pa" focal="35.0" aperture="2.8" distance="10" k1="-1.4410330" k2="1.1933521" k3="-0.4563734" />
+            <vignetting model="pa" focal="35.0" aperture="2.8" distance="1000" k1="-1.4410330" k2="1.1933521" k3="-0.4563734" />
+            <vignetting model="pa" focal="42.0" aperture="2.8" distance="10" k1="-1.2194160" k2="0.7357032" k3="-0.1988240" />
+            <vignetting model="pa" focal="42.0" aperture="2.8" distance="1000" k1="-1.2194160" k2="0.7357032" k3="-0.1988240" />
+            <vignetting model="pa" focal="50.0" aperture="2.8" distance="10" k1="-0.8957828" k2="0.2639173" k3="0.0483307" />
+            <vignetting model="pa" focal="50.0" aperture="2.8" distance="1000" k1="-0.8957828" k2="0.2639173" k3="0.0483307" />
+            <vignetting model="pa" focal="70.0" aperture="2.8" distance="10" k1="-0.9386801" k2="0.4610032" k3="-0.1643302" />
+            <vignetting model="pa" focal="70.0" aperture="2.8" distance="1000" k1="-0.9386801" k2="0.4610032" k3="-0.1643302" />
+        </calibration>
+    </lens>
 
 </lensdatabase>
