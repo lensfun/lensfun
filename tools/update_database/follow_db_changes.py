@@ -249,6 +249,14 @@ def get_upload_data(upload_hash):
 
 
 def process_issue(issue, label):
+    """Removed the suffessul/unsuccessful label, closes the issue, and maybe sends
+    an email to the uploader.
+
+    :param Github.Issue issue: GitHub issue to be processed
+
+    :param Github.Label label: GitHub labels that led to the processing; may be
+      `successful_label`, `unsuccessful_label`, or `unsuccessful_no_mail_label`
+    """
     issue.remove_from_labels(label)
     if label is successful_label:
         body = """Dear uploader,
