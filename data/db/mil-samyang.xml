@@ -161,5 +161,41 @@
             <distortion model="ptlens" focal="24" a="0.01564" b="-0.02852" c="0.00751"/>
         </calibration>
     </lens>
+    
+    <lens>
+        <!-- Thanks to ndu2 for data -->
+        <maker>Samyang</maker>
+        <model>SAMYANG AF 45mm F1.8</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="45" a="-0.0024" b="-0.00083" c="0.00418"/>
+            <tca model="poly3" focal="45" vr="0.9999832" vb="0.9997859"/>
+            <tca model="poly3" focal="45" vr="0.9999881" vb="0.9997891"/>
+            <tca model="poly3" focal="45" vr="1.0000542" vb="0.9998050"/>
+            <tca model="poly3" focal="45" vr="1.0000571" vb="0.9997949"/>
+            <tca model="poly3" focal="45" vr="1.0000591" vb="0.9998019"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <!-- Thanks to ndu2 for data -->
+        <maker>Samyang</maker>
+        <model>SAMYANG AF 85mm F1.4</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="85" a="-0.00737" b="0.0226" c="-0.02139"/>
+            <tca model="poly3" focal="85" vr="0.9999798" vb="0.9998578"/>
+            <tca model="poly3" focal="85" vr="0.9999826" vb="0.9998500"/>
+            <tca model="poly3" focal="85" vr="0.9999838" vb="0.9998444"/>
+            <tca model="poly3" focal="85" vr="0.9999856" vb="0.9998458"/>
+            <tca model="poly3" focal="85" vr="0.9999871" vb="0.9998529"/>
+            <tca model="poly3" focal="85" vr="0.9999875" vb="0.9998568"/>
+            <tca model="poly3" focal="85" vr="1.0000132" vb="0.9998255"/>
+            <tca model="poly3" focal="85" vr="1.0000160" vb="0.9998137"/>
+            <tca model="poly3" focal="85" vr="1.0000197" vb="0.9998246"/>
+        </calibration>
+    </lens>
 
 </lensdatabase>
