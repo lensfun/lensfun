@@ -45,12 +45,12 @@ select the mount of the lenses you can now put on your camera, using the
 adapter.  That's it.
 
 With the options ``--maker``, ``--model``, and ``--mount``, you can avoid
-interactive mode by passing the nevcessary data explicitly.  If you pass only
+interactive mode by passing the necessary data explicitly.  If you pass only
 maker/model or only mount, ``lensfun-add-adapter`` will enter interactive mode
 only for the missing data.
 
 You can also use ``lensfun-add-adapter`` to reset your adapter configuration.
-Call it with the ``--help`` paremeter to see all functions.
+Call it with the ``--help`` parameter to see all functions.
 
 OPTIONS
 =========
