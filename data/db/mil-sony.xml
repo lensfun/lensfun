@@ -1998,5 +1998,30 @@
             <tca model="poly3" focal="55" br="-0.0000656" vr="0.9999510" bb="0.0000526" vb="0.9998016"/>
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Sony</maker>
+        <model>E 70-350mm F4.5-6.3 G OSS</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="70" a="0.0102674203235291" b="-0.0226289059168314" c="0.052844698199936"/>
+            <distortion model="ptlens" focal="98" a="0.00651089549890782" b="-0.00339194289178117" c="0.0266660460095801"/>
+            <distortion model="ptlens" focal="132" a="0.00120680770839538" b="0.0103273006109119" c="0.020987478836464"/>
+            <distortion model="ptlens" focal="163" a="-0.0042520752612236" b="0.0297037217037091" c="-0.00242810977838033"/>
+            <distortion model="ptlens" focal="200" a="-0.00219146298780921" b="0.0315922868063698" c="-0.0266377348354084"/>
+            <distortion model="ptlens" focal="244" a="-0.0162024853968891" b="0.0803244662732511" c="-0.086079101637817"/>
+            <distortion model="ptlens" focal="291" a="-0.0107445491144207" b="0.0680949523917039" c="-0.0895930575079237"/>
+            <distortion model="ptlens" focal="350" a="-0.00970405535727336" b="0.0588694872589976" c="-0.0809433424391271"/>
+            <tca model="poly3" focal="70" vr="0.9999961" vb="0.9999577"/>
+            <tca model="poly3" focal="98" vr="0.9999615" vb="0.9999296"/>
+            <tca model="poly3" focal="132" vr="0.9998930" vb="0.9999498"/>
+            <tca model="poly3" focal="163" vr="0.9998132" vb="0.9999562"/>
+            <tca model="poly3" focal="200" vr="0.9998098" vb="0.9999380"/>
+            <tca model="poly3" focal="244" vr="0.9997868" vb="0.9999177"/>
+            <tca model="poly3" focal="291" vr="0.9997787" vb="0.9998801"/>
+            <tca model="poly3" focal="350" vr="0.9996852" vb="0.9998472"/>
+        </calibration>
+    </lens>
 
 </lensdatabase>
