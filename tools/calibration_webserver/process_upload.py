@@ -219,7 +219,7 @@ def extract_archive():
         elif extension == ".7z":
             call_unpacker(["7z", "x", "-o" + directory, filepath])
         elif extension == ".zip":
-            call_unpacker(["unzip", filepath, "-d", directory])
+            call_unpacker(["unzip", filepath, "-x", "/", "-d", directory])
         else:
             raise InvalidArchive
     except subprocess.CalledProcessError as error:
