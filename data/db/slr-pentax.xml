@@ -283,7 +283,7 @@
     <camera>
         <maker>Ricoh Imaging Company, Ltd.</maker>
         <maker lang="en">Pentax</maker>
-        <model>PENTAX K-1 Mark II</model>
+        <model>Pentax K-1 Mark II</model>
         <model lang="en">K-1 Mark II</model>
         <mount>Pentax KAF3</mount>
         <cropfactor>1.0</cropfactor>
@@ -582,7 +582,7 @@
         <model>smc Pentax-DA 18-55mm f/3.5-5.6 AL</model>
         <!-- FixMe: According to
              <http://en.wikipedia.org/wiki/Pentax_DA_18-55mm_lens>, Samsung
-             D-XENON 18-55mm 1:3.5-5.6 AL is an alias. -->
+             D-XENON 18-55mm f/3.5-5.6 AL is an alias. -->
         <mount>Pentax KAF2</mount>
         <focal min="18" max="55"/>
         <aperture min="3.5" max="40"/>
@@ -1202,7 +1202,19 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>smc Pentax K 30mm f/2.8</model>
+        <model>smc Pentax-K 24mm f/2.8</model>
+        <mount>Pentax K</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with FujiFilm X-T20 -->
+            <distortion model="ptlens" focal="24" a="0.005992" b="-0.009136" c="-0.034913"/>
+            <tca model="poly3" focal="24" br="0.0003010" vr="1.0000159" bb="0.0001300" vb="0.9995399"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-K 30mm f/2.8</model>
         <mount>Pentax K</mount>
         <!-- Average crop factor of Pentax APS-C cameras -->
         <cropfactor>1.53</cropfactor>
@@ -1898,7 +1910,7 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>smc Pentax-A 28mm 1:2.8</model>
+        <model>smc Pentax-A 28mm f/2.8</model>
         <mount>Pentax KA</mount>
         <aperture min="2.8" max="22"/>
         <cropfactor>1.538</cropfactor>
@@ -1925,7 +1937,7 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>smc Pentax-M 28mm 1:3.5</model>
+        <model>smc Pentax-M 28mm f/3.5</model>
         <mount>Pentax K</mount>
         <cropfactor>1.538</cropfactor>
         <calibration>
@@ -1949,7 +1961,7 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>smc Pentax-M 35mm 1:2</model>
+        <model>smc Pentax-M 35mm f/2</model>
         <mount>Pentax K</mount>
         <cropfactor>1.538</cropfactor>
         <calibration>
@@ -2061,7 +2073,7 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>smc Pentax-M Macro 1:4 50mm</model>
+        <model>smc Pentax-M Macro 50mm f/4</model>
         <mount>Pentax K</mount>
         <cropfactor>1.529</cropfactor>
         <calibration>
@@ -2073,7 +2085,7 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>smc Pentax-M Macro 1:4 100mm</model>
+        <model>smc Pentax-M Macro 100mm f/4</model>
         <mount>Pentax K</mount>
         <cropfactor>1.531</cropfactor>
         <calibration>
@@ -2458,7 +2470,7 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>Pentax SMC Takumar 50mm f/1.4</model>
+        <model>smc Takumar 50mm f/1.4</model>
         <mount>M42</mount>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
@@ -2559,8 +2571,8 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>smc PENTAX DA* 60-250mm F4 [IF] SDM</model>
-        <model lang="en">smc PENTAX DA* 60-250mm f/4 IF SDM</model>
+        <model>smc Pentax DA* 60-250mm F4 [IF] SDM</model>
+        <model lang="en">smc Pentax DA* 60-250mm f/4 IF SDM</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.534</cropfactor>
         <calibration>
@@ -2579,7 +2591,7 @@
         <mount>Pentax KAF2</mount>
         <cropfactor>1.534</cropfactor>
         <calibration>
-	    <!-- Taken with Pentax KP -->
+            <!-- Taken with Pentax KP -->
             <distortion model="ptlens" focal="55" a="-0.00165" b="-0.00295" c="-0.00668"/>
             <distortion model="ptlens" focal="70" a="0.00698" b="-0.02477" c="0.02391"/>
             <distortion model="ptlens" focal="98" a="0.01232" b="-0.03764" c="0.04504"/>
@@ -2591,6 +2603,48 @@
             <tca model="poly3" focal="210" vr="0.9999084" vb="0.9999434"/>
             <tca model="poly3" focal="300" vr="0.9999354" vb="0.9999179"/>
         </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-A 28-135mm f/4</model>
+        <mount>Pentax KA</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with FujiFilm X-T20 -->
+            <distortion model="ptlens" focal="28" a="-0.005665" b="0.019715" c="-0.038365"/>
+            <distortion model="ptlens" focal="35" a="0.000611" b="0.006174" c="-0.020116"/>
+            <distortion model="ptlens" focal="50" a="-0.00888" b="0.038714" c="-0.047335"/>
+            <distortion model="ptlens" focal="70" a="0.002986" b="0.000426" c="-0.003752"/>
+            <distortion model="ptlens" focal="100" a="0.005667" b="-0.015293" c="0.018686"/>
+            <distortion model="ptlens" focal="135" a="-0.031023" b="0.104497" c="-0.093433"/>
+            <tca model="poly3" focal="28" br="0.0000711" vr="0.9999101" bb="0.0000120" vb="1.0000256"/>
+            <tca model="poly3" focal="35" br="0.0000660" vr="0.9999222" bb="0.0000298" vb="0.9999021"/>
+            <tca model="poly3" focal="50" br="-0.0000104" vr="1.0000315" bb="0.0000077" vb="1.0000070"/>
+            <tca model="poly3" focal="70" br="-0.0000229" vr="0.9999896" bb="0.0000081" vb="1.0000096"/>
+            <tca model="poly3" focal="100" br="-0.0001840" vr="1.0000596" bb="0.0000132" vb="0.9999539"/>
+            <tca model="poly3" focal="135" br="-0.0004979" vr="0.9996814" bb="-0.0000067" vb="0.9999561"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-A 35-105mm f/3.5</model>
+        <mount>Pentax KA</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with FujiFilm X-T20 -->
+            <distortion model="ptlens" focal="35" a="0.024739" b="-0.088494" c="0.086103"/>
+            <distortion model="ptlens" focal="50" a="0.014235" b="-0.059697" c="0.051952"/>
+            <distortion model="ptlens" focal="65" a="-0.008979" b="0.041329" c="-0.053695"/>
+            <distortion model="ptlens" focal="80" a="-0.004557" b="0.01851" c="-0.019689"/>
+            <distortion model="ptlens" focal="105" a="0.00861" b="-0.024933" c="0.027637"/>
+            <tca model="poly3" focal="35" br="0.0000196" vr="1.0000682" bb="0.0002261" vb="0.9998953"/>
+            <tca model="poly3" focal="50" br="-0.0000011" vr="1.0000089" bb="0.0000036" vb="1.0000594"/>
+            <tca model="poly3" focal="65" br="-0.0000199" vr="0.9999404" bb="0.0000258" vb="0.9999506"/>
+            <tca model="poly3" focal="80" br="0.0000447" vr="0.9998148" bb="0.0000196" vb="0.9999190"/>
+            <tca model="poly3" focal="105" br="-0.0003304" vr="0.9999754" bb="-0.0000062" vb="0.9999524"/>
+         </calibration>
     </lens>
 
 </lensdatabase>

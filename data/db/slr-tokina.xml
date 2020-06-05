@@ -427,4 +427,19 @@
         </calibration>
     </lens>
 
+    <lens>
+        <!-- Also branded Soligor, Focal, Lentar, etc -->
+        <maker>Tokina</maker>
+        <model>Tokina 35mm f/2.8</model>
+        <mount>Generic</mount>
+        <mount>M42</mount>
+        <mount>Konica AR</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with FujiFilm X-T20 -->
+            <distortion model="ptlens" focal="35" a="-0.023664" b="0.093991" c="-0.130688"/>
+            <tca model="poly3" focal="35" br="0.0003591" vr="0.9999204" bb="-0.0001357" vb="0.9997562"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>

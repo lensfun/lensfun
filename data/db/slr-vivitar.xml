@@ -2,6 +2,19 @@
 <lensdatabase version="2">
 
     <lens>
+        <!-- Manufactured by Kino Precision (Kiron) -->
+        <maker>Vivitar</maker>
+        <model>Vivitar 28mm f/2.5</model>
+        <mount>Konica AR</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with FujiFilm X-T20 -->
+            <distortion model="ptlens" focal="28" a="0.003623" b="-0.02075" c="0.016264"/>
+            <tca model="poly3" focal="28" br="-0.0000399" vr="1.0001788" bb="0.0001025" vb="0.9995677"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <maker>Vivitar</maker>
         <model>Vivitar 100mm f/3.5 AF Macro</model>
         <mount>Canon EF</mount>
@@ -25,8 +38,8 @@
         <maker>Vivitar</maker>
         <!-- FixMe: "One" should be "1" once
              https://sourceforge.net/p/lensfun/bugs/35 is fixed. -->
-        <model>Vivitar Series One 70-210mm 1:3.5 SN 22...</model>
-        <model lang="en">Vivitar Series 1 70-210mm 1:3.5 SN 22…</model>
+        <model>Vivitar Series One 70-210mm f/3.5 SN 22...</model>
+        <model lang="en">Vivitar Series 1 70-210mm f/3.5 SN 22…</model>
         <mount>Nikon F</mount>
         <mount>Pentax K</mount>
         <mount>Canon FD</mount>

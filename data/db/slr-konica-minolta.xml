@@ -127,7 +127,7 @@
 
     <lens>
         <maker>Minolta</maker>
-        <model>Minolta MC Rokkor-PG 50mm 1:1.4</model>
+        <model>Minolta MC Rokkor-PG 50mm f/1.4</model>
         <mount>Minolta MC</mount>
         <focal value="50"/>
         <aperture min="1.4" max="16"/>
@@ -155,6 +155,48 @@
             <vignetting model="pa" focal="50" aperture="16" distance="1" k1="-0.1576" k2="0.0858" k3="-0.0295"/>
             <vignetting model="pa" focal="50" aperture="16" distance="5" k1="-0.1854" k2="0.1322" k3="-0.0545"/>
             <vignetting model="pa" focal="50" aperture="16" distance="1000" k1="-0.2034" k2="0.1667" k3="-0.0748"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Minolta</maker>
+        <model>Minolta AF 28-135mm f/4-4.5</model>
+        <mount>Minolta AF</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with FujiFilm X-T20 -->
+            <distortion model="ptlens" focal="28" a="0.012702" b="-0.041523" c="0.021733"/>
+            <distortion model="ptlens" focal="35" a="0.012394" b="-0.045163" c="0.045949"/>
+            <distortion model="ptlens" focal="50" a="0.009971" b="-0.023009" c="0.012974"/>
+            <distortion model="ptlens" focal="70" a="0.022884" b="-0.074417" c="0.092624"/>
+            <distortion model="ptlens" focal="100" a="0.028177" b="-0.100505" c="0.137289"/>
+            <distortion model="ptlens" focal="135" a="-0.005851" b="0.019287" c="-0.011004"/>
+            <tca model="poly3" focal="28" br="-0.0000833" vr="1.0001784" bb="0.0000541" vb="1.0000026"/>
+            <tca model="poly3" focal="35" br="0.0001510" vr="0.9998872" bb="0.0001060" vb="0.9998831"/>
+            <tca model="poly3" focal="50" br="0.0000856" vr="0.9999793" bb="-0.0000410" vb="1.0000384"/>
+            <tca model="poly3" focal="70" br="0.0000501" vr="0.9999435" bb="-0.0000580" vb="1.0000548"/>
+            <tca model="poly3" focal="100" br="-0.0000515" vr="0.9999635" bb="-0.0000100" vb="0.9999814"/>
+            <tca model="poly3" focal="135" br="-0.0001085" vr="0.9999691" bb="0.0000272" vb="0.9999609"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Minolta</maker>
+        <model>Minolta AF 35-70mm f/4</model>
+        <mount>Minolta AF</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with FujiFilm X-T20 -->
+            <distortion model="ptlens" focal="35" a="0.038106" b="-0.142444" c="0.151665"/>
+            <distortion model="ptlens" focal="42" a="0.015553" b="-0.05078" c="0.039585"/>
+            <distortion model="ptlens" focal="50" a="0.016878" b="-0.049163" c="0.037166"/>
+            <distortion model="ptlens" focal="60" a="-0.04027" b="0.147832" c="-0.17587"/>
+            <distortion model="ptlens" focal="70" a="-0.004288" b="0.019661" c="-0.038144"/>
+            <tca model="poly3" focal="35" br="0.0001728" vr="0.9998591" bb="-0.0000467" vb="1.0000208"/>
+            <tca model="poly3" focal="42" br="0.0001050" vr="0.9999599" bb="-0.0000181" vb="1.0000184"/>
+            <tca model="poly3" focal="50" br="0.0000250" vr="1.0000084" bb="0.0000081" vb="1.0000103"/>
+            <tca model="poly3" focal="60" br="0.0000161" vr="0.9999832" bb="0.0000170" vb="0.9999886"/>
+            <tca model="poly3" focal="70" br="-0.0000080" vr="1.0000085" bb="0.0000121" vb="1.0000062"/>
         </calibration>
     </lens>
 
@@ -228,7 +270,7 @@
 
     <lens>
         <maker>Minolta</maker>
-        <model>Minolta MD 35mm 1/2.8</model>
+        <model>Minolta MD 35mm f/2.8</model>
         <mount>Minolta MD</mount>
         <cropfactor>1.529</cropfactor>
         <calibration>
@@ -254,12 +296,48 @@
 
     <lens>
         <maker>Minolta</maker>
-        <model>Minolta MD Rokkor 50mm 1:1.4</model>
+        <model>Minolta MD Rokkor 45mm f/2</model>
+        <mount>Minolta MD</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with FujiFilm X-T20 -->
+            <distortion model="ptlens" focal="45" a="-0.010792" b="0.041811" c="-0.061928"/>
+            <tca model="poly3" focal="45" br="0.0001403" vr="0.9998908" bb="-0.0000993" vb="1.0000284"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Minolta</maker>
+        <model>Minolta MD Rokkor 50mm f/1.4</model>
         <mount>Minolta MD</mount>
         <cropfactor>1.534</cropfactor>
         <calibration>
             <!-- Taken with Sony A6000 -->
             <distortion model="poly3" focal="50" k1="-0.00294"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Minolta</maker>
+        <model>Minolta MD Rokkor 100mm f/2.5</model>
+        <mount>Minolta MD</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with FujiFilm X-T20 -->
+            <distortion model="ptlens" focal="100" a="0.00145" b="-0.005333" c="0.003507"/>
+            <tca model="poly3" focal="100" br="-0.0000370" vr="1.0000195" bb="-0.0000482" vb="1.0000245"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Minolta</maker>
+        <model>Minolta MD Rokkor 135mm f/3.5</model>
+        <mount>Minolta MD</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with FujiFilm X-T20 -->
+            <distortion model="ptlens" focal="135" a="-0.008238" b="0.026726" c="-0.028299"/>
+            <tca model="poly3" focal="135" br="-0.0000122" vr="0.9998931" bb="-0.0000103" vb="0.9999966"/>
         </calibration>
     </lens>
 
@@ -485,7 +563,7 @@
         <mount>Minolta AF</mount>
         <cropfactor>1</cropfactor>
         <calibration>
-	    <!-- Taken with Sony Alpha DSLR-A850 -->
+            <!-- Taken with Sony Alpha DSLR-A850 -->
             <distortion model="poly3" focal="50" k1="0.00315"/>
             <tca model="poly3" focal="50" vr="1.0001088" vb="0.9998685"/>
         </calibration>
@@ -509,7 +587,7 @@
         <mount>Minolta AF</mount>
         <cropfactor>1</cropfactor>
         <calibration>
-	    <!-- Taken with Sony Alpha DSLR-A850 -->
+            <!-- Taken with Sony Alpha DSLR-A850 -->
             <distortion model="ptlens" focal="17" a="0.01903" b="-0.03662" c="-0.03053"/>
             <distortion model="ptlens" focal="20" a="0.02872" b="-0.07426" c="0.03037"/>
             <distortion model="ptlens" focal="24" a="0.02" b="-0.05279" c="0.03256"/>
@@ -529,7 +607,7 @@
         <mount>Minolta AF</mount>
         <cropfactor>1</cropfactor>
         <calibration>
-	    <!-- Taken with Sony Alpha DSLR-A850 -->
+            <!-- Taken with Sony Alpha DSLR-A850 -->
             <distortion model="ptlens" focal="24" a="0.05227" b="-0.15981" c="0.12322"/>
             <distortion model="ptlens" focal="35" a="0.01318" b="-0.02634" c="0.02175"/>
             <distortion model="ptlens" focal="50" a="-0.00059" b="0.03705" c="-0.06462"/>

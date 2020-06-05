@@ -878,4 +878,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <!-- Same as Zuiko Auto-S 50mm f/1.8 ? -->
+        <maker>Olympus</maker>
+        <model>Olympus F.Zuiko 50mm f/1.8</model>
+        <mount>Olympus OM</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with FujiFilm X-T20 -->
+            <distortion model="ptlens" focal="50" a="-0.009206" b="0.033861" c="-0.048919"/>
+            <tca model="poly3" focal="50" br="0.0000954" vr="0.9999050" bb="-0.0000782" vb="1.0000755"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>

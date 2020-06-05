@@ -1719,6 +1719,26 @@
 
     <lens>
         <maker>Nikon</maker>
+        <model>AF Zoom-Nikkor 35-70mm f/3.3-4.5D</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with FujiFilm X-T20 -->
+            <distortion model="ptlens" focal="35" a="0.001517" b="-0.006633" c="-0.013189"/>
+            <distortion model="ptlens" focal="42" a="-0.002777" b="0.015297" c="-0.03692"/>
+            <distortion model="ptlens" focal="50" a="-0.001083" b="0.006109" c="-0.015104"/>
+            <distortion model="ptlens" focal="60" a="0.006958" b="-0.018414" c="0.010591"/>
+            <distortion model="ptlens" focal="70" a="-0.001372" b="0.008985" c="-0.018662"/>
+            <tca model="poly3" focal="35" br="0.0001119" vr="0.9999665" bb="0.0000269" vb="0.9999091"/>
+            <tca model="poly3" focal="42" br="0.0000833" vr="0.9999322" bb="-0.0000049" vb="0.9999707"/>
+            <tca model="poly3" focal="50" br="0.0000849" vr="0.9999100" bb="-0.0000200" vb="0.9999995"/>
+            <tca model="poly3" focal="60" br="0.0001534" vr="0.9998432" bb="-0.0000249" vb="0.9999560"/>
+            <tca model="poly3" focal="70" br="0.0001318" vr="0.9998616" bb="-0.0000096" vb="0.9999423"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
         <model>Nikon AI-S Zoom-Nikkor 50-135mm f/3.5</model>
         <model lang="en">Nikkor AI-S 50-135mm f/3.5</model>
         <mount>Nikon F AI-S</mount>
@@ -2835,7 +2855,7 @@
 
     <lens>
         <maker>Nikon</maker>
-        <model>Nikon AF Nikkor 85mm f/1.8 21</model>
+        <model>Nikon AF Nikkor 85mm f/1.8</model>
         <model lang="en">Nikkor AF 85mm f/1.8</model>
         <mount>Nikon F AF</mount>
         <cropfactor>1.523</cropfactor>
