@@ -373,5 +373,30 @@
             <vignetting model="pa" focal="35" aperture="16" distance="1000" k1="-0.4839" k2="0.0012" k3="0.0945"/>
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Sigma</maker>
+        <model>14-24mm F2.8 DG DN | Art 019</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="14" a="0.0494500274128515" b="-0.176286257666241" c="0.158087525693153"/>
+            <distortion model="ptlens" focal="14.6" a="0.024836080969686855" b="-0.0822062660046383" c="0.04972960282491836"/>
+            <distortion model="ptlens" focal="16" a="0.010514195238123338" b="-0.035679771218967905" c="0.016938129485502187"/>
+            <distortion model="ptlens" focal="17.9" a="0.005548001903397407" b="-0.01887339254425693" c="0.01585699409776917"/>
+            <distortion model="ptlens" focal="19.9" a="0.011883331239485933" b="-0.04080268066113266" c="0.04855184618564448"/>
+            <distortion model="ptlens" focal="21.9" a="-0.005293138624273413" b="0.022010634763157018" c="-0.019051723157141976"/>
+            <distortion model="ptlens" focal="23" a="0.010020343161953861" b="-0.03128807282211671" c="0.04294403444774262"/>
+            <distortion model="ptlens" focal="24" a="-0.0010068611828681" b="0.0088256386174715" c="-0.00475936480430048"/>
+            <tca model="poly3" focal="14" vr="1.0000598" vb="0.9999737"/>
+            <tca model="poly3" focal="14.6" vr="1.0000815" vb="0.9999614"/>
+            <tca model="poly3" focal="16" vr="1.0000615" vb="0.9999934"/>
+            <tca model="poly3" focal="17.9" vr="1.0000464" vb="1.0000169"/>
+            <tca model="poly3" focal="17.9" vr="1.0000522" vb="1.0000190"/>
+            <tca model="poly3" focal="19.9" vr="1.0000563" vb="1.0000095"/>
+            <tca model="poly3" focal="21.9" vr="1.0000667" vb="0.9999975"/>
+            <tca model="poly3" focal="23" vr="1.0000778" vb="0.9999804"/>
+        </calibration>
+    </lens>
 
 </lensdatabase>
