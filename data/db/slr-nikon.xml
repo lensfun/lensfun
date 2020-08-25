@@ -4581,6 +4581,55 @@
         </calibration>
     </lens>
 
+<lensdatabase>
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S Nikkor 200-500mm f/5.6E ED VR</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D850 -->
+            <distortion model="ptlens" focal="200.0" a="0.002" b="-0.004" c="0.01" />
+            <distortion model="ptlens" focal="240.0" a="-0.002" b="0.012" c="-0.003" />
+            <distortion model="ptlens" focal="300.0" a="-0.002" b="0.013" c="-0.01" />
+            <distortion model="ptlens" focal="340.0" a="-0.002" b="0.013" c="-0.011" />
+            <distortion model="ptlens" focal="400.0" a="-0.004" b="0.017" c="-0.011" />
+            <distortion model="ptlens" focal="500.0" a="0.001" b="-0.002" c="0.014" />
+            <tca model="poly3" focal="200.0" vr="1.0000397" vb="0.9999235" />
+            <tca model="poly3" focal="240.0" vr="0.9999903" vb="0.9999307" />
+            <tca model="poly3" focal="300.0" vr="0.9999191" vb="0.9999338" />
+            <tca model="poly3" focal="340.0" vr="0.9998766" vb="0.9999099" />
+            <tca model="poly3" focal="400.0" vr="0.9998350" vb="0.9998492" />
+            <tca model="poly3" focal="500.0" vr="0.9998063" vb="0.9997436" />
+            <vignetting model="pa" focal="200.0" aperture="5.6" distance="5.6" k1="-0.1120958" k2="0.0028924" k3="-0.0260212" />
+            <vignetting model="pa" focal="200.0" aperture="8.0" distance="8.0" k1="-0.0725160" k2="0.0382263" k3="-0.0197680" />
+            <vignetting model="pa" focal="200.0" aperture="11.0" distance="11.0" k1="-0.0731946" k2="0.0408602" k3="-0.0226257" />
+            <vignetting model="pa" focal="200.0" aperture="16.0" distance="16.0" k1="-0.0691387" k2="0.0391146" k3="-0.0219396" />
+            <vignetting model="pa" focal="200.0" aperture="32.0" distance="32.0" k1="-0.0696323" k2="0.0371137" k3="-0.0205676" />
+            <vignetting model="pa" focal="240.0" aperture="5.6" distance="5.6" k1="-0.1623476" k2="0.0492464" k3="-0.0407647" />
+            <vignetting model="pa" focal="240.0" aperture="8.0" distance="8.0" k1="-0.0652338" k2="0.0345977" k3="-0.0194681" />
+            <vignetting model="pa" focal="240.0" aperture="11.0" distance="11.0" k1="-0.0671984" k2="0.0316843" k3="-0.0161693" />
+            <vignetting model="pa" focal="240.0" aperture="16.0" distance="16.0" k1="-0.0677759" k2="0.0314666" k3="-0.0156876" />
+            <vignetting model="pa" focal="240.0" aperture="32.0" distance="32.0" k1="-0.0720476" k2="0.0401514" k3="-0.0208661" />
+            <vignetting model="pa" focal="300.0" aperture="5.6" distance="5.6" k1="-0.2046441" k2="0.0742393" k3="-0.0444353" />
+            <vignetting model="pa" focal="300.0" aperture="8.0" distance="8.0" k1="-0.0668214" k2="0.0669969" k3="-0.0534876" />
+            <vignetting model="pa" focal="300.0" aperture="11.0" distance="11.0" k1="-0.0593542" k2="0.0110182" k3="0.0044805" />
+            <vignetting model="pa" focal="300.0" aperture="16.0" distance="16.0" k1="-0.0613836" k2="0.0138161" k3="0.0028957" />
+            <vignetting model="pa" focal="300.0" aperture="32.0" distance="32.0" k1="-0.0668227" k2="0.0245163" k3="-0.0049887" />
+            <vignetting model="pa" focal="400.0" aperture="5.6" distance="5.6" k1="-0.2875090" k2="0.1655727" k3="-0.1611628" />
+            <vignetting model="pa" focal="400.0" aperture="8.0" distance="8.0" k1="-0.0092844" k2="-0.0888511" k3="-0.0351819" />
+            <vignetting model="pa" focal="400.0" aperture="11.0" distance="11.0" k1="-0.0681388" k2="0.0837510" k3="-0.0639553" />
+            <vignetting model="pa" focal="400.0" aperture="16.0" distance="16.0" k1="-0.0570836" k2="0.0394916" k3="-0.0221481" />
+            <vignetting model="pa" focal="400.0" aperture="32.0" distance="32.0" k1="-0.0606377" k2="0.0414540" k3="-0.0232575" />
+            <vignetting model="pa" focal="500.0" aperture="5.6" distance="5.6" k1="-0.5534520" k2="0.5749879" k3="-0.4364412" />
+            <vignetting model="pa" focal="500.0" aperture="8.0" distance="8.0" k1="0.0264612" k2="-0.5613422" k3="0.2947477" />
+            <vignetting model="pa" focal="500.0" aperture="11.0" distance="11.0" k1="-0.0191469" k2="-0.0122942" k3="-0.1168438" />
+            <vignetting model="pa" focal="500.0" aperture="16.0" distance="16.0" k1="-0.0824801" k2="0.1493515" k3="-0.1285100" />
+            <vignetting model="pa" focal="500.0" aperture="32.0" distance="32.0" k1="-0.0570532" k2="0.0380751" k3="-0.0200575" />
+        </calibration>
+    </lens>
+</lensdatabase>
+
     <lens>
         <maker>Nikon</maker>
         <model>Nikon AI 80-200mm f/4.5 Zoom New</model>
