@@ -320,6 +320,8 @@
         <cropfactor>1.0</cropfactor>
         <calibration>
             <!-- Taken with Nikon Z6 -->
+            <distortion model="ptlens" focal="85.0" a="-0.006" b="0.023" c="-0.028" />
+            <tca model="poly3" focal="85.0" br="-0.0000217" vr="1.0000357" bb="0.0000030" vb="0.9999613" />
             <vignetting model="pa" focal="85.0" aperture="1.8" distance="10" k1="-0.8779320" k2="0.2895851" k3="-0.0092442" />
             <vignetting model="pa" focal="85.0" aperture="1.8" distance="1000" k1="-0.8779320" k2="0.2895851" k3="-0.0092442" />
             <vignetting model="pa" focal="85.0" aperture="2.0" distance="10" k1="-0.6108530" k2="-0.0716128" k3="0.0995779" />
