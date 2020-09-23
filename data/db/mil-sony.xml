@@ -1114,6 +1114,35 @@
 
     <lens>
         <maker>Sony</maker>
+        <model>FE 35mm F1.8</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="35" a="0.0115112" b="-0.0238786" c="0.0132066"/>
+            <tca model="poly3" focal="35" vr="1.0000256" vb="1.0001715"/>
+            <vignetting model="pa" focal="35" aperture="1.8" distance="10" k1="-2.3577" k2="2.7051" k3="-1.2007"/>
+            <vignetting model="pa" focal="35" aperture="1.8" distance="1000" k1="-2.3577" k2="2.7051" k3="-1.2007"/>
+            <vignetting model="pa" focal="35" aperture="2" distance="10" k1="-2.1321" k2="2.1480" k3="-0.8614"/>
+            <vignetting model="pa" focal="35" aperture="2" distance="1000" k1="-2.1321" k2="2.1480" k3="-0.8614"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="10" k1="-1.1527" k2="-0.0339" k3="0.3768"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="1000" k1="-1.1527" k2="-0.0339" k3="0.3768"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="10" k1="-0.9118" k2="-0.1531" k3="0.2696"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="1000" k1="-0.9118" k2="-0.1531" k3="0.2696"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="10" k1="-1.0713" k2="0.5555" k3="-0.2578"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="1000" k1="-1.0713" k2="0.5555" k3="-0.2578"/>
+            <vignetting model="pa" focal="35" aperture="8" distance="10" k1="-1.0394" k2="0.6538" k3="-0.3337"/>
+            <vignetting model="pa" focal="35" aperture="8" distance="1000" k1="-1.0394" k2="0.6538" k3="-0.3337"/>
+            <vignetting model="pa" focal="35" aperture="11" distance="10" k1="-0.9506" k2="0.4690" k3="-0.1864"/>
+            <vignetting model="pa" focal="35" aperture="11" distance="1000" k1="-0.9506" k2="0.4690" k3="-0.1864"/>
+            <vignetting model="pa" focal="35" aperture="16" distance="10" k1="-1.0362" k2="0.5404" k3="-0.1525"/>
+            <vignetting model="pa" focal="35" aperture="16" distance="1000" k1="-1.0362" k2="0.5404" k3="-0.1525"/>
+            <vignetting model="pa" focal="35" aperture="22" distance="10" k1="-1.1152" k2="0.6211" k3="-0.1558"/>
+            <vignetting model="pa" focal="35" aperture="22" distance="1000" k1="-1.1152" k2="0.6211" k3="-0.1558"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
         <model>FE 55mm f/1.8 ZA</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
