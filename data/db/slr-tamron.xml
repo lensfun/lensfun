@@ -1528,4 +1528,23 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tamron</maker>
+        <model>Tamron 18-400mm f/3.5-6.3 Di II VC HLD (B028)</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.53</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18" a="0.01345" b="-0.03936" c="-0.00366"/>
+            <distortion model="ptlens" focal="35" a="0.01693" b="-0.03859" c="0.04576"/>
+            <distortion model="ptlens" focal="50" a="0.01639" b="-0.06016" c="0"/>
+            <distortion model="ptlens" focal="70" a="-0.01648" b="0.08537" c="-0.10046"/>
+            <distortion model="ptlens" focal="100" a="-0.0141" b="0.07096" c="-0.08567"/>
+            <distortion model="ptlens" focal="200" a="0.00168" b="0.01016" c="-0.01007"/>
+            <distortion model="ptlens" focal="300" a="0.00346" b="-0.00121" c="0.00252"/>
+            <distortion model="ptlens" focal="400" a="0.00431" b="-0.00965" c="0.01702"/>
+            <vignetting model="pa" focal="18" aperture="22" distance="10" k1="-0.8286" k2="0.4618" k3="-0.0767"/>
+            <vignetting model="pa" focal="18" aperture="22" distance="1000" k1="-0.8286" k2="0.4618" k3="-0.0767"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
