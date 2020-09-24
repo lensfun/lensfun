@@ -569,14 +569,12 @@ matrix generate_rotation_matrix (double rho_1, double delta, double rho_2, doubl
     return M;
 }
 
-int lfModifier::EnablePerspectiveCorrection (const lfLens* lens, float focal, float *x, float *y, int count, float d)
+int lfModifier::EnablePerspectiveCorrection (float *x, float *y, int count, float d)
 {
     const int number_of_control_points = count;
-    double norm_focal = GetNormalizedFocalLength (focal, lens);
 
-    if (number_of_control_points < 4 || number_of_control_points > 8 ||
-        (norm_focal <= 0 && number_of_control_points != 8))
-        return enabledMods;
+    if (number_of_control_points < 4 || number_of_control_points > 8)
+        return EnabledMods;
     if (d < -1)
         d = -1;
     if (d > 1)
@@ -591,7 +589,7 @@ int lfModifier::EnablePerspectiveCorrection (const lfLens* lens, float focal, fl
 
     double rho, delta, rho_h, alpha, center_of_control_points_x,
         center_of_control_points_y, z;
-    double f_normalized = norm_focal;
+    double f_normalized = 1.0;
     try
     {
         calculate_angles (x_, y_, f_normalized, rho, delta, rho_h, alpha,
@@ -600,7 +598,7 @@ int lfModifier::EnablePerspectiveCorrection (const lfLens* lens, float focal, fl
     catch (svd_no_convergence &e)
     {
         g_warning ("[Lensfun] %s", e.what());
-        return enabledMods;
+        return EnabledMods;
     }
 
     // Transform center point to get shift
@@ -638,9 +636,9 @@ int lfModifier::EnablePerspectiveCorrection (const lfLens* lens, float focal, fl
     }
     }
     if (center_coords [2] <= 0)
-        return enabledMods;
+        return EnabledMods;
     // This is the mapping scale in the image center
-    double mapping_scale = norm_focal / center_coords [2];
+    double mapping_scale = f_normalized / center_coords [2];
 
     // Finally, generate a rotation matrix in backward (lookup) direction
     {
@@ -707,8 +705,8 @@ int lfModifier::EnablePerspectiveCorrection (const lfLens* lens, float focal, fl
 
     CoordCallbacks.insert(cd);
 
-    enabledMods |= LF_MODIFY_PERSPECTIVE;
-    return enabledMods;
+    EnabledMods |= LF_MODIFY_PERSPECTIVE;
+    return EnabledMods;
 }
 
 void lfModifier::ModifyCoord_Perspective_Correction (void *data, float *iocoord, int count)
@@ -762,7 +760,7 @@ void lfModifier::ModifyCoord_Perspective_Distortion (void *data, float *iocoord,
 //---------------------------// The C interface //---------------------------//
 
 int lf_modifier_enable_perspective_correction (
-    lfModifier *modifier, const lfLens* lens, float focal, float *x, float *y, int count, float d)
+    lfModifier *modifier, float *x, float *y, int count, float d)
 {
-    return modifier->EnablePerspectiveCorrection (lens, focal, x, y, count, d);
+    return modifier->EnablePerspectiveCorrection (x, y, count, d);
 }

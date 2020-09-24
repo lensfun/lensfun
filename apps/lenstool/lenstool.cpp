@@ -470,7 +470,7 @@ int main (int argc, char **argv)
     }
     g_print ("done.\n~ Image size [%ux%u].\n", img->width, img->height);
 
-    lfModifier *mod = new lfModifier (opts.Crop, img->width, img->height, LF_PF_U8, opts.Inverse);
+    lfModifier *mod = new lfModifier (lens, opts.Focal, opts.Crop, img->width, img->height, LF_PF_U8, opts.Inverse);
     if (!mod) {
         g_print ("%s", "\rWarning: failed to create modifier\n");
         delete img;
@@ -480,16 +480,16 @@ int main (int argc, char **argv)
 
     // Enable desired modifications
     if (opts.ModifyFlags & LF_MODIFY_TCA)
-        mod->EnableTCACorrection(lens, opts.Focal);
+        mod->EnableTCACorrection();
 
     if (opts.ModifyFlags & LF_MODIFY_VIGNETTING)
-        mod->EnableVignettingCorrection(lens, opts.Focal, opts.Aperture, opts.Distance);
+        mod->EnableVignettingCorrection(opts.Aperture, opts.Distance);
 
     if (opts.ModifyFlags & LF_MODIFY_DISTORTION)
-        mod->EnableDistortionCorrection(lens, opts.Focal);
+        mod->EnableDistortionCorrection();
 
     if (opts.ModifyFlags & LF_MODIFY_GEOMETRY)
-        mod->EnableProjectionTransform(lens, opts.Focal, opts.TargetGeom);
+        mod->EnableProjectionTransform(opts.TargetGeom);
 
     if (opts.Scale != 1.0)
         mod->EnableScaling(opts.Scale);

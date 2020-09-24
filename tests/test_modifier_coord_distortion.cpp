@@ -50,9 +50,9 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
   lfFix->img_height = 299;
   lfFix->img_width  = 299;
 
-  lfFix->mod = new lfModifier(1.0f, lfFix->img_width, lfFix->img_height, LF_PF_F32, p->reverse);
+  lfFix->mod = new lfModifier(lfFix->lens, 24.0f, 1.0f, lfFix->img_width, lfFix->img_height, LF_PF_F32, p->reverse);
 
-  lfFix->mod->EnableDistortionCorrection(lfFix->lens, 24.0f);
+  lfFix->mod->EnableDistortionCorrection();
 
   lfFix->coordBuff = NULL;
 
@@ -92,7 +92,7 @@ void test_mod_coord_distortion(lfFixture *lfFix, gconstpointer data)
 void test_mod_coord_distortion_parallel(lfFixture *lfFix, gconstpointer data)
 {
   #pragma omp parallel for schedule(static)
-  for(size_t y = 0; y < lfFix->img_height; y++)
+  for(int y = 0; y < static_cast<int>(lfFix->img_height); y++)
   {
     float *coordData = (float *)lfFix->coordBuff + (size_t)2 * y * lfFix->img_width;
 
@@ -157,23 +157,23 @@ int main(int argc, char **argv)
   for(std::vector<bool>::iterator it_reverse = reverse.begin(); it_reverse != reverse.end(); ++it_reverse)
   {
 
-    lfLensCalibAttributes cs = {0.0, 0.0, 1.0, 1.5};
+    lfLensCalibAttributes cs = {1.0, 1.5};
 
     std::map<std::string, lfLensCalibDistortion> distortCalib;
     // ??? + Canon EF 85mm f/1.2L II USM
-    distortCalib["LF_DIST_MODEL_POLY3"] = (lfLensCalibDistortion)
+    distortCalib["LF_DIST_MODEL_POLY3"] = lfLensCalibDistortion
     {
-      LF_DIST_MODEL_POLY3, 85.0f, 85.3502f, false, { -0.00412}, cs
+      LF_DIST_MODEL_POLY3, 85.0f, 85.3502f, false, { -0.00412f}, cs
     };
     //Canon PowerShot G12 (fixed lens)
-    distortCalib["LF_DIST_MODEL_POLY5"] = (lfLensCalibDistortion)
+    distortCalib["LF_DIST_MODEL_POLY5"] = lfLensCalibDistortion
     {
-      LF_DIST_MODEL_POLY5, 6.1f, 6.1f, false, { -0.030571633, 0.004658548}, cs
+      LF_DIST_MODEL_POLY5, 6.1f, 6.1f, false, { -0.030571633f, 0.004658548f}, cs
     };
     //Canon EOS 5D Mark III + Canon EF 24-70mm f/2.8L II USM
-    distortCalib["LF_DIST_MODEL_PTLENS"] = (lfLensCalibDistortion)
+    distortCalib["LF_DIST_MODEL_PTLENS"] = lfLensCalibDistortion
     {
-      LF_DIST_MODEL_PTLENS, 24.0f, 24.46704f, false, {0.02964, -0.07853, 0.02943}, cs
+      LF_DIST_MODEL_PTLENS, 24.0f, 24.46704f, false, {0.02964f, -0.07853f, 0.02943f}, cs
     };
 
     for(std::map<std::string, lfLensCalibDistortion>::iterator it_distortCalib = distortCalib.begin(); it_distortCalib != distortCalib.end(); ++it_distortCalib)

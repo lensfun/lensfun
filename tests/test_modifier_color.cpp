@@ -100,16 +100,16 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
   lfFix->lens->Type       = LF_RECTILINEAR;
 
   // Canon EOS 5D Mark III + Canon EF 24-70mm f/2.8L II USM
-  lfLensCalibAttributes   lensSetting = { 0.0, 0.0, 1.0, 1.5 };
+  lfLensCalibAttributes   lensSetting = {1.0, 1.5 };
   lfLensCalibVignetting lensCalibVign = {LF_VIGNETTING_MODEL_PA, 24.0f, 2.8f, 1000.0f, { -0.5334f, -0.7926f, 0.5243f}, lensSetting};
   lfFix->lens->AddCalibVignetting(&lensCalibVign);
 
   lfFix->img_height = 299;
   lfFix->img_width  = 299;
 
-  lfFix->mod = new lfModifier(1.0f, lfFix->img_width, lfFix->img_height, cTypeToLfPixelFormat<T>(), p->reverse);
+  lfFix->mod = new lfModifier(lfFix->lens, 24.0f, 1.0f, lfFix->img_width, lfFix->img_height, cTypeToLfPixelFormat<T>(), p->reverse);
 
-  lfFix->mod->EnableVignettingCorrection(lfFix->lens, 24.0f, 2.8f, 1000.0f);
+  lfFix->mod->EnableVignettingCorrection(2.8f, 1000.0f);
 
   lfFix->image = NULL;
 
@@ -158,7 +158,7 @@ void test_mod_color_parallel(lfFixture *lfFix, gconstpointer data)
   const lfTestParams *const p = (lfTestParams *)data;
 
   #pragma omp parallel for schedule(static)
-  for(size_t y = 0; y < lfFix->img_height; y++)
+  for(int y = 0; y < static_cast<int>(lfFix->img_height); y++)
   {
     T *imgdata = (T *)lfFix->image + (size_t)p->cpp * y * lfFix->img_width;
 

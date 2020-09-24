@@ -18,7 +18,7 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
     lfFix->lens              = new lfLens();
     lfFix->lens->Type        = LF_RECTILINEAR;
 
-    lfLensCalibAttributes   lensSetting = { 0.0, 0.0, 1.0, 1.0 };
+    lfLensCalibAttributes   lensSetting = { 1.0, 1.0 };
     lfLensCalibDistortion lensCalibDist = {LF_DIST_MODEL_POLY3, 12.0f, 10.8f, false, {0.1}, lensSetting};
     lfFix->lens->AddCalibDistortion(&lensCalibDist);
 
@@ -53,9 +53,9 @@ void test_mod_projection_center(lfFixture* lfFix, gconstpointer data)
             if(g_test_verbose())
                 g_print("  ~ Conversion from %s -> %s \n", geom_names[j], geom_names[i]);
 
-            lfFix->mod = new lfModifier (1.0f, lfFix->img_width, lfFix->img_height, LF_PF_U8, false);
+            lfFix->mod = new lfModifier (lfFix->lens, 12.0f, 1.0f, lfFix->img_width, lfFix->img_height, LF_PF_U8, false);
 
-            lfFix->mod->EnableProjectionTransform(lfFix->lens, 12.0f, geom_types[i]);
+            lfFix->mod->EnableProjectionTransform(geom_types[i]);
 
             // check if center is not influenced
             in[0] = (lfFix->img_width-1)/2;
@@ -92,9 +92,9 @@ void test_mod_projection_borders(lfFixture* lfFix, gconstpointer data)
             if(g_test_verbose())
                 g_print("  ~ Conversion from %s -> %s \n", geom_names[j], geom_names[i]);
 
-            lfFix->mod = new lfModifier (1.0f, lfFix->img_width, lfFix->img_height, LF_PF_U8, false);
+            lfFix->mod = new lfModifier (lfFix->lens, 12.0f, 1.0f, lfFix->img_width, lfFix->img_height, LF_PF_U8, false);
 
-            lfFix->mod->EnableProjectionTransform(lfFix->lens, 12.0f, geom_types[i]);
+            lfFix->mod->EnableProjectionTransform(geom_types[i]);
 
             if (lfFix->mod->ApplyGeometryDistortion(0,0,1,1,res)) {
                 g_assert_false(std::isnan(res[0]));

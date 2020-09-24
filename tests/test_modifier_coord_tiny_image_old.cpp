@@ -5,6 +5,7 @@
 #include <limits>
 #include <cmath>
 #include <vector>
+#include <locale>
 
 #include "lensfun.h"
 #include "../libs/lensfun/lensfunprv.h"
@@ -50,7 +51,7 @@ void mod_teardown (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_scaling_only (lfFixture *lfFix, gconstpointer data)
 {
-    const float epsilon = std::numeric_limits<float>::epsilon();
+    const float epsilon = std::numeric_limits<float>::epsilon() * 10;
     float expected_coordinates[] = {-9.0f, -4.5f, 1.0f, -4.5f, 11.0f, -4.5f,
                                     -9.0f,  5.5f, 1.0f,  5.5f, 11.0f,  5.5};
     std::vector<float> coords (2 * 3 * 2);

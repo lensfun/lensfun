@@ -26,7 +26,7 @@ from github import Github
 config = configparser.ConfigParser()
 assert config.read(os.path.expanduser("~/calibration_webserver.ini")), os.path.expanduser("~/calibration_webserver.ini")
 
-github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
+github = Github(config["GitHub"]["token"])
 lensfun = github.get_organization("lensfun").get_repo("lensfun")
 admin = "{} <{}>".format(config["General"]["admin_name"], config["General"]["admin_email"])
 owncloud_root = Path(config["ownCloud"]["local_root"])/"calibration"
@@ -90,7 +90,7 @@ def filter_old_problem_hashes(problem_hashes, owncloud_directories):
         timestamp_path = owncloud_directories[hash_]/"consistency_check_timestamp.yaml"
         now = datetime.datetime.now()
         try:
-            timestamp = yaml.load(open(timestamp_path))
+            timestamp = yaml.safe_load(open(timestamp_path))
         except FileNotFoundError:
             timestamp = now
             yaml.dump(timestamp, open(timestamp_path, "w"))

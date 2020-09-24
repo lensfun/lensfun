@@ -18,7 +18,7 @@ typedef __SIZE_TYPE__ uintptr_t;
 #endif
 
 void lfModifier::ModifyColor_DeVignetting_PA_SSE (
-    void *data, float _x, float _y, lf_f32 *pixels, int comp_role, int count)
+    void *data, float x, float y, lf_f32 *pixels, int comp_role, int count)
 {
     int cr = comp_role;
 
@@ -33,25 +33,21 @@ void lfModifier::ModifyColor_DeVignetting_PA_SSE (
           (((cr >> 16) & 15) == LF_CR_END)) ||
         ((uintptr_t)(pixels) & 0xf))
     {
-        return ModifyColor_DeVignetting_PA(data, _x, _y, pixels, comp_role, count);
+        return ModifyColor_DeVignetting_PA(data, x, y, pixels, comp_role, count);
     }
 
     lfColorVignCallbackData* cddata = (lfColorVignCallbackData*) data;
 
-    const float cc = cddata->coordinate_correction;
-    float x = _x * cc - cddata->centerX;
-    float y = _y * cc - cddata->centerY;
-
     __m128 x2 = _mm_set_ps1 (x);
 
     __m128 r2 = _mm_set_ps1 (x * x + y * y);
-    __m128 d1 = _mm_set_ps1 (2.0 * cddata->coordinate_correction * cddata->NormScale);
-    __m128 p0 = _mm_set_ps1 (cddata->Terms [0]);
-    __m128 p1 = _mm_set_ps1 (cddata->Terms [1]);
-    __m128 p2 = _mm_set_ps1 (cddata->Terms [2]);
-    __m128 p3 = _mm_set_ps1 (cddata->coordinate_correction * cddata->NormScale);
+    __m128 d1 = _mm_set_ps1 (2.0 * cddata->norm_scale);
+    __m128 p0 = _mm_set_ps1 (cddata->terms [0]);
+    __m128 p1 = _mm_set_ps1 (cddata->terms [1]);
+    __m128 p2 = _mm_set_ps1 (cddata->terms [2]);
+    __m128 p3 = _mm_set_ps1 (cddata->norm_scale);
     __m128 one = _mm_set_ps1 (1.0f);
-    __m128 d2 = _mm_set_ps1 (cddata->coordinate_correction * cddata->NormScale * cddata->coordinate_correction * cddata->NormScale);
+    __m128 d2 = _mm_set_ps1 (cddata->norm_scale * cddata->norm_scale);
 
     // SSE Loop processes 1 pixel/loop
     for (int i = 0; i < count; i++)

@@ -8,10 +8,14 @@ GET_FILENAME_COMPONENT(SOURCE_BASE_DIR ${CMAKE_SOURCE_DIR} PATH CACHE)
 #  global setup
 project(lensfun C CXX)
 
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 IF (MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
 ELSE()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wformat-security")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wformat-security")
 ENDIF()
 
 # version
@@ -40,18 +44,25 @@ ENDIF()
 
 # options controlling the build process
 OPTION(BUILD_STATIC "Build static library" OFF)
+OPTION(BUILD_WITH_MSVC_STATIC_RUNTIME "Build using static MSVC runtime" OFF)
 OPTION(BUILD_TESTS "Build test suite" OFF)
 OPTION(BUILD_LENSTOOL "Build the lenstool (requires libpng)" OFF)
 OPTION(BUILD_FOR_SSE "Build with support for SSE" ${X86_ON})
 OPTION(BUILD_FOR_SSE2 "Build with support for SSE2" ${X86_ON})
 OPTION(BUILD_DOC "Build documentation with doxygen" OFF)
+OPTION(INSTALL_PYTHON_MODULE "Install Python module for the helper scripts" ON)
 OPTION(INSTALL_HELPER_SCRIPTS "Install various helper scripts" ON)
 
-IF(NOT CMAKE_BUILD_TYPE)
+IF(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set(CMAKE_BUILD_TYPE Debug CACHE STRING
        "Choose the type of build, options are: Debug, Release"
        FORCE
   )
+ENDIF()
+
+# place all .exe and .dll files in same folder to avoid issues with tests
+IF(WIN32)
+  SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 ENDIF()
 
 # set local install prefix on windows
@@ -118,7 +129,7 @@ ENDIF()
 IF(WIN32)
 
   IF (MSVC)
-    IF(BUILD_STATIC)
+    IF(BUILD_WITH_MSVC_STATIC_RUNTIME)
       # compile everything for the static C runtime
       FOREACH(TYPE C CXX)
         # makefiles use blank configuration
@@ -199,7 +210,9 @@ IF(BUILD_STATIC)
 ELSE()
   MESSAGE(STATUS "Build as dynamic/shared library")
 ENDIF()
-MESSAGE(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
+IF (NOT CMAKE_CONFIGURATION_TYPES)
+  MESSAGE(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
+ENDIF()
 MESSAGE(STATUS "Build doc: ${BUILD_DOC}")
 MESSAGE(STATUS "Build test suite: ${BUILD_TESTS}")
 MESSAGE(STATUS "Build lenstool: ${BUILD_LENSTOOL}")

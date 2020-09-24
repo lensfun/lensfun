@@ -50,9 +50,9 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
   lfFix->img_height = 300;
   lfFix->img_width  = 300;
 
-  lfFix->mod = new lfModifier(1.0f, lfFix->img_width, lfFix->img_height, LF_PF_F32, p->reverse);
+  lfFix->mod = new lfModifier(lfFix->lens, 24.0f, 1.0f, lfFix->img_width, lfFix->img_height, LF_PF_F32, p->reverse);
 
-  lfFix->mod->EnableProjectionTransform(lfFix->lens, 24.0f, p->targetLensType);
+  lfFix->mod->EnableProjectionTransform(p->targetLensType);
 
   lfFix->coordBuff = NULL;
 
@@ -92,7 +92,7 @@ void test_mod_coord_geometry(lfFixture *lfFix, gconstpointer data)
 void test_mod_coord_geometry_parallel(lfFixture *lfFix, gconstpointer data)
 {
   #pragma omp parallel for schedule(static)
-  for(size_t y = 0; y < lfFix->img_height; y++)
+  for(int y = 0; y < static_cast<int>(lfFix->img_height); y++)
   {
     float *coordData = (float *)lfFix->coordBuff + (size_t)2 * y * lfFix->img_width;
 

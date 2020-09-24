@@ -516,19 +516,7 @@ LF_EXPORT cbool lf_camera_check (lfCamera *camera);
  * the calibration data.
  */
 struct lfLensCalibAttributes
-{
-    /**
-     * The horizontal shift of all lens distortions.
-     * Note that distortion and TCA uses same geometrical lens center.
-     * It is given as a relative value to avoide dependency on the
-     * image and/or sensor sizes. The calibrated delta X and Y values are
-     * numbers in the -0.5 .. +0.5 range. For 1 we take the maximal image
-     * dimension (width or height) - this is related to the fact that the
-     * lens has a circular field of projection disregarding sensor size.
-     */
-    float CenterX;
-    /** The vertical shift of all lens distortions. (0,0) for geometric center */
-    float CenterY;
+{    
     /** Crop factor at which calibration measurements were taken.  Must be defined. */
     float CropFactor;
     /** Aspect ratio of the images used for calibration measurements. */
@@ -537,9 +525,7 @@ struct lfLensCalibAttributes
     #ifdef __cplusplus
     bool operator==(const lfLensCalibAttributes& other)
     {
-        return CenterX == other.CenterX &&
-               CenterY == other.CenterY &&
-               CropFactor == other.CropFactor &&
+        return CropFactor == other.CropFactor &&
                AspectRatio == other.AspectRatio;
     }
     #endif
@@ -963,8 +949,8 @@ struct lfLensCalibrationSet
     /** Field of view calibration data */
     std::vector<lfLensCalibFov*> CalibFov;
 
-    friend class lfDatabase;
-    friend class lfLens;
+    friend struct lfDatabase;
+    friend struct lfLens;
 #endif
 };
 
@@ -1070,9 +1056,9 @@ struct LF_EXPORT lfLens
      * dimension (width or height) - this is related to the fact that the
      * lens has a circular field of projection disregarding sensor size.
      */
-    DEPRECATED float CenterX;
+    float CenterX;
     /** The vertical shift of all lens distortions. (0,0) for geometric center */
-    DEPRECATED float CenterY;
+    float CenterY;
     /** Crop factor at which calibration measurements were taken.  Must be defined. */
     DEPRECATED float CropFactor;
     /** Aspect ratio of the images used for calibration measurements. */
@@ -1541,7 +1527,7 @@ struct LF_EXPORT lfLens
         lfLensCalibrationSet* GetClosestCalibrationSet(const float crop) const;
         lfLensCalibrationSet* GetCalibrationSetForAttributes(const lfLensCalibAttributes lcattr);
 
-        friend class lfDatabase;
+        friend struct lfDatabase;
 #endif
 };
 
@@ -1825,16 +1811,16 @@ struct LF_EXPORT lfDatabase
     lfError Load (const char *pathname);
 
     /**
-     * @brief Load a database from memory.
+     * @brief Load a database from a XML char string.
      *
-     * @param data
+     * @param xml
      *     The XML data.
      * @param data_size
      *     Data size in bytes.
      * @return
      *     LF_NO_ERROR or a error code.
      */
-    lfError Load (const char *data, size_t data_size);
+    lfError Load (const char *xml, size_t data_size);
 
     /**
      * @brief Save the whole database to a file.
@@ -1846,12 +1832,24 @@ struct LF_EXPORT lfDatabase
     lfError Save (const char *filename) const;
 
     /**
-     * @brief Save the database into a memory array.
+     * @brief Save the database into a XML char string.
      * @return
      *     A pointer to an allocated string with the XML data.
      *     Free it with lf_free().
      */
-    char *Save () const;
+    DEPRECATED char *Save () const;
+
+        /**
+     * @brief Save the database into a XML char string. The memory of the received
+     *     char string has to be released with lf_free().
+     * @param xml
+     *     Reference to a char pointer where the XML string will be stored.
+     * @param data_size
+     *     Length of the written char string.
+     * @return
+     *     LF_NO_ERROR or a error code.
+     */
+    lfError Save (char*& xml, size_t& data_size) const;
 
     /**
      * @brief Find a set of cameras that fit given criteria.
@@ -2116,23 +2114,17 @@ DEPRECATED LF_EXPORT cbool lf_db_load_directory (lfDatabase *db, const char *dir
 /** @sa lfDatabase::Load(const char *) */
 LF_EXPORT lfError lf_db_load_path (lfDatabase *db, const char *pathname);
 
-/** @sa lfDatabase::Load(const char *, const char *, size_t) */
-LF_EXPORT lfError lf_db_load_data (lfDatabase *db, const char *errcontext,
-                                   const char *data, size_t data_size);
+/** @sa lfDatabase::Load(const char *, size_t). Deprecated, use lf_db_load_str() instead. */
+DEPRECATED LF_EXPORT lfError lf_db_load_data (lfDatabase *db, const char *errcontext, const char *data, size_t data_size);
+
+/** @sa lfDatabase::Load(const char *, size_t) */
+LF_EXPORT lfError lf_db_load_str (lfDatabase *db, const char *xml, size_t data_size);
 
 /** @sa lfDatabase::Save(const char *) */
 LF_EXPORT lfError lf_db_save_all (const lfDatabase *db, const char *filename);
 
-/** @sa lfDatabase::Save(const char *, const lfMount *const *, const lfCamera *const *, const lfLens *const *) */
-LF_EXPORT lfError lf_db_save_file (const lfDatabase *db, const char *filename,
-                                   const lfMount *const *mounts,
-                                   const lfCamera *const *cameras,
-                                   const lfLens *const *lenses);
-
-/** @sa lfDatabase::Save(const lfMount *const *, const lfCamera *const *, const lfLens *const *) */
-LF_EXPORT char *lf_db_save (const lfMount *const *mounts,
-                            const lfCamera *const *cameras,
-                            const lfLens *const *lenses);
+/** @sa lfDatabase::Save(char*& xml, size_t& data_size) */
+LF_EXPORT lfError lf_db_save_str (const lfDatabase *db, char **xml, size_t* data_size);
 
 /** @sa lfDatabase::FindCameras */
 LF_EXPORT const lfCamera **lf_db_find_cameras (
@@ -2479,6 +2471,9 @@ struct LF_EXPORT lfModifier
      * You must provide the original image width/height even if you
      * plan to correct just a part of the image.
      *
+     *
+     * @param lens
+     *     Lens object with calibration data to be used for the modifications.
      * @param imgcrop
      *     The crop factor for the image to be processed. The distortion
      *     models will take this into account if lens models were measured
@@ -2494,7 +2489,7 @@ struct LF_EXPORT lfModifier
      *     That is, you take a undistorted image at input and convert it so
      *     that it will look as if it would be a shot made with @a lens.
      */
-    lfModifier (float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse = false);
+    lfModifier (const lfLens *lens, float imgfocal, float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse = false);
 
     /** @brief Modifier object destructor. */
     ~lfModifier ();
@@ -2518,7 +2513,7 @@ struct LF_EXPORT lfModifier
      * @return
      *     A set of LF_MODIFY_XXX flags in effect.
      */
-    int EnableDistortionCorrection (const lfLens* lens, float focal);
+    int EnableDistortionCorrection ();
 
     /**
      * @brief Enable TCA correction.
@@ -2539,7 +2534,7 @@ struct LF_EXPORT lfModifier
      * @return
      *     A set of LF_MODIFY_XXX flags in effect.
      */
-    int EnableTCACorrection (const lfLens* lens, float focal);
+    int EnableTCACorrection ();
 
     /**
      * @brief Enable vignetting correction.
@@ -2564,7 +2559,7 @@ struct LF_EXPORT lfModifier
      * @return
      *     A set of LF_MODIFY_XXX flags in effect.
      */
-    int EnableVignettingCorrection (const lfLens* lens, float focal, float aperture, float distance);
+    int EnableVignettingCorrection (float aperture, float distance);
 
     /**
      * @brief Enable projection transform.
@@ -2578,8 +2573,7 @@ struct LF_EXPORT lfModifier
      * @return
      *     A set of LF_MODIFY_XXX flags in effect.
      */
-    int EnableProjectionTransform (const lfLens* lens, float focal, lfLensType target_projection);
-    //bool EnableProjectionTransform (float focal, lfLensType target_projection);
+    int EnableProjectionTransform (lfLensType target_projection);
 
     /**
      * @brief Enable image scaling.
@@ -2645,7 +2639,7 @@ struct LF_EXPORT lfModifier
      * @return
      *     A set of LF_MODIFY_XXX flags in effect.
      */
-    int EnablePerspectiveCorrection (const lfLens* lens, float focal, float *x, float *y, int count, float d);
+    int EnablePerspectiveCorrection (float *x, float *y, int count, float d);
 
     /**
      * @brief Return the current set of LF_MODIFY_XXX flags.
@@ -2886,11 +2880,7 @@ private:
 
     struct lfSubpixTCACallback : public lfSubpixelCallback
     {
-        float coordinate_correction;
-        float norm_focal;
-        float centerX;
-        float centerY;
-        float Terms [12];
+        float terms [12];
     };
 
     /// A single pixel coordinate modifier callback.
@@ -2901,11 +2891,7 @@ private:
 
     struct lfCoordDistCallbackData : public lfCoordCallback
     {
-        float coordinate_correction;
-        float centerX;
-        float centerY;
-        float norm_focal;
-        float Terms [5];
+        float terms [5];
     };
 
     struct lfCoordScaleCallbackData : public lfCoordCallback
@@ -2915,7 +2901,6 @@ private:
 
     struct lfCoordGeomCallbackData : public lfCoordCallback
     {
-        float norm_focal;
     };
 
     struct lfCoordPerspCallbackData : public lfCoordCallback
@@ -2932,11 +2917,8 @@ private:
 
     struct lfColorVignCallbackData : public lfColorCallback
     {
-        float coordinate_correction;
-        float NormScale;
-        float centerX;
-        float centerY;
-        float Terms [3];
+        float norm_scale;
+        float terms [3];
     };
 
     /// A set of subpixel coordinate modifier callbacks.
@@ -2950,7 +2932,7 @@ private:
     typedef struct { float angle, dist; } lfPoint;
 
     void AddSubpixTCACallback (const lfLensCalibTCA& lcd, lfModifySubpixCoordFunc func, int priority);
-    void AddCoordGeomCallback (float norm_focal, lfModifyCoordFunc func, int priority);
+    void AddCoordGeomCallback (lfModifyCoordFunc func, int priority);
     void AddCoordDistCallback (const lfLensCalibDistortion& lcd, lfModifyCoordFunc func, int priority);
     void AddColorVignCallback (const lfLensCalibVignetting& lcv, lfModifyColorFunc func, int priority);
 
@@ -2983,22 +2965,6 @@ private:
      *     The distance of the corrected image edge from the origin.
      */
     float GetTransformedDistance (lfPoint point) const;
-
-    /**
-     * @brief Calculate the real focal length in normalized coordinates.
-     *
-     * Some image operators need a different coordinate system, namely all
-     * coordinates in units of the focal length.  This routine returns the
-     * conversion factor this this.  If the "lens" parameter is not given, the
-     * nominal focal length (normalized) is returned instead of the real one.
-     * @param focal
-     *     The nominal focal length.
-     * @param lens
-     *     The lens used for the image.
-     * @return
-     *     The focal length in normalized image coordinates.
-     */
-    float GetNormalizedFocalLength (float focal, const lfLens* lens) const;
 
     static void ModifyCoord_TCA_Linear (void *data, float *iocoord, int count);
     static void ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int count);
@@ -3062,6 +3028,11 @@ private:
     double Width, Height;
     /// Image crop factor
     double Crop;
+    /// Image focal length
+    double Focal;
+    /// Real image focal length; used for alternative coordinate systems;
+    /// defaults to Focal
+    double RealFocal;
     /// The center of distortions in normalized coordinates
     double CenterX, CenterY;
     /// The coefficients for conversion to and from normalized coords
@@ -3073,8 +3044,10 @@ private:
     /// Image pixel format
     lfPixelFormat PixelFormat;
 
+    const lfLens* Lens;
+
     /// Indicates which modifications are enabled in this lfModifier
-    int enabledMods;
+    int EnabledMods;
 };
 
 #ifdef __cplusplus
@@ -3089,7 +3062,7 @@ DEPRECATED LF_EXPORT lfModifier *lf_modifier_new (
 
 /** @sa lfModifier::lfModifier */
 LF_EXPORT lfModifier *lf_modifier_create (
-    float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse);
+    const lfLens* lens, float imgfocal, float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse);
 
 /** @sa lfModifier::~lfModifier */
 LF_EXPORT void lf_modifier_destroy (lfModifier *modifier);
@@ -3104,22 +3077,22 @@ DEPRECATED LF_EXPORT int lf_modifier_initialize (
 LF_EXPORT int lf_modifier_enable_scaling (lfModifier *modifier, float scale);
 
 /** @sa lfModifier::EnableDistortionCorrection */
-LF_EXPORT int lf_modifier_enable_distortion_correction (lfModifier *modifier, const lfLens* lens, float focal);
+LF_EXPORT int lf_modifier_enable_distortion_correction (lfModifier *modifier);
 
 /** @sa lfModifier::EnableTCACorrection */
-LF_EXPORT int lf_modifier_enable_tca_correction (lfModifier *modifier, const lfLens* lens, float focal);
+LF_EXPORT int lf_modifier_enable_tca_correction (lfModifier *modifier);
 
 /** @sa lfModifier::EnableVignettingCorrection */
 LF_EXPORT int lf_modifier_enable_vignetting_correction (
-    lfModifier *modifier, const lfLens* lens, float focal, float aperture, float distance);
+    lfModifier *modifier, float aperture, float distance);
 
 /** @sa lfModifier::EnableProjectionTransform */
 LF_EXPORT cbool lf_modifier_enable_projection_transform (
-    lfModifier *modifier, const lfLens* lens, float focal, lfLensType target_projection);
+    lfModifier *modifier, lfLensType target_projection);
 
 /** @sa lfModifier::EnablePerspectiveCorrection */
 LF_EXPORT int lf_modifier_enable_perspective_correction (
-    lfModifier *modifier, const lfLens* lens, float focal, float *x, float *y, int count, float d);
+    lfModifier *modifier, float *x, float *y, int count, float d);
 
 /** @sa lfModifier::GetModFlags */
 LF_EXPORT int lf_modifier_get_mod_flags (lfModifier *modifier);

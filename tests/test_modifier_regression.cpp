@@ -2,6 +2,7 @@
 #include <limits>
 #include <map>
 #include <cmath>
+#include <locale>
 
 #include "lensfun.h"
 #include "../libs/lensfun/lensfunprv.h"
@@ -37,15 +38,15 @@ void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "smc Pentax-DA 50-200mm f/4-5.6 DA ED");
 
-    lfModifier* mod = new lfModifier (1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
+    lfModifier* mod = new lfModifier (lenses[0], 80.89f, 1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
 
-    mod->EnableDistortionCorrection(lenses[0], 80.89f);
+    mod->EnableDistortionCorrection();
 
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
 
-    float expected_x[] = {-14.03764153, 751.00000000, 810.27246094, 1275.17346191};
-    float expected_y[] = {-9.35532570, 497.00000000, 938.97027588, 96.02919769};
+    float expected_x[] = {-14.016061f, 751.0f, 810.27203f, 1275.1655f};
+    float expected_y[] = {-9.3409109f, 497.0f, 938.96729f, 96.035286f};
 
     float coords [2];
     for (unsigned int i = 0; i < sizeof(x) / sizeof(float); i++)
@@ -66,8 +67,8 @@ void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
     lens->CropFactor = lenses[0]->CropFactor;
     lens->AspectRatio = lenses[0]->AspectRatio;
 
-    mod = new lfModifier (1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
-    mod->EnableDistortionCorrection(lens, 80.89f);
+    mod = new lfModifier (lens, 80.89f, 1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
+    mod->EnableDistortionCorrection();
 
     for (unsigned int i = 0; i < sizeof(x) / sizeof(float); i++)
     {
@@ -92,15 +93,15 @@ void test_verify_dist_poly5 (lfFixture *lfFix, gconstpointer data)
 
     g_print("%s", lenses[0]->Model);
 
-    lfModifier* mod = new lfModifier (4.6f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
+    lfModifier* mod = new lfModifier (lenses[0], 10.89f, 4.6f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
 
-    mod->EnableDistortionCorrection(lenses[0], 10.89f);
+    mod->EnableDistortionCorrection();
 
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
 
-    float expected_x[] = {28.85699272, 751.00000000, 809.50451660, 1260.12316895};
-    float expected_y[] = {19.23155594, 497.00000000, 933.41711426, 107.58076477};
+    float expected_x[] = {28.805828f, 751.0f, 809.50531f, 1260.1396f};
+    float expected_y[] = {19.197506f, 497.0f, 933.42279f, 107.56808f};
 
     float coords [2];
     for (unsigned int i = 0; i < sizeof(x) / sizeof(float); i++)
@@ -122,15 +123,15 @@ void test_verify_dist_ptlens (lfFixture *lfFix, gconstpointer data)
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Pentax-F 28-80mm f/3.5-4.5");
 
-    lfModifier* mod = new lfModifier (1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
+    lfModifier* mod = new lfModifier (lenses[0], 30.89f, 1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
 
-    mod->EnableDistortionCorrection(lenses[0], 30.89f);
+    mod->EnableDistortionCorrection();
 
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
 
-    float expected_x[] = {29.04440117, 750.99969482, 808.74157715, 1255.12915039};
-    float expected_y[] = {19.35648155, 497.00045776, 927.89971924, 111.41387939};
+    float expected_x[] = {29.019449f, 750.99969f, 808.74231f, 1255.1388f};
+    float expected_y[] = {19.339846f, 497.00046f, 927.90521f, 111.40639f};
 
     float coords [2];
     for (unsigned int i = 0; i < sizeof(x) / sizeof(float); i++)
@@ -152,14 +153,14 @@ void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Olympus Zuiko Digital ED 14-42mm f/3.5-5.6");
 
-    lfModifier* mod = new lfModifier (2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
+    lfModifier* mod = new lfModifier (lenses[0], 17.89f, 2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
 
-    mod->EnableVignettingCorrection(lenses[0], 17.89f, 5.0f, 1000.0f);
+    mod->EnableVignettingCorrection(5.0f, 1000.0f);
 
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
 
-    lf_u16 expected[] = {22422, 22422, 24174, 28848};
+    lf_u16 expected[] = {22406, 22406, 24156, 28803};
 
     lf_u16 coords [3] = {16000, 16000, 16000};
     for (unsigned int i = 0; i < sizeof(x) / sizeof(float); i++)
@@ -181,8 +182,8 @@ void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
     lens->CropFactor = lenses[0]->CropFactor;
     lens->AspectRatio = lenses[0]->AspectRatio;
 
-    mod = new lfModifier (2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
-    mod->EnableVignettingCorrection(lens, 17.89f, 5.0f, 1000.0f);
+    mod = new lfModifier (lens, 17.89f, 2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
+    mod->EnableVignettingCorrection(5.0f, 1000.0f);
 
     coords[0] = 16000; coords[1] = 16000; coords[2] = 16000;
     for (unsigned int i = 0; i < sizeof(x) / sizeof(float); i++)
@@ -207,18 +208,18 @@ void test_verify_subpix_linear (lfFixture *lfFix, gconstpointer data)
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Olympus Zuiko Digital ED 14-42mm f/3.5-5.6");
 
-    lfModifier* mod = new lfModifier (2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
+    lfModifier* mod = new lfModifier (lenses[0], 17.89f, 2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
 
-    mod->EnableTCACorrection(lenses[0], 17.89f);
+    mod->EnableTCACorrection();
 
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
 
     float expected[][6] = {
-        {-0.08681729, -0.05789410, 0.00002450, -0.00001032, -0.02400517, -0.01601936},
-        {751.00061035, 496.99899292, 751.00000000, 497.00000000, 751.00000000, 497.00000000},
-        {810.01995850, 937.14440918, 810.00000000, 937.00000000, 810.00042725, 937.00305176},
-        {1270.12915039, 99.90086365, 1270.00000000, 100.00000763, 1270.00854492, 99.99343872}
+        {-0.08681729f, -0.05789410f, 0.00002450f, -0.00001032f, -0.02400517f, -0.01601936f},
+        {751.00061035f, 496.99899292f, 751.00000000f, 497.00000000f, 751.00000000f, 497.00000000f},
+        {810.01995850f, 937.14440918f, 810.00000000f, 937.00000000f, 810.00042725f, 937.00305176f},
+        {1270.12915039f, 99.90086365f, 1270.00000000f, 100.00000763f, 1270.00854492f, 99.99343872f}
     };
 
     float coords [6];
@@ -241,18 +242,18 @@ void test_verify_subpix_poly3 (lfFixture *lfFix, gconstpointer data)
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Olympus Zuiko Digital ED 14-42mm f/3.5-5.6");
 
-    lfModifier* mod = new lfModifier (2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
+    lfModifier* mod = new lfModifier (lenses[0], 26.89f, 2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
 
-    mod->EnableTCACorrection(lenses[0], 26.89f);
+    mod->EnableTCACorrection();
 
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
 
     float expected[][6] = {
-        {-0.05537901, -0.03692452, 0.00002450, -0.00001032, 0.01445518, 0.00962087},
-        {751.00061035, 496.99902344, 751.00000000, 497.00000000, 750.99981689, 497.00030518},
-        {810.01898193, 937.13732910, 810.00000000, 937.00000000, 809.99389648, 936.95599365},
-        {1270.11572266, 99.91123199, 1270.00000000, 100.00000763, 1269.96374512, 100.02780914}
+        {-0.05537901f, -0.03692452f, 0.00002450f, -0.00001032f, 0.01445518f, 0.00962087f},
+        {751.00061035f, 496.99902344f, 751.00000000f, 497.00000000f, 750.99981689f, 497.00030518f},
+        {810.01898193f, 937.13732910f, 810.00000000f, 937.00000000f, 809.99389648f, 936.95599365f},
+        {1270.11572266f, 99.91123199f, 1270.00000000f, 100.00000763f, 1269.96374512f, 100.02780914f}
     };
 
     for (unsigned int i = 0; i < sizeof(x) / sizeof(float); i++)
@@ -274,8 +275,8 @@ void test_verify_subpix_poly3 (lfFixture *lfFix, gconstpointer data)
     lens->CropFactor = lenses[0]->CropFactor;
     lens->AspectRatio = lenses[0]->AspectRatio;
 
-    mod = new lfModifier (2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
-    mod->EnableTCACorrection(lens, 26.89f);
+    mod = new lfModifier (lens, 26.89f, 2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
+    mod->EnableTCACorrection();
 
     for (unsigned int i = 0; i < sizeof(x) / sizeof(float); i++)
     {
@@ -300,15 +301,15 @@ void test_verify_geom_fisheye_rectlinear (lfFixture *lfFix, gconstpointer data)
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Olympus M.Zuiko Digital ED 8mm f/1.8 Fisheye Pro");
 
-    lfModifier* mod = new lfModifier (2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
+    lfModifier* mod = new lfModifier (lenses[0], 8.0f, 2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
 
-    mod->EnableProjectionTransform(lenses[0], 8.0f, LF_RECTILINEAR);
+    mod->EnableProjectionTransform(LF_RECTILINEAR);
 
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
 
-    float expected_x[] = {248.98896790, 751.00000000, 802.23010254, 1151.07922363};
-    float expected_y[] = {165.93727112, 497.00000000, 880.81262207, 191.27542114};
+    float expected_x[] = {248.78734f, 751.0f, 802.23956f, 1151.199f};
+    float expected_y[] = {165.80287f, 497.00003f, 880.88129f, 191.18344f};
 
     float coords [2];
     for (unsigned int i = 0; i < sizeof(x) / sizeof(float); i++)

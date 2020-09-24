@@ -144,6 +144,15 @@
         <cropfactor>1</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Nikon Corporation</maker>
+        <maker lang="en">Nikon</maker>
+        <model>Nikon Z 50</model>
+        <model lang="en">Z 50</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.531</cropfactor>
+    </camera>
+
     <lens>
         <maker>Nikon</maker>
         <model>1 Nikkor VR 10-30mm f/3.5-5.6</model>
@@ -291,6 +300,26 @@
             <tca model="poly3" focal="35" vr="1.0000506" vb="1.0001152"/>
             <tca model="poly3" focal="50" vr="0.9999946" vb="1.0000632"/>
             <tca model="poly3" focal="70" vr="0.9999059" vb="0.9999643"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>NIKKOR Z 24-70mm f/2.8 S</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Nikon Z7 -->
+            <distortion model="ptlens" focal="24" a="0.03963" b="-0.12592" c="0.08209"/>
+            <distortion model="ptlens" focal="34.5" a="0.02177" b="-0.06406" c="0.06264"/>
+            <distortion model="ptlens" focal="44" a="0.00741" b="-0.00497" c="-0.00176"/>
+            <distortion model="ptlens" focal="58" a="0.00652" b="-0.0013" c="0.0036"/>
+            <distortion model="ptlens" focal="70" a="0.01231" b="-0.03009" c="0.05107"/>
+            <tca model="poly3" focal="24" vr="1.0001900" vb="1.0000389"/>
+            <tca model="poly3" focal="34.5" vr="1.0001785" vb="0.9999488"/>
+            <tca model="poly3" focal="44" vr="1.0000760" vb="0.9999357"/>
+            <tca model="poly3" focal="58" vr="0.9999259" vb="0.9999757"/>
+            <tca model="poly3" focal="70" vr="0.9998371" vb="0.9999660"/>
         </calibration>
     </lens>
 

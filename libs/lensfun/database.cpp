@@ -232,7 +232,7 @@ static void _xml_start_element (GMarkupParseContext *context,
         {
         bad_ctx:
             g_set_error (error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
-                         "Inappropiate context for <%s>!\n", element_name);
+                         "Inappropriate context for <%s>!\n", element_name);
             return;
         }
 
@@ -286,8 +286,6 @@ static void _xml_start_element (GMarkupParseContext *context,
             goto bad_ctx;
         pd->lens = new lfLens ();
         pd->lens->Type = LF_RECTILINEAR;
-        pd->calib_attr.CenterX = 0.0;
-        pd->calib_attr.CenterY = 0.0;
         pd->calib_attr.CropFactor  = 1.0;
         pd->calib_attr.AspectRatio = 1.5;
         pd->lens->CenterX = 0.0;
@@ -334,13 +332,11 @@ static void _xml_start_element (GMarkupParseContext *context,
         for (i = 0; attribute_names [i]; i++)
             if (!strcmp (attribute_names [i], "x"))
             {
-                pd->calib_attr.CenterX = atof (attribute_values [i]);                     
-                pd->lens->CenterX = pd->calib_attr.CenterX;
+                pd->lens->CenterX = atof (attribute_values [i]);
             }
             else if (!strcmp (attribute_names [i], "y"))
             {
-                pd->calib_attr.CenterY = atof (attribute_values [i]);
-                pd->lens->CenterY = pd->calib_attr.CenterY;
+                pd->lens->CenterY = atof (attribute_values [i]);
             }
             else
                 goto bad_attr;
@@ -361,10 +357,6 @@ static void _xml_start_element (GMarkupParseContext *context,
                 pd->calib_attr.CropFactor = atof (attribute_values [i]);
             else if (!strcmp (attribute_names [i], "aspect-ratio"))
                 pd->calib_attr.AspectRatio = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "center-x"))
-                pd->calib_attr.CenterX = atof (attribute_values [i]);
-            else if (!strcmp (attribute_names [i], "center-y"))
-                pd->calib_attr.CenterY = atof (attribute_values [i]);
             else
                 goto bad_attr;
     }
@@ -884,6 +876,14 @@ lfError lfDatabase::Save (const char *filename) const
 
 char *lfDatabase::Save () const
 {
+    size_t len = 0;
+    char* xml = nullptr;
+    Save(xml, len);
+    return xml;
+}
+
+lfError lfDatabase::Save (char*& xml, size_t& data_size) const
+{
     /* Temporarily drop numeric format to "C" */
     char *old_numeric = setlocale (LC_NUMERIC, NULL);
     old_numeric = strdup(old_numeric);
@@ -980,8 +980,6 @@ char *lfDatabase::Save () const
                 continue;
 
             g_string_append (output, "\t\t<calibration ");
-            if (calib->Attributes.CenterX || calib->Attributes.CenterY)
-                _lf_xml_printf (output, "center-x=\"%g\" center-y=\"%g\" ", calib->Attributes.CenterX, calib->Attributes.CenterY);
             if (calib->Attributes.CropFactor > 0.0)
                 _lf_xml_printf (output, "cropfactor=\"%g\" ", calib->Attributes.CropFactor);
             if (calib->Attributes.AspectRatio != 1.5)
@@ -1128,8 +1126,10 @@ char *lfDatabase::Save () const
     setlocale (LC_NUMERIC, old_numeric);
     free(old_numeric);
 
-    return g_string_free (output, FALSE);
-    return 0;
+    data_size = output->len;    
+    xml = g_string_free (output, FALSE);
+
+    return LF_NO_ERROR;
 }
 
 int __find_camera_compare (lfCamera *a, lfCamera *b)
@@ -1590,9 +1590,14 @@ lfError lf_db_load_path (lfDatabase *db, const char *pathname)
     return db->Load (pathname);
 }
 
-lfError lf_db_load_data (lfDatabase *db, const char *data, size_t data_size)
+lfError lf_db_load_data (lfDatabase *db, const char *, const char *data, size_t data_size)
 {
     return db->Load (data, data_size);
+}
+
+lfError lf_db_load_str (lfDatabase *db, const char *xml, size_t data_size)
+{
+    return db->Load (xml, data_size);
 }
 
 lfError lf_db_save_all (const lfDatabase *db, const char *filename)
@@ -1600,14 +1605,9 @@ lfError lf_db_save_all (const lfDatabase *db, const char *filename)
     return db->Save (filename);
 }
 
-lfError lf_db_save_file (const lfDatabase *db, const char *filename)
+lfError lf_db_save_str (const lfDatabase *db, char **xml, size_t* data_size)
 {
-    return db->Save (filename);
-}
-
-char *lf_db_save (const lfDatabase *db)
-{
-    return db->Save ();
+    return db->Save (*xml, *data_size);
 }
 
 const lfCamera **lf_db_find_cameras (const lfDatabase *db,

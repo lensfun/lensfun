@@ -149,6 +149,14 @@
     <camera>
         <maker>Olympus Imaging Corp.</maker>
         <maker lang="en">Olympus</maker>
+        <model>E-M1MarkIII</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Olympus Imaging Corp.</maker>
+        <maker lang="en">Olympus</maker>
         <model>E-M5</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2</cropfactor>
@@ -158,6 +166,14 @@
         <maker>Olympus Imaging Corp.</maker>
         <maker lang="en">Olympus</maker>
         <model>E-M5MarkII</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Olympus Imaging Corp.</maker>
+        <maker lang="en">Olympus</maker>
+        <model>E-M5MarkIII</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2</cropfactor>
     </camera>
@@ -1497,6 +1513,33 @@
             <vignetting model="pa" focal="200" aperture="16" distance="1000" k1="-0.1527" k2="0.3484" k3="-0.3869"/>
             <vignetting model="pa" focal="200" aperture="22" distance="10" k1="-0.1370" k2="0.2150" k3="-0.1823"/>
             <vignetting model="pa" focal="200" aperture="22" distance="1000" k1="-0.1370" k2="0.2150" k3="-0.1823"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Olympus</maker>
+        <model>OLYMPUS M.30mm F3.5 Macro</model>
+        <model lang="en">Olympus M.Zuiko ED 30mm f/3.5 Macro</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with DMC-GX80 -->
+            <tca model="poly3" focal="30" vr="1.0003510" vb="0.9999575"/>
+            <vignetting model="pa" focal="30" aperture="3.5" distance="10" k1="-0.8317" k2="0.1958" k3="0.0861"/>
+            <vignetting model="pa" focal="30" aperture="3.5" distance="1000" k1="-0.8317" k2="0.1958" k3="0.0861"/>
+            <vignetting model="pa" focal="30" aperture="4" distance="10" k1="-0.4314" k2="-0.3754" k3="0.3552"/>
+            <vignetting model="pa" focal="30" aperture="4" distance="1000" k1="-0.4314" k2="-0.3754" k3="0.3552"/>
+            <vignetting model="pa" focal="30" aperture="4.5" distance="10" k1="-0.2734" k2="-0.2775" k3="0.1870"/>
+            <vignetting model="pa" focal="30" aperture="4.5" distance="1000" k1="-0.2734" k2="-0.2775" k3="0.1870"/>
+            <vignetting model="pa" focal="30" aperture="5" distance="10" k1="-0.3232" k2="0.0188" k3="-0.0239"/>
+            <vignetting model="pa" focal="30" aperture="5" distance="1000" k1="-0.3232" k2="0.0188" k3="-0.0239"/>
+            <vignetting model="pa" focal="30" aperture="5.6" distance="10" k1="-0.3873" k2="0.1280" k3="-0.0148"/>
+            <vignetting model="pa" focal="30" aperture="5.6" distance="1000" k1="-0.3873" k2="0.1280" k3="-0.0148"/>
+            <vignetting model="pa" focal="30" aperture="6.3" distance="10" k1="-0.4004" k2="0.1949" k3="-0.0913"/>
+            <vignetting model="pa" focal="30" aperture="6.3" distance="1000" k1="-0.4004" k2="0.1949" k3="-0.0913"/>
+            <vignetting model="pa" focal="30" aperture="22" distance="10" k1="-0.3666" k2="0.0752" k3="0.0327"/>
+            <vignetting model="pa" focal="30" aperture="22" distance="1000" k1="-0.3666" k2="0.0752" k3="0.0327"/>
         </calibration>
     </lens>
 
