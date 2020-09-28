@@ -563,5 +563,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>RF24-105mm F4 L IS USM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="24.0" a="0.024775" b="-0.084337" c="0.064191" />
+            <distortion model="ptlens" focal="35.0" a="0.005304" b="-0.008849" c="0.009513" />
+            <distortion model="ptlens" focal="50.0" a="0.002353" b="0.006718" c="-0.005208" />
+            <distortion model="ptlens" focal="70.0" a="0.00917" b="-0.026657" c="0.042533" />
+            <distortion model="ptlens" focal="85.0" a="0.004822" b="-0.004327" c="0.00475" />
+            <distortion model="ptlens" focal="105.0" a="0.013584" b="-0.046043" c="0.069072" />
+            <tca model="poly3" focal="24.0" vr="1.0002511" vb="1.0000958" />
+            <tca model="poly3" focal="35.0" vr="1.0000709" vb="1.0001732" />
+            <tca model="poly3" focal="50.0" vr="0.9999849" vb="1.0000951" />
+            <tca model="poly3" focal="70.0" vr="0.9998402" vb="1.0000317" />
+            <tca model="poly3" focal="85.0" vr="0.9997252" vb="0.9999989" />
+            <tca model="poly3" focal="105.0" vr="0.9997243" vb="0.9998896" />
+        </calibration>
+    </lens>
+
 
 </lensdatabase>
