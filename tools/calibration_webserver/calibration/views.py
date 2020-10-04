@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import hashlib, os, subprocess, json, shutil, mimetypes, re, configparser
 from urllib.parse import quote_plus
 import django.forms as forms

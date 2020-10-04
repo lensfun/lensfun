@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """This program generates a bitmap which simulates lens errors.  Then, Lensfun
 can be used to rectify them.  This way, one can check whether Lensfun is
