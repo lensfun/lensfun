@@ -59,39 +59,10 @@ def spawn_daemon(path_to_executable, *args, env=None):
     :type args: list of str
     :type env: dict mapping str to str, or NoneType
     """
-    try:
-        pid = os.fork()
-    except OSError as e:
-        raise RuntimeError("1st fork failed: %s [%d]" % (e.strerror, e.errno))
-    if pid != 0:
-        os.waitpid(pid, 0)
-        return
-    os.setsid()
-    try:
-        pid = os.fork()
-    except OSError as e:
-        raise RuntimeError("2nd fork failed: %s [%d]" % (e.strerror, e.errno))
-    if pid != 0:
-        os._exit(0)
-    try:
-        maxfd = os.sysconf("SC_OPEN_MAX")
-    except (AttributeError, ValueError):
-        maxfd = 1024
-    for fd in range(maxfd):
-        try:
-           os.close(fd)
-        except OSError:
-           pass
-    os.open(os.devnull, os.O_RDWR)
-    os.dup2(0, 1)
-    os.dup2(0, 2)
     env_ = os.environ.copy()
     if env is not None:
         env_.update(env)
-    try:
-        os.execve(path_to_executable, [path_to_executable] + list(filter(lambda arg: arg is not None, args)), env_)
-    except:
-        os._exit(255)
+    os.posix_spawn(path_to_executable, [path_to_executable] + list(args), env_)
 
 
 def store_upload(uploaded_file, email_address, comments):
