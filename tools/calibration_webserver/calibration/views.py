@@ -6,7 +6,7 @@ from urllib.parse import quote_plus
 import django.forms as forms
 from django.shortcuts import render
 from django.forms.utils import ValidationError
-import django.core.urlresolvers
+from django.urls import reverse
 import django.http
 from django.utils.encoding import iri_to_uri
 from utils import generate_thumbnail, RawNotFound
@@ -151,7 +151,7 @@ def upload(request):
         if upload_form.is_valid():
             id_ = store_upload(request.FILES["compressed_file"],
                                upload_form.cleaned_data["email_address"], upload_form.cleaned_data["comments"])
-            return HttpResponseSeeOther(django.core.urlresolvers.reverse("show_issues", kwargs={"id_": id_}))
+            return HttpResponseSeeOther(reverse("show_issues", kwargs={"id_": id_}))
     else:
         upload_form = UploadForm()
     return render(request, "calibration/upload.html", {"title": "Calibration images upload", "upload": upload_form})
