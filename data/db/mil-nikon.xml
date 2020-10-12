@@ -424,6 +424,27 @@
             <vignetting model="pa" focal="85.0" aperture="16.0" distance="1000" k1="-0.1030326" k2="-0.0395645" k3="0.0316660" />
         </calibration>
     </lens>
+	
+    <lens>
+    <maker>Nikon</maker>
+    <model>NIKKOR Z 24-200mm f/4-6.3 VR</model>
+    <mount>Nikon Z</mount>
+    <cropfactor>1</cropfactor>
+    <calibration>
+        <distortion model="ptlens" focal="24" a="0.029427303584772774" b="-0.10372635871864969" c="0.04007366049378727"/>
+        <distortion model="ptlens" focal="38" a="0.010039276890734349" b="-0.019018579758017618" c="0.012124283612537735"/>
+        <distortion model="ptlens" focal="52" a="0.009269921825384317" b="-0.012043929971475851" c="0.022274437294479553"/>
+        <distortion model="ptlens" focal="94" a="-0.001508449372620077" b="0.02879419057228741" c="-0.02366348197099592"/>
+        <distortion model="ptlens" focal="140" a="-0.0012467131640865495" b="0.021459850448953443" c="-0.011450469560964946"/>
+        <distortion model="ptlens" focal="200" a="7.132598710890537e-05" b="0.01340609626856572" c="0.0011983453411721758"/>
+        <tca model="poly3" focal="24" vr="1.0003084" vb="1.0002809"/>
+        <tca model="poly3" focal="44" vr="1.0001410" vb="1.0000968"/>
+        <tca model="poly3" focal="64" vr="1.0000703" vb="1.0000559"/>
+        <tca model="poly3" focal="91" vr="0.9999584" vb="1.0000168"/>
+        <tca model="poly3" focal="135" vr="0.9998716" vb="0.9999761"/>
+        <tca model="poly3" focal="200" vr="0.9996803" vb="0.9998675"/>
+    </calibration>
+</lens>
 
     <lens>
         <maker>Nikon</maker>
