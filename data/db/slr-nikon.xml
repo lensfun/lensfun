@@ -4147,6 +4147,33 @@
             <vignetting model="pa" focal="70" aperture="32" distance="1000" k1="-0.5484" k2="0.7069" k3="-0.5361"/>
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF Zoom-Nikkor 28-105mm f/3.5-4.5D IF</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="28" a="0.03722205440784227" b="-0.10934523917506013" c="0.07078237933099067"/>
+            <distortion model="ptlens" focal="32" a="0.019835577054902676" b="-0.05670225633622752" c="0.03580107693380153"/>
+            <distortion model="ptlens" focal="38" a="0.007048267613264098" b="-0.014469219466710512" c="0.0013074478565216336"/>
+            <distortion model="ptlens" focal="52" a="0.0059881039223992375" b="-0.01620160876081344" c="0.01636600424479938"/>
+            <distortion model="ptlens" focal="62" a="0.006704463797333274" b="-0.02278196690317199" c="0.03129450628539824"/>
+            <distortion model="ptlens" focal="78" a="0.005253816123717878" b="-0.017966597578231436" c="0.026357400661011058"/>
+            <distortion model="ptlens" focal="90" a="0.003363792037726662" b="-0.009188905209272097" c="0.013976143062542612"/>
+            <distortion model="ptlens" focal="98" a="0.00173115290909442" b="0.00012607185090837366" c="-0.00127906162831947"/>
+            <distortion model="ptlens" focal="105" a="0.0043152301082655786" b="-0.012480709061510968" c="0.01915614767732595"/>
+            <tca model="poly3" focal="28" vr="1.0004427" vb="0.9999566"/>
+            <tca model="poly3" focal="34" vr="1.0002381" vb="1.0000275"/>
+            <tca model="poly3" focal="38" vr="1.0001555" vb="1.0000756"/>
+            <tca model="poly3" focal="48" vr="1.0000521" vb="1.0000902"/>
+            <tca model="poly3" focal="60" vr="0.9999805" vb="1.0000489"/>
+            <tca model="poly3" focal="75" vr="0.9999353" vb="0.9999793"/>
+            <tca model="poly3" focal="85" vr="0.9999067" vb="0.9999184"/>
+            <tca model="poly3" focal="92" vr="0.9998862" vb="0.9998638"/>
+            <tca model="poly3" focal="98" vr="0.9998613" vb="0.9997682"/>
+        </calibration>
+    </lens>
 
     <lens>
         <maker>Nikon</maker>
