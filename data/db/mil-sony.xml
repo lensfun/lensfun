@@ -1415,6 +1415,20 @@
             <tca model="poly3" focal="200" br="-0.0000901" vr="0.9999864" bb="0.0000610" vb="0.9998220"/>
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Sony></maker>
+        <model>FE 70-200mm F2.8 GM OSS</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="70" a="-0.0009116499161901936" b="-0.002065329230560181" c="-0.010818691020889198"/>    
+            <distortion model="ptlens" focal="98" a="-0.0011713066753043374" b="0.006493156765376644" c="-0.012702582269175377"/>
+            <distortion model="ptlens" focal="135" a="0.0019016087933042417" b="-0.0006183060301530425" c="0.004577901149421958"/>
+            <distortion model="ptlens" focal="164" a="0.004792210618748812" b="-0.009028988129615226" c="0.018720680819967687"/>
+            <distortion model="ptlens" focal="200" a="0.0030692175951550684" b="0.0002689414917390645" c="0.010212862453090771"/>
+        </calibration>
+    </lens>
 
     <lens>
         <maker>Sony</maker>
