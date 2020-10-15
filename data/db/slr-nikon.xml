@@ -4865,5 +4865,17 @@
             <tca model="poly3" focal="35" vr="1.0001831" vb="1.0000038"/>
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S Nikkor 24mm f/1.8G ED</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.001</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="24" a="0.000860596845977449" b="0.0002663127335183226" c="-0.020873127333617125"/>
+            <tca model="poly3" focal="24" vr="1.0002163" vb="0.9999614"/>
+        </calibration>
+    </lens>
+
 
 </lensdatabase>
