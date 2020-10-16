@@ -373,6 +373,18 @@
             <tca model="poly3" focal="70" vr="0.9998371" vb="0.9999660"/>
         </calibration>
     </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>NIKKOR Z 20mm f/1.8 S</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="20" a="0.00897184359188931" b="-0.03242361162585189" c="0.017757886670736935"/>
+            <tca model="poly3" focal="20" vr="1.0000431" vb="1.0000627"/>
+        </calibration>
+    </lens>
+
     <lens>
         <maker>Nikon</maker>
         <model>NIKKOR Z 50mm f/1.8 S</model>
