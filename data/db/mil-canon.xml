@@ -374,6 +374,17 @@
             <vignetting model="pa" focal="22" aperture="22" distance="1000" k1="-0.8954" k2="0.3316" k3="-0.0229"/>
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF-M 28mm f/3.5 Macro IS STM</model>
+        <mount>Canon EF-M</mount>
+        <cropfactor>1.613</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="28" a="0.0033255338545541673" b="-0.005876064547018978" c="0.005072170918790435"/>
+            <tca model="poly3" focal="28" vr="1.0001278" vb="0.9999678"/>
+        </calibration>
+    </lens>
 
     <lens>
         <maker>Canon</maker>
