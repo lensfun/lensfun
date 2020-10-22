@@ -44,6 +44,22 @@
 
     <camera>
         <maker>Canon</maker>
+        <model>Canon EOS 5DS</model>
+        <model lang="en">EOS 5DS</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon EOS 5DS R</model>
+        <model lang="en">EOS 5DS R</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+    
+    <camera>
+        <maker>Canon</maker>
         <model>Canon EOS 6D</model>
         <model lang="en">EOS 6D</model>
         <mount>Canon EF</mount>
@@ -6701,6 +6717,27 @@
             <vignetting model="pa" focal="85" aperture="16" distance="1000" k1="-0.1875" k2="-0.0153" k3="0.0411"/>
             <vignetting model="pa" focal="85" aperture="22" distance="0.82" k1="-0.2004" k2="0.0110" k3="0.0283"/>
             <vignetting model="pa" focal="85" aperture="22" distance="1000" k1="-0.2080" k2="0.0264" k3="0.0175"/>
+        </calibration>
+    </lens>
+    
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 80-200mm f/4.5-5.6</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="80" a="-0.00011802003223145561" b="0.002516324254263835" c="-0.0012184478941118092"/>
+            <distortion model="ptlens" focal="97" a="0.0013917486783894314" b="0.002650626918119904" c="0.0021850429497980365"/>
+            <distortion model="ptlens" focal="117" a="0.0027314133850260187" b="-0.0012769498560744543" c="0.010406865327422504"/>
+            <distortion model="ptlens" focal="135" a="0.0049010782727469115" b="-0.006912857279508826" c="0.019940770866660563"/>
+            <distortion model="ptlens" focal="158" a="0.012747837429020682" b="-0.03627570457869731" c="0.05652836036791503"/>
+            <distortion model="ptlens" focal="200" a="0.0029346719504729736" b="0.0062413182128678" c="-0.0019837179475394166"/>
+            <tca model="poly3" focal="80" vr="1.0000689" vb="0.9999596"/>
+            <tca model="poly3" focal="97" vr="1.0000410" vb="0.9998543"/>
+            <tca model="poly3" focal="117" vr="1.0000111" vb="0.9997444"/>
+            <tca model="poly3" focal="135" vr="0.9999841" vb="0.9997311"/>
+            <tca model="poly3" focal="158" vr="0.9999672" vb="0.9996445"/>
+            <tca model="poly3" focal="200" vr="0.9999687" vb="0.9996618"/>
         </calibration>
     </lens>
 

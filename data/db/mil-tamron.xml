@@ -136,5 +136,21 @@
             <vignetting model="pa" focal="70.0" aperture="2.8" distance="1000" k1="-0.9386801" k2="0.4610032" k3="-0.1643302" />
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Tamron</maker>
+		<!-- Tamron 20mm F2.8 Di III OSD M1:2 -->
+        <model>E 20mm F2.8 F050</model>
+        <model lang="en">Tamron 20mm F2.8 Di III OSD M1:2</model>
+        <mount>Sony E</mount>
+        <focal value="20" />
+        <aperture min="2.8" max="22" />
+        <type>rectilinear</type>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Alpha 7M3 -->
+			<distortion focal="20" model="ptlens" a="0.02545" b="-0.10238" c="0.04699" />
+        </calibration>
+    </lens>
 
 </lensdatabase>

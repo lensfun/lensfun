@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """This script takes the location of a file archive (e.g. a tarball) as its
 argument and converts it into an extracted set of files in the same directory.

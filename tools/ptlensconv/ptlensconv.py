@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python2.7
 #
 # NOTE: Due to simplifications made during PTLens database development,
 # the resulting files are not 100% accurate. Every output from this script

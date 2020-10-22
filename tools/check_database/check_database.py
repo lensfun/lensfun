@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """Checks sanity of the database.  Pass the path to the database on the command
 line.  This path defaults to ``../../data/db``, relatively to the directory of

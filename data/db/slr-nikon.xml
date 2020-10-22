@@ -4147,6 +4147,33 @@
             <vignetting model="pa" focal="70" aperture="32" distance="1000" k1="-0.5484" k2="0.7069" k3="-0.5361"/>
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF Zoom-Nikkor 28-105mm f/3.5-4.5D IF</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="28" a="0.03722205440784227" b="-0.10934523917506013" c="0.07078237933099067"/>
+            <distortion model="ptlens" focal="32" a="0.019835577054902676" b="-0.05670225633622752" c="0.03580107693380153"/>
+            <distortion model="ptlens" focal="38" a="0.007048267613264098" b="-0.014469219466710512" c="0.0013074478565216336"/>
+            <distortion model="ptlens" focal="52" a="0.0059881039223992375" b="-0.01620160876081344" c="0.01636600424479938"/>
+            <distortion model="ptlens" focal="62" a="0.006704463797333274" b="-0.02278196690317199" c="0.03129450628539824"/>
+            <distortion model="ptlens" focal="78" a="0.005253816123717878" b="-0.017966597578231436" c="0.026357400661011058"/>
+            <distortion model="ptlens" focal="90" a="0.003363792037726662" b="-0.009188905209272097" c="0.013976143062542612"/>
+            <distortion model="ptlens" focal="98" a="0.00173115290909442" b="0.00012607185090837366" c="-0.00127906162831947"/>
+            <distortion model="ptlens" focal="105" a="0.0043152301082655786" b="-0.012480709061510968" c="0.01915614767732595"/>
+            <tca model="poly3" focal="28" vr="1.0004427" vb="0.9999566"/>
+            <tca model="poly3" focal="34" vr="1.0002381" vb="1.0000275"/>
+            <tca model="poly3" focal="38" vr="1.0001555" vb="1.0000756"/>
+            <tca model="poly3" focal="48" vr="1.0000521" vb="1.0000902"/>
+            <tca model="poly3" focal="60" vr="0.9999805" vb="1.0000489"/>
+            <tca model="poly3" focal="75" vr="0.9999353" vb="0.9999793"/>
+            <tca model="poly3" focal="85" vr="0.9999067" vb="0.9999184"/>
+            <tca model="poly3" focal="92" vr="0.9998862" vb="0.9998638"/>
+            <tca model="poly3" focal="98" vr="0.9998613" vb="0.9997682"/>
+        </calibration>
+    </lens>
 
     <lens>
         <maker>Nikon</maker>
@@ -4682,6 +4709,30 @@
             <tca model="poly3" focal="500" vr="0.9998470" vb="0.9998154"/>
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S Nikkor 200-500mm f/5.6E ED VR</model>
+        <model lang="en">Nikkor AF-S 200-500mm f/5.6E ED VR</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="200" a="0.0019098468424889991" b="-0.0028266879132016103" c="0.009532148272374459"/>
+            <distortion model="ptlens" focal="240" a="-0.001450349317344527" b="0.0065271200511737345" c="0.001960647047431016"/>
+            <distortion model="ptlens" focal="300" a="-0.009555553460429906" b="0.03977624484277226" c="-0.03995936055019658"/>
+            <distortion model="ptlens" focal="350" a="-0.010960871365021194" b="0.04015327185933698" c="-0.034546119542358915"/>
+            <distortion model="ptlens" focal="400" a="-0.0042404093135895325" b="0.021483689252968476" c="-0.0217991632383908"/>
+            <distortion model="ptlens" focal="440" a="-0.00028456465413408263" b="0.003987281870400996" c="0.003990734598206719"/>
+            <distortion model="ptlens" focal="500" a="0.0017535658198365158" b="-0.0029741870253060148" c="0.008975436493346442"/>
+            <tca model="poly3" focal="200" vr="1.0000246" vb="0.9999478"/>
+            <tca model="poly3" focal="240" vr="0.9999842" vb="0.9999472"/>
+            <tca model="poly3" focal="300" vr="0.9999146" vb="0.9999539"/>
+            <tca model="poly3" focal="350" vr="0.9998924" vb="0.9999280"/>
+            <tca model="poly3" focal="400" vr="0.9998570" vb="0.9999208"/>
+            <tca model="poly3" focal="440" vr="0.9998794" vb="0.9998859"/>
+            <tca model="poly3" focal="500" vr="0.9998498" vb="0.9998649"/>
+        </calibration>
+    </lens>
 
     <lens>
         <maker>Nikon</maker>
@@ -4865,5 +4916,18 @@
             <tca model="poly3" focal="35" vr="1.0001831" vb="1.0000038"/>
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S Nikkor 24mm f/1.8G ED</model>
+        <model lang="en">Nikkor AF-S 24mm f/1.8G ED</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.001</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="24" a="0.000860596845977449" b="0.0002663127335183226" c="-0.020873127333617125"/>
+            <tca model="poly3" focal="24" vr="1.0002163" vb="0.9999614"/>
+        </calibration>
+    </lens>
+
 
 </lensdatabase>
