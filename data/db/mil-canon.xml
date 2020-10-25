@@ -595,5 +595,22 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>RF70-200mm F2.8 L IS USM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="70.0" a="-0.003595" b="0.012273" c="-0.024708" />
+            <distortion model="ptlens" focal="100.0" a="0.000516" b="-0.000162" c="0.006096" />
+            <distortion model="ptlens" focal="135.0" a="-0.000455" b="0.010628" c="-0.009389" />
+            <distortion model="ptlens" focal="200.0" a="0.002144" b="0.001356" c="0.003802" />
+            <tca model="poly3" focal="70.0" vr="1.0000956" vb="1.0000753" />
+            <tca model="poly3" focal="100.0" vr="1.0000110" vb="1.0000471" />
+            <tca model="poly3" focal="135.0" vr="0.9999721" vb="1.0000196" />
+            <tca model="poly3" focal="200.0" vr="0.9999572" vb="0.9999816" />
+        </calibration>
+    </lens>
+
 
 </lensdatabase>
