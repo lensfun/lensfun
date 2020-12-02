@@ -95,7 +95,7 @@
         <mount>lumia1520</mount>
         <cropfactor>6.26</cropfactor>
     </camera>
-    
+
     <camera>
         <maker>Honor</maker>
         <model>DLI-L22</model>
@@ -103,6 +103,52 @@
         <mount>dlil22</mount>
         <cropfactor>8.235</cropfactor>
     </camera>
+
+    <camera>
+        <maker>Apple</maker>
+        <model>iPhone XS</model>
+        <mount>iPhoneXS</mount>
+        <cropfactor>6.118</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Apple</maker>
+        <model>iPhone XS (tele)</model>
+        <mount>iPhoneXStele</mount>
+        <cropfactor>8.667</cropfactor>
+    </camera>
+
+    <lens>
+        <maker>Apple</maker>
+        <model>iPhone XS back camera 4.25mm f/1.8 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>iPhoneXS</mount>
+        <cropfactor>6.118</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+           <distortion model="ptlens" focal="4.25" a="0.02465" b="-0.089989" c="0.111108" />
+           <tca model="poly3" focal="4.25" vr="1.0001039" vb="0.9999747" />
+           <vignetting model="pa" focal="4.25" aperture="1.8" distance="10" k1="-2.0800063" k2="2.2430616" k3="-0.9514921" />
+           <vignetting model="pa" focal="4.25" aperture="1.8" distance="1000" k1="-2.0800063" k2="2.2430616" k3="-0.9514921" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Apple</maker>
+        <model>iPhone XS back camera 6mm f/2.4 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>iPhoneXStele</mount>
+        <cropfactor>8.667</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+           <distortion model="ptlens" focal="6.0" a="-0.044229" b="0.125299" c="-0.112978" />
+           <tca model="poly3" focal="6.0" vr="0.9999336" vb="0.9999870" />
+           <vignetting model="pa" focal="6.0" aperture="2.4" distance="10" k1="-0.7086498" k2="0.4294304" k3="-0.1153056" />
+           <vignetting model="pa" focal="6.0" aperture="2.4" distance="1000" k1="-0.7086498" k2="0.4294304" k3="-0.1153056" />
+        </calibration>
+    </lens>
 
     <!-- I think this is also known under the brand "Michael Lens" or "Movie
          Lens", and with f/1.6.  The correction data actually was submitted as
@@ -174,17 +220,17 @@
             <tca model="poly3" focal="50" br="-0.0000159" vr="1.0000709" bb="0.0000131" vb="0.9999198"/>
         </calibration>
     </lens>
-    
-    <lens> 
-        <maker>Cosina</maker> 
-        <model>24mm 2.0 Macro</model> 
-        <mount>Pentax K</mount> 
-        <cropfactor>1.526</cropfactor> 
-        <calibration> 
-            <distortion model="ptlens" focal="24" a="0.00037" b="-0.00528" c="-0.00728" /> 
-            <tca model="poly3" focal="24" br="-0.0002357" vr="1.0013614" bb="0.0001470" vb="0.9995308" /> 
-        </calibration> 
-    </lens> 
+
+    <lens>
+        <maker>Cosina</maker>
+        <model>24mm 2.0 Macro</model>
+        <mount>Pentax K</mount>
+        <cropfactor>1.526</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="24" a="0.00037" b="-0.00528" c="-0.00728"/>
+            <tca model="poly3" focal="24" br="-0.0002357" vr="1.0013614" bb="0.0001470" vb="0.9995308"/>
+        </calibration>
+    </lens>
 
     <lens>
         <maker>Mitakon</maker>
@@ -549,6 +595,7 @@
         <maker>Meike</maker>
         <model>Meike 35mm f/1.7</model>
         <mount>Fujifilm X</mount>
+        <mount>Sony E</mount>
         <cropfactor>1.528</cropfactor>
         <calibration>
             <!-- Taken with Fujifilm X-Pro2 -->
@@ -885,7 +932,7 @@
             <distortion model="ptlens" focal="15" a="0.05114" b="-0.13551" c="0.04398"/>
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Honor</maker>
         <model>Honor 6A &amp; compatibles</model>
@@ -895,11 +942,11 @@
         <cropfactor>8.235</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-        <vignetting model="pa" focal="3.4" aperture="2.2" distance="10" k1="-2.3342" k2="2.8667" k3="-1.3321"/>
-        <vignetting model="pa" focal="3.4" aperture="2.2" distance="1000" k1="-2.3342" k2="2.8667" k3="-1.3321"/>
+            <vignetting model="pa" focal="3.4" aperture="2.2" distance="10" k1="-2.3342" k2="2.8667" k3="-1.3321"/>
+            <vignetting model="pa" focal="3.4" aperture="2.2" distance="1000" k1="-2.3342" k2="2.8667" k3="-1.3321"/>
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Voigtlander</maker>
         <model>Voigtlander HELIAR-HYPER WIDE 10mm F5.6</model>

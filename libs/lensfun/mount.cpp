@@ -103,6 +103,11 @@ void lf_mount_destroy (lfMount *mount)
     delete mount;
 }
 
+void lf_mount_copy (lfMount *dest, const lfMount *source)
+{
+    *dest = *source;
+}
+
 cbool lf_mount_check (lfMount *mount)
 {
     return mount->Check ();

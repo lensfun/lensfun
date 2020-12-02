@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """Consistency checker of calibration requests on GitHub.
 
@@ -26,7 +25,7 @@ from github import Github
 config = configparser.ConfigParser()
 assert config.read(os.path.expanduser("~/calibration_webserver.ini")), os.path.expanduser("~/calibration_webserver.ini")
 
-github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
+github = Github(config["GitHub"]["token"])
 lensfun = github.get_organization("lensfun").get_repo("lensfun")
 admin = "{} <{}>".format(config["General"]["admin_name"], config["General"]["admin_email"])
 owncloud_root = Path(config["ownCloud"]["local_root"])/"calibration"

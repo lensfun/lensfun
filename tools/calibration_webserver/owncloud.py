@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """Interaction with the ownCloud synchronisation program ``owncloudcmd``.  It
 works only on UNIX.
 """

@@ -2,43 +2,88 @@
 0.3.95 --> 
 =======================================
 
+__lfDatabase__
+    * `lfDatabase::Save()` without arguments is deprecated
+    * `lfDatabase::Save(char*& xml, size_t& data_size)` has been added to write the database into an XML char string
+    * new `lf_db_load_str()` and `lf_db_save_str()` C-functions to load/save as XML string char array 
+
+__Breaking changes__
+
+* C interface: 
+    * all `lf_lens_interpolate_...()` functions now require an additional crop parameter.
+    * `lf_db_save()` and `lf_db_save_file()` have been removed
+
+
+__Profiles__
+
 New interchangeable lenses:
 
 * Canon EF 35mm f/1.4L II USM
+* Canon FD 50mm f/1.4 S.C.C.
 * Canon EF 100-400mm f/4.5-5.6L IS II USM
+* Canon RF 24-105mm F4L IS USM
+* Canon RF 70-200mm F2.8L IS USM
+* Canon EF 80-200mm f/4.5-5.6
+* Canon EF-M 28mm f/3.5 Macro IS STM
 * Chinon 75-205mm f/3.8
 * Chinon Auto 35mm f/2.8
 * KMZ Helios-40 85mm f/1.5
 * KMZ Industar-50-2 3.5/50
 * KMZ Jupiter-37AM MC 3.5/135
 * Leica DG Vario-Elmarit 8-18mm f/2.8-4 Asph.
+* Leica DG Vario-Summilux 10-25mm f/1.7 Asph.
 * Leica DG Nocticron 42.5mm f/1.2 Asph. Power OIS
+* Minolta AF 50mm f/1.4
+* Minolta AF 50mm f/2.8 Macro
+* Minolta AF 17-35mm f/2.8-4 (D)
+* Minolta/Sony AF 24-105mm f/3.5-4.5 (D)
+* Nikon AF-S Nikkor 17-35mm f/2.8D IF-ED
+* Nikon AF Zoom-Nikkor 28-105mm f/3.5-4.5D IF
+* Nikon Z 24-70mm f/2.8 S
 * Nikon AI-S Nikkor 105mm f/2.5
 * Nikon AF-S 200-500mm f/5.6E ED VR
+* Nikon Z 24-200mm f/4-6.3 VR
+* Nikon AF-S Nikkor 24mm f/1.8G ED
+* Nikon Z 20mm f/1.8 S
 * Olympus M.Zuiko Digital 17mm f/1.2
 * Olympus M.Zuiko Digital 25mm f/1.2
+* Olympus M.Zuiko ED 30mm f/3.5 Macro
 * Olympus M.Zuiko Digital 45mm f/1.2
+* Panasonic Lumix G Macro 30mm f/2.8
 * Pentax SMC Takumar 50mm f/1.4
+* Pentax HD Pentax-DA 55-300mm f/4.5-6.3 ED PLM WR RE
+* Samyang AF 14mm F2.8 FE
+* Samyang AF 24mm F2.8 FE
 * Sigma 85mm f/1.4 EX DG HSM
 * smc Pentax-DA L 18-50mm f/4-5.6 DC WR RE
 * Sony FE 24-105mm F4 G OSS;
 * Sony FE 50mm F1.8
+* Sony FE 70-200 2.8 GM
+* Sony FE 100-400mm F4.5-5.6 GM OSS
 * Tamron 14-150mm f/3.5-5.8 Di III
+* Tamron AF 18-270mm F/3.5-6.3 Di II VC PZD
 * Tamron SP 24-70mm f/2.8 Di VC USD G2 A032
 * Tamron SP 70-200mm F/2.8 Di VC USD G2
 * Tamron SP 35mm f/1.8 Di VC USD F012
+* Tamron 20mm F2.8 Di III OSD M1:2
 * Voigtländer Super Wide-Heliar 15mm f/4.5 Aspherical III
 
 New compact cameras:
 
+* Canon Powershot G1 X Mark III
+* Canon Powershot SX50 HS
 * Canon Powershot SX60 HS
+* Leica X Vario (Typ 107)
+* Leica Q2
 
 Additional/updated data for:
 
+* Canon Powershot A640
 * Canon EF 16-35mm f/4L IS USM
 * Canon EF 35mm f/2 IS USM
 * Canon EF 50mm f/1.8 STM
 * Canon EF-S 10-18mm f/4.5-5.6 IS STM
+* Canon EF-S 17-85mm f/4-5.6 IS USM
 * Canon EF-S 55-250mm f/4-5.6 IS STM
 * KMZ MC Helios-44M-4 58mm 1:2
 * KMZ MIR-1B 37mm f/2.8
@@ -48,14 +93,25 @@ Additional/updated data for:
 * Nikon AF Zoom-Nikkor 80-200mm f/2.8D ED
 * Nikon Lens Series E 28mm f/2.8
 * Nikon Lens Series E 50mm f/1.8
+* Nikon Nikkor AF-S 200-500mm f/5.6E ED VR
 * Olympus M.Zuiko Digital ED 9-18mm f/4.0-5.6
 * Olympus M.Zuiko Digital ED 12-100mm f/4.0 IS Pro
+* Panasonic Leica DG Vario-Elmarit 12-60mm f/2.8-4.0 Asph. Power OIS
+* Panasonic Lumix G Vario 45-200 mm f/4.0-5.6 Mega OIS
 * Sigma 17-50mm f/2.8 EX DC HSM
 * smc Pentax-D FA Macro 100mm f/2.8 WR
+* Tamron 14-150mm f/3.5-5.8 Di III Micro
 
 New interchangable lens cameras:
 
+* Canon EOS R
+* Canon EOS RP
+* Canon EOS R5
+* Canon EOS R6
 * Nikon D5600
+* Nikon Z 5
+* Olympus OM-D E-M1 Mark III
+* Olympus OM-D E-M5 Mark III
 * Olympus PEN E-PL9
 * Panasonic DC-G9
 * Panasonic DC-GX9

@@ -390,15 +390,15 @@
             <vignetting model="pa" focal="85" aperture="22" distance="1000" k1="-0.1501" k2="0.0956" k3="-0.0137"/>
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Minolta</maker>
         <model>Minolta AF 28-75mm F2.8 (D)</model>
-	<!-- This is an alias for Sony 28-75mm F2.8 SAM (SAL2875) -->
+        <!-- This is an alias for Sony 28-75mm F2.8 SAM (SAL2875) -->
         <mount>Minolta AF</mount>
         <cropfactor>1</cropfactor>
         <calibration>
-	    <!-- Taken with DSLR-A850 -->
+            <!-- Taken with DSLR-A850 -->
             <distortion model="ptlens" focal="28" a="0.01469" b="-0.034774" c="0"/>
             <distortion model="ptlens" focal="30" a="0.012441" b="-0.026997" c="0"/>
             <distortion model="ptlens" focal="35" a="0.009958" b="-0.018577" c="0"/>
@@ -476,6 +476,70 @@
             <vignetting model="pa" focal="75" aperture="11" distance="1000" k1="-0.2449" k2="0.0438" k3="0.0026"/>
             <vignetting model="pa" focal="75" aperture="32" distance="10" k1="-0.2548" k2="0.0397" k3="0.0140"/>
             <vignetting model="pa" focal="75" aperture="32" distance="1000" k1="-0.2548" k2="0.0397" k3="0.0140"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Minolta</maker>
+        <model>Minolta AF 50mm f/2.8 Macro</model>
+        <mount>Minolta AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Sony Alpha DSLR-A850 -->
+            <distortion model="poly3" focal="50" k1="0.00315"/>
+            <tca model="poly3" focal="50" vr="1.0001088" vb="0.9998685"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Minolta</maker>
+        <model>Minolta AF 50mm f/1.4</model>
+        <mount>Minolta AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha DSLR-A850 -->
+            <distortion model="poly3" focal="50" k1="-0.0044"/>
+            <tca model="poly3" focal="50" br="-0.0000693" vr="1.0002434" bb="0.0000918" vb="0.9996770"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Minolta</maker>
+        <model>Minolta AF 17-35mm f/2.8-4 (D)</model>
+        <mount>Minolta AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Sony Alpha DSLR-A850 -->
+            <distortion model="ptlens" focal="17" a="0.01903" b="-0.03662" c="-0.03053"/>
+            <distortion model="ptlens" focal="20" a="0.02872" b="-0.07426" c="0.03037"/>
+            <distortion model="ptlens" focal="24" a="0.02" b="-0.05279" c="0.03256"/>
+            <distortion model="ptlens" focal="28" a="0.00841" b="-0.01642" c="0.00904"/>
+            <distortion model="ptlens" focal="35" a="0.00858" b="-0.01802" c="0.0179"/>
+            <tca model="poly3" focal="17" vr="1.0002199" vb="1.0005639"/>
+            <tca model="poly3" focal="20" vr="1.0000356" vb="1.0006493"/>
+            <tca model="poly3" focal="24" vr="0.9999461" vb="1.0006839"/>
+            <tca model="poly3" focal="28" vr="0.9999083" vb="1.0006992"/>
+            <tca model="poly3" focal="35" vr="0.9999141" vb="1.0005449"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Minolta</maker>
+        <model>Minolta/Sony AF 24-105mm f/3.5-4.5 (D)</model>
+        <mount>Minolta AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Sony Alpha DSLR-A850 -->
+            <distortion model="ptlens" focal="24" a="0.05227" b="-0.15981" c="0.12322"/>
+            <distortion model="ptlens" focal="35" a="0.01318" b="-0.02634" c="0.02175"/>
+            <distortion model="ptlens" focal="50" a="-0.00059" b="0.03705" c="-0.06462"/>
+            <distortion model="ptlens" focal="70" a="0.00654" b="0.0071" c="-0.02471"/>
+            <distortion model="ptlens" focal="105" a="0.0047" b="0.00826" c="-0.0172"/>
+            <tca model="poly3" focal="24" vr="1.0003547" vb="1.0003263"/>
+            <tca model="poly3" focal="30" vr="1.0000660" vb="1.0004135"/>
+            <tca model="poly3" focal="50" vr="0.9999505" vb="1.0003131"/>
+            <tca model="poly3" focal="70" vr="0.9998155" vb="1.0000415"/>
+            <tca model="poly3" focal="105" vr="0.9997873" vb="0.9995707"/>
         </calibration>
     </lens>
 

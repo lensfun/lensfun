@@ -165,6 +165,13 @@
 
     <camera>
         <maker>Fujifilm</maker>
+        <model>X100F</model>
+        <mount>fujix100</mount>
+        <cropfactor>1.528</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Fujifilm</maker>
         <model>X10</model>
         <mount>fujix10</mount>
         <cropfactor>3.93</cropfactor>
@@ -723,6 +730,20 @@
         <calibration>
             <distortion model="ptlens" focal="23" a="0.02159" b="-0.0618" c="0.04364"/>
             <tca model="poly3" focal="23" br="-0.0001543" vr="1.0006122" bb="0.0001753" vb="0.9996422"/>
+           <vignetting model="pa" focal="23.0" aperture="2.0" distance="10" k1="-1.0737795" k2="0.5794291" k3="-0.1580935" />
+           <vignetting model="pa" focal="23.0" aperture="2.0" distance="1000" k1="-1.0737795" k2="0.5794291" k3="-0.1580935" />
+           <vignetting model="pa" focal="23.0" aperture="2.8" distance="10" k1="-0.7477013" k2="0.4289535" k3="-0.2151517" />
+           <vignetting model="pa" focal="23.0" aperture="2.8" distance="1000" k1="-0.7477013" k2="0.4289535" k3="-0.2151517" />
+           <vignetting model="pa" focal="23.0" aperture="4.0" distance="10" k1="-0.7388557" k2="0.4062739" k3="-0.1591796" />
+           <vignetting model="pa" focal="23.0" aperture="4.0" distance="1000" k1="-0.7388557" k2="0.4062739" k3="-0.1591796" />
+           <vignetting model="pa" focal="23.0" aperture="5.6" distance="10" k1="-0.7492114" k2="0.4354404" k3="-0.1789346" />
+           <vignetting model="pa" focal="23.0" aperture="5.6" distance="1000" k1="-0.7492114" k2="0.4354404" k3="-0.1789346" />
+           <vignetting model="pa" focal="23.0" aperture="8.0" distance="10" k1="-0.7887955" k2="0.5342509" k3="-0.2444985" />
+           <vignetting model="pa" focal="23.0" aperture="8.0" distance="1000" k1="-0.7887955" k2="0.5342509" k3="-0.2444985" />
+           <vignetting model="pa" focal="23.0" aperture="11.0" distance="10" k1="-0.8210846" k2="0.5992099" k3="-0.2820423" />
+           <vignetting model="pa" focal="23.0" aperture="11.0" distance="1000" k1="-0.8210846" k2="0.5992099" k3="-0.2820423" />
+           <vignetting model="pa" focal="23.0" aperture="16.0" distance="10" k1="-0.8530300" k2="0.6683983" k3="-0.3267633" />
+           <vignetting model="pa" focal="23.0" aperture="16.0" distance="1000" k1="-0.8530300" k2="0.6683983" k3="-0.3267633" />
         </calibration>
     </lens>
 

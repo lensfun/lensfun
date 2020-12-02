@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """Generator for database tarballs, in different Lensfun versions.
 
@@ -38,11 +37,12 @@ args = parser.parse_args()
 config = configparser.ConfigParser()
 assert config.read(os.path.expanduser("~/calibration_webserver.ini")), os.path.expanduser("~/calibration_webserver.ini")
 
-github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
+github = Github(config["GitHub"]["token"])
 lensfun = github.get_organization("lensfun").get_repo("lensfun")
 calibration_request_label = lensfun.get_label("calibration request")
 successful_label = lensfun.get_label("successful")
 unsuccessful_label = lensfun.get_label("unsuccessful")
+unsuccessful_no_mail_label = lensfun.get_label("unsuccessful-no-mail")
 admin = "{} <{}>".format(config["General"]["admin_name"], config["General"]["admin_email"])
 root = "/tmp/"
 
@@ -247,9 +247,17 @@ def get_upload_data(upload_hash):
         raise OriginatorFileNotReadable
 
 
-def process_issue(issue, successful):
-    issue.remove_from_labels(successful_label if successful else unsuccessful_label)
-    if successful:
+def process_issue(issue, label):
+    """Removed the suffessul/unsuccessful label, closes the issue, and maybe sends
+    an email to the uploader.
+
+    :param Github.Issue issue: GitHub issue to be processed
+
+    :param Github.Label label: GitHub labels that led to the processing; may be
+      `successful_label`, `unsuccessful_label`, or `unsuccessful_no_mail_label`
+    """
+    issue.remove_from_labels(label)
+    if label is successful_label:
         body = """Dear uploader,
 
 your upload has been processed and the results were added to
@@ -263,7 +271,7 @@ Thank you again for your contribution!
 
 (This is an automatically generated message.)
 """
-    else:
+    elif label is unsuccessful_label:
         body = """Dear uploader,
 
 your upload has been processed but unfortunately, it could not be
@@ -279,39 +287,39 @@ Thank you for your work so far nevertheless!
 
 (This is an automatically generated message.)
 """
+    else:
+        assert label is unsuccessful_no_mail_label
+        body = None
     upload_hash = issue.title.split()[-1]
     upload_path, uploader_email = get_upload_data(upload_hash)
-    for comment in issue.get_comments().reversed:
-        if comment.body.startswith("@uploader"):
-            calibrator_comment = comment.body[len("@uploader"):]
-            if calibrator_comment.startswith(":"):
-                calibrator_comment = calibrator_comment[1:]
-            calibrator_comment = textwrap.fill(calibrator_comment.strip(), width=68)
-            body = body.format("Additional information from the calibrator:\n" + calibrator_comment + "\n\n",
-                               issue.html_url)
-            break
-    else:
-        body = body.format("", issue.html_url)
-    send_email(uploader_email, "Your calibration upload {} has been processed".format(upload_hash), body)
+    if body:
+        for comment in issue.get_comments().reversed:
+            if comment.body.startswith("@uploader"):
+                calibrator_comment = comment.body[len("@uploader"):]
+                if calibrator_comment.startswith(":"):
+                    calibrator_comment = calibrator_comment[1:]
+                calibrator_comment = textwrap.fill(calibrator_comment.strip(), width=68)
+                body = body.format("Additional information from the calibrator:\n" + calibrator_comment + "\n\n",
+                                   issue.html_url)
+                break
+        else:
+            body = body.format("", issue.html_url)
+        send_email(uploader_email, "Your calibration upload {} has been processed".format(upload_hash), body)
     if config["General"].get("archive_path"):
         destination = config["General"]["archive_path"]
-        if not successful:
+        if label is not successful_label:
             destination = os.path.join(destination, "unusable_" + os.path.basename(upload_path))
         shutil.move(upload_path, destination)
     issue.edit(state="closed")
 
 
 def close_github_issues():
-    for issue in lensfun.get_issues(state="all", labels=[calibration_request_label, successful_label]):
-        try:
-            process_issue(issue, successful=True)
-        except (OriginatorFileNotReadable, OSError) as error:
-            issue.create_comment(str(error))
-    for issue in lensfun.get_issues(state="all", labels=[calibration_request_label, unsuccessful_label]):
-        try:
-            process_issue(issue, successful=False)
-        except (OriginatorFileNotReadable, OSError) as error:
-            issue.create_comment(str(error))
+    for label in (successful_label, unsuccessful_label, unsuccessful_no_mail_label):
+        for issue in lensfun.get_issues(state="all", labels=[calibration_request_label, label]):
+            try:
+                process_issue(issue, label)
+            except (OriginatorFileNotReadable, OSError) as error:
+                issue.create_comment(str(error))
 
 
 db_was_updated = update_git_repository()

@@ -1,12 +1,9 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import hashlib, os, subprocess, json, shutil, mimetypes, re, configparser
 from urllib.parse import quote_plus
 import django.forms as forms
 from django.shortcuts import render
 from django.forms.utils import ValidationError
-import django.core.urlresolvers
+from django.urls import reverse
 import django.http
 from django.utils.encoding import iri_to_uri
 from utils import generate_thumbnail, RawNotFound
@@ -59,39 +56,10 @@ def spawn_daemon(path_to_executable, *args, env=None):
     :type args: list of str
     :type env: dict mapping str to str, or NoneType
     """
-    try:
-        pid = os.fork()
-    except OSError as e:
-        raise RuntimeError("1st fork failed: %s [%d]" % (e.strerror, e.errno))
-    if pid != 0:
-        os.waitpid(pid, 0)
-        return
-    os.setsid()
-    try:
-        pid = os.fork()
-    except OSError as e:
-        raise RuntimeError("2nd fork failed: %s [%d]" % (e.strerror, e.errno))
-    if pid != 0:
-        os._exit(0)
-    try:
-        maxfd = os.sysconf("SC_OPEN_MAX")
-    except (AttributeError, ValueError):
-        maxfd = 1024
-    for fd in range(maxfd):
-        try:
-           os.close(fd)
-        except OSError:
-           pass
-    os.open(os.devnull, os.O_RDWR)
-    os.dup2(0, 1)
-    os.dup2(0, 2)
     env_ = os.environ.copy()
     if env is not None:
         env_.update(env)
-    try:
-        os.execve(path_to_executable, [path_to_executable] + list(filter(lambda arg: arg is not None, args)), env_)
-    except:
-        os._exit(255)
+    os.posix_spawn(path_to_executable, [path_to_executable] + list(args), env_)
 
 
 def store_upload(uploaded_file, email_address, comments):
@@ -151,7 +119,7 @@ def upload(request):
         if upload_form.is_valid():
             id_ = store_upload(request.FILES["compressed_file"],
                                upload_form.cleaned_data["email_address"], upload_form.cleaned_data["comments"])
-            return HttpResponseSeeOther(django.core.urlresolvers.reverse("show_issues", kwargs={"id_": id_}))
+            return HttpResponseSeeOther(reverse("show_issues", kwargs={"id_": id_}))
     else:
         upload_form = UploadForm()
     return render(request, "calibration/upload.html", {"title": "Calibration images upload", "upload": upload_form})

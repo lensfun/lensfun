@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """This tool extracts the distortion coefficients from the database and makes
 statistics with them.  In particular, it makes plots and measures how well the

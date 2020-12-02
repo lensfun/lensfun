@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """This script takes the location of a file archive (e.g. a tarball) as its
 argument and converts it into an extracted set of files in the same directory.
@@ -219,7 +218,7 @@ def extract_archive():
         elif extension == ".7z":
             call_unpacker(["7z", "x", "-o" + directory, filepath])
         elif extension == ".zip":
-            call_unpacker(["unzip", filepath, "-d", directory])
+            call_unpacker(["unzip", filepath, "-x", "/", "-d", directory])
         else:
             raise InvalidArchive
     except subprocess.CalledProcessError as error:
@@ -356,33 +355,64 @@ def collect_exif_data():
 
     :rtype: dict mapping str to (str, str, str, float, float)
     """
-    raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf",
-                           "fff", "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx",
-                           "pxn", "r3d", "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "tif", "tiff", "x3f",
-                           "jpg", "jpeg"]
+    raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cr3", "cap", "dcs", "dcr", "dng", "drf", "eip",
+                           "erf", "fff", "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef",
+                           "ptx", "pxn", "r3d", "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "tif", "tiff",
+                           "x3f", "jpg", "jpeg"]
+
     raw_files = []
     ignored_directories = {"__MACOSX"}
+    cr3_files = False
     for root, dirnames, filenames in os.walk(directory, topdown=True):
         dirnames[:] = [directory for directory in dirnames if directory not in ignored_directories]
         for filename in filenames:
-            if os.path.splitext(filename)[1].lower()[1:] in raw_file_extensions:
+            file_extension = os.path.splitext(filename)[1].lower()[1:]
+            cr3_files = cr3_files or file_extension == "cr3"
+            if file_extension in raw_file_extensions:
                 raw_files.append(os.path.join(root, filename))
-    raw_files_per_group = len(raw_files) // multiprocessing.cpu_count() + 1
-    raw_file_groups = []
     file_exif_data = {}
-    while raw_files:
-        raw_file_group = raw_files[:raw_files_per_group]
-        if raw_file_group:
-            raw_file_groups.append(raw_file_group)
-        del raw_files[:raw_files_per_group]
-    pool = multiprocessing.Pool()
-    try:
-        for group_exif_data in pool.map(call_exiv2, raw_file_groups):
-            file_exif_data.update(group_exif_data)
-    except InvalidRaw as error:
-        write_result_and_exit(error.args[0])
-    pool.close()
-    pool.join()
+    if cr3_files:
+        write_result_and_exit("Sorry, we use dcraw and exiv2, and both don’t support CR3 files yet.")
+        output = subprocess.run(["exiftool", "-s", "-Make", "-Model", "-LensModel", "-FocalLength", "-FNumber"] + raw_files,
+                                check=True, universal_newlines=True,
+                                stdout=subprocess.PIPE, stderr=subprocess.DEVNULL).stdout
+        if len(raw_files) == 1:
+            current_path = raw_files[0]
+            file_exif_data[current_path] = [None, None, None, float("nan"), float("nan")]
+        for line in output.splitlines():
+            __, prefix, path = line.partition("======== ")
+            if prefix:
+                current_path = path
+                file_exif_data[current_path] = [None, None, None, float("nan"), float("nan")]
+            elif not line.startswith(" "):
+                key, colon, value = line.partition(":")
+                assert colon
+                key = key.strip()
+                value = value.lstrip()
+                if key == "FocalLength":
+                    value = float(value.partition(" ")[0])
+                if key == "FNumber":
+                    value = float(value)
+                key_index = {"Make": 0, "Model": 1, "LensModel": 2, "FocalLength": 3, "FNumber": 4}[key]
+                file_exif_data[current_path][key_index] = value
+        for filepath, exif_data in file_exif_data.copy().items():
+            file_exif_data[filepath] = tuple(exif_data)
+    else:
+        raw_files_per_group = len(raw_files) // multiprocessing.cpu_count() + 1
+        raw_file_groups = []
+        while raw_files:
+            raw_file_group = raw_files[:raw_files_per_group]
+            if raw_file_group:
+                raw_file_groups.append(raw_file_group)
+            del raw_files[:raw_files_per_group]
+        pool = multiprocessing.Pool()
+        try:
+            for group_exif_data in pool.map(call_exiv2, raw_file_groups):
+                file_exif_data.update(group_exif_data)
+        except InvalidRaw as error:
+            write_result_and_exit(error.args[0])
+        pool.close()
+        pool.join()
     return file_exif_data
 
 
@@ -419,7 +449,7 @@ def tag_image_files(file_exif_data):
 
     :return:
       All files for which EXIF data is missing, as a list (filepath, lens
-      model, focal length, f-stop number).  Anythin missing is ``None``.
+      model, focal length, f-stop number).  Anything missing is ``None``.
 
     :rtype: list of (str, str or NoneType, float or NoneType, float or
       NoneType)
@@ -458,7 +488,7 @@ class GithubConfiguration:
     connection to the Lensfun project on GitHub.
     """
     def __init__(self):
-        self.github = Github(config["GitHub"]["login"], config["GitHub"]["password"])
+        self.github = Github(config["GitHub"]["token"])
         self.lensfun = self.github.get_organization("lensfun").get_repo("lensfun")
         self.calibration_request_label = self.lensfun.get_label("calibration request")
 

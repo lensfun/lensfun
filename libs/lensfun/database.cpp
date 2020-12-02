@@ -232,7 +232,7 @@ static void _xml_start_element (GMarkupParseContext *context,
         {
         bad_ctx:
             g_set_error (error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
-                         "Inappropiate context for <%s>!\n", element_name);
+                         "Inappropriate context for <%s>!\n", element_name);
             return;
         }
 
@@ -876,6 +876,14 @@ lfError lfDatabase::Save (const char *filename) const
 
 char *lfDatabase::Save () const
 {
+    size_t len = 0;
+    char* xml = nullptr;
+    Save(xml, len);
+    return xml;
+}
+
+lfError lfDatabase::Save (char*& xml, size_t& data_size) const
+{
     /* Temporarily drop numeric format to "C" */
     char *old_numeric = setlocale (LC_NUMERIC, NULL);
     old_numeric = strdup(old_numeric);
@@ -1118,8 +1126,10 @@ char *lfDatabase::Save () const
     setlocale (LC_NUMERIC, old_numeric);
     free(old_numeric);
 
-    return g_string_free (output, FALSE);
-    return 0;
+    data_size = output->len;    
+    xml = g_string_free (output, FALSE);
+
+    return LF_NO_ERROR;
 }
 
 int __find_camera_compare (lfCamera *a, lfCamera *b)
@@ -1580,9 +1590,14 @@ lfError lf_db_load_path (lfDatabase *db, const char *pathname)
     return db->Load (pathname);
 }
 
-lfError lf_db_load_data (lfDatabase *db, const char *data, size_t data_size)
+lfError lf_db_load_data (lfDatabase *db, const char *, const char *data, size_t data_size)
 {
     return db->Load (data, data_size);
+}
+
+lfError lf_db_load_str (lfDatabase *db, const char *xml, size_t data_size)
+{
+    return db->Load (xml, data_size);
 }
 
 lfError lf_db_save_all (const lfDatabase *db, const char *filename)
@@ -1590,14 +1605,9 @@ lfError lf_db_save_all (const lfDatabase *db, const char *filename)
     return db->Save (filename);
 }
 
-lfError lf_db_save_file (const lfDatabase *db, const char *filename)
+lfError lf_db_save_str (const lfDatabase *db, char **xml, size_t* data_size)
 {
-    return db->Save (filename);
-}
-
-char *lf_db_save (const lfDatabase *db)
-{
-    return db->Save ();
+    return db->Save (*xml, *data_size);
 }
 
 const lfCamera **lf_db_find_cameras (const lfDatabase *db,
