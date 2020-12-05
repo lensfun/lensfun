@@ -47,8 +47,8 @@ void lfModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int 
     // Load 4 sets of coordinates
     __m128 c0 = _mm_load_ps (&iocoord[8*i]);
     __m128 c1 = _mm_load_ps (&iocoord[8*i+4]);
-    __m128 x = _mm_shuffle_ps (c1, c0, _MM_SHUFFLE (2, 0, 2, 0));
-    __m128 y = _mm_shuffle_ps (c1, c0, _MM_SHUFFLE (3, 1, 3, 1));
+    __m128 x = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (2, 0, 2, 0));
+    __m128 y = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (3, 1, 3, 1));
 
     __m128 rd = _mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y));
 

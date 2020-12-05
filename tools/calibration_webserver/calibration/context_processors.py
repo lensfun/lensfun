@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+# This file is Python 2.7.
 
 """Context processor for getting the admin's name and email into the templates.
 """

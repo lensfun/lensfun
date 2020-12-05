@@ -104,6 +104,52 @@
         <cropfactor>8.235</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Apple</maker>
+        <model>iPhone XS</model>
+        <mount>iPhoneXS</mount>
+        <cropfactor>6.118</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Apple</maker>
+        <model>iPhone XS (tele)</model>
+        <mount>iPhoneXStele</mount>
+        <cropfactor>8.667</cropfactor>
+    </camera>
+
+    <lens>
+        <maker>Apple</maker>
+        <model>iPhone XS back camera 4.25mm f/1.8 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>iPhoneXS</mount>
+        <cropfactor>6.118</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+           <distortion model="ptlens" focal="4.25" a="0.02465" b="-0.089989" c="0.111108" />
+           <tca model="poly3" focal="4.25" vr="1.0001039" vb="0.9999747" />
+           <vignetting model="pa" focal="4.25" aperture="1.8" distance="10" k1="-2.0800063" k2="2.2430616" k3="-0.9514921" />
+           <vignetting model="pa" focal="4.25" aperture="1.8" distance="1000" k1="-2.0800063" k2="2.2430616" k3="-0.9514921" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Apple</maker>
+        <model>iPhone XS back camera 6mm f/2.4 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>iPhoneXStele</mount>
+        <cropfactor>8.667</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+           <distortion model="ptlens" focal="6.0" a="-0.044229" b="0.125299" c="-0.112978" />
+           <tca model="poly3" focal="6.0" vr="0.9999336" vb="0.9999870" />
+           <vignetting model="pa" focal="6.0" aperture="2.4" distance="10" k1="-0.7086498" k2="0.4294304" k3="-0.1153056" />
+           <vignetting model="pa" focal="6.0" aperture="2.4" distance="1000" k1="-0.7086498" k2="0.4294304" k3="-0.1153056" />
+        </calibration>
+    </lens>
+
     <!-- I think this is also known under the brand "Michael Lens" or "Movie
          Lens", and with f/1.6.  The correction data actually was submitted as
          "CCTV Movie Lens HD-MC 35mm/F1.6".  The distortion model is not perfect,

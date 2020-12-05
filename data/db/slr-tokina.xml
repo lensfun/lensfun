@@ -179,6 +179,38 @@
     </lens>
 
     <lens>
+        <!-- Calibrated on Nikon D810 by Julian Rowntree, April 2020 -->
+        <maker>Tokina</maker>
+        <model>Tokina AT-X 24-70mm f/2.8 PRO FX</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="24" a="0.03628" b="-0.10484" c="0.0626"/>
+            <distortion model="ptlens" focal="26" a="0.03281" b="-0.09514" c="0.0565"/>
+            <distortion model="ptlens" focal="28" a="0.02394" b="-0.06904" c="0.03838"/>
+            <distortion model="ptlens" focal="30" a="0.01955" b="-0.05947" c="0.03836"/>
+            <distortion model="ptlens" focal="32" a="0.01342" b="-0.0386" c="0.01668"/>
+            <distortion model="ptlens" focal="35" a="0.00564" b="-0.01287" c="-0.00876"/>
+            <distortion model="ptlens" focal="40" a="0.00061" b="0.0047" c="-0.01211"/>
+            <distortion model="ptlens" focal="50" a="0.01557" b="-0.05414" c="0.07745"/>
+            <distortion model="ptlens" focal="60" a="0.00979" b="-0.0296" c="0.04857"/>
+            <distortion model="ptlens" focal="70" a="0.01958" b="-0.06696" c="0.09575"/>
+            <tca model="poly3" focal="24" vr="1.0001977" vb="1.0000667"/>
+            <tca model="poly3" focal="26" vr="1.0002076" vb="1.0000659"/>
+            <tca model="poly3" focal="27" vr="1.0002033" vb="1.0000514"/>
+            <tca model="poly3" focal="28" vr="1.0002207" vb="1.0000593"/>
+            <tca model="poly3" focal="30" vr="1.0002147" vb="1.0000375"/>
+            <tca model="poly3" focal="32" vr="1.0001762" vb="1.0000449"/>
+            <tca model="poly3" focal="35" vr="1.0001308" vb="1.0001005"/>
+            <tca model="poly3" focal="40" vr="1.0001047" vb="1.0000220"/>
+            <tca model="poly3" focal="50" vr="0.9999695" vb="1.0000309"/>
+            <tca model="poly3" focal="60" vr="0.9999448" vb="0.9998926"/>
+            <tca model="poly3" focal="70" vr="0.9999201" vb="0.9997762"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <!-- This is a pure manual lens with no EXIF footprint. -->
         <maker>Tokina</maker>
         <model>Tokina 80-200mm f/4.5-5.6 SZ-X</model>

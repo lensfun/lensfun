@@ -150,6 +150,14 @@
     </camera>
 
     <camera>
+        <maker>Nikon Corporation</maker>
+        <maker lang="en">Nikon</maker>
+        <model>Coolpix P1000</model>
+        <mount>nikonP1000</mount>
+        <cropfactor>5.56</cropfactor>
+    </camera>
+    
+    <camera>
         <maker>Nikon</maker>
         <model>Coolpix P6000</model>
         <mount>nikonP6000</mount>
@@ -709,6 +717,81 @@
         <calibration>
             <distortion model="ptlens" focal="18.5" a="0.00611" b="-0.01026" c="-0.01844"/>
             <tca model="poly3" focal="18.5" vr="1.0000922" vb="1.0000229"/>
+        </calibration>
+    </lens>
+    
+    <lens>
+        <maker>NIKON CORPORATION</maker>
+        <maker lang="en">Nikon</maker>
+        <model>Coolpix P1000</model>
+        <mount>nikonP1000</mount>
+        <cropfactor>5.56</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="4.3" a="0.03116" b="-0.11077" c="-0.05235"/>
+            <distortion model="ptlens" focal="6.3" a="0.00486" b="-0.02715" c="-0.01343"/>
+            <distortion model="ptlens" focal="9" a="-0.00106" b="0.00207" c="-0.01193"/>
+            <distortion model="ptlens" focal="10.7" a="0.00604" b="-0.00375" c="-0.01851"/>
+            <distortion model="ptlens" focal="14.4" a="0.01075" b="-0.02653" c="0.03"/>
+            <distortion model="ptlens" focal="18.9" a="-0.00045" b="0.00846" c="0.00198"/>
+            <distortion model="ptlens" focal="24.3" a="0.01122" b="-0.02798" c="0.03806"/>
+            <distortion model="ptlens" focal="27.9" a="0.00216" b="-0.00193" c="0.01922"/>
+            <distortion model="ptlens" focal="35.9" a="0.00315" b="-0.00142" c="0.01045"/>
+            <distortion model="ptlens" focal="45.8" a="-0.00907" b="0.03202" c="-0.01248"/>
+            <distortion model="ptlens" focal="53.9" a="-0.00112" b="0.00728" c="0.00835"/>
+            <distortion model="ptlens" focal="71.9" a="0.01252" b="-0.03003" c="0.03539"/>
+            <distortion model="ptlens" focal="89.9" a="0.00035" b="0.01241" c="-0.01603"/>
+            <distortion model="ptlens" focal="108" a="-0.00604" b="0.03162" c="-0.03274"/>
+            <distortion model="ptlens" focal="126" a="0.00227" b="-0.00253" c="0.01187"/>
+            <distortion model="ptlens" focal="144" a="-0.00099" b="0.00493" c="0.01289"/>
+            <distortion model="ptlens" focal="167" a="-0.00199" b="0.00784" c="0.00467"/>
+            <distortion model="ptlens" focal="180" a="-0.0032" b="0.01629" c="-0.01075"/>
+            <distortion model="ptlens" focal="198" a="-0.00371" b="0.02261" c="-0.02126"/>
+            <distortion model="ptlens" focal="216" a="-0.00111" b="0.00686" c="0.00301"/>
+            <distortion model="ptlens" focal="234" a="0.00345" b="-0.00911" c="0.02065"/>
+            <distortion model="ptlens" focal="252" a="0.00038" b="0.00083" c="0.00737"/>
+            <distortion model="ptlens" focal="270" a="0.00955" b="-0.02429" c="0.02497"/>
+            <distortion model="ptlens" focal="288" a="0.00488" b="-0.00842" c="0.00788"/>
+            <distortion model="ptlens" focal="306" a="0.00302" b="-0.00986" c="0.0228"/>
+            <distortion model="ptlens" focal="324" a="0.01687" b="-0.04332" c="0.03981"/>
+            <distortion model="ptlens" focal="359" a="0.00014" b="0.0033" c="0.00846"/>
+            <distortion model="ptlens" focal="395" a="-0.00597" b="0.02322" c="-0.01293"/>
+            <distortion model="ptlens" focal="432" a="-0.01075" b="0.0349" c="-0.02084"/>
+            <distortion model="ptlens" focal="467" a="-0.00509" b="0.02448" c="-0.0245"/>
+            <distortion model="ptlens" focal="503" a="0.0005" b="0.01004" c="-0.00694"/>
+            <distortion model="ptlens" focal="539" a="0.01422" b="-0.04782" c="0.07475"/>
+            <tca model="poly3" focal="4.3" vr="1.0002662" vb="1.0002201"/>
+            <tca model="poly3" focal="6.3" vr="1.0002398" vb="1.0001491"/>
+            <tca model="poly3" focal="9" vr="1.0002869" vb="1.0001303"/>
+            <tca model="poly3" focal="10.7" vr="1.0002905" vb="1.0001180"/>
+            <tca model="poly3" focal="14.4" vr="1.0002226" vb="1.0001080"/>
+            <tca model="poly3" focal="18.9" vr="1.0001738" vb="1.0000759"/>
+            <tca model="poly3" focal="24.3" vr="1.0004626" vb="1.0001200"/>
+            <tca model="poly3" focal="27.9" vr="1.0004341" vb="1.0001101"/>
+            <tca model="poly3" focal="35.9" vr="1.0003608" vb="1.0001052"/>
+            <tca model="poly3" focal="45.8" vr="1.0002971" vb="1.0000940"/>
+            <tca model="poly3" focal="53.9" vr="1.0002596" vb="1.0000909"/>
+            <tca model="poly3" focal="71.9" vr="1.0001462" vb="1.0000795"/>
+            <tca model="poly3" focal="89.9" vr="1.0000673" vb="1.0000666"/>
+            <tca model="poly3" focal="108" vr="0.9999866" vb="1.0000064"/>
+            <tca model="poly3" focal="126" vr="0.9999302" vb="1.0000073"/>
+            <tca model="poly3" focal="144" vr="0.9998957" vb="0.9999988"/>
+            <tca model="poly3" focal="167" vr="0.9997777" vb="0.9999666"/>
+            <tca model="poly3" focal="180" vr="0.9997327" vb="0.9999470"/>
+            <tca model="poly3" focal="198" vr="0.9996699" vb="0.9999348"/>
+            <tca model="poly3" focal="216" vr="0.9996345" vb="0.9999238"/>
+            <tca model="poly3" focal="234" vr="0.9996158" vb="0.9998603"/>
+            <tca model="poly3" focal="252" vr="0.9995578" vb="0.9998688"/>
+            <tca model="poly3" focal="270" vr="0.9995188" vb="0.9998362"/>
+            <tca model="poly3" focal="288" vr="0.9995785" vb="0.9997933"/>
+            <tca model="poly3" focal="306" vr="0.9995650" vb="0.9998103"/>
+            <tca model="poly3" focal="324" vr="0.9995135" vb="0.9998191"/>
+            <tca model="poly3" focal="359" vr="0.9994501" vb="0.9997900"/>
+            <tca model="poly3" focal="395" vr="0.9993974" vb="0.9998305"/>
+            <tca model="poly3" focal="432" vr="0.9994694" vb="0.9997536"/>
+            <tca model="poly3" focal="467" vr="0.9996496" vb="0.9998108"/>
+            <tca model="poly3" focal="503" vr="0.9994390" vb="0.9997864"/>
+            <tca model="poly3" focal="539" vr="0.9993389" vb="0.9997414"/>
         </calibration>
     </lens>
 

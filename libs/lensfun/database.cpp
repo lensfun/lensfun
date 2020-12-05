@@ -232,7 +232,7 @@ static void _xml_start_element (GMarkupParseContext *context,
         {
         bad_ctx:
             g_set_error (error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
-                         "Inappropiate context for <%s>!\n", element_name);
+                         "Inappropriate context for <%s>!\n", element_name);
             return;
         }
 

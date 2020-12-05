@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """This program demonstrates how perspective control could work in Lensfun.  It
 must be converted to Lensfun C++ code of course.  However, its structure is

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """Transforms a version-1 database into a version-2 database.  Eventually, this
 will be used as a helper for the user to transform their local XML files to the

@@ -533,8 +533,8 @@ void lfModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count
         //
         // Original function: Rd = k1_ * Ru^3 + Ru
         // Target function:   k1_ * Ru^3 + Ru - Rd = 0
-        // Divide by k1_:     Ru^3 + Ru * k1_ - Rd/k1_ = 0
-        // Derivative:        3 * Ru^2 + k1_
+        // Divide by k1_:     Ru^3 + Ru/k1_ - Rd/k1_ = 0
+        // Derivative:        3 * Ru^2 + 1/k1_
         double ru = rd;
         for (int step = 0; ; step++)
         {
