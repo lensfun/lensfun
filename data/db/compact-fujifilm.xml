@@ -173,17 +173,10 @@
     <camera>
         <maker>Fujifilm</maker>
         <model>X100V</model>
-        <mount>fujix100</mount>
+        <mount>fujix100v</mount>
         <cropfactor>1.534</cropfactor>
-    </camera>
-
-    <camera>
-        <maker>Fujifilm</maker>
-        <model>X100F</model>
-        <mount>fujix100</mount>
-        <cropfactor>1.528</cropfactor>
-    </camera>
-
+    </camera> 
+       
     <camera>
         <maker>Fujifilm</maker>
         <model>X10</model>
@@ -760,7 +753,7 @@
            <vignetting model="pa" focal="23.0" aperture="16.0" distance="1000" k1="-0.8530300" k2="0.6683983" k3="-0.3267633" />
         </calibration>
     </lens>
-
+    
     <lens>
         <maker>Fujifilm</maker>
         <model>X100 &amp; compatibles (Standard) + TCL-X100</model>
@@ -773,6 +766,29 @@
             <tca model="poly3" focal="33" vr="1.0000047" vb="0.9999998"/>
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>X100V &amp; compatibles (Standard)</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>fujix100v</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="23.0" a="-0,00837" b="-0,01935" c="-0,06308" />
+            <tca model="poly3" focal="23.0" vr="1.0003100" vb="0.9999151" />
+            <vignetting model="pa" focal="23.0" aperture="2.0" distance="10" k1="-0.7068055" k2="0.0180542" k3="0.0908948" />
+            <vignetting model="pa" focal="23.0" aperture="2.0" distance="1000" k1="-0.7068055" k2="0.0180542" k3="0.0908948" />
+            <vignetting model="pa" focal="23.0" aperture="2.8" distance="10" k1="-0.4930576" k2="0.0801929" k3="-0.0136025" />
+            <vignetting model="pa" focal="23.0" aperture="2.8" distance="1000" k1="-0.4930576" k2="0.0801929" k3="-0.0136025" />
+            <vignetting model="pa" focal="23.0" aperture="4.0" distance="10" k1="-0.4717275" k2="0.0233385" k3="0.0326553" />
+            <vignetting model="pa" focal="23.0" aperture="4.0" distance="1000" k1="-0.4717275" k2="0.0233385" k3="0.0326553" />
+            <vignetting model="pa" focal="23.0" aperture="5.6" distance="10" k1="-0.4498383" k2="-0.0044212" k3="0.0509038" />
+            <vignetting model="pa" focal="23.0" aperture="5.6" distance="1000" k1="-0.4498383" k2="-0.0044212" k3="0.0509038" />
+            <vignetting model="pa" focal="23.0" aperture="16.0" distance="10" k1="-0.5063181" k2="0.0827710" k3="-0.0012126" />
+            <vignetting model="pa" focal="23.0" aperture="16.0" distance="1000" k1="-0.5063181" k2="0.0827710" k3="-0.0012126" />
+        </calibration>
+    </lens> 
 
     <lens>
         <maker>Fujifilm</maker>
