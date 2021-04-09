@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """Finds cameras that are known to rawspeed's database but not to Lensfun.
 Maybe this could be extended to look for missing cameras in other places, too.

@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 from django.conf.urls import url
 from django.views.generic import TemplateView
 from calibration.views import upload, show_issues, thumbnail

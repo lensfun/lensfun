@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """This program checks the accuracy of Lensfun's autoscaling algorithm.
 Lensfun calculates the autoscaling by testing all four corner points and the
