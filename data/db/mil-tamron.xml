@@ -3,6 +3,70 @@
 
     <lens>
         <maker>Tamron</maker>
+	<!-- Tamron 17-70mm F/2.8 Di III-A VC RXD -->
+        <model>E 17-70mm F2.8 B070</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.534</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+	    <!-- Taken with Sony A6000 -->
+            <distortion model="ptlens" focal="17" a="0.02" b="-0.05815" c="0.01666"/>
+            <distortion model="ptlens" focal="24" a="0.01386" b="-0.02779" c="0.01845"/>
+            <distortion model="ptlens" focal="31" a="0.01145" b="-0.01921" c="0.02189"/>
+            <distortion model="ptlens" focal="43" a="0.00663" b="-0.00044" c="0.00186"/>
+            <distortion model="ptlens" focal="59" a="0.00423" b="-0.00244" c="0.02023"/>
+            <distortion model="ptlens" focal="70" a="0.0077" b="-0.00761" c="0.01253"/>
+            <tca model="poly3" focal="17" vr="1.0000980" vb="1.0002878"/>
+            <tca model="poly3" focal="24" vr="1.0001017" vb="1.0001101"/>
+            <tca model="poly3" focal="31" vr="1.0000655" vb="1.0000457"/>
+            <tca model="poly3" focal="43" vr="0.9999838" vb="1.0000128"/>
+            <tca model="poly3" focal="59" vr="0.9999119" vb="0.9999583"/>
+            <tca model="poly3" focal="70" vr="0.9998624" vb="0.9999315"/>
+            <vignetting model="pa" focal="17" aperture="2.8" distance="10" k1="-3.0301" k2="5.9082" k3="-3.6270"/>
+            <vignetting model="pa" focal="17" aperture="2.8" distance="1000" k1="-3.0301" k2="5.9082" k3="-3.6270"/>
+            <vignetting model="pa" focal="17" aperture="3.2" distance="10" k1="-1.7129" k2="3.4052" k3="-2.3401"/>
+            <vignetting model="pa" focal="17" aperture="3.2" distance="1000" k1="-1.7129" k2="3.4052" k3="-2.3401"/>
+            <vignetting model="pa" focal="17" aperture="3.5" distance="10" k1="-3.6480" k2="7.3186" k3="-4.3472"/>
+            <vignetting model="pa" focal="17" aperture="3.5" distance="1000" k1="-3.6480" k2="7.3186" k3="-4.3472"/>
+            <vignetting model="pa" focal="17" aperture="4" distance="10" k1="-1.9923" k2="4.1870" k3="-2.7786"/>
+            <vignetting model="pa" focal="17" aperture="4" distance="1000" k1="-1.9923" k2="4.1870" k3="-2.7786"/>
+            <vignetting model="pa" focal="17" aperture="4.5" distance="10" k1="-1.9351" k2="4.0478" k3="-2.7327"/>
+            <vignetting model="pa" focal="17" aperture="4.5" distance="1000" k1="-1.9351" k2="4.0478" k3="-2.7327"/>
+            <vignetting model="pa" focal="24" aperture="2.8" distance="10" k1="-2.8466" k2="5.7147" k3="-3.4081"/>
+            <vignetting model="pa" focal="24" aperture="2.8" distance="1000" k1="-2.8466" k2="5.7147" k3="-3.4081"/>
+            <vignetting model="pa" focal="24" aperture="3.5" distance="10" k1="-2.4688" k2="4.0115" k3="-1.9272"/>
+            <vignetting model="pa" focal="24" aperture="3.5" distance="1000" k1="-2.4688" k2="4.0115" k3="-1.9272"/>
+            <vignetting model="pa" focal="24" aperture="4.5" distance="10" k1="-2.3989" k2="4.2129" k3="-2.2578"/>
+            <vignetting model="pa" focal="24" aperture="4.5" distance="1000" k1="-2.3989" k2="4.2129" k3="-2.2578"/>
+            <vignetting model="pa" focal="31" aperture="2.8" distance="10" k1="0.5257" k2="-3.8218" k3="2.5891"/>
+            <vignetting model="pa" focal="31" aperture="2.8" distance="1000" k1="0.5257" k2="-3.8218" k3="2.5891"/>
+            <vignetting model="pa" focal="31" aperture="3.5" distance="10" k1="0.4453" k2="-3.5485" k3="2.5410"/>
+            <vignetting model="pa" focal="31" aperture="3.5" distance="1000" k1="0.4453" k2="-3.5485" k3="2.5410"/>
+            <vignetting model="pa" focal="31" aperture="4.5" distance="10" k1="1.6834" k2="-7.0726" k3="4.8613"/>
+            <vignetting model="pa" focal="31" aperture="4.5" distance="1000" k1="1.6834" k2="-7.0726" k3="4.8613"/>
+            <vignetting model="pa" focal="43" aperture="2.8" distance="10" k1="0.1912" k2="-1.9142" k3="0.9949"/>
+            <vignetting model="pa" focal="43" aperture="2.8" distance="1000" k1="0.1912" k2="-1.9142" k3="0.9949"/>
+            <vignetting model="pa" focal="43" aperture="3.5" distance="10" k1="0.8442" k2="-2.7078" k3="1.1568"/>
+            <vignetting model="pa" focal="43" aperture="3.5" distance="1000" k1="0.8442" k2="-2.7078" k3="1.1568"/>
+            <vignetting model="pa" focal="43" aperture="4" distance="10" k1="-0.4822" k2="0.2458" k3="-0.4371"/>
+            <vignetting model="pa" focal="43" aperture="4" distance="1000" k1="-0.4822" k2="0.2458" k3="-0.4371"/>
+            <vignetting model="pa" focal="59" aperture="2.8" distance="10" k1="1.2531" k2="-3.7691" k3="2.3583"/>
+            <vignetting model="pa" focal="59" aperture="2.8" distance="1000" k1="1.2531" k2="-3.7691" k3="2.3583"/>
+            <vignetting model="pa" focal="59" aperture="3.5" distance="10" k1="0.8897" k2="-1.5482" k3="0.1327"/>
+            <vignetting model="pa" focal="59" aperture="3.5" distance="1000" k1="0.8897" k2="-1.5482" k3="0.1327"/>
+            <vignetting model="pa" focal="59" aperture="4" distance="10" k1="-0.8943" k2="1.3923" k3="-1.0517"/>
+            <vignetting model="pa" focal="59" aperture="4" distance="1000" k1="-0.8943" k2="1.3923" k3="-1.0517"/>
+            <vignetting model="pa" focal="70" aperture="2.8" distance="10" k1="4.8143" k2="-9.1162" k3="3.9452"/>
+            <vignetting model="pa" focal="70" aperture="2.8" distance="1000" k1="4.8143" k2="-9.1162" k3="3.9452"/>
+            <vignetting model="pa" focal="70" aperture="3.5" distance="10" k1="1.4055" k2="-2.4238" k3="0.5564"/>
+            <vignetting model="pa" focal="70" aperture="3.5" distance="1000" k1="1.4055" k2="-2.4238" k3="0.5564"/>
+            <vignetting model="pa" focal="70" aperture="4" distance="10" k1="0.1890" k2="0.2740" k3="-1.1636"/>
+            <vignetting model="pa" focal="70" aperture="4" distance="1000" k1="0.1890" k2="0.2740" k3="-1.1636"/>
+        </calibration>
+    </lens>
+    
+    <lens>
+        <maker>Tamron</maker>
         <model>Tamron 18-200mm f/3.5-6.3 Di III VC</model>
         <mount>Sony E</mount>
         <mount>Canon EF-M</mount>
