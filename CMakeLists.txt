@@ -19,9 +19,9 @@ ELSE()
 ENDIF()
 
 # version
-SET(VERSION_MAJOR 0)
-SET(VERSION_MINOR 3)
-SET(VERSION_MICRO 95)
+SET(VERSION_MAJOR 2)
+SET(VERSION_MINOR 0)
+SET(VERSION_MICRO 0)
 SET(VERSION_BUGFIX 0)
 SET(VERSION_API 2)
 # This is the version of the *shipped* database, which is not necessarily the
