@@ -254,6 +254,37 @@
             <distortion model="ptlens" focal="17" a="0" b="-0.004083" c="-0.015672"/>
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Tokina </maker>
+        <model>Tokina 17mm f/3.5 AT-X 17 AF Pro</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="17.0" a="0.009" b="-0.001" c="-0.059" />
+            <tca model="poly3" focal="17.0" vr="1.0003223" vb="1.0000513" />
+            <vignetting model="pa" focal="17.0" aperture="3.5" distance="0.25" k1="-0.7709374" k2="-0.2582311" k3="0.3105781" />
+            <vignetting model="pa" focal="17.0" aperture="3.5" distance="0.5" k1="-0.8159654" k2="-0.1581800" k3="0.2417777" />
+            <vignetting model="pa" focal="17.0" aperture="3.5" distance="1.5" k1="-0.7055708" k2="-0.3593165" k3="0.3286411" />
+            <vignetting model="pa" focal="17.0" aperture="3.5" distance="1000" k1="-0.6963268" k2="-0.3397731" k3="0.2918477" />
+            <vignetting model="pa" focal="17.0" aperture="5.0" distance="0.25" k1="-0.8580720" k2="0.2014674" k3="0.0114345" />
+            <vignetting model="pa" focal="17.0" aperture="5.0" distance="0.5" k1="-0.8822321" k2="0.2141567" k3="0.0064476" />
+            <vignetting model="pa" focal="17.0" aperture="5.0" distance="1.5" k1="-0.7981581" k2="0.1503974" k3="-0.0316313" />
+            <vignetting model="pa" focal="17.0" aperture="5.0" distance="1000" k1="-0.7727548" k2="0.1617771" k3="-0.0756839" />
+            <vignetting model="pa" focal="17.0" aperture="7.1" distance="0.25" k1="-0.8365677" k2="0.1085976" k3="0.1027428" />
+            <vignetting model="pa" focal="17.0" aperture="7.1" distance="0.5" k1="-0.8400408" k2="0.0793102" k3="0.1272177" />
+            <vignetting model="pa" focal="17.0" aperture="7.1" distance="1.5" k1="-0.7866398" k2="0.0249410" k3="0.1262969" />
+            <vignetting model="pa" focal="17.0" aperture="7.1" distance="1000" k1="-0.7570918" k2="0.0425956" k3="0.0720863" />
+            <vignetting model="pa" focal="17.0" aperture="10.0" distance="0.25" k1="-0.9154341" k2="0.1943420" k3="0.0820829" />
+            <vignetting model="pa" focal="17.0" aperture="10.0" distance="0.5" k1="-0.8901946" k2="0.1171638" k3="0.1306609" />
+            <vignetting model="pa" focal="17.0" aperture="10.0" distance="1.5" k1="-0.7711105" k2="-0.0316293" k3="0.1750651" />
+            <vignetting model="pa" focal="17.0" aperture="10.0" distance="1000" k1="-0.7519757" k2="-0.0670322" k3="0.1925755" />
+            <vignetting model="pa" focal="17.0" aperture="22.0" distance="0.25" k1="-0.9378107" k2="0.1811523" k3="0.1143115" />
+            <vignetting model="pa" focal="17.0" aperture="22.0" distance="0.5" k1="-0.8634166" k2="0.0765945" k3="0.1469881" />
+            <vignetting model="pa" focal="17.0" aperture="22.0" distance="1.5" k1="-0.7647955" k2="-0.0457266" k3="0.1861739" />
+            <vignetting model="pa" focal="17.0" aperture="22.0" distance="1000" k1="-0.8201483" k2="0.0254092" k3="0.1602543" />
+        </calibration>
+    </lens>
 
     <lens>
         <maker>Tokina</maker>
