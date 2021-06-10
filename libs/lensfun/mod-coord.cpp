@@ -32,6 +32,7 @@
 #include <math.h>
 #include "windows/mathconstants.h"
 #include <limits>
+#include "legacy/legacy_lensfun.h"
 
 lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistortion& lcd_,
                                                        double real_focal, cbool Reverse)
@@ -463,6 +464,160 @@ float lfModifier::GetAutoScale (bool reverse)
     return reverse ? 1.0 / scale : scale;
 }
 
+/* clean this up */
+void lfModifier::convert_from032(struct legacy_initializer *initalizer)
+{
+  float scale = 1.0f;
+
+  legacy_lfLens *lLens = new legacy_lfLens();
+  lLens->Maker = Lens->Maker;
+  lLens->Model = Lens->Model;
+  lLens->MinFocal = Lens->MinFocal;
+  lLens->MaxFocal = Lens->MaxFocal;
+  lLens->MinAperture = Lens->MinAperture;
+  lLens->MaxAperture = Lens->MaxAperture;
+  lLens->Mounts = Lens->Mounts;
+  lLens->CenterX = Lens->CenterX;
+  lLens->CenterY = Lens->CenterY;
+  lLens->CropFactor = Lens->CropFactor;
+  lLens->AspectRatio = Lens->AspectRatio;
+
+  lLens->Type = static_cast<legacy_lfLensType>(Lens->Type);
+  if(LF_DIST_MODEL_ACM == Lens->CalibDistortion[0]->Model) {
+    printf("Model: LF_DIST_MODEL_ACM, not supported!\n");
+    delete lLens;
+    return;
+  }
+
+  const lfLensCalibrationSet* const* calibsets = Lens->GetCalibrationSets();
+
+  int sz = 0;
+
+  sz = calibsets[0]->CalibDistortion.size();
+  legacy_lfLensCalibDistortion* calibDist[sz+1];
+  memset(calibDist, 0, sizeof(calibDist)*(sz+1));
+
+  {
+    for(int i = 0; i < sz; ++i) {
+      calibDist[i] = new legacy_lfLensCalibDistortion; /* need to delete it */
+      calibDist[i]->Focal = calibsets[0]->CalibDistortion[i]->Focal;
+      calibDist[i]->Model = static_cast<enum legacy_lfDistortionModel>(calibsets[0]->CalibDistortion[i]->Model);
+      calibDist[i]->Terms[0] = calibsets[0]->CalibDistortion[i]->Terms[0];
+      calibDist[i]->Terms[1] = calibsets[0]->CalibDistortion[i]->Terms[1];
+      calibDist[i]->Terms[2] = calibsets[0]->CalibDistortion[i]->Terms[2];
+      /* only take the first element...  which we populated...*/
+    }
+
+    lLens->CalibDistortion = calibDist;
+  }
+
+  sz = calibsets[0]->CalibTCA.size();
+  legacy_lfLensCalibTCA* calibTCA[sz+1];
+  memset(calibTCA, 0, sizeof(calibTCA)*(sz+1));
+  {
+    for(int i = 0; i < sz; ++i) {
+      calibTCA[i] = new legacy_lfLensCalibTCA; /* need to delete it */
+      calibTCA[i]->Model = static_cast<legacy_lfTCAModel>(calibsets[0]->CalibTCA[i]->Model);
+      calibTCA[i]->Focal = calibsets[0]->CalibDistortion[i]->Focal;
+      calibTCA[i]->Terms[0] = calibsets[0]->CalibDistortion[i]->Terms[0];
+      calibTCA[i]->Terms[1] = calibsets[0]->CalibDistortion[i]->Terms[1];
+      calibTCA[i]->Terms[2] = calibsets[0]->CalibDistortion[i]->Terms[2];
+      calibTCA[i]->Terms[3] = calibsets[0]->CalibDistortion[i]->Terms[3];
+      calibTCA[i]->Terms[4] = calibsets[0]->CalibDistortion[i]->Terms[4];
+      /* only take the first element...  which we populated...*/
+    }
+    lLens->CalibTCA = calibTCA;
+  }
+
+  sz = calibsets[0]->CalibVignetting.size();
+  legacy_lfLensCalibVignetting* calibVignetting[sz+1];
+  memset(calibVignetting, 0, sizeof(calibVignetting)*(sz+1));
+
+  {
+    for(int i = 0; i < sz; ++i) {
+      calibVignetting[i] = new legacy_lfLensCalibVignetting; /* need to delete it */
+      calibVignetting[i]->Model = static_cast<legacy_lfVignettingModel>(calibsets[0]->CalibVignetting[i]->Model);
+      calibVignetting[i]->Focal = calibsets[0]->CalibVignetting[i]->Focal;
+      calibVignetting[i]->Aperture = calibsets[0]->CalibVignetting[i]->Aperture;
+      calibVignetting[i]->Distance = calibsets[0]->CalibVignetting[i]->Distance;
+      calibVignetting[i]->Terms[0] = calibsets[0]->CalibVignetting[i]->Terms[0];
+      calibVignetting[i]->Terms[1] = calibsets[0]->CalibVignetting[i]->Terms[1];
+      calibVignetting[i]->Terms[2] = calibsets[0]->CalibVignetting[i]->Terms[2];
+      /* only take the first element...  which we populated...*/
+    }
+    lLens->CalibVignetting = calibVignetting;
+  }
+
+  scale = initalizer->scale;
+
+  legacy_lfModifier legacy_modifier(lLens, Crop, Width, Height);
+  legacy_modifier.Initialize(
+      lLens,
+      static_cast<legacy_lfPixelFormat>(initalizer->format),
+      initalizer->focal,
+      initalizer->aperture,
+      initalizer->distance,
+      scale,
+      static_cast<legacy_lfLensType>(initalizer->targeom),
+      initalizer->flags,
+      initalizer->reverse);
+
+  float old_scale = legacy_modifier.GetAutoScale(initalizer->reverse);
+
+  lfModifier new_mod(Lens, Focal, Crop, Width, Height, initalizer->format, initalizer->reverse);
+  new_mod.EnableDistortionCorrection();
+  new_mod.EnableProjectionTransform(Lens->Type);
+  if(scale != 1.0f)
+    new_mod.EnableScaling(scale);
+  new_mod.EnableTCACorrection();
+  EnableVignettingCorrection(initalizer->aperture, initalizer->distance);
+
+  float new_scale = new_mod.GetAutoScale(initalizer->reverse);
+
+  float factor = new_scale/old_scale;
+
+  initalizer->new_scale = initalizer->scale * factor;
+
+  /* free memory */
+  {
+    legacy_lfLensCalibDistortion *calibPtr = calibDist[0];
+    while(calibPtr != nullptr) {
+      free(calibPtr);
+      calibPtr++;
+    }
+  }
+
+  {
+    legacy_lfLensCalibTCA *calibPtr = calibTCA[0];
+    while(calibPtr != nullptr) {
+      free(calibPtr);
+      calibPtr++;
+    }
+  }
+
+  {
+    legacy_lfLensCalibVignetting *calibPtr = calibVignetting[0];
+    while(calibPtr != nullptr) {
+      free(calibPtr);
+      calibPtr++;
+    }
+  }
+
+  delete lLens;
+}
+
+int lfModifier::GetLegacyAutoScaleFactor (struct legacy_initializer *initalizer)
+{
+	if(initalizer->lensfun_version == LF_VERSION) return 0; /* no need to do anything... */
+	printf("initalizer->lensfun_version: %d\n", initalizer->lensfun_version);
+	printf("LF_VERSION: %d\n", LF_VERSION);
+
+	initalizer->lensfun_version = LF_VERSION;
+
+	convert_from032(initalizer);
+	return 1;
+
+}
 bool lfModifier::ApplyGeometryDistortion (
     float xu, float yu, int width, int height, float *res) const
 {
@@ -1162,6 +1317,11 @@ void lfModifier::ModifyCoord_Geom_ERect_Thoby (void *data, float *iocoord, int c
 float lf_modifier_get_auto_scale (lfModifier *modifier, cbool reverse)
 {
     return modifier->GetAutoScale (reverse);
+}
+
+int lf_modifier_get_legacy_auto_scale_factor(lfModifier *modifier,struct legacy_initializer *init)
+{
+    return modifier->GetLegacyAutoScaleFactor(init);
 }
 
 cbool lf_modifier_apply_geometry_distortion (

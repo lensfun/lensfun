@@ -2,18 +2,12 @@
 SET(LENSFUN_SRC camera.cpp database.cpp lens.cpp 
                 mount.cpp lensfunprv.h cpuid.cpp 
                 mod-color-sse.cpp mod-color-sse2.cpp mod-color.cpp
-                mod-coord-sse.cpp mod-coord.cpp mod-pc.cpp
+                mod-coord-sse.cpp mod-coord.cpp
                 mod-subpix.cpp modifier.cpp auxfun.cpp
-                legacy/legacy-modifier.cpp legacy/legacy-mod-coord.cpp legacy/legacy-mod-coord-sse.cpp
-                legacy/legacy-lens.cpp legacy/legacy-auxfun.cpp legacy/legacy-mod-subpix.cpp
-                legacy/legacy-cpuid.cpp legacy/legacy-mod-color.cpp
-                legacy/legacy-mod-color-sse.cpp legacy/legacy-mod-color-sse2.cpp
-                ../../include/lensfun/lensfun.h.in)
-
-SET_SOURCE_FILES_PROPERTIES(mod-color-sse.cpp mod-coord-sse.cpp
-  PROPERTIES COMPILE_FLAGS "${VECTORIZATION_SSE_FLAGS}")
-SET_SOURCE_FILES_PROPERTIES(mod-color-sse2.cpp
-  PROPERTIES COMPILE_FLAGS "${VECTORIZATION_SSE2_FLAGS}")
+                include/lensfun/lensfun.h.in)
+IF(WIN32)
+  LIST(APPEND LENSFUN_SRC windows/auxfun.cpp)
+ENDIF()
 
 IF(BUILD_STATIC)
   ADD_LIBRARY(lensfun STATIC ${LENSFUN_SRC})
@@ -23,6 +17,9 @@ ELSE()
 ENDIF()
 SET_TARGET_PROPERTIES(lensfun PROPERTIES SOVERSION "${VERSION_API}" VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}")
 
+IF(NOT HAVE_REGEX_H)
+  TARGET_LINK_LIBRARIES(lensfun tre_regex)
+ENDIF()
 TARGET_LINK_LIBRARIES(lensfun ${GLIB2_LIBRARIES})
 
 INSTALL(TARGETS lensfun 
