@@ -492,19 +492,21 @@ void lfModifier::convert_from032(struct legacy_initializer *initalizer)
   const lfLensCalibrationSet* const* calibsets = Lens->GetCalibrationSets();
 
   int sz = 0;
+  const int arraySz = 1000; /* must not be more than this.. */
 
   sz = calibsets[0]->CalibDistortion.size();
-  legacy_lfLensCalibDistortion* calibDist[sz+1];
+  legacy_lfLensCalibDistortion* calibDist[arraySz];
   memset(calibDist, 0, sizeof(calibDist)*(sz+1));
 
   {
     for(int i = 0; i < sz; ++i) {
-      calibDist[i] = new legacy_lfLensCalibDistortion; /* need to delete it */
-      calibDist[i]->Focal = calibsets[0]->CalibDistortion[i]->Focal;
-      calibDist[i]->Model = static_cast<enum legacy_lfDistortionModel>(calibsets[0]->CalibDistortion[i]->Model);
-      calibDist[i]->Terms[0] = calibsets[0]->CalibDistortion[i]->Terms[0];
-      calibDist[i]->Terms[1] = calibsets[0]->CalibDistortion[i]->Terms[1];
-      calibDist[i]->Terms[2] = calibsets[0]->CalibDistortion[i]->Terms[2];
+      legacy_lfLensCalibDistortion* new_dist = new legacy_lfLensCalibDistortion; /* need to delete it */
+      new_dist->Focal = calibsets[0]->CalibDistortion[i]->Focal;
+      new_dist->Model = static_cast<enum legacy_lfDistortionModel>(calibsets[0]->CalibDistortion[i]->Model);
+      new_dist->Terms[0] = calibsets[0]->CalibDistortion[i]->Terms[0];
+      new_dist->Terms[1] = calibsets[0]->CalibDistortion[i]->Terms[1];
+      new_dist->Terms[2] = calibsets[0]->CalibDistortion[i]->Terms[2];
+      calibDist[i] = new_dist;
       /* only take the first element...  which we populated...*/
     }
 
@@ -512,37 +514,40 @@ void lfModifier::convert_from032(struct legacy_initializer *initalizer)
   }
 
   sz = calibsets[0]->CalibTCA.size();
-  legacy_lfLensCalibTCA* calibTCA[sz+1];
+  legacy_lfLensCalibTCA* calibTCA[arraySz];
   memset(calibTCA, 0, sizeof(calibTCA)*(sz+1));
   {
     for(int i = 0; i < sz; ++i) {
-      calibTCA[i] = new legacy_lfLensCalibTCA; /* need to delete it */
-      calibTCA[i]->Model = static_cast<legacy_lfTCAModel>(calibsets[0]->CalibTCA[i]->Model);
-      calibTCA[i]->Focal = calibsets[0]->CalibDistortion[i]->Focal;
-      calibTCA[i]->Terms[0] = calibsets[0]->CalibDistortion[i]->Terms[0];
-      calibTCA[i]->Terms[1] = calibsets[0]->CalibDistortion[i]->Terms[1];
-      calibTCA[i]->Terms[2] = calibsets[0]->CalibDistortion[i]->Terms[2];
-      calibTCA[i]->Terms[3] = calibsets[0]->CalibDistortion[i]->Terms[3];
-      calibTCA[i]->Terms[4] = calibsets[0]->CalibDistortion[i]->Terms[4];
+      legacy_lfLensCalibTCA *tca = new legacy_lfLensCalibTCA; /* need to delete it */
+      tca->Model = static_cast<legacy_lfTCAModel>(calibsets[0]->CalibTCA[i]->Model);
+      tca->Focal = calibsets[0]->CalibDistortion[i]->Focal;
+      tca->Terms[0] = calibsets[0]->CalibDistortion[i]->Terms[0];
+      tca->Terms[1] = calibsets[0]->CalibDistortion[i]->Terms[1];
+      tca->Terms[2] = calibsets[0]->CalibDistortion[i]->Terms[2];
+      tca->Terms[3] = calibsets[0]->CalibDistortion[i]->Terms[3];
+      tca->Terms[4] = calibsets[0]->CalibDistortion[i]->Terms[4];
+      calibTCA[i] = tca;
       /* only take the first element...  which we populated...*/
     }
     lLens->CalibTCA = calibTCA;
   }
 
   sz = calibsets[0]->CalibVignetting.size();
-  legacy_lfLensCalibVignetting* calibVignetting[sz+1];
+  legacy_lfLensCalibVignetting* calibVignetting[arraySz];
   memset(calibVignetting, 0, sizeof(calibVignetting)*(sz+1));
 
   {
     for(int i = 0; i < sz; ++i) {
-      calibVignetting[i] = new legacy_lfLensCalibVignetting; /* need to delete it */
-      calibVignetting[i]->Model = static_cast<legacy_lfVignettingModel>(calibsets[0]->CalibVignetting[i]->Model);
-      calibVignetting[i]->Focal = calibsets[0]->CalibVignetting[i]->Focal;
-      calibVignetting[i]->Aperture = calibsets[0]->CalibVignetting[i]->Aperture;
-      calibVignetting[i]->Distance = calibsets[0]->CalibVignetting[i]->Distance;
-      calibVignetting[i]->Terms[0] = calibsets[0]->CalibVignetting[i]->Terms[0];
-      calibVignetting[i]->Terms[1] = calibsets[0]->CalibVignetting[i]->Terms[1];
-      calibVignetting[i]->Terms[2] = calibsets[0]->CalibVignetting[i]->Terms[2];
+      legacy_lfLensCalibVignetting *vign = new legacy_lfLensCalibVignetting; /* need to delete it */
+      vign = new legacy_lfLensCalibVignetting; /* need to delete it */
+      vign->Model = static_cast<legacy_lfVignettingModel>(calibsets[0]->CalibVignetting[i]->Model);
+      vign->Focal = calibsets[0]->CalibVignetting[i]->Focal;
+      vign->Aperture = calibsets[0]->CalibVignetting[i]->Aperture;
+      vign->Distance = calibsets[0]->CalibVignetting[i]->Distance;
+      vign->Terms[0] = calibsets[0]->CalibVignetting[i]->Terms[0];
+      vign->Terms[1] = calibsets[0]->CalibVignetting[i]->Terms[1];
+      vign->Terms[2] = calibsets[0]->CalibVignetting[i]->Terms[2];
+      calibVignetting[i] = vign;
       /* only take the first element...  which we populated...*/
     }
     lLens->CalibVignetting = calibVignetting;
@@ -574,7 +579,7 @@ void lfModifier::convert_from032(struct legacy_initializer *initalizer)
 
   float new_scale = new_mod.GetAutoScale(initalizer->reverse);
 
-  float factor = new_scale/old_scale;
+  double factor = (double)new_scale/(double)old_scale;
 
   initalizer->new_scale = initalizer->scale * factor;
 
