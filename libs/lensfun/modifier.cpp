@@ -111,6 +111,7 @@ void lfModifier::Destroy ()
 lfModifier::lfModifier (const lfLens*, float crop, int width, int height)
 {
     Crop = crop;
+    scaling_d = 1.0;
 
     // Avoid divide overflows on singular cases.  The "- 1" is due to the fact
     // that `Width` and `Height` are measured at the pixel centres (they are
@@ -123,7 +124,7 @@ lfModifier::lfModifier (const lfLens*, float crop, int width, int height)
 
 lfModifier::lfModifier (const lfLens *lens, float imgfocal, float imgcrop, int imgwidth, int imgheight,
                         lfPixelFormat pixel_format, bool reverse /* = false */)
-    : Crop(imgcrop), Focal(imgfocal), Reverse(reverse), PixelFormat(pixel_format), Lens(lens)
+    : Crop(imgcrop), Focal(imgfocal), Reverse(reverse), PixelFormat(pixel_format), Lens(lens), scaling_d(1.0)
 {
     // Avoid divide overflows on singular cases.  The "- 1" is due to the fact
     // that `Width` and `Height` are measured at the pixel centres (they are
@@ -162,6 +163,9 @@ int lfModifier::EnableScaling (float scale)
         if (scale == 0.0)
             return false;
     }
+    
+    // backward compatibility to 0.3.2
+    scale /= scaling_d;
 
     lfCoordScaleCallbackData* cd = new lfCoordScaleCallbackData;
 
