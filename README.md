@@ -1,6 +1,5 @@
-Travis CI [![Travis CI Build Status](https://travis-ci.com/lensfun/lensfun.svg?branch=master)](https://travis-ci.com/lensfun/lensfun)
-
-AppVeyor [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/lensfun/lensfun?branch=master&svg=true)](https://ci.appveyor.com/project/seebk/lensfun)
+Github [![CMake](https://github.com/payano/lensfun/actions/workflows/cmake.yml/badge.svg)](https://github.com/payano/lensfun/actions/workflows/cmake.yml)
+ AppVeyor [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/lensfun/lensfun?branch=master&svg=true)](https://ci.appveyor.com/project/seebk/lensfun)
 
 WHAT IS IT
 ----------
