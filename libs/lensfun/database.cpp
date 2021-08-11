@@ -100,6 +100,9 @@ lfError lfDatabase::Load ()
         ReadTimestamp (SystemUpdatesLocation);
     const int timestamp_user_updates =
         ReadTimestamp (UserUpdatesDir);
+    
+    Load (HomeDataDir);
+    
     if (timestamp_system > timestamp_system_updates)
         if (timestamp_user_updates > timestamp_system)
             err = Load (UserUpdatesDir);
@@ -110,8 +113,6 @@ lfError lfDatabase::Load ()
             err = Load (UserUpdatesDir);
         else
             err = Load (SystemUpdatesLocation);
-
-    Load (HomeDataDir);
 
     return err == LF_NO_ERROR ? LF_NO_ERROR : LF_NO_DATABASE;
 }
