@@ -75,6 +75,14 @@
 
     <camera>
         <maker>Huawei</maker>
+        <model>VOG-L29</model>
+        <model lang="en">P30 Pro</model>
+        <mount>vogl29</mount>
+        <cropfactor>4.86</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Huawei</maker>
         <model>CLT-L29</model>
         <model lang="en">P20 Pro</model>
         <mount>cltl29</mount>
@@ -437,6 +445,33 @@
         <calibration>
             <distortion model="poly3" focal="4.42" k1="0.00306"/>
             <tca model="poly3" focal="4.42" vr="1.0000246" vb="1.0000556"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Huawei</maker>
+        <model>P30 Pro</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>vogl29</mount>
+        <cropfactor>4.86</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+
+        <calibration>
+            <distortion model="ptlens" focal="5.6" a="-0.006723" b="0.010218" c="-0.003747"/>
+            <tca model="poly3" focal="5.6" vr="1.0" vb="1.0"/>
+            <vignetting model="pa" focal="5.6" aperture="1.6" distance="10" k1="-2.2826" k2="2.8667" k3="-1.3542"/>
+            <vignetting model="pa" focal="5.6" aperture="1.6" distance="1000" k1="-2.2826" k2="2.8667" k3="-1.3542"/>
+
+            <distortion model="ptlens" focal="2.3" a="-0.067491" b="0.084551" c="0.014999"/>
+            <tca model="poly3" focal="2.3" vr="1.00020" vb="1.00070"/>
+            <vignetting model="pa" focal="2.3" aperture="2.2" distance="10" k1="-2.9196" k2="3.7534" k3="-1.6538"/>
+            <vignetting model="pa" focal="2.3" aperture="2.2" distance="1000" k1="-2.9196" k2="3.7534" k3="-1.6538"/>
+
+            <distortion model="ptlens" focal="14.5" a="-0.003491" b="0.010476" c="0.005814"/>
+            <tca model="poly3" focal="14.5" vr="0.99985" vb="1.000"/>
+            <vignetting model="pa" focal="14.5" aperture="3.4" distance="10" k1="-0.4657" k2="0.4064" k3="-0.2548"/>
+            <vignetting model="pa" focal="14.5" aperture="3.4" distance="1000" k1="-0.4657" k2="0.4064" k3="-0.2548"/>
         </calibration>
     </lens>
 
