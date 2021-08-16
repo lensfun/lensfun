@@ -1,4 +1,4 @@
-Github [![CMake](https://github.com/payano/lensfun/actions/workflows/cmake.yml/badge.svg)](https://github.com/payano/lensfun/actions/workflows/cmake.yml)
+Github [![CMake](https://github.com/lensfun/lensfun/actions/workflows/cmake.yml/badge.svg)](https://github.com/lensfun/lensfun/actions/workflows/cmake.yml)
  AppVeyor [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/lensfun/lensfun?branch=master&svg=true)](https://ci.appveyor.com/project/seebk/lensfun)
 
 WHAT IS IT
