@@ -19,9 +19,9 @@ ELSE()
 ENDIF()
 
 # version
-SET(VERSION_MAJOR 0)
-SET(VERSION_MINOR 3)
-SET(VERSION_MICRO 95)
+SET(VERSION_MAJOR 2)
+SET(VERSION_MINOR 0)
+SET(VERSION_MICRO 0)
 SET(VERSION_BUGFIX 0)
 SET(VERSION_API 2)
 # This is the version of the *shipped* database, which is not necessarily the
@@ -31,10 +31,15 @@ SET(LENSFUN_DB_VERSION 2)
 # check if some include are available
 INCLUDE(CheckIncludeFiles)
 CHECK_INCLUDE_FILES(endian.h HAVE_ENDIAN_H)
+CHECK_INCLUDE_FILES(regex.h HAVE_REGEX_H)
 
 # set include directories
 INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR})
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include/lensfun)
+IF(NOT HAVE_REGEX_H)
+  INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include/regex)
+  INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/libs/regex)
+ENDIF()
 
 IF(CMAKE_SYSTEM_PROCESSOR MATCHES "[XxIi][0-9]?86|[Aa][Mm][Dd]64")
   SET(X86_ON ON)
@@ -178,6 +183,9 @@ ADD_SUBDIRECTORY(apps)
 
 # install include files
 INSTALL(FILES ${CMAKE_BINARY_DIR}/lensfun.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/lensfun)
+
+# legacy include files
+INSTALL(FILES include/regex/regex.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/regex)
 
 # install db files
 FILE(GLOB DATABASE_FILES data/db/*.xml)
