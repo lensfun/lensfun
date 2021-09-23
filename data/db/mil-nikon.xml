@@ -129,8 +129,8 @@
     <camera>
         <maker>Nikon Corporation</maker>
         <maker lang="en">Nikon</maker>
-        <model>Nikon Z6</model>
-        <model lang="en">Z6</model>
+        <model>Nikon Z 6</model>
+        <model lang="en">Z 6</model>
         <mount>Nikon Z</mount>
         <cropfactor>1</cropfactor>
     </camera>
@@ -138,8 +138,26 @@
     <camera>
         <maker>Nikon Corporation</maker>
         <maker lang="en">Nikon</maker>
-        <model>Nikon Z7</model>
-        <model lang="en">Z7</model>
+        <model>Nikon Z 6_2</model>
+        <model lang="en">Z 6II</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Nikon Corporation</maker>
+        <maker lang="en">Nikon</maker>
+        <model>Nikon Z 7</model>
+        <model lang="en">Z 7</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Nikon Corporation</maker>
+        <maker lang="en">Nikon</maker>
+        <model>Nikon Z 7_2</model>
+        <model lang="en">Z 7II</model>
         <mount>Nikon Z</mount>
         <cropfactor>1</cropfactor>
     </camera>
@@ -160,6 +178,15 @@
         <model lang="en">Z 5</model>
         <mount>Nikon Z</mount>
         <cropfactor>1</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Nikon Corporation</maker>
+        <maker lang="en">Nikon</maker>
+        <model>Nikon Z fc</model>
+        <model lang="en">Z fc</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.531</cropfactor>
     </camera>
 
     <lens>
@@ -309,7 +336,7 @@
             <tca model="poly3" focal="35" vr="1.0000506" vb="1.0001152"/>
             <tca model="poly3" focal="50" vr="0.9999946" vb="1.0000632"/>
             <tca model="poly3" focal="70" vr="0.9999059" vb="0.9999643"/>
-            <!-- Taken with Nikon Z6 -->
+            <!-- Taken with Nikon Z 6 -->
             <vignetting model="pa" focal="24.0" aperture="4.0" distance="10" k1="-0.4443301" k2="-0.8757330" k3="0.4629641" />
             <vignetting model="pa" focal="24.0" aperture="4.0" distance="1000" k1="-0.4443301" k2="-0.8757330" k3="0.4629641" />
             <vignetting model="pa" focal="24.0" aperture="5.6" distance="10" k1="-0.6482147" k2="-0.0472485" k3="-0.0642677" />
@@ -365,11 +392,11 @@
 
     <lens>
         <maker>Nikon</maker>
-        <model>NIKKOR Z 24-70mm f/2.8 S</model>
+        <model>Nikkor Z 24-70mm f/2.8 S</model>
         <mount>Nikon Z</mount>
         <cropfactor>1</cropfactor>
         <calibration>
-	    <!-- Taken with Nikon Z7 -->
+            <!-- Taken with Nikon Z 7 -->
             <distortion model="ptlens" focal="24" a="0.03963" b="-0.12592" c="0.08209"/>
             <distortion model="ptlens" focal="34.5" a="0.02177" b="-0.06406" c="0.06264"/>
             <distortion model="ptlens" focal="44" a="0.00741" b="-0.00497" c="-0.00176"/>
@@ -385,7 +412,7 @@
 
     <lens>
         <maker>Nikon</maker>
-        <model>NIKKOR Z 20mm f/1.8 S</model>
+        <model>Nikkor Z 20mm f/1.8 S</model>
         <mount>Nikon Z</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -396,11 +423,11 @@
 
     <lens>
         <maker>Nikon</maker>
-        <model>NIKKOR Z 50mm f/1.8 S</model>
+        <model>Nikkor Z 50mm f/1.8 S</model>
         <mount>Nikon Z</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <!-- Taken with Nikon Z6 -->
+            <!-- Taken with Nikon Z 6 -->
             <distortion model="ptlens" focal="50.0" a="-0.009" b="0.026" c="-0.028" />
             <tca model="poly3" focal="50.0" br="-0.0000294" vr="1.0000289" bb="0.0000470" vb="1.0000126" />
             <vignetting model="pa" focal="50.0" aperture="1.8" distance="10" k1="-1.1859649" k2="0.6114940" k3="-0.1598373" />
@@ -422,11 +449,11 @@
 
     <lens>
         <maker>Nikon</maker>
-        <model>NIKKOR Z 85mm f/1.8 S</model>
+        <model>Nikkor Z 85mm f/1.8 S</model>
         <mount>Nikon Z</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <!-- Taken with Nikon Z6 -->
+            <!-- Taken with Nikon Z 6 -->
             <distortion model="ptlens" focal="85.0" a="-0.006" b="0.023" c="-0.028" />
             <tca model="poly3" focal="85.0" br="-0.0000217" vr="1.0000357" bb="0.0000030" vb="0.9999613" />
             <vignetting model="pa" focal="85.0" aperture="1.8" distance="10" k1="-0.8779320" k2="0.2895851" k3="-0.0092442" />
@@ -445,31 +472,31 @@
             <vignetting model="pa" focal="85.0" aperture="16.0" distance="1000" k1="-0.1030326" k2="-0.0395645" k3="0.0316660" />
         </calibration>
     </lens>
-	
-    <lens>
-    <maker>Nikon</maker>
-    <model>NIKKOR Z 24-200mm f/4-6.3 VR</model>
-    <mount>Nikon Z</mount>
-    <cropfactor>1</cropfactor>
-    <calibration>
-        <distortion model="ptlens" focal="24" a="0.029427303584772774" b="-0.10372635871864969" c="0.04007366049378727"/>
-        <distortion model="ptlens" focal="38" a="0.010039276890734349" b="-0.019018579758017618" c="0.012124283612537735"/>
-        <distortion model="ptlens" focal="52" a="0.009269921825384317" b="-0.012043929971475851" c="0.022274437294479553"/>
-        <distortion model="ptlens" focal="94" a="-0.001508449372620077" b="0.02879419057228741" c="-0.02366348197099592"/>
-        <distortion model="ptlens" focal="140" a="-0.0012467131640865495" b="0.021459850448953443" c="-0.011450469560964946"/>
-        <distortion model="ptlens" focal="200" a="7.132598710890537e-05" b="0.01340609626856572" c="0.0011983453411721758"/>
-        <tca model="poly3" focal="24" vr="1.0003084" vb="1.0002809"/>
-        <tca model="poly3" focal="44" vr="1.0001410" vb="1.0000968"/>
-        <tca model="poly3" focal="64" vr="1.0000703" vb="1.0000559"/>
-        <tca model="poly3" focal="91" vr="0.9999584" vb="1.0000168"/>
-        <tca model="poly3" focal="135" vr="0.9998716" vb="0.9999761"/>
-        <tca model="poly3" focal="200" vr="0.9996803" vb="0.9998675"/>
-    </calibration>
-</lens>
 
     <lens>
         <maker>Nikon</maker>
-        <model>NIKKOR Z DX 16-50mm f/3.5-6.3 VR</model>
+        <model>Nikkor Z 24-200mm f/4-6.3 VR</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="24" a="0.029427303584772774" b="-0.10372635871864969" c="0.04007366049378727"/>
+            <distortion model="ptlens" focal="38" a="0.010039276890734349" b="-0.019018579758017618" c="0.012124283612537735"/>
+            <distortion model="ptlens" focal="52" a="0.009269921825384317" b="-0.012043929971475851" c="0.022274437294479553"/>
+            <distortion model="ptlens" focal="94" a="-0.001508449372620077" b="0.02879419057228741" c="-0.02366348197099592"/>
+            <distortion model="ptlens" focal="140" a="-0.0012467131640865495" b="0.021459850448953443" c="-0.011450469560964946"/>
+            <distortion model="ptlens" focal="200" a="7.132598710890537e-05" b="0.01340609626856572" c="0.0011983453411721758"/>
+            <tca model="poly3" focal="24" vr="1.0003084" vb="1.0002809"/>
+            <tca model="poly3" focal="44" vr="1.0001410" vb="1.0000968"/>
+            <tca model="poly3" focal="64" vr="1.0000703" vb="1.0000559"/>
+            <tca model="poly3" focal="91" vr="0.9999584" vb="1.0000168"/>
+            <tca model="poly3" focal="135" vr="0.9998716" vb="0.9999761"/>
+            <tca model="poly3" focal="200" vr="0.9996803" vb="0.9998675"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikkor Z DX 16-50mm f/3.5-6.3 VR</model>
         <mount>Nikon Z</mount>
         <cropfactor>1.531</cropfactor>
         <calibration>
