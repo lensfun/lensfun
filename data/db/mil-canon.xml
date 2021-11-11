@@ -650,5 +650,49 @@
             <vignetting model="pa" focal="85.0" aperture="16.0" distance="1000" k1="-0.1220316" k2="-0.0171921" k3="0.0171408" />
         </calibration>
     </lens>
-
+    
+    <lens>
+        <maker>Canon</maker>
+        <model>RF85mm F2 MACRO IS STM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="85.0" a="-0.00549551" b="0.0198334" c="-0.00860226"/>
+         </calibration>
+    </lens>
+    
+    <lens>
+        <maker>Canon</maker>
+        <model>RF24-240mm F4-6.3 IS USM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="24.0" a="0.047" b="-0.167" c="0.101" />
+            <distortion model="ptlens" focal="35.0" a="0.016" b="-0.048" c="0.029" />
+            <distortion model="ptlens" focal="52.0" a="0.017" b="-0.04" c="0.043" />
+            <distortion model="ptlens" focal="70.0" a="0.01" b="-0.003" c="0.004" />
+            <distortion model="ptlens" focal="100.0" a="0.016" b="-0.036" c="0.058" />
+            <distortion model="ptlens" focal="157.0" a="0.012" b="-0.018" c="0.029" />
+            <distortion model="ptlens" focal="240.0" a="-0.005" b="0.04" c="-0.034" />
+            <tca model="poly3" focal="24.0" vr="1.0004860" vb="1.0000727" />
+            <tca model="poly3" focal="35.0" vr="1.0004138" vb="1.0000426" />
+            <tca model="poly3" focal="52.0" vr="1.0002351" vb="1.0000445" />
+            <tca model="poly3" focal="70.0" vr="1.0000836" vb="1.0000431" />
+            <tca model="poly3" focal="100.0" vr="0.9999379" vb="1.0000382" />
+            <tca model="poly3" focal="157.0" vr="0.9997420" vb="0.9999491" />
+            <tca model="poly3" focal="240.0" vr="0.9995148" vb="0.9998347" />
+        </calibration>
+    </lens>
+    
+    <lens>
+        <maker>Canon</maker>
+        <model>RF50mm F1.8 STM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="50.0" a="0.002" b="-0.009" c="0.014" />
+            <tca model="poly3" focal="50.0" vr="0.9998424" vb="1.0000271" />
+        </calibration>
+    </lens>
+    
 </lensdatabase>
