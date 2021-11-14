@@ -3,6 +3,11 @@
     Copyright (C) 2007 by Andrew Zabolotny
 */
 
+#ifdef _WIN32
+	#undef _CRT_SECURE_NO_WARNINGS
+	#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include "config.h"
 #include "lensfun.h"
 #include "lensfunprv.h"
@@ -329,12 +334,12 @@ float _lf_interpolate (float y1, float y2, float y3, float y4, float t)
     if (y1 == FLT_MAX)
         tg2 = y3 - y2;
     else
-        tg2 = (y3 - y1) * 0.5;
+        tg2 = (y3 - y1) * 0.5f;
 
     if (y4 == FLT_MAX)
         tg3 = y3 - y2;
     else
-        tg3 = (y4 - y2) * 0.5;
+        tg3 = (y4 - y2) * 0.5f;
 
     // Hermite polynomial
     return (2 * t3 - 3 * t2 + 1) * y2 +
