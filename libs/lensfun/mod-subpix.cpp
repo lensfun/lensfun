@@ -100,7 +100,9 @@ int lfModifier::EnableTCACorrection ()
 {
     lfLensCalibTCA lctca;
     if (Lens->InterpolateTCA (Crop, Focal, lctca))
-        EnableTCACorrection(lctca);
+    {
+        return EnableTCACorrection(lctca);
+    }
 
     return EnabledMods;
 }
