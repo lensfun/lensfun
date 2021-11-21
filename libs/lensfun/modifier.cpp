@@ -153,14 +153,14 @@ lfModifier::lfModifier (const lfLens *lens, float imgfocal, float imgcrop, int i
 int lfModifier::EnableScaling (float scale)
 {
     if (scale == 1.0)
-        return false;
+        return EnabledMods;
 
     // Inverse scale factor
     if (scale == 0.0)
     {
         scale = GetAutoScale (Reverse);
         if (scale == 0.0)
-            return false;
+            return EnabledMods;
     }
 
     lfCoordScaleCallbackData* cd = new lfCoordScaleCallbackData;
