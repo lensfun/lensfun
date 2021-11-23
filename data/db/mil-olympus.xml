@@ -1552,4 +1552,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Olympus</maker>
+        <model>OLYMPUS M.12-45mm F4.0</model>
+        <model lang="en">Olympus M.Zuiko 12-45mm f/4.0</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="12" a="0.03643" b="-0.11354" c="0.02242"/>
+            <distortion model="ptlens" focal="17" a="0.02011" b="-0.05758" c="0.02837"/>
+            <distortion model="ptlens" focal="25" a="0.0061" b="-0.00906" c="0.00301"/>
+            <distortion model="ptlens" focal="35" a="-0.02047" b="0.07796" c="-0.0717"/>
+            <distortion model="ptlens" focal="45" a="-0.00045" b="0.01937" c="-0.02056"/>
+            <tca model="poly3" focal="12" br="-0.0001268" vr="1.0003803" bb="0.0001165" vb="0.9998268"/>
+            <tca model="poly3" focal="17" br="-0.0000933" vr="1.0002536" bb="0.0000643" vb="0.9998489"/>
+            <tca model="poly3" focal="25" br="-0.0000370" vr="1.0001226" bb="0.0000359" vb="0.9998858"/>
+            <tca model="poly3" focal="35" br="-0.0000444" vr="1.0000719" bb="0.0000141" vb="0.9999268"/>
+            <tca model="poly3" focal="45" br="-0.0000527" vr="1.0000231" bb="0.0000336" vb="0.9998808"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
