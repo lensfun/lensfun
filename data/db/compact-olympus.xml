@@ -290,9 +290,9 @@
         <maker>Olympus Corporation</maker>
         <maker lang="en">Olympus</maker>
         <model>TG-5</model>
-        <model lang="en">Stylus TG-5</model>
-        <mount>olympusStylusTG4</mount>
-        <cropfactor>5.56</cropfactor>
+        <model lang="en">Tough TG-5</model>
+        <mount>olympusToughTG5</mount>
+        <cropfactor>5.62</cropfactor>
     </camera>
 
     <camera>
@@ -690,6 +690,29 @@
             <tca model="poly3" focal="6.9" br="-0.0000276" vr="1.0001322" bb="-0.0000199" vb="1.0000921"/>
             <tca model="poly3" focal="9" br="-0.0000200" vr="1.0000631" bb="-0.0000128" vb="1.0000870"/>
             <tca model="poly3" focal="18" br="-0.0000067" vr="0.9999876" bb="-0.0000838" vb="1.0000917"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Olympus</maker>
+        <model>Olympus Tough TG-5</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>olympusToughTG5</mount>
+        <cropfactor>5.62</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Olympus Tough TG-5 -->
+            <distortion model="ptlens" focal="4.5" a="0.02587" b="-0.14809" c="0.118"/>
+            <distortion model="ptlens" focal="9" a="0.00722" b="-0.02867" c="0.05229"/>
+            <distortion model="ptlens" focal="13.5" a="0.00581" b="-0.00942" c="0.03504"/>
+            <distortion model="ptlens" focal="15.4" a="0.00277" b="-0.00923" c="0.05269"/>
+            <distortion model="ptlens" focal="18" a="0.00743" b="-0.01308" c="0.03623"/>
+            <tca model="poly3" focal="4.5" vr="1.0003588" vb="1.0000108"/>
+            <tca model="poly3" focal="9" vr="1.0000205" vb="1.0001196"/>
+            <tca model="poly3" focal="13.5" vr="0.9999607" vb="1.0001646"/>
+            <tca model="poly3" focal="15.4" vr="0.9999136" vb="1.0000947"/>
+            <tca model="poly3" focal="18" vr="0.9999040" vb="1.0001551"/>
         </calibration>
     </lens>
 
