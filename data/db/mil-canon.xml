@@ -619,6 +619,36 @@
             <tca model="poly3" focal="200.0" vr="0.9999572" vb="0.9999816" />
         </calibration>
     </lens>
-
+    
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon RF85mm F1.2L USM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="85.0" a="-0.004" b="0.018" c="-0.022" />
+            <tca model="poly3" focal="85.0" vr="1.0000452" vb="0.9999402" />
+            <vignetting model="pa" focal="85.0" aperture="1.2" distance="0.82" k1="-0.3556154" k2="0.1669995" k3="-0.2150439" />
+            <vignetting model="pa" focal="85.0" aperture="1.2" distance="1.65" k1="-0.4803280" k2="0.1586686" k3="-0.1720509" />
+            <vignetting model="pa" focal="85.0" aperture="1.2" distance="4.28" k1="-0.5451754" k2="0.1904910" k3="-0.1781964" />
+            <vignetting model="pa" focal="85.0" aperture="1.2" distance="1000" k1="-0.7136642" k2="0.2397746" k3="-0.1461012" />
+            <vignetting model="pa" focal="85.0" aperture="1.8" distance="0.82" k1="-0.1802525" k2="0.3113866" k3="-0.2679503" />
+            <vignetting model="pa" focal="85.0" aperture="1.8" distance="1.65" k1="-0.0618364" k2="-0.0820184" k3="-0.0816588" />
+            <vignetting model="pa" focal="85.0" aperture="1.8" distance="4.28" k1="-0.0190098" k2="-0.3391074" k3="0.0992612" />
+            <vignetting model="pa" focal="85.0" aperture="1.8" distance="1000" k1="-0.0498819" k2="-0.5370953" k3="0.2202171" />
+            <vignetting model="pa" focal="85.0" aperture="2.5" distance="0.82" k1="-0.0722802" k2="-0.0060115" k3="0.0049355" />
+            <vignetting model="pa" focal="85.0" aperture="2.5" distance="1.65" k1="-0.1142315" k2="0.1386605" k3="-0.1390245" />
+            <vignetting model="pa" focal="85.0" aperture="2.5" distance="4.28" k1="-0.1066582" k2="0.0999293" k3="-0.1948964" />
+            <vignetting model="pa" focal="85.0" aperture="2.5" distance="1000" k1="-0.0635088" k2="-0.1559632" k3="-0.0869901" />
+            <vignetting model="pa" focal="85.0" aperture="3.5" distance="0.82" k1="-0.0777437" k2="-0.0045334" k3="0.0059537" />
+            <vignetting model="pa" focal="85.0" aperture="3.5" distance="1.65" k1="-0.0836969" k2="-0.0069261" k3="0.0036172" />
+            <vignetting model="pa" focal="85.0" aperture="3.5" distance="4.28" k1="-0.1238213" k2="0.1635924" k3="-0.1578029" />
+            <vignetting model="pa" focal="85.0" aperture="3.5" distance="1000" k1="-0.2133985" k2="0.3440578" k3="-0.3985047" />
+            <vignetting model="pa" focal="85.0" aperture="16.0" distance="0.82" k1="-0.0978148" k2="0.0074551" k3="-0.0005257" />
+            <vignetting model="pa" focal="85.0" aperture="16.0" distance="1.65" k1="-0.0981007" k2="0.0013385" k3="0.0040105" />
+            <vignetting model="pa" focal="85.0" aperture="16.0" distance="4.28" k1="-0.1209888" k2="-0.0195805" k3="0.0193603" />
+            <vignetting model="pa" focal="85.0" aperture="16.0" distance="1000" k1="-0.1220316" k2="-0.0171921" k3="0.0171408" />
+        </calibration>
+    </lens>
 
 </lensdatabase>

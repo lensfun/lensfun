@@ -186,6 +186,14 @@
 
     <camera>
         <maker>Sony</maker>
+        <model>ILCE-7SM3</model>
+        <model lang="en">Alpha 7S III</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Sony</maker>
         <model>ILCE-6100</model>
         <model lang="en">Alpha 6100</model>
         <mount>Sony E</mount>
@@ -2291,6 +2299,30 @@
             <vignetting model="pa" focal="600" aperture="36" distance="9.03" k1="-0.1335" k2="0.0220" k3="-0.0035"/>
             <vignetting model="pa" focal="600" aperture="36" distance="23.43" k1="-0.1210" k2="0.0159" k3="0.0021"/>
             <vignetting model="pa" focal="600" aperture="36" distance="1000" k1="-0.1123" k2="0.0091" k3="0.0089"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 50mm f/2.5 G</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7C -->
+            <distortion model="ptlens" focal="50" a="0" b="0.00001" c="0"/>
+            <tca model="poly3" focal="50" vr="1.0000128" vb="1.0000018"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 24mm f/2.8 G</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7C -->
+            <distortion model="ptlens" focal="24" a="0.01333" b="-0.06573" c="-0.00007"/>
+            <tca model="poly3" focal="24" vr="1.0003252" vb="0.9999085"/>
         </calibration>
     </lens>
 

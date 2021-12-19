@@ -32,6 +32,7 @@
 #include <math.h>
 #include "windows/mathconstants.h"
 #include <limits>
+#include <cassert>
 
 lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistortion& lcd_,
                                                        double real_focal, cbool Reverse)
@@ -151,7 +152,7 @@ int lfModifier::EnableDistortionCorrection ()
     lfLensCalibDistortion lcd;
     if (Lens->InterpolateDistortion (Crop, Focal, lcd))
     {
-        EnableDistortionCorrection (lcd);
+        return EnableDistortionCorrection (lcd);
     }
 
     return EnabledMods;
@@ -181,15 +182,18 @@ int lfModifier::EnableProjectionTransform (lfLensType target_projection)
             {
                 case LF_FISHEYE:
                     AddCoordGeomCallback (ModifyCoord_Geom_FishEye_Rect, 500);
-                    return true;
+                    EnabledMods |= LF_MODIFY_GEOMETRY;
+                    return EnabledMods;
 
                 case LF_PANORAMIC:
                     AddCoordGeomCallback (ModifyCoord_Geom_Panoramic_Rect, 500);
-                    return true;
+                    EnabledMods |= LF_MODIFY_GEOMETRY;
+                    return EnabledMods;
 
                 case LF_EQUIRECTANGULAR:
                     AddCoordGeomCallback (ModifyCoord_Geom_ERect_Rect, 500);
-                    return true;
+                    EnabledMods |= LF_MODIFY_GEOMETRY;
+                    return EnabledMods;
 
                 default:
                     // keep gcc 4.4+ happy
@@ -202,15 +206,18 @@ int lfModifier::EnableProjectionTransform (lfLensType target_projection)
             {
                 case LF_RECTILINEAR:
                     AddCoordGeomCallback (ModifyCoord_Geom_Rect_FishEye, 500);
-                    return true;
+                    EnabledMods |= LF_MODIFY_GEOMETRY;
+                    return EnabledMods;
 
                 case LF_PANORAMIC:
                     AddCoordGeomCallback (ModifyCoord_Geom_Panoramic_FishEye, 500);
-                    return true;
+                    EnabledMods |= LF_MODIFY_GEOMETRY;
+                    return EnabledMods;
 
                 case LF_EQUIRECTANGULAR:
                     AddCoordGeomCallback (ModifyCoord_Geom_ERect_FishEye, 500);
-                    return true;
+                    EnabledMods |= LF_MODIFY_GEOMETRY;
+                    return EnabledMods;
 
                 default:
                     // keep gcc 4.4+ happy
@@ -223,15 +230,18 @@ int lfModifier::EnableProjectionTransform (lfLensType target_projection)
             {
                 case LF_RECTILINEAR:
                     AddCoordGeomCallback (ModifyCoord_Geom_Rect_Panoramic, 500);
-                    return true;
+                    EnabledMods |= LF_MODIFY_GEOMETRY;
+                    return EnabledMods;
 
                 case LF_FISHEYE:
                     AddCoordGeomCallback (ModifyCoord_Geom_FishEye_Panoramic, 500);
-                    return true;
+                    EnabledMods |= LF_MODIFY_GEOMETRY;
+                    return EnabledMods;
 
                 case LF_EQUIRECTANGULAR:
                     AddCoordGeomCallback (ModifyCoord_Geom_ERect_Panoramic, 500);
-                    return true;
+                    EnabledMods |= LF_MODIFY_GEOMETRY;
+                    return EnabledMods;
 
                 default:
                     // keep gcc 4.4+ happy
@@ -244,15 +254,18 @@ int lfModifier::EnableProjectionTransform (lfLensType target_projection)
             {
                 case LF_RECTILINEAR:
                     AddCoordGeomCallback (ModifyCoord_Geom_Rect_ERect, 500);
-                    return true;
+                    EnabledMods |= LF_MODIFY_GEOMETRY;
+                    return EnabledMods;
 
                 case LF_FISHEYE:
                     AddCoordGeomCallback (ModifyCoord_Geom_FishEye_ERect, 500);
-                    return true;
+                    EnabledMods |= LF_MODIFY_GEOMETRY;
+                    return EnabledMods;
 
                 case LF_PANORAMIC:
                     AddCoordGeomCallback (ModifyCoord_Geom_Panoramic_ERect, 500);
-                    return true;
+                    EnabledMods |= LF_MODIFY_GEOMETRY;
+                    return EnabledMods;
 
                 default:
                     // keep gcc 4.4+ happy
@@ -267,30 +280,47 @@ int lfModifier::EnableProjectionTransform (lfLensType target_projection)
             break;
     };
 
+    bool successFrom = false;
+    bool succesTo = false;
+
     //convert from input projection to target projection via equirectangular projection
     switch(to)
     {
         case LF_RECTILINEAR:
             AddCoordGeomCallback (ModifyCoord_Geom_Rect_ERect, 500);
+            succesTo = true;
             break;
+
         case LF_FISHEYE:
             AddCoordGeomCallback (ModifyCoord_Geom_FishEye_ERect, 500);
+            succesTo = true;
             break;
+
         case LF_PANORAMIC:
             AddCoordGeomCallback (ModifyCoord_Geom_Panoramic_ERect, 500);
+            succesTo = true;
             break;
+
         case LF_FISHEYE_ORTHOGRAPHIC:
             AddCoordGeomCallback (ModifyCoord_Geom_Orthographic_ERect, 500);
+            succesTo = true;
             break;
+
         case LF_FISHEYE_STEREOGRAPHIC:
             AddCoordGeomCallback (ModifyCoord_Geom_Stereographic_ERect, 500);
+            succesTo = true;
             break;
+
         case LF_FISHEYE_EQUISOLID:
             AddCoordGeomCallback (ModifyCoord_Geom_Equisolid_ERect, 500);
+            succesTo = true;
             break;
+
         case LF_FISHEYE_THOBY:
             AddCoordGeomCallback (ModifyCoord_Geom_Thoby_ERect, 500);
+            succesTo = true;
             break;
+
         case LF_EQUIRECTANGULAR:
         default:
             //nothing to do
@@ -300,31 +330,51 @@ int lfModifier::EnableProjectionTransform (lfLensType target_projection)
     {
         case LF_RECTILINEAR:
             AddCoordGeomCallback (ModifyCoord_Geom_ERect_Rect, 500);
+            successFrom = true;
             break;
+
         case LF_FISHEYE:
             AddCoordGeomCallback (ModifyCoord_Geom_ERect_FishEye, 500);
+            successFrom = true;
             break;
+
         case LF_PANORAMIC:
             AddCoordGeomCallback (ModifyCoord_Geom_ERect_Panoramic, 500);
+            successFrom = true;
             break;
+
         case LF_FISHEYE_ORTHOGRAPHIC:
             AddCoordGeomCallback (ModifyCoord_Geom_ERect_Orthographic, 500);
+            successFrom = true;
             break;
+
         case LF_FISHEYE_STEREOGRAPHIC:
             AddCoordGeomCallback (ModifyCoord_Geom_ERect_Stereographic, 500);
+            successFrom = true;
             break;
+
         case LF_FISHEYE_EQUISOLID:
             AddCoordGeomCallback (ModifyCoord_Geom_ERect_Equisolid, 500);
+            successFrom = true;
             break;
+
         case LF_FISHEYE_THOBY:
             AddCoordGeomCallback (ModifyCoord_Geom_ERect_Thoby, 500);
+            successFrom = true;
             break;
+
         case LF_EQUIRECTANGULAR:
         default:
             //nothing to do
             break;
     };
-    return true;
+
+    assert(successFrom == succesTo);
+
+    if (successFrom && succesTo)
+        EnabledMods |= LF_MODIFY_GEOMETRY;
+
+    return EnabledMods;
 }
 
 void lfModifier::AddCoordDistCallback (const lfLensCalibDistortion& lcd, lfModifyCoordFunc func, int priority)

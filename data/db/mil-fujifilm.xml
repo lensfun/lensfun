@@ -1275,7 +1275,7 @@
     <lens>
         <maker>Fujifilm</maker>
         <model>XF16mmF2.8 R WR</model>
-        <model lang="en">XF 16mmF2.8 R WR</model>
+        <model lang="en">XF 16mm f/2.8 R WR</model>
         <mount>Fujifilm X</mount>
         <cropfactor>1.529</cropfactor>
         <calibration>
@@ -1299,7 +1299,7 @@
     <lens>
         <maker>Fujifilm</maker>
         <model>XF50-140mmF2.8 R LM OIS WR</model>
-        <model lang="en">XF 50-140mmF2.8 R LM OIS WR</model>
+        <model lang="en">XF 50-140mm f/2.8 R LM OIS WR</model>
         <mount>Fujifilm X</mount>
         <cropfactor>1.529</cropfactor>
         <calibration>
@@ -1373,6 +1373,7 @@
     <lens>
         <maker>Fujifilm</maker>
         <model>XC15-45mmF3.5-5.6 OIS PZ</model>
+        <model lang="en">XC 15-45mm f/3.5-5.6 OIS PZ</model>
         <mount>Fujifilm X</mount>
         <cropfactor>1.529</cropfactor>
         <calibration>
@@ -1578,6 +1579,26 @@
             <vignetting model="pa" focal="80.0" aperture="16.0" distance="1000" k1="-0.1009831" k2="0.0800461" k3="-0.0298415" />
             <vignetting model="pa" focal="80.0" aperture="22.0" distance="10" k1="-0.1141526" k2="0.0977281" k3="-0.0395351" />
             <vignetting model="pa" focal="80.0" aperture="22.0" distance="1000" k1="-0.1141526" k2="0.0977281" k3="-0.0395351" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>XF70-300mmF4-5.6 R LM OIS WR</model>
+        <model lang="en">XF 70-300mm f/4-5.6 R LM OIS WR</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="70" a="0.00735" b="-0.00665" c="0.01898"/>
+            <distortion model="ptlens" focal="118" a="0.00659" b="-0.00212" c="0.01269"/>
+            <distortion model="ptlens" focal="171.3" a="0.00805" b="-0.01535" c="0.03512"/>
+            <distortion model="ptlens" focal="231" a="0.00132" b="0.0072" c="0.00559"/>
+            <distortion model="ptlens" focal="300" a="0.01484" b="-0.03789" c="0.04756"/>
+            <tca model="poly3" focal="70" vr="1.0001985" vb="0.9999910"/>
+            <tca model="poly3" focal="118" vr="1.0000445" vb="0.9999490"/>
+            <tca model="poly3" focal="171.3" vr="1.0000174" vb="0.9998903"/>
+            <tca model="poly3" focal="231" vr="1.0000081" vb="0.9997263"/>
+            <tca model="poly3" focal="300" vr="0.9999696" vb="0.9999207"/>
         </calibration>
     </lens>
 

@@ -18,9 +18,11 @@ keep the directory up to date.
 import re, configparser, os, json, smtplib, datetime
 from pathlib import Path
 from email.mime.text import MIMEText
-import yaml
+from ruamel.yaml import YAML
 from github import Github
 
+
+yaml = YAML()
 
 config = configparser.ConfigParser()
 assert config.read(os.path.expanduser("~/calibration_webserver.ini")), os.path.expanduser("~/calibration_webserver.ini")
@@ -89,10 +91,10 @@ def filter_old_problem_hashes(problem_hashes, owncloud_directories):
         timestamp_path = owncloud_directories[hash_]/"consistency_check_timestamp.yaml"
         now = datetime.datetime.now()
         try:
-            timestamp = yaml.safe_load(open(timestamp_path))
+            timestamp = yaml.load(timestamp_path)
         except FileNotFoundError:
             timestamp = now
-            yaml.dump(timestamp, open(timestamp_path, "w"))
+            yaml.dump(timestamp, timestamp_path)
         if now - timestamp > four_weeks:
             result.add(hash_)
     return result
