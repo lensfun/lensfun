@@ -173,10 +173,10 @@
     <camera>
         <maker>Fujifilm</maker>
         <model>X100V</model>
-        <mount>fujix100</mount>
-        <cropfactor>1.534</cropfactor>
+        <mount>fujix100v2</mount>
+        <cropfactor>1.53</cropfactor>
     </camera>
-    
+
     <camera>
         <maker>Fujifilm</maker>
         <model>X10</model>
@@ -764,6 +764,83 @@
             <!-- Taken with Fujifilm X100s -->
             <distortion model="ptlens" focal="33" a="0.02986" b="-0.05994" c="0.05518"/>
             <tca model="poly3" focal="33" vr="1.0000047" vb="0.9999998"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>X100V &amp; compatibles (Standard)</model>
+        <model lang="en">X100V-lens</model>
+        <model lang="de">X100V-Objektiv</model>
+        <mount>fujix100v2</mount>
+        <focal>value=23</focal>
+        <aspect-ratio>3:2</aspect-ratio>
+        <cropfactor>1.53</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="23.0" a="0.012" b="-0.035" c="0.028"/>
+            <tca model="poly3" focal="23" br="-0.0001891" vr="1.0006333" bb="0.0001910" vb="0.9996052"/>
+            <vignetting model="pa" focal="23" aperture="2" distance="10" k1="-1.0419" k2="0.3007" k3="0.0653"/>
+            <vignetting model="pa" focal="23" aperture="2" distance="1000" k1="-1.0419" k2="0.3007" k3="0.0653"/>
+            <vignetting model="pa" focal="23" aperture="2.8" distance="10" k1="-0.7904" k2="0.3072" k3="-0.0635"/>
+            <vignetting model="pa" focal="23" aperture="2.8" distance="1000" k1="-0.7904" k2="0.3072" k3="-0.0635"/>
+            <vignetting model="pa" focal="23" aperture="4" distance="10" k1="-0.7668" k2="0.2383" k3="-0.0003"/>
+            <vignetting model="pa" focal="23" aperture="4" distance="1000" k1="-0.7668" k2="0.2383" k3="-0.0003"/>
+            <vignetting model="pa" focal="23" aperture="5.6" distance="10" k1="-0.7506" k2="0.2023" k3="0.0200"/>
+            <vignetting model="pa" focal="23" aperture="5.6" distance="1000" k1="-0.7506" k2="0.2023" k3="0.0200"/>
+            <vignetting model="pa" focal="23" aperture="16" distance="10" k1="-0.7642" k2="0.2188" k3="0.0135"/>
+            <vignetting model="pa" focal="23" aperture="16" distance="1000" k1="-0.7642" k2="0.2188" k3="0.0135"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>X100V &amp; compatibles, with WCL-X100</model>
+        <model lang="en">X100V-Lens, with WCL-X100</model>
+        <model lang="de">X100V-Objektiv, mit WCL-X100</model>
+        <mount>fujix100v2</mount>
+        <focal>value=19</focal>
+        <aspect-ratio>3:2</aspect-ratio>
+        <cropfactor>1.53</cropfactor>
+        <calibration>
+            <!-- taken with X100V -->
+            <distortion model="ptlens" focal="19.0" a="0.013" b="-0.053" c="0.025"/>
+            <tca model="poly3" focal="19" br="-0.0001623" vr="1.0005436" bb="0.0001414" vb="0.9998450"/>
+            <vignetting model="pa" focal="19" aperture="2" distance="10" k1="-1.1657" k2="0.0525" k3="0.3229"/>
+            <vignetting model="pa" focal="19" aperture="2" distance="1000" k1="-1.1657" k2="0.0525" k3="0.3229"/>
+            <vignetting model="pa" focal="19" aperture="2.8" distance="10" k1="-0.6851" k2="-0.3498" k3="0.3451"/>
+            <vignetting model="pa" focal="19" aperture="2.8" distance="1000" k1="-0.6851" k2="-0.3498" k3="0.3451"/>
+            <vignetting model="pa" focal="19" aperture="4" distance="10" k1="-0.7740" k2="0.2201" k3="-0.0812"/>
+            <vignetting model="pa" focal="19" aperture="4" distance="1000" k1="-0.7740" k2="0.2201" k3="-0.0812"/>
+            <vignetting model="pa" focal="19" aperture="5.6" distance="10" k1="-0.8426" k2="0.4545" k3="-0.1863"/>
+            <vignetting model="pa" focal="19" aperture="5.6" distance="1000" k1="-0.8426" k2="0.4545" k3="-0.1863"/>
+            <vignetting model="pa" focal="19" aperture="16" distance="10" k1="-0.8486" k2="0.3679" k3="-0.0519"/>
+            <vignetting model="pa" focal="19" aperture="16" distance="1000" k1="-0.8486" k2="0.3679" k3="-0.0519"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>X100V &amp; compatibles, with TCL-X100</model>
+        <model lang="en">X100V-Lens, with TCL-X100</model>
+        <model lang="de">X100V-Objektiv, mit TCL-X100</model>
+        <mount>fujix100v2</mount>
+        <focal>value=33</focal>
+        <aspect-ratio>3:2</aspect-ratio>
+        <cropfactor>1.53</cropfactor>
+        <calibration>
+            <!-- taken with X100V -->
+            <distortion model="ptlens" focal="33.0" a="0.015" b="-0.018" c="0.024"/>
+            <tca model="poly3" focal="33" br="-0.0000983" vr="1.0000761" bb="0.0001118" vb="0.9999220"/>
+            <vignetting model="pa" focal="33" aperture="2" distance="10" k1="-0.9173" k2="-0.2191" k3="0.3869"/>
+            <vignetting model="pa" focal="33" aperture="2" distance="1000" k1="-0.9173" k2="-0.2191" k3="0.3869"/>
+            <vignetting model="pa" focal="33" aperture="2.8" distance="10" k1="-0.6010" k2="-0.1489" k3="0.1105"/>
+            <vignetting model="pa" focal="33" aperture="2.8" distance="1000" k1="-0.6010" k2="-0.1489" k3="0.1105"/>
+            <vignetting model="pa" focal="33" aperture="4" distance="10" k1="-0.7344" k2="0.4093" k3="-0.2479"/>
+            <vignetting model="pa" focal="33" aperture="4" distance="1000" k1="-0.7344" k2="0.4093" k3="-0.2479"/>
+            <vignetting model="pa" focal="33" aperture="5.6" distance="10" k1="-0.7022" k2="0.2724" k3="-0.0837"/>
+            <vignetting model="pa" focal="33" aperture="5.6" distance="1000" k1="-0.7022" k2="0.2724" k3="-0.0837"/>
+            <vignetting model="pa" focal="33" aperture="16" distance="10" k1="-0.6661" k2="0.1026" k3="0.0741"/>
+            <vignetting model="pa" focal="33" aperture="16" distance="1000" k1="-0.6661" k2="0.1026" k3="0.0741"/>
         </calibration>
     </lens>
 
