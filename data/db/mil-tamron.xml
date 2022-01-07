@@ -275,5 +275,26 @@
             <distortion model="ptlens" focal="200" a="0.00959217" b="-0.0226824" c="0.0320856"/>
         </calibration>
     </lens>
-
+    <lens>
+        <maker>Tamron	</maker>
+        <model>E 18-300mm F3.5-6.3 B061</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony A6000 -->
+            <distortion model="ptlens" focal="18.0" a="0.028" b="-0.107" c="0.064" />
+            <distortion model="ptlens" focal="27.0" a="0.017" b="-0.045" c="0.03" />
+            <distortion model="ptlens" focal="38.0" a="-0.012" b="0.06" c="-0.075" />
+            <distortion model="ptlens" focal="53.0" a="-0.009" b="0.051" c="-0.06" />
+            <distortion model="ptlens" focal="60.0" a="-0.004" b="0.024" c="-0.021" />
+            <distortion model="ptlens" focal="86.0" a="-0.003" b="0.021" c="-0.02" />
+            <distortion model="ptlens" focal="100.0" a="0.012" b="-0.039" c="0.053" />
+            <distortion model="ptlens" focal="129.0" a="-0.005" b="0.021" c="-0.019" />
+            <distortion model="ptlens" focal="158.0" a="-0.005" b="0.017" c="-0.007" />
+            <distortion model="ptlens" focal="196.0" a="-0.023" b="0.094" c="-0.111" />
+            <distortion model="ptlens" focal="241.0" a="0.003" b="-0.01" c="0.019" />
+            <distortion model="ptlens" focal="277.0" a="0.019" b="-0.05" c="0.039" />
+            <distortion model="ptlens" focal="300.0" a="0.037" b="-0.128" c="0.15" />
+        </calibration>
+    </lens>
 </lensdatabase>
