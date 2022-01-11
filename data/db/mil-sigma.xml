@@ -399,4 +399,22 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>18-50mm F2.8 DC DN | Contemporary 021</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18" a="0.02179" b="-0.06976" c="0.00503"/>
+            <distortion model="ptlens" focal="24" a="0.00309" b="-0.01385" c="0.02"/>
+            <distortion model="ptlens" focal="28.4" a="0.01602" b="-0.03101" c="0.01928"/>
+            <distortion model="ptlens" focal="35.1" a="0.00926" b="-0.00013" c="-0.00806"/>
+            <distortion model="ptlens" focal="50" a="0.00941" b="-0.00339" c="-0.00339"/>
+            <tca model="poly3" focal="18" vr="1.0007373" vb="1.0003029"/>
+            <tca model="poly3" focal="24" vr="1.0004694" vb="1.0000481"/>
+            <tca model="poly3" focal="28.4" vr="1.0001162" vb="1.0000889"/>
+            <tca model="poly3" focal="35.1" vr="0.9999655" vb="1.0000059"/>
+            <tca model="poly3" focal="50" vr="0.9997535" vb="0.9996120"/>
+        </calibration>
+    </lens>
 </lensdatabase>
