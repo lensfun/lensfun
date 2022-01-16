@@ -295,6 +295,14 @@
         <cropfactor>1</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Sony</maker>
+        <model>DSC-RX0M2</model>
+        <model lang="en">RX0 II</model>
+        <mount>sonyRX0M2</mount>
+        <cropfactor>2.70</cropfactor>
+    </camera>
+
     <lens>
         <maker>Carl Zeiss</maker>
         <model>DSC-R1 &amp; compatibles (Standard)</model>
@@ -1414,6 +1422,19 @@
         <calibration>
             <distortion model="ptlens" focal="35" a="0.01397" b="-0.05582" c="0.04619"/>
             <tca model="poly3" focal="35" vr="1.0001751" vb="1.0000530"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>DSC-RX0M2</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>sonyRX0M2</mount>
+        <cropfactor>2.70</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="7.9" a="0.05683" b="-0.18777" c="0.1603"/>
+            <tca model="poly3" focal="7.9" vr="1.0000640" vb="1.0000737"/>
         </calibration>
     </lens>
 
