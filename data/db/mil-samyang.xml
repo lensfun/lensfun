@@ -224,4 +224,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Samyang</maker>
+        <model>SAMYANG AF 24mm F1.8</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with ILCE 7M4 -->
+            <distortion model="ptlens" focal="24" a="0.01569" b="-0.03867" c="-0.00004"/>
+            <tca model="poly3" focal="24" vr="1.0001037" vb="0.9999944"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
