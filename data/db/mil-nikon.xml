@@ -331,6 +331,26 @@
 
     <lens>
         <maker>Nikon</maker>
+        <model>NIKKOR Z 14-24mm f/2.8 S</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- taken with Nikon Z 7 -->
+            <distortion model="ptlens" focal="14.0" a="0.028" b="-0.104" c="0.085" />
+            <distortion model="ptlens" focal="16.5" a="0.001" b="-0.012" c="0.005" />
+            <distortion model="ptlens" focal="19.0" a="0.001" b="-0.007" c="0.014" />
+            <distortion model="ptlens" focal="21.5" a="0.006" b="-0.021" c="0.035" />
+            <distortion model="ptlens" focal="24.0" a="0.006" b="-0.017" c="0.027" />
+            <tca model="poly3" focal="14.0" vr="1.0001966" vb="0.9999579" />
+            <tca model="poly3" focal="16.5" vr="1.0001013" vb="1.0000021" />
+            <tca model="poly3" focal="19.0" vr="1.0000591" vb="1.0000266" />
+            <tca model="poly3" focal="21.5" vr="1.0000222" vb="1.0000584" />
+            <tca model="poly3" focal="24.0" vr="0.9999988" vb="1.0000805" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
         <model>NIKKOR Z 14-30mm f/4 S</model>
         <mount>Nikon Z</mount>
         <cropfactor>1.0</cropfactor>
