@@ -5098,8 +5098,21 @@
         <calibration>
             <distortion model="ptlens" focal="24" a="0.000860596845977449" b="0.0002663127335183226" c="-0.020873127333617125"/>
             <tca model="poly3" focal="24" vr="1.0002163" vb="0.9999614"/>
+            <vignetting model="pa" focal="24.0" aperture="1.8" distance="10" k1="-1.4474185" k2="0.9687447" k3="-0.3146191" />
+            <vignetting model="pa" focal="24.0" aperture="1.8" distance="1000" k1="-1.4474185" k2="0.9687447" k3="-0.3146191" />
+            <vignetting model="pa" focal="24.0" aperture="2.8" distance="10" k1="-0.2224968" k2="-0.7552554" k3="0.3662438" />
+            <vignetting model="pa" focal="24.0" aperture="2.8" distance="1000" k1="-0.2224968" k2="-0.7552554" k3="0.3662438" />
+            <vignetting model="pa" focal="24.0" aperture="4.0" distance="10" k1="-0.4076399" k2="0.1309857" k3="-0.1570972" />
+            <vignetting model="pa" focal="24.0" aperture="4.0" distance="1000" k1="-0.4076399" k2="0.1309857" k3="-0.1570972" />
+            <vignetting model="pa" focal="24.0" aperture="5.6" distance="10" k1="-0.3627807" k2="-0.0794288" k3="0.0963022" />
+            <vignetting model="pa" focal="24.0" aperture="5.6" distance="1000" k1="-0.3627807" k2="-0.0794288" k3="0.0963022" />
+            <vignetting model="pa" focal="24.0" aperture="8.0" distance="10" k1="-0.3708230" k2="-0.0852049" k3="0.1275640" />
+            <vignetting model="pa" focal="24.0" aperture="8.0" distance="1000" k1="-0.3708230" k2="-0.0852049" k3="0.1275640" />
+            <vignetting model="pa" focal="24.0" aperture="11.0" distance="10" k1="-0.4169345" k2="0.0170899" k3="0.0409526" />
+            <vignetting model="pa" focal="24.0" aperture="11.0" distance="1000" k1="-0.4169345" k2="0.0170899" k3="0.0409526" />
+            <vignetting model="pa" focal="24.0" aperture="16.0" distance="10" k1="-0.4375227" k2="0.0573921" k3="0.0215304" />
+            <vignetting model="pa" focal="24.0" aperture="16.0" distance="1000" k1="-0.4375227" k2="0.0573921" k3="0.0215304" />
         </calibration>
     </lens>
-
 
 </lensdatabase>
