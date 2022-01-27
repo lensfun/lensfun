@@ -1506,4 +1506,27 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>XF16-80mmF4 R OIS WR</model>
+        <model lang="en">XF 16-80mm f/4 R OIS WR</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+	    <!-- Taken with X-S10 -->
+            <distortion model="ptlens" focal="16" a="0.02615" b="-0.10871" c="0.07075"/>
+            <distortion model="ptlens" focal="18.4" a="0.02034" b="-0.07498" c="0.05696"/>
+            <distortion model="ptlens" focal="23.5" a="0.0119" b="-0.03284" c="0.03542"/>
+            <distortion model="ptlens" focal="35.8" a="-0.00388" b="0.02424" c="-0.00598"/>
+            <distortion model="ptlens" focal="48.5" a="-0.00653" b="0.03594" c="-0.01903"/>
+            <distortion model="ptlens" focal="80" a="-0.00522" b="0.01888" c="0.009"/>
+            <tca model="poly3" focal="16" vr="1.0006496" vb="0.9998717"/>
+            <tca model="poly3" focal="18.4" vr="1.0004464" vb="0.9998861"/>
+            <tca model="poly3" focal="23.5" vr="1.0003248" vb="0.9998830"/>
+            <tca model="poly3" focal="35.8" vr="1.0001611" vb="0.9998761"/>
+            <tca model="poly3" focal="48.5" vr="0.9999146" vb="0.9999527"/>
+            <tca model="poly3" focal="80" vr="0.9992888" vb="1.0000597"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
