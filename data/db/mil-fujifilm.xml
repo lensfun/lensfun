@@ -1,5 +1,5 @@
 <!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
-<lensdatabase version="2">
+<lensdatabase>
 
     <mount>
         <name>Fujifilm X</name>
@@ -1460,10 +1460,40 @@
     <lens>
         <maker>Fujifilm</maker>
         <model>XF35mmF2 R WR</model>
-        <model lang="en">XF 35mm f/2 WR</model>
+        <model lang="en">XF 35mm f/2 R WR</model>
         <mount>Fujifilm X</mount>
         <cropfactor>1.528</cropfactor>
         <calibration>
+            <!-- Taken with Fujifilm X-Pro2 -->
+            <distortion model="ptlens" focal="35" a="0.00956" b="-0.07057" c="0.07334"/>
+            <!-- Taken with Fujifilm X-E2 -->
+            <tca model="poly3" focal="35" vr="1.0000774" vb="0.9999724"/>
+            <!-- Taken with Fujifilm X-T20 -->
+            <vignetting model="pa" focal="35.0" aperture="2.0" distance="10" k1="-1.3696769" k2="1.4383322" k3="-0.7466834"/>
+            <vignetting model="pa" focal="35.0" aperture="2.0" distance="1000" k1="-1.3696769" k2="1.4383322" k3="-0.7466834"/>
+            <vignetting model="pa" focal="35.0" aperture="2.8" distance="10" k1="-0.2166397" k2="-0.0858889" k3="-0.1293128"/>
+            <vignetting model="pa" focal="35.0" aperture="2.8" distance="1000" k1="-0.2166397" k2="-0.0858889" k3="-0.1293128"/>
+            <vignetting model="pa" focal="35.0" aperture="4.0" distance="10" k1="-0.3323595" k2="0.7726981" k3="-0.7955168"/>
+            <vignetting model="pa" focal="35.0" aperture="4.0" distance="1000" k1="-0.3323595" k2="0.7726981" k3="-0.7955168"/>
+            <vignetting model="pa" focal="35.0" aperture="5.6" distance="10" k1="-0.5554428" k2="1.4782546" k3="-1.2219035"/>
+            <vignetting model="pa" focal="35.0" aperture="5.6" distance="1000" k1="-0.5554428" k2="1.4782546" k3="-1.2219035"/>
+            <vignetting model="pa" focal="35.0" aperture="8.0" distance="10" k1="-0.5568329" k2="1.3896787" k3="-1.0638731"/>
+            <vignetting model="pa" focal="35.0" aperture="8.0" distance="1000" k1="-0.5568329" k2="1.3896787" k3="-1.0638731"/>
+            <vignetting model="pa" focal="35.0" aperture="11.0" distance="10" k1="-0.4554631" k2="0.9685672" k3="-0.6817791"/>
+            <vignetting model="pa" focal="35.0" aperture="11.0" distance="1000" k1="-0.4554631" k2="0.9685672" k3="-0.6817791"/>
+            <vignetting model="pa" focal="35.0" aperture="16.0" distance="10" k1="-0.3635652" k2="0.5847584" k3="-0.3423511"/>
+            <vignetting model="pa" focal="35.0" aperture="16.0" distance="1000" k1="-0.3635652" k2="0.5847584" k3="-0.3423511"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>XC35mmF2</model>
+        <model lang="en">XC 35mm f/2</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.528</cropfactor>
+        <calibration>
+	    <!-- cloned from XF35mmF2 R WR, which is optically indentical -->
             <!-- Taken with Fujifilm X-Pro2 -->
             <distortion model="ptlens" focal="35" a="0.00956" b="-0.07057" c="0.07334"/>
             <!-- Taken with Fujifilm X-E2 -->
