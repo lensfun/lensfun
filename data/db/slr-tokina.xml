@@ -1,6 +1,5 @@
 <!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
 <lensdatabase version="2">
-
     <lens>
         <!-- Fixme: The versions I and II are optically equivalent.  At the
              same time, exiv2 doesn't seem to be able to distinguish between
@@ -117,6 +116,25 @@
             <vignetting model="pa" focal="16" aperture="7.1" distance="1000" k1="-0.1586" k2="-0.2196" k3="0.1951"/>
             <vignetting model="pa" focal="16" aperture="22" distance="10" k1="-0.1690" k2="-0.2027" k3="0.1971"/>
             <vignetting model="pa" focal="16" aperture="22" distance="1000" k1="-0.1690" k2="-0.2027" k3="0.1971"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Tokina</maker>
+        <model>Tokina ATX-i 11-20mm F2.8 CF</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="11.0" a="0.001" b="-0.022" c="0.024" />
+            <distortion model="ptlens" focal="14.0" a="0.002" b="-0.018" c="0.026" />
+            <distortion model="ptlens" focal="16.0" a="0.002" b="-0.013" c="0.016" />
+            <distortion model="ptlens" focal="18.0" a="0.001" b="-0.005" c="0.008" />
+            <distortion model="ptlens" focal="20.0" a="0.001" b="-0.004" c="0.003" />
+            <tca model="poly3" focal="11.0" vr="1.0001134" vb="1.0002314" />
+            <tca model="poly3" focal="14.0" vr="1.0000468" vb="1.0003206" />
+            <tca model="poly3" focal="16.0" vr="1.0000242" vb="1.0003159" />
+            <tca model="poly3" focal="18.0" vr="0.9999970" vb="1.0003620" />
+            <tca model="poly3" focal="20.0" vr="0.9999960" vb="1.0003542" />
         </calibration>
     </lens>
 
