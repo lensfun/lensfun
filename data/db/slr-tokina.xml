@@ -159,6 +159,27 @@
 
     <lens>
         <maker>Tokina</maker>
+        <model>Tokina AT-X 14-20 F2 PRO DX</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="14.0" a="-0.001" b="-0.012" c="0.008" />
+            <distortion model="ptlens" focal="15.0" a="0.001" b="-0.009" c="-0.011" />
+            <distortion model="ptlens" focal="16.0" a="0" b="-0.013" c="0.014" />
+            <distortion model="ptlens" focal="18.0" a="0.001" b="-0.01" c="0.009" />
+            <distortion model="ptlens" focal="20.0" a="0" b="-0.006" c="0.004" />
+            <tca model="poly3" focal="14.0" vr="1.0001592" vb="1.0002985" />
+            <tca model="poly3" focal="15.0" vr="1.0001189" vb="1.0003740" />
+            <tca model="poly3" focal="16.0" vr="1.0001075" vb="1.0003810" />
+            <tca model="poly3" focal="17.0" vr="1.0001076" vb="1.0003006" />
+            <tca model="poly3" focal="18.0" vr="1.0001118" vb="1.0002641" />
+            <tca model="poly3" focal="19.0" vr="1.0001202" vb="1.0002509" />
+            <tca model="poly3" focal="20.0" vr="1.0001329" vb="1.0002173" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Tokina</maker>
         <model>Tokina 19-35mm f/3.5-4.5 AF 193</model>
         <model lang="en">Tokina AF 19-35mm f/3.5-4.5</model>
         <mount>Canon EF</mount>
