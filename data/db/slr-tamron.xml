@@ -1468,6 +1468,32 @@
 
     <lens>
         <maker>Tamron</maker>
+        <model>Tamron SP 90mm f/2.8 Di VC USD Macro 1:1</model>
+        <model lang="en">Tamron SP 90mm f/2.8 Di VC USD Macro 1:1</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D750 -->
+            <distortion model="ptlens" focal="90.0" a="-0.002" b="0.009" c="-0.011" />
+            <tca model="poly3" focal="90.0" vr="1.0002" vb="1.00004" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Tamron</maker>
+        <model>TAMRON SP 90mm F/2.8 Di VC USD MACRO1:1 F004</model>
+        <model lang="en">Tamron SP 90mm F/2.8 Di VC USD Macro 1:1</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS 5D Mark IV -->
+            <distortion model="ptlens" focal="90.0" a="-0.002" b="0.009" c="-0.011" />
+            <tca model="poly3" focal="90.0" vr="1.0002" vb="1.00004" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Tamron</maker>
         <model>Tamron SP 90mm f/2.8 Di VC USD Macro 1:1 F004</model>
         <model lang="en">Tamron SP 90mm f/2.8 Di VC USD Macro 1:1</model>
         <mount>Nikon F AF</mount>
