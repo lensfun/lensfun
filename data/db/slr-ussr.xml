@@ -205,6 +205,34 @@
     </lens>
 
     <lens>
+        <maker>KMZ</maker>
+        <maker lang="ru">КМЗ</maker>
+        <model>Helios-44 58mm 1:2</model>
+        <model lang="ru">Гелиос-44 58мм 1:2</model>
+        <mount>M42</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with ILCE 7RM2 -->
+            <distortion model="ptlens" focal="58" a="-0.00006" b="-0.00202" c="0.00992"/>
+            <tca model="poly3" focal="58" vr="1.0000701" vb="0.9998276"/>
+            <vignetting model="pa" focal="58" aperture="2" distance="10" k1="-1.4614" k2="1.3711" k3="-0.5946"/>
+            <vignetting model="pa" focal="58" aperture="2" distance="1000" k1="-1.4614" k2="1.3711" k3="-0.5946"/>
+            <vignetting model="pa" focal="58" aperture="2.8" distance="10" k1="-0.0424" k2="-0.7509" k3="0.3478"/>
+            <vignetting model="pa" focal="58" aperture="2.8" distance="1000" k1="-0.0424" k2="-0.7509" k3="0.3478"/>
+            <vignetting model="pa" focal="58" aperture="4" distance="10" k1="-0.2358" k2="0.1564" k3="-0.1930"/>
+            <vignetting model="pa" focal="58" aperture="4" distance="1000" k1="-0.2358" k2="0.1564" k3="-0.1930"/>
+            <vignetting model="pa" focal="58" aperture="5.6" distance="10" k1="-0.1819" k2="-0.0468" k3="-0.0164"/>
+            <vignetting model="pa" focal="58" aperture="5.6" distance="1000" k1="-0.1819" k2="-0.0468" k3="-0.0164"/>
+            <vignetting model="pa" focal="58" aperture="8" distance="10" k1="-0.2138" k2="-0.0227" k3="-0.0230"/>
+            <vignetting model="pa" focal="58" aperture="8" distance="1000" k1="-0.2138" k2="-0.0227" k3="-0.0230"/>
+            <vignetting model="pa" focal="58" aperture="11" distance="10" k1="-0.2556" k2="0.0753" k3="-0.0858"/>
+            <vignetting model="pa" focal="58" aperture="11" distance="1000" k1="-0.2556" k2="0.0753" k3="-0.0858"/>
+            <vignetting model="pa" focal="58" aperture="16" distance="10" k1="-0.2872" k2="0.1130" k3="-0.1066"/>
+            <vignetting model="pa" focal="58" aperture="16" distance="1000" k1="-0.2872" k2="0.1130" k3="-0.1066"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <maker>MTO</maker>
         <maker lang="ru">МТО</maker>
         <model>MTO-500 500mm f/8 mirror lens</model>
