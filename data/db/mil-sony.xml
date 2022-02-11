@@ -2388,4 +2388,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 35mm F1.4 GM (SEL35F14GM)</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with ILCE 7M4 -->
+            <distortion model="ptlens" focal="35" a="0.02135" b="-0.05928" c="0.04611"/>
+            <tca model="poly3" focal="35" vr="1.0000901" vb="0.9999834"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
