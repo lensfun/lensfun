@@ -1,0 +1,35 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
+<!-- 
+DESCRIPTION: 
+	Database for all "Honor" branded smartphones, tables, etc.
+	
+	See XXX for sorting rules
+	This databank is licenced under the Creative Commons Attribution-ShareAlike 3.0 Unported
+-->
+<lensdatabase version="2">
+
+<!-- Device Name: Huawei Honor 6A -->
+	<camera>
+		<!-- Wikidata Item: Q97496463 -->
+	</camera>
+        <maker>Honor</maker>
+        <model>DLI-L22</model>
+        <model lang="en">6A</model>
+        <mount>dlil22</mount>
+        <cropfactor>8.235</cropfactor>
+    </camera>
+    <lens>
+        <maker>Honor</maker>
+        <model>Honor 6A &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>dlil22</mount>
+        <cropfactor>8.235</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <vignetting model="pa" focal="3.4" aperture="2.2" distance="10" k1="-2.3342" k2="2.8667" k3="-1.3321"/>
+            <vignetting model="pa" focal="3.4" aperture="2.2" distance="1000" k1="-2.3342" k2="2.8667" k3="-1.3321"/>
+        </calibration>
+    </lens>
+	
+</lensdatabase>

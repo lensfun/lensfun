@@ -1,0 +1,34 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
+<!-- 
+DESCRIPTION: 
+	Database for all "GitUp" branded action camera
+	
+	See README.md for sorting rules
+	This databank is licenced under the Creative Commons Attribution-ShareAlike 3.0 Unported
+-->
+<lensdatabase version="2">
+
+	<!-- Device Name: GitUp Git2 -->
+    <camera>
+		<!-- Wikidata Item: -->
+        <maker>GitUp</maker>
+        <model>Git2</model>
+        <mount>git2</mount>
+        <cropfactor>5.57</cropfactor>
+    </camera>
+    <lens>
+        <maker>GitUp</maker>
+        <model>Git2 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>git2</mount>
+        <type>equisolid</type>
+        <cropfactor>5.57</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="poly3" focal="3" k1="0.01419"/>
+            <tca model="poly3" focal="3" br="-0.0000201" vr="1.0001473" bb="-0.0001084" vb="1.0005537"/>
+        </calibration>
+    </lens>
+
+</lensdatabase>

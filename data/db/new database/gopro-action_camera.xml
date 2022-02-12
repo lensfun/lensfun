@@ -1,0 +1,107 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
+<!-- 
+DESCRIPTION: 
+	Database for all "GoPro" branded action camera
+	
+	See README.md for sorting rules
+	This databank is licenced under the Creative Commons Attribution-ShareAlike 3.0 Unported
+-->
+<lensdatabase version="2">
+
+<!-- Device Name: GoPro HD HERO2 (?) -->
+    <camera>
+		<!-- Wikidata Item: Q60198306 -->
+        <maker>GoPro</maker>
+        <model>HD2</model>
+        <mount>goProHero</mount>
+        <cropfactor>6.4</cropfactor>
+    </camera>
+	<lens>
+        <maker>GoPro</maker>
+        <model>HD2 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>goProHero</mount>
+        <type>fisheye</type>
+        <cropfactor>6.4</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="2.5" a="-0.07664" b="0.21934" c="-0.10671"/>
+        </calibration>
+    </lens>
+
+<!-- Device Name: GoPro HERO3 -->
+	<camera>
+		<!-- Wikidata Item: -->
+        <maker>GoPro</maker>
+        <model>Hero3+ black</model>
+        <mount>goProHero3+</mount>
+        <cropfactor>5.42</cropfactor>
+    </camera>
+    <lens>
+        <maker>GoPro</maker>
+        <model>GoPro Hero3+ black &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>goProHero3+</mount>
+        <cropfactor>5.42</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="15" a="0.01049" b="0.01663" c="-0.40901"/>
+        </calibration>
+    </lens>
+
+<!-- Device Name: GoPro HERO4 -->
+    <camera>
+		<!-- Wikidata Item: -->
+        <maker>GoPro</maker>
+        <model>HERO4 Black</model>
+        <mount>goProHero4black</mount>
+        <cropfactor>5</cropfactor>
+    </camera>
+    <lens>
+        <maker>GoPro</maker>
+        <model>HERO4 black</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>goProHero4black</mount>
+        <type>stereographic</type>
+        <cropfactor>5</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="poly3" focal="3" k1="-0.03012"/>
+        </calibration>
+    </lens>
+	
+    <camera>
+		<!-- Wikidata Item: -->
+        <maker>GoPro</maker>
+        <model>HERO4 Silver</model>
+        <mount>goProHero4</mount>
+        <cropfactor>7.66</cropfactor>
+    </camera>
+	
+	<lens>
+        <maker>GoPro</maker>
+        <model>HERO4</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>goProHero4</mount>
+        <type>equisolid</type>
+        <cropfactor>7.66</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="3" a="0.03183" b="-0.11592" c="0"/>
+        </calibration>
+    </lens>
+
+<!-- Device Name: GoPro HERO5 -->
+    <camera>
+		<!-- Wikidata Item: Q60198336 -->
+        <maker>GoPro</maker>
+        <model>HERO5 Black</model>
+        <mount>goProHero4black</mount>
+        <cropfactor>5</cropfactor>
+    </camera>
+
+</lensdatabase>

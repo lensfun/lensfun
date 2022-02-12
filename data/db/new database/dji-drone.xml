@@ -1,0 +1,146 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
+<!-- 
+DESCRIPTION: 
+	Database for all "DJI" branded drones
+	
+	See README.md for sorting rules
+	This databank is licenced under the Creative Commons Attribution-ShareAlike 3.0 Unported
+-->
+<lensdatabase version="2">
+
+<!-- Device Name: DJI Mavic 2 Pro -->
+	<camera>
+		<!-- Wikidata Item: Q66499018 -->
+        <maker>Hasselblad</maker>
+        <model>L1D-20c</model>
+        <model lang="en">DJI Mavic 2 Pro</model>
+        <mount>l1d20c</mount>
+        <cropfactor>2.8</cropfactor>
+    </camera>
+    <lens>
+        <maker>Hasselblad</maker>
+        <model>L1D-20c &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>l1d20c</mount>
+        <cropfactor>2.8</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="10" a="0.013" b="-0.071" c="0.021"/>
+        </calibration>
+    </lens>
+	
+<!-- Device Name: DJI Phantom 4 Pro and DJI Phantom 4 Advanced -->
+	<camera>
+		<!-- Wikidata Item: Q109928200 -->
+        <maker>DJI</maker>
+        <model>FC6310</model>
+        <mount>djiFC6310</mount>
+        <cropfactor>2.73</cropfactor>
+    </camera>
+    <lens>
+        <maker>DJI</maker>
+        <model>FC6310 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>djiFC6310</mount>
+        <cropfactor>2.73</cropfactor>
+        <aspect-ratio>16:9</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="8.8" a="0.00961599" b="-0.0582928" c="-0.00551691"/>
+            <tca model="poly3" focal="8.8" vr="1.0000759" vb="1.0000033"/>
+        </calibration>
+    </lens>
+	
+<!-- Device Name: DJI Mavic Air -->
+	 <camera>
+		<!-- Wikidata Item: Q107674290 -->
+        <maker>DJI</maker>
+        <model>Mavic Air FC2103</model>
+        <mount>djiMavicAirFC2103</mount>
+        <cropfactor>5.6</cropfactor>
+    </camera>
+    <lens>
+        <maker>DJI</maker>
+        <model>FC2103 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>djiMavicAirFC2103</mount>
+        <cropfactor>5.6</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="4.5" a="0.01522" b="-0.10515" c="0.13917"/>
+            <tca model="poly3" focal="4.5" vr="1.0001363" vb="1.0000660"/>
+            <vignetting model="pa" focal="4.5" aperture="2.8" distance="10" k1="-0.7961" k2="1.0400" k3="-0.5929"/>
+            <vignetting model="pa" focal="4.5" aperture="2.8" distance="1000" k1="-0.7961" k2="1.0400" k3="-0.5929"/>
+        </calibration>
+    </lens>
+	
+<!-- Device Name: DJI Mavic Pro -->
+    <camera>
+		<!-- Wikidata Item: Q28135244 -->
+        <maker>DJI</maker>
+        <model>Mavic Pro FC220</model>
+        <mount>djiMavicProFC220</mount>
+        <cropfactor>5.64</cropfactor>
+    </camera>
+    <lens>
+        <maker>DJI</maker>
+        <model>Mavic Pro FC220 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>djiMavicProFC220</mount>
+        <cropfactor>5.64</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="4.7" a="0" b="-0.014" c="0.033"/>
+            <tca model="poly3" focal="4.7" br="-0.0000054" vr="1.0000535" bb="-0.0000279" vb="1.0000246"/>
+            <vignetting model="pa" focal="4.7" aperture="2.2" distance="10" k1="-1.550" k2="1.055" k3="-0.195"/>
+            <vignetting model="pa" focal="4.7" aperture="2.2" distance="1000" k1="-1.550" k2="1.055" k3="-0.195"/>
+        </calibration>
+    </lens>
+	
+<!-- Device Name: DJI Phantom 3 Professional -->
+	<camera>
+		<!-- Wikidata Item: -->
+        <maker>DJI</maker>
+        <model>Phantom 3 Pro FC300X</model>
+        <mount>dijPhantom3ProFC300X</mount>
+        <cropfactor>5.5</cropfactor>
+    </camera>
+    <lens>
+        <maker>DJI</maker>
+        <model>Phantom 3 Pro</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>dijPhantom3ProFC300X</mount>
+        <cropfactor>5.5</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <vignetting model="pa" focal="3.6" aperture="2.8" distance="10" k1="-0.9228" k2="0.5367" k3="-0.2985"/>
+            <vignetting model="pa" focal="3.6" aperture="2.8" distance="1000" k1="-0.9228" k2="0.5367" k3="-0.2985"/>
+        </calibration>
+    </lens>
+
+<!-- Device Name: DJI Phantom 2 Vision and DJI Phantom 2 Vision+ -->
+    <camera>
+		<!-- Wikidata Item: -->
+        <maker>DJI</maker>
+        <model>Phantom Vision FC200</model>
+        <mount>dijPhantomVisionFC200</mount>
+        <cropfactor>6</cropfactor>
+    </camera>
+    <lens>
+        <maker>DJI</maker>
+        <model>Phantom Vision FC200 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>dijPhantomVisionFC200</mount>
+        <type>equisolid</type>
+        <cropfactor>6</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="5" a="0.02707" b="-0.10021" c="-0.09787"/>
+            <tca model="poly3" focal="5" vr="1.0002" vb="1.0007"/>
+        </calibration>
+    </lens>
+	
+</lensdatabase>

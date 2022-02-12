@@ -1,0 +1,35 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
+<!-- 
+DESCRIPTION: 
+	Database for all "LG" branded smartphones, tables, etc.
+	
+	See XXX for sorting rules
+	This databank is licenced under the Creative Commons Attribution-ShareAlike 3.0 Unported
+-->
+<lensdatabase version="2">
+
+<!-- Device Name: LG G4 -->
+	<camera>
+		<!-- Wikidata Item: Q19839498 -->
+        <maker>LG Mobile</maker>
+        <maker lang="en">LG</maker>
+        <model>LG-H815</model>
+        <model lang="en">LG G4</model>
+        <mount>lgH815</mount>
+        <cropfactor>6.34</cropfactor>
+    </camera>
+    <lens>
+        <maker>LG</maker>
+        <model>LG G4 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>lgH815</mount>
+        <cropfactor>6.34</cropfactor>
+        <aspect-ratio>16:9</aspect-ratio>
+        <calibration>
+            <distortion model="poly3" focal="4.42" k1="0.00306"/>
+            <tca model="poly3" focal="4.42" vr="1.0000246" vb="1.0000556"/>
+        </calibration>
+    </lens>
+	
+</lensdatabase>

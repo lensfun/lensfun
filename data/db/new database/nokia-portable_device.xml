@@ -1,0 +1,56 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
+<!-- 
+DESCRIPTION: 
+	Database for all "Nokia" branded smartphones, tables, etc.
+	
+	See README.md for sorting rules
+	This databank is licenced under the Creative Commons Attribution-ShareAlike 3.0 Unported
+-->
+<lensdatabase version="2">
+
+<!-- Device Name: Nokia Lumia 1020 -->
+	<camera>
+        <!-- This works for 4:3 and 16:9 because crop factor is the same in
+             both cases, no matter what Nokia's white paper says. -->
+		<!-- Wikidata Item: Q13775482 -->
+        <maker>Nokia</maker>
+        <model>Lumia 1020</model>
+        <mount>lumia1020</mount>
+        <cropfactor>3.93</cropfactor>
+    </camera>
+    <lens>
+        <!-- This works for 4:3 and 16:9 because crop factor is the same in
+             both cases, no matter what Nokia's white paper says. -->
+        <maker>Zeiss</maker>
+        <model>Lumia 1020</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>lumia1020</mount>
+        <cropfactor>3.93</cropfactor>
+        <aspect-ratio>16:9</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="6.6" a="-0.01804" b="0.06109" c="-0.05264"/>
+            <tca model="poly3" focal="6.6" br="-0.0000439" vr="1.0001865" bb="0.0000085" vb="0.9999709"/>
+        </calibration>
+    </lens>
+	
+<!-- Device Name: Nokia Lumia 1520 -->
+	<camera>
+		<!-- Wikidata Item: Q15091627 -->
+        <maker>Nokia</maker>
+        <model>Lumia 1520</model>
+        <mount>lumia1520</mount>
+        <cropfactor>6.26</cropfactor>
+    </camera>
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Standard</model>
+        <mount>lumia1520</mount>
+        <cropfactor>6.26</cropfactor>
+        <aspect-ratio>16:9</aspect-ratio>
+        <calibration>
+            <distortion model="poly3" focal="4.5" k1="0.00674"/>
+        </calibration>
+    </lens>
+
+</lensdatabase>

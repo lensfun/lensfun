@@ -1,0 +1,42 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
+<!-- 
+DESCRIPTION: 
+	Database for all "DJI" branded drones
+	
+	See README.md for sorting rules
+	This databank is licenced under the Creative Commons Attribution-ShareAlike 3.0 Unported
+-->
+<lensdatabase version="2">
+
+<!-- Device Name: AEE MagiCam SD19 -->
+	<camera>
+        <!-- This camera has been rebranded as Hama Action-Cam "Star-60",
+             fantec BeastVision XHD and possibly others. -->
+		<!-- Wikidata Item: -->
+        <maker>AEE DV</maker>
+        <maker lang="en">AEE</maker>
+        <model>AEE DV</model>
+        <model lang="en">AEE MagiCam SD19 &amp; compatibles</model>
+        <mount>aeeDV</mount>
+        <!-- The crop factor is only estimated from the 1/2.5" specs. -->
+        <cropfactor>6</cropfactor>
+    </camera>
+    <lens>
+        <maker>AEE</maker>
+        <model>AEE SD19 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>aeeDV</mount>
+        <type>equisolid</type>
+        <!-- The crop factor is only estimated from the 1/2.5" specs. -->
+        <cropfactor>6</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Measured with 360° panorama -->
+            <!-- distortion model="ptlens" focal="5" a="0.0525" b="-0.1258" c="0.15228" real-focal="2.5" /-->
+            <!-- Measured with a single image, assuming the same FOV as above -->
+            <distortion model="ptlens" focal="5" a="0.05109" b="-0.12092" c="0.10955" real-focal="2.61"/>
+        </calibration>
+    </lens>
+	
+</lensdatabase>

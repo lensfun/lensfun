@@ -1,0 +1,41 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
+<!-- 
+DESCRIPTION: 
+	Database for all "Microsoft" branded smartphones, tables, etc.
+	
+	See README.md for sorting rules
+	This databank is licenced under the Creative Commons Attribution-ShareAlike 3.0 Unported
+-->
+<lensdatabase version="2">
+
+<!-- Device Name: Microsoft Lumia 950 -->
+	<camera>
+		<!-- Wikidata Item: Q21070532 -->
+        <maker>Microsoft</maker>
+        <model>Lumia 950</model>
+        <mount>lumia950</mount>
+        <cropfactor>6.02</cropfactor>
+    </camera>
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Lumia 950</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>lumia950</mount>
+        <cropfactor>6.02</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="4.3" a="-0.01625" b="0.04667" c="-0.03155"/>
+        </calibration>
+    </lens>
+
+<!-- Device Name: Microsoft Lumia 950 XL -->
+	<camera>
+		<!-- Wikidata Item: Q21426153 -->
+        <maker>Microsoft</maker>
+        <model>Lumia 950 XL</model>
+        <mount>lumia950</mount>
+        <cropfactor>6.02</cropfactor>
+    </camera>
+	
+</lensdatabase>
