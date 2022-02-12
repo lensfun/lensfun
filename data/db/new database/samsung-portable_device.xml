@@ -7,5 +7,79 @@ DESCRIPTION:
 	This databank is licenced under the Creative Commons Attribution-ShareAlike 3.0 Unported
 -->
 <lensdatabase version="2">
-
+	
+<!-- Device Name: Samsung Galaxy S7 -->
+	<camera>
+		<!-- Wikidata Item: Q22893875 -->
+        <maker>Samsung</maker>
+        <model>SM-G935F</model>
+        <model lang="en">Galaxy S7</model>
+        <mount>samsungS7</mount>
+        <cropfactor>6.19</cropfactor>
+    </camera>
+    <lens>
+        <maker>Samsung</maker>
+        <model>Samsung S7 wide angle lens cover</model>
+        <mount>samsungS7</mount>
+        <cropfactor>6.19</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="4.2" a="0.03904" b="-0.15646" c="0.13025"/>
+            <tca model="poly3" focal="4.2" vr="1.0000287" vb="1.0001262"/>
+        </calibration>
+    </lens>
+	
+<!-- Device Name: Samsung Galaxy S8 -->
+	<camera>
+		<!-- Wikidata Item: Q28864618 -->
+        <maker>Samsung</maker>
+        <model>SM-G950F</model>
+        <model lang="en">Galaxy S8</model>
+        <mount>samsungS8</mount>
+        <cropfactor>6.19</cropfactor>
+    </camera>
+    <lens>
+        <maker>Samsung</maker>
+        <model>SM-G950F</model>
+        <mount>samsungS8</mount>
+        <cropfactor>6.19</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="4.2" a="0.04069" b="-0.14767" c="0.17184"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Samsung</maker>
+        <model>Samsung S8 wide angle lens</model>
+        <mount>samsungS8wide</mount>
+        <cropfactor>6.047</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="4.3" a="0.028436" b="-0.111992" c="0.127611"/>
+            <tca model="poly3" focal="4.3" vr="1.0000210" vb="1.0000744"/>
+        </calibration>
+    </lens>
+	
+<!-- Device Name: Samsung Galaxy S8 -->
+<!-- This is an alias of the previous entry. -->
+	<camera>
+		<!-- Wikidata Item: Q28864618 -->
+        <maker>Samsung</maker>
+        <model>SM-G9500</model>
+        <model lang="en">Galaxy S8</model>
+        <mount>samsungS8</mount>
+        <cropfactor>6.19</cropfactor>
+    </camera>
+	
+<!-- Device Name: Samsung Galaxy Note 8 -->
+<!-- This is an alias of the previous entry. -->
+	<camera>
+		<!-- Wikidata Item: Q34182458 -->
+        <maker>Samsung</maker>
+        <model>SM-N950U</model>
+        <model lang="en">Galaxy Note 8</model>
+        <mount>samsungS8wide</mount>
+        <cropfactor>6.047</cropfactor>
+    </camera>
+	
 </lensdatabase>
