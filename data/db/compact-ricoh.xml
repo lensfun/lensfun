@@ -173,4 +173,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Ricoh imaging company, ltd.</maker>
+        <model>Ricoh GR III &amp; compatibles, with GW-4</model>
+        <model lang="en">fixed lens, with GW-4</model>
+        <model lang="de">festes Objektiv, mit GW-4</model>
+        <mount>ricohGRIII</mount>
+        <cropfactor>1.53</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="13.8" a="0.023" b="-0.058" c="0.007"/>
+            <tca model="poly3" focal="13.8" br="-0.0000776" vr="1.0003155" bb="0.0001826" vb="0.9996988"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
