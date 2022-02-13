@@ -34,6 +34,22 @@ DESCRIPTION:
         <compat>Generic</compat>
     </mount>
 
+<!--
+       Canon EF lenses
+ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/
+-->
+
+
+<!--
+ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\
+       Canon EF lenses
+-->
+	
+<!--
+      Canon EF-M lenses
+ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/
+-->
+
 <!-- Device Name: Canon EF-M 11-22mm f/4-5.6 IS STM -->
 	<lens>
 		<!-- Wikidata Item: Q24909454 -->
@@ -369,22 +385,6 @@ DESCRIPTION:
         </calibration>
     </lens>
 
-<!-- Device Name: Canon EF-M 18-150mm f/3.5-6.3 IS STM -->
-	<lens>
-		<!-- Wikidata Item: Q28035405 -->
-        <maker>Canon</maker>
-        <model>EF-M 18-150mm f/3.5-6.3 IS STM</model>
-		<mount>Canon EF-M</mount>
-        <cropfactor>1.613</cropfactor>
-        <!-- Empty calibration
-			<calibration>
-				<distortion />
-				<tca />
-				<vignetting />
-			</calibration>
-		-->
-    </lens>
-
 <!-- Device Name: Canon EF-M 22mm f/2 STM -->
 	<lens>
 		<!-- Wikidata Item: Q24909461 -->
@@ -423,68 +423,26 @@ DESCRIPTION:
             <vignetting model="pa" focal="22" aperture="22" distance="1000" k1="-0.8954" k2="0.3316" k3="-0.0229"/>
         </calibration>
     </lens>
-    
-<!-- Device Name: Canon EF-M 28mm f/3.5 Macro IS STM -->
-	<lens>
-		<!-- Wikidata Item: Q24909141 -->
-        <maker>Canon</maker>
-        <model>Canon EF-M 28mm f/3.5 Macro IS STM</model>
-        <mount>Canon EF-M</mount>
-        <cropfactor>1.613</cropfactor>
-        <calibration>
-            <distortion model="ptlens" focal="28" a="0.0033255338545541673" b="-0.005876064547018978" c="0.005072170918790435"/>
-            <tca model="poly3" focal="28" vr="1.0001278" vb="0.9999678"/>
-        </calibration>
-    </lens>
+	
+<!--
+ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\
+     Canon EF-M lenses
+-->
 
-<!-- Device Name: Canon EF-M 32mm f/1.4 STM -->
-	<lens>
-		<!-- Wikidata Item: Q100876300 -->
-        <maker>Canon</maker>
-        <model>EF-M 32mm f/1.4 STM</model>
-		<mount>Canon EF-M</mount>
-        <cropfactor>1.613</cropfactor>
-        <!-- Empty calibration
-			<calibration>
-				<distortion />
-				<tca />
-				<vignetting />
-			</calibration>
-		-->
-    </lens>
+<!--
+      Canon EF-S lenses
+ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/
+-->
 
-<!-- Device Name: Canon RF 5.2mm F2.8L DUAL FISHEYE -->
-	<lens>
-		<!-- Wikidata Item:  -->
-        <maker>Canon</maker>
-        <model>Canon RF 5.2mm F2.8L DUAL FISHEYE</model>
-        <mount>Canon RF</mount>
-        <cropfactor>1.0</cropfactor>
-        <!-- Empty calibration
-			<calibration>
-				<distortion />
-				<tca />
-				<vignetting />
-			</calibration>
-		-->
-    </lens>
+<!--
+ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\
+     Canon EF-S lenses
+-->
 
-	<lens>
-<!-- Device Name: Canon RF 16mm F2.8 STM -->
-		<!-- Wikidata Item:  -->
-        <maker>Canon</maker>
-        <model>Canon RF 16mm F2.8 STM</model>
-        <mount>Canon RF</mount>
-        <cropfactor>1.0</cropfactor>
-        <!-- Empty calibration
-			<calibration>
-				<distortion />
-				<tca />
-				<vignetting />
-			</calibration>
-		-->
-    </lens>
-
+<!--
+       Canon RF lenses
+ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/
+-->
 <!-- Device Name: Canon RF 24–105mm F4L IS USM -->
 	<lens>
 		<!-- Wikidata Item: Q97154591 -->
@@ -588,38 +546,6 @@ DESCRIPTION:
         </calibration>
     </lens>
 
-<!-- Device Name: Canon RF 35mm F1.8 MACRO IS STM -->
-	<lens>
-		<!-- Wikidata Item: Q97154439 -->
-        <maker>Canon</maker>
-        <model>RF 35mm F1.8 MACRO IS STM</model>
-        <mount>Canon RF</mount>
-        <cropfactor>1.0</cropfactor>
-        <!-- Empty calibration
-			<calibration>
-				<distortion />
-				<tca />
-				<vignetting />
-			</calibration>
-		-->
-    </lens>
-
-<!-- Device Name: Canon RF 50mm F1.2L USM -->
-	<lens>
-		<!-- Wikidata Item: Q101245617 -->
-        <maker>Canon</maker>
-        <model>RF 50mm F1.2L USM</model>
-        <mount>Canon RF</mount>
-        <cropfactor>1.0</cropfactor>
-        <!-- Empty calibration
-			<calibration>
-				<distortion />
-				<tca />
-				<vignetting />
-			</calibration>
-		-->
-    </lens>
-
 <!-- Device Name: Canon RF 50mm F1.8 STM -->
 	<lens>
 		<!-- Wikidata Item:  -->
@@ -641,7 +567,7 @@ DESCRIPTION:
         <mount>Canon EF-M</mount>
         <cropfactor>1.613</cropfactor>
         <calibration>
-            <!-- Taken with Canon EOS M3 -->
+            <!-- Calibration images taken with Canon EOS M3 -->
             <distortion model="ptlens" focal="55" a="0.00329" b="-0.01435" c="0.00377"/>
             <distortion model="ptlens" focal="70" a="0.00015" b="-0.00242" c="0.00388"/>
             <distortion model="ptlens" focal="100" a="-0.00155" b="0.01025" c="-0.01011"/>
@@ -789,5 +715,10 @@ DESCRIPTION:
             <vignetting model="pa" focal="85.0" aperture="29.0" distance="1000" k1="-0.2398190" k2="0.1929068" k3="-0.0657888" />
         </calibration>
     </lens>
+	
+<!--
+ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\
+      Canon RF lenses
+-->
 
 </lensdatabase>
