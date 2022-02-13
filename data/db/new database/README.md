@@ -33,6 +33,7 @@ This section containes rules for the scheme within the xml database files.
 - Lens entries for action cameras, compact cameras, drones and portable devices sorted right after the camera
 - Add `<!-- Device Name: NAME -->` before every entry with the full device name. Action cameras, compact cameras, drones and portable devices lenses only should only include the line once.
 - Add `<!-- Wikidata Item: ITEM -->` for every entry with the device's Wikidata item (if existing)
+- Add `<!-- Same as DEVICE (name in COUNTRY) -->` for every entry that also exists under a different name
 - Add `<!-- Calibration images taken with CAMERA -->` for every entry with the camera name the lens has been calibrated with if possible
 
 ## Missing lenses
