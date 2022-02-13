@@ -8,12 +8,62 @@ DESCRIPTION:
 -->
 <lensdatabase version="2">
 
+<!-- Device Name: Canon EF lens mount -->
+    <mount>
+		<!-- Wikidata Item: Q209633 -->
+        <name>Canon EF</name>
+        <compat>M42</compat>
+        <compat>M39/1</compat>
+        <compat>DKL</compat>
+        <compat>T2</compat>
+        <compat>Tamron Adaptall</compat>
+        <compat>Generic</compat>
+    </mount>
+
 <!-- Device Name: Canon EF-M lens mount -->
     <mount>
 		<!-- Wikidata Item: Q209695 -->
         <name>Canon EF-M</name>
         <compat>Canon EF-S</compat>
         <compat>Canon EF</compat>
+        <compat>M42</compat>
+        <compat>M39/1</compat>
+        <compat>DKL</compat>
+        <compat>T2</compat>
+        <compat>Generic</compat>
+    </mount>
+	
+<!-- Device Name: Canon EF-S lens mount -->
+    <mount>
+		<!-- Wikidata Item: Q1155672 -->
+        <name>Canon EF-S</name>
+        <compat>Canon EF</compat>
+        <compat>M42</compat>
+        <compat>M39/1</compat>
+        <compat>DKL</compat>
+        <compat>T2</compat>
+        <compat>Tamron Adaptall</compat>
+        <compat>Generic</compat>
+    </mount>
+
+<!-- Device Name: Canon FD lens mount -->
+    <mount>
+		<!-- Wikidata Item: Q209659 -->
+        <name>Canon FD</name>
+        <compat>Canon FL</compat>
+        <compat>M42</compat>
+        <compat>M39/1</compat>
+        <compat>DKL</compat>
+        <compat>T2</compat>
+        <compat>Tamron Adaptall</compat>
+        <compat>Generic</compat>
+    </mount>
+
+<!-- Device Name: Canon FL lens mount -->
+    <mount>
+		<!-- Wikidata Item: Q1389149 -->
+    <mount>
+        <name>Canon FL</name>
         <compat>M42</compat>
         <compat>M39/1</compat>
         <compat>DKL</compat>
@@ -34,6 +84,201 @@ DESCRIPTION:
         <compat>Generic</compat>
     </mount>
 	
+<!--
+        Canon EF mount
+ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/
+-->
+	
+<!-- Device Name: Canon EOS-1D -->
+	<camera>
+		<!-- Wikidata Item: Q63365 -->
+        <maker>Canon</maker>
+        <model>Canon EOS-1D</model>
+        <model lang="en">EOS-1D</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.255</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS-1D Mark II -->
+	<camera>
+		<!-- Wikidata Item: Q63382 -->
+        <maker>Canon</maker>
+        <model>Canon EOS-1D Mark II</model>
+        <model lang="en">EOS-1D Mark II</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.255</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS-1D Mark II N -->
+	<camera>
+		<!-- Wikidata Item: Q16534791 -->
+        <maker>Canon</maker>
+        <model>Canon EOS-1D Mark II N</model>
+        <model lang="en">EOS-1D Mark II N</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.255</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS-1D Mark III -->
+	<camera>
+		<!-- Wikidata Item: Q63580 -->
+        <maker>Canon</maker>
+        <model>Canon EOS-1D Mark III</model>
+        <model lang="en">EOS-1D Mark III</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.282</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS-1D Mark IV -->
+	<camera>
+		<!-- Wikidata Item: Q63921 -->
+        <maker>Canon</maker>
+        <model>Canon EOS-1D Mark IV</model>
+        <model lang="en">EOS-1D Mark IV</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.290</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS-1Ds -->
+	<camera>
+		<!-- Wikidata Item: Q63950 -->
+        <maker>Canon</maker>
+        <model>Canon EOS-1Ds</model>
+        <model lang="en">EOS-1Ds</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS-1Ds Mark II -->
+	<camera>
+		<!-- Wikidata Item: Q63978 -->
+        <maker>Canon</maker>
+        <model>Canon EOS-1Ds Mark II</model>
+        <model lang="en">EOS-1Ds Mark II</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS-1Ds Mark III -->
+	<camera>
+		<!-- Wikidata Item: Q64002 -->
+        <maker>Canon</maker>
+        <model>Canon EOS-1Ds Mark III</model>
+        <model lang="en">EOS-1Ds Mark III</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS-1D X -->
+	<camera>
+		<!-- Wikidata Item: Q63934 -->
+        <maker>Canon</maker>
+        <model>Canon EOS-1D X</model>
+        <model lang="en">EOS-1D X</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS 1D X Mark II -->
+	<camera>
+		<!-- Wikidata Item: Q22462514 -->
+        <maker>Canon</maker>
+        <model>Canon EOS-1D X Mark II</model>
+        <model lang="en">EOS-1D X Mark II</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS 5D -->
+	<camera>
+		<!-- Wikidata Item: Q64955 -->
+        <maker>Canon</maker>
+        <model>Canon EOS 5D</model>
+        <model lang="en">EOS 5D</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS 5D Mark II -->
+	<camera>
+		<!-- Wikidata Item: Q64962 -->
+        <maker>Canon</maker>
+        <model>Canon EOS 5D Mark II</model>
+        <model lang="en">EOS 5D Mark II</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS 5D Mark III -->
+	<camera>
+		<!-- Wikidata Item: Q65054 -->
+        <maker>Canon</maker>
+        <model>Canon EOS 5D Mark III</model>
+        <model lang="en">EOS 5D Mark III</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS 5D Mark IV -->
+	<camera>
+		<!-- Wikidata Item: Q26709840 -->
+        <maker>Canon</maker>
+        <model>Canon EOS 5D Mark IV</model>
+        <model lang="en">EOS 5D Mark IV</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
+<!-- Device Name: Canon EOS 5Ds -->
+	<camera>
+		<!-- Wikidata Item: Q18985697 -->
+        <maker>Canon</maker>
+        <model>Canon EOS 5DS</model>
+        <model lang="en">EOS 5DS</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS 5DS R -->
+	<camera>
+		<!-- Wikidata Item: Q20888994 -->
+        <maker>Canon</maker>
+        <model>Canon EOS 5DS R</model>
+        <model lang="en">EOS 5DS R</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS 6D -->
+	<camera>
+		<!-- Wikidata Item: Q66215 -->
+        <maker>Canon</maker>
+        <model>Canon EOS 6D</model>
+        <model lang="en">EOS 6D</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.005</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS 6D Mark II -->
+	<camera>
+		<!-- Wikidata Item: Q31201954 -->
+        <maker>Canon</maker>
+        <model>Canon EOS 6D Mark II</model>
+        <model lang="en">EOS 6D Mark II</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.005</cropfactor>
+    </camera>
+
+<!--
+ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\
+        Canon EF mount
+-->
+
+<!--
+       Canon EF-M mount
+ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/
+-->
+
 <!-- Device Name: Canon EOS M -->
 	<camera>
 		<!-- Wikidata Item: Q63318 -->
@@ -104,17 +349,6 @@ DESCRIPTION:
         <cropfactor>1.613</cropfactor>
     </camera>
 
-<!-- Device Name: Canon EOS M50 -->
-<!-- Same as Canon EOS M50 (name Japan) -->
-	<camera>
-		<!-- Wikidata Item: Q51748223 -->
-        <maker>Canon</maker>
-        <model>Canon EOS KISS M</model>
-        <model lang="en">EOS KISS M</model>
-        <mount>Canon EF-M</mount>
-        <cropfactor>1.613</cropfactor>
-    </camera>
-
 <!-- Device Name: Canon EOS M100 -->
 	<camera>
 		<!-- Wikidata Item: Q38148723 -->
@@ -134,6 +368,239 @@ DESCRIPTION:
         <mount>Canon EF-M</mount>
         <cropfactor>1.613</cropfactor>
     </camera>
+
+<!-- Device Name: Canon EOS M50 -->
+<!-- Same as Canon EOS M50 (name in Japan) -->
+	<camera>
+		<!-- Wikidata Item: Q51748223 -->
+        <maker>Canon</maker>
+        <model>Canon EOS KISS M</model>
+        <model lang="en">EOS KISS M</model>
+        <mount>Canon EF-M</mount>
+        <cropfactor>1.613</cropfactor>
+    </camera>
+
+<!--
+ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\
+       Canon EF-M mount
+-->
+
+<!--
+       Canon EF-S mount
+ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/
+-->
+	
+<!-- Device Name: Canon EOS 300D -->
+	<camera>
+		<!-- Wikidata Item: Q64039 -->
+        <maker>Canon</maker>
+        <model>Canon EOS 300D DIGITAL</model>
+        <model lang="en">EOS 300D</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.587</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS 350D -->
+	<camera>
+		<!-- Wikidata Item: Q64072 -->
+        <maker>Canon</maker>
+        <model>Canon EOS 350D DIGITAL</model>
+        <model lang="en">EOS 350D</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.622</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS 400D -->
+	<camera>
+		<!-- Wikidata Item: Q64100 -->
+        <maker>Canon</maker>
+        <model>Canon EOS 400D DIGITAL</model>
+        <model lang="en">EOS 400D</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.622</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS 450D -->
+	<camera>
+		<!-- Wikidata Item: Q64126 -->
+        <maker>Canon</maker>
+        <model>Canon EOS 450D</model>
+        <model lang="en">EOS 450D</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.622</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS 1000D -->
+	<camera>
+		<!-- Wikidata Item: Q63333 -->
+        <maker>Canon</maker>
+        <model>Canon EOS 1000D</model>
+        <model lang="en">EOS 1000D</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.622</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS 1100D -->
+	<camera>
+		<!-- Wikidata Item: Q63353 -->
+        <maker>Canon</maker>
+        <model>Canon EOS 1100D</model>
+        <model lang="en">EOS 1100D</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.620</cropfactor>
+    </camera>
+	
+-------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
+	
+<!-- Device Name: Canon EOS Rebel T3 -->
+<!-- Same as Canon EOS 1100D (name in the United States and Canada) -->
+	<camera>
+		<!-- Wikidata Item: Q63353 -->
+        <maker>Canon</maker>
+        <model>Canon EOS REBEL T3</model>
+        <model lang="en">EOS Rebel T3</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.620</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS Digital Rebel -->
+<!-- Same as Canon EOS 300D (name in the United States and Canada) -->
+	<camera>
+		<!-- Wikidata Item: Q64039 -->
+        <maker>Canon</maker>
+        <model>Canon EOS DIGITAL REBEL</model>
+        <model lang="en">EOS Digital REBEL</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.587</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS Rebel XS -->
+<!-- Same as Canon EOS 1000D (name in the United States and Canada) -->
+	<camera>
+		<!-- Wikidata Item: Q63333 -->
+        <maker>Canon</maker>
+        <model>Canon EOS DIGITAL REBEL XS</model>
+        <model lang="en">EOS Digital Rebel XS</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.622</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS Rebel XSi -->
+<!-- Same as Canon EOS 400D (name in the United States and Canada) -->
+	<camera>
+		<!-- Wikidata Item: Q64126 -->
+        <maker>Canon</maker>
+        <model>Canon EOS DIGITAL REBEL XSi</model>
+        <model lang="en">EOS Digital Rebel XSi</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.622</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS Digital Rebel XT -->
+<!-- Same as Canon EOS 350D (name in the United States and Canada) -->
+	<camera>
+		<!-- Wikidata Item: Q64072 -->
+        <maker>Canon</maker>
+        <model>Canon EOS DIGITAL REBEL XT</model>
+        <model lang="en">EOS Digital Rebel XT</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.622</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS Digital Rebel XTi -->
+<!-- Same as Canon EOS 400D (name in the United States and Canada) -->
+	<camera>
+		<!-- Wikidata Item: Q64100 -->
+        <maker>Canon</maker>
+        <model>Canon EOS DIGITAL REBEL XTi</model>
+        <model lang="en">EOS Digital Rebel XTi</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.622</cropfactor>
+    </camera>
+	
+	
+-------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
+	
+<!-- Device Name: Canon EOS Kiss Digital -->
+<!-- Same as Canon EOS 300D (name in Japan) -->
+	<camera>
+		<!-- Wikidata Item: Q64039 -->
+        <maker>Canon</maker>
+        <model>Canon EOS Kiss Digital</model>
+        <model lang="en">EOS Kiss Digital</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.587</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS Kiss F -->
+<!-- Same as Canon EOS 1000D (name in Japan) -->
+	<camera>
+		<!-- Wikidata Item: Q63333 -->
+        <maker>Canon</maker>
+        <model>Canon EOS Kiss Digital F</model>
+        <model lang="en">EOS Kiss Digital F</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.622</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS Kiss Digital N -->
+<!-- Same as Canon EOS 350D (name in Japan) -->
+	<camera>
+		<!-- Wikidata Item: Q64072 -->
+        <maker>Canon</maker>
+        <model>Canon EOS Kiss Digital N</model>
+        <model lang="en">EOS Kiss Digital N</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.622</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS Kiss Digital X -->
+<!-- Same as Canon EOS 400D (name in Japan) -->
+	<camera>
+		<!-- Wikidata Item: Q64100 -->
+        <maker>Canon</maker>
+        <model>Canon EOS Kiss Digital X</model>
+        <model lang="en">EOS Kiss Digital X</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.622</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS Kiss X2 -->
+<!-- Same as Canon EOS 450D (name in Japan) -->
+	<camera>
+		<!-- Wikidata Item: Q64126 -->
+        <maker>Canon</maker>
+        <model>Canon EOS Kiss Digital X2</model>
+        <model lang="en">EOS Kiss Digital X2</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.622</cropfactor>
+    </camera>
+	
+<!-- Device Name: Canon EOS Kiss X50 -->
+<!-- Same as Canon EOS 1100D (name in Japan) -->
+	<camera>
+		<!-- Wikidata Item: Q63353 -->
+        <maker>Canon</maker>
+        <model>Canon EOS Kiss X50</model>
+        <model lang="en">EOS Kiss X50</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.620</cropfactor>
+    </camera>
+
+
+<!--
+ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\
+       Canon EF-S mount
+-->
+	
+<!--
+        Canon RF mount
+ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/
+-->
 
 <!-- Device Name: Canon EOS R -->
 	<camera>
@@ -184,5 +651,10 @@ DESCRIPTION:
         <mount>Canon RF</mount>
         <cropfactor>1</cropfactor>
     </camera>
+
+<!--
+ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\
+        Canon RF mount
+-->
 	
 </lensdatabase>
