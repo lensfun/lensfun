@@ -958,4 +958,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Viltrox</maker>
+        <model>Viltrox AF 85mm f/1.8 Z</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Nikon Z 6 -->
+            <distortion model="ptlens" focal="85" a="0" b="0.00846" c="0"/>
+            <tca model="poly3" focal="85" vr="0.9998219" vb="0.9999488"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>

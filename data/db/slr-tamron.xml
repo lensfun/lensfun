@@ -78,8 +78,7 @@
 
     <lens>
         <maker>Tamron</maker>
-        <model>17-35mm F/2.8-4 Di OSD</model>
-        <!-- The 'LensIDNumber' EXIF tag = 203 - use with old versions of exiv2 -->
+        <model>Tamron 17-35mm F/2.8-4 Di OSD</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <cropfactor>1</cropfactor>
@@ -1468,6 +1467,32 @@
 
     <lens>
         <maker>Tamron</maker>
+        <model>Tamron SP 90mm f/2.8 Di VC USD Macro 1:1</model>
+        <model lang="en">Tamron SP 90mm f/2.8 Di VC USD Macro 1:1</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D750 -->
+            <distortion model="ptlens" focal="90.0" a="-0.002" b="0.009" c="-0.011" />
+            <tca model="poly3" focal="90.0" vr="1.0002" vb="1.00004" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Tamron</maker>
+        <model>TAMRON SP 90mm F/2.8 Di VC USD MACRO1:1 F004</model>
+        <model lang="en">Tamron SP 90mm F/2.8 Di VC USD Macro 1:1</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS 5D Mark IV -->
+            <distortion model="ptlens" focal="90.0" a="-0.002" b="0.009" c="-0.011" />
+            <tca model="poly3" focal="90.0" vr="1.0002" vb="1.00004" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Tamron</maker>
         <model>Tamron SP 90mm f/2.8 Di VC USD Macro 1:1 F004</model>
         <model lang="en">Tamron SP 90mm f/2.8 Di VC USD Macro 1:1</model>
         <mount>Nikon F AF</mount>
@@ -1699,6 +1724,28 @@
             <distortion model="ptlens" focal="400" a="0.00431" b="-0.00965" c="0.01702"/>
             <vignetting model="pa" focal="18" aperture="22" distance="10" k1="-0.8286" k2="0.4618" k3="-0.0767"/>
             <vignetting model="pa" focal="18" aperture="22" distance="1000" k1="-0.8286" k2="0.4618" k3="-0.0767"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Tamron</maker>
+        <model>Tamron SP 35mm f/1.4 Di USD</model>
+        <mount>Nikon F AF</mount>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Nikon D750 -->
+            <distortion model="ptlens" focal="35" a="0" b="-0.00469" c="0"/>
+            <vignetting model="pa" focal="35.0" aperture="1.4" distance="10" k1="-0.8043285" k2="-0.0692731" k3="0.1399598"/>
+            <vignetting model="pa" focal="35.0" aperture="1.4" distance="1000" k1="-0.8043285" k2="-0.0692731" k3="0.1399598"/>
+            <vignetting model="pa" focal="35.0" aperture="2.0" distance="10" k1="-0.4688201" k2="-0.5378321" k3="0.3184200"/>
+            <vignetting model="pa" focal="35.0" aperture="2.0" distance="1000" k1="-0.4688201" k2="-0.5378321" k3="0.3184200"/>
+            <vignetting model="pa" focal="35.0" aperture="2.8" distance="10" k1="-0.0016102" k2="-0.7385774" k3="0.1935224"/>
+            <vignetting model="pa" focal="35.0" aperture="2.8" distance="1000" k1="-0.0016102" k2="-0.7385774" k3="0.1935224"/>
+            <vignetting model="pa" focal="35.0" aperture="4.0" distance="10" k1="-0.0624779" k2="-0.0873577" k3="-0.2036098"/>
+            <vignetting model="pa" focal="35.0" aperture="4.0" distance="1000" k1="-0.0624779" k2="-0.0873577" k3="-0.2036098"/>
+            <vignetting model="pa" focal="35.0" aperture="16.0" distance="10" k1="-0.1266821" k2="0.0096541" k3="-0.0079802"/>
+            <vignetting model="pa" focal="35.0" aperture="16.0" distance="1000" k1="-0.1266821" k2="0.0096541" k3="-0.0079802"/>
         </calibration>
     </lens>
 

@@ -159,6 +159,32 @@
         <calibration>
             <!-- Taken with ILCE-7M2 -->
             <distortion model="ptlens" focal="24" a="0.01564" b="-0.02852" c="0.00751"/>
+            <vignetting model="pa" focal="24.0" aperture="2.8" distance="10" k1="-2.8657166" k2="3.4130702" k3="-1.4964271" />
+            <vignetting model="pa" focal="24.0" aperture="2.8" distance="1000" k1="-2.8657166" k2="3.4130702" k3="-1.4964271" />
+            <vignetting model="pa" focal="24.0" aperture="3.2" distance="10" k1="-1.9361222" k2="1.2808599" k3="-0.2426904" />
+            <vignetting model="pa" focal="24.0" aperture="3.2" distance="1000" k1="-1.9361222" k2="1.2808599" k3="-0.2426904" />
+            <vignetting model="pa" focal="24.0" aperture="3.5" distance="10" k1="-1.5913415" k2="0.7993512" k3="-0.0751884" />
+            <vignetting model="pa" focal="24.0" aperture="3.5" distance="1000" k1="-1.5913415" k2="0.7993512" k3="-0.0751884" />
+            <vignetting model="pa" focal="24.0" aperture="4.0" distance="10" k1="-1.5819555" k2="0.9314852" k3="-0.2029913" />
+            <vignetting model="pa" focal="24.0" aperture="4.0" distance="1000" k1="-1.5819555" k2="0.9314852" k3="-0.2029913" />
+            <vignetting model="pa" focal="24.0" aperture="4.5" distance="10" k1="-1.6056173" k2="1.0810133" k3="-0.3186936" />
+            <vignetting model="pa" focal="24.0" aperture="4.5" distance="1000" k1="-1.6056173" k2="1.0810133" k3="-0.3186936" />
+            <vignetting model="pa" focal="24.0" aperture="5.0" distance="10" k1="-1.6364913" k2="1.1926612" k3="-0.3882603" />
+            <vignetting model="pa" focal="24.0" aperture="5.0" distance="1000" k1="-1.6364913" k2="1.1926612" k3="-0.3882603" />
+            <vignetting model="pa" focal="24.0" aperture="5.6" distance="10" k1="-1.6489708" k2="1.2239532" k3="-0.3979710" />
+            <vignetting model="pa" focal="24.0" aperture="5.6" distance="1000" k1="-1.6489708" k2="1.2239532" k3="-0.3979710" />
+            <vignetting model="pa" focal="24.0" aperture="6.3" distance="10" k1="-1.6415316" k2="1.1883553" k3="-0.3580674" />
+            <vignetting model="pa" focal="24.0" aperture="6.3" distance="1000" k1="-1.6415316" k2="1.1883553" k3="-0.3580674" />
+            <vignetting model="pa" focal="24.0" aperture="7.1" distance="10" k1="-1.6402486" k2="1.1837875" k3="-0.3538495" />
+            <vignetting model="pa" focal="24.0" aperture="7.1" distance="1000" k1="-1.6402486" k2="1.1837875" k3="-0.3538495" />
+            <vignetting model="pa" focal="24.0" aperture="8.0" distance="10" k1="-1.6510733" k2="1.2072114" k3="-0.3662549" />
+            <vignetting model="pa" focal="24.0" aperture="8.0" distance="1000" k1="-1.6510733" k2="1.2072114" k3="-0.3662549" />
+            <vignetting model="pa" focal="24.0" aperture="11.0" distance="10" k1="-1.7243561" k2="1.3102248" k3="-0.4094080" />
+            <vignetting model="pa" focal="24.0" aperture="11.0" distance="1000" k1="-1.7243561" k2="1.3102248" k3="-0.4094080" />
+            <vignetting model="pa" focal="24.0" aperture="16.0" distance="10" k1="-1.7421938" k2="1.3468963" k3="-0.4296444" />
+            <vignetting model="pa" focal="24.0" aperture="16.0" distance="1000" k1="-1.7421938" k2="1.3468963" k3="-0.4296444" />
+            <vignetting model="pa" focal="24.0" aperture="22.0" distance="10" k1="-1.8011240" k2="1.4499840" k3="-0.4765021" />
+            <vignetting model="pa" focal="24.0" aperture="22.0" distance="1000" k1="-1.8011240" k2="1.4499840" k3="-0.4765021" />
         </calibration>
     </lens>
     
@@ -221,6 +247,31 @@
             <tca model="poly3" focal="85" vr="1.0000132" vb="0.9998255"/>
             <tca model="poly3" focal="85" vr="1.0000160" vb="0.9998137"/>
             <tca model="poly3" focal="85" vr="1.0000197" vb="0.9998246"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Samyang</maker>
+        <model>SAMYANG AF 24mm F1.8</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with ILCE 7M4 -->
+            <distortion model="ptlens" focal="24" a="0.01569" b="-0.03867" c="-0.00004"/>
+            <tca model="poly3" focal="24" vr="1.0001037" vb="0.9999944"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Samyang</maker>
+        <model>SAMYANG AF 12mm F2.0</model>
+        <mount>Sony E</mount>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-5100 -->
+            <distortion model="ptlens" focal="12.0" a="0.01" b="-0.037" c="0.021"/>
+            <tca model="poly3" focal="12.0" br="0.0000539" vr="1.0002125" bb="-0.0000235" vb="1.0003006"/>
         </calibration>
     </lens>
 

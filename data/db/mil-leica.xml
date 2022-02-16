@@ -47,13 +47,34 @@
     </camera>
 
     <lens>
-        <maker>Leica Camera AG</maker>
+        <maker>LEICA CAMERA AG</maker>
         <model>Summicron TL 1:2 23 ASPH.</model>
         <mount>Leica L</mount>
         <cropfactor>1.53</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="23" a="0.003295" b="-0.024903" c="0.013932"/>
+            <distortion model="ptlens" focal="23" a="-0.001" b="-0.01" c="-0.001"/>
             <tca model="poly3" focal="23" vb="0.9997527" bb="0.0002195" cb="-0.0001105" vr="1.0005565" br="-0.0002789" cr="0.0002358"/>
+            <vignetting model="pa" focal="23" aperture="2" distance="10" k1="-0.8977" k2="0.5099" k3="-0.1328"/>
+            <vignetting model="pa" focal="23" aperture="2" distance="1000" k1="-0.8977" k2="0.5099" k3="-0.1328"/>
+            <vignetting model="pa" focal="23" aperture="2.8" distance="10" k1="-0.0957" k2="-0.5515" k3="0.3349"/>
+            <vignetting model="pa" focal="23" aperture="2.8" distance="1000" k1="-0.0957" k2="-0.5515" k3="0.3349"/>
+            <vignetting model="pa" focal="23" aperture="4" distance="10" k1="-0.2689" k2="0.0332" k3="-0.0713"/>
+            <vignetting model="pa" focal="23" aperture="4" distance="1000" k1="-0.2689" k2="0.0332" k3="-0.0713"/>
+            <vignetting model="pa" focal="23" aperture="5.6" distance="10" k1="-0.2602" k2="-0.0747" k3="0.0728"/>
+            <vignetting model="pa" focal="23" aperture="5.6" distance="1000" k1="-0.2602" k2="-0.0747" k3="0.0728"/>
+            <vignetting model="pa" focal="23" aperture="16" distance="10" k1="-0.2830" k2="-0.0433" k3="0.0513"/>
+            <vignetting model="pa" focal="23" aperture="16" distance="1000" k1="-0.2830" k2="-0.0433" k3="0.0513"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>LEICA CAMERA AG</maker>
+        <model>Summilux-TL 1:1.4/35 ASPH.</model>
+        <mount>Leica L</mount>
+        <cropfactor>1.53</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="35.0" a="0.006" b="-0.017" c="0.003" />
+            <tca model="poly3" focal="35.0" br="-0.0000372" vr="1.0003030" bb="0.0000610" vb="1.0001119" />
         </calibration>
     </lens>
 
