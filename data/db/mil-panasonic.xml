@@ -157,6 +157,13 @@
 
     <camera>
         <maker>Panasonic</maker>
+        <model>DMC-G70</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Panasonic</maker>
         <model>DMC-G10</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2</cropfactor>
@@ -228,6 +235,46 @@
         <mount>Micro 4/3 System</mount>
         <cropfactor>2</cropfactor>
     </camera>
+	
+    <!-- Added by ExpPhysU on 2020-12-12. -->	
+    <!-- Source: https://www.dpreview.com/reviews/buying-guide-best-cameras-under-1500/9  and my own camera DC-G91-->
+    <camera>
+        <maker>Panasonic</maker>
+        <model>DC-G90</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+    </camera>
+    
+    <!-- Added by ExpPhysU on 2020-12-12. -->	
+    <camera>
+	 <!-- Alias for the DC-G90. -->
+	 <!-- The G90 is also known as G91, G95 and G99 in some regions. G91 is the European Name-->
+        <maker>Panasonic</maker>
+        <model>DC-G91</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+    </camera>
+    
+    <!-- Added by ExpPhysU on 2020-12-12. -->	
+    <camera>
+	 <!-- Alias for the DC-G90. -->
+	 <!-- The G90 is also known as G91, G95 and G99 in some regions. G91 is the European Name-->
+        <maker>Panasonic</maker>
+        <model>DC-G95</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+    </camera>
+    
+    <!-- Added by ExpPhysU on 2020-12-12. -->	
+    <camera>
+	 <!-- Alias for the DC-G90. -->
+	 <!-- The G90 is also known as G91, G95 and G99 in some regions. G91 is the European Name-->
+        <maker>Panasonic</maker>
+        <model>DC-G99</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+    </camera>
+ 
 
     <camera>
         <maker>Panasonic</maker>
@@ -239,6 +286,13 @@
     <camera>
         <maker>Panasonic</maker>
         <model>DC-S1R</model>
+        <mount>Leica L</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Panasonic</maker>
+        <model>DC-S5</model>
         <mount>Leica L</mount>
         <cropfactor>1</cropfactor>
     </camera>
@@ -2305,4 +2359,48 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Panasonic</maker>
+        <model>LUMIX S 20-60/F3.5-5.6</model>
+        <mount>Leica L</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="20" a="0.02161" b="-0.03781" c="-0.08584"/>
+            <distortion model="ptlens" focal="22" a="0.0167" b="-0.03241" c="-0.05843"/>
+            <distortion model="ptlens" focal="26" a="0.00766" b="-0.0119" c="-0.04346"/>
+            <distortion model="ptlens" focal="28" a="0.00868" b="-0.01378" c="-0.03002"/>
+            <distortion model="ptlens" focal="30" a="0.00649" b="-0.00331" c="-0.03731"/>
+            <distortion model="ptlens" focal="32" a="0.00319" b="0.00809" c="-0.04183"/>
+            <distortion model="ptlens" focal="34" a="0.00519" b="-0.00482" c="-0.00339"/>
+            <distortion model="ptlens" focal="36" a="0.00091" b="0.01028" c="-0.01714"/>
+            <distortion model="ptlens" focal="48" a="-0.00407" b="0.02318" c="-0.016"/>
+            <distortion model="ptlens" focal="50" a="-0.00208" b="0.01335" c="-0.0009"/>
+            <distortion model="ptlens" focal="52" a="-0.00309" b="0.01833" c="-0.00661"/>
+            <distortion model="ptlens" focal="54" a="-0.00502" b="0.02335" c="-0.01118"/>
+            <distortion model="ptlens" focal="56" a="-0.0028" b="0.01349" c="0.00276"/>
+            <distortion model="ptlens" focal="58" a="-0.00635" b="0.02512" c="-0.00841"/>
+            <distortion model="ptlens" focal="60" a="0.00073" b="0.00283" c="0.01141"/>
+            <tca model="poly3" focal="20" vr="1.0002580" vb="0.9999665"/>
+            <tca model="poly3" focal="22" vr="1.0002848" vb="0.9998984"/>
+            <tca model="poly3" focal="24" vr="1.0002944" vb="0.9999225"/>
+            <tca model="poly3" focal="26" vr="1.0003025" vb="0.9998637"/>
+            <tca model="poly3" focal="28" vr="1.0002841" vb="0.9998828"/>
+            <tca model="poly3" focal="30" vr="1.0002736" vb="0.9998411"/>
+            <tca model="poly3" focal="32" vr="1.0002742" vb="0.9998305"/>
+            <tca model="poly3" focal="34" vr="1.0002016" vb="0.9999142"/>
+            <tca model="poly3" focal="36" vr="1.0002279" vb="0.9999211"/>
+            <tca model="poly3" focal="38" vr="1.0002420" vb="0.9999155"/>
+            <tca model="poly3" focal="40" vr="1.0002296" vb="0.9998679"/>
+            <tca model="poly3" focal="42" vr="1.0002248" vb="0.9998350"/>
+            <tca model="poly3" focal="44" vr="1.0002192" vb="0.9998244"/>
+            <tca model="poly3" focal="46" vr="1.0001764" vb="0.9998377"/>
+            <tca model="poly3" focal="48" vr="1.0001596" vb="0.9998706"/>
+            <tca model="poly3" focal="50" vr="1.0001241" vb="0.9999212"/>
+            <tca model="poly3" focal="52" vr="1.0000899" vb="0.9999692"/>
+            <tca model="poly3" focal="54" vr="1.0000101" vb="0.9999949"/>
+            <tca model="poly3" focal="56" vr="0.9999806" vb="1.0000386"/>
+            <tca model="poly3" focal="58" vr="0.9999565" vb="1.0000703"/>
+            <tca model="poly3" focal="60" vr="0.9999010" vb="1.0001194"/>
+        </calibration>
+    </lens>
 </lensdatabase>

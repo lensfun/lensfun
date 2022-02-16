@@ -3,6 +3,78 @@
 
     <lens>
         <maker>Tamron</maker>
+	<!-- Tamron 17-70mm F/2.8 Di III-A VC RXD -->
+        <model>E 17-70mm F2.8 B070</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.534</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+	    <!-- Taken with Sony A6000 -->
+	    <distortion model="ptlens" focal="17" a="0.02392" b="-0.07326" c="0.03809"/>
+            <distortion model="ptlens" focal="24" a="0.01409" b="-0.02879" c="0.02157"/>
+            <distortion model="ptlens" focal="35" a="0.00492" b="0.00706" c="-0.00901"/>
+            <distortion model="ptlens" focal="52" a="0.01455" b="-0.04175" c="0.07031"/>
+            <distortion model="ptlens" focal="70" a="0.01162" b="-0.03058" c="0.0507"/>
+            <tca model="poly3" focal="17" vr="1.0000763" vb="1.0003643"/> <!-- aperture f/2.8 -->
+            <tca model="poly3" focal="24" vr="1.0000772" vb="1.0000955"/> <!-- aperture f/2.8 -->
+            <tca model="poly3" focal="35" vr="1.0000241" vb="1.0000744"/> <!-- aperture f/2.8 -->
+            <tca model="poly3" focal="52" vr="0.9999310" vb="0.9999789"/> <!-- aperture f/2.8 -->
+            <tca model="poly3" focal="70" vr="0.9998247" vb="0.9999204"/> <!-- aperture f/2.8 -->
+            <vignetting model="pa" focal="17" aperture="2.8" distance="10" k1="0.5291" k2="-2.6439" k3="1.9265"/>
+            <vignetting model="pa" focal="17" aperture="2.8" distance="1000" k1="0.5291" k2="-2.6439" k3="1.9265"/>
+            <vignetting model="pa" focal="17" aperture="4" distance="10" k1="0.1105" k2="-1.7725" k3="1.9077"/>
+            <vignetting model="pa" focal="17" aperture="4" distance="1000" k1="0.1105" k2="-1.7725" k3="1.9077"/>
+            <vignetting model="pa" focal="17" aperture="5.6" distance="10" k1="0.0591" k2="-0.9283" k3="0.7662"/>
+            <vignetting model="pa" focal="17" aperture="5.6" distance="1000" k1="0.0591" k2="-0.9283" k3="0.7662"/>
+            <vignetting model="pa" focal="17" aperture="8" distance="10" k1="-0.2262" k2="-0.4577" k3="0.5165"/>
+            <vignetting model="pa" focal="17" aperture="8" distance="1000" k1="-0.2262" k2="-0.4577" k3="0.5165"/>
+            <vignetting model="pa" focal="17" aperture="22" distance="10" k1="-0.2481" k2="-1.0776" k3="1.4016"/>
+            <vignetting model="pa" focal="17" aperture="22" distance="1000" k1="-0.2481" k2="-1.0776" k3="1.4016"/>
+            <vignetting model="pa" focal="24" aperture="2.8" distance="10" k1="-1.9875" k2="4.3397" k3="-3.0305"/>
+            <vignetting model="pa" focal="24" aperture="2.8" distance="1000" k1="-1.9875" k2="4.3397" k3="-3.0305"/>
+            <vignetting model="pa" focal="24" aperture="4" distance="10" k1="-1.6278" k2="3.2503" k3="-2.2477"/>
+            <vignetting model="pa" focal="24" aperture="4" distance="1000" k1="-1.6278" k2="3.2503" k3="-2.2477"/>
+            <vignetting model="pa" focal="24" aperture="5.6" distance="10" k1="-1.5519" k2="2.6344" k3="-1.6706"/>
+            <vignetting model="pa" focal="24" aperture="5.6" distance="1000" k1="-1.5519" k2="2.6344" k3="-1.6706"/>
+            <vignetting model="pa" focal="24" aperture="8" distance="10" k1="-1.5750" k2="2.7142" k3="-1.7854"/>
+            <vignetting model="pa" focal="24" aperture="8" distance="1000" k1="-1.5750" k2="2.7142" k3="-1.7854"/>
+            <vignetting model="pa" focal="24" aperture="22" distance="10" k1="-1.7033" k2="3.1637" k3="-2.1262"/>
+            <vignetting model="pa" focal="24" aperture="22" distance="1000" k1="-1.7033" k2="3.1637" k3="-2.1262"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="10" k1="-2.1676" k2="4.8175" k3="-3.3152"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="1000" k1="-2.1676" k2="4.8175" k3="-3.3152"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="10" k1="-2.3648" k2="5.3672" k3="-3.5902"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="1000" k1="-2.3648" k2="5.3672" k3="-3.5902"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="10" k1="-1.9683" k2="4.1441" k3="-2.6716"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="1000" k1="-1.9683" k2="4.1441" k3="-2.6716"/>
+            <vignetting model="pa" focal="35" aperture="8" distance="10" k1="-2.1517" k2="4.7876" k3="-3.1793"/>
+            <vignetting model="pa" focal="35" aperture="8" distance="1000" k1="-2.1517" k2="4.7876" k3="-3.1793"/>
+            <vignetting model="pa" focal="35" aperture="22" distance="10" k1="-2.1950" k2="4.8756" k3="-3.2377"/>
+            <vignetting model="pa" focal="35" aperture="22" distance="1000" k1="-2.1950" k2="4.8756" k3="-3.2377"/>
+            <vignetting model="pa" focal="52" aperture="2.8" distance="10" k1="-0.1065" k2="-0.4419" k3="0.1675"/>
+            <vignetting model="pa" focal="52" aperture="2.8" distance="1000" k1="-0.1065" k2="-0.4419" k3="0.1675"/>
+            <vignetting model="pa" focal="52" aperture="4" distance="10" k1="0.1205" k2="-0.2252" k3="-0.2747"/>
+            <vignetting model="pa" focal="52" aperture="4" distance="1000" k1="0.1205" k2="-0.2252" k3="-0.2747"/>
+            <vignetting model="pa" focal="52" aperture="5.6" distance="10" k1="0.2000" k2="-0.3515" k3="-0.2081"/>
+            <vignetting model="pa" focal="52" aperture="5.6" distance="1000" k1="0.2000" k2="-0.3515" k3="-0.2081"/>
+            <vignetting model="pa" focal="52" aperture="8" distance="10" k1="0.2379" k2="-0.6074" k3="0.0924"/>
+            <vignetting model="pa" focal="52" aperture="8" distance="1000" k1="0.2379" k2="-0.6074" k3="0.0924"/>
+            <vignetting model="pa" focal="52" aperture="22" distance="10" k1="0.4313" k2="-1.0187" k3="0.3529"/>
+            <vignetting model="pa" focal="52" aperture="22" distance="1000" k1="0.4313" k2="-1.0187" k3="0.3529"/>
+            <vignetting model="pa" focal="70" aperture="2.8" distance="10" k1="-0.6520" k2="1.3746" k3="-1.1649"/>
+            <vignetting model="pa" focal="70" aperture="2.8" distance="1000" k1="-0.6520" k2="1.3746" k3="-1.1649"/>
+            <vignetting model="pa" focal="70" aperture="4" distance="10" k1="1.0043" k2="-1.8219" k3="0.5522"/>
+            <vignetting model="pa" focal="70" aperture="4" distance="1000" k1="1.0043" k2="-1.8219" k3="0.5522"/>
+            <vignetting model="pa" focal="70" aperture="5.6" distance="10" k1="0.5302" k2="-0.7574" k3="-0.0515"/>
+            <vignetting model="pa" focal="70" aperture="5.6" distance="1000" k1="0.5302" k2="-0.7574" k3="-0.0515"/>
+            <vignetting model="pa" focal="70" aperture="8" distance="10" k1="0.1357" k2="0.1461" k3="-0.5228"/>
+            <vignetting model="pa" focal="70" aperture="8" distance="1000" k1="0.1357" k2="0.1461" k3="-0.5228"/>
+            <vignetting model="pa" focal="70" aperture="22" distance="10" k1="-0.3801" k2="1.5719" k3="-1.3830"/>
+            <vignetting model="pa" focal="70" aperture="22" distance="1000" k1="-0.3801" k2="1.5719" k3="-1.3830"/>
+        </calibration>
+    </lens>
+    
+    <lens>
+        <maker>Tamron</maker>
         <model>Tamron 18-200mm f/3.5-6.3 Di III VC</model>
         <mount>Sony E</mount>
         <mount>Canon EF-M</mount>
@@ -153,4 +225,76 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tamron</maker>
+        <model>E 17-28mm F2.8-2.8</model>
+        <mount>Sony E</mount>
+        <aperture max="2.8" min="2.8"/>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Thanks to fheinig for the profile -->
+            <distortion model="ptlens" focal="17" a="0.0119487" b="-0.0187828" c="-0.0379118"/>
+            <distortion model="ptlens" focal="19" a="0.0158913" b="-0.030955" c="-0.0138245"/>
+            <distortion model="ptlens" focal="20" a="0.0173522" b="-0.0355207" c="0.00462118"/>
+            <distortion model="ptlens" focal="21" a="0.0163097" b="-0.0313141" c="0.00317845"/>
+            <distortion model="ptlens" focal="22" a="0.014597" b="-0.026237" c="0.00275903"/>
+            <distortion model="ptlens" focal="23" a="0.0147393" b="-0.0268074" c="0.00879658"/>
+            <distortion model="ptlens" focal="24" a="0.0132051" b="-0.0221023" c="0.00665771"/>
+            <distortion model="ptlens" focal="25" a="0.013138" b="-0.0229404" c="0.0112717"/>
+            <distortion model="ptlens" focal="26" a="0.00474933" b="0.00263057" c="-0.0114455"/>
+            <distortion model="ptlens" focal="28" a="0.0105916" b="-0.0179303" c="0.0119596"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Tamron</maker>
+        <model>E 28-200mm F2.8-5.6 A071</model>
+        <mount>Sony E</mount>
+        <aperture max="5.6" min="2.8"/>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Thanks to fheinig for the profile -->
+            <distortion model="ptlens" focal="28" a="0.00611142" b="-0.0180555" c="0.00453851"/>
+            <distortion model="ptlens" focal="35" a="0.00655527" b="-0.00664331" c="0.00522778"/>
+            <distortion model="ptlens" focal="39" a="0.00422728" b="0.00322713" c="0.00262266"/>
+            <distortion model="ptlens" focal="44" a="0.00325735" b="0.00841372" c="0.000754529"/>
+            <distortion model="ptlens" focal="49" a="0.00304066" b="0.0097271" c="0.00210334"/>
+            <distortion model="ptlens" focal="55" a="0.00235919" b="0.00995872" c="0.00666616"/>
+            <distortion model="ptlens" focal="62" a="0.00596533" b="-0.00125404" c="0.0155999"/>
+            <distortion model="ptlens" focal="69" a="0.00187538" b="0.0106945" c="0.00679627"/>
+            <distortion model="ptlens" focal="78" a="0.0017016" b="0.00989289" c="0.00712686"/>
+            <distortion model="ptlens" focal="88" a="-0.00456898" b="0.0372156" c="-0.0327783"/>
+            <distortion model="ptlens" focal="99" a="-0.00528264" b="0.0326967" c="-0.0199605"/>
+            <distortion model="ptlens" focal="101" a="-0.00172726" b="0.0207933" c="-0.00734779"/>
+            <distortion model="ptlens" focal="112" a="0.00123386" b="0.00587924" c="0.0117576"/>
+            <distortion model="ptlens" focal="124" a="0.00341514" b="0.00650555" c="-0.00255335"/>
+            <distortion model="ptlens" focal="136" a="0.00837061" b="-0.0107138" c="0.014659"/>
+            <distortion model="ptlens" focal="148" a="0.00582862" b="-0.000773847" c="0.00144583"/>
+            <distortion model="ptlens" focal="160" a="-0.00627941" b="0.0247027" c="-0.00487697"/>
+            <distortion model="ptlens" focal="176" a="0.00296199" b="-0.00200734" c="0.0175149"/>
+            <distortion model="ptlens" focal="200" a="0.00959217" b="-0.0226824" c="0.0320856"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Tamron</maker>
+        <model>E 18-300mm F3.5-6.3 B061</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony A6000 -->
+            <distortion model="ptlens" focal="18.0" a="0.02805" b="-0.10668" c="0.06382" />
+            <distortion model="ptlens" focal="27.0" a="0.01683" b="-0.04455" c="0.03014" />
+            <distortion model="ptlens" focal="38.0" a="-0.01212" b="0.06048" c="-0.07478" />
+            <distortion model="ptlens" focal="53.0" a="-0.00924" b="0.05064" c="-0.06029" />
+            <distortion model="ptlens" focal="60.0" a="-0.00417" b="0.0245" c="-0.02118" />
+            <distortion model="ptlens" focal="86.0" a="-0.00333" b="0.02128" c="-0.02027" />
+            <distortion model="ptlens" focal="100.0" a="0.01239" b="-0.03935" c="0.05252" />
+            <distortion model="ptlens" focal="129.0" a="-0.00494" b="0.02116" c="-0.01855" />
+            <distortion model="ptlens" focal="158.0" a="-0.00539" b="0.01724" c="-0.00662" />
+            <distortion model="ptlens" focal="196.0" a="-0.02316" b="0.09408" c="-0.11133" />
+            <distortion model="ptlens" focal="241.0" a="0.00321" b="-0.01004" c="0.01943" />
+            <distortion model="ptlens" focal="277.0" a="0.01905" b="-0.04979" c="0.03944" />
+            <distortion model="ptlens" focal="300.0" a="0.03685" b="-0.12817" c="0.15026" />
+        </calibration>
+    </lens>
 </lensdatabase>
