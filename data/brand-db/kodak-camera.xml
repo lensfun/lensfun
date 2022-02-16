@@ -1,0 +1,43 @@
+<!DOCTYPE lensdatabase SYSTEM "lensfun-database.dtd">
+<!-- 
+DESCRIPTION: 
+	Database for all "Kodak" branded cameras
+	
+	See README.md for sorting rules
+	This databank is licenced under the Creative Commons Attribution-ShareAlike 3.0 Unported
+-->
+<lensdatabase version="2">
+
+<!-- Device Name: Canon EF lens mount -->
+    <mount>
+		<!-- Wikidata Item: Q209633 -->
+        <name>Canon EF</name>
+        <compat>M42</compat>
+        <compat>M39/1</compat>
+        <compat>DKL</compat>
+        <compat>T2</compat>
+        <compat>Tamron Adaptall</compat>
+        <compat>Generic</compat>
+    </mount>
+	
+<!-- Device Name: Kodak DCS 520 -->
+<!-- Same as Canon EOS D2000 (renamed) -->
+	<camera>
+		<!-- Wikidata Item:  -->
+        <maker>Kodak</maker>
+        <model>DCS520</model>
+        <model lang="en">DCS 520</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.593</cropfactor>
+    </camera>
+	
+<!-- Device Name: Kodak DCS Pro SLR/c -->
+	<camera>
+		<!-- Wikidata Item: Q2057457 -->
+        <maker>Kodak</maker>
+        <model>DCS Pro SLR/c</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+	
+</lensdatabase>
