@@ -2365,7 +2365,7 @@
     </lens>
 
     <lens>
-        <maker>Sony</maker>
+	<maker>Sony</maker>
         <model>FE 50mm f/2.5 G</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
@@ -2399,5 +2399,36 @@
             <tca model="poly3" focal="35" vr="1.0000901" vb="0.9999834"/>
         </calibration>
     </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 24mm F1.4 GM</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="24.0" a="0.019" b="-0.048" c="0.029" />
+            <tca model="poly3" focal="24.0" br="0.0000226" vr="1.0001585" bb="0.0000281" vb="0.9999794" />
+            <vignetting model="pa" focal="24.0" aperture="1.4" distance="0.2" k1="-1.1907207" k2="0.6321286" k3="-0.1589489" />
+            <vignetting model="pa" focal="24.0" aperture="1.4" distance="0.5" k1="-1.5121032" k2="1.0455397" k3="-0.3305335" />
+            <vignetting model="pa" focal="24.0" aperture="1.4" distance="1.1" k1="-1.6057045" k2="1.2001691" k3="-0.4121061" />
+            <vignetting model="pa" focal="24.0" aperture="1.4" distance="1000" k1="-1.6578717" k2="1.2472963" k3="-0.4209530" />
+            <vignetting model="pa" focal="24.0" aperture="2.0" distance="0.2" k1="-0.6446459" k2="-0.1007076" k3="0.1301847" />
+            <vignetting model="pa" focal="24.0" aperture="2.0" distance="0.5" k1="-0.6907027" k2="-0.3753982" k3="0.3762913" />
+            <vignetting model="pa" focal="24.0" aperture="2.0" distance="1.1" k1="-0.6913061" k2="-0.4543843" k3="0.4370389" />
+            <vignetting model="pa" focal="24.0" aperture="2.0" distance="1000" k1="-0.7697570" k2="-0.3833075" k3="0.4197193" />
+            <vignetting model="pa" focal="24.0" aperture="2.8" distance="0.2" k1="-0.6401601" k2="-0.1401548" k3="0.1870736" />
+            <vignetting model="pa" focal="24.0" aperture="2.8" distance="0.5" k1="-0.7370331" k2="-0.1275252" k3="0.2201943" />
+            <vignetting model="pa" focal="24.0" aperture="2.8" distance="1.1" k1="-0.7402314" k2="-0.1559464" k3="0.2342101" />
+            <vignetting model="pa" focal="24.0" aperture="2.8" distance="1000" k1="-0.8182038" k2="-0.0291909" k3="0.1638471" />
+            <vignetting model="pa" focal="24.0" aperture="4.0" distance="0.2" k1="-0.6685485" k2="-0.1014886" k3="0.1711068" />
+            <vignetting model="pa" focal="24.0" aperture="4.0" distance="0.5" k1="-0.7739329" k2="-0.0700948" k3="0.1944537" />
+            <vignetting model="pa" focal="24.0" aperture="4.0" distance="1.1" k1="-0.7725104" k2="-0.1206636" k3="0.2307731" />
+            <vignetting model="pa" focal="24.0" aperture="4.0" distance="1000" k1="-0.8113923" k2="-0.0704783" k3="0.2097265" />
+            <vignetting model="pa" focal="24.0" aperture="16.0" distance="0.2" k1="-0.6741255" k2="-0.0880182" k3="0.1624125" />
+            <vignetting model="pa" focal="24.0" aperture="16.0" distance="0.5" k1="-0.7765382" k2="-0.0633147" k3="0.1904191" />
+            <vignetting model="pa" focal="24.0" aperture="16.0" distance="1.1" k1="-0.7731783" k2="-0.1168061" k3="0.2281046" />
+            <vignetting model="pa" focal="24.0" aperture="16.0" distance="1000" k1="-0.8121077" k2="-0.0654320" k3="0.2070231" />
+        </calibration>
+      </lens>
 
 </lensdatabase>

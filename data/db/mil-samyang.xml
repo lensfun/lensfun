@@ -262,4 +262,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Samyang</maker>
+        <model>SAMYANG AF 12mm F2.0</model>
+        <mount>Sony E</mount>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-5100 -->
+            <distortion model="ptlens" focal="12.0" a="0.01" b="-0.037" c="0.021"/>
+            <tca model="poly3" focal="12.0" br="0.0000539" vr="1.0002125" bb="-0.0000235" vb="1.0003006"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
