@@ -8,6 +8,30 @@ DESCRIPTION:
 -->
 <lensdatabase version="2">
 
+<!-- Device Name: Huawei P10 Lite -->
+	<camera>
+		<!-- Wikidata Item: Q56377709 -->
+	</camera>
+        <maker>Huawei</maker>
+        <model>WAS-LX1A</model>
+        <model lang="en">P10 Lite</model>
+        <mount>waslx1a</mount>
+        <cropfactor>6.88</cropfactor>
+    </camera>
+    <lens>
+        <maker>Huawei</maker>
+        <model>Huawei P10 Lite &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>waslx1a</mount>
+        <cropfactor>6.88</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <vignetting model="pa" focal="3.8" aperture="2.2" distance="10" k1="-1.8454" k2="1.9806" k3="-0.8722"/>
+            <vignetting model="pa" focal="3.8" aperture="2.2" distance="1000" k1="-1.8454" k2="1.9806" k3="-0.8722"/>
+        </calibration>
+    </lens>
+
 <!-- Device Name: Huawei P20 Pro -->
 	<camera>
 		<!-- Wikidata Item: Q56368140 -->
@@ -34,27 +58,38 @@ DESCRIPTION:
         </calibration>
     </lens>
 
-<!-- Device Name: Huawei P10 Lite -->
+<!-- Device Name: Huawei P30 Pro -->
 	<camera>
-		<!-- Wikidata Item: Q56377709 -->
-	</camera>
+		<!-- Wikidata Item: Q62793603 -->
         <maker>Huawei</maker>
-        <model>WAS-LX1A</model>
-        <model lang="en">P10 Lite</model>
-        <mount>waslx1a</mount>
-        <cropfactor>6.88</cropfactor>
+        <model>VOG-L29</model>
+        <model lang="en">P30 Pro</model>
+        <mount>vogl29</mount>
+        <cropfactor>4.86</cropfactor>
     </camera>
     <lens>
         <maker>Huawei</maker>
-        <model>Huawei P10 Lite &amp; compatibles</model>
+        <model>P30 Pro</model>
         <model lang="en">fixed lens</model>
         <model lang="de">festes Objektiv</model>
-        <mount>waslx1a</mount>
-        <cropfactor>6.88</cropfactor>
+        <mount>vogl29</mount>
+        <cropfactor>4.86</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
-        <calibration>
-            <vignetting model="pa" focal="3.8" aperture="2.2" distance="10" k1="-1.8454" k2="1.9806" k3="-0.8722"/>
-            <vignetting model="pa" focal="3.8" aperture="2.2" distance="1000" k1="-1.8454" k2="1.9806" k3="-0.8722"/>
+		<calibration>
+            <distortion model="ptlens" focal="5.6" a="-0.006723" b="0.010218" c="-0.003747"/>
+            <tca model="poly3" focal="5.6" vr="1.0" vb="1.0"/>
+            <vignetting model="pa" focal="5.6" aperture="1.6" distance="10" k1="-2.2826" k2="2.8667" k3="-1.3542"/>
+            <vignetting model="pa" focal="5.6" aperture="1.6" distance="1000" k1="-2.2826" k2="2.8667" k3="-1.3542"/>
+
+            <distortion model="ptlens" focal="2.3" a="-0.067491" b="0.084551" c="0.014999"/>
+            <tca model="poly3" focal="2.3" vr="1.00020" vb="1.00070"/>
+            <vignetting model="pa" focal="2.3" aperture="2.2" distance="10" k1="-2.9196" k2="3.7534" k3="-1.6538"/>
+            <vignetting model="pa" focal="2.3" aperture="2.2" distance="1000" k1="-2.9196" k2="3.7534" k3="-1.6538"/>
+
+            <distortion model="ptlens" focal="14.5" a="-0.003491" b="0.010476" c="0.005814"/>
+            <tca model="poly3" focal="14.5" vr="0.99985" vb="1.000"/>
+            <vignetting model="pa" focal="14.5" aperture="3.4" distance="10" k1="-0.4657" k2="0.4064" k3="-0.2548"/>
+            <vignetting model="pa" focal="14.5" aperture="3.4" distance="1000" k1="-0.4657" k2="0.4064" k3="-0.2548"/>
         </calibration>
     </lens>
 	
