@@ -3591,7 +3591,7 @@
         <maker>Canon</maker>
         <model>Canon EF 100-200mm f/4.5A</model>
         <mount>Canon EF</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.005</cropfactor>
         <calibration>
         <!-- Taken with Canon 6D -->
             <distortion model="ptlens" focal="100.0" a="0.000798001" b="-0.000194199" c="0.00426245" />
@@ -3616,6 +3616,10 @@
             <tca model="poly3" focal="165.0" br="-0.0000231" vr="0.9999469" bb="0.0000537" vb="0.9997142" />
             <tca model="poly3" focal="172.0" br="-0.0000160" vr="0.9999299" bb="0.0000449" vb="0.9997226" />
             <tca model="poly3" focal="176.0" br="-0.0000184" vr="0.9999289" bb="0.0000593" vb="0.9996059" />
+            <tca model="poly3" focal="180.0" br="-0.0000106" vr="0.9999066" bb="0.0000661" vb="0.9996643" />
+            <tca model="poly3" focal="184.0" br="-0.0000098" vr="0.9998938" bb="0.0000603" vb="0.9996636" />
+            <tca model="poly3" focal="192.0" br="-0.0000154" vr="0.9999098" bb="0.0000749" vb="0.9996425" />
+            <tca model="poly3" focal="200.0" br="-0.0000250" vr="0.9999339" bb="0.0000709" vb="0.9996033" />
             <vignetting model="pa" focal="100.0" aperture="4.5" distance="10" k1="-0.9275748" k2="0.8587336" k3="-0.4184724" />
             <vignetting model="pa" focal="100.0" aperture="4.5" distance="1000" k1="-0.9275748" k2="0.8587336" k3="-0.4184724" />
             <vignetting model="pa" focal="100.0" aperture="5.0" distance="10" k1="-0.7199933" k2="0.4925328" k3="-0.1918522" />
