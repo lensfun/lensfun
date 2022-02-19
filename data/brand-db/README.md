@@ -38,54 +38,14 @@ This section containes rules for the scheme within the xml database files.
 - Add `<!-- Wikidata Item: ITEM -->` for every entry with the device's Wikidata item (if existing)
 - Add `<!-- Same as DEVICE (name in COUNTRY) -->` for every entry that also exists under a different name
 - Add `<!-- Calibration images taken with CAMERA -->` for every entry with the camera name the lens has been calibrated with if possible
-
-## Missing lenses
-This section containes licences known to miss callibration data in the database
-
-### Canon
-- Canon EF 24-70mm f/2.8L II USM (Wikidata: Q1156947 (series))
-- Canon EF 24-70mm f/4L IS USM (Wikidata: Q1156947 (series))
-- Canon EF 24-105mm f/4L f/3.5-5.6 IS STM (Wikidata: Q1065981 (series))
-- Canon EF 24-105mm f/4L f/4L IS II USM (Wikidata: Q1065981 (series))
-- Canon EF 28-105 mm f/3.5-4.5 USM (Wikidata: Q4035815 (series))
-- Canon EF 35mm EF f/2 IS USM
-- Canon EF 35mm EF-S f/2.8 Macro IS STM
-- Canon EF 35-70mm f/3.5-4.5A
-- Canon EF 35-80mm f/4-5.6 PZ
-- Canon EF 35-80mm f/4-5.6
-- Canon EF 35-80mm f/4-5.6 USM
-- Canon EF 35-80mm f/4-5.6 II
-- Canon EF 35-105mm f/4.5-5.6 USM
-- Canon EF 35-135mm f/3.5-4.5
-- Canon EF 50mm f/1.0L USM
-- Canon EF 50mm f/1.2L USM
-- Canon EF 50mm f/1.8
-- Canon EF 50mm f/1.8 II
-- Canon EF 50mm f/1.8 STM
-- Canon EF 50mm f/2.5 Compact Macro
-- Canon EF 55-200mm f/4.5-5.6 II
-- Canon EF 70-200mm f/2.8L IS III USM
-- Canon EF 70-200mm f/4L IS II USM
-- Canon EF 70-300mm f/4-5.6L IS USM
-- Canon EF 70-300mm f/4-5.6 IS II USM (Wikidata: Q98729517)
-- Canon EF 75-300mm f/4-5.6
-- Canon EF 75-300mm f/4-5.6 USM
-- Canon EF 75-300mm f/4-5.6 II
-- Canon EF 75-300mm f/4-5.6 II USM
-- Canon EF 75-300mm f/4-5.6 III (Wikidata: Q68865711)
-- Canon EF 75-300mm f/4-5.6 III USM
-- Canon EF 80-200mm f/4.5-5.6
-- Canon EF 80-200mm f/4.5-5.6 USM
-- Canon EF 80-200mm f/4.5-5.6 II
-- Canon EF-M 18-150mm f/3.5-6.3 IS STM (Wikidata: Q28035405)
-- Canon EF-M 28mm f/3.5 Macro IS STM (Wikidata: Q24909141)
-- Canon EF-M 32mm f/1.4 STM (Wikidata: Q100876300)
-- Canon EF-S 18-55mm f/3.5-5.6 USM (Wikidata: Q1143683 (series))
-- Canon EF-S 18-55mm f/3.5-5.6 II
-- Canon EF-S 18-55mm f/3.5-5.6 II USM
-- Canon EF-S 18-55mm f/3.5-5.6 IS II
-- Canon EF-S 18-55mm f/4-5.6 IS STM
-- Canon RF 5.2mm F2.8L DUAL FISHEYE
-- Canon RF 16mm F2.8 STM
-- Canon RF 35mm F1.8 MACRO IS STM (Wikidata: Q97154439)
-- Canon RF 50mm F1.2L USM (Wikidata: Q101245617)
+- Add a the separator below for manufacturers which produce products with more than one lens mount
+	<pre>
+	<<!-- comment to break format -->!--
+		  MAKER MOUNT lenses
+	 \/ \/ \/ \/ \/ \/ \/ \/ \/ \/
+	--<!-- comment to break format -->></pre>
+	<pre>
+	<<!-- comment to break format -->!--
+	 /\ /\ /\ /\ /\ /\ /\ /\ /\ /\
+		  MAKER MOUNT lenses
+	--<!-- comment to break format -->></pre>
