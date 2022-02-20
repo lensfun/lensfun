@@ -8,7 +8,7 @@ This section containes rules for the name scheme of xml database files.
 - All characters should be lower case (Example: `BrandName` -> `brandname`)
 - All space characters should be replaced by an underscore (Example: `brand name` -> `brand_name`)
 - All entries as singular (Example: `brand-cameras.xml` -> `brand-camera.xml`)
-- All entries use a regular '-' (hyphen-minus) and not any other kind of dash (eg. en dash '–')
+- All entries that are not based on EXIF data use a regular '-' (hyphen-minus) and not any other kind of dash (eg. en dash '–')
 
 #### File name scheme
 - Brand name first
@@ -35,17 +35,17 @@ This section containes rules for the scheme within the xml database files.
 - Lems emtries that include extenders sorted ascending by their multiplication value after the lens without the extender.
 - Lens entries for action cameras, compact cameras, drones and portable devices sorted right after the camera
 - Add `<!-- Device Name: NAME -->` before every entry with the full device name. Action cameras, compact cameras, drones and portable devices lenses only should only include the line once.
-- Add `<!-- Wikidata Item: ITEM -->` for every entry with the device's Wikidata item (if existing)
+- Add `<!-- Wikidata Item: ITEM -->` for every entry with the device's Wikidata item (if existing). If the item describes more than one lens add `(series)`
 - Add `<!-- Same as DEVICE (name in COUNTRY) -->` for every entry that also exists under a different name
 - Add `<!-- Calibration images taken with CAMERA -->` for every entry with the camera name the lens has been calibrated with if possible
 - Add a the separator below for manufacturers which produce products with more than one lens mount
-	<pre>
-	<<!-- comment to break format -->!--
-		  MAKER MOUNT lenses
-	 \/ \/ \/ \/ \/ \/ \/ \/ \/ \/
-	--<!-- comment to break format -->></pre>
-	<pre>
-	<<!-- comment to break format -->!--
-	 /\ /\ /\ /\ /\ /\ /\ /\ /\ /\
-		  MAKER MOUNT lenses
-	--<!-- comment to break format -->></pre>
+<pre>
+<<!-- comment to break format -->!--
+	  MAKER MOUNT lenses
+ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/
+--<!-- comment to break format -->></pre>
+<pre>
+<<!-- comment to break format -->!--
+ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\
+	  MAKER MOUNT lenses
+--<!-- comment to break format -->></pre>
