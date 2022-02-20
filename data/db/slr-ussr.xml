@@ -1,85 +1,71 @@
-<!--
-    This file contains some of the cameras and lenses from:
-    "Krasnogorsky zavod" JSC (http://www.zenit-foto.ru/english/index.htm)
-    "Belarusian Optical and Mechanical Associtaion" (http://www.belomo.by/)
--->
 <lensdatabase version="1">
-
     <camera>
         <maker>KMZ</maker>
         <maker lang="ru">КМЗ</maker>
         <model>Zenit 122</model>
         <model lang="ru">Зенит 122</model>
         <mount>M42</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
     </camera>
-
     <camera>
         <maker>KMZ</maker>
         <maker lang="ru">КМЗ</maker>
         <model>Zenit 122K</model>
         <model lang="ru">Зенит 122K</model>
         <mount>Pentax K</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
     </camera>
-
     <camera>
         <maker>KMZ</maker>
         <maker lang="ru">КМЗ</maker>
         <model>Zenit 212K</model>
         <model lang="ru">Зенит 212K</model>
         <mount>Pentax K</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
     </camera>
-
     <camera>
         <maker>KMZ</maker>
         <maker lang="ru">КМЗ</maker>
         <model>Zenit 312K</model>
         <model lang="ru">Зенит 312K</model>
         <mount>Pentax K</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
     </camera>
-
     <camera>
         <maker>KMZ</maker>
         <maker lang="ru">КМЗ</maker>
         <model>Zenit 412LS</model>
         <model lang="ru">Зенит 412LS</model>
         <mount>M42</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
     </camera>
-
     <camera>
         <maker>KMZ</maker>
         <maker lang="ru">КМЗ</maker>
         <model>Zenit KM</model>
         <model lang="ru">Зенит KM</model>
         <mount>Pentax K</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
     </camera>
-
     <lens>
         <maker>KMZ</maker>
         <maker lang="ru">КМЗ</maker>
         <model>MC Mir-20M 3.5/20</model>
         <model lang="ru">МС Мир-20М 3.5/20</model>
         <mount>M42</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
     </lens>
-
     <lens>
         <maker>KMZ</maker>
         <maker lang="ru">КМЗ</maker>
         <model>MC Zenitar 2.8/16</model>
         <model lang="ru">МС Зенитар 2.8/16</model>
-        <type>fisheye</type>
         <mount>M42</mount>
         <mount>Pentax K</mount>
         <mount>Nikon F</mount>
-        <cropfactor>1.0</cropfactor>
+        <type>fisheye</type>
+        <cropfactor>1</cropfactor>
     </lens>
-
     <lens>
         <maker>KMZ</maker>
         <maker lang="ru">КМЗ</maker>
@@ -87,38 +73,34 @@
         <model lang="ru">МС Зенитар 2/50</model>
         <mount>M42</mount>
         <mount>Pentax K</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
     </lens>
-
     <lens>
         <maker>KMZ</maker>
         <maker lang="ru">КМЗ</maker>
         <model>MC APO Telezenitar 2.8/135</model>
         <model lang="ru">МС АПО Телезенитар 2.8/135</model>
         <mount>M42</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
     </lens>
-
     <lens>
         <maker>KMZ</maker>
         <maker lang="ru">КМЗ</maker>
         <model>MC APO Telezenitar 4.5/300</model>
         <model lang="ru">МС АПО Телезенитар 4.5/300</model>
         <mount>M42</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
     </lens>
-
     <lens>
         <maker>KMZ</maker>
         <maker lang="ru">КМЗ</maker>
         <model>MC Variozenitar-K 2.8-3.5/25-45</model>
         <model lang="ru">МС Вариозенитар-К 2.8-3.5/25-45</model>
         <mount>M42</mount>
-        <cropfactor>1.0</cropfactor>
-        <aperture min="2.8" max="22" />
-        <focal min="25" max="45" />
+        <focal min="25" max="45"/>
+        <aperture min="2.8"/>
+        <cropfactor>1</cropfactor>
     </lens>
-
     <lens>
         <maker>BelOMO</maker>
         <maker lang="ru">БелОМО</maker>
@@ -128,48 +110,244 @@
         <mount>Pentax K</mount>
         <mount>Nikon F</mount>
         <mount>Canon EF</mount>
-        <cropfactor>1.0</cropfactor>
-        <aperture min="3.5" max="16" />
+        <aperture min="3.5" max="16"/>
         <type>fisheye</type>
+        <cropfactor>1</cropfactor>
     </lens>
-
     <lens>
         <maker>KMZ</maker>
         <maker lang="ru">КМЗ</maker>
         <model>MC MTO 11CA 10/1000</model>
+        <model lang="ru">МС МТО 11СА</model>
         <mount>M42</mount>
-        <focal value="1000" />
-        <aperture value="10" />
+        <focal value="1000"/>
+        <aperture value="10"/>
         <cropfactor>1.531</cropfactor>
         <calibration>
-            <distortion model="poly3" focal="1000" k1="0.00451" />
+            <distortion model="poly3" focal="1000" k1="0.00451"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>KMZ</maker>
+        <maker lang="ru">КМЗ</maker>
         <model>MC Helios-44M-4 58mm 1:2</model>
+        <model lang="ru">МС Гелиос-44М-4 58мм 1:2</model>
         <mount>M42</mount>
         <cropfactor>1.538</cropfactor>
         <calibration>
             <!-- Taken with Pentax K20D -->
-            <distortion model="poly3" focal="58" k1="0.00131" />
-            <tca model="poly3" focal="58" vr="1.0000037" vb="0.9999377" />
-            <vignetting model="pa" focal="58" aperture="2" distance="10" k1="-0.7541" k2="0.5658" k3="-0.2168" />
-            <vignetting model="pa" focal="58" aperture="2" distance="1000" k1="-0.7541" k2="0.5658" k3="-0.2168" />
-            <vignetting model="pa" focal="58" aperture="2.8" distance="10" k1="-0.1611" k2="0.0829" k3="-0.0613" />
-            <vignetting model="pa" focal="58" aperture="2.8" distance="1000" k1="-0.1611" k2="0.0829" k3="-0.0613" />
-            <vignetting model="pa" focal="58" aperture="4" distance="10" k1="-0.1624" k2="0.0504" k3="-0.0082" />
-            <vignetting model="pa" focal="58" aperture="4" distance="1000" k1="-0.1624" k2="0.0504" k3="-0.0082" />
-            <vignetting model="pa" focal="58" aperture="5.6" distance="10" k1="-0.1559" k2="0.0218" k3="0.0096" />
-            <vignetting model="pa" focal="58" aperture="5.6" distance="1000" k1="-0.1559" k2="0.0218" k3="0.0096" />
-            <vignetting model="pa" focal="58" aperture="8" distance="10" k1="-0.1870" k2="0.0627" k3="-0.0081" />
-            <vignetting model="pa" focal="58" aperture="8" distance="1000" k1="-0.1870" k2="0.0627" k3="-0.0081" />
-            <vignetting model="pa" focal="58" aperture="11" distance="10" k1="-0.2473" k2="0.1722" k3="-0.0667" />
-            <vignetting model="pa" focal="58" aperture="11" distance="1000" k1="-0.2473" k2="0.1722" k3="-0.0667" />
-            <vignetting model="pa" focal="58" aperture="16" distance="10" k1="-0.3149" k2="0.2956" k3="-0.1347" />
-            <vignetting model="pa" focal="58" aperture="16" distance="1000" k1="-0.3149" k2="0.2956" k3="-0.1347" />
+            <distortion model="poly3" focal="58" k1="0.00131"/>
+            <tca model="poly3" focal="58" vr="1.0000037" vb="0.9999377"/>
+            <vignetting model="pa" focal="58" aperture="2" distance="10" k1="-0.7541" k2="0.5658" k3="-0.2168"/>
+            <vignetting model="pa" focal="58" aperture="2" distance="1000" k1="-0.7541" k2="0.5658" k3="-0.2168"/>
+            <vignetting model="pa" focal="58" aperture="2.8" distance="10" k1="-0.1611" k2="0.0829" k3="-0.0613"/>
+            <vignetting model="pa" focal="58" aperture="2.8" distance="1000" k1="-0.1611" k2="0.0829" k3="-0.0613"/>
+            <vignetting model="pa" focal="58" aperture="4" distance="10" k1="-0.1624" k2="0.0504" k3="-0.0082"/>
+            <vignetting model="pa" focal="58" aperture="4" distance="1000" k1="-0.1624" k2="0.0504" k3="-0.0082"/>
+            <vignetting model="pa" focal="58" aperture="5.6" distance="10" k1="-0.1559" k2="0.0218" k3="0.0096"/>
+            <vignetting model="pa" focal="58" aperture="5.6" distance="1000" k1="-0.1559" k2="0.0218" k3="0.0096"/>
+            <vignetting model="pa" focal="58" aperture="8" distance="10" k1="-0.1870" k2="0.0627" k3="-0.0081"/>
+            <vignetting model="pa" focal="58" aperture="8" distance="1000" k1="-0.1870" k2="0.0627" k3="-0.0081"/>
+            <vignetting model="pa" focal="58" aperture="11" distance="10" k1="-0.2473" k2="0.1722" k3="-0.0667"/>
+            <vignetting model="pa" focal="58" aperture="11" distance="1000" k1="-0.2473" k2="0.1722" k3="-0.0667"/>
+            <vignetting model="pa" focal="58" aperture="16" distance="10" k1="-0.3149" k2="0.2956" k3="-0.1347"/>
+            <vignetting model="pa" focal="58" aperture="16" distance="1000" k1="-0.3149" k2="0.2956" k3="-0.1347"/>
         </calibration>
     </lens>
-
+    <lens>
+        <maker>KMZ</maker>
+        <maker lang="ru">КМЗ</maker>
+        <model>MC Helios-44M-4 58mm 1:2</model>
+        <model lang="ru">МС Гелиос-44М-4 58мм 1:2</model>
+        <mount>M42</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 7 (ICLE-7) -->
+            <distortion model="ptlens" focal="58" a="-0.00118" b="0.0026" c="0.00307"/>
+            <tca model="poly3" focal="58" vr="1.0000244" vb="0.9998950"/>
+            <vignetting model="pa" focal="58" aperture="2" distance="10" k1="-1.5157" k2="1.4622" k3="-0.6442"/>
+            <vignetting model="pa" focal="58" aperture="2" distance="1000" k1="-1.5157" k2="1.4622" k3="-0.6442"/>
+            <vignetting model="pa" focal="58" aperture="2.8" distance="10" k1="-1.5114" k2="1.4514" k3="-0.6371"/>
+            <vignetting model="pa" focal="58" aperture="2.8" distance="1000" k1="-1.5114" k2="1.4514" k3="-0.6371"/>
+            <vignetting model="pa" focal="58" aperture="4" distance="10" k1="-0.4827" k2="-0.5145" k3="0.4079"/>
+            <vignetting model="pa" focal="58" aperture="4" distance="1000" k1="-0.4827" k2="-0.5145" k3="0.4079"/>
+            <vignetting model="pa" focal="58" aperture="5.6" distance="10" k1="-0.3326" k2="0.0788" k3="-0.1385"/>
+            <vignetting model="pa" focal="58" aperture="5.6" distance="1000" k1="-0.3326" k2="0.0788" k3="-0.1385"/>
+            <vignetting model="pa" focal="58" aperture="8" distance="10" k1="-0.4123" k2="0.2916" k3="-0.1671"/>
+            <vignetting model="pa" focal="58" aperture="8" distance="1000" k1="-0.4123" k2="0.2916" k3="-0.1671"/>
+            <vignetting model="pa" focal="58" aperture="11" distance="10" k1="-0.4014" k2="0.1920" k3="-0.0575"/>
+            <vignetting model="pa" focal="58" aperture="11" distance="1000" k1="-0.4014" k2="0.1920" k3="-0.0575"/>
+            <vignetting model="pa" focal="58" aperture="16" distance="10" k1="-0.4313" k2="0.2398" k3="-0.0788"/>
+            <vignetting model="pa" focal="58" aperture="16" distance="1000" k1="-0.4313" k2="0.2398" k3="-0.0788"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>KMZ</maker>
+        <maker lang="ru">КМЗ</maker>
+        <model>Helios-44 58mm 1:2</model>
+        <model lang="ru">Гелиос-44 58мм 1:2</model>
+        <mount>M42</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE 7RM2 -->
+            <distortion model="ptlens" focal="58" a="-0.00006" b="-0.00202" c="0.00992"/>
+            <tca model="poly3" focal="58" vr="1.0000701" vb="0.9998276"/>
+            <vignetting model="pa" focal="58" aperture="2" distance="10" k1="-1.4614" k2="1.3711" k3="-0.5946"/>
+            <vignetting model="pa" focal="58" aperture="2" distance="1000" k1="-1.4614" k2="1.3711" k3="-0.5946"/>
+            <vignetting model="pa" focal="58" aperture="2.8" distance="10" k1="-0.0424" k2="-0.7509" k3="0.3478"/>
+            <vignetting model="pa" focal="58" aperture="2.8" distance="1000" k1="-0.0424" k2="-0.7509" k3="0.3478"/>
+            <vignetting model="pa" focal="58" aperture="4" distance="10" k1="-0.2358" k2="0.1564" k3="-0.1930"/>
+            <vignetting model="pa" focal="58" aperture="4" distance="1000" k1="-0.2358" k2="0.1564" k3="-0.1930"/>
+            <vignetting model="pa" focal="58" aperture="5.6" distance="10" k1="-0.1819" k2="-0.0468" k3="-0.0164"/>
+            <vignetting model="pa" focal="58" aperture="5.6" distance="1000" k1="-0.1819" k2="-0.0468" k3="-0.0164"/>
+            <vignetting model="pa" focal="58" aperture="8" distance="10" k1="-0.2138" k2="-0.0227" k3="-0.0230"/>
+            <vignetting model="pa" focal="58" aperture="8" distance="1000" k1="-0.2138" k2="-0.0227" k3="-0.0230"/>
+            <vignetting model="pa" focal="58" aperture="11" distance="10" k1="-0.2556" k2="0.0753" k3="-0.0858"/>
+            <vignetting model="pa" focal="58" aperture="11" distance="1000" k1="-0.2556" k2="0.0753" k3="-0.0858"/>
+            <vignetting model="pa" focal="58" aperture="16" distance="10" k1="-0.2872" k2="0.1130" k3="-0.1066"/>
+            <vignetting model="pa" focal="58" aperture="16" distance="1000" k1="-0.2872" k2="0.1130" k3="-0.1066"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>MTO</maker>
+        <maker lang="ru">МТО</maker>
+        <model>MTO-500 500mm f/8 mirror lens</model>
+        <model lang="ru">МТО-500 500мм f/8</model>
+        <mount>M39/1</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-M1 -->
+            <vignetting model="pa" focal="500" aperture="8" distance="10" k1="-1.0017" k2="1.0513" k3="-0.4818"/>
+            <vignetting model="pa" focal="500" aperture="8" distance="1000" k1="-1.0017" k2="1.0513" k3="-0.4818"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>KMZ</maker>
+        <maker lang="ru">КМЗ</maker>
+        <model>MIR-1B 37mm f/2.8</model>
+        <model lang="ru">МИР-1В 37мм f/2.8</model>
+        <mount>M42</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <!-- Taken with Sony SLT-A58 -->
+            <distortion model="ptlens" focal="37" a="0" b="-0.00255" c="0"/>
+            <tca model="poly3" focal="37" br="-0.0000478" vr="1.0001743" bb="0.0000122" vb="0.9999205"/>
+            <vignetting model="pa" focal="37" aperture="2.8" distance="10" k1="-0.8874" k2="0.7393" k3="-0.2944"/>
+            <vignetting model="pa" focal="37" aperture="2.8" distance="1000" k1="-0.8874" k2="0.7393" k3="-0.2944"/>
+            <vignetting model="pa" focal="37" aperture="4" distance="10" k1="-0.4144" k2="0.4004" k3="-0.2103"/>
+            <vignetting model="pa" focal="37" aperture="4" distance="1000" k1="-0.4144" k2="0.4004" k3="-0.2103"/>
+            <vignetting model="pa" focal="37" aperture="5.6" distance="10" k1="-0.4470" k2="0.4967" k3="-0.2583"/>
+            <vignetting model="pa" focal="37" aperture="5.6" distance="1000" k1="-0.4470" k2="0.4967" k3="-0.2583"/>
+            <vignetting model="pa" focal="37" aperture="8" distance="10" k1="-0.2922" k2="0.1496" k3="-0.0531"/>
+            <vignetting model="pa" focal="37" aperture="8" distance="1000" k1="-0.2922" k2="0.1496" k3="-0.0531"/>
+            <vignetting model="pa" focal="37" aperture="11" distance="10" k1="-0.3862" k2="0.2091" k3="-0.0361"/>
+            <vignetting model="pa" focal="37" aperture="11" distance="1000" k1="-0.3862" k2="0.2091" k3="-0.0361"/>
+            <vignetting model="pa" focal="37" aperture="16" distance="10" k1="-0.3301" k2="0.1592" k3="-0.0901"/>
+            <vignetting model="pa" focal="37" aperture="16" distance="1000" k1="-0.3301" k2="0.1592" k3="-0.0901"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>KMZ</maker>
+        <maker lang="ru">КМЗ</maker>
+        <model>MIR-1B 37mm f/2.8</model>
+        <model lang="ru">МИР-1B 2.8/37</model>
+        <mount>M42</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 7 (ICLE-7) -->
+            <distortion model="ptlens" focal="37" a="-0.00258" b="0.00265" c="-0.00597"/>
+            <tca model="poly3" focal="37" vr="1.0007173" vb="0.9996082"/>
+            <vignetting model="pa" focal="37" aperture="2.8" distance="10" k1="-1.6228" k2="1.3237" k3="-0.4952"/>
+            <vignetting model="pa" focal="37" aperture="2.8" distance="1000" k1="-1.6228" k2="1.3237" k3="-0.4952"/>
+            <vignetting model="pa" focal="37" aperture="4" distance="10" k1="-0.4822" k2="-0.1325" k3="0.0056"/>
+            <vignetting model="pa" focal="37" aperture="4" distance="1000" k1="-0.4822" k2="-0.1325" k3="0.0056"/>
+            <vignetting model="pa" focal="37" aperture="5.6" distance="10" k1="-0.7316" k2="0.9182" k3="-0.7431"/>
+            <vignetting model="pa" focal="37" aperture="5.6" distance="1000" k1="-0.7316" k2="0.9182" k3="-0.7431"/>
+            <vignetting model="pa" focal="37" aperture="8" distance="10" k1="-0.8365" k2="1.1581" k3="-0.8080"/>
+            <vignetting model="pa" focal="37" aperture="8" distance="1000" k1="-0.8365" k2="1.1581" k3="-0.8080"/>
+            <vignetting model="pa" focal="37" aperture="11" distance="10" k1="-0.7839" k2="0.8668" k3="-0.5129"/>
+            <vignetting model="pa" focal="37" aperture="11" distance="1000" k1="-0.7839" k2="0.8668" k3="-0.5129"/>
+            <vignetting model="pa" focal="37" aperture="16" distance="10" k1="-0.7313" k2="0.6077" k3="-0.2711"/>
+            <vignetting model="pa" focal="37" aperture="16" distance="1000" k1="-0.7313" k2="0.6077" k3="-0.2711"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>KMZ</maker>
+        <maker lang="ru">КМЗ</maker>
+        <model>Helios-40 85mm f/1.5</model>
+        <model lang="ru">Гелиос-40 85мм f/1.5</model>
+        <mount>M39</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 (α7R II) -->
+            <!--distortion model="ptlens" focal="85" a="0.00602" b="-0.02119" c="0.01281"/-->
+            <distortion model="poly3" focal="85" k1="-0.0005"/>
+            <tca model="poly3" focal="85" br="-0.0000113" vr="1.0000399" bb="0.0000226" vb="0.9999277"/>
+            <vignetting model="pa" focal="85" aperture="1.5" distance="10" k1="-1.3463" k2="1.1093" k3="-0.4522"/>
+            <vignetting model="pa" focal="85" aperture="1.5" distance="1000" k1="-1.3463" k2="1.1093" k3="-0.4522"/>
+            <vignetting model="pa" focal="85" aperture="2" distance="10" k1="0.1210" k2="-1.3938" k3="0.7640"/>
+            <vignetting model="pa" focal="85" aperture="2" distance="1000" k1="0.1210" k2="-1.3938" k3="0.7640"/>
+            <vignetting model="pa" focal="85" aperture="2.8" distance="10" k1="-0.1160" k2="0.2234" k3="-0.3780"/>
+            <vignetting model="pa" focal="85" aperture="2.8" distance="1000" k1="-0.1160" k2="0.2234" k3="-0.3780"/>
+            <vignetting model="pa" focal="85" aperture="4" distance="10" k1="-0.2429" k2="0.5260" k3="-0.4397"/>
+            <vignetting model="pa" focal="85" aperture="4" distance="1000" k1="-0.2429" k2="0.5260" k3="-0.4397"/>
+            <vignetting model="pa" focal="85" aperture="5.6" distance="10" k1="-0.2369" k2="0.4137" k3="-0.3046"/>
+            <vignetting model="pa" focal="85" aperture="5.6" distance="1000" k1="-0.2369" k2="0.4137" k3="-0.3046"/>
+            <vignetting model="pa" focal="85" aperture="22" distance="10" k1="-0.3336" k2="0.5497" k3="-0.3824"/>
+            <vignetting model="pa" focal="85" aperture="22" distance="1000" k1="-0.3336" k2="0.5497" k3="-0.3824"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>KMZ</maker>
+        <maker lang="ru">КМЗ</maker>
+        <model>Industar-50-2 3.5/50</model>
+        <model lang="ru">ИНДУСТАР-50-2 3.5/50</model>
+        <mount>M42</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 7 (ICLE-7) -->
+            <distortion model="ptlens" focal="50" a="-0.00315" b="0.00702" c="-0.01166"/>
+            <tca model="poly3" focal="50" vr="0.9999629" vb="1.0000398"/>
+            <vignetting model="pa" focal="50" aperture="3.5" distance="10" k1="-1.5486" k2="1.3102" k3="-0.5054"/>
+            <vignetting model="pa" focal="50" aperture="3.5" distance="1000" k1="-1.5486" k2="1.3102" k3="-0.5054"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="10" k1="-0.8208" k2="-0.1761" k3="0.3118"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="1000" k1="-0.8208" k2="-0.1761" k3="0.3118"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="10" k1="-0.2457" k2="-0.4768" k3="0.2272"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="1000" k1="-0.2457" k2="-0.4768" k3="0.2272"/>
+            <vignetting model="pa" focal="50" aperture="8" distance="10" k1="-0.4180" k2="0.3224" k3="-0.2980"/>
+            <vignetting model="pa" focal="50" aperture="8" distance="1000" k1="-0.4180" k2="0.3224" k3="-0.2980"/>
+            <vignetting model="pa" focal="50" aperture="11" distance="10" k1="-0.4220" k2="0.2411" k3="-0.1319"/>
+            <vignetting model="pa" focal="50" aperture="11" distance="1000" k1="-0.4220" k2="0.2411" k3="-0.1319"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="10" k1="-0.4402" k2="0.2049" k3="-0.0582"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="1000" k1="-0.4402" k2="0.2049" k3="-0.0582"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>KMZ</maker>
+        <maker lang="ru">КМЗ</maker>
+        <model>Jupiter-37AM MC 3.5/135</model>
+        <model lang="ru">ЮПИТЕР-37AM MC 3.5/135</model>
+        <mount>M42</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 7 (ICLE-7) -->
+            <distortion model="ptlens" focal="135" a="-0.00449" b="0.01789" c="-0.01472"/>
+            <tca model="poly3" focal="135" vr="0.9998876" vb="0.9999208"/>
+            <vignetting model="pa" focal="135" aperture="3.5" distance="10" k1="-0.8129" k2="0.4379" k3="-0.1231"/>
+            <vignetting model="pa" focal="135" aperture="3.5" distance="1000" k1="-0.8129" k2="0.4379" k3="-0.1231"/>
+            <vignetting model="pa" focal="135" aperture="4" distance="10" k1="-0.3404" k2="-0.3344" k3="0.2545"/>
+            <vignetting model="pa" focal="135" aperture="4" distance="1000" k1="-0.3404" k2="-0.3344" k3="0.2545"/>
+            <vignetting model="pa" focal="135" aperture="5.6" distance="10" k1="-0.2732" k2="0.2851" k3="-0.2178"/>
+            <vignetting model="pa" focal="135" aperture="5.6" distance="1000" k1="-0.2732" k2="0.2851" k3="-0.2178"/>
+            <vignetting model="pa" focal="135" aperture="8" distance="10" k1="-0.3211" k2="0.3207" k3="-0.1718"/>
+            <vignetting model="pa" focal="135" aperture="8" distance="1000" k1="-0.3211" k2="0.3207" k3="-0.1718"/>
+            <vignetting model="pa" focal="135" aperture="11" distance="10" k1="-0.3909" k2="0.4519" k3="-0.2439"/>
+            <vignetting model="pa" focal="135" aperture="11" distance="1000" k1="-0.3909" k2="0.4519" k3="-0.2439"/>
+            <vignetting model="pa" focal="135" aperture="16" distance="10" k1="-0.4722" k2="0.6167" k3="-0.3386"/>
+            <vignetting model="pa" focal="135" aperture="16" distance="1000" k1="-0.4722" k2="0.6167" k3="-0.3386"/>
+            <vignetting model="pa" focal="135" aperture="22" distance="10" k1="-0.5032" k2="0.6805" k3="-0.3744"/>
+            <vignetting model="pa" focal="135" aperture="22" distance="1000" k1="-0.5032" k2="0.6805" k3="-0.3744"/>
+        </calibration>
+    </lens>
 </lensdatabase>

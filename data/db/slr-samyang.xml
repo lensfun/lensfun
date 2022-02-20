@@ -12,17 +12,43 @@
         <mount>4/3 System</mount>
         <mount>Micro 4/3 System</mount>
         <mount>Samsung NX</mount>
-        <cropfactor>1.534</cropfactor>
         <type>stereographic</type>
+        <cropfactor>1.534</cropfactor>
         <calibration>
             <!-- Taken with some APS-C Pentax probably. -->
-            <tca model="poly3" focal="8" br="-0.0007764" cr="0.0013798" vr="1.0000228" 
-                                         bb="-0.0002711" cb="0.0008531" vb="0.9998496" />
+            <tca model="poly3" focal="8" br="-0.0007764" cr="0.0013798" vr="1.0000228" bb="-0.0002711" cb="0.0008531" vb="0.9998496"/>
             <!-- Taken with Nikon D7100 -->
-            <distortion model="ptlens" focal="8" a="0.04098" b="-0.15413" c="0.11977" />
+            <distortion model="ptlens" focal="8" a="0.04098" b="-0.15413" c="0.11977"/>
         </calibration>
     </lens>
-
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang 10mm f/2.8 ED AS NCS CS</model>
+        <mount>Canon EF</mount>
+        <mount>Canon EF-M</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Nikon F AI</mount>
+        <mount>Pentax KAF</mount>
+        <mount>Samsung NX</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D7200 -->
+            <distortion model="ptlens" focal="10" a="0.0231729" b="-0.0727685" c="0.0380362"/>
+            <tca model="poly3" focal="10" vr="1.0005344" vb="1.0000549"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang 12mm f/3.1 VDSLR ED AS NCS Fish-eye</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <tca model="poly3" focal="13.0" vr="1.0004843" vb="1.0000966"/>
+        </calibration>
+    </lens>
     <lens>
         <maker>Samyang</maker>
         <!-- The "AE" is actually only on the Nikon variant.  It should be
@@ -39,13 +65,12 @@
         <mount>Samsung NX</mount>
         <mount>Nikon CX</mount>
         <mount>Canon EF-M</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="14" a="0.04015" b="-0.07043" c="-0.05466" />
-            <tca model="poly3" focal="14" br="0.0000198" vr="0.9999690" bb="-0.0001334" vb="1.0003226" />
+            <distortion model="ptlens" focal="14" a="0.04015" b="-0.07043" c="-0.05466"/>
+            <tca model="poly3" focal="14" br="0.0000198" vr="0.9999690" bb="-0.0001334" vb="1.0003226"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Samyang</maker>
         <!-- The "AE" is actually only on the Nikon variant.  It should be
@@ -65,36 +90,71 @@
         <cropfactor>1.523</cropfactor>
         <calibration>
             <!-- Taken with Sony A77 -->
-            <distortion model="ptlens" focal="14" a="0.01031" b="-0.02759" c="-0.0351" />
-            <tca model="poly3" focal="14" br="0.0000642" vr="0.9999130" bb="-0.0001012" vb="1.0003675" />
-            <vignetting model="pa" focal="14" aperture="2.8" distance="10" k1="-1.1454" k2="1.0122" k3="-0.4352" />
-            <vignetting model="pa" focal="14" aperture="2.8" distance="1000" k1="-1.1454" k2="1.0122" k3="-0.4352" />
-            <vignetting model="pa" focal="14" aperture="4" distance="10" k1="-0.2347" k2="-0.0941" k3="-0.0002" />
-            <vignetting model="pa" focal="14" aperture="4" distance="1000" k1="-0.2347" k2="-0.0941" k3="-0.0002" />
-            <vignetting model="pa" focal="14" aperture="5.6" distance="10" k1="-0.2615" k2="0.0072" k3="0.0062" />
-            <vignetting model="pa" focal="14" aperture="5.6" distance="1000" k1="-0.2615" k2="0.0072" k3="0.0062" />
-            <vignetting model="pa" focal="14" aperture="22" distance="10" k1="-0.2733" k2="0.0338" k3="-0.0093" />
-            <vignetting model="pa" focal="14" aperture="22" distance="1000" k1="-0.2733" k2="0.0338" k3="-0.0093" />
+            <distortion model="ptlens" focal="14" a="0.01031" b="-0.02759" c="-0.0351"/>
+            <tca model="poly3" focal="14" br="0.0000642" vr="0.9999130" bb="-0.0001012" vb="1.0003675"/>
+            <vignetting model="pa" focal="14" aperture="2.8" distance="10" k1="-1.1454" k2="1.0122" k3="-0.4352"/>
+            <vignetting model="pa" focal="14" aperture="2.8" distance="1000" k1="-1.1454" k2="1.0122" k3="-0.4352"/>
+            <vignetting model="pa" focal="14" aperture="4" distance="10" k1="-0.2347" k2="-0.0941" k3="-0.0002"/>
+            <vignetting model="pa" focal="14" aperture="4" distance="1000" k1="-0.2347" k2="-0.0941" k3="-0.0002"/>
+            <vignetting model="pa" focal="14" aperture="5.6" distance="10" k1="-0.2615" k2="0.0072" k3="0.0062"/>
+            <vignetting model="pa" focal="14" aperture="5.6" distance="1000" k1="-0.2615" k2="0.0072" k3="0.0062"/>
+            <vignetting model="pa" focal="14" aperture="22" distance="10" k1="-0.2733" k2="0.0338" k3="-0.0093"/>
+            <vignetting model="pa" focal="14" aperture="22" distance="1000" k1="-0.2733" k2="0.0338" k3="-0.0093"/>
         </calibration>
     </lens>
-
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang 16mm f/2.0 ED AS UMC CS</model>
+        <mount>Nikon F AF</mount>
+        <mount>Canon EF</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Samsung NX</mount>
+        <mount>Canon EF-M</mount>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- taken with Nikon D5500 -->
+            <distortion model="poly3" focal="16" k1="-0.006111"/>
+            <tca model="poly3" focal="16" vr="1.0002000" vb="1.0003000"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang 20mm f/1.8 ED AS UMC</model>
+        <mount>Pentax K</mount>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AI</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Sony E</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Samsung NX</mount>
+        <mount>Canon EF-M</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="20" a="0.00825994" b="-0.022059" c="-0.00358632"/>
+            <tca model="poly3" focal="20" br="-0.0000969" vr="1.0006016" bb="0.0001520" vb="0.9996378"/>
+        </calibration>
+    </lens>
     <lens>
         <maker>Samyang</maker>
         <model>Samyang 500mm f/6.3 MC IF Mirror Lens</model>
         <model lang="de">Samyang 500mm f/6.3 MC IF Spiegelobjektiv</model>
         <mount>T2</mount>
-        <focal value="500" />
-        <aperture value="6.3" />
+        <focal value="500"/>
+        <aperture value="6.3"/>
         <cropfactor>1.534</cropfactor>
         <calibration>
             <!-- Taken with NEX-7 -->
-            <distortion model="poly3" focal="500" k1="0" />
-            <tca model="linear" focal="500" kr="1" kb="1" />
-            <vignetting model="pa" focal="500" aperture="6.3" distance="10" k1="-0.7756" k2="0.8291" k3="-0.3723" />
-            <vignetting model="pa" focal="500" aperture="6.3" distance="1000" k1="-0.7756" k2="0.8291" k3="-0.3723" />
+            <distortion model="poly3" focal="500" k1="0"/>
+            <tca model="linear" focal="500" kr="1" kb="1"/>
+            <vignetting model="pa" focal="500" aperture="6.3" distance="10" k1="-0.7756" k2="0.8291" k3="-0.3723"/>
+            <vignetting model="pa" focal="500" aperture="6.3" distance="1000" k1="-0.7756" k2="0.8291" k3="-0.3723"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Samyang</maker>
         <model>Samyang 35mm f/1.4 AS UMC</model>
@@ -104,10 +164,9 @@
         <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Nikon D800 -->
-            <distortion model="ptlens" focal="35" a="0.00331" b="-0.0171" c="0.00274" />
+            <distortion model="ptlens" focal="35" a="0.00331" b="-0.0171" c="0.00274"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Samyang</maker>
         <model>Samyang T-S 24mm f/3.5 ED AS UMC</model>
@@ -120,33 +179,31 @@
         <calibration>
             <!-- Taken with D800 -->
             <!-- No shift, no tilt. -->
-            <distortion model="ptlens" focal="24" a="-0.004" b="0.007" c="-0.02" />
+            <distortion model="ptlens" focal="24" a="-0.00289" b="-0.00253" c="-0.00138"/>
         </calibration>
     </lens>
-
-<lens>
-    <maker>Samyang</maker>
-    <model>Samyang 12mm f/2.8 Fish-Eye ED AS NCS</model>
-    <model lang="de">Samyang 12mm f/2.8 Fischauge ED AS NCS</model>
-    <mount>Nikon F AI</mount>
-    <mount>Canon EF</mount>
-    <mount>Sony E</mount>
-    <cropfactor>1</cropfactor>
-    <type>stereographic</type>
-    <calibration>
-        <!-- Taken with D800 -->
-        <distortion model="ptlens" focal="12" a="a=-0.000331804" b="-0.00911417" c="-0.044237" />
-        <vignetting model="pa" focal="12" aperture="2.8" distance="10" k1="-0.90717" k2="0.58477" k3="-0.2198" />
-        <vignetting model="pa" focal="12" aperture="2.8" distance="1000" k1="-0.90717" k2="0.58477" k3="-0.2198" />
-        <vignetting model="pa" focal="12" aperture="4.0" distance="10" k1="-0.17101" k2="-0.54574" k3="0.3056" />
-        <vignetting model="pa" focal="12" aperture="4.0" distance="1000" k1="-0.17101" k2="-0.54574" k3="0.3056" />
-        <vignetting model="pa" focal="12" aperture="5.6" distance="10" k1="-0.1978" k2="-0.03729" k3="-0.11743" />
-        <vignetting model="pa" focal="12" aperture="5.6" distance="1000" k1="-0.1978" k2="-0.03729" k3="-0.11743" />
-        <vignetting model="pa" focal="12" aperture="8.0" distance="10" k1="-0.18295" k2="-0.09272" k3="0.03547" />
-        <vignetting model="pa" focal="12" aperture="8.0" distance="1000" k1="-0.18295" k2="-0.09272" k3="0.03547" />
-    </calibration>
-</lens>
-
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang 12mm f/2.8 Fish-Eye ED AS NCS</model>
+        <model lang="de">Samyang 12mm f/2.8 Fischauge ED AS NCS</model>
+        <mount>Nikon F AI</mount>
+        <mount>Canon EF</mount>
+        <mount>Sony E</mount>
+        <type>stereographic</type>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with D800 -->
+            <distortion model="ptlens" focal="12" a="-0.000331804" b="-0.00911417" c="-0.044237"/>
+            <vignetting model="pa" focal="12" aperture="2.8" distance="10" k1="-0.90717" k2="0.58477" k3="-0.2198"/>
+            <vignetting model="pa" focal="12" aperture="2.8" distance="1000" k1="-0.90717" k2="0.58477" k3="-0.2198"/>
+            <vignetting model="pa" focal="12" aperture="4" distance="10" k1="-0.17101" k2="-0.54574" k3="0.3056"/>
+            <vignetting model="pa" focal="12" aperture="4" distance="1000" k1="-0.17101" k2="-0.54574" k3="0.3056"/>
+            <vignetting model="pa" focal="12" aperture="5.6" distance="10" k1="-0.1978" k2="-0.03729" k3="-0.11743"/>
+            <vignetting model="pa" focal="12" aperture="5.6" distance="1000" k1="-0.1978" k2="-0.03729" k3="-0.11743"/>
+            <vignetting model="pa" focal="12" aperture="8" distance="10" k1="-0.18295" k2="-0.09272" k3="0.03547"/>
+            <vignetting model="pa" focal="12" aperture="8" distance="1000" k1="-0.18295" k2="-0.09272" k3="0.03547"/>
+        </calibration>
+    </lens>
     <lens>
         <maker>Samyang</maker>
         <model>Samyang 35mm T1.5 Cine Lens</model>
@@ -154,8 +211,79 @@
         <cropfactor>1.620</cropfactor>
         <calibration>
             <!-- Taken with Canon 7D -->
-            <distortion model="poly3" focal="35" k1="-0.00449" />
+            <distortion model="poly3" focal="35" k1="-0.00449"/>
         </calibration>
     </lens>
-
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang 135mm f/2 ED UMC</model>
+        <mount>Nikon F</mount>
+        <mount>Canon EF</mount>
+        <mount>Pentax KAF</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Sony E</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Samsung NX</mount>
+        <aperture min="2" max="22"/>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D800 -->
+            <distortion model="ptlens" focal="135" a="0.00072" b="-0.001" c="0.00215"/>
+            <vignetting model="pa" focal="135" aperture="2.0" distance="0.8" k1="-0.22656" k2="0.16959" k3="-0.07317"/>
+            <vignetting model="pa" focal="135" aperture="2.0" distance="3" k1="-0.53456" k2="0.29892" k3="-0.15499"/>
+            <vignetting model="pa" focal="135" aperture="2.0" distance="100" k1="-1.01068" k2="0.99239" k3="-0.53442"/>
+            <vignetting model="pa" focal="135" aperture="2.8" distance="0.8" k1="-0.10264" k2="-0.00365" k3="0.03305"/>
+            <vignetting model="pa" focal="135" aperture="2.8" distance="3" k1="-0.08784" k2="0.06134" k3="-0.08"/>
+            <vignetting model="pa" focal="135" aperture="2.8" distance="100" k1="0.02813" k2="-0.92096" k3="0.59655"/>
+            <vignetting model="pa" focal="135" aperture="4.0" distance="3" k1="-0.085" k2="0" k3="0"/>
+            <vignetting model="pa" focal="135" aperture="4.0" distance="100" k1="-0.069" k2="-0.16" k3="-0.06"/>
+            <vignetting model="pa" focal="135" aperture="5.6" distance="100" k1="-0.14" k2="0.11" k3="-0.15"/>
+            <vignetting model="pa" focal="135" aperture="8.0" distance="100" k1="-0.11" k2="0" k3="0"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang 35mm f/1.4 AS UMC</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.605</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS 7D Mark II -->
+            <distortion model="ptlens" focal="35" a="-0.00182" b="0.00936" c="-0.02772"/>
+            <tca model="poly3" focal="35" vr="1.0002038" vb="1.0000399"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang 85mm f/1.4 IF UMC Aspherical</model>
+        <mount>Canon EF</mount>
+        <mount>Canon EF-M</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Nikon F AI</mount>
+        <mount>4/3 System</mount>
+        <mount>Pentax KAF</mount>
+        <mount>Samsung NX</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D800 -->
+            <distortion model="ptlens" focal="85" a="0.00027" b="-0.00193" c="0.00014"/>
+            <vignetting model="pa" focal="85" aperture="1.4" distance="10" k1="-1.29066" k2="1.24194" k3="-0.57384"/>
+            <vignetting model="pa" focal="85" aperture="1.4" distance="1000" k1="-1.29066" k2="1.24194" k3="-0.57384"/>
+            <vignetting model="pa" focal="85" aperture="2" distance="10" k1="-0.38493" k2="-0.29475" k3="0.19413"/>
+            <vignetting model="pa" focal="85" aperture="2" distance="1000" k1="-0.38493" k2="-0.29475" k3="0.19413"/>
+            <vignetting model="pa" focal="85" aperture="2.8" distance="10" k1="-0.23968" k2="-0.02248" k3="-0.12371"/>
+            <vignetting model="pa" focal="85" aperture="2.8" distance="1000" k1="-0.23968" k2="-0.02248" k3="-0.12371"/>
+            <vignetting model="pa" focal="85" aperture="4" distance="10" k1="-0.37368" k2="0.37764" k3="-0.2984"/>
+            <vignetting model="pa" focal="85" aperture="4" distance="1000" k1="-0.37368" k2="0.37764" k3="-0.2984"/>
+            <vignetting model="pa" focal="85" aperture="5.6" distance="10" k1="-0.3077" k2="0.10947" k3="-0.02896"/>
+            <vignetting model="pa" focal="85" aperture="5.6" distance="1000" k1="-0.3077" k2="0.10947" k3="-0.02896"/>
+            <vignetting model="pa" focal="85" aperture="8" distance="10" k1="-0.32946" k2="0.159" k3="-0.05216"/>
+            <vignetting model="pa" focal="85" aperture="8" distance="1000" k1="-0.32946" k2="0.159" k3="-0.05216"/>
+            <vignetting model="pa" focal="85" aperture="22" distance="10" k1="-0.34871" k2="0.19902" k3="-0.07667"/>
+            <vignetting model="pa" focal="85" aperture="22" distance="1000" k1="-0.34871" k2="0.19902" k3="-0.07667"/>
+        </calibration>
+    </lens>
 </lensdatabase>

@@ -1,10 +1,4 @@
-<!--
-    The meaning of this file is to provide some generic lenses that can be used
-    to correct or simulate geometric distortions for specific types of lenses.
-    It does not provide (obviously) any calibration data.
--->
 <lensdatabase version="1">
-
     <mount>
         <name>Generic</name>
         <!-- The following is a list of all mounts in the Lensfun database for
@@ -24,6 +18,7 @@
         <compat>Leica R</compat>
         <compat>Leica S</compat>
         <compat>M42</compat>
+        <compat>M39/1</compat>
         <compat>DKL</compat>
         <compat>Mamiya 645</compat>
         <compat>Micro 4/3 System</compat>
@@ -35,6 +30,7 @@
         <compat>Nikon F AF</compat>
         <compat>Nikon F AI</compat>
         <compat>Nikon F AI-S</compat>
+        <compat>Nikon Z</compat>
         <compat>Olympus OM</compat>
         <compat>Pentax Q</compat>
         <compat>Pentax K</compat>
@@ -42,25 +38,26 @@
         <compat>Pentax KAF</compat>
         <compat>Pentax KAF2</compat>
         <compat>Pentax KAF3</compat>
+        <compat>Pentax KAF4</compat>
         <compat>Rollei 6x6</compat>
         <compat>Samsung NX</compat>
         <compat>Samsung NX mini</compat>
         <compat>Sigma SA</compat>
         <compat>Sony Alpha</compat>
         <compat>Sony E</compat>
+        <compat>Tamron Adaptall</compat>
         <compat>T2</compat>
         <compat>C</compat>
+        <compat>Kiev 88</compat>
     </mount>
-
     <camera>
         <maker>Generic</maker>
         <maker lang="de">Generisch</maker>
         <model>Crop-factor 1.0 (Full Frame)</model>
         <model lang="de">Crop-Faktor 1.0 (Kleinbildformat)</model>
         <mount>Generic</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
     </camera>
-
     <camera>
         <maker>Generic</maker>
         <maker lang="de">Generisch</maker>
@@ -69,7 +66,6 @@
         <mount>Generic</mount>
         <cropfactor>1.1</cropfactor>
     </camera>
-
     <camera>
         <maker>Generic</maker>
         <maker lang="de">Generisch</maker>
@@ -78,7 +74,6 @@
         <mount>Generic</mount>
         <cropfactor>1.267</cropfactor>
     </camera>
-
     <camera>
         <maker>Generic</maker>
         <maker lang="de">Generisch</maker>
@@ -87,7 +82,6 @@
         <mount>Generic</mount>
         <cropfactor>1.53</cropfactor>
     </camera>
-
     <camera>
         <maker>Generic</maker>
         <maker lang="de">Generisch</maker>
@@ -96,7 +90,6 @@
         <mount>Generic</mount>
         <cropfactor>1.611</cropfactor>
     </camera>
-
     <camera>
         <maker>Generic</maker>
         <maker lang="de">Generisch</maker>
@@ -105,44 +98,39 @@
         <mount>Generic</mount>
         <cropfactor>1.739</cropfactor>
     </camera>
-
     <camera>
         <maker>Generic</maker>
         <maker lang="de">Generisch</maker>
         <model>Crop-factor 2.0 (Four-Thirds)</model>
         <model lang="de">Crop-Faktor 2.0 (Four-Thirds)</model>
         <mount>Generic</mount>
-        <cropfactor>2.0</cropfactor>
+        <cropfactor>2</cropfactor>
     </camera>
-
     <lens>
         <maker>Generic</maker>
         <maker lang="de">Generisch</maker>
         <model>Rectilinear 10-1000mm f/1.0</model>
         <model lang="de">Rektilinear 10-1000mm f/1.0</model>
         <mount>Generic</mount>
-        <cropfactor>1.0</cropfactor>
         <type>rectilinear</type>
+        <cropfactor>1</cropfactor>
     </lens>
-
     <lens>
         <maker>Generic</maker>
         <maker lang="de">Generisch</maker>
         <model>Fisheye 8-20mm f/1.0</model>
         <model lang="de">Fischauge 8-20mm f/1.0</model>
         <mount>Generic</mount>
-        <cropfactor>1.0</cropfactor>
         <type>fisheye</type>
+        <cropfactor>1</cropfactor>
     </lens>
-
     <lens>
         <maker>Generic</maker>
         <maker lang="de">Generisch</maker>
         <model>Panoramic 10-100mm f/1.0</model>
         <model lang="de">Panoramaobjektiv 10-100mm f/1.0</model>
         <mount>Generic</mount>
-        <cropfactor>1.0</cropfactor>
         <type>panoramic</type>
+        <cropfactor>1</cropfactor>
     </lens>
-
 </lensdatabase>

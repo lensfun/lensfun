@@ -1,21 +1,20 @@
 <lensdatabase version="1">
-
     <mount>
         <name>Samsung NX</name>
         <compat>M42</compat>
+        <compat>M39/1</compat>
         <compat>DKL</compat>
         <compat>T2</compat>
         <compat>Generic</compat>
     </mount>
-
     <mount>
         <name>Samsung NX mini</name>
         <compat>M42</compat>
+        <compat>M39/1</compat>
         <compat>DKL</compat>
         <compat>T2</compat>
         <compat>Generic</compat>
     </mount>
-
     <camera>
         <maker>Samsung</maker>
         <model>EK-GN120</model>
@@ -23,126 +22,108 @@
         <mount>Samsung NX</mount>
         <cropfactor>1.531</cropfactor>
     </camera>
-
     <camera>
         <maker>Samsung</maker>
         <model>NX10</model>
         <mount>Samsung NX</mount>
         <cropfactor>1.525</cropfactor>
     </camera>
-
     <camera>
         <maker>Samsung</maker>
         <model>NX11</model>
         <mount>Samsung NX</mount>
         <cropfactor>1.525</cropfactor>
     </camera>
-
     <camera>
         <maker>Samsung</maker>
         <model>NX100</model>
         <mount>Samsung NX</mount>
         <cropfactor>1.525</cropfactor>
     </camera>
-
     <camera>
         <maker>Samsung</maker>
         <model>NX1000</model>
         <mount>Samsung NX</mount>
         <cropfactor>1.525</cropfactor>
     </camera>
-
     <camera>
         <maker>Samsung</maker>
         <model>NX20</model>
         <mount>Samsung NX</mount>
         <cropfactor>1.525</cropfactor>
     </camera>
-
     <camera>
         <maker>Samsung</maker>
         <model>NX200</model>
         <mount>Samsung NX</mount>
         <cropfactor>1.525</cropfactor>
     </camera>
-
     <camera>
         <maker>Samsung</maker>
         <model>NX210</model>
         <mount>Samsung NX</mount>
         <cropfactor>1.525</cropfactor>
     </camera>
-
     <camera>
         <maker>Samsung</maker>
         <model>NX300</model>
         <mount>Samsung NX</mount>
         <cropfactor>1.531</cropfactor>
     </camera>
-
     <camera>
         <maker>Samsung</maker>
         <model>NX300M</model>
         <mount>Samsung NX</mount>
         <cropfactor>1.531</cropfactor>
     </camera>
-
     <camera>
         <maker>Samsung</maker>
         <model>NX500</model>
         <mount>Samsung NX</mount>
         <cropfactor>1.531</cropfactor>
     </camera>
-
     <camera>
         <maker>Samsung</maker>
         <model>NX1100</model>
         <mount>Samsung NX</mount>
         <cropfactor>1.531</cropfactor>
     </camera>
-
     <camera>
         <maker>Samsung</maker>
         <model>NX2000</model>
         <mount>Samsung NX</mount>
         <cropfactor>1.531</cropfactor>
     </camera>
-
     <camera>
         <maker>Samsung</maker>
         <model>NX3000</model>
         <mount>Samsung NX</mount>
         <cropfactor>1.531</cropfactor>
     </camera>
-
     <camera>
         <maker>Samsung</maker>
         <model>NX1</model>
         <mount>Samsung NX</mount>
         <cropfactor>1.531</cropfactor>
     </camera>
-
     <camera>
         <maker>Samsung</maker>
         <model>NX5</model>
         <mount>Samsung NX</mount>
         <cropfactor>1.525</cropfactor>
     </camera>
-
     <camera>
         <maker>Samsung</maker>
         <model>NX30</model>
         <mount>Samsung NX</mount>
         <cropfactor>1.531</cropfactor>
     </camera>
-
     <camera>
         <maker>Samsung</maker>
         <model>NX mini</model>
         <mount>Samsung NX mini</mount>
         <cropfactor>2.727</cropfactor>
     </camera>
-
     <lens>
         <maker>Samsung</maker>
         <model>Samsung NX 20-50mm f/3.5-5.6 ED</model>
@@ -150,15 +131,14 @@
         <!-- Average crop factor for Samsung APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="20" a="0.01347" b="-0.05952" c="0.01561" />
-            <distortion model="ptlens" focal="24" a="0.00549" b="-0.03312" c="0.00984" />
-            <distortion model="ptlens" focal="28" a="0.01064" b="-0.04256" c="0.03338" />
-            <distortion model="ptlens" focal="35" a="-0.001" b="-0.00843" c="0.02713" />
-            <distortion model="ptlens" focal="45" a="0.00716" b="-0.0379" c="0.06902" />
-            <distortion model="ptlens" focal="50" a="-0.02119" b="0.06813" c="-0.06118" />
+            <distortion model="ptlens" focal="20" a="0.01347" b="-0.05952" c="0.01561"/>
+            <distortion model="ptlens" focal="24" a="0.00549" b="-0.03312" c="0.00984"/>
+            <distortion model="ptlens" focal="28" a="0.01064" b="-0.04256" c="0.03338"/>
+            <distortion model="ptlens" focal="35" a="-0.001" b="-0.00843" c="0.02713"/>
+            <distortion model="ptlens" focal="45" a="0.00716" b="-0.0379" c="0.06902"/>
+            <distortion model="ptlens" focal="50" a="-0.02119" b="0.06813" c="-0.06118"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Samsung</maker>
         <model>Samsung NX 30mm f/2 Pancake</model>
@@ -166,10 +146,9 @@
         <!-- Average crop factor for Samsung APS-C cameras -->
         <cropfactor>1.528</cropfactor>
         <calibration>
-            <distortion model="poly3" focal="30" k1="-0.00596" />
+            <distortion model="poly3" focal="30" k1="-0.00596"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Samsung</maker>
         <model>Samsung NX 16mm f/2.4 Pancake</model>
@@ -177,11 +156,10 @@
         <cropfactor>1.525</cropfactor>
         <calibration>
             <!-- Taken with Samsung NX10 -->
-            <distortion model="ptlens" focal="16" a="0.00013" b="-0.00589" c="-0.04838" />
-            <tca model="poly3" focal="16" br="-0.0000770" vr="1.0006160" bb="0.0001654" vb="0.9997845" />
+            <distortion model="ptlens" focal="16" a="0.00013" b="-0.00589" c="-0.04838"/>
+            <tca model="poly3" focal="16" br="-0.0000770" vr="1.0006160" bb="0.0001654" vb="0.9997845"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Samsung</maker>
         <model>Samsung NX 18-55mm f/3.5-5.6 OIS</model>
@@ -189,23 +167,22 @@
         <cropfactor>1.531</cropfactor>
         <calibration>
             <!-- Taken with Samsung NX300 -->
-            <distortion model="ptlens" focal="18" a="0.01917" b="-0.0495" c="-0.00128" />
-            <distortion model="ptlens" focal="24" a="0.01457" b="-0.03302" c="0.01717" />
-            <distortion model="ptlens" focal="29" a="0.00579" b="-0.00789" c="0.00912" />
-            <distortion model="ptlens" focal="35" a="0.01159" b="-0.02243" c="0.02113" />
-            <distortion model="ptlens" focal="40" a="0" b="0.01092" c="0" />
-            <distortion model="ptlens" focal="45" a="0" b="0.01095" c="0" />
-            <distortion model="ptlens" focal="55" a="0" b="0.01144" c="0" />
-            <tca model="poly3" focal="18" vr="1.0007" vb="0.9999" />
-            <tca model="poly3" focal="24" vr="1.0006" vb="0.9996" />
-            <tca model="poly3" focal="29" vr="1.0004" vb="0.9999" />
-            <tca model="poly3" focal="35" vr="1.0006" vb="0.9998" />
-            <tca model="poly3" focal="40" vr="1.0003" vb="0.9999" />
-            <tca model="poly3" focal="45" vr="1.0003" vb="0.9997" />
-            <tca model="poly3" focal="55" vr="1.0002" vb="0.9996" />
+            <distortion model="ptlens" focal="18" a="0.01917" b="-0.0495" c="-0.00128"/>
+            <distortion model="ptlens" focal="24" a="0.01457" b="-0.03302" c="0.01717"/>
+            <distortion model="ptlens" focal="29" a="0.00579" b="-0.00789" c="0.00912"/>
+            <distortion model="ptlens" focal="35" a="0.01159" b="-0.02243" c="0.02113"/>
+            <distortion model="ptlens" focal="40" a="0" b="0.01092" c="0"/>
+            <distortion model="ptlens" focal="45" a="0" b="0.01095" c="0"/>
+            <distortion model="ptlens" focal="55" a="0" b="0.01144" c="0"/>
+            <tca model="poly3" focal="18" vr="1.0007" vb="0.9999"/>
+            <tca model="poly3" focal="24" vr="1.0006" vb="0.9996"/>
+            <tca model="poly3" focal="29" vr="1.0004" vb="0.9999"/>
+            <tca model="poly3" focal="35" vr="1.0006" vb="0.9998"/>
+            <tca model="poly3" focal="40" vr="1.0003" vb="0.9999"/>
+            <tca model="poly3" focal="45" vr="1.0003" vb="0.9997"/>
+            <tca model="poly3" focal="55" vr="1.0002" vb="0.9996"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Samsung</maker>
         <model>Samsung NX 45mm f/1.8 2D/3D</model>
@@ -213,12 +190,11 @@
         <cropfactor>1.525</cropfactor>
         <calibration>
             <!-- Taken with Samsung NX11 -->
-            <distortion model="poly3" focal="45" k1="-0.00974" />
+            <distortion model="poly3" focal="45" k1="-0.00974"/>
             <!-- Taken with Samsung NX500 -->
-            <tca model="poly3" focal="45" br="-0.0000373" vr="1.0001884" bb="0.0000950" vb="0.9997324" />
+            <tca model="poly3" focal="45" br="-0.0000373" vr="1.0001884" bb="0.0000950" vb="0.9997324"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Samsung</maker>
         <model>Samsung NX 20mm f/2.8 Pancake</model>
@@ -226,11 +202,10 @@
         <cropfactor>1.525</cropfactor>
         <calibration>
             <!-- Taken with Samsung NX11 -->
-            <distortion model="ptlens" focal="20" a="0.0065" b="-0.03633" c="0.00495" />
-            <tca model="poly3" focal="20" br="-0.0001595" vr="1.0006749" bb="0.0001657" vb="0.9996819" />
+            <distortion model="ptlens" focal="20" a="0.0065" b="-0.03633" c="0.00495"/>
+            <tca model="poly3" focal="20" br="-0.0001595" vr="1.0006749" bb="0.0001657" vb="0.9996819"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Samsung</maker>
         <model>Samsung NX 16-50mm f/3.5-5.6 PZ ED OIS</model>
@@ -238,26 +213,24 @@
         <cropfactor>1.525</cropfactor>
         <calibration>
             <!-- Taken with Samsung NX200 -->
-            <distortion model="ptlens" focal="16" a="0.01687" b="-0.04326" c="-0.03389" />
-            <distortion model="ptlens" focal="19" a="0.00841" b="-0.01748" c="-0.03254" />
-            <distortion model="ptlens" focal="22" a="0.0085" b="-0.02678" c="-0.00262" />
-            <distortion model="ptlens" focal="30" a="0" b="-0.00441" c="0" />
-            <distortion model="ptlens" focal="50" a="0" b="0.00145" c="0" />
+            <distortion model="ptlens" focal="16" a="0.01687" b="-0.04326" c="-0.03389"/>
+            <distortion model="ptlens" focal="19" a="0.00841" b="-0.01748" c="-0.03254"/>
+            <distortion model="ptlens" focal="22" a="0.0085" b="-0.02678" c="-0.00262"/>
+            <distortion model="ptlens" focal="30" a="0" b="-0.00441" c="0"/>
+            <distortion model="ptlens" focal="50" a="0" b="0.00145" c="0"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Samsung</maker>
         <model>Samsung NX 10mm f/3.5 Fisheye</model>
         <model lang="de">Samsung NX 10mm f/3.5 Fischauge</model>
         <mount>Samsung NX</mount>
-        <cropfactor>1.531</cropfactor>
         <type>equisolid</type>
+        <cropfactor>1.531</cropfactor>
         <calibration>
             <!-- Taken with Samsung NX30 -->
             <distortion model="ptlens" focal="10" a="-0.0459" b="0.13431" c="-0.10789"/>
             <tca model="poly3" focal="10" br="0.0000529" vr="1.0002370" bb="-0.0000076" vb="1.0003018"/>
         </calibration>
     </lens>
-
 </lensdatabase>
