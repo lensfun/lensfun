@@ -3,12 +3,17 @@
 This section containes licences known to miss callibration data in the database
 
 ### Canon
-- Canon EF 24-70mm f/2.8L II USM
-- Canon EF 24-70mm f/4L IS USM
-- Canon EF 24-105mm f/4L f/3.5-5.6 IS STM
-- Canon EF 24-105mm f/4L f/4L IS II USM
+- Canon EF 24mm f/2.8 IS USM
+- Canon TS-E 24mm f/3.5L II
+- Canon EF 28mm f/2.8 IS USM
+- Canon EF 28-80mm f/2.8-4L
+- Canon EF 28-80mm f/3.5-5.6
+- Canon EF 28-80mm f/3.5-5.6 USM
+- Canon EF 28-80mm f/3.5-5.6 II
+- Canon EF 28-80mm f/3.5-5.6 II USM
+- Canon EF 28-80mm f/3.5-5.6 III USM
+- Canon EF 28-80mm f/3.5-5.6 V USM
 - Canon EF 28-105 mm f/3.5-4.5 USM
-- Canon EF 35mm EF f/2 IS USM
 - Canon EF 35mm EF-S f/2.8 Macro IS STM
 - Canon EF 35-70mm f/3.5-4.5A
 - Canon EF 35-80mm f/4-5.6 PZ
@@ -17,15 +22,12 @@ This section containes licences known to miss callibration data in the database
 - Canon EF 35-80mm f/4-5.6 II
 - Canon EF 35-105mm f/4.5-5.6 USM
 - Canon EF 35-135mm f/3.5-4.5
-- Canon EF 50mm f/1.0L USM
-- Canon EF 50mm f/1.2L USM
-- Canon EF 50mm f/1.8
-- Canon EF 50mm f/1.8 II
-- Canon EF 50mm f/1.8 STM
-- Canon EF 50mm f/2.5 Compact Macro
+- Canon EF 50mm f/1.0L USM (Wikidata: Q60172500)
+- Canon EF 50-200mm f/3.5-4.5
 - Canon EF 55-200mm f/4.5-5.6 II
 - Canon EF 70-200mm f/2.8L IS III USM
 - Canon EF 70-200mm f/4L IS II USM
+- Canon EF 70-210mm f/4
 - Canon EF 70-300mm f/4-5.6L IS USM
 - Canon EF 70-300mm f/4-5.6 IS II USM (Wikidata: Q98729517)
 - Canon EF 75-300mm f/4-5.6
@@ -34,23 +36,33 @@ This section containes licences known to miss callibration data in the database
 - Canon EF 75-300mm f/4-5.6 II USM
 - Canon EF 75-300mm f/4-5.6 III (Wikidata: Q68865711)
 - Canon EF 75-300mm f/4-5.6 III USM
-- Canon EF 80-200mm f/4.5-5.6
 - Canon EF 80-200mm f/4.5-5.6 USM
 - Canon EF 80-200mm f/4.5-5.6 II
-- Canon EF 85mm f/1.2L USM
-- Canon EF 85mm f/1.4L IS USM
-- Canon EF 85mm f/1.8 USM
+- Canon TS-E 90mm f/2.8L MACRO
+- Canon EF 90-300mm f/4.5-5.6 USM
 - Canon EF 100mm f/2.0 USM
 - Canon EF 100-300mm f/4.5-5.6 USM
 - Canon EF 100-300mm f/5.6
+- Canon EF 200mm f/1.8L USM
+- Canon EF 200mm f/2L IS USM
+- Canon EF 300mm f/2.8L USM
+- Canon EF 300mm f/2.8L IS USM
+- Canon EF 300mm f/4L USM
+- Canon EF 400mm f/2.8L USM
+- Canon EF 400mm f/2.8L II USM
+- Canon EF 400mm f/2.8L IS USM
+- Canon EF 400mm f/2.8L IS II USM
+- Canon EF 400mm f/2.8L IS III USM
+- Canon EF 400mm f/4 DO IS USM
+- Canon EF 400mm f/4 DO IS II USM
+- Canon EF 500mm f/4L IS USM
+- Canon EF 500mm f/4.5L USM
 - Canon EF-M 18-150mm f/3.5-6.3 IS STM (Wikidata: Q28035405)
 - Canon EF-M 28mm f/3.5 Macro IS STM (Wikidata: Q24909141)
 - Canon EF-M 32mm f/1.4 STM (Wikidata: Q100876300)
-- Canon EF-S 18-55mm f/3.5-5.6 USM
-- Canon EF-S 18-55mm f/3.5-5.6 II
+- Canon EF-S 18-55mm f/3.5-5.6 USM (Wikidata: Q68733683)
+- Canon EF-S 18-55mm f/3.5-5.6 II (Wikidata: Q60154249)
 - Canon EF-S 18-55mm f/3.5-5.6 II USM
-- Canon EF-S 18-55mm f/3.5-5.6 IS II
-- Canon EF-S 18-55mm f/4-5.6 IS STM
 - Canon RF 5.2mm F2.8L DUAL FISHEYE
 - Canon RF 16mm F2.8 STM
 - Canon RF 35mm F1.8 MACRO IS STM (Wikidata: Q97154439)
