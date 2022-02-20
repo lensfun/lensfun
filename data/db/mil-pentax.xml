@@ -1,42 +1,36 @@
 <lensdatabase version="1">
-
     <mount>
         <name>Pentax Q</name>
         <compat>Generic</compat>
     </mount>
-
     <camera>
         <maker>Pentax</maker>
         <model>Pentax Q</model>
         <mount>Pentax Q</mount>
         <cropfactor>5.53</cropfactor>
     </camera>
-
     <camera>
         <maker>Pentax</maker>
         <model>Pentax Q7</model>
         <mount>Pentax Q</mount>
         <cropfactor>4.6</cropfactor>
     </camera>
-
     <camera>
         <maker>Pentax</maker>
         <model>Pentax Q10</model>
         <mount>Pentax Q</mount>
         <cropfactor>5.53</cropfactor>
     </camera>
-
     <lens>
         <maker>Pentax</maker>
         <model>01 Standard Prime 8.5mm f/1.9 AL [IF]</model>
         <mount>Pentax Q</mount>
+        <focal value="8.5"/>
+        <aperture min="1.9" max="8"/>
         <cropfactor>5.53</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
-        <focal value="8.5" />
-        <aperture min="1.9" max="8" />
         <calibration>
-            <distortion model="poly3" focal="8.5" k1="-0.01529" />
+            <distortion model="poly3" focal="8.5" k1="-0.01529"/>
         </calibration>
     </lens>
-
 </lensdatabase>

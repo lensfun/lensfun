@@ -1,33 +1,28 @@
 <lensdatabase version="1">
-
     <camera>
         <maker>Ricoh</maker>
         <model>GR Digital</model>
         <mount>ricohGRdigital</mount>
         <cropfactor>4.8</cropfactor>
     </camera>
-
     <camera>
         <maker>Ricoh</maker>
         <model>Caplio GX8</model>
         <mount>ricohGX</mount>
         <cropfactor>4.9</cropfactor>
     </camera>
-
     <camera>
         <maker>Ricoh</maker>
         <model>Caplio GX</model>
         <mount>ricohGX</mount>
         <cropfactor>4.9</cropfactor>
     </camera>
-
     <camera>
         <maker>Ricoh</maker>
         <model>Caplio RR30</model>
         <mount>ricohRR30</mount>
         <cropfactor>6.4</cropfactor>
     </camera>
-
     <camera>
         <maker>Ricoh Imaging Company, Ltd.</maker>
         <maker lang="en">Ricoh</maker>
@@ -35,7 +30,12 @@
         <mount>ricohGR</mount>
         <cropfactor>1.523</cropfactor>
     </camera>
-
+    <camera>
+        <maker>Ricoh Imaging Company, Ltd.</maker>
+        <model>Ricoh GR III</model>
+        <mount>ricohGRIII</mount>
+        <cropfactor>1.53</cropfactor>
+    </camera>
     <lens>
         <maker>Ricoh</maker>
         <model>GR Digital &amp; compatibles (Standard)</model>
@@ -45,10 +45,9 @@
         <cropfactor>4.8</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="5.9" a="0.008807" b="-0.022132" c="0" />
+            <distortion model="ptlens" focal="5.9" a="0.008807" b="-0.022132" c="0"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Ricoh</maker>
         <model>Caplio GX &amp; compatibles (Standard)</model>
@@ -58,17 +57,16 @@
         <cropfactor>4.9</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="5.8" a="0.010201" b="-0.035572" c="0" />
-            <distortion model="ptlens" focal="7.2" a="0.008368" b="-0.030732" c="0" />
-            <distortion model="ptlens" focal="8.6" a="0" b="-0.011357" c="0" />
-            <distortion model="ptlens" focal="10.6" a="0" b="-0.008582" c="0" />
-            <distortion model="ptlens" focal="12" a="0" b="-0.006789" c="0" />
-            <distortion model="ptlens" focal="13.5" a="0" b="-0.005898" c="0" />
-            <distortion model="ptlens" focal="15" a="0" b="-0.005782" c="0" />
-            <distortion model="ptlens" focal="17.4" a="0" b="-0.004653" c="0" />
+            <distortion model="ptlens" focal="5.8" a="0.010201" b="-0.035572" c="0"/>
+            <distortion model="ptlens" focal="7.2" a="0.008368" b="-0.030732" c="0"/>
+            <distortion model="ptlens" focal="8.6" a="0" b="-0.011357" c="0"/>
+            <distortion model="ptlens" focal="10.6" a="0" b="-0.008582" c="0"/>
+            <distortion model="ptlens" focal="12" a="0" b="-0.006789" c="0"/>
+            <distortion model="ptlens" focal="13.5" a="0" b="-0.005898" c="0"/>
+            <distortion model="ptlens" focal="15" a="0" b="-0.005782" c="0"/>
+            <distortion model="ptlens" focal="17.4" a="0" b="-0.004653" c="0"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Ricoh</maker>
         <model>Caplio GX &amp; compatibles, with DW-4</model>
@@ -78,17 +76,16 @@
         <cropfactor>4.9</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="5.8" a="0.016596" b="-0.050843" c="0" />
-            <distortion model="ptlens" focal="7.2" a="0.011694" b="-0.04205" c="0" />
-            <distortion model="ptlens" focal="9.3" a="0" b="-0.016018" c="0" />
-            <distortion model="ptlens" focal="10" a="0" b="-0.012339" c="0" />
-            <distortion model="ptlens" focal="11.3" a="0" b="-0.011732" c="0" />
-            <distortion model="ptlens" focal="13.5" a="0" b="-0.007362" c="0" />
-            <distortion model="ptlens" focal="15.8" a="0" b="-0.005769" c="0" />
-            <distortion model="ptlens" focal="17.4" a="0" b="-0.005946" c="0" />
+            <distortion model="ptlens" focal="5.8" a="0.016596" b="-0.050843" c="0"/>
+            <distortion model="ptlens" focal="7.2" a="0.011694" b="-0.04205" c="0"/>
+            <distortion model="ptlens" focal="9.3" a="0" b="-0.016018" c="0"/>
+            <distortion model="ptlens" focal="10" a="0" b="-0.012339" c="0"/>
+            <distortion model="ptlens" focal="11.3" a="0" b="-0.011732" c="0"/>
+            <distortion model="ptlens" focal="13.5" a="0" b="-0.007362" c="0"/>
+            <distortion model="ptlens" focal="15.8" a="0" b="-0.005769" c="0"/>
+            <distortion model="ptlens" focal="17.4" a="0" b="-0.005946" c="0"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Ricoh</maker>
         <model>Caplio RR30 &amp; compatibles (Standard)</model>
@@ -98,16 +95,15 @@
         <cropfactor>6.4</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="poly3" focal="5.7" k1="-0.015153" />
-            <distortion model="poly3" focal="7" k1="-0.008738" />
-            <distortion model="poly3" focal="8" k1="-0.005355" />
-            <distortion model="poly3" focal="9.3" k1="-0.003278" />
-            <distortion model="poly3" focal="11.6" k1="-0.002382" />
-            <distortion model="poly3" focal="13.2" k1="-0.003511" />
-            <distortion model="poly3" focal="16.3" k1="-0.006576" />
+            <distortion model="poly3" focal="5.7" k1="-0.015153"/>
+            <distortion model="poly3" focal="7" k1="-0.008738"/>
+            <distortion model="poly3" focal="8" k1="-0.005355"/>
+            <distortion model="poly3" focal="9.3" k1="-0.003278"/>
+            <distortion model="poly3" focal="11.6" k1="-0.002382"/>
+            <distortion model="poly3" focal="13.2" k1="-0.003511"/>
+            <distortion model="poly3" focal="16.3" k1="-0.006576"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Ricoh</maker>
         <model>Ricoh GR &amp; compatibles</model>
@@ -117,9 +113,62 @@
         <cropfactor>1.523</cropfactor>
         <aspect-ratio>3:2</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="18.3" a="0.01134" b="-0.03066" c="0.01059" />
-            <tca model="poly3" focal="18.3" vr="1.0001157" vb="0.9999549" />
+            <distortion model="ptlens" focal="18.3" a="0.01134" b="-0.03066" c="0.01059"/>
+            <tca model="poly3" focal="18.3" vr="1.0001157" vb="0.9999549"/>
         </calibration>
     </lens>
-
+    <lens>
+        <maker>Ricoh imaging company, ltd.</maker>
+        <model>Ricoh GR III &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>ricohGRIII</mount>
+        <cropfactor>1.53</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18.3" a="0.013" b="-0.035" c="0.018"/>
+            <tca model="poly3" focal="18.3" vr="1.0002833" vb="0.9999384"/>
+            <vignetting model="pa" focal="18.3" aperture="2.8" distance="10" k1="-1.3802520" k2="0.8435439" k3="-0.2049726"/>
+            <vignetting model="pa" focal="18.3" aperture="2.8" distance="1000" k1="-1.3802520" k2="0.8435439" k3="-0.2049726"/>
+            <vignetting model="pa" focal="18.3" aperture="3.2" distance="10" k1="-1.3957299" k2="0.9499705" k3="-0.2752275"/>
+            <vignetting model="pa" focal="18.3" aperture="3.2" distance="1000" k1="-1.3957299" k2="0.9499705" k3="-0.2752275"/>
+            <vignetting model="pa" focal="18.3" aperture="3.5" distance="10" k1="-1.3929666" k2="0.9374711" k3="-0.2586066"/>
+            <vignetting model="pa" focal="18.3" aperture="3.5" distance="1000" k1="-1.3929666" k2="0.9374711" k3="-0.2586066"/>
+            <vignetting model="pa" focal="18.3" aperture="4.0" distance="10" k1="-1.3716307" k2="0.8868999" k3="-0.2285188"/>
+            <vignetting model="pa" focal="18.3" aperture="4.0" distance="1000" k1="-1.3716307" k2="0.8868999" k3="-0.2285188"/>
+            <vignetting model="pa" focal="18.3" aperture="5.0" distance="10" k1="-1.3778934" k2="0.8793616" k3="-0.2177887"/>
+            <vignetting model="pa" focal="18.3" aperture="5.0" distance="1000" k1="-1.3778934" k2="0.8793616" k3="-0.2177887"/>
+            <vignetting model="pa" focal="18.3" aperture="5.6" distance="10" k1="-1.3668395" k2="0.8557737" k3="-0.2031980"/>
+            <vignetting model="pa" focal="18.3" aperture="5.6" distance="1000" k1="-1.3668395" k2="0.8557737" k3="-0.2031980"/>
+            <vignetting model="pa" focal="18.3" aperture="6.3" distance="10" k1="-1.3629146" k2="0.8501453" k3="-0.2003824"/>
+            <vignetting model="pa" focal="18.3" aperture="6.3" distance="1000" k1="-1.3629146" k2="0.8501453" k3="-0.2003824"/>
+            <vignetting model="pa" focal="18.3" aperture="7.1" distance="10" k1="-1.3573667" k2="0.8416084" k3="-0.1946607"/>
+            <vignetting model="pa" focal="18.3" aperture="7.1" distance="1000" k1="-1.3573667" k2="0.8416084" k3="-0.1946607"/>
+            <vignetting model="pa" focal="18.3" aperture="8.0" distance="10" k1="-1.3476270" k2="0.8155343" k3="-0.1797730"/>
+            <vignetting model="pa" focal="18.3" aperture="8.0" distance="1000" k1="-1.3476270" k2="0.8155343" k3="-0.1797730"/>
+            <vignetting model="pa" focal="18.3" aperture="9.0" distance="10" k1="-1.3441417" k2="0.8138368" k3="-0.1826893"/>
+            <vignetting model="pa" focal="18.3" aperture="9.0" distance="1000" k1="-1.3441417" k2="0.8138368" k3="-0.1826893"/>
+            <vignetting model="pa" focal="18.3" aperture="10.0" distance="10" k1="-1.3452665" k2="0.8206792" k3="-0.1836273"/>
+            <vignetting model="pa" focal="18.3" aperture="10.0" distance="1000" k1="-1.3452665" k2="0.8206792" k3="-0.1836273"/>
+            <vignetting model="pa" focal="18.3" aperture="11.0" distance="10" k1="-1.3275226" k2="0.7767254" k3="-0.1582416"/>
+            <vignetting model="pa" focal="18.3" aperture="11.0" distance="1000" k1="-1.3275226" k2="0.7767254" k3="-0.1582416"/>
+            <vignetting model="pa" focal="18.3" aperture="13.0" distance="10" k1="-1.3249310" k2="0.7675530" k3="-0.1525808"/>
+            <vignetting model="pa" focal="18.3" aperture="13.0" distance="1000" k1="-1.3249310" k2="0.7675530" k3="-0.1525808"/>
+            <vignetting model="pa" focal="18.3" aperture="14.0" distance="10" k1="-1.3461355" k2="0.7992332" k3="-0.1666381"/>
+            <vignetting model="pa" focal="18.3" aperture="14.0" distance="1000" k1="-1.3461355" k2="0.7992332" k3="-0.1666381"/>
+            <vignetting model="pa" focal="18.3" aperture="16.0" distance="10" k1="-1.3150808" k2="0.7466026" k3="-0.1380186"/>
+            <vignetting model="pa" focal="18.3" aperture="16.0" distance="1000" k1="-1.3150808" k2="0.7466026" k3="-0.1380186"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Ricoh imaging company, ltd.</maker>
+        <model>Ricoh GR III &amp; compatibles, with GW-4</model>
+        <model lang="en">fixed lens, with GW-4</model>
+        <model lang="de">festes Objektiv, mit GW-4</model>
+        <mount>ricohGRIII</mount>
+        <cropfactor>1.53</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="13.8" a="0.023" b="-0.058" c="0.007"/>
+            <tca model="poly3" focal="13.8" br="-0.0000776" vr="1.0003155" bb="0.0001826" vb="0.9996988"/>
+        </calibration>
+    </lens>
 </lensdatabase>

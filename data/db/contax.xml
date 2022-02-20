@@ -1,48 +1,44 @@
 <lensdatabase version="1">
-
     <mount>
         <name>Contax/Yashica</name>
         <compat>M42</compat>
+        <compat>M39/1</compat>
         <compat>DKL</compat>
         <compat>T2</compat>
         <compat>Generic</compat>
     </mount>
-
     <mount>
         <name>Contax G</name>
         <compat>M42</compat>
+        <compat>M39/1</compat>
         <compat>DKL</compat>
         <compat>T2</compat>
         <compat>Generic</compat>
     </mount>
-
     <camera>
         <maker>Contax</maker>
         <model>35mm film: full frame</model>
         <mount>Contax/Yashica</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
     </camera>
-
     <lens>
         <maker>Contax</maker>
         <model>Zeiss 21mm f/2.8 Distagon</model>
         <mount>Contax/Yashica</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="21" a="0.021925" b="-0.043445" c="0" />
+            <distortion model="ptlens" focal="21" a="0.021925" b="-0.043445" c="0"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Contax</maker>
         <model>Zeiss 28mm f/2.8 Distagon</model>
         <mount>Contax/Yashica</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="28" a="0.007448" b="-0.019182" c="0" />
+            <distortion model="ptlens" focal="28" a="0.007448" b="-0.019182" c="0"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Contax</maker>
         <model>Contax G Planar T* 2/35</model>
@@ -50,9 +46,8 @@
         <cropfactor>1.534</cropfactor>
         <calibration>
             <!-- Taken with Sony A6000 -->
-            <distortion model="poly3" focal="35" k1="-0.0021" />
-            <tca model="poly3" focal="35" vr="1.0002" vb="0.9997" />
+            <distortion model="poly3" focal="35" k1="-0.0021"/>
+            <tca model="poly3" focal="35" vr="1.0002" vb="0.9997"/>
         </calibration>
     </lens>
-
 </lensdatabase>

@@ -1,30 +1,48 @@
 <lensdatabase version="1">
-
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Carl Zeiss Distagon T* 2/35 ZF.2</model>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D3 -->
+            <distortion model="ptlens" focal="35" a="0.00786" b="-0.02862" c="0.01911"/>
+            <tca model="poly3" focal="35" vr="1.0001515" vb="1.0001430"/>
+            <vignetting model="pa" focal="35" aperture="2" distance="10" k1="-1.9515" k2="2.1666" k3="-0.9851"/>
+            <vignetting model="pa" focal="35" aperture="2" distance="1000" k1="-1.9515" k2="2.1666" k3="-0.9851"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="10" k1="-1.2284" k2="0.5638" k3="-0.0563"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="1000" k1="-1.2284" k2="0.5638" k3="-0.0563"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="10" k1="-0.2027" k2="-0.7027" k3="0.3671"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="1000" k1="-0.2027" k2="-0.7027" k3="0.3671"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="10" k1="-0.4527" k2="0.3264" k3="-0.2138"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="1000" k1="-0.4527" k2="0.3264" k3="-0.2138"/>
+            <vignetting model="pa" focal="35" aperture="22" distance="10" k1="-0.4222" k2="0.1561" k3="-0.0315"/>
+            <vignetting model="pa" focal="35" aperture="22" distance="1000" k1="-0.4222" k2="0.1561" k3="-0.0315"/>
+        </calibration>
+    </lens>
     <lens>
         <!-- Also update copy at "Carl Zeiss Distagon T* 2,8/21 ZE" below. -->
         <maker>Zeiss</maker>
         <model>Carl Zeiss Distagon T* 2,8/21 ZF.2</model>
         <mount>Nikon F AI-S</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Nikon D800E -->
-            <distortion model="ptlens" focal="21" a="0.03083" b="-0.0633" c="0.01093" />
-            <tca model="linear" focal="21" kr="1.0001" kb="1.0001" />
+            <distortion model="ptlens" focal="21" a="0.03083" b="-0.0633" c="0.01093"/>
+            <tca model="linear" focal="21" kr="1.0001" kb="1.0001"/>
         </calibration>
     </lens>
-
     <lens>
         <!-- Also update copy at "Carl Zeiss Distagon T* 2,8/21 ZF.2" above. -->
         <maker>Zeiss</maker>
         <model>Carl Zeiss Distagon T* 2,8/21 ZE</model>
         <mount>Canon EF</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="21" a="0.03083" b="-0.0633" c="0.01093" />
-            <tca model="linear" focal="21" kr="1.0001" kb="1.0001" />
+            <distortion model="ptlens" focal="21" a="0.03083" b="-0.0633" c="0.01093"/>
+            <tca model="linear" focal="21" kr="1.0001" kb="1.0001"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Zeiss</maker>
         <model>Carl Zeiss Jena 1Q Biotar 1:2 f=58mm T</model>
@@ -32,15 +50,14 @@
         <cropfactor>1.538</cropfactor>
         <calibration>
             <!-- Taken with Pentax K20D -->
-            <distortion model="poly3" focal="58" k1="0.0017" />
-            <tca model="poly3" focal="58" vr="0.9999881" vb="0.9999867" />
+            <distortion model="poly3" focal="58" k1="0.0017"/>
+            <tca model="poly3" focal="58" vr="0.9999881" vb="0.9999867"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Zeiss</maker>
         <model>Zeiss Distagon T* 25mm f/2.8 ZF.2</model>
-        <mount>Nokon F AI-S</mount>
+        <mount>Nikon F AI-S</mount>
         <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Nikon D810 -->
@@ -56,5 +73,57 @@
             <vignetting model="pa" focal="25" aperture="22" distance="1000" k1="-0.6497" k2="0.2995" k3="-0.0740"/>
         </calibration>
     </lens>
-
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Zeiss Milvus 1.4/50</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AI-S</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony A7R3 + EF adapter -->
+            <distortion model="poly3" focal="50" k1="-0.002311"/>
+            <tca model="poly3" focal="50" br="-0.0000953" vr="1.0001884" bb="0.0001209" vb="0.9997801"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Zeiss Otus 85mm f/1.4</model>
+        <mount>Nikon F AF</mount>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D810 -->
+            <distortion model="poly3" focal="85" k1="0.001793"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Touit 2.8/50M</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-E3 -->
+            <distortion model="ptlens" focal="50" a="0.001765" b="0.000264" c="-0.002461"/>
+            <tca model="poly3" focal="50" vr="1.0002192" vb="0.9999041"/>
+            <tca model="poly3" focal="50" vr="1.0002484" vb="0.9999072"/>
+            <tca model="poly3" focal="50" vr="1.0002575" vb="0.9998811"/>
+            <tca model="poly3" focal="50" vr="1.0002799" vb="0.9998747"/>
+            <tca model="poly3" focal="50" vr="1.0003135" vb="0.9998952"/>
+            <tca model="poly3" focal="50" vr="1.0003157" vb="0.9998979"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="10" k1="-1.3070" k2="0.9955" k3="-0.3573"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="1000" k1="-1.3070" k2="0.9955" k3="-0.3573"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="10" k1="-0.0770" k2="-0.7963" k3="0.4513"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="1000" k1="-0.0770" k2="-0.7963" k3="0.4513"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="10" k1="-0.1472" k2="-0.0518" k3="-0.0978"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="1000" k1="-0.1472" k2="-0.0518" k3="-0.0978"/>
+            <vignetting model="pa" focal="50" aperture="8" distance="10" k1="-0.2164" k2="0.0743" k3="-0.0545"/>
+            <vignetting model="pa" focal="50" aperture="8" distance="1000" k1="-0.2164" k2="0.0743" k3="-0.0545"/>
+            <vignetting model="pa" focal="50" aperture="11" distance="10" k1="-0.2074" k2="0.0286" k3="-0.0087"/>
+            <vignetting model="pa" focal="50" aperture="11" distance="1000" k1="-0.2074" k2="0.0286" k3="-0.0087"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="10" k1="-0.2239" k2="0.0707" k3="-0.0391"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="1000" k1="-0.2239" k2="0.0707" k3="-0.0391"/>
+            <vignetting model="pa" focal="50" aperture="22" distance="10" k1="-0.2226" k2="0.0553" k3="-0.0253"/>
+            <vignetting model="pa" focal="50" aperture="22" distance="1000" k1="-0.2226" k2="0.0553" k3="-0.0253"/>
+        </calibration>
+    </lens>
 </lensdatabase>

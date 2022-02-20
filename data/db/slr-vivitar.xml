@@ -1,5 +1,4 @@
 <lensdatabase version="1">
-
     <lens>
         <maker>Vivitar</maker>
         <model>Vivitar 100mm f/3.5 AF Macro</model>
@@ -9,12 +8,11 @@
         <cropfactor>1.523</cropfactor>
         <calibration>
             <!-- Taken with Sony Alpha 55V -->
-            <distortion model="poly3" focal="100" k1="0.00072" />
+            <distortion model="poly3" focal="100" k1="0.00072"/>
             <!-- No measurable TCA -->
-            <tca model="poly3" focal="100" />
+            <tca model="poly3" focal="100"/>
         </calibration>
     </lens>
-
     <lens>
         <!-- This lens is available in five variants, see
              <http://www.robertstech.com/vivitar.htm>.  This web site suggests
@@ -32,20 +30,19 @@
         <mount>Canon FL</mount>
         <mount>Olympus OM</mount>
         <mount>M42</mount>
+        <focal min="70" max="210"/>
+        <aperture min="3.5" max="22"/>
         <cropfactor>1.534</cropfactor>
-        <focal min="70" max="210" />
-        <aperture min="3.5" max="22" />
         <calibration>
             <!-- Taken with Sony A6000 -->
-            <distortion model="poly3" focal="70" k1="-0.00183" />
-            <distortion model="poly3" focal="85" k1="-0.00025" />
-            <distortion model="poly3" focal="210" k1="0.00324" />
-            <tca model="poly3" focal="70" vr="1.0001457" vb="0.9998911" />
-            <tca model="poly3" focal="85" vr="1.0000626" vb="0.9999076" />
-            <tca model="poly3" focal="135" vr="0.9998391" vb="0.9999724" />
-            <tca model="poly3" focal="180" vr="0.9995820" vb="1.0000310" />
-            <tca model="poly3" focal="210" vr="0.9994685" vb="1.0000417" />
+            <distortion model="poly3" focal="70" k1="-0.00183"/>
+            <distortion model="poly3" focal="85" k1="-0.00025"/>
+            <distortion model="poly3" focal="210" k1="0.00324"/>
+            <tca model="poly3" focal="70" vr="1.0001457" vb="0.9998911"/>
+            <tca model="poly3" focal="85" vr="1.0000626" vb="0.9999076"/>
+            <tca model="poly3" focal="135" vr="0.9998391" vb="0.9999724"/>
+            <tca model="poly3" focal="180" vr="0.9995820" vb="1.0000310"/>
+            <tca model="poly3" focal="210" vr="0.9994685" vb="1.0000417"/>
         </calibration>
     </lens>
-
 </lensdatabase>

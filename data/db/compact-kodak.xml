@@ -1,5 +1,4 @@
 <lensdatabase version="1">
-
     <camera>
         <maker>Eastman Kodak Company</maker>
         <maker lang="en">Kodak</maker>
@@ -8,7 +7,6 @@
         <mount>kodakDC120</mount>
         <cropfactor>1</cropfactor>
     </camera>
-
     <camera>
         <maker>Eastman Kodak Company</maker>
         <maker lang="en">Kodak</maker>
@@ -17,7 +15,6 @@
         <mount>kodakDC50</mount>
         <cropfactor>1</cropfactor>
     </camera>
-
     <camera>
         <maker>Eastman Kodak Company</maker>
         <maker lang="en">Kodak</maker>
@@ -26,7 +23,14 @@
         <mount>kodakCX6330</mount>
         <cropfactor>6.593</cropfactor>
     </camera>
-
+    <camera>
+        <maker>Eastman Kodak Company</maker>
+        <maker lang="en">Kodak</maker>
+        <model>Kodak CX7525 Zoom Digital Camera</model>
+        <model lang="en">Kodak CX7525</model>
+        <mount>kodakCX6330</mount>
+        <cropfactor>6.07</cropfactor>
+    </camera>
     <lens>
         <maker>Kodak</maker>
         <model>Kodak CX6330 &amp; compatibles</model>
@@ -36,13 +40,12 @@
         <cropfactor>6.593</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="5.6" a="0.02078" b="-0.06962" c="0.04229" />
-            <distortion model="ptlens" focal="7" a="0" b="-0.0089" c="0" />
-            <distortion model="ptlens" focal="8.6" a="0.00856" b="-0.03587" c="0.0327" />
-            <distortion model="ptlens" focal="10.8" a="0" b="-0.00465" c="0" />
-            <distortion model="ptlens" focal="13.5" a="0" b="-0.00357" c="0" />
-            <distortion model="ptlens" focal="16.8" a="0" b="-0.00293" c="0" />
+            <distortion model="ptlens" focal="5.6" a="0.02078" b="-0.06962" c="0.04229"/>
+            <distortion model="ptlens" focal="7" a="0" b="-0.0089" c="0"/>
+            <distortion model="ptlens" focal="8.6" a="0.00856" b="-0.03587" c="0.0327"/>
+            <distortion model="ptlens" focal="10.8" a="0" b="-0.00465" c="0"/>
+            <distortion model="ptlens" focal="13.5" a="0" b="-0.00357" c="0"/>
+            <distortion model="ptlens" focal="16.8" a="0" b="-0.00293" c="0"/>
         </calibration>
     </lens>
-
 </lensdatabase>

@@ -1,102 +1,90 @@
 <lensdatabase version="1">
-
     <mount>
         <name>Rollei 6x6</name>
         <compat>Generic</compat>
     </mount>
-
     <mount>
         <name>Mamiya 645</name>
         <compat>Generic</compat>
     </mount>
-
     <camera>
         <maker>Mamiya</maker>
         <model>Mamiya 645</model>
         <mount>Mamiya 645</mount>
-        <cropfactor>.577</cropfactor>
+        <cropfactor>0.577</cropfactor>
     </camera>
-
     <camera>
         <maker>Mamiya</maker>
         <model>Mamiya ZD</model>
         <mount>Mamiya 645</mount>
-        <cropfactor>.721</cropfactor>
+        <cropfactor>0.721</cropfactor>
     </camera>
-
     <camera>
         <maker>Phase One</maker>
         <model>P 25</model>
         <mount>Mamiya 645</mount>
-        <cropfactor>.577</cropfactor>
+        <cropfactor>0.577</cropfactor>
     </camera>
-
     <camera>
         <maker>Rolleiflex</maker>
         <model>2.8E</model>
         <mount>Rollei 6x6</mount>
-        <cropfactor>.510</cropfactor>
+        <cropfactor>0.510</cropfactor>
     </camera>
-
     <lens>
         <maker>Schneider</maker>
         <model>Schneider 28mm Digitar f/2.8</model>
         <mount>Mamiya 645</mount>
-        <cropfactor>.577</cropfactor>
+        <cropfactor>0.577</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="28" a="0.027509" b="-0.054383" c="0" />
+            <distortion model="ptlens" focal="28" a="0.027509" b="-0.054383" c="0"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Mamiya</maker>
         <model>Mamiya 35mm f/3.5</model>
         <mount>Mamiya 645</mount>
-        <cropfactor>.577</cropfactor>
+        <cropfactor>0.577</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="35" a="0.025471" b="-0.05106" c="0" />
+            <distortion model="ptlens" focal="35" a="0.025471" b="-0.05106" c="0"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Mamiya</maker>
         <model>Mamiya 80mm f/2.8</model>
         <mount>Mamiya 645</mount>
-        <cropfactor>.577</cropfactor>
+        <cropfactor>0.577</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="80" a="-0.008173" b="0.015478" c="0" />
+            <distortion model="ptlens" focal="80" a="-0.008173" b="0.015478" c="0"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Mamiya</maker>
         <model>Mamiya 55-110mm f/4.5</model>
         <mount>Mamiya 645</mount>
-        <cropfactor>.577</cropfactor>
+        <cropfactor>0.577</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
-            <distortion model="ptlens" focal="55" a="-0.001633" b="-0.002243" c="0" />
-            <distortion model="ptlens" focal="65" a="-0.00477" b="0.008348" c="0" />
-            <distortion model="ptlens" focal="75" a="0" b="0.002136" c="0" />
-            <distortion model="ptlens" focal="83" a="-0.009877" b="0.021454" c="0" />
-            <distortion model="ptlens" focal="90" a="-0.007302" b="0.019618" c="0" />
-            <distortion model="ptlens" focal="100" a="-0.010183" b="0.025981" c="0" />
-            <distortion model="ptlens" focal="110" a="-0.012796" b="0.029683" c="0" />
+            <distortion model="ptlens" focal="55" a="-0.001633" b="-0.002243" c="0"/>
+            <distortion model="ptlens" focal="65" a="-0.00477" b="0.008348" c="0"/>
+            <distortion model="ptlens" focal="75" a="0" b="0.002136" c="0"/>
+            <distortion model="ptlens" focal="83" a="-0.009877" b="0.021454" c="0"/>
+            <distortion model="ptlens" focal="90" a="-0.007302" b="0.019618" c="0"/>
+            <distortion model="ptlens" focal="100" a="-0.010183" b="0.025981" c="0"/>
+            <distortion model="ptlens" focal="110" a="-0.012796" b="0.029683" c="0"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Schneider</maker>
         <model>Schneider 80mm Xenotar f/2.8</model>
         <mount>Rollei 6x6</mount>
-        <cropfactor>.510</cropfactor>
+        <cropfactor>0.510</cropfactor>
         <aspect-ratio>1:1</aspect-ratio>
         <calibration>
-            <distortion model="poly3" focal="80" k1="-0.009721" />
+            <distortion model="poly3" focal="80" k1="-0.009721"/>
         </calibration>
     </lens>
-
 </lensdatabase>

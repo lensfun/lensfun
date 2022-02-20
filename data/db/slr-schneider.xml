@@ -1,16 +1,14 @@
 <lensdatabase version="1">
-
     <lens>
         <maker>Schneider</maker>
         <model>Schneider 28mm f/2.8 PC</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AI-S</mount>
-        <cropfactor>1.0</cropfactor>
+        <cropfactor>1</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="28" a="0.009514" b="-0.027901" c="0" />
+            <distortion model="ptlens" focal="28" a="0.009514" b="-0.027901" c="0"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Schneider</maker>
         <model>D-Xenon 1:3.5-5.6 18-55mm AL</model>
@@ -18,14 +16,13 @@
         <!-- Average crop factor of non-Canon APS-C cameras -->
         <cropfactor>1.53</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="18" a="0.004593" b="-0.021008" c="0" />
-            <distortion model="ptlens" focal="21" a="0.00371" b="-0.014625" c="0" />
-            <distortion model="ptlens" focal="24" a="0" b="-0.004166" c="0" />
-            <distortion model="ptlens" focal="33" a="0" b="0.000528" c="0" />
-            <distortion model="ptlens" focal="55" a="0" b="0.003215" c="0" />
+            <distortion model="ptlens" focal="18" a="0.004593" b="-0.021008" c="0"/>
+            <distortion model="ptlens" focal="21" a="0.00371" b="-0.014625" c="0"/>
+            <distortion model="ptlens" focal="24" a="0" b="-0.004166" c="0"/>
+            <distortion model="ptlens" focal="33" a="0" b="0.000528" c="0"/>
+            <distortion model="ptlens" focal="55" a="0" b="0.003215" c="0"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Schneider</maker>
         <model>D-Xenon 1:4-5.6 50-200mm AL</model>
@@ -33,17 +30,16 @@
         <!-- Average crop factor of non-Canon APS-C cameras -->
         <cropfactor>1.53</cropfactor>
         <calibration>
-            <distortion model="poly3" focal="50" k1="-0.004038" />
-            <distortion model="poly3" focal="63" k1="0.001607" />
-            <distortion model="poly3" focal="95" k1="0.007697" />
-            <distortion model="poly3" focal="125" k1="0.007991" />
-            <distortion model="poly3" focal="138" k1="0.008036" />
-            <distortion model="poly3" focal="160" k1="0.007909" />
-            <distortion model="poly3" focal="180" k1="0.009293" />
-            <distortion model="poly3" focal="200" k1="0.007685" />
+            <distortion model="poly3" focal="50" k1="-0.004038"/>
+            <distortion model="poly3" focal="63" k1="0.001607"/>
+            <distortion model="poly3" focal="95" k1="0.007697"/>
+            <distortion model="poly3" focal="125" k1="0.007991"/>
+            <distortion model="poly3" focal="138" k1="0.008036"/>
+            <distortion model="poly3" focal="160" k1="0.007909"/>
+            <distortion model="poly3" focal="180" k1="0.009293"/>
+            <distortion model="poly3" focal="200" k1="0.007685"/>
         </calibration>
     </lens>
-
     <lens>
         <maker>Schneider</maker>
         <model>Schneider Retina-Curtagon 1:4/28mm</model>
@@ -51,9 +47,8 @@
         <cropfactor>1.529</cropfactor>
         <calibration>
             <!-- Taken with Fujifilm X-M1 -->
-            <distortion model="ptlens" focal="28" a="0.00591" b="-0.01953" c="0.00935" />
-            <tca model="poly3" focal="28" vr="1.0004290" vb="0.9997397" />
+            <distortion model="ptlens" focal="28" a="0.00591" b="-0.01953" c="0.00935"/>
+            <tca model="poly3" focal="28" vr="1.0004290" vb="0.9997397"/>
         </calibration>
     </lens>
-
 </lensdatabase>
