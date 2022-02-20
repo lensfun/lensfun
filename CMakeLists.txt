@@ -11,7 +11,7 @@ project(lensfun C CXX)
 # version
 SET(VERSION_MAJOR 0)
 SET(VERSION_MINOR 3)
-SET(VERSION_MICRO 2)
+SET(VERSION_MICRO 3)
 SET(VERSION_BUGFIX 0)
 SET(VERSION_API 1)
 # This is the version of the *shipped* database, which is not necessarily the
