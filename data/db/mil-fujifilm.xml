@@ -178,6 +178,13 @@
         <cropfactor>1.529</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Fujifilm</maker>
+        <model>GFX 50R</model>
+        <mount>Fujifilm G</mount>
+        <cropfactor>0.8</cropfactor>
+    </camera>
+
     <lens>
         <maker>Fujifilm</maker>
         <model>XF18-55mmF2.8-4 R LM OIS</model>
@@ -1629,6 +1636,18 @@
             <vignetting model="pa" focal="80.0" aperture="16.0" distance="1000" k1="-0.1009831" k2="0.0800461" k3="-0.0298415"/>
             <vignetting model="pa" focal="80.0" aperture="22.0" distance="10" k1="-0.1141526" k2="0.0977281" k3="-0.0395351"/>
             <vignetting model="pa" focal="80.0" aperture="22.0" distance="1000" k1="-0.1141526" k2="0.0977281" k3="-0.0395351"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>GF45mmF2.8 R WR</model>
+        <mount>Fujifilm G</mount>
+        <cropfactor>0.8</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Fujifilm GFX 50R -->
+            <distortion model="ptlens" focal="45" a="0.0064887" b="-0.025113" c="0.0067938"/>
         </calibration>
     </lens>
 
