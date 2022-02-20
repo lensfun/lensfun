@@ -3,6 +3,7 @@
 This section containes licences known to miss callibration data in the database
 
 ### Canon
+- Canon EF 14mm f/2.8L USM
 - Canon EF 24mm f/2.8 IS USM
 - Canon TS-E 24mm f/3.5L II
 - Canon EF 28mm f/2.8 IS USM
