@@ -107,6 +107,28 @@
 
     <lens>
         <maker>Zeiss</maker>
+        <model>Carl Zeiss Planar T* 1,4/50 ZF.2</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+             <!-- Taken with Nikon D90 -->
+            <distortion model="ptlens" focal="50.0" a="0.002" b="-0.01" c="0.005"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Carl Zeiss Distagon T* 3,5/18 ZF.2</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D700 -->
+            <distortion model="ptlens" focal="18.0" a="0.035" b="-0.074" c="0.024"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Zeiss</maker>
         <model>Touit 2.8/50M</model>
         <mount>Fujifilm X</mount>
         <cropfactor>1.529</cropfactor>
