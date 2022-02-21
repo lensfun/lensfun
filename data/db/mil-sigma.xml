@@ -445,4 +445,25 @@
             <vignetting model="pa" focal="85.0" aperture="16.0" distance="1000" k1="-0.2262919" k2="0.1951203" k3="-0.1994702" />
         </calibration>
     </lens>
+
+    <lens>
+        <maker>Sigma</maker>
+        <model>18-50mm F2.8 DC DN | Contemporary 021</model>
+        <mount>Sony E</mount>
+        <mount>Leica L</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18" a="0.02179" b="-0.06976" c="0.00503"/>
+            <distortion model="ptlens" focal="24" a="0.00309" b="-0.01385" c="0.02"/>
+            <distortion model="ptlens" focal="28.4" a="0.01602" b="-0.03101" c="0.01928"/>
+            <distortion model="ptlens" focal="35.1" a="0.00926" b="-0.00013" c="-0.00806"/>
+            <distortion model="ptlens" focal="50" a="0.00941" b="-0.00339" c="-0.00339"/>
+            <tca model="poly3" focal="18.0" br="-0.0001025" vr="1.0004361" bb="0.0000820" vb="0.9999845" />
+            <tca model="poly3" focal="24.0" br="-0.0000832" vr="1.0002892" bb="0.0000550" vb="0.9999200" />
+            <tca model="poly3" focal="28.4" br="-0.0001107" vr="1.0002018" bb="0.0000836" vb="0.9999138" />
+            <tca model="poly3" focal="35.1" br="-0.0001473" vr="1.0002087" bb="0.0001168" vb="0.9998238" />
+            <tca model="poly3" focal="50.0" br="-0.0001037" vr="1.0000722" bb="0.0001120" vb="0.9996541" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
