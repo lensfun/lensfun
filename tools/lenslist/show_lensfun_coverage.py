@@ -166,7 +166,8 @@ else:
         outfile.write("# Lensfun's coverage \n\n ## Lenses (count: {})\n\n"
                   "This list was generated on {} from current Lensfun sources.  Your Lensfun version may be older, resulting in "
                   "less coverage.  \nIf your lens is not included, see \n\n* <a href='/calibration'>Upload calibration pictures</a>\n"
-                  "* <a href='lens_calibration_tutorial/'>Lens calibration for Lensfun</a>\n\n".format(
+                  "* <a href='lens_calibration_tutorial/'>Lens calibration for Lensfun</a>\n\n"
+                  "*Legend*: model name (crop factor, distortion, TCA, vignetting)\n\n".format(
                       len(lenses), datetime.date.today()))
 
     number_of_makers = 0
