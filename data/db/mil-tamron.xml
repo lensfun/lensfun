@@ -379,4 +379,34 @@
             <distortion model="ptlens" focal="300.0" a="0.03685" b="-0.12817" c="0.15026"/>
         </calibration>
     </lens>
+    <lens>
+        <maker>Tamron</maker>
+        <model>E 70-180mm F2.8 A056</model>
+        <model lang="en">Tamron 70-180mm f/2.8 Di III VXD A056</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="70.0" a="0.001" b="-0.008" c="0.002"/>
+            <distortion model="ptlens" focal="85.0" a="-0.002" b="0.007" c="-0.007"/>
+            <distortion model="ptlens" focal="100.0" a="-0.007" b="0.029" c="-0.026"/>
+            <distortion model="ptlens" focal="136.0" a="-0.008" b="0.044" c="-0.042"/>
+            <distortion model="ptlens" focal="180.0" a="-0.004" b="0.033" c="-0.017"/>
+            <tca model="poly3" focal="70.0" br="-0.0000108" vr="1.0000971" bb="0.0000151" vb="1.0000422"/>
+            <tca model="poly3" focal="85.0" br="-0.0000167" vr="1.0000757" bb="-0.0000157" vb="1.0000463"/>
+            <tca model="poly3" focal="100.0" br="-0.0000094" vr="1.0000439" bb="0.0000061" vb="0.9999763"/>
+            <tca model="poly3" focal="136.0" br="-0.0000244" vr="1.0000122" bb="0.0000119" vb="0.9998655"/>
+            <tca model="poly3" focal="180.0" br="-0.0000406" vr="0.9999732" bb="0.0000342" vb="0.9998075"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Tamron</maker>
+        <model>E 35mm F2.8 F053</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7C, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="35" a="0.0016611115365420873" b="-0.00947386521116718" c="0.003340325675581003"/>
+            <tca model="poly3" focal="35" vr="1.0001818540335106" cr="6.869199809013899e-05" br="-9.122118693570343e-05" vb="0.9998547038903012" cb="8.492290618014866e-05" bb="3.723618495492444e-05"/>
+        </calibration>
+    </lens>
 </lensdatabase>
