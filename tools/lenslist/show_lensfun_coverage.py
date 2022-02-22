@@ -163,7 +163,7 @@ else:
     # Markdown list
 
     if cmdline_args['table_only'] == False:
-        outfile.write("# Lensfun's coverage \n\n ** Lenses (count: {}) **\n\n"
+        outfile.write("# Lensfun's coverage \n\n **Lenses (count: {})**\n\n"
                   "This list was generated on {} from current Lensfun sources.  Your Lensfun version may be older, resulting in "
                   "less coverage.  \nIf your lens is not included, see \n\n* <a href='/calibration'>Upload calibration pictures</a>\n"
                   "* <a href='lens_calibration_tutorial/'>Lens calibration for Lensfun</a>\n\n".format(
@@ -184,6 +184,13 @@ else:
             "T" if lens.tca else "–",
             "V" if lens.vignetting else "–"))
         previous_maker = lens.maker.lower()
+        
+    outfile.write("## Cameras\n\nNote that new camera models can be added very easily.  "
+              "Contact the Lensfun maintainers for this.\n\n")
+
+    for maker, cameras in sorted(Camera.camera_makers.items()):
+        outfile.write("**{}**: {}".format(maker, ", ".join(sorted(cameras))))
+
 
 outfile.close()
 print("~ List of lenses was written to "+cmdline_args['outfile'])
