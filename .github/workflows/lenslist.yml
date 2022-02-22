@@ -29,6 +29,8 @@ jobs:
       
       - name: Run a multi-line script
         run: |
+          git config user.email "sarunas.burdulisyou@example.com"
+          git config user.name "Šarūnas Burdulis"
           git add lenslist.html
           git commit -m "test lenslist"
           git push
