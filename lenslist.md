@@ -8,6 +8,8 @@ If your lens is not included, see
 * <a href='/calibration'>Upload calibration pictures</a>
 * <a href='lens_calibration_tutorial/'>Lens calibration for Lensfun</a>
 
+*Legend*: model name (crop factor, distortion, TCA, vignetting)
+
 
 ### AEE
 
