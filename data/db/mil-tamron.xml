@@ -403,5 +403,17 @@
             <tca model="poly3" focal="180.0" br="-0.0000406" vr="0.9999732" bb="0.0000342" vb="0.9998075"/>
         </calibration>
     </lens>
+	
+    <lens>
+        <maker>Tamron</maker>
+        <model>E 35mm F2.8 F053</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7C, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="35" a="0.0016611115365420873" b="-0.00947386521116718" c="0.003340325675581003" />
+            <tca model="poly3" focal="35" vr="1.0001818540335106" cr="6.869199809013899e-05" br="-9.122118693570343e-05" vb="0.9998547038903012" cb="8.492290618014866e-05" bb="3.723618495492444e-05" />
+        </calibration>
+    </lens>
 
 </lensdatabase>
