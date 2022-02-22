@@ -3,7 +3,7 @@
  ## Lenses (count: 1161)
 
 This list was generated on 2022-02-22 from current Lensfun sources.  Your Lensfun version may be older, resulting in less coverage.  
-If your lens is not included, see 
+If your lens is not included, see: 
 
 * <a href='https://lensfun.github.io/calibration'>Upload calibration pictures</a>
 * <a href='https://github.com/lensfun/lensfun/blob/master/docs/calibration_tutorial/lens_calibration_tutorial.rst'>Lens calibration for Lensfun</a>
