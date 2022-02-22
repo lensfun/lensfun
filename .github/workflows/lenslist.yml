@@ -24,6 +24,7 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
 
-    - name: make lenslist.html
-      run: ./tools/lenslist/show_lensfun_coverage.py -g -o lenslist.html
+      - name: make lenslist.html
+        run: ./tools/lenslist/show_lensfun_coverage.py -g -o lenslist.html
+        
       
