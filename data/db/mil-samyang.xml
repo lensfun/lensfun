@@ -263,4 +263,14 @@
             <tca model="poly3" focal="12.0" br="0.0000539" vr="1.0002125" bb="-0.0000235" vb="1.0003006"/>
         </calibration>
     </lens>
+    <lens>
+        <maker>Samyang</maker>
+        <model>SAMYANG AF 18mm F2.8</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="18" a="0.02072794438055051" b="-0.055421093067902875" c="0.022351964872009425"/>
+        </calibration>
+    </lens>
 </lensdatabase>
