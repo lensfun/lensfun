@@ -165,9 +165,9 @@ else:
     if cmdline_args['table_only'] == False:
         outfile.write("# Lensfun's coverage \n\n ## Lenses (count: {})\n\n"
                   "This list was generated on {} from current Lensfun sources.  Your Lensfun version may be older, resulting in "
-                  "less coverage.  \nIf your lens is not included, see \n\n* <a href='/calibration'>Upload calibration pictures</a>\n"
-                  "* <a href='lens_calibration_tutorial/'>Lens calibration for Lensfun</a>\n\n"
-                  "*Legend*: model name (crop factor, distortion, TCA, vignetting)\n\n".format(
+                  "less coverage.  \nIf your lens is not included, see \n\n* <a href='https://lensfun.github.io/calibration'>Upload calibration pictures</a>\n"
+                  "* <a href='https://github.com/lensfun/lensfun/blob/master/docs/calibration_tutorial/lens_calibration_tutorial.rst'>Lens calibration for Lensfun</a>\n\n"
+                  "Legend: lens model name (crop factor, distortion/TCA/vignetting)\n\n".format(
                       len(lenses), datetime.date.today()))
 
     number_of_makers = 0
