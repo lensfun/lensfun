@@ -1,6 +1,6 @@
 # Lensfun's coverage 
 
- ## Lenses (count: 1160)
+ ## Lenses (count: 1161)
 
 This list was generated on 2022-02-22 from current Lensfun sources.  Your Lensfun version may be older, resulting in less coverage.  
 If your lens is not included, see 
@@ -178,6 +178,7 @@ If your lens is not included, see
 * Canon FDn 50mm 1:1.8 (1.529, D/T/–)
 * Canon Lens FL 135mm F3.5 (1.529, –/–/V)
 * Canon Lens FL 50mm F1.4 (1.529, D/T/V)
+* Canon RF 100-500mm F4.5-7.1L IS USM (1.0, D/T/V)
 * Canon RF 24-105mm F4-7.1 IS STM (1.0, D/T/V)
 * Canon RF 24-105mm F4L IS USM (1.0, D/T/–)
 * Canon RF 24-240mm F4-6.3 IS USM (1.0, D/T/–)
