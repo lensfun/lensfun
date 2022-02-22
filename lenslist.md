@@ -1,6 +1,6 @@
 # Lensfun's coverage 
 
- **Lenses (count: 1160)**
+ ## Lenses (count: 1160)
 
 This list was generated on 2022-02-22 from current Lensfun sources.  Your Lensfun version may be older, resulting in less coverage.  
 If your lens is not included, see 
@@ -9,24 +9,24 @@ If your lens is not included, see
 * <a href='lens_calibration_tutorial/'>Lens calibration for Lensfun</a>
 
 
-## AEE
+### AEE
 
 * fixed lens (6.0, D/–/–)
 
-## Apple
+### Apple
 
 * fixed lens (6.118, D/T/V)
 * fixed lens (8.667, D/T/V)
 
-## Arsenal
+### Arsenal
 
 * MC Volna-3 80mm f/2.8 (1.523, D/T/V)
 
-## Beroflex
+### Beroflex
 
 * Beroflex 1:8 500mm (1.531, D/T/–)
 
-## Canon
+### Canon
 
 * Canon EF 100-200mm f/4.5A (1.005, D/T/V)
 * Canon EF 100-300mm f/5.6L (1.0, D/–/–)
@@ -260,7 +260,7 @@ If your lens is not included, see
 * Fixed lens Powershot SX60 HS (5.61, D/T/–)
 * Fixed lens PowerShot SX700 HS (5.6, D/–/–)
 
-## Casio
+### Casio
 
 * Fixed lens EX-P700 (4.65, D/–/–)
 * Fixed lens EX-P700 (4.65, D/–/–)
@@ -269,24 +269,24 @@ If your lens is not included, see
 * Fixed lens QV-3500EX (4.8, D/–/–)
 * Fixed lens QV-3500EX (4.8, D/–/–)
 
-## Chinon
+### Chinon
 
 * Auto Chinon 35mm f/2.8 (1.0, D/T/V)
 * Chinon 75-205mm f/3.8 (1.0, –/–/V)
 
-## Contax
+### Contax
 
 * Contax G Planar T* 2/35 (1.534, D/T/–)
 * Zeiss 21mm f/2.8 Distagon (1.0, D/–/–)
 * Zeiss 28mm f/2.8 Distagon (1.0, D/–/–)
 
-## Cosina
+### Cosina
 
 * 24mm 2.0 Macro (1.526, D/T/–)
 * Cosina 19-35mm f/3.5-4.5 MC (1.0, D/T/V)
 * Cosina Cosinon-S 50mm 1:2 (1.538, D/T/–)
 
-## DJI
+### DJI
 
 * fixed lens (6.0, D/T/–)
 * fixed lens (5.5, –/–/V)
@@ -294,15 +294,15 @@ If your lens is not included, see
 * fixed lens (2.73, D/T/–)
 * fixed lens (5.6, D/T/V)
 
-## Fotasy
+### Fotasy
 
 * Fotasy M3517 35mm f/1.7 (1.529, D/–/–)
 
-## Fujian
+### Fujian
 
 * 35mm f/1.7 (2.0, D/T/–)
 
-## Fujifilm
+### Fujifilm
 
 * Fixed lens FinePix 3800 (6.3333333, D/–/–)
 * Fixed lens FinePix A370 (6.03, D/–/–)
@@ -357,36 +357,36 @@ If your lens is not included, see
 * XF 60mm f/2.4 R Macro (1.529, D/T/V)
 * XF 70-300mm f/4-5.6 R LM OIS WR (1.534, D/T/–)
 
-## GitUp
+### GitUp
 
 * fixed lens (5.57, D/T/–)
 
-## GoPro
+### GoPro
 
 * fixed lens (6.4, D/–/–)
 * fixed lens (5.42, D/–/–)
 * fixed lens (7.66, D/–/–)
 * fixed lens (5.0, D/–/–)
 
-## Hasselblad
+### Hasselblad
 
 * fixed lens (2.8, D/–/–)
 
-## Honor
+### Honor
 
 * fixed lens (8.235, –/–/V)
 
-## Huawei
+### Huawei
 
 * fixed lens (4.86, D/T/V)
 * fixed lens (4.55, D/T/V)
 * fixed lens (6.88, –/–/V)
 
-## Irix
+### Irix
 
 * Irix 15mm f/2.4 (1.0, D/–/V)
 
-## KMZ
+### KMZ
 
 * Helios-40 85mm f/1.5 (1.0, D/T/V)
 * Helios-44 58mm 1:2 (1.0, D/T/V)
@@ -398,11 +398,11 @@ If your lens is not included, see
 * МС МТО 11СА (1.531, D/–/–)
 * ЮПИТЕР-37AM MC 3.5/135 (1.0, D/T/V)
 
-## Kodak
+### Kodak
 
 * Fixed lens Kodak CX6330 (6.593, D/–/–)
 
-## Konica Minolta
+### Konica Minolta
 
 * Fixed lens DiMAGE A200 (3.933, D/–/–)
 * Fixed lens DiMAGE A200 (3.933, D/–/–)
@@ -417,7 +417,7 @@ If your lens is not included, see
 * KM 28-100mm f/3.5-5.6 AF D (1.526, D/–/–)
 * KM 80-200mm f/2.8 (1.526, D/–/–)
 
-## Leica
+### Leica
 
 * Elmarit-M 28mm f/2.8 ASPH (1.0, D/–/–)
 * Elmarit-M 90mm f/2.8 (1.0, D/–/–)
@@ -431,31 +431,31 @@ If your lens is not included, see
 * Leica DG Vario-Elmarit 12-60mm f/2.8-4.0 Asph. Power OIS (2.0, D/T/V)
 * Summicron-M 50mm f/2 (1.0, D/T/–)
 
-## Leica Camera AG
+### Leica Camera AG
 
 * Fixed lens Leica Q (Typ 116) (1.0, D/T/–)
 * Fixed lens LEICA Q2 (1.0, D/T/–)
 * Summicron TL 1:2 23 ASPH. (1.53, D/T/V)
 * Summilux-TL 1:1.4/35 ASPH. (1.53, D/T/–)
 
-## LG
+### LG
 
 * fixed lens (6.34, D/T/–)
 
-## Mamiya
+### Mamiya
 
 * Mamiya 35mm f/3.5 (0.577, D/–/–)
 * Mamiya 55-110mm f/4.5 (0.577, D/–/–)
 * Mamiya 80mm f/2.8 (0.577, D/–/–)
 
-## Meike
+### Meike
 
 * Meike 25mm f/1.8 (1.534, D/T/V)
 * Meike 35mm f/1.7 (1.528, D/T/–)
 * Meike 50mm f/2.0 (1.528, D/T/–)
 * Meike MK-F 28mm f/2.8 (1.529, D/–/–)
 
-## Minolta
+### Minolta
 
 * Fixed lens DiMAGE Xt (6.5, D/–/–)
 * Fixed lens DiMAGE Z1 (6.545, D/–/–)
@@ -473,19 +473,19 @@ If your lens is not included, see
 * Minolta MD Rokkor 50mm 1:1.4 (1.534, D/–/–)
 * Minolta/Sony AF 24-105mm f/3.5-4.5 (D) (1.0, D/T/–)
 
-## Miranda
+### Miranda
 
 * Miranda 28mm f/2.8 MC (1.0, D/T/–)
 
-## Mitakon
+### Mitakon
 
 * Mitakon wide MC f=24mm 1:2.8 (1.538, D/T/–)
 
-## MTO
+### MTO
 
 * МТО-500 500мм f/8 (1.529, –/–/V)
 
-## Nikon
+### Nikon
 
 * 1 Nikkor 10mm f/2.8 (2.727, D/–/V)
 * 1 Nikkor 18.5mm f/1.8 (2.727, D/T/–)
@@ -682,7 +682,7 @@ If your lens is not included, see
 * Nikon Lens Series E 28mm f/2.8 (1.0, D/T/V)
 * Nikon Lens Series E 50mm f/1.8 (1.0, D/T/V)
 
-## Olympus
+### Olympus
 
 * fixed lens (3.933, D/–/–)
 * Fixed lens C-4000 Zoom, C-4100 Zoom (4.92, D/–/–)
@@ -756,11 +756,11 @@ If your lens is not included, see
 * Olympus Zuiko Digital ED 9-18mm f/4.0-5.6 (2.0, D/T/V)
 * Zuiko Auto-S 50mm f/1.8 (1.613, D/T/V)
 
-## Opteka
+### Opteka
 
 * Opteka 15mm f/4 Wide Macro 1:1 (1.0, D/–/–)
 
-## Panasonic
+### Panasonic
 
 * Fixed lens DC-ZS200 (2.73, D/T/–)
 * Fixed lens DMC-FX9 (6.05, D/–/–)
@@ -814,11 +814,11 @@ If your lens is not included, see
 * Lumix G X Vario PZ 45-175mm f/4.0-5.6 (2.0, D/T/–)
 * LUMIX S 20-60/F3.5-5.6 (1.0, D/T/–)
 
-## Pentacon
+### Pentacon
 
 * Pentacon 50mm f/1.8 auto multi coating (1.526, D/T/–)
 
-## Pentax
+### Pentax
 
 * 01 Standard Prime 8.5mm f/1.9 AL [IF] (5.53, D/–/–)
 * Fixed lens Optio 33LF (6.563, D/–/–)
@@ -894,11 +894,11 @@ If your lens is not included, see
 * Super-Takumar 55mm f/1.8 (1.523, D/T/V)
 * Takumar 135mm f/2.5 Bayonet (1.53, D/T/V)
 
-## Petri
+### Petri
 
 * Auto Petri 1:2.8 f=28mm (1.529, D/T/–)
 
-## Ricoh
+### Ricoh
 
 * Fixed lens Caplio GX8 (4.9, D/–/–)
 * Fixed lens Caplio GX8 (4.9, D/–/–)
@@ -908,12 +908,12 @@ If your lens is not included, see
 * Ricoh 50mm 1:2.0 (1.0, D/–/V)
 * Ricoh XR Rikenon 1:1.4 50mm (1.523, D/T/–)
 
-## Ricoh Imaging Company, Ltd.
+### Ricoh Imaging Company, Ltd.
 
 * Fixed lens Ricoh GR III (1.53, D/T/V)
 * Fixed lens Ricoh GR III (1.53, D/T/–)
 
-## Samsung
+### Samsung
 
 * Fixed lens Galaxy Note 8 (6.047, D/T/–)
 * Fixed lens Galaxy S7 (6.19, D/T/–)
@@ -928,7 +928,7 @@ If your lens is not included, see
 * Samsung NX 30mm f/2 Pancake (1.528, D/–/–)
 * Samsung NX 45mm f/1.8 2D/3D (1.525, D/T/–)
 
-## Samyang
+### Samyang
 
 * Samyang 10mm f/2.8 ED AS NCS CS (1.534, D/T/–)
 * Samyang 12mm f/2.0 NCS CS (1.534, D/T/V)
@@ -958,7 +958,7 @@ If your lens is not included, see
 * SAMYANG AF 85mm F1.4 (1.0, D/T/–)
 * Samyang T-S 24mm f/3.5 ED AS UMC (1.0, D/–/–)
 
-## Schneider
+### Schneider
 
 * D-Xenon 1:3.5-5.6 18-55mm AL (1.53, D/–/–)
 * D-Xenon 1:4-5.6 50-200mm AL (1.53, D/–/–)
@@ -967,7 +967,7 @@ If your lens is not included, see
 * Schneider 80mm Xenotar f/2.8 (0.51, D/–/–)
 * Schneider Retina-Curtagon 1:4/28mm (1.529, D/T/–)
 
-## Sigma
+### Sigma
 
 * 100-400mm F5-6.3 DG OS HSM | Contemporary 017 (1.0, D/–/–)
 * 105mm F1.4 DG HSM | Art 018 (1.0, D/T/V)
@@ -1076,15 +1076,15 @@ If your lens is not included, see
 * Sigma 8mm f/3.5 EX DG circular fisheye (1.62, D/T/–)
 * Sigma 8mm f/3.5 EX DG circular fisheye (1.0, D/T/V)
 
-## SLR Magic
+### SLR Magic
 
 * SLR Magic 8mm f/4 (2.0, D/T/V)
 
-## Soligor
+### Soligor
 
 * MC Soligor C/D Wide-Auto 1:2.8 f=24mm (1.531, D/T/–)
 
-## Sony
+### Sony
 
 * Carl Zeiss Distagon T* 24mm F2 ZA SSM (SAL24F20Z) (1.0, D/T/–)
 * E 10-18mm f/4 OSS (1.534, D/T/–)
@@ -1195,7 +1195,7 @@ If your lens is not included, see
 * Zeiss Vario-Sonnar T* 16-35mm f/2.8 ZA SSM II (1.0, D/T/–)
 * Zeiss Vario-Sonnar T* 24-70mm f/2.8 ZA SSM II (1.0, D/T/–)
 
-## Tamron
+### Tamron
 
 * AF 18-200mm f/3.5-6.3 Di II VC (1.558, D/T/–)
 * E 17-28mm F2.8-2.8 (1.0, D/–/–)
@@ -1253,7 +1253,7 @@ If your lens is not included, see
 * Tamron SP AF 70-200mm f/2.8 Di LD (IF) Macro (1.0, D/T/–)
 * Tamron SP AF 90mm f/2.8 Di Macro 1:1 (1.53, D/T/V)
 
-## Tokina
+### Tokina
 
 * E 20mm f/2 (1.0, D/T/–)
 * Tokina 17mm f/3.5 AT-X 17 AF Pro (1.0, D/T/V)
@@ -1278,41 +1278,41 @@ If your lens is not included, see
 * Tokina AT-X 24-70mm f/2.8 PRO FX (1.0, D/T/–)
 * Tokina ATX-i 11-20mm F2.8 CF (1.523, D/T/–)
 
-## Venus
+### Venus
 
 * Laowa 12mm f/2.8 Zero-D (1.0, D/T/V)
 * Laowa 60mm f/2.8 2X Ultra-Macro (1.0, D/T/V)
 * Laowa 7.5mm f/2.0 (2.0, D/T/V)
 * Laowa 9mm f/2.8 Zero-D (1.529, D/T/–)
 
-## Viltrox
+### Viltrox
 
 * 23mmF1.4XM (1.53, D/T/V)
 * Viltrox 23mm F1.4 E (1.53, D/T/V)
 * Viltrox AF 85mm f/1.8 Z (1.0, D/T/–)
 
-## Vivitar
+### Vivitar
 
 * Vivitar 100mm f/3.5 AF Macro (1.523, D/T/–)
 * Vivitar Series 1 70-210mm 1:3.5 SN 22… (1.534, D/T/–)
 
-## Voigtlander
+### Voigtlander
 
 * Voigtländer HELIAR-HYPER WIDE 10mm F5.6 (1.0, D/–/–)
 
-## Voigtländer
+### Voigtländer
 
 * Voigtländer Color-Skopar X 1:2,8/50 (1.529, D/T/–)
 * Voigtländer Skoparex 1:3,4/35 (1.529, D/T/–)
 * Voigtländer Super Wide-Heliar 15mm f/4.5 III (1.0, D/T/V)
 * Voigtländer Ultron 40mm f/2 SL-II Aspherical (1.0, D/T/V)
 
-## Yongnuo
+### Yongnuo
 
 * Yongnuo YN 35mm f/2 (1.62, D/T/–)
 * Yongnuo YN 50mm f/1.8 (1.0, D/T/–)
 
-## Zeiss
+### Zeiss
 
 * Batis 18mm f/2.8 (1.0, D/T/–)
 * Batis 25mm f/2 (1.0, D/–/V)
@@ -1336,11 +1336,80 @@ If your lens is not included, see
 * Zeiss Milvus 1.4/50 (1.0, D/T/–)
 * Zeiss Otus 85mm f/1.4 (1.0, D/–/–)
 
-## Zenit
+### Zenit
 
 * Zenitar MC 16mm f/2.8 (1.529, D/T/–)
 ## Cameras
 
 Note that new camera models can be added very easily.  Contact the Lensfun maintainers for this.
 
-**AEE**: AEE MagiCam SD19 & compatibles**Apple**: iPhone XS, iPhone XS (tele)**Canon**:  EOS 8000D, 35mm film: full frame, EOS 1000D, EOS 100D, EOS 10D, EOS 1100D, EOS 1200D, EOS 1300D, EOS 2000D, EOS 200D, EOS 20D, EOS 250D, EOS 300D, EOS 30D, EOS 350D, EOS 4000D, EOS 400D, EOS 40D, EOS 450D, EOS 500D, EOS 50D, EOS 550D, EOS 5D, EOS 5D Mark II, EOS 5D Mark III, EOS 5D Mark IV, EOS 5DS, EOS 5DS R, EOS 600D, EOS 60D, EOS 650D, EOS 6D, EOS 6D Mark II, EOS 700D, EOS 70D, EOS 750D, EOS 760D, EOS 77D, EOS 7D, EOS 7D Mark II, EOS 800D, EOS 80D, EOS 850D, EOS 9000D, EOS 90D, EOS D2000, EOS D30, EOS D60, EOS Digital REBEL, EOS Digital Rebel XS, EOS Digital Rebel XSi, EOS Digital Rebel XT, EOS Digital Rebel XTi, EOS KISS M, EOS Kiss Digital, EOS Kiss Digital F, EOS Kiss Digital N, EOS Kiss Digital X, EOS Kiss Digital X2, EOS Kiss X10i, EOS Kiss X3, EOS Kiss X4, EOS Kiss X5, EOS Kiss X50, EOS Kiss X6i, EOS Kiss X7, EOS Kiss X70, EOS Kiss X7i, EOS Kiss X8i, EOS Kiss X9, EOS Kiss X90, EOS Kiss X9i, EOS M, EOS M10, EOS M100, EOS M2, EOS M200, EOS M3, EOS M5, EOS M50, EOS M6, EOS R, EOS R5, EOS R6, EOS RP, EOS Rebel SL1, EOS Rebel SL2, EOS Rebel SL3, EOS Rebel T100, EOS Rebel T1i, EOS Rebel T2i, EOS Rebel T3, EOS Rebel T3i, EOS Rebel T4i, EOS Rebel T5, EOS Rebel T5i, EOS Rebel T6, EOS Rebel T6i, EOS Rebel T6s, EOS Rebel T7, EOS Rebel T7i, EOS Rebel T8i, EOS-1D, EOS-1D Mark II, EOS-1D Mark II N, EOS-1D Mark III, EOS-1D Mark IV, EOS-1D X, EOS-1D X Mark II, EOS-1Ds, EOS-1Ds Mark II, EOS-1Ds Mark III, IXUS 125 HS, IXUS 220 HS, IXUS 30, IXUS 40, IXUS 400, IXUS 430, IXUS 50, IXUS 500, IXUS 55, IXUS 70, IXUS 700, IXUS 750, IXUS 80 IS, IXUS 95 IS, IXUS II, IXUS i, IXUS v2, IXY 200a, IXY 30, IXY 40, IXY 400, IXY 450, IXY 50, IXY 500, IXY 55, IXY Digital 600, IXY Digital 700, PowerShot A10, PowerShot A20, PowerShot A30, PowerShot A40, PowerShot A4000 IS, PowerShot A490, PowerShot A495, PowerShot A510, PowerShot A520, PowerShot A60, PowerShot A610, PowerShot A620, PowerShot A640, PowerShot A650 IS, PowerShot A70, PowerShot A720 IS, PowerShot A75, PowerShot A80, PowerShot A85, PowerShot A95, PowerShot G1, PowerShot G1 X, PowerShot G1 X Mark II, PowerShot G1 X Mark III, PowerShot G10, PowerShot G11, PowerShot G12, PowerShot G15, PowerShot G16, PowerShot G2, PowerShot G3, PowerShot G3 X (3:2), PowerShot G5, PowerShot G5 X (16:9), PowerShot G5 X (3:2), PowerShot G5 X (4:3), PowerShot G5 X Mark II, PowerShot G6, PowerShot G7, PowerShot G7 X (16:9), PowerShot G7 X (3:2), PowerShot G7 X (4:3), PowerShot G7 X Mark II (16:9), PowerShot G7 X Mark II (3:2), PowerShot G7 X Mark II (4:3), PowerShot G9, PowerShot G9 X, PowerShot Pro1, PowerShot Pro70, PowerShot Pro90 IS, PowerShot S1 IS, PowerShot S100, PowerShot S110, PowerShot S120, PowerShot S2 IS, PowerShot S200, PowerShot S30, PowerShot S40, PowerShot S400, PowerShot S410, PowerShot S45, PowerShot S5 IS, PowerShot S50, PowerShot S500, PowerShot S60, PowerShot S70, PowerShot S80, PowerShot S90, PowerShot S95, PowerShot SD10, PowerShot SD100, PowerShot SD110, PowerShot SD1100 IS, PowerShot SD200, PowerShot SD300, PowerShot SD400, PowerShot SD450, PowerShot SD500, PowerShot SD550, PowerShot SD950 IS, PowerShot SX1 IS, PowerShot SX10 IS, PowerShot SX130 IS, PowerShot SX150 IS, PowerShot SX160 IS, PowerShot SX220 HS, PowerShot SX230 HS, PowerShot SX240 HS, PowerShot SX260 HS, PowerShot SX30 IS, PowerShot SX510 HS, PowerShot SX700 HS, PowerShot SX710 HS, Powershot A1200, Powershot ELPH 110 HS, Powershot SX50 HS, Powershot SX60 HS**Casio**: EX-FH20, EX-P600, EX-P700, EX-Z3, EX-Z30, EX-Z4, EX-Z40, EX-Z55, EX-Z750, QV-3000EX, QV-3500EX, QV-4000**Contax**: 35mm film: full frame**DJI**: FC6310, Mavic Air FC2103, Mavic Pro FC220, Phantom 3 Pro FC300X, Phantom Vision FC200**Epson**: R-D1**Fujifilm**: FinePix 3800, FinePix A370, FinePix E550, FinePix F10, FinePix F11, FinePix F200EXR, FinePix F601 ZOOM, FinePix F710, FinePix F770EXR, FinePix F810, FinePix F810 widescreen mode, FinePix HS20EXR, FinePix IS Pro, FinePix S1 Pro, FinePix S2 Pro, FinePix S20Pro, FinePix S3 Pro, FinePix S3000, FinePix S304, FinePix S5 Pro, FinePix S5100, FinePix S5500, FinePix S5600, FinePix S602 ZOOM, FinePix S7000, FinePix S9000, FinePix S9500, FinePix S9600, FinePix X100, FinePix2800ZOOM, GFX 50R, X-A1, X-A2, X-A3, X-A5, X-A7, X-E1, X-E2, X-E2S, X-E3, X-E4, X-H1, X-M1, X-Pro1, X-Pro2, X-Pro3, X-S1, X-S10, X-T1, X-T10, X-T100, X-T2, X-T20, X-T3, X-T30, X-T4, X10, X100F, X100S, X100T, X100V, X20, X30, X70, XQ1**Generic**: Crop-Faktor 1.1, Crop-Faktor 1.3 (APS-H), Crop-Faktor 1.5 (APS-C), Crop-Faktor 2.0 (Four-Thirds), Crop-factor 1.0 (Full Frame), Crop-factor 1.6 (APS-C), Crop-factor 1.7**GitUp**: Git2**GoPro**: HD2, HERO4 Black, HERO4 Silver, HERO5 Black, Hero3+ black**Hasselblad**: DJI Mavic 2 Pro, Hasselblad 500 mech., Hasselblad H3D**Honor**: 6A**Huawei**: P10 Lite, P20 Pro, P30 Pro**KMZ**: Zenit 122, Zenit 122K, Zenit 212K, Zenit 312K, Zenit 412LS, Zenit KM**Kodak**: DCS 520, DCS Pro 14N DCS-14n, DCS Pro 14nx, DCS Pro SLR/c, DCS Pro SLR/n, Kodak CX6330, Kodak CX7525, Kodak DC120, Kodak DC50**Konica Minolta**: DiMAGE A2, DiMAGE A200, DiMAGE G400, DiMAGE Z10, DiMAGE Z2, DiMAGE Z20, DiMAGE Z3, DiMAGE Z5, DiMAGE Z6, Dynax 5D, Dynax 7D, Maxxum 5D, Maxxum 7D, Revio KD-420Z**LG**: LG G4**Leica**: Digilux 2, Digilux 3, Digilux 4, Leica M (Typ 240), Leica X Vario (Typ 107)**Leica Camera AG**: LEICA Q2, Leica CL (Typ 7323), Leica Q (Typ 116), Leica SL (Typ 601), Leica T (Typ 701), Leica TL, Leica TL2**Mamiya**: Mamiya 645, Mamiya ZD**Microsoft**: Lumia 950, Lumia 950 XL**Minolta**: DiMAGE 7, DiMAGE 7Hi, DiMAGE 7i, DiMAGE A1, DiMAGE X, DiMAGE Xi, DiMAGE Xt, DiMAGE Z1**Nikon**: 1 AW1, 1 J1, 1 J2, 1 J3, 1 J4, 1 J5, 1 S1, 1 S2, 1 V1, 1 V2, 1 V3, 35mm film: full frame, Coolpix 4200, Coolpix 4500, Coolpix 4800, Coolpix 5000, Coolpix 5200, Coolpix 5400, Coolpix 5700, Coolpix 5900, Coolpix 7600, Coolpix 7900, Coolpix 8400, Coolpix 8700, Coolpix 8800, Coolpix 950, Coolpix 990, Coolpix 995, Coolpix A, Coolpix P1000, Coolpix P330, Coolpix P340, Coolpix P60, Coolpix P6000, Coolpix P7000, Coolpix P7800, Coolpix S3300, D1, D100, D1H, D1X, D200, D2H, D2Hs, D2X, D2Xs, D3, D300, D3000, D300S, D3100, D3200, D3300, D3400, D3500, D3S, D3X, D4, D40, D40X, D4s, D5, D50, D500, D5000, D5100, D5200, D5300, D5500, D5600, D6, D60, D600, D610, D70, D700, D7000, D70s, D7100, D7200, D750, D7500, D780, D80, D800, D800E, D810, D850, D90, Df, Z 5, Z 50, Z 6, Z 6II, Z 7, Z 7II, Z 9, Z fc**Nokia**: Lumia 1020, Lumia 1520**Olympus**: C-2040 Zoom, C-3040 Zoom, C-4000 Zoom, C-4100 Zoom, C-4040 Zoom, C-50 Zoom variant of the X-2, C-5050 Zoom, C-5060 Wide Zoom, C-70 Zoom, C-7000 Zoom, C-700 Ultra Zoom, C-7070 Wide Zoom, C-730 Ultra Zoom, C-750 Ultra Zoom, C-8080 Wide Zoom, C-860L, D-360L variant of the C-860L, E-1, E-10, E-20, E-20N, E-20P, E-3, E-30, E-300, E-330, E-400, E-410, E-420, E-450, E-5, E-500, E-510, E-520, E-600, E-620, E-M1, E-M10, E-M10 II, E-M10 III, E-M10 IV, E-M1MarkII, E-M1MarkIII, E-M5, E-M5MarkII, E-M5MarkIII, E-P1, E-P2, E-P3, E-P5, E-PL1, E-PL1s, E-PL2, E-PL3, E-PL5, E-PL6, E-PL7, E-PL8, E-PL9, E-PM1, E-PM2, PEN-F, SP-350, SP-500 Ultra Zoom, SP-560 Ultra Zoom, Stylus 1, Stylus 1, 1s, Stylus Epic, Stylus Verve Digital variant of the µ-mini Digital, Tough TG-1, Tough TG-2, Tough TG-3, Tough TG-4, Tough TG-5, Tough TG-6, X-2, XZ-1, XZ-2, µ-II, µ-mini Digital**Panasonic**: DC-FZ10002, DC-G9, DC-G90, DC-G91, DC-G95, DC-G99, DC-GH5, DC-GX800, DC-GX880, DC-GX9, DC-LX100M2, DC-S1, DC-S1R, DC-S5, DC-TZ200, DC-TZ202, DC-TZ90, DC-ZS200, DMC-FX150, DMC-FX2, DMC-FX7, DMC-FX8, DMC-FX9, DMC-FZ10, DMC-FZ100, DMC-FZ100 (3:2), DMC-FZ1000, DMC-FZ150, DMC-FZ18, DMC-FZ20, DMC-FZ200, DMC-FZ28, DMC-FZ3, DMC-FZ30, DMC-FZ300, DMC-FZ35, DMC-FZ40, DMC-FZ40 (3:2), DMC-FZ45, DMC-FZ45 (3:2), DMC-FZ5, DMC-FZ50, DMC-FZ8, DMC-G1, DMC-G10, DMC-G2, DMC-G3, DMC-G5, DMC-G6, DMC-G7, DMC-G70, DMC-G80, DMC-G81, DMC-G85, DMC-GF1, DMC-GF2, DMC-GF3, DMC-GF5, DMC-GF6, DMC-GF7, DMC-GH1, DMC-GH2, DMC-GH3, DMC-GH4, DMC-GM1, DMC-GM5, DMC-GX1, DMC-GX7, DMC-GX8, DMC-GX80, DMC-GX85, DMC-L1, DMC-L10, DMC-LC1, DMC-LF1, DMC-LX1 16:9, DMC-LX1 3:2, DMC-LX1 4:3, DMC-LX10, DMC-LX100, DMC-LX15, DMC-LX2, DMC-LX3 16:9, DMC-LX3 1:1, DMC-LX3 3:2, DMC-LX3 4:3, DMC-LX5 4:3, DMC-LX7 4:3, DMC-LZ1, DMC-LZ2, DMC-TZ100, DMC-TZ101, DMC-TZ110, DMC-TZ60, DMC-TZ61, DMC-TZ70, DMC-TZ71, DMC-TZ80, DMC-TZ81, DMC-TZ90, DMC-TZ91, DMC-TZ96, DMC-ZS100, DMC-ZS40, DMC-ZS50, DMC-ZS60, DMC-ZS70**Pentax**: *ist D, *ist DL, *ist DL2, *ist DS, *ist DS2, 35mm film: full frame, K-01, K-1, K-1 Mark II, K-3, K-3 II, K-30, K-5, K-5 II, K-5 II s, K-50, K-500, K-7, K-70, K-S1, K-S2, K-m, K-r, K-x, K100D, K100D Super, K10D, K110D, K2000, K200D, K20D, KP, Optio 230GS, Optio 330GS, Optio 33L, Optio 33LF, Optio 430, Optio 43WR, Optio 450, Optio 550, Optio 555, Optio 750Z, Pentax Q, Pentax Q10, Pentax Q7**Phase One**: P 25**Ricoh**: Caplio GX, Caplio GX8, Caplio RR30, GR, GR Digital**Ricoh Imaging Company, Ltd.**: Ricoh GR III**Rolleiflex**: 2.8E**Samsung**: GX-1S, GX10, GX20, Galaxy NX, Galaxy Note 8, Galaxy S7, Galaxy S8, NX mini, NX1, NX10, NX100, NX1000, NX11, NX1100, NX20, NX200, NX2000, NX210, NX30, NX300, NX3000, NX300M, NX5, NX500, WB2000**Sigma**: DP1, DP1 Merrill, DP1S, DP1X, DP2, DP2 Merrill, DP2S, DP2X, DP3 Merrill, SD1, SD1 Merrill, SD10, SD14, SD15, SD9, fp, fp L, sd Quattro**Sony**: Alpha 1, Alpha 100, Alpha 200, Alpha 230, Alpha 290, Alpha 300, Alpha 3000, Alpha 33, Alpha 330, Alpha 35, Alpha 350, Alpha 37, Alpha 380, Alpha 390, Alpha 450, Alpha 500, Alpha 5000, Alpha 5100, Alpha 55, Alpha 550, Alpha 560, Alpha 57, Alpha 58, Alpha 580, Alpha 6000, Alpha 6100, Alpha 6300, Alpha 6400, Alpha 65, Alpha 6500, Alpha 6600, Alpha 68, Alpha 7, Alpha 7 II, Alpha 7 III, Alpha 7 IV, Alpha 700, Alpha 77, Alpha 77 II, Alpha 7C, Alpha 7R, Alpha 7R II, Alpha 7R III, Alpha 7R IV, Alpha 7S, Alpha 7S II, Alpha 7S III, Alpha 850, Alpha 9, Alpha 900, Alpha 99, Alpha 99 II, Alpha 99V, Cyber-shot DSC-F707, Cyber-shot DSC-F717, Cyber-shot DSC-S75, Cyber-shot DSC-S85, DSC-F828, DSC-H1, DSC-HX20V, DSC-HX300, DSC-P100, DSC-P150, DSC-P200, DSC-P73, DSC-P93, DSC-R1, DSC-S60, DSC-S80, DSC-S90, DSC-ST80, DSC-T1, DSC-V1, DSC-V3, DSC-W1, DSC-W12, DSC-W15, DSC-W5, DSC-W7, NEX-3, NEX-3N, NEX-5, NEX-5N, NEX-5R, NEX-5T, NEX-6, NEX-7, NEX-C3, NEX-F3, RX0 II, RX1 R II, RX10, RX10 II, RX10 III, RX10 IV, RX100, RX100 II, RX100 III, RX100 IV, RX100 V, RX100 VA, RX100 VI, RX100 VII, Xperia Z3
+**AEE**: AEE MagiCam SD19 & compatibles
+
+**Apple**: iPhone XS, iPhone XS (tele)
+
+**Canon**:  EOS 8000D, 35mm film: full frame, EOS 1000D, EOS 100D, EOS 10D, EOS 1100D, EOS 1200D, EOS 1300D, EOS 2000D, EOS 200D, EOS 20D, EOS 250D, EOS 300D, EOS 30D, EOS 350D, EOS 4000D, EOS 400D, EOS 40D, EOS 450D, EOS 500D, EOS 50D, EOS 550D, EOS 5D, EOS 5D Mark II, EOS 5D Mark III, EOS 5D Mark IV, EOS 5DS, EOS 5DS R, EOS 600D, EOS 60D, EOS 650D, EOS 6D, EOS 6D Mark II, EOS 700D, EOS 70D, EOS 750D, EOS 760D, EOS 77D, EOS 7D, EOS 7D Mark II, EOS 800D, EOS 80D, EOS 850D, EOS 9000D, EOS 90D, EOS D2000, EOS D30, EOS D60, EOS Digital REBEL, EOS Digital Rebel XS, EOS Digital Rebel XSi, EOS Digital Rebel XT, EOS Digital Rebel XTi, EOS KISS M, EOS Kiss Digital, EOS Kiss Digital F, EOS Kiss Digital N, EOS Kiss Digital X, EOS Kiss Digital X2, EOS Kiss X10i, EOS Kiss X3, EOS Kiss X4, EOS Kiss X5, EOS Kiss X50, EOS Kiss X6i, EOS Kiss X7, EOS Kiss X70, EOS Kiss X7i, EOS Kiss X8i, EOS Kiss X9, EOS Kiss X90, EOS Kiss X9i, EOS M, EOS M10, EOS M100, EOS M2, EOS M200, EOS M3, EOS M5, EOS M50, EOS M6, EOS R, EOS R5, EOS R6, EOS RP, EOS Rebel SL1, EOS Rebel SL2, EOS Rebel SL3, EOS Rebel T100, EOS Rebel T1i, EOS Rebel T2i, EOS Rebel T3, EOS Rebel T3i, EOS Rebel T4i, EOS Rebel T5, EOS Rebel T5i, EOS Rebel T6, EOS Rebel T6i, EOS Rebel T6s, EOS Rebel T7, EOS Rebel T7i, EOS Rebel T8i, EOS-1D, EOS-1D Mark II, EOS-1D Mark II N, EOS-1D Mark III, EOS-1D Mark IV, EOS-1D X, EOS-1D X Mark II, EOS-1Ds, EOS-1Ds Mark II, EOS-1Ds Mark III, IXUS 125 HS, IXUS 220 HS, IXUS 30, IXUS 40, IXUS 400, IXUS 430, IXUS 50, IXUS 500, IXUS 55, IXUS 70, IXUS 700, IXUS 750, IXUS 80 IS, IXUS 95 IS, IXUS II, IXUS i, IXUS v2, IXY 200a, IXY 30, IXY 40, IXY 400, IXY 450, IXY 50, IXY 500, IXY 55, IXY Digital 600, IXY Digital 700, PowerShot A10, PowerShot A20, PowerShot A30, PowerShot A40, PowerShot A4000 IS, PowerShot A490, PowerShot A495, PowerShot A510, PowerShot A520, PowerShot A60, PowerShot A610, PowerShot A620, PowerShot A640, PowerShot A650 IS, PowerShot A70, PowerShot A720 IS, PowerShot A75, PowerShot A80, PowerShot A85, PowerShot A95, PowerShot G1, PowerShot G1 X, PowerShot G1 X Mark II, PowerShot G1 X Mark III, PowerShot G10, PowerShot G11, PowerShot G12, PowerShot G15, PowerShot G16, PowerShot G2, PowerShot G3, PowerShot G3 X (3:2), PowerShot G5, PowerShot G5 X (16:9), PowerShot G5 X (3:2), PowerShot G5 X (4:3), PowerShot G5 X Mark II, PowerShot G6, PowerShot G7, PowerShot G7 X (16:9), PowerShot G7 X (3:2), PowerShot G7 X (4:3), PowerShot G7 X Mark II (16:9), PowerShot G7 X Mark II (3:2), PowerShot G7 X Mark II (4:3), PowerShot G9, PowerShot G9 X, PowerShot Pro1, PowerShot Pro70, PowerShot Pro90 IS, PowerShot S1 IS, PowerShot S100, PowerShot S110, PowerShot S120, PowerShot S2 IS, PowerShot S200, PowerShot S30, PowerShot S40, PowerShot S400, PowerShot S410, PowerShot S45, PowerShot S5 IS, PowerShot S50, PowerShot S500, PowerShot S60, PowerShot S70, PowerShot S80, PowerShot S90, PowerShot S95, PowerShot SD10, PowerShot SD100, PowerShot SD110, PowerShot SD1100 IS, PowerShot SD200, PowerShot SD300, PowerShot SD400, PowerShot SD450, PowerShot SD500, PowerShot SD550, PowerShot SD950 IS, PowerShot SX1 IS, PowerShot SX10 IS, PowerShot SX130 IS, PowerShot SX150 IS, PowerShot SX160 IS, PowerShot SX220 HS, PowerShot SX230 HS, PowerShot SX240 HS, PowerShot SX260 HS, PowerShot SX30 IS, PowerShot SX510 HS, PowerShot SX700 HS, PowerShot SX710 HS, Powershot A1200, Powershot ELPH 110 HS, Powershot SX50 HS, Powershot SX60 HS
+
+**Casio**: EX-FH20, EX-P600, EX-P700, EX-Z3, EX-Z30, EX-Z4, EX-Z40, EX-Z55, EX-Z750, QV-3000EX, QV-3500EX, QV-4000
+
+**Contax**: 35mm film: full frame
+
+**DJI**: FC6310, Mavic Air FC2103, Mavic Pro FC220, Phantom 3 Pro FC300X, Phantom Vision FC200
+
+**Epson**: R-D1
+
+**Fujifilm**: FinePix 3800, FinePix A370, FinePix E550, FinePix F10, FinePix F11, FinePix F200EXR, FinePix F601 ZOOM, FinePix F710, FinePix F770EXR, FinePix F810, FinePix F810 widescreen mode, FinePix HS20EXR, FinePix IS Pro, FinePix S1 Pro, FinePix S2 Pro, FinePix S20Pro, FinePix S3 Pro, FinePix S3000, FinePix S304, FinePix S5 Pro, FinePix S5100, FinePix S5500, FinePix S5600, FinePix S602 ZOOM, FinePix S7000, FinePix S9000, FinePix S9500, FinePix S9600, FinePix X100, FinePix2800ZOOM, GFX 50R, X-A1, X-A2, X-A3, X-A5, X-A7, X-E1, X-E2, X-E2S, X-E3, X-E4, X-H1, X-M1, X-Pro1, X-Pro2, X-Pro3, X-S1, X-S10, X-T1, X-T10, X-T100, X-T2, X-T20, X-T3, X-T30, X-T4, X10, X100F, X100S, X100T, X100V, X20, X30, X70, XQ1
+
+**Generic**: Crop-Faktor 1.1, Crop-Faktor 1.3 (APS-H), Crop-Faktor 1.5 (APS-C), Crop-Faktor 2.0 (Four-Thirds), Crop-factor 1.0 (Full Frame), Crop-factor 1.6 (APS-C), Crop-factor 1.7
+
+**GitUp**: Git2
+
+**GoPro**: HD2, HERO4 Black, HERO4 Silver, HERO5 Black, Hero3+ black
+
+**Hasselblad**: DJI Mavic 2 Pro, Hasselblad 500 mech., Hasselblad H3D
+
+**Honor**: 6A
+
+**Huawei**: P10 Lite, P20 Pro, P30 Pro
+
+**KMZ**: Zenit 122, Zenit 122K, Zenit 212K, Zenit 312K, Zenit 412LS, Zenit KM
+
+**Kodak**: DCS 520, DCS Pro 14N DCS-14n, DCS Pro 14nx, DCS Pro SLR/c, DCS Pro SLR/n, Kodak CX6330, Kodak CX7525, Kodak DC120, Kodak DC50
+
+**Konica Minolta**: DiMAGE A2, DiMAGE A200, DiMAGE G400, DiMAGE Z10, DiMAGE Z2, DiMAGE Z20, DiMAGE Z3, DiMAGE Z5, DiMAGE Z6, Dynax 5D, Dynax 7D, Maxxum 5D, Maxxum 7D, Revio KD-420Z
+
+**LG**: LG G4
+
+**Leica**: Digilux 2, Digilux 3, Digilux 4, Leica M (Typ 240), Leica X Vario (Typ 107)
+
+**Leica Camera AG**: LEICA Q2, Leica CL (Typ 7323), Leica Q (Typ 116), Leica SL (Typ 601), Leica T (Typ 701), Leica TL, Leica TL2
+
+**Mamiya**: Mamiya 645, Mamiya ZD
+
+**Microsoft**: Lumia 950, Lumia 950 XL
+
+**Minolta**: DiMAGE 7, DiMAGE 7Hi, DiMAGE 7i, DiMAGE A1, DiMAGE X, DiMAGE Xi, DiMAGE Xt, DiMAGE Z1
+
+**Nikon**: 1 AW1, 1 J1, 1 J2, 1 J3, 1 J4, 1 J5, 1 S1, 1 S2, 1 V1, 1 V2, 1 V3, 35mm film: full frame, Coolpix 4200, Coolpix 4500, Coolpix 4800, Coolpix 5000, Coolpix 5200, Coolpix 5400, Coolpix 5700, Coolpix 5900, Coolpix 7600, Coolpix 7900, Coolpix 8400, Coolpix 8700, Coolpix 8800, Coolpix 950, Coolpix 990, Coolpix 995, Coolpix A, Coolpix P1000, Coolpix P330, Coolpix P340, Coolpix P60, Coolpix P6000, Coolpix P7000, Coolpix P7800, Coolpix S3300, D1, D100, D1H, D1X, D200, D2H, D2Hs, D2X, D2Xs, D3, D300, D3000, D300S, D3100, D3200, D3300, D3400, D3500, D3S, D3X, D4, D40, D40X, D4s, D5, D50, D500, D5000, D5100, D5200, D5300, D5500, D5600, D6, D60, D600, D610, D70, D700, D7000, D70s, D7100, D7200, D750, D7500, D780, D80, D800, D800E, D810, D850, D90, Df, Z 5, Z 50, Z 6, Z 6II, Z 7, Z 7II, Z 9, Z fc
+
+**Nokia**: Lumia 1020, Lumia 1520
+
+**Olympus**: C-2040 Zoom, C-3040 Zoom, C-4000 Zoom, C-4100 Zoom, C-4040 Zoom, C-50 Zoom variant of the X-2, C-5050 Zoom, C-5060 Wide Zoom, C-70 Zoom, C-7000 Zoom, C-700 Ultra Zoom, C-7070 Wide Zoom, C-730 Ultra Zoom, C-750 Ultra Zoom, C-8080 Wide Zoom, C-860L, D-360L variant of the C-860L, E-1, E-10, E-20, E-20N, E-20P, E-3, E-30, E-300, E-330, E-400, E-410, E-420, E-450, E-5, E-500, E-510, E-520, E-600, E-620, E-M1, E-M10, E-M10 II, E-M10 III, E-M10 IV, E-M1MarkII, E-M1MarkIII, E-M5, E-M5MarkII, E-M5MarkIII, E-P1, E-P2, E-P3, E-P5, E-PL1, E-PL1s, E-PL2, E-PL3, E-PL5, E-PL6, E-PL7, E-PL8, E-PL9, E-PM1, E-PM2, PEN-F, SP-350, SP-500 Ultra Zoom, SP-560 Ultra Zoom, Stylus 1, Stylus 1, 1s, Stylus Epic, Stylus Verve Digital variant of the µ-mini Digital, Tough TG-1, Tough TG-2, Tough TG-3, Tough TG-4, Tough TG-5, Tough TG-6, X-2, XZ-1, XZ-2, µ-II, µ-mini Digital
+
+**Panasonic**: DC-FZ10002, DC-G9, DC-G90, DC-G91, DC-G95, DC-G99, DC-GH5, DC-GX800, DC-GX880, DC-GX9, DC-LX100M2, DC-S1, DC-S1R, DC-S5, DC-TZ200, DC-TZ202, DC-TZ90, DC-ZS200, DMC-FX150, DMC-FX2, DMC-FX7, DMC-FX8, DMC-FX9, DMC-FZ10, DMC-FZ100, DMC-FZ100 (3:2), DMC-FZ1000, DMC-FZ150, DMC-FZ18, DMC-FZ20, DMC-FZ200, DMC-FZ28, DMC-FZ3, DMC-FZ30, DMC-FZ300, DMC-FZ35, DMC-FZ40, DMC-FZ40 (3:2), DMC-FZ45, DMC-FZ45 (3:2), DMC-FZ5, DMC-FZ50, DMC-FZ8, DMC-G1, DMC-G10, DMC-G2, DMC-G3, DMC-G5, DMC-G6, DMC-G7, DMC-G70, DMC-G80, DMC-G81, DMC-G85, DMC-GF1, DMC-GF2, DMC-GF3, DMC-GF5, DMC-GF6, DMC-GF7, DMC-GH1, DMC-GH2, DMC-GH3, DMC-GH4, DMC-GM1, DMC-GM5, DMC-GX1, DMC-GX7, DMC-GX8, DMC-GX80, DMC-GX85, DMC-L1, DMC-L10, DMC-LC1, DMC-LF1, DMC-LX1 16:9, DMC-LX1 3:2, DMC-LX1 4:3, DMC-LX10, DMC-LX100, DMC-LX15, DMC-LX2, DMC-LX3 16:9, DMC-LX3 1:1, DMC-LX3 3:2, DMC-LX3 4:3, DMC-LX5 4:3, DMC-LX7 4:3, DMC-LZ1, DMC-LZ2, DMC-TZ100, DMC-TZ101, DMC-TZ110, DMC-TZ60, DMC-TZ61, DMC-TZ70, DMC-TZ71, DMC-TZ80, DMC-TZ81, DMC-TZ90, DMC-TZ91, DMC-TZ96, DMC-ZS100, DMC-ZS40, DMC-ZS50, DMC-ZS60, DMC-ZS70
+
+**Pentax**: *ist D, *ist DL, *ist DL2, *ist DS, *ist DS2, 35mm film: full frame, K-01, K-1, K-1 Mark II, K-3, K-3 II, K-30, K-5, K-5 II, K-5 II s, K-50, K-500, K-7, K-70, K-S1, K-S2, K-m, K-r, K-x, K100D, K100D Super, K10D, K110D, K2000, K200D, K20D, KP, Optio 230GS, Optio 330GS, Optio 33L, Optio 33LF, Optio 430, Optio 43WR, Optio 450, Optio 550, Optio 555, Optio 750Z, Pentax Q, Pentax Q10, Pentax Q7
+
+**Phase One**: P 25
+
+**Ricoh**: Caplio GX, Caplio GX8, Caplio RR30, GR, GR Digital
+
+**Ricoh Imaging Company, Ltd.**: Ricoh GR III
+
+**Rolleiflex**: 2.8E
+
+**Samsung**: GX-1S, GX10, GX20, Galaxy NX, Galaxy Note 8, Galaxy S7, Galaxy S8, NX mini, NX1, NX10, NX100, NX1000, NX11, NX1100, NX20, NX200, NX2000, NX210, NX30, NX300, NX3000, NX300M, NX5, NX500, WB2000
+
+**Sigma**: DP1, DP1 Merrill, DP1S, DP1X, DP2, DP2 Merrill, DP2S, DP2X, DP3 Merrill, SD1, SD1 Merrill, SD10, SD14, SD15, SD9, fp, fp L, sd Quattro
+
+**Sony**: Alpha 1, Alpha 100, Alpha 200, Alpha 230, Alpha 290, Alpha 300, Alpha 3000, Alpha 33, Alpha 330, Alpha 35, Alpha 350, Alpha 37, Alpha 380, Alpha 390, Alpha 450, Alpha 500, Alpha 5000, Alpha 5100, Alpha 55, Alpha 550, Alpha 560, Alpha 57, Alpha 58, Alpha 580, Alpha 6000, Alpha 6100, Alpha 6300, Alpha 6400, Alpha 65, Alpha 6500, Alpha 6600, Alpha 68, Alpha 7, Alpha 7 II, Alpha 7 III, Alpha 7 IV, Alpha 700, Alpha 77, Alpha 77 II, Alpha 7C, Alpha 7R, Alpha 7R II, Alpha 7R III, Alpha 7R IV, Alpha 7S, Alpha 7S II, Alpha 7S III, Alpha 850, Alpha 9, Alpha 900, Alpha 99, Alpha 99 II, Alpha 99V, Cyber-shot DSC-F707, Cyber-shot DSC-F717, Cyber-shot DSC-S75, Cyber-shot DSC-S85, DSC-F828, DSC-H1, DSC-HX20V, DSC-HX300, DSC-P100, DSC-P150, DSC-P200, DSC-P73, DSC-P93, DSC-R1, DSC-S60, DSC-S80, DSC-S90, DSC-ST80, DSC-T1, DSC-V1, DSC-V3, DSC-W1, DSC-W12, DSC-W15, DSC-W5, DSC-W7, NEX-3, NEX-3N, NEX-5, NEX-5N, NEX-5R, NEX-5T, NEX-6, NEX-7, NEX-C3, NEX-F3, RX0 II, RX1 R II, RX10, RX10 II, RX10 III, RX10 IV, RX100, RX100 II, RX100 III, RX100 IV, RX100 V, RX100 VA, RX100 VI, RX100 VII, Xperia Z3
+
