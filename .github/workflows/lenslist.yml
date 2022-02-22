@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Lenslist
+name: Make Lenslist
 
 # Controls when the workflow will run
 on:
@@ -29,8 +29,8 @@ jobs:
       
       - name: Run a multi-line script
         run: |
-          git config user.email "sarunas.burdulisyou@example.com"
-          git config user.name "Šarūnas Burdulis"
+          git config user.email "githubaction@example.com"
+          git config user.name "Make Lenslist Workflow"
           git add lenslist.md
           git commit -m "test lenslist"
           git push
