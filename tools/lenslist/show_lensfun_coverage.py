@@ -163,7 +163,7 @@ else:
     # Markdown list
 
     if cmdline_args['table_only'] == False:
-        outfile.write("# Lensfun's coverage \n\n ## Lenses (count: {}) \n\n"
+        outfile.write("# Lensfun's coverage \n\n ** Lenses (count: {}) **\n\n"
                   "This list was generated on {} from current Lensfun sources.  Your Lensfun version may be older, resulting in "
                   "less coverage.  \nIf your lens is not included, see \n\n* <a href='/calibration'>Upload calibration pictures</a>\n"
                   "* <a href='lens_calibration_tutorial/'>Lens calibration for Lensfun</a>\n\n".format(
