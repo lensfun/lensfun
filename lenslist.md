@@ -1,6 +1,6 @@
 # Lensfun's coverage 
 
- ## Lenses (count: 1160) 
+ ** Lenses (count: 1160) **
 
 This list was generated on 2022-02-22 from current Lensfun sources.  Your Lensfun version may be older, resulting in less coverage.  
 If your lens is not included, see 
