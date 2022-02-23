@@ -1,8 +1,8 @@
 # Lensfun's coverage 
 
- ## Lenses (count: 1161)
+ ## Lenses (count: 1164)
 
-This list was generated on 2022-02-22 from current Lensfun sources.  Your Lensfun version may be older, resulting in less coverage.  
+This list was generated on 2022-02-23 from current Lensfun sources.  Your Lensfun version may be older, resulting in less coverage.  
 If your lens is not included, see: 
 
 * <a href='https://lensfun.github.io/calibration'>Upload calibration pictures</a>
@@ -957,7 +957,9 @@ Legend: lens model name (crop factor, distortion/TCA/vignetting)
 * Samyang AF 24mm f/2.8 (1.0, D/–/V)
 * SAMYANG AF 24mm F1.8 (1.0, D/T/–)
 * Samyang AF 35mm f/2.8 (1.0, D/T/V)
+* SAMYANG AF 35mm F1.8 (1.0, D/T/V)
 * SAMYANG AF 45mm F1.8 (1.0, D/T/V)
+* SAMYANG AF 75mm F1.8 (1.0, D/T/V)
 * SAMYANG AF 85mm F1.4 (1.0, D/T/–)
 * Samyang T-S 24mm f/3.5 ED AS UMC (1.0, D/–/–)
 
@@ -1328,6 +1330,7 @@ Legend: lens model name (crop factor, distortion/TCA/vignetting)
 * Carl Zeiss Distagon T* 3,5/18 ZF.2 (1.523, D/T/–)
 * Carl Zeiss Jena 1Q Biotar 1:2 f=58mm T (1.538, D/T/–)
 * Carl Zeiss Planar T* 1,4/50 ZF.2 (1.523, D/–/–)
+* Carl Zeiss Planar T* 1,4/50 ZF.2 (1.0, D/T/–)
 * fixed lens (3.93, D/T/–)
 * fixed lens (6.02, D/–/–)
 * Loxia 21mm f/2.8 (1.0, D/T/–)
