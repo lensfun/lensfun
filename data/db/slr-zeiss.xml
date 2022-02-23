@@ -129,6 +129,18 @@
 
     <lens>
         <maker>Zeiss</maker>
+        <model>Carl Zeiss Planar T* 1,4/50 ZF.2</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D700 -->
+            <distortion model="ptlens" focal="50.0" a="0.002" b="-0.017" c="0.021"/>
+            <tca model="poly3" focal="50.0" br="-0.0000683" vr="1.0002343" bb="0.0001071" vb="0.9997046"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Zeiss</maker>
         <model>Carl Zeiss Distagon T* 3,5/18 ZF.2</model>
         <mount>Nikon F AF</mount>
         <cropfactor>1.523</cropfactor>
