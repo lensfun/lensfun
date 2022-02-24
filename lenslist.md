@@ -1,8 +1,8 @@
 # Lensfun's coverage 
 
- ## Lenses (count: 1164)
+ ## Lenses (count: 1167)
 
-This list was generated on 2022-02-23 from current Lensfun sources.  Your Lensfun version may be older, resulting in less coverage.  
+This list was generated on 2022-02-24 from current Lensfun sources.  Your Lensfun version may be older, resulting in less coverage.  
 If your lens is not included, see: 
 
 * <a href='https://lensfun.github.io/calibration'>Upload calibration pictures</a>
@@ -262,6 +262,7 @@ Legend: lens model name (crop factor, distortion/TCA/vignetting)
 * Fixed lens PowerShot SX510 HS (5.58, D/–/–)
 * Fixed lens Powershot SX60 HS (5.61, D/T/–)
 * Fixed lens PowerShot SX700 HS (5.6, D/–/–)
+* RF 100-400mm F5.6-8 IS USM (1.0, D/–/–)
 
 ### Casio
 
@@ -328,6 +329,7 @@ Legend: lens model name (crop factor, distortion/TCA/vignetting)
 * Fixed lens X100V (1.53, D/T/V)
 * Fixed lens X100V (1.53, D/T/V)
 * Fixed lens X70 (1.5375, D/T/–)
+* Fixed lens XF10 (1.53, D/T/V)
 * Fixed lens XQ1 (3.91, D/T/–)
 * GF45mmF2.8 R WR (0.8, D/–/–)
 * XC 15-45mm f/3.5-5.6 OIS PZ (1.529, D/T/V)
@@ -637,6 +639,7 @@ Legend: lens model name (crop factor, distortion/TCA/vignetting)
 * Nikkor AI-S 105mm f/2.5 (1.0, D/T/V)
 * Nikkor AI-S 135mm f/2 (1.528, D/–/–)
 * Nikkor AI-S 135mm f/2.8 (1.0, D/T/V)
+* Nikkor AI-S 135mm f/3.5 (1.0, D/–/V)
 * Nikkor AI-S 180mm f/2.8 ED (1.528, D/–/–)
 * Nikkor AI-S 200mm f/4 (1.0, D/T/–)
 * Nikkor AI-S 20mm f/2.8 (1.0, D/T/V)
@@ -1167,7 +1170,7 @@ Legend: lens model name (crop factor, distortion/TCA/vignetting)
 * Fixed lens DSC-V3 (4.843, D/–/–)
 * Fixed lens DSC-V3 (4.843, D/–/–)
 * Fixed lens DSC-V3 (4.843, D/–/–)
-* Fixed lens RX0 II (2.7, D/T/–)
+* Fixed lens RX0 (2.7, D/T/–)
 * Fixed lens RX1 R II (1.0, D/T/–)
 * Fixed lens RX10 (2.73, D/T/V)
 * Fixed lens RX10 II (2.73, D/T/–)
@@ -1363,7 +1366,7 @@ Note that new camera models can be added very easily.  Contact the Lensfun maint
 
 **Epson**: R-D1
 
-**Fujifilm**: FinePix 3800, FinePix A370, FinePix E550, FinePix F10, FinePix F11, FinePix F200EXR, FinePix F601 ZOOM, FinePix F710, FinePix F770EXR, FinePix F810, FinePix F810 widescreen mode, FinePix HS20EXR, FinePix IS Pro, FinePix S1 Pro, FinePix S2 Pro, FinePix S20Pro, FinePix S3 Pro, FinePix S3000, FinePix S304, FinePix S5 Pro, FinePix S5100, FinePix S5500, FinePix S5600, FinePix S602 ZOOM, FinePix S7000, FinePix S9000, FinePix S9500, FinePix S9600, FinePix X100, FinePix2800ZOOM, GFX 50R, X-A1, X-A2, X-A3, X-A5, X-A7, X-E1, X-E2, X-E2S, X-E3, X-E4, X-H1, X-M1, X-Pro1, X-Pro2, X-Pro3, X-S1, X-S10, X-T1, X-T10, X-T100, X-T2, X-T20, X-T3, X-T30, X-T4, X10, X100F, X100S, X100T, X100V, X20, X30, X70, XQ1
+**Fujifilm**: FinePix 3800, FinePix A370, FinePix E550, FinePix F10, FinePix F11, FinePix F200EXR, FinePix F601 ZOOM, FinePix F710, FinePix F770EXR, FinePix F810, FinePix F810 widescreen mode, FinePix HS20EXR, FinePix IS Pro, FinePix S1 Pro, FinePix S2 Pro, FinePix S20Pro, FinePix S3 Pro, FinePix S3000, FinePix S304, FinePix S5 Pro, FinePix S5100, FinePix S5500, FinePix S5600, FinePix S602 ZOOM, FinePix S7000, FinePix S9000, FinePix S9500, FinePix S9600, FinePix X100, FinePix2800ZOOM, GFX 50R, X-A1, X-A2, X-A3, X-A5, X-A7, X-E1, X-E2, X-E2S, X-E3, X-E4, X-H1, X-M1, X-Pro1, X-Pro2, X-Pro3, X-S1, X-S10, X-T1, X-T10, X-T100, X-T2, X-T20, X-T3, X-T30, X-T4, X10, X100F, X100S, X100T, X100V, X20, X30, X70, XF10, XQ1
 
 **Generic**: Crop-Faktor 1.1, Crop-Faktor 1.3 (APS-H), Crop-Faktor 1.5 (APS-C), Crop-Faktor 2.0 (Four-Thirds), Crop-factor 1.0 (Full Frame), Crop-factor 1.6 (APS-C), Crop-factor 1.7
 
@@ -1417,5 +1420,5 @@ Note that new camera models can be added very easily.  Contact the Lensfun maint
 
 **Sigma**: DP1, DP1 Merrill, DP1S, DP1X, DP2, DP2 Merrill, DP2S, DP2X, DP3 Merrill, SD1, SD1 Merrill, SD10, SD14, SD15, SD9, fp, fp L, sd Quattro
 
-**Sony**: Alpha 1, Alpha 100, Alpha 200, Alpha 230, Alpha 290, Alpha 300, Alpha 3000, Alpha 33, Alpha 330, Alpha 35, Alpha 350, Alpha 37, Alpha 380, Alpha 390, Alpha 450, Alpha 500, Alpha 5000, Alpha 5100, Alpha 55, Alpha 550, Alpha 560, Alpha 57, Alpha 58, Alpha 580, Alpha 6000, Alpha 6100, Alpha 6300, Alpha 6400, Alpha 65, Alpha 6500, Alpha 6600, Alpha 68, Alpha 7, Alpha 7 II, Alpha 7 III, Alpha 7 IV, Alpha 700, Alpha 77, Alpha 77 II, Alpha 7C, Alpha 7R, Alpha 7R II, Alpha 7R III, Alpha 7R IV, Alpha 7S, Alpha 7S II, Alpha 7S III, Alpha 850, Alpha 9, Alpha 900, Alpha 99, Alpha 99 II, Alpha 99V, Cyber-shot DSC-F707, Cyber-shot DSC-F717, Cyber-shot DSC-S75, Cyber-shot DSC-S85, DSC-F828, DSC-H1, DSC-HX20V, DSC-HX300, DSC-P100, DSC-P150, DSC-P200, DSC-P73, DSC-P93, DSC-R1, DSC-S60, DSC-S80, DSC-S90, DSC-ST80, DSC-T1, DSC-V1, DSC-V3, DSC-W1, DSC-W12, DSC-W15, DSC-W5, DSC-W7, NEX-3, NEX-3N, NEX-5, NEX-5N, NEX-5R, NEX-5T, NEX-6, NEX-7, NEX-C3, NEX-F3, RX0 II, RX1 R II, RX10, RX10 II, RX10 III, RX10 IV, RX100, RX100 II, RX100 III, RX100 IV, RX100 V, RX100 VA, RX100 VI, RX100 VII, Xperia Z3
+**Sony**: Alpha 1, Alpha 100, Alpha 200, Alpha 230, Alpha 290, Alpha 300, Alpha 3000, Alpha 33, Alpha 330, Alpha 35, Alpha 350, Alpha 37, Alpha 380, Alpha 390, Alpha 450, Alpha 500, Alpha 5000, Alpha 5100, Alpha 55, Alpha 550, Alpha 560, Alpha 57, Alpha 58, Alpha 580, Alpha 6000, Alpha 6100, Alpha 6300, Alpha 6400, Alpha 65, Alpha 6500, Alpha 6600, Alpha 68, Alpha 7, Alpha 7 II, Alpha 7 III, Alpha 7 IV, Alpha 700, Alpha 77, Alpha 77 II, Alpha 7C, Alpha 7R, Alpha 7R II, Alpha 7R III, Alpha 7R IV, Alpha 7S, Alpha 7S II, Alpha 7S III, Alpha 850, Alpha 9, Alpha 900, Alpha 99, Alpha 99 II, Alpha 99V, Cyber-shot DSC-F707, Cyber-shot DSC-F717, Cyber-shot DSC-S75, Cyber-shot DSC-S85, DSC-F828, DSC-H1, DSC-HX20V, DSC-HX300, DSC-P100, DSC-P150, DSC-P200, DSC-P73, DSC-P93, DSC-R1, DSC-S60, DSC-S80, DSC-S90, DSC-ST80, DSC-T1, DSC-V1, DSC-V3, DSC-W1, DSC-W12, DSC-W15, DSC-W5, DSC-W7, NEX-3, NEX-3N, NEX-5, NEX-5N, NEX-5R, NEX-5T, NEX-6, NEX-7, NEX-C3, NEX-F3, RX0, RX0 II, RX1 R II, RX10, RX10 II, RX10 III, RX10 IV, RX100, RX100 II, RX100 III, RX100 IV, RX100 V, RX100 VA, RX100 VI, RX100 VII, Xperia Z3
 
