@@ -1749,4 +1749,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tamron</maker>
+        <model>TAMRON 100-400mm F/4.5-6.3 Di VC USD A035</model>
+        <mount>Nikon F AF</mount>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="100.0" a="0.004" b="-0.013" c="0.03"/>
+            <distortion model="ptlens" focal="135.0" a="0.003" b="-0.007" c="0.021"/>
+            <distortion model="ptlens" focal="160.0" a="-0.001" b="0.007" c="0.013"/>
+            <distortion model="ptlens" focal="200.0" a="0.001" b="0.008" c="-0.015"/>
+            <distortion model="ptlens" focal="300.0" a="-0.001" b="0.013" c="-0.013"/>
+            <distortion model="ptlens" focal="400.0" a="0.009" b="-0.025" c="0.043"/>
+            <tca model="poly3" focal="100.0" vr="1.0000990" vb="1.0001682"/>
+            <tca model="poly3" focal="107.0" vr="1.0000800" vb="1.0001572"/>
+            <tca model="poly3" focal="111.0" vr="1.0000727" vb="1.0001329"/>
+            <tca model="poly3" focal="200.0" vr="0.9999573" vb="1.0001483"/>
+            <tca model="poly3" focal="300.0" vr="0.9998805" vb="1.0000524"/>
+            <tca model="poly3" focal="400.0" vr="0.9998498" vb="0.9999658"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
