@@ -509,4 +509,20 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tokina</maker>
+        <model>Tokina atx-i 11-16mm F2.8 CF</model>
+        <mount>Nikon F AF</mount>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D3500 -->
+            <distortion model="ptlens" focal="11.0" a="-0.002" b="-0.005" c="-0.006"/>
+            <distortion model="ptlens" focal="12.0" a="0.004" b="-0.025" c="0.022"/>
+            <distortion model="ptlens" focal="13.0" a="0.0" b="-0.011" c="0.009"/>
+            <distortion model="ptlens" focal="14.0" a="0.003" b="-0.018" c="0.017"/>
+            <distortion model="ptlens" focal="16.0" a="-0.001" b="0.003" c="-0.01"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
