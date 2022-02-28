@@ -415,5 +415,17 @@
             <tca model="poly3" focal="35" vr="1.0001818540335106" cr="6.869199809013899e-05" br="-9.122118693570343e-05" vb="0.9998547038903012" cb="8.492290618014866e-05" bb="3.723618495492444e-05" />
         </calibration>
     </lens>
+	
+    <lens>
+        <maker>Tamron</maker>
+        <model>E 24mm F2.8</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <!-- Taken with NEX-6, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="24" a="0.0030930" b="-0.0223151" c="0.0085091" />
+            <tca model="poly3" focal="24" vr="1.0001424" cr="0.0001191" br="-0.0000649" vb="0.9998416" cb="0.0002908" bb="-0.0000939" />
+        </calibration>
+    </lens>
 
 </lensdatabase>
