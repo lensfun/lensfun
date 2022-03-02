@@ -380,6 +380,20 @@ DESCRIPTION:
         </calibration>
     </lens>
 
+<!-- Device Name: Tamron 24mm f/2.8 (Di III OSD M1:2 ?) -->
+	<lens>
+		<!-- Wikidata Item:  -->
+        <maker>Tamron</maker>
+        <model>E 24mm F2.8</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <!-- Calibration images taken with NEX-6, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="24" a="0.0030930" b="-0.0223151" c="0.0085091" />
+            <tca model="poly3" focal="24" vr="1.0001424" cr="0.0001191" br="-0.0000649" vb="0.9998416" cb="0.0002908" bb="-0.0000939" />
+        </calibration>
+    </lens>
+
 <!-- Device Name: Tamron 28-75mm f/2.8 (? Di III RXD or Di III VXD G2 ?) -->
 	<lens>
 		<!-- Wikidata Item:  -->
