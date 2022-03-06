@@ -2593,4 +2593,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc PENTAX-F 35-80mm F4-5.6</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.531</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="35.0" a="-0.003" b="0.003" c="-0.009"/>
+            <distortion model="ptlens" focal="40.0" a="-0.001" b="-0.002" c="-0.0"/>
+            <distortion model="ptlens" focal="53.0" a="0.005" b="-0.018" c="0.021"/>
+            <distortion model="ptlens" focal="60.0" a="-0.002" b="0.006" c="0.001"/>
+            <distortion model="ptlens" focal="68.0" a="0.007" b="-0.028" c="0.041"/>
+            <distortion model="ptlens" focal="80.0" a="-0.007" b="0.029" c="-0.032"/>
+            <tca model="poly3" focal="35.0" br="-0.0000889" vr="1.0005049" bb="0.0000380" vb="0.9997810"/>
+            <tca model="poly3" focal="40.0" br="0.0000238" vr="1.0002715" bb="0.0000049" vb="0.9999070"/>
+            <tca model="poly3" focal="53.0" br="0.0000017" vr="1.0001317" bb="-0.0000001" vb="1.0001057"/>
+            <tca model="poly3" focal="60.0" br="-0.0000089" vr="1.0000545" bb="-0.0000084" vb="1.0002341"/>
+            <tca model="poly3" focal="68.0" br="0.0000066" vr="0.9999577" bb="-0.0000048" vb="1.0003661"/>
+            <tca model="poly3" focal="80.0" br="0.0000098" vr="0.9998537" bb="-0.0000310" vb="1.0004053"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
