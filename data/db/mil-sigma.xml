@@ -528,4 +528,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>35mm F2 DG DN | Contemporary 020</model>
+        <mount>Sony E</mount>
+        <mount>Leica L</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7C -->
+            <distortion model="ptlens" focal="35.0" a="0.006" b="-0.026" c="0.002" />
+            <tca model="poly3" focal="35.0" vr="1.0000839" vb="1.0000382" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
