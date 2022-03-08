@@ -182,4 +182,19 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Zeiss Makro-Planar T* 2/100 ZF.2</model>
+        <model lang="en">Makro-Planar T* 2/100</model>
+        <mount>Nikon F AF</mount>
+        <mount>Canon EF</mount>
+        <mount>Pentax KAF4</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="100.0" a="-0.0" b="-0.001" c="0.005"/>
+            <tca model="poly3" focal="100.0" br="0.0000302" vr="0.9998207" bb="-0.0000339" vb="1.0000917"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
