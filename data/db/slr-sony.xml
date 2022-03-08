@@ -1056,6 +1056,17 @@
 
     <lens>
         <maker>Sony</maker>
+        <model>Carl Zeiss Distagon T* 24mm F2 ZA SSM (SAL24F20Z)</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="24.0" a="0.009" b="-0.026" c="0.014"/>
+            <tca model="poly3" focal="24.0" br="0.0001385" vr="0.9999615" bb="-0.0000488" vb="1.0003187"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
         <model>Sony 28-75mm F2.8 SAM (SAL2875)</model>
         <model lang="en">Sony 28-75mm F2.8 SAM</model>
         <mount>Sony Alpha</mount>

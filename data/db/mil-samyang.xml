@@ -274,5 +274,51 @@
             <tca model="poly3" focal="12.0" br="0.0000539" vr="1.0002125" bb="-0.0000235" vb="1.0003006"/>
         </calibration>
     </lens>
+	
+    <lens>
+        <maker>Samyang</maker>
+        <model>SAMYANG AF 18mm F2.8</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="18" a="0.02072794438055051" b="-0.055421093067902875" c="0.022351964872009425" />
+        </calibration>
+    </lens>
+	
+    <lens>
+        <maker>Samyang</maker>
+        <model>SAMYANG AF 75mm F1.8</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se, except tca -->
+            <distortion model="ptlens" focal="75" a="-0.0014565" b="0.0036664" c="-0.0018816" />
+            <tca model="poly3" focal="75" vr="0.9999345" vb="0.9999558"/> 
+            <vignetting model="pa" focal="75" aperture="1.8" distance="147.16" k1="-0.8826677" k2="0.3580256" k3="-0.1027655" />
+            <vignetting model="pa" focal="75" aperture="2.4" distance="147.16" k1="-0.3830348" k2="-0.2826643" k3="0.1597678" />
+            <vignetting model="pa" focal="75" aperture="3.5" distance="147.16" k1="-0.1646405" k2="-0.0735751" k3="-0.1152835" />
+            <vignetting model="pa" focal="75" aperture="4.5" distance="147.16" k1="-0.2444249" k2="0.2644670" k3="-0.2712635" />
+            <vignetting model="pa" focal="75" aperture="22.0" distance="147.16" k1="-0.1908762" k2="-0.0272345" k3="0.0481287" />
+        </calibration>
+    </lens>
+    
+    <lens>
+        <maker>Samyang</maker>
+        <model>SAMYANG AF 35mm F1.8</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se, except tca -->
+            <distortion model="ptlens" focal="35" a="0.0122154" b="-0.0474074" c="0.0348816" />
+            <tca model="poly3" focal="35" vr="1.0001321" vb="0.9999907"/>
+            <vignetting model="pa" focal="35" aperture="1.8" distance="68.68" k1="-1.4568366" k2="0.8730748" k3="-0.2082213" />
+            <vignetting model="pa" focal="35" aperture="2.4" distance="68.68" k1="-0.8374828" k2="-0.2165907" k3="0.3190586" />
+            <vignetting model="pa" focal="35" aperture="22.0" distance="68.68" k1="-0.5415322" k2="-0.0031567" k3="0.0431025" />
+            <vignetting model="pa" focal="35" aperture="3.5" distance="68.68" k1="-0.4569792" k2="-0.4798250" k3="0.2715231" />
+            <vignetting model="pa" focal="35" aperture="4.5" distance="68.68" k1="-0.5439260" k2="0.0807181" k3="-0.1427609" />
+        </calibration>
+    </lens>
+
 
 </lensdatabase>

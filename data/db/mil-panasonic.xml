@@ -2403,4 +2403,16 @@
             <tca model="poly3" focal="60" vr="0.9999010" vb="1.0001194"/>
         </calibration>
     </lens>
+
+    <lens>
+        <maker>Leica</maker>
+        <model>Leica D Summilux 25mm F1.4 Asph.</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <calibration>
+            <!-- Taken with Olympus OM-D E-M1 Mark II -->
+            <distortion model="ptlens" focal="25.0" a="0.011" b="-0.026" c="0.014"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
