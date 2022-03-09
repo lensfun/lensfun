@@ -541,4 +541,33 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>24-70mm F2.8 DG DN | Art 019</model>
+        <model lang="en">Sigma 24-70 mm F2.8 DG DN | Art 019</model>
+        <mount>Sony E</mount>
+        <mount>Leica L</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7M3 -->
+            <distortion model="ptlens" focal="23.998" a="0.04618" b="-0.13506" c="0.07243"/>
+            <distortion model="ptlens" focal="34.697" a="0.01877" b="-0.04541" c="0.02775"/>
+            <distortion model="ptlens" focal="50.297" a="0.01797" b="-0.05123" c="0.06311"/>
+            <distortion model="ptlens" focal="70.012" a="-0.0024" b="0.0238" c="-0.02531"/>
+            <tca model="poly3" focal="24" vr="1.0001634" vb="1.0000421"/>
+            <tca model="poly3" focal="24" vr="1.0001677" vb="1.0000915"/>
+            <tca model="poly3" focal="24" vr="1.0001719" vb="1.0000428"/>
+            <tca model="poly3" focal="25.4" vr="1.0001421" vb="1.0000309"/>
+            <tca model="poly3" focal="34.7" vr="1.0000638" vb="1.0000544"/>
+            <tca model="poly3" focal="35" vr="1.0000460" vb="1.0000320"/>
+            <tca model="poly3" focal="35" vr="1.0000476" vb="1.0000272"/>
+            <tca model="poly3" focal="49.5" vr="0.9999462" vb="1.0000155"/>
+            <tca model="poly3" focal="50.3" vr="0.9999426" vb="1.0000106"/>
+            <tca model="poly3" focal="50.3" vr="0.9999536" vb="1.0000174"/>
+            <tca model="poly3" focal="67.6" vr="0.9998636" vb="0.9999806"/>
+            <tca model="poly3" focal="70" vr="0.9998417" vb="0.9999846"/>
+            <tca model="poly3" focal="70" vr="0.9998757" vb="0.9999752"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
