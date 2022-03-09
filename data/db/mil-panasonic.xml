@@ -1363,8 +1363,27 @@
 
     <lens>
         <maker>Panasonic</maker>
-        <model>Lumix G X Vario 35-100mm f/2.8 Power OIS</model>
-        <model lang="en">Lumix G X Vario 35-100mm f/2.8</model>
+        <model>LUMIX G VARIO 35-100/F2.8</model>
+        <model lang="en">Lumix G X Vario 35-100mm f/2.8 Power OIS</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Olympus OMD E-M5 -->
+            <distortion model="poly3" focal="35" k1="-0.02122"/>
+            <distortion model="poly3" focal="42" k1="-0.01741"/>
+            <distortion model="poly3" focal="50" k1="-0.01282"/>
+            <distortion model="poly3" focal="60" k1="-0.00907"/>
+            <distortion model="poly3" focal="80" k1="-0.00599"/>
+            <distortion model="poly3" focal="100" k1="-0.00245"/>
+        </calibration>
+    </lens>
+    
+    <lens>
+        <maker>Panasonic</maker>
+        <model>LUMIX G VARIO 35-100/F2.8II</model>
+        <!-- same optic as LUMIX G VARIO 35-100/F2.8 -->
+        <model lang="en">LUMIX G X VARIO 35-100 mm f/2.8 II POWER OIS</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
