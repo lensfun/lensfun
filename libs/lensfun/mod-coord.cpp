@@ -35,7 +35,7 @@
 #include <cassert>
 
 lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistortion& lcd_,
-                                                       double real_focal, cbool Reverse)
+                                                       double real_focal, cbool Reverse, double *scaling_d)
 {
     // FixMe: The ACM probably bases on the nominal focal length.  This needs
     // to be found out.  It this is true, we have to scale its coefficient by
@@ -44,11 +44,12 @@ lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistorti
     const float hugin_scale_in_millimeters =
         hypot (36.0, 24.0) / lcd.CalibAttr.CropFactor / hypot (lcd.CalibAttr.AspectRatio, 1) / 2.0;
     const float hugin_scaling = real_focal / hugin_scale_in_millimeters;
+    float d = 1;
     switch (lcd.Model)
     {
         case LF_DIST_MODEL_POLY3:
         {
-            const float d = 1 - lcd.Terms [0];
+            d = 1 - lcd.Terms [0];
             lcd.Terms [0] *= pow (hugin_scaling, 2) / pow (d, 3);
             break;
         }
@@ -58,7 +59,7 @@ lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistorti
             break;
         case LF_DIST_MODEL_PTLENS:
         {
-            const float d = 1 - lcd.Terms [0] - lcd.Terms [1] - lcd.Terms [2];
+            d = 1 - lcd.Terms [0] - lcd.Terms [1] - lcd.Terms [2];
             lcd.Terms [0] *= pow (hugin_scaling, 3) / pow (d, 4);
             lcd.Terms [1] *= pow (hugin_scaling, 2) / pow (d, 3);
             lcd.Terms [2] *= hugin_scaling / pow (d, 2);
@@ -68,12 +69,14 @@ lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistorti
             // keep gcc 4.4+ happy
             break;
     }
+    // This is needed for scaling compatibility to 0.3.2
+    *scaling_d = d;
     return lcd;
 }
 
 int lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd_)
 {
-    const lfLensCalibDistortion lcd = rescale_polynomial_coefficients (lcd_, RealFocal, Reverse);
+    const lfLensCalibDistortion lcd = rescale_polynomial_coefficients (lcd_, RealFocal, Reverse, &scaling_d);
     if (Reverse)
         switch (lcd.Model)
         {
@@ -509,6 +512,8 @@ float lfModifier::GetAutoScale (bool reverse)
     // that we really have no black borders left.
     scale *= 1.001;
     scale *= subpixel_scale;
+    
+    scale *= scaling_d;
 
     return reverse ? 1.0 / scale : scale;
 }
