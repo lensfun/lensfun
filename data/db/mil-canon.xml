@@ -958,4 +958,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon RF 800mm F11 IS STM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS R6 -->
+            <distortion model="ptlens" focal="800.0" a="0.00352299" b="-0.0130004" c="0.021161"/>
+            <vignetting model="pa" focal="800.0" aperture="11.0" distance="10" k1="-1.0891814" k2="1.1994715" k3="-0.6304665"/>
+            <vignetting model="pa" focal="800.0" aperture="11.0" distance="1000" k1="-1.0891814" k2="1.1994715" k3="-0.6304665"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
