@@ -543,4 +543,24 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Minolta</maker>
+        <model>Minolta AF 70-210mm f/4 Macro</model>
+        <mount>Minolta AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Sony Alpha DSLR-A850 -->
+            <distortion model="ptlens" focal="75" a="-0.002879" b="0.001156" c="-0.009881"/>
+            <distortion model="ptlens" focal="90" a="0.003337" b="-0.0168560" c="0.0225643"/>
+            <distortion model="ptlens" focal="105" a="-0.000697" b="0.003254" c="0.000164"/>
+            <distortion model="ptlens" focal="150" a="-0.0032385" b="0.0214017" c="-0.0182542"/>
+            <distortion model="ptlens" focal="210" a="0.0033293" b="-0.0003895" c="0.0072979"/>
+            <tca model="poly3" focal="75" vr="1.0001248" vb="0.9999425"/>
+            <tca model="poly3" focal="90" vr="0.9999757" vb="1.0000009"/>
+            <tca model="poly3" focal="105" vr="0.9999016" vb="1.0000287"/>
+            <tca model="poly3" focal="160" vr="0.9996745" vb="0.9999532"/>
+            <tca model="poly3" focal="210" vr="0.9996763" vb="0.9998813"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
