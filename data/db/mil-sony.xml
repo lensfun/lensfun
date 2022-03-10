@@ -2701,4 +2701,16 @@
         </calibration>
       </lens>
 
+      <lens>
+        <maker>Sony</maker>
+        <model>FE 50mm F2.8 Macro</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7RM2, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="50" a="0.00116024" b="-0.0027403" c="0.0013905"/>
+            <tca model="poly3" focal="50" vr="1.0004413377609198" cr="0.00013675000622646614" br="-0.0002127673140892765" vb="0.9996095913621427" cb="-5.188427342598107e-05" bb="0.00018776778424975786"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
