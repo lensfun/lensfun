@@ -905,6 +905,11 @@
             <distortion model="ptlens" focal="24" a="0.023" b="-0.059" c="0.049" />
             <distortion model="ptlens" focal="28" a="0.01" b="-0.018" c="0.013" />
             <distortion model="ptlens" focal="35" a="0.009" b="-0.018" c="0.022" />
+            <tca model="poly3" focal="15.0" br="0.0000310" vr="1.0000679" bb="-0.0000001" vb="1.0000289" />
+            <tca model="poly3" focal="20.0" br="0.0000245" vr="0.9999814" bb="-0.0000099" vb="1.0000646" />
+            <tca model="poly3" focal="24.0" br="0.0000492" vr="0.9999015" bb="-0.0000397" vb="1.0000905" />
+            <tca model="poly3" focal="28.0" br="0.0000531" vr="0.9998627" bb="-0.0000550" vb="1.0001080" />
+            <tca model="poly3" focal="35.0" br="0.0000495" vr="0.9998156" bb="-0.0000603" vb="1.0001346" />
             <vignetting model="pa" focal="15.0" aperture="2.8" distance="10" k1="-0.4512411" k2="-1.0255705" k3="0.6375372" />
             <vignetting model="pa" focal="15.0" aperture="2.8" distance="1000" k1="-0.4512411" k2="-1.0255705" k3="0.6375372" />
             <vignetting model="pa" focal="15.0" aperture="4.0" distance="10" k1="-0.5813983" k2="-0.0751049" k3="-0.0814542" />
