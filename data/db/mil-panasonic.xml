@@ -2481,6 +2481,52 @@
     </lens>
 
     <lens>
+        <maker>Panasonic</maker>
+        <model>Lumix S 24/F1.8</model>
+        <mount>Leica L</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Lumix DC-S5 -->
+            <distortion model="ptlens" focal="24.0" a="0.00189175" b="-0.0205279" c="-0.0248674"/>
+            <tca model="poly3" focal="24.0" br="-0.0001304" vr="1.0004079" bb="0.0001633" vb="0.9998455"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Panasonic</maker>
+        <model>Lumix S 50/F1.8</model>
+        <mount>Leica L</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Lumix DC-S5 -->
+            <distortion model="ptlens" focal="50.0" a="-0.0107352" b="0.0201819" c="-0.00699497"/>
+            <tca model="poly3" focal="50.0" br="-0.0000215" vr="1.0000921" bb="0.0000354" vb="1.0000295"/>
+        </calibration>
+    </lens>
+    
+    <lens>
+        <maker>Panasonic</maker>
+        <model>Lumix S 85/F1.8</model>
+        <mount>Leica L</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Lumix DC-S5 -->
+            <distortion model="ptlens" focal="85.0" a="-0.00875283" b="0.0303745" c="-0.024366"/>
+            <tca model="poly3" focal="85.0" br="-0.0000301" vr="1.0000980" bb="0.0000390" vb="0.9998415"/>
+            <vignetting model="pa" focal="85.0" aperture="1.8" distance="10" k1="-1.6956844" k2="1.6390995" k3="-0.7139982"/>
+            <vignetting model="pa" focal="85.0" aperture="1.8" distance="1000" k1="-1.6956844" k2="1.6390995" k3="-0.7139982"/>
+            <vignetting model="pa" focal="85.0" aperture="2.5" distance="10" k1="-0.0041191" k2="-1.2492777" k3="0.6942101"/>
+            <vignetting model="pa" focal="85.0" aperture="2.5" distance="1000" k1="-0.0041191" k2="-1.2492777" k3="0.6942101"/>
+            <vignetting model="pa" focal="85.0" aperture="3.5" distance="10" k1="-0.0771289" k2="-0.1081747" k3="-0.2014599"/>
+            <vignetting model="pa" focal="85.0" aperture="3.5" distance="1000" k1="-0.0771289" k2="-0.1081747" k3="-0.2014599"/>
+            <vignetting model="pa" focal="85.0" aperture="5.0" distance="10" k1="-0.2663773" k2="0.5000351" k3="-0.4731260"/>
+            <vignetting model="pa" focal="85.0" aperture="5.0" distance="1000" k1="-0.2663773" k2="0.5000351" k3="-0.4731260"/>
+            <vignetting model="pa" focal="85.0" aperture="22.0" distance="10" k1="-0.1461301" k2="0.0192776" k3="0.0205072"/>
+            <vignetting model="pa" focal="85.0" aperture="22.0" distance="1000" k1="-0.1461301" k2="0.0192776" k3="0.0205072"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <maker>Leica</maker>
         <model>Leica D Summilux 25mm F1.4 Asph.</model>
         <mount>Micro 4/3 System</mount>
