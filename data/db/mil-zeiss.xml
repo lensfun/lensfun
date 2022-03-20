@@ -3,14 +3,34 @@
 
     <lens>
         <maker>Zeiss</maker>
-        <model>E 32mm f/1.8</model>
+        <model>Touit 1.8/32</model>
         <model lang="en">Touit 32mm f/1.8</model>
+        <mount>Fujifilm X</mount>
         <mount>Sony E</mount>
         <cropfactor>1.534</cropfactor>
         <calibration>
             <!-- Taken with Sony A6000 -->
             <distortion model="poly3" focal="32" k1="-0.00792"/>
-            <tca model="poly3" focal="32" br="-0.0000053" vr="1.0001744" bb="0.0000616" vb="0.9998421"/>
+            <!-- Taken with Fujifilm X-T3 -->
+            <tca model="poly3" focal="32.0" br="-0.0000842" vr="1.0006229" bb="0.0001109" vb="0.9996800"/>
+            <vignetting model="pa" focal="32.0" aperture="1.8" distance="10" k1="-1.2160006" k2="0.6673535" k3="-0.1776757"/>
+            <vignetting model="pa" focal="32.0" aperture="1.8" distance="1000" k1="-1.2160006" k2="0.6673535" k3="-0.1776757"/>
+            <vignetting model="pa" focal="32.0" aperture="2.0" distance="10" k1="-0.8468284" k2="0.0285015" k3="0.1322209"/>
+            <vignetting model="pa" focal="32.0" aperture="2.0" distance="1000" k1="-0.8468284" k2="0.0285015" k3="0.1322209"/>
+            <vignetting model="pa" focal="32.0" aperture="2.8" distance="10" k1="-0.0850621" k2="-0.3425672" k3="0.0798519"/>
+            <vignetting model="pa" focal="32.0" aperture="2.8" distance="1000" k1="-0.0850621" k2="-0.3425672" k3="0.0798519"/>
+            <vignetting model="pa" focal="32.0" aperture="4.0" distance="10" k1="-0.2169273" k2="0.1420966" k3="-0.1492399"/>
+            <vignetting model="pa" focal="32.0" aperture="4.0" distance="1000" k1="-0.2169273" k2="0.1420966" k3="-0.1492399"/>
+            <vignetting model="pa" focal="32.0" aperture="5.6" distance="10" k1="-0.1833442" k2="-0.0542602" k3="0.0541898"/>
+            <vignetting model="pa" focal="32.0" aperture="5.6" distance="1000" k1="-0.1833442" k2="-0.0542602" k3="0.0541898"/>
+            <vignetting model="pa" focal="32.0" aperture="8.0" distance="10" k1="-0.2090648" k2="0.0022256" k3="0.0143559"/>
+            <vignetting model="pa" focal="32.0" aperture="8.0" distance="1000" k1="-0.2090648" k2="0.0022256" k3="0.0143559"/>
+            <vignetting model="pa" focal="32.0" aperture="11.0" distance="10" k1="-0.2155075" k2="0.0079288" k3="0.0002598"/>
+            <vignetting model="pa" focal="32.0" aperture="11.0" distance="1000" k1="-0.2155075" k2="0.0079288" k3="0.0002598"/>
+            <vignetting model="pa" focal="32.0" aperture="16.0" distance="10" k1="-0.2305346" k2="0.0313585" k3="-0.0001259"/>
+            <vignetting model="pa" focal="32.0" aperture="16.0" distance="1000" k1="-0.2305346" k2="0.0313585" k3="-0.0001259"/>
+            <vignetting model="pa" focal="32.0" aperture="22.0" distance="10" k1="-0.2499405" k2="0.0683287" k3="-0.0263703"/>
+            <vignetting model="pa" focal="32.0" aperture="22.0" distance="1000" k1="-0.2499405" k2="0.0683287" k3="-0.0263703"/>
         </calibration>
     </lens>
 
