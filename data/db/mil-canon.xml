@@ -976,4 +976,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon RF 16mm F2.8 STM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+             <!-- Taken with Canon EOS R6 -->
+            <distortion model="ptlens" focal="16.0" a="0.0240971" b="-0.0938243" c="-0.0165449"/>
+            <tca model="poly3" focal="16.0" br="-0.0001456" vr="1.0004540" bb="0.0003033" vb="0.9998129"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
