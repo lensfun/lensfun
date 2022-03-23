@@ -807,4 +807,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>NIKKOR Z MC 105mm f/2.8 VR S</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon Z 7 -->
+            <distortion model="ptlens" focal="105.0" a="-0.00962207" b="0.0335446" c="-0.0436214"/>
+            <tca model="poly3" focal="105.0" br="0.0000069" vr="1.0001602" bb="0.0000178" vb="0.9999263"/>
+            <vignetting model="pa" focal="105.0" aperture="2.8" distance="10" k1="-1.1354285" k2="0.7509271" k3="-0.3453910"/>
+            <vignetting model="pa" focal="105.0" aperture="2.8" distance="1000" k1="-1.1354285" k2="0.7509271" k3="-0.3453910"/>
+            <vignetting model="pa" focal="105.0" aperture="4.0" distance="10" k1="0.3106876" k2="-1.2907000" k3="0.5047200"/>
+            <vignetting model="pa" focal="105.0" aperture="4.0" distance="1000" k1="0.3106876" k2="-1.2907000" k3="0.5047200"/>
+            <vignetting model="pa" focal="105.0" aperture="5.6" distance="10" k1="-0.0997440" k2="0.4999534" k3="-0.6160787"/>
+            <vignetting model="pa" focal="105.0" aperture="5.6" distance="1000" k1="-0.0997440" k2="0.4999534" k3="-0.6160787"/>
+            <vignetting model="pa" focal="105.0" aperture="8.0" distance="10" k1="0.0152965" k2="-0.0351252" k3="0.0010145"/>
+            <vignetting model="pa" focal="105.0" aperture="8.0" distance="1000" k1="0.0152965" k2="-0.0351252" k3="0.0010145"/>
+            <vignetting model="pa" focal="105.0" aperture="22.0" distance="10" k1="-0.0003241" k2="-0.0293428" k3="0.0137706"/>
+            <vignetting model="pa" focal="105.0" aperture="22.0" distance="1000" k1="-0.0003241" k2="-0.0293428" k3="0.0137706"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
