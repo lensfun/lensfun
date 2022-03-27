@@ -583,19 +583,6 @@
 
     <lens>
         <maker>Sigma</maker>
-        <model>35mm F2 DG DN | Contemporary 020</model>
-        <mount>Sony E</mount>
-        <mount>Leica L</mount>
-        <cropfactor>1.0</cropfactor>
-        <calibration>
-            <!-- Taken with Sony ILCE-7C -->
-            <distortion model="ptlens" focal="35.0" a="0.006" b="-0.026" c="0.002" />
-            <tca model="poly3" focal="35.0" vr="1.0000839" vb="1.0000382" />
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Sigma</maker>
         <model>40mm F1.4 DG HSM | Art 018</model>
         <model lang="en">Sigma 40mm F1.4 DG HSM | Art</model>
         <mount>Canon EF</mount>
@@ -617,6 +604,66 @@
             <vignetting model="pa" focal="40.0" aperture="5.6" distance="1000" k1="-0.2709089" k2="0.0195872" k3="0.0227277"/>
             <vignetting model="pa" focal="40.0" aperture="16.0" distance="10" k1="-0.2878019" k2="0.0453093" k3="0.0104123"/>
             <vignetting model="pa" focal="40.0" aperture="16.0" distance="1000" k1="-0.2878019" k2="0.0453093" k3="0.0104123"/>
+        </calibration>
+    </lens>
+   
+   <lens>
+        <maker>Sigma</maker>
+        <model>20mm F2 DG DN | Contemporary 022</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="20" a="0.0268937" b="-0.0982549" c="0.0452197" />
+            <tca model="poly3" focal="20" vr="1.0003052" cr="-0.0000000" br="0.0000000" vb="1.0000539" cb="-0.0000762" bb="0.0000259" />
+        </calibration>
+    </lens>
+    
+    <lens>
+        <maker>Sigma</maker>
+        <model>24mm F2 DG DN | Contemporary 021</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="24" a="0.0178656" b="-0.0739538" c="0.0316300" />
+            <tca model="poly3" focal="24" vr="1.0001423" cr="-0.0002125" br="0.0001224" vb="0.9999575" cb="0.0004025" bb="-0.0002176" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
+        <model>35mm F2 DG DN | Contemporary 020</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="35" a="0.0025850" b="-0.0188551" c="0.0065550" />
+            <tca model="poly3" focal="35" vr="1.0001744" cr="0.0000553" br="-0.0000480" vb="1.0000087" cb="-0.0000553" bb="0.0000480" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
+        <model>65mm F2 DG DN | Contemporary 020</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="65" a="-0.0013239" b="0.0100205" c="-0.0016762" />
+            <tca model="poly3" focal="65" vr="1.0003439" cr="-0.0001381" br="0.0000462" vb="0.9998513" cb="-0.0000247" bb="0.0000400" />
+        </calibration>
+    </lens>
+    
+    <lens>
+        <maker>Sigma</maker>
+        <model>90mm F2.8 DG DN | Contemporary 021</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="90" a="0.0007308" b="0.0133346" c="0.0007317" />
+            <tca model="poly3" focal="90" vr="0.9996588" cr="0.0000772" br="0.0000596" vb="1.0002673" cb="-0.0000573" bb="-0.0001346" />
         </calibration>
     </lens>
 
