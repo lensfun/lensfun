@@ -666,11 +666,15 @@
             <distortion model="ptlens" focal="104.0" a="-0.00500232" b="0.0249612" c="-0.0244939"/>
             <distortion model="ptlens" focal="135.0" a="-0.00608197" b="0.0280479" c="-0.0198904"/>
             <distortion model="ptlens" focal="200.0" a="-0.00581891" b="0.0295605" c="-0.0219492"/>
-            <tca model="poly3" focal="70.0" br="-0.0000222" vr="1.0002295" bb="0.0000282" vb="1.0000572"/>
-            <tca model="poly3" focal="86.0" br="-0.0000230" vr="1.0002031" bb="0.0000299" vb="0.9999914"/>
-            <tca model="poly3" focal="102.0" br="-0.0000175" vr="1.0001235" bb="0.0000241" vb="0.9999901"/>
-            <tca model="poly3" focal="150.0" br="-0.0000126" vr="0.9999750" bb="0.0000093" vb="1.0000195"/>
-            <tca model="poly3" focal="200.0" br="-0.0000428" vr="0.9999654" bb="0.0000404" vb="0.9998586"/>
+            <tca model="poly3" focal="70.0" br="0.0000018" vr="1.0001947" bb="0.0000161" vb="1.0000507"/>
+            <tca model="poly3" focal="74.0" br="-0.0000264" vr="1.0002251" bb="0.0000702" vb="0.9999377"/>
+            <tca model="poly3" focal="85.0" br="0.0000070" vr="1.0000923" bb="0.0000441" vb="0.9999478"/>
+            <tca model="poly3" focal="100.0" br="0.0000094" vr="1.0000345" bb="0.0000972" vb="0.9998573"/>
+            <tca model="poly3" focal="120.0" br="-0.0000095" vr="1.0000238" bb="0.0000509" vb="0.9999785"/>
+            <tca model="poly3" focal="140.0" br="-0.0000327" vr="1.0000208" bb="0.0000252" vb="1.0000281"/>
+            <tca model="poly3" focal="160.0" br="-0.0000367" vr="1.0000032" bb="-0.0000005" vb="1.0000389"/>
+            <tca model="poly3" focal="180.0" br="-0.0000626" vr="1.0000080" bb="-0.0000007" vb="1.0000068"/>
+            <tca model="poly3" focal="200.0" br="-0.0001207" vr="1.0001782" bb="-0.0000153" vb="0.9999939"/>
             <vignetting model="pa" focal="70.0" aperture="2.8" distance="10" k1="-0.4866938" k2="0.0973957" k3="-0.1372388" />
             <vignetting model="pa" focal="70.0" aperture="2.8" distance="1000" k1="-0.4866938" k2="0.0973957" k3="-0.1372388" />
             <vignetting model="pa" focal="70.0" aperture="4.0" distance="10" k1="-0.0825514" k2="0.1736848" k3="-0.3452679" />
