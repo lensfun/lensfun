@@ -505,6 +505,28 @@
 
     <lens>
         <maker>Minolta</maker>
+        <model>Minolta AF 50mm f/1.7</model>
+        <mount>Minolta AF</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 77 II -->
+            <distortion model="ptlens" focal="50.0" a="-0.011649" b="0.0487039" c="-0.0694918"/>
+            <tca model="poly3" focal="50.0" br="-0.0000079" vr="1.0001002" bb="0.0000049" vb="0.9998329"/>
+            <vignetting model="pa" focal="50.0" aperture="1.7" distance="10" k1="-0.6179935" k2="0.2004261" k3="0.0077114"/>
+            <vignetting model="pa" focal="50.0" aperture="1.7" distance="1000" k1="-0.6179935" k2="0.2004261" k3="0.0077114"/>
+            <vignetting model="pa" focal="50.0" aperture="2.8" distance="10" k1="-0.0974143" k2="-0.0885810" k3="0.0780874"/>
+            <vignetting model="pa" focal="50.0" aperture="2.8" distance="1000" k1="-0.0974143" k2="-0.0885810" k3="0.0780874"/>
+            <vignetting model="pa" focal="50.0" aperture="4.0" distance="10" k1="-0.1332431" k2="-0.0378155" k3="0.0447960"/>
+            <vignetting model="pa" focal="50.0" aperture="4.0" distance="1000" k1="-0.1332431" k2="-0.0378155" k3="0.0447960"/>
+            <vignetting model="pa" focal="50.0" aperture="5.6" distance="10" k1="-0.1563957" k2="0.0048113" k3="0.0104719"/>
+            <vignetting model="pa" focal="50.0" aperture="5.6" distance="1000" k1="-0.1563957" k2="0.0048113" k3="0.0104719"/>
+            <vignetting model="pa" focal="50.0" aperture="22.0" distance="10" k1="-0.2098254" k2="0.0251807" k3="-0.0032312"/>
+            <vignetting model="pa" focal="50.0" aperture="22.0" distance="1000" k1="-0.2098254" k2="0.0251807" k3="-0.0032312"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Minolta</maker>
         <model>Minolta AF 17-35mm f/2.8-4 (D)</model>
         <mount>Minolta AF</mount>
         <cropfactor>1</cropfactor>
