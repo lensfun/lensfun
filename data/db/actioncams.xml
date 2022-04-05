@@ -92,6 +92,14 @@
     </camera>
 
     <camera>
+        <maker>Hasselblad</maker>
+        <model>L2D-20c</model>
+        <model lang="en">DJI Mavic 3</model>
+        <mount>l2d20c</mount>
+        <cropfactor>1.953</cropfactor>
+    </camera>
+
+    <camera>
         <maker>DJI</maker>
         <model>Mavic Air FC2103</model>
         <mount>djiMavicAirFC2103</mount>
@@ -254,6 +262,19 @@
         <cropfactor>2.8</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="10" a="0.013" b="-0.071" c="0.021"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Hasselblad</maker>
+        <model>L2D-20c &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>l2d20c</mount>
+        <cropfactor>1.953</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="12.3" a="-0.0167982" b="0.00725109" c="-0.03131"/>
         </calibration>
     </lens>
 
