@@ -1975,4 +1975,21 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tamron</maker>
+        <model>Tamron 35-150mm f/2.8-4.0 Di VC OSD A043</model>
+        <model lang="en">Tamron 35-150mm f/2.8-4 Di VC OSD (A043)</model>
+        <mount>Nikon F AF</mount>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D750 -->
+            <distortion model="ptlens" focal="35.0" a="0.0189589" b="-0.0592423" c="0.0478159"/>
+            <distortion model="ptlens" focal="52.0" a="0.0113354" b="-0.0273764" c="0.0344641"/>
+            <distortion model="ptlens" focal="85.0" a="0.00558746" b="-0.00905442" c="0.0238191"/>
+            <distortion model="ptlens" focal="122.0" a="-0.000103463" b="0.0121168" c="-0.0076198"/>
+            <distortion model="ptlens" focal="150.0" a="-0.00099852" b="0.0145551" c="-0.0103688"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
