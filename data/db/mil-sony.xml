@@ -2713,4 +2713,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 50mm F2.8 Macro</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="50" a="0.000427173" b="-0.00376428" c="0.00857391"/>
+            <tca model="poly3" focal="50" br="-0.0000264" vr="1.0001888" bb="0.0000186" vb="0.9998342"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="10" k1="-1.0057" k2="0.9226" k3="-0.3843"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="1000" k1="-1.0057" k2="0.9226" k3="-0.3843"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="10" k1="-0.2566" k2="-0.0171" k3="0.0454"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="1000" k1="-0.2566" k2="-0.0171" k3="0.0454"/>
+            <vignetting model="pa" focal="50" aperture="5" distance="10" k1="-0.2609" k2="0.0107" k3="0.0244"/>
+            <vignetting model="pa" focal="50" aperture="5" distance="1000" k1="-0.2609" k2="0.0107" k3="0.0244"/>
+            <vignetting model="pa" focal="50" aperture="6.3" distance="10" k1="-0.1979" k2="-0.1582" k3="0.1464"/>
+            <vignetting model="pa" focal="50" aperture="6.3" distance="1000" k1="-0.1979" k2="-0.1582" k3="0.1464"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="10" k1="-0.4308" k2="0.3199" k3="-0.1413"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="1000" k1="-0.4308" k2="0.3199" k3="-0.1413"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
