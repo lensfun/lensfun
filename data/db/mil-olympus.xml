@@ -1726,4 +1726,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Olympus</maker>
+        <model>OLYMPUS M.8-25mm F4.0</model>
+        <model lang="en">Olympus M.Zuiko Digital ED 8-25mm f/4.0 PRO</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with OMD E-M1 II -->
+            <distortion model="ptlens" focal="8.0" a="0.0162715" b="-0.0819064" c="0.0380073"/>
+            <distortion model="ptlens" focal="10.0" a="0.00182377" b="-0.0331143" c="0.00893531"/>
+            <distortion model="ptlens" focal="14.0" a="-0.00196603" b="-0.00929059" c="0.00696872"/>
+            <distortion model="ptlens" focal="18.0" a="-0.012037" b="0.0403982" c="-0.0438142"/>
+            <distortion model="ptlens" focal="25.0" a="-0.0175356" b="0.0682647" c="-0.0638662"/>
+            <tca model="poly3" focal="8.0" br="0.0000467" vr="1.0000769" bb="-0.0000504" vb="1.0000997"/>
+            <tca model="poly3" focal="10.0" br="0.0000217" vr="1.0000557" bb="-0.0000335" vb="1.0001456"/>
+            <tca model="poly3" focal="14.0" br="-0.0000152" vr="1.0000030" bb="0.0000424" vb="1.0001296"/>
+            <tca model="poly3" focal="18.0" br="-0.0000493" vr="1.0000726" bb="0.0000748" vb="0.9999518"/>
+            <tca model="poly3" focal="25.0" br="-0.0000431" vr="1.0001346" bb="0.0001187" vb="0.9996822"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
