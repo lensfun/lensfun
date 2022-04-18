@@ -496,8 +496,24 @@
 
     <camera>
         <maker>Panasonic</maker>
+        <model>DC-ZS220</model>
+        <!-- North American version of TZ200 -->
+        <mount>panasonicZS200</mount>
+        <cropfactor>2.73</cropfactor>
+    </camera>
+    
+    <camera>
+        <maker>Panasonic</maker>
         <model>DC-TZ200</model>
         <!-- International version of ZS200 -->
+        <mount>panasonicZS200</mount>
+        <cropfactor>2.73</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Panasonic</maker>
+        <model>DC-TZ220</model>
+        <!-- International version of ZS220 -->
         <mount>panasonicZS200</mount>
         <cropfactor>2.73</cropfactor>
     </camera>
