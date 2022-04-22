@@ -2637,4 +2637,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Panasonic</maker>
+        <model>LEICA DG 50-200/F2.8-4.0</model>
+        <model lang="en">Leica DG Vario-Elmarit 50-200 mm F2.8-4 Asph O.I.S.</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Lumix DC-G9 -->
+            <distortion model="ptlens" focal="50.0" a="0.00972117" b="-0.0216944" c="0.0219299"/>
+            <distortion model="ptlens" focal="70.0" a="0.000125526" b="0.00603698" c="-0.00271997"/>
+            <distortion model="ptlens" focal="100.0" a="0.00435091" b="-0.00903287" c="0.0178477"/>
+            <distortion model="ptlens" focal="150.0" a="-0.000975667" b="0.00643138" c="0.0034214"/>
+            <distortion model="ptlens" focal="200.0" a="0.00256578" b="-0.00374369" c="0.00702667"/>
+            <tca model="poly3" focal="50.0" br="-0.0001373" vr="1.0004375" bb="0.0001201" vb="0.9998296"/>
+            <tca model="poly3" focal="70.0" br="-0.0000789" vr="1.0001792" bb="0.0000293" vb="1.0000226"/>
+            <tca model="poly3" focal="100.0" br="-0.0000197" vr="1.0000083" bb="-0.0000069" vb="1.0000714"/>
+            <tca model="poly3" focal="150.0" br="-0.0000020" vr="0.9999648" bb="0.0000297" vb="0.9998947"/>
+            <tca model="poly3" focal="200.0" br="0.0000362" vr="0.9999235" bb="0.0000119" vb="0.9998211"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
