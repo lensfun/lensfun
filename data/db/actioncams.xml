@@ -84,6 +84,14 @@
     </camera>
 
     <camera>
+        <maker>DJI</maker>
+        <model>FC3411</model>
+        <model lang="en">Air 2S</model>
+        <mount>djiFC3411</mount>
+        <cropfactor>2.73</cropfactor>
+    </camera>
+
+    <camera>
         <maker>Hasselblad</maker>
         <model>L1D-20c</model>
         <model lang="en">DJI Mavic 2 Pro</model>
@@ -290,6 +298,22 @@
             <tca model="poly3" focal="4.5" vr="1.0001363" vb="1.0000660"/>
             <vignetting model="pa" focal="4.5" aperture="2.8" distance="10" k1="-0.7961" k2="1.0400" k3="-0.5929"/>
             <vignetting model="pa" focal="4.5" aperture="2.8" distance="1000" k1="-0.7961" k2="1.0400" k3="-0.5929"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>DJI</maker>
+        <model>FC3411 &amp; compatibles</model>
+        <model lang="en">FC3411 fixed lens</model>
+        <model lang="de">FC3411 festes Objektiv</model>
+        <mount>djiFC3411</mount>
+        <cropfactor>2.63</cropfactor>
+        <aspect-ratio>3:2</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="8.4" a="0.014878" b="-0.0317787" c="-0.000777849"/>
+            <tca model="poly3" focal="8.38" br="-0.0000204" vr="1.0003052" bb="-0.0000365" vb="1.0000320"/>
+            <vignetting model="pa" focal="8.4" aperture="2.8" distance="10" k1="-1.3024" k2="0.0998" k3="0.3900"/>
+            <vignetting model="pa" focal="8.4" aperture="2.8" distance="1000" k1="-1.3024" k2="0.0998" k3="0.3900"/>
         </calibration>
     </lens>
 
