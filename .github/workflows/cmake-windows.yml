@@ -1,0 +1,35 @@
+name: CMake-Windows
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+  ARCH: x64
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install vcpkg dependencies
+      run: |
+        vcpkg install glib libpng --triplet=${{env.ARCH}}-windows
+        vcpkg integrate install
+    - name: Install xsltproc
+      run: choco install xsltproc
+    - name: Build and Install using CMake
+      run: |
+        mkdir build
+        cd build
+        cmake .. -G "Visual Studio 17 2022" -A ${{env.ARCH}} -DBUILD_STATIC=OFF -DBUILD_LENSTOOL=OFF -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=install -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake -DGLIB2_BASE_DIR=c:/vcpkg/installed/${{env.ARCH}}-windows
+        cmake --build . --config ${{env.BUILD_TYPE}}
+        cmake --build . --target install
+    - name: Test
+      working-directory: ${{github.workspace}}/build
+      run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure
+      
