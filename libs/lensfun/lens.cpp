@@ -14,6 +14,7 @@
 #include <math.h>
 #include "windows/mathconstants.h"
 #include <algorithm>
+#include <cfloat>
 
 //------------------------------------------------------------------------//
 
@@ -27,6 +28,7 @@ lfLens::lfLens ()
     MaxAperture = 0.0;
     Mounts = NULL;
     Type = LF_RECTILINEAR;
+    Score = 0;
 
     // init legacy attributes
     CropFactor = 1.0;
@@ -980,7 +982,7 @@ bool lfLens::InterpolateDistortion (float crop, float focal, lfLensCalibDistorti
     float spline_dist [4] = { -FLT_MAX, -FLT_MAX, FLT_MAX, FLT_MAX };
     lfDistortionModel dm = LF_DIST_MODEL_NONE;
 
-    memset (spline, 0, sizeof (spline));
+    memset ((void*)spline, 0, sizeof (spline));
     for (const lfLensCalibDistortion* c : calib_set->CalibDistortion)
     {
         if (c->Model == LF_DIST_MODEL_NONE)
@@ -1003,7 +1005,7 @@ bool lfLens::InterpolateDistortion (float crop, float focal, lfLensCalibDistorti
             res = *c;
             return true;
         }
-        __insert_spline (spline_ptr, spline_dist, df, c);
+        __insert_spline ((const void **)spline_ptr, spline_dist, df, c);
     }
 
     if (!spline [1] || !spline [2])
@@ -1082,7 +1084,7 @@ bool lfLens::InterpolateTCA (float crop, float focal, lfLensCalibTCA &res) const
     float spline_dist [4] = { -FLT_MAX, -FLT_MAX, FLT_MAX, FLT_MAX };
     lfTCAModel tcam = LF_TCA_MODEL_NONE;
 
-    memset (&spline, 0, sizeof (spline));
+    memset ((void*)&spline, 0, sizeof (spline));
     for (const lfLensCalibTCA* c : calib_set->CalibTCA)
     {
         if (c->Model == LF_TCA_MODEL_NONE)
@@ -1106,7 +1108,7 @@ bool lfLens::InterpolateTCA (float crop, float focal, lfLensCalibTCA &res) const
             res.CalibAttr = calib_set->Attributes;
             return true;
         }
-        __insert_spline (spline_ptr, spline_dist, df, c);
+        __insert_spline ((const void **)spline_ptr, spline_dist, df, c);
     }
 
     if (!spline [1] || !spline [2])
@@ -1295,7 +1297,7 @@ bool lfLens::InterpolateCrop (float crop, float focal, lfLensCalibCrop &res) con
     float spline_dist [4] = { -FLT_MAX, -FLT_MAX, FLT_MAX, FLT_MAX };
     lfCropMode cm = LF_NO_CROP;
 
-    memset (spline, 0, sizeof (spline));
+    memset ((void*)spline, 0, sizeof (spline));
     for (const lfLensCalibCrop* c : calib_set->CalibCrop)
     {
         if (c->CropMode == LF_NO_CROP)
@@ -1318,7 +1320,7 @@ bool lfLens::InterpolateCrop (float crop, float focal, lfLensCalibCrop &res) con
             res = *c;
             return true;
         }
-        __insert_spline (spline_ptr, spline_dist, df, c);
+        __insert_spline ((const void **)spline_ptr, spline_dist, df, c);
     }
 
     if (!spline [1] || !spline [2])
@@ -1383,7 +1385,7 @@ bool lfLens::InterpolateFov (float crop, float focal, lfLensCalibFov &res) const
     };
     float spline_dist [4] = { -FLT_MAX, -FLT_MAX, FLT_MAX, FLT_MAX };
 
-    memset (spline, 0, sizeof (spline));
+    memset ((void*)spline, 0, sizeof (spline));
     int counter=0;
 
     for (const lfLensCalibFov* c : calib_set->CalibFov)
@@ -1399,7 +1401,7 @@ bool lfLens::InterpolateFov (float crop, float focal, lfLensCalibFov &res) const
             res = *c;
             return true;
         }
-        __insert_spline (spline_ptr, spline_dist, df, c);
+        __insert_spline ((const void **)spline_ptr, spline_dist, df, c);
     }
 
     //no valid data found
