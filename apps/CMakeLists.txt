@@ -20,7 +20,7 @@ ENDIF(INSTALL_HELPER_SCRIPTS)
 
 # Inspired by http://bloerg.net/2012/11/10/cmake-and-distutils.html
 IF(INSTALL_PYTHON_MODULE)
-    FIND_PACKAGE(PythonInterp)
+    FIND_PACKAGE(PythonInterp 3 REQUIRED)
     IF(PYTHONINTERP_FOUND)
       # Windows has a dummy python.exe in the PATH which opens the Microsoft Store, so check if Python is real.
       EXECUTE_PROCESS(COMMAND ${PYTHON_EXECUTABLE} --version RESULT_VARIABLE PY_RESULT)
