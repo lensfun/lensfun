@@ -699,27 +699,42 @@
         <maker>Sigma</maker>
         <model>Sigma 18-50mm f/2.8 EX DC</model>
         <mount>Sigma SA</mount>
-        <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <mount>Pentax KAF</mount>
         <!-- Average crop factor of non-Canon APS-C cameras -->
         <cropfactor>1.53</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="18" a="0.012979" b="-0.036394" c="0"/>
-            <distortion model="ptlens" focal="23" a="0.007147" b="-0.017687" c="0"/>
-            <distortion model="ptlens" focal="28" a="0" b="0" c="0"/>
-            <distortion model="ptlens" focal="34" a="0" b="0.001032" c="0"/>
-            <distortion model="ptlens" focal="50" a="0" b="0.002512" c="0"/>
-        </calibration>
+            <distortion model="ptlens" focal="18" a="0.02501" b="-0.05722" c="-0.00866"/>
+            <distortion model="ptlens" focal="20" a="-0.00556" b="0.04704" c="-0.10382"/>
+            <distortion model="ptlens" focal="24" a="-0.01524" b="0.06135" c="-0.08128"/>
+            <distortion model="ptlens" focal="26" a="-0.00911" b="0.04929" c="-0.07925"/>
+            <distortion model="ptlens" focal="29" a="-0.03263" b="0.12747" c="-0.15716"/>
+            <distortion model="ptlens" focal="31" a="0.00399" b="-0.0064" c="0"/>
+            <distortion model="ptlens" focal="33" a="0.0003" b="0.00446" c="-0.00061"/>
+            <distortion model="ptlens" focal="35" a="-0.00198" b="0.00955" c="-0.0003"/>
+            <distortion model="ptlens" focal="38" a="-0.00382" b="0.01199" c="0.00307"/>
+            <distortion model="ptlens" focal="40" a="-0.00847" b="0.03148" c="-0.02089"/>
+            <distortion model="ptlens" focal="43" a="0.00545" b="-0.01275" c="0.01729"/>
+            <distortion model="ptlens" focal="50" a="-0.00638" b="0.0245" c="-0.01351"/>
+            <tca model="poly3" focal="18" vr="1.0003468" vb="1.0001876"/>
+            <tca model="poly3" focal="20" vr="1.0003318" vb="1.0001727"/>
+            <tca model="poly3" focal="24" vr="1.0002696" vb="1.0001007"/>
+            <tca model="poly3" focal="26" vr="1.0002319" vb="1.0000824"/>
+            <tca model="poly3" focal="29" vr="1.0002176" vb="1.0000613"/>
+            <tca model="poly3" focal="31" vr="1.0001903" vb="1.0000537"/>
+            <tca model="poly3" focal="33" vr="1.0001556" vb="1.0000418"/>
+            <tca model="poly3" focal="35" vr="1.0001378" vb="1.0000252"/>
+            <tca model="poly3" focal="38" vr="1.0001160" vb="1.0000139"/>
+            <tca model="poly3" focal="40" vr="1.0001015" vb="1.0000149"/>
+            <tca model="poly3" focal="43" vr="1.0000337" vb="1.0000047"/>
+            <tca model="poly3" focal="50" vr="0.9999761" vb="0.9999972"/>
+         </calibration>
     </lens>
 
     <lens>
         <maker>Sigma</maker>
         <model>Sigma 18-50mm f/2.8 EX DC</model>
-        <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
-        <mount>Nikon F AF</mount>
-        <mount>Pentax KAF</mount>
         <!-- Average crop factor of Canon APS-C cameras -->
         <cropfactor>1.611</cropfactor>
         <calibration>
