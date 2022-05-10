@@ -491,4 +491,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tamron</maker>
+        <model>E 11-20mm F2.8 B060</model>
+        <model lang="en">Tamron 11-20 mm F2.8 Di III-A RXD (B060)</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-6400 -->
+            <distortion model="ptlens" focal="11.0" a="0.00886412" b="-0.0332754" c="0.00593857"/>
+            <distortion model="ptlens" focal="14.0" a="0.00214208" b="-0.00125304" c="-0.00651944"/>
+            <distortion model="ptlens" focal="16.0" a="-0.00371993" b="0.0224654" c="-0.0237363"/>
+            <distortion model="ptlens" focal="18.0" a="0.00381134" b="0.00291435" c="-0.00485607"/>
+            <distortion model="ptlens" focal="20.0" a="-0.000663151" b="0.0188226" c="-0.0204173"/>
+            <tca model="poly3" focal="11.0" br="0.0000713" vr="1.0002206" bb="0.0000109" vb="0.9999559"/>
+            <tca model="poly3" focal="14.0" br="-0.0000071" vr="1.0002093" bb="0.0000188" vb="0.9999893"/>
+            <tca model="poly3" focal="16.0" br="-0.0000435" vr="1.0002403" bb="0.0000283" vb="1.0000259"/>
+            <tca model="poly3" focal="18.0" br="-0.0000396" vr="1.0001804" bb="-0.0000026" vb="1.0000430"/>
+            <tca model="poly3" focal="20.0" br="-0.0000305" vr="1.0001644" bb="0.0000288" vb="1.0000079"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
