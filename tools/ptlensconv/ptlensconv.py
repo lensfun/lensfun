@@ -10,6 +10,7 @@
 # but in fact the lens must have attached a list of really available mounts.
 #
 
+from __future__ import print_function
 import sys;
 from optparse import OptionParser;
 
@@ -76,11 +77,11 @@ def ParseCamera (lines):
             raise Error ("Unknown keyword in camera section: " + l)
 
     if not cam.has_key ("maker") or not cam.has_key ("model"):
-        print "Camera does not have maker or model defined:", cam
+        print("Camera does not have maker or model defined:", cam)
         return
 
     if not cam.has_key ("mount"):
-        print "Camera does not have a mount defined:", cam
+        print("Camera does not have a mount defined:", cam)
         return
 
     if not cam ["model"].lower ().__contains__ (variant.lower ()):
@@ -118,7 +119,7 @@ def ParseLens (lines):
             raise Error ("Unknown keyword in camera section: " + l)
 
     if not lens.has_key ("model"):
-        print "Lens does not have model name defined:", lens
+        print("Lens does not have model name defined:", lens)
         return
 
     Lenses.append (lens)
@@ -167,7 +168,7 @@ def WriteOut (ofn):
 
 def Parse (fn):
     global opts
-    print "Parsing %s ..." % fn
+    print("Parsing %s ..." % fn)
     try:
         fr = open (fn, "r")
         lines = []
@@ -194,8 +195,8 @@ def Parse (fn):
 
         WriteOut (opts.Output % {"name": name, "ext": ext});
 
-    except Error, e:
-        print "FAILED: ", e
+    except Error as e:
+        print("FAILED: ", e)
 
 
 parser = OptionParser (usage="%prog [-o FILE] FILE1.txt [FILE2.txt [...]]",
