@@ -1051,4 +1051,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon RF 14-35mm F4 L IS USM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="14.0" a="0.026758" b="-0.0994364" c="0.0457871"/>
+            <distortion model="ptlens" focal="17.0" a="0.0181757" b="-0.066496" c="0.0404579"/>
+            <distortion model="ptlens" focal="20.0" a="0.00463937" b="-0.0109213" c="-0.00947938"/>
+            <distortion model="ptlens" focal="24.0" a="0.0105299" b="-0.0318349" c="0.026805"/>
+            <distortion model="ptlens" focal="28.0" a="0.0103024" b="-0.0314689" c="0.0330473"/>
+            <distortion model="ptlens" focal="35.0" a="0.0142353" b="-0.0466275" c="0.0486084"/>
+            <tca model="poly3" focal="14.0" br="0.0000473" vr="1.0000834" bb="0.0000278" vb="1.0000292"/>
+            <tca model="poly3" focal="17.0" br="0.0000881" vr="1.0000443" bb="-0.0000275" vb="1.0000983"/>
+            <tca model="poly3" focal="20.0" br="0.0000396" vr="1.0000769" bb="-0.0000212" vb="1.0000991"/>
+            <tca model="poly3" focal="24.0" br="0.0000499" vr="1.0000217" bb="-0.0000305" vb="1.0001545"/>
+            <tca model="poly3" focal="28.0" br="0.0000215" vr="1.0000233" bb="-0.0000289" vb="1.0001719"/>
+            <tca model="poly3" focal="35.0" br="0.0000409" vr="0.9999809" bb="-0.0000350" vb="1.0001591"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
