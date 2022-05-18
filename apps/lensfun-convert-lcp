@@ -284,9 +284,21 @@ def read_lensfun_database():
                     lensfun_lenses_dict[lens.normalized_model, lens.cropfactor] = lens
 
     paths_search_list = [args.db_path] if args.db_path else \
-                        ["/usr/share/lensfun", "/usr/local/share/lensfun", "/var/lib/lensfun-updates",
+                        ["/usr/share/lensfun", \
+                         "/usr/local/share/lensfun", \
+                         "/var/lib/lensfun-updates", \
+                         "/usr/share/lensfun/version_1", \
+                         "/usr/local/share/lensfun/version_1", \
+                         "/var/lib/lensfun-updates/version_1", \
+                         "/usr/share/lensfun/version_2", \
+                         "/usr/local/share/lensfun/version_2", \
+                         "/var/lib/lensfun-updates/version_2", \
                          os.path.expanduser("~/.local/share/lensfun/updates"),
-                         os.path.expanduser("~/.local/share/lensfun")]
+                         os.path.expanduser("~/.local/share/lensfun"),
+                         os.path.expanduser("~/.local/share/lensfun/updates/version_1"),
+                         os.path.expanduser("~/.local/share/lensfun/version_1"),
+                         os.path.expanduser("~/.local/share/lensfun/updates/version_2"),
+                         os.path.expanduser("~/.local/share/lensfun/version_2")]
     for path in paths_search_list:
         crawl_directory(path)
     return lensfun_cameras, set(lensfun_lenses_dict.values())
