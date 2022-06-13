@@ -224,4 +224,48 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Distagon 18mm f/4</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- taken with Sony ILCE-7 -->
+            <distortion model="ptlens" focal="18" a="0.02239" b="-0.04274" c="-0.00669"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Distagon 28mm f/2.8 MMJ</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- taken with Sony ILCE-7 -->
+            <distortion model="ptlens" focal="28" a="0" b="-0.00366" c="0"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Planar 50mm f/1.7 AEJ</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- taken with Sony ILCE-7 -->
+            <distortion model="ptlens" focal="50" a="0" b="-0.00497" c="0"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Sonnar 85mm f/2.8 AEJ</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- taken with Sony ILCE-7 -->
+            <distortion model="ptlens" focal="85" a="0" b="0.00298" c="0"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
