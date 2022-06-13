@@ -10,7 +10,7 @@ try:
 except ImportError:
     missing_packages.add("python3-numpy")
 try:
-    from scipy.optimize.minpack import leastsq
+    from scipy.optimize import leastsq
 except ImportError:
     missing_packages.add("python3-scipy")
 def test_program(program, package_name):
