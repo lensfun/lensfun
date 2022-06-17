@@ -1093,4 +1093,28 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Pentacon</maker>
+        <model>Pentacon electric 2.8/29mm</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7R -->
+            <distortion model="ptlens" focal="29" a="0.0136" b="-0.03992" c="0.01167"/>
+            <tca model="poly3" focal="29" vr="1.0001492" vb="1.0000877"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Meyer Optik Görlitz</maker>
+        <model>Meyer Optik Görlitz 3.5/30mm</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7R -->
+            <distortion model="ptlens" focal="30" a="0.01522" b="-0.04998" c="0.02326"/>
+            <tca model="poly3" focal="30" vr="0.9999642" vb="1.0001283"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>

@@ -232,4 +232,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Carl Zeiss Jena Flektogon 4/20mm</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7R -->
+            <distortion model="ptlens" focal="20" a="0.02491" b="-0.05353" c="0.00498"/>
+            <tca model="poly3" focal="20" vr="1.0004715" vb="0.9996778"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
