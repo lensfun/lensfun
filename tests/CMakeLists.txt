@@ -4,6 +4,10 @@ IF (OpenMP_FOUND)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 ENDIF()
 
+ADD_EXECUTABLE(test_auxfun test_auxfun.cpp)
+TARGET_LINK_LIBRARIES(test_auxfun lensfun ${COMMON_LIBS})
+ADD_TEST(NAME Auxiliary WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND test_auxfun)
+
 ADD_EXECUTABLE(test_database test_database.cpp)
 TARGET_LINK_LIBRARIES(test_database lensfun ${COMMON_LIBS})
 ADD_TEST(NAME Database WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND test_database)
