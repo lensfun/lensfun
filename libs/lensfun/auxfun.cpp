@@ -98,9 +98,21 @@ LF_EXPORT lfMLstr lf_mlstr_add (lfMLstr str, const char *lang, const char *trstr
         /* Replace the default string */
         size_t def_str_len = str ? strlen (str) + 1 : 0;
 
-        memcpy (str + trstr_len, str + def_str_len, str_len - def_str_len);
-
-        str = (char *)g_realloc (str, str_len - def_str_len + trstr_len + 1);
+        if (str)
+        {
+            if (trstr_len > def_str_len)
+            {
+                str = (char *)g_realloc (str, str_len - def_str_len + trstr_len + 1);
+                memcpy (str + trstr_len, str + def_str_len, str_len - def_str_len);
+            }
+            else if (trstr_len < def_str_len)
+            {
+                memcpy (str + trstr_len, str + def_str_len, str_len - def_str_len);
+                str = (char *)g_realloc (str, str_len - def_str_len + trstr_len + 1);
+            }
+        }
+        else
+            str = (char *)g_malloc (trstr_len + 1);
 
         memcpy (str, trstr, trstr_len);
         str_len = str_len - def_str_len + trstr_len;
