@@ -103,11 +103,11 @@ LF_EXPORT lfMLstr lf_mlstr_add (lfMLstr str, const char *lang, const char *trstr
             if (trstr_len > def_str_len)
             {
                 str = (char *)g_realloc (str, str_len - def_str_len + trstr_len + 1);
-                memcpy (str + trstr_len, str + def_str_len, str_len - def_str_len);
+                memmove (str + trstr_len, str + def_str_len, str_len - def_str_len);
             }
             else if (trstr_len < def_str_len)
             {
-                memcpy (str + trstr_len, str + def_str_len, str_len - def_str_len);
+                memmove (str + trstr_len, str + def_str_len, str_len - def_str_len);
                 str = (char *)g_realloc (str, str_len - def_str_len + trstr_len + 1);
             }
         }
