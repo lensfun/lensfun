@@ -891,4 +891,20 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>NIKKOR Z 28-75mm f/2.8</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon Z 6_2 -->
+            <distortion model="ptlens" focal="28.0" a="0.0165893" b="-0.0458621" c="0.00332019"/>
+            <distortion model="ptlens" focal="34.0" a="0.0151362" b="-0.0472161" c="0.0340585"/>
+            <distortion model="ptlens" focal="40.0" a="0.00991091" b="-0.0284322" c="0.0264789"/>
+            <distortion model="ptlens" focal="49.0" a="0.00778071" b="-0.0199752" c="0.0251584"/>
+            <distortion model="ptlens" focal="57.0" a="0.00992548" b="-0.0260097" c="0.0341663"/>
+            <distortion model="ptlens" focal="75.0" a="0.00236263" b="0.00264827" c="-0.00238103"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
