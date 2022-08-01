@@ -302,14 +302,19 @@
 
     <lens>
         <maker>Sigma</maker>
-        <model>Sigma 16mm f/1.4 DC DN | Contemporary C 017</model>
-        <model lang="en">Sigma 16mm f/1.4 DC DN C</model>
+        <model>Sigma 16mm f/1.4 DC DN | Contemporary 017</model>
+        <model lang="en">Sigma 16mm f/1.4 DC DN Contemporary</model>
         <mount>Micro 4/3 System</mount>
         <mount>Sony E</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Leica L</mount>
+        <mount>Canon EF-M</mount>
         <cropfactor>1.534</cropfactor>
         <calibration>
+            <!-- Taken with Fujifilm X-M1 -->
+            <distortion model="ptlens" focal="16.0" a="0.013" b="-0.039" c="0.003"/>
+            <tca model="poly3" focal="16.0" vr="1.0003234" vb="0.9999389"/>
             <!-- Taken with Sony 6000 (ILCE-6000) -->
-            <distortion model="ptlens" focal="16" a="0.019888" b="-0.0654977" c="0.0396784"/>
             <vignetting model="pa" focal="16.0" aperture="1.4" distance="0.25" k1="-1.3351298" k2="1.0079795" k3="-0.3630246"/>
             <vignetting model="pa" focal="16.0" aperture="1.4" distance="0.5" k1="-1.1789405" k2="0.7793190" k3="-0.2749864"/>
             <vignetting model="pa" focal="16.0" aperture="1.4" distance="1.0" k1="-1.2062450" k2="0.8384845" k3="-0.3171608"/>
