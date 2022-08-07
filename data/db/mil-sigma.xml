@@ -779,4 +779,29 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>16-28mm F2.8 DG DN | Contemporary 022</model>
+        <mount>Sony E</mount>
+        <mount>Leica L</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="16" a="0.0178440" b="-0.0567002" c="0.0100099" />
+            <distortion model="ptlens" focal="18" a="0.0155075" b="-0.0359606" c="0.0028970" />
+            <distortion model="ptlens" focal="20" a="0.0115102" b="-0.0123447" c="-0.0074466" />
+            <distortion model="ptlens" focal="22" a="0.0104768" b="-0.0031034" c="-0.0104740" />
+            <distortion model="ptlens" focal="24" a="0.0090294" b="0.0019607" c="-0.0094744" />
+            <distortion model="ptlens" focal="25" a="0.0075718" b="0.0030619" c="-0.0080573" />
+            <distortion model="ptlens" focal="28" a="0.0075484" b="-0.0005776" c="-0.0016986" />
+            <tca model="poly3" focal="16" vr="0.9999489" cr="0.0001941" br="-0.0000349" vb="1.0002733" cb="-0.0001981" bb="0.0000582" />
+            <tca model="poly3" focal="18" vr="1.0000296" cr="-0.0000836" br="0.0000838" vb="1.0002159" cb="-0.0000726" bb="-0.0000237" />
+            <tca model="poly3" focal="20" vr="0.9999919" cr="-0.0000733" br="0.0000872" vb="1.0001960" cb="-0.0000522" bb="-0.0000477" />
+            <tca model="poly3" focal="22" vr="0.9998577" cr="0.0000968" br="0.0000119" vb="1.0002321" cb="-0.0000991" bb="-0.0000319" />
+            <tca model="poly3" focal="24" vr="0.9998377" cr="0.0000343" br="0.0000347" vb="1.0001713" cb="0.0000777" bb="-0.0001132" />
+            <tca model="poly3" focal="25" vr="0.9999188" cr="-0.0001395" br="0.0001148" vb="1.0002245" cb="-0.0000686" bb="-0.0000502" />
+            <tca model="poly3" focal="28" vr="0.9998829" cr="-0.0000617" br="0.0000871" vb="1.0001462" cb="0.0000433" bb="-0.0001147" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
