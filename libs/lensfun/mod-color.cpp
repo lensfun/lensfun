@@ -185,13 +185,13 @@ bool lfModifier::ApplyColorModification (
 
 // Helper template to return the maximal value for a type.
 // By default returns 0.0, which means to not clamp by upper boundary.
-template<typename T>inline double type_max (T x)
+template<typename T>inline double type_max (T)
 { return 0.0; }
 
-template<>inline double type_max (lf_u16 x)
+template<>inline double type_max (lf_u16)
 { return 65535.0; }
 
-template<>inline double type_max (lf_u32 x)
+template<>inline double type_max (lf_u32)
 { return 4294967295.0; }
 
 template<typename T>static inline T *apply_multiplier (T *pixels, double c, int &cr)

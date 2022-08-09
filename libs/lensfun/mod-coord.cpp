@@ -34,8 +34,7 @@
 #include <limits>
 #include <cassert>
 
-lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistortion& lcd_,
-                                                       double real_focal, cbool Reverse)
+lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistortion& lcd_, double real_focal)
 {
     // FixMe: The ACM probably bases on the nominal focal length.  This needs
     // to be found out.  It this is true, we have to scale its coefficient by
@@ -73,7 +72,7 @@ lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistorti
 
 int lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd_)
 {
-    const lfLensCalibDistortion lcd = rescale_polynomial_coefficients (lcd_, RealFocal, Reverse);
+    const lfLensCalibDistortion lcd = rescale_polynomial_coefficients (lcd_, RealFocal);
     if (Reverse)
         switch (lcd.Model)
         {

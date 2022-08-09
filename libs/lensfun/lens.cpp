@@ -243,13 +243,13 @@ void lfLens::GuessParameters ()
         }
     }
 
-    if (minf != INT_MAX && !MinFocal)
+    if (minf != (float)INT_MAX && !MinFocal)
         MinFocal = minf;
-    if (maxf != INT_MIN && !MaxFocal)
+    if (maxf != (float)INT_MIN && !MaxFocal)
         MaxFocal = maxf;
-    if (mina != INT_MAX && !MinAperture)
+    if (mina != (float)INT_MAX && !MinAperture)
         MinAperture = mina;
-    if (maxa != INT_MIN && !MaxAperture)
+    if (maxa != (float)INT_MIN && !MaxAperture)
         MaxAperture = maxa;
 
     if (!MaxFocal)
