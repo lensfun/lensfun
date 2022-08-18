@@ -60,6 +60,7 @@ void mod_teardown (lfFixture *lfFix, gconstpointer data)
 {
     g_free (lfFix->coordBuff);
 
+    delete lfFix->lens;
     delete lfFix->mod;
 }
 
