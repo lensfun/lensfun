@@ -1,0 +1,53 @@
+# Deprecation warnings are expected
+IF (MSVC)
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4996")
+ELSE()
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
+ENDIF()
+
+# for common_code.hpp
+INCLUDE_DIRECTORIES("../")
+
+ADD_EXECUTABLE(test_database_old test_database_old.cpp)
+TARGET_LINK_LIBRARIES(test_database_old lensfun ${COMMON_LIBS})
+ADD_TEST(NAME Database_deprecated WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND test_database_old)
+
+ADD_EXECUTABLE(test_modifier_old test_modifier_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_old lensfun ${COMMON_LIBS})
+ADD_TEST(NAME Modifier_deprecated COMMAND test_modifier_old)
+
+ADD_EXECUTABLE(test_modifier_color_old test_modifier_color_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_color_old lensfun ${COMMON_LIBS})
+ADD_TEST(NAME Modifier_color_deprecated COMMAND test_modifier_color_old)
+
+ADD_EXECUTABLE(test_modifier_subpix_old test_modifier_subpix_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_subpix_old lensfun ${COMMON_LIBS})
+ADD_TEST(NAME Modifier_subpix_deprecate COMMAND test_modifier_subpix_old)
+
+ADD_EXECUTABLE(test_modifier_coord_scale_old test_modifier_coord_scale_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_coord_scale_old lensfun ${COMMON_LIBS})
+ADD_TEST(NAME Modifier_coord_scale_deprecated COMMAND test_modifier_coord_scale_old)
+
+ADD_EXECUTABLE(test_modifier_coord_perspective_correction_old test_modifier_coord_perspective_correction_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_coord_perspective_correction_old lensfun ${COMMON_LIBS})
+ADD_TEST(NAME Modifier_coord_perspective_correction_deprecated COMMAND test_modifier_coord_perspective_correction_old)
+
+ADD_EXECUTABLE(test_modifier_coord_distortion_old test_modifier_coord_distortion_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_coord_distortion_old lensfun ${COMMON_LIBS})
+ADD_TEST(NAME Modifier_coord_distortion_deprecated COMMAND test_modifier_coord_distortion_old)
+
+ADD_EXECUTABLE(test_modifier_coord_geometry_old test_modifier_coord_geometry_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_coord_geometry_old lensfun ${COMMON_LIBS})
+ADD_TEST(NAME Modifier_coord_geometry_deprecated COMMAND test_modifier_coord_geometry_old)
+
+ADD_EXECUTABLE(test_modifier_coord_tiny_image_old test_modifier_coord_tiny_image_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_coord_tiny_image_old lensfun ${COMMON_LIBS})
+ADD_TEST(NAME Modifier_coord_tiny_image_deprecated COMMAND test_modifier_coord_tiny_image_old)
+
+ADD_EXECUTABLE(test_modifier_coord_centering_old test_modifier_coord_centering_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_coord_centering_old lensfun ${COMMON_LIBS})
+ADD_TEST(NAME Modifier_coord_centering_deprecated COMMAND test_modifier_coord_centering_old)
+
+ADD_EXECUTABLE(test_modifier_regression_old test_modifier_regression_old.cpp)
+TARGET_LINK_LIBRARIES(test_modifier_regression_old lensfun ${COMMON_LIBS})
+ADD_TEST(NAME Modifier_regression_deprecated WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMAND test_modifier_regression_old)
