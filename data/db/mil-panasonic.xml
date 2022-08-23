@@ -2559,6 +2559,16 @@
             <!-- Taken with DMC-G6 -->
             <distortion focal="30" model="ptlens" a="-0.0126" b="0.04708" c="-0.0467"/>
             <tca model="poly3" focal="30" vr="1.0000618" vb="1.0001325"/>
+            <vignetting model="pa" focal="30.0" aperture="2.8" distance="10" k1="-1.3593924" k2="1.2960188" k3="-0.5648351"/>
+            <vignetting model="pa" focal="30.0" aperture="2.8" distance="1000" k1="-1.3593924" k2="1.2960188" k3="-0.5648351"/>
+            <vignetting model="pa" focal="30.0" aperture="4.0" distance="10" k1="-0.3553412" k2="-0.6016981" k3="0.4693574"/>
+            <vignetting model="pa" focal="30.0" aperture="4.0" distance="1000" k1="-0.3553412" k2="-0.6016981" k3="0.4693574"/>
+            <vignetting model="pa" focal="30.0" aperture="5.6" distance="10" k1="-0.3710610" k2="-0.0058600" k3="-0.0211897"/>
+            <vignetting model="pa" focal="30.0" aperture="5.6" distance="1000" k1="-0.3710610" k2="-0.0058600" k3="-0.0211897"/>
+            <vignetting model="pa" focal="30.0" aperture="8.0" distance="10" k1="-0.3852844" k2="-0.0210829" k3="0.0928459"/>
+            <vignetting model="pa" focal="30.0" aperture="8.0" distance="1000" k1="-0.3852844" k2="-0.0210829" k3="0.0928459"/>
+            <vignetting model="pa" focal="30.0" aperture="22.0" distance="10" k1="-0.3896641" k2="-0.0034445" k3="0.0820332"/>
+            <vignetting model="pa" focal="30.0" aperture="22.0" distance="1000" k1="-0.3896641" k2="-0.0034445" k3="0.0820332"/>
         </calibration>
     </lens>
 
