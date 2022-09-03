@@ -801,6 +801,18 @@
             <vignetting model="pa" focal="7.5" aperture="22" distance="1000" k1="-1.1726" k2="0.8492" k3="-0.2879"/>
         </calibration>
     </lens>
+    
+    <lens>
+        <maker>Venus</maker>
+        <model>Laowa 17mm f/1.8 C-Dreamer</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <calibration>
+            <!-- Taken with Olympus E-M10 Mark II -->
+            <distortion model="ptlens" focal="17" a="0.0141966" b="-0.0491981" c="0.0278336"/>
+            <tca model="poly3" focal="17" br="-0.0000511" vr="1.0002027" bb="0.0000256" vb="0.9999735"/>
+        </calibration>
+    </lens>
 
     <lens>
         <maker>Venus</maker>
