@@ -772,11 +772,29 @@
         <mount>Fujifilm X</mount>
         <mount>Sony E</mount>
         <mount>Canon EF-M</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Nikon Z</mount>
+        <mount>Leica L</mount>
+        <focal value="9.0"/>
         <cropfactor>1.529</cropfactor>
         <calibration>
-            <!-- Taken with Fuji X-T10 -->
+           <!-- distortion and tca taken with Fujifilm X-T10; vignetting taken with Fujifilm X-T20 -->
             <distortion model="poly3" focal="9" k1="0.000925"/>
             <tca model="poly3" focal="9" vr="1.0001972" vb="1.0000750"/>
+            <vignetting model="pa" focal="9.0" aperture="2.8" distance="10" k1="-1.8162969" k2="1.3585540" k3="-0.4220575"/>
+            <vignetting model="pa" focal="9.0" aperture="2.8" distance="1000" k1="-1.8162969" k2="1.3585540" k3="-0.4220575"/>
+            <vignetting model="pa" focal="9.0" aperture="4.0" distance="10" k1="-1.4079212" k2="0.6095776" k3="-0.0488510"/>
+            <vignetting model="pa" focal="9.0" aperture="4.0" distance="1000" k1="-1.4079212" k2="0.6095776" k3="-0.0488510"/>
+            <vignetting model="pa" focal="9.0" aperture="5.6" distance="10" k1="-1.4584756" k2="1.0073675" k3="-0.3789025"/>
+            <vignetting model="pa" focal="9.0" aperture="5.6" distance="1000" k1="-1.4584756" k2="1.0073675" k3="-0.3789025"/>
+            <vignetting model="pa" focal="9.0" aperture="8.0" distance="10" k1="-1.5441789" k2="1.3035465" k3="-0.5590305"/>
+            <vignetting model="pa" focal="9.0" aperture="8.0" distance="1000" k1="-1.5441789" k2="1.3035465" k3="-0.5590305"/>
+            <vignetting model="pa" focal="9.0" aperture="11.0" distance="10" k1="-1.5447953" k2="1.2696304" k3="-0.5026858"/>
+            <vignetting model="pa" focal="9.0" aperture="11.0" distance="1000" k1="-1.5447953" k2="1.2696304" k3="-0.5026858"/>
+            <vignetting model="pa" focal="9.0" aperture="16.0" distance="10" k1="-1.5364618" k2="1.2247711" k3="-0.4554739"/>
+            <vignetting model="pa" focal="9.0" aperture="16.0" distance="1000" k1="-1.5364618" k2="1.2247711" k3="-0.4554739"/>
+            <vignetting model="pa" focal="9.0" aperture="22.0" distance="10" k1="-1.5388926" k2="1.2257654" k3="-0.4542506"/>
+            <vignetting model="pa" focal="9.0" aperture="22.0" distance="1000" k1="-1.5388926" k2="1.2257654" k3="-0.4542506"/>
         </calibration>
     </lens>
 
