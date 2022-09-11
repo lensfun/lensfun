@@ -1166,4 +1166,45 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Voigtländer</maker>
+        <model>Voigtlander APO-LANTHAR 50mm F2 Aspherical</model>
+        <mount>Sony E</mount>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- taken with ILCE-7RM2, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="50" a="0.0025649" b="-0.0051262" c="0.0036677"/>
+            <tca model="poly3" focal="50" vr="1.0000000" cr="0.0000000" br="-0.0000000" vb="1.0001221" cb="0.0000000" bb="-0.0000000"/>
+            <vignetting model="pa" focal="50" aperture="2.0" distance="0.37" k1="-1.1824744" k2="0.7123001" k3="-0.2028800"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="0.37" k1="-0.1337449" k2="-0.6551424" k3="0.3180483"/>
+            <vignetting model="pa" focal="50" aperture="4.0" distance="0.37" k1="-0.3357706" k2="0.1887300" k3="-0.1832862"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="0.37" k1="-0.2823598" k2="0.0011988" k3="0.0067720"/>
+            <vignetting model="pa" focal="50" aperture="8.0" distance="0.37" k1="-0.3027620" k2="0.0078329" k3="0.0158015"/>
+            <vignetting model="pa" focal="50" aperture="11.0" distance="0.37" k1="-0.2789172" k2="-0.0286190" k3="0.0288841"/>
+            <vignetting model="pa" focal="50" aperture="16.0" distance="0.37" k1="-0.2789172" k2="-0.0286190" k3="0.0288841"/>
+            <vignetting model="pa" focal="50" aperture="2.0" distance="0.89" k1="-1.4539559" k2="1.1910438" k3="-0.4479307"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="0.89" k1="-0.1752569" k2="-0.6786059" k3="0.3396567"/>
+            <vignetting model="pa" focal="50" aperture="4.0" distance="0.89" k1="-0.3388767" k2="0.1206579" k3="-0.1347417"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="0.89" k1="-0.3474485" k2="0.0517848" k3="-0.0128840"/>
+            <vignetting model="pa" focal="50" aperture="8.0" distance="0.89" k1="-0.3358241" k2="0.0162034" k3="0.0103747"/>
+            <vignetting model="pa" focal="50" aperture="11.0" distance="0.89" k1="-0.2866362" k2="-0.0813008" k3="0.0641047"/>
+            <vignetting model="pa" focal="50" aperture="16.0" distance="0.89" k1="-0.2866362" k2="-0.0813008" k3="0.0641047"/>
+            <vignetting model="pa" focal="50" aperture="2.0" distance="2.74" k1="-1.7380336" k2="1.7350860" k3="-0.7367661"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="2.74" k1="-0.1945062" k2="-0.7368162" k3="0.3799146"/>
+            <vignetting model="pa" focal="50" aperture="4.0" distance="2.74" k1="-0.3802049" k2="0.1195499" k3="-0.1130947"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="2.74" k1="-0.3219475" k2="-0.1012036" k3="0.0931587"/>
+            <vignetting model="pa" focal="50" aperture="8.0" distance="2.74" k1="-0.3663877" k2="0.0016536" k3="0.0259607"/>
+            <vignetting model="pa" focal="50" aperture="11.0" distance="2.74" k1="-0.3333157" k2="-0.0728693" k3="0.0696931"/>
+            <vignetting model="pa" focal="50" aperture="16.0" distance="2.74" k1="-0.3333157" k2="-0.0728693" k3="0.0696931"/>
+            <vignetting model="pa" focal="50" aperture="2.0" distance="1000" k1="-1.8780017" k2="2.0165597" k3="-0.8889946"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="1000" k1="-0.2080148" k2="-0.7680932" k3="0.4121416"/>
+            <vignetting model="pa" focal="50" aperture="4.0" distance="1000" k1="-0.3830453" k2="0.0802279" k3="-0.0783843"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="1000" k1="-0.3603884" k2="-0.0483221" k3="0.0591426"/>
+            <vignetting model="pa" focal="50" aperture="8.0" distance="1000" k1="-0.3550052" k2="-0.0549814" k3="0.0611673"/>
+            <vignetting model="pa" focal="50" aperture="11.0" distance="1000" k1="-0.3535110" k2="-0.0682635" k3="0.0717331"/>
+            <vignetting model="pa" focal="50" aperture="16.0" distance="1000" k1="-0.3535110" k2="-0.0682635" k3="0.0717331"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
