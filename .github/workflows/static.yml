@@ -1,0 +1,45 @@
+
+name: Update GitHub pages master lens list
+
+on:
+  push:
+    branches: 
+        - master
+    paths:
+       - 'data/db/**'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+# Allow write/commit to checked out repos
+permissions:
+  contents: write
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Create lens list from master sources
+      run: ./tools/lenslist/show_lensfun_coverage.py -g -m -o lenslist.md
+
+    - name: Checkout website repo
+      uses: actions/checkout@v3
+      with:
+        repository: lensfun/lensfun.github.io
+        path: website-repo
+
+    - name: Commit updated lens list to website repo
+      run: |
+        cp lenslist.md website-repo/_posts/lenslist/2999-12-31-Lenslist-master.md
+        cd website-repo/
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git commit -m "Update master lens list from GitHUb Actions" -a
+        
