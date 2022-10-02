@@ -67,9 +67,11 @@ lfLens::lfLens (const lfLens &other)
 
     Mounts = NULL;
     MountNames.clear();
-    const char* const* otherMounts = other.GetMountNames();
-    for (int i = 0; otherMounts[i]; i++)
-        AddMount(otherMounts[i]);
+    if (auto* otherMounts = other.GetMountNames())
+    {
+        for (int i = 0; otherMounts[i]; i++)
+            AddMount(otherMounts[i]);
+    }
 
     for (auto *calibset : other.Calibrations)
         Calibrations.push_back(new lfLensCalibrationSet(*calibset));
@@ -96,9 +98,12 @@ lfLens &lfLens::operator = (const lfLens &other)
 
     Mounts = NULL;
     MountNames.clear();
-    const char* const* otherMounts = other.GetMountNames();
-    for (int i = 0; otherMounts[i]; i++)
-        AddMount(otherMounts[i]);
+
+    if (auto* otherMounts = other.GetMountNames())
+    {
+        for (int i = 0; otherMounts[i]; i++)
+            AddMount(otherMounts[i]);
+    }
 
     for (auto *calibset : Calibrations)
         delete calibset;
