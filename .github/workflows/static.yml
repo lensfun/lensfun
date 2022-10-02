@@ -27,7 +27,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Create lens list from master sources
-      run: ./tools/lenslist/show_lensfun_coverage.py -g -m -o lenslist.md
+      run: ./tools/lenslist/show_lensfun_coverage.py -t -o lenslist.html
 
     - name: Checkout website repo
       uses: actions/checkout@v3
@@ -38,7 +38,10 @@ jobs:
 
     - name: Commit updated lens list to website repo
       run: |
-        cp lenslist.md website-repo/_posts/lenslist/2999-12-31-Lenslist-master.md
+        cp website-repo/_includes/lenslist-develop-header.md website-repo/_posts/lenslist/2999-12-31-Lenslist-master.md
+        dt=`date '+%Y-%m-%d'`
+        cat "\nThis list was generated on $dt from current Lensfun sources. Your Lensfun version may be older, resulting in less coverage.\n"
+        cat lenslist.html >> website-repo/_posts/lenslist/2999-12-31-Lenslist-master.md
         cd website-repo/
         git add _posts/lenslist/2999-12-31-Lenslist-master.md
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
