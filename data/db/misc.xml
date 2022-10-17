@@ -1207,4 +1207,18 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Voigtländer</maker>
+        <model>Voigtlander Color Skopar 20mm F3.5 SLII Aspherical</model>
+        <mount>Pentax KAF4</mount>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+             <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="20" a="0.0363474" b="-0.0879719" c="0.0380696"/>
+            <tca model="poly3" focal="20" vr="1.0003337" vb="1.0001568"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
