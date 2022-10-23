@@ -2623,4 +2623,24 @@
         </calibration>
     </lens>
 
+   <lens>
+        <maker>Pentax</maker>
+        <model>HD PENTAX-DA* 11-18mm F2.8 ED DC AW</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax KP -->
+            <distortion model="ptlens" focal="11" a="-0.00408305" b="-0.007094" c="0.00775101"/>
+            <distortion model="ptlens" focal="12" a="-0.00196261" b="-0.00966974" c="0.0100552"/>
+            <distortion model="ptlens" focal="14" a="-0.000954218" b="-0.0041537" c="0.0089889"/>
+            <distortion model="ptlens" focal="16" a="-0.000907399" b="0.00291915" c="0.000918396"/>
+            <distortion model="ptlens" focal="18" a="0.0021858" b="-0.00682972" c="0.0109709"/>
+            <tca model="poly3" focal="11" vr="1.0003174" vb="1.0001703"/>
+            <tca model="poly3" focal="12" vr="1.0002729" vb="1.0002017"/>
+            <tca model="poly3" focal="14" vr="1.0001285" vb="1.0002444"/>
+            <tca model="poly3" focal="16" vr="1.0001119" vb="1.0001961"/>
+            <tca model="poly3" focal="18" vr="1.0002036" vb="1.0000912"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
