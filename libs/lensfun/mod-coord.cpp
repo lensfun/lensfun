@@ -195,7 +195,6 @@ int lfModifier::EnableProjectionTransform (lfLensType target_projection)
                     return EnabledMods;
 
                 default:
-                    // keep gcc 4.4+ happy
                     break;
             }
             break;
@@ -219,7 +218,6 @@ int lfModifier::EnableProjectionTransform (lfLensType target_projection)
                     return EnabledMods;
 
                 default:
-                    // keep gcc 4.4+ happy
                     break;
             }
             break;
@@ -243,7 +241,6 @@ int lfModifier::EnableProjectionTransform (lfLensType target_projection)
                     return EnabledMods;
 
                 default:
-                    // keep gcc 4.4+ happy
                     break;
             }
             break;
@@ -267,64 +264,63 @@ int lfModifier::EnableProjectionTransform (lfLensType target_projection)
                     return EnabledMods;
 
                 default:
-                    // keep gcc 4.4+ happy
                     break;
             }
-        case LF_FISHEYE_ORTHOGRAPHIC:
-        case LF_FISHEYE_STEREOGRAPHIC:
-        case LF_FISHEYE_EQUISOLID:
-        case LF_FISHEYE_THOBY:
-        case LF_UNKNOWN:
+
         default:
             break;
-    };
+    }
 
     bool successFrom = false;
-    bool succesTo = false;
+    bool successTo = false;
 
     //convert from input projection to target projection via equirectangular projection
     switch(to)
     {
         case LF_RECTILINEAR:
             AddCoordGeomCallback (ModifyCoord_Geom_Rect_ERect, 500);
-            succesTo = true;
+            successTo = true;
             break;
 
         case LF_FISHEYE:
             AddCoordGeomCallback (ModifyCoord_Geom_FishEye_ERect, 500);
-            succesTo = true;
+            successTo = true;
             break;
 
         case LF_PANORAMIC:
             AddCoordGeomCallback (ModifyCoord_Geom_Panoramic_ERect, 500);
-            succesTo = true;
+            successTo = true;
             break;
 
         case LF_FISHEYE_ORTHOGRAPHIC:
             AddCoordGeomCallback (ModifyCoord_Geom_Orthographic_ERect, 500);
-            succesTo = true;
+            successTo = true;
             break;
 
         case LF_FISHEYE_STEREOGRAPHIC:
             AddCoordGeomCallback (ModifyCoord_Geom_Stereographic_ERect, 500);
-            succesTo = true;
+            successTo = true;
             break;
 
         case LF_FISHEYE_EQUISOLID:
             AddCoordGeomCallback (ModifyCoord_Geom_Equisolid_ERect, 500);
-            succesTo = true;
+            successTo = true;
             break;
 
         case LF_FISHEYE_THOBY:
             AddCoordGeomCallback (ModifyCoord_Geom_Thoby_ERect, 500);
-            succesTo = true;
+            successTo = true;
             break;
 
         case LF_EQUIRECTANGULAR:
-        default:
             //nothing to do
+            successTo = true;
             break;
-    };
+
+        case LF_UNKNOWN:
+            break;
+    }
+
     switch(from)
     {
         case LF_RECTILINEAR:
@@ -363,14 +359,17 @@ int lfModifier::EnableProjectionTransform (lfLensType target_projection)
             break;
 
         case LF_EQUIRECTANGULAR:
-        default:
             //nothing to do
+            successFrom = true;
             break;
-    };
 
-    assert(successFrom == succesTo);
+        case LF_UNKNOWN:
+            break;
+    }
 
-    if (successFrom && succesTo)
+    assert(successFrom == successTo);
+
+    if (successFrom && successTo)
         EnabledMods |= LF_MODIFY_GEOMETRY;
 
     return EnabledMods;
