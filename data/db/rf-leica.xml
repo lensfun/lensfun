@@ -11,15 +11,64 @@
     </mount>
 
     <camera>
-        <maker>Leica</maker>
+        <maker>Leica Camera AG</maker>
         <model>Leica M (Typ 240)</model>
         <mount>Leica M</mount>
         <cropfactor>1</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Leica Camera AG</maker>
+        <model>Leica M Monochrom (Typ 246)</model>
+        <mount>Leica M</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Leica Camera AG</maker>
+        <model>M9 Digital Camera</model>
+        <mount>Leica M</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Leica Camera AG</maker>
+        <model>Leica M10</model>
+        <mount>Leica M</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Leica Camera AG</maker>
+        <model>Leica M10 Monochrom</model>
+        <mount>Leica M</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Leica Camera AG</maker>
+        <model>Leica M10-P</model>
+        <mount>Leica M</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Leica Camera AG</maker>
+        <model>Leica M10-R</model>
+        <mount>Leica M</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Leica Camera AG</maker>
+        <model>Leica M11</model>
+        <mount>Leica M</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
     <lens>
-        <maker>Leica</maker>
-        <model>Elmarit-M 1:2.8/28</model>
+        <maker>Leica Camera AG</maker>
+        <model>Elmarit-M 1:2.8/28 ASPH.</model>
         <model lang="en">Elmarit-M 28mm f/2.8 ASPH</model>
         <mount>Leica M</mount>
         <cropfactor>1</cropfactor>
@@ -30,7 +79,7 @@
     </lens>
 
     <lens>
-        <maker>Leica</maker>
+        <maker>Leica Camera AG</maker>
         <model>Elmarit-M 1:2.8/90</model>
         <model lang="en">Elmarit-M 90mm f/2.8</model>
         <mount>Leica M</mount>
@@ -42,7 +91,7 @@
     </lens>
 
     <lens>
-        <maker>Leica</maker>
+        <maker>Leica Camera AG</maker>
         <model>Summicron-M 1:2/50</model>
         <!-- Model 11819/11825/11826/11816 -->
         <model lang="en">Summicron-M 50mm f/2</model>
@@ -52,6 +101,18 @@
             <!-- Taken Leica M (Typ 240) -->
             <distortion model="poly3" focal="50" k1="-0.00072"/>
             <tca model="poly3" focal="50" vr="0.9999915" vb="0.9998735"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Leica Camera AG</maker>
+        <model>Summicron-M 1:2/28 ASPH.</model>
+        <mount>Leica M</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Leica M9 Digital Camera -->
+            <distortion model="ptlens" focal="28" a="0.0135748" b="-0.0502846" c="0.0486119"/>
+            <tca model="poly3" focal="28" vr="1.0001441" vb="0.9999670"/>
         </calibration>
     </lens>
 
