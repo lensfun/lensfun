@@ -1108,4 +1108,16 @@
         </calibration>
     </lens>
 
+    <lens>
+		<maker>Canon</maker>
+		<model>Canon RF 35mm F1.8 MACRO IS STM</model>
+		<mount>Canon RF</mount>
+		<cropfactor>1.0</cropfactor>
+		<calibration>
+            <!-- Taken with Canon EOS R -->
+			<distortion model="ptlens" focal="35.0" a="0.01" b="-0.039" c="0.031"/>
+			<tca model="poly3" focal="35.0" br="-0.00000336" vr="1.0001487" bb="0.0000233" vb="1.0000012"/>
+		</calibration>
+	</lens>
+
 </lensdatabase>
