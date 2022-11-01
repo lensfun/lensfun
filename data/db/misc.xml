@@ -1221,4 +1221,28 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Rollei</maker>
+        <model>Rollei Rolleinar MC f/4 21mm</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with ILCE-7R Alpha 7R -->
+            <distortion model="ptlens" focal="21" a="0.04731" b="-0.1147" c="0.03786"/>
+            <tca model="poly3" focal="21" vr="1.0005597" vb="0.9998697"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Rollei</maker>
+        <model>Rollei Rolleinar MC f/2.8 28mm</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with ILCE-7R Alpha 7R -->
+            <distortion model="ptlens" focal="28" a="0.01963" b="-0.04779" c="0.02109"/>
+            <tca model="poly3" focal="28" vr="1.0004550" vb="0.9998091"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
