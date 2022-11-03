@@ -140,7 +140,7 @@
 
     <lens>
         <maker>Samyang</maker>
-        <model>SAMYANG AF 14mm F2.8</model>
+        <model>Samyang AF 14mm f/2.8</model>
         <model lang="en">Samyang AF 14mm f/2.8</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
@@ -152,7 +152,7 @@
 
     <lens>
         <maker>Samyang</maker>
-        <model>SAMYANG AF 24mm F2.8</model>
+        <model>Samyang AF 24mm f/2.8</model>
         <model lang="en">Samyang AF 24mm f/2.8</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
@@ -191,7 +191,7 @@
     <lens>
         <!-- Thanks to ndu2 for data -->
         <maker>Samyang</maker>
-        <model>SAMYANG AF 45mm F1.8</model>
+        <model>Samyang AF 45mm f/1.8</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -233,7 +233,7 @@
     <lens>
         <!-- Thanks to ndu2 for data -->
         <maker>Samyang</maker>
-        <model>SAMYANG AF 85mm F1.4</model>
+        <model>Samyang AF 85mm f/1.4</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -252,7 +252,7 @@
 
     <lens>
         <maker>Samyang</maker>
-        <model>SAMYANG AF 24mm F1.8</model>
+        <model>Samyang AF 24mm f/1.8</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -264,7 +264,7 @@
 
     <lens>
         <maker>Samyang</maker>
-        <model>SAMYANG AF 12mm F2.0</model>
+        <model>Samyang AF 12mm f/2.0</model>
         <mount>Sony E</mount>
         <mount>Fujifilm X</mount>
         <cropfactor>1.534</cropfactor>
@@ -277,7 +277,7 @@
 	
     <lens>
         <maker>Samyang</maker>
-        <model>SAMYANG AF 18mm F2.8</model>
+        <model>Samyang AF 18mm f/2.8</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -288,7 +288,7 @@
 	
     <lens>
         <maker>Samyang</maker>
-        <model>SAMYANG AF 75mm F1.8</model>
+        <model>Samyang AF 75mm f/1.8</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -305,7 +305,7 @@
     
     <lens>
         <maker>Samyang</maker>
-        <model>SAMYANG AF 35mm F1.8</model>
+        <model>Samyang AF 35mm f/1.8</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -320,5 +320,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang XP 10mm f/3.5</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.005</cropfactor>
+        <calibration>
+	    <!-- Taken with Canon EOS 6D -->
+            <distortion model="ptlens" focal="10" a="0.01004" b="-0.05209" c="0.0642"/>
+            <tca model="poly3" focal="10" vr="1.0000242" vb="1.0001439"/>
+        </calibration>
+    </lens>
 
 </lensdatabase>
