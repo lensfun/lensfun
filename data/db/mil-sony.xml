@@ -2777,4 +2777,32 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 14mm F1.8 GM</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-1, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="14" a="0.0173275" b="-0.0626253" c="0.0548364"/>
+            <tca model="poly3" focal="14" vr="0.9999734" cr="0.0001692" br="-0.0000873" vb="1.0000057" cb="0.0000889" bb="-0.0000217"/>
+            <vignetting model="pa" focal="14" aperture="1.8" distance="10" k1="-1.6147562" k2="1.2431538" k3="-0.4014634"/>
+            <vignetting model="pa" focal="14" aperture="1.8" distance="1000" k1="-1.6147562" k2="1.2431538" k3="-0.4014634"/>
+            <vignetting model="pa" focal="14" aperture="2.0" distance="10" k1="-1.3361653" k2="0.8268753" k3="-0.2345886"/>
+            <vignetting model="pa" focal="14" aperture="2.0" distance="1000" k1="-1.3361653" k2="0.8268753" k3="-0.2345886"/>
+            <vignetting model="pa" focal="14" aperture="2.8" distance="10" k1="-0.6102409" k2="-0.3562730" k3="0.2948792"/>
+            <vignetting model="pa" focal="14" aperture="2.8" distance="1000" k1="-0.6102409" k2="-0.3562730" k3="0.2948792"/>
+            <vignetting model="pa" focal="14" aperture="4.0" distance="10" k1="-0.6171806" k2="-0.3941481" k3="0.3369606"/>
+            <vignetting model="pa" focal="14" aperture="4.0" distance="1000" k1="-0.6171806" k2="-0.3941481" k3="0.3369606"/>
+            <vignetting model="pa" focal="14" aperture="5.6" distance="10" k1="-0.6320087" k2="-0.3568994" k3="0.3146976"/>
+            <vignetting model="pa" focal="14" aperture="5.6" distance="1000" k1="-0.6320087" k2="-0.3568994" k3="0.3146976"/>
+            <vignetting model="pa" focal="14" aperture="8.0" distance="10" k1="-0.6345012" k2="-0.3570803" k3="0.3174171"/>
+            <vignetting model="pa" focal="14" aperture="8.0" distance="1000" k1="-0.6345012" k2="-0.3570803" k3="0.3174171"/>
+            <vignetting model="pa" focal="14" aperture="11.0" distance="10" k1="-0.6320087" k2="-0.3568994" k3="0.3146976"/>
+            <vignetting model="pa" focal="14" aperture="11.0" distance="1000" k1="-0.6320087" k2="-0.3568994" k3="0.3146976"/>
+            <vignetting model="pa" focal="14" aperture="16.0" distance="10" k1="-0.6320087" k2="-0.3568994" k3="0.3146976"/>
+            <vignetting model="pa" focal="14" aperture="16.0" distance="1000" k1="-0.6320087" k2="-0.3568994" k3="0.3146976"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
