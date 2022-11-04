@@ -2805,4 +2805,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 40mm F2.5 G</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7RM4, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="40" a="-0.0018061" b="-0.0053300" c="-0.0002707"/>
+            <tca model="poly3" focal="40" vr="1.0001246" cr="0.0000801" br="-0.0000806" vb="1.0000096" cb="-0.0001158" bb="0.0001091"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
