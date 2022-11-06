@@ -2817,4 +2817,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 50mm F1.2 GM</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7RM4, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="50" a="0.0205603" b="-0.0525022" c="0.0357073"/>
+            <tca model="poly3" focal="50" vr="1.0003777" cr="-0.0002318" br="0.0000683" vb="0.9999392" cb="0.0001516" bb="-0.0000840"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
