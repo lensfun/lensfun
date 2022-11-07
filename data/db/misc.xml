@@ -1256,4 +1256,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Kipon</maker>
+        <model>Elegant 35mm F/2.4</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+             <!-- Taken with Nikon Z 5 -->
+            <distortion model="ptlens" focal="35" a="0.0120697" b="-0.0383129" c="0.0239143"/>
+            <tca model="poly3" focal="35" vr="1.0000440" vb="1.0000818"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
