@@ -2859,4 +2859,18 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Panasonic</maker>
+        <model>LEICA DG SUMMILUX 9/F1.7</model>
+	<model lang="en">Leica DG Summilux 9mm f/1.7</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+	    <!-- Taken with DMC-GX8 -->
+            <distortion model="ptlens" focal="9" a="0.02807" b="-0.09826" c="0.02753"/>
+            <tca model="poly3" focal="9" vr="1.0002079" vb="1.0002006"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
