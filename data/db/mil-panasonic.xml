@@ -2873,4 +2873,24 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Panasonic</maker>
+        <model>LUMIX S 16-35/F4</model>
+        <mount>Leica L</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+             <!-- Taken with Leica SL2 -->
+            <distortion model="ptlens" focal="16" a="0.020567" b="-0.0595563" c="-0.0351097"/>
+            <distortion model="ptlens" focal="20" a="0.00918976" b="-0.0270337" c="-0.0301751"/>
+            <distortion model="ptlens" focal="24" a="0.00735381" b="-0.0221845" c="-0.0125501"/>
+            <distortion model="ptlens" focal="28" a="0.00335267" b="-0.0071903" c="-0.0189798"/>
+            <distortion model="ptlens" focal="35" a="0.000976276" b="0.00161504" c="-0.0183812"/>
+            <tca model="poly3" focal="16" vr="1.0001004" vb="1.0004491"/>
+            <tca model="poly3" focal="20" vr="1.0000478" vb="1.0004740"/>
+            <tca model="poly3" focal="24" vr="1.0000336" vb="1.0003860"/>
+            <tca model="poly3" focal="28" vr="1.0000452" vb="1.0003109"/>
+            <tca model="poly3" focal="35" vr="1.0000596" vb="1.0001811"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
