@@ -24,7 +24,7 @@ if os.name == 'nt':
     # the ImageMagick's convert.exe by full path; this path can be set in the environment variable IM_CONVERT,
     # or the default installation path is used
     convert_program = os.environ.get("IM_CONVERT", "C:\\Program Files\\ImageMagick\\convert.exe")
-test_program("dcraw", "dcraw")
+test_program("dcraw_emu", "libraw-bin")
 test_program(convert_program, "imagemagick")
 test_program("tca_correct", "hugin-tools")
 test_program("exiv2", "exiv2")
@@ -33,7 +33,7 @@ if missing_packages:
           format("  ".join(missing_packages)))
     sys.exit()
 try:
-    dcraw_version = float(subprocess.Popen(["dcraw"], stdout=subprocess.PIPE).communicate()[0].splitlines()[1].
+    dcraw_version = float(subprocess.Popen(["dcraw_emu"], stdout=subprocess.PIPE).communicate()[0].splitlines()[1].
                           rpartition("v")[2])
 except:
     dcraw_version = 0
@@ -120,10 +120,10 @@ def generate_raw_conversion_call(filename, dcraw_options):
         result.append("tiff:-" if "-c" in dcraw_options else basename + ".tiff")
         return result
     else:
-        return ["dcraw", "-T", "-t", "0"] + dcraw_options + [filename]
+        return ["dcraw_emu", "-T", "-t", "0"] + dcraw_options + [filename]
 
 
-raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf", "fff",
+raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cr3", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf", "fff",
                        "iiq", "k25", "kdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx", "pxn", "r3d",
                        "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw", "x3f", "jpg", "jpeg", "tif"]
 def find_raw_files():
