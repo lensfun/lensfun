@@ -1117,15 +1117,34 @@
     </lens>
 
     <lens>
-		<maker>Canon</maker>
-		<model>Canon RF 35mm F1.8 MACRO IS STM</model>
-		<mount>Canon RF</mount>
-		<cropfactor>1.0</cropfactor>
-		<calibration>
-            <!-- Taken with Canon EOS R -->
-			<distortion model="ptlens" focal="35.0" a="0.01" b="-0.039" c="0.031"/>
-			<tca model="poly3" focal="35.0" br="-0.00000336" vr="1.0001487" bb="0.0000233" vb="1.0000012"/>
-		</calibration>
-	</lens>
+	<maker>Canon</maker>
+	<model>Canon RF 35mm F1.8 MACRO IS STM</model>
+	<mount>Canon RF</mount>
+	<cropfactor>1.0</cropfactor>
+	<calibration>
+	    <!-- Taken with Canon EOS R -->
+	    <distortion model="ptlens" focal="35.0" a="0.01" b="-0.039" c="0.031"/>
+	    <tca model="poly3" focal="35.0" br="-0.00000336" vr="1.0001487" bb="0.0000233" vb="1.0000012"/>
+	</calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon RF-S 18-150mm F3.5-6.3 IS STM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.613</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS R10 -->
+            <distortion model="ptlens" focal="18" a="0.0317062" b="-0.110518" c="0.089312"/>
+            <!-- Lens does not provide any further focal length information between 18 and 24mm -->
+            <distortion model="ptlens" focal="24" a="0.0240366" b="-0.0658299" c="0.0544517"/>
+            <distortion model="ptlens" focal="35" a="0.0117492" b="-0.0262405" c="0.0332095"/>
+            <distortion model="ptlens" focal="50" a="0.00842459" b="-0.0176781" c="0.0252387"/>
+            <distortion model="ptlens" focal="70" a="0.00736041" b="-0.0172264" c="0.0274873"/>
+            <distortion model="ptlens" focal="86" a="0.00381907" b="-0.00584786" c="0.0153651"/>
+            <distortion model="ptlens" focal="100" a="0.00421029" b="-0.00671529" c="0.015247"/>
+            <distortion model="ptlens" focal="150" a="0.00559343" b="-0.0126205" c="0.0158267"/>
+        </calibration>
+    </lens>
 
 </lensdatabase>
