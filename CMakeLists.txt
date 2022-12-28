@@ -65,10 +65,21 @@ IF(NOT CMAKE_BUILD_TYPE)
   )
 ENDIF()
 
-# set local install prefix on windows
-IF(WIN32 AND CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)  
-  SET(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install" CACHE PATH "Install prefix for Lensfun" FORCE)    
+# place all .exe and .dll files in same folder to avoid issues with tests
+IF(WIN32)
+  SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 ENDIF()
+
+# set local install prefix on windows
+IF(WIN32 AND CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  SET(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install" CACHE PATH "Install prefix for Lensfun" FORCE)
+ENDIF()
+
+# overwrite some folders before GNUInstallDirs is loaded
+IF (WIN32 AND NOT DEFINED CMAKE_INSTALL_DATAROOTDIR)
+    SET(CMAKE_INSTALL_DATAROOTDIR "$ENV{ALLUSERSPROFILE}" CACHE PATH "read-only architecture-independent data root (share)")
+ENDIF()
+
 # get standard GNU install directories for the current platform
 INCLUDE(GNUInstallDirs)
 IF(NOT DEFINED CMAKE_INSTALL_DATAROOTDIR)
@@ -125,10 +136,9 @@ ENDIF()
 
 # some windows and MSVC specific settings
 IF(WIN32)
-  SET(PLATFORM_WINDOWS 1)  
-  
+
   IF (MSVC)
-    IF(BUILD_STATIC)
+    IF(BUILD_WITH_MSVC_STATIC_RUNTIME)
       # compile everything for the static C runtime
       FOREACH(TYPE C CXX)
         # makefiles use blank configuration
@@ -153,6 +163,7 @@ IF(WIN32)
     ENDIF()
   ENDIF(MSVC)
 ENDIF(WIN32)
+
 
 # create config.h file
 CONFIGURE_FILE(include/lensfun/config.h.in.cmake ${CMAKE_BINARY_DIR}/config.h)
