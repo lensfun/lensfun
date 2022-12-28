@@ -55,6 +55,7 @@ OPTION(BUILD_LENSTOOL "Build the lenstool (requires libpng)" OFF)
 OPTION(BUILD_FOR_SSE "Build with support for SSE" ${X86_ON})
 OPTION(BUILD_FOR_SSE2 "Build with support for SSE2" ${X86_ON})
 OPTION(BUILD_DOC "Build documentation with doxygen" OFF)
+OPTION(INSTALL_PYTHON_MODULE "Install Python module for the helper scripts" ON)
 OPTION(INSTALL_HELPER_SCRIPTS "Install various helper scripts" ON)
 
 IF(NOT CMAKE_BUILD_TYPE)
