@@ -1,5 +1,5 @@
-# require at least cmake 2.8
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8 FATAL_ERROR )
+# require at least cmake 2.8.12
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12 FATAL_ERROR )
 
 # path for helper modules
 set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_SOURCE_DIR}/cmake/modules")
