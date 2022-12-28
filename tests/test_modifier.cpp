@@ -78,8 +78,8 @@ void test_mod_projection_center(lfFixture* lfFix, gconstpointer data)
 // check if output becomes NaN when processing geometry conversion
 void test_mod_projection_borders(lfFixture* lfFix, gconstpointer data)
 {
-    float in[2]  = {lfFix->img_width, lfFix->img_height};
-    float in2[2] = {(lfFix->img_width-1)/2, (lfFix->img_height-1)/2};
+    float in[2]  = {(float) lfFix->img_width, (float) lfFix->img_height};
+    float in2[2] = {(float) (lfFix->img_width-1)/2, (float) (lfFix->img_height-1)/2};
     float res[2] = {0, 0};
 
     lfLensType geom_types [] = {LF_RECTILINEAR, LF_PANORAMIC, LF_EQUIRECTANGULAR, LF_FISHEYE_STEREOGRAPHIC, LF_FISHEYE, LF_FISHEYE_EQUISOLID, LF_FISHEYE_ORTHOGRAPHIC, LF_FISHEYE_THOBY, LF_UNKNOWN};
