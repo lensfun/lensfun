@@ -1,6 +1,6 @@
 IF (NOT MSVC)
-    INCLUDE(FindPkgConfig)
-    PKG_SEARCH_MODULE( GLIB2 glib-2.0 )
+    FIND_PACKAGE(PkgConfig)
+    PKG_SEARCH_MODULE(GLIB2 glib-2.0)
     IF(WIN32 AND NOT BUILD_STATIC)
         FIND_FILE(GLIB2_DLL 
                 NAMES glib-2.dll glib-2-vs9.dll libglib-2.0-0.dll
@@ -18,6 +18,7 @@ IF (NOT GLIB2_FOUND OR NOT PKG_CONFIG_FOUND)
           /usr/lib64
           /opt/local/lib
           ${GLIB2_BASE_DIR}/lib
+          ${GLIB2_BASE_DIR}/include
           ${CMAKE_LIBRARY_PATH}
         PATH_SUFFIXES glib-2.0/include
     )
