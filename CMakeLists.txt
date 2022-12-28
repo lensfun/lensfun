@@ -49,6 +49,7 @@ ENDIF()
 
 # options controlling the build process
 OPTION(BUILD_STATIC "Build static library" OFF)
+OPTION(BUILD_WITH_MSVC_STATIC_RUNTIME "Build using static MSVC runtime" OFF)
 OPTION(BUILD_TESTS "Build test suite" OFF)
 OPTION(BUILD_LENSTOOL "Build the lenstool (requires libpng)" OFF)
 OPTION(BUILD_FOR_SSE "Build with support for SSE" ${X86_ON})
