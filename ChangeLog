@@ -1,4 +1,222 @@
 =======================================
+  0.3.3 --> 0.3.4-rc1  (2023-01-01)
+=======================================
+
+Includes all new cameras and lenses up to master commit
+ec9412d27d5fa8f377848a59c768b12c243cb80d (Wed Dec 28 16:24:48 2022 +0100)
+
+Changes / bugfixes (4):
+
+ * Fix C++11 issues to enable compilation with Clang (#1954)
+ * Port apps/setup.py from Python distutils (deprecated) to setuptools (#1956)
+ * CMake: Bump CMake minimum version to 2.8.12 (#1958)
+ * CMake: Numerous backports from master (#1959)
+
+
+New cameras (54):
+
+ * Canon Canon PowerShot G9 X Mark II
+ * Canon EOS M6 Mark II
+ * Canon EOS R10
+ * Canon EOS R3
+ * Canon EOS R6 Mark II
+ * Canon EOS R7
+ * Canon PowerShot G7 X Mark III (3:2)
+ * DJI Air 2S
+ * Fujifilm GFX 100S
+ * Fujifilm XF10
+ * Fujifilm X-H2
+ * Fujifilm X-H2S
+ * Fujifilm X-T30 II
+ * Fujifilm X-T5
+ * Hasselblad DJI Mavic 3
+ * Leica Camera AG Digilux 3
+ * Leica Camera AG Leica C-Lux (Typ 1546)
+ * Leica Camera AG Leica M10
+ * Leica Camera AG Leica M10 Monochrom
+ * Leica Camera AG Leica M10-P
+ * Leica Camera AG Leica M10-R
+ * Leica Camera AG Leica M11
+ * Leica Camera AG Leica M Monochrom (Typ 246)
+ * Leica Camera AG Leica M (Typ 240)
+ * Leica Camera AG Leica Q2
+ * Leica Camera AG Leica Q2 Mono
+ * Leica Camera AG Leica SL2
+ * Leica Camera AG Leica SL2-S
+ * Leica Camera AG M9 Digital Camera
+ * Leica D-LUX2
+ * Leica D-LUX 3
+ * Leica D-LUX 4
+ * Nikon Corporation Z 30
+ * OM Digital Solutions OM-1
+ * OM Digital Solutions OM-5
+ * Panasonic DC-G100
+ * Panasonic DC-G110
+ * Panasonic DC-GH5S
+ * Panasonic DC-GH6
+ * Panasonic DC-GX7MK3
+ * Panasonic DC-S1H
+ * Panasonic DC-TZ220
+ * Panasonic DC-ZS220
+ * Panasonic DMC-FZ2000
+ * Panasonic DMC-FZ2500
+ * Panasonic DMC-ZS110
+ * Ricoh Imaging Company, Ltd. K-3 III
+ * Ricoh Imaging Company, Ltd. Ricoh GR IIIx
+ * Samsung Galaxy S21
+ * Sony Alpha 7R IIIA
+ * Sony Alpha 7R IV A
+ * Sony Alpha 7R V
+ * Sony RX0
+ * Sony ZV-E10
+
+
+New lenses (140):
+
+ * Canon Canon EF 28mm f/2.8
+ * Canon Canon EF 35-105mm f/3.5-4.5
+ * Canon Canon EF 75-300mm F4-5.6 III
+ * Canon Canon EF 85mm f/1.4L IS USM
+ * Canon Canon EF-M 32mm f/1.4 STM
+ * Canon Canon RF 100-400mm F5.6-8 IS USM
+ * Canon Canon RF 100mm F2.8L Macro IS USM
+ * Canon Canon RF 14-35mm F4 L IS USM
+ * Canon Canon RF 15-35mm F2.8L IS USM
+ * Canon Canon RF 16mm F2.8 STM
+ * Canon Canon RF 35mm F1.8 MACRO IS STM
+ * Canon Canon RF 800mm F11 IS STM
+ * Canon Canon RF-S 18-150mm F3.5-6.3 IS STM
+ * DJI FC3411 fixed lens
+ * Fujifilm XF 10-24mm f/4 R OIS WR
+ * Fujifilm XF10 &amp; compatibles (Standard)
+ * Fujifilm XF 33mm f/1.4 R LM WR
+ * Hasselblad fixed lens
+ * Kipon Elegant 35mm F/2.4
+ * Leica Camera AG Elmarit-M 28mm f/2.8 ASPH
+ * Leica Camera AG Elmarit-M 90mm f/2.8
+ * Leica Camera AG Elmarit-TL 1:2.8/18 ASPH.
+ * LEICA CAMERA AG fixed lens
+ * LEICA CAMERA AG fixed lens
+ * Leica Camera AG Summicron-M 1:2/28 ASPH.
+ * Leica Camera AG Summicron-M 50mm f/2
+ * Leica Camera AG Summicron TL 1:2 23 ASPH.
+ * Leica Camera AG Summilux-TL 1:1.4/35 ASPH.
+ * Leica fixed lens
+ * Meyer Optik Görlitz Meyer Optik Görlitz 3.5/30mm
+ * Minolta Minolta AF 50mm f/1.7
+ * Minolta Minolta AF 70-210mm f/4 Macro
+ * Mitakon Mitakon Speedmaster 50mm f/0.95 III
+ * Nikon Nikkor AF 18-35mm f/3.5-4.5D IF-ED
+ * Nikon Nikkor AF-S 600mm f/4E FL ED VR + converter TC-14EIII
+ * Nikon Nikkor AI-S 135mm f/3.5
+ * Nikon NIKKOR Z 24-120mm f/4 S
+ * Nikon NIKKOR Z 28-75mm f/2.8
+ * Nikon NIKKOR Z MC 105mm f/2.8 VR S
+ * Nikon Nikkor Z MC 50mm f/2.8
+ * Nikon Nikon AF-S Nikkor 500mm f/5.6E PF ED VR
+ * Nikon Nikon AF-S Nikkor 600mm f/4E FL ED VR
+ * Nikon Nikon AF-S VR Nikkor 400mm f/2.8G ED
+ * Nikon Nikon AF-S VR Zoom-Nikkor 200-400mm f/4G IF-ED
+ * Nikon Nikon AF-S VR Zoom-Nikkor 70-200mm f/2.8G IF-ED
+ * Nikon Nikon AF Zoom-Nikkor 70-210mm f/4
+ * Nikon Nikon Zoom-NIKKOR Auto 43-86mm F3.5
+ * Olympus Olympus M.Zuiko Digital ED 8-25mm f/4.0 PRO
+ * OM Digital Solutions OM 20mm F1.4
+ * Panasonic Leica DG Macro-Elmarit 45mm f/2.8
+ * Panasonic Leica DG Summilux 15mm f/1.7 Asph.
+ * Panasonic Leica DG Summilux 25mm f/1.4 Asph.
+ * Panasonic Leica DG Summilux 25mm f/1.4 II
+ * Panasonic Leica DG Summilux 9mm f/1.7
+ * Panasonic Leica DG Vario-Elmarit 12-60mm f/2.8-4.0 Asph. Power OIS
+ * Panasonic Leica DG Vario-Elmarit 50-200 mm F2.8-4 Asph OIS
+ * Panasonic Leica D Summilux 25mm F1.4 Asph.
+ * Panasonic Leica D Vario-Elmar 14-150mm f/3.5-5.6 Asph. OIS
+ * Panasonic Lumix G Vario 14-140mm f/3.5-5.6 Asph. II Power OIS
+ * Panasonic Lumix G Vario 14-140mm f/3.5-5.6 Asph. Power OIS
+ * Panasonic Lumix G Vario 45-200mm f/4.0-5.6 II power OIS
+ * Panasonic Lumix G Vario 45-200mm f/4.0-5.6 Mega OIS
+ * Panasonic Lumix G X Vario 12-35mm f/2.8 II
+ * Panasonic LUMIX G X VARIO 35-100 mm f/2.8 II Power OIS
+ * Panasonic Lumix G X Vario 35-100mm f/2.8 Power OIS
+ * Panasonic LUMIX S 16-35/F4
+ * Panasonic Lumix S 20-60/F3.5-5.6
+ * Panasonic Lumix S 24/F1.8
+ * Panasonic Lumix S 50/F1.8
+ * Panasonic LUMIX S 70-300/F4.5-5.6
+ * Panasonic Lumix S 85/F1.8
+ * Pentacon Pentacon electric 2.8/29mm
+ * Pentax HD PENTAX-DA* 11-18mm F2.8 ED DC AW
+ * Pentax smc PENTAX-F 35-80mm F4-5.6
+ * Ricoh imaging company, ltd. fixed lens
+ * Rollei Rollei Rolleinar MC f/2.8 28mm
+ * Rollei Rollei Rolleinar MC f/4 21mm
+ * Samsung Samsung Galaxy S21 ultrawide
+ * Samsung Samsung NX 50-200mm f/4-5.6
+ * Samyang Samyang AF 12mm f/2.0
+ * Samyang Samyang AF 18mm f/2.8
+ * Samyang Samyang AF 24mm f/1.8
+ * Samyang Samyang AF 35mm f/1.8
+ * Samyang Samyang AF 45mm f/1.8
+ * Samyang Samyang AF 75mm f/1.8
+ * Samyang Samyang AF 85mm f/1.4
+ * Samyang Samyang XP 10mm f/3.5
+ * Sigma 16-28mm F2.8 DG DN | Contemporary 022
+ * Sigma 20mm F2 DG DN | Contemporary 022
+ * Sigma 24-70mm F2.8 DG DN | Art 019
+ * Sigma 24mm F2 DG DN | Contemporary 021
+ * Sigma 28-70mm F2.8 DG DN | Contemporary 021
+ * Sigma 35mm F2 DG DN | Contemporary 020
+ * Sigma 45mm F2.8 DG DN | Contemporary 019
+ * Sigma 65mm F2 DG DN | Contemporary 020
+ * Sigma 90mm F2.8 DG DN | Contemporary 021
+ * Sigma Sigma 105 mm F1.4 DG HSM Art
+ * Sigma Sigma 16mm f/1.4 DC DN Contemporary
+ * Sigma Sigma 24mm f/1.4 DG HSM | A
+ * Sigma Sigma 40mm F1.4 DG HSM | Art
+ * Sigma Sigma 56 mm F1.4 DC DN | C 018
+ * Sigma Sigma 56mm F1.4 DC DN | C 018
+ * Sigma Sigma 60-600mm F4.5-6.3 DG OS HSM | Sports 018
+ * Sony E 11mm F1.8
+ * Sony FE 14mm F1.8 GM
+ * Sony FE 40mm F2.5 G
+ * Sony FE 50mm F1.2 GM
+ * Sony FE 50mm F2.8 Macro
+ * Sony FE 50mm F2.8 Macro
+ * Sony Sony 85mm F2.8 SAM (SAL85F28)
+ * Tamron 18-300mm F3.5-6.3 DiIII-A VC VXD B061X
+ * Tamron E 24mm F2.8
+ * Tamron TAMRON 100-400mm F/4.5-6.3 Di VC USD A035
+ * Tamron Tamron 11-20 mm F2.8 Di III-A RXD (B060)
+ * Tamron Tamron 150-500mm F5-6.7 Di III VC VXD
+ * Tamron Tamron 16-300mm f/3.5-6.3 Di II VC PZD Macro B016
+ * Tamron Tamron 16-300mm f/3.5-6.3 Di II VC PZD Macro B016
+ * Tamron Tamron 17-35mm f/2.8-4 Di OSD (A037)
+ * Tamron Tamron 35-150mm f/2.8-4 Di VC OSD (A043)
+ * Tamron Tamron SP 45mm F/1.8 Di VC USD
+ * Tamron Tamron SP AF 150-600mm F/5-6.3 Di VC USD G2 (A022)
+ * Tokina Tokina atx-i 11-16mm F2.8 CF
+ * Tokina Tokina AT-X M35 PRO DX (AF 35mm f/2.8 Macro)
+ * TTArtisan TTArtisan APS-C 23mm F1.4
+ * Venus Laowa 17mm f/1.8 C-Dreamer
+ * Voigtländer 15mm F4,5 Super Wide Heliar aspherical III
+ * Voigtländer Voigtlander APO-LANTHAR 50mm F2 Aspherical
+ * Voigtländer Voigtlander Color Skopar 20mm F3.5 SLII Aspherical
+ * Voigtländer Voigtländer HELIAR-HYPER WIDE 10mm F5.6
+ * Voigtländer Voigtländer Nokton 25mm f/0.95 Type II
+ * Zeiss Carl Zeiss Jena 135mm f/3.5
+ * Zeiss Carl Zeiss Jena Flektogon 4/20mm
+ * Zeiss Carl Zeiss Planar T* 1,4/50 ZF.2
+ * Zeiss Carl Zeiss Sonnar T* 135mm F1.8 ZA (SAL135F18Z)
+ * Zeiss Distagon 18mm f/4
+ * Zeiss Distagon 28mm f/2.8 MMJ
+ * Zeiss Makro-Planar T* 2/100
+ * Zeiss Planar 50mm f/1.7 AEJ
+ * Zeiss Sonnar 85mm f/2.8 AEJ
+ * Zeiss Touit 2.8/12
+
+
+
+=======================================
   0.3.3-rc1 --> 0.3.3  (2022-02-22)
 =======================================
 
