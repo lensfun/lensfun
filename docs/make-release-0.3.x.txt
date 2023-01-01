@@ -113,10 +113,11 @@ git commit -m "Release 0.3.3"
 git tag v0.3.3
 ```
 
-13. Push the `release_0.3.x` branch to GitHub.
+13. Push the `release_0.3.x` branch and the new tag to GitHub.
 
 ```
 git push
+git push origin v0.3.3
 ```
 
 14. Make a new release on GitHub.
