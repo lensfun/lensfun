@@ -34,6 +34,13 @@
         <mount>samsungS8wide</mount>
         <cropfactor>6.047</cropfactor>
     </camera>
+    <camera>
+        <maker>Samsung</maker>
+        <model>SM-G991B</model>
+        <model lang="en">Galaxy S21</model>
+        <mount>samsungS21uw</mount>
+        <cropfactor>6.0</cropfactor>
+    </camera>
     <lens>
         <maker>Samsung</maker>
         <model>WB2000 &amp; compatibles (Standard)</model>
@@ -157,6 +164,18 @@
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <distortion model="ptlens" focal="4.2" a="0.04069" b="-0.14767" c="0.17184"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Samsung</maker>
+        <model>Samsung Galaxy S21 ultrawide</model>
+        <mount>samsungS21uw</mount>
+        <cropfactor>6.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="2.2" a="-0.088" b="0.188" c="-0.116"/>
+            <vignetting model="pa" focal="2.2" aperture="2.2" distance="10" k1="-1.1535" k2="1.4806" k3="-0.6592"/>
+            <vignetting model="pa" focal="2.2" aperture="2.2" distance="1000" k1="-1.1535" k2="1.4806" k3="-0.6592"/>
         </calibration>
     </lens>
 </lensdatabase>

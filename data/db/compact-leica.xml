@@ -8,15 +8,21 @@
     <camera>
         <maker>Leica</maker>
         <model>D-LUX2</model>
-        <model lang="en">Digilux 2</model>
         <mount>panasonicLX1</mount>
         <cropfactor>4.45</cropfactor>
         <!-- aspect ratio 16:9 -->
     </camera>
     <camera>
+        <maker>Leica Camera AG</maker>
+        <model>C-Lux</model>
+        <model lang="en">Leica C-Lux (Typ 1546)</model>
+        <!--  Lens DC Vario-Elmar 1:3.3-6.4 / 8.8-132 ASPH. -->
+        <mount>panasonicZS200</mount>
+        <cropfactor>2.73</cropfactor>
+    </camera>
+    <camera>
         <maker>Leica</maker>
         <model>D-LUX 4</model>
-        <model lang="en">Digilux 4</model>
         <mount>panasonicLX4</mount>
         <cropfactor>4.33</cropfactor>
         <!-- aspect ratio 4:3 -->
@@ -24,7 +30,6 @@
     <camera>
         <maker>Leica</maker>
         <model>D-LUX 3</model>
-        <model lang="en">Digilux 3</model>
         <mount>panasonicLX3</mount>
         <cropfactor>4.33</cropfactor>
         <!-- aspect ratio 16:9 -->
@@ -37,8 +42,14 @@
     </camera>
     <camera>
         <maker>Leica Camera AG</maker>
-        <model>LEICA Q2</model>
-        <mount>LeicaQ2</mount>
+        <model>Leica Q2</model>
+        <mount>leicaQ2</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+    <camera>
+        <maker>Leica Camera AG</maker>
+        <model>Leica Q2 Mono</model>
+        <mount>leicaQ2</mount>
         <cropfactor>1</cropfactor>
     </camera>
     <camera>
@@ -73,9 +84,10 @@
         </calibration>
     </lens>
     <lens>
-        <maker>Leica Camera AG</maker>
-        <maker lang="en">Leica</maker>
-        <model>28.0mm f/1.7</model>
+        <maker>LEICA CAMERA AG</maker>
+        <model>LEICA Q (Typ 116) &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
         <mount>leicaQTyp116</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -86,8 +98,10 @@
     </lens>
     <lens>
         <maker>LEICA CAMERA AG</maker>
-        <model>SUMMILUX 1:1.7/28 ASPH.</model>
-        <mount>LeicaQ2</mount>
+        <model>LEICA Q2 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>leicaQ2</mount>
         <cropfactor>1</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="28" a="0.018761658297732145" b="-0.09453770602458175" c="0.061490311379948114"/>

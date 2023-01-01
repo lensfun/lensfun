@@ -118,6 +118,17 @@
     </lens>
     <lens>
         <maker>Zeiss</maker>
+        <model>Carl Zeiss Planar T* 1,4/50 ZF.2</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D700 -->
+            <distortion model="ptlens" focal="50.0" a="0.002" b="-0.017" c="0.021"/>
+            <tca model="poly3" focal="50.0" br="-0.0000683" vr="1.0002343" bb="0.0001071" vb="0.9997046"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Zeiss</maker>
         <model>Carl Zeiss Distagon T* 3,5/18 ZF.2</model>
         <mount>Nikon F AF</mount>
         <cropfactor>1.523</cropfactor>
@@ -155,6 +166,64 @@
             <vignetting model="pa" focal="50" aperture="16" distance="1000" k1="-0.2239" k2="0.0707" k3="-0.0391"/>
             <vignetting model="pa" focal="50" aperture="22" distance="10" k1="-0.2226" k2="0.0553" k3="-0.0253"/>
             <vignetting model="pa" focal="50" aperture="22" distance="1000" k1="-0.2226" k2="0.0553" k3="-0.0253"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Zeiss Makro-Planar T* 2/100 ZF.2</model>
+        <model lang="en">Makro-Planar T* 2/100</model>
+        <mount>Nikon F AF</mount>
+        <mount>Canon EF</mount>
+        <mount>Pentax KAF4</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="100.0" a="-0.0" b="-0.001" c="0.005"/>
+            <tca model="poly3" focal="100.0" br="0.0000302" vr="0.9998207" bb="-0.0000339" vb="1.0000917"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Carl Zeiss Jena 135mm f/3.5</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7RM2 -->
+            <distortion model="ptlens" focal="135" a="-0.0001892" b="0.0055868" c="-0.0031821"/>
+            <vignetting model="pa" focal="135" aperture="3.5" distance="10" k1="-1.0500" k2="1.3143" k3="-0.7419"/>
+            <vignetting model="pa" focal="135" aperture="3.5" distance="1000" k1="-1.0500" k2="1.3143" k3="-0.7419"/>
+            <vignetting model="pa" focal="135" aperture="5.6" distance="10" k1="-0.1327" k2="-0.1055" k3="-0.1124"/>
+            <vignetting model="pa" focal="135" aperture="5.6" distance="1000" k1="-0.1327" k2="-0.1055" k3="-0.1124"/>
+            <vignetting model="pa" focal="135" aperture="8" distance="10" k1="-0.3339" k2="0.7206" k3="-0.6513"/>
+            <vignetting model="pa" focal="135" aperture="8" distance="1000" k1="-0.3339" k2="0.7206" k3="-0.6513"/>
+            <vignetting model="pa" focal="135" aperture="11" distance="10" k1="-0.3122" k2="0.5497" k3="-0.4315"/>
+            <vignetting model="pa" focal="135" aperture="11" distance="1000" k1="-0.3122" k2="0.5497" k3="-0.4315"/>
+            <vignetting model="pa" focal="135" aperture="16" distance="10" k1="-0.3180" k2="0.5715" k3="-0.4487"/>
+            <vignetting model="pa" focal="135" aperture="16" distance="1000" k1="-0.3180" k2="0.5715" k3="-0.4487"/>
+            <vignetting model="pa" focal="135" aperture="22" distance="10" k1="-0.3162" k2="0.5702" k3="-0.4493"/>
+            <vignetting model="pa" focal="135" aperture="22" distance="1000" k1="-0.3162" k2="0.5702" k3="-0.4493"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Carl Zeiss Sonnar T* 135mm F1.8 ZA (SAL135F18Z)</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCA-99M2 (Alpha 99 II) -->
+            <distortion model="ptlens" focal="135" a="0.01336" b="-0.05693" c="0.08176"/>
+            <tca model="poly3" focal="135" vr="0.9999955" vb="0.9999812"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Carl Zeiss Jena Flektogon 4/20mm</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7R -->
+            <distortion model="ptlens" focal="20" a="0.02491" b="-0.05353" c="0.00498"/>
+            <tca model="poly3" focal="20" vr="1.0004715" vb="0.9996778"/>
         </calibration>
     </lens>
 </lensdatabase>

@@ -1002,8 +1002,9 @@
             <distortion model="ptlens" focal="18" a="-0.00141768" b="7.0342e-05" c="-0.0216594"/>
             <distortion model="ptlens" focal="25" a="0.000890771" b="0.00182523" c="0.00488526"/>
             <distortion model="ptlens" focal="35" a="0.00183026" b="0.00366234" c="0.00935916"/>
-            <distortion model="ptlens" focal="50" a="0.00175292" b="0.0035407" c="0.00907389"/>
+            <distortion model="ptlens" focal="50" a="-0.011392" b="0.0421761" c="-0.0165554"/>
             <distortion model="ptlens" focal="70" a="0.00195818" b="0.00393385" c="0.0100592"/>
+            <distortion model="ptlens" focal="75" a="0.005004" b="-0.0074587" c="0.0317955"/>
             <distortion model="ptlens" focal="100" a="0.00228021" b="0.00451936" c="0.0111219"/>
             <tca model="poly3" focal="12" vr="1.0002298" vb="1.0002002"/>
             <tca model="poly3" focal="18" vr="1.0000614" vb="1.0003555"/>
@@ -1161,6 +1162,21 @@
             <!-- Taken with OMD E-M1 -->
             <distortion model="poly3" focal="75" k1="-0.00025"/>
             <tca model="poly3" focal="75" vr="0.9999905" vb="0.9999613"/>
+            <!-- Taken with OMD E-M1 II -->
+            <vignetting model="pa" focal="75.0" aperture="1.8" distance="10" k1="-0.5614885" k2="0.5655974" k3="-0.3728746"/>
+            <vignetting model="pa" focal="75.0" aperture="1.8" distance="1000" k1="-0.5614885" k2="0.5655974" k3="-0.3728746"/>
+            <vignetting model="pa" focal="75.0" aperture="2.2" distance="10" k1="0.0295721" k2="-0.1564057" k3="-0.0879482"/>
+            <vignetting model="pa" focal="75.0" aperture="2.2" distance="1000" k1="0.0295721" k2="-0.1564057" k3="-0.0879482"/>
+            <vignetting model="pa" focal="75.0" aperture="2.8" distance="10" k1="-0.1173361" k2="0.3570347" k3="-0.3651195"/>
+            <vignetting model="pa" focal="75.0" aperture="2.8" distance="1000" k1="-0.1173361" k2="0.3570347" k3="-0.3651195"/>
+            <vignetting model="pa" focal="75.0" aperture="4.0" distance="10" k1="-0.0473498" k2="0.0287221" k3="-0.0072886"/>
+            <vignetting model="pa" focal="75.0" aperture="4.0" distance="1000" k1="-0.0473498" k2="0.0287221" k3="-0.0072886"/>
+            <vignetting model="pa" focal="75.0" aperture="5.6" distance="10" k1="-0.0474435" k2="0.0233063" k3="-0.0000710"/>
+            <vignetting model="pa" focal="75.0" aperture="5.6" distance="1000" k1="-0.0474435" k2="0.0233063" k3="-0.0000710"/>
+            <vignetting model="pa" focal="75.0" aperture="8.0" distance="10" k1="-0.0475314" k2="0.0213034" k3="0.0018530"/>
+            <vignetting model="pa" focal="75.0" aperture="8.0" distance="1000" k1="-0.0475314" k2="0.0213034" k3="0.0018530"/>
+            <vignetting model="pa" focal="75.0" aperture="22.0" distance="10" k1="-0.0421946" k2="0.0022887" k3="0.0146017"/>
+            <vignetting model="pa" focal="75.0" aperture="22.0" distance="1000" k1="-0.0421946" k2="0.0022887" k3="0.0146017"/>
         </calibration>
     </lens>
     <lens>
@@ -1648,6 +1664,27 @@
             <vignetting model="pa" focal="45" aperture="11" distance="1000" k1="-0.1029" k2="-0.0649" k3="0.0535"/>
             <vignetting model="pa" focal="45" aperture="22" distance="10" k1="-0.1099" k2="-0.0505" k3="0.0444"/>
             <vignetting model="pa" focal="45" aperture="22" distance="1000" k1="-0.1099" k2="-0.0505" k3="0.0444"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Olympus</maker>
+        <model>OLYMPUS M.8-25mm F4.0</model>
+        <model lang="en">Olympus M.Zuiko Digital ED 8-25mm f/4.0 PRO</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with OMD E-M1 II -->
+            <distortion model="ptlens" focal="8.0" a="0.0162715" b="-0.0819064" c="0.0380073"/>
+            <distortion model="ptlens" focal="10.0" a="0.00182377" b="-0.0331143" c="0.00893531"/>
+            <distortion model="ptlens" focal="14.0" a="-0.00196603" b="-0.00929059" c="0.00696872"/>
+            <distortion model="ptlens" focal="18.0" a="-0.012037" b="0.0403982" c="-0.0438142"/>
+            <distortion model="ptlens" focal="25.0" a="-0.0175356" b="0.0682647" c="-0.0638662"/>
+            <tca model="poly3" focal="8.0" br="0.0000467" vr="1.0000769" bb="-0.0000504" vb="1.0000997"/>
+            <tca model="poly3" focal="10.0" br="0.0000217" vr="1.0000557" bb="-0.0000335" vb="1.0001456"/>
+            <tca model="poly3" focal="14.0" br="-0.0000152" vr="1.0000030" bb="0.0000424" vb="1.0001296"/>
+            <tca model="poly3" focal="18.0" br="-0.0000493" vr="1.0000726" bb="0.0000748" vb="0.9999518"/>
+            <tca model="poly3" focal="25.0" br="-0.0000431" vr="1.0001346" bb="0.0001187" vb="0.9996822"/>
         </calibration>
     </lens>
 </lensdatabase>

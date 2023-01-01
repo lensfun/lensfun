@@ -12,30 +12,4 @@
         <name>Leica S</name>
         <compat>Generic</compat>
     </mount>
-    <camera>
-        <maker>Leica</maker>
-        <model>Digilux 3</model>
-        <mount>4/3 System</mount>
-        <cropfactor>2</cropfactor>
-    </camera>
-    <lens>
-        <maker>Leica</maker>
-        <model>Leica D Vario-Elmar 14-150mm f/3.5-5.6 Asph. OIS</model>
-        <mount>4/3 System</mount>
-        <cropfactor>2</cropfactor>
-        <aspect-ratio>4:3</aspect-ratio>
-        <calibration>
-            <!-- Taken with Olympus OMD E-M1 -->
-            <distortion model="ptlens" focal="14" a="0.01426" b="-0.01566" c="-0.05658"/>
-            <distortion model="ptlens" focal="18" a="0.00643" b="-0.00588" c="-0.02274"/>
-            <distortion model="ptlens" focal="51" a="0" b="0.00491" c="0"/>
-            <distortion model="ptlens" focal="94" a="0" b="0.00084" c="0"/>
-            <distortion model="ptlens" focal="150" a="0" b="-0.00129" c="0"/>
-            <tca model="poly3" focal="14" vr="1.0002619" vb="1.0001837"/>
-            <tca model="poly3" focal="18" vr="1.0001973" vb="1.0001705"/>
-            <tca model="poly3" focal="51" vr="1.0001" vb="1"/>
-            <tca model="poly3" focal="94" vr="0.9996" vb="1"/>
-            <tca model="poly3" focal="150" vr="0.9991" vb="0.9999"/>
-        </calibration>
-    </lens>
 </lensdatabase>

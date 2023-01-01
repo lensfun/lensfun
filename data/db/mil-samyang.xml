@@ -134,7 +134,7 @@
     </lens>
     <lens>
         <maker>Samyang</maker>
-        <model>SAMYANG AF 14mm F2.8</model>
+        <model>Samyang AF 14mm f/2.8</model>
         <model lang="en">Samyang AF 14mm f/2.8</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
@@ -145,7 +145,7 @@
     </lens>
     <lens>
         <maker>Samyang</maker>
-        <model>SAMYANG AF 24mm F2.8</model>
+        <model>Samyang AF 24mm f/2.8</model>
         <model lang="en">Samyang AF 24mm f/2.8</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
@@ -183,7 +183,7 @@
     <lens>
         <!-- Thanks to ndu2 for data -->
         <maker>Samyang</maker>
-        <model>SAMYANG AF 45mm F1.8</model>
+        <model>Samyang AF 45mm f/1.8</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -224,7 +224,7 @@
     <lens>
         <!-- Thanks to ndu2 for data -->
         <maker>Samyang</maker>
-        <model>SAMYANG AF 85mm F1.4</model>
+        <model>Samyang AF 85mm f/1.4</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -242,7 +242,7 @@
     </lens>
     <lens>
         <maker>Samyang</maker>
-        <model>SAMYANG AF 24mm F1.8</model>
+        <model>Samyang AF 24mm f/1.8</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -253,7 +253,7 @@
     </lens>
     <lens>
         <maker>Samyang</maker>
-        <model>SAMYANG AF 12mm F2.0</model>
+        <model>Samyang AF 12mm f/2.0</model>
         <mount>Sony E</mount>
         <mount>Fujifilm X</mount>
         <cropfactor>1.534</cropfactor>
@@ -265,12 +265,55 @@
     </lens>
     <lens>
         <maker>Samyang</maker>
-        <model>SAMYANG AF 18mm F2.8</model>
+        <model>Samyang AF 18mm f/2.8</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se -->
             <distortion model="ptlens" focal="18" a="0.02072794438055051" b="-0.055421093067902875" c="0.022351964872009425"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang AF 75mm f/1.8</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se, except tca -->
+            <distortion model="ptlens" focal="75" a="-0.0014565" b="0.0036664" c="-0.0018816"/>
+            <tca model="poly3" focal="75" vr="0.9999345" vb="0.9999558"/>
+            <vignetting model="pa" focal="75" aperture="1.8" distance="147.16" k1="-0.8826677" k2="0.3580256" k3="-0.1027655"/>
+            <vignetting model="pa" focal="75" aperture="2.4" distance="147.16" k1="-0.3830348" k2="-0.2826643" k3="0.1597678"/>
+            <vignetting model="pa" focal="75" aperture="3.5" distance="147.16" k1="-0.1646405" k2="-0.0735751" k3="-0.1152835"/>
+            <vignetting model="pa" focal="75" aperture="4.5" distance="147.16" k1="-0.2444249" k2="0.2644670" k3="-0.2712635"/>
+            <vignetting model="pa" focal="75" aperture="22.0" distance="147.16" k1="-0.1908762" k2="-0.0272345" k3="0.0481287"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang AF 35mm f/1.8</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se, except tca -->
+            <distortion model="ptlens" focal="35" a="0.0122154" b="-0.0474074" c="0.0348816"/>
+            <tca model="poly3" focal="35" vr="1.0001321" vb="0.9999907"/>
+            <vignetting model="pa" focal="35" aperture="1.8" distance="68.68" k1="-1.4568366" k2="0.8730748" k3="-0.2082213"/>
+            <vignetting model="pa" focal="35" aperture="2.4" distance="68.68" k1="-0.8374828" k2="-0.2165907" k3="0.3190586"/>
+            <vignetting model="pa" focal="35" aperture="22.0" distance="68.68" k1="-0.5415322" k2="-0.0031567" k3="0.0431025"/>
+            <vignetting model="pa" focal="35" aperture="3.5" distance="68.68" k1="-0.4569792" k2="-0.4798250" k3="0.2715231"/>
+            <vignetting model="pa" focal="35" aperture="4.5" distance="68.68" k1="-0.5439260" k2="0.0807181" k3="-0.1427609"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang XP 10mm f/3.5</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.005</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS 6D -->
+            <distortion model="ptlens" focal="10" a="0.01004" b="-0.05209" c="0.0642"/>
+            <tca model="poly3" focal="10" vr="1.0000242" vb="1.0001439"/>
         </calibration>
     </lens>
 </lensdatabase>

@@ -1099,4 +1099,23 @@
             <vignetting model="pa" focal="75" aperture="32" distance="1000" k1="-0.2548" k2="0.0397" k3="0.0140"/>
         </calibration>
     </lens>
+    <lens>
+        <maker>Sony</maker>
+        <model>Sony 85mm F2.8 SAM (SAL85F28)</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+            <!-- taken with ILCA-77M2 -->
+            <distortion model="ptlens" focal="85" a="0.001608" b="-0.002498" c="0.001597"/>
+            <tca model="poly3" focal="85" vr="0.9997910" vb="1.0000769"/>
+            <vignetting model="pa" focal="85" aperture="2.8" distance="10" k1="-0.2694" k2="-0.2187" k3="0.2389"/>
+            <vignetting model="pa" focal="85" aperture="2.8" distance="1000" k1="-0.2694" k2="-0.2187" k3="0.2389"/>
+            <vignetting model="pa" focal="85" aperture="4" distance="10" k1="-0.0357" k2="-0.2671" k3="0.1132"/>
+            <vignetting model="pa" focal="85" aperture="4" distance="1000" k1="-0.0357" k2="-0.2671" k3="0.1132"/>
+            <vignetting model="pa" focal="85" aperture="5.6" distance="10" k1="-0.1250" k2="0.0118" k3="0.0106"/>
+            <vignetting model="pa" focal="85" aperture="5.6" distance="1000" k1="-0.1250" k2="0.0118" k3="0.0106"/>
+            <vignetting model="pa" focal="85" aperture="22" distance="10" k1="-0.1650" k2="0.0821" k3="-0.0427"/>
+            <vignetting model="pa" focal="85" aperture="22" distance="1000" k1="-0.1650" k2="0.0821" k3="-0.0427"/>
+        </calibration>
+    </lens>
 </lensdatabase>

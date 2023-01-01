@@ -36,6 +36,12 @@
         <mount>ricohGRIII</mount>
         <cropfactor>1.53</cropfactor>
     </camera>
+    <camera>
+        <maker>Ricoh Imaging Company, Ltd.</maker>
+        <model>Ricoh GR IIIx</model>
+        <mount>ricohGRIIIx</mount>
+        <cropfactor>1.53</cropfactor>
+    </camera>
     <lens>
         <maker>Ricoh</maker>
         <model>GR Digital &amp; compatibles (Standard)</model>
@@ -169,6 +175,28 @@
         <calibration>
             <distortion model="ptlens" focal="13.8" a="0.023" b="-0.058" c="0.007"/>
             <tca model="poly3" focal="13.8" br="-0.0000776" vr="1.0003155" bb="0.0001826" vb="0.9996988"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Ricoh imaging company, ltd.</maker>
+        <model>Ricoh GR IIIx &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>ricohGRIIIx</mount>
+        <cropfactor>1.53</cropfactor>
+        <calibration>
+            <vignetting model="pa" focal="26.0" aperture="2.8" distance="10" k1="-0.2842844" k2="-0.5100591" k3="0.2427122"/>
+            <vignetting model="pa" focal="26.0" aperture="2.8" distance="1000" k1="-0.2842844" k2="-0.5100591" k3="0.2427122"/>
+            <vignetting model="pa" focal="26.0" aperture="4.0" distance="10" k1="-0.3501228" k2="-0.0666519" k3="0.0139347"/>
+            <vignetting model="pa" focal="26.0" aperture="4.0" distance="1000" k1="-0.3501228" k2="-0.0666519" k3="0.0139347"/>
+            <vignetting model="pa" focal="26.0" aperture="5.6" distance="10" k1="-0.3244121" k2="-0.1228700" k3="0.0558609"/>
+            <vignetting model="pa" focal="26.0" aperture="5.6" distance="1000" k1="-0.3244121" k2="-0.1228700" k3="0.0558609"/>
+            <vignetting model="pa" focal="26.0" aperture="8.0" distance="10" k1="-0.3097688" k2="-0.1607320" k3="0.0811099"/>
+            <vignetting model="pa" focal="26.0" aperture="8.0" distance="1000" k1="-0.3097688" k2="-0.1607320" k3="0.0811099"/>
+            <vignetting model="pa" focal="26.0" aperture="11.0" distance="10" k1="-0.3130358" k2="-0.1422932" k3="0.0695211"/>
+            <vignetting model="pa" focal="26.0" aperture="11.0" distance="1000" k1="-0.3130358" k2="-0.1422932" k3="0.0695211"/>
+            <vignetting model="pa" focal="26.0" aperture="16.0" distance="10" k1="-0.3077264" k2="-0.1596489" k3="0.0808960"/>
+            <vignetting model="pa" focal="26.0" aperture="16.0" distance="1000" k1="-0.3077264" k2="-0.1596489" k3="0.0808960"/>
         </calibration>
     </lens>
 </lensdatabase>

@@ -1,0 +1,36 @@
+<lensdatabase version="1">
+    <camera>
+        <maker>OM Digital Solutions</maker>
+        <maker lang="en">OM System</maker>
+        <model>OM-1</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+    </camera>
+    <camera>
+        <maker>OM Digital Solutions</maker>
+        <maker lang="en">OM System</maker>
+        <model>OM-5</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+    </camera>
+    <lens>
+        <maker>OM Digital Solutions</maker>
+        <maker lang="en">OM System</maker>
+        <model>OM 20mm F1.4</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="20" a="-0.00649844" b="0.0148407" c="-0.0224135"/>
+            <vignetting model="pa" focal="20" aperture="1.4" distance="10" k1="-0.5203" k2="0.4189" k3="-0.2766"/>
+            <vignetting model="pa" focal="20" aperture="1.4" distance="1000" k1="-0.5203" k2="0.4189" k3="-0.2766"/>
+            <vignetting model="pa" focal="20" aperture="2" distance="10" k1="-0.2306" k2="-0.2956" k3="0.1047"/>
+            <vignetting model="pa" focal="20" aperture="2" distance="1000" k1="-0.2306" k2="-0.2956" k3="0.1047"/>
+            <vignetting model="pa" focal="20" aperture="2.8" distance="10" k1="-0.3739" k2="0.2235" k3="-0.2538"/>
+            <vignetting model="pa" focal="20" aperture="2.8" distance="1000" k1="-0.3739" k2="0.2235" k3="-0.2538"/>
+            <vignetting model="pa" focal="20" aperture="4" distance="10" k1="-0.4025" k2="0.2587" k3="-0.1659"/>
+            <vignetting model="pa" focal="20" aperture="4" distance="1000" k1="-0.4025" k2="0.2587" k3="-0.1659"/>
+            <vignetting model="pa" focal="20" aperture="16" distance="10" k1="-0.2935" k2="-0.1030" k3="0.1266"/>
+            <vignetting model="pa" focal="20" aperture="16" distance="1000" k1="-0.2935" k2="-0.1030" k3="0.1266"/>
+        </calibration>
+    </lens>
+</lensdatabase>
