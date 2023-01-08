@@ -1147,4 +1147,21 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon RF 24-70mm f/2.8L IS USM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS RP -->
+            <distortion model="ptlens" focal="24" a="0.0259091" b="-0.0662025" c="0.0194773"/>
+            <distortion model="ptlens" focal="31" a="0.0097562" b="-0.0218905" c="0.00599528"/>
+            <distortion model="ptlens" focal="35" a="0.0108877" b="-0.0277519" c="0.021455"/>
+            <distortion model="ptlens" focal="42" a="-0.00122003" b="0.0168115" c="-0.0242082"/>
+            <distortion model="ptlens" focal="50" a="0.00135005" b="0.0040131" c="-0.00177737"/>
+            <distortion model="ptlens" focal="58" a="0.0012503" b="0.00371153" c="0.00370853"/>
+            <distortion model="ptlens" focal="70" a="-0.00796799" b="0.0352717" c="-0.0302904"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
