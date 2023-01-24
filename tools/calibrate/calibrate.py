@@ -117,7 +117,7 @@ def generate_raw_conversion_call(filename, dcraw_options):
         result = [convert_program, filename]
         if "-4" in dcraw_options:
             result.extend(["-colorspace", "RGB", "-depth", "16"])
-        result.append("tiff:-" if "-c" in dcraw_options else basename + ".tiff")
+        result.append("tiff:-" if "-" in dcraw_options else basename + ".tiff")
         return result
     else:
         return ["dcraw_emu", "-T", "-t", "0"] + dcraw_options + [filename]
@@ -145,6 +145,7 @@ def browse_directory(directory):
                          float(match.group("focal_length")), float(match.group("aperture")))
                 else:
                     exiv2_candidates.append(full_filename)
+
 def call_exiv2(candidate_group):
     exiv2_process = subprocess.Popen(
         ["exiv2", "-PEkt", "-g", "Exif.Photo.LensModel", "-g", "Exif.Photo.FocalLength", "-g", "Exif.Photo.FNumber"]
@@ -169,12 +170,13 @@ def call_exiv2(candidate_group):
     for filename, exif_data in result.copy().items():
         result[filename] = tuple(exif_data)
     return result
+
 def generate_tca_tiffs(filename):
     tca_filename = filename + ".tca"
     if not os.path.exists(tca_filename):
         tiff_filename = os.path.splitext(filename)[0] + ".tiff"
         if not os.path.exists(tiff_filename):
-            subprocess.check_call(generate_raw_conversion_call(filename, ["-4", "-o", "0", "-M"]))
+            subprocess.check_call(generate_raw_conversion_call(filename, ["-4", "-o", "0", "-M", "-Z", "tiff"]))
         return filename, tiff_filename, tca_filename
     return None, None, None
 
@@ -199,7 +201,7 @@ def evaluate_image_set(exif_data, filepaths):
                 for line in sidecar_file:
                     if line.startswith("maximal_radius"):
                         maximal_radius = float(line.partition(":")[2])
-            dcraw_process = subprocess.Popen(generate_raw_conversion_call(filepath, ["-4", "-M", "-o", "0", "-c"] + h_option),
+            dcraw_process = subprocess.Popen(generate_raw_conversion_call(filepath, ["-4", "-M", "-o", "0", "-Z", "-"] + h_option),
                                              stdout=subprocess.PIPE)
             image_data = subprocess.check_output(
                 [convert_program, "tiff:-", "-set", "colorspace", "RGB", "-resize", "250", "pgm:-"], stdin=dcraw_process.stdout,
@@ -327,7 +329,7 @@ You have to rename them according to the scheme "Lens_name--16mm--1.4.RAW"
             results = set()
             for filename in find_raw_files():
                 if not os.path.exists(os.path.splitext(filename)[0] + ".tiff"):
-                    results.add(pool.apply_async(subprocess.call, [generate_raw_conversion_call(filename, ["-w"])]))
+                    results.add(pool.apply_async(subprocess.call, [generate_raw_conversion_call(filename, ["-w", "-Z", "tiff"])]))
             pool.close()
             pool.join()
             [result.get() for result in results]
