@@ -210,14 +210,21 @@
         <maker>Fujifilm</maker>
         <model>GFX 50R</model>
         <mount>Fujifilm G</mount>
-        <cropfactor>0.8</cropfactor>
+        <cropfactor>0.79</cropfactor>
+    </camera>
+	
+    <camera>
+        <maker>Fujifilm</maker>
+        <model>GFX 50S</model>
+        <mount>Fujifilm G</mount>
+        <cropfactor>0.79</cropfactor>
     </camera>
 
     <camera>
         <maker>Fujifilm</maker>
         <model>GFX 100S</model>
         <mount>Fujifilm G</mount>
-        <cropfactor>0.8</cropfactor>
+        <cropfactor>0.79</cropfactor>
     </camera>
 
     <lens>
@@ -1791,13 +1798,100 @@
 
     <lens>
         <maker>Fujifilm</maker>
-        <model>GF45mmF2.8 R WR</model>
+        <model>GF23mmF4 R LM WR</model>
+        <model lang="en">GF 23mm F4 R LM WR</model>
         <mount>Fujifilm G</mount>
-        <cropfactor>0.8</cropfactor>
-        <aspect-ratio>4:3</aspect-ratio>
+        <cropfactor>0.79</cropfactor>
         <calibration>
-            <!-- Taken with Fujifilm GFX 50R -->
-            <distortion model="ptlens" focal="45" a="0.0064887" b="-0.025113" c="0.0067938"/>
+            <!-- Taken with Fujifilm GFX100S -->
+            <distortion model="ptlens" focal="23" a="0.0108062" b="-0.0395357" c="0.0435027"/>
+            <tca model="poly3" focal="23" br="-0.0000232" vr="1.0001257" bb="-0.0000001" vb="1.0000575"/>
+            <vignetting model="pa" focal="23" aperture="4" distance="0.38" k1="-1.1344" k2="0.3276" k3="0.0730"/>
+            <vignetting model="pa" focal="23" aperture="4" distance="0.76" k1="-1.1680" k2="0.3045" k3="0.0973"/>
+            <vignetting model="pa" focal="23" aperture="4" distance="2.28" k1="-1.0729" k2="0.0477" k3="0.2543"/>
+            <vignetting model="pa" focal="23" aperture="4" distance="1000" k1="-1.0271" k2="-0.0887" k3="0.3444"/>
+            <vignetting model="pa" focal="23" aperture="5.6" distance="0.38" k1="-1.1208" k2="0.7804" k3="-0.3186"/>
+            <vignetting model="pa" focal="23" aperture="5.6" distance="0.76" k1="-1.1568" k2="0.8344" k3="-0.3449"/>
+            <vignetting model="pa" focal="23" aperture="5.6" distance="2.28" k1="-1.0374" k2="0.5913" k3="-0.2152"/>
+            <vignetting model="pa" focal="23" aperture="5.6" distance="1000" k1="-1.0015" k2="0.4888" k3="-0.1529"/>
+            <vignetting model="pa" focal="23" aperture="8" distance="0.38" k1="-1.1472" k2="0.8081" k3="-0.2840"/>
+            <vignetting model="pa" focal="23" aperture="8" distance="0.76" k1="-1.1665" k2="0.8394" k3="-0.3039"/>
+            <vignetting model="pa" focal="23" aperture="8" distance="2.28" k1="-1.0600" k2="0.6339" k3="-0.1941"/>
+            <vignetting model="pa" focal="23" aperture="8" distance="1000" k1="-1.0457" k2="0.5783" k3="-0.1511"/>
+            <vignetting model="pa" focal="23" aperture="11" distance="0.38" k1="-1.1598" k2="0.8275" k3="-0.2924"/>
+            <vignetting model="pa" focal="23" aperture="11" distance="0.76" k1="-1.1704" k2="0.8473" k3="-0.3085"/>
+            <vignetting model="pa" focal="23" aperture="11" distance="2.28" k1="-1.0680" k2="0.6504" k3="-0.2026"/>
+            <vignetting model="pa" focal="23" aperture="11" distance="1000" k1="-1.0662" k2="0.6209" k3="-0.1756"/>
+            <vignetting model="pa" focal="23" aperture="32" distance="0.38" k1="-1.1922" k2="0.8791" k3="-0.3181"/>
+            <vignetting model="pa" focal="23" aperture="32" distance="0.76" k1="-1.1890" k2="0.8723" k3="-0.3204"/>
+            <vignetting model="pa" focal="23" aperture="32" distance="2.28" k1="-1.0916" k2="0.6862" k3="-0.2196"/>
+            <vignetting model="pa" focal="23" aperture="32" distance="1000" k1="-1.1013" k2="0.6784" k3="-0.2038"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>GF45mmF2.8 R WR</model>
+        <model lang="en">GF 45mm F2.8 R WR</model>
+        <mount>Fujifilm G</mount>
+        <cropfactor>0.79</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm GFX100S -->
+            <distortion model="ptlens" focal="45" a="0.00639199" b="-0.0254464" c="0.00756691"/>
+            <tca model="poly3" focal="45" br="-0.0000125" vr="1.0000678" bb="0.0000105" vb="1.0000352"/>
+            <vignetting model="pa" focal="45" aperture="2.8" distance="0.45" k1="-1.3939" k2="1.0515" k3="-0.3524"/>
+            <vignetting model="pa" focal="45" aperture="2.8" distance="0.9" k1="-1.5341" k2="1.2654" k3="-0.4568"/>
+            <vignetting model="pa" focal="45" aperture="2.8" distance="2.7" k1="-1.6016" k2="1.3653" k3="-0.5043"/>
+            <vignetting model="pa" focal="45" aperture="2.8" distance="1000" k1="-1.6140" k2="1.3877" k3="-0.5170"/>
+            <vignetting model="pa" focal="45" aperture="4" distance="0.45" k1="-0.3943" k2="-0.2752" k3="0.1847"/>
+            <vignetting model="pa" focal="45" aperture="4" distance="0.9" k1="-0.4589" k2="-0.3094" k3="0.2404"/>
+            <vignetting model="pa" focal="45" aperture="4" distance="2.7" k1="-0.4971" k2="-0.2821" k3="0.2401"/>
+            <vignetting model="pa" focal="45" aperture="4" distance="1000" k1="-0.5189" k2="-0.3058" k3="0.2646"/>
+            <vignetting model="pa" focal="45" aperture="5.6" distance="0.45" k1="-0.5345" k2="0.3117" k3="-0.1699"/>
+            <vignetting model="pa" focal="45" aperture="5.6" distance="0.9" k1="-0.5898" k2="0.3464" k3="-0.2014"/>
+            <vignetting model="pa" focal="45" aperture="5.6" distance="2.7" k1="-0.6219" k2="0.3487" k3="-0.1945"/>
+            <vignetting model="pa" focal="45" aperture="5.6" distance="1000" k1="-0.6132" k2="0.3264" k3="-0.1916"/>
+            <vignetting model="pa" focal="45" aperture="8" distance="0.45" k1="-0.4939" k2="0.1429" k3="-0.0026"/>
+            <vignetting model="pa" focal="45" aperture="8" distance="0.9" k1="-0.5547" k2="0.1860" k3="-0.0168"/>
+            <vignetting model="pa" focal="45" aperture="8" distance="2.7" k1="-0.5937" k2="0.2138" k3="-0.0268"/>
+            <vignetting model="pa" focal="45" aperture="8" distance="1000" k1="-0.6003" k2="0.2317" k3="-0.0406"/>
+            <vignetting model="pa" focal="45" aperture="32" distance="0.45" k1="-0.5026" k2="0.1462" k3="-0.0005"/>
+            <vignetting model="pa" focal="45" aperture="32" distance="0.9" k1="-0.5679" k2="0.1990" k3="-0.0216"/>
+            <vignetting model="pa" focal="45" aperture="32" distance="2.7" k1="-0.5991" k2="0.2076" k3="-0.0189"/>
+            <vignetting model="pa" focal="45" aperture="32" distance="1000" k1="-0.6118" k2="0.2315" k3="-0.0327"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>GF110mmF2 R LM WR</model>
+        <model lang="en">GF 110mm F2 R LM WR</model>
+        <mount>Fujifilm G</mount>
+        <cropfactor>0.79</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm GFX100S -->
+            <distortion model="ptlens" focal="110" a="-0.000265206" b="-0.000864743" c="0.00245126"/>
+            <tca model="poly3" focal="110" br="-0.0000075" vr="0.9999733" bb="0.0000055" vb="1.0000196"/>
+            <vignetting model="pa" focal="110" aperture="2" distance="0.9" k1="-0.4246" k2="-0.3988" k3="0.3092"/>
+            <vignetting model="pa" focal="110" aperture="2" distance="1.8" k1="-0.9983" k2="0.5791" k3="-0.1969"/>
+            <vignetting model="pa" focal="110" aperture="2" distance="5.4" k1="-1.2922" k2="1.1712" k3="-0.5306"/>
+            <vignetting model="pa" focal="110" aperture="2" distance="1000" k1="-1.3909" k2="1.3783" k3="-0.6512"/>
+            <vignetting model="pa" focal="110" aperture="2.8" distance="0.9" k1="-0.1616" k2="-0.0117" k3="-0.1490"/>
+            <vignetting model="pa" focal="110" aperture="2.8" distance="1.8" k1="0.0287" k2="-0.7083" k3="0.2836"/>
+            <vignetting model="pa" focal="110" aperture="2.8" distance="5.4" k1="0.0260" k2="-0.8548" k3="0.3999"/>
+            <vignetting model="pa" focal="110" aperture="2.8" distance="1000" k1="0.0174" k2="-0.8991" k3="0.4393"/>
+            <vignetting model="pa" focal="110" aperture="4" distance="0.9" k1="-0.2478" k2="0.2134" k3="-0.1594"/>
+            <vignetting model="pa" focal="110" aperture="4" distance="1.8" k1="-0.2079" k2="0.3644" k3="-0.4499"/>
+            <vignetting model="pa" focal="110" aperture="4" distance="5.4" k1="-0.0928" k2="0.1045" k3="-0.3332"/>
+            <vignetting model="pa" focal="110" aperture="4" distance="1000" k1="-0.0587" k2="0.0331" k3="-0.3094"/>
+            <vignetting model="pa" focal="110" aperture="5.6" distance="0.9" k1="-0.2016" k2="0.0374" k3="-0.0001"/>
+            <vignetting model="pa" focal="110" aperture="5.6" distance="1.8" k1="-0.2218" k2="0.3020" k3="-0.2495"/>
+            <vignetting model="pa" focal="110" aperture="5.6" distance="5.4" k1="-0.2397" k2="0.5316" k3="-0.4900"/>
+            <vignetting model="pa" focal="110" aperture="5.6" distance="1000" k1="-0.2496" k2="0.6303" k3="-0.6016"/>
+            <vignetting model="pa" focal="110" aperture="22" distance="0.9" k1="-0.1771" k2="-0.0202" k3="0.0344"/>
+            <vignetting model="pa" focal="110" aperture="22" distance="1.8" k1="-0.1446" k2="0.0168" k3="0.0020"/>
+            <vignetting model="pa" focal="110" aperture="22" distance="5.4" k1="-0.1218" k2="0.0425" k3="-0.0119"/>
+            <vignetting model="pa" focal="110" aperture="22" distance="1000" k1="-0.1174" k2="0.0503" k3="-0.0059"/>
         </calibration>
     </lens>
 
