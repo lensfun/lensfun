@@ -201,6 +201,7 @@
         <mount>ricohGRIIIx</mount>
         <cropfactor>1.53</cropfactor>
         <calibration>
+            <distortion model="ptlens" focal="26" a="-0.000112207" b="0.00702827" c="-0.00799201"/>
             <vignetting model="pa" focal="26.0" aperture="2.8" distance="10" k1="-0.2842844" k2="-0.5100591" k3="0.2427122" />
             <vignetting model="pa" focal="26.0" aperture="2.8" distance="1000" k1="-0.2842844" k2="-0.5100591" k3="0.2427122" />
             <vignetting model="pa" focal="26.0" aperture="4.0" distance="10" k1="-0.3501228" k2="-0.0666519" k3="0.0139347" />
