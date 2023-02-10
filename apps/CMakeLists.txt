@@ -21,8 +21,8 @@ ENDIF(INSTALL_HELPER_SCRIPTS)
 
 # Inspired by http://bloerg.net/2012/11/10/cmake-and-distutils.html
 
-FIND_PROGRAM(PYTHON "python3")
-IF(PYTHON)
+FIND_PACKAGE(Python3 COMPONENTS Interpreter REQUIRED)
+IF(Python3_Interpreter_FOUND)
     SET(SETUP_PY_IN "${CMAKE_CURRENT_SOURCE_DIR}/setup.py.in")
     SET(SETUP_PY    "${CMAKE_CURRENT_BINARY_DIR}/setup.py")
     SET(DEPS_IN     "${CMAKE_CURRENT_SOURCE_DIR}/lensfun/__init__.py.in")
@@ -33,7 +33,7 @@ IF(PYTHON)
     CONFIGURE_FILE(${DEPS_IN} ${DEPS})
 
     ADD_CUSTOM_COMMAND(OUTPUT ${OUTPUT}
-                       COMMAND ${PYTHON} ${SETUP_PY} build
+                       COMMAND ${Python3_EXECUTABLE} ${SETUP_PY} build
                        COMMAND ${CMAKE_COMMAND} -E touch ${OUTPUT}
                        DEPENDS ${DEPS_IN})
 
@@ -42,5 +42,5 @@ IF(PYTHON)
     IF(NOT DEFINED SETUP_PY_INSTALL_PREFIX)
       SET(SETUP_PY_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
     ENDIF()
-    INSTALL(CODE "execute_process(COMMAND ${PYTHON} ${SETUP_PY} install --prefix=\$ENV{DESTDIR}${SETUP_PY_INSTALL_PREFIX})")
-ENDIF(PYTHON)
+    INSTALL(CODE "execute_process(COMMAND ${Python3_EXECUTABLE} ${SETUP_PY} install --prefix=\$ENV{DESTDIR}${SETUP_PY_INSTALL_PREFIX})")
+ENDIF()
