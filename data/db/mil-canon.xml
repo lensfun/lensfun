@@ -791,8 +791,19 @@
         <mount>Canon RF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="50.0" a="0.002" b="-0.009" c="0.014" />
-            <tca model="poly3" focal="50.0" vr="0.9998424" vb="1.0000271" />
+            <distortion model="ptlens" focal="50.0" a="0.002" b="-0.009" c="0.014"/>
+            <tca model="poly3" focal="50.0" vr="0.9998424" vb="1.0000271"/>
+	    <!-- Taken with Canon EOS RP -->
+	    <vignetting model="pa" focal="50" aperture="1.8" distance="10" k1="-1.8308" k2="1.8716" k3="-0.8660"/>
+            <vignetting model="pa" focal="50" aperture="1.8" distance="1000" k1="-1.8308" k2="1.8716" k3="-0.8660"/>
+            <vignetting model="pa" focal="50" aperture="2.5" distance="10" k1="-0.2789" k2="-0.7487" k3="0.3534"/>
+            <vignetting model="pa" focal="50" aperture="2.5" distance="1000" k1="-0.2789" k2="-0.7487" k3="0.3534"/>
+            <vignetting model="pa" focal="50" aperture="3.5" distance="10" k1="-0.6171" k2="0.6214" k3="-0.4956"/>
+            <vignetting model="pa" focal="50" aperture="3.5" distance="1000" k1="-0.6171" k2="0.6214" k3="-0.4956"/>
+            <vignetting model="pa" focal="50" aperture="5" distance="10" k1="-0.5085" k2="0.1646" k3="-0.0261"/>
+            <vignetting model="pa" focal="50" aperture="5" distance="1000" k1="-0.5085" k2="0.1646" k3="-0.0261"/>
+            <vignetting model="pa" focal="50" aperture="22" distance="10" k1="-0.5032" k2="0.1516" k3="-0.0085"/>
+            <vignetting model="pa" focal="50" aperture="22" distance="1000" k1="-0.5032" k2="0.1516" k3="-0.0085"/>
         </calibration>
     </lens>
 
@@ -1088,9 +1099,20 @@
         <mount>Canon RF</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-             <!-- Taken with Canon EOS R6 -->
+            <!-- Taken with Canon EOS R6 -->
             <distortion model="ptlens" focal="16.0" a="0.0240971" b="-0.0938243" c="-0.0165449"/>
             <tca model="poly3" focal="16.0" br="-0.0001456" vr="1.0004540" bb="0.0003033" vb="0.9998129"/>
+	    <!-- Taken with Canon EOS RP -->
+	    <vignetting model="pa" focal="16" aperture="2.8" distance="10" k1="-2.0926" k2="1.7675" k3="-0.6342"/>
+            <vignetting model="pa" focal="16" aperture="2.8" distance="1000" k1="-2.0926" k2="1.7675" k3="-0.6342"/>
+            <vignetting model="pa" focal="16" aperture="4" distance="10" k1="-1.6570" k2="1.2747" k3="-0.5558"/>
+            <vignetting model="pa" focal="16" aperture="4" distance="1000" k1="-1.6570" k2="1.2747" k3="-0.5558"/>
+            <vignetting model="pa" focal="16" aperture="5.6" distance="10" k1="-1.8258" k2="1.9039" k3="-0.9733"/>
+            <vignetting model="pa" focal="16" aperture="5.6" distance="1000" k1="-1.8258" k2="1.9039" k3="-0.9733"/>
+            <vignetting model="pa" focal="16" aperture="8" distance="10" k1="-1.8322" k2="1.8560" k3="-0.8713"/>
+            <vignetting model="pa" focal="16" aperture="8" distance="1000" k1="-1.8322" k2="1.8560" k3="-0.8713"/>
+            <vignetting model="pa" focal="16" aperture="22" distance="10" k1="-1.7632" k2="1.5167" k3="-0.5384"/>
+            <vignetting model="pa" focal="16" aperture="22" distance="1000" k1="-1.7632" k2="1.5167" k3="-0.5384"/>
         </calibration>
     </lens>
 
