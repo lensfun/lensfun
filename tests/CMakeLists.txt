@@ -69,5 +69,5 @@ ADD_EXECUTABLE(test_lffuzzystrcmp test_lffuzzystrcmp.cpp)
 TARGET_LINK_LIBRARIES(test_lffuzzystrcmp lensfun ${COMMON_LIBS})
 ADD_TEST(NAME test_lffuzzystrcmp COMMAND test_lffuzzystrcmp)
 
-FIND_PACKAGE(PythonInterp REQUIRED)
-ADD_TEST(NAME Database_integrity COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/check_database/check_database.py ${CMAKE_SOURCE_DIR}/data/db)
+FIND_PACKAGE(Python3 COMPONENTS Interpreter REQUIRED)
+ADD_TEST(NAME Database_integrity COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/check_database/check_database.py ${CMAKE_SOURCE_DIR}/data/db)
