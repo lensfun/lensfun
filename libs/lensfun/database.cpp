@@ -738,9 +738,14 @@ lfError lfDatabase::Load (const char *errcontext, const char *data, size_t data_
     };
 
     /* Temporarily drop numeric format to "C" */
-    char *old_numeric = setlocale (LC_NUMERIC, NULL);
-    old_numeric = strdup(old_numeric);
-    setlocale(LC_NUMERIC,"C");
+#if defined(_MSC_VER)
+    _configthreadlocale(_ENABLE_PER_THREAD_LOCALE);
+    setlocale (LC_NUMERIC, "C");
+#else
+    auto loc = uselocale((locale_t) 0); // get current local
+    auto nloc = newlocale(LC_NUMERIC_MASK, "C", (locale_t) 0);
+    uselocale(nloc);
+#endif
 
     /* eek! GPtrArray does not have a method to insert a pointer
      into middle of the array... We have to remove the trailing
@@ -777,8 +782,12 @@ lfError lfDatabase::Load (const char *errcontext, const char *data, size_t data_
     g_ptr_array_add ((GPtrArray *)Lenses, NULL);
 
     /* Restore numeric format */
-    setlocale (LC_NUMERIC, old_numeric);
-    free(old_numeric);
+#if defined(_MSC_VER)
+    _configthreadlocale(_DISABLE_PER_THREAD_LOCALE);
+#else
+    uselocale(loc);
+    freelocale(nloc);
+#endif
 
     return e;
 }
@@ -828,9 +837,14 @@ char *lfDatabase::Save (const lfMount *const *mounts,
                         const lfLens *const *lenses)
 {
     /* Temporarily drop numeric format to "C" */
-    char *old_numeric = setlocale (LC_NUMERIC, NULL);
-    old_numeric = strdup(old_numeric);
-    setlocale(LC_NUMERIC,"C");
+#if defined(_MSC_VER)
+    _configthreadlocale(_ENABLE_PER_THREAD_LOCALE);
+    setlocale (LC_NUMERIC, "C");
+#else
+    auto loc = uselocale((locale_t) 0); // get current local
+    auto nloc = newlocale(LC_NUMERIC_MASK, "C", (locale_t) 0);
+    uselocale(nloc);
+#endif
 
     int i, j;
     GString *output = g_string_sized_new (1024);
@@ -1074,8 +1088,12 @@ char *lfDatabase::Save (const lfMount *const *mounts,
     g_string_append (output, "</lensdatabase>\n");
 
     /* Restore numeric format */
-    setlocale (LC_NUMERIC, old_numeric);
-    free(old_numeric);
+#if defined(_MSC_VER)
+    _configthreadlocale(_DISABLE_PER_THREAD_LOCALE);
+#else
+    uselocale(loc);
+    freelocale(nloc);
+#endif
 
     return g_string_free (output, FALSE);
 }
