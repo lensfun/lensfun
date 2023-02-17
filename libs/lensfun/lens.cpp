@@ -248,9 +248,8 @@ void lfLens::GuessParameters ()
     float minf = float (INT_MAX), maxf = float (INT_MIN);
     float mina = float (INT_MAX), maxa = float (INT_MIN);
 
-    char *old_numeric = setlocale (LC_NUMERIC, NULL);
-    old_numeric = strdup (old_numeric);
-    setlocale (LC_NUMERIC, "C");
+    auto loc = newlocale(LC_NUMERIC_MASK, "C", (locale_t) 0);
+    uselocale(loc);
 
     if (Model && (!MinAperture || !MinFocal) &&
         !strstr (Model, "adapter") &&
@@ -334,11 +333,10 @@ void lfLens::GuessParameters ()
     if (maxa != INT_MIN && !MaxAperture)
         MaxAperture = maxa;
 
-    if (!MaxFocal)
-        MaxFocal = MinFocal;
+    if (!MaxFocal) MaxFocal = MinFocal;
 
-    setlocale (LC_NUMERIC, old_numeric);
-    free (old_numeric);
+	uselocale(LC_GLOBAL_LOCALE);
+    freelocale(loc);
 }
 
 bool lfLens::Check ()
