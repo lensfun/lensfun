@@ -819,9 +819,14 @@ lfError lfDatabase::Load (const char *errcontext, const char *data, size_t data_
     };
 
     /* Temporarily drop numeric format to "C" */
-    char *old_numeric = setlocale (LC_NUMERIC, NULL);
-    old_numeric = strdup(old_numeric);
-    setlocale(LC_NUMERIC,"C");
+#if defined(_MSC_VER)
+    _configthreadlocale(_ENABLE_PER_THREAD_LOCALE);
+    setlocale (LC_NUMERIC, "C");
+#else
+    auto loc = uselocale((locale_t) 0); // get current local
+    auto nloc = newlocale(LC_NUMERIC_MASK, "C", (locale_t) 0);
+    uselocale(nloc);
+#endif
 
     lfParserData pd;
     memset (&pd, 0, sizeof (pd));
@@ -846,8 +851,12 @@ lfError lfDatabase::Load (const char *errcontext, const char *data, size_t data_
     g_markup_parse_context_free (mpc);
 
     /* Restore numeric format */
-    setlocale (LC_NUMERIC, old_numeric);
-    free(old_numeric);
+#if defined(_MSC_VER)
+    _configthreadlocale(_DISABLE_PER_THREAD_LOCALE);
+#else
+    uselocale(loc);
+    freelocale(nloc);
+#endif
 
     return e;
 }
@@ -885,9 +894,14 @@ char *lfDatabase::Save () const
 lfError lfDatabase::Save (char*& xml, size_t& data_size) const
 {
     /* Temporarily drop numeric format to "C" */
-    char *old_numeric = setlocale (LC_NUMERIC, NULL);
-    old_numeric = strdup(old_numeric);
-    setlocale(LC_NUMERIC,"C");
+#if defined(_MSC_VER)
+    _configthreadlocale(_ENABLE_PER_THREAD_LOCALE);
+    setlocale (LC_NUMERIC, "C");
+#else
+    auto loc = uselocale((locale_t) 0); // get current local
+    auto nloc = newlocale(LC_NUMERIC_MASK, "C", (locale_t) 0);
+    uselocale(nloc);
+#endif
 
     GString *output = g_string_sized_new (1024);
 
@@ -1123,8 +1137,12 @@ lfError lfDatabase::Save (char*& xml, size_t& data_size) const
     g_string_append (output, "</lensdatabase>\n");
 
     /* Restore numeric format */
-    setlocale (LC_NUMERIC, old_numeric);
-    free(old_numeric);
+#if defined(_MSC_VER)
+    _configthreadlocale(_DISABLE_PER_THREAD_LOCALE);
+#else
+    uselocale(loc);
+    freelocale(nloc);
+#endif
 
     data_size = output->len;    
     xml = g_string_free (output, FALSE);
