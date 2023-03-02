@@ -304,4 +304,19 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Samsung</maker>
+        <model>Samsung NX 50-150mm F2.8 S</model>
+        <mount>Samsung NX</mount>
+        <cropfactor>1.531</cropfactor>
+        <calibration>
+            <!-- Taken with NX500 -->
+            <distortion model="ptlens" focal="50" a="0.00360462" b="-0.0207827" c="0.0204522"/>
+            <distortion model="ptlens" focal="60" a="0.000407296" b="-0.00586294" c="0.00357441"/>
+            <distortion model="ptlens" focal="85" a="0.00539475" b="-0.0184497" c="0.0172483"/>
+            <distortion model="ptlens" focal="100" a="0.00241976" b="-0.00594658" c="0.00235141"/>
+            <distortion model="ptlens" focal="150" a="-0.00377435" b="0.0123695" c="-0.00435764"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
