@@ -248,7 +248,7 @@ void lfLens::GuessParameters ()
     float minf = float (INT_MAX), maxf = float (INT_MIN);
     float mina = float (INT_MAX), maxa = float (INT_MIN);
 
-#if defined(_MSC_VER)
+#if defined(PLATFORM_WINDOWS)
     _configthreadlocale(_ENABLE_PER_THREAD_LOCALE);
     setlocale (LC_NUMERIC, "C");
 #else
@@ -341,7 +341,7 @@ void lfLens::GuessParameters ()
 
     if (!MaxFocal) MaxFocal = MinFocal;
 
-#if defined(_MSC_VER)
+#if defined(PLATFORM_WINDOWS)
     _configthreadlocale(_DISABLE_PER_THREAD_LOCALE);
 #else
     uselocale(loc);
