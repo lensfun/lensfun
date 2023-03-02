@@ -287,4 +287,21 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Samsung</maker>
+        <model>Samsung NX 16-50mm f/2-2.8 S</model>
+        <mount>Samsung NX</mount>
+        <cropfactor>1.531</cropfactor>
+        <calibration>
+            <!-- Taken with NX500 -->
+            <distortion model="ptlens" focal="16" a="0.0203205" b="-0.0676904" c="0.0111715"/>
+            <distortion model="ptlens" focal="18" a="0.020792" b="-0.0686152" c="0.0197276"/>
+            <distortion model="ptlens" focal="20" a="0.0172344" b="-0.0543226" c="0.0299837"/>
+            <distortion model="ptlens" focal="24" a="0.0155267" b="-0.0501203" c="0.0445292"/>
+            <distortion model="ptlens" focal="28" a="0.0102037" b="-0.0307215" c="0.0305597"/>
+            <distortion model="ptlens" focal="35" a="0.00549602" b="-0.0141091" c="0.0176549"/>
+            <distortion model="ptlens" focal="50" a="0.00254197" b="-0.0039695" c="0.00760788"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
