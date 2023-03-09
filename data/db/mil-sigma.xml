@@ -604,6 +604,28 @@
 
     <lens>
         <maker>Sigma</maker>
+        <model>105mm F2.8 DG DN MACRO | Art 020</model>
+        <mount>Sony E</mount>
+        <mount>Leica L</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="105.0" a="-0.0107846" b="0.0380454" c="-0.0300196" />
+            <tca model="poly3" focal="105.0" br="-0.0000217" vr="0.9999701" bb="-0.0000442" vb="1.0000044" />
+            <vignetting model="pa" focal="105.0" aperture="2.8" distance="10" k1="-0.8377153" k2="0.6378643" k3="-0.3040553" />
+            <vignetting model="pa" focal="105.0" aperture="2.8" distance="1000" k1="-0.8377153" k2="0.6378643" k3="-0.3040553" />
+            <vignetting model="pa" focal="105.0" aperture="4.0" distance="10" k1="-0.1370010" k2="-0.5850685" k3="0.2889905" />
+            <vignetting model="pa" focal="105.0" aperture="4.0" distance="1000" k1="-0.1370010" k2="-0.5850685" k3="0.2889905" />
+            <vignetting model="pa" focal="105.0" aperture="5.6" distance="10" k1="-0.1335553" k2="-0.0131960" k3="-0.2414712" />
+            <vignetting model="pa" focal="105.0" aperture="5.6" distance="1000" k1="-0.1335553" k2="-0.0131960" k3="-0.2414712" />
+            <vignetting model="pa" focal="105.0" aperture="8.0" distance="10" k1="-0.2948278" k2="0.5328033" k3="-0.5502205" />
+            <vignetting model="pa" focal="105.0" aperture="8.0" distance="1000" k1="-0.2948278" k2="0.5328033" k3="-0.5502205" />
+            <vignetting model="pa" focal="105.0" aperture="22.0" distance="10" k1="-0.1716489" k2="-0.0098372" k3="0.0108144" />
+            <vignetting model="pa" focal="105.0" aperture="22.0" distance="1000" k1="-0.1716489" k2="-0.0098372" k3="0.0108144" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
         <model>18-50mm F2.8 DC DN | Contemporary 021</model>
         <mount>Sony E</mount>
         <mount>Leica L</mount>
