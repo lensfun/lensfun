@@ -1904,4 +1904,31 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>XF90mmF2 R LM WR</model>
+        <model lang="en">XF 90mm f/2 R LM WR</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-T2 -->
+            <distortion model="ptlens" focal="90" a="-0.00252222" b="0.0104977" c="-0.0118682"/>
+            <tca model="poly3" focal="90" vr="1.0002080" vb="0.9999581"/>
+            <vignetting model="pa" focal="90" aperture="2" distance="10" k1="-0.4482" k2="0.0031" k3="0.0332"/>
+            <vignetting model="pa" focal="90" aperture="2" distance="1000" k1="-0.4482" k2="0.0031" k3="0.0332"/>
+            <vignetting model="pa" focal="90" aperture="2.8" distance="10" k1="-0.1113" k2="0.3136" k3="-0.3925"/>
+            <vignetting model="pa" focal="90" aperture="2.8" distance="1000" k1="-0.1113" k2="0.3136" k3="-0.3925"/>
+            <vignetting model="pa" focal="90" aperture="4" distance="10" k1="-0.1403" k2="0.2371" k3="-0.1819"/>
+            <vignetting model="pa" focal="90" aperture="4" distance="1000" k1="-0.1403" k2="0.2371" k3="-0.1819"/>
+            <vignetting model="pa" focal="90" aperture="5.6" distance="10" k1="-0.1529" k2="0.2276" k3="-0.1668"/>
+            <vignetting model="pa" focal="90" aperture="5.6" distance="1000" k1="-0.1529" k2="0.2276" k3="-0.1668"/>
+            <vignetting model="pa" focal="90" aperture="8" distance="10" k1="-0.1854" k2="0.3109" k3="-0.2157"/>
+            <vignetting model="pa" focal="90" aperture="8" distance="1000" k1="-0.1854" k2="0.3109" k3="-0.2157"/>
+            <vignetting model="pa" focal="90" aperture="11" distance="10" k1="-0.1804" k2="0.3931" k3="-0.3010"/>
+            <vignetting model="pa" focal="90" aperture="11" distance="1000" k1="-0.1804" k2="0.3931" k3="-0.3010"/>
+            <vignetting model="pa" focal="90" aperture="16" distance="10" k1="-0.0363" k2="0.1647" k3="-0.2069"/>
+            <vignetting model="pa" focal="90" aperture="16" distance="1000" k1="-0.0363" k2="0.1647" k3="-0.2069"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
