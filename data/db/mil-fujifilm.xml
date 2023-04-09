@@ -1931,4 +1931,27 @@
         </calibration>
     </lens>
 
+   <lens>
+        <maker>Fujifilm</maker>
+        <model>XF23mmF1.4 R LM WR</model>
+        <model lang="en">XF 23mm f/1.4 R LM WR</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.53</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-E3 -->
+            <distortion model="ptlens" focal="23" a="0.00843786" b="-0.0368108" c="0.0114266"/>
+            <tca model="poly3" focal="23" vr="1.0001509" vb="1.0000714"/>
+            <vignetting model="pa" focal="23" aperture="1.4" distance="10" k1="-1.7135" k2="1.6020" k3="-0.6571"/>
+            <vignetting model="pa" focal="23" aperture="1.4" distance="1000" k1="-1.7135" k2="1.6020" k3="-0.6571"/>
+            <vignetting model="pa" focal="23" aperture="2" distance="10" k1="-0.5838" k2="-0.6025" k3="0.5334"/>
+            <vignetting model="pa" focal="23" aperture="2" distance="1000" k1="-0.5838" k2="-0.6025" k3="0.5334"/>
+            <vignetting model="pa" focal="23" aperture="2.8" distance="10" k1="-0.4667" k2="-0.3287" k3="0.1855"/>
+            <vignetting model="pa" focal="23" aperture="2.8" distance="1000" k1="-0.4667" k2="-0.3287" k3="0.1855"/>
+            <vignetting model="pa" focal="23" aperture="4" distance="10" k1="-0.6654" k2="0.3356" k3="-0.2206"/>
+            <vignetting model="pa" focal="23" aperture="4" distance="1000" k1="-0.6654" k2="0.3356" k3="-0.2206"/>
+            <vignetting model="pa" focal="23" aperture="16" distance="10" k1="-0.6280" k2="0.1661" k3="-0.0172"/>
+            <vignetting model="pa" focal="23" aperture="16" distance="1000" k1="-0.6280" k2="0.1661" k3="-0.0172"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
