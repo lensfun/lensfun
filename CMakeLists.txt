@@ -1,5 +1,5 @@
-# require at least cmake 2.8
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8 FATAL_ERROR )
+# require at least cmake 3.12
+CMAKE_MINIMUM_REQUIRED(VERSION 3.12 FATAL_ERROR)
 
 # path for helper modules
 set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_SOURCE_DIR}/cmake/modules")
@@ -195,7 +195,7 @@ ENDIF()
 
 IF(WIN32 AND NOT BUILD_STATIC)
   FIND_FILE(GLIB2_DLL
-            NAMES glib-2.dll glib-2-vs9.dll
+            NAMES glib-2.0-0.dll glib-2.dll glib-2-vs9.dll
             PATHS "${GLIB2_BASE_DIR}/bin"
             NO_SYSTEM_ENVIRONMENT_PATH)
   INSTALL(FILES ${GLIB2_DLL} DESTINATION ${CMAKE_INSTALL_BINDIR})

@@ -46,6 +46,16 @@
 
     <lens>
         <maker>Samyang</maker>
+        <model>Samyang 12mm f/3.1 VDSLR ED AS NCS Fish-eye</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <tca model="poly3" focal="13.0" vr="1.0004843" vb="1.0000966" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Samyang</maker>
         <!-- The "AE" is actually only on the Nikon variant.  It should be
              added as an alias rather than a merged lens model name. -->
         <model>Samyang 14mm f/2.8 AE ED AS IF UMC</model>
@@ -109,6 +119,7 @@
         <mount>Micro 4/3 System</mount>
         <mount>Samsung NX</mount>
         <mount>Canon EF-M</mount>
+        <mount>Pentax KAF</mount>
         <cropfactor>1.534</cropfactor>
         <calibration>
             <!-- taken with Nikon D5500 -->

@@ -140,7 +140,7 @@
 
     <lens>
         <maker>Samyang</maker>
-        <model>SAMYANG AF 14mm F2.8</model>
+        <model>Samyang AF 14mm f/2.8</model>
         <model lang="en">Samyang AF 14mm f/2.8</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
@@ -152,20 +152,46 @@
 
     <lens>
         <maker>Samyang</maker>
-        <model>SAMYANG AF 24mm F2.8</model>
+        <model>Samyang AF 24mm f/2.8</model>
         <model lang="en">Samyang AF 24mm f/2.8</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with ILCE-7M2 -->
             <distortion model="ptlens" focal="24" a="0.01564" b="-0.02852" c="0.00751"/>
+            <vignetting model="pa" focal="24.0" aperture="2.8" distance="10" k1="-2.8657166" k2="3.4130702" k3="-1.4964271" />
+            <vignetting model="pa" focal="24.0" aperture="2.8" distance="1000" k1="-2.8657166" k2="3.4130702" k3="-1.4964271" />
+            <vignetting model="pa" focal="24.0" aperture="3.2" distance="10" k1="-1.9361222" k2="1.2808599" k3="-0.2426904" />
+            <vignetting model="pa" focal="24.0" aperture="3.2" distance="1000" k1="-1.9361222" k2="1.2808599" k3="-0.2426904" />
+            <vignetting model="pa" focal="24.0" aperture="3.5" distance="10" k1="-1.5913415" k2="0.7993512" k3="-0.0751884" />
+            <vignetting model="pa" focal="24.0" aperture="3.5" distance="1000" k1="-1.5913415" k2="0.7993512" k3="-0.0751884" />
+            <vignetting model="pa" focal="24.0" aperture="4.0" distance="10" k1="-1.5819555" k2="0.9314852" k3="-0.2029913" />
+            <vignetting model="pa" focal="24.0" aperture="4.0" distance="1000" k1="-1.5819555" k2="0.9314852" k3="-0.2029913" />
+            <vignetting model="pa" focal="24.0" aperture="4.5" distance="10" k1="-1.6056173" k2="1.0810133" k3="-0.3186936" />
+            <vignetting model="pa" focal="24.0" aperture="4.5" distance="1000" k1="-1.6056173" k2="1.0810133" k3="-0.3186936" />
+            <vignetting model="pa" focal="24.0" aperture="5.0" distance="10" k1="-1.6364913" k2="1.1926612" k3="-0.3882603" />
+            <vignetting model="pa" focal="24.0" aperture="5.0" distance="1000" k1="-1.6364913" k2="1.1926612" k3="-0.3882603" />
+            <vignetting model="pa" focal="24.0" aperture="5.6" distance="10" k1="-1.6489708" k2="1.2239532" k3="-0.3979710" />
+            <vignetting model="pa" focal="24.0" aperture="5.6" distance="1000" k1="-1.6489708" k2="1.2239532" k3="-0.3979710" />
+            <vignetting model="pa" focal="24.0" aperture="6.3" distance="10" k1="-1.6415316" k2="1.1883553" k3="-0.3580674" />
+            <vignetting model="pa" focal="24.0" aperture="6.3" distance="1000" k1="-1.6415316" k2="1.1883553" k3="-0.3580674" />
+            <vignetting model="pa" focal="24.0" aperture="7.1" distance="10" k1="-1.6402486" k2="1.1837875" k3="-0.3538495" />
+            <vignetting model="pa" focal="24.0" aperture="7.1" distance="1000" k1="-1.6402486" k2="1.1837875" k3="-0.3538495" />
+            <vignetting model="pa" focal="24.0" aperture="8.0" distance="10" k1="-1.6510733" k2="1.2072114" k3="-0.3662549" />
+            <vignetting model="pa" focal="24.0" aperture="8.0" distance="1000" k1="-1.6510733" k2="1.2072114" k3="-0.3662549" />
+            <vignetting model="pa" focal="24.0" aperture="11.0" distance="10" k1="-1.7243561" k2="1.3102248" k3="-0.4094080" />
+            <vignetting model="pa" focal="24.0" aperture="11.0" distance="1000" k1="-1.7243561" k2="1.3102248" k3="-0.4094080" />
+            <vignetting model="pa" focal="24.0" aperture="16.0" distance="10" k1="-1.7421938" k2="1.3468963" k3="-0.4296444" />
+            <vignetting model="pa" focal="24.0" aperture="16.0" distance="1000" k1="-1.7421938" k2="1.3468963" k3="-0.4296444" />
+            <vignetting model="pa" focal="24.0" aperture="22.0" distance="10" k1="-1.8011240" k2="1.4499840" k3="-0.4765021" />
+            <vignetting model="pa" focal="24.0" aperture="22.0" distance="1000" k1="-1.8011240" k2="1.4499840" k3="-0.4765021" />
         </calibration>
     </lens>
     
     <lens>
         <!-- Thanks to ndu2 for data -->
         <maker>Samyang</maker>
-        <model>SAMYANG AF 45mm F1.8</model>
+        <model>Samyang AF 45mm f/1.8</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -175,13 +201,39 @@
             <tca model="poly3" focal="45" vr="1.0000542" vb="0.9998050"/>
             <tca model="poly3" focal="45" vr="1.0000571" vb="0.9997949"/>
             <tca model="poly3" focal="45" vr="1.0000591" vb="0.9998019"/>
+            <vignetting model="pa" focal="45" aperture="1.8" distance="10" k1="-1.6692" k2="1.7384" k3="-0.7699"/>
+            <vignetting model="pa" focal="45" aperture="1.8" distance="1000" k1="-1.6692" k2="1.7384" k3="-0.7699"/>
+            <vignetting model="pa" focal="45" aperture="2" distance="10" k1="-1.0363" k2="0.4369" k3="-0.0449"/>
+            <vignetting model="pa" focal="45" aperture="2" distance="1000" k1="-1.0363" k2="0.4369" k3="-0.0449"/>
+            <vignetting model="pa" focal="45" aperture="2.2" distance="10" k1="-0.4480" k2="-0.3993" k3="0.3087"/>
+            <vignetting model="pa" focal="45" aperture="2.2" distance="1000" k1="-0.4480" k2="-0.3993" k3="0.3087"/>
+            <vignetting model="pa" focal="45" aperture="2.5" distance="10" k1="-0.5832" k2="0.0773" k3="0.0045"/>
+            <vignetting model="pa" focal="45" aperture="2.5" distance="1000" k1="-0.5832" k2="0.0773" k3="0.0045"/>
+            <vignetting model="pa" focal="45" aperture="2.8" distance="10" k1="-0.9296" k2="0.7392" k3="-0.3177"/>
+            <vignetting model="pa" focal="45" aperture="2.8" distance="1000" k1="-0.9296" k2="0.7392" k3="-0.3177"/>
+            <vignetting model="pa" focal="45" aperture="3.2" distance="10" k1="-0.8646" k2="0.5598" k3="-0.1937"/>
+            <vignetting model="pa" focal="45" aperture="3.2" distance="1000" k1="-0.8646" k2="0.5598" k3="-0.1937"/>
+            <vignetting model="pa" focal="45" aperture="3.5" distance="10" k1="-0.8576" k2="0.4767" k3="-0.1440"/>
+            <vignetting model="pa" focal="45" aperture="3.5" distance="1000" k1="-0.8576" k2="0.4767" k3="-0.1440"/>
+            <vignetting model="pa" focal="45" aperture="4" distance="10" k1="-0.8519" k2="0.4042" k3="-0.0928"/>
+            <vignetting model="pa" focal="45" aperture="4" distance="1000" k1="-0.8519" k2="0.4042" k3="-0.0928"/>
+            <vignetting model="pa" focal="45" aperture="4.5" distance="10" k1="-0.8383" k2="0.3965" k3="-0.0991"/>
+            <vignetting model="pa" focal="45" aperture="4.5" distance="1000" k1="-0.8383" k2="0.3965" k3="-0.0991"/>
+            <vignetting model="pa" focal="45" aperture="5" distance="10" k1="-0.8187" k2="0.3477" k3="-0.0786"/>
+            <vignetting model="pa" focal="45" aperture="5" distance="1000" k1="-0.8187" k2="0.3477" k3="-0.0786"/>
+            <vignetting model="pa" focal="45" aperture="5.6" distance="10" k1="-0.8097" k2="0.3420" k3="-0.0843"/>
+            <vignetting model="pa" focal="45" aperture="5.6" distance="1000" k1="-0.8097" k2="0.3420" k3="-0.0843"/>
+            <vignetting model="pa" focal="45" aperture="6.3" distance="10" k1="-0.7996" k2="0.3189" k3="-0.0678"/>
+            <vignetting model="pa" focal="45" aperture="6.3" distance="1000" k1="-0.7996" k2="0.3189" k3="-0.0678"/>
+            <vignetting model="pa" focal="45" aperture="22" distance="10" k1="-0.8160" k2="0.2762" k3="-0.0272"/>
+            <vignetting model="pa" focal="45" aperture="22" distance="1000" k1="-0.8160" k2="0.2762" k3="-0.0272"/>
         </calibration>
     </lens>
 
     <lens>
         <!-- Thanks to ndu2 for data -->
         <maker>Samyang</maker>
-        <model>SAMYANG AF 85mm F1.4</model>
+        <model>Samyang AF 85mm f/1.4</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -195,6 +247,88 @@
             <tca model="poly3" focal="85" vr="1.0000132" vb="0.9998255"/>
             <tca model="poly3" focal="85" vr="1.0000160" vb="0.9998137"/>
             <tca model="poly3" focal="85" vr="1.0000197" vb="0.9998246"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang AF 24mm f/1.8</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with ILCE 7M4 -->
+            <distortion model="ptlens" focal="24" a="0.01569" b="-0.03867" c="-0.00004"/>
+            <tca model="poly3" focal="24" vr="1.0001037" vb="0.9999944"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang AF 12mm f/2.0</model>
+        <mount>Sony E</mount>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-5100 -->
+            <distortion model="ptlens" focal="12.0" a="0.01" b="-0.037" c="0.021"/>
+            <tca model="poly3" focal="12.0" br="0.0000539" vr="1.0002125" bb="-0.0000235" vb="1.0003006"/>
+        </calibration>
+    </lens>
+	
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang AF 18mm f/2.8</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="18" a="0.02072794438055051" b="-0.055421093067902875" c="0.022351964872009425" />
+        </calibration>
+    </lens>
+	
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang AF 75mm f/1.8</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se, except tca -->
+            <distortion model="ptlens" focal="75" a="-0.0014565" b="0.0036664" c="-0.0018816" />
+            <tca model="poly3" focal="75" vr="0.9999345" vb="0.9999558"/> 
+            <vignetting model="pa" focal="75" aperture="1.8" distance="147.16" k1="-0.8826677" k2="0.3580256" k3="-0.1027655" />
+            <vignetting model="pa" focal="75" aperture="2.4" distance="147.16" k1="-0.3830348" k2="-0.2826643" k3="0.1597678" />
+            <vignetting model="pa" focal="75" aperture="3.5" distance="147.16" k1="-0.1646405" k2="-0.0735751" k3="-0.1152835" />
+            <vignetting model="pa" focal="75" aperture="4.5" distance="147.16" k1="-0.2444249" k2="0.2644670" k3="-0.2712635" />
+            <vignetting model="pa" focal="75" aperture="22.0" distance="147.16" k1="-0.1908762" k2="-0.0272345" k3="0.0481287" />
+        </calibration>
+    </lens>
+    
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang AF 35mm f/1.8</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se, except tca -->
+            <distortion model="ptlens" focal="35" a="0.0122154" b="-0.0474074" c="0.0348816" />
+            <tca model="poly3" focal="35" vr="1.0001321" vb="0.9999907"/>
+            <vignetting model="pa" focal="35" aperture="1.8" distance="68.68" k1="-1.4568366" k2="0.8730748" k3="-0.2082213" />
+            <vignetting model="pa" focal="35" aperture="2.4" distance="68.68" k1="-0.8374828" k2="-0.2165907" k3="0.3190586" />
+            <vignetting model="pa" focal="35" aperture="22.0" distance="68.68" k1="-0.5415322" k2="-0.0031567" k3="0.0431025" />
+            <vignetting model="pa" focal="35" aperture="3.5" distance="68.68" k1="-0.4569792" k2="-0.4798250" k3="0.2715231" />
+            <vignetting model="pa" focal="35" aperture="4.5" distance="68.68" k1="-0.5439260" k2="0.0807181" k3="-0.1427609" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Samyang</maker>
+        <model>Samyang XP 10mm f/3.5</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.005</cropfactor>
+        <calibration>
+	    <!-- Taken with Canon EOS 6D -->
+            <distortion model="ptlens" focal="10" a="0.01004" b="-0.05209" c="0.0642"/>
+            <tca model="poly3" focal="10" vr="1.0000242" vb="1.0001439"/>
         </calibration>
     </lens>
 

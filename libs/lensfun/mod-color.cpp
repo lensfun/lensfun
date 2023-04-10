@@ -50,23 +50,28 @@ int lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv_)
                 {
                     case LF_PF_U8:
                         ADD_CALLBACK(lcv, ModifyColor_Vignetting_PA, lf_u8, 250);
-                        break;
+                        EnabledMods |= LF_MODIFY_VIGNETTING;
+                        return EnabledMods;
 
                     case LF_PF_U16:
                         ADD_CALLBACK (lcv, ModifyColor_Vignetting_PA, lf_u16, 250);
-                        break;
+                        EnabledMods |= LF_MODIFY_VIGNETTING;
+                        return EnabledMods;
 
                     case LF_PF_U32:
                         ADD_CALLBACK (lcv, ModifyColor_Vignetting_PA, lf_u32, 250);
-                        break;
+                        EnabledMods |= LF_MODIFY_VIGNETTING;
+                        return EnabledMods;
 
                     case LF_PF_F32:
                         ADD_CALLBACK (lcv, ModifyColor_Vignetting_PA, lf_f32, 250);
-                        break;
+                        EnabledMods |= LF_MODIFY_VIGNETTING;
+                        return EnabledMods;
 
                     case LF_PF_F64:
                         ADD_CALLBACK (lcv, ModifyColor_Vignetting_PA, lf_f64, 250);
-                        break;
+                        EnabledMods |= LF_MODIFY_VIGNETTING;
+                        return EnabledMods;
 
                     default:
                         return EnabledMods;
@@ -85,7 +90,8 @@ int lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv_)
                 {
                     case LF_PF_U8:
                         ADD_CALLBACK (lcv, ModifyColor_DeVignetting_PA, lf_u8, 750);
-                        break;
+                        EnabledMods |= LF_MODIFY_VIGNETTING;
+                        return EnabledMods;
 
                     case LF_PF_U16:
 #ifdef VECTORIZATION_SSE2
@@ -94,11 +100,13 @@ int lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv_)
                         else
 #endif
                         ADD_CALLBACK (lcv, ModifyColor_DeVignetting_PA, lf_u16, 750);
-                        break;
+                        EnabledMods |= LF_MODIFY_VIGNETTING;
+                        return EnabledMods;
 
                     case LF_PF_U32:
                         ADD_CALLBACK (lcv, ModifyColor_DeVignetting_PA, lf_u32, 750);
-                        break;
+                        EnabledMods |= LF_MODIFY_VIGNETTING;
+                        return EnabledMods;
 
                     case LF_PF_F32:
 #ifdef VECTORIZATION_SSE
@@ -107,11 +115,13 @@ int lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv_)
                         else
 #endif
                         ADD_CALLBACK (lcv, ModifyColor_DeVignetting_PA, lf_f32, 750);
-                        break;
+                        EnabledMods |= LF_MODIFY_VIGNETTING;
+                        return EnabledMods;
 
                     case LF_PF_F64:
                         ADD_CALLBACK (lcv, ModifyColor_DeVignetting_PA, lf_f64, 750);
-                        break;
+                        EnabledMods |= LF_MODIFY_VIGNETTING;
+                        return EnabledMods;
 
                     default:
                         return EnabledMods;
@@ -124,8 +134,8 @@ int lfModifier::EnableVignettingCorrection(const lfLensCalibVignetting& lcv_)
 
 #undef ADD_CALLBACK
 
-    EnabledMods |= LF_MODIFY_VIGNETTING;
-    return true;
+    
+    return EnabledMods;
 }
 
 
@@ -135,7 +145,7 @@ int lfModifier::EnableVignettingCorrection (float aperture, float distance)
 
     if (Lens->InterpolateVignetting (Crop, Focal, aperture, distance, lcv))
     {
-        EnableVignettingCorrection(lcv);
+        return EnableVignettingCorrection(lcv);
     }
 
     return EnabledMods;
@@ -175,13 +185,13 @@ bool lfModifier::ApplyColorModification (
 
 // Helper template to return the maximal value for a type.
 // By default returns 0.0, which means to not clamp by upper boundary.
-template<typename T>inline double type_max (T x)
+template<typename T>inline double type_max (T)
 { return 0.0; }
 
-template<>inline double type_max (lf_u16 x)
+template<>inline double type_max (lf_u16)
 { return 65535.0; }
 
-template<>inline double type_max (lf_u32 x)
+template<>inline double type_max (lf_u32)
 { return 4294967295.0; }
 
 template<typename T>static inline T *apply_multiplier (T *pixels, double c, int &cr)

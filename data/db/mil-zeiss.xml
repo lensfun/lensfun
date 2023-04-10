@@ -3,14 +3,34 @@
 
     <lens>
         <maker>Zeiss</maker>
-        <model>E 32mm f/1.8</model>
+        <model>Touit 1.8/32</model>
         <model lang="en">Touit 32mm f/1.8</model>
+        <mount>Fujifilm X</mount>
         <mount>Sony E</mount>
         <cropfactor>1.534</cropfactor>
         <calibration>
             <!-- Taken with Sony A6000 -->
             <distortion model="poly3" focal="32" k1="-0.00792"/>
-            <tca model="poly3" focal="32" br="-0.0000053" vr="1.0001744" bb="0.0000616" vb="0.9998421"/>
+            <!-- Taken with Fujifilm X-T3 -->
+            <tca model="poly3" focal="32.0" br="-0.0000842" vr="1.0006229" bb="0.0001109" vb="0.9996800"/>
+            <vignetting model="pa" focal="32.0" aperture="1.8" distance="10" k1="-1.2160006" k2="0.6673535" k3="-0.1776757"/>
+            <vignetting model="pa" focal="32.0" aperture="1.8" distance="1000" k1="-1.2160006" k2="0.6673535" k3="-0.1776757"/>
+            <vignetting model="pa" focal="32.0" aperture="2.0" distance="10" k1="-0.8468284" k2="0.0285015" k3="0.1322209"/>
+            <vignetting model="pa" focal="32.0" aperture="2.0" distance="1000" k1="-0.8468284" k2="0.0285015" k3="0.1322209"/>
+            <vignetting model="pa" focal="32.0" aperture="2.8" distance="10" k1="-0.0850621" k2="-0.3425672" k3="0.0798519"/>
+            <vignetting model="pa" focal="32.0" aperture="2.8" distance="1000" k1="-0.0850621" k2="-0.3425672" k3="0.0798519"/>
+            <vignetting model="pa" focal="32.0" aperture="4.0" distance="10" k1="-0.2169273" k2="0.1420966" k3="-0.1492399"/>
+            <vignetting model="pa" focal="32.0" aperture="4.0" distance="1000" k1="-0.2169273" k2="0.1420966" k3="-0.1492399"/>
+            <vignetting model="pa" focal="32.0" aperture="5.6" distance="10" k1="-0.1833442" k2="-0.0542602" k3="0.0541898"/>
+            <vignetting model="pa" focal="32.0" aperture="5.6" distance="1000" k1="-0.1833442" k2="-0.0542602" k3="0.0541898"/>
+            <vignetting model="pa" focal="32.0" aperture="8.0" distance="10" k1="-0.2090648" k2="0.0022256" k3="0.0143559"/>
+            <vignetting model="pa" focal="32.0" aperture="8.0" distance="1000" k1="-0.2090648" k2="0.0022256" k3="0.0143559"/>
+            <vignetting model="pa" focal="32.0" aperture="11.0" distance="10" k1="-0.2155075" k2="0.0079288" k3="0.0002598"/>
+            <vignetting model="pa" focal="32.0" aperture="11.0" distance="1000" k1="-0.2155075" k2="0.0079288" k3="0.0002598"/>
+            <vignetting model="pa" focal="32.0" aperture="16.0" distance="10" k1="-0.2305346" k2="0.0313585" k3="-0.0001259"/>
+            <vignetting model="pa" focal="32.0" aperture="16.0" distance="1000" k1="-0.2305346" k2="0.0313585" k3="-0.0001259"/>
+            <vignetting model="pa" focal="32.0" aperture="22.0" distance="10" k1="-0.2499405" k2="0.0683287" k3="-0.0263703"/>
+            <vignetting model="pa" focal="32.0" aperture="22.0" distance="1000" k1="-0.2499405" k2="0.0683287" k3="-0.0263703"/>
         </calibration>
     </lens>
 
@@ -174,6 +194,77 @@
             <!-- Taken with Sony Alpha 7S -->
             <distortion model="ptlens" focal="18" a="0.03666" b="-0.0936845" c="0.0413531"/>
             <tca model="poly3" focal="18" br="-0.0000385" vr="1.0001447" bb="0.0000468" vb="0.9999362"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Touit 2.8/12</model>
+        <mount>Fujifilm X</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1.53</cropfactor>
+        <calibration>
+             <!-- Taken with Fujifilm X-T3 -->
+            <distortion model="ptlens" focal="12.0" a="0.007" b="-0.029" c="0.01"/>
+            <tca model="poly3" focal="12.0" br="-0.0001138" vr="1.0003426" bb="0.0001549" vb="0.9998049"/>
+            <vignetting model="pa" focal="12.0" aperture="2.8" distance="10" k1="-1.3491751" k2="0.7310271" k3="-0.1549161"/>
+            <vignetting model="pa" focal="12.0" aperture="2.8" distance="1000" k1="-1.3491751" k2="0.7310271" k3="-0.1549161"/>
+            <vignetting model="pa" focal="12.0" aperture="4.0" distance="10" k1="-0.6416400" k2="-0.3021986" k3="0.2974415"/>
+            <vignetting model="pa" focal="12.0" aperture="4.0" distance="1000" k1="-0.6416400" k2="-0.3021986" k3="0.2974415"/>
+            <vignetting model="pa" focal="12.0" aperture="5.6" distance="10" k1="-0.7861321" k2="0.2537078" k3="-0.0397094"/>
+            <vignetting model="pa" focal="12.0" aperture="5.6" distance="1000" k1="-0.7861321" k2="0.2537078" k3="-0.0397094"/>
+            <vignetting model="pa" focal="12.0" aperture="8.0" distance="10" k1="-0.7960000" k2="0.2570996" k3="-0.0266323"/>
+            <vignetting model="pa" focal="12.0" aperture="8.0" distance="1000" k1="-0.7960000" k2="0.2570996" k3="-0.0266323"/>
+            <vignetting model="pa" focal="12.0" aperture="11.0" distance="10" k1="-0.8137004" k2="0.2778998" k3="-0.0333833"/>
+            <vignetting model="pa" focal="12.0" aperture="11.0" distance="1000" k1="-0.8137004" k2="0.2778998" k3="-0.0333833"/>
+            <vignetting model="pa" focal="12.0" aperture="16.0" distance="10" k1="-0.8274779" k2="0.3209522" k3="-0.0638800"/>
+            <vignetting model="pa" focal="12.0" aperture="16.0" distance="1000" k1="-0.8274779" k2="0.3209522" k3="-0.0638800"/>
+            <vignetting model="pa" focal="12.0" aperture="22.0" distance="10" k1="-0.8710585" k2="0.3162095" k3="-0.0329601"/>
+            <vignetting model="pa" focal="12.0" aperture="22.0" distance="1000" k1="-0.8710585" k2="0.3162095" k3="-0.0329601"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Distagon 18mm f/4</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- taken with Sony ILCE-7 -->
+            <distortion model="ptlens" focal="18" a="0.02239" b="-0.04274" c="-0.00669"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Distagon 28mm f/2.8 MMJ</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- taken with Sony ILCE-7 -->
+            <distortion model="ptlens" focal="28" a="0" b="-0.00366" c="0"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Planar 50mm f/1.7 AEJ</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- taken with Sony ILCE-7 -->
+            <distortion model="ptlens" focal="50" a="0" b="-0.00497" c="0"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Zeiss</maker>
+        <model>Sonnar 85mm f/2.8 AEJ</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- taken with Sony ILCE-7 -->
+            <distortion model="ptlens" focal="85" a="0" b="0.00298" c="0"/>
         </calibration>
     </lens>
 

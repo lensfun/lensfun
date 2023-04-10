@@ -85,6 +85,9 @@ void test_perf_dist_ptlens (lfFixture *lfFix, gconstpointer data)
     g_print("time elapsed : %.3fs,  ",run_time);
 
     _mm_free(res);
+    for (int r = 0; r < lfFix->img_height; r++) {
+        _mm_free(img[r]);
+    }
     _mm_free(img);
 
     delete mod;

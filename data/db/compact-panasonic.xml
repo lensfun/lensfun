@@ -306,6 +306,28 @@
 
     <camera>
         <maker>Panasonic</maker>
+        <model>DMC-FZ2000</model>
+        <mount>panasonicFZ2000</mount>
+        <cropfactor>2.73</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Panasonic</maker>
+        <model>DMC-FZ2500</model>
+        <mount>panasonicFZ2000</mount>
+        <cropfactor>2.73</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Panasonic</maker>
+        <model>DC-FZ10002</model>
+        <!-- Same lens as FZ1000 -->
+        <mount>panasonicFZ1000</mount>
+        <cropfactor>2.73</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Panasonic</maker>
         <model>DMC-FZ150</model>
         <mount>panasonicFZ150</mount>
         <cropfactor>5.56</cropfactor>
@@ -455,6 +477,14 @@
         <mount>panasonicTZ100</mount>
         <cropfactor>2.75</cropfactor>
     </camera>
+    
+    <camera>
+        <maker>Panasonic</maker>
+        <model>DMC-ZS110</model>
+        <!-- North American version of TZ110 -->
+        <mount>panasonicTZ100</mount>
+        <cropfactor>2.75</cropfactor>
+    </camera>
 
     <camera>
         <maker>Panasonic</maker>
@@ -466,8 +496,24 @@
 
     <camera>
         <maker>Panasonic</maker>
+        <model>DC-ZS220</model>
+        <!-- North American version of TZ200 -->
+        <mount>panasonicZS200</mount>
+        <cropfactor>2.73</cropfactor>
+    </camera>
+    
+    <camera>
+        <maker>Panasonic</maker>
         <model>DC-TZ200</model>
         <!-- International version of ZS200 -->
+        <mount>panasonicZS200</mount>
+        <cropfactor>2.73</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Panasonic</maker>
+        <model>DC-TZ220</model>
+        <!-- International version of ZS220 -->
         <mount>panasonicZS200</mount>
         <cropfactor>2.73</cropfactor>
     </camera>
@@ -970,6 +1016,34 @@
             <tca model="poly3" focal="65.8" vr="1.0000103" vb="0.9999799"/>
             <tca model="poly3" focal="109.3" vr="0.9999002" vb="0.9999031"/>
             <tca model="poly3" focal="146" vr="0.9997527" vb="0.9998454"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Leica</maker>
+        <model>FZ2000 &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>panasonicFZ2000</mount>
+        <cropfactor>2.73</cropfactor>
+        <aspect-ratio>3:2</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="8.8" a="0.0532534" b="-0.187809" c="0.0818122"/>
+            <distortion model="ptlens" focal="10.3" a="0.039283" b="-0.138137" c="0.062225"/>
+            <distortion model="ptlens" focal="13.0" a="0.0102938" b="-0.0478543" c="0.0151992"/>
+            <distortion model="ptlens" focal="18.3" a="-0.00644287" b="0.00956063" c="-0.0156738"/>
+            <distortion model="ptlens" focal="33.0" a="-0.00480036" b="0.00749994" c="-0.00213646"/>
+            <distortion model="ptlens" focal="72.9" a="0.00231847" b="-0.0133878" c="0.0262829"/>
+            <distortion model="ptlens" focal="147.0" a="-0.00766915" b="0.0185288" c="-0.00727933"/>
+            <distortion model="ptlens" focal="176.0" a="-0.0116495" b="0.0275017" c="-0.0198072"/>
+            <tca model="poly3" focal="8.8" br="-0.0001827" vr="1.0008538" bb="0.0001294" vb="1.0000900"/>
+            <tca model="poly3" focal="10.3" br="-0.0003387" vr="1.0009730" bb="0.0001857" vb="1.0000142"/>
+            <tca model="poly3" focal="13.0" br="-0.0002448" vr="1.0008626" bb="0.0001493" vb="1.0000168"/>
+            <tca model="poly3" focal="18.3" br="-0.0001503" vr="1.0006536" bb="0.0001015" vb="1.0000735"/>
+            <tca model="poly3" focal="33.0" br="-0.0000002" vr="1.0002884" bb="0.0000182" vb="0.9999935"/>
+            <tca model="poly3" focal="72.9" br="0.0000390" vr="0.9999957" bb="-0.0000794" vb="0.9998708"/>
+            <tca model="poly3" focal="147.1" br="0.0000761" vr="0.9997010" bb="-0.0002153" vb="0.9999595"/>
+            <tca model="poly3" focal="176.0" br="-0.0000003" vr="0.9997070" bb="0.0000079" vb="0.9998508"/>
         </calibration>
     </lens>
 

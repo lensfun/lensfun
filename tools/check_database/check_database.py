@@ -27,13 +27,28 @@ def name(element, tag_name):
 
 ##########
 # Database check_... functions
+def check_xmllint(db_files):
+    global ERROR_FOUND
+    db_path = os.path.split(db_files[0])[0]
+    for filepath in db_files:
+        err = subprocess.call(["xmllint", 
+                "--valid", "--noout",
+                "--schema", os.path.join(db_path,"lensfun-database.xsd"),
+                filepath,])
 
+        if err != 0:
+            print("ERROR: xmllint check failed for " + filepath)
+            ERROR_FOUND= True
+            
 def check_primary_keys_uniqueness(db_files):
     global ERROR_FOUND
     
     roots = set()
     for filepath in db_files:
-        roots.add(ElementTree.parse(filepath).getroot())
+        try:
+            roots.add(ElementTree.parse(filepath).getroot())
+        except ElementTree.ParseError as e:
+            print("Could not parse database file ", filepath, ": ", e)
 
     lenses, mounts, cameras = set(), set(), set()
     for root in roots:
@@ -58,20 +73,6 @@ def check_primary_keys_uniqueness(db_files):
                 ERROR_FOUND = True
             else:
                 cameras.add(camera)
-
-def check_xmllint(db_files):
-    global ERROR_FOUND
-    db_path = os.path.split(db_files[0])[0]
-    for filepath in db_files:
-        err = subprocess.call(["xmllint", 
-                "--valid", "--noout",
-                "--schema", os.path.join(db_path,"lensfun-database.xsd"),
-                filepath,])
-
-        if err is not 0:
-            print("ERROR: xmllint check failed for " + filepath)
-            ERROR_FOUND= True
-            
 
 
 ##########

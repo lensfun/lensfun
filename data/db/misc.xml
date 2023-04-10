@@ -75,6 +75,14 @@
 
     <camera>
         <maker>Huawei</maker>
+        <model>VOG-L29</model>
+        <model lang="en">P30 Pro</model>
+        <mount>vogl29</mount>
+        <cropfactor>4.86</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Huawei</maker>
         <model>CLT-L29</model>
         <model lang="en">P20 Pro</model>
         <mount>cltl29</mount>
@@ -241,6 +249,17 @@
             <!-- Taken with Pentax K20D -->
             <distortion model="ptlens" focal="24" a="0.00966" b="-0.0318" c="0.01539"/>
             <tca model="poly3" focal="24" br="-0.0000186" vr="1.0006527" bb="0.0001034" vb="0.9995702"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Mitakon</maker>
+        <model>Mitakon Speedmaster 50mm f/0.95 III</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with ILCE-7M2 Alpha 7 II -->
+            <distortion model="ptlens" focal="50" a="0.00451" b="-0.01748" c="0.00654"/>
         </calibration>
     </lens>
 
@@ -427,6 +446,36 @@
     </lens>
 
     <lens>
+        <maker>Voigtländer</maker>
+        <model>Nokton 25mm f/0.95 II</model>
+        <model lang="en">Voigtländer Nokton 25mm f/0.95 Type II</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="25" a="0.0133875" b="-0.0379621" c="0.0226994"/>
+            <tca model="poly3" focal="25" vr="1.0000636" vb="1.0001113"/>
+            <vignetting model="pa" focal="25.0" aperture="0.95" distance="10" k1="-0.4442802" k2="-0.4373855" k3="0.2435779"/>
+            <vignetting model="pa" focal="25.0" aperture="0.95" distance="1000" k1="-0.4442802" k2="-0.4373855" k3="0.2435779"/>
+            <vignetting model="pa" focal="25.0" aperture="1.4" distance="10" k1="0.1404700" k2="-0.7553050" k3="0.1358112"/>
+            <vignetting model="pa" focal="25.0" aperture="1.4" distance="1000" k1="0.1404700" k2="-0.7553050" k3="0.1358112"/>
+            <vignetting model="pa" focal="25.0" aperture="2.0" distance="10" k1="-0.1953852" k2="0.5589445" k3="-0.5699697"/>
+            <vignetting model="pa" focal="25.0" aperture="2.0" distance="1000" k1="-0.1953852" k2="0.5589445" k3="-0.5699697"/>
+            <vignetting model="pa" focal="25.0" aperture="2.8" distance="10" k1="-0.1069544" k2="0.1270543" k3="-0.0821087"/>
+            <vignetting model="pa" focal="25.0" aperture="2.8" distance="1000" k1="-0.1069544" k2="0.1270543" k3="-0.0821087"/>
+            <vignetting model="pa" focal="25.0" aperture="4.0" distance="10" k1="-0.1035125" k2="0.1064025" k3="-0.0620307"/>
+            <vignetting model="pa" focal="25.0" aperture="4.0" distance="1000" k1="-0.1035125" k2="0.1064025" k3="-0.0620307"/>
+            <vignetting model="pa" focal="25.0" aperture="5.6" distance="10" k1="-0.1141276" k2="0.1237733" k3="-0.0751976"/>
+            <vignetting model="pa" focal="25.0" aperture="5.6" distance="1000" k1="-0.1141276" k2="0.1237733" k3="-0.0751976"/>
+            <vignetting model="pa" focal="25.0" aperture="8.0" distance="10" k1="-0.1179248" k2="0.1351366" k3="-0.0875018"/>
+            <vignetting model="pa" focal="25.0" aperture="8.0" distance="1000" k1="-0.1179248" k2="0.1351366" k3="-0.0875018"/>
+            <vignetting model="pa" focal="25.0" aperture="11.0" distance="10" k1="-0.1206052" k2="0.1570992" k3="-0.1076627"/>
+            <vignetting model="pa" focal="25.0" aperture="11.0" distance="1000" k1="-0.1206052" k2="0.1570992" k3="-0.1076627"/>
+            <vignetting model="pa" focal="25.0" aperture="16.0" distance="10" k1="-0.1692857" k2="0.2221821" k3="-0.1621798"/>
+            <vignetting model="pa" focal="25.0" aperture="16.0" distance="1000" k1="-0.1692857" k2="0.2221821" k3="-0.1621798"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <maker>LG</maker>
         <model>LG G4 &amp; compatibles</model>
         <model lang="en">fixed lens</model>
@@ -437,6 +486,33 @@
         <calibration>
             <distortion model="poly3" focal="4.42" k1="0.00306"/>
             <tca model="poly3" focal="4.42" vr="1.0000246" vb="1.0000556"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Huawei</maker>
+        <model>P30 Pro</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>vogl29</mount>
+        <cropfactor>4.86</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+
+        <calibration>
+            <distortion model="ptlens" focal="5.6" a="-0.006723" b="0.010218" c="-0.003747"/>
+            <tca model="poly3" focal="5.6" vr="1.0" vb="1.0"/>
+            <vignetting model="pa" focal="5.6" aperture="1.6" distance="10" k1="-2.2826" k2="2.8667" k3="-1.3542"/>
+            <vignetting model="pa" focal="5.6" aperture="1.6" distance="1000" k1="-2.2826" k2="2.8667" k3="-1.3542"/>
+
+            <distortion model="ptlens" focal="2.3" a="-0.067491" b="0.084551" c="0.014999"/>
+            <tca model="poly3" focal="2.3" vr="1.00020" vb="1.00070"/>
+            <vignetting model="pa" focal="2.3" aperture="2.2" distance="10" k1="-2.9196" k2="3.7534" k3="-1.6538"/>
+            <vignetting model="pa" focal="2.3" aperture="2.2" distance="1000" k1="-2.9196" k2="3.7534" k3="-1.6538"/>
+
+            <distortion model="ptlens" focal="14.5" a="-0.003491" b="0.010476" c="0.005814"/>
+            <tca model="poly3" focal="14.5" vr="0.99985" vb="1.000"/>
+            <vignetting model="pa" focal="14.5" aperture="3.4" distance="10" k1="-0.4657" k2="0.4064" k3="-0.2548"/>
+            <vignetting model="pa" focal="14.5" aperture="3.4" distance="1000" k1="-0.4657" k2="0.4064" k3="-0.2548"/>
         </calibration>
     </lens>
 
@@ -508,11 +584,24 @@
     </lens>
 
     <lens>
+        <!-- Copy of Yongnuo YN 50mm f/1.8 -->
+        <maker>Yongnuo</maker>
+        <model>Yongnuo YN 50mm f/1.8 II</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS 750D -->
+            <distortion model="ptlens" focal="50" a="0.001578" b="-0.009476" c="0.013445"/>
+            <tca model="poly3" focal="50" vr="1.0001503" vb="0.9998860"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <maker>Irix</maker>
         <model>Irix 15mm f/2.4</model>
         <mount>Canon EF</mount>
         <mount>Nikon F</mount>
-        <mount>Pentax KAF</mount>
+        <mount>Pentax KA</mount>
         <aperture min="2.4" max="22"/>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -606,6 +695,51 @@
 
     <lens>
         <maker>Meike</maker>
+        <model>Meike 50mm F1.2</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon Z 9 -->
+            <distortion model="ptlens" focal="50.0" a="0.006" b="-0.027" c="0.012" />
+            <tca model="poly3" focal="50.0" vr="1.0004511" vb="0.9999382" />
+            <vignetting model="pa" focal="50.0" aperture="1.2" distance="0.6" k1="-0.7624567" k2="-0.1142819" k3="0.1848923" />
+            <vignetting model="pa" focal="50.0" aperture="1.2" distance="1.5" k1="-0.9769115" k2="0.3014313" k3="-0.0467767" />
+            <vignetting model="pa" focal="50.0" aperture="1.2" distance="1000" k1="-1.0902000" k2="0.5286371" k3="-0.1784450" />
+            <vignetting model="pa" focal="50.0" aperture="1.4" distance="0.6" k1="-0.1183217" k2="-1.2553781" k3="0.7517862" />
+            <vignetting model="pa" focal="50.0" aperture="1.4" distance="1.5" k1="-0.2953166" k2="-1.0123704" k3="0.6460634" />
+            <vignetting model="pa" focal="50.0" aperture="1.4" distance="1000" k1="-0.4359447" k2="-0.7924541" k3="0.5404127" />
+            <vignetting model="pa" focal="50.0" aperture="1.8" distance="0.6" k1="0.1669170" k2="-0.8941818" k3="0.2699858" />
+            <vignetting model="pa" focal="50.0" aperture="1.8" distance="1.5" k1="0.1969176" k2="-1.1042096" k3="0.4082063" />
+            <vignetting model="pa" focal="50.0" aperture="1.8" distance="1000" k1="0.2053419" k2="-1.2436893" k3="0.5102191" />
+            <vignetting model="pa" focal="50.0" aperture="2.0" distance="0.6" k1="0.0883040" k2="-0.4528011" k3="-0.0229754" />
+            <vignetting model="pa" focal="50.0" aperture="2.0" distance="1.5" k1="0.0892707" k2="-0.5130936" k3="-0.0063898" />
+            <vignetting model="pa" focal="50.0" aperture="2.0" distance="1000" k1="0.1020515" k2="-0.6118757" k3="0.0481175" />
+            <vignetting model="pa" focal="50.0" aperture="2.8" distance="0.6" k1="-0.1072927" k2="0.3455925" k3="-0.4826536" />
+            <vignetting model="pa" focal="50.0" aperture="2.8" distance="1.5" k1="-0.1466043" k2="0.3605311" k3="-0.4659878" />
+            <vignetting model="pa" focal="50.0" aperture="2.8" distance="1000" k1="-0.1619039" k2="0.3537573" k3="-0.4523980" />
+            <vignetting model="pa" focal="50.0" aperture="4.0" distance="0.6" k1="-0.1413880" k2="0.3803678" k3="-0.3686013" />
+            <vignetting model="pa" focal="50.0" aperture="4.0" distance="1.5" k1="-0.1669151" k2="0.3268471" k3="-0.2994449" />
+            <vignetting model="pa" focal="50.0" aperture="4.0" distance="1000" k1="-0.1725170" k2="0.2882895" k3="-0.2638386" />
+            <vignetting model="pa" focal="50.0" aperture="5.6" distance="0.6" k1="-0.0540599" k2="0.0348664" k3="-0.0433903" />
+            <vignetting model="pa" focal="50.0" aperture="5.6" distance="1.5" k1="-0.0843774" k2="0.0091249" k3="-0.0106789" />
+            <vignetting model="pa" focal="50.0" aperture="5.6" distance="1000" k1="-0.0961744" k2="0.0001990" k3="-0.0050847" />
+            <vignetting model="pa" focal="50.0" aperture="8.0" distance="0.6" k1="-0.0486398" k2="0.0149722" k3="-0.0215725" />
+            <vignetting model="pa" focal="50.0" aperture="8.0" distance="1.5" k1="-0.0760224" k2="-0.0116496" k3="0.0059908" />
+            <vignetting model="pa" focal="50.0" aperture="8.0" distance="1000" k1="-0.0905263" k2="-0.0101329" k3="0.0018687" />
+            <vignetting model="pa" focal="50.0" aperture="11.0" distance="0.6" k1="-0.0521848" k2="0.0236642" k3="-0.0275605" />
+            <vignetting model="pa" focal="50.0" aperture="11.0" distance="1.5" k1="-0.0784820" k2="-0.0062582" k3="0.0016829" />
+            <vignetting model="pa" focal="50.0" aperture="11.0" distance="1000" k1="-0.0929932" k2="-0.0062857" k3="-0.0002740" />
+            <vignetting model="pa" focal="50.0" aperture="16.0" distance="0.6" k1="-0.0559018" k2="0.0330125" k3="-0.0327305" />
+            <vignetting model="pa" focal="50.0" aperture="16.0" distance="1.5" k1="-0.0792912" k2="-0.0057437" k3="0.0010666" />
+            <vignetting model="pa" focal="50.0" aperture="16.0" distance="1000" k1="-0.0924181" k2="-0.0080058" k3="0.0001304" />
+            <vignetting model="pa" focal="50.0" aperture="22.0" distance="0.6" k1="-0.0629781" k2="0.0373140" k3="-0.0340942" />
+            <vignetting model="pa" focal="50.0" aperture="22.0" distance="1.5" k1="-0.0905873" k2="0.0044107" k3="-0.0030718" />
+            <vignetting model="pa" focal="50.0" aperture="22.0" distance="1000" k1="-0.1094297" k2="0.0161941" k3="-0.0134298" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Meike</maker>
         <model>Meike 50mm f/2.0</model>
         <mount>Fujifilm X</mount>
         <mount>Micro 4/3 System</mount>
@@ -622,7 +756,7 @@
 
     <lens>
         <maker>Meike</maker>
-        <model>Meike MK-F 28mm f/2.8</model>
+        <model>Meike 28mm f/2.8</model>
         <mount>Fujifilm X</mount>
         <mount>Micro 4/3 System</mount>
         <mount>Sony E</mount>
@@ -707,11 +841,29 @@
         <mount>Fujifilm X</mount>
         <mount>Sony E</mount>
         <mount>Canon EF-M</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Nikon Z</mount>
+        <mount>Leica L</mount>
+        <focal value="9.0"/>
         <cropfactor>1.529</cropfactor>
         <calibration>
-            <!-- Taken with Fuji X-T10 -->
+           <!-- distortion and tca taken with Fujifilm X-T10; vignetting taken with Fujifilm X-T20 -->
             <distortion model="poly3" focal="9" k1="0.000925"/>
             <tca model="poly3" focal="9" vr="1.0001972" vb="1.0000750"/>
+            <vignetting model="pa" focal="9.0" aperture="2.8" distance="10" k1="-1.8162969" k2="1.3585540" k3="-0.4220575"/>
+            <vignetting model="pa" focal="9.0" aperture="2.8" distance="1000" k1="-1.8162969" k2="1.3585540" k3="-0.4220575"/>
+            <vignetting model="pa" focal="9.0" aperture="4.0" distance="10" k1="-1.4079212" k2="0.6095776" k3="-0.0488510"/>
+            <vignetting model="pa" focal="9.0" aperture="4.0" distance="1000" k1="-1.4079212" k2="0.6095776" k3="-0.0488510"/>
+            <vignetting model="pa" focal="9.0" aperture="5.6" distance="10" k1="-1.4584756" k2="1.0073675" k3="-0.3789025"/>
+            <vignetting model="pa" focal="9.0" aperture="5.6" distance="1000" k1="-1.4584756" k2="1.0073675" k3="-0.3789025"/>
+            <vignetting model="pa" focal="9.0" aperture="8.0" distance="10" k1="-1.5441789" k2="1.3035465" k3="-0.5590305"/>
+            <vignetting model="pa" focal="9.0" aperture="8.0" distance="1000" k1="-1.5441789" k2="1.3035465" k3="-0.5590305"/>
+            <vignetting model="pa" focal="9.0" aperture="11.0" distance="10" k1="-1.5447953" k2="1.2696304" k3="-0.5026858"/>
+            <vignetting model="pa" focal="9.0" aperture="11.0" distance="1000" k1="-1.5447953" k2="1.2696304" k3="-0.5026858"/>
+            <vignetting model="pa" focal="9.0" aperture="16.0" distance="10" k1="-1.5364618" k2="1.2247711" k3="-0.4554739"/>
+            <vignetting model="pa" focal="9.0" aperture="16.0" distance="1000" k1="-1.5364618" k2="1.2247711" k3="-0.4554739"/>
+            <vignetting model="pa" focal="9.0" aperture="22.0" distance="10" k1="-1.5388926" k2="1.2257654" k3="-0.4542506"/>
+            <vignetting model="pa" focal="9.0" aperture="22.0" distance="1000" k1="-1.5388926" k2="1.2257654" k3="-0.4542506"/>
         </calibration>
     </lens>
 
@@ -734,6 +886,18 @@
             <vignetting model="pa" focal="7.5" aperture="5.6" distance="1000" k1="-1.1262" k2="0.7912" k3="-0.3604"/>
             <vignetting model="pa" focal="7.5" aperture="22" distance="10" k1="-1.1726" k2="0.8492" k3="-0.2879"/>
             <vignetting model="pa" focal="7.5" aperture="22" distance="1000" k1="-1.1726" k2="0.8492" k3="-0.2879"/>
+        </calibration>
+    </lens>
+    
+    <lens>
+        <maker>Venus</maker>
+        <model>Laowa 17mm f/1.8 C-Dreamer</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2.0</cropfactor>
+        <calibration>
+            <!-- Taken with Olympus E-M10 Mark II -->
+            <distortion model="ptlens" focal="17" a="0.0141966" b="-0.0491981" c="0.0278336"/>
+            <tca model="poly3" focal="17" br="-0.0000511" vr="1.0002027" bb="0.0000256" vb="0.9999735"/>
         </calibration>
     </lens>
 
@@ -770,6 +934,25 @@
             <vignetting model="pa" focal="60" aperture="22" distance="0.24" k1="-0.4287" k2="0.2041" k3="-0.1157"/>
             <vignetting model="pa" focal="60" aperture="22" distance="0.5" k1="-0.4276" k2="0.0314" k3="0.0094"/>
             <vignetting model="pa" focal="60" aperture="22" distance="1000" k1="-0.5778" k2="0.7096" k3="-0.8909"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>TTArtisan</maker>
+        <model>TTArtisan APS-C 23mm F1.4</model>
+        <mount>Sony E</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Canon EF-M</mount>
+        <mount>Canon RF</mount>
+        <mount>Nikon Z</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Leica L</mount>
+        <focal value="23"/>
+        <aperture min="1.4" max="16"/>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-6000 -->
+            <distortion focal="23" model="ptlens" a="0.0161337237089191" b="-0.0482754569770453" c="0.0238347937460166"/>
         </calibration>
     </lens>
 
@@ -878,7 +1061,8 @@
 
     <lens>
         <maker>Voigtländer</maker>
-        <model>Voigtländer Super Wide-Heliar 15mm f/4.5 III</model>
+        <model>Voigtlander Super Wide-Heliar 15mm f/4.5 III</model>
+        <model lang="en">15mm F4,5 Super Wide Heliar aspherical III</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -948,13 +1132,197 @@
     </lens>
 
     <lens>
-        <maker>Voigtlander</maker>
+        <maker>Voigtländer</maker>
         <model>Voigtlander HELIAR-HYPER WIDE 10mm F5.6</model>
         <model lang="en">Voigtländer HELIAR-HYPER WIDE 10mm F5.6</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="10" a="0.00826274452427692" b="-0.0293303279554859" c="0.013498972758859"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Viltrox</maker>
+        <model>Viltrox AF 85mm f/1.8 Z</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Nikon Z 6 -->
+            <distortion model="ptlens" focal="85" a="0" b="0.00846" c="0"/>
+            <tca model="poly3" focal="85" vr="0.9998219" vb="0.9999488"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Viltrox</maker>
+        <model>23mmF1.4XM</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.53</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-T20 -->
+            <distortion model="ptlens" focal="23.0" a="0.011" b="-0.03" c="0.005"/>
+            <tca model="poly3" focal="23.0" vr="1.0003314" vb="0.9999827"/>
+            <vignetting model="pa" focal="23.0" aperture="1.4" distance="10" k1="-1.4353526" k2="0.5823867" k3="-0.0253183"/>
+            <vignetting model="pa" focal="23.0" aperture="1.4" distance="1000" k1="-1.4353526" k2="0.5823867" k3="-0.0253183"/>
+            <vignetting model="pa" focal="23.0" aperture="2.0" distance="10" k1="0.1034085" k2="-1.9221716" k3="1.0515984"/>
+            <vignetting model="pa" focal="23.0" aperture="2.0" distance="1000" k1="0.1034085" k2="-1.9221716" k3="1.0515984"/>
+            <vignetting model="pa" focal="23.0" aperture="2.8" distance="10" k1="-0.3408075" k2="0.3203426" k3="-0.5599759"/>
+            <vignetting model="pa" focal="23.0" aperture="2.8" distance="1000" k1="-0.3408075" k2="0.3203426" k3="-0.5599759"/>
+            <vignetting model="pa" focal="23.0" aperture="4.0" distance="10" k1="-0.3889858" k2="0.2857791" k3="-0.3014316"/>
+            <vignetting model="pa" focal="23.0" aperture="4.0" distance="1000" k1="-0.3889858" k2="0.2857791" k3="-0.3014316"/>
+            <vignetting model="pa" focal="23.0" aperture="5.6" distance="10" k1="-0.3420425" k2="0.0077861" k3="-0.0307940"/>
+            <vignetting model="pa" focal="23.0" aperture="5.6" distance="1000" k1="-0.3420425" k2="0.0077861" k3="-0.0307940"/>
+            <vignetting model="pa" focal="23.0" aperture="8.0" distance="10" k1="-0.3317302" k2="-0.0068318" k3="-0.0226065"/>
+            <vignetting model="pa" focal="23.0" aperture="8.0" distance="1000" k1="-0.3317302" k2="-0.0068318" k3="-0.0226065"/>
+            <vignetting model="pa" focal="23.0" aperture="11.0" distance="10" k1="-0.3168283" k2="-0.0243766" k3="-0.0158247"/>
+            <vignetting model="pa" focal="23.0" aperture="11.0" distance="1000" k1="-0.3168283" k2="-0.0243766" k3="-0.0158247"/>
+            <vignetting model="pa" focal="23.0" aperture="16.0" distance="10" k1="-0.3365196" k2="-0.0180397" k3="-0.0163606"/>
+            <vignetting model="pa" focal="23.0" aperture="16.0" distance="1000" k1="-0.3365196" k2="-0.0180397" k3="-0.0163606"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <!-- this is an alias for 23mmF1.4XM -->
+        <maker>Viltrox</maker>
+        <model>Viltrox 23mm F1.4 E</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.53</cropfactor>
+        <calibration>
+            <!-- taken with Fujifilm X-T20 -->
+            <distortion model="ptlens" focal="23.0" a="0.011" b="-0.03" c="0.005"/>
+            <tca model="poly3" focal="23.0" vr="1.0003314" vb="0.9999827"/>
+            <vignetting model="pa" focal="23.0" aperture="1.4" distance="10" k1="-1.4353526" k2="0.5823867" k3="-0.0253183"/>
+            <vignetting model="pa" focal="23.0" aperture="1.4" distance="1000" k1="-1.4353526" k2="0.5823867" k3="-0.0253183"/>
+            <vignetting model="pa" focal="23.0" aperture="2.0" distance="10" k1="0.1034085" k2="-1.9221716" k3="1.0515984"/>
+            <vignetting model="pa" focal="23.0" aperture="2.0" distance="1000" k1="0.1034085" k2="-1.9221716" k3="1.0515984"/>
+            <vignetting model="pa" focal="23.0" aperture="2.8" distance="10" k1="-0.3408075" k2="0.3203426" k3="-0.5599759"/>
+            <vignetting model="pa" focal="23.0" aperture="2.8" distance="1000" k1="-0.3408075" k2="0.3203426" k3="-0.5599759"/>
+            <vignetting model="pa" focal="23.0" aperture="4.0" distance="10" k1="-0.3889858" k2="0.2857791" k3="-0.3014316"/>
+            <vignetting model="pa" focal="23.0" aperture="4.0" distance="1000" k1="-0.3889858" k2="0.2857791" k3="-0.3014316"/>
+            <vignetting model="pa" focal="23.0" aperture="5.6" distance="10" k1="-0.3420425" k2="0.0077861" k3="-0.0307940"/>
+            <vignetting model="pa" focal="23.0" aperture="5.6" distance="1000" k1="-0.3420425" k2="0.0077861" k3="-0.0307940"/>
+            <vignetting model="pa" focal="23.0" aperture="8.0" distance="10" k1="-0.3317302" k2="-0.0068318" k3="-0.0226065"/>
+            <vignetting model="pa" focal="23.0" aperture="8.0" distance="1000" k1="-0.3317302" k2="-0.0068318" k3="-0.0226065"/>
+            <vignetting model="pa" focal="23.0" aperture="11.0" distance="10" k1="-0.3168283" k2="-0.0243766" k3="-0.0158247"/>
+            <vignetting model="pa" focal="23.0" aperture="11.0" distance="1000" k1="-0.3168283" k2="-0.0243766" k3="-0.0158247"/>
+            <vignetting model="pa" focal="23.0" aperture="16.0" distance="10" k1="-0.3365196" k2="-0.0180397" k3="-0.0163606"/>
+            <vignetting model="pa" focal="23.0" aperture="16.0" distance="1000" k1="-0.3365196" k2="-0.0180397" k3="-0.0163606"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentacon</maker>
+        <model>Pentacon electric 2.8/29mm</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7R -->
+            <distortion model="ptlens" focal="29" a="0.0136" b="-0.03992" c="0.01167"/>
+            <tca model="poly3" focal="29" vr="1.0001492" vb="1.0000877"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Meyer Optik Görlitz</maker>
+        <model>Meyer Optik Görlitz 3.5/30mm</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7R -->
+            <distortion model="ptlens" focal="30" a="0.01522" b="-0.04998" c="0.02326"/>
+            <tca model="poly3" focal="30" vr="0.9999642" vb="1.0001283"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Voigtländer</maker>
+        <model>Voigtlander APO-LANTHAR 50mm F2 Aspherical</model>
+        <mount>Sony E</mount>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- taken with ILCE-7RM2, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="50" a="0.0025649" b="-0.0051262" c="0.0036677"/>
+            <tca model="poly3" focal="50" vr="1.0000000" cr="0.0000000" br="-0.0000000" vb="1.0001221" cb="0.0000000" bb="-0.0000000"/>
+            <vignetting model="pa" focal="50" aperture="2.0" distance="0.37" k1="-1.1824744" k2="0.7123001" k3="-0.2028800"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="0.37" k1="-0.1337449" k2="-0.6551424" k3="0.3180483"/>
+            <vignetting model="pa" focal="50" aperture="4.0" distance="0.37" k1="-0.3357706" k2="0.1887300" k3="-0.1832862"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="0.37" k1="-0.2823598" k2="0.0011988" k3="0.0067720"/>
+            <vignetting model="pa" focal="50" aperture="8.0" distance="0.37" k1="-0.3027620" k2="0.0078329" k3="0.0158015"/>
+            <vignetting model="pa" focal="50" aperture="11.0" distance="0.37" k1="-0.2789172" k2="-0.0286190" k3="0.0288841"/>
+            <vignetting model="pa" focal="50" aperture="16.0" distance="0.37" k1="-0.2789172" k2="-0.0286190" k3="0.0288841"/>
+            <vignetting model="pa" focal="50" aperture="2.0" distance="0.89" k1="-1.4539559" k2="1.1910438" k3="-0.4479307"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="0.89" k1="-0.1752569" k2="-0.6786059" k3="0.3396567"/>
+            <vignetting model="pa" focal="50" aperture="4.0" distance="0.89" k1="-0.3388767" k2="0.1206579" k3="-0.1347417"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="0.89" k1="-0.3474485" k2="0.0517848" k3="-0.0128840"/>
+            <vignetting model="pa" focal="50" aperture="8.0" distance="0.89" k1="-0.3358241" k2="0.0162034" k3="0.0103747"/>
+            <vignetting model="pa" focal="50" aperture="11.0" distance="0.89" k1="-0.2866362" k2="-0.0813008" k3="0.0641047"/>
+            <vignetting model="pa" focal="50" aperture="16.0" distance="0.89" k1="-0.2866362" k2="-0.0813008" k3="0.0641047"/>
+            <vignetting model="pa" focal="50" aperture="2.0" distance="2.74" k1="-1.7380336" k2="1.7350860" k3="-0.7367661"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="2.74" k1="-0.1945062" k2="-0.7368162" k3="0.3799146"/>
+            <vignetting model="pa" focal="50" aperture="4.0" distance="2.74" k1="-0.3802049" k2="0.1195499" k3="-0.1130947"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="2.74" k1="-0.3219475" k2="-0.1012036" k3="0.0931587"/>
+            <vignetting model="pa" focal="50" aperture="8.0" distance="2.74" k1="-0.3663877" k2="0.0016536" k3="0.0259607"/>
+            <vignetting model="pa" focal="50" aperture="11.0" distance="2.74" k1="-0.3333157" k2="-0.0728693" k3="0.0696931"/>
+            <vignetting model="pa" focal="50" aperture="16.0" distance="2.74" k1="-0.3333157" k2="-0.0728693" k3="0.0696931"/>
+            <vignetting model="pa" focal="50" aperture="2.0" distance="1000" k1="-1.8780017" k2="2.0165597" k3="-0.8889946"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="1000" k1="-0.2080148" k2="-0.7680932" k3="0.4121416"/>
+            <vignetting model="pa" focal="50" aperture="4.0" distance="1000" k1="-0.3830453" k2="0.0802279" k3="-0.0783843"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="1000" k1="-0.3603884" k2="-0.0483221" k3="0.0591426"/>
+            <vignetting model="pa" focal="50" aperture="8.0" distance="1000" k1="-0.3550052" k2="-0.0549814" k3="0.0611673"/>
+            <vignetting model="pa" focal="50" aperture="11.0" distance="1000" k1="-0.3535110" k2="-0.0682635" k3="0.0717331"/>
+            <vignetting model="pa" focal="50" aperture="16.0" distance="1000" k1="-0.3535110" k2="-0.0682635" k3="0.0717331"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Voigtländer</maker>
+        <model>Voigtlander Color Skopar 20mm F3.5 SLII Aspherical</model>
+        <mount>Pentax KAF4</mount>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+             <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="20" a="0.0363474" b="-0.0879719" c="0.0380696"/>
+            <tca model="poly3" focal="20" vr="1.0003337" vb="1.0001568"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Rollei</maker>
+        <model>Rollei Rolleinar MC f/4 21mm</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with ILCE-7R Alpha 7R -->
+            <distortion model="ptlens" focal="21" a="0.04731" b="-0.1147" c="0.03786"/>
+            <tca model="poly3" focal="21" vr="1.0005597" vb="0.9998697"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Rollei</maker>
+        <model>Rollei Rolleinar MC f/2.8 28mm</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with ILCE-7R Alpha 7R -->
+            <distortion model="ptlens" focal="28" a="0.01963" b="-0.04779" c="0.02109"/>
+            <tca model="poly3" focal="28" vr="1.0004550" vb="0.9998091"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Kipon</maker>
+        <model>Elegant 35mm F/2.4</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+             <!-- Taken with Nikon Z 5 -->
+            <distortion model="ptlens" focal="35" a="0.0120697" b="-0.0383129" c="0.0239143"/>
+            <tca model="poly3" focal="35" vr="1.0000440" vb="1.0000818"/>
         </calibration>
     </lens>
 

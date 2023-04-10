@@ -20,35 +20,32 @@ ENDIF(INSTALL_HELPER_SCRIPTS)
 
 # Inspired by http://bloerg.net/2012/11/10/cmake-and-distutils.html
 IF(INSTALL_PYTHON_MODULE)
-    FIND_PACKAGE(PythonInterp)
-    IF(PYTHONINTERP_FOUND)
-      # Windows has a dummy python.exe in the PATH which opens the Microsoft Store, so check if Python is real.
-      EXECUTE_PROCESS(COMMAND ${PYTHON_EXECUTABLE} --version RESULT_VARIABLE PY_RESULT)
-      IF (NOT PY_RESULT EQUAL 0)
-        SET(PYTHONINTERP_FOUND FALSE)
-      ENDIF()
+    FIND_PACKAGE (Python3 COMPONENTS Interpreter REQUIRED)
+    # Windows has a dummy python.exe in the PATH which opens the Microsoft Store, so check if Python is real.
+    EXECUTE_PROCESS(COMMAND ${Python3_EXECUTABLE} --version RESULT_VARIABLE PY_RESULT OUTPUT_QUIET)
+    IF (NOT PY_RESULT EQUAL 0)
+      MESSAGE(FATAL_ERROR "Python3 not found, it might be a dummy python.exe")
     ENDIF()
-    IF(PYTHONINTERP_FOUND)
-        SET(SETUP_PY_IN "${CMAKE_CURRENT_SOURCE_DIR}/setup.py.in")
-        SET(SETUP_PY    "${CMAKE_CURRENT_BINARY_DIR}/setup.py")
-        SET(DEPS_IN     "${CMAKE_CURRENT_SOURCE_DIR}/lensfun/__init__.py.in")
-        SET(DEPS        "${CMAKE_CURRENT_BINARY_DIR}/lensfun/__init__.py")
-        SET(OUTPUT      "${CMAKE_CURRENT_BINARY_DIR}/build/timestamp")
 
-        FILE(TO_NATIVE_PATH "${CMAKE_CURRENT_BINARY_DIR}" PY_PACKAGE_DIR)
-        CONFIGURE_FILE(${SETUP_PY_IN} ${SETUP_PY})
-        CONFIGURE_FILE(${DEPS_IN} ${DEPS})
+    SET(SETUP_PY_IN "${CMAKE_CURRENT_SOURCE_DIR}/setup.py.in")
+    SET(SETUP_PY    "${CMAKE_CURRENT_BINARY_DIR}/setup.py")
+    SET(DEPS_IN     "${CMAKE_CURRENT_SOURCE_DIR}/lensfun/__init__.py.in")
+    SET(DEPS        "${CMAKE_CURRENT_BINARY_DIR}/lensfun/__init__.py")
+    SET(OUTPUT      "${CMAKE_CURRENT_BINARY_DIR}/build/timestamp")
 
-        ADD_CUSTOM_COMMAND(OUTPUT ${OUTPUT}
-                           COMMAND ${PYTHON_EXECUTABLE} ${SETUP_PY} build
-                           COMMAND ${CMAKE_COMMAND} -E touch ${OUTPUT}
-                           DEPENDS ${SETUP_PY_IN} ${DEPS_IN})
+    FILE(TO_NATIVE_PATH "${CMAKE_CURRENT_BINARY_DIR}" PY_PACKAGE_DIR)
+    CONFIGURE_FILE(${SETUP_PY_IN} ${SETUP_PY})
+    CONFIGURE_FILE(${DEPS_IN} ${DEPS})
 
-        ADD_CUSTOM_TARGET(python-package ALL DEPENDS ${OUTPUT})
+    ADD_CUSTOM_COMMAND(OUTPUT ${OUTPUT}
+                       COMMAND ${Python3_EXECUTABLE} ${SETUP_PY} build
+                       COMMAND ${CMAKE_COMMAND} -E touch ${OUTPUT}
+                       DEPENDS ${SETUP_PY_IN} ${DEPS_IN})
 
-        IF(NOT DEFINED SETUP_PY_INSTALL_PREFIX)
-          SET(SETUP_PY_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
-        ENDIF()
-        INSTALL(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${SETUP_PY} install --prefix=\$ENV{DESTDIR}${SETUP_PY_INSTALL_PREFIX})")
+    ADD_CUSTOM_TARGET(python-package ALL DEPENDS ${OUTPUT})
+
+    IF(NOT DEFINED SETUP_PY_INSTALL_PREFIX)
+      SET(SETUP_PY_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
     ENDIF()
+    INSTALL(CODE "execute_process(COMMAND ${Python3_EXECUTABLE} ${SETUP_PY} install --prefix=\$ENV{DESTDIR}${SETUP_PY_INSTALL_PREFIX})")
 ENDIF()

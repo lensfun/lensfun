@@ -27,9 +27,11 @@ lfMount::lfMount (const lfMount &other)
     Compat = NULL;
 
     MountCompat.clear();
-    const char* const* otherMounts = other.GetCompats();
-    for (int i = 0; otherMounts[i]; i++)
-        AddCompat(otherMounts[i]);
+    if (auto* otherMounts = other.GetCompats())
+    {
+        for (int i = 0; otherMounts[i]; i++)
+            AddCompat(otherMounts[i]);
+    }
 }
 
 lfMount &lfMount::operator = (const lfMount &other)
@@ -39,9 +41,11 @@ lfMount &lfMount::operator = (const lfMount &other)
     Compat = NULL;
 
     MountCompat.clear();
-    const char* const* otherMounts = other.GetCompats();
-    for (int i = 0; otherMounts[i]; i++)
-        AddCompat(otherMounts[i]);
+    if (auto* otherMounts = other.GetCompats())
+    {
+        for (int i = 0; otherMounts[i]; i++)
+            AddCompat(otherMounts[i]);
+    }
 
     return *this;
 }

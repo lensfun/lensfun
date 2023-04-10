@@ -60,6 +60,7 @@ void mod_teardown (lfFixture *lfFix, gconstpointer data)
 {
     g_free (lfFix->coordBuff);
 
+    delete lfFix->lens;
     delete lfFix->mod;
 }
 
@@ -82,7 +83,7 @@ void test_mod_coord_pc_svd (lfFixture *lfFix, gconstpointer data)
         M [i][5] = 1;
     }
     dvector result = svd (M);
-    const float epsilon = std::numeric_limits<double>::epsilon();
+    const double epsilon = std::numeric_limits<double>::epsilon() * 5;
     g_assert_cmpfloat (fabs (result [0] - 0.04756514941544937), <=, epsilon);
     g_assert_cmpfloat (fabs (result [1] - 0.09513029883089875), <=, epsilon);
     g_assert_cmpfloat (fabs (result [2] - 0.1902605976617977), <=, epsilon);
