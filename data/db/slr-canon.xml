@@ -8052,4 +8052,36 @@
         </calibration>
     </lens>
 
+     <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 28-80mm f/3.5-5.6 USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS 5D Mark II -->
+            <distortion model="ptlens" focal="28.0" a="0.0195814" b="-0.0633521" c="0.0195134" />
+            <distortion model="ptlens" focal="30.0" a="0.0152083" b="-0.0523583" c="0.0216803" />
+            <distortion model="ptlens" focal="35.0" a="0.00927276" b="-0.0325077" c="0.0146582" />
+            <distortion model="ptlens" focal="40.0" a="0.00508642" b="-0.0181474" c="0.0120551" />
+            <distortion model="ptlens" focal="45.0" a="0.000862367" b="-0.00456423" c="0.00674863" />
+            <distortion model="ptlens" focal="50.0" a="0.00128569" b="-0.00466577" c="0.00854864" />
+            <distortion model="ptlens" focal="56.0" a="-0.000946322" b="0.006287" c="-0.00537259" />
+            <distortion model="ptlens" focal="63.0" a="-0.000106292" b="-0.000680233" c="0.0104169" />
+            <distortion model="ptlens" focal="68.0" a="0.00425771" b="-0.0129991" c="0.0203576" />
+            <distortion model="ptlens" focal="76.0" a="0.00017077" b="-0.000600752" c="0.00937094" />
+            <distortion model="ptlens" focal="80.0" a="0.0406133" b="-0.161044" c="0.215619" />
+            <tca model="poly3" focal="28.0" vr="1.0004051" vb="0.9999076" />
+            <tca model="poly3" focal="32.0" vr="1.0004100" vb="0.9998702" />
+            <tca model="poly3" focal="36.0" vr="1.0003710" vb="0.9998916" />
+            <tca model="poly3" focal="38.0" vr="1.0003448" vb="0.9999005" />
+            <tca model="poly3" focal="42.0" vr="1.0003124" vb="0.9999129" />
+            <tca model="poly3" focal="47.0" vr="1.0002605" vb="0.9999404" />
+            <tca model="poly3" focal="52.0" vr="1.0002253" vb="0.9999627" />
+            <tca model="poly3" focal="58.0" vr="1.0001015" vb="0.9999860" />
+            <tca model="poly3" focal="64.0" vr="1.0001228" vb="1.0000512" />
+            <tca model="poly3" focal="72.0" vr="1.0000976" vb="1.0000106" />
+            <tca model="poly3" focal="80.0" vr="1.0001080" vb="0.9999748" />
+        </calibration>
+    </lens>
+ 
 </lensdatabase>
