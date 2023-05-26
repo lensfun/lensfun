@@ -331,4 +331,20 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Samsung</maker>
+        <model>NX-M 9-27mm F3.5-5.6</model>
+        <model lang="en">Samsung NX-M 9-27mm f/3.5-5.6 ED OIS</model>
+        <mount>Samsung NX mini</mount>
+        <cropfactor>2.727</cropfactor>
+        <calibration>
+            <!-- Taken with NX mini -->
+            <distortion model="ptlens" focal="9" a="0.014782" b="-0.0649907" c="0.026344"/>
+            <distortion model="ptlens" focal="13" a="0.00515048" b="-0.0268743" c="0.0232346"/>
+            <distortion model="ptlens" focal="17" a="0.0112349" b="-0.0393507" c="0.0420908"/>
+            <distortion model="ptlens" focal="20" a="0.00876679" b="-0.0296116" c="0.0371545"/>
+            <distortion model="ptlens" focal="27" a="0.00357306" b="-0.00962669" c="0.0170311"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
