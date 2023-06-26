@@ -1208,7 +1208,7 @@
 
     <lens>
         <maker>Sony</maker>
-        <model>FE 35mm F1.8</model>
+        <model>FE 35mm f/1.8</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -2356,7 +2356,7 @@
     <lens>
         <!-- taken with ILCE-6600 -->
         <maker>Sony</maker>
-        <model>E 16-55mm F2.8 G</model>
+        <model>E 16-55mm f/2.8 G</model>
         <mount>Sony E</mount>
         <cropfactor>1.534</cropfactor>
         <calibration>
@@ -2485,7 +2485,7 @@
 
     <lens>
         <maker>Sony</maker>
-        <model>E 70-350mm F4.5-6.3 G OSS</model>
+        <model>E 70-350mm f/4.5-6.3 G OSS</model>
         <mount>Sony E</mount>
         <cropfactor>1.534</cropfactor>
         <calibration>
@@ -2560,7 +2560,7 @@
 
     <lens>
         <maker>Sony</maker>
-        <model>FE 200-600mm F5.6-6.3 G OSS</model>
+        <model>FE 200-600mm f/5.6-6.3 G OSS</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -2709,9 +2709,10 @@
             <vignetting model="pa" focal="600" aperture="36" distance="1000" k1="-0.1123" k2="0.0091" k3="0.0089"/>
         </calibration>
     </lens>
+
     <lens>
         <maker>Sony</maker>
-        <model>FE 20mm F1.8 G</model>
+        <model>FE 20mm f/1.8 G</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -2764,7 +2765,7 @@
 
     <lens>
         <maker>Sony</maker>
-        <model>FE 35mm F1.4 GM (SEL35F14GM)</model>
+        <model>FE 35mm f/1.4 GM (SEL35F14GM)</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -2776,7 +2777,7 @@
 
     <lens>
         <maker>Sony</maker>
-        <model>FE 24mm F1.4 GM</model>
+        <model>FE 24mm f/1.4 GM</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -2807,7 +2808,7 @@
 
       <lens>
         <maker>Sony</maker>
-        <model>FE 50mm F2.8 Macro</model>
+        <model>FE 50mm f/2.8 Macro</model>
         <mount>Sony E</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
@@ -2819,7 +2820,7 @@
 
     <lens>
         <maker>Sony</maker>
-        <model>FE 50mm F2.8 Macro</model>
+        <model>FE 50mm f/2.8 Macro</model>
         <mount>Sony E</mount>
         <cropfactor>1.534</cropfactor>
         <calibration>
@@ -2840,7 +2841,7 @@
 
      <lens>
         <maker>Sony</maker>
-        <model>E 11mm F1.8</model>
+        <model>E 11mm f/1.8</model>
         <mount>Sony E</mount>
         <cropfactor>1.534</cropfactor>
         <calibration>
@@ -2852,7 +2853,7 @@
 
     <lens>
         <maker>Sony</maker>
-        <model>FE 14mm F1.8 GM</model>
+        <model>FE 14mm f/1.8 GM</model>
         <mount>Sony E</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
@@ -2880,7 +2881,7 @@
 
     <lens>
         <maker>Sony</maker>
-        <model>FE 40mm F2.5 G</model>
+        <model>FE 40mm f/2.5 G</model>
         <mount>Sony E</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
@@ -2892,7 +2893,7 @@
 
     <lens>
         <maker>Sony</maker>
-        <model>FE 50mm F1.2 GM</model>
+        <model>FE 50mm f/1.2 GM</model>
         <mount>Sony E</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
@@ -2904,7 +2905,7 @@
 
     <lens>
         <maker>Sony</maker>
-        <model>FE 28-60mm F4-5.6</model>
+        <model>FE 28-60mm f/4-5.6</model>
         <mount>Sony E</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
@@ -2985,7 +2986,7 @@
 
     <lens>
         <maker>Sony</maker>
-        <model>FE 20-70mm F4 G</model>
+        <model>FE 20-70mm f/4 G</model>
         <mount>Sony E</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -3064,4 +3065,31 @@
             <vignetting model="pa" focal="70" aperture="16" distance="1000" k1="-0.2634" k2="0.0723" k3="-0.0070"/>
         </calibration>
     </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>FE 24-70mm f/2.8 GM II</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="24" a="0.0169920" b="-0.0493064" c="0.0160732" />
+            <distortion model="ptlens" focal="24" a="0.0169920" b="-0.0493064" c="0.0160732" />
+            <distortion model="ptlens" focal="34" a="0.0081637" b="-0.0167371" c="0.0089673" />
+            <distortion model="ptlens" focal="35" a="0.0076178" b="-0.0145799" c="0.0081068" />
+            <distortion model="ptlens" focal="48" a="0.0018429" b="0.0047451" c="-0.0007115" />
+            <distortion model="ptlens" focal="50" a="0.0014227" b="0.0060085" c="-0.0015055" />
+            <distortion model="ptlens" focal="70" a="-0.0008176" b="0.0113116" c="-0.0043728" />
+            <distortion model="ptlens" focal="70" a="-0.0008176" b="0.0113116" c="-0.0043728" />
+            <tca model="poly3" focal="24" vr="1.0006429" cr="-0.0005966" br="0.0002524" vb="0.9998020" cb="0.0004838" bb="-0.0001597" />
+            <tca model="poly3" focal="24" vr="1.0006429" cr="-0.0005966" br="0.0002524" vb="0.9997943" cb="0.0005118" bb="-0.0001787" />
+            <tca model="poly3" focal="34" vr="1.0002441" cr="-0.0000000" br="0.0000000" vb="0.9997967" cb="0.0001868" bb="-0.0000940" />
+            <tca model="poly3" focal="35" vr="1.0001946" cr="0.0000733" br="-0.0000258" vb="0.9999543" cb="-0.0001674" bb="0.0000502" />
+            <tca model="poly3" focal="48" vr="1.0000610" cr="-0.0000000" br="0.0000000" vb="0.9999184" cb="-0.0001006" bb="-0.0000047" />
+            <tca model="poly3" focal="50" vr="1.0000610" cr="-0.0000000" br="0.0000000" vb="0.9999108" cb="-0.0000726" bb="-0.0000237" />
+            <tca model="poly3" focal="70" vr="0.9999932" cr="0.0000506" br="-0.0000556" vb="0.9997559" cb="-0.0000000" bb="0.0000000" />
+            <tca model="poly3" focal="70" vr="0.9999606" cr="0.0001254" br="-0.0000873" vb="0.9997559" cb="-0.0000000" bb="0.0000000" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
