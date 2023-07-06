@@ -1229,4 +1229,16 @@
         </calibration>
     </lens>
 	
+    <lens>
+        <maker>Nikon</maker>
+        <model>NIKKOR Z 50mm f/1.2 S</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Z 9 -->
+            <distortion model="ptlens" focal="50" a="0" b="0.0017" c="0"/>
+            <tca model="poly3" focal="50" vr="1.0001575" vb="1.0000963"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
