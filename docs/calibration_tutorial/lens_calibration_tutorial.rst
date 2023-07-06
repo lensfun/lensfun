@@ -134,7 +134,7 @@ example, you may rename to
 
     Canon_EF_24-70mm_f__2.8L_USM--35mm--2.8.CR2
 
-In the lens name, the following substituions apply, since some characters that
+In the lens name, the following substitutions apply, since some characters that
 occur in lens names are not allowed in (Hugin) filenames:
 
 ===========================  ===============================
@@ -165,7 +165,7 @@ First, have a look at the `screencast at Vimeo`_.  It gives you an overview.
 Additionally, it demonstrates how to do the actual calibration with the `Hugin
 panorama stitcher`_.  Unfortunately, the video refers to an older version of
 Hugin.  Since 2014, Hugin uses a different user interface.  If you know Hugin,
-you probably are able to map the workfow to the new UI.
+you probably are able to map the workflow to the new UI.
 
 .. _`screencast at Vimeo`: https://vimeo.com/51999287
 .. _`Hugin panorama stitcher`: http://hugin.sourceforge.net/

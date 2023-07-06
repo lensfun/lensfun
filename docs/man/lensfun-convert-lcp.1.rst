@@ -69,7 +69,7 @@ will silently overwrite this file if it was already existing.  The Lensfun
 database is by default searched in these directories (without subdirectories):
 ``/usr/share/lensfun``, ``/usr/share/local/lensfun``,
 ``/var/lib/lensfun-updates``, ``~/.local/share/lensfun/updates``, and
-``~/.local/share/lensfun`` (with later directories overriding ealier ones).
+``~/.local/share/lensfun`` (with later directories overriding earlier ones).
 Note that this database discovery is slightly different from the Lensfun
 library's one.
 

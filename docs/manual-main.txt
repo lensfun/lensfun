@@ -187,13 +187,13 @@ necessary.
 
 If you want the updates to be installed system-wide, the program needs root
 privileges.  So call the program with “sudo lensfun‑update‑data” and enter your
-root password.  There exists a second version of the programm called
+root password.  There exists a second version of the program called
 “g‑lensfun‑update‑data”.  It will let you enter the root password – if new data
 is available – in a neat window.  This version is especially useful for GUI
 programs, which can call it in the background.
 
 If it is sufficient that the updates are available to only your user account,
-call “lensfun‑update‑data” without root priviledges.  The updates are then
+call “lensfun‑update‑data” without root privileges.  The updates are then
 written to ~/.local/share/lensfun/updates”.
 
 In case there is more than one version of Lensfun on your system (e.g. you
@@ -284,7 +284,7 @@ split apart for easier maintenance.
 
 The database contains three kinds of objects: @b mounts, @b cameras and @b lenses.
 
-Every @b camera has a mount type assigned (and only one). Similarily, @b lenses
+Every @b camera has a mount type assigned (and only one). Similarly, @b lenses
 also have a list of mounts assigned, because lenses often come in several variants
 with different mounts. Finally, every @b mount has assigned a list of compatible mounts,
 so if your camera has mount B which is compatible with mount A, you can list all the
@@ -435,10 +435,10 @@ compatibility is unidirectional, e.g. in the above example it doesn't say that y
 can insert Pentax KAF2 lenses into a Pentax K camera; if you need a two-way
 compatibility, declare it both ways. Also the “compatibility” is restricted
 in the sense that if mount A is compatible with mount B (e.g. you can put B lenses
-on an A camera), and mount B is compatible with mount C, this does not neccessarily
+on an A camera), and mount B is compatible with mount C, this does not necessarily
 mean that mount A is compatible with mount C. Recursion doesn't work here, this is
 a design decision. If you need to make mount A compatible with mount C, declare it
-so explicitely.
+so explicitly.
 
 Things are slightly complicated with mirrorless systems because they are
 adaptable to virtually any non-mirrorless system.  In order to avoid too many
@@ -541,7 +541,7 @@ Library recognizes several ways to specify lens parameters directly
 in lens model name. The first way to specify lens focal length and
 aperture range is “[min focal]-[max focal]mm f/[min aperture]-[max aperture]”
 where the “mm” and “f/” are totally optional. For primes the 'max'
-values may be omited. Examples:
+values may be omitted. Examples:
 
 <ul>
 <li>70-210mm f/4-5.6
@@ -785,7 +785,7 @@ is as perfect as a rectilinear image if it follows the respective
 projection formula.  And the image follows the projection formula after
 a successful distortion correction.
 
-Therefore, the change of projection is perfomed \a after the image
+Therefore, the change of projection is performed \a after the image
 corrections.
 
 @subsection pc Perspective correction
@@ -806,7 +806,7 @@ assuming the correct focal length, scaling comes last in the processing.
 
 @section actualorder How it is really done
 
-The actual order perfomed in the Lensfun-calling program will differ
+The actual order performed in the Lensfun-calling program will differ
 from the above list.
 
 Why is this?  Understanding this is very important for hacking on
@@ -882,14 +882,14 @@ overview:
     <td>yes</td><td>no</td></tr>
   <tr><td>6</td><td>lines</td><td>(1)–(4) as with 4 control points; (5) & (6) define line perpendicular to the other two</td>
     <td>yes</td><td>yes</td></tr>
-  <tr><td>7</td><td>circle & line</td><td>(1)–(5) as with 5 control points; (6) & (7) define perfectly horizonal or vertical line</td>
+  <tr><td>7</td><td>circle & line</td><td>(1)–(5) as with 5 control points; (6) & (7) define perfectly horizontal or vertical line</td>
     <td>yes</td><td>no</td></tr>
   <tr><td>8</td><td>lines</td><td>(1)–(6) as with 6 control points; (7) & (8) define line parallel to the (5)/(6) line</td>
     <td>no</td><td>yes</td></tr>
 </table>
 
 In this table, “full correction” means that all lines that are parallel in the
-original (horizonal, vertical, diagonal, whatever, as long as they are within
+original (horizontal, vertical, diagonal, whatever, as long as they are within
 the plane) become parallel after the correction.  No full correction means that
 only lines in <i>one</i> direction are corrected.
 
@@ -900,7 +900,7 @@ only lines in <i>one</i> direction are corrected.
 \image html pc-8-points.svg "8 points: two horizontals, two verticals"
 </div>
 <div class="image-landscape">
-\image html pc-6-points.svg "6 points: two verticals, one horizonal"
+\image html pc-6-points.svg "6 points: two verticals, one horizontal"
 </div>
 <div class="image-landscape">
 \image html pc-4-points.svg "4 points: two verticals"
@@ -923,15 +923,15 @@ either way.
 @section circle-based-pc Circle-based correction
 
 <div class="image-landscape">
-\image html pc-7-points.svg "7 points: one circle, one horizonal"
+\image html pc-7-points.svg "7 points: one circle, one horizontal"
 </div>
 <div class="image-landscape">
 \image html pc-5-points.svg "5 points: one circle"
 </div>
 
 Using 5 or 7 control points activates a circle-based correction using an
-ellipse which is supposed to become a circle.  Mathematicaly, 5 points define
-an ellipse.  Two additional points may be used to define a horizonal or
+ellipse which is supposed to become a circle.  Mathematically, 5 points define
+an ellipse.  Two additional points may be used to define a horizontal or
 vertical line, whichever is closer.
 
 There is, unfortunately, an ambiguity to sort out: A circle may become an
@@ -956,7 +956,7 @@ some extreme cases, the original centre cannot be displayed anymore because it
 is beyond the vertex.  Then, the centre of the control points is used
 instead.</li>
 <li>It scales the image so that the centre of the image keeps its scale.</li>
-<li>It rotates the image so that lines supposed to be vertical or horizonal actually are.</li>
+<li>It rotates the image so that lines supposed to be vertical or horizontal actually are.</li>
 </ul>
 
 @section pc-d-parameter The d parameter for fine-tuning
@@ -1005,7 +1005,7 @@ get the control point coordinates.
 Control points are given using their pixel coordinates.  The origin of the
 coordinate system is in the top left corner, with the first pixel having the
 coordinates (0, 0).  The first coordinate is measured to the right, and the
-second is measured to the bottom.  For best accuracy, the coodinates do not
+second is measured to the bottom.  For best accuracy, the coordinates do not
 refer to the pristine image.  Instead, the following transformations need to
 have been applied when the coordinates are determined:
 
@@ -1094,7 +1094,7 @@ and invoking the respective lfDatabase::Load() method. After that it can look fo
 Lens object using the bits of information from the user or from the source file.
 For example, the EXIF data contains the camera maker and camera model. Using this
 you can search for the respective camera in the database. In camera record you look
-at the mount field, and then do a lens search based on at least mount name. Additionaly,
+at the mount field, and then do a lens search based on at least mount name. Additionally,
 you may provide the lens manufacturer and/or model name from the EXIF data (which is
 not always possible). You get a list of possible lenses. If it's just one lens, you
 can assume that it's exactly the lens that was used to take the shot (this is true
@@ -1108,7 +1108,7 @@ may be modified according to user preferences.
 Lensfun transformations -- at least those involving TCA and vignetting
 correction -- must be applied to linear RGB data in the sensor's original
 colour space. Linear RGB can only be retrieved from RAW files, as JPEG files from 
-most cameras already have colour transfromations applied. This is very important. If you do e.g. 
+most cameras already have colour transformations applied. This is very important. If you do e.g. 
 TCA correction on sRGB data, the colour fringes are still visible.  And if you do 
 vignetting correction after a gamma has been applied, the corners probably will look too
 bright.  So make sure that Lensfun comes early enough in your processing chain.
@@ -1121,7 +1121,7 @@ in the database. Well, that's easy to fix, just add it to the database yourself!
 
 As stated in the section @ref dbsearch, the library will look for xml database files
 in various subdirectories. The best place to put your own definitions into is
-~/.local/share/lensfun/. This directory is guaranteed to not be overwriten by
+~/.local/share/lensfun/. This directory is guaranteed to not be overwritten by
 library or even OS upgrades, so it's safe to keep them there.
 
 So now you just create a new file under ~/.local/share/lensfun/ -- with any name,
