@@ -302,7 +302,7 @@ if not lensfun_cameras and not lensfun_lenses:
 
 
 class FieldNotFoundError(Exception):
-    """Raised by `LCPLens.read_field` if an element/atribute with the given
+    """Raised by `LCPLens.read_field` if an element/attribute with the given
     name was not found, and no default was defined.
     """
     pass
@@ -517,7 +517,7 @@ class LCPLens:
 
     def make_model_en_prettier(self):
         """Makes the human-friendly lens model name prettier.  This happens after
-        having matched agains Lensfun names, so in contrast to
+        having matched against Lensfun names, so in contrast to
         `LensfunLens.sanitize_lcp_lens_model_name`, this function only acts on
         ``model_en``, and only for nice GUI entries.
         """

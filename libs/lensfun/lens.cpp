@@ -1164,7 +1164,7 @@ static float __vignetting_dist (
     const lfLens *l, const lfLensCalibVignetting &x, float focal, float aperture, float distance)
 {
     // translate every value to linear scale and normalize
-    // approximatively to range 0..1
+    // approximately to range 0..1
     float f1 = focal - l->MinFocal;
     float f2 = x.Focal - l->MinFocal;
     float df = l->MaxFocal - l->MinFocal;

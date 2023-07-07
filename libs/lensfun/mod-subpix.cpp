@@ -144,7 +144,7 @@ bool lfModifier::ApplySubpixelDistortion (
         for (auto cb : SubpixelCallbacks)
             cb->callback (cb, res, width);
 
-        // Convert normalized coordinates back into natural coordiates
+        // Convert normalized coordinates back into natural coordinates
         for (i = width * 3; i > 0; i--)
         {
             res [0] = (res [0] + CenterX) * NormUnScale;
@@ -184,7 +184,7 @@ bool lfModifier::ApplySubpixelGeometryDistortion (
         for (auto cb : SubpixelCallbacks)
             cb->callback (cb, res, width);
 
-        // Convert normalized coordinates back into natural coordiates
+        // Convert normalized coordinates back into natural coordinates
         for (i = width * 3; i > 0; i--)
         {
             res [0] = (res [0] + CenterX) * NormUnScale;

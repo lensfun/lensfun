@@ -34,7 +34,7 @@ void mod_teardown(lfFixture *lfFix, gconstpointer data)
     delete lfFix->lens;
 }
 
-// test to verifiy that projection center is image center
+// test to verify that projection center is image center
 void test_mod_projection_center(lfFixture* lfFix, gconstpointer data)
 {
     float in[2]  = {0, 0};

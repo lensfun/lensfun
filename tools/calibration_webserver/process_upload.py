@@ -3,7 +3,7 @@
 """This script takes the location of a file archive (e.g. a tarball) as its
 argument and converts it into an extracted set of files in the same directory.
 Moreover, all image files are renamed so that the most important image
-parameters like the focal length are included into the filename.  Futhermore, a
+parameters like the focal length are included into the filename.  Furthermore, a
 GitHub issue is created in the “lensfun/lensfun” repository.  Finally, the
 ownCloud command line client is called for pushing the new files to the
 ownCloud server for the calibrators to pick them up.

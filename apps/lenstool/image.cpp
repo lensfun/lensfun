@@ -1,5 +1,5 @@
 /*
-    Miscelaneous image manipulations
+    Miscellaneous image manipulations
     Copyright (C) 2001 by Andrew Zabolotny
 */
 

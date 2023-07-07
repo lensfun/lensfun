@@ -382,7 +382,7 @@ int main (int argc, char **argv)
         delete ldb;
         g_print ("%s", "\rERROR: Database could not be loaded\n");
         return -1;
-    } else g_print ("%s", "\rDatabase loaded succesfully.\n\n");
+    } else g_print ("%s", "\rDatabase loaded successfully.\n\n");
 
 
     // try to find camera in the database

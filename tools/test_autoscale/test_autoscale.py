@@ -17,11 +17,11 @@ a corrected pincushion distortion pulls the corners most closely to the centre,
 so they need the maximal scaling.  On the other hand, a corrected barrel
 distorion leaves the edge centres most closely to the origin, so their position
 is critical.  In case of a nasty moustache distortion, the maximal scaling may
-be inbetween, and in these cases, Lensfun's approach fails.
+be in between, and in these cases, Lensfun's approach fails.
 
 This program shows for which lenses it fails, and how badly.  For
 non-rectilinear lenses, the projection is changed to rectilinear first.
-Currenly (as of April 2015), there is nothing to worry about.  Only three
+Currently (as of April 2015), there is nothing to worry about.  Only three
 lenses fail, and all of them exhibit only very slim black areas after the
 correction.  If one leaves the original projection, two fisheyes join the
 pack.

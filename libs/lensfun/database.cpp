@@ -34,7 +34,7 @@ const char* const lfDatabase::SystemUpdatesLocation = g_build_filename (SYSTEM_D
 lfDatabase::lfDatabase ()
 {
 
-    // Take care to replace all occurences with the respective static variables
+    // Take care to replace all occurrences with the respective static variables
     // when the deprecated HomeDataDir and UserUpdatesDir variables are removed.
     HomeDataDir = strdup(lfDatabase::UserLocation);
     UserUpdatesDir = strdup(lfDatabase::UserUpdatesLocation);

@@ -29,7 +29,7 @@ The following things are particularly interesting to check:
 
     This is because this is the way they are calibrated: Vignetting is
     calibrated on a totally uncorrected image.  TCA is so, too, however, TCA
-    doesn't care about vignetting noticably.  Well, and then the image is
+    doesn't care about vignetting noticeably.  Well, and then the image is
     un-distorted.
 
     Note that Lensfun seems to work the other way round.  But this is only
@@ -42,7 +42,7 @@ The following things are particularly interesting to check:
    it must work nevertheless.
 
     If you have a sensor smaller than the one used for calibration, this
-    program testimage.py has an easy job: It just has to use the corresponsing
+    program testimage.py has an easy job: It just has to use the corresponding
     inner part of the resulting picture.
 
     However, for Lensfun, it is more difficult because it works on the
@@ -61,7 +61,7 @@ The following things are particularly interesting to check:
     is very large, e.g. 10 or 100, a correction is rejected because the
     to-be-corrected sensor is larger (much larger actually).  However, one can
     use at least convert from fisheye to rectilinear, where the cropfactor of
-    the calibration sensor should not matter.  Due to ``size - 1`` occurences
+    the calibration sensor should not matter.  Due to ``size - 1`` occurrences
     in modifier.cpp, strange things happened, because the ``size`` didn't refer
     to pixel size at this point.
 
@@ -91,7 +91,7 @@ parser.add_argument("--portrait", action="store_true",
 parser.add_argument("--outfile", default="testimage.tiff", help="Path to the output file.  Default: testimage.tiff")
 parser.add_argument("--db-path", help="Path to the database.  If not given, look in the same places as Lensfun.")
 parser.add_argument("--no-vignetting", dest="vignetting", action="store_false",
-                    help="Supresses simulation of vignetting.  *Much* faster.")
+                    help="Suppresses simulation of vignetting.  *Much* faster.")
 args = parser.parse_args()
 lens_model_name, camera_model_name, focal_length, aperture, distance = \
                                 args.lens_model_name, args.camera_model_name, args.focal_length, args.aperture, args.distance

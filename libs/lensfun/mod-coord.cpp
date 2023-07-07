@@ -534,7 +534,7 @@ bool lfModifier::ApplyGeometryDistortion (
         for (auto cb : CoordCallbacks)
             cb->callback (cb, res, width);
 
-        // Convert normalized coordinates back into natural coordiates
+        // Convert normalized coordinates back into natural coordinates
         for (i = 0; i < width; i++)
         {
             res [0] = (res [0] + CenterX) * NormUnScale;

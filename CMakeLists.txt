@@ -137,7 +137,7 @@ IF(WIN32)
           SET(NEW_FLAGS "${CMAKE_${TYPE}_FLAGS${CFG}}")
           # fix up static libc flags
           STRING(REPLACE "/MD" "/MT" NEW_FLAGS "${NEW_FLAGS}")
-          # *FORCE* to override whats already placed into the cache
+          # *FORCE* to override what's already placed into the cache
           SET(CMAKE_${TYPE}_FLAGS${CFG} "${NEW_FLAGS}" CACHE STRING
             "CMAKE_${TYPE}_FLAGS${CFG} (overwritten to ensure static build)" FORCE)
         ENDFOREACH(CFG)

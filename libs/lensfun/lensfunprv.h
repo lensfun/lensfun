@@ -237,7 +237,7 @@ public:
      *     The string to match against.  This is typically taken from the
      *     Lensfun database.
      * @return
-     *     Returns a score in range 0-100.  If the match succedes, this score
+     *     Returns a score in range 0-100.  If the match succeeds, this score
      *     is the number of matched words divided by the mean word count of
      *     pattern and string, given as a percentage.  If it fails, it is 0.
      *     It fails if no words could be matched, of if allwords was set to
@@ -256,7 +256,7 @@ public:
      * @return
      *     Returns the maximal score in range 0-100.  For every component of
      *     the multi-language string, a score is computed: If the match
-     *     succedes, the score is the number of matched words divided by the
+     *     succeeds, the score is the number of matched words divided by the
      *     mean word count of pattern and string, given as a percentage.  If it
      *     fails, it is 0.  It fails if no words could be matched, of if
      *     allwords was set to true and one word in pattern could not be found

@@ -77,7 +77,7 @@ extern "C" {
 #define LF_MAX_DATABASE_VERSION	2
 
 #if defined CONF_LENSFUN_STATIC
-/// This macro expands to an appropiate symbol visibility declaration
+/// This macro expands to an appropriate symbol visibility declaration
 #   define LF_EXPORT
 #else
 #   ifdef CONF_SYMBOL_VISIBILITY
@@ -127,7 +127,7 @@ typedef char *lfMLstr;
 /** liblensfun error codes: negative codes are -errno, positive are here */
 enum lfError
 {
-    /** No error occured */
+    /** No error occurred */
     LF_NO_ERROR = 0,
     /** Wrong XML data format */
     LF_WRONG_FORMAT,
@@ -213,7 +213,7 @@ LF_EXPORT lfMLstr lf_mlstr_dup (const lfMLstr str);
  * Objects of this type are usually retrieved from the database
  * by using queries (see lfDatabase::FindMount() / lf_db_find_mount()),
  * and can be created manually in which case it is application's
- * responsability to destroy the object when it is not needed anymore.
+ * responsibility to destroy the object when it is not needed anymore.
  */
 struct LF_EXPORT lfMount
 {
@@ -1773,7 +1773,7 @@ struct LF_EXPORT lfDatabase
       * @brief Open and parse all XML files in a given directory.
       *
       * Returns true if valid Lensfun XML data was found and loaded
-      * sucessfully.
+      * successfully.
       *
       * This function is deprecated and will be removed in the future.
       * Please use the lfDatabase::Load(const char *pathname) syntax instead.
@@ -1781,7 +1781,7 @@ struct LF_EXPORT lfDatabase
       * @param dirname
       *     The directory to be read.
       * @return
-      *     True if valid lensfun XML data was succesfully loaded.
+      *     True if valid lensfun XML data was successfully loaded.
       */
      DEPRECATED bool LoadDirectory (const char *dirname);
 
@@ -2839,12 +2839,12 @@ private:
      *     A opaque pointer to some data.
      * @param x
      *     The X coordinate of the beginning of the strip. For next pixels
-     *     the X coordinate increments sequentialy.
+     *     the X coordinate increments sequentially.
      * @param y
      *     The Y coordinate of the pixel strip. This is a constant across
      *     all pixels of the strip.
      * @param pixels
-     *     A pointer to pixel data. It is the responsability of the function
+     *     A pointer to pixel data. It is the responsibility of the function
      *     inserting the callback into the chain to provide a callback operating
      *     with the correct pixel format.
      * @param comp_role
