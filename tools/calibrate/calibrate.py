@@ -305,7 +305,7 @@ if __name__ == '__main__':
             if not missing_lens_model_warning_printed:
                 print(filename + ":")
                 print("""I couldn't detect the lens model name and assumed "Standard".
-For cameras without interchangable lenses, this may be correct.
+For cameras without interchangeable lenses, this may be correct.
 However, this fails if there is data of different undetectable lenses.
 A newer version of exiv2 (if available) may help.
 (This message is printed only once.)\n""")

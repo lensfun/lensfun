@@ -4,7 +4,7 @@
 statistics with them.  In particular, it makes plots and measures how well the
 data can be interpolated linerarly, in different coordinate systems.
 
-This scrips only looks at zoom lenses with at least 3 focal lengths.
+This script only looks at zoom lenses with at least 3 focal lengths.
 Otherwise, linear interpolation would be unnecessary or trivial.
 """
 
