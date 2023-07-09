@@ -1,4 +1,4 @@
-/* This checks for off-by-one errors which occure most clearly in extremely
+/* This checks for off-by-one errors which occur most clearly in extremely
  * small images. */
 
 #include <locale.h>
