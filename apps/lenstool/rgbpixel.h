@@ -93,16 +93,16 @@ struct RGBpixel
 #undef RGB_MASK
 
 /**
- * Eye sensivity to different color components, from NTSC grayscale equation.
+ * Eye sensitivity to different color components, from NTSC grayscale equation.
  * The coefficients are multiplied by 100 and rounded towards nearest integer,
  * to facilitate integer math. The squared coefficients are also multiplied
  * by 100 and rounded to nearest integer (thus 173 == 1.73, 242 == 2.42 etc).
  */
-/// Red component sensivity
+/// Red component sensitivity
 #define R_COEF		173
-/// Green component sensivity
+/// Green component sensitivity
 #define G_COEF		242
-/// Blue component sensivity
+/// Blue component sensitivity
 #define B_COEF		107
 
 #endif // RGBPIXEL_H__

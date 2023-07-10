@@ -12,7 +12,7 @@
 
     The general algorithm is as follows: The original image (note that the
     sensor sees everything mirror-inverted, but this is annihilated by the
-    back-projection later) is positioned parallely to the x-y plane at z = -
+    back-projection later) is positioned parallelly to the x-y plane at z = -
     focal length.  Then, it is central-projected to the full sphere (radius
     equals focal length), so it gets positive z coordinates and can be viewed
     properly from the origin.
@@ -26,7 +26,7 @@
     Next, the intersection of the horizontal control line with the x-z plane is
     determined.  Its rectascension is called 90° - ρₕ.  So, the sphere is
     rotation around the y axis a second time, this time by ρₕ.  Now, the right
-    vanishing point truely is to the right.
+    vanishing point truly is to the right.
 
     The rotated image plane is central-projected back into the sensor plane at
     z = - focal length.  In general, it will be way off the center of the
@@ -36,7 +36,7 @@
     center of gravity of the control points instead.
 
     Finally, the scaling in the center of the image is kept constant.  One can
-    finetune with an additinal scaling, but this way, one has a good starting
+    finetune with an additional scaling, but this way, one has a good starting
     point.
 
     Note that in reality, this whole process is performed backwards because we
@@ -671,7 +671,7 @@ int lfModifier::EnablePerspectiveCorrection (float *x, float *y, int count, floa
         cd->callback = ModifyCoord_Perspective_Correction;
         cd->priority = 300;
 
-        /* The occurances of factors and denominators here avoid additional
+        /* The occurrences of factors and denominators here avoid additional
            operations in the inner loop of perspective_correction_callback. */
         cd->A [0][0] = A [0][0] * mapping_scale;
         cd->A [0][1] = A [0][1] * mapping_scale;
@@ -687,7 +687,7 @@ int lfModifier::EnablePerspectiveCorrection (float *x, float *y, int count, floa
         cd->priority = 700;
         A = inverse_matrix (A);
 
-        /* The occurances of factors and denominators here avoid additional
+        /* The occurrences of factors and denominators here avoid additional
            operations in the inner loop of perspective_correction_callback. */
         cd->A [0][0] = A [0][0];
         cd->A [0][1] = A [0][1];

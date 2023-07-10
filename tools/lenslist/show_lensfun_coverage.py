@@ -76,7 +76,7 @@ class Lens:
 # Main routine
 #----------------------------------------------------------------------
 
-# set up the commandline parser and define some arguemnts
+# set up the commandline parser and define some arguments
 parser = argparse.ArgumentParser(description='Create a list of all cameras and lenses in the Lensfun database.')
 parser.add_argument('db_path', metavar='DB_PATH', help='path to the Lensfun database', default='/usr/share/lensfun/', nargs='?')
 parser.add_argument('-g', dest='git', action='store_true', help='use current database from git repository')
@@ -87,7 +87,7 @@ parser.add_argument('-o', dest='outfile', action='store', help='output filename 
 cmdline_args = vars(parser.parse_args())
 
 
-# decide wether to get the most up to date database from git or use the locally installed database
+# decide whether to get the most up to date database from git or use the locally installed database
 if cmdline_args['git']==True:
     XmlDBPath = os.path.join(tempfile.gettempdir(), "lensfun")
     print("~ Lensfun database is retrieved directly from git")

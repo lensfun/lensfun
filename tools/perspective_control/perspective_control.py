@@ -343,7 +343,7 @@ class Modifier:
 
     The general algorithm is as follows: The original image (note that the
     sensor sees everything mirror-inverted, but this is annihilated by the
-    back-projection later) is positioned parallely to the x-y plane at z = -
+    back-projection later) is positioned parallelly to the x-y plane at z = -
     focal length.  Then, it is central-projected to the full sphere (radius
     equals focal length), so it gets positive z coordinates and can be viewed
     properly from the origin.
@@ -357,7 +357,7 @@ class Modifier:
     Next, the intersection of the horizontal control line with the x-z plane is
     determined.  Its rectascension is called 90° - ρₕ.  So, the sphere is
     rotation around the y axis a second time, this time by ρₕ.  Now, the right
-    vanishing point truely is to the right.
+    vanishing point truly is to the right.
 
     The rotated image plane is central-projected back into the sensor plane at
     z = - focal length.  In general, it will be way off the center of the
@@ -367,7 +367,7 @@ class Modifier:
     center of gravity of the control points instead.
 
     Finally, the scaling in the center of the image is kept constant.  One can
-    finetune with an additinal scaling, but this way, one has a good starting
+    finetune with an additional scaling, but this way, one has a good starting
     point.
 
     Note that in reality, this whole process is performed backwards because we
@@ -454,10 +454,10 @@ class Modifier:
         elif d >= 1:
             d = 1
         # x, y = x[:4], y[:4]  # For testing only four points
-        # x[0:6] = x[0], x[2], x[1], x[3], x[0], x[1]  # For testing horizonal mode
-        # y[0:6] = y[0], y[2], y[1], y[3], y[0], y[1]  # For testing horizonal mode
-        # x[6:8] = [x[1], x[3]]  # for faking an explicit second horizonal line
-        # y[6:8] = [y[1], y[3]]  # for faking an explicit second horizonal line
+        # x[0:6] = x[0], x[2], x[1], x[3], x[0], x[1]  # For testing horizontal mode
+        # y[0:6] = y[0], y[2], y[1], y[3], y[0], y[1]  # For testing horizontal mode
+        # x[6:8] = [x[1], x[3]]  # for faking an explicit second horizontal line
+        # y[6:8] = [y[1], y[3]]  # for faking an explicit second horizontal line
         x = [value * self.norm_scale - self.center_x for value in x]
         y = [value * self.norm_scale - self.center_y for value in y]
 
@@ -503,7 +503,7 @@ class Modifier:
         Δa, Δb = central_projection(center_coords, f_normalized)
         Δa, Δb = cos(α) * Δa + sin(α) * Δb, - sin(α) * Δa + cos(α) * Δb
 
-        # The occurances of mapping_scale here avoid an additional
+        # The occurrences of mapping_scale here avoid an additional
         # multiplication in the inner loop of perspective_correction_callback.
         self.callback_data = A11 * mapping_scale, A12 * mapping_scale, A13, \
                              A21 * mapping_scale, A22 * mapping_scale, A23, \
