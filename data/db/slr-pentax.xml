@@ -2569,7 +2569,7 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>smc PENTAX DA* 60-250mm F4 [IF] SDM</model>
+        <model>smc PENTAX DA* 60-250mm f/4 [IF] SDM</model>
         <model lang="en">smc PENTAX DA* 60-250mm f/4 IF SDM</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.534</cropfactor>
@@ -2605,7 +2605,7 @@
 
     <lens>
         <maker>Pentax</maker>
-        <model>smc PENTAX-F 35-80mm F4-5.6</model>
+        <model>smc PENTAX-F 35-80mm f/4-5.6</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.531</cropfactor>
         <calibration>
@@ -2626,7 +2626,7 @@
 
    <lens>
         <maker>Pentax</maker>
-        <model>HD PENTAX-DA* 11-18mm F2.8 ED DC AW</model>
+        <model>HD PENTAX-DA* 11-18mm f/2.8 ED DC AW</model>
         <mount>Pentax KAF2</mount>
         <cropfactor>1.534</cropfactor>
         <calibration>
@@ -2641,6 +2641,26 @@
             <tca model="poly3" focal="14" vr="1.0001285" vb="1.0002444"/>
             <tca model="poly3" focal="16" vr="1.0001119" vb="1.0001961"/>
             <tca model="poly3" focal="18" vr="1.0002036" vb="1.0000912"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentax</maker>
+        <model>HD PENTAX DA* 16-50mm f/2.8 ED PLM AW</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.546</cropfactor>
+        <calibration>
+	    <!-- Taken with K-3 Mark III -->
+            <distortion model="ptlens" focal="16" a="0.02837" b="-0.08064" c="0.03429"/>
+            <distortion model="ptlens" focal="19" a="0.01247" b="-0.03282" c="0.00562"/>
+            <distortion model="ptlens" focal="28" a="0.10617" b="-0.38506" c="0.4381"/>
+            <distortion model="ptlens" focal="36" a="0.00288" b="-0.00304" c="0.00106"/>
+            <distortion model="ptlens" focal="50" a="-0.00117" b="0.0135" c="-0.01385"/>
+            <tca model="poly3" focal="16" vr="1.0001531" vb="0.9999967"/>
+            <tca model="poly3" focal="19" vr="1.0000990" vb="0.9999940"/>
+            <tca model="poly3" focal="28" vr="1.0000588" vb="1.0000178"/>
+            <tca model="poly3" focal="36" vr="0.9999965" vb="0.9999863"/>
+            <tca model="poly3" focal="50" vr="0.9999438" vb="0.9999804"/>
         </calibration>
     </lens>
 
