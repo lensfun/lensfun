@@ -96,4 +96,28 @@
             <tca model="poly3" focal="18.0" br="-0.0001667" vr="1.0006093" bb="0.0001187" vb="0.9999466"/>
         </calibration>
     </lens>
+    <lens>
+        <maker>Leica Camera AG</maker>
+        <model>VARIO-ELMARIT-SL 1:2.8/24-70 ASPH.</model>
+        <mount>Leica L</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Leica SL2-S -->
+            <distortion model="ptlens" focal="24" a="0.0500956" b="-0.142289" c="0.0749745"/>
+            <distortion model="ptlens" focal="34" a="0.0249753" b="-0.0652201" c="0.0473648"/>
+            <distortion model="ptlens" focal="43" a="0.00676965" b="-0.00726429" c="0.00366148"/>
+            <distortion model="ptlens" focal="56" a="0.00714689" b="-0.011945" c="0.0194872"/>
+            <distortion model="ptlens" focal="70" a="0.00600002" b="-0.00867797" c="0.0189216"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Leica Camera AG</maker>
+        <model>APO-SUMMICRON-SL 1:2/50 ASPH.</model>
+        <mount>Leica L</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Leica SL2-S -->
+            <distortion model="ptlens" focal="50" a="-0.00560624" b="0.0126691" c="-0.00395041"/>
+        </calibration>
+    </lens>
 </lensdatabase>

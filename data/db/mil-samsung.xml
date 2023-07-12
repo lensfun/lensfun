@@ -256,4 +256,60 @@
             <tca model="poly3" focal="200" vr="0.9992397" vb="0.9997616"/>
         </calibration>
     </lens>
+    <lens>
+        <maker>Samsung</maker>
+        <model>Samsung NX 16-50mm f/2-2.8 S</model>
+        <mount>Samsung NX</mount>
+        <cropfactor>1.531</cropfactor>
+        <calibration>
+            <!-- Taken with NX500 -->
+            <distortion model="ptlens" focal="16" a="0.0203205" b="-0.0676904" c="0.0111715"/>
+            <distortion model="ptlens" focal="18" a="0.020792" b="-0.0686152" c="0.0197276"/>
+            <distortion model="ptlens" focal="20" a="0.0172344" b="-0.0543226" c="0.0299837"/>
+            <distortion model="ptlens" focal="24" a="0.0155267" b="-0.0501203" c="0.0445292"/>
+            <distortion model="ptlens" focal="28" a="0.0102037" b="-0.0307215" c="0.0305597"/>
+            <distortion model="ptlens" focal="35" a="0.00549602" b="-0.0141091" c="0.0176549"/>
+            <distortion model="ptlens" focal="50" a="0.00254197" b="-0.0039695" c="0.00760788"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Samsung</maker>
+        <model>Samsung NX 50-150mm F2.8 S</model>
+        <mount>Samsung NX</mount>
+        <cropfactor>1.531</cropfactor>
+        <calibration>
+            <!-- Taken with NX500 -->
+            <distortion model="ptlens" focal="50" a="0.00360462" b="-0.0207827" c="0.0204522"/>
+            <distortion model="ptlens" focal="60" a="0.000407296" b="-0.00586294" c="0.00357441"/>
+            <distortion model="ptlens" focal="85" a="0.00539475" b="-0.0184497" c="0.0172483"/>
+            <distortion model="ptlens" focal="100" a="0.00241976" b="-0.00594658" c="0.00235141"/>
+            <distortion model="ptlens" focal="150" a="-0.00377435" b="0.0123695" c="-0.00435764"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Samsung</maker>
+        <model>NX-M 9mm F3.53.5-5.6</model>
+        <model lang="en">Samsung NX-M 9mm f/3.5 ED</model>
+        <mount>Samsung NX mini</mount>
+        <cropfactor>2.727</cropfactor>
+        <calibration>
+            <!-- Taken with NX mini -->
+            <distortion model="ptlens" focal="9" a="-0.00147459" b="-0.0127019" c="-0.0297639"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Samsung</maker>
+        <model>NX-M 9-27mm F3.5-5.6</model>
+        <model lang="en">Samsung NX-M 9-27mm f/3.5-5.6 ED OIS</model>
+        <mount>Samsung NX mini</mount>
+        <cropfactor>2.727</cropfactor>
+        <calibration>
+            <!-- Taken with NX mini -->
+            <distortion model="ptlens" focal="9" a="0.014782" b="-0.0649907" c="0.026344"/>
+            <distortion model="ptlens" focal="13" a="0.00515048" b="-0.0268743" c="0.0232346"/>
+            <distortion model="ptlens" focal="17" a="0.0112349" b="-0.0393507" c="0.0420908"/>
+            <distortion model="ptlens" focal="20" a="0.00876679" b="-0.0296116" c="0.0371545"/>
+            <distortion model="ptlens" focal="27" a="0.00357306" b="-0.00962669" c="0.0170311"/>
+        </calibration>
+    </lens>
 </lensdatabase>

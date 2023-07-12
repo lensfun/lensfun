@@ -554,6 +554,7 @@
         <maker>Sigma</maker>
         <model>85mm F1.4 DG DN | Art 020</model>
         <mount>Sony E</mount>
+        <mount>Leica L</mount>
         <cropfactor>1</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="85.0" a="0.008" b="-0.01" c="0.018"/>
@@ -578,6 +579,27 @@
             <vignetting model="pa" focal="85.0" aperture="16.0" distance="1.4" k1="-0.2298448" k2="0.0277708" k3="-0.0590122"/>
             <vignetting model="pa" focal="85.0" aperture="16.0" distance="5.3" k1="-0.2091164" k2="0.0626894" k3="-0.0851185"/>
             <vignetting model="pa" focal="85.0" aperture="16.0" distance="1000" k1="-0.2262919" k2="0.1951203" k3="-0.1994702"/>
+        </calibration>
+    </lens>
+    <lens>
+        <maker>Sigma</maker>
+        <model>105mm F2.8 DG DN MACRO | Art 020</model>
+        <mount>Sony E</mount>
+        <mount>Leica L</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="105.0" a="-0.0107846" b="0.0380454" c="-0.0300196"/>
+            <tca model="poly3" focal="105.0" br="-0.0000217" vr="0.9999701" bb="-0.0000442" vb="1.0000044"/>
+            <vignetting model="pa" focal="105.0" aperture="2.8" distance="10" k1="-0.8377153" k2="0.6378643" k3="-0.3040553"/>
+            <vignetting model="pa" focal="105.0" aperture="2.8" distance="1000" k1="-0.8377153" k2="0.6378643" k3="-0.3040553"/>
+            <vignetting model="pa" focal="105.0" aperture="4.0" distance="10" k1="-0.1370010" k2="-0.5850685" k3="0.2889905"/>
+            <vignetting model="pa" focal="105.0" aperture="4.0" distance="1000" k1="-0.1370010" k2="-0.5850685" k3="0.2889905"/>
+            <vignetting model="pa" focal="105.0" aperture="5.6" distance="10" k1="-0.1335553" k2="-0.0131960" k3="-0.2414712"/>
+            <vignetting model="pa" focal="105.0" aperture="5.6" distance="1000" k1="-0.1335553" k2="-0.0131960" k3="-0.2414712"/>
+            <vignetting model="pa" focal="105.0" aperture="8.0" distance="10" k1="-0.2948278" k2="0.5328033" k3="-0.5502205"/>
+            <vignetting model="pa" focal="105.0" aperture="8.0" distance="1000" k1="-0.2948278" k2="0.5328033" k3="-0.5502205"/>
+            <vignetting model="pa" focal="105.0" aperture="22.0" distance="10" k1="-0.1716489" k2="-0.0098372" k3="0.0108144"/>
+            <vignetting model="pa" focal="105.0" aperture="22.0" distance="1000" k1="-0.1716489" k2="-0.0098372" k3="0.0108144"/>
         </calibration>
     </lens>
     <lens>
@@ -755,7 +777,7 @@
         <mount>Leica L</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se -->
+            <!-- Taken with ILCE-7M3, coefficients fitted from exif data by lf_fitexif_se -->
             <distortion model="ptlens" focal="20" a="0.0268937" b="-0.0982549" c="0.0452197"/>
             <tca model="poly3" focal="20" vr="1.0003052" cr="-0.0000000" br="0.0000000" vb="1.0000539" cb="-0.0000762" bb="0.0000259"/>
         </calibration>
@@ -767,7 +789,7 @@
         <mount>Leica L</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se -->
+            <!-- Taken with ILCE-7M3, coefficients fitted from exif data by lf_fitexif_se -->
             <distortion model="ptlens" focal="24" a="0.0178656" b="-0.0739538" c="0.0316300"/>
             <tca model="poly3" focal="24" vr="1.0001423" cr="-0.0002125" br="0.0001224" vb="0.9999575" cb="0.0004025" bb="-0.0002176"/>
         </calibration>
@@ -779,7 +801,7 @@
         <mount>Leica L</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se -->
+            <!-- Taken with ILCE-7M3, coefficients fitted from exif data by lf_fitexif_se -->
             <distortion model="ptlens" focal="24" a="0.0404125" b="-0.1209515" c="0.0644292"/>
             <distortion model="ptlens" focal="25" a="0.0403228" b="-0.1182433" c="0.0617783"/>
             <distortion model="ptlens" focal="35" a="0.0147573" b="-0.0365721" c="0.0191533"/>
@@ -801,7 +823,7 @@
         <mount>Leica L</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se -->
+            <!-- Taken with ILCE-7M3, coefficients fitted from exif data by lf_fitexif_se -->
             <distortion model="ptlens" focal="35" a="0.0025850" b="-0.0188551" c="0.0065550"/>
             <tca model="poly3" focal="35" vr="1.0001744" cr="0.0000553" br="-0.0000480" vb="1.0000087" cb="-0.0000553" bb="0.0000480"/>
         </calibration>
@@ -813,7 +835,7 @@
         <mount>Leica L</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se -->
+            <!-- Taken with ILCE-7M3, coefficients fitted from exif data by lf_fitexif_se -->
             <distortion model="ptlens" focal="65" a="-0.0013239" b="0.0100205" c="-0.0016762"/>
             <tca model="poly3" focal="65" vr="1.0003439" cr="-0.0001381" br="0.0000462" vb="0.9998513" cb="-0.0000247" bb="0.0000400"/>
         </calibration>
@@ -825,7 +847,7 @@
         <mount>Leica L</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se -->
+            <!-- Taken with ILCE-7M3, coefficients fitted from exif data by lf_fitexif_se -->
             <distortion model="ptlens" focal="90" a="0.0007308" b="0.0133346" c="0.0007317"/>
             <tca model="poly3" focal="90" vr="0.9996588" cr="0.0000772" br="0.0000596" vb="1.0002673" cb="-0.0000573" bb="-0.0001346"/>
         </calibration>
@@ -853,7 +875,7 @@
         <mount>Leica L</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se -->
+            <!-- Taken with ILCE-7M3, coefficients fitted from exif data by lf_fitexif_se -->
             <distortion model="ptlens" focal="16" a="0.0178440" b="-0.0567002" c="0.0100099"/>
             <distortion model="ptlens" focal="18" a="0.0155075" b="-0.0359606" c="0.0028970"/>
             <distortion model="ptlens" focal="20" a="0.0115102" b="-0.0123447" c="-0.0074466"/>
