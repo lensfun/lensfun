@@ -819,7 +819,7 @@ lfError lfDatabase::Load (const char *errcontext, const char *data, size_t data_
     };
 
     /* Temporarily drop numeric format to "C" */
-#if defined(_MSC_VER)
+#if defined(PLATFORM_WINDOWS)
     _configthreadlocale(_ENABLE_PER_THREAD_LOCALE);
     setlocale (LC_NUMERIC, "C");
 #else
@@ -851,7 +851,7 @@ lfError lfDatabase::Load (const char *errcontext, const char *data, size_t data_
     g_markup_parse_context_free (mpc);
 
     /* Restore numeric format */
-#if defined(_MSC_VER)
+#if defined(PLATFORM_WINDOWS)
     _configthreadlocale(_DISABLE_PER_THREAD_LOCALE);
 #else
     uselocale(loc);
@@ -894,7 +894,7 @@ char *lfDatabase::Save () const
 lfError lfDatabase::Save (char*& xml, size_t& data_size) const
 {
     /* Temporarily drop numeric format to "C" */
-#if defined(_MSC_VER)
+#if defined(PLATFORM_WINDOWS)
     _configthreadlocale(_ENABLE_PER_THREAD_LOCALE);
     setlocale (LC_NUMERIC, "C");
 #else
@@ -1137,7 +1137,7 @@ lfError lfDatabase::Save (char*& xml, size_t& data_size) const
     g_string_append (output, "</lensdatabase>\n");
 
     /* Restore numeric format */
-#if defined(_MSC_VER)
+#if defined(PLATFORM_WINDOWS)
     _configthreadlocale(_DISABLE_PER_THREAD_LOCALE);
 #else
     uselocale(loc);
