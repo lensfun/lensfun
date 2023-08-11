@@ -13,8 +13,8 @@ to be realised by changing the source code itself.
 Configuration
 ===============
 
-* Some important prerequisites are Python 3, Django 1.9, exiv2, Exiftool,
-  unrar, 7zip, unzip, PyGithub, ImageMagick, Apache, and Python WSGI.
+* Some important prerequisites are Python 3, Django 1.9, exiv2, Exiftool, 
+  LibRaw, unrar, 7zip, unzip, PyGithub, ImageMagick, Apache, and Python WSGI.
 * Adjust the settings in ``settings.py``.  This is an ordinary `Django
   settings`_ file.  Settings you should change are ``ALLOWED_HOSTS`` and
   ``SECRET_KEY``.  (The ``SECRET_KEY`` is not used by this application
