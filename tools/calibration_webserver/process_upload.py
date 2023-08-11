@@ -362,57 +362,28 @@ def collect_exif_data():
 
     raw_files = []
     ignored_directories = {"__MACOSX"}
-    cr3_files = False
     for root, dirnames, filenames in os.walk(directory, topdown=True):
         dirnames[:] = [directory for directory in dirnames if directory not in ignored_directories]
         for filename in filenames:
-            file_extension = os.path.splitext(filename)[1].lower()[1:]
-            cr3_files = cr3_files or file_extension == "cr3"
-            if file_extension in raw_file_extensions:
+            if os.path.splitext(filename)[1].lower()[1:] in raw_file_extensions:
                 raw_files.append(os.path.join(root, filename))
+
     file_exif_data = {}
-    if cr3_files:
-        write_result_and_exit("Sorry, we use dcraw and exiv2, and both don’t support CR3 files yet.")
-        output = subprocess.run(["exiftool", "-s", "-Make", "-Model", "-LensModel", "-FocalLength", "-FNumber"] + raw_files,
-                                check=True, universal_newlines=True,
-                                stdout=subprocess.PIPE, stderr=subprocess.DEVNULL).stdout
-        if len(raw_files) == 1:
-            current_path = raw_files[0]
-            file_exif_data[current_path] = [None, None, None, float("nan"), float("nan")]
-        for line in output.splitlines():
-            __, prefix, path = line.partition("======== ")
-            if prefix:
-                current_path = path
-                file_exif_data[current_path] = [None, None, None, float("nan"), float("nan")]
-            elif not line.startswith(" "):
-                key, colon, value = line.partition(":")
-                assert colon
-                key = key.strip()
-                value = value.lstrip()
-                if key == "FocalLength":
-                    value = float(value.partition(" ")[0])
-                if key == "FNumber":
-                    value = float(value)
-                key_index = {"Make": 0, "Model": 1, "LensModel": 2, "FocalLength": 3, "FNumber": 4}[key]
-                file_exif_data[current_path][key_index] = value
-        for filepath, exif_data in file_exif_data.copy().items():
-            file_exif_data[filepath] = tuple(exif_data)
-    else:
-        raw_files_per_group = len(raw_files) // multiprocessing.cpu_count() + 1
-        raw_file_groups = []
-        while raw_files:
-            raw_file_group = raw_files[:raw_files_per_group]
-            if raw_file_group:
-                raw_file_groups.append(raw_file_group)
-            del raw_files[:raw_files_per_group]
-        pool = multiprocessing.Pool()
-        try:
-            for group_exif_data in pool.map(call_exiv2, raw_file_groups):
-                file_exif_data.update(group_exif_data)
-        except InvalidRaw as error:
-            write_result_and_exit(error.args[0])
-        pool.close()
-        pool.join()
+    raw_files_per_group = len(raw_files) // multiprocessing.cpu_count() + 1
+    raw_file_groups = []
+    while raw_files:
+        raw_file_group = raw_files[:raw_files_per_group]
+        if raw_file_group:
+            raw_file_groups.append(raw_file_group)
+        del raw_files[:raw_files_per_group]
+    pool = multiprocessing.Pool()
+    try:
+        for group_exif_data in pool.map(call_exiv2, raw_file_groups):
+            file_exif_data.update(group_exif_data)
+    except InvalidRaw as error:
+        write_result_and_exit(error.args[0])
+    pool.close()
+    pool.join()
     return file_exif_data
 
 

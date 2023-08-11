@@ -25,7 +25,7 @@ def generate_thumbnail(raw_filepath, cache_dir):
     if os.path.splitext(raw_filepath)[1].lower() in [".tif", ".tiff", ".jpeg", ".jpg"]:
         processes.append(subprocess.Popen(["convert", raw_filepath, "-resize", "131072@", out_filepath]))
     else:
-        dcraw = subprocess.Popen(["dcraw", "-h", "-T", "-c", raw_filepath], stdout=subprocess.PIPE)
+        dcraw = subprocess.Popen(["dcraw_emu", "-h", "-T", "-c", raw_filepath], stdout=subprocess.PIPE)
         processes.append(dcraw)
         processes.append(subprocess.Popen(["convert", "-", "-resize", "131072@", out_filepath], stdin=dcraw.stdout))
     return_codes = [process.wait() for process in processes]
