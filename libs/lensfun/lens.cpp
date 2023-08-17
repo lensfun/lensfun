@@ -15,6 +15,7 @@
 #include "windows/mathconstants.h"
 #include <algorithm>
 #include <cfloat>
+#include <limits>
 
 //------------------------------------------------------------------------//
 
@@ -168,8 +169,8 @@ std::regex extender_magnification_regex (".*?[0-9](\\.[0.9]+)?x.*");
 
 void lfLens::GuessParameters ()
 {
-    float minf = float (INT_MAX), maxf = float (INT_MIN);
-    float mina = float (INT_MAX), maxa = float (INT_MIN);
+    float minf = std::numeric_limits<float>::max(), maxf = std::numeric_limits<float>::min();
+    float mina = std::numeric_limits<float>::max(), maxa = std::numeric_limits<float>::min();
 
 #if defined(PLATFORM_WINDOWS)
     _configthreadlocale(_ENABLE_PER_THREAD_LOCALE);
@@ -253,13 +254,13 @@ void lfLens::GuessParameters ()
         }
     }
 
-    if (minf != (float)INT_MAX && !MinFocal)
+    if (minf != std::numeric_limits<float>::max() && !MinFocal)
         MinFocal = minf;
-    if (maxf != (float)INT_MIN && !MaxFocal)
+    if (maxf != std::numeric_limits<float>::min() && !MaxFocal)
         MaxFocal = maxf;
-    if (mina != (float)INT_MAX && !MinAperture)
+    if (mina != std::numeric_limits<float>::max() && !MinAperture)
         MinAperture = mina;
-    if (maxa != (float)INT_MIN && !MaxAperture)
+    if (maxa != std::numeric_limits<float>::min() && !MaxAperture)
         MaxAperture = maxa;
 
     if (!MaxFocal) MaxFocal = MinFocal;
