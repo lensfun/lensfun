@@ -1326,4 +1326,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Venus</maker>
+        <model>LAOWA C&amp;D-Dreamer MFT 10mm F2.0</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <calibration>
+            <!-- Taken with OM-1 -->
+            <tca model="poly3" focal="10" vr="1.0001495" vb="1.0001126"/>
+            <vignetting model="pa" focal="10" aperture="2" distance="10" k1="-1.8626" k2="1.8369" k3="-0.7898"/>
+            <vignetting model="pa" focal="10" aperture="2" distance="1000" k1="-1.8626" k2="1.8369" k3="-0.7898"/>
+            <vignetting model="pa" focal="10" aperture="2.8" distance="10" k1="-0.7957" k2="-0.1177" k3="0.2097"/>
+            <vignetting model="pa" focal="10" aperture="2.8" distance="1000" k1="-0.7957" k2="-0.1177" k3="0.2097"/>
+            <vignetting model="pa" focal="10" aperture="4" distance="10" k1="-0.7032" k2="0.2192" k3="-0.0907"/>
+            <vignetting model="pa" focal="10" aperture="4" distance="1000" k1="-0.7032" k2="0.2192" k3="-0.0907"/>
+            <vignetting model="pa" focal="10" aperture="5.6" distance="10" k1="-0.7924" k2="0.5415" k3="-0.2428"/>
+            <vignetting model="pa" focal="10" aperture="5.6" distance="1000" k1="-0.7924" k2="0.5415" k3="-0.2428"/>
+            <vignetting model="pa" focal="10" aperture="22" distance="10" k1="-0.8292" k2="0.5467" k3="-0.2008"/>
+            <vignetting model="pa" focal="10" aperture="22" distance="1000" k1="-0.8292" k2="0.5467" k3="-0.2008"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
