@@ -1347,4 +1347,30 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>7Artisans</maker>
+        <model>7Artisans APS-C 60mm f/2.8 II</model>
+        <mount>Nikon Z</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Sony E</mount>
+        <mount>Leica L</mount>
+        <mount>Canon EF-M</mount>
+        <cropfactor>1.5</cropfactor>
+        <calibration>
+	     <!-- Taken with Nikon Z50 -->
+            <distortion model="ptlens" focal="60" a="0.00243554" b="-0.00211482" c="-0.000357027"/>
+            <tca model="poly3" focal="60" vr="1.0005357" vb="0.9996806"/>
+            <vignetting model="pa" focal="60" aperture="2.8" distance="10" k1="-0.0489" k2="-1.1804" k3="0.6851"/>
+            <vignetting model="pa" focal="60" aperture="2.8" distance="1000" k1="-0.0489" k2="-1.1804" k3="0.6851"/>
+            <vignetting model="pa" focal="60" aperture="4" distance="10" k1="0.2396" k2="-1.2889" k3="0.5492"/>
+            <vignetting model="pa" focal="60" aperture="4" distance="1000" k1="0.2396" k2="-1.2889" k3="0.5492"/>
+            <vignetting model="pa" focal="60" aperture="5.6" distance="10" k1="-0.0468" k2="-0.0620" k3="-0.3675"/>
+            <vignetting model="pa" focal="60" aperture="5.6" distance="1000" k1="-0.0468" k2="-0.0620" k3="-0.3675"/>
+            <vignetting model="pa" focal="60" aperture="8" distance="10" k1="-0.3000" k2="0.8293" k3="-0.9491"/>
+            <vignetting model="pa" focal="60" aperture="8" distance="1000" k1="-0.3000" k2="0.8293" k3="-0.9491"/>
+            <vignetting model="pa" focal="60" aperture="22" distance="10" k1="-0.1841" k2="0.2272" k3="-0.1785"/>
+            <vignetting model="pa" focal="60" aperture="22" distance="1000" k1="-0.1841" k2="0.2272" k3="-0.1785"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
