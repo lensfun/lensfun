@@ -4604,4 +4604,20 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 14mm f/2.8 EX Aspherical HSM</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F</mount>
+        <mount>Sigma SA</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS R7 -->
+            <distortion model="ptlens" focal="14" a="0.00935997" b="-0.025667" c="0.00245276"/>
+            <tca model="poly3" focal="14" vr="1.0006568" vb="0.9998735"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
