@@ -1366,6 +1366,8 @@
         <mount>Sony E</mount>
         <mount>Leica L</mount>
         <mount>Canon EF-M</mount>
+	<mount>Canon RF</mount>
+	<mount>Micro 4/3 System</mount>
         <cropfactor>1.5</cropfactor>
         <calibration>
 	     <!-- Taken with Nikon Z50 -->
@@ -1384,4 +1386,21 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>7Artisans</maker>
+        <model>7Artisans 35mm f/1.4 APS-C</model>
+        <mount>Sony E</mount>
+        <mount>Nikon Z</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Canon EF-M</mount>
+        <mount>Leica L</mount>
+        <mount>Canon RF</mount>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>1.534</cropfactor>
+        <!-- Taken with Sony ILCE-5100 -->
+        <calibration>
+            <distortion model="ptlens" focal="35" a="0.00335917" b="-0.0207364" c="0.0185543"/>
+            <tca model="poly3" focal="35" vr="1.0000960" vb="0.9998935"/>
+        </calibration>
+    </lens>
 </lensdatabase>
