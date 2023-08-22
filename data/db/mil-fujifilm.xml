@@ -1975,4 +1975,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>GF80mmF1.7 R WR</model>
+        <mount>Fujifilm G</mount>
+        <cropfactor>0.79</cropfactor>
+        <calibration>
+             <!-- Taken with Fujifilm GFX50S II´ -->
+            <distortion model="ptlens" focal="80" a="-0.00401636" b="0.0223382" c="-0.0284615"/>
+            <tca model="poly3" focal="80" vr="0.9998874" vb="1.0000395"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
