@@ -14,6 +14,7 @@
 #include <math.h>
 #include "windows/mathconstants.h"
 #include <algorithm>
+#include <limits>
 
 static struct
 {
@@ -245,8 +246,8 @@ void lfLens::AddMount (const char *val)
 
 void lfLens::GuessParameters ()
 {
-    float minf = float (INT_MAX), maxf = float (INT_MIN);
-    float mina = float (INT_MAX), maxa = float (INT_MIN);
+    float minf = std::numeric_limits<float>::max(), maxf = std::numeric_limits<float>::min();
+    float mina = std::numeric_limits<float>::max(), maxa = std::numeric_limits<float>::min();
 
     char *old_numeric = setlocale (LC_NUMERIC, NULL);
     old_numeric = strdup (old_numeric);
@@ -325,13 +326,13 @@ void lfLens::GuessParameters ()
 
     }
 
-    if (minf != INT_MAX && !MinFocal)
+    if (minf != std::numeric_limits<float>::max() && !MinFocal)
         MinFocal = minf;
-    if (maxf != INT_MIN && !MaxFocal)
+    if (maxf != std::numeric_limits<float>::min() && !MaxFocal)
         MaxFocal = maxf;
-    if (mina != INT_MAX && !MinAperture)
+    if (mina != std::numeric_limits<float>::max() && !MinAperture)
         MinAperture = mina;
-    if (maxa != INT_MIN && !MaxAperture)
+    if (maxa != std::numeric_limits<float>::min() && !MaxAperture)
         MaxAperture = maxa;
 
     if (!MaxFocal)
