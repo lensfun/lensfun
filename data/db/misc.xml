@@ -1403,4 +1403,18 @@
             <tca model="poly3" focal="35" vr="1.0000960" vb="0.9998935"/>
         </calibration>
     </lens>
+
+    <lens>
+        <maker>Viltrox</maker>
+        <model>Viltrox 16mm F1.8 FE</model>
+        <model lang="en">Viltrox AF 16mm F1.8 FE</model>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7M4 -->
+            <distortion model="ptlens" focal="16" a="0.00627172" b="-0.0220772" c="0.0158163"/>
+            <tca model="poly3" focal="16" vr="1.0000423" vb="1.0000298"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
