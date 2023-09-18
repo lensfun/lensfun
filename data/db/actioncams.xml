@@ -121,6 +121,15 @@
         <cropfactor>5.6</cropfactor>
     </camera>
 
+    <camera>
+        <maker>DJI</maker>
+        <model>FC3582</model>
+        <model lang="en">Mini 3 Pro</model>
+        <mount>djiFC3582</mount>
+        <cropfactor>3.6</cropfactor>
+    </camera>
+
+
     <lens>
         <maker>GoPro</maker>
         <model>HD2 &amp; compatibles</model>
@@ -337,4 +346,18 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>DJI</maker>
+        <model>FC3582 &amp; compatibles</model>
+        <model lang="en">FC3582 fixed lens</model>
+        <mount>djiFC3582</mount>
+        <cropfactor>3.6</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="6.7" a="-0.0075" b="0.026" c="-0.0027"/>
+            <tca model="poly3" focal="6.7" vr="1.0000533" vb="0.999973"/>
+            <vignetting model="pa" focal="6.7" aperture="1.7" distance="10" k1="-2.7528" k2="3.9587" k3="-2.0068"/>
+            <vignetting model="pa" focal="6.7" aperture="1.7" distance="1000" k1="-2.7528" k2="3.9587" k3="-2.0068"/>
+        </calibration>
+    </lens>
 </lensdatabase>
