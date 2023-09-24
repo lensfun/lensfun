@@ -1414,6 +1414,16 @@
             <!-- Taken with Sony ILCE-7M4 -->
             <distortion model="ptlens" focal="16" a="0.00627172" b="-0.0220772" c="0.0158163"/>
             <tca model="poly3" focal="16" vr="1.0000423" vb="1.0000298"/>
+	    <vignetting model="pa" focal="16" aperture="1.8" distance="10" k1="-1.4607" k2="1.4594" k3="-0.7196"/>
+            <vignetting model="pa" focal="16" aperture="1.8" distance="1000" k1="-1.4607" k2="1.4594" k3="-0.7196"/>
+            <vignetting model="pa" focal="16" aperture="2.5" distance="10" k1="-0.9017" k2="0.6144" k3="-0.2036"/>
+            <vignetting model="pa" focal="16" aperture="2.5" distance="1000" k1="-0.9017" k2="0.6144" k3="-0.2036"/>
+            <vignetting model="pa" focal="16" aperture="4" distance="10" k1="-0.9827" k2="0.9825" k3="-0.3503"/>
+            <vignetting model="pa" focal="16" aperture="4" distance="1000" k1="-0.9827" k2="0.9825" k3="-0.3503"/>
+            <vignetting model="pa" focal="16" aperture="5.6" distance="10" k1="-0.9544" k2="0.9287" k3="-0.3182"/>
+            <vignetting model="pa" focal="16" aperture="5.6" distance="1000" k1="-0.9544" k2="0.9287" k3="-0.3182"/>
+            <vignetting model="pa" focal="16" aperture="22" distance="10" k1="-0.9572" k2="0.9102" k3="-0.3067"/>
+            <vignetting model="pa" focal="16" aperture="22" distance="1000" k1="-0.9572" k2="0.9102" k3="-0.3067"/>
         </calibration>
     </lens>
 
