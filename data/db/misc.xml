@@ -1439,4 +1439,35 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Viltrox</maker>
+        <model>AF 13mm f/1.4 XF</model>
+        <model lang="en">Viltrox AF 13mm F1.4</model>
+        <mount>Fujifilm X</mount>
+        <mount>Sony E</mount>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.529</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-T20 -->
+            <distortion model="ptlens" focal="13" a="0.013935" b="-0.0314806" c="0.00927982"/>
+            <tca model="poly3" focal="13" vr="1.0002086" vb="1.0000049" /> 
+            <vignetting model="pa" focal="13.0" aperture="1.4" distance="10" k1="-1.1822285" k2="0.6331928" k3="-0.2288957" />
+            <vignetting model="pa" focal="13.0" aperture="1.4" distance="1000" k1="-1.1822285" k2="0.6331928" k3="-0.2288957" />
+            <vignetting model="pa" focal="13.0" aperture="2.0" distance="10" k1="-0.4921972" k2="-0.2668565" k3="0.1179986" />
+            <vignetting model="pa" focal="13.0" aperture="2.0" distance="1000" k1="-0.4921972" k2="-0.2668565" k3="0.1179986" />
+            <vignetting model="pa" focal="13.0" aperture="2.8" distance="10" k1="-0.6417728" k2="0.2169065" k3="-0.1318091" />
+            <vignetting model="pa" focal="13.0" aperture="2.8" distance="1000" k1="-0.6417728" k2="0.2169065" k3="-0.1318091" />
+            <vignetting model="pa" focal="13.0" aperture="4.0" distance="10" k1="-0.6737797" k2="0.1877359" k3="-0.0423233" />
+            <vignetting model="pa" focal="13.0" aperture="4.0" distance="1000" k1="-0.6737797" k2="0.1877359" k3="-0.0423233" />
+            <vignetting model="pa" focal="13.0" aperture="5.6" distance="10" k1="-0.7184442" k2="0.3063580" k3="-0.1281325" />
+            <vignetting model="pa" focal="13.0" aperture="5.6" distance="1000" k1="-0.7184442" k2="0.3063580" k3="-0.1281325" />
+            <vignetting model="pa" focal="13.0" aperture="8.0" distance="10" k1="-0.7351568" k2="0.3637138" k3="-0.1827393" />
+            <vignetting model="pa" focal="13.0" aperture="8.0" distance="1000" k1="-0.7351568" k2="0.3637138" k3="-0.1827393" />
+            <vignetting model="pa" focal="13.0" aperture="11.0" distance="10" k1="-0.7299781" k2="0.3393973" k3="-0.1536128" />
+            <vignetting model="pa" focal="13.0" aperture="11.0" distance="1000" k1="-0.7299781" k2="0.3393973" k3="-0.1536128" />
+            <vignetting model="pa" focal="13.0" aperture="16.0" distance="10" k1="-0.6526357" k2="0.1014367" k3="0.0281872" />
+            <vignetting model="pa" focal="13.0" aperture="16.0" distance="1000" k1="-0.6526357" k2="0.1014367" k3="0.0281872" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
