@@ -26,9 +26,10 @@ jobs:
             cc:p
             glib2:p
             libxml2:p
+            python-setuptools:p
 
       - name: Configure CMake
-        run: cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_TESTS=ON
+        run: cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_TESTS=ON -DPython3_EXECUTABLE=${MINGW_PREFIX}/bin/python.exe
       - name: Build
         run: cmake --build build --config ${{env.BUILD_TYPE}}
       - name: Test
