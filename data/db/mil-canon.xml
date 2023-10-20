@@ -1455,4 +1455,28 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon RF 15-30mm f 4.5-6.3 IS STM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS R6 Mark II -->
+            <distortion model="ptlens" focal="15" a="0.0287956" b="-0.0783872" c="-0.0689668"/>
+            <distortion model="ptlens" focal="17" a="0.0264481" b="-0.0729348" c="-0.0322405"/>
+            <distortion model="ptlens" focal="20" a="0.0214655" b="-0.0522873" c="-0.0178932"/>
+            <distortion model="ptlens" focal="24" a="0.0114299" b="-0.0169348" c="-0.0210422"/>
+            <distortion model="ptlens" focal="26" a="0.010645" b="-0.0207602" c="0.00386637"/>
+            <distortion model="ptlens" focal="28" a="0.00915365" b="-0.0115905" c="-0.0109711"/>
+            <distortion model="ptlens" focal="30" a="0.0129603" b="-0.0276367" c="0.0149656"/>
+            <tca model="poly3" focal="15" vr="1.0001940" vb="0.9999766"/>
+            <tca model="poly3" focal="17" vr="1.0001934" vb="0.9999529"/>
+            <tca model="poly3" focal="20" vr="1.0002022" vb="0.9999570"/>
+            <tca model="poly3" focal="24" vr="1.0002219" vb="0.9999109"/>
+            <tca model="poly3" focal="26" vr="1.0001870" vb="0.9999031"/>
+            <tca model="poly3" focal="28" vr="1.0002094" vb="0.9998823"/>
+            <tca model="poly3" focal="30" vr="1.0001976" vb="0.9998978"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
