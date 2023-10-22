@@ -8083,5 +8083,30 @@
             <tca model="poly3" focal="80.0" vr="1.0001080" vb="0.9999748" />
         </calibration>
     </lens>
- 
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 11-24mm f/4L USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS R -->
+            <distortion model="ptlens" focal="11" a="0.00960274" b="-0.0413048" c="0.032193"/>
+            <distortion model="ptlens" focal="13" a="0.00951958" b="-0.0441039" c="0.0511574"/>
+            <distortion model="ptlens" focal="15" a="-0.00100155" b="0" c="0.000986714"/>
+            <distortion model="ptlens" focal="18" a="-0.00248142" b="0.00878386" c="-0.00610385"/>
+            <distortion model="ptlens" focal="19" a="-0.00657026" b="0.0233267" c="-0.020908"/>
+            <distortion model="ptlens" focal="21" a="-0.00867239" b="0.0310121" c="-0.0285894"/>
+            <distortion model="ptlens" focal="24" a="-0.00885246" b="0.031979" c="-0.0289054"/>
+            <tca model="poly3" focal="11" vr="1.0001613" vb="1.0001127"/>
+            <tca model="poly3" focal="12" vr="1.0001505" vb="1.0001131"/>
+            <tca model="poly3" focal="13" vr="1.0001365" vb="1.0000872"/>
+            <tca model="poly3" focal="15" vr="1.0001374" vb="1.0000672"/>
+            <tca model="poly3" focal="17" vr="1.0001141" vb="1.0000925"/>
+            <tca model="poly3" focal="19" vr="1.0001550" vb="1.0000571"/>
+            <tca model="poly3" focal="20" vr="1.0001823" vb="1.0000370"/>
+            <tca model="poly3" focal="24" vr="1.0002146" vb="1.0000059"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
