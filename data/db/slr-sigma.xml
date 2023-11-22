@@ -4620,4 +4620,20 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 15mm f/2.8 EX DG Diagonal Fisheye</model>
+        <mount>Canon EF-S</mount>
+        <mount>Sigma SA</mount>
+        <mount>Nikon F</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Pentax KAF>
+        <cropfactor>1.613</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS 80D -->
+            <distortion model="ptlens" focal="15" a="0.0186949" b="-0.0906375" c="-0.0319767"/>
+            <tca model="poly3" focal="15" vr="1.0002505" vb="1.0001911"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
