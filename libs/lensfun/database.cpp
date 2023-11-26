@@ -79,11 +79,11 @@ lfError lfDatabase::Load ()
 {
   lfError err = LF_NO_ERROR;
 
-    const int timestamp_system =
+    const auto timestamp_system =
         ReadTimestamp (SystemLocation);
-    const int timestamp_system_updates =
+    const auto timestamp_system_updates =
         ReadTimestamp (SystemUpdatesLocation);
-    const int timestamp_user_updates =
+    const auto timestamp_user_updates =
         ReadTimestamp (UserUpdatesDir);
     if (timestamp_system > timestamp_system_updates)
         if (timestamp_user_updates > timestamp_system)
