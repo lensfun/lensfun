@@ -1115,7 +1115,7 @@ static float __vignetting_dist (
     float d1 = 0.1 / distance;
     float d2 = 0.1 / x.Distance;
 
-    return sqrt (square (f2 - f1) + square (a2 - a1) + square (d2 - d1));
+    return sqrt (pow(f2 - f1, 2) + pow (a2 - a1, 2) + pow (d2 - d1, 2));
 }
 
 bool lfLens::InterpolateVignetting (float crop,
