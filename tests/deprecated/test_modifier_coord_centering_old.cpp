@@ -23,9 +23,11 @@ typedef struct
 // setup a standard lens
 void mod_setup (lfFixture *lfFix, gconstpointer data)
 {
+    (void)lfFix;
+    (void)data;
     lfFix->lens             = new lfLens();
     lfLensCalibDistortion calib_data = {
-        LF_DIST_MODEL_POLY3, 50.0f, 50.0f, false, {-0.1}
+        LF_DIST_MODEL_POLY3, 50.0f, 50.0f, false, {-0.1, 0.0f}, {0.0f, 0.0f}
     };
     lfFix->lens->AddCalibDistortion (&calib_data);
     lfFix->lens->CropFactor = 1.0f;
@@ -47,6 +49,7 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
 
 void mod_teardown (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     g_free (lfFix->coordBuff);
     delete lfFix->mod;
     delete lfFix->lens;
@@ -54,6 +57,7 @@ void mod_teardown (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_scaling_only (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     lfFix->mod->Initialize (lfFix->lens, LF_PF_F32, 50.89f, 2.8f, 1000.0f, 2.0f, LF_RECTILINEAR,
                             LF_MODIFY_SCALE, true);
 
@@ -73,6 +77,7 @@ void test_mod_coord_scaling_only (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_distortion (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     lfFix->mod->Initialize (lfFix->lens, LF_PF_F32, 50.89f, 2.8f, 1000.0f, 2.0f, LF_RECTILINEAR,
                             LF_MODIFY_DISTORTION, true);
 

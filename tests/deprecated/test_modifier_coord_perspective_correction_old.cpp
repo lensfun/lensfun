@@ -19,6 +19,7 @@ typedef struct
 // setup a standard lens
 void mod_setup (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     lfFix->lens             = new lfLens();
     //lfFix->lens->CropFactor = 1.0f;
     //lfFix->lens->AspectRatio = 4.0f / 3.0f;
@@ -41,6 +42,7 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
 // setup a standard image in portrait mode
 void mod_setup_portrait (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     lfFix->lens             = new lfLens();
     //lfFix->lens->CropFactor = 1.534f;
     //lfFix->lens->AspectRatio = 1.5f;
@@ -63,6 +65,7 @@ void mod_setup_portrait (lfFixture *lfFix, gconstpointer data)
 
 void mod_teardown (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     g_free (lfFix->coordBuff);
 
     lfFix->mod->Destroy();
@@ -71,6 +74,8 @@ void mod_teardown (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_pc_svd (lfFixture *lfFix, gconstpointer data)
 {
+    (void)lfFix;
+    (void)data;
     dvector x (5), y (5);
     x[0] = 1; y[0] = 1;
     x[1] = 2; y[1] = 2;
@@ -99,6 +104,7 @@ void test_mod_coord_pc_svd (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_pc_4_points (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // Bases on DSC02275.json
     const float epsilon = std::numeric_limits<float>::epsilon() * 5e3;
 
@@ -121,6 +127,7 @@ void test_mod_coord_pc_4_points (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_pc_4_points_portrait (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // Bases on DSC02277.json
     const float epsilon = std::numeric_limits<float>::epsilon() * 2e3;
 
@@ -143,6 +150,7 @@ void test_mod_coord_pc_4_points_portrait (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_pc_8_points (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // Bases on DSC02278.json
     const float epsilon = std::numeric_limits<float>::epsilon() * 5e3;
 
@@ -165,8 +173,8 @@ void test_mod_coord_pc_8_points (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_pc_0_points (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // Bases on DSC02279.json
-    const float epsilon = std::numeric_limits<float>::epsilon();
 
     float* empty_list = nullptr;
     g_assert_false (lfFix->mod->EnablePerspectiveCorrection (empty_list, empty_list, 0, 0));
@@ -180,6 +188,7 @@ void test_mod_coord_pc_0_points (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_pc_5_points (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // Bases on DSC02281.json
     const float epsilon = std::numeric_limits<float>::epsilon() * 5e3;
 
@@ -202,6 +211,7 @@ void test_mod_coord_pc_5_points (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_pc_7_points (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // Bases on DSC02281_with_7_points.json
     const float epsilon = std::numeric_limits<float>::epsilon() * 5e3;
 

@@ -620,6 +620,7 @@ static void _xml_end_element (GMarkupParseContext *context,
                               gpointer             user_data,
                               GError             **error)
 {
+    (void)context;
     lfParserData *pd = (lfParserData *)user_data;
 
     g_assert (pd->stack_depth);

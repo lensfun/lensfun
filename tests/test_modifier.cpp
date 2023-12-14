@@ -15,6 +15,7 @@ typedef struct {
 // setup a standard lens
 void mod_setup(lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     lfFix->lens              = new lfLens();
     lfFix->lens->Type        = LF_RECTILINEAR;
 
@@ -30,12 +31,14 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
 
 void mod_teardown(lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     delete lfFix->lens;
 }
 
 // test to verify that projection center is image center
 void test_mod_projection_center(lfFixture* lfFix, gconstpointer data)
 {
+    (void)data;
     float in[2]  = {0, 0};
     float res[2] = {0, 0};
 
@@ -75,6 +78,7 @@ void test_mod_projection_center(lfFixture* lfFix, gconstpointer data)
 // check if output becomes NaN when processing geometry conversion
 void test_mod_projection_borders(lfFixture* lfFix, gconstpointer data)
 {
+    (void)data;
     float in[2]  = {(float) lfFix->img_width, (float) lfFix->img_height};
     float in2[2] = {(float) (lfFix->img_width-1)/2, (float) (lfFix->img_height-1)/2};
     float res[2] = {0, 0};

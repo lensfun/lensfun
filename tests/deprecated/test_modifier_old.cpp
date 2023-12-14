@@ -15,12 +15,13 @@ typedef struct {
 // setup a standard lens
 void mod_setup(lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     lfFix->lens              = new lfLens();
     lfFix->lens->Type        = LF_RECTILINEAR;
     lfFix->lens->CropFactor  = 1.0;
     lfFix->lens->AspectRatio = 1.0;
 
-    lfLensCalibDistortion lensCalibDist = {LF_DIST_MODEL_POLY3, 12.0f, 10.8f, false, {0.1}};
+    lfLensCalibDistortion lensCalibDist = {LF_DIST_MODEL_POLY3, 12.0f, 10.8f, false, {0.1}, {0.0, 0.0}};
     lfFix->lens->AddCalibDistortion(&lensCalibDist);
 
     // width and height have to be odd, so we have a non fractional center position
@@ -31,12 +32,14 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
 
 void mod_teardown(lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     delete lfFix->lens;
 }
 
 // test to verify that projection center is image center
 void test_mod_projection_center(lfFixture* lfFix, gconstpointer data)
 {
+    (void)data;
     float in[2]  = {0, 0};
     float res[2] = {0, 0};
 
@@ -78,6 +81,7 @@ void test_mod_projection_center(lfFixture* lfFix, gconstpointer data)
 // check if output becomes NaN when processing geometry conversion
 void test_mod_projection_borders(lfFixture* lfFix, gconstpointer data)
 {
+    (void)data;
     float in[2]  = {(float) lfFix->img_width, (float) lfFix->img_height};
     float in2[2] = {(float) (lfFix->img_width-1)/2, (float) (lfFix->img_height-1)/2};
     float res[2] = {0, 0};

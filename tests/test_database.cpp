@@ -9,6 +9,7 @@ typedef struct {
 
 void db_setup(lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     lfFix->db = new lfDatabase ();
     lfFix->db->Load("data/db");
 }
@@ -16,6 +17,7 @@ void db_setup(lfFixture *lfFix, gconstpointer data)
 
 void db_teardown(lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     delete lfFix->db;
 }
 
@@ -23,6 +25,7 @@ void db_teardown(lfFixture *lfFix, gconstpointer data)
 // test different lens search strings
 void test_DB_lens_search(lfFixture* lfFix, gconstpointer data)
 {
+    (void)data;
     const lfLens **lenses = NULL;
 
     // search only by name
@@ -61,6 +64,7 @@ void test_DB_lens_search(lfFixture* lfFix, gconstpointer data)
 // test different camera search strings
 void test_DB_cam_search(lfFixture* lfFix, gconstpointer data)
 {
+    (void)data;
     const lfCamera **cameras = NULL;
 
     cameras = lfFix->db->FindCamerasExt("pentax", "K100D");
@@ -86,7 +90,7 @@ void test_DB_cam_search(lfFixture* lfFix, gconstpointer data)
 // copy some entries into a new database file
 void test_DB_save(lfFixture* lfFix, gconstpointer data)
 {
-
+    (void)data;
     lfDatabase* db2 = new lfDatabase ();
 
     const lfCamera **cameras = NULL;

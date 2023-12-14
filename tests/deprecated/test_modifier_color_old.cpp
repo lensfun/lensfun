@@ -102,7 +102,7 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
   lfFix->lens->AspectRatio = 1.5;
 
   // Canon EOS 5D Mark III + Canon EF 24-70mm f/2.8L II USM
-  lfLensCalibVignetting lensCalibVign = {LF_VIGNETTING_MODEL_PA, 24.0f, 2.8f, 1000.0f, { -0.5334f, -0.7926f, 0.5243f}};
+  lfLensCalibVignetting lensCalibVign = {LF_VIGNETTING_MODEL_PA, 24.0f, 2.8f, 1000.0f, { -0.5334f, -0.7926f, 0.5243f}, {0.0f, 0.0f}};
   lfFix->lens->AddCalibVignetting(&lensCalibVign);
 
   lfFix->img_height = 299;

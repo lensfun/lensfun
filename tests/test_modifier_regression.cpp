@@ -18,6 +18,7 @@ typedef struct
 // setup a standard lens
 void mod_setup (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
 
     lfFix->db = new lfDatabase ();
     lfFix->db->Load("data/db");
@@ -28,11 +29,13 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
 
 void mod_teardown (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     delete lfFix->db;
 }
 
 void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "pEntax 50-200 ED");
     g_assert_nonnull(lenses);
@@ -86,6 +89,7 @@ void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
 
 void test_verify_dist_poly5 (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "Canon PowerShot G12");
     g_assert_nonnull(lenses);
@@ -118,6 +122,7 @@ void test_verify_dist_poly5 (lfFixture *lfFix, gconstpointer data)
 
 void test_verify_dist_ptlens (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "PENTAX-F 28-80mm");
     g_assert_nonnull(lenses);
@@ -148,6 +153,7 @@ void test_verify_dist_ptlens (lfFixture *lfFix, gconstpointer data)
 
 void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "Olympus ED 14-42mm");
     g_assert_nonnull(lenses);
@@ -203,6 +209,7 @@ void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
 
 void test_verify_subpix_linear (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "Olympus ED 14-42mm");
     g_assert_nonnull(lenses);
@@ -237,6 +244,7 @@ void test_verify_subpix_linear (lfFixture *lfFix, gconstpointer data)
 
 void test_verify_subpix_poly3 (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "Olympus ED 14-42mm");
     g_assert_nonnull(lenses);
@@ -296,6 +304,7 @@ void test_verify_subpix_poly3 (lfFixture *lfFix, gconstpointer data)
 
 void test_verify_geom_fisheye_rectlinear (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "M.Zuiko Digital ED 8mm f/1.8 Fisheye");
     g_assert_nonnull(lenses);

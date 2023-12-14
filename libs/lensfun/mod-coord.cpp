@@ -781,6 +781,7 @@ void lfModifier::ModifyCoord_Dist_ACM (void *data, float *iocoord, int count)
 
 void lfModifier::ModifyCoord_Geom_FishEye_Rect (void *data, float *iocoord, int count)
 {
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
@@ -803,6 +804,7 @@ void lfModifier::ModifyCoord_Geom_FishEye_Rect (void *data, float *iocoord, int 
 
 void lfModifier::ModifyCoord_Geom_Rect_FishEye (void *data, float *iocoord, int count)
 {
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
@@ -822,6 +824,7 @@ void lfModifier::ModifyCoord_Geom_Rect_FishEye (void *data, float *iocoord, int 
 void lfModifier::ModifyCoord_Geom_Panoramic_Rect (
     void *data, float *iocoord, int count)
 {
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
@@ -836,6 +839,7 @@ void lfModifier::ModifyCoord_Geom_Panoramic_Rect (
 void lfModifier::ModifyCoord_Geom_Rect_Panoramic (
     void *data, float *iocoord, int count)
 {
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
@@ -849,6 +853,7 @@ void lfModifier::ModifyCoord_Geom_Rect_Panoramic (
 void lfModifier::ModifyCoord_Geom_FishEye_Panoramic (
     void *data, float *iocoord, int count)
 {
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
@@ -868,6 +873,7 @@ void lfModifier::ModifyCoord_Geom_FishEye_Panoramic (
 void lfModifier::ModifyCoord_Geom_Panoramic_FishEye (
     void *data, float *iocoord, int count)
 {
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
@@ -889,6 +895,7 @@ void lfModifier::ModifyCoord_Geom_Panoramic_FishEye (
 
 void lfModifier::ModifyCoord_Geom_ERect_Rect (void *data, float *iocoord, int count)
 {
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
@@ -913,6 +920,7 @@ void lfModifier::ModifyCoord_Geom_ERect_Rect (void *data, float *iocoord, int co
 
 void lfModifier::ModifyCoord_Geom_Rect_ERect (void *data, float *iocoord, int count)
 {
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
@@ -925,6 +933,7 @@ void lfModifier::ModifyCoord_Geom_Rect_ERect (void *data, float *iocoord, int co
 
 void lfModifier::ModifyCoord_Geom_ERect_FishEye (void *data, float *iocoord, int count)
 {
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
@@ -958,6 +967,7 @@ void lfModifier::ModifyCoord_Geom_ERect_FishEye (void *data, float *iocoord, int
 
 void lfModifier::ModifyCoord_Geom_FishEye_ERect (void *data, float *iocoord, int count)
 {
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
@@ -976,12 +986,14 @@ void lfModifier::ModifyCoord_Geom_FishEye_ERect (void *data, float *iocoord, int
 
 void lfModifier::ModifyCoord_Geom_ERect_Panoramic (void *data, float *iocoord, int count)
 {
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
         iocoord [1] = tan (iocoord [1]);
 }
 
 void lfModifier::ModifyCoord_Geom_Panoramic_ERect (void *data, float *iocoord, int count)
 {
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         iocoord [1] = atan (iocoord [1]);
@@ -990,6 +1002,7 @@ void lfModifier::ModifyCoord_Geom_Panoramic_ERect (void *data, float *iocoord, i
 
 void lfModifier::ModifyCoord_Geom_Orthographic_ERect (void *data, float *iocoord, int count)
 {
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
@@ -1017,6 +1030,7 @@ void lfModifier::ModifyCoord_Geom_Orthographic_ERect (void *data, float *iocoord
 
 void lfModifier::ModifyCoord_Geom_ERect_Orthographic (void *data, float *iocoord, int count)
 {
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
@@ -1050,6 +1064,7 @@ void lfModifier::ModifyCoord_Geom_ERect_Orthographic (void *data, float *iocoord
 
 void lfModifier::ModifyCoord_Geom_Stereographic_ERect (void *data, float *iocoord, int count)
 {
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
@@ -1082,6 +1097,7 @@ void lfModifier::ModifyCoord_Geom_Stereographic_ERect (void *data, float *iocoor
 
 void lfModifier::ModifyCoord_Geom_ERect_Stereographic (void *data, float *iocoord, int count)
 {
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float lon = iocoord [0];
@@ -1097,6 +1113,7 @@ void lfModifier::ModifyCoord_Geom_ERect_Stereographic (void *data, float *iocoor
 
 void lfModifier::ModifyCoord_Geom_Equisolid_ERect (void *data, float *iocoord, int count)
 {
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
@@ -1123,6 +1140,7 @@ void lfModifier::ModifyCoord_Geom_Equisolid_ERect (void *data, float *iocoord, i
 
 void lfModifier::ModifyCoord_Geom_ERect_Equisolid (void *data, float *iocoord, int count)
 {    
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         double lambda = iocoord [0];
@@ -1148,6 +1166,7 @@ void lfModifier::ModifyCoord_Geom_ERect_Equisolid (void *data, float *iocoord, i
 
 void lfModifier::ModifyCoord_Geom_Thoby_ERect (void *data, float *iocoord, int count)
 {
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
@@ -1176,6 +1195,7 @@ void lfModifier::ModifyCoord_Geom_Thoby_ERect (void *data, float *iocoord, int c
 
 void lfModifier::ModifyCoord_Geom_ERect_Thoby (void *data, float *iocoord, int count)
 {
+    (void)data;
     for (float *end = iocoord + count * 2; iocoord < end; iocoord += 2)
     {
         float x = iocoord [0];
