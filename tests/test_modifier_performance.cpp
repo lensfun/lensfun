@@ -73,12 +73,12 @@ void test_perf_dist_ptlens (lfFixture *lfFix, gconstpointer data)
 
 
     unsigned char** img = (unsigned char**)_mm_malloc(lfFix->img_height*sizeof(unsigned char*), 32);
-    for (long unsigned int r = 0; r < lfFix->img_height; r++)
+    for (size_t r = 0; r < lfFix->img_height; r++)
         img[r] = (unsigned char*)_mm_malloc(lfFix->img_width*sizeof(unsigned char)*3, 32);
 
     float *res = (float*)_mm_malloc(lfFix->img_width*sizeof(float)*2, 32);
-    unsigned long start_time = clock();
-    for (long unsigned int r = 0; r < lfFix->img_height; r++)
+    clock_t start_time = clock();
+    for (size_t r = 0; r < lfFix->img_height; r++)
     {
         mod->ApplyGeometryDistortion (0, r, lfFix->img_width, 1, res);
         interp_row_nearest(img, r, lfFix->img_width, lfFix->img_height, res);
@@ -87,7 +87,7 @@ void test_perf_dist_ptlens (lfFixture *lfFix, gconstpointer data)
     g_print("time elapsed : %.3fs,  ",run_time);
 
     _mm_free(res);
-    for (long unsigned int r = 0; r < lfFix->img_height; r++) {
+    for (size_t r = 0; r < lfFix->img_height; r++) {
         _mm_free(img[r]);
     }
     _mm_free(img);
