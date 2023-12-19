@@ -22,7 +22,7 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
 {
     (void)data;
     lfFix->db = new lfDatabase ();
-    lfFix->db->LoadDirectory("data/db");
+    lfFix->db->Load("data/db");
 
     lfFix->img_height = 4000;
     lfFix->img_width  = 6000;
@@ -31,7 +31,7 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
 void mod_teardown (lfFixture *lfFix, gconstpointer data)
 {
     (void)data;
-    lfFix->db->Destroy();
+    delete lfFix->db;
 }
 
 // very simple nearest neighbour interpolation to simulate some memory access
@@ -66,11 +66,8 @@ void test_perf_dist_ptlens (lfFixture *lfFix, gconstpointer data)
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Pentax-F 28-80mm f/3.5-4.5");
 
-    lfModifier* mod = new lfModifier (lenses[0], 1.534f, lfFix->img_width, lfFix->img_height);
-
-    mod->Initialize (lenses[0], LF_PF_F32, 30.89f, 2.8f, 1000.0f, 10.0f, LF_RECTILINEAR,
-                            LF_MODIFY_DISTORTION, false);
-
+    lfModifier* mod = new lfModifier (lenses[0], 30.89f, 1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32);
+    mod->EnableDistortionCorrection();
 
     unsigned char** img = (unsigned char**)_mm_malloc(lfFix->img_height*sizeof(unsigned char*), 32);
     for (size_t r = 0; r < lfFix->img_height; r++)

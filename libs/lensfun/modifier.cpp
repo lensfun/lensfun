@@ -11,57 +11,6 @@
 #include <stdexcept>
 #include "windows/mathconstants.h"
 
-lfModifier *lfModifier::Create (const lfLens *lens, float crop, int width, int height)
-{
-    return new lfModifier (lens, crop, width, height);
-}
-
-int lfModifier::Initialize (
-    const lfLens *lens, lfPixelFormat format, float focal, float aperture,
-    float distance, float scale, lfLensType targeom, int flags, bool reverse)
-{
-
-    Lens = lens;
-    Focal = focal;
-    PixelFormat = format;
-    Reverse = reverse;
-
-    lfLensCalibDistortion lcd;
-    if (Lens->InterpolateDistortion (Crop, Focal, lcd))
-        RealFocal = lcd.RealFocal;
-    else
-        RealFocal = Focal;
-
-    NormScale = hypot (36.0, 24.0) / Crop / hypot (Width + 1.0, Height + 1.0) / RealFocal;
-    NormUnScale = 1.0 / NormScale;
-
-    const float size = std::min (Width, Height);
-    CenterX = (Width / 2.0 + size / 2.0 * Lens->CenterX) * NormScale;
-    CenterY = (Height / 2.0 + size / 2.0 * Lens->CenterY) * NormScale;
-
-    if (flags & LF_MODIFY_TCA)
-        EnableTCACorrection();
-
-    if (flags & LF_MODIFY_VIGNETTING)
-        EnableVignettingCorrection(aperture, distance);
-
-    if (flags & LF_MODIFY_DISTORTION)
-        EnableDistortionCorrection();
-
-    if (flags & LF_MODIFY_GEOMETRY && lens->Type != targeom)
-        EnableProjectionTransform(targeom);
-
-    if (flags & LF_MODIFY_SCALE && scale != 1.0)
-        EnableScaling(scale);
-
-    return EnabledMods;
-}
-
-void lfModifier::Destroy ()
-{
-    delete this;
-}
-
 //---------------------------------------------------------------------------//
 
 /*
@@ -108,18 +57,6 @@ void lfModifier::Destroy ()
   the "rescale_polynomial_coefficients" functions.
 */
 
-lfModifier::lfModifier (const lfLens*, float crop, int width, int height)
-{
-    Crop = crop;
-
-    // Avoid divide overflows on singular cases.  The "- 1" is due to the fact
-    // that `Width` and `Height` are measured at the pixel centres (they are
-    // actually transformed) instead at their outer rims.
-    Width = double (width >= 2 ? width - 1 : 1);
-    Height = double (height >= 2 ? height - 1 : 1);
-
-    EnabledMods = 0;
-}
 
 lfModifier::lfModifier (const lfLens *lens, float imgfocal, float imgcrop, int imgwidth, int imgheight,
                         lfPixelFormat pixel_format, bool reverse /* = false */)
@@ -199,32 +136,12 @@ lfModifier *lf_modifier_create (
     return new lfModifier(lens, imgfocal, imgcrop, imgwidth, imgheight, pixel_format, reverse);
 }
 
-lfModifier *lf_modifier_new (
-    const lfLens *lens, float crop, int width, int height)
-{
-    try
-    {
-        return new lfModifier (lens, crop, width, height);
-    }
-    catch (const std::exception& e)
-    {
-        return NULL;
-    }
-}
 
 void lf_modifier_destroy (lfModifier *modifier)
 {
     delete modifier;
 }
 
-int lf_modifier_initialize (
-    lfModifier *modifier, const lfLens *lens, lfPixelFormat format,
-    float focal, float aperture, float distance, float scale, lfLensType targeom,
-    int flags, cbool reverse)
-{
-    return modifier->Initialize (lens, format, focal, aperture, distance,
-                                 scale, targeom, flags, reverse);
-}
 
 int lf_modifier_enable_scaling (lfModifier *modifier, float scale)
 {

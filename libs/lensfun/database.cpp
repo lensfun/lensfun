@@ -53,16 +53,6 @@ lfDatabase::~lfDatabase ()
         delete l;
 }
 
-lfDatabase *lfDatabase::Create ()
-{
-    return new lfDatabase ();
-}
-
-void lfDatabase::Destroy ()
-{
-    delete this;
-}
-
 long int lfDatabase::ReadTimestamp (const char *dirname)
 {
     long int timestamp = -1;
@@ -83,11 +73,6 @@ long int lfDatabase::ReadTimestamp (const char *dirname)
     }
 
     return timestamp;
-}
-
-bool lfDatabase::LoadDirectory (const gchar *dirname)
-{
-    return Load(dirname) == LF_NO_ERROR;
 }
 
 lfError lfDatabase::Load ()
@@ -864,7 +849,10 @@ lfError lfDatabase::Load (const char *errcontext, const char *data, size_t data_
 
 lfError lfDatabase::Save (const char *filename) const
 {
-    char *output = Save ();
+    char *output = nullptr;
+    size_t len = 0;
+    Save(output, len);
+
     if (!output)
         return lfError (-ENOMEM);
 
@@ -882,14 +870,6 @@ lfError lfDatabase::Save (const char *filename) const
     g_free (output);
 
     return ol ? LF_NO_ERROR : lfError (-ENOSPC);
-}
-
-char *lfDatabase::Save () const
-{
-    size_t len = 0;
-    char* xml = nullptr;
-    Save(xml, len);
-    return xml;
 }
 
 lfError lfDatabase::Save (char*& xml, size_t& data_size) const
@@ -1581,7 +1561,7 @@ lfDatabase *lf_db_create ()
 
 void lf_db_destroy (lfDatabase *db)
 {
-    db->Destroy ();
+    delete db;
 }
 
 long int lf_db_read_timestamp (const char *dirname)

@@ -42,7 +42,6 @@ void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
     g_assert_cmpstr(lenses[0]->Model, ==, "smc Pentax-DA 50-200mm f/4-5.6 DA ED");
 
     lfModifier* mod = new lfModifier (lenses[0], 80.89f, 1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
-
     mod->EnableDistortionCorrection();
 
     float x[] = {0, 751, 810, 1270};
@@ -160,7 +159,6 @@ void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
     g_assert_cmpstr(lenses[0]->Model, ==, "Olympus Zuiko Digital ED 14-42mm f/3.5-5.6");
 
     lfModifier* mod = new lfModifier (lenses[0], 17.89f, 2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
-
     mod->EnableVignettingCorrection(5.0f, 1000.0f);
 
     float x[] = {0, 751, 810, 1270};
@@ -182,7 +180,7 @@ void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
 
     // manually create a lens object
     lfLensCalibVignetting lensCalibVign;
-    lenses[0]->InterpolateVignetting(17.89f, 5.0f, 1000.0f, lensCalibVign);
+    lenses[0]->InterpolateVignetting(2.0f, 17.89f, 5.0f, 1000.0f, lensCalibVign);
     lfLens* lens = new lfLens();
     lens->AddCalibVignetting(&lensCalibVign);
     lens->CropFactor = lenses[0]->CropFactor;
@@ -277,7 +275,8 @@ void test_verify_subpix_poly3 (lfFixture *lfFix, gconstpointer data)
 
     // manually create a lens object
     lfLensCalibTCA lensCalibTCA;
-    lenses[0]->InterpolateTCA(26.89f, lensCalibTCA);
+
+    lenses[0]->InterpolateTCA(2.0f, 26.89f, lensCalibTCA);
     lfLens* lens = new lfLens();
     lens->AddCalibTCA(&lensCalibTCA);
     lens->CropFactor = lenses[0]->CropFactor;

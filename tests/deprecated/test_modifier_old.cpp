@@ -47,6 +47,7 @@ void test_mod_projection_center(lfFixture* lfFix, gconstpointer data)
     lfLensType geom_types [] = {LF_RECTILINEAR, LF_PANORAMIC, LF_EQUIRECTANGULAR , LF_FISHEYE, LF_FISHEYE_EQUISOLID, LF_FISHEYE_ORTHOGRAPHIC, LF_FISHEYE_THOBY, LF_UNKNOWN};
     const char* geom_names [] = {"rectilinear", "panoramic", "equirect", "fisheye", "fisheye-equisolid", "fisheye-orthographic", "fisheye-thoby", NULL};
     int  j  = 0;
+
     while (geom_types[j]!=LF_UNKNOWN) {
 
         lfFix->lens->Type = geom_types[j];
@@ -57,11 +58,8 @@ void test_mod_projection_center(lfFixture* lfFix, gconstpointer data)
             if(g_test_verbose())
                 g_print("  ~ Conversion from %s -> %s \n", geom_names[j], geom_names[i]);
 
-            lfFix->mod = new lfModifier (lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
-            lfFix->mod->Initialize (
-                lfFix->lens, LF_PF_U8, 12.0f,
-                6.7f, 2.0f, 1.0f, geom_types[i],
-                LF_MODIFY_GEOMETRY, false);
+            lfFix->mod = new lfModifier(lfFix->lens, 12.0f, 1.0f, lfFix->img_width, lfFix->img_height, LF_PF_U8, false);
+            lfFix->mod->EnableProjectionTransform(geom_types[i]);
 
             // check if center is not influenced
             in[0] = (lfFix->img_width-1)/2;
@@ -76,6 +74,7 @@ void test_mod_projection_center(lfFixture* lfFix, gconstpointer data)
         }
         j++;
     }
+
 }
 
 // check if output becomes NaN when processing geometry conversion
@@ -89,6 +88,7 @@ void test_mod_projection_borders(lfFixture* lfFix, gconstpointer data)
     lfLensType geom_types [] = {LF_RECTILINEAR, LF_PANORAMIC, LF_EQUIRECTANGULAR, LF_FISHEYE_STEREOGRAPHIC, LF_FISHEYE, LF_FISHEYE_EQUISOLID, LF_FISHEYE_ORTHOGRAPHIC, LF_FISHEYE_THOBY, LF_UNKNOWN};
     const char* geom_names [] = {"rectilinear", "panoramic", "equirect", "fisheye-sterographic", "fisheye", "fisheye-equisolid", "fisheye-orthographic", "fisheye-thoby", NULL};
     int  j  = 0;
+
     while (geom_types[j]!=LF_UNKNOWN) {
 
         lfFix->lens->Type = geom_types[j];
@@ -99,11 +99,8 @@ void test_mod_projection_borders(lfFixture* lfFix, gconstpointer data)
             if(g_test_verbose())
                 g_print("  ~ Conversion from %s -> %s \n", geom_names[j], geom_names[i]);
 
-            lfFix->mod = new lfModifier (lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
-            lfFix->mod->Initialize (
-                lfFix->lens, LF_PF_U8, 12.0f,
-                6.7f, 2.0f, 1.0f, geom_types[i],
-                LF_MODIFY_GEOMETRY, false);
+            lfFix->mod = new lfModifier(lfFix->lens, 12.0f, 1.0f, lfFix->img_width, lfFix->img_height, LF_PF_U8, false);
+            lfFix->mod->EnableProjectionTransform(geom_types[i]);
 
             if (lfFix->mod->ApplyGeometryDistortion(0,0,1,1,res)) {
                 g_assert_false(std::isnan(res[0]));

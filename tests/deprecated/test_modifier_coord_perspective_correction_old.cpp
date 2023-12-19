@@ -28,10 +28,8 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
     lfFix->img_height = 1000;
     lfFix->img_width  = 1500;
     lfFix->focal      = 50.89f;
-    lfFix->mod = lfModifier::Create (lfFix->lens, 1.534f, lfFix->img_width, lfFix->img_height);
 
-    lfFix->mod->Initialize(lfFix->lens, LF_PF_F32, lfFix->focal, 2.8f, 1000.0f, 1.0f, LF_RECTILINEAR,
-                           0, false);
+    lfFix->mod = new lfModifier(lfFix->lens, lfFix->focal, 1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32);
 
     lfFix->coordBuff = NULL;
 
@@ -52,10 +50,7 @@ void mod_setup_portrait (lfFixture *lfFix, gconstpointer data)
     lfFix->img_width  = 1000;
     lfFix->focal      = 50.89f;
 
-    lfFix->mod = lfModifier::Create (lfFix->lens, 1.534f, lfFix->img_width, lfFix->img_height);
-
-    lfFix->mod->Initialize(lfFix->lens, LF_PF_F32, lfFix->focal, 2.8f, 1000.0f, 1.0f, LF_RECTILINEAR,
-                           0, false);
+    lfFix->mod = new lfModifier(lfFix->lens, lfFix->focal, 1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32);
 
     lfFix->coordBuff = NULL;
 
@@ -68,7 +63,7 @@ void mod_teardown (lfFixture *lfFix, gconstpointer data)
     (void)data;
     g_free (lfFix->coordBuff);
 
-    lfFix->mod->Destroy();
+    delete lfFix->mod;
     delete lfFix->lens;
 }
 

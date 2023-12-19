@@ -49,12 +49,8 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
   lfFix->img_height = 300;
   lfFix->img_width  = 300;
 
-  lfFix->mod = new lfModifier(lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
-
-  lfFix->mod->Initialize(
-    lfFix->lens, LF_PF_F32,
-    24.0f, 2.8f, 1000.0f, p->scale, LF_RECTILINEAR,
-    LF_MODIFY_SCALE, p->reverse);
+  lfFix->mod = new lfModifier(lfFix->lens, 24.0f, 1.0f, lfFix->img_width, lfFix->img_height, LF_PF_F32, p->reverse);
+  lfFix->mod->EnableScaling(p->scale);
 
   lfFix->coordBuff = NULL;
 

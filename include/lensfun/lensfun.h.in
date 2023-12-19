@@ -292,17 +292,6 @@ C_TYPEDEF (struct, lfMount)
 
 /**
  * @brief Create a new mount object.
- *
- * This function is deprecated, use lf_mount_create () instead.
- * @return
- *     A new empty mount object.
- * @sa
- *     lfMount::lfMount()
- */
-DEPRECATED LF_EXPORT lfMount *lf_mount_new ();
-
-/**
- * @brief Create a new mount object.
  * @return
  *     A new empty mount object.
  * @sa
@@ -451,17 +440,6 @@ struct LF_EXPORT lfCamera
 };
 
 C_TYPEDEF (struct, lfCamera)
-
-/**
- * @brief Create a new camera object.
- *
- * This function is deprecated, use lf_camera_create () instead.
- * @return
- *     A new empty camera object.
- * @sa
- *     lfCamera::lfCamera
- */
-DEPRECATED LF_EXPORT lfCamera *lf_camera_new ();
 
 /**
  * @brief Create a new camera object.
@@ -1142,13 +1120,6 @@ struct LF_EXPORT lfLens
     void AddCalibDistortion (const lfLensCalibDistortion *lcd);
 
     /**
-     * @brief Remove a calibration entry from the distortion calibration data.
-     * @param idx
-     *     The calibration data index (zero-based).
-     */
-    DEPRECATED bool RemoveCalibDistortion (int idx);
-
-    /**
      * @brief Add a new transversal chromatic aberration calibration structure
      * to the pool.
      *
@@ -1158,13 +1129,6 @@ struct LF_EXPORT lfLens
      *     The transversal chromatic aberration calibration structure.
      */
     void AddCalibTCA (const lfLensCalibTCA *lctca);
-
-    /**
-     * @brief Remove a calibration entry from the TCA calibration data.
-     * @param idx
-     *     The calibration data index (zero-based).
-     */
-    DEPRECATED bool RemoveCalibTCA (int idx);
 
     /**
      * @brief Add a new vignetting calibration structure to the pool.
@@ -1177,13 +1141,6 @@ struct LF_EXPORT lfLens
     void AddCalibVignetting (const lfLensCalibVignetting *lcv);
 
     /**
-     * @brief Remove a calibration entry from the vignetting calibration data.
-     * @param idx
-     *     The calibration data index (zero-based).
-     */
-    DEPRECATED bool RemoveCalibVignetting (int idx);
-
-    /**
      * @brief Add a new lens crop structure to the pool.
      *
      * The objects is copied, thus you can reuse it as soon as
@@ -1192,13 +1149,6 @@ struct LF_EXPORT lfLens
      *     The lens crop structure.
      */
     void AddCalibCrop (const lfLensCalibCrop *lcc);
-
-    /**
-     * @brief Remove a lens crop entry from the lens crop structure.
-     * @param idx
-     *     The lens crop data index (zero-based).
-     */
-    DEPRECATED bool RemoveCalibCrop (int idx);
 
     /**
      * @brief Add a new lens fov structure to the pool.
@@ -1212,17 +1162,6 @@ struct LF_EXPORT lfLens
      *     The lens fov structure.
      */
     DEPRECATED void AddCalibFov (const lfLensCalibFov *lcf);
-
-    /**
-     * @brief Remove a field of view  entry from the lens fov structure.
-     *
-     * The Field of View (FOV) database entry is deprecated since Lensfun 
-     * version 0.3 and will be removed in future releases.
-     *
-     * @param idx
-     *     The lens information data index (zero-based).
-     */
-    DEPRECATED bool RemoveCalibFov (int idx);
 
     /**
      * @brief Remove all calibrations from the lens.
@@ -1332,18 +1271,6 @@ struct LF_EXPORT lfLens
     static const char *GetLensTypeDesc (lfLensType type, const char **details);
 
     /**
-     * @brief Interpolate lens geometry distortion data for given focal length.
-     * @param focal
-     *     The focal length in mm at which we need geometry distortion parameters.
-     * @param res
-     *     The resulting interpolated model.
-     * @return
-     *     False if there is not sufficient calibration data for the
-     *     requested parameters, otherwise it returns true.
-     */
-    DEPRECATED bool InterpolateDistortion (float focal, lfLensCalibDistortion &res) const;
-
-    /**
      * @brief Interpolate lens geometry distortion data for given focal length
      *  and crop factor.
      * @param crop
@@ -1360,18 +1287,6 @@ struct LF_EXPORT lfLens
 
     /**
      * @brief Interpolate lens TCA calibration data for given focal length.
-     * @param focal
-     *     The focal length in mm at which we need TCA parameters.
-     * @param res
-     *     The resulting interpolated model.
-     * @return
-     *     False if there is not sufficient calibration data for the
-     *     requested parameters, otherwise it returns true.
-     */
-    DEPRECATED bool InterpolateTCA (float focal, lfLensCalibTCA &res) const;
-
-    /**
-     * @brief Interpolate lens TCA calibration data for given focal length.
      * @param crop
      *     Crop factor of the image for which we need TCA parameters.
      * @param focal
@@ -1383,25 +1298,6 @@ struct LF_EXPORT lfLens
      *     requested parameters, otherwise it returns true.
      */
     bool InterpolateTCA (float crop, float focal, lfLensCalibTCA &res) const;
-
-    /**
-     * @brief Interpolate lens vignetting model parameters for given focal length,
-     * aperture, and focus distance.
-     * @param focal
-     *     The focal length in mm for which we need vignetting parameters.
-     * @param aperture
-     *     The aperture (f-number) for which we need vignetting parameters.
-     * @param distance
-     *     The focus distance in meters (distance > 0) for which we need
-     *     vignetting parameters.
-     * @param res
-     *     The resulting interpolated model.
-     * @return
-     *     False if there is not sufficient calibration data for the
-     *     requested parameters, otherwise it returns true.
-     */
-    DEPRECATED bool InterpolateVignetting (
-        float focal, float aperture, float distance, lfLensCalibVignetting &res) const;
 
     /**
      * @brief Interpolate lens vignetting model parameters for given focal length,
@@ -1426,18 +1322,6 @@ struct LF_EXPORT lfLens
 
     /**
      * @brief Interpolate lens crop data for given focal length.
-     * @param focal
-     *     The focal length in mm at which we need image parameters.
-     * @param res
-     *     The resulting interpolated information data.
-     * @return
-     *     False if there is not sufficient calibration data for the
-     *     requested parameters, otherwise it returns true.
-     */
-    DEPRECATED bool InterpolateCrop (float focal, lfLensCalibCrop &res) const;
-
-    /**
-     * @brief Interpolate lens crop data for given focal length.
      * @param crop
      *     Crop factor of the image for which we need image parameters.
      * @param focal
@@ -1449,38 +1333,6 @@ struct LF_EXPORT lfLens
      *     requested parameters, otherwise it returns true.
      */
     bool InterpolateCrop (float crop, float focal, lfLensCalibCrop &res) const;
-
-    /**
-     * @brief Interpolate lens fov data for given focal length.
-     *
-     * The Field of View (FOV) database entry is deprecated since Lensfun 
-     * version 0.3 and will be removed in future releases.
-     * @param focal
-     *     The focal length in mm at which we need image parameters.
-     * @param res
-     *     The resulting interpolated information data.
-     * @return
-     *     False if there is not sufficient calibration data for the
-     *     requested parameters, otherwise it returns true.
-     */
-    DEPRECATED bool InterpolateFov (float focal, lfLensCalibFov &res) const;
-
-    /**
-     * @brief Interpolate lens fov data for given focal length.
-     *
-     * The Field of View (FOV) database entry is deprecated since Lensfun
-     * version 0.3 and will be removed in future releases.
-     * @param crop
-     *     Crop factor of the image for which we need image parameters.
-     * @param focal
-     *     The focal length in mm at which we need image parameters.
-     * @param res
-     *     The resulting interpolated information data.
-     * @return
-     *     False if there is not sufficient calibration data for the
-     *     requested parameters, otherwise it returns true.
-     */
-    DEPRECATED bool InterpolateFov (float crop, float focal, lfLensCalibFov &res) const;
 
     /**
      * @brief Get a flag with the available modifications for this lens considering the
@@ -1532,17 +1384,6 @@ struct LF_EXPORT lfLens
 };
 
 C_TYPEDEF (struct, lfLens)
-
-/**
- * @brief Create a new lens object.
- *
- * This function is deprecated, use lf_lens_create () instead.
- * @return
- *     A new empty lens object.
- * @sa
- *     lfLens::lfLens
- */
-DEPRECATED LF_EXPORT lfLens *lf_lens_new ();
 
 /**
  * @brief Create a new lens object.
@@ -1623,39 +1464,17 @@ LF_EXPORT cbool lf_lens_interpolate_vignetting (const lfLens *lens, float crop, 
 LF_EXPORT cbool lf_lens_interpolate_crop (const lfLens *lens, float crop, float focal,
     lfLensCalibCrop *res);
 
-/** @sa lfLens::InterpolateFov */
-DEPRECATED LF_EXPORT cbool lf_lens_interpolate_fov (const lfLens *lens, float crop, float focal,
-    lfLensCalibFov *res);
-
 /** @sa lfLens::AddCalibDistortion */
 LF_EXPORT void lf_lens_add_calib_distortion (lfLens *lens, const lfLensCalibDistortion *dc);
-
-/** @sa lfLens::RemoveCalibDistortion */
-DEPRECATED LF_EXPORT cbool lf_lens_remove_calib_distortion (lfLens *lens, int idx);
 
 /** @sa lfLens::AddCalibTCA */
 LF_EXPORT void lf_lens_add_calib_tca (lfLens *lens, const lfLensCalibTCA *tcac);
 
-/** @sa lfLens::RemoveCalibTCA */
-DEPRECATED LF_EXPORT cbool lf_lens_remove_calib_tca (lfLens *lens, int idx);
-
 /** @sa lfLens::AddCalibVignetting */
 LF_EXPORT void lf_lens_add_calib_vignetting (lfLens *lens, const lfLensCalibVignetting *vc);
 
-/** @sa lfLens::RemoveCalibVignetting */
-DEPRECATED LF_EXPORT cbool lf_lens_remove_calib_vignetting (lfLens *lens, int idx);
-
 /** @sa lfLens::AddCalibCrop */
 LF_EXPORT void lf_lens_add_calib_crop (lfLens *lens, const lfLensCalibCrop *cc);
-
-/** @sa lfLens::RemoveCalibCrop */
-DEPRECATED LF_EXPORT cbool lf_lens_remove_calib_crop (lfLens *lens, int idx);
-
-/** @sa lfLens::AddCalibFov */
-DEPRECATED LF_EXPORT void lf_lens_add_calib_fov (lfLens *lens, const lfLensCalibFov *cf);
-
-/** @sa lfLens::RemoveCalibFov */
-DEPRECATED LF_EXPORT cbool lf_lens_remove_calib_fov (lfLens *lens, int idx);
 
 /** @sa lfLens::RemoveCalibrations */
 LF_EXPORT void lf_lens_remove_calibrations (lfLens *lens);
@@ -1739,22 +1558,6 @@ struct LF_EXPORT lfDatabase
     ~lfDatabase ();
 
     /**
-     * @brief Create a new empty database object.
-     *
-     * This function is deprecated and will be removed in the future.
-     * Please use the standard constructor instead.
-     */
-    DEPRECATED static lfDatabase *Create ();
-
-    /**
-     * @brief Destroy the database object and free all loaded data.
-     *
-     * This function is deprecated and will be removed in the future. 
-     * Please use the standard destructor instead.
-     */
-    DEPRECATED void Destroy ();
-
-    /**
      * @brief Scans for the timestamp of a Lensfun database.
      *
      * "database" means here a directory containing XML files.  If it also contains
@@ -1768,22 +1571,6 @@ struct LF_EXPORT lfDatabase
      *     the UNIX timestamp when database was last updated.
      */
      static long int ReadTimestamp (const char *dirname);
-
-     /**
-      * @brief Open and parse all XML files in a given directory.
-      *
-      * Returns true if valid Lensfun XML data was found and loaded
-      * successfully.
-      *
-      * This function is deprecated and will be removed in the future.
-      * Please use the lfDatabase::Load(const char *pathname) syntax instead.
-      *
-      * @param dirname
-      *     The directory to be read.
-      * @return
-      *     True if valid lensfun XML data was successfully loaded.
-      */
-     DEPRECATED bool LoadDirectory (const char *dirname);
 
     /**
      * @brief Find and load the lens database.
@@ -1830,14 +1617,6 @@ struct LF_EXPORT lfDatabase
      *     LF_NO_ERROR or a error code.
      */
     lfError Save (const char *filename) const;
-
-    /**
-     * @brief Save the database into a XML char string.
-     * @return
-     *     A pointer to an allocated string with the XML data.
-     *     Free it with lf_free().
-     */
-    DEPRECATED char *Save () const;
 
         /**
      * @brief Save the database into a XML char string. The memory of the received
@@ -2068,17 +1847,6 @@ extern const char* const lf_db_user_updates_location;
 /**
  * @brief Create a new empty database object.
  *
- * This function is deprecated, use lf_db_create () instead.
- * @return
- *     A new empty database object.
- * @sa
- *     lfDatabase::lfDatabase
- */
-DEPRECATED LF_EXPORT lfDatabase *lf_db_new (void);
-
-/**
- * @brief Create a new empty database object.
- *
  * Usually the application will want to do this at startup,
  * after which it would be a good idea to call lf_db_load().
  * @return
@@ -2105,17 +1873,8 @@ LF_EXPORT long int lf_db_read_timestamp (const char *dirname);
 /** @sa lfDatabase::Load() */
 LF_EXPORT lfError lf_db_load (lfDatabase *db);
 
-/** @sa lfDatabase::Load(const char *). Deprecated, use lf_db_load_path() instead. */
-DEPRECATED LF_EXPORT lfError lf_db_load_file (lfDatabase *db, const char *filename);
-
-/** @sa lfDatabase::LoadDirectory(const char *). Deprecated, use lf_db_load_path() instead. */
-DEPRECATED LF_EXPORT cbool lf_db_load_directory (lfDatabase *db, const char *dirname);
-
 /** @sa lfDatabase::Load(const char *) */
 LF_EXPORT lfError lf_db_load_path (lfDatabase *db, const char *pathname);
-
-/** @sa lfDatabase::Load(const char *, size_t). Deprecated, use lf_db_load_str() instead. */
-DEPRECATED LF_EXPORT lfError lf_db_load_data (lfDatabase *db, const char *errcontext, const char *data, size_t data_size);
 
 /** @sa lfDatabase::Load(const char *, size_t) */
 LF_EXPORT lfError lf_db_load_str (lfDatabase *db, const char *xml, size_t data_size);
@@ -2136,11 +1895,6 @@ LF_EXPORT const lfCamera **lf_db_find_cameras_ext (
 
 /** @sa lfDatabase::GetCameras */
 LF_EXPORT const lfCamera *const *lf_db_get_cameras (lfDatabase *db);
-
-/** @sa lfDatabase::FindLenses(const lfCamera *, const char *, const char *) */
-DEPRECATED LF_EXPORT const lfLens **lf_db_find_lenses_hd (
-    const lfDatabase *db, const lfCamera *camera, const char *maker,
-    const char *lens, int sflags);
 
 /** @sa lfDatabase::FindLenses(const lfCamera *, const char *, const char *) */
 LF_EXPORT const lfLens **lf_db_find_lenses (
@@ -2354,114 +2108,6 @@ C_TYPEDEF (enum, lfComponentRole)
 struct LF_EXPORT lfModifier
 {
 #ifdef __cplusplus
-    /**
-     * @brief Create an empty image modifier object.
-     *
-     * Before using the returned object you must add the required
-     * modifier callbacks (see methods AddXXXCallback below).
-     *
-     * You must provide the original image width/height even if you
-     * plan to correct just a part of the image.
-     *
-     * @param lens
-     *     For all modifications, the crop factor, aspect ratio, and
-     *     center shift of this lens will be used.
-     * @param crop
-     *     The crop factor for current camera. The distortion models will
-     *     take this into account if lens models were measured on a camera
-     *     with a different crop factor.
-     * @param width
-     *     The width of the image you want to correct.
-     * @param height
-     *     The height of the image you want to correct.
-     */
-    DEPRECATED lfModifier (const lfLens *lens, float crop, int width, int height);
-
-    /**
-     * @brief Create an empty image modifier object.
-     *
-     * Before using the returned object you must add the required
-     * modifier callbacks (see methods AddXXXCallback below).
-     *
-     * You must provide the original image width/height even if you
-     * plan to correct just a part of the image.
-     *
-     * This function is deprecated and will be removed in the future. 
-     * Please use the standard constructor instead.
-     *
-     * @param lens
-     *     For all modifications, the crop factor, aspect ratio, and
-     *     center shift of this lens will be used.
-     * @param crop
-     *     The crop factor for current camera. The distortion models will
-     *     take this into account if lens models were measured on a camera
-     *     with a different crop factor.
-     * @param width
-     *     The width of the image you want to correct.
-     * @param height
-     *     The height of the image you want to correct.
-     * @return
-     *     A new empty image modifier object.
-     */
-    DEPRECATED static lfModifier *Create (const lfLens *lens, float crop, int width, int height);
-
-    /**
-     * @brief Initialize the process of correcting aberrations in a image.
-     *
-     * The modifier object will be set up to rectify all aberrations
-     * found in the lens description. Make sure the focal length,
-     * aperture, and focus distance are correct in order to ensure
-     * proper rectification.
-     *
-     * Aperture and focus distance are only used for vignetting
-     * correction. Because the dependence of vignetting on focus
-     * distance is very small, and it is usually not available in EXIF
-     * data, you may give an approximative value here.  If you really
-     * do not know, as a last resort, use "1000" as a default value.
-     * @param lens
-     *     The lens which aberrations you want to correct in a image.
-     *     It should be the same lens object as the one passed to
-     *     the lfModifier constructor.
-     * @param format
-     *     Pixel format of your image (bits per pixel component)
-     * @param focal
-     *     The focal length in mm at which the image was taken.
-     * @param aperture
-     *     The aperture (f-number) at which the image was taken.
-     * @param distance
-     *     The approximative focus distance in meters (distance > 0).
-     * @param scale
-     *     An additional scale factor to be applied onto the image
-     *     (1.0 - no scaling; 0.0 - automatic scaling).
-     * @param targeom
-     *     Target geometry. If LF_MODIFY_GEOMETRY is set in @a flags and
-     *     @a targeom is different from lens->Type, a geometry conversion
-     *     will be applied on the image.
-     * @param flags
-     *     A set of flags (se LF_MODIFY_XXX) telling which distortions
-     *     you want corrected. A value of LF_MODIFY_ALL orders correction
-     *     of everything possible (will enable all correction models
-     *     present in lens description).
-     * @param reverse
-     *     If this parameter is true, a reverse transform will be prepared.
-     *     That is, you take a undistorted image at input and convert it so
-     *     that it will look as if it would be a shot made with @a lens.
-     * @return
-     *     A set of LF_MODIFY_XXX flags in effect. This is the @a flags argument
-     *     with dropped bits for operations which are actually no-ops.
-     */
-    DEPRECATED int Initialize (
-        const lfLens *lens, lfPixelFormat format, float focal, float aperture,
-        float distance, float scale, lfLensType targeom, int flags, bool reverse);
-
-    /**
-     * @brief Destroy the modifier object.
-     *
-     * This function is deprecated and will be removed in the future.
-     * Please use the standard destructor instead.
-     */
-    DEPRECATED void Destroy ();
-
     /**
      * @brief Create an empty image modifier object.
      *
@@ -3057,21 +2703,11 @@ extern "C" {
 C_TYPEDEF (struct, lfModifier)
 
 /** @sa lfModifier::lfModifier */
-DEPRECATED LF_EXPORT lfModifier *lf_modifier_new (
-    const lfLens *lens, float crop, int width, int height);
-
-/** @sa lfModifier::lfModifier */
 LF_EXPORT lfModifier *lf_modifier_create (
     const lfLens* lens, float imgfocal, float imgcrop, int imgwidth, int imgheight, lfPixelFormat pixel_format, bool reverse);
 
 /** @sa lfModifier::~lfModifier */
 LF_EXPORT void lf_modifier_destroy (lfModifier *modifier);
-
-/** @sa lfModifier::Initialize */
-DEPRECATED LF_EXPORT int lf_modifier_initialize (
-    lfModifier *modifier, const lfLens *lens, lfPixelFormat format,
-    float focal, float aperture, float distance, float scale,
-    lfLensType targeom, int flags, cbool reverse);
 
 /** @sa lfModifier::EnableScaling */
 LF_EXPORT int lf_modifier_enable_scaling (lfModifier *modifier, float scale);

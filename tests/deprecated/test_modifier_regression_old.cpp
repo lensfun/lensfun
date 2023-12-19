@@ -21,7 +21,7 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
     (void)data;
 
     lfFix->db = new lfDatabase ();
-    lfFix->db->LoadDirectory("data/db");
+    lfFix->db->Load("data/db");
 
     lfFix->img_height = 1000;
     lfFix->img_width  = 1500;
@@ -30,7 +30,7 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
 void mod_teardown (lfFixture *lfFix, gconstpointer data)
 {
     (void)data;
-    lfFix->db->Destroy();
+    delete lfFix->db;
 }
 
 void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
@@ -40,10 +40,8 @@ void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "smc Pentax-DA 50-200mm f/4-5.6 DA ED");
 
-    lfModifier* mod = lfModifier::Create (lenses[0], 1.534f, lfFix->img_width, lfFix->img_height);
-
-    mod->Initialize(lenses[0], LF_PF_F32, 80.89f, 5.6f, 1000.0f, 1.0f, LF_RECTILINEAR,
-                           LF_MODIFY_DISTORTION, false);
+    lfModifier* mod = new lfModifier(lenses[0], 80.89f, 1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
+    mod->EnableDistortionCorrection();
 
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
@@ -60,7 +58,7 @@ void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
         g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, 1e-3);
     }
 
-    mod->Destroy();
+    delete mod;
     lf_free (lenses);
 }
 
@@ -73,10 +71,8 @@ void test_verify_dist_poly5 (lfFixture *lfFix, gconstpointer data)
 
     g_print("%s", lenses[0]->Model);
 
-    lfModifier* mod = lfModifier::Create (lenses[0], 4.6f, lfFix->img_width, lfFix->img_height);
-
-    mod->Initialize(lenses[0], LF_PF_F32, 10.89f, 5.6f, 1000.0f, 1.0f, LF_RECTILINEAR,
-                           LF_MODIFY_DISTORTION, false);
+    lfModifier* mod = new lfModifier(lenses[0], 10.89f, 4.6f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
+    mod->EnableDistortionCorrection();
 
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
@@ -93,7 +89,7 @@ void test_verify_dist_poly5 (lfFixture *lfFix, gconstpointer data)
         g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, 1e-3);
     }
 
-    mod->Destroy();
+    delete mod;
     lf_free (lenses);
 }
 
@@ -104,10 +100,8 @@ void test_verify_dist_ptlens (lfFixture *lfFix, gconstpointer data)
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Pentax-F 28-80mm f/3.5-4.5");
 
-    lfModifier* mod = lfModifier::Create (lenses[0], 1.534f, lfFix->img_width, lfFix->img_height);
-
-    mod->Initialize(lenses[0], LF_PF_F32, 30.89f, 5.6f, 1000.0f, 1.0f, LF_RECTILINEAR,
-                           LF_MODIFY_DISTORTION, false);
+    lfModifier* mod = new lfModifier(lenses[0], 30.89f, 1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
+    mod->EnableDistortionCorrection();
 
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
@@ -124,7 +118,7 @@ void test_verify_dist_ptlens (lfFixture *lfFix, gconstpointer data)
         g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, 1e-3);
     }
 
-    mod->Destroy();
+    delete mod;
     lf_free (lenses);
 }
 
@@ -135,10 +129,8 @@ void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Olympus Zuiko Digital ED 14-42mm f/3.5-5.6");
 
-    lfModifier* mod = lfModifier::Create (lenses[0], 2.0f, lfFix->img_width, lfFix->img_height);
-
-    mod->Initialize(lenses[0], LF_PF_U16, 17.89f, 5.0f, 1000.0f, 1.0f, LF_RECTILINEAR,
-                           LF_MODIFY_VIGNETTING, false);
+    lfModifier* mod = new lfModifier(lenses[0], 17.89f, 2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
+    mod->EnableVignettingCorrection(5.0f, 1000.0f);
 
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
@@ -155,7 +147,7 @@ void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
         g_assert_cmpfloat (fabs (coords [2] - expected [i]), <=, 1e-3);
     }
 
-    mod->Destroy();
+    delete mod;
     lf_free (lenses);
 }
 
@@ -166,10 +158,9 @@ void test_verify_subpix_linear (lfFixture *lfFix, gconstpointer data)
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Olympus Zuiko Digital ED 14-42mm f/3.5-5.6");
 
-    lfModifier* mod = lfModifier::Create (lenses[0], 2.0f, lfFix->img_width, lfFix->img_height);
+    lfModifier* mod = new lfModifier(lenses[0], 17.89f, 2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
+    mod->EnableTCACorrection();
 
-    mod->Initialize(lenses[0], LF_PF_U16, 17.89f, 5.0f, 1000.0f, 1.0f, LF_RECTILINEAR,
-                           LF_MODIFY_TCA, false);
 
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
@@ -190,7 +181,7 @@ void test_verify_subpix_linear (lfFixture *lfFix, gconstpointer data)
             g_assert_cmpfloat (fabs (coords [j] - expected [i][j]), <=, 1e-3);
     }
 
-    mod->Destroy();
+    delete mod;
     lf_free (lenses);
 }
 
@@ -201,10 +192,8 @@ void test_verify_subpix_poly3 (lfFixture *lfFix, gconstpointer data)
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Olympus Zuiko Digital ED 14-42mm f/3.5-5.6");
 
-    lfModifier* mod = lfModifier::Create (lenses[0], 2.0f, lfFix->img_width, lfFix->img_height);
-
-    mod->Initialize(lenses[0], LF_PF_U16, 26.89f, 5.0f, 1000.0f, 1.0f, LF_RECTILINEAR,
-                           LF_MODIFY_TCA, false);
+    lfModifier* mod = new lfModifier(lenses[0], 26.89f, 2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
+    mod->EnableTCACorrection();
 
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
@@ -225,7 +214,7 @@ void test_verify_subpix_poly3 (lfFixture *lfFix, gconstpointer data)
             g_assert_cmpfloat (fabs (coords [j] - expected [i][j]), <=, 1e-3);
     }
 
-    mod->Destroy();
+    delete mod;
     lf_free (lenses);
 }
 
@@ -237,10 +226,8 @@ void test_verify_geom_fisheye_rectlinear (lfFixture *lfFix, gconstpointer data)
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Olympus M.Zuiko Digital ED 8mm f/1.8 Fisheye Pro");
 
-    lfModifier* mod = lfModifier::Create (lenses[0], 2.0f, lfFix->img_width, lfFix->img_height);
-
-    mod->Initialize(lenses[0], LF_PF_U16, 8.0f, 5.0f, 1000.0f, 1.0f, LF_RECTILINEAR,
-                           LF_MODIFY_GEOMETRY, false);
+    lfModifier* mod = new lfModifier(lenses[0], 8.0f, 2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
+    mod->EnableProjectionTransform(LF_RECTILINEAR);
 
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
@@ -257,7 +244,7 @@ void test_verify_geom_fisheye_rectlinear (lfFixture *lfFix, gconstpointer data)
         g_assert_cmpfloat (fabs (coords [1] - expected_y [i]), <=, 1e-1);
     }
 
-    mod->Destroy();
+    delete mod;
     lf_free (lenses);
 }
 
