@@ -4731,10 +4731,25 @@
         <maker>Canon</maker>
         <model>Canon EF 28mm f/2.8</model>
         <mount>Canon EF</mount>
-        <!-- Average crop factor of Canon APS-C cameras -->
-        <cropfactor>1.611</cropfactor>
+        <cropfactor>1.613</cropfactor>
         <calibration>
-            <distortion model="ptlens" focal="28" a="0.003003" b="-0.011213" c="0"/>
+            <!-- Taken with Canon 80D -->
+            <distortion model="ptlens" focal="28" a="0.00722795" b="-0.030605" c="0.0252339"/>
+            <tca model="poly3" focal="28" vr="1.0004854" vb="0.9998210"/>
+            <vignetting model="pa" focal="28" aperture="2.8" distance="10" k1="-0.8561" k2="0.6569" k3="-0.2468"/>
+            <vignetting model="pa" focal="28" aperture="2.8" distance="1000" k1="-0.8561" k2="0.6569" k3="-0.2468"/>
+            <vignetting model="pa" focal="28" aperture="4" distance="10" k1="-0.1286" k2="-0.2482" k3="0.1311"/>
+            <vignetting model="pa" focal="28" aperture="4" distance="1000" k1="-0.1286" k2="-0.2482" k3="0.1311"/>
+            <vignetting model="pa" focal="28" aperture="5.6" distance="10" k1="-0.1732" k2="-0.0658" k3="0.0642"/>
+            <vignetting model="pa" focal="28" aperture="5.6" distance="1000" k1="-0.1732" k2="-0.0658" k3="0.0642"/>
+            <vignetting model="pa" focal="28" aperture="8" distance="10" k1="-0.1721" k2="-0.0640" k3="0.0622"/>
+            <vignetting model="pa" focal="28" aperture="8" distance="1000" k1="-0.1721" k2="-0.0640" k3="0.0622"/>
+            <vignetting model="pa" focal="28" aperture="11" distance="10" k1="-0.1658" k2="-0.0784" k3="0.0700"/>
+            <vignetting model="pa" focal="28" aperture="11" distance="1000" k1="-0.1658" k2="-0.0784" k3="0.0700"/>
+            <vignetting model="pa" focal="28" aperture="16" distance="10" k1="-0.1705" k2="-0.0643" k3="0.0589"/>
+            <vignetting model="pa" focal="28" aperture="16" distance="1000" k1="-0.1705" k2="-0.0643" k3="0.0589"/>
+            <vignetting model="pa" focal="28" aperture="22" distance="10" k1="-0.1691" k2="-0.0717" k3="0.0635"/>
+            <vignetting model="pa" focal="28" aperture="22" distance="1000" k1="-0.1691" k2="-0.0717" k3="0.0635"/>
         </calibration>
     </lens>
 
