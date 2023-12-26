@@ -8,20 +8,20 @@ GET_FILENAME_COMPONENT(SOURCE_BASE_DIR ${CMAKE_SOURCE_DIR} PATH CACHE)
 #  global setup
 project(lensfun C CXX)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 IF (MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
 ELSE()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wformat-security")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wformat-security -pedantic -Wextra -fexceptions")
 ENDIF()
 
 # version
 SET(VERSION_MAJOR 0)
 SET(VERSION_MINOR 3)
-SET(VERSION_MICRO 95)
+SET(VERSION_MICRO 99)
 SET(VERSION_BUGFIX 0)
 SET(VERSION_API 2)
 # This is the version of the *shipped* database, which is not necessarily the

@@ -20,9 +20,9 @@ typedef struct
 // setup a standard lens
 void mod_setup (lfFixture *lfFix, gconstpointer data)
 {
-
+    (void)data;
     lfFix->db = new lfDatabase ();
-    lfFix->db->LoadDirectory("data/db");
+    lfFix->db->Load("data/db");
 
     lfFix->img_height = 4000;
     lfFix->img_width  = 6000;
@@ -30,11 +30,12 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
 
 void mod_teardown (lfFixture *lfFix, gconstpointer data)
 {
-    lfFix->db->Destroy();
+    (void)data;
+    delete lfFix->db;
 }
 
 // very simple nearest neighbour interpolation to simulate some memory access
-void interp_row_nearest(unsigned char** img, unsigned int row, unsigned int width, unsigned int height, float* coords)
+void interp_row_nearest(unsigned char** img, unsigned int row, int width, int height, float* coords)
 {
     for (int c = 0; c<width; c++)
     {
@@ -59,24 +60,22 @@ void interp_row_nearest(unsigned char** img, unsigned int row, unsigned int widt
 
 void test_perf_dist_ptlens (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "PENTAX-F 28-80mm");
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Pentax-F 28-80mm f/3.5-4.5");
 
-    lfModifier* mod = new lfModifier (lenses[0], 1.534f, lfFix->img_width, lfFix->img_height);
-
-    mod->Initialize (lenses[0], LF_PF_F32, 30.89f, 2.8f, 1000.0f, 10.0f, LF_RECTILINEAR,
-                            LF_MODIFY_DISTORTION, false);
-
+    lfModifier* mod = new lfModifier (lenses[0], 30.89f, 1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32);
+    mod->EnableDistortionCorrection();
 
     unsigned char** img = (unsigned char**)_mm_malloc(lfFix->img_height*sizeof(unsigned char*), 32);
-    for (int r = 0; r < lfFix->img_height; r++)
+    for (size_t r = 0; r < lfFix->img_height; r++)
         img[r] = (unsigned char*)_mm_malloc(lfFix->img_width*sizeof(unsigned char)*3, 32);
 
     float *res = (float*)_mm_malloc(lfFix->img_width*sizeof(float)*2, 32);
-    unsigned long start_time = clock();
-    for (int r = 0; r < lfFix->img_height; r++)
+    clock_t start_time = clock();
+    for (size_t r = 0; r < lfFix->img_height; r++)
     {
         mod->ApplyGeometryDistortion (0, r, lfFix->img_width, 1, res);
         interp_row_nearest(img, r, lfFix->img_width, lfFix->img_height, res);
@@ -85,7 +84,7 @@ void test_perf_dist_ptlens (lfFixture *lfFix, gconstpointer data)
     g_print("time elapsed : %.3fs,  ",run_time);
 
     _mm_free(res);
-    for (int r = 0; r < lfFix->img_height; r++) {
+    for (size_t r = 0; r < lfFix->img_height; r++) {
         _mm_free(img[r]);
     }
     _mm_free(img);

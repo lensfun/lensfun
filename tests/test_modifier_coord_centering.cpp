@@ -24,6 +24,7 @@ typedef struct
 // setup a standard lens
 void mod_setup (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     lfFix->lens             = new lfLens ();
     lfFix->lens->CenterX    = 0.1;
     lfFix->lens->CenterY    = 0.1;
@@ -48,6 +49,7 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
 
 void mod_teardown (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     g_free (lfFix->coordBuff);
     delete lfFix->mod;
     delete lfFix->lens;
@@ -55,6 +57,7 @@ void mod_teardown (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_scaling_only (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
 
     lfFix->mod->EnableScaling(2.0f);
 
@@ -74,6 +77,7 @@ void test_mod_coord_scaling_only (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_distortion (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
 
     lfFix->mod->EnableDistortionCorrection();
 

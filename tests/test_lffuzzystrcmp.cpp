@@ -11,14 +11,19 @@ typedef struct
 
 void mod_setup (lfFixture *lfFix, gconstpointer data)
 {
+    (void)lfFix;
+    (void)data;
 }
 
 void mod_teardown (lfFixture *lfFix, gconstpointer data)
 {
+    (void)lfFix;
+    (void)data;
 }
 
 void test_dot_zero_missing_in_raw (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // Name in RAW file
     lfFix->fuzzycmp = new lfFuzzyStrCmp ("Nikkor 18mm f/4 DX", true);
     // Name in database file
@@ -29,6 +34,7 @@ void test_dot_zero_missing_in_raw (lfFixture *lfFix, gconstpointer data)
 
 void test_dot_zero_missing_in_db (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // Name in RAW file
     lfFix->fuzzycmp = new lfFuzzyStrCmp ("Nikkor 18mm f/4.0 DX", true);
     // Name in database file

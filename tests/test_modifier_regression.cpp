@@ -18,6 +18,7 @@ typedef struct
 // setup a standard lens
 void mod_setup (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
 
     lfFix->db = new lfDatabase ();
     lfFix->db->Load("data/db");
@@ -28,18 +29,19 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
 
 void mod_teardown (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     delete lfFix->db;
 }
 
 void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "pEntax 50-200 ED");
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "smc Pentax-DA 50-200mm f/4-5.6 DA ED");
 
     lfModifier* mod = new lfModifier (lenses[0], 80.89f, 1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
-
     mod->EnableDistortionCorrection();
 
     float x[] = {0, 751, 810, 1270};
@@ -86,6 +88,7 @@ void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
 
 void test_verify_dist_poly5 (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "Canon PowerShot G12");
     g_assert_nonnull(lenses);
@@ -118,6 +121,7 @@ void test_verify_dist_poly5 (lfFixture *lfFix, gconstpointer data)
 
 void test_verify_dist_ptlens (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "PENTAX-F 28-80mm");
     g_assert_nonnull(lenses);
@@ -148,13 +152,13 @@ void test_verify_dist_ptlens (lfFixture *lfFix, gconstpointer data)
 
 void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "Olympus ED 14-42mm");
     g_assert_nonnull(lenses);
     g_assert_cmpstr(lenses[0]->Model, ==, "Olympus Zuiko Digital ED 14-42mm f/3.5-5.6");
 
     lfModifier* mod = new lfModifier (lenses[0], 17.89f, 2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
-
     mod->EnableVignettingCorrection(5.0f, 1000.0f);
 
     float x[] = {0, 751, 810, 1270};
@@ -176,7 +180,7 @@ void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
 
     // manually create a lens object
     lfLensCalibVignetting lensCalibVign;
-    lenses[0]->InterpolateVignetting(17.89f, 5.0f, 1000.0f, lensCalibVign);
+    lenses[0]->InterpolateVignetting(2.0f, 17.89f, 5.0f, 1000.0f, lensCalibVign);
     lfLens* lens = new lfLens();
     lens->AddCalibVignetting(&lensCalibVign);
     lens->CropFactor = lenses[0]->CropFactor;
@@ -203,6 +207,7 @@ void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
 
 void test_verify_subpix_linear (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "Olympus ED 14-42mm");
     g_assert_nonnull(lenses);
@@ -237,6 +242,7 @@ void test_verify_subpix_linear (lfFixture *lfFix, gconstpointer data)
 
 void test_verify_subpix_poly3 (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "Olympus ED 14-42mm");
     g_assert_nonnull(lenses);
@@ -269,7 +275,8 @@ void test_verify_subpix_poly3 (lfFixture *lfFix, gconstpointer data)
 
     // manually create a lens object
     lfLensCalibTCA lensCalibTCA;
-    lenses[0]->InterpolateTCA(26.89f, lensCalibTCA);
+
+    lenses[0]->InterpolateTCA(2.0f, 26.89f, lensCalibTCA);
     lfLens* lens = new lfLens();
     lens->AddCalibTCA(&lensCalibTCA);
     lens->CropFactor = lenses[0]->CropFactor;
@@ -296,6 +303,7 @@ void test_verify_subpix_poly3 (lfFixture *lfFix, gconstpointer data)
 
 void test_verify_geom_fisheye_rectlinear (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     // select a lens from database
     const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "M.Zuiko Digital ED 8mm f/1.8 Fisheye");
     g_assert_nonnull(lenses);

@@ -40,6 +40,7 @@ typedef struct
 // setup a standard lens
 void mod_setup(lfFixture *lfFix, gconstpointer data)
 {
+  (void)data;
   lfTestParams *p = (lfTestParams *)data;
 
   lfFix->lens             = new lfLens();
@@ -65,6 +66,7 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
 
 void mod_teardown(lfFixture *lfFix, gconstpointer data)
 {
+  (void)data;
   lfTestParams *p = (lfTestParams *)data;
 
   if(p->alignment == 0)
@@ -78,6 +80,7 @@ void mod_teardown(lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_distortion(lfFixture *lfFix, gconstpointer data)
 {
+  (void)data;
   for(size_t y = 0; y < lfFix->img_height; y++)
   {
     float *coordData = (float *)lfFix->coordBuff + (size_t)2 * y * lfFix->img_width;
@@ -91,6 +94,7 @@ void test_mod_coord_distortion(lfFixture *lfFix, gconstpointer data)
 #ifdef _OPENMP
 void test_mod_coord_distortion_parallel(lfFixture *lfFix, gconstpointer data)
 {
+  (void)data;
   #pragma omp parallel for schedule(static)
   for(int y = 0; y < static_cast<int>(lfFix->img_height); y++)
   {

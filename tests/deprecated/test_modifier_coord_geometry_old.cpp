@@ -42,6 +42,7 @@ typedef struct
 // setup a standard lens
 void mod_setup(lfFixture *lfFix, gconstpointer data)
 {
+  (void)data;
   lfTestParams *p = (lfTestParams *)data;
 
   lfFix->lens             = new lfLens();
@@ -51,12 +52,8 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
   lfFix->img_height = 300;
   lfFix->img_width  = 300;
 
-  lfFix->mod = new lfModifier(lfFix->lens, 1.0f, lfFix->img_width, lfFix->img_height);
-
-  lfFix->mod->Initialize(
-    lfFix->lens, LF_PF_F32,
-    24.0f, 2.8f, 1000.0f, 1.0f, p->targetLensType,
-    LF_MODIFY_GEOMETRY, p->reverse);
+  lfFix->mod = new lfModifier(lfFix->lens, 24.0f, 1.0f, lfFix->img_width, lfFix->img_height, LF_PF_F32, p->reverse);
+  lfFix->mod->EnableProjectionTransform(p->targetLensType);
 
   lfFix->coordBuff = NULL;
 
@@ -69,6 +66,7 @@ void mod_setup(lfFixture *lfFix, gconstpointer data)
 
 void mod_teardown(lfFixture *lfFix, gconstpointer data)
 {
+  (void)data;
   lfTestParams *p = (lfTestParams *)data;
 
   if(p->alignment == 0)
@@ -82,6 +80,7 @@ void mod_teardown(lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_geometry(lfFixture *lfFix, gconstpointer data)
 {
+  (void)data;
   for(size_t y = 0; y < lfFix->img_height; y++)
   {
     float *coordData = (float *)lfFix->coordBuff + (size_t)2 * y * lfFix->img_width;
@@ -95,6 +94,7 @@ void test_mod_coord_geometry(lfFixture *lfFix, gconstpointer data)
 #ifdef _OPENMP
 void test_mod_coord_geometry_parallel(lfFixture *lfFix, gconstpointer data)
 {
+  (void)data;
   #pragma omp parallel for schedule(static)
   for(int y = 0; y < static_cast<int>(lfFix->img_height); y++)
   {

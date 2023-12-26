@@ -692,17 +692,6 @@ void lfLens::AddCalibDistortion (const lfLensCalibDistortion *plcd)
     }
 }
 
-bool lfLens::RemoveCalibDistortion (int idx)
-{
-    // This is a legacy method, hence we assume all data is in Calibrations[0]
-    delete Calibrations[0]->CalibDistortion[idx];
-    Calibrations[0]->CalibDistortion.erase(Calibrations[0]->CalibDistortion.begin() + idx);
-
-    UpdateLegacyCalibPointers();
-
-    return true;
-}
-
 void lfLens::AddCalibTCA (const lfLensCalibTCA *plctca)
 {
     lfLensCalibrationSet* calibSet = GetCalibrationSetForAttributes(plctca->CalibAttr);
@@ -713,17 +702,6 @@ void lfLens::AddCalibTCA (const lfLensCalibTCA *plctca)
     {
         UpdateLegacyCalibPointers();
     }
-}
-
-bool lfLens::RemoveCalibTCA (int idx)
-{
-    // This is a legacy method, hence we assume all data is in Calibrations[0]
-    delete Calibrations[0]->CalibTCA[idx];
-    Calibrations[0]->CalibTCA.erase(Calibrations[0]->CalibTCA.begin() + idx);
-
-    UpdateLegacyCalibPointers();
-
-    return true;
 }
 
 void lfLens::AddCalibVignetting (const lfLensCalibVignetting *plcv)
@@ -738,16 +716,6 @@ void lfLens::AddCalibVignetting (const lfLensCalibVignetting *plcv)
     }
 }
 
-bool lfLens::RemoveCalibVignetting (int idx)
-{
-    // This is a legacy method, hence we assume all data is in Calibrations[0]
-    delete Calibrations[0]->CalibVignetting[idx];
-    Calibrations[0]->CalibVignetting.erase(Calibrations[0]->CalibVignetting.begin() + idx);
-
-    UpdateLegacyCalibPointers();
-
-    return true;
-}
 
 void lfLens::AddCalibCrop (const lfLensCalibCrop *plcc)
 {
@@ -761,16 +729,6 @@ void lfLens::AddCalibCrop (const lfLensCalibCrop *plcc)
     }
 }
 
-bool lfLens::RemoveCalibCrop (int idx)
-{
-    // This is a legacy method, hence we assume all data is in Calibrations[0]
-    delete Calibrations[0]->CalibCrop[idx];
-    Calibrations[0]->CalibCrop.erase(Calibrations[0]->CalibCrop.begin() + idx);
-
-    UpdateLegacyCalibPointers();
-
-    return true;
-}
 
 void lfLens::AddCalibFov (const lfLensCalibFov *plcf)
 {
@@ -783,18 +741,6 @@ void lfLens::AddCalibFov (const lfLensCalibFov *plcf)
         UpdateLegacyCalibPointers();
     }
 }
-
-bool lfLens::RemoveCalibFov (int idx)
-{
-    // This is a legacy method, hence we assume all data is in Calibrations[0]
-    delete Calibrations[0]->CalibFov[idx];
-    Calibrations[0]->CalibFov.erase(Calibrations[0]->CalibFov.begin() + idx);
-
-    UpdateLegacyCalibPointers();
-
-    return true;
-}
-
 
 void lfLens::RemoveCalibrations()
 {
@@ -960,11 +906,6 @@ static void __parameter_scales (float values [], int number_of_values,
     }
 }
 
-bool lfLens::InterpolateDistortion (float focal, lfLensCalibDistortion &res) const
-{
-    return InterpolateDistortion(CropFactor, focal, res);
-}
-
 bool lfLens::InterpolateDistortion (float crop, float focal, lfLensCalibDistortion &res) const
 {
     // find calibration set with closest crop factor
@@ -1060,11 +1001,6 @@ bool lfLens::InterpolateDistortion (float crop, float focal, lfLensCalibDistorti
     }
 
     return true;
-}
-
-bool lfLens::InterpolateTCA (float focal, lfLensCalibTCA &res) const
-{
-    return InterpolateTCA(CropFactor, focal, res);
 }
 
 bool lfLens::InterpolateTCA (float crop, float focal, lfLensCalibTCA &res) const
@@ -1182,12 +1118,6 @@ static float __vignetting_dist (
     return sqrt (square (f2 - f1) + square (a2 - a1) + square (d2 - d1));
 }
 
-bool lfLens::InterpolateVignetting (
-    float focal, float aperture, float distance, lfLensCalibVignetting &res) const
-{
-    return InterpolateVignetting(CropFactor, focal, aperture, distance, res);
-}
-
 bool lfLens::InterpolateVignetting (float crop,
     float focal, float aperture, float distance, lfLensCalibVignetting &res) const
 {
@@ -1275,11 +1205,6 @@ bool lfLens::InterpolateVignetting (float crop,
         return false;
 }
 
-bool lfLens::InterpolateCrop (float focal, lfLensCalibCrop &res) const
-{
-    return InterpolateCrop(CropFactor, focal, res);
-}
-
 bool lfLens::InterpolateCrop (float crop, float focal, lfLensCalibCrop &res) const
 {
     // find calibration set with closest crop factor
@@ -1360,89 +1285,6 @@ bool lfLens::InterpolateCrop (float crop, float focal, lfLensCalibCrop &res) con
             spline [0] ? spline [0]->Crop [i] : FLT_MAX,
             spline [1]->Crop [i], spline [2]->Crop [i],
             spline [3] ? spline [3]->Crop [i] : FLT_MAX, t);
-
-    return true;
-}
-
-bool lfLens::InterpolateFov (float focal, lfLensCalibFov &res) const
-{
-    return InterpolateFov(CropFactor, focal, res);
-}
-
-bool lfLens::InterpolateFov (float crop, float focal, lfLensCalibFov &res) const
-{
-    // find calibration set with closest crop factor
-    lfLensCalibrationSet* calib_set = nullptr;
-    float crop_ratio = 1e6f;
-    for (auto c : Calibrations)
-    {
-        const float r = crop / c->Attributes.CropFactor;
-        if (c->HasFov() && (r >= 0.96) && (r < crop_ratio))
-        {
-            crop_ratio = r;
-            calib_set = c;
-        }
-    }
-    if (calib_set == nullptr)
-        return false;
-    if (calib_set == Calibrations[0])
-    {
-        // sync legacy attributes
-        Calibrations[0]->Attributes.CropFactor = CropFactor;
-        Calibrations[0]->Attributes.AspectRatio = AspectRatio;
-    }
-
-    union
-    {
-        const lfLensCalibFov *spline [4];
-        const void *spline_ptr [4];
-    };
-    float spline_dist [4] = { -FLT_MAX, -FLT_MAX, FLT_MAX, FLT_MAX };
-
-    memset ((void*)spline, 0, sizeof (spline));
-    int counter=0;
-
-    for (const lfLensCalibFov* c : calib_set->CalibFov)
-    {
-        if (c->FieldOfView == 0)
-            continue;
-
-        counter++;
-        float df = focal - c->Focal;
-        if (df == 0.0)
-        {
-            // Exact match found, don't care to interpolate
-            res = *c;
-            return true;
-        }
-        __insert_spline ((const void **)spline_ptr, spline_dist, df, c);
-    }
-
-    //no valid data found
-    if (counter==0)
-        return false;
-
-    if (!spline [1] || !spline [2])
-    {
-        if (spline [1])
-            res = *spline [1];
-        else if (spline [2])
-            res = *spline [2];
-        else
-            return false;
-
-        return true;
-    }
-
-    // No exact match found, interpolate the model parameters
-    res.Focal = focal;
-
-    float t = (focal - spline [1]->Focal) / (spline [2]->Focal - spline [1]->Focal);
-
-    res.FieldOfView = _lf_interpolate (
-        spline [0] ? spline [0]->FieldOfView : FLT_MAX,
-        spline [1]->FieldOfView, spline [2]->FieldOfView,
-        spline [3] ? spline [3]->FieldOfView : FLT_MAX, t);
 
     return true;
 }
@@ -1621,20 +1463,10 @@ cbool lf_lens_interpolate_crop (const lfLens *lens, float crop, float focal,
     return lens->InterpolateCrop (crop, focal, *res);
 }
 
-cbool lf_lens_interpolate_fov (const lfLens *lens, float crop, float focal,
-    lfLensCalibFov *res)
-{
-    return lens->InterpolateFov (crop, focal, *res);
-}
 
 void lf_lens_add_calib_distortion (lfLens *lens, const lfLensCalibDistortion *dc)
 {
     lens->AddCalibDistortion (dc);
-}
-
-cbool lf_lens_remove_calib_distortion (lfLens *lens, int idx)
-{
-    return lens->RemoveCalibDistortion (idx);
 }
 
 void lf_lens_add_calib_tca (lfLens *lens, const lfLensCalibTCA *tcac)
@@ -1642,29 +1474,15 @@ void lf_lens_add_calib_tca (lfLens *lens, const lfLensCalibTCA *tcac)
    lens->AddCalibTCA (tcac);
 }
 
-cbool lf_lens_remove_calib_tca (lfLens *lens, int idx)
-{
-    return lens->RemoveCalibTCA (idx);
-}
-
 void lf_lens_add_calib_vignetting (lfLens *lens, const lfLensCalibVignetting *vc)
 {
     lens->AddCalibVignetting (vc);
 }
 
-cbool lf_lens_remove_calib_vignetting (lfLens *lens, int idx)
-{
-    return lens->RemoveCalibVignetting (idx);
-}
 
 void lf_lens_add_calib_crop (lfLens *lens, const lfLensCalibCrop *lcc)
 {
     lens->AddCalibCrop (lcc);
-}
-
-cbool lf_lens_remove_calib_crop (lfLens *lens, int idx)
-{
-    return lens->RemoveCalibCrop (idx);
 }
 
 
@@ -1673,10 +1491,6 @@ void lf_lens_add_calib_fov (lfLens *lens, const lfLensCalibFov *lcf)
     lens->AddCalibFov (lcf);
 }
 
-cbool lf_lens_remove_calib_fov (lfLens *lens, int idx)
-{
-    return lens->RemoveCalibFov (idx);
-}
 
 void lf_lens_remove_calibrations (lfLens *lens)
 {

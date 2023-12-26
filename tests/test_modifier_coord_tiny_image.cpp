@@ -23,6 +23,7 @@ typedef struct
 // setup a standard lens
 void mod_setup (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     lfFix->img_height = 2;
     lfFix->img_width  = 3;
 
@@ -40,6 +41,7 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
 
 void mod_teardown (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     g_free (lfFix->coordBuff);
 
     delete lfFix->mod;
@@ -48,6 +50,7 @@ void mod_teardown (lfFixture *lfFix, gconstpointer data)
 
 void test_mod_coord_scaling_only (lfFixture *lfFix, gconstpointer data)
 {
+    (void)data;
     const float epsilon = std::numeric_limits<float>::epsilon();
     float expected_coordinates[] = {-9.0f, -4.5f, 1.0f, -4.5f, 11.0f, -4.5f,
                                     -9.0f,  5.5f, 1.0f,  5.5f, 11.0f,  5.5};
