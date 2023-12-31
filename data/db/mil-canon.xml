@@ -1479,4 +1479,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon RF 24mm F1.8 MACRO IS STM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+	     <!-- Taken with Canon EOS R6 -->
+            <distortion model="ptlens" focal="24" a="0.0157929" b="-0.071535" c="0.0199203"/>
+            <tca model="poly3" focal="24" vr="1.0001912" vb="1.0000314"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
