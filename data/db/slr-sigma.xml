@@ -2142,13 +2142,30 @@
         <mount>Nikon F AF</mount>
         <mount>Sigma SA</mount>
         <mount>Canon EF</mount>
-        <mount>Sony Alpha</mount>
-        <mount>Pentax KAF</mount>
+        <mount>Sony E</mount>
+        <mount>Leica L</mount>
         <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Nikon D810 -->
             <distortion model="poly3" focal="24" k1="-0.000508073"/>
             <tca model="poly3" focal="24" vr="1.0002000" vb="1.0000500"/>
+        </calibration>
+    </lens>
+
+     <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 24mm F1.4 DG HSM | A</model>
+        <model lang="en">Sigma 24mm f/1.4 DG HSM | A</model>
+        <mount>Nikon F AF</mount>
+        <mount>Sigma SA</mount>
+        <mount>Canon EF</mount>
+        <mount>Sony E</mount>
+        <mount>Leica L</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+			<!-- Taken with Nikon D7500 -->
+            <distortion model="ptlens" focal="24" a="-0.009" b="0.034" c="-0.046"/>
+            <tca model="poly3" focal="24" vr="1.0000294" vb="1.0001784"/>
         </calibration>
     </lens>
 
