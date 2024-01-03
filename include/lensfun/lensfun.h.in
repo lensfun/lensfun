@@ -1021,8 +1021,6 @@ struct LF_EXPORT lfLens
     float MinAperture;
     /** Biggest f-number possible (ex: 22). */
     float MaxAperture;
-    /** Available mounts (NULL-terminated list) (ex: { "QBM", NULL }) */
-    DEPRECATED char **Mounts;
     /** Lens type */
     lfLensType Type;
     /**

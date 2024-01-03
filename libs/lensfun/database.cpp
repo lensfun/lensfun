@@ -941,11 +941,11 @@ lfError lfDatabase::Save (char*& xml, size_t& data_size) const
                 _lf_xml_printf (output, "\t\t<aperture min=\"%g\" max=\"%g\" />\n",
                                 l->MinAperture, l->MaxAperture);
         }
-
-        if (l->Mounts)
-            for (int j = 0; l->Mounts [j]; j++)
+        const char* const* mounts = l->GetMountNames();
+        if (mounts)
+            for (int j = 0; mounts [j]; j++)
                 _lf_xml_printf (output, "\t\t<mount>%s</mount>\n",
-                                l->Mounts [j]);
+                mounts [j]);
 
         if (l->Type != LF_RECTILINEAR)
             _lf_xml_printf (output, "\t\t<type>%s</type>\n",
@@ -1330,13 +1330,14 @@ int lfDatabase::MatchScore (const lfLens *pattern, const lfLens *match, const lf
         compat_mounts = NULL;
 
     // Check the lens mount, if specified
-    if (match->Mounts && (camera || compat_mounts))
+    const char* const* mounts = match->GetMountNames();
+    if (mounts && (camera || compat_mounts))
     {
         bool matching_mount_found = false;
 
         if (camera && camera->Mount)
-            for (int j = 0; match->Mounts [j]; j++)
-                if (!_lf_strcmp (camera->Mount, match->Mounts [j]))
+            for (int j = 0; mounts [j]; j++)
+                if (!_lf_strcmp (camera->Mount, mounts [j]))
                 {
                     matching_mount_found = true;
                     score += 10;
@@ -1345,8 +1346,8 @@ int lfDatabase::MatchScore (const lfLens *pattern, const lfLens *match, const lf
 
         if (compat_mounts)
             for (int i = 0; compat_mounts [i]; i++)
-                for (int j = 0; match->Mounts [j]; j++)
-                    if (!_lf_strcmp (compat_mounts [i], match->Mounts [j]))
+                for (int j = 0; mounts [j]; j++)
+                    if (!_lf_strcmp (compat_mounts [i], mounts [j]))
                     {
                         matching_mount_found = true;
                         score += 9;

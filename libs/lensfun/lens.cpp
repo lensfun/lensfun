@@ -27,7 +27,6 @@ lfLens::lfLens ()
     MaxFocal = 0.0;
     MinAperture = 0.0;
     MaxAperture = 0.0;
-    Mounts = NULL;
     Type = LF_RECTILINEAR;
     Score = 0;
 
@@ -50,7 +49,6 @@ lfLens::~lfLens ()
     lf_free (Model);
 
     Calibrations.clear();
-
     for (char* m: MountNames)
         free(m);
 }
@@ -65,7 +63,6 @@ lfLens::lfLens (const lfLens &other)
     MaxAperture = other.MaxAperture;
     Type = other.Type;
 
-    Mounts = NULL;
     MountNames.clear();
     if (auto* otherMounts = other.GetMountNames())
     {
@@ -95,7 +92,6 @@ lfLens &lfLens::operator = (const lfLens &other)
     MaxAperture = other.MaxAperture;
     Type = other.Type;
 
-    Mounts = NULL;
     MountNames.clear();
 
     if (auto* otherMounts = other.GetMountNames())
@@ -137,9 +133,6 @@ void lfLens::AddMount (const char *val)
 
         // add terminating NULL
         _lf_terminate_vec(MountNames);
-
-        // legacy mount pointer
-        Mounts = (char**)MountNames.data();
     }
 }
 
