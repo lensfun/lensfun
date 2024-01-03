@@ -39,6 +39,7 @@
 #include <string>
 #include <vector>
 #include <set>
+#include <memory>
 
 extern "C" {
 /** Helper macro to make C/C++ work similarly */
@@ -926,7 +927,6 @@ struct lfLensCalibrationSet
     std::vector<lfLensCalibCrop*> CalibCrop;
     /** Field of view calibration data */
     std::vector<lfLensCalibFov*> CalibFov;
-
     friend struct lfDatabase;
     friend struct lfLens;
 #endif
@@ -1373,11 +1373,11 @@ struct LF_EXPORT lfLens
     private:
         void UpdateLegacyCalibPointers();
 
-        std::vector<lfLensCalibrationSet*> Calibrations;
+        std::vector<std::shared_ptr<lfLensCalibrationSet>> Calibrations;
         std::vector<char*> MountNames;
 
-        lfLensCalibrationSet* GetClosestCalibrationSet(const float crop) const;
-        lfLensCalibrationSet* GetCalibrationSetForAttributes(const lfLensCalibAttributes lcattr);
+        std::shared_ptr<lfLensCalibrationSet> GetClosestCalibrationSet(const float crop) const;
+        std::shared_ptr<lfLensCalibrationSet> GetCalibrationSetForAttributes(const lfLensCalibAttributes lcattr);
 
         friend struct lfDatabase;
 #endif

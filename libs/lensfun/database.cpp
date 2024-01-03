@@ -969,7 +969,7 @@ lfError lfDatabase::Save (char*& xml, size_t& data_size) const
             _lf_xml_printf (output, "\t\t<aspect-ratio>%g</aspect-ratio>\n",
                         l->AspectRatio);
 
-        for (auto *calib : l->Calibrations)
+        for (auto &calib : l->Calibrations)
         {
             if (calib->Empty())
                 continue;
