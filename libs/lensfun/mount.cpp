@@ -75,7 +75,7 @@ void lfMount::RebuildPointers()
                    [](const std::string& mount){ return mount.c_str(); });
 
     // making the vector C-compatible
-    MountCompatPtrs.back() = nullptr;
+    MountCompatPtrs.emplace_back(nullptr);
 
     //const_cast for C-compatibility sake
     Compat = const_cast<char**>(MountCompatPtrs.data());
