@@ -6,29 +6,8 @@
 #include "config.h"
 #include "lensfun.h"
 #include "lensfunprv.h"
-#include <stdlib.h>
-
-namespace {
-    std::vector<char*> AddCompatBulk(const std::vector<char*>& other)
-    {
-        std::vector<char*> result;
-        //+1 for _lf_terminate_vec
-        result.reserve(other.size() + 1);
-
-        for (auto* otherMounts : other)
-        {
-            if (otherMounts)
-            {
-                result.emplace_back(new char[strlen(otherMounts) + 1]);
-                strcpy(result.back(), otherMounts);
-            }
-        }
-
-        // add terminating NULL
-        _lf_terminate_vec(result);
-        return result;
-    }
-}
+#include <cstdlib>
+#include <algorithm>
 
 lfMount::lfMount () :
      Name{nullptr},
@@ -39,24 +18,21 @@ lfMount::lfMount () :
 lfMount::~lfMount ()
 {
     lf_free (Name);
-
-    for (char* m: MountCompat)
-        delete[] m;
 }
 
 lfMount::lfMount (const lfMount &other) :
      Name{lf_mlstr_dup (other.Name)},
      Compat{nullptr},
-     MountCompat{AddCompatBulk(other.MountCompat)}
+     MountCompat{other.MountCompat}
 {
-    // legacy compat pointer
-    Compat = MountCompat.data();
+    RebuildPointers();
 }
 
 lfMount::lfMount (lfMount &&other) noexcept :
-     Name{other.Name},
-     Compat{other.Compat},
-     MountCompat{std::move(other.MountCompat)}
+     Name{std::move(other.Name)},
+     Compat{std::move(other.Compat)},
+     MountCompat{std::move(other.MountCompat)},
+     MountCompatPtrs{std::move(other.MountCompatPtrs)}
 {
     other.Name = nullptr;
     other.Compat = nullptr;
@@ -67,27 +43,42 @@ lfMount &lfMount::operator = (const lfMount &other)
     lf_free (Name);
     Name = lf_mlstr_dup (other.Name);
 
-    for (char* m: MountCompat)
-        delete[] m;
+    MountCompat = other.MountCompat;
 
-    MountCompat = AddCompatBulk(other.MountCompat);
-
-    // legacy compat pointer
-    Compat = MountCompat.data();
+    RebuildPointers();
 
     return *this;
 }
 
 lfMount &lfMount::operator = (lfMount &&other) noexcept
 {
-    Name = other.Name;
-    Compat = other.Compat;
+    Name = std::move(other.Name);
+    Compat = std::move(other.Compat);
     MountCompat = std::move(other.MountCompat);
+    MountCompatPtrs = std::move(other.MountCompatPtrs);
 
     other.Name = nullptr;
     other.Compat = nullptr;
 
     return *this;
+}
+
+void lfMount::RebuildPointers()
+{
+    MountCompatPtrs.clear();
+
+    // +1 for C-compatible null-terminated vector
+    MountCompatPtrs.reserve(MountCompat.size() + 1);
+    std::transform(MountCompat.begin(),
+                   MountCompat.end(),
+                   std::back_inserter(MountCompatPtrs),
+                   [](const std::string& mount){ return mount.c_str(); });
+
+    // making the vector C-compatible
+    MountCompatPtrs.back() = nullptr;
+
+    //const_cast for C-compatibility sake
+    Compat = const_cast<char**>(MountCompatPtrs.data());
 }
 
 bool lfMount::operator == (const lfMount& other) // const noexcept
@@ -104,20 +95,14 @@ void lfMount::AddCompat (const char *val)
 {
     if (val)
     {
-        MountCompat.emplace_back(new char[strlen(val) + 1]);
-        strcpy(MountCompat.back(), val);
-
-        // add terminating NULL
-        _lf_terminate_vec(MountCompat);
-
-        // legacy compat pointer
-        Compat = MountCompat.data();
+        MountCompat.emplace_back(val);
+        RebuildPointers();
     }
 }
 
 const char* const* lfMount::GetCompats() const //noexcept
 {
-    return MountCompat.data();
+    return MountCompatPtrs.data();
 }
 
 bool lfMount::Check () // const noexcept

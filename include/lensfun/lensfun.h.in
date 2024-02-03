@@ -294,7 +294,13 @@ struct LF_EXPORT lfMount
     bool Check ();
 
 private:
-    std::vector<char*> MountCompat;
+    /** keeps Compat, MountCompatPtrs and MountCompat in-sync*/
+    void RebuildPointers();
+
+    /** An actual list of compatible mounts, owns the data */
+    std::vector<std::string> MountCompat;
+    /** A list of raw char* for the mounts, does not own the data */
+    std::vector<const char*> MountCompatPtrs;
 #endif
 };
 
