@@ -238,9 +238,19 @@ struct LF_EXPORT lfMount
     lfMount (const lfMount &other);
 
     /**
+     * Move constructor
+     */
+    lfMount (lfMount &&other) noexcept;
+
+    /**
      * Assignment operator
      */
     lfMount &operator = (const lfMount &other);
+
+    /**
+     * Move assignment operator
+     */
+    lfMount &operator = (lfMount &&other) noexcept;
 
     /**
      * Comparison operator
