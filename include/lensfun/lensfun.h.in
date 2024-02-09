@@ -295,12 +295,12 @@ struct LF_EXPORT lfMount
 
 private:
     /** keeps Compat, MountCompatPtrs and MountCompat in-sync*/
-    void RebuildPointers();
+    void RebuildCAPIPointers();
 
     /** An actual list of compatible mounts, owns the data */
     std::vector<std::string> MountCompat;
     /** A list of raw char* for the mounts, does not own the data */
-    std::vector<const char*> MountCompatPtrs;
+    std::vector<const char*> MountCompatCAPIPtrs;
 #endif
 };
 

@@ -25,14 +25,14 @@ lfMount::lfMount (const lfMount &other) :
      Compat{nullptr},
      MountCompat{other.MountCompat}
 {
-    RebuildPointers();
+    RebuildCAPIPointers();
 }
 
 lfMount::lfMount (lfMount &&other) noexcept :
      Name{std::move(other.Name)},
      Compat{std::move(other.Compat)},
      MountCompat{std::move(other.MountCompat)},
-     MountCompatPtrs{std::move(other.MountCompatPtrs)}
+     MountCompatCAPIPtrs{std::move(other.MountCompatCAPIPtrs)}
 {
     other.Name = nullptr;
     other.Compat = nullptr;
@@ -45,7 +45,7 @@ lfMount &lfMount::operator = (const lfMount &other)
 
     MountCompat = other.MountCompat;
 
-    RebuildPointers();
+    RebuildCAPIPointers();
 
     return *this;
 }
@@ -55,7 +55,7 @@ lfMount &lfMount::operator = (lfMount &&other) noexcept
     Name = std::move(other.Name);
     Compat = std::move(other.Compat);
     MountCompat = std::move(other.MountCompat);
-    MountCompatPtrs = std::move(other.MountCompatPtrs);
+    MountCompatCAPIPtrs = std::move(other.MountCompatCAPIPtrs);
 
     other.Name = nullptr;
     other.Compat = nullptr;
@@ -63,22 +63,22 @@ lfMount &lfMount::operator = (lfMount &&other) noexcept
     return *this;
 }
 
-void lfMount::RebuildPointers()
+void lfMount::RebuildCAPIPointers()
 {
-    MountCompatPtrs.clear();
+    MountCompatCAPIPtrs.clear();
 
     // +1 for C-compatible null-terminated vector
-    MountCompatPtrs.reserve(MountCompat.size() + 1);
+    MountCompatCAPIPtrs.reserve(MountCompat.size() + 1);
     std::transform(MountCompat.begin(),
                    MountCompat.end(),
-                   std::back_inserter(MountCompatPtrs),
+                   std::back_inserter(MountCompatCAPIPtrs),
                    [](const std::string& mount){ return mount.c_str(); });
 
     // making the vector C-compatible
-    MountCompatPtrs.emplace_back(nullptr);
+    MountCompatCAPIPtrs.emplace_back(nullptr);
 
     //const_cast for C-compatibility sake
-    Compat = const_cast<char**>(MountCompatPtrs.data());
+    Compat = const_cast<char**>(MountCompatCAPIPtrs.data());
 }
 
 bool lfMount::operator == (const lfMount& other) // const noexcept
@@ -96,13 +96,13 @@ void lfMount::AddCompat (const char *val)
     if (val)
     {
         MountCompat.emplace_back(val);
-        RebuildPointers();
+        RebuildCAPIPointers();
     }
 }
 
 const char* const* lfMount::GetCompats() const //noexcept
 {
-    return MountCompatPtrs.data();
+    return MountCompatCAPIPtrs.data();
 }
 
 bool lfMount::Check () // const noexcept
