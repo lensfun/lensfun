@@ -19,6 +19,10 @@ ADD_EXECUTABLE(test_lens test_lens.cpp)
 TARGET_LINK_LIBRARIES(test_lens lensfun ${COMMON_LIBS})
 ADD_TEST(NAME Lens COMMAND test_lens)
 
+ADD_EXECUTABLE(test_mount_c_api test_mount_c_api.cpp)
+TARGET_LINK_LIBRARIES(test_mount_c_api lensfun ${COMMON_LIBS})
+ADD_TEST(NAME Mount_c_api COMMAND test_mount_c_api)
+
 ADD_EXECUTABLE(test_modifier test_modifier.cpp)
 TARGET_LINK_LIBRARIES(test_modifier lensfun ${COMMON_LIBS})
 ADD_TEST(NAME Modifier COMMAND test_modifier)
