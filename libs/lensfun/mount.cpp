@@ -8,6 +8,7 @@
 #include "lensfunprv.h"
 #include <cstdlib>
 #include <algorithm>
+#include <iterator>
 
 lfMount::lfMount () :
      Name{nullptr},
