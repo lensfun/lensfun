@@ -1344,4 +1344,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>NIKKOR Z 28mm f/2.8</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Z 6 -->
+            <distortion model="ptlens" focal="28" a="0.0077462" b="-0.0284407" c="0.0071774"/>
+            <tca model="poly3" focal="28" vr="1.0002021" vb="1.0002232"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>

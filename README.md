@@ -1,6 +1,7 @@
 
 [![CMake-Linux](https://github.com/lensfun/lensfun/actions/workflows/cmake-linux.yml/badge.svg)](https://github.com/lensfun/lensfun/actions/workflows/cmake-linux.yml)
 [![CMake-Windows](https://github.com/lensfun/lensfun/actions/workflows/cmake-windows.yml/badge.svg)](https://github.com/lensfun/lensfun/actions/workflows/cmake-windows.yml)
+[![CMake-MSYS2](https://github.com/lensfun/lensfun/actions/workflows/cmake-msys2.yml/badge.svg)](https://github.com/lensfun/lensfun/actions/workflows/cmake-msys2.yml)
 
 WHAT IS IT
 ----------
