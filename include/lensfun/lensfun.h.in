@@ -255,7 +255,7 @@ struct LF_EXPORT lfMount
     /**
      * Comparison operator
      */
-    bool operator == (const lfMount& other);
+    bool operator == (const lfMount& other) const noexcept;
 
     /**
      * @brief Destroy a mount object. All allocated fields are freed.
@@ -284,14 +284,14 @@ struct LF_EXPORT lfMount
     /**
      * @brief Return a list of compatible mounts.
      */
-    const char* const* GetCompats () const;
+    const char* const* GetCompats () const noexcept;
 
     /**
      * @brief Check if a mount object is valid.
      * @return
      *     true if required fields are ok.
      */
-    bool Check ();
+    bool Check () const noexcept;
 
 private:
     /** keeps Compat, MountCompatPtrs and MountCompat in-sync*/
