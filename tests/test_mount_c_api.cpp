@@ -13,7 +13,6 @@ void test_mount_c_api()
     mount->Name = lf_mlstr_add(mount->Name, "en", "Nikon F");
     g_assert_true(lf_mount_check(mount));
     g_assert_null(lf_mount_get_compats(mount));
-    // g_assert_null(mount->Compat); // deprecated
 
     std::array<const char*, 3> addedCompats = {"Nikon F AF", "Nikon F AI", "Nikon F AI-S"};
     for (size_t idx = 0; idx < addedCompats.size(); ++idx)
@@ -23,7 +22,6 @@ void test_mount_c_api()
 
         const char* const* compats = lf_mount_get_compats(mount);
         g_assert_nonnull(compats);
-        // g_assert_nonnull(mount->Compat); // deprecated
 
         size_t added = idx + 1;
         for (size_t i = 0; i < added; ++i)
