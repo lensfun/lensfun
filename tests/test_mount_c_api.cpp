@@ -27,7 +27,7 @@ void test_mount_c_api()
         for (size_t i = 0; i < added; ++i)
         {
             g_assert_nonnull(compats[i]);
-            g_assert_false(strcmp(compats[i], addedCompats[i]));
+            g_assert_cmpstr(compats[i], ==, addedCompats[i]);
         }
         g_assert_null(compats[added]); // null-termminated vector
     }
@@ -44,7 +44,7 @@ void test_mount_c_api()
         for (size_t i = 0; i < addedCompats.size(); ++i)
         {
             g_assert_nonnull(compats[i]);
-            g_assert_false(strcmp(compats[i], addedCompats[i]));
+            g_assert_cmpstr(compats[i], ==, addedCompats[i]);
         }
         g_assert_null(compats[addedCompats.size()]);
     };
