@@ -1,0 +1,74 @@
+Checks: '-*,
+         clang-analyzer-*,
+         performance-*,
+
+         misc-*,
+         -misc-no-recursion,
+         -misc-non-private-member-variables-in-classes,
+
+         modernize-*,
+         -modernize-use-trailing-return-type,
+         -modernize-use-auto,
+
+         readability-*,
+         -readability-implicit-bool-conversion,
+         -readability-braces-around-statements,
+         -readability-identifier-length,
+         -readability-magic-numbers,
+         -readability-function-cognitive-complexity,
+         -readability-uppercase-literal-suffix,
+         -readability-simplify-boolean-expr,
+         -readability-else-after-return,
+         -readability-named-parameter,
+
+         cppcoreguidelines-*,
+         -cppcoreguidelines-avoid-magic-numbers,
+         -cppcoreguidelines-avoid-goto,
+         -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+         -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+         -cppcoreguidelines-pro-bounds-constant-array-index,
+         -cppcoreguidelines-pro-type-vararg,
+         -cppcoreguidelines-pro-type-union-access,
+         -cppcoreguidelines-narrowing-conversions,
+         -cppcoreguidelines-init-variables,
+         -cppcoreguidelines-non-private-member-variables-in-classes,
+
+
+
+         -clang-analyzer-security.insecureAPI.strcpy,
+         -clang-analyzer-core.NonNullParamChecker,
+
+         -misc-misplaced-const,
+
+         -modernize-use-nullptr,
+         -modernize-deprecated-headers,
+         -modernize-avoid-c-arrays,
+         -modernize-use-using,
+         -modernize-loop-convert,
+         -modernize-return-braced-init-list,
+         -modernize-use-equals-default,
+
+         -readability-inconsistent-declaration-parameter-name,
+         -readability-isolate-declaration,
+         -readability-non-const-parameter,
+         -readability-convert-member-functions-to-static,
+         -readability-make-member-function-const,
+         -readability-qualified-auto,
+         -readability-misleading-indentation,
+         -readability-container-size-empty,
+         -readability-simplify-subscript-expr,
+         -readability-avoid-const-params-in-decls,
+
+         -cppcoreguidelines-avoid-c-arrays,
+         -cppcoreguidelines-pro-type-cstyle-cast,
+         -cppcoreguidelines-pro-type-member-init,
+         -cppcoreguidelines-prefer-member-initializer,
+         -cppcoreguidelines-owning-memory,
+         -cppcoreguidelines-macro-usage,
+         -cppcoreguidelines-no-malloc,
+         -cppcoreguidelines-avoid-non-const-global-variables,
+         -cppcoreguidelines-special-member-functions,
+         '
+WarningsAsErrors: '*'
+HeaderFilterRegex: 'lensfun.*\.h'
+AnalyzeTemporaryDtors: false
