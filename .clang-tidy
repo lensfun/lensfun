@@ -1,0 +1,38 @@
+Checks: '-*,
+         clang-analyzer-*,
+         performance-*,
+
+         misc-*,
+         -misc-no-recursion,
+         -misc-non-private-member-variables-in-classes,
+
+         modernize-*,
+         -modernize-use-trailing-return-type,
+         -modernize-use-auto,
+
+         readability-*,
+         -readability-implicit-bool-conversion,
+         -readability-braces-around-statements,
+         -readability-identifier-length,
+         -readability-magic-numbers,
+         -readability-function-cognitive-complexity,
+         -readability-uppercase-literal-suffix,
+         -readability-simplify-boolean-expr,
+         -readability-else-after-return,
+         -readability-named-parameter,
+
+         cppcoreguidelines-*,
+         -cppcoreguidelines-avoid-magic-numbers,
+         -cppcoreguidelines-avoid-goto,
+         -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+         -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+         -cppcoreguidelines-pro-bounds-constant-array-index,
+         -cppcoreguidelines-pro-type-vararg,
+         -cppcoreguidelines-pro-type-union-access,
+         -cppcoreguidelines-narrowing-conversions,
+         -cppcoreguidelines-init-variables,
+         -cppcoreguidelines-non-private-member-variables-in-classes,
+'
+WarningsAsErrors: '*'
+HeaderFilterRegex: 'auxfun.h|image.h|rgbpixel.h|common_code.hpp|lensfun.*\.h'
+AnalyzeTemporaryDtors: false
