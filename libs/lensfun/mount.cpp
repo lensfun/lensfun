@@ -79,6 +79,7 @@ void lfMount::RebuildCAPIPointers()
     MountCompatCAPIPtrs.emplace_back(nullptr);
 
     //const_cast for C-compatibility sake
+    //NOLINTNEXTLINE
     Compat = const_cast<char**>(MountCompatCAPIPtrs.data());
 }
 
