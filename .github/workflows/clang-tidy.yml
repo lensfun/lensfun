@@ -58,4 +58,4 @@ jobs:
     - name: Run clang-tidy
       run: git diff -U0 ${{ steps.base-ref.outputs.base }} | clang-tidy-diff -use-color -p1 -regex .*cpp -path ${{github.workspace}}/build > out 2> err
     - name: Check results
-      run: if grep -q "warnings treated as errors" err; then cat out; false; else true; fi
+      run: if grep -q "warnings\? treated as errors" err; then cat out; false; else true; fi
