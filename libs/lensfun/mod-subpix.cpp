@@ -374,8 +374,6 @@ void lfModifier::ModifyCoord_TCA_ACM (void *data, float *iocoord, int count)
                       2 * (alpha4 * y + alpha5 * x);
         iocoord [0] = alpha0 * (x * common_term + alpha5 * ru2);
         iocoord [1] = alpha0 * (y * common_term + alpha4 * ru2);
-        iocoord [0] = iocoord [0];
-        iocoord [1] = iocoord [1];
 
         x = iocoord [4];
         y = iocoord [5];
