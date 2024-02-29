@@ -1,6 +1,7 @@
 Checks: '-*,
          clang-analyzer-*,
          performance-*,
+         -performance-move-const-arg,
 
          misc-*,
          -misc-no-recursion,
