@@ -53,9 +53,9 @@ jobs:
         fi
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTS=ON -DBUILD_LENSTOOL=ON
-    - name: Install clang-tidy for clang-tidy-diff
-      run: sudo apt update && sudo apt install clang-tidy
+    - name: Install clang-tidy-15
+      run: sudo apt update && sudo apt install clang-tidy-15
     - name: Run clang-tidy
-      run: git diff -U0 ${{ steps.base-ref.outputs.base }} | clang-tidy-diff -use-color -p1 -regex .*cpp -path ${{github.workspace}}/build > out 2> err
+      run: git diff -U0 ${{ steps.base-ref.outputs.base }} | clang-tidy-diff-15.py -use-color -p1 -regex .*cpp -path ${{github.workspace}}/build > out 2> err
     - name: Check results
       run: if grep -q "warnings\? treated as error" err; then cat out; false; else true; fi
