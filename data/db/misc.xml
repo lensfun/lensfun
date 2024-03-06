@@ -1237,6 +1237,34 @@
     </lens>
 
     <lens>
+        <maker>Viltrox</maker>
+        <model>Viltrox 20mm F1.8</model>
+        <mount>Sony E</mount>
+        <mount>Nikon Z</mount>
+        <focal value="20"/>
+        <aperture min="1.8" max="16"/>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon Z 6II -->
+            <distortion model="ptlens" focal="20" a="0.01894" b="-0.04235" c="0.01194"/>
+            <vignetting model="pa" focal="20" aperture="1.8" distance="10" k1="-1.1847" k2="0.6718" k3="-0.2258"/>
+            <vignetting model="pa" focal="20" aperture="1.8" distance="1000" k1="-1.1847" k2="0.6718" k3="-0.2258"/>
+            <vignetting model="pa" focal="20" aperture="2" distance="10" k1="-1.0621" k2="0.4916" k3="-0.1589"/>
+            <vignetting model="pa" focal="20" aperture="2" distance="1000" k1="-1.0621" k2="0.4916" k3="-0.1589"/>
+            <vignetting model="pa" focal="20" aperture="2.8" distance="10" k1="-1.0882" k2="0.7261" k3="-0.2988"/>
+            <vignetting model="pa" focal="20" aperture="2.8" distance="1000" k1="-1.0882" k2="0.7261" k3="-0.2988"/>
+            <vignetting model="pa" focal="20" aperture="4" distance="10" k1="-1.0282" k2="0.5972" k3="-0.2081"/>
+            <vignetting model="pa" focal="20" aperture="4" distance="1000" k1="-1.0282" k2="0.5972" k3="-0.2081"/>
+            <vignetting model="pa" focal="20" aperture="5.6" distance="10" k1="-1.0759" k2="0.7011" k3="-0.2632"/>
+            <vignetting model="pa" focal="20" aperture="5.6" distance="1000" k1="-1.0759" k2="0.7011" k3="-0.2632"/>
+            <vignetting model="pa" focal="20" aperture="8" distance="10" k1="-1.0844" k2="0.6891" k3="-0.2483"/>
+            <vignetting model="pa" focal="20" aperture="8" distance="1000" k1="-1.0844" k2="0.6891" k3="-0.2483"/>
+            <vignetting model="pa" focal="20" aperture="16" distance="10" k1="-1.1003" k2="0.7382" k3="-0.2814"/>
+            <vignetting model="pa" focal="20" aperture="16" distance="1000" k1="-1.1003" k2="0.7382" k3="-0.2814"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <maker>Pentacon</maker>
         <model>Pentacon electric 2.8/29mm</model>
         <mount>Sony E</mount>
