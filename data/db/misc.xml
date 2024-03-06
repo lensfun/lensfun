@@ -964,6 +964,39 @@
 
     <lens>
         <maker>TTArtisan</maker>
+        <model>50mm F1.4 Tilt</model>
+        <mount>Sony E</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Canon RF</mount>
+        <mount>Nikon Z</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Leica L</mount>
+        <focal value="50"/>
+        <aperture min="1.4" max="16"/>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon Z 6II -->
+            <!-- this lens has very bad vignetting in the corenrs around 2.8-4.0 apperture -->
+            <distortion model="ptlens" focal="50" a="0.00493" b="-0.02527" c="0.01242"/>
+            <vignetting model="pa" focal="50" aperture="1.4" distance="10" k1="-1.1683" k2="0.8130" k3="-0.3889"/>
+            <vignetting model="pa" focal="50" aperture="1.4" distance="1000" k1="-1.1683" k2="0.8130" k3="-0.3889"/>
+            <vignetting model="pa" focal="50" aperture="2" distance="10" k1="-0.0161" k2="-0.7266" k3="0.1565"/>
+            <vignetting model="pa" focal="50" aperture="2" distance="1000" k1="-0.0161" k2="-0.7266" k3="0.1565"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="10" k1="-0.3802" k2="0.6716" k3="-0.6253"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="1000" k1="-0.3802" k2="0.6716" k3="-0.6253"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="10" k1="-0.2399" k2="0.1029" k3="-0.0918"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="1000" k1="-0.2399" k2="0.1029" k3="-0.0918"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="10" k1="-0.2653" k2="0.0673" k3="-0.0135"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="1000" k1="-0.2653" k2="0.0673" k3="-0.0135"/>
+            <vignetting model="pa" focal="50" aperture="8" distance="10" k1="-0.3430" k2="0.1972" k3="-0.0804"/>
+            <vignetting model="pa" focal="50" aperture="8" distance="1000" k1="-0.3430" k2="0.1972" k3="-0.0804"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="10" k1="-0.3937" k2="0.3041" k3="-0.1437"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="1000" k1="-0.3937" k2="0.3041" k3="-0.1437"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>TTArtisan</maker>
         <model>TTArtisan APS-C 23mm F1.4</model>
         <mount>Sony E</mount>
         <mount>Fujifilm X</mount>
