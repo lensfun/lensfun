@@ -964,6 +964,39 @@
 
     <lens>
         <maker>TTArtisan</maker>
+        <model>50mm F1.4 Tilt</model>
+        <mount>Sony E</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Canon RF</mount>
+        <mount>Nikon Z</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Leica L</mount>
+        <focal value="50"/>
+        <aperture min="1.4" max="16"/>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon Z 6II -->
+            <!-- this lens has very bad vignetting in the corenrs around 2.8-4.0 apperture -->
+            <distortion model="ptlens" focal="50" a="0.00493" b="-0.02527" c="0.01242"/>
+            <vignetting model="pa" focal="50" aperture="1.4" distance="10" k1="-1.1683" k2="0.8130" k3="-0.3889"/>
+            <vignetting model="pa" focal="50" aperture="1.4" distance="1000" k1="-1.1683" k2="0.8130" k3="-0.3889"/>
+            <vignetting model="pa" focal="50" aperture="2" distance="10" k1="-0.0161" k2="-0.7266" k3="0.1565"/>
+            <vignetting model="pa" focal="50" aperture="2" distance="1000" k1="-0.0161" k2="-0.7266" k3="0.1565"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="10" k1="-0.3802" k2="0.6716" k3="-0.6253"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="1000" k1="-0.3802" k2="0.6716" k3="-0.6253"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="10" k1="-0.2399" k2="0.1029" k3="-0.0918"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="1000" k1="-0.2399" k2="0.1029" k3="-0.0918"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="10" k1="-0.2653" k2="0.0673" k3="-0.0135"/>
+            <vignetting model="pa" focal="50" aperture="5.6" distance="1000" k1="-0.2653" k2="0.0673" k3="-0.0135"/>
+            <vignetting model="pa" focal="50" aperture="8" distance="10" k1="-0.3430" k2="0.1972" k3="-0.0804"/>
+            <vignetting model="pa" focal="50" aperture="8" distance="1000" k1="-0.3430" k2="0.1972" k3="-0.0804"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="10" k1="-0.3937" k2="0.3041" k3="-0.1437"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="1000" k1="-0.3937" k2="0.3041" k3="-0.1437"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>TTArtisan</maker>
         <model>TTArtisan APS-C 23mm F1.4</model>
         <mount>Sony E</mount>
         <mount>Fujifilm X</mount>
@@ -1237,6 +1270,34 @@
     </lens>
 
     <lens>
+        <maker>Viltrox</maker>
+        <model>Viltrox PFU RBMH 20mm f/1.8 ASPH</model>
+        <mount>Sony E</mount>
+        <mount>Nikon Z</mount>
+        <focal value="20"/>
+        <aperture min="1.8" max="16"/>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon Z 6II -->
+            <distortion model="ptlens" focal="20" a="0.01894" b="-0.04235" c="0.01194"/>
+            <vignetting model="pa" focal="20" aperture="1.8" distance="10" k1="-1.1847" k2="0.6718" k3="-0.2258"/>
+            <vignetting model="pa" focal="20" aperture="1.8" distance="1000" k1="-1.1847" k2="0.6718" k3="-0.2258"/>
+            <vignetting model="pa" focal="20" aperture="2" distance="10" k1="-1.0621" k2="0.4916" k3="-0.1589"/>
+            <vignetting model="pa" focal="20" aperture="2" distance="1000" k1="-1.0621" k2="0.4916" k3="-0.1589"/>
+            <vignetting model="pa" focal="20" aperture="2.8" distance="10" k1="-1.0882" k2="0.7261" k3="-0.2988"/>
+            <vignetting model="pa" focal="20" aperture="2.8" distance="1000" k1="-1.0882" k2="0.7261" k3="-0.2988"/>
+            <vignetting model="pa" focal="20" aperture="4" distance="10" k1="-1.0282" k2="0.5972" k3="-0.2081"/>
+            <vignetting model="pa" focal="20" aperture="4" distance="1000" k1="-1.0282" k2="0.5972" k3="-0.2081"/>
+            <vignetting model="pa" focal="20" aperture="5.6" distance="10" k1="-1.0759" k2="0.7011" k3="-0.2632"/>
+            <vignetting model="pa" focal="20" aperture="5.6" distance="1000" k1="-1.0759" k2="0.7011" k3="-0.2632"/>
+            <vignetting model="pa" focal="20" aperture="8" distance="10" k1="-1.0844" k2="0.6891" k3="-0.2483"/>
+            <vignetting model="pa" focal="20" aperture="8" distance="1000" k1="-1.0844" k2="0.6891" k3="-0.2483"/>
+            <vignetting model="pa" focal="20" aperture="16" distance="10" k1="-1.1003" k2="0.7382" k3="-0.2814"/>
+            <vignetting model="pa" focal="20" aperture="16" distance="1000" k1="-1.1003" k2="0.7382" k3="-0.2814"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <maker>Pentacon</maker>
         <model>Pentacon electric 2.8/29mm</model>
         <mount>Sony E</mount>
@@ -1494,6 +1555,37 @@
         <calibration>
             <!-- Taken with Fuji M-adapter on Fuji X-T20 -->
             <distortion model="ptlens" focal="9" a="0.00347" b="-0.00922" c="-0.01236"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>7Artisans</maker>
+        <model>7Artisans 35mm f/0.95</model>
+        <mount>Sony E</mount>
+        <mount>Nikon Z</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Canon EF-M</mount>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-6400 -->
+            <distortion model="ptlens" focal="35" a="0.00528912" b="-0.0175297" c="0.00427597"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pergear</maker>
+        <model>Pergear 60mm f/2.8 MK2 Macro</model>
+        <mount>Sony E</mount>
+        <mount>Nikon Z</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Leica L</mount>
+        <mount>Canon RF</mount>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-6400 -->
+            <distortion model="ptlens" focal="60" a="0.0023165" b="0.0016048" c="0.00410838"/>
         </calibration>
     </lens>
 
