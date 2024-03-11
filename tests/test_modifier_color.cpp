@@ -12,13 +12,6 @@
 
 #include "lensfun.h"
 
-#if !defined(__APPLE__) && !defined(__FreeBSD__) && !defined(__OpenBSD__) && !defined(__DragonFly__)
-#include <malloc.h>
-#endif
-#ifdef __APPLE__
-#include <sys/malloc.h>
-#endif
-
 #include "common_code.hpp"
 
 //TODO: find better place for cTypeToLfPixelFormat()
