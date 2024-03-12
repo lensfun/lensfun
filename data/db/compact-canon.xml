@@ -1007,6 +1007,14 @@
         <cropfactor>5.6</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Canon</maker>
+        <model>Canon IXY 220F</model>
+        <model lang="en">IXY 220F</model>
+        <mount>canonIxy220F</mount>
+        <cropfactor>5.58</cropfactor>
+    </camera>
+
     <lens>
         <maker>Canon</maker>
         <model>Canon PowerShot Pro1 &amp; compatibles (Standard)</model>
@@ -3589,6 +3597,36 @@
             <tca model="poly3" focal="106" vr="0.9998593" vb="0.9999902"/>
             <tca model="poly3" focal="147.4" vr="0.9998470" vb="0.9999026"/>
             <tca model="poly3" focal="220" vr="0.9998333" vb="0.9998775"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon IXY 220F &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>canonIxy220F</mount>
+        <cropfactor>5.58</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="4.3" a="0.0330585" b="-0.12324" c="0.0108118" />
+            <distortion model="ptlens" focal="6.2" a="0.0126603" b="-0.062798" c="0.023038" />
+            <distortion model="ptlens" focal="8.0" a="0.0068442" b="-0.0367743" c="0.0201766" />
+            <distortion model="ptlens" focal="10.9" a="0.00546958" b="-0.01492" c="-0.000564578" />
+            <distortion model="ptlens" focal="13.2" a="0.00634369" b="-0.0157665" c="0.0103012" />
+            <distortion model="ptlens" focal="15.6" a="0.00653171" b="-0.0125775" c="0.00790776" />
+            <distortion model="ptlens" focal="17.8" a="0.0132446" b="-0.0339291" c="0.0324941" />
+            <distortion model="ptlens" focal="19.9" a="0.00763657" b="-0.0141858" c="0.013633" />
+            <distortion model="ptlens" focal="21.5" a="0.0120072" b="-0.0269653" c="0.02472" />
+            <tca model="poly3" focal="4.3" br="0.0006031" vr="0.9995388" bb="-0.0004525" vb="1.0009564" />
+            <tca model="poly3" focal="6.216" br="0.0000868" vr="0.9999890" bb="-0.0001671" vb="1.0004601" />
+            <tca model="poly3" focal="8.025" br="0.0000699" vr="1.0000472" bb="-0.0001504" vb="1.0004467" />
+            <tca model="poly3" focal="10.889" br="0.0000301" vr="1.0001014" bb="-0.0001340" vb="1.0003694" />
+            <tca model="poly3" focal="13.25" br="-0.0000191" vr="1.0002074" bb="-0.0000637" vb="1.0002222" />
+            <tca model="poly3" focal="15.628" br="-0.0000115" vr="1.0002242" bb="-0.0000242" vb="1.0000882" />
+            <tca model="poly3" focal="17.755" br="-0.0000397" vr="1.0002607" bb="0.0000001" vb="0.9999791" />
+            <tca model="poly3" focal="19.895" br="-0.0000573" vr="1.0003747" bb="0.0000167" vb="0.9998646" />
+            <tca model="poly3" focal="21.5" br="-0.0000418" vr="1.0003295" bb="0.0000445" vb="0.9998544" />
         </calibration>
     </lens>
 
