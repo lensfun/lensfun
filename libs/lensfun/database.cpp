@@ -53,9 +53,9 @@ lfDatabase::~lfDatabase ()
         delete l;
 }
 
-long int lfDatabase::ReadTimestamp (const char *dirname)
+long long int lfDatabase::ReadTimestamp (const char *dirname)
 {
-    long int timestamp = -1;
+    long long int timestamp = -1;
     GDir *dir = g_dir_open (dirname, 0, NULL);
     if (dir)
     {
