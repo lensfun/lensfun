@@ -11,7 +11,7 @@
 #include <regex>
 #include <string.h>
 #include <locale.h>
-#include <math.h>
+#include <cmath>
 #include "windows/mathconstants.h"
 #include <algorithm>
 #include <cfloat>
@@ -1115,7 +1115,7 @@ static float __vignetting_dist (
     float d1 = 0.1 / distance;
     float d2 = 0.1 / x.Distance;
 
-    return hypot(f2 - f1, a2 - a1, d2 - d1);
+    return std::hypot(f2 - f1, a2 - a1, d2 - d1);
 }
 
 bool lfLens::InterpolateVignetting (float crop,
