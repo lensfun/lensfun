@@ -864,9 +864,9 @@ static void __parameter_scales (float values [], int number_of_values,
             break;
 
         case LF_DIST_MODEL_ACM:
-            const float exponent = index < 3 ? (float)(2 * (index + 1)) : 1.0;
+            const float exponent = index < 3 ? (float)(2 * (index + 1)) : 1.0f;
             for (int i=0; i < number_of_values; i++)
-                values [i] /= pow (values [i], exponent);
+                values [i] /= std::pow (values [i], exponent);
             break;
         }
         break;
@@ -882,9 +882,9 @@ static void __parameter_scales (float values [], int number_of_values,
             break;
 
         case LF_TCA_MODEL_ACM:
-            const float exponent = index > 1 && index < 8 ? (float)(index / 2 * 2) : 1.0;
+            const float exponent = index > 1 && index < 8 ? (float)(index / 2 * 2) : 1.0f;
             for (int i=0; i < number_of_values; i++)
-                values [i] /= pow (values [i], exponent);
+                values [i] /= std::pow (values [i], exponent);
             break;
         }
         break;
@@ -900,7 +900,7 @@ static void __parameter_scales (float values [], int number_of_values,
         case LF_VIGNETTING_MODEL_ACM:
             const float exponent = (float)(2 * (index + 1));
             for (int i=0; i < number_of_values; i++)
-                values [i] = 1.0 / pow (values [i], exponent);
+                values [i] = 1.0f / std::pow (values [i], exponent);
             break;
         }
     }
@@ -1110,10 +1110,10 @@ static float __vignetting_dist (
         f1 /= df;
         f2 /= df;
     }
-    float a1 = 4.0 / aperture;
-    float a2 = 4.0 / x.Aperture;
-    float d1 = 0.1 / distance;
-    float d2 = 0.1 / x.Distance;
+    float a1 = 4.0f / aperture;
+    float a2 = 4.0f / x.Aperture;
+    float d1 = 0.1f / distance;
+    float d2 = 0.1f / x.Distance;
 
     return std::hypot(f2 - f1, a2 - a1, d2 - d1);
 }
@@ -1179,7 +1179,7 @@ bool lfLens::InterpolateVignetting (float crop,
         }
 
         smallest_interpolation_distance = std::min(smallest_interpolation_distance, interpolation_distance);
-        float weighting = fabs (1.0 / pow (interpolation_distance, power));
+        float weighting = std::abs (1.0f / std::pow (interpolation_distance, power));
         for (size_t i = 0; i < ARRAY_LEN (res.Terms); i++)
         {
             float values [1] = {c->Focal};
