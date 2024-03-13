@@ -1521,6 +1521,30 @@
             <vignetting model="pa" focal="135.0" aperture="22.0" distance="4.12" k1="-0.1439891" k2="0.1188465" k3="-0.0463822" />
             <vignetting model="pa" focal="135.0" aperture="22.0" distance="1000" k1="-0.1254221" k2="0.1093811" k3="-0.0417637" />
         </calibration>
+     </lens>
+
+     <lens>
+        <maker>Canon</maker>
+        <model>Canon RF 50mm F1.2 L USM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS R -->
+            <distortion model="ptlens" focal="50" a="0.0150295" b="-0.0445396" c="0.0358279"/>
+            <tca model="poly3" focal="50" vr="1.0000347" vb="1.0000826"/>
+            <vignetting model="pa" focal="50" aperture="1.2" distance="10" k1="-1.7827" k2="1.7124" k3="-0.7333"/>
+            <vignetting model="pa" focal="50" aperture="1.2" distance="1000" k1="-1.7827" k2="1.7124" k3="-0.7333"/>
+            <vignetting model="pa" focal="50" aperture="1.4" distance="10" k1="-0.8669" k2="-0.2521" k3="0.3723"/>
+            <vignetting model="pa" focal="50" aperture="1.4" distance="1000" k1="-0.8669" k2="-0.2521" k3="0.3723"/>
+            <vignetting model="pa" focal="50" aperture="2" distance="10" k1="-0.0964" k2="-0.8437" k3="0.3607"/>
+            <vignetting model="pa" focal="50" aperture="2" distance="1000" k1="-0.0964" k2="-0.8437" k3="0.3607"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="10" k1="-0.2766" k2="0.0523" k3="-0.2040"/>
+            <vignetting model="pa" focal="50" aperture="2.8" distance="1000" k1="-0.2766" k2="0.0523" k3="-0.2040"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="10" k1="-0.3503" k2="0.1868" k3="-0.1734"/>
+            <vignetting model="pa" focal="50" aperture="4" distance="1000" k1="-0.3503" k2="0.1868" k3="-0.1734"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="10" k1="-0.3164" k2="0.0337" k3="-0.0206"/>
+            <vignetting model="pa" focal="50" aperture="16" distance="1000" k1="-0.3164" k2="0.0337" k3="-0.0206"/>
+        </calibration>
     </lens>
-	
+
 </lensdatabase>
