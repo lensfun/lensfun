@@ -16,7 +16,7 @@ the database timestamp, the second is a list of available version numbers, and
 the third is a list of strings which represents further alternative base URLs
 to look at.  So, the file may contain the following::
 
-    [1386797501, [1, 2, 3], ["http://wilson.bronger.org/"]]
+    [1386797501, [1, 2, 3], ["https://wilson.bronger.org/"]]
 
 All URLs must end with a slash.  For every version number, there must be a file
 called version_<versionnumber>.tar.bz2.  So in our case, there must be the
@@ -41,10 +41,17 @@ Status code 0 -- successfully installed updates
             3 -- no location was responsive; maybe network problems
 
 """
-
-import urllib.request, shutil, sys, os, time, calendar, tarfile, json, glob
+import calendar
+import glob
+import http.client
+import json
+import os
+import shutil
+import sys
+import tarfile
+import time
+import urllib.request
 import lensfun
-
 
 database_version = lensfun.get_database_version()
 
@@ -101,13 +108,15 @@ def detect_local_database_versions():
             except ValueError:
                 pass
     return versions
-local_database_versions = detect_local_database_versions()
 
+
+local_database_versions = detect_local_database_versions()
 
 locations = {version: set() for version in local_database_versions}
 local_timestamps = {version: detect_local_timestamp(version) for version in local_database_versions}
 seen_urls = set()
 at_least_one_responsive_location = False
+
 
 def read_location(base_url):
     global at_least_one_responsive_location
@@ -116,7 +125,7 @@ def read_location(base_url):
         print("Reading {} …".format(base_url + "versions.json"))
         try:
             response = urllib.request.urlopen(base_url + "versions.json")
-        except (urllib.error.HTTPError, urllib.error.URLError, ValueError) as e:
+        except (http.client.HTTPException, urllib.error.URLError, ValueError) as e:
             print("  Error: URL could not be opened, skipping: " + str(e))
         else:
             try:
@@ -131,6 +140,7 @@ def read_location(base_url):
                         locations[version].add(Location(base_url, version, timestamp))
                 for base_url in alternatives:
                     read_location(base_url)
+
 
 read_location("https://lensfun.sourceforge.net/db/")
 read_location("https://wilson.bronger.org/lensfun-db/")
