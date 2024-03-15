@@ -1388,4 +1388,36 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>NIKKOR Z 85mm f/1.2 S</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Z 9 -->
+            <distortion model="ptlens" focal="85" a="0" b="0.00529" c="0"/>
+            <tca model="poly3" focal="85" vr="1.0000511" vb="0.9999193"/>
+            <vignetting model="pa" focal="85" aperture="1.2" distance="0.8" k1="-1.4259" k2="1.3795" k3="-0.6158"/>
+            <vignetting model="pa" focal="85" aperture="1.2" distance="1.6" k1="-1.3236" k2="1.1092" k3="-0.4666"/>
+            <vignetting model="pa" focal="85" aperture="1.2" distance="4.8" k1="-1.2999" k2="1.0932" k3="-0.4824"/>
+            <vignetting model="pa" focal="85" aperture="1.2" distance="1000" k1="-1.2980" k2="1.1176" k3="-0.5150"/>
+            <vignetting model="pa" focal="85" aperture="1.8" distance="0.8" k1="-0.0320" k2="-0.5650" k3="0.1839"/>
+            <vignetting model="pa" focal="85" aperture="1.8" distance="1.6" k1="-0.0664" k2="-0.4434" k3="0.0756"/>
+            <vignetting model="pa" focal="85" aperture="1.8" distance="4.8" k1="-0.1007" k2="-0.3431" k3="-0.0036"/>
+            <vignetting model="pa" focal="85" aperture="1.8" distance="1000" k1="-0.1239" k2="-0.2806" k3="-0.0519"/>
+            <vignetting model="pa" focal="85" aperture="2.5" distance="0.8" k1="-0.1920" k2="0.0229" k3="-0.0373"/>
+            <vignetting model="pa" focal="85" aperture="2.5" distance="1.6" k1="-0.2135" k2="0.0612" k3="-0.0710"/>
+            <vignetting model="pa" focal="85" aperture="2.5" distance="4.8" k1="-0.2245" k2="0.0645" k3="-0.0731"/>
+            <vignetting model="pa" focal="85" aperture="2.5" distance="1000" k1="-0.2414" k2="0.0920" k3="-0.0942"/>
+            <vignetting model="pa" focal="85" aperture="3.5" distance="0.8" k1="-0.1742" k2="-0.0206" k3="0.0011"/>
+            <vignetting model="pa" focal="85" aperture="3.5" distance="1.6" k1="-0.1870" k2="-0.0175" k3="0.0017"/>
+            <vignetting model="pa" focal="85" aperture="3.5" distance="4.8" k1="-0.1953" k2="-0.0260" k3="0.0106"/>
+            <vignetting model="pa" focal="85" aperture="3.5" distance="1000" k1="-0.2081" k2="-0.0170" k3="0.0063"/>
+            <vignetting model="pa" focal="85" aperture="16" distance="0.8" k1="-0.1750" k2="-0.0011" k3="-0.0103"/>
+            <vignetting model="pa" focal="85" aperture="16" distance="1.6" k1="-0.1798" k2="-0.0145" k3="-0.0009"/>
+            <vignetting model="pa" focal="85" aperture="16" distance="4.8" k1="-0.1898" k2="-0.0198" k3="0.0059"/>
+            <vignetting model="pa" focal="85" aperture="16" distance="1000" k1="-0.2001" k2="-0.0207" k3="0.0086"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
