@@ -1600,4 +1600,19 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Viltrox</maker>
+        <model>AF 27mm f/1.2 XF</model>
+        <model lang="en">Viltrox AF 27mm F1.2 PRO</model>
+        <mount>Fujifilm X</mount>
+        <mount>Sony E</mount>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-T2 -->
+            <distortion model="ptlens" focal="27" a="0.0044595" b="-0.0151236" c="0.0023683"/>
+            <tca model="poly3" focal="27" vr="1.0000633" vb="1.0000276"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
