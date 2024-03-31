@@ -4740,20 +4740,23 @@
         <cropfactor>1.0</cropfactor>
         <calibration>
             <!-- Taken with Canon EOS 5D Mark IV -->
-            <distortion model="ptlens" focal="24" a="0.0218375" b="-0.0588616" c="0.0183511"/>
-            <distortion model="ptlens" focal="26" a="0.0163397" b="-0.0398698" c="0.0051523"/>
-            <distortion model="ptlens" focal="28" a="0.0116113" b="-0.0247039" c="-0.0034589"/>
-            <distortion model="ptlens" focal="34" a="0.0053737" b="-0.005686" c="-0.0083721"/>
-            <distortion model="ptlens" focal="48" a="-0.0035103" b="0.0233995" c="-0.0271449"/>
+            <distortion model="ptlens" focal="24" a="0.0242559" b="-0.0662983" c="0.0245867"/>
+            <distortion model="ptlens" focal="27" a="0.0201362" b="-0.0545548" c="0.0247158"/>
+            <distortion model="ptlens" focal="28" a="0.0153596" b="-0.0381425" c="0.0111283"/>
+            <distortion model="ptlens" focal="35" a="0.0071352" b="-0.010377" c="-0.0038095"/>
+            <distortion model="ptlens" focal="44" a="0.0062708" b="-0.0101241" c="0.0063449"/>
+            <distortion model="ptlens" focal="53" a="0.0015572" b="0.0049598" c="-0.0040844"/>
             <distortion model="ptlens" focal="58" a="0.0153281" b="-0.0412909" c="0.0476226"/>
-            <distortion model="ptlens" focal="70" a="0.0065554" b="-0.0075091" c="0.0099364"/>
-            <tca model="poly3" focal="24" vr="1.0001839" vb="1.0000874"/>
-            <tca model="poly3" focal="26" vr="1.0001418" vb="1.0000586"/>
-            <tca model="poly3" focal="28" vr="1.0001324" vb="1.0000601"/>
-            <tca model="poly3" focal="34" vr="1.0000883" vb="1.0000369"/>
-            <tca model="poly3" focal="48" vr="0.9999924" vb="0.9999779"/>
-            <tca model="poly3" focal="58" vr="0.9999413" vb="0.9999637"/>
-            <tca model="poly3" focal="70" vr="0.9998910" vb="0.9999712"/>
+            <distortion model="ptlens" focal="70" a="0.0013453" b="0.0066491" c="-0.0011936"/>
+            <tca model="poly3" focal="24" vr="1.0001580" vb="1.0001595"/>
+            <tca model="poly3" focal="27" vr="1.0001072" vb="1.0001607"/>
+            <tca model="poly3" focal="31" vr="1.0000810" vb="1.0001445"/>
+            <tca model="poly3" focal="35" vr="1.0000359" vb="1.0001212"/>
+            <tca model="poly3" focal="41" vr="0.9999926" vb="1.0000987"/>
+            <tca model="poly3" focal="50" vr="0.9999516" vb="1.0000188"/>
+            <tca model="poly3" focal="57" vr="0.9998924" vb="1.0000074"/>
+            <tca model="poly3" focal="59" vr="0.9998432" vb="1.0000424"/>
+            <tca model="poly3" focal="70" vr="0.9996800" vb="1.0000726"/>
         </calibration>
     </lens>
 
