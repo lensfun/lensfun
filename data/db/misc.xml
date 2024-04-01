@@ -1615,4 +1615,32 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>TTArtisan</maker>
+        <model>TTArtisan APS-C 25mm f/2.0</model>
+        <mount>Sony E</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Canon EF-M</mount>
+        <mount>Canon RF</mount>
+        <mount>Nikon Z</mount>
+        <mount>Micro 4/3 System</mount>
+        <mount>Leica L</mount>       
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+             <!-- Taken with Fujifilm X-Pro1 -->
+            <distortion model="ptlens" focal="25" a="0.0112601" b="-0.0459537" c="0.0387816"/>
+            <tca model="poly3" focal="25" vr="1.0002480" vb="0.9998779"/>
+            <vignetting model="pa" focal="25" aperture="2" distance="10" k1="-1.3602" k2="1.0251" k3="-0.4655"/>
+            <vignetting model="pa" focal="25" aperture="2" distance="1000" k1="-1.3602" k2="1.0251" k3="-0.4655"/>
+            <vignetting model="pa" focal="25" aperture="4" distance="10" k1="-0.5848" k2="0.7219" k3="-0.6015"/>
+            <vignetting model="pa" focal="25" aperture="4" distance="1000" k1="-0.5848" k2="0.7219" k3="-0.6015"/>
+            <vignetting model="pa" focal="25" aperture="5.6" distance="10" k1="-0.4578" k2="0.1889" k3="-0.0965"/>
+            <vignetting model="pa" focal="25" aperture="5.6" distance="1000" k1="-0.4578" k2="0.1889" k3="-0.0965"/>
+            <vignetting model="pa" focal="25" aperture="8" distance="10" k1="-0.4696" k2="0.2052" k3="-0.1069"/>
+            <vignetting model="pa" focal="25" aperture="8" distance="1000" k1="-0.4696" k2="0.2052" k3="-0.1069"/>
+            <vignetting model="pa" focal="25" aperture="16" distance="10" k1="-0.5012" k2="0.2422" k3="-0.1277"/>
+            <vignetting model="pa" focal="25" aperture="16" distance="1000" k1="-0.5012" k2="0.2422" k3="-0.1277"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
