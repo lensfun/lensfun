@@ -4760,4 +4760,30 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 30mm F1.4 DC HSM | Art 013</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F</mount>
+        <mount>Sigma SA</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1.613</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS 600D -->
+            <distortion model="ptlens" focal="30" a="0.0016474" b="-0.0113428" c="0.0010198"/>
+            <tca model="poly3" focal="30" vr="1.0003821" vb="1.0000143"/>
+            <vignetting model="pa" focal="30" aperture="1.4" distance="10" k1="-0.8683" k2="0.4198" k3="-0.0719"/>
+            <vignetting model="pa" focal="30" aperture="1.4" distance="1000" k1="-0.8683" k2="0.4198" k3="-0.0719"/>
+            <vignetting model="pa" focal="30" aperture="2" distance="10" k1="-0.0722" k2="-0.4033" k3="0.1554"/>
+            <vignetting model="pa" focal="30" aperture="2" distance="1000" k1="-0.0722" k2="-0.4033" k3="0.1554"/>
+            <vignetting model="pa" focal="30" aperture="2.8" distance="10" k1="-0.1318" k2="-0.0711" k3="0.0274"/>
+            <vignetting model="pa" focal="30" aperture="2.8" distance="1000" k1="-0.1318" k2="-0.0711" k3="0.0274"/>
+            <vignetting model="pa" focal="30" aperture="4" distance="10" k1="-0.1141" k2="-0.1125" k3="0.0692"/>
+            <vignetting model="pa" focal="30" aperture="4" distance="1000" k1="-0.1141" k2="-0.1125" k3="0.0692"/>
+            <vignetting model="pa" focal="30" aperture="16" distance="10" k1="-0.1074" k2="-0.1896" k3="0.1597"/>
+            <vignetting model="pa" focal="30" aperture="16" distance="1000" k1="-0.1074" k2="-0.1896" k3="0.1597"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
