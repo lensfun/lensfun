@@ -1612,6 +1612,16 @@
             <!-- Taken with Fujifilm X-T2 -->
             <distortion model="ptlens" focal="27" a="0.0044595" b="-0.0151236" c="0.0023683"/>
             <tca model="poly3" focal="27" vr="1.0000633" vb="1.0000276"/>
+	    <vignetting model="pa" focal="27" aperture="1.2" distance="10" k1="-1.4719" k2="1.0458" k3="-0.3461"/>
+            <vignetting model="pa" focal="27" aperture="1.2" distance="1000" k1="-1.4719" k2="1.0458" k3="-0.3461"/>
+            <vignetting model="pa" focal="27" aperture="2" distance="10" k1="-0.1002" k2="-0.5495" k3="0.1372"/>
+            <vignetting model="pa" focal="27" aperture="2" distance="1000" k1="-0.1002" k2="-0.5495" k3="0.1372"/>
+            <vignetting model="pa" focal="27" aperture="2.8" distance="10" k1="-0.2993" k2="0.0950" k3="-0.1311"/>
+            <vignetting model="pa" focal="27" aperture="2.8" distance="1000" k1="-0.2993" k2="0.0950" k3="-0.1311"/>
+            <vignetting model="pa" focal="27" aperture="4" distance="10" k1="-0.2677" k2="-0.0677" k3="0.0371"/>
+            <vignetting model="pa" focal="27" aperture="4" distance="1000" k1="-0.2677" k2="-0.0677" k3="0.0371"/>
+            <vignetting model="pa" focal="27" aperture="16" distance="10" k1="-0.2904" k2="-0.0150" k3="0.0009"/>
+            <vignetting model="pa" focal="27" aperture="16" distance="1000" k1="-0.2904" k2="-0.0150" k3="0.0009"/>
         </calibration>
     </lens>
 
