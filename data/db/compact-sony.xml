@@ -319,6 +319,13 @@
         <cropfactor>2.70</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Sony</maker>
+        <model>ZV-1</model>
+        <mount>sonyZV1</mount>
+        <cropfactor>2.70</cropfactor>
+    </camera>
+
     <lens>
         <maker>Carl Zeiss</maker>
         <model>DSC-R1 &amp; compatibles (Standard)</model>
@@ -1569,6 +1576,23 @@
         <calibration>
             <distortion model="ptlens" focal="7.9" a="0.05683" b="-0.18777" c="0.1603"/>
             <tca model="poly3" focal="7.9" vr="1.0000640" vb="1.0000737"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>ZV-1</model>
+        <mount>sonyZV1</mount>
+        <cropfactor>2.7</cropfactor>
+        <aspect-ratio>3:2</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="9.4" a="0.0457627" b="-0.1765927" c="0.0863909"/>
+            <distortion model="ptlens" focal="10.53" a="0.0220231" b="-0.0825179" c="-0.0123097"/>
+            <distortion model="ptlens" focal="13.58" a="0.0256069" b="-0.090207" c="0.0335582"/>
+            <distortion model="ptlens" focal="14.87" a="0.0156447" b="-0.0503068" c="0.0050822"/>
+            <distortion model="ptlens" focal="18.2" a="0.0165109" b="-0.0473276" c="0.0108771"/>
+            <distortion model="ptlens" focal="20.14" a="0.0182715" b="-0.0501878" c="0.0211984"/>
+            <distortion model="ptlens" focal="25.7" a="0.0299052" b="-0.0805418" c="0.0605291"/>
         </calibration>
     </lens>
 
