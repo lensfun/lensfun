@@ -47,7 +47,9 @@ jobs:
         git add _posts/lenslist/2999-12-31-Lenslist-master.md
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git commit -m "Update master lens list from GitHub Actions"
+        # A change without adding a new lens or camera doesn't change the lenslist and the commit would fail.
+        # With --allow-empty the commit succedes and the workflow for data hosting on lensfun/lensfun.github.io is triggered.
+        git commit --allow-empty -m "Update master lens list from GitHub Actions"
         git push https://$USERNAME:$REPO_KEY@github.com/lensfun/lensfun.github.io.git
       env:
         REPO_KEY: ${{secrets.PUSH_SECRET}}
