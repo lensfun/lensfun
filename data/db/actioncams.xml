@@ -129,6 +129,14 @@
         <cropfactor>3.6</cropfactor>
     </camera>
 
+    <camera>
+        <maker>DJI</maker>
+        <model>FC6310R</model>
+        <model lang="en">DJI P4 RTK</model>
+        <mount>djiFC6310R</mount>
+        <cropfactor>2.73</cropfactor>
+    </camera>
+
 
     <lens>
         <maker>GoPro</maker>
@@ -360,4 +368,18 @@
             <vignetting model="pa" focal="6.7" aperture="1.7" distance="1000" k1="-2.7528" k2="3.9587" k3="-2.0068"/>
         </calibration>
     </lens>
+
+    <lens>
+        <maker>DJI</maker>
+        <model>FC6310R &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>djiFC6310R</mount>
+        <cropfactor>2.73</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="8.8" a="0.0235518" b="-0.115701" c="0.0349985"/>
+        </calibration>
+    </lens>
+    
 </lensdatabase>
