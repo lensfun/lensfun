@@ -6374,4 +6374,34 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S Nikkor 105mm f/1.4E ED</model>
+        <model lang="en">Nikkor AF-S 105mm f/1.4E ED</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon Z 7II -->
+            <distortion model="ptlens" focal="105" a="0.0010421" b="-0.002333" c="0.0091191"/>
+            <tca model="poly3" focal="105" vr="0.9999793" vb="0.9998102"/>
+            <!-- Taken with Nikon Z 8 -->
+            <vignetting model="pa" focal="105" aperture="1.4" distance="10" k1="-1.4119" k2="0.9866" k3="-0.3154"/>
+            <vignetting model="pa" focal="105" aperture="1.4" distance="1000" k1="-1.4119" k2="0.9866" k3="-0.3154"/>
+            <vignetting model="pa" focal="105" aperture="2" distance="10" k1="-0.5278" k2="-0.4520" k3="0.3504"/>
+            <vignetting model="pa" focal="105" aperture="2" distance="1000" k1="-0.5278" k2="-0.4520" k3="0.3504"/>
+            <vignetting model="pa" focal="105" aperture="2.8" distance="10" k1="0.0170" k2="-1.0694" k3="0.5891"/>
+            <vignetting model="pa" focal="105" aperture="2.8" distance="1000" k1="0.0170" k2="-1.0694" k3="0.5891"/>
+            <vignetting model="pa" focal="105" aperture="4" distance="10" k1="-0.1773" k2="-0.0006" k3="-0.2359"/>
+            <vignetting model="pa" focal="105" aperture="4" distance="1000" k1="-0.1773" k2="-0.0006" k3="-0.2359"/>
+            <vignetting model="pa" focal="105" aperture="5.6" distance="10" k1="-0.3532" k2="0.5548" k3="-0.5253"/>
+            <vignetting model="pa" focal="105" aperture="5.6" distance="1000" k1="-0.3532" k2="0.5548" k3="-0.5253"/>
+            <vignetting model="pa" focal="105" aperture="8" distance="10" k1="-0.2893" k2="0.2466" k3="-0.1851"/>
+            <vignetting model="pa" focal="105" aperture="8" distance="1000" k1="-0.2893" k2="0.2466" k3="-0.1851"/>
+            <vignetting model="pa" focal="105" aperture="11" distance="10" k1="-0.2409" k2="0.0518" k3="-0.0086"/>
+            <vignetting model="pa" focal="105" aperture="11" distance="1000" k1="-0.2409" k2="0.0518" k3="-0.0086"/>
+            <vignetting model="pa" focal="105" aperture="16" distance="10" k1="-0.2382" k2="0.0379" k3="0.0020"/>
+            <vignetting model="pa" focal="105" aperture="16" distance="1000" k1="-0.2382" k2="0.0379" k3="0.0020"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
