@@ -2704,4 +2704,24 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Pentax</maker>
+        <model>smc PENTAX-F ZOOM 35-70mm f/3.5-4.5</model>
+        <mount>Pentax K</mount>
+        <cropfactor>1.538</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K20D -->
+            <distortion model="ptlens" focal="35" a="0.0029795" b="-0.0169706" c="0.0094146"/>
+            <distortion model="ptlens" focal="45" a="-0.0004702" b="0.0032256" c="-0.0102588"/>
+            <distortion model="ptlens" focal="50" a="0.0062203" b="-0.0237862" c="0.0332323"/>
+            <distortion model="ptlens" focal="60" a="-0.0087412" b="0.0255429" c="-0.0119117"/>
+            <distortion model="ptlens" focal="70" a="0.0076255" b="-0.0274699" c="0.0373287"/>
+            <tca model="poly3" focal="35" vr="1.0002254" vb="1.0000726"/>
+            <tca model="poly3" focal="45" vr="1.0001346" vb="1.0001010"/>
+            <tca model="poly3" focal="50" vr="1.0000664" vb="1.0001334"/>
+            <tca model="poly3" focal="60" vr="1.0000188" vb="1.0001530"/>
+            <tca model="poly3" focal="70" vr="1.0000365" vb="1.0000631"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
