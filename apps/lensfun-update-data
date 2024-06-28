@@ -142,7 +142,7 @@ def read_location(base_url):
                     read_location(base_url)
 
 
-read_location("https://lensfun.sourceforge.net/db/")
+read_location("https://lensfun.github.io/db/")
 read_location("https://wilson.bronger.org/lensfun-db/")
 
 if not at_least_one_responsive_location:
