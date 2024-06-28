@@ -1,29 +1,24 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-# original file: https://github.com/lensfun/lensfun/blob/master/tools/update_database/follow_db_changes.py
-# modifications: stripped down to db conversion
-
-import glob, os, subprocess, calendar, time, tarfile, io, argparse, shutil, configparser, smtplib, textwrap
-from subprocess import DEVNULL
-from email.mime.text import MIMEText
+import io
+import json
+import os
+import shutil
+import tarfile
 from lxml import etree
 
-parser = argparse.ArgumentParser(description="Generate tar balls of the Lensfun database, also for older versions.")
-parser.add_argument("output_path", help="Directory where to put the XML files.  They are put in the db/ subdirectory.  "
-                    "It needn't exist yet.")
-parser.add_argument("db_path", help="Path to database.")
-args = parser.parse_args()
 
 class XMLFile:
 
-    def __init__(self, root, filepath):
-        self.filepath = filepath
-        self.tree = etree.parse(os.path.join(root, filepath))
+    def __init__(self, filepath, root=None):
+        if root is None:
+            self.filepath = os.path.basename(filepath)
+            self.tree = etree.parse(filepath)
+        else:
+            self.filepath = filepath
+            self.tree = etree.parse(os.path.join(root, filepath))
 
     @staticmethod
     def indent(tree, level=0):
-        i = "\n" + level*"    "
+        i = "\n" + level * "    "
         if len(tree):
             if not tree.text or not tree.text.strip():
                 tree.text = i + "    "
@@ -37,24 +32,20 @@ class XMLFile:
             if level and (not tree.tail or not tree.tail.strip()):
                 tree.tail = i
 
-    def write_to_tar(self, tar):
+    def write_to_tar(self, tar, timestamp):
         tarinfo = tarfile.TarInfo(self.filepath)
         root = self.tree.getroot()
         self.indent(root)
         content = etree.tostring(root, encoding="utf-8")
         tarinfo.size = len(content)
+        tarinfo.mtime = timestamp
         tar.addfile(tarinfo, io.BytesIO(content))
-
-def fetch_xml_files():
-    os.chdir(args.db_path)
-    xml_filenames = glob.glob("*.xml")
-    xml_files = set(XMLFile(os.getcwd(), filename) for filename in xml_filenames)
-    return xml_files
 
 
 class Converter:
     from_version = None
     to_version = None
+
     def __call__(self, tree):
         root = tree.getroot()
         if self.to_version == 0:
@@ -63,8 +54,11 @@ class Converter:
         else:
             root.attrib["version"] = str(self.to_version)
 
+
 converters = []
 current_version = 0
+
+
 def converter(converter_class):
     global current_version
     current_version = max(current_version, converter_class.from_version)
@@ -120,18 +114,18 @@ class From2To1(Converter):
             del distortion.attrib["real-focal"]
 
 
-def generate_database_tarballs(xml_files):
+def generate_database_tarballs(xml_files, timestamp, output_path):
     version = current_version
-    output_path = os.path.join(args.output_path, "db")
+
     shutil.rmtree(output_path, ignore_errors=True)
     os.makedirs(output_path)
-    metadata = [[], []]
+    metadata = [timestamp, [], []]
     while True:
         metadata[1].insert(0, version)
 
-        tar = tarfile.open(os.path.join(output_path, "version_{}.tar".format(version)), "w")
+        tar = tarfile.open(os.path.join(output_path, "version_{}.tar.bz2".format(version)), "w:bz2")
         for xml_file in xml_files:
-            xml_file.write_to_tar(tar)
+            xml_file.write_to_tar(tar, timestamp)
         tar.close()
 
         try:
@@ -142,6 +136,4 @@ def generate_database_tarballs(xml_files):
         for xml_file in xml_files:
             converter_instance(xml_file.tree)
         version = converter_instance.to_version
-
-xml_files = fetch_xml_files()
-generate_database_tarballs(xml_files)
+    json.dump(metadata, open(os.path.join(output_path, "versions.json"), "w"))

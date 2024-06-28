@@ -6,7 +6,7 @@ WHY
 
 The code in lensfun master has switched to database version 2, but there hasn't been
 a new stable release yet and everybody out there is still using the 0.3.x branch.
-There hasn't been a new release in the lensfund 0.3.x branch since 0.3.2 in 2015.
+There hasn't been a new release in the lensfun 0.3.x branch since 0.3.2 in 2015.
 
 The database keeps evolving, but many users don't know they have to run `lensfun-update-data`
 to update their local database checkout. Also many distributions ship the 0.3.2 version
@@ -16,7 +16,7 @@ Many third-party software packages that rely on the lensfun database also aren't
 switch to 0.3.95/0.4.0 and database version 2 yet. darktable for example has some code to
 support lensfun 0.3.95, but doesn't reliably build against it.
 
-It is therefore a good a idea to keep shipping 0.3.x maintenance releases that just
+It is therefore a good idea to keep shipping 0.3.x maintenance releases that just
 contain more recent database snapshots and a few minor fixes. This will also make
 people aware that database development continues.
 
@@ -31,13 +31,13 @@ HOW TO MAKE A RELEASE
 git clone git@github.com:lensfun/lensfun.git
 ```
 
-2. Use the `tools/lensfun_convert_db_v2_to_v1.py` tool to convert the database in `master` to version 1:
+2. Use the `tools/update_database/generate_db.py` tool to convert the database in `master` to version 1:
 
 ```
-python3 tools/lensfun_convert_db_v2_to_v1.py /tmp/converted/ data/db/
+python3 tools/update_database/generate_db.py -o /tmp/converted/db/ -i data/db/
 ```
 
-This will create a couple of tarballes in `/tmp/converted/db/`. These are the same tarballs that the `lensfun-update-data` downloads. The code in `lensfun_convert_db_v2_to_v1.py` was ripped out of the script that does the conversion for the webserver `lensfun-update-data` pulls them from.
+This will create a couple of tarballs in `/tmp/converted/db/`. `generate_db.py` is the same tool that generates the files that `lensfun-update-data` downloads.
 
 3. Switch to the `release_0.3.x` branch.
 
@@ -54,7 +54,7 @@ rm data/db/*.xml
 5. Extract the converted XML files to `data/db/`.
 
 ```
-tar -xvf /tmp/converted/db/version_1.tar -C data/db/
+tar -xvf /tmp/converted/db/version_1.tar.bz2 -C data/db/
 ```
 
 6. Check the database.
