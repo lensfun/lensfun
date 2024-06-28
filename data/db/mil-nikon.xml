@@ -1464,4 +1464,28 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>NIKKOR Z 26mm f/2.8</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Z 6II -->
+            <distortion model="ptlens" focal="26" a="0.01947" b="-0.07633" c="0.03948"/>
+            <tca model="poly3" focal="26" vr="1.0002362" vb="1.0000834"/>
+            <vignetting model="pa" focal="26" aperture="2.8" distance="10" k1="-2.1385" k2="2.1434" k3="-0.8724"/>
+            <vignetting model="pa" focal="26" aperture="2.8" distance="1000" k1="-2.1385" k2="2.1434" k3="-0.8724"/>
+            <vignetting model="pa" focal="26" aperture="4" distance="10" k1="-1.1004" k2="0.0760" k3="0.2417"/>
+            <vignetting model="pa" focal="26" aperture="4" distance="1000" k1="-1.1004" k2="0.0760" k3="0.2417"/>
+            <vignetting model="pa" focal="26" aperture="5.6" distance="10" k1="-1.0211" k2="0.3803" k3="-0.1088"/>
+            <vignetting model="pa" focal="26" aperture="5.6" distance="1000" k1="-1.0211" k2="0.3803" k3="-0.1088"/>
+            <vignetting model="pa" focal="26" aperture="8" distance="10" k1="-1.1063" k2="0.6760" k3="-0.2667"/>
+            <vignetting model="pa" focal="26" aperture="8" distance="1000" k1="-1.1063" k2="0.6760" k3="-0.2667"/>
+            <vignetting model="pa" focal="26" aperture="11" distance="10" k1="-1.0693" k2="0.5306" k3="-0.1363"/>
+            <vignetting model="pa" focal="26" aperture="11" distance="1000" k1="-1.0693" k2="0.5306" k3="-0.1363"/>
+            <vignetting model="pa" focal="26" aperture="16" distance="10" k1="-1.0567" k2="0.4904" k3="-0.1061"/>
+            <vignetting model="pa" focal="26" aperture="16" distance="1000" k1="-1.0567" k2="0.4904" k3="-0.1061"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
