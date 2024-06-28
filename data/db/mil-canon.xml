@@ -1629,4 +1629,18 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon RF-S 18-45mm F4.5-6.3 IS STM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.613</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18.0" a="0.01562" b="-0.0702" c="0.0167" />
+            <distortion model="ptlens" focal="24.0" a="0.00583" b="-0.02923" c="0.00524" />
+            <distortion model="ptlens" focal="28.0" a="0.00023" b="-0.00549" c="-0.00466" />
+            <distortion model="ptlens" focal="35.0" a="0.00925" b="-0.03861" c="0.04516" />
+            <distortion model="ptlens" focal="45.0" a="0.00217" b="-0.00891" c="0.01378" />
+        </calibration>
+    </lens>
 </lensdatabase>
+
