@@ -1328,6 +1328,29 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon RF-S 18-45mm F4.5-6.3 IS STM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.613</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS R50 -->
+            <distortion model="ptlens" focal="18" a="0.0132"   b="-0.05617"  c="-0.00282" />
+            <distortion model="ptlens" focal="20" a="0.02303"  b="-0.09456"  c="0.05377"  />
+            <distortion model="ptlens" focal="22" a="0.01203"  b="-0.05324"  c="0.02182"  />
+            <distortion model="ptlens" focal="24" a="0.00582"  b="-0.02549"  c="-0.00053" />
+            <distortion model="ptlens" focal="26" a="-0.0009"  b="-0.00494"  c="-0.0091"  />
+            <distortion model="ptlens" focal="28" a="0.00703"  b="-0.02819"  c="0.01758"  />
+            <distortion model="ptlens" focal="30" a="0.00351"  b="-0.01336"  c="0.00426"  />
+            <distortion model="ptlens" focal="32" a="0.0065"   b="-0.02304"  c="0.01936"  />
+            <distortion model="ptlens" focal="35" a="-0.00373" b="0.01745"   c="-0.02673" />
+            <distortion model="ptlens" focal="38" a="0.00134"  b="-0.00171"  c="-0.00211" />
+            <distortion model="ptlens" focal="40" a="0.0015"   b="-0.00265"  c="0.00037"  />
+            <distortion model="ptlens" focal="42" a="0.0009"   b="-0.00232"  c="0.0033"   />
+            <distortion model="ptlens" focal="45" a="0.00476"  b="-0.01525"  c="0.01816"  />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon RF-S 18-150mm F3.5-6.3 IS STM</model>
         <mount>Canon RF</mount>
         <cropfactor>1.613</cropfactor>
