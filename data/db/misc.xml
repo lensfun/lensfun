@@ -643,6 +643,20 @@
     </lens>
 
     <lens>
+        <maker>Irix</maker>
+        <model>Irix 11mm f/4 G</model>
+        <mount>Nikon F AF</mount>
+        <mount>Canon EF</mount>
+        <mount>Pentax KA</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D780 -->
+            <distortion model="ptlens" focal="11" a="0.0175" b="-0.081" c="0.07584"/>
+            <tca model="poly3" focal="11" vr="1.0001951" vb="1.0000954"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <maker>Arsenal</maker>
         <model>MC Volna-3 80mm f/2.8</model>
         <mount>Kiev 88</mount>
