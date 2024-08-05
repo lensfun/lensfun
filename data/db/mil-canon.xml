@@ -1784,5 +1784,39 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon RF 24-50mm F4.5-6.3 IS STM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS R8 -->
+            <distortion model="ptlens" focal="24.0" a="0.0343686" b="-0.137548" c="0.0337621" />
+            <distortion model="ptlens" focal="28.0" a="0.0225701" b="-0.102925" c="0.0394206" />
+            <distortion model="ptlens" focal="30.0" a="0.0174927" b="-0.0850105" c="0.0359404" />
+            <distortion model="ptlens" focal="32.0" a="0.013879" b="-0.0712327" c="0.0305738" />
+            <distortion model="ptlens" focal="34.0" a="0.00987987" b="-0.0585297" c="0.0304808" />
+            <distortion model="ptlens" focal="37.0" a="0.0071581" b="-0.0481869" c="0.0279429" />
+            <distortion model="ptlens" focal="39.0" a="0.00585714" b="-0.0419663" c="0.0269874" />
+            <distortion model="ptlens" focal="41.0" a="0.0049079" b="-0.0382567" c="0.0269461" />
+            <distortion model="ptlens" focal="43.0" a="0.00407989" b="-0.0336015" c="0.0231114" />
+            <distortion model="ptlens" focal="45.0" a="0.00323303" b="-0.0281211" c="0.0160099" />
+            <distortion model="ptlens" focal="47.0" a="0.00290652" b="-0.0261684" c="0.0168195" />
+            <distortion model="ptlens" focal="50.0" a="0.00190734" b="-0.0229432" c="0.0161353" />
+            <tca model="poly3" focal="24.0" br="0.0000401" vr="1.0000674" bb="0.0000045" vb="1.0000805" />
+            <tca model="poly3" focal="28.0" br="-0.0000053" vr="1.0001265" bb="0.0000399" vb="1.0000044" />
+            <tca model="poly3" focal="30.0" br="-0.0000094" vr="1.0001314" bb="0.0000304" vb="1.0000012" />
+            <tca model="poly3" focal="32.0" br="-0.0000102" vr="1.0001344" bb="0.0000248" vb="0.9999976" />
+            <tca model="poly3" focal="34.0" br="-0.0000014" vr="1.0001182" bb="0.0000077" vb="1.0000131" />
+            <tca model="poly3" focal="37.0" br="-0.0000058" vr="1.0001262" bb="0.0000120" vb="0.9999981" />
+            <tca model="poly3" focal="39.0" br="0.0000064" vr="1.0001074" bb="0.0000142" vb="0.9999835" />
+            <tca model="poly3" focal="41.0" br="-0.0000068" vr="1.0001151" bb="0.0000103" vb="0.9999843" />
+            <tca model="poly3" focal="43.0" br="0.0000104" vr="1.0000864" bb="0.0000062" vb="0.9999870" />
+            <tca model="poly3" focal="45.0" br="0.0000073" vr="1.0000945" bb="0.0000049" vb="0.9999823" />
+            <tca model="poly3" focal="47.0" br="-0.0000016" vr="1.0001067" bb="0.0000006" vb="0.9999881" />
+            <tca model="poly3" focal="50.0" br="-0.0000034" vr="1.0001015" bb="-0.0000031" vb="0.9999920" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
 
