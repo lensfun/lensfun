@@ -1674,4 +1674,30 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Voigtländer</maker>
+        <model>Voigtlander Nokton 58mm F1.4 SLII</model>
+	<model lang="en">Voigtländer Nokton 58mm F1.4 SLII</model>
+        <mount>Nikon F AF</mount>
+        <mount>Pentax KAF4</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D780 -->
+            <distortion model="ptlens" focal="58" a="0.0009981" b="-0.0029773" c="-0.0031456"/>
+            <tca model="poly3" focal="58" vr="1.0000344" vb="0.9999762"/>
+            <vignetting model="pa" focal="58" aperture="1.4" distance="10" k1="-0.9917" k2="0.9753" k3="-0.4652"/>
+            <vignetting model="pa" focal="58" aperture="1.4" distance="1000" k1="-0.9917" k2="0.9753" k3="-0.4652"/>
+            <vignetting model="pa" focal="58" aperture="2" distance="10" k1="-0.2196" k2="-0.4687" k3="0.3108"/>
+            <vignetting model="pa" focal="58" aperture="2" distance="1000" k1="-0.2196" k2="-0.4687" k3="0.3108"/>
+            <vignetting model="pa" focal="58" aperture="2.8" distance="10" k1="-0.1397" k2="0.1965" k3="-0.1884"/>
+            <vignetting model="pa" focal="58" aperture="2.8" distance="1000" k1="-0.1397" k2="0.1965" k3="-0.1884"/>
+            <vignetting model="pa" focal="58" aperture="4" distance="10" k1="-0.0919" k2="0.0190" k3="-0.0059"/>
+            <vignetting model="pa" focal="58" aperture="4" distance="1000" k1="-0.0919" k2="0.0190" k3="-0.0059"/>
+            <vignetting model="pa" focal="58" aperture="5.6" distance="10" k1="-0.0909" k2="0.0271" k3="-0.0129"/>
+            <vignetting model="pa" focal="58" aperture="5.6" distance="1000" k1="-0.0909" k2="0.0271" k3="-0.0129"/>
+            <vignetting model="pa" focal="58" aperture="16" distance="10" k1="-0.1119" k2="0.0586" k3="-0.0256"/>
+            <vignetting model="pa" focal="58" aperture="16" distance="1000" k1="-0.1119" k2="0.0586" k3="-0.0256"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
