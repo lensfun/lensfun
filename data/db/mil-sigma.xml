@@ -950,4 +950,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>24mm F3.5 DG DN | Contemporary 021</model>
+        <mount>Leica L</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Lumix S5 high res mode, 2024-08-21 -->
+            <distortion model="ptlens" focal="24" a="0.0187798" b="-0.0331216" c="0.0146341"/>
+            <tca model="poly3" focal="24" br="0.0000007" cr="-0.0000901" vr="1.0003918" bb="-0.0001195" cb="0.0003470" vb="0.9997972"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
