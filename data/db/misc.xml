@@ -1700,4 +1700,18 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>TTArtisan</maker>
+        <model>TTArtisan 7.5mm f/2 Fisheye</model>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>2</cropfactor>
+        <type>fisheye</type>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Olympus E-M10 Mark IV -->
+            <distortion model="ptlens" focal="7.5" a="-0.03664" b="0.23747" c="-0.09832"/>
+            <tca model="poly3" focal="7.5" vr="1.0004521" vb="0.9999899"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
