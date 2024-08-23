@@ -718,4 +718,23 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tamron</maker>
+        <model>TAMRON 35-150mm F/2-2.8 Di III VXD A058Z</model>
+        <model lang="en">TAMRON 35-150mm F/2-2.8 Di III VXD</model>
+        <mount>Nikon Z</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon Z8 -->
+            <distortion model="ptlens" focal="35" a="0.0262101" b="-0.0765752" c="0.0609161"/>
+            <distortion model="ptlens" focal="50" a="0.0064799" b="-0.000998" c="0.0021607"/>
+            <distortion model="ptlens" focal="70" a="0.0005632" b="0.017117" c="-0.0080223"/>
+            <distortion model="ptlens" focal="84" a="2.34e-05" b="0.0187053" c="-0.0080766"/>
+            <distortion model="ptlens" focal="100" a="-0.0009113" b="0.0225244" c="-0.0116467"/>
+            <distortion model="ptlens" focal="119" a="-0.0006136" b="0.0216502" c="-0.0109059"/>
+            <distortion model="ptlens" focal="150" a="0.0121219" b="-0.0222328" c="0.0349118"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
