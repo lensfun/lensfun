@@ -1738,4 +1738,32 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Viltrox</maker>
+        <model>Viltrox AF 35mm f/1.8 Z</model>
+	<model lang="en">Viltrox AF 35mm F1.8 Z</model>
+        <mount>Nikon Z</mount>
+	<mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Nikon Z 7II -->
+            <distortion model="ptlens" focal="35" a="0.0174285" b="-0.0405588" c="0.0293913"/>
+            <tca model="poly3" focal="35" vr="1.0000141" vb="0.9999769"/>
+            <vignetting model="pa" focal="35" aperture="1.8" distance="10" k1="-1.6918" k2="1.2131" k3="-0.3405"/>
+            <vignetting model="pa" focal="35" aperture="1.8" distance="1000" k1="-1.6918" k2="1.2131" k3="-0.3405"/>
+            <vignetting model="pa" focal="35" aperture="2" distance="10" k1="-1.1006" k2="0.0202" k3="0.3035"/>
+            <vignetting model="pa" focal="35" aperture="2" distance="1000" k1="-1.1006" k2="0.0202" k3="0.3035"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="10" k1="-0.5983" k2="-0.2525" k3="0.2098"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="1000" k1="-0.5983" k2="-0.2525" k3="0.2098"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="10" k1="-0.7180" k2="0.2649" k3="-0.1015"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="1000" k1="-0.7180" k2="0.2649" k3="-0.1015"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="10" k1="-0.7101" k2="0.2038" k3="-0.0151"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="1000" k1="-0.7101" k2="0.2038" k3="-0.0151"/>
+            <vignetting model="pa" focal="35" aperture="8" distance="10" k1="-0.7190" k2="0.2262" k3="-0.0290"/>
+            <vignetting model="pa" focal="35" aperture="8" distance="1000" k1="-0.7190" k2="0.2262" k3="-0.0290"/>
+            <vignetting model="pa" focal="35" aperture="16" distance="10" k1="-0.7507" k2="0.2936" k3="-0.0674"/>
+            <vignetting model="pa" focal="35" aperture="16" distance="1000" k1="-0.7507" k2="0.2936" k3="-0.0674"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
