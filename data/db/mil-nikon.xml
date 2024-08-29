@@ -1549,4 +1549,30 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>NIKKOR Z 28-400mm f/4-8 VR</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Z 8 -->
+            <distortion model="ptlens" focal="28" a="0.0064479" b="-0.034593" c="-0.0107362"/>
+            <distortion model="ptlens" focal="33.5" a="-0.0060495" b="0.0177348" c="-0.0446035"/>
+            <distortion model="ptlens" focal="50" a="-0.0032692" b="0.0205884" c="-0.0280509"/>
+            <distortion model="ptlens" focal="66" a="-0.0080454" b="0.0323046" c="-0.0253831"/>
+            <distortion model="ptlens" focal="105" a="0.0023537" b="0.0037555" c="-0.0021101"/>
+            <distortion model="ptlens" focal="200" a="-0.0102242" b="0.0392828" c="-0.0427584"/>
+            <distortion model="ptlens" focal="310" a="-0.0227246" b="0.0727258" c="-0.0690098"/>
+            <distortion model="ptlens" focal="400" a="-0.0088719" b="0.035992" c="-0.0480994"/>
+            <tca model="poly3" focal="28" vr="1.0001831" vb="1.0002123"/>
+            <tca model="poly3" focal="33.5" vr="1.0000673" vb="1.0003434"/>
+            <tca model="poly3" focal="50" vr="0.9999703" vb="1.0004826"/>
+            <tca model="poly3" focal="66" vr="0.9999477" vb="1.0003844"/>
+            <tca model="poly3" focal="105" vr="0.9999351" vb="1.0002099"/>
+            <tca model="poly3" focal="200" vr="0.9997417" vb="1.0000700"/>
+            <tca model="poly3" focal="310" vr="0.9997509" vb="0.9998973"/>
+            <tca model="poly3" focal="400" vr="0.9995860" vb="0.9998382"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
