@@ -2470,7 +2470,9 @@
             <distortion model="ptlens" focal="25" a="0" b="0.00247064" c="0"/>
             <distortion model="ptlens" focal="40" a="0" b="0.00512035" c="0"/>
             <distortion model="ptlens" focal="50" a="0" b="0.00367001" c="0"/>
-            <distortion model="poly3" focal="60" k1="0.0030586"/>
+	    <!-- changed original 60mm poly3 to ptlens --> 
+            <!--<distortion model="poly3" focal="60" k1="0.0030586"/> -->
+            <distortion model="ptlens" focal="60" a="0" b="0.0030586" c="0"/>
 	    <!-- Taken with E-M10 II -->
             <tca model="poly3" focal="12" br="-0.0001312" vr="1.0003735" bb="0.0000895" vb="1.0000146"/>
             <tca model="poly3" focal="20" br="-0.0000622" vr="1.0002835" bb="0.0000529" vb="0.9999067"/>
