@@ -50,5 +50,41 @@
             <distortion model="poly3" focal="8.5" k1="-0.01529"/>
         </calibration>
     </lens>
-
+    
+    <lens>
+        <maker>Panasonic</maker>
+        <model>Lumix S 50/F1.4</model>
+        <mount>Leica L</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Lumix DC-S5 -->
+            <distortion model="ptlens" focal="50.0" a="-0.003" b="-0.013" c="-0.01" />
+            <tca model="poly3" focal="50.0" br="-0.0000134" vr="1.0000745" bb="0.0000173" vb="0.9999715" />
+            <vignetting model="pa" focal="50.0" aperture="1.4" distance="10" k1="-0.7257684" k2="0.5860946" k3="-0.5890817" />
+            <vignetting model="pa" focal="50.0" aperture="1.4" distance="1000" k1="-0.7257684" k2="0.5860946" k3="-0.5890817" />
+            <vignetting model="pa" focal="50.0" aperture="1.6" distance="10" k1="-0.0646599" k2="-0.6122368" k3="0.0110865" />
+            <vignetting model="pa" focal="50.0" aperture="1.6" distance="1000" k1="-0.0646599" k2="-0.6122368" k3="0.0110865" />
+            <vignetting model="pa" focal="50.0" aperture="1.8" distance="10" k1="0.1442932" k2="-0.6151777" k3="-0.1313129" />
+            <vignetting model="pa" focal="50.0" aperture="1.8" distance="1000" k1="0.1442932" k2="-0.6151777" k3="-0.1313129" />
+            <vignetting model="pa" focal="50.0" aperture="2.0" distance="10" k1="-0.0436360" k2="0.2908950" k3="-0.7729484" />
+            <vignetting model="pa" focal="50.0" aperture="2.0" distance="1000" k1="-0.0436360" k2="0.2908950" k3="-0.7729484" />
+            <vignetting model="pa" focal="50.0" aperture="2.2" distance="10" k1="-0.1738045" k2="0.7473080" k3="-1.0360877" />
+            <vignetting model="pa" focal="50.0" aperture="2.2" distance="1000" k1="-0.1738045" k2="0.7473080" k3="-1.0360877" />
+            <vignetting model="pa" focal="50.0" aperture="2.5" distance="10" k1="-0.2689048" k2="1.0219129" k3="-1.1304184" />
+            <vignetting model="pa" focal="50.0" aperture="2.5" distance="1000" k1="-0.2689048" k2="1.0219129" k3="-1.1304184" />
+            <vignetting model="pa" focal="50.0" aperture="2.8" distance="10" k1="-0.2859127" k2="1.0106221" k3="-1.0222889" />
+            <vignetting model="pa" focal="50.0" aperture="2.8" distance="1000" k1="-0.2859127" k2="1.0106221" k3="-1.0222889" />
+            <vignetting model="pa" focal="50.0" aperture="4.0" distance="10" k1="-0.1668188" k2="0.4908556" k3="-0.4627781" />
+            <vignetting model="pa" focal="50.0" aperture="4.0" distance="1000" k1="-0.1668188" k2="0.4908556" k3="-0.4627781" />
+            <vignetting model="pa" focal="50.0" aperture="5.6" distance="10" k1="-0.0211266" k2="-0.0561592" k3="0.0228263" />
+            <vignetting model="pa" focal="50.0" aperture="5.6" distance="1000" k1="-0.0211266" k2="-0.0561592" k3="0.0228263" />
+            <vignetting model="pa" focal="50.0" aperture="8.0" distance="10" k1="-0.0104577" k2="-0.0933055" k3="0.0552047" />
+            <vignetting model="pa" focal="50.0" aperture="8.0" distance="1000" k1="-0.0104577" k2="-0.0933055" k3="0.0552047" />
+            <vignetting model="pa" focal="50.0" aperture="11.0" distance="10" k1="-0.0151976" k2="-0.0905935" k3="0.0523281" />
+            <vignetting model="pa" focal="50.0" aperture="11.0" distance="1000" k1="-0.0151976" k2="-0.0905935" k3="0.0523281" />
+            <vignetting model="pa" focal="50.0" aperture="16.0" distance="10" k1="-0.0173139" k2="-0.0893025" k3="0.0505323" />
+            <vignetting model="pa" focal="50.0" aperture="16.0" distance="1000" k1="-0.0173139" k2="-0.0893025" k3="0.0505323" />
+        </calibration>
+    </lens>
+    
 </lensdatabase>
