@@ -8312,4 +8312,22 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF-S 18-55mm f/3.5-5.6 II</model>
+        <mount>Canon EF-S</mount>
+        <cropfactor>1.622</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18" a="0.0160236" b="-0.047854" c="0.0030549"/>
+            <distortion model="ptlens" focal="28" a="0.0034257" b="-0.0099486" c="-0.0024461"/>
+            <distortion model="ptlens" focal="35" a="-0.0037221" b="0.0151177" c="-0.0214314"/>
+            <distortion model="ptlens" focal="44" a="-0.0145311" b="0.0519614" c="-0.0575535"/>
+            <distortion model="ptlens" focal="55" a="-0.0038427" b="0.0174672" c="-0.0233672"/>
+            <tca model="poly3" focal="18" vr="1.0005778" vb="0.9999554"/>
+            <tca model="poly3" focal="28" vr="1.0004114" vb="0.9999472"/>
+            <tca model="poly3" focal="35" vr="1.0002775" vb="0.9999727"/>
+            <tca model="poly3" focal="44" vr="1.0001584" vb="1.0000345"/>
+            <tca model="poly3" focal="55" vr="1.0000308" vb="1.0001345"/>
+        </calibration>
+    </lens>
 </lensdatabase>
