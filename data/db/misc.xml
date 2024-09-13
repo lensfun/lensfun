@@ -1795,4 +1795,18 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>TTArtisan</maker>
+        <model>TTARTISAN 35mm f/1.8</model>
+        <mount>Sony E</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ZV-E10 -->
+            <distortion model="ptlens" focal="35" a="0.0044792" b="-0.0214036" c="0.0165893"/>
+            <tca model="poly3" focal="35" vr="1.0002733" vb="0.9997463"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
