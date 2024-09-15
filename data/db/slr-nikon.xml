@@ -5205,6 +5205,22 @@
 
     <lens>
         <maker>Nikon</maker>
+        <model>Nikon AF-S Nikkor 70-200mm f/2.8G ED VR II + 2x extender</model>
+        <model lang="en">Nikkor AF-S 70-200mm f/2.8G ED VR II + Kenko TELE+ HD 2.0X</model> -->
+        <mount>Nikon F AF</mount>
+        <focal min="140" max="400"/> 
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="140" a="0.0075453" b="-0.0282654" c="0.0411674"/>
+            <distortion model="ptlens" focal="175" a="0.0040756" b="-0.0158152" c="0.0300138"/>
+            <distortion model="ptlens" focal="210" a="0.008156" b="-0.0298251" c="0.0461926"/>
+            <distortion model="ptlens" focal="270" a="-0.0041986" b="0.01423" c="0.0015272"/>
+            <distortion model="ptlens" focal="400" a="-0.0209494" b="0.0788938" c="-0.0858003"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Nikon</maker>
         <model>Nikon AF Zoom-Nikkor 28-70mm f/3.5-4.5D</model>
         <model lang="en">Nikkor AF 28-70mm f/3.5-4.5D</model>
         <mount>Nikon F AF</mount>
