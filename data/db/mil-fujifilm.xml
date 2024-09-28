@@ -2037,4 +2037,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>GF50mmF3.5 R LM WR</model>
+        <mount>Fujifilm G</mount>
+        <cropfactor>0.79</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm GFX 50R -->
+            <distortion model="ptlens" focal="50" a="0.0010657" b="-0.0069749" c="0.0043144"/>
+            <tca model="poly3" focal="50" vr="1.0000513" vb="1.0001203"/>
+            <vignetting model="pa" focal="50" aperture="3.5" distance="10" k1="-1.5453" k2="1.4058" k3="-0.6097"/>
+            <vignetting model="pa" focal="50" aperture="3.5" distance="1000" k1="-1.5453" k2="1.4058" k3="-0.6097"/>
+            <vignetting model="pa" focal="50" aperture="5" distance="10" k1="-0.4375" k2="-0.4412" k3="0.2506"/>
+            <vignetting model="pa" focal="50" aperture="5" distance="1000" k1="-0.4375" k2="-0.4412" k3="0.2506"/>
+            <vignetting model="pa" focal="50" aperture="7.1" distance="10" k1="-0.6311" k2="0.5251" k3="-0.4519"/>
+            <vignetting model="pa" focal="50" aperture="7.1" distance="1000" k1="-0.6311" k2="0.5251" k3="-0.4519"/>
+            <vignetting model="pa" focal="50" aperture="10" distance="10" k1="-0.6458" k2="0.4786" k3="-0.2900"/>
+            <vignetting model="pa" focal="50" aperture="10" distance="1000" k1="-0.6458" k2="0.4786" k3="-0.2900"/>
+            <vignetting model="pa" focal="50" aperture="32" distance="10" k1="-0.5867" k2="0.2035" k3="-0.0310"/>
+            <vignetting model="pa" focal="50" aperture="32" distance="1000" k1="-0.5867" k2="0.2035" k3="-0.0310"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
