@@ -1809,4 +1809,29 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>TTArtisan</maker>
+        <model>AF 27mm f/2.8</model>
+        <model lang="en">TTArtisan AF 27mm F2.8</model>
+        <mount>Fujifilm X</mount>
+        <mount>Sony E</mount>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+             <!-- Taken with Fujifilm X-E1 -->
+            <distortion model="ptlens" focal="27" a="0.0032038" b="-0.0266802" c="0.0259469"/>
+            <tca model="poly3" focal="27" vr="1.0001029" vb="0.9999537"/>
+            <vignetting model="pa" focal="27" aperture="2.8" distance="10" k1="-2.2583" k2="2.4985" k3="-1.1646"/>
+            <vignetting model="pa" focal="27" aperture="2.8" distance="1000" k1="-2.2583" k2="2.4985" k3="-1.1646"/>
+            <vignetting model="pa" focal="27" aperture="4" distance="10" k1="-0.3078" k2="-1.2395" k3="0.7131"/>
+            <vignetting model="pa" focal="27" aperture="4" distance="1000" k1="-0.3078" k2="-1.2395" k3="0.7131"/>
+            <vignetting model="pa" focal="27" aperture="5.6" distance="10" k1="-0.5595" k2="0.6297" k3="-0.7832"/>
+            <vignetting model="pa" focal="27" aperture="5.6" distance="1000" k1="-0.5595" k2="0.6297" k3="-0.7832"/>
+            <vignetting model="pa" focal="27" aperture="8" distance="10" k1="-0.7098" k2="0.9954" k3="-0.7970"/>
+            <vignetting model="pa" focal="27" aperture="8" distance="1000" k1="-0.7098" k2="0.9954" k3="-0.7970"/>
+            <vignetting model="pa" focal="27" aperture="16" distance="10" k1="-0.5839" k2="0.3603" k3="-0.1603"/>
+            <vignetting model="pa" focal="27" aperture="16" distance="1000" k1="-0.5839" k2="0.3603" k3="-0.1603"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
