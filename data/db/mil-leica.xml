@@ -17,7 +17,7 @@
         <model>Leica SL (Typ 601)</model>
         <model lang="en">SL (Typ 601)</model>
         <mount>Leica L</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <camera>
@@ -26,7 +26,7 @@
         <model>Leica SL2</model>
         <model lang="en">SL2</model>
         <mount>Leica L</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <camera>
@@ -35,7 +35,7 @@
         <model>Leica SL2-S</model>
         <model lang="en">SL2-S</model>
         <mount>Leica L</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <camera>
@@ -44,7 +44,7 @@
         <model>Leica SL3</model>
         <model lang="en">SL3</model>
         <mount>Leica L</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <camera>
@@ -87,13 +87,15 @@
         <maker>Leica</maker>
         <model>Digilux 3</model>
         <mount>Micro 4/3 System</mount>
-        <cropfactor>2</cropfactor>
+        <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
     </camera>
 
     <lens>
         <maker>Leica Camera AG</maker>
         <maker lang="en">Leica</maker>
         <model>Summicron TL 1:2 23 ASPH.</model>
+        <model lang="en">Summicron-TL 23mm f/2 ASPH.</model>
         <mount>Leica L</mount>
         <cropfactor>1.53</cropfactor>
         <calibration>
@@ -116,6 +118,7 @@
         <maker>Leica Camera AG</maker>
         <maker lang="en">Leica</maker>
         <model>Summilux-TL 1:1.4/35 ASPH.</model>
+        <model lang="en">Summilux-TL 35mm f/1.4 ASPH.</model>
         <mount>Leica L</mount>
         <cropfactor>1.53</cropfactor>
         <calibration>
@@ -128,6 +131,7 @@
         <maker>Leica Camera AG</maker>
         <maker lang="en">Leica</maker>
         <model>Elmarit-TL 1:2.8/18 ASPH.</model>
+        <model lang="en">Elmarit-TL 18mm f/2.8 ASPH.</model>
         <mount>Leica L</mount>
         <cropfactor>1.53</cropfactor>
         <calibration>
@@ -140,8 +144,9 @@
         <maker>Leica Camera AG</maker>
         <maker lang="en">Leica</maker>
         <model>Vario-Elmarit-SL 1:2.8/24-70 ASPH.</model>
+        <model lang="en">Vario-Elmarit-SL 24-70mm f/2.8 ASPH.</model>
         <mount>Leica L</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
         <calibration>
             <!-- Taken with Leica SL2-S -->
             <distortion model="ptlens" focal="24" a="0.0500956" b="-0.142289" c="0.0749745"/>
@@ -155,9 +160,10 @@
     <lens>
         <maker>Leica Camera AG</maker>
         <maker lang="en">Leica</maker>
-        <model>APO-Summicron-SL 1:2/50 ASPH.</model>
+        <model>APO-SUMMICRON-SL 1:2/50 ASPH.</model>
+        <model lang="en">APO-Summicron-SL 50mm f/2 ASPH.</model>
         <mount>Leica L</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
         <calibration>
              <!-- Taken with Leica SL2-S -->
             <distortion model="ptlens" focal="50" a="-0.00560624" b="0.0126691" c="-0.00395041"/>
@@ -167,12 +173,13 @@
     <lens>
         <maker>Leica Camera AG</maker>
         <maker lang="en">Leica</maker>
-        <model>APO-Summicron-SL 1:2/35 ASPH.</model>
+        <model>APO-SUMMICRON-SL 1:2/35 ASPH.</model>
+        <model lang="en">APO-Summicron-SL 35mm f/2 ASPH.</model>
         <mount>Leica L</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
             <!-- Taken with Lumix DC-S5 -->
-            <distortion model="ptlens" focal="35.0" a="0.00301375" b="-0.00739283" c="-0.00204227" />
+            <distortion model="ptlens" focal="35.0" a="0.00441253" b="-0.0118086" c="0.00138859" />
             <tca model="poly3" focal="35.0" br="-0.0000534" vr="1.0001312" bb="0.0000270" vb="0.9999340" />
             <vignetting model="pa" focal="35.0" aperture="2.0" distance="10" k1="-0.7797127" k2="0.0595193" k3="0.0941395" />
             <vignetting model="pa" focal="35.0" aperture="2.0" distance="1000" k1="-0.7797127" k2="0.0595193" k3="0.0941395" />

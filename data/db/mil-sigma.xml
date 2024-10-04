@@ -6,15 +6,15 @@
         <model>Sigma fp</model>
         <model lang="en">fp</model>
         <mount>Leica L</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
-    
+
     <camera>
         <maker>Sigma</maker>
         <model>Sigma fp L</model>
         <model lang="en">fp L</model>
         <mount>Leica L</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <camera>
@@ -104,7 +104,7 @@
     <lens>
         <maker>Sigma</maker>
         <model>Sigma 56mm F1.4 DC DN | Contemporary 018</model>
-        <model lang="en">Sigma 56 mm F1.4 DC DN | C 018</model>
+        <model lang="en">Sigma 56mm f/1.4 DC DN | C 018</model>
         <mount>Sony E</mount>
         <mount>Fujifilm X</mount>
         <mount>Leica L</mount>
@@ -166,7 +166,7 @@
     </lens>
 
     <lens>
-        <!-- Identifies itself at Sony cameras as “E 60mm F2.8”. -->
+        <!-- Identifies itself at Sony cameras as “E 60mm F2.8” -->
         <maker>Sigma</maker>
         <model>Sigma 60mm f/2.8 DN</model>
         <mount>Sony E</mount>
@@ -208,7 +208,7 @@
     </lens>
 
     <lens>
-        <!-- Identifies itself at Sony cameras as “E 19mm F2.8”. -->
+        <!-- Identifies itself at Sony cameras as “E 19mm F2.8” -->
         <maker>Sigma</maker>
         <model>Sigma 19mm f/2.8 DN</model>
         <mount>Sony E</mount>
@@ -268,7 +268,7 @@
     <lens>
         <maker>Sigma</maker>
         <model>SIGMA 30mm f/1.4 DC DN | Contemporary C 016</model>
-        <model lang="en">30mm f/1.4 DC DN</model>
+        <model lang="en">Sigma 30mm f/1.4 DC DN</model>
         <mount>Sony E</mount>
         <mount>Micro 4/3 System</mount>
         <mount>Nikon Z</mount>
@@ -297,7 +297,7 @@
     <lens>
         <maker>Sigma</maker>
         <model>Sigma 16mm f/1.4 DC DN | Contemporary C 017</model>
-        <model lang="en">Sigma 16mm f/1.4 DC DN C</model>
+        <model lang="en">Sigma 16mm f/1.4 DC DN Contemporary 017</model>
         <mount>Micro 4/3 System</mount>
         <mount>Sony E</mount>
         <cropfactor>2</cropfactor>
@@ -312,7 +312,7 @@
     <lens>
         <maker>Sigma</maker>
         <model>Sigma 16mm f/1.4 DC DN | Contemporary 017</model>
-        <model lang="en">Sigma 16mm f/1.4 DC DN Contemporary</model>
+        <model lang="en">Sigma 16mm f/1.4 DC DN Contemporary 017</model>
         <mount>Micro 4/3 System</mount>
         <mount>Sony E</mount>
         <mount>Fujifilm X</mount>
@@ -352,17 +352,17 @@
             <vignetting model="pa" focal="16.0" aperture="16.0" distance="1000" k1="-0.3579104" k2="-0.0124186" k3="0.0314276"/>
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Sigma</maker>
         <model>105mm F1.4 DG HSM | Art 018</model>
-        <model lang="en">Sigma 105 mm F1.4 DG HSM Art</model>
+        <model lang="en">Sigma 105mm f/1.4 DG HSM Art 018</model>
         <mount>Sony E</mount>
         <mount>Canon EF</mount>
         <mount>Leica L</mount>
         <mount>Nikon F AF</mount>
         <mount>Sigma SA</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="105" a="0.0014406142874951258" b="-0.00614583454138938" c="0.0127487278055209"/>
             <tca model="poly3" focal="105" vr="0.9999963" vb="1.0000321"/>
@@ -410,12 +410,12 @@
             <vignetting model="pa" focal="105" aperture="16" distance="1000" k1="-0.1649" k2="-0.1053" k3="0.0771"/>
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Sigma</maker>
         <model>35mm F1.2 DG DN | Art 019</model>
         <mount>Sony E</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="35" a="-0.00036252595632404257" b="-0.010365850618003318" c="0.00024978328908901364"/>
             <tca model="poly3" focal="35" vr="1.0000559" vb="1.0000748"/>
@@ -493,13 +493,13 @@
             <vignetting model="pa" focal="35" aperture="16" distance="1000" k1="-0.4839" k2="0.0012" k3="0.0945"/>
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Sigma</maker>
         <model>14-24mm F2.8 DG DN | Art 019</model>
         <mount>Sony E</mount>
         <mount>Leica L</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="14" a="0.0494500274128515" b="-0.176286257666241" c="0.158087525693153"/>
             <distortion model="ptlens" focal="14.6" a="0.024836080969686855" b="-0.0822062660046383" c="0.04972960282491836"/>
@@ -586,7 +586,7 @@
         <model>85mm F1.4 DG DN | Art 020</model>
         <mount>Sony E</mount>
         <mount>Leica L</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="85.0" a="0.008" b="-0.01" c="0.018" />
             <tca model="poly3" focal="85.0" br="-0.0000417" vr="1.0001211" bb="0.0000458" vb="0.9999134" />
@@ -783,7 +783,7 @@
     <lens>
         <maker>Sigma</maker>
         <model>40mm F1.4 DG HSM | Art 018</model>
-        <model lang="en">Sigma 40mm F1.4 DG HSM | Art</model>
+        <model lang="en">Sigma 40mm f/1.4 DG HSM | Art</model>
         <mount>Canon EF</mount>
         <mount>Leica L</mount>
         <mount>Sony E</mount>
@@ -805,7 +805,7 @@
             <vignetting model="pa" focal="40.0" aperture="16.0" distance="1000" k1="-0.2878019" k2="0.0453093" k3="0.0104123"/>
         </calibration>
     </lens>
-   
+
    <lens>
         <maker>Sigma</maker>
         <model>20mm F2 DG DN | Contemporary 022</model>
@@ -818,7 +818,7 @@
             <tca model="poly3" focal="20" vr="1.0003052" cr="-0.0000000" br="0.0000000" vb="1.0000539" cb="-0.0000762" bb="0.0000259" />
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Sigma</maker>
         <model>24mm F2 DG DN | Contemporary 021</model>
@@ -880,10 +880,11 @@
             <tca model="poly3" focal="65" vr="1.0003439" cr="-0.0001381" br="0.0000462" vb="0.9998513" cb="-0.0000247" bb="0.0000400" />
         </calibration>
     </lens>
-    
+
     <lens>
         <maker>Sigma</maker>
         <model>90mm F2.8 DG DN | Contemporary 021</model>
+        <model lang="en">Sigma 90mm f/2.8 DG DN | Contemporary 021</model>
         <mount>Leica L</mount>
         <mount>Sony E</mount>
         <cropfactor>1.0</cropfactor>
@@ -990,6 +991,7 @@
     <lens>
         <maker>Sigma</maker>
         <model>24mm F3.5 DG DN | Contemporary 021</model>
+        <model lang="en">Sigma 45mm f/3.5 DG DN | Contemporary 021</model>
         <mount>Leica L</mount>
         <mount>Sony E</mount>
         <cropfactor>1.0</cropfactor>
@@ -1021,13 +1023,13 @@
     <lens>
         <maker>Sigma</maker>
         <model>Sigma 28mm F1.4 DG HSM | A</model>
-        <model lang="en">28mm F1,4 DG HSM | Art</model>
+        <model lang="en">Sigma 28mm f/1.4 DG HSM | Art</model>
         <mount>Nikon F AF</mount>
         <mount>Leica L</mount>
         <mount>Sony E</mount>
         <mount>Canon EF</mount>
         <mount>Sigma SA</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
         <calibration>
              <!-- Taken with Canon EOS 5DS R -->
             <distortion model="ptlens" focal="28" a="0.0047621" b="-0.0229217" c="0.0233745"/>
@@ -1051,7 +1053,7 @@
      <lens>
         <maker>Sigma</maker>
         <model>Sigma 28mm F1.4 DG HSM | A</model>
-        <model lang="en">28mm F1,4 DG HSM | Art</model>
+        <model lang="en">Sigma 28mm f/1.4 DG HSM | Art</model>
         <mount>Nikon F AF</mount>
         <mount>Leica L</mount>
         <mount>Sony E</mount>
@@ -1078,6 +1080,7 @@
     <lens>
         <maker>Sigma</maker>
         <model>17mm F4 DG DN | Contemporary 023</model>
+        <model lang="en">Sigma 17mm f/4 DG DN | Contemporary 023</model>
         <mount>Leica L</mount>
         <mount>Sony E</mount>
         <cropfactor>1.0</cropfactor>

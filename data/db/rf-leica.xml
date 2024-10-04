@@ -16,7 +16,7 @@
         <model>Leica M (Typ 240)</model>
         <model lang="en">M (Typ 240)</model>
         <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <camera>
@@ -25,23 +25,25 @@
         <model>Leica M Monochrom (Typ 246)</model>
         <model lang="en">M Monochrom (Typ 246)</model>
         <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <camera>
         <maker>Leica Camera AG</maker>
         <maker lang="en">Leica</maker>
         <model>M8 Digital Camera</model>
+        <model lang="en">M8</model>
         <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <camera>
         <maker>Leica Camera AG</maker>
         <maker lang="en">Leica</maker>
         <model>M9 Digital Camera</model>
+        <model lang="en">M9</model>
         <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <camera>
@@ -50,7 +52,7 @@
         <model>Leica M10</model>
         <model lang="en">M10</model>
         <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <camera>
@@ -59,7 +61,7 @@
         <model>Leica M10 Monochrom</model>
         <model lang="en">M10 Monochrom</model>
         <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <camera>
@@ -68,7 +70,7 @@
         <model>Leica M10-D</model>
         <model lang="en">M10-D</model>
         <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <camera>
@@ -77,7 +79,7 @@
         <model>Leica M10-P</model>
         <model lang="en">M10-P</model>
         <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <camera>
@@ -86,7 +88,7 @@
         <model>Leica M10-R</model>
         <model lang="en">M10-R</model>
         <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <camera>
@@ -95,7 +97,7 @@
         <model>Leica M11</model>
         <model lang="en">M11</model>
         <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <camera>
@@ -104,7 +106,7 @@
         <model>Leica M11 Monochrom</model>
         <model lang="en">M11 Monochrom</model>
         <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <camera>
@@ -113,7 +115,7 @@
         <model>Leica M11-P</model>
         <model lang="en">M11-P</model>
         <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <camera>
@@ -122,18 +124,18 @@
         <model>Leica M11-D</model>
         <model lang="en">M11-D</model>
         <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
     </camera>
 
     <lens>
         <maker>Leica Camera AG</maker>
         <maker lang="en">Leica</maker>
         <model>Elmarit-M 1:2.8/28 ASPH.</model>
-        <model lang="en">Elmarit-M 28mm f/2.8 ASPH</model>
+        <model lang="en">Elmarit-M 28mm f/2.8 ASPH.</model>
         <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
         <calibration>
-            <!-- Taken with LEICA M (Typ 240) -->
+            <!-- Taken with Leica M (Typ 240) -->
             <distortion model="ptlens" focal="28" a="0.00349" b="-0.00508" c="-0.01721"/>
         </calibration>
     </lens>
@@ -144,7 +146,7 @@
         <model>Elmarit-M 1:2.8/90</model>
         <model lang="en">Elmarit-M 90mm f/2.8</model>
         <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
         <calibration>
             <!-- Taken with Leica M (Typ 240) -->
             <distortion model="ptlens" focal="90" a="-0.00423" b="0.01406" c="-0.00692"/>
@@ -158,7 +160,7 @@
         <!-- Model 11819/11825/11826/11816 -->
         <model lang="en">Summicron-M 50mm f/2</model>
         <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
         <calibration>
             <!-- Taken Leica M (Typ 240) -->
             <distortion model="poly3" focal="50" k1="-0.00072"/>
@@ -171,7 +173,7 @@
         <maker lang="en">Leica</maker>
         <model>Summicron-M 1:2/28 ASPH.</model>
         <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.0</cropfactor>
         <calibration>
             <!-- Taken with Leica M9 Digital Camera -->
             <distortion model="ptlens" focal="28" a="0.0135748" b="-0.0502846" c="0.0486119"/>
