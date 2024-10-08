@@ -8330,4 +8330,19 @@
             <tca model="poly3" focal="55" vr="1.0000308" vb="1.0001345"/>
         </calibration>
     </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 100-400mm f/4.5-5.6L IS II USM + 1.4x extender</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="140" a="-0.018543" b="0.0512283" c="-0.0572633"/>
+            <distortion model="ptlens" focal="189" a="-0.0083338" b="0.0157056" c="-0.0149411"/>
+            <distortion model="ptlens" focal="280" a="-0.0084512" b="0.0161198" c="-0.0117873"/>
+            <distortion model="ptlens" focal="420" a="-0.0069125" b="0.0173189" c="-0.0211893"/>
+            <distortion model="ptlens" focal="560" a="-0.0047086" b="0.0120691" c="-0.0208262"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
