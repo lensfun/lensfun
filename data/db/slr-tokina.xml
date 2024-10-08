@@ -778,4 +778,27 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tokina</maker>
+        <model>Tokina 20-35mm f/3.5-4.5 AF-235 II</model>
+        <mount>Canon EF</mount>
+        <mount>Sony Alpha</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS RP -->
+            <distortion model="ptlens" focal="20" a="0.0314468" b="-0.0880553" c="0.0290777"/>
+            <distortion model="ptlens" focal="24" a="0.0160657" b="-0.048532" c="0.0101082"/>
+            <distortion model="ptlens" focal="28" a="0.0073437" b="-0.0254182" c="0.0030835"/>
+            <distortion model="ptlens" focal="30" a="0.0042884" b="-0.0167293" c="0.0009202"/>
+            <distortion model="ptlens" focal="35" a="-0.0149013" b="0.0482728" c="-0.0629835"/>
+            <tca model="poly3" focal="20" vr="1.0003472" vb="1.0000788"/>
+            <tca model="poly3" focal="24" vr="1.0003552" vb="1.0000524"/>
+            <tca model="poly3" focal="28" vr="1.0003831" vb="1.0000044"/>
+            <tca model="poly3" focal="30" vr="1.0003873" vb="0.9999666"/>
+            <tca model="poly3" focal="35" vr="1.0004258" vb="0.9999383"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
