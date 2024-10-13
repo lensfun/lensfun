@@ -3020,6 +3020,21 @@
 
     <lens>
         <maker>Panasonic</maker>
+        <model>LUMIX S 100mm F2.8 MACRO</model>
+        <mount>Leica L</mount>
+        <focal value="100"/>
+        <aperture min="2.4" max="22"/>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Lumix DC-S5M2X -->
+            <distortion model="poly3" focal="100" k1="0.01028305"/>
+            <tca model="poly3" focal="100" br="0.0000401" cr="0.0000436" vr="0.9996477" bb="0.0000207" cb="-0.0001899" vb="1.0001609"/>
+        </calibration>
+    </lens>
+
+
+    <lens>
+        <maker>Panasonic</maker>
         <model>Leica D Summilux 25mm F1.4 Asph.</model>
         <mount>Micro 4/3 System</mount>
         <cropfactor>2.0</cropfactor>
