@@ -80,6 +80,15 @@
     </camera>
 
     <camera>
+        <maker>LEICA CAMERA AG</maker>
+        <maker lang="en">Leica</maker>
+        <model>LEICA Q3 43</model>
+        <model lang="en">Q3 43</model>
+        <mount>leicaQ3 43</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
+    <camera>
         <maker>Leica Camera AG</maker>
         <maker lang="en">Leica</maker>
         <model>Leica X Vario (Typ 107)</model>
@@ -156,6 +165,19 @@
             <distortion model="ptlens" focal="29" a="0.00083" b="-0.00707" c="-0.00502"/>
             <distortion model="ptlens" focal="33" a="0.01103" b="-0.04453" c="0.04574"/>
             <distortion model="ptlens" focal="46" a="0.00682" b="-0.02474" c="0.02966"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>LEICA CAMERA AG</maker>
+        <maker lang="en">Leica</maker>
+        <model>APO-SUMMICRON 1:2/43 ASPH.</model>
+        <model lang="en">APO-Summicron 43mm f/2 ASPH.</model>
+        <mount>LeicaQ3 43</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="43.0" a="-0.0234611" b="0.0280244" c="-0.0211507" />
+            <tca model="poly3" focal="43.0" br="-0.0000069" vr="1.0000640" bb="0.0000178" vb="1.0000333" />
         </calibration>
     </lens>
 
