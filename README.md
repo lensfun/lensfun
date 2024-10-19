@@ -1,7 +1,8 @@
 
 [![CMake-Linux](https://github.com/lensfun/lensfun/actions/workflows/cmake-linux.yml/badge.svg)](https://github.com/lensfun/lensfun/actions/workflows/cmake-linux.yml)
-[![CMake-Windows](https://github.com/lensfun/lensfun/actions/workflows/cmake-windows.yml/badge.svg)](https://github.com/lensfun/lensfun/actions/workflows/cmake-windows.yml)
+[![CMake-macOS](https://github.com/lensfun/lensfun/actions/workflows/cmake-macos.yml/badge.svg)](https://github.com/lensfun/lensfun/actions/workflows/cmake-macos.yml)
 [![CMake-MSYS2](https://github.com/lensfun/lensfun/actions/workflows/cmake-msys2.yml/badge.svg)](https://github.com/lensfun/lensfun/actions/workflows/cmake-msys2.yml)
+[![CMake-Windows](https://github.com/lensfun/lensfun/actions/workflows/cmake-windows.yml/badge.svg)](https://github.com/lensfun/lensfun/actions/workflows/cmake-windows.yml)
 
 WHAT IS IT
 ----------
