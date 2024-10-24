@@ -1582,6 +1582,18 @@
         <cropfactor>1.0</cropfactor>
         <calibration>
             <!-- Taken with Nikon Z 8 -->
+	    <distortion model="ptlens" focal="180" a="-0.0009907" b="0.0095061" c="-0.0085524"/>
+            <distortion model="ptlens" focal="200" a="-0.0019928" b="0.0135202" c="-0.0128869"/>
+            <distortion model="ptlens" focal="300" a="0.0005027" b="0.0066751" c="-0.0058464"/>
+            <distortion model="ptlens" focal="400" a="0.0004307" b="0.0054284" c="-0.0056489"/>
+            <distortion model="ptlens" focal="500" a="0.0044362" b="-0.0146063" c="0.0270447"/>
+            <distortion model="ptlens" focal="600" a="0.0009136" b="-0.0039492" c="0.0170142"/>
+            <tca model="poly3" focal="180" vr="1.0001357" vb="1.0000186"/>
+            <tca model="poly3" focal="200" vr="1.0000866" vb="1.0000491"/>
+            <tca model="poly3" focal="300" vr="0.9999815" vb="1.0000726"/>
+            <tca model="poly3" focal="400" vr="0.9999419" vb="1.0000444"/>
+            <tca model="poly3" focal="500" vr="0.9998756" vb="1.0000247"/>
+            <tca model="poly3" focal="600" vr="0.9999255" vb="0.9999203"/>
             <vignetting model="pa" focal="180" aperture="5.6" distance="10" k1="-0.0642" k2="-0.4014" k3="0.0396"/>
             <vignetting model="pa" focal="180" aperture="5.6" distance="1000" k1="-0.0642" k2="-0.4014" k3="0.0396"/>
             <vignetting model="pa" focal="180" aperture="8" distance="10" k1="-0.2168" k2="0.4305" k3="-0.5383"/>
