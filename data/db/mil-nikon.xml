@@ -1671,4 +1671,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>NIKKOR Z 35mm f/1.4</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon Z 5 -->
+            <distortion model="ptlens" focal="35" a="-0.0022063" b="-0.0123235" c="-0.011755"/>
+            <tca model="poly3" focal="35" vr="1.0000866" vb="1.0001137"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
