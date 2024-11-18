@@ -7,7 +7,7 @@
 #include "lensfun.h"
 #include "lensfunprv.h"
 
-#if defined (_MSC_VER)
+#if defined (_MSC_VER) && !defined(_M_ARM64)
 #include <intrin.h>
 guint _lf_detect_cpu_features ()
 {
