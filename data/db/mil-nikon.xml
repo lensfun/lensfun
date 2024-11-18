@@ -1692,4 +1692,21 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>NIKKOR Z DX 18-140mm f/3.5-6.3 VR</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.531</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon Z 50 -->
+            <distortion model="ptlens" focal="18" a="0.0290105" b="-0.1026526" c="0.0437663"/>
+            <distortion model="ptlens" focal="24.5" a="0.027328" b="-0.0831457" c="0.069177"/>
+            <distortion model="ptlens" focal="35" a="0.0092874" b="-0.0126763" c="0.0143821"/>
+            <distortion model="ptlens" focal="50" a="0.003564" b="0.0043129" c="0.0033661"/>
+            <distortion model="ptlens" focal="71" a="0.0217279" b="-0.0524758" c="0.0602329"/>
+            <distortion model="ptlens" focal="102" a="0.0036604" b="0.0048073" c="0.0039707"/>
+            <distortion model="ptlens" focal="140" a="-0.0003256" b="0.0156438" c="-0.0038843"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
