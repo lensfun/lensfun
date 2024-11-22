@@ -1506,6 +1506,7 @@
     <lens>
         <maker>Voigtländer</maker>
         <model>Voigtlander Color Skopar 20mm F3.5 SLII Aspherical</model>
+	<model lang="en">Voigtländer Color Skopar 20mm F3.5 SLII Aspherical</model>
         <mount>Pentax KAF4</mount>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
@@ -1954,6 +1955,70 @@
              <!-- Taken with Nikon Z 5 -->
             <distortion model="ptlens" focal="20" a="0.0535004" b="-0.143137" c="0.0938834"/>
             <tca model="poly3" focal="20" br="-0.0000339" vr="1.0000580" bb="0.0000378" vb="1.0000294"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Steinheil München</maker>
+        <maker lang="en">Steinheil</maker>
+        <model>Auto-D-Quinaron 35mm f/2.8</model>
+        <mount>M42</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="35" a="0.00782005" b="-0.0264358" c="0.0142868" />
+            <tca model="poly3" focal="35" br="-0.0001166" vr="1.0004665" bb="0.0001620" vb="0.9995782" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Steinheil München</maker>
+        <maker lang="en">Steinheil</maker>
+        <model>Culminar 85mm f/2.8</model>
+        <mount>M42</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="85" a="0.00644758" b="-0.0221731" c="0.0259924" />
+            <tca model="poly3" focal="85" br="0.0000012" vr="0.9998904" bb="0.0000120" vb="1.0001837" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Steinheil München</maker>
+        <maker lang="en">Steinheil</maker>
+        <model>Auto-D-Tele-Quinar 135mm f/2.8</model>
+        <mount>M42</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="135" a="0.0019326" b="-0.0018137" c="0.00973519" />
+            <tca model="poly3" focal="135" br="0.0000400" vr="0.9993932" bb="-0.0000645" vb="1.0000873" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Beroflex</maker>
+        <model>Beroflex 400mm f/6.3</model>
+        <mount>M42</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="400" a="-0.00282824" b="0.0126927" c="-0.0152014" />
+            <tca model="poly3" focal="400" br="0.0000332" vr="0.9997838" bb="0.0000139" vb="0.9998991" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Voigtländer</maker>
+        <model>Voigtlander Color-Ultron 50mm f/1.8</model>
+	<model lang="en">Voigtländer Color-Ultron 50mm f/1.8</model>
+        <mount>M42</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+	    <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="50" a="-0.00124359" b="-0.000289263" c="-0.000456959" />
+            <tca model="poly3" focal="50" br="-0.0000079" vr="1.0000574" bb="0.0000210" vb="0.9998618" />
         </calibration>
     </lens>
 
