@@ -199,29 +199,6 @@
 
     <lens>
         <maker>Zeiss</maker>
-        <model>Carl Zeiss Jena 135mm f/3.5</model>
-        <mount>Sony E</mount>
-        <cropfactor>1</cropfactor>
-        <calibration>
-	    <!-- Taken with ILCE-7RM2 -->
-            <distortion model="ptlens" focal="135" a="-0.0001892" b="0.0055868" c="-0.0031821"/>
-            <vignetting model="pa" focal="135" aperture="3.5" distance="10" k1="-1.0500" k2="1.3143" k3="-0.7419"/>
-            <vignetting model="pa" focal="135" aperture="3.5" distance="1000" k1="-1.0500" k2="1.3143" k3="-0.7419"/>
-            <vignetting model="pa" focal="135" aperture="5.6" distance="10" k1="-0.1327" k2="-0.1055" k3="-0.1124"/>
-            <vignetting model="pa" focal="135" aperture="5.6" distance="1000" k1="-0.1327" k2="-0.1055" k3="-0.1124"/>
-            <vignetting model="pa" focal="135" aperture="8" distance="10" k1="-0.3339" k2="0.7206" k3="-0.6513"/>
-            <vignetting model="pa" focal="135" aperture="8" distance="1000" k1="-0.3339" k2="0.7206" k3="-0.6513"/>
-            <vignetting model="pa" focal="135" aperture="11" distance="10" k1="-0.3122" k2="0.5497" k3="-0.4315"/>
-            <vignetting model="pa" focal="135" aperture="11" distance="1000" k1="-0.3122" k2="0.5497" k3="-0.4315"/>
-            <vignetting model="pa" focal="135" aperture="16" distance="10" k1="-0.3180" k2="0.5715" k3="-0.4487"/>
-            <vignetting model="pa" focal="135" aperture="16" distance="1000" k1="-0.3180" k2="0.5715" k3="-0.4487"/>
-            <vignetting model="pa" focal="135" aperture="22" distance="10" k1="-0.3162" k2="0.5702" k3="-0.4493"/>
-            <vignetting model="pa" focal="135" aperture="22" distance="1000" k1="-0.3162" k2="0.5702" k3="-0.4493"/>
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Zeiss</maker>
         <model>Carl Zeiss Sonnar T* 135mm F1.8 ZA (SAL135F18Z)</model>
         <mount>Sony Alpha</mount>
         <cropfactor>1</cropfactor>
@@ -229,18 +206,6 @@
 	    <!-- Taken with Sony ILCA-99M2 (Alpha 99 II) -->
             <distortion model="ptlens" focal="135" a="0.01336" b="-0.05693" c="0.08176"/>
             <tca model="poly3" focal="135" vr="0.9999955" vb="0.9999812"/>
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Zeiss</maker>
-        <model>Carl Zeiss Jena Flektogon 4/20mm</model>
-        <mount>Sony E</mount>
-        <cropfactor>1</cropfactor>
-        <calibration>
-            <!-- Taken with Sony ILCE-7R -->
-            <distortion model="ptlens" focal="20" a="0.02491" b="-0.05353" c="0.00498"/>
-            <tca model="poly3" focal="20" vr="1.0004715" vb="0.9996778"/>
         </calibration>
     </lens>
 
@@ -313,6 +278,18 @@
             <!-- Taken with Sony ILCE-7RM2 -->
             <distortion model="ptlens" focal="135" a="0.000694452" b="0.00204654" c="0.00157865" />
             <tca model="poly3" focal="135" br="-0.0000118" vr="0.9997083" bb="-0.0000435" vb="1.0001135" />
+	    <vignetting model="pa" focal="135" aperture="3.5" distance="10" k1="-1.0500" k2="1.3143" k3="-0.7419"/>
+            <vignetting model="pa" focal="135" aperture="3.5" distance="1000" k1="-1.0500" k2="1.3143" k3="-0.7419"/>
+            <vignetting model="pa" focal="135" aperture="5.6" distance="10" k1="-0.1327" k2="-0.1055" k3="-0.1124"/>
+            <vignetting model="pa" focal="135" aperture="5.6" distance="1000" k1="-0.1327" k2="-0.1055" k3="-0.1124"/>
+            <vignetting model="pa" focal="135" aperture="8" distance="10" k1="-0.3339" k2="0.7206" k3="-0.6513"/>
+            <vignetting model="pa" focal="135" aperture="8" distance="1000" k1="-0.3339" k2="0.7206" k3="-0.6513"/>
+            <vignetting model="pa" focal="135" aperture="11" distance="10" k1="-0.3122" k2="0.5497" k3="-0.4315"/>
+            <vignetting model="pa" focal="135" aperture="11" distance="1000" k1="-0.3122" k2="0.5497" k3="-0.4315"/>
+            <vignetting model="pa" focal="135" aperture="16" distance="10" k1="-0.3180" k2="0.5715" k3="-0.4487"/>
+            <vignetting model="pa" focal="135" aperture="16" distance="1000" k1="-0.3180" k2="0.5715" k3="-0.4487"/>
+            <vignetting model="pa" focal="135" aperture="22" distance="10" k1="-0.3162" k2="0.5702" k3="-0.4493"/>
+            <vignetting model="pa" focal="135" aperture="22" distance="1000" k1="-0.3162" k2="0.5702" k3="-0.4493"/>
         </calibration>
     </lens>
 
