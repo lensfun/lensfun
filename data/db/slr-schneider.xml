@@ -57,4 +57,76 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Schneider</maker>
+        <model>Schneider Retina-Curtagon 28mm f/4</model>
+        <mount>DKL</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="28" a="0.00877844" b="-0.0258917" c="0.0104073" />
+            <tca model="poly3" focal="28" br="-0.0001462" vr="1.0004455" bb="0.0001369" vb="0.9996998" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Schneider</maker>
+        <model>Schneider Curtagon 35mm f/4</model>
+        <mount>M42</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="35" a="0.00390184" b="-0.0139927" c="0.0111335" />
+            <tca model="poly3" focal="35" br="-0.0000393" vr="1.0003979" bb="0.0000263" vb="0.9995792" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Schneider</maker>
+        <model>Schneider Retina-Curtagon 35mm f/2.8</model>
+        <mount>DKL</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="35" a="0.0091699" b="-0.0297983" c="0.0223008" />
+            <tca model="poly3" focal="35" br="-0.0000681" vr="1.0002250" bb="0.0000576" vb="0.9998806" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Schneider</maker>
+        <model>Schneider Retina-Tele-Arton 85mm f/4</model>
+        <mount>DKL</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="85" a="-0.000401254" b="0.00366914" c="0.00257954" />
+            <tca model="poly3" focal="85" br="0.0001219" vr="0.9993754" bb="-0.0001220" vb="1.0002823" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Schneider</maker>
+        <model>Schneider Tele-Xenar 90mm f/3.5</model>
+        <mount>M42</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="90" a="0.0027264" b="-0.00966105" c="0.017257" />
+            <tca model="poly3" focal="90" br="0.0000789" vr="0.9993739" bb="-0.0001366" vb="1.0005777" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Schneider</maker>
+        <model>Schneider Retina-Tele-Xenar 135mm f/4</model>
+        <mount>DKL</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="135" a="-0.000615107" b="0.00691657" c="0.00495058" />
+            <tca model="poly3" focal="135" br="0.0003517" vr="0.9989566" bb="-0.0003327" vb="1.0003613" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
