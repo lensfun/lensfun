@@ -1332,12 +1332,24 @@
     <lens>
         <maker>Pentacon</maker>
         <model>Pentacon electric 2.8/29mm</model>
-        <mount>Sony E</mount>
+        <mount>M42</mount>
         <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Sony ILCE-7R -->
             <distortion model="ptlens" focal="29" a="0.0136" b="-0.03992" c="0.01167"/>
             <tca model="poly3" focal="29" vr="1.0001492" vb="1.0000877"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Pentacon</maker>
+        <model>Pentacon 50mm f/1.8</model>
+        <mount>M42</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="50" a="-0.000726512" b="-0.00766304" c="0.00579719" />
+            <tca model="poly3" focal="50" br="-0.0000001" vr="1.0000419" bb="-0.0000135" vb="0.9999873" />
         </calibration>
     </lens>
 
