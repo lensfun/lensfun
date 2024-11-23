@@ -1709,4 +1709,25 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>NIKKOR Z DX 24mm f/1.7</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.531</cropfactor>
+        <calibration>
+	    <!-- Taken with Nikon Z fc -->
+            <distortion model="ptlens" focal="24" a="0.0192276" b="-0.035347" c="0.0140277"/>
+            <vignetting model="pa" focal="24" aperture="1.7" distance="10" k1="-1.8266" k2="1.5945" k3="-0.5954"/>
+            <vignetting model="pa" focal="24" aperture="1.7" distance="1000" k1="-1.8266" k2="1.5945" k3="-0.5954"/>
+            <vignetting model="pa" focal="24" aperture="2.5" distance="10" k1="-0.7737" k2="-0.6928" k3="0.6977"/>
+            <vignetting model="pa" focal="24" aperture="2.5" distance="1000" k1="-0.7737" k2="-0.6928" k3="0.6977"/>
+            <vignetting model="pa" focal="24" aperture="3.5" distance="10" k1="-0.4812" k2="-0.8654" k3="0.5952"/>
+            <vignetting model="pa" focal="24" aperture="3.5" distance="1000" k1="-0.4812" k2="-0.8654" k3="0.5952"/>
+            <vignetting model="pa" focal="24" aperture="5" distance="10" k1="-0.6345" k2="-0.1051" k3="0.0116"/>
+            <vignetting model="pa" focal="24" aperture="5" distance="1000" k1="-0.6345" k2="-0.1051" k3="0.0116"/>
+            <vignetting model="pa" focal="24" aperture="11" distance="10" k1="-0.8086" k2="0.4435" k3="-0.2672"/>
+            <vignetting model="pa" focal="24" aperture="11" distance="1000" k1="-0.8086" k2="0.4435" k3="-0.2672"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
