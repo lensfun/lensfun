@@ -2102,4 +2102,28 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tamron</maker>
+        <model>Tamron AF 28-300mm f/3.5-6.3 XR Di VC LD Aspherical (IF) Macro (A20)</model>
+        <model lang="en">Tamron AF 28-300mm f/3.5-6.3 XR Di VC LD Aspherical (IF) Macro</model>
+        <mount>Nikon F AF</mount>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D610 -->
+            <distortion model="ptlens" focal="28" a="0.0261026" b="-0.0872712" c="0.0380524"/>
+            <distortion model="ptlens" focal="32" a="0.0229532" b="-0.0681495" c="0.030503"/>
+            <distortion model="ptlens" focal="35" a="0.0191204" b="-0.0501525" c="0.0231695"/>
+            <distortion model="ptlens" focal="42" a="0.0153893" b="-0.0351953" c="0.0277104"/>
+            <distortion model="ptlens" focal="50" a="0.0079193" b="-0.0073732" c="0.0079746"/>
+            <distortion model="ptlens" focal="85" a="-0.0071662" b="0.0368568" c="-0.0220921"/>
+            <distortion model="ptlens" focal="110" a="0.0022371" b="0.0067415" c="0.0084938"/>
+            <distortion model="ptlens" focal="135" a="-0.0006645" b="0.0138058" c="0.0023036"/>
+            <distortion model="ptlens" focal="170" a="0.0025411" b="0.0069655" c="-0.0015234"/>
+            <distortion model="ptlens" focal="210" a="0.003198" b="0.0050512" c="0.0021151"/>
+            <distortion model="ptlens" focal="250" a="0.0007926" b="0.0074157" c="0.0045606"/>
+            <distortion model="ptlens" focal="300" a="0.0016647" b="0.0037296" c="0.0082022"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
