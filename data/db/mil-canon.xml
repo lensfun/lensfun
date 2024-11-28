@@ -1959,5 +1959,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon RF 800mm f/11 IS STM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS R7 -->
+            <distortion model="ptlens" focal="800" a="-0.0169281" b="0.059866" c="-0.0666748"/>
+            <tca model="poly3" focal="800" br="0.0000129" vr="0.9994504" bb="0.0000014" vb="0.9996322"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
 
