@@ -2007,4 +2007,29 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Venus</maker>
+        <model>Laowa FF 10mm f/2.8 C&amp;D Dreamer</model>
+        <model lang="en">Laowa 10mm f/2.8 Zero-D FF</model>
+        <mount>Sony E</mount>
+        <mount>Nikon Z</mount>
+        <mount>Leica L</mount>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS R8 -->
+            <distortion model="ptlens" focal="10" a="0.0321933" b="-0.1129835" c="0.1174364"/>
+            <vignetting model="pa" focal="10" aperture="2.8" distance="10" k1="-2.7221" k2="3.2578" k3="-1.4461"/>
+            <vignetting model="pa" focal="10" aperture="2.8" distance="1000" k1="-2.7221" k2="3.2578" k3="-1.4461"/>
+            <vignetting model="pa" focal="10" aperture="4" distance="10" k1="-2.4965" k2="2.9486" k3="-1.3253"/>
+            <vignetting model="pa" focal="10" aperture="4" distance="1000" k1="-2.4965" k2="2.9486" k3="-1.3253"/>
+            <vignetting model="pa" focal="10" aperture="5.6" distance="10" k1="-2.4962" k2="2.9575" k3="-1.3249"/>
+            <vignetting model="pa" focal="10" aperture="5.6" distance="1000" k1="-2.4962" k2="2.9575" k3="-1.3249"/>
+            <vignetting model="pa" focal="10" aperture="8" distance="10" k1="-2.5004" k2="2.9713" k3="-1.3327"/>
+            <vignetting model="pa" focal="10" aperture="8" distance="1000" k1="-2.5004" k2="2.9713" k3="-1.3327"/>
+            <vignetting model="pa" focal="10" aperture="22" distance="10" k1="-2.5310" k2="3.0427" k3="-1.3715"/>
+            <vignetting model="pa" focal="10" aperture="22" distance="1000" k1="-2.5310" k2="3.0427" k3="-1.3715"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
