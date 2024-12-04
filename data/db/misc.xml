@@ -2032,4 +2032,30 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Venus</maker>
+        <model>Laowa 85mm f/5.6 2X Ultra Macro APO</model>
+        <mount>Sony E</mount>
+        <mount>Canon RF</mount>
+        <mount>Leica M</mount>
+        <mount>Leica L</mount>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS R8 -->
+            <distortion model="ptlens" focal="85" a="-0.0140479" b="0.0359658" c="-0.0251165"/>
+            <tca model="poly3" focal="85" br="0.0000320" vr="0.9998588" bb="-0.0000398" vb="1.0001244"/>
+            <vignetting model="pa" focal="85" aperture="5.6" distance="10" k1="-0.9425" k2="0.8833" k3="-0.4305"/>
+            <vignetting model="pa" focal="85" aperture="5.6" distance="1000" k1="-0.9425" k2="0.8833" k3="-0.4305"/>
+            <vignetting model="pa" focal="85" aperture="8" distance="10" k1="-0.2958" k2="-0.4253" k3="0.2212"/>
+            <vignetting model="pa" focal="85" aperture="8" distance="1000" k1="-0.2958" k2="-0.4253" k3="0.2212"/>
+            <vignetting model="pa" focal="85" aperture="11" distance="10" k1="-0.2130" k2="0.0624" k3="-0.3249"/>
+            <vignetting model="pa" focal="85" aperture="11" distance="1000" k1="-0.2130" k2="0.0624" k3="-0.3249"/>
+            <vignetting model="pa" focal="85" aperture="16" distance="10" k1="-0.5096" k2="1.1108" k3="-1.0059"/>
+            <vignetting model="pa" focal="85" aperture="16" distance="1000" k1="-0.5096" k2="1.1108" k3="-1.0059"/>
+            <vignetting model="pa" focal="85" aperture="22" distance="10" k1="-0.5634" k2="1.2344" k3="-1.0220"/>
+            <vignetting model="pa" focal="85" aperture="22" distance="1000" k1="-0.5634" k2="1.2344" k3="-1.0220"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
