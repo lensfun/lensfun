@@ -1984,5 +1984,17 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon RF 600mm F11 IS STM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS R7 -->
+            <distortion model="ptlens" focal="600" a="-0.00559093" b="0.0213024" c="-0.0236854"/>
+            <tca model="poly3" focal="600" vr="0.9998131" vb="0.9998806"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
 
