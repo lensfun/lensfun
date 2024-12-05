@@ -1960,5 +1960,29 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon RF 200-800mm F6.3-9 IS USM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS R7 -->
+            <distortion model="ptlens" focal="200" a="-0.00404583" b="0.0202729" c="-0.0223658"/>
+            <distortion model="ptlens" focal="300" a="-0.000956222" b="0.00790324" c="-0.0087042"/>
+            <distortion model="ptlens" focal="400" a="-0.00216088" b="0.00982143" c="-0.00972314"/>
+            <distortion model="ptlens" focal="500" a="-0.00215398" b="0.0112101" c="-0.0141312"/>
+            <distortion model="ptlens" focal="600" a="0.00131731" b="-0.00289319" c="0.00616018"/>
+            <distortion model="ptlens" focal="707" a="-0.00146282" b="0.00848798" c="-0.0113441"/>
+            <distortion model="ptlens" focal="800" a="-0.000459571" b="0.00596284" c="-0.00991469"/>
+            <tca model="poly3" focal="200" vr="1.0001851" vb="1.0001990"/>
+            <tca model="poly3" focal="300" vr="1.0001243" vb="1.0000948"/>
+            <tca model="poly3" focal="400" vr="1.0000211" vb="1.0000329"/>
+            <tca model="poly3" focal="500" vr="0.9999441" vb="0.9999925"/>
+            <tca model="poly3" focal="600" vr="0.9998924" vb="0.9999549"/>
+            <tca model="poly3" focal="707" vr="0.9998230" vb="0.9999381"/>
+            <tca model="poly3" focal="800" vr="0.9997578" vb="0.9999168"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
 
