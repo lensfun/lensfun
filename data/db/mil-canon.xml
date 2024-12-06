@@ -1996,5 +1996,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon RF 35mm F1.4 L VCM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+             <!-- Taken with Canon EOS R6 m2 -->
+            <distortion model="ptlens" focal="35" a="-4.32586e-05" b="-0.0209166" c="-0.0125218"/>
+            <vignetting model="pa" focal="35" aperture="1.4" distance="10" k1="-2.1656" k2="2.4776" k3="-1.1682"/>
+            <vignetting model="pa" focal="35" aperture="1.4" distance="1000" k1="-2.1656" k2="2.4776" k3="-1.1682"/>
+            <vignetting model="pa" focal="35" aperture="2" distance="10" k1="-0.3390" k2="-0.9617" k3="0.5807"/>
+            <vignetting model="pa" focal="35" aperture="2" distance="1000" k1="-0.3390" k2="-0.9617" k3="0.5807"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="10" k1="-0.6187" k2="0.6045" k3="-0.5744"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="1000" k1="-0.6187" k2="0.6045" k3="-0.5744"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="10" k1="-0.6196" k2="0.4871" k3="-0.3188"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="1000" k1="-0.6196" k2="0.4871" k3="-0.3188"/>
+            <vignetting model="pa" focal="35" aperture="16" distance="10" k1="-0.5290" k2="0.1064" k3="0.0304"/>
+            <vignetting model="pa" focal="35" aperture="16" distance="1000" k1="-0.5290" k2="0.1064" k3="0.0304"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
 
