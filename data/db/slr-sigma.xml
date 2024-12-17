@@ -4828,4 +4828,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>Sigma 12-24mm F4.5-5.6 II DG HSM</model>
+        <mount>Nikon F AF</mount>
+        <mount>Canon EF</mount>
+        <mount>Pentax KAF</mount>
+        <mount>Sigma SA</mount>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D750 -->
+            <distortion model="ptlens" focal="12" a="0.0343662" b="-0.1420169" c="0.1377181"/>
+            <distortion model="ptlens" focal="14" a="0.0262195" b="-0.1198236" c="0.1251479"/>
+            <distortion model="ptlens" focal="15" a="0.013384" b="-0.0731224" c="0.0842325"/>
+            <distortion model="ptlens" focal="17" a="0.0143309" b="-0.0786334" c="0.10093"/>
+            <distortion model="ptlens" focal="19" a="-0.0042103" b="-0.0078835" c="0.0346072"/>
+            <distortion model="ptlens" focal="21" a="-0.0119742" b="0.0263903" c="-0.000161"/>
+            <distortion model="ptlens" focal="22" a="-0.0125026" b="0.030839" c="-0.0063702"/>
+            <distortion model="ptlens" focal="24" a="-0.0089305" b="0.0247241" c="-0.0005789"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
