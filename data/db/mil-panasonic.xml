@@ -3176,4 +3176,35 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Panasonic</maker>
+        <model>LUMIX S 28-200/F4-7.1</model>
+        <model lang="en">LUMIX S 28–200mm F4–7.1 MAKRO O.I.S.</model>
+        <mount>Leica L</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Lumix DC-S5M2X -->
+            <distortion model="ptlens" focal="28.0" a="0.029" b="-0.093" c="0.056" />
+            <distortion model="ptlens" focal="35.0" a="0.021" b="-0.059" c="0.043" />
+            <distortion model="ptlens" focal="40.0" a="0.019" b="-0.056" c="0.06" />
+            <distortion model="ptlens" focal="50.0" a="0.017" b="-0.042" c="0.055" />
+            <distortion model="ptlens" focal="60.0" a="0.009" b="-0.014" c="0.027" />
+            <distortion model="ptlens" focal="70.0" a="-0.004" b="0.036" c="-0.035" />
+            <distortion model="ptlens" focal="80.0" a="-0.004" b="0.037" c="-0.041" />
+            <distortion model="ptlens" focal="100.0" a="-0.007" b="0.052" c="-0.065" />
+            <distortion model="ptlens" focal="150.0" a="0.002" b="0.016" c="-0.025" />
+            <distortion model="ptlens" focal="200.0" a="-0.002" b="0.021" c="-0.018" />
+            <tca model="poly3" focal="28.0" vr="1.0001720" vb="1.0001587" />
+            <tca model="poly3" focal="35.0" vr="1.0000497" vb="1.0002772" />
+            <tca model="poly3" focal="40.0" vr="0.9999902" vb="1.0003451" />
+            <tca model="poly3" focal="50.0" vr="0.9999155" vb="1.0003552" />
+            <tca model="poly3" focal="60.0" vr="0.9998506" vb="1.0003446" />
+            <tca model="poly3" focal="70.0" vr="0.9998191" vb="1.0002625" />
+            <tca model="poly3" focal="80.0" vr="0.9997939" vb="1.0002049" />
+            <tca model="poly3" focal="100.0" vr="0.9997195" vb="1.0001263" />
+            <tca model="poly3" focal="150.0" vr="0.9995628" vb="0.9999695" />
+            <tca model="poly3" focal="200.0" vr="0.9994932" vb="0.9998171" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
