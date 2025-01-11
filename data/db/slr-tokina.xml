@@ -880,4 +880,26 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Tokina</maker>
+        <model>Tokina AT-X AF SD 80-400mm f/4.5-5.6</model>
+        <mount>Pentax KAF</mount>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 -->
+            <distortion model="ptlens" focal="80" a="-0.0042477" b="0.0091493" c="-0.0146584"/>
+            <distortion model="ptlens" focal="90" a="0.0368261" b="-0.1370179" c="0.1562554"/>
+            <distortion model="ptlens" focal="100" a="-0.0047633" b="0.0153445" c="-0.0165568"/>
+            <distortion model="ptlens" focal="150" a="-0.0034952" b="0.0187878" c="-0.0130693"/>
+            <distortion model="ptlens" focal="200" a="0.0020181" b="0.0013019" c="0.0106882"/>
+            <distortion model="ptlens" focal="250" a="0.0033523" b="-0.0020215" c="0.014155"/>
+            <distortion model="ptlens" focal="300" a="0.0114418" b="-0.0280674" c="0.0402353"/>
+            <distortion model="ptlens" focal="360" a="0.0073315" b="-0.0131407" c="0.0199106"/>
+            <distortion model="ptlens" focal="400" a="-0.0035227" b="0.0224846" c="-0.0164527"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
