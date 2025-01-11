@@ -1731,4 +1731,32 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>NIKKOR Z 400mm f/4.5 VR S</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+             <!-- Taken with Nikon Z 8 -->
+            <distortion model="ptlens" focal="400" a="-0.0042094" b="0.0177294" c="-0.0159209"/>
+            <tca model="poly3" focal="400" vr="0.9998852" vb="0.9999328"/>
+            <vignetting model="pa" focal="400" aperture="4.5" distance="10" k1="-1.5420" k2="1.7489" k3="-0.8248"/>
+            <vignetting model="pa" focal="400" aperture="4.5" distance="1000" k1="-1.5420" k2="1.7489" k3="-0.8248"/>
+            <vignetting model="pa" focal="400" aperture="5.6" distance="10" k1="-0.1161" k2="-1.0047" k3="0.6716"/>
+            <vignetting model="pa" focal="400" aperture="5.6" distance="1000" k1="-0.1161" k2="-1.0047" k3="0.6716"/>
+            <vignetting model="pa" focal="400" aperture="6.3" distance="10" k1="0.1582" k2="-1.0067" k3="0.5071"/>
+            <vignetting model="pa" focal="400" aperture="6.3" distance="1000" k1="0.1582" k2="-1.0067" k3="0.5071"/>
+            <vignetting model="pa" focal="400" aperture="8" distance="10" k1="-0.1027" k2="0.1423" k3="-0.1908"/>
+            <vignetting model="pa" focal="400" aperture="8" distance="1000" k1="-0.1027" k2="0.1423" k3="-0.1908"/>
+            <vignetting model="pa" focal="400" aperture="11" distance="10" k1="-0.0634" k2="-0.0579" k3="0.0441"/>
+            <vignetting model="pa" focal="400" aperture="11" distance="1000" k1="-0.0634" k2="-0.0579" k3="0.0441"/>
+            <vignetting model="pa" focal="400" aperture="16" distance="10" k1="-0.0625" k2="-0.0590" k3="0.0450"/>
+            <vignetting model="pa" focal="400" aperture="16" distance="1000" k1="-0.0625" k2="-0.0590" k3="0.0450"/>
+            <vignetting model="pa" focal="400" aperture="22" distance="10" k1="-0.0652" k2="-0.0530" k3="0.0415"/>
+            <vignetting model="pa" focal="400" aperture="22" distance="1000" k1="-0.0652" k2="-0.0530" k3="0.0415"/>
+            <vignetting model="pa" focal="400" aperture="32" distance="10" k1="-0.0671" k2="-0.0480" k3="0.0381"/>
+            <vignetting model="pa" focal="400" aperture="32" distance="1000" k1="-0.0671" k2="-0.0480" k3="0.0381"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
