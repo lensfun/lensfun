@@ -133,4 +133,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Schneider-Kreuznach</maker>
+        <model>Retina-Xenon 50mm f/1.9</model>
+        <mount>DKL</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="50" a="-0.00161149" b="0.00128889" c="-0.0081282" />
+            <tca model="poly3" focal="50" br="-0.0000044" vr="1.0000536" bb="-0.0000055" vb="0.9999047" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
