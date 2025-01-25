@@ -35,7 +35,6 @@ jobs:
       with:
         repository: lensfun/lensfun.github.io
         path: website-repo
-        token: ${{secrets.PUSH_SECRET}}
 
     - name: Commit updated lens list to website repo
       run: |
