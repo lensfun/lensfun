@@ -32,23 +32,23 @@
 
     <lens>
         <maker>Tamron</maker>
-        <model>Tamron 10-24mm f/3.5-4.5 Di II VC HLD B023</model>
+        <model>Tamron 10-24mm F/3.5-4.5 Di II VC HLD B023</model>
         <model lang="en">Tamron 10-24mm f/3.5-4.5 Di II VC HLD</model>
-        <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
-        <cropfactor>1.6</cropfactor>
+        <mount>Canon EF</mount>
+        <cropfactor>1.528</cropfactor>
         <calibration>
-            <!-- Taken with Canon EOS 70D -->
-            <distortion model="poly3" focal="10" k1="-0.0158494"/>
-            <distortion model="poly3" focal="13" k1="-0.00687779"/>
-            <distortion model="poly3" focal="16" k1="-0.000681061"/>
-            <distortion model="poly3" focal="20" k1="0.00368512"/>
-            <distortion model="poly3" focal="24" k1="0.00491874"/>
-            <tca model="poly3" focal="10" vr="1.0005274" vb="0.9999258"/>
-            <tca model="poly3" focal="13" vr="1.0001195" vb="1.0000929"/>
-            <tca model="poly3" focal="16" vr="0.9999640" vb="1.0002714"/>
-            <tca model="poly3" focal="20" vr="0.9998870" vb="1.0002527"/>
-            <tca model="poly3" focal="24" vr="0.9999772" vb="1.0001111"/>
+             <!-- Taken with Nikon D500 -->
+            <distortion model="ptlens" focal="10.0" a="0.023" b="-0.105" c="0.102" />
+            <distortion model="ptlens" focal="13.0" a="0.011" b="-0.062" c="0.076" />
+            <distortion model="ptlens" focal="15.0" a="0.001" b="-0.017" c="0.029" />
+            <distortion model="ptlens" focal="18.0" a="-0.003" b="0.009" c="-0.002" />
+            <distortion model="ptlens" focal="20.0" a="-0.009" b="0.033" c="-0.028" />
+            <distortion model="ptlens" focal="24.0" a="-0.002" b="0.010" c="-0.006" />
+            <tca model="poly3" focal="10.0" vr="1.0004341" vb="1.0000180" />
+            <tca model="poly3" focal="14.0" vr="1.0000177" vb="1.0003101" />
+            <tca model="poly3" focal="18.0" vr="0.9998878" vb="1.0004328" />
+            <tca model="poly3" focal="24.0" vr="0.9999647" vb="1.0001641" />
         </calibration>
     </lens>
 
