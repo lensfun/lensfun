@@ -2017,5 +2017,33 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon RF-S 10-18mm F4.5-6.3 IS STM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.61</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS R7 -->
+            <distortion model="ptlens" focal="10" a="0.029911" b="-0.10471" c="-0.015042" />
+            <distortion model="ptlens" focal="11" a="0.025336" b="-0.095707" c="0.012779" />
+            <distortion model="ptlens" focal="12" a="0.022818" b="-0.088706" c="0.025774" />
+            <distortion model="ptlens" focal="13" a="0.020079" b="-0.078348" c="0.023545" />
+            <distortion model="ptlens" focal="14" a="0.018682" b="-0.073669" c="0.025043" />
+            <distortion model="ptlens" focal="15" a="0.015672" b="-0.061921" c="0.027621" />
+            <distortion model="ptlens" focal="16" a="0.012962" b="-0.052812" c="0.025927" />
+            <distortion model="ptlens" focal="17" a="0.013705" b="-0.056722" c="0.037623" />
+            <distortion model="ptlens" focal="18" a="0.010919" b="-0.047059" c="0.029408" />
+            <tca model="poly3" focal="10.0" vr="1.0002204" vb="1.0000716" />
+            <tca model="poly3" focal="11.0" vr="1.0002056" vb="1.0000782" />
+            <tca model="poly3" focal="12.0" vr="1.0002016" vb="1.0000648" />
+            <tca model="poly3" focal="13.0" vr="1.0002012" vb="1.0000484" />
+            <tca model="poly3" focal="14.0" vr="1.0002039" vb="1.0000360" />
+            <tca model="poly3" focal="15.0" vr="1.0001724" vb="1.0000215" />
+            <tca model="poly3" focal="16.0" vr="1.0001552" vb="1.0000033" />
+            <tca model="poly3" focal="17.0" vr="1.0001553" vb="0.9999880" />
+            <tca model="poly3" focal="18.0" vr="1.0001607" vb="0.9999894" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
 
