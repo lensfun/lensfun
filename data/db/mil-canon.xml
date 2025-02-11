@@ -2045,5 +2045,27 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon RF 70-200mm F4L IS USM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS R6m2 -->
+            <distortion model="ptlens" focal="70" a="0.0002946" b="-0.006692" c="0.0065013"/>
+            <distortion model="ptlens" focal="96" a="0.0014084" b="-0.0027028" c="0.0051095"/>
+            <distortion model="ptlens" focal="124" a="0.0037014" b="-0.0046906" c="0.0072281"/>
+            <distortion model="ptlens" focal="151" a="-0.0033777" b="0.018342" c="-0.0118899"/>
+            <distortion model="ptlens" focal="174" a="-0.0008181" b="0.0110664" c="-0.0038782"/>
+            <distortion model="ptlens" focal="200" a="-0.0029138" b="0.0190359" c="-0.0149938"/>
+            <tca model="poly3" focal="70" vr="1.0001411" vb="1.0000404"/>
+            <tca model="poly3" focal="96" vr="1.0000768" vb="0.9999924"/>
+            <tca model="poly3" focal="124" vr="0.9999729" vb="1.0000127"/>
+            <tca model="poly3" focal="151" vr="0.9999190" vb="1.0000122"/>
+            <tca model="poly3" focal="174" vr="0.9999089" vb="0.9999744"/>
+            <tca model="poly3" focal="200" vr="0.9999245" vb="0.9999196"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
 
