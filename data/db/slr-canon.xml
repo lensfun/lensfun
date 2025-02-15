@@ -8430,4 +8430,27 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon FDn 28mm f/2.8</model>
+        <mount>Canon FD</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-6300 -->
+            <distortion model="ptlens" focal="28" a="0.0015244" b="-0.0075496" c="-0.0006036"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon FDn 100mm f/2.8</model>
+        <mount>Canon FD</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-6300 -->
+            <distortion model="ptlens" focal="100" a="-0.0119438" b="0.0417384" c="-0.0427956"/>
+            <tca model="poly3" focal="100" vr="0.9997932" vb="1.0000220"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
