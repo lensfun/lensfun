@@ -1759,4 +1759,16 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Nikon</maker>
+        <model>NIKKOR Z 50mm f/1.4</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon Z 8 -->
+            <distortion model="ptlens" focal="50" a="-0.0033025" b="0.0072582" c="-0.0032197"/>
+            <tca model="poly3" focal="50" vr="1.0001877" vb="1.0003820"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
