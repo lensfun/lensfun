@@ -2178,6 +2178,23 @@
             <vignetting model="pa" focal="800" aperture="51" distance="3.3" k1="-0.1268" k2="0.0758" k3="-0.0402"/>
             <vignetting model="pa" focal="800" aperture="51" distance="1000" k1="-0.1079" k2="0.0982" k3="-0.0601"/>
         </calibration>
-    </lens>	
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon RF 28-70mm f/2.8 IS STM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS RP -->
+            <distortion model="ptlens" focal="28" a="0.0024467" b="-0.0036389" c="-0.060347"/>
+            <distortion model="ptlens" focal="35" a="0.0216436" b="-0.059242" c="0.0398283"/>
+            <distortion model="ptlens" focal="43" a="0.0134054" b="-0.0244331" c="0.0147129"/>
+            <distortion model="ptlens" focal="50" a="0.011823" b="-0.0192074" c="0.0232446"/>
+            <distortion model="ptlens" focal="61" a="0.00698" b="-0.0019326" c="0.0083282"/>
+            <distortion model="ptlens" focal="70" a="0.0074165" b="-0.0006818" c="0.008316"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
 
