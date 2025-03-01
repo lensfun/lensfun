@@ -193,4 +193,18 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Leica Camera AG</maker>
+        <maker lang="en">Leica</maker>
+        <model>Apo-Summicron-M 1:2/75mm ASPH.</model>
+        <model lang="en">Apo-Summicron M 1:2/75mm ASPH.(11673/11701)</model>
+        <mount>Leica M</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Leica M10 Digital Camera -->
+            <distortion model="ptlens" focal="75" a="-0.005889" b="0.0201916" c="-0.0106667"/>
+            <tca model="poly3" focal="75" br="0.0000240" vr="1.0000099" bb="-0.0000089" vb="0.9999321"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
