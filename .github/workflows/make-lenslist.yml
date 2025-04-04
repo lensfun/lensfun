@@ -26,12 +26,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Create lens list from master sources
       run: ./tools/lenslist/show_lensfun_coverage.py -t -o lenslist.html ./data/db
 
     - name: Checkout website repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: lensfun/lensfun.github.io
         path: website-repo
