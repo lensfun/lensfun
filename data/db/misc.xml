@@ -1236,7 +1236,10 @@
     <lens>
         <maker>Viltrox</maker>
         <model>23mmF1.4XM</model>
+	<model lang="en">Viltrox AF 23mm F1.4 XF/Z/L</model>
         <mount>Fujifilm X</mount>
+	<mount>Nikon Z</mount>
+        <mount>Leica L</mount>
         <cropfactor>1.53</cropfactor>
         <calibration>
             <!-- Taken with Fujifilm X-T20 -->
@@ -1320,8 +1323,11 @@
 
     <lens>
         <maker>Viltrox</maker>
-        <model>AF 33mm f/1.4 XF</model>
+        <model>Viltrox AF 33mm f/1.4 XF</model>
         <mount>Fujifilm X</mount>
+	<mount>Sony E</mount>
+        <mount>Nikon Z</mount>
+	<mount>Canon EF</mount>
         <cropfactor>1.534</cropfactor>
         <calibration>
 	    <!-- Taken with Fujifilm X-S10 -->
@@ -1614,6 +1620,7 @@
         <model>Viltrox 16mm F1.8 FE</model>
         <model lang="en">Viltrox AF 16mm F1.8 FE</model>
         <mount>Sony E</mount>
+	<mount>Nikon Z</mount>
         <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Sony ILCE-7M4 -->
@@ -2126,6 +2133,27 @@
             <vignetting model="pa" focal="35" aperture="16" distance="0.54" k1="-0.5879" k2="-0.0363" k3="0.1203"/>
             <vignetting model="pa" focal="35" aperture="16" distance="1.62" k1="-0.6509" k2="-0.0147" k3="0.1216"/>
             <vignetting model="pa" focal="35" aperture="16" distance="1000" k1="-0.6799" k2="-0.0177" k3="0.1383"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Viltrox</maker>
+        <model>Viltrox AF 24mm f/1.8 Z</model>
+        <mount>Nikon Z</mount>
+	<mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon Z 7M2 -->
+            <distortion model="ptlens" focal="24" a="0.0249269" b="-0.0543687" c="0.008157"/>
+            <tca model="poly3" focal="24" vr="1.0000223" vb="1.0000681"/>
+            <vignetting model="pa" focal="24" aperture="2.5" distance="10" k1="-0.5772" k2="-0.5038" k3="0.3510"/>
+            <vignetting model="pa" focal="24" aperture="2.5" distance="1000" k1="-0.5772" k2="-0.5038" k3="0.3510"/>
+            <vignetting model="pa" focal="24" aperture="3.5" distance="10" k1="-0.7603" k2="0.3546" k3="-0.2574"/>
+            <vignetting model="pa" focal="24" aperture="3.5" distance="1000" k1="-0.7603" k2="0.3546" k3="-0.2574"/>
+            <vignetting model="pa" focal="24" aperture="5" distance="10" k1="-0.8577" k2="0.6503" k3="-0.4135"/>
+            <vignetting model="pa" focal="24" aperture="5" distance="1000" k1="-0.8577" k2="0.6503" k3="-0.4135"/>
+            <vignetting model="pa" focal="24" aperture="16" distance="10" k1="-1.1036" k2="0.8706" k3="-0.3483"/>
+            <vignetting model="pa" focal="24" aperture="16" distance="1000" k1="-1.1036" k2="0.8706" k3="-0.3483"/>
         </calibration>
     </lens>
 
