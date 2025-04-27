@@ -161,14 +161,48 @@
 
     <lens>
         <maker>Ricoh imaging company, ltd.</maker>
-        <model>Ricoh GR III &amp; compatibles</model>
+        <model>Ricoh GR III &amp; compatibles + GW-4</model>
         <model lang="en">fixed lens</model>
         <model lang="de">festes Objektiv</model>
         <mount>ricohGRIII</mount>
         <cropfactor>1.53</cropfactor>
         <calibration>
+            <distortion model="ptlens" focal="13.8" a="0.023" b="-0.058" c="0.007"/>
             <distortion model="ptlens" focal="18.3" a="0.013" b="-0.035" c="0.018"/>
+            <tca model="poly3" focal="13.8" br="-0.0000776" vr="1.0003155" bb="0.0001826" vb="0.9996988"/>
             <tca model="poly3" focal="18.3" vr="1.0002833" vb="0.9999384"/>
+            <vignetting model="pa" focal="13.8" aperture="2.8" distance="10" k1="-0.4384908" k2="-0.6419084" k3="0.4622077" />
+            <vignetting model="pa" focal="13.8" aperture="2.8" distance="1000" k1="-0.4384908" k2="-0.6419084" k3="0.4622077" />
+            <vignetting model="pa" focal="13.8" aperture="3.2" distance="10" k1="-0.4614993" k2="-0.4598293" k3="0.3257787" />
+            <vignetting model="pa" focal="13.8" aperture="3.2" distance="1000" k1="-0.4614993" k2="-0.4598293" k3="0.3257787" />
+            <vignetting model="pa" focal="13.8" aperture="3.5" distance="10" k1="-0.4934284" k2="-0.4453649" k3="0.3536314" />
+            <vignetting model="pa" focal="13.8" aperture="3.5" distance="1000" k1="-0.4934284" k2="-0.4453649" k3="0.3536314" />
+            <vignetting model="pa" focal="13.8" aperture="4.0" distance="10" k1="-0.6665379" k2="-0.2994090" k3="0.3454127" />
+            <vignetting model="pa" focal="13.8" aperture="4.0" distance="1000" k1="-0.6665379" k2="-0.2994090" k3="0.3454127" />
+            <vignetting model="pa" focal="13.8" aperture="4.5" distance="10" k1="-0.6098914" k2="-0.3725649" k3="0.3707433" />
+            <vignetting model="pa" focal="13.8" aperture="4.5" distance="1000" k1="-0.6098914" k2="-0.3725649" k3="0.3707433" />
+            <vignetting model="pa" focal="13.8" aperture="5.0" distance="10" k1="-0.5638163" k2="-0.4320751" k3="0.3924840" />
+            <vignetting model="pa" focal="13.8" aperture="5.0" distance="1000" k1="-0.5638163" k2="-0.4320751" k3="0.3924840" />
+            <vignetting model="pa" focal="13.8" aperture="5.6" distance="10" k1="-0.5964502" k2="-0.4058430" k3="0.3921696" />
+            <vignetting model="pa" focal="13.8" aperture="5.6" distance="1000" k1="-0.5964502" k2="-0.4058430" k3="0.3921696" />
+            <vignetting model="pa" focal="13.8" aperture="6.3" distance="10" k1="-0.5544685" k2="-0.4579219" k3="0.4101733" />
+            <vignetting model="pa" focal="13.8" aperture="6.3" distance="1000" k1="-0.5544685" k2="-0.4579219" k3="0.4101733" />
+            <vignetting model="pa" focal="13.8" aperture="7.1" distance="10" k1="-0.5255809" k2="-0.4900407" k3="0.4192732" />
+            <vignetting model="pa" focal="13.8" aperture="7.1" distance="1000" k1="-0.5255809" k2="-0.4900407" k3="0.4192732" />
+            <vignetting model="pa" focal="13.8" aperture="8.0" distance="10" k1="-0.5613675" k2="-0.4580675" k3="0.4151352" />
+            <vignetting model="pa" focal="13.8" aperture="8.0" distance="1000" k1="-0.5613675" k2="-0.4580675" k3="0.4151352" />
+            <vignetting model="pa" focal="13.8" aperture="9.0" distance="10" k1="-0.5260847" k2="-0.4908589" k3="0.4197549" />
+            <vignetting model="pa" focal="13.8" aperture="9.0" distance="1000" k1="-0.5260847" k2="-0.4908589" k3="0.4197549" />
+            <vignetting model="pa" focal="13.8" aperture="10.0" distance="10" k1="-0.5090308" k2="-0.5117606" k3="0.4276024" />
+            <vignetting model="pa" focal="13.8" aperture="10.0" distance="1000" k1="-0.5090308" k2="-0.5117606" k3="0.4276024" />
+            <vignetting model="pa" focal="13.8" aperture="11.0" distance="10" k1="-0.5378397" k2="-0.4892244" k3="0.4268124" />
+            <vignetting model="pa" focal="13.8" aperture="11.0" distance="1000" k1="-0.5378397" k2="-0.4892244" k3="0.4268124" />
+            <vignetting model="pa" focal="13.8" aperture="13.0" distance="10" k1="-0.5097662" k2="-0.5136212" k3="0.4293137" />
+            <vignetting model="pa" focal="13.8" aperture="13.0" distance="1000" k1="-0.5097662" k2="-0.5136212" k3="0.4293137" />
+            <vignetting model="pa" focal="13.8" aperture="14.0" distance="10" k1="-0.4936931" k2="-0.5270830" k3="0.4299616" />
+            <vignetting model="pa" focal="13.8" aperture="14.0" distance="1000" k1="-0.4936931" k2="-0.5270830" k3="0.4299616" />
+            <vignetting model="pa" focal="13.8" aperture="16.0" distance="10" k1="-0.5440271" k2="-0.4778287" k3="0.4202324" />
+            <vignetting model="pa" focal="13.8" aperture="16.0" distance="1000" k1="-0.5440271" k2="-0.4778287" k3="0.4202324" />
             <vignetting model="pa" focal="18.3" aperture="2.8" distance="10" k1="-1.3802520" k2="0.8435439" k3="-0.2049726"/>
             <vignetting model="pa" focal="18.3" aperture="2.8" distance="1000" k1="-1.3802520" k2="0.8435439" k3="-0.2049726"/>
             <vignetting model="pa" focal="18.3" aperture="3.2" distance="10" k1="-1.3957299" k2="0.9499705" k3="-0.2752275"/>
@@ -198,20 +232,7 @@
             <vignetting model="pa" focal="18.3" aperture="14.0" distance="10" k1="-1.3461355" k2="0.7992332" k3="-0.1666381"/>
             <vignetting model="pa" focal="18.3" aperture="14.0" distance="1000" k1="-1.3461355" k2="0.7992332" k3="-0.1666381"/>
             <vignetting model="pa" focal="18.3" aperture="16.0" distance="10" k1="-1.3150808" k2="0.7466026" k3="-0.1380186"/>
-            <vignetting model="pa" focal="18.3" aperture="16.0" distance="1000" k1="-1.3150808" k2="0.7466026" k3="-0.1380186"/>
-        </calibration>
-    </lens>
-
-    <lens>
-        <maker>Ricoh imaging company, ltd.</maker>
-        <model>Ricoh GR III &amp; compatibles, with GW-4</model>
-        <model lang="en">fixed lens, with GW-4</model>
-        <model lang="de">festes Objektiv, mit GW-4</model>
-        <mount>ricohGRIII</mount>
-        <cropfactor>1.53</cropfactor>
-        <calibration>
-            <distortion model="ptlens" focal="13.8" a="0.023" b="-0.058" c="0.007"/>
-            <tca model="poly3" focal="13.8" br="-0.0000776" vr="1.0003155" bb="0.0001826" vb="0.9996988"/>
+            <vignetting model="pa" focal="18.3" aperture="16.0" distance="1000" k1="-1.3150808" k2="0.7466026" k3="-0.1380186"/>  
         </calibration>
     </lens>
 
