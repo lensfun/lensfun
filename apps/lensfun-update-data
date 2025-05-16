@@ -92,7 +92,7 @@ class Location:
     def extract(self, directory):
         tar = tarfile.open(fileobj=urllib.request.urlopen(self.base_url + "version_{}.tar.bz2".format(self.version)),
                            mode="r|*")
-        tar.extractall(directory)
+        tar.extractall(directory,filter='data')
         tar.close()
 
 
