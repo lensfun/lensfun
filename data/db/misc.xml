@@ -2182,6 +2182,23 @@
         <calibration>
             <!-- Taken with Sony ILCE-6300 -->
             <distortion model="ptlens" focal="25" a="0.0077109" b="-0.017343" c="-0.0047719"/>
+	    <tca model="poly3" focal="25" br="0.0000000" vr="1.0000915" bb="0.0000000" vb="1.0000006"/>
+            <vignetting model="pa" focal="25" aperture="1.7" distance="10" k1="-1.7226" k2="1.5240" k3="-0.5954"/>
+            <vignetting model="pa" focal="25" aperture="1.7" distance="1000" k1="-1.7226" k2="1.5240" k3="-0.5954"/>
+            <vignetting model="pa" focal="25" aperture="2.5" distance="10" k1="-0.2780" k2="-0.7057" k3="0.3732"/>
+            <vignetting model="pa" focal="25" aperture="2.5" distance="1000" k1="-0.2780" k2="-0.7057" k3="0.3732"/>
+            <vignetting model="pa" focal="25" aperture="3.5" distance="10" k1="-0.5135" k2="0.2398" k3="-0.2095"/>
+            <vignetting model="pa" focal="25" aperture="3.5" distance="1000" k1="-0.5135" k2="0.2398" k3="-0.2095"/>
+            <vignetting model="pa" focal="25" aperture="5" distance="10" k1="-0.4946" k2="0.1013" k3="-0.0237"/>
+            <vignetting model="pa" focal="25" aperture="5" distance="1000" k1="-0.4946" k2="0.1013" k3="-0.0237"/>
+            <vignetting model="pa" focal="25" aperture="5.6" distance="10" k1="-0.4892" k2="0.1022" k3="-0.0266"/>
+            <vignetting model="pa" focal="25" aperture="5.6" distance="1000" k1="-0.4892" k2="0.1022" k3="-0.0266"/>
+            <vignetting model="pa" focal="25" aperture="8" distance="10" k1="-0.5044" k2="0.1242" k3="-0.0378"/>
+            <vignetting model="pa" focal="25" aperture="8" distance="1000" k1="-0.5044" k2="0.1242" k3="-0.0378"/>
+            <vignetting model="pa" focal="25" aperture="11" distance="10" k1="-0.5137" k2="0.1323" k3="-0.0398"/>
+            <vignetting model="pa" focal="25" aperture="11" distance="1000" k1="-0.5137" k2="0.1323" k3="-0.0398"/>
+            <vignetting model="pa" focal="25" aperture="16" distance="10" k1="-0.5224" k2="0.1506" k3="-0.0504"/>
+            <vignetting model="pa" focal="25" aperture="16" distance="1000" k1="-0.5224" k2="0.1506" k3="-0.0504"/>
         </calibration>
     </lens>
 
