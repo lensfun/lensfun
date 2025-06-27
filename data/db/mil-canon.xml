@@ -2196,5 +2196,16 @@
         </calibration>
     </lens>
 
-</lensdatabase>
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon RF 24mm f/1.4 L VCM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+	    <!-- Taken with Canon R5m2 -->
+            <distortion model="ptlens" focal="24" a="0.00816" b="-0.04948" c="-0.04629"/>
+            <tca model="poly3" focal="24" vr="1.0001425" vb="1.0000150"/>
+        </calibration>
+    </lens>
 
+</lensdatabase>
