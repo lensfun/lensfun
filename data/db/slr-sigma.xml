@@ -4919,4 +4919,22 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 35–80 mm f/4–5.6 DL-II AF</model>
+        <mount>Sony Alpha</mount>
+        <mount>Canon EF</mount>
+        <mount>Nikon F</mount>
+        <mount>Pentak K</mount>
+        <mount>Minolta AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="35" a="0.0015815" b="-0.0112007" c="-0.0200474"/>
+            <distortion model="ptlens" focal="40" a="0.0190515" b="-0.0717364" c="0.0771513"/>
+            <distortion model="ptlens" focal="50" a="-0.0008184" b="0.0086762" c="-0.0086718"/>
+            <distortion model="ptlens" focal="60" a="-0.0024195" b="0.0235516" c="-0.0250162"/>
+            <distortion model="ptlens" focal="80" a="-0.0053188" b="0.022185" c="-0.0051987"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
