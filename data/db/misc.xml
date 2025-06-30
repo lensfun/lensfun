@@ -815,6 +815,17 @@
         <calibration>
             <!-- Taken with Panasonic DC-S5M2 -->
             <distortion model="ptlens" focal="35" a="0.00525" b="-0.0136368" c="-0.0017048"/>
+	    <tca model="poly3" focal="35" vr="1.0001950" vb="1.0000015"/>
+            <vignetting model="pa" focal="35" aperture="2" distance="10" k1="-1.0648" k2="0.3717" k3="-0.0018"/>
+            <vignetting model="pa" focal="35" aperture="2" distance="1000" k1="-1.0648" k2="0.3717" k3="-0.0018"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="10" k1="-0.4798" k2="-0.1365" k3="0.0793"/>
+            <vignetting model="pa" focal="35" aperture="2.8" distance="1000" k1="-0.4798" k2="-0.1365" k3="0.0793"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="10" k1="-0.5688" k2="0.1505" k3="-0.0374"/>
+            <vignetting model="pa" focal="35" aperture="4" distance="1000" k1="-0.5688" k2="0.1505" k3="-0.0374"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="10" k1="-0.5591" k2="0.0976" k3="0.0155"/>
+            <vignetting model="pa" focal="35" aperture="5.6" distance="1000" k1="-0.5591" k2="0.0976" k3="0.0155"/>
+            <vignetting model="pa" focal="35" aperture="22" distance="10" k1="-0.5960" k2="0.1593" k3="-0.0180"/>
+            <vignetting model="pa" focal="35" aperture="22" distance="1000" k1="-0.5960" k2="0.1593" k3="-0.0180"/>
         </calibration>
     </lens>
 
