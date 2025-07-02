@@ -607,4 +607,24 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Minolta</maker>
+        <model>Minolta AF 35-70mm F4</model>
+        <mount>Minolta AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+             <!-- Taken with Sony Alpha 900 -->
+            <distortion model="ptlens" focal="35" a="0.0020914" b="-0.0109024" c="-0.0180976"/>
+            <distortion model="ptlens" focal="40" a="-0.0022864" b="0.0040812" c="-0.0195224"/>
+            <distortion model="ptlens" focal="50" a="-0.0070662" b="0.0239795" c="-0.0280369"/>
+            <distortion model="ptlens" focal="60" a="-0.0188419" b="0.0680893" c="-0.0690607"/>
+            <distortion model="ptlens" focal="70" a="-0.0051838" b="0.0206756" c="-0.0156793"/>
+            <tca model="poly3" focal="35" vr="1.0005849" vb="0.9997860"/>
+            <tca model="poly3" focal="40" vr="1.0003876" vb="0.9999123"/>
+            <tca model="poly3" focal="50" vr="1.0002282" vb="1.0000338"/>
+            <tca model="poly3" focal="60" vr="1.0000455" vb="1.0001387"/>
+            <tca model="poly3" focal="70" vr="0.9999823" vb="1.0001726"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
