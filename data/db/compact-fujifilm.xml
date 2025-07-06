@@ -274,6 +274,13 @@
         <cropfactor>3.93</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Fujifilm</maker>
+        <model>GFX100RF</model>
+        <mount>fujiGFX100RF</mount>
+        <cropfactor>0.8</cropfactor>
+    </camera>
+
     <lens>
         <maker>Fujifilm</maker>
         <model>FinePix F11 &amp; compatibles (Standard)</model>
@@ -1104,6 +1111,18 @@
             <vignetting model="pa" focal="18.5" aperture="11.0" distance="1000" k1="-1.2501722" k2="1.0276223" k3="-0.4276631"/>
             <vignetting model="pa" focal="18.5" aperture="16.0" distance="10" k1="-1.2739030" k2="1.0630958" k3="-0.4416380"/>
             <vignetting model="pa" focal="18.5" aperture="16.0" distance="1000" k1="-1.2739030" k2="1.0630958" k3="-0.4416380"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Fujifilm</maker>
+        <model>GFX100RF &amp; compatibles (Standard)</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>fujiGFX100RF</mount>
+        <cropfactor>0.8</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="35" a="0.0122972" b="-0.0707816" c="0.026727"/>
         </calibration>
     </lens>
 
