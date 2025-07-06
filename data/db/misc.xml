@@ -863,6 +863,39 @@
     </lens>
 
     <lens>
+        <maker>Meke</maker>
+        <model>MEKE SL 85mm F1.8 STM PRO</model>
+        <model lang="en">Meike SL 85mm F1.8 STM PRO</model>
+        <mount>Leica L</mount>
+        <mount>Sony E</mount>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Panasonic DC-S5M2 -->
+            <distortion model="ptlens" focal="85" a="0.0008575" b="-0.001944" c="0.0059697"/>
+            <tca model="poly3" focal="85" vr="1.0001181" vb="0.9999511"/>
+            <vignetting model="pa" focal="85" aperture="1.8" distance="10" k1="-1.1746" k2="1.0453" k3="-0.4870"/>
+            <vignetting model="pa" focal="85" aperture="1.8" distance="1000" k1="-1.1746" k2="1.0453" k3="-0.4870"/>
+            <vignetting model="pa" focal="85" aperture="2" distance="10" k1="-0.4264" k2="-0.4206" k3="0.3090"/>
+            <vignetting model="pa" focal="85" aperture="2" distance="1000" k1="-0.4264" k2="-0.4206" k3="0.3090"/>
+            <vignetting model="pa" focal="85" aperture="2.5" distance="10" k1="-0.0534" k2="-0.2135" k3="-0.0821"/>
+            <vignetting model="pa" focal="85" aperture="2.5" distance="1000" k1="-0.0534" k2="-0.2135" k3="-0.0821"/>
+            <vignetting model="pa" focal="85" aperture="4" distance="10" k1="-0.2086" k2="0.2356" k3="-0.1852"/>
+            <vignetting model="pa" focal="85" aperture="4" distance="1000" k1="-0.2086" k2="0.2356" k3="-0.1852"/>
+            <vignetting model="pa" focal="85" aperture="5.6" distance="10" k1="-0.1370" k2="-0.0181" k3="0.0443"/>
+            <vignetting model="pa" focal="85" aperture="5.6" distance="1000" k1="-0.1370" k2="-0.0181" k3="0.0443"/>
+            <vignetting model="pa" focal="85" aperture="8" distance="10" k1="-0.1653" k2="0.0401" k3="0.0038"/>
+            <vignetting model="pa" focal="85" aperture="8" distance="1000" k1="-0.1653" k2="0.0401" k3="0.0038"/>
+            <vignetting model="pa" focal="85" aperture="11" distance="10" k1="-0.1799" k2="0.0840" k3="-0.0302"/>
+            <vignetting model="pa" focal="85" aperture="11" distance="1000" k1="-0.1799" k2="0.0840" k3="-0.0302"/>
+            <vignetting model="pa" focal="85" aperture="14" distance="10" k1="-0.1810" k2="0.0727" k3="-0.0176"/>
+            <vignetting model="pa" focal="85" aperture="14" distance="1000" k1="-0.1810" k2="0.0727" k3="-0.0176"/>
+            <vignetting model="pa" focal="85" aperture="16" distance="10" k1="-0.1805" k2="0.0690" k3="-0.0142"/>
+            <vignetting model="pa" focal="85" aperture="16" distance="1000" k1="-0.1805" k2="0.0690" k3="-0.0142"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <maker>Zeiss</maker>
         <model>Standard</model>
         <mount>lumia1520</mount>
