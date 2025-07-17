@@ -2205,6 +2205,16 @@
 	    <!-- Taken with Canon R5m2 -->
             <distortion model="ptlens" focal="24" a="0.00816" b="-0.04948" c="-0.04629"/>
             <tca model="poly3" focal="24" vr="1.0001425" vb="1.0000150"/>
+            <vignetting model="pa" focal="24" aperture="1.4" distance="10" k1="-2.3602" k2="2.6402" k3="-1.2609"/>
+            <vignetting model="pa" focal="24" aperture="1.4" distance="1000" k1="-2.3602" k2="2.6402" k3="-1.2609"/>
+            <vignetting model="pa" focal="24" aperture="2" distance="10" k1="-0.7443" k2="-0.4927" k3="0.2986"/>
+            <vignetting model="pa" focal="24" aperture="2" distance="1000" k1="-0.7443" k2="-0.4927" k3="0.2986"/>
+            <vignetting model="pa" focal="24" aperture="2.8" distance="10" k1="-0.4620" k2="-0.4795" k3="0.0250"/>
+            <vignetting model="pa" focal="24" aperture="2.8" distance="1000" k1="-0.4620" k2="-0.4795" k3="0.0250"/>
+            <vignetting model="pa" focal="24" aperture="4" distance="10" k1="-0.6245" k2="0.3996" k3="-0.7165"/>
+            <vignetting model="pa" focal="24" aperture="4" distance="1000" k1="-0.6245" k2="0.3996" k3="-0.7165"/>
+            <vignetting model="pa" focal="24" aperture="16" distance="10" k1="-0.9168" k2="1.5747" k3="-1.6994"/>
+            <vignetting model="pa" focal="24" aperture="16" distance="1000" k1="-0.9168" k2="1.5747" k3="-1.6994"/>
         </calibration>
     </lens>
 
