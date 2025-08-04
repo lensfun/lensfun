@@ -2,7 +2,8 @@
 works only on UNIX.
 """
 
-import os, fcntl, subprocess, time, configparser
+import os, fcntl, subprocess, time, configparser, re
+from pathlib import Path
 
 
 config = configparser.ConfigParser()
@@ -86,6 +87,7 @@ def sync():
     :raises LockError: if the lock could not be acquired even after retrying
       every minute for 6 hours.
     """
+    make_dotfiles_visible(config["Nextcloud"]["local_root"])
     cycles_left = 60 * 6
     while cycles_left:
         with NextcloudLock() as locked:
@@ -97,3 +99,16 @@ def sync():
         cycles_left -= 1
         time.sleep(60)
     raise LockError
+
+
+nextcloud_sync_filenames_pattern = re.compile(r"\.csync_journal\.db|\._?sync.*\.db")
+
+def make_dotfiles_visible(directory):
+    """This is a workaround for
+    <https://github.com/nextcloud/desktop/issues/100>.
+    """
+    for root, _, filenames in os.walk(directory):
+        root = Path(root)
+        for filename in filenames:
+            if filename.startswith(".") and not nextcloud_sync_filenames_pattern.match(filename):
+                (root/filename).rename(root/("_dot_" + filename[1:]))
