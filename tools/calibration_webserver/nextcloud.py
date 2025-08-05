@@ -89,12 +89,18 @@ def sync():
     """
     make_dotfiles_visible(config["Nextcloud"]["local_root"])
     cycles_left = 60 * 6
+    find_bogus_files_call = ["find", config["Nextcloud"]["local_root"], "-type", "f", "-regex", r".*\.~[a-z0-9]+$"]
     while cycles_left:
         with NextcloudLock() as locked:
             if locked:
-                subprocess.run(["nextcloudcmd", "--non-interactive", "-h", "--user", config["Nextcloud"]["login"],
-                                "--password", config["Nextcloud"]["password"], config["Nextcloud"]["local_root"],
-                                config["Nextcloud"]["server_url"]], check=True)
+                try:
+                    subprocess.run(["nextcloudcmd", "--non-interactive", "-h", "--user", config["Nextcloud"]["login"],
+                                    "--password", config["Nextcloud"]["password"], config["Nextcloud"]["local_root"],
+                                    config["Nextcloud"]["server_url"]], check=True)
+                except subprocess.CalledProcessError:
+                    subprocess.run(find_bogus_files_call + ["-delete"], check=True)
+                    raise
+                assert not subprocess.run(find_bogus_files_call + ["-print", "-quit"], capture_output=True, check=True).stdout
                 return
         cycles_left -= 1
         time.sleep(60)
