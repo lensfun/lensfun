@@ -25,7 +25,7 @@ from subprocess import DEVNULL
 from email.mime.text import MIMEText
 
 from github import Github
-from calibration_webserver import owncloud
+from calibration_webserver import nextcloud
 
 import xml_converter
 from xml_converter import XMLFile
@@ -205,6 +205,6 @@ if db_was_updated:
             ["rsync", "-a", "--delete", output_path if output_path.endswith("/") else output_path + "/",
              config["SourceForge"]["login"] + "@web.sourceforge.net:/home/project-web/lensfun/htdocs/db"])
 
-owncloud.sync()
+nextcloud.sync()
 close_github_issues()
-owncloud.sync()
+nextcloud.sync()

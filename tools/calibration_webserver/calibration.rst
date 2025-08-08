@@ -27,7 +27,7 @@ runs on ``http://wilson.bronger.org``.  There, people can upload files, and the
 uploads are pre-processed.  At the same time, a cronjob on this machine does
 some work two minutes after the hour, every hour.  More on that later.
 
-You have to set up an ownCloud client.  Moreover, you must have Hugin
+You have to set up an Nextcloud client.  Moreover, you must have Hugin
 installed.  Darktable or another Lensfun-using program is needed for
 calibration verification.  Finally, Lensfun >= 0.3 is necessary.  Contact
 `Torsten`_ if you have problems installing everything.  Put the Lensfun
@@ -39,7 +39,7 @@ repository on GitHub on your watch list.
 Analysing incoming data
 ===========================
 
-So, somebody uploaded images.  They appear in a new directory in the ownCloud
+So, somebody uploaded images.  They appear in a new directory in the Nextcloud
 share.  The directory name is something like “215f9b_miller”.  It starts with a
 hash and ends with the email name of the uploader (everything before the “@”).
 The cronjob on wilson.bronger.org creates a GitHub issue with the hash in the
@@ -79,8 +79,8 @@ For general questions, feel free to contact Torsten Bronger in an issue with
 Select and sort images
 =========================
 
-Copy the upload directory out of ownCloud to a local place.  This way, you can
-work in the directory without triggering the ownCloud client.
+Copy the upload directory out of Nextcloud to a local place.  This way, you can
+work in the directory without triggering the Nextcloud client.
 
 I recommend to create up to four top-level directories: “distortion”, “tca”,
 “vignetting”, and “not_used”.  Then, move the images into these directories.
@@ -267,7 +267,7 @@ particular for vignetting, there must not be an overcorrection at the rim.
 Finally
 ========
 
-Replace the upload directory on ownCloud with your new version.  Take care to
+Replace the upload directory on Nextcloud with your new version.  Take care to
 remove all TIFFs first because they are huge.  I use the following clean-up
 script::
 

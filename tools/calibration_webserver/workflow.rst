@@ -23,11 +23,11 @@ The GitHub clone is only used for an easier calibration workflow.  (And to make
 my GitHub profile look better.)
 
 
-ownCloud
+Nextcloud
 --------
 
-We share the calibration images themselves via ownCloud.  Any ownCloud client
-should work.  Our server is at ``https://bob.ipv.kfa-juelich.de/owncloud``.
+We share the calibration images themselves via Nextcloud.  Any Nextcloud client
+should work.  Our server is at ``https://bob.ipv.kfa-juelich.de/nextcloud``.
 You get credentials from Torsten.  We cannot make it totally public because it
 contains email addresses.
 
@@ -36,7 +36,7 @@ Workflow
 ===========
 
 1. Assign an unassigned calibration request issue to you.
-2. The issue title contains a hash.  The respective directory in ownCloud
+2. The issue title contains a hash.  The respective directory in Nextcloud
    starts with the same hash.
 3. `Work on the calibration`_, probably changing the contents of the
    directory.
