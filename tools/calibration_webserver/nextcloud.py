@@ -1,30 +1,31 @@
-"""Interaction with the ownCloud synchronisation program ``owncloudcmd``.  It
+"""Interaction with the Nextcloud synchronisation program ``nextcloudcmd``.  It
 works only on UNIX.
 """
 
-import os, fcntl, subprocess, time, configparser
+import os, fcntl, subprocess, time, configparser, re
+from pathlib import Path
 
 
 config = configparser.ConfigParser()
 config.read(os.path.expanduser("~/calibration_webserver.ini"))
 
 
-class OwncloudLock:
-    """Lock on the ownCloud synchronisation program as a context manager.  It is
-    adapted from very similar code from the JuliaBase project.  You can use
+class NextcloudLock:
+    """Lock on the Nextcloud synchronisation program as a context manager.  It
+    is adapted from very similar code from the JuliaBase project.  You can use
     this class like this::
 
-        with OwncloudLock() as locked:
+        with NextcloudLock() as locked:
             if locked:
                 do_work()
             else:
                 print "I could not acquire the lock.  I just exit."
 
-    The lock file is /tmp/owncloudcmd.pid.
+    The lock file is /tmp/nextcloudcmd.pid.
     """
 
     def __init__(self):
-        self.lockfile_path = os.path.join("/tmp/owncloudcmd.pid")
+        self.lockfile_path = os.path.join("/tmp/nextcloudcmd.pid")
         self.locked = False
 
     def __enter__(self):
@@ -74,26 +75,46 @@ class OwncloudLock:
 
 
 class LockError(Exception):
-    """Raised if the ownCloud lock could not be acquired.
+    """Raised if the Nextcloud lock could not be acquired.
     """
     pass
 
 
 def sync():
-    """Syncs the local ownCloud directory with the ownCloud server.  It prevents
-    two synchronisations being performed at the same time.
+    """Syncs the local Nextcloud directory with the Nextcloud server.  It
+    prevents two synchronisations being performed at the same time.
 
     :raises LockError: if the lock could not be acquired even after retrying
       every minute for 6 hours.
     """
+    make_dotfiles_visible(config["Nextcloud"]["local_root"])
     cycles_left = 60 * 6
+    find_bogus_files_call = ["find", config["Nextcloud"]["local_root"], "-type", "f", "-regex", r".*\.~[a-z0-9]+$"]
     while cycles_left:
-        with OwncloudLock() as locked:
+        with NextcloudLock() as locked:
             if locked:
-                subprocess.run(["owncloudcmd", "--non-interactive", "-h", "--user", config["ownCloud"]["login"],
-                                "--password", config["ownCloud"]["password"], config["ownCloud"]["local_root"],
-                                config["ownCloud"]["server_url"]], check=True)
+                try:
+                    subprocess.run(["nextcloudcmd", "--non-interactive", "-h", "--user", config["Nextcloud"]["login"],
+                                    "--password", config["Nextcloud"]["password"], config["Nextcloud"]["local_root"],
+                                    config["Nextcloud"]["server_url"]], check=True)
+                except subprocess.CalledProcessError:
+                    subprocess.run(find_bogus_files_call + ["-delete"], check=True)
+                    raise
+                assert not subprocess.run(find_bogus_files_call + ["-print", "-quit"], capture_output=True, check=True).stdout
                 return
         cycles_left -= 1
         time.sleep(60)
     raise LockError
+
+
+nextcloud_sync_filenames_pattern = re.compile(r"\.csync_journal\.db|\._?sync.*\.db")
+
+def make_dotfiles_visible(directory):
+    """This is a workaround for
+    <https://github.com/nextcloud/desktop/issues/100>.
+    """
+    for root, _, filenames in os.walk(directory):
+        root = Path(root)
+        for filename in filenames:
+            if filename.startswith(".") and not nextcloud_sync_filenames_pattern.match(filename):
+                (root/filename).rename(root/("_dot_" + filename[1:]))

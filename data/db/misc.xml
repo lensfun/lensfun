@@ -2323,4 +2323,44 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>7Artisans</maker>
+        <model>7Artisans 18mm f/6.3 II</model>
+        <mount>Fujifilm X</mount>
+        <mount>Sony E</mount>
+        <mount>Nikon Z</mount>
+        <mount>Leica L</mount>
+        <mount>Micro 4/3 System</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-E2S -->
+            <distortion model="ptlens" focal="18" a="0.01834" b="-0.05398" c="0.02237"/>
+        </calibration>
+    </lens>
+
+	<lens>
+        <maker>Sun</maker>
+        <model>Sun Wide Zoom Macro 24-40mm f/3.5</model>
+        <mount>M42</mount>
+        <mount>Pentax K</mount>
+        <mount>Canon EF</mount>
+        <mount>Nikon F</mount>
+        <mount>Contax/Yashica</mount>
+        <mount>Olympus OM</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-6300 -->
+            <distortion model="ptlens" focal="24" a="0.0051895" b="-0.0216318" c="0.0037977"/>
+            <distortion model="ptlens" focal="28" a="0.0031533" b="-0.0149907" c="0.004447"/>
+            <distortion model="ptlens" focal="32" a="0.0016957" b="-0.0085964" c="0.0029656"/>
+            <distortion model="ptlens" focal="35" a="-0.0018592" b="0.0052734" c="-0.0119461"/>
+            <distortion model="ptlens" focal="40" a="-0.0026852" b="0.0060547" c="-0.0057911"/>
+            <tca model="poly3" focal="24" br="-0.0000338" vr="1.0002684" bb="0.0000262" vb="1.0000347"/>
+            <tca model="poly3" focal="28" br="-0.0000019" vr="1.0002051" bb="0.0000078" vb="1.0001071"/>
+            <tca model="poly3" focal="32" br="-0.0000201" vr="1.0001849" bb="0.0000390" vb="1.0001097"/>
+            <tca model="poly3" focal="35" br="-0.0000236" vr="1.0001473" bb="0.0000212" vb="1.0001531"/>
+            <tca model="poly3" focal="40" br="-0.0000072" vr="1.0000785" bb="-0.0000017" vb="1.0001938"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
