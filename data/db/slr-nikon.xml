@@ -6567,4 +6567,19 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF Zoom-Nikkor 35-70mm f/3.3-4.5 N</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D800 -->
+            <distortion model="ptlens" focal="35" a="-0.00237" b="0.000106" c="-0.022245"/>
+            <distortion model="ptlens" focal="45" a="0.0012105" b="-0.0051791" c="-0.004876"/>
+            <distortion model="ptlens" focal="52" a="-0.0022594" b="0.0089562" c="-0.0143964"/>
+            <distortion model="ptlens" focal="60" a="-0.0024173" b="0.0110509" c="-0.0136647"/>
+            <distortion model="ptlens" focal="70" a="-0.0036065" b="0.016091" c="-0.0178092"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
