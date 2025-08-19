@@ -44,6 +44,13 @@
     </camera>
 
     <camera>
+        <maker>GoPro</maker>
+        <model>Hero11 Black</model>
+        <mount>goProHero11bl</mount>
+        <cropfactor>5.54</cropfactor>
+    </camera>
+
+    <camera>
         <maker>DJI</maker>
         <model>Phantom Vision FC200</model>
         <mount>dijPhantomVisionFC200</mount>
@@ -351,6 +358,20 @@
         <aspect-ratio>4:3</aspect-ratio>
         <calibration>
             <distortion model="ptlens" focal="2.7" a="0.04608" b="-0.13007" c="-0.21816"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>GoPro</maker>
+        <model>HERO11 Black &amp; compatibles</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <type>fisheye</type>
+        <mount>goProHero11bl</mount>
+        <cropfactor>5.54</cropfactor>
+        <aspect-ratio>8:7</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="2.7" a="0.0594752" b="-0.141715" c="-0.322349"/>
         </calibration>
     </lens>
 
