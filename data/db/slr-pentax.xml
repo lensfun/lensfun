@@ -2747,4 +2747,16 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Pentax</maker>
+        <model>smc PENTAX-DA* 55mm f/1.4 SDM</model>
+        <mount>Pentax KAF</mount>
+        <cropfactor>1.538</cropfactor>
+        <calibration>
+             <!-- Taken with Pentax K20D -->
+            <distortion model="ptlens" focal="55" a="-0.0002305" b="-0.0014652" c="-0.0025603"/>
+            <tca model="poly3" focal="55" vr="1.0002221" vb="0.9998106"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
