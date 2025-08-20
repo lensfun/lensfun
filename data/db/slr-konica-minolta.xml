@@ -545,6 +545,21 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Minolta</maker>
+        <model>Minolta AF 17-35mm F2.8-4 (D)</model>
+        <mount>Minolta AF</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony Alpha 700 -->
+            <distortion model="ptlens" focal="17" a="0.0228114" b="-0.0836978" c="0.0677255"/>
+            <distortion model="ptlens" focal="20" a="0.0029349" b="-0.0092741" c="-0.01222"/>
+            <distortion model="ptlens" focal="24" a="0.0047879" b="-0.0148977" c="0.0043892"/>
+            <distortion model="ptlens" focal="28" a="0.0006669" b="0.0004074" c="-0.0072208"/>
+            <distortion model="ptlens" focal="35" a="-0.0026574" b="0.0116565" c="-0.0142974"/>
+        </calibration>
+    </lens>
+
     <lens>
         <maker>Minolta</maker>
         <model>Minolta/Sony AF 24-105mm f/3.5-4.5 (D)</model>
