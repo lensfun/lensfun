@@ -1204,4 +1204,29 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>16-300mm F3.5-6.7 DC OS | Contemporary 025</model>
+        <model lang="en">Sigma 16-300mm F3.5-6.7 DC OS | C</model>
+        <mount>Canon RF</mount>
+        <mount>Sony E</mount>
+        <mount>Leica L</mount>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.613</cropfactor>
+        <calibration>
+             <!-- Taken with Canon R50 -->
+            <distortion model="ptlens" focal="16" a="0.0277029" b="-0.0893778" c="0.0412393"/>
+            <distortion model="ptlens" focal="18" a="0.0227768" b="-0.0660559" c="0.0313844"/>
+            <distortion model="ptlens" focal="20" a="0.0200318" b="-0.0551982" c="0.0361297"/>
+            <distortion model="ptlens" focal="24" a="0.0161432" b="-0.0348735" c="0.0256178"/>
+            <distortion model="ptlens" focal="43" a="0.0104864" b="-0.0267229" c="0.0335699"/>
+            <distortion model="ptlens" focal="76" a="-0.0003812" b="0.0068852" c="0.0017569"/>
+            <distortion model="ptlens" focal="103" a="0.0032398" b="-0.0042074" c="0.0099184"/>
+            <distortion model="ptlens" focal="144" a="-0.0055615" b="0.0285512" c="-0.0335932"/>
+            <distortion model="ptlens" focal="200" a="0.0010001" b="-0.0013717" c="0.0064219"/>
+            <distortion model="ptlens" focal="267" a="0.0052598" b="-0.0264696" c="0.0417544"/>
+            <distortion model="ptlens" focal="300" a="-0.0003953" b="-0.0013953" c="0.0029913"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
