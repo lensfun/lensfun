@@ -1208,24 +1208,31 @@
         <maker>Sigma</maker>
         <model>16-300mm F3.5-6.7 DC OS | Contemporary 025</model>
         <model lang="en">Sigma 16-300mm F3.5-6.7 DC OS | C</model>
+        <mount>Fujifilm X</mount>
         <mount>Canon RF</mount>
         <mount>Sony E</mount>
         <mount>Leica L</mount>
-        <mount>Fujifilm X</mount>
-        <cropfactor>1.613</cropfactor>
+        <cropfactor>1.534</cropfactor>
         <calibration>
-             <!-- Taken with Canon R50 -->
-            <distortion model="ptlens" focal="16" a="0.0277029" b="-0.0893778" c="0.0412393"/>
-            <distortion model="ptlens" focal="18" a="0.0227768" b="-0.0660559" c="0.0313844"/>
-            <distortion model="ptlens" focal="20" a="0.0200318" b="-0.0551982" c="0.0361297"/>
-            <distortion model="ptlens" focal="24" a="0.0161432" b="-0.0348735" c="0.0256178"/>
-            <distortion model="ptlens" focal="43" a="0.0104864" b="-0.0267229" c="0.0335699"/>
-            <distortion model="ptlens" focal="76" a="-0.0003812" b="0.0068852" c="0.0017569"/>
-            <distortion model="ptlens" focal="103" a="0.0032398" b="-0.0042074" c="0.0099184"/>
-            <distortion model="ptlens" focal="144" a="-0.0055615" b="0.0285512" c="-0.0335932"/>
-            <distortion model="ptlens" focal="200" a="0.0010001" b="-0.0013717" c="0.0064219"/>
-            <distortion model="ptlens" focal="267" a="0.0052598" b="-0.0264696" c="0.0417544"/>
-            <distortion model="ptlens" focal="300" a="-0.0003953" b="-0.0013953" c="0.0029913"/>
+            <!-- Taken with Fujifilm X-S20  -->
+            <distortion model="ptlens" focal="16" a="0.0333375" b="-0.1079065" c="0.0554305"/>
+            <distortion model="ptlens" focal="18.9" a="0.0265758" b="-0.065966" c="0.0322044"/>
+            <distortion model="ptlens" focal="24" a="0.020155" b="-0.0404897" c="0.0242685"/>
+            <distortion model="ptlens" focal="28" a="0.0145833" b="-0.0228336" c="0.0176387"/>
+            <distortion model="ptlens" focal="34.7" a="-0.0001161" b="0.0208914" c="-0.017592"/>
+            <distortion model="ptlens" focal="50.5" a="0.0040876" b="-0.0031958" c="0.0126801"/>
+            <distortion model="ptlens" focal="70.7" a="-0.0014232" b="0.0105803" c="0.0016878"/>
+            <distortion model="ptlens" focal="92.1" a="0.0017692" b="0.0017027" c="0.0055815"/>
+            <distortion model="ptlens" focal="171.8" a="0.0006107" b="0.0008912" c="0.0046583"/>
+            <distortion model="ptlens" focal="300" a="0.0001899" b="0.0006761" c="0.000587"/>
+            <tca model="poly3" focal="16" vr="1.0007400" vb="1.0001080"/>
+            <tca model="poly3" focal="24" vr="1.0005520" vb="1.0000840"/>
+            <tca model="poly3" focal="34.7" vr="1.0003764" vb="1.0000684"/>
+            <tca model="poly3" focal="50.5" vr="1.0002083" vb="1.0000407"/>
+            <tca model="poly3" focal="70.7" vr="1.0001340" vb="1.0000374"/>
+            <tca model="poly3" focal="99.3" vr="1.0000566" vb="0.9999790"/>
+            <tca model="poly3" focal="171.8" vr="0.9999463" vb="0.9998737"/>
+            <tca model="poly3" focal="300" vr="0.9997852" vb="0.9998391"/>
         </calibration>
     </lens>
 
