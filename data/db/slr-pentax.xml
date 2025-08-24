@@ -2759,4 +2759,30 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax Takumar 135mm f/2.5 (V2/43812)</model>
+        <mount>M42</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            !-- Taken with Canon R6 mk2 -->
+            <distortion model="ptlens" focal="135" a="-0.0023689" b="0.0103471" c="0.000212"/>
+            <tca model="poly3" focal="135" vr="0.9995340" vb="1.0001213"/>
+            <vignetting model="pa" focal="135" aperture="2.5" distance="10" k1="-1.4756" k2="1.5924" k3="-0.7326"/>
+            <vignetting model="pa" focal="135" aperture="2.5" distance="1000" k1="-1.4756" k2="1.5924" k3="-0.7326"/>
+            <vignetting model="pa" focal="135" aperture="4" distance="10" k1="-0.0891" k2="-0.1480" k3="-0.0364"/>
+            <vignetting model="pa" focal="135" aperture="4" distance="1000" k1="-0.0891" k2="-0.1480" k3="-0.0364"/>
+            <vignetting model="pa" focal="135" aperture="5.6" distance="10" k1="-0.1645" k2="0.1122" k3="-0.0588"/>
+            <vignetting model="pa" focal="135" aperture="5.6" distance="1000" k1="-0.1645" k2="0.1122" k3="-0.0588"/>
+            <vignetting model="pa" focal="135" aperture="8" distance="10" k1="-0.2170" k2="0.1115" k3="-0.0216"/>
+            <vignetting model="pa" focal="135" aperture="8" distance="1000" k1="-0.2170" k2="0.1115" k3="-0.0216"/>
+            <vignetting model="pa" focal="135" aperture="11" distance="10" k1="-0.1351" k2="0.0845" k3="-0.0233"/>
+            <vignetting model="pa" focal="135" aperture="11" distance="1000" k1="-0.1351" k2="0.0845" k3="-0.0233"/>
+            <vignetting model="pa" focal="135" aperture="16" distance="10" k1="-0.1451" k2="0.0972" k3="-0.0600"/>
+            <vignetting model="pa" focal="135" aperture="16" distance="1000" k1="-0.1451" k2="0.0972" k3="-0.0600"/>
+            <vignetting model="pa" focal="135" aperture="22" distance="10" k1="-0.2914" k2="0.5476" k3="-0.3687"/>
+            <vignetting model="pa" focal="135" aperture="22" distance="1000" k1="-0.2914" k2="0.5476" k3="-0.3687"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
