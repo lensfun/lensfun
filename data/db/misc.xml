@@ -2364,4 +2364,39 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Yashica</maker>
+        <model>Yashica DSB 55mm f/2</model>
+        <mount>Contax/Yashica</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon Z6 -->
+            <distortion model="ptlens" focal="55" a="1.6e-05" b="-0.0102041" c="0.0105145"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Yashica</maker>
+        <model>Yashica ML 50mm f/1.7</model>
+        <mount>Contax/Yashica</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon Z6 -->
+            <distortion model="ptlens" focal="50" a="0.000507" b="-0.0121149" c="0.0142469"/>
+            <tca model="poly3" focal="50" vr="1.0001036" vb="0.9999077"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Yashica</maker>
+        <model>Yashica ML 50mm f/2</model>
+        <mount>Contax/Yashica</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon Z6 -->
+            <distortion model="ptlens" focal="50" a="0.021359" b="-0.0856199" c="0.0930999"/>
+            <tca model="poly3" focal="50" vr="1.0000630" vb="0.9999656"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
