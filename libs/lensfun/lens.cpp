@@ -27,7 +27,6 @@ lfLens::lfLens ()
     MaxFocal = 0.0;
     MinAperture = 0.0;
     MaxAperture = 0.0;
-    Mounts = NULL;
     Type = LF_RECTILINEAR;
     Score = 0;
 
@@ -49,9 +48,7 @@ lfLens::~lfLens ()
     lf_free (Maker);
     lf_free (Model);
 
-    for (auto *calibset : Calibrations)
-        delete calibset;
-
+    Calibrations.clear();
     for (char* m: MountNames)
         free(m);
 }
@@ -66,7 +63,6 @@ lfLens::lfLens (const lfLens &other)
     MaxAperture = other.MaxAperture;
     Type = other.Type;
 
-    Mounts = NULL;
     MountNames.clear();
     if (auto* otherMounts = other.GetMountNames())
     {
@@ -74,9 +70,8 @@ lfLens::lfLens (const lfLens &other)
             AddMount(otherMounts[i]);
     }
 
-    for (auto *calibset : other.Calibrations)
-        Calibrations.push_back(new lfLensCalibrationSet(*calibset));
-    _lf_terminate_vec(Calibrations);
+    for (auto &calibset : other.Calibrations)
+        Calibrations.push_back(std::make_shared<lfLensCalibrationSet>(*calibset));
 
     // Copy legacy lens attributes
     CropFactor = other.CropFactor;
@@ -97,7 +92,6 @@ lfLens &lfLens::operator = (const lfLens &other)
     MaxAperture = other.MaxAperture;
     Type = other.Type;
 
-    Mounts = NULL;
     MountNames.clear();
 
     if (auto* otherMounts = other.GetMountNames())
@@ -106,12 +100,9 @@ lfLens &lfLens::operator = (const lfLens &other)
             AddMount(otherMounts[i]);
     }
 
-    for (auto *calibset : Calibrations)
-        delete calibset;
     Calibrations.clear();
-    for (auto *calibset : other.Calibrations)
-        Calibrations.push_back(new lfLensCalibrationSet(*calibset));
-    _lf_terminate_vec(Calibrations);
+    for (auto &calibset : other.Calibrations)
+        Calibrations.push_back(std::make_shared<lfLensCalibrationSet>(*calibset));
 
     // Copy legacy lens attributes
     CropFactor = other.CropFactor;
@@ -142,9 +133,6 @@ void lfLens::AddMount (const char *val)
 
         // add terminating NULL
         _lf_terminate_vec(MountNames);
-
-        // legacy mount pointer
-        Mounts = (char**)MountNames.data();
     }
 }
 
@@ -211,7 +199,7 @@ void lfLens::GuessParameters ()
     if (!MinAperture || !MinFocal)
     {
         // Try to find out the range of focal lengths using calibration data
-        for (const lfLensCalibrationSet* calibset: Calibrations) {
+        for (auto& calibset: Calibrations) {
             for (auto c: calibset->CalibDistortion)
             {
                 if (c->Focal < minf)
@@ -281,10 +269,11 @@ bool lfLens::Check ()
         (MaxAperture && MinAperture > MaxAperture) )
         return false;
 
-    for (auto calibset: Calibrations)
+    for (auto &calibset: Calibrations) {
         if (calibset->Attributes.CropFactor <= 0 ||
             calibset->Attributes.AspectRatio < 1)
             return false;
+    }
 
     // check legacy attributes
     if (CropFactor <= 0 ||
@@ -635,11 +624,11 @@ const char *lfLens::GetLensTypeDesc (lfLensType type, const char **details)
     return NULL;
 }
 
-lfLensCalibrationSet* lfLens::GetClosestCalibrationSet(const float crop) const
+std::shared_ptr<lfLensCalibrationSet> lfLens::GetClosestCalibrationSet(const float crop) const
 {
-    lfLensCalibrationSet* calib_set = nullptr;
+    std::shared_ptr<lfLensCalibrationSet> calib_set = nullptr;
     float crop_ratio = 1e6f;
-    for (auto c : Calibrations)
+    for (auto &c : Calibrations)
     {
         const float r = crop / c->Attributes.CropFactor;
         if ((r >= 0.96) && (r < crop_ratio))
@@ -651,14 +640,13 @@ lfLensCalibrationSet* lfLens::GetClosestCalibrationSet(const float crop) const
     return calib_set;
 }
 
-lfLensCalibrationSet* lfLens::GetCalibrationSetForAttributes(const lfLensCalibAttributes lcattr)
+std::shared_ptr<lfLensCalibrationSet> lfLens::GetCalibrationSetForAttributes(const lfLensCalibAttributes lcattr)
 {
     // Always use Calibrations[0] for now, achieves backwards
     // compatibility to Lensfun API before 0.4.0
     {
         if (Calibrations.empty())
-            Calibrations.emplace_back(new lfLensCalibrationSet(lcattr));
-        _lf_terminate_vec(Calibrations);
+            Calibrations.emplace_back(std::make_shared<lfLensCalibrationSet>(lcattr));
 
         Calibrations[0]->Attributes.CropFactor = CropFactor;
         Calibrations[0]->Attributes.AspectRatio = AspectRatio;
@@ -666,7 +654,7 @@ lfLensCalibrationSet* lfLens::GetCalibrationSetForAttributes(const lfLensCalibAt
     }
 
     // try to find a matching calibset
-    for (auto c: Calibrations)
+    for (auto &c: Calibrations)
     {
         if (c->Attributes == lcattr)
             return c;
@@ -674,7 +662,6 @@ lfLensCalibrationSet* lfLens::GetCalibrationSetForAttributes(const lfLensCalibAt
 
     // nothing found, create a new one
     Calibrations.emplace_back(new lfLensCalibrationSet(lcattr));
-    _lf_terminate_vec(Calibrations);
 
     // return pointer
     return Calibrations.back();
@@ -682,7 +669,7 @@ lfLensCalibrationSet* lfLens::GetCalibrationSetForAttributes(const lfLensCalibAt
 
 void lfLens::AddCalibDistortion (const lfLensCalibDistortion *plcd)
 {
-    lfLensCalibrationSet* calibSet = GetCalibrationSetForAttributes(plcd->CalibAttr);
+    std::shared_ptr<lfLensCalibrationSet> calibSet = GetCalibrationSetForAttributes(plcd->CalibAttr);
     calibSet->CalibDistortion.emplace_back(new lfLensCalibDistortion(*plcd));
 
     // Duplicate all Calibrations[0] components in legacy calibration structures
@@ -694,7 +681,7 @@ void lfLens::AddCalibDistortion (const lfLensCalibDistortion *plcd)
 
 void lfLens::AddCalibTCA (const lfLensCalibTCA *plctca)
 {
-    lfLensCalibrationSet* calibSet = GetCalibrationSetForAttributes(plctca->CalibAttr);
+    std::shared_ptr<lfLensCalibrationSet> calibSet = GetCalibrationSetForAttributes(plctca->CalibAttr);
     calibSet->CalibTCA.emplace_back(new lfLensCalibTCA(*plctca));
 
     // Duplicate all Calibrations[0] components in legacy calibration structures
@@ -706,7 +693,7 @@ void lfLens::AddCalibTCA (const lfLensCalibTCA *plctca)
 
 void lfLens::AddCalibVignetting (const lfLensCalibVignetting *plcv)
 {
-    lfLensCalibrationSet* calibSet = GetCalibrationSetForAttributes(plcv->CalibAttr);
+    std::shared_ptr<lfLensCalibrationSet> calibSet = GetCalibrationSetForAttributes(plcv->CalibAttr);
     calibSet->CalibVignetting.push_back(new lfLensCalibVignetting(*plcv));
 
     // Duplicate all Calibrations[0] components in legacy calibration structures
@@ -719,7 +706,7 @@ void lfLens::AddCalibVignetting (const lfLensCalibVignetting *plcv)
 
 void lfLens::AddCalibCrop (const lfLensCalibCrop *plcc)
 {
-    lfLensCalibrationSet* calibSet = GetCalibrationSetForAttributes(plcc->CalibAttr);
+    std::shared_ptr<lfLensCalibrationSet> calibSet = GetCalibrationSetForAttributes(plcc->CalibAttr);
     calibSet->CalibCrop.push_back(new lfLensCalibCrop(*plcc));
 
     // Duplicate all Calibrations[0] components in legacy calibration structures
@@ -732,7 +719,7 @@ void lfLens::AddCalibCrop (const lfLensCalibCrop *plcc)
 
 void lfLens::AddCalibFov (const lfLensCalibFov *plcf)
 {
-    lfLensCalibrationSet* calibSet = GetCalibrationSetForAttributes(plcf->CalibAttr);
+    std::shared_ptr<lfLensCalibrationSet> calibSet = GetCalibrationSetForAttributes(plcf->CalibAttr);
     calibSet->CalibFov.push_back(new lfLensCalibFov(*plcf));
 
     // Duplicate all Calibrations[0] components in legacy calibration structures
@@ -909,9 +896,9 @@ static void __parameter_scales (float values [], int number_of_values,
 bool lfLens::InterpolateDistortion (float crop, float focal, lfLensCalibDistortion &res) const
 {
     // find calibration set with closest crop factor
-    lfLensCalibrationSet* calib_set = nullptr;
+    std::shared_ptr<lfLensCalibrationSet> calib_set = nullptr;
     float crop_ratio = 1e6f;
-    for (auto c : Calibrations)
+    for (auto &c : Calibrations)
     {
         const float r = crop / c->Attributes.CropFactor;
         if (c->HasDistortion() && (r >= 0.96) && (r < crop_ratio))
@@ -1006,9 +993,9 @@ bool lfLens::InterpolateDistortion (float crop, float focal, lfLensCalibDistorti
 bool lfLens::InterpolateTCA (float crop, float focal, lfLensCalibTCA &res) const
 {
     // find calibration set with closest crop factor
-    lfLensCalibrationSet* calib_set = nullptr;
+    std::shared_ptr<lfLensCalibrationSet> calib_set = nullptr;
     float crop_ratio = 1e6f;
-    for (auto c : Calibrations)
+    for (auto &c : Calibrations)
     {
         const float r = crop / c->Attributes.CropFactor;
         if (c->HasTCA() && (r >= 0.96) && (r < crop_ratio))
@@ -1122,9 +1109,9 @@ bool lfLens::InterpolateVignetting (float crop,
     float focal, float aperture, float distance, lfLensCalibVignetting &res) const
 {
     // find calibration set with closest crop factor
-    lfLensCalibrationSet* calib_set = nullptr;
+    std::shared_ptr<lfLensCalibrationSet> calib_set = nullptr;
     float crop_ratio = 1e6f;
-    for (auto c : Calibrations)
+    for (auto &c : Calibrations)
     {
         const float r = crop / c->Attributes.CropFactor;
         if (c->HasVignetting() && (r >= 0.96) && (r < crop_ratio))
@@ -1208,9 +1195,9 @@ bool lfLens::InterpolateVignetting (float crop,
 bool lfLens::InterpolateCrop (float crop, float focal, lfLensCalibCrop &res) const
 {
     // find calibration set with closest crop factor
-    lfLensCalibrationSet* calib_set = nullptr;
+    std::shared_ptr<lfLensCalibrationSet> calib_set = nullptr;
     float crop_ratio = 1e6f;
-    for (auto c : Calibrations)
+    for (auto &c : Calibrations)
     {
         const float r = crop / c->Attributes.CropFactor;
         if (c->HasCrop() && (r >= 0.96) && (r < crop_ratio))
