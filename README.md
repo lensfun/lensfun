@@ -119,6 +119,8 @@ in your cmake_build folder.
 If you prefer setting the configuration with a GUI or want to get an extensive
 overview of all available settings and cache values run cmake-gui.
 
+*NB* Certificate Authorities' (CA) certificates have to be available on a system
+in order to run `apps/lensfun-update-data` script.
 
 DOCUMENTATION
 -------------
