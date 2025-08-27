@@ -2400,4 +2400,31 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Voigtländer</maker>
+        <model>Voigtlander Nokton 28mm F1.5 Aspherical</model>
+        <model lang="en">Nokton 28mm F1.5 Aspherical</model>
+        <mount>Sony E</mount>
+        <mount>Nikon Z</mount>
+        <mount>Leica M</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7CM2, tca & vignetting coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="28" a="0.010052" b="-0.0343339" c="0.0244028"/>
+            <tca model="poly3" focal="28" vr="1.0007521" cr="-0.0004828" br="0.0001092" vb="0.9993413" cb="0.0004002" bb="0.0000667"/>
+            <vignetting model="pa" focal="28" aperture="1.5" distance="10" k1="-2.1713419" k2="2.2736460" k3="-0.9439038"/>
+            <vignetting model="pa" focal="28" aperture="1.5" distance="1000" k1="-2.1713419" k2="2.2736460" k3="-0.9439038"/>
+            <vignetting model="pa" focal="28" aperture="2.0" distance="10" k1="-0.5771848" k2="-0.7693872" k3="0.6001283"/>
+            <vignetting model="pa" focal="28" aperture="2.0" distance="1000" k1="-0.5771848" k2="-0.7693872" k3="0.6001283"/>
+            <vignetting model="pa" focal="28" aperture="2.8" distance="10" k1="-0.6465983" k2="0.1152906" k3="-0.0665723"/>
+            <vignetting model="pa" focal="28" aperture="2.8" distance="1000" k1="-0.6465983" k2="0.1152906" k3="-0.0665723"/>
+            <vignetting model="pa" focal="28" aperture="4.0" distance="10" k1="-0.6808400" k2="0.1837761" k3="-0.0281370"/>
+            <vignetting model="pa" focal="28" aperture="4.0" distance="1000" k1="-0.6808400" k2="0.1837761" k3="-0.0281370"/>
+            <vignetting model="pa" focal="28" aperture="11.0" distance="10" k1="-0.6504217" k2="0.1140967" k3="0.0274113"/>
+            <vignetting model="pa" focal="28" aperture="11.0" distance="1000" k1="-0.6504217" k2="0.1140967" k3="0.0274113"/>
+            <vignetting model="pa" focal="28" aperture="16.0" distance="10" k1="-0.6623964" k2="0.1076236" k3="0.0379829"/>
+            <vignetting model="pa" focal="28" aperture="16.0" distance="1000" k1="-0.6623964" k2="0.1076236" k3="0.0379829"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
