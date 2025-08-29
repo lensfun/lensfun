@@ -16,10 +16,10 @@ import shutil
 def find_best(root, tagname):
     texts = [(len(element.text), element.text) for element in root.findall(tagname) if element.attrib.get("lang") == "en"]
     if texts:
-        return sorted(texts)[0][1]
-    texts = [(len(element.text), element.text) for element in root.findall(tagname)]
+        return (texts)[0][1]
+    texts = [(len(element.text), element.text) for element in root.findall(tagname) if not element.attrib.get("lang")]
     if texts:
-        return sorted(texts)[0][1]
+        return (texts)[0][1]
     else: 
         return None
 
