@@ -47,7 +47,7 @@ class Lens:
     def __init__(self, element, root, camtype):
         self.maker = find_best(element, "maker")
         self.model = find_best(element, "model")
-        if self.model.startswith("fixed lens"):
+        if camtype == "compact":
             mount = element.find("mount").text
             for camera in root.findall("camera"):
                 if camera.find("mount").text == mount:
@@ -57,7 +57,7 @@ class Lens:
                     if variant:
                         camname = camname + " " + variant
                     break
-            self.model = "{}, {}".format(camname,self.model)
+            self.model = "Fixed lens {}".format(camname)
         try:
             self.crop = float(element.find("cropfactor").text)
         except:
