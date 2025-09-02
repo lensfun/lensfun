@@ -755,13 +755,13 @@
     </lens>
 
     <lens>
+        <!-- model X100, X100S, X100T, X100F -->
         <maker>Fujifilm</maker>
         <model>X100 &amp; compatibles (Standard)</model>
         <model lang="en">fixed lens</model>
         <model lang="de">festes Objektiv</model>
         <mount>fujix100</mount>
         <cropfactor>1.523</cropfactor>
-        <aspect-ratio>3:2</aspect-ratio>
         <calibration>
             <distortion model="ptlens" focal="23" a="0.02159" b="-0.0618" c="0.04364"/>
             <tca model="poly3" focal="23" br="-0.0001543" vr="1.0006122" bb="0.0001753" vb="0.9996422"/>
@@ -783,21 +783,26 @@
     </lens>
 
     <lens>
+        <!-- model X100, X100S, X100T, X100F -->
         <maker>Fujifilm</maker>
-        <model>X100 &amp; compatibles (Standard) + TCL-X100</model>
-        <model lang="en">TCL-X100</model>
+        <model>X100 &amp; compatibles, with TCL-X100</model>
+        <model lang="en">fixed lens, with TCL-X100</model>
+        <model lang="de">festes Objektiv, mit TCL-X100</model>
         <mount>fujix100</mount>
         <cropfactor>1.523</cropfactor>
         <calibration>
-            <!-- Taken with Fujifilm X100s -->
+            <!-- Taken with Fujifilm X100S -->
             <distortion model="ptlens" focal="33" a="0.02986" b="-0.05994" c="0.05518"/>
             <tca model="poly3" focal="33" vr="1.0000047" vb="0.9999998"/>
         </calibration>
     </lens>
 
     <lens>
+        <!-- for model X100V, X100VI -->
         <maker>Fujifilm</maker>
-        <model>X100V/VI &amp; +WCL/+TCL</model>
+        <model>X100V &amp; compatibles</model>
+        <model lang="en">fixed lens, or with WCL/TCL</model>
+        <model lang="de">festes Objektiv, oder mit WCL/TCL</model>
         <mount>fujix100v2</mount>
         <cropfactor>1.53</cropfactor>
         <calibration>
