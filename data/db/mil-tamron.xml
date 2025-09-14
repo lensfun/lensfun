@@ -575,9 +575,12 @@
 
     <lens>
         <maker>Tamron</maker>
-        <model>E 11-20mm F2.8 B060</model>
-        <model lang="en">Tamron 11-20 mm F2.8 Di III-A RXD (B060)</model>
+        <!-- Model name adapted for automatic lens detection with all three mounts -->
+        <model>Tamron E 11-20mm F2.8 DiIII-A RXD B060X RF</model>
+        <model lang="en">Tamron 11-20mm f/2.8 Di III-A RXD (B060)</model>
         <mount>Sony E</mount>
+		<mount>Canon RF</mount>
+        <mount>Fujifilm X</mount>
         <cropfactor>1.534</cropfactor>
         <calibration>
             <!-- Taken with ILCE-6400 -->
