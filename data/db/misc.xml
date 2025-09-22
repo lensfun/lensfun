@@ -2399,6 +2399,30 @@
             <tca model="poly3" focal="50" vr="1.0000630" vb="0.9999656"/>
         </calibration>
     </lens>
+	
+	<lens>
+        <maker>Yashica</maker>
+        <model>Yashica ML 55mm F/4 Macro</model>
+        <mount>Contax/Yashica</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+			<!-- Taken with Nikon Z6 -->
+            <distortion model="ptlens" focal="55" a="0.00148607" b="-0.00599366" c="0.00808118"/>
+            <tca model="poly3" focal="55" vr="1.0000059" vb="0.9999865"/>
+            <vignetting model="pa" focal="55" aperture="4" distance="10" k1="-0.7850" k2="0.1328" k3="0.0813"/>
+            <vignetting model="pa" focal="55" aperture="4" distance="1000" k1="-0.7850" k2="0.1328" k3="0.0813"/>
+            <vignetting model="pa" focal="55" aperture="5.6" distance="10" k1="-0.2520" k2="-0.0952" k3="0.0169"/>
+            <vignetting model="pa" focal="55" aperture="5.6" distance="1000" k1="-0.2520" k2="-0.0952" k3="0.0169"/>
+            <vignetting model="pa" focal="55" aperture="8" distance="10" k1="-0.3198" k2="0.0927" k3="-0.0258"/>
+            <vignetting model="pa" focal="55" aperture="8" distance="1000" k1="-0.3198" k2="0.0927" k3="-0.0258"/>
+            <vignetting model="pa" focal="55" aperture="11" distance="10" k1="-0.3018" k2="0.0374" k3="0.0192"/>
+            <vignetting model="pa" focal="55" aperture="11" distance="1000" k1="-0.3018" k2="0.0374" k3="0.0192"/>
+            <vignetting model="pa" focal="55" aperture="16" distance="10" k1="-0.2982" k2="0.0359" k3="0.0176"/>
+            <vignetting model="pa" focal="55" aperture="16" distance="1000" k1="-0.2982" k2="0.0359" k3="0.0176"/>
+            <vignetting model="pa" focal="55" aperture="22" distance="10" k1="-0.2693" k2="-0.0192" k3="0.0473"/>
+            <vignetting model="pa" focal="55" aperture="22" distance="1000" k1="-0.2693" k2="-0.0192" k3="0.0473"/>
+        </calibration>
+    </lens>
 
 	<lens>
         <maker>Voigtländer</maker>
