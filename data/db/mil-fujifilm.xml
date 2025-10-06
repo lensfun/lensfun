@@ -2197,13 +2197,13 @@
             <distortion model="ptlens" focal="34.3" a="0.0045485" b="-0.0024713" c="0.00731"/>
             <distortion model="ptlens" focal="40.8" a="0.0054066" b="-0.0051754" c="0.0118554"/>
             <distortion model="ptlens" focal="50" a="0.0052717" b="-0.0076145" c="0.0153253"/>
-            <tca model="poly3" focal="16" vr="1.0002089" vb="1.0000631"/>
-            <tca model="poly3" focal="18.5" vr="1.0002780" vb="1.0000482"/>
-            <tca model="poly3" focal="22.7" vr="1.0002407" vb="1.0000511"/>
-            <tca model="poly3" focal="27.1" vr="1.0001323" vb="1.0000926"/>
-            <tca model="poly3" focal="34.3" vr="1.0000510" vb="1.0001065"/>
-            <tca model="poly3" focal="42" vr="1.0000232" vb="1.0001252"/>
-            <tca model="poly3" focal="50" vr="1.0000331" vb="1.0000573"/>
+            <tca model="poly3" focal="16" br="-0.0001928" vr="1.0005512" bb="0.0001409" vb="0.9998642"/>
+            <tca model="poly3" focal="18.5" br="-0.0001633" vr="1.0005453" bb="0.0001270" vb="0.9998536"/>
+            <tca model="poly3" focal="22.7" br="-0.0001290" vr="1.0004484" bb="0.0001140" vb="0.9998746"/>
+            <tca model="poly3" focal="27.1" br="-0.0001021" vr="1.0003055" bb="0.0001040" vb="0.9999290"/>
+            <tca model="poly3" focal="34.3" br="-0.0000544" vr="1.0001388" bb="0.0000285" vb="1.0000648"/>
+            <tca model="poly3" focal="42" br="-0.0000325" vr="1.0000764" bb="0.0000268" vb="1.0000822"/>
+            <tca model="poly3" focal="50" br="-0.0000048" vr="1.0000409" bb="-0.0000052" vb="1.0000658"/>
             <vignetting model="pa" focal="16" aperture="2.8" distance="10" k1="-0.6579" k2="-0.1229" k3="0.1268"/>
             <vignetting model="pa" focal="16" aperture="2.8" distance="1000" k1="-0.6579" k2="-0.1229" k3="0.1268"/>
             <vignetting model="pa" focal="16" aperture="4" distance="10" k1="-0.6137" k2="0.2547" k3="-0.1414"/>
