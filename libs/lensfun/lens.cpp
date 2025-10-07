@@ -97,6 +97,8 @@ lfLens &lfLens::operator = (const lfLens &other)
     Type = other.Type;
 
     Mounts = NULL;
+    for (char* m: MountNames)
+        free(m);
     MountNames.clear();
 
     if (auto* otherMounts = other.GetMountNames())
