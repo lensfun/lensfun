@@ -67,7 +67,6 @@ lfLens::lfLens (const lfLens &other)
     Type = other.Type;
 
     Mounts = NULL;
-    MountNames.clear();
     if (auto* otherMounts = other.GetMountNames())
     {
         for (int i = 0; otherMounts[i]; i++)
