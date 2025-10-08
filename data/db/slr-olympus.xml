@@ -800,6 +800,7 @@
     <lens>
         <maker>Olympus</maker>
         <model>Olympus Zuiko Digital ED 50-200mm f/2.8-3.5 SWD + EC-14 1.4x extender</model>
+        <model lang="en">Olympus Zuiko Digital ED 50-200mm f/2.8-3.5 SWD + EC-14 1.4× extender</model>
         <mount>4/3 System</mount>
         <cropfactor>2.0</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
@@ -861,6 +862,7 @@
     <lens>
         <maker>Olympus</maker>
         <model>Olympus Zuiko Digital ED 50-200mm f/2.8-3.5 SWD + EC-20 2x extender</model>
+        <model lang="en">Olympus Zuiko Digital ED 50-200mm f/2.8-3.5 SWD + EC-20 2× extender</model>
         <mount>4/3 System</mount>
         <cropfactor>2.0</cropfactor>
         <aspect-ratio>4:3</aspect-ratio>
@@ -1385,6 +1387,18 @@
             <vignetting model="pa" focal="300" aperture="16" distance="1000" k1="-0.0674" k2="0.0092" k3="-0.0005"/>
             <vignetting model="pa" focal="300" aperture="22" distance="10" k1="-0.0698" k2="0.0080" k3="0.0026"/>
             <vignetting model="pa" focal="300" aperture="22" distance="1000" k1="-0.0698" k2="0.0080" k3="0.0026"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Olympus</maker>
+        <model>Olympus OM-System Zuiko Auto-S 50 mm f/1.8 (Vers. S/N 5хххххх)</model>
+        <mount>Olympus OM</mount>
+        <cropfactor>2.0</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <!-- Taken with Olympus E-3 -->
+            <distortion model="ptlens" focal="50" a="0.0008829" b="-0.0046151" c="0.0035785"/>
         </calibration>
     </lens>
 

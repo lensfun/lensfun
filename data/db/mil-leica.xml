@@ -50,6 +50,15 @@
     <camera>
         <maker>Leica Camera AG</maker>
         <maker lang="en">Leica</maker>
+        <model>Leica SL3-S</model>
+        <model lang="en">SL3-S</model>
+        <mount>Leica L</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
+    <camera>
+        <maker>Leica Camera AG</maker>
+        <maker lang="en">Leica</maker>
         <model>Leica T (Typ 701)</model>
         <model lang="en">T (Typ 701)</model>
         <mount>Leica L</mount>
@@ -93,7 +102,7 @@
     <lens>
         <maker>Leica Camera AG</maker>
         <maker lang="en">Leica</maker>
-        <model>Summicron TL 1:2 23 ASPH.</model>
+        <model>Summicron-TL 1:2/23 Asph.</model>
         <mount>Leica L</mount>
         <cropfactor>1.53</cropfactor>
         <calibration>
@@ -115,7 +124,7 @@
     <lens>
         <maker>Leica Camera AG</maker>
         <maker lang="en">Leica</maker>
-        <model>Summilux-TL 1:1.4/35 ASPH.</model>
+        <model>Summilux-TL 1:1.4/35 Asph.</model>
         <mount>Leica L</mount>
         <cropfactor>1.53</cropfactor>
         <calibration>
@@ -127,7 +136,7 @@
     <lens>
         <maker>Leica Camera AG</maker>
         <maker lang="en">Leica</maker>
-        <model>Elmarit-TL 1:2.8/18 ASPH.</model>
+        <model>Elmarit-TL 1:2.8/18 Asph.</model>
         <mount>Leica L</mount>
         <cropfactor>1.53</cropfactor>
         <calibration>
@@ -139,7 +148,7 @@
     <lens>
         <maker>Leica Camera AG</maker>
         <maker lang="en">Leica</maker>
-        <model>VARIO-ELMARIT-SL 1:2.8/24-70 ASPH.</model>
+        <model>Vario-Elmarit-SL 1:2.8/24-70 Asph.</model>
         <mount>Leica L</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -155,12 +164,49 @@
     <lens>
         <maker>Leica Camera AG</maker>
         <maker lang="en">Leica</maker>
-        <model>APO-SUMMICRON-SL 1:2/50 ASPH.</model>
+        <model>APO-Summicron-SL 1:2/50 Asph.</model>
         <mount>Leica L</mount>
         <cropfactor>1</cropfactor>
         <calibration>
              <!-- Taken with Leica SL2-S -->
             <distortion model="ptlens" focal="50" a="-0.00560624" b="0.0126691" c="-0.00395041"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Leica Camera AG</maker>
+        <maker lang="en">Leica</maker>
+        <model>APO-Summicron-SL 1:2/35 Asph.</model>
+        <mount>Leica L</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Lumix DC-S5 -->
+            <distortion model="ptlens" focal="35.0" a="0.00301375" b="-0.00739283" c="-0.00204227" />
+            <tca model="poly3" focal="35.0" br="-0.0000534" vr="1.0001312" bb="0.0000270" vb="0.9999340" />
+            <vignetting model="pa" focal="35.0" aperture="2.0" distance="10" k1="-0.7797127" k2="0.0595193" k3="0.0941395" />
+            <vignetting model="pa" focal="35.0" aperture="2.0" distance="1000" k1="-0.7797127" k2="0.0595193" k3="0.0941395" />
+            <vignetting model="pa" focal="35.0" aperture="2.2" distance="10" k1="-0.3388537" k2="-0.6329500" k3="0.4099352" />
+            <vignetting model="pa" focal="35.0" aperture="2.2" distance="1000" k1="-0.3388537" k2="-0.6329500" k3="0.4099352" />
+            <vignetting model="pa" focal="35.0" aperture="2.5" distance="10" k1="-0.1346229" k2="-0.7147228" k3="0.3508394" />
+            <vignetting model="pa" focal="35.0" aperture="2.5" distance="1000" k1="-0.1346229" k2="-0.7147228" k3="0.3508394" />
+            <vignetting model="pa" focal="35.0" aperture="2.8" distance="10" k1="-0.2623902" k2="-0.1120696" k3="-0.0567010" />
+            <vignetting model="pa" focal="35.0" aperture="2.8" distance="1000" k1="-0.2623902" k2="-0.1120696" k3="-0.0567010" />
+            <vignetting model="pa" focal="35.0" aperture="3.2" distance="10" k1="-0.2736375" k2="-0.0425182" k3="-0.0598589" />
+            <vignetting model="pa" focal="35.0" aperture="3.2" distance="1000" k1="-0.2736375" k2="-0.0425182" k3="-0.0598589" />
+            <vignetting model="pa" focal="35.0" aperture="3.5" distance="10" k1="-0.2416791" k2="-0.1872524" k3="0.0856446" />
+            <vignetting model="pa" focal="35.0" aperture="3.5" distance="1000" k1="-0.2416791" k2="-0.1872524" k3="0.0856446" />
+            <vignetting model="pa" focal="35.0" aperture="4.0" distance="10" k1="-0.2321675" k2="-0.1891730" k3="0.0865793" />
+            <vignetting model="pa" focal="35.0" aperture="4.0" distance="1000" k1="-0.2321675" k2="-0.1891730" k3="0.0865793" />
+            <vignetting model="pa" focal="35.0" aperture="5.6" distance="10" k1="-0.2429826" k2="-0.1850045" k3="0.0839631" />
+            <vignetting model="pa" focal="35.0" aperture="5.6" distance="1000" k1="-0.2429826" k2="-0.1850045" k3="0.0839631" />
+            <vignetting model="pa" focal="35.0" aperture="8.0" distance="10" k1="-0.2438660" k2="-0.1836135" k3="0.0823934" />
+            <vignetting model="pa" focal="35.0" aperture="8.0" distance="1000" k1="-0.2438660" k2="-0.1836135" k3="0.0823934" />
+            <vignetting model="pa" focal="35.0" aperture="11.0" distance="10" k1="-0.2381539" k2="-0.1757274" k3="0.0737713" />
+            <vignetting model="pa" focal="35.0" aperture="11.0" distance="1000" k1="-0.2381539" k2="-0.1757274" k3="0.0737713" />
+            <vignetting model="pa" focal="35.0" aperture="16.0" distance="10" k1="-0.2329138" k2="-0.1731482" k3="0.0703784" />
+            <vignetting model="pa" focal="35.0" aperture="16.0" distance="1000" k1="-0.2329138" k2="-0.1731482" k3="0.0703784" />
+            <vignetting model="pa" focal="35.0" aperture="22.0" distance="10" k1="-0.2272149" k2="-0.1725285" k3="0.0692509" />
+            <vignetting model="pa" focal="35.0" aperture="22.0" distance="1000" k1="-0.2272149" k2="-0.1725285" k3="0.0692509" />
         </calibration>
     </lens>
 

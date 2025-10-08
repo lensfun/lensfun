@@ -49,6 +49,13 @@
         <cropfactor>6.0</cropfactor>
     </camera>
 
+     <camera>
+        <maker>Samsung</maker>
+        <model>EX2F</model>
+        <mount>samsungEx2f</mount>
+        <cropfactor>4.6</cropfactor>
+    </camera>
+
     <lens>
         <maker>Samsung</maker>
         <model>WB2000 &amp; compatibles (Standard)</model>
@@ -188,6 +195,25 @@
             <distortion model="ptlens" focal="2.2" a="-0.088" b="0.188" c="-0.116"/>
             <vignetting model="pa" focal="2.2" aperture="2.2" distance="10" k1="-1.1535" k2="1.4806" k3="-0.6592"/>
             <vignetting model="pa" focal="2.2" aperture="2.2" distance="1000" k1="-1.1535" k2="1.4806" k3="-0.6592"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Samsung</maker>
+        <model>EX2F &amp; compatibles (Standard)</model>
+        <model lang="en">fixed lens</model>
+        <model lang="de">festes Objektiv</model>
+        <mount>samsungEx2f</mount>
+        <cropfactor>4.6</cropfactor>
+        <aspect-ratio>4:3</aspect-ratio>
+        <calibration>
+            <distortion model="ptlens" focal="5.2" a="0.0141875" b="-0.0865301" c="0.0272207"/>
+            <distortion model="ptlens" focal="6.7" a="0.0010981" b="-0.0311402" c="0.0053453"/>
+            <distortion model="ptlens" focal="8" a="-0.0016358" b="-0.0114369" c="0.0005657"/>
+            <distortion model="ptlens" focal="9.8" a="0.0065497" b="-0.02978" c="0.0284686"/>
+            <distortion model="ptlens" focal="12.3" a="-0.0051829" b="0.0151597" c="-0.0109257"/>
+            <distortion model="ptlens" focal="15.1" a="0.0002792" b="0.0016963" c="0.0041279"/>
+            <distortion model="ptlens" focal="17.3" a="-0.0081015" b="0.031396" c="-0.0231589"/>
         </calibration>
     </lens>
 

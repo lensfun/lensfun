@@ -2,10 +2,12 @@
 <lensdatabase version="2">
 
     <lens>
-        <maker>Schneider</maker>
-        <model>Schneider 28mm f/2.8 PC</model>
+        <maker>Schneider-Kreuznach</maker>
+        <model>PC-Super-Angulon 28mm f/2.8</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AI-S</mount>
+        <mount>Pentax KAF2</mount>
+        <mount>Sony Alpha</mount>
         <cropfactor>1</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="28" a="0.009514" b="-0.027901" c="0"/>
@@ -14,6 +16,7 @@
 
     <lens>
         <maker>Schneider</maker>
+        <maker lang="en">Schneider-Kreuznach</maker>
         <model>D-Xenon 1:3.5-5.6 18-55mm AL</model>
         <mount>Pentax KAF2</mount>
         <!-- Average crop factor of non-Canon APS-C cameras -->
@@ -29,6 +32,7 @@
 
     <lens>
         <maker>Schneider</maker>
+        <maker lang="en">Schneider-Kreuznach</maker>
         <model>D-Xenon 1:4-5.6 50-200mm AL</model>
         <mount>Pentax KAF2</mount>
         <!-- Average crop factor of non-Canon APS-C cameras -->
@@ -46,14 +50,98 @@
     </lens>
 
     <lens>
-        <maker>Schneider</maker>
-        <model>Schneider Retina-Curtagon 1:4/28mm</model>
+        <maker>Schneider-Kreuznach</maker>
+        <model>Retina-Curtagon 1:4/28mm</model>
         <mount>DKL</mount>
         <cropfactor>1.529</cropfactor>
         <calibration>
             <!-- Taken with Fujifilm X-M1 -->
             <distortion model="ptlens" focal="28" a="0.00591" b="-0.01953" c="0.00935"/>
             <tca model="poly3" focal="28" vr="1.0004290" vb="0.9997397"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Schneider-Kreuznach</maker>
+        <model>Retina-Curtagon 28mm f/4</model>
+        <mount>DKL</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="28" a="0.00877844" b="-0.0258917" c="0.0104073" />
+            <tca model="poly3" focal="28" br="-0.0001462" vr="1.0004455" bb="0.0001369" vb="0.9996998" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Schneider-Kreuznach</maker>
+        <model>Curtagon 35mm f/4</model>
+        <mount>M42</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="35" a="0.00390184" b="-0.0139927" c="0.0111335" />
+            <tca model="poly3" focal="35" br="-0.0000393" vr="1.0003979" bb="0.0000263" vb="0.9995792" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Schneider-Kreuznach</maker>
+        <model>Retina-Curtagon 35mm f/2.8</model>
+        <mount>DKL</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="35" a="0.0091699" b="-0.0297983" c="0.0223008" />
+            <tca model="poly3" focal="35" br="-0.0000681" vr="1.0002250" bb="0.0000576" vb="0.9998806" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Schneider-Kreuznach</maker>
+        <model>Retina-Tele-Arton 85mm f/4</model>
+        <mount>DKL</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="85" a="-0.000401254" b="0.00366914" c="0.00257954" />
+            <tca model="poly3" focal="85" br="0.0001219" vr="0.9993754" bb="-0.0001220" vb="1.0002823" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Schneider-Kreuznach</maker>
+        <model>Tele-Xenar 90mm f/3.5</model>
+        <mount>M42</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="90" a="0.0027264" b="-0.00966105" c="0.017257" />
+            <tca model="poly3" focal="90" br="0.0000789" vr="0.9993739" bb="-0.0001366" vb="1.0005777" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Schneider-Kreuznach</maker>
+        <model>Retina-Tele-Xenar 135mm f/4</model>
+        <mount>DKL</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="135" a="-0.000615107" b="0.00691657" c="0.00495058" />
+            <tca model="poly3" focal="135" br="0.0003517" vr="0.9989566" bb="-0.0003327" vb="1.0003613" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Schneider-Kreuznach</maker>
+        <model>Retina-Xenon 50mm f/1.9</model>
+        <mount>DKL</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="50" a="-0.00161149" b="0.00128889" c="-0.0081282" />
+            <tca model="poly3" focal="50" br="-0.0000044" vr="1.0000536" bb="-0.0000055" vb="0.9999047" />
         </calibration>
     </lens>
 

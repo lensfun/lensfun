@@ -33,7 +33,7 @@
         <maker lang="en">Leica</maker>
         <model>M8 Digital Camera</model>
         <mount>Leica M</mount>
-        <cropfactor>1</cropfactor>
+        <cropfactor>1.33</cropfactor>
     </camera>
 
     <camera>
@@ -116,11 +116,19 @@
         <cropfactor>1</cropfactor>
     </camera>
 
+    <camera>
+        <maker>Leica Camera AG</maker>
+        <maker lang="en">Leica</maker>
+        <model>Leica M11-D</model>
+        <model lang="en">M11-D</model>
+        <mount>Leica M</mount>
+        <cropfactor>1</cropfactor>
+    </camera>
+
     <lens>
         <maker>Leica Camera AG</maker>
         <maker lang="en">Leica</maker>
-        <model>Elmarit-M 1:2.8/28 ASPH.</model>
-        <model lang="en">Elmarit-M 28mm f/2.8 ASPH</model>
+        <model>Elmarit-M 1:2.8/28 Asph.</model>
         <mount>Leica M</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -133,7 +141,6 @@
         <maker>Leica Camera AG</maker>
         <maker lang="en">Leica</maker>
         <model>Elmarit-M 1:2.8/90</model>
-        <model lang="en">Elmarit-M 90mm f/2.8</model>
         <mount>Leica M</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -147,7 +154,6 @@
         <maker lang="en">Leica</maker>
         <model>Summicron-M 1:2/50</model>
         <!-- Model 11819/11825/11826/11816 -->
-        <model lang="en">Summicron-M 50mm f/2</model>
         <mount>Leica M</mount>
         <cropfactor>1</cropfactor>
         <calibration>
@@ -160,13 +166,41 @@
     <lens>
         <maker>Leica Camera AG</maker>
         <maker lang="en">Leica</maker>
-        <model>Summicron-M 1:2/28 ASPH.</model>
+        <model>Summicron-M 1:2/28 Asph.</model>
         <mount>Leica M</mount>
         <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Leica M9 Digital Camera -->
             <distortion model="ptlens" focal="28" a="0.0135748" b="-0.0502846" c="0.0486119"/>
             <tca model="poly3" focal="28" vr="1.0001441" vb="0.9999670"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Leica Camera AG</maker>
+        <maker lang="en">Leica</maker>
+        <model>Summicron-M 1:2/35 Asph.</model>
+        <model lang="en">Summicron-M 1:2/35 Asph. (11879/11882)</model>
+        <mount>Leica M</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Leica M10 Digital Camera -->
+            <distortion model="ptlens" focal="35" a="0.0183736" b="-0.0506454" c="0.0446071"/>
+            <tca model="poly3" focal="35" br="-0.0001021" vr="1.0001994" bb="0.0002990" vb="0.9996237"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Leica Camera AG</maker>
+        <maker lang="en">Leica</maker>
+        <model>APO-Summicron-M 1:2/75 Asph.</model>
+        <model lang="en">APO-Summicron-M 1:2/75 Asph. (11673/11701)</model>
+        <mount>Leica M</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Leica M10 Digital Camera -->
+            <distortion model="ptlens" focal="75" a="-0.005889" b="0.0201916" c="-0.0106667"/>
+            <tca model="poly3" focal="75" br="0.0000240" vr="1.0000099" bb="-0.0000089" vb="0.9999321"/>
         </calibration>
     </lens>
 

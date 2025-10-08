@@ -5,8 +5,8 @@ argument and converts it into an extracted set of files in the same directory.
 Moreover, all image files are renamed so that the most important image
 parameters like the focal length are included into the filename.  Furthermore, a
 GitHub issue is created in the “lensfun/lensfun” repository.  Finally, the
-ownCloud command line client is called for pushing the new files to the
-ownCloud server for the calibrators to pick them up.
+Nextcloud command line client is called for pushing the new files to the
+Nextcloud server for the calibrators to pick them up.
 
 Besides the archive file, it expects a file ``originator.json`` in the same
 directory which contains only one string, which is the email address of the
@@ -19,7 +19,7 @@ This script works in two modes of operation:
 2. The first argument is "amended" and the second the absolute path to a
    directory.  This happens if the first processing resulted in missing EXIF
    data, and the user has provided it, and now the final stages of processing
-   (e.g. GitHub issue, ownCloud synchronisation) can be performed.  The
+   (e.g. GitHub issue, Nextcloud synchronisation) can be performed.  The
    directory is in this case the directory into which the original tarball was
    extracted.
 
@@ -31,7 +31,7 @@ success message in their browser.
 import sys, os, subprocess, json, re, multiprocessing, smtplib, configparser, logging
 from email.mime.text import MIMEText
 from github import Github
-from calibration_webserver import owncloud, utils
+from calibration_webserver import nextcloud, utils
 
 
 logging.basicConfig(level=logging.DEBUG, filename="/var/log/process_upload.log")
@@ -142,12 +142,12 @@ def handle_successful_upload():
     """Make all necessary steps after a successful upload.  This encompasses:
 
     1. Creation of an GitHub issue.
-    2. Synchronisation of the ownCloud directory.
+    2. Synchronisation of the Nextcloud directory.
     3. Sending of a success email to the uploader.
     """
     issue_link = sync_with_github()
     send_success_email(issue_link)
-    owncloud.sync()
+    nextcloud.sync()
 
 
 def write_result_and_exit(error, missing_data=[]):
@@ -466,15 +466,15 @@ class GithubConfiguration:
 
 def quote_directory(path):
     """Walks through `path` and escapes all names of files and directories.  After
-    this operation, the directory can be safely transferred with ownCloud.
+    this operation, the directory can be safely transferred with Nextcloud.
     Moreover, Hugin will not complain about the filenames.  *Important*: This
     function is idempotent.
 
     :param str path: the path to the directory to be escaped
     """
     def quote_filename_component(name):
-        """Escapes `name` so that it can be safely used as a filename in ownCloud or
-        Hugin.  *Important*: This function is idempotent.
+        """Escapes `name` so that it can be safely used as a filename in Nextcloud
+        or Hugin.  *Important*: This function is idempotent.
 
         :param str name: the name to be escaped
 

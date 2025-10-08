@@ -23,6 +23,8 @@ jobs:
         python-version: '3.x'
     - name: Install python build
       run: python -m pip install --upgrade pip build
+    - name: Install glib-2.0
+      run: sudo apt update && sudo apt install libglib2.0-dev
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_TESTS=ON
     - name: Build

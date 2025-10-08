@@ -782,7 +782,8 @@
 
     <lens>
         <maker>Sony</maker>
-        <model>Sony DT 18-135mm f/3.5-5.6 SAM</model>
+        <model>Sony DT 18-135mm f/3.5-5.6 SAM (SAL18135)</model>
+        <model lang="en">Sony DT 18-135mm f/3.5-5.6 SAM</model>
         <mount>Sony Alpha</mount>
         <cropfactor>1.523</cropfactor>
         <calibration>
@@ -1170,6 +1171,18 @@
             <vignetting model="pa" focal="85" aperture="5.6" distance="1000" k1="-0.1250" k2="0.0118" k3="0.0106"/>
             <vignetting model="pa" focal="85" aperture="22" distance="10" k1="-0.1650" k2="0.0821" k3="-0.0427"/>
             <vignetting model="pa" focal="85" aperture="22" distance="1000" k1="-0.1650" k2="0.0821" k3="-0.0427"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sony</maker>
+        <model>Carl Zeiss Sonnar T* 135mm F1.8 ZA (SAL135F18Z)</model>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCA-99M2 (Alpha 99 II) -->
+            <distortion model="ptlens" focal="135" a="0.01336" b="-0.05693" c="0.08176"/>
+            <tca model="poly3" focal="135" vr="0.9999955" vb="0.9999812"/>
         </calibration>
     </lens>
 
