@@ -27,25 +27,26 @@ IF(INSTALL_PYTHON_MODULE)
       MESSAGE(FATAL_ERROR "Python3 not found, it might be a dummy python.exe")
     ENDIF()
 
-    SET(SETUP_PY_IN "${CMAKE_CURRENT_SOURCE_DIR}/setup.py.in")
-    SET(SETUP_PY    "${CMAKE_CURRENT_BINARY_DIR}/setup.py")
-    SET(DEPS_IN     "${CMAKE_CURRENT_SOURCE_DIR}/lensfun/__init__.py.in")
-    SET(DEPS        "${CMAKE_CURRENT_BINARY_DIR}/lensfun/__init__.py")
-    SET(OUTPUT      "${CMAKE_CURRENT_BINARY_DIR}/build/timestamp")
+    SET(PYPROJECT_TOML_IN "${CMAKE_CURRENT_SOURCE_DIR}/pyproject.toml.in")
+    SET(PYPROJECT_TOML    "${CMAKE_CURRENT_BINARY_DIR}/pyproject.toml")
+    SET(DEPS_IN           "${CMAKE_CURRENT_SOURCE_DIR}/lensfun/__init__.py.in")
+    SET(DEPS              "${CMAKE_CURRENT_BINARY_DIR}/lensfun/__init__.py")
+    SET(OUTPUT            "${CMAKE_CURRENT_BINARY_DIR}/build/timestamp")
 
+    FILE(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/build/")
     FILE(TO_NATIVE_PATH "${CMAKE_CURRENT_BINARY_DIR}" PY_PACKAGE_DIR)
-    CONFIGURE_FILE(${SETUP_PY_IN} ${SETUP_PY})
+    CONFIGURE_FILE(${PYPROJECT_TOML_IN} ${PYPROJECT_TOML})
     CONFIGURE_FILE(${DEPS_IN} ${DEPS})
 
     ADD_CUSTOM_COMMAND(OUTPUT ${OUTPUT}
-                       COMMAND ${Python3_EXECUTABLE} ${SETUP_PY} build
+                       COMMAND ${Python3_EXECUTABLE} -m build ${CMAKE_CURRENT_BINARY_DIR}
                        COMMAND ${CMAKE_COMMAND} -E touch ${OUTPUT}
-                       DEPENDS ${SETUP_PY_IN} ${DEPS_IN})
+                       DEPENDS ${PYPROJECT_TOML_IN} ${DEPS_IN})
 
     ADD_CUSTOM_TARGET(python-package ALL DEPENDS ${OUTPUT})
 
-    IF(NOT DEFINED SETUP_PY_INSTALL_PREFIX)
-      SET(SETUP_PY_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+    IF(NOT DEFINED PY_INSTALL_PREFIX)
+      SET(PY_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
     ENDIF()
-    INSTALL(CODE "execute_process(COMMAND ${Python3_EXECUTABLE} ${SETUP_PY} install --prefix=\$ENV{DESTDIR}${SETUP_PY_INSTALL_PREFIX})")
+    INSTALL(CODE "execute_process(COMMAND ${Python3_EXECUTABLE} -m pip install --prefix=\$ENV{DESTDIR}${PY_INSTALL_PREFIX} ${CMAKE_CURRENT_BINARY_DIR})")
 ENDIF()
