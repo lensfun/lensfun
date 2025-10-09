@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 #
 # Copyright 2012-2016 Torsten Bronger <bronger@physik.rwth-aachen.de>
-# Modified 2025 by wilbur to add verbose logging option.
 
 missing_packages = set()
 
