@@ -42,7 +42,12 @@ h_option = [] if 8.99 < dcraw_version < 9.18 else ["-h"]
 
 parser = argparse.ArgumentParser(description="Calibration generator for Lensfun.")
 parser.add_argument("--complex-tca", action="store_true", help="switches on non-linear polynomials for TCA")
+parser.add_argument("--verbose", action="store_true", help="enable verbose logging")
 args = parser.parse_args()
+
+def log(msg):
+    if args.verbose:
+        print(f"[INFO] {msg}")
 
 
 def unquote_filename_component(name):
@@ -274,6 +279,7 @@ if __name__ == '__main__':
     #
     # Collect EXIF data
     #
+    log("Collecting EXIF data")
 
     file_exif_data = {}
     filepath_pattern = re.compile(r"(?P<lens_model>.+)--(?P<focal_length>[0-9.]+)mm--(?P<aperture>[0-9.]+)")
@@ -322,6 +328,7 @@ You have to rename them according to the scheme "Lens_name--16mm--1.4.RAW"
     #
     # Generation TIFFs from distortion RAWs
     #
+    log("Generating TIFFs from distortion RAWs")
 
     if os.path.exists("distortion"):
         with chdir("distortion"):
@@ -338,7 +345,9 @@ You have to rename them according to the scheme "Lens_name--16mm--1.4.RAW"
     #
     # Parse/generate lenses.txt
     #
-
+    
+    log("Parsing/generating lenses.txt")
+    
     lens_line_pattern = re.compile(
         r"(?P<name>.+):\s*(?P<maker>[^,]+)\s*,\s*(?P<mount>[^,]+)\s*,\s*(?P<cropfactor>[^,]+)"
         r"(\s*,\s*(?P<aspect_ratio>\d+:\d+|[0-9.]+))?(\s*,\s*(?P<type>[^,]+))?")
@@ -401,8 +410,10 @@ You have to rename them according to the scheme "Lens_name--16mm--1.4.RAW"
     #
     # TCA correction
     #
+    log("Running TCA correction")
 
     if os.path.exists("tca"):
+        
         with chdir("tca"):
             pool = multiprocessing.Pool()
             results = set()
@@ -440,10 +451,11 @@ pause -1""".format(filename, data["br"], data["vr"], data["bb"], data["vb"]))
     #
     # Vignetting
     #
-
+    log("Running vignetting correction")
+    
     images = {}
     distances_per_triplett = {}
-
+        
     for vignetting_directory in glob.glob("vignetting*"):
         distance = float(vignetting_directory.partition("_")[2] or "inf")
         assert distance == float("inf") or distance < 1000
@@ -492,7 +504,7 @@ pause -1""".format(filename, data["br"], data["vr"], data["bb"], data["vb"]))
             print("""Lens "{0}" not found in lenses.txt.  Abort.""".format(lens))
             sys.exit()
 
-
+    log("Updating lensfun.xml")
     outfile = open("lensfun.xml", "w")
     outfile.write("<lensdatabase>\n")
     for lens in sorted(lenses.values()):
