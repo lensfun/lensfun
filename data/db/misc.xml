@@ -2532,4 +2532,16 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Petri</maker>
+        <model>Auto Petri 55mm f/1.8</model>
+        <mount>M42</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="55" a="0.00192505" b="-0.0140858" c="0.00997224" />
+            <tca model="poly3" focal="55" br="0.0000240" vr="0.9999786" bb="-0.0000277" vb="1.0000675" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
