@@ -2520,4 +2520,16 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Mamiya</maker>
+        <model>Mamiya/Sekor SX 55mm f/1.8</model>
+        <mount>M42</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="55" a="-2.38988e-05" b="-0.00373166" c="0.00560618" />
+            <tca model="poly3" focal="55" br="-0.0000149" vr="1.0000798" bb="0.0000261" vb="0.9998597" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
