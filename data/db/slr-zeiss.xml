@@ -5,8 +5,8 @@
         <maker>Zeiss</maker>
         <model>Carl Zeiss Distagon T* 2/35 ZF.2</model>
         <mount>Nikon F AI-S</mount>
-	<mount>Canon EF</mount>
-	<mount>Pentax KAF2</mount>
+	    <mount>Canon EF</mount>
+	    <mount>Pentax KAF2</mount>
         <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Nikon D3 -->
@@ -30,8 +30,8 @@
         <maker>Zeiss</maker>
         <model>Carl Zeiss Distagon T* 2.8/21 ZF.2</model>
         <mount>Nikon F AI-S</mount>
-	<mount>Canon EF</mount>
-	<mount>Pentax KAF2</mount>
+	    <mount>Canon EF</mount>
+	    <mount>Pentax KAF2</mount>
         <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Nikon D800E -->
@@ -102,8 +102,8 @@
         <maker>Zeiss</maker>
         <model>Carl Zeiss Planar T* 1.4/50 ZF.2</model>
         <mount>Nikon F AF</mount>
-	<mount>Canon EF</mount>
-	<mount>Pentax KAF2</mount>
+	    <mount>Canon EF</mount>
+	    <mount>Pentax KAF2</mount>
         <cropfactor>1.523</cropfactor>
         <calibration>
              <!-- Taken with Nikon D90 -->
@@ -115,8 +115,8 @@
         <maker>Zeiss</maker>
         <model>Carl Zeiss Distagon T* 3.5/18 ZF.2</model>
         <mount>Nikon F AF</mount>
-	<mount>Canon EF</mount>
-	<mount>Pentax KAF2</mount>
+	    <mount>Canon EF</mount>
+	    <mount>Pentax KAF2</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
             <!-- Taken with Nikon D700 -->
@@ -140,8 +140,8 @@
         <maker>Zeiss</maker>
         <model>Carl Zeiss Distagon T* 3.5/18 ZF.2</model>
         <mount>Nikon F AF</mount>
-	<mount>Canon EF</mount>
-	<mount>Pentax KAF2</mount>
+	    <mount>Canon EF</mount>
+	    <mount>Pentax KAF2</mount>
         <cropfactor>1.523</cropfactor>
         <calibration>
             <!-- Taken with Nikon D90 -->
@@ -265,7 +265,7 @@
             <!-- Taken with Sony ILCE-7RM2 -->
             <distortion model="ptlens" focal="135" a="0.000694452" b="0.00204654" c="0.00157865" />
             <tca model="poly3" focal="135" br="-0.0000118" vr="0.9997083" bb="-0.0000435" vb="1.0001135" />
-	    <vignetting model="pa" focal="135" aperture="3.5" distance="10" k1="-1.0500" k2="1.3143" k3="-0.7419"/>
+	        <vignetting model="pa" focal="135" aperture="3.5" distance="10" k1="-1.0500" k2="1.3143" k3="-0.7419"/>
             <vignetting model="pa" focal="135" aperture="3.5" distance="1000" k1="-1.0500" k2="1.3143" k3="-0.7419"/>
             <vignetting model="pa" focal="135" aperture="5.6" distance="10" k1="-0.1327" k2="-0.1055" k3="-0.1124"/>
             <vignetting model="pa" focal="135" aperture="5.6" distance="1000" k1="-0.1327" k2="-0.1055" k3="-0.1124"/>
@@ -292,4 +292,15 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Zeiss</maker>
+        <model>Carl Zeiss Sonnar T* 180mm f/2.8 MMJ</model>
+        <mount>Contax/Yashica</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="180" a="-0.00301748" b="0.0124454" c="-0.0125485" />
+            <tca model="poly3" focal="180" br="-0.0000619" vr="0.9998164" bb="0.0000123" vb="0.9998647" />
+        </calibration>
+    </lens>
 </lensdatabase>
