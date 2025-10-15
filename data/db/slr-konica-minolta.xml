@@ -654,4 +654,28 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Minolta</maker>
+        <model>Minolta MD 24mm f/2.8</model>
+        <mount>Minolta MD</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="24" a="0.0250502" b="-0.0666636" c="0.0372358" />
+            <tca model="poly3" focal="24" br="-0.0000632" vr="1.0007289" bb="0.0002106" vb="0.9994335" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Minolta</maker>
+        <model>Minolta MD 45mm f/2</model>
+        <mount>Minolta MD</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7RM2 -->
+            <distortion model="ptlens" focal="45" a="0.00109286" b="-0.0114397" c="0.011537" />
+            <tca model="poly3" focal="45" br="-0.0000257" vr="1.0001698" bb="0.0000112" vb="0.9997966" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
