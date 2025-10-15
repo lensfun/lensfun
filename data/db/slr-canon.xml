@@ -7615,12 +7615,13 @@
 
     <lens>
         <maker>Canon</maker>
-        <model>Canon FD 50mm f/1.4 S.C.C.</model>
+        <model>Canon FD 50mm f/1.4 S.S.C.</model>
         <mount>Canon FD</mount>
         <cropfactor>1</cropfactor>
         <calibration>
            <!-- Taken with Sony ILCE-7RM2 and Canon FD to Sony E adapter -->
-            <distortion model="poly3" focal="50" k1="-0.00341"/>
+            <distortion model="ptlens" focal="50" a="-0.00283862" b="0.00747813" c="-0.0157141" />
+            <tca model="poly3" focal="50" br="-0.0000237" vr="1.0000968" bb="0.0000904" vb="0.9998966" />
             <vignetting model="pa" focal="50" aperture="1.4" distance="10" k1="-1.6342" k2="1.3519" k3="-0.5462"/>
             <vignetting model="pa" focal="50" aperture="1.4" distance="1000" k1="-1.6342" k2="1.3519" k3="-0.5462"/>
             <vignetting model="pa" focal="50" aperture="2" distance="10" k1="0.1790" k2="-1.6048" k3="0.7748"/>
