@@ -2544,4 +2544,36 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>TTArtisan</maker>
+        <model>E 23mm F1.8</model>
+        <model lang="en">TTArtisan AF 23mm F1.8</model>
+        <mount>Sony E</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony NEX-5T -->
+            <distortion model="ptlens" focal="23" a="0.0195014" b="-0.053401" c="0.0290236"/>
+            <vignetting model="pa" focal="23" aperture="1.8" distance="10" k1="-1.1455" k2="0.1774" k3="0.2029"/>
+            <vignetting model="pa" focal="23" aperture="1.8" distance="1000" k1="-1.1455" k2="0.1774" k3="0.2029"/>
+            <vignetting model="pa" focal="23" aperture="2.2" distance="10" k1="-0.5170" k2="-1.1195" k3="0.9144"/>
+            <vignetting model="pa" focal="23" aperture="2.2" distance="1000" k1="-0.5170" k2="-1.1195" k3="0.9144"/>
+            <vignetting model="pa" focal="23" aperture="2.8" distance="10" k1="-0.0417" k2="-1.3303" k3="0.7501"/>
+            <vignetting model="pa" focal="23" aperture="2.8" distance="1000" k1="-0.0417" k2="-1.3303" k3="0.7501"/>
+            <vignetting model="pa" focal="23" aperture="3.5" distance="10" k1="-0.2666" k2="-0.2068" k3="-0.0376"/>
+            <vignetting model="pa" focal="23" aperture="3.5" distance="1000" k1="-0.2666" k2="-0.2068" k3="-0.0376"/>
+            <vignetting model="pa" focal="23" aperture="4.5" distance="10" k1="-0.3442" k2="0.0622" k3="-0.1353"/>
+            <vignetting model="pa" focal="23" aperture="4.5" distance="1000" k1="-0.3442" k2="0.0622" k3="-0.1353"/>
+            <vignetting model="pa" focal="23" aperture="5.6" distance="10" k1="-0.3969" k2="0.1754" k3="-0.1496"/>
+            <vignetting model="pa" focal="23" aperture="5.6" distance="1000" k1="-0.3969" k2="0.1754" k3="-0.1496"/>
+            <vignetting model="pa" focal="23" aperture="8" distance="10" k1="-0.3587" k2="0.0070" k3="0.0114"/>
+            <vignetting model="pa" focal="23" aperture="8" distance="1000" k1="-0.3587" k2="0.0070" k3="0.0114"/>
+            <vignetting model="pa" focal="23" aperture="11" distance="10" k1="-0.3662" k2="0.0114" k3="0.0063"/>
+            <vignetting model="pa" focal="23" aperture="11" distance="1000" k1="-0.3662" k2="0.0114" k3="0.0063"/>
+            <vignetting model="pa" focal="23" aperture="16" distance="10" k1="-0.3815" k2="0.0435" k3="-0.0147"/>
+            <vignetting model="pa" focal="23" aperture="16" distance="1000" k1="-0.3815" k2="0.0435" k3="-0.0147"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
