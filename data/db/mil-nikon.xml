@@ -1780,4 +1780,27 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Nikon</maker>
+        <model>Nikkor Z 70-180mm f/2.8</model>
+        <mount>Nikon Z</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon Z 5 -->
+            <distortion model="ptlens" focal="70" a="-0.0014891" b="-0.0022833" c="-0.0007796"/>
+            <distortion model="ptlens" focal="77" a="0.0062255" b="-0.025258" c="0.0277798"/>
+            <distortion model="ptlens" focal="85" a="0.0021242" b="-0.0083883" c="0.0122945"/>
+            <distortion model="ptlens" focal="105" a="-0.0037938" b="0.0191973" c="-0.0137919"/>
+            <distortion model="ptlens" focal="145" a="-0.0017162" b="0.0220639" c="-0.0107605"/>
+            <distortion model="ptlens" focal="180" a="-0.0013213" b="0.0233964" c="-0.0086344"/>
+            <tca model="poly3" focal="70" br="-0.0000177" vr="1.0000725" bb="-0.0000086" vb="1.0000667"/>
+            <tca model="poly3" focal="77" br="-0.0000030" vr="1.0000478" bb="-0.0000171" vb="1.0000786"/>
+            <tca model="poly3" focal="85" br="-0.0000082" vr="1.0000459" bb="-0.0000147" vb="1.0000769"/>
+            <tca model="poly3" focal="102" br="0.0000018" vr="0.9999911" bb="-0.0000069" vb="1.0000194"/>
+            <tca model="poly3" focal="130" br="0.0000041" vr="0.9999558" bb="-0.0000240" vb="0.9999633"/>
+            <tca model="poly3" focal="150" br="-0.0000069" vr="0.9999536" bb="-0.0000118" vb="0.9999530"/>
+            <tca model="poly3" focal="180" br="-0.0000825" vr="1.0000145" bb="-0.0000160" vb="0.9999411"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
