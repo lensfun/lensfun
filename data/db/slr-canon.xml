@@ -8455,4 +8455,19 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 100-300mm f/4.5-5.6 USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS 6D -->
+            <distortion model="ptlens" focal="100" a="-7.86e-05" b="0.0057882" c="-0.0024446"/>
+            <distortion model="ptlens" focal="150" a="0.0014663" b="0.0062207" c="0.0007607"/>
+            <distortion model="ptlens" focal="200" a="0.0001452" b="0.011971" c="-0.0068364"/>
+            <distortion model="ptlens" focal="250" a="-0.0023475" b="0.0197936" c="-0.0123346"/>
+            <distortion model="ptlens" focal="300" a="0.0045653" b="-0.0003783" c="0.0059824"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
