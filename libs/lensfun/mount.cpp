@@ -40,6 +40,8 @@ lfMount &lfMount::operator = (const lfMount &other)
     Name = lf_mlstr_dup (other.Name);
     Compat = NULL;
 
+    for (char* m: MountCompat)
+        free(m);
     MountCompat.clear();
     if (auto* otherMounts = other.GetCompats())
     {
