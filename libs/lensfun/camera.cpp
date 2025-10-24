@@ -76,11 +76,6 @@ bool lfCamera::Check ()
 
 //---------------------------// The C interface //---------------------------//
 
-lfCamera *lf_camera_new ()
-{
-    return new lfCamera ();
-}
-
 lfCamera *lf_camera_create ()
 {
     return new lfCamera ();

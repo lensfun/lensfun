@@ -92,11 +92,6 @@ bool lfMount::Check ()
 
 //---------------------------// The C interface //---------------------------//
 
-lfMount *lf_mount_new ()
-{
-    return new lfMount ();
-}
-
 lfMount *lf_mount_create ()
 {
     return new lfMount ();
