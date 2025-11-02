@@ -1090,7 +1090,7 @@
         <cropfactor>1</cropfactor>
         <calibration>
             <!-- Taken with Nikon Z 6II -->
-            <!-- this lens has very bad vignetting in the corenrs around 2.8-4.0 apperture -->
+            <!-- this lens has very bad vignetting in the corners around 2.8-4.0 aperture -->
             <distortion model="ptlens" focal="50" a="0.00493" b="-0.02527" c="0.01242"/>
             <vignetting model="pa" focal="50" aperture="1.4" distance="10" k1="-1.1683" k2="0.8130" k3="-0.3889"/>
             <vignetting model="pa" focal="50" aperture="1.4" distance="1000" k1="-1.1683" k2="0.8130" k3="-0.3889"/>
@@ -2490,7 +2490,7 @@
         <mount>Leica M</mount>
         <cropfactor>1.0</cropfactor>
         <calibration>
-            <!-- Taken with ILCE-7CM2, tca & vignetting coeffients fitted from exif data by lf_fitexif_se -->
+            <!-- Taken with ILCE-7CM2, tca & vignetting coefficients fitted from exif data by lf_fitexif_se -->
             <distortion model="ptlens" focal="28" a="0.010052" b="-0.0343339" c="0.0244028"/>
             <tca model="poly3" focal="28" vr="1.0007521" cr="-0.0004828" br="0.0001092" vb="0.9993413" cb="0.0004002" bb="0.0000667"/>
             <vignetting model="pa" focal="28" aperture="1.5" distance="10" k1="-2.1713419" k2="2.2736460" k3="-0.9439038"/>
