@@ -14,7 +14,6 @@
 
 typedef struct
 {
-  void       *coordBuff;
   size_t      img_width, img_height;
   lfModifier *mod;
   lfLens     *lens;
@@ -32,17 +31,11 @@ void mod_setup (lfFixture *lfFix, gconstpointer data)
     lfFix->mod = new lfModifier(lfFix->lens, 1.0f, 1.0f, lfFix->img_width, lfFix->img_height, LF_PF_F32, true);
 
     lfFix->mod->EnableScaling(10.0f);
-
-    lfFix->coordBuff = NULL;
-
-    const size_t bufsize = 2 * lfFix->img_width * lfFix->img_height * sizeof (float);
-    lfFix->coordBuff = g_malloc (bufsize);
 }
 
 void mod_teardown (lfFixture *lfFix, gconstpointer data)
 {
     (void)data;
-    g_free (lfFix->coordBuff);
 
     delete lfFix->mod;
     delete lfFix->lens;
