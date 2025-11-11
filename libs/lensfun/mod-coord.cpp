@@ -4,8 +4,19 @@
 
     Most of the math in this file has been borrowed from PanoTools.
     Thanks to the PanoTools team for their pioneering work.
+*/
 
-    See modifier.cpp for general info about the coordinate systems.
+#include "config.h"
+#include "lensfun.h"
+#include "lensfunprv.h"
+#include <math.h>
+#include "windows/mathconstants.h"
+#include <limits>
+#include <cassert>
+
+/*
+    Rescale polynomial coefficients to fit the internal (natural) coordinate
+    system. See modifier.cpp for general info about the coordinate systems.
 
     Note about PT-based distortion models: Due to the "d" parameter in the
     PanoTools/Hugin formula for the modelling of distortion, its application
@@ -25,15 +36,6 @@
 
     The same applies to the poly3 model, where a, b, c are 0, k1, 0.
 */
-
-#include "config.h"
-#include "lensfun.h"
-#include "lensfunprv.h"
-#include <math.h>
-#include "windows/mathconstants.h"
-#include <limits>
-#include <cassert>
-
 lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistortion& lcd_, double real_focal)
 {
     // FixMe: The ACM probably bases on the nominal focal length.  This needs
