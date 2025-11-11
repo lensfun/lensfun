@@ -332,6 +332,42 @@ void test_verify_geom_fisheye_rectlinear (lfFixture *lfFix, gconstpointer data)
 }
 
 
+void test_verify_scaling (lfFixture *lfFix, gconstpointer data)
+{
+    (void)data;
+    // select a lens from database
+    const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "M.Zuiko Digital ED 8mm f/1.8 Fisheye");
+    g_assert_nonnull(lenses);
+    g_assert_cmpstr(lenses[0]->Model, ==, "Olympus M.Zuiko Digital ED 8mm f/1.8 Fisheye Pro");
+
+    lfModifier* mod = new lfModifier (lenses[0], 8.0f, 2.0f, 301, 301, LF_PF_U16, false);
+
+    mod->EnableScaling(2.0f);
+
+    float coords [2];
+
+    // Image center is unscaled
+    g_assert_true(mod->ApplyGeometryDistortion (150, 150, 1, 1, coords));
+    g_assert_cmpfloat (fabs (coords [0] - 150.0f), <=, 1e-1);
+    g_assert_cmpfloat (fabs (coords [1] - 150.0f), <=, 1e-1);
+
+    // Other coordinates are scaled by the proper factor
+    g_assert_true(mod->ApplyGeometryDistortion (200, 200, 1, 1, coords));
+    g_assert_cmpfloat (fabs (coords [0] - 175.0f), <=, 1e-1);
+    g_assert_cmpfloat (fabs (coords [1] - 175.0f), <=, 1e-1);
+
+    g_assert_true(mod->ApplyGeometryDistortion (100, 100, 1, 1, coords));
+    g_assert_cmpfloat (fabs (coords [0] - 125.0f), <=, 1e-1);
+    g_assert_cmpfloat (fabs (coords [1] - 125.0f), <=, 1e-1);
+
+
+    g_print("\n%.8f, %.8f\n", coords[0], coords[1]);
+
+    delete mod;
+    lf_free (lenses);
+}
+
+
 int main (int argc, char **argv)
 {
   setlocale (LC_ALL, "");
@@ -350,6 +386,9 @@ int main (int argc, char **argv)
 
   g_test_add ("/modifier/coord/geom/verify_equisolid_linrect", lfFixture, NULL,
               mod_setup, test_verify_geom_fisheye_rectlinear, mod_teardown);
+
+  g_test_add ("/modifier/coord/scaling/verify_scaling", lfFixture, NULL,
+              mod_setup, test_verify_scaling, mod_teardown);
 
   g_test_add ("/modifier/color/vignetting/verify_pa", lfFixture, NULL,
               mod_setup, test_verify_vignetting_pa, mod_teardown);
