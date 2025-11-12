@@ -2592,5 +2592,27 @@
             <vignetting model="pa" focal="24" aperture="16" distance="1000" k1="-0.9168" k2="1.5747" k3="-1.6994"/>
         </calibration>
     </lens>
-	
+
+	<lens>
+        <maker>Canon</maker>
+        <model>Canon RF 10-20mm f/4L IS STM</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS R8 -->
+            <distortion model="ptlens" focal="10" a="0.0322846" b="-0.1283134" c="0.0513107"/>
+            <distortion model="ptlens" focal="12" a="0.0294753" b="-0.1167816" c="0.0751366"/>
+            <distortion model="ptlens" focal="14" a="0.0218837" b="-0.092855" c="0.0798338"/>
+            <distortion model="ptlens" focal="16" a="0.0107905" b="-0.054198" c="0.052826"/>
+            <distortion model="ptlens" focal="18" a="0.0019816" b="-0.0248472" c="0.0340744"/>
+            <distortion model="ptlens" focal="20" a="-0.0003806" b="-0.0149683" c="0.0275837"/>
+            <tca model="poly3" focal="10" vr="1.0002564" vb="1.0001442"/>
+            <tca model="poly3" focal="12" vr="1.0002243" vb="1.0001387"/>
+            <tca model="poly3" focal="14" vr="1.0002188" vb="1.0001508"/>
+            <tca model="poly3" focal="16" vr="1.0001484" vb="1.0001859"/>
+            <tca model="poly3" focal="18" vr="1.0001195" vb="1.0002298"/>
+            <tca model="poly3" focal="20" vr="1.0000916" vb="1.0002501"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
