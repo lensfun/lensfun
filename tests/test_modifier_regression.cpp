@@ -164,16 +164,15 @@ void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
 
-    lf_u16 expected[] = {22406, 22406, 24156, 28803};
-
-    lf_u16 coords [3] = {16000, 16000, 16000};
+    lf_u16 expected[] = {22406, 16000, 17250, 19078};
     for (unsigned int i = 0; i < sizeof(x) / sizeof(float); i++)
     {
-        g_assert_true(mod->ApplyColorModification(&coords[0], x[i], y[i], 1, 1, LF_CR_3(RED,GREEN,BLUE), 0));
-        //g_print("\n%d, %d, %d\n", coords[0], coords[1], coords[2]);
-        g_assert_cmpfloat (fabs (coords [0] - expected [i]), <=, 1e-3);
-        g_assert_cmpfloat (fabs (coords [1] - expected [i]), <=, 1e-3);
-        g_assert_cmpfloat (fabs (coords [2] - expected [i]), <=, 1e-3);
+        lf_u16 grey_pixel [3] = {16000, 16000, 16000};
+        g_assert_true(mod->ApplyColorModification(&grey_pixel[0], x[i], y[i], 1, 1, LF_CR_3(RED,GREEN,BLUE), 0));
+        //g_print("\n%d, %d, %d\n", grey_pixel[0], grey_pixel[1], grey_pixel[2]);
+        g_assert_cmpfloat (fabs (grey_pixel [0] - expected [i]), <=, 1e-3);
+        g_assert_cmpfloat (fabs (grey_pixel [1] - expected [i]), <=, 1e-3);
+        g_assert_cmpfloat (fabs (grey_pixel [2] - expected [i]), <=, 1e-3);
     }
 
     delete mod;
@@ -189,14 +188,14 @@ void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
     mod = new lfModifier (lens, 17.89f, 2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
     mod->EnableVignettingCorrection(5.0f, 1000.0f);
 
-    coords[0] = 16000; coords[1] = 16000; coords[2] = 16000;
     for (unsigned int i = 0; i < sizeof(x) / sizeof(float); i++)
     {
-        g_assert_true(mod->ApplyColorModification(&coords[0], x[i], y[i], 1, 1, LF_CR_3(RED,GREEN,BLUE), 0));
-        //g_print("\n%d, %d, %d\n", coords[0], coords[1], coords[2]);
-        g_assert_cmpfloat (fabs (coords [0] - expected [i]), <=, 1e-3);
-        g_assert_cmpfloat (fabs (coords [1] - expected [i]), <=, 1e-3);
-        g_assert_cmpfloat (fabs (coords [2] - expected [i]), <=, 1e-3);
+        lf_u16 grey_pixel [3] = {16000, 16000, 16000};
+        g_assert_true(mod->ApplyColorModification(&grey_pixel[0], x[i], y[i], 1, 1, LF_CR_3(RED,GREEN,BLUE), 0));
+        //g_print("\n%d, %d, %d\n", grey_pixel[0], grey_pixel[1], grey_pixel[2]);
+        g_assert_cmpfloat (fabs (grey_pixel [0] - expected [i]), <=, 1e-3);
+        g_assert_cmpfloat (fabs (grey_pixel [1] - expected [i]), <=, 1e-3);
+        g_assert_cmpfloat (fabs (grey_pixel [2] - expected [i]), <=, 1e-3);
     }
 
     delete mod;
