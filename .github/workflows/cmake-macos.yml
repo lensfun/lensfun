@@ -15,8 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       # Most deps already installed; libxml2 part of system
-      - name: Install dependencies
-        run: brew install python-setuptools
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install python build
+        run: python -m pip install --upgrade pip build
       - name: Configure CMake
         run: cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_TESTS=ON
       - name: Build
