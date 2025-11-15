@@ -83,8 +83,24 @@ void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
     delete mod;
     delete lens;
 
+    // Preserve scaling as in legacy Lensfun versions < 0.4
+    mod = new lfModifier (lenses[0], 80.89f, 1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
+    mod->EnableDistortionCorrection(true);
+
+    float expected_x_legacy[] = {-9.5310, 750.9914, 809.9232, 1272.1215};
+    float expected_y_legacy[] = {-6.3518, 497.0142, 936.4454, 98.3716};
+
+    for (unsigned int i = 0; i < sizeof(x) / sizeof(float); i++)
+    {
+        g_assert_true(mod->ApplyGeometryDistortion (x[i], y[i], 1, 1, coords));
+        // g_print("\n%.8f, %.8f\n", coords[0], coords[1]);
+        g_assert_cmpfloat (fabs (coords [0] - expected_x_legacy [i]), <=, 5e-2);
+        g_assert_cmpfloat (fabs (coords [1] - expected_y_legacy [i]), <=, 5e-2);
+    }
+
     lf_free (lenses);
 }
+
 
 void test_verify_dist_poly5 (lfFixture *lfFix, gconstpointer data)
 {
@@ -147,6 +163,24 @@ void test_verify_dist_ptlens (lfFixture *lfFix, gconstpointer data)
     }
 
     delete mod;
+
+    // Preserve scaling as in legacy Lensfun versions < 0.4
+    mod = new lfModifier (lenses[0], 30.89f, 1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
+    mod->EnableDistortionCorrection(true);
+
+    float expected_x_legacy[] = {12.5644, 751.0357, 810.1391f, 1266.9501};
+    float expected_y_legacy[] = {8.3735, 496.9404, 938.0061, 102.3407};
+
+    for (unsigned int i = 0; i < sizeof(x) / sizeof(float); i++)
+    {
+        g_assert_true(mod->ApplyGeometryDistortion (x[i], y[i], 1, 1, coords));
+        // g_print("\n%.8f, %.8f\n", coords[0], coords[1]);
+        g_assert_cmpfloat (fabs (coords [0] - expected_x_legacy [i]), <=, 5e-2);
+        g_assert_cmpfloat (fabs (coords [1] - expected_y_legacy [i]), <=, 5e-2);
+    }
+
+    delete mod;
+
     lf_free (lenses);
 }
 

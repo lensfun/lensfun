@@ -2148,14 +2148,14 @@ struct LF_EXPORT lfModifier
      * @return
      *     A set of LF_MODIFY_XXX flags in effect.
      */
-    int EnableDistortionCorrection (const lfLensCalibDistortion& lcd);
+    int EnableDistortionCorrection (const lfLensCalibDistortion& lcd, bool legacyScaling = false);
     /**
      * @brief Enable distortion correction.
      *
      * @return
      *     A set of LF_MODIFY_XXX flags in effect.
      */
-    int EnableDistortionCorrection ();
+    int EnableDistortionCorrection (bool legacyScaling = false);
 
     /**
      * @brief Enable TCA correction.
