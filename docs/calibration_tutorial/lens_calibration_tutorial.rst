@@ -245,7 +245,7 @@ priority” and the lowest ISO.  Switch on manual focus.
 
 Focus at infinity.  (Despite the foil directly in front of the lens.)  Take
 pictures at maximal aperture and at three smaller apertures in 1 stop distance,
-and at the minimal aperature.  For zoom lenses, take pictures at five focal
+and at the minimal aperture.  For zoom lenses, take pictures at five focal
 lengths.  This makes 5 pictures for primes and 25 for zooms.
 
 Put the pictures in ``vignetting/``.
