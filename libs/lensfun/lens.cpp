@@ -1371,11 +1371,6 @@ gint _lf_lens_name_compare (const lfLens *i1, const lfLens *i2)
 
 //---------------------------// The C interface //---------------------------//
 
-lfLens *lf_lens_new ()
-{
-    return new lfLens ();
-}
-
 lfLens *lf_lens_create ()
 {
     return new lfLens ();
