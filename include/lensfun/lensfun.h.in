@@ -2152,10 +2152,6 @@ struct LF_EXPORT lfModifier
     /**
      * @brief Enable distortion correction.
      *
-     * @param lens
-     *     Lens object to be used for the correction.
-     * @param focal
-     *     The focal length in mm at which the image was taken.
      * @return
      *     A set of LF_MODIFY_XXX flags in effect.
      */
@@ -2173,10 +2169,6 @@ struct LF_EXPORT lfModifier
     /**
      * @brief Enable TCA correction.
      *
-     * @param lens
-     *     Lens object to be used for the correction.
-     * @param focal
-     *     The focal length in mm at which the image was taken.
      * @return
      *     A set of LF_MODIFY_XXX flags in effect.
      */
@@ -2194,10 +2186,6 @@ struct LF_EXPORT lfModifier
     /**
      * @brief Enable vignetting correction.
      *
-     * @param lens
-     *     Lens object to be used for the correction.
-     * @param focal
-     *     The focal length in mm at which the image was taken.
      * @param aperture
      *     The aperture (f-number) at which the image was taken.
      * @param distance
@@ -2210,10 +2198,6 @@ struct LF_EXPORT lfModifier
     /**
      * @brief Enable projection transform.
      *
-     * @param lens
-     *     Lens object to be used for the transform.
-     * @param focal
-     *     The focal length in mm at which the image was taken.
      * @param target_projection
      *     The target projection type.
      * @return
