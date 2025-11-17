@@ -1075,6 +1075,7 @@
         <mount>Canon EF</mount>
         <mount>Pentax KAF2</mount>
         <mount>Sony Alpha</mount>
+		<mount>Sigma SA</mount>
         <focal min="24" max="60"/>
         <aperture min="2.8" max="22"/>
         <!-- Average crop factor of non-Canon APS-C cameras -->
@@ -1212,6 +1213,26 @@
             <vignetting model="pa" focal="60" aperture="22" distance="0.71" k1="-0.0780" k2="-0.0556" k3="0.0290"/>
             <vignetting model="pa" focal="60" aperture="22" distance="2.37" k1="-0.0760" k2="-0.0649" k3="0.0356"/>
             <vignetting model="pa" focal="60" aperture="22" distance="1000" k1="-0.0908" k2="-0.0174" k3="0.0055"/>
+        </calibration>
+    </lens>
+
+	<lens>
+        <maker>Sigma</maker>
+        <model>Sigma 24-60mm f/2.8 EX DG</model>
+        <mount>Canon EF</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Pentax KAF</mount>
+        <mount>Sigma SA</mount>
+        <mount>Sony Alpha</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon R6MII -->
+            <distortion model="ptlens" focal="24" a="0.0285134" b="-0.0799396" c="0.0402303"/>
+            <distortion model="ptlens" focal="30" a="0.0163787" b="-0.0422842" c="0.0223784"/>
+            <distortion model="ptlens" focal="37" a="0.0069019" b="-0.0126487" c="0.0053124"/>
+            <distortion model="ptlens" focal="46" a="0.0002932" b="0.0105908" c="-0.0118432"/>
+            <distortion model="ptlens" focal="52" a="0.0244922" b="-0.0712196" c="0.0779712"/>
+            <distortion model="ptlens" focal="60" a="-0.0002835" b="0.0126778" c="-0.0094704"/>
         </calibration>
     </lens>
 
