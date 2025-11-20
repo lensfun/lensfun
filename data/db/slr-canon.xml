@@ -5265,6 +5265,8 @@
         <cropfactor>1</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="45" a="0.00211" b="-0.007388" c="0"/>
+            <!-- Taken with Canon EOS 6D -->
+            <tca model="poly3" focal="45" vr="1.00030" vb="1.00017" />
         </calibration>
     </lens>
 
