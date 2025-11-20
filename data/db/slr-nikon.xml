@@ -6596,4 +6596,21 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Nikon</maker>
+        <model>Nikon AF-S DX Nikkor 55-200mm f/4-5.6G ED VR II</model>
+        <model lang="en">Nikkor AF-S 55-200mm f/4-5.6G DX ED VR II</model>
+        <mount>Nikon F AF</mount>
+        <cropfactor>1.523</cropfactor>
+        <calibration>
+			<!-- Taken with Nikon D90 -->
+            <tca model="poly3" focal="55.0"  vr="1.00017" vb="1.00011" />
+            <tca model="poly3" focal="70.0"  vr="1.00002" vb="1.00008" />
+            <tca model="poly3" focal="85.0"  vr="0.99989" vb="1.00005" />
+            <tca model="poly3" focal="105.0" vr="0.99975" vb="1.00001" />
+            <tca model="poly3" focal="130.0" vr="0.99961" vb="0.99997" />
+            <tca model="poly3" focal="200.0" vr="0.99947" vb="0.99995" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
