@@ -2364,4 +2364,21 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Fujifilm</maker>
+        <model>XF16-55mmF2.8 R LM WR II</model>
+        <model lang="en">XF 16-55mm f/2.8 R LM WR II</model>
+        <mount>Fujifilm X</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Fujifilm X-T50 -->
+            <distortion model="ptlens" focal="16" a="0.0190649" b="-0.0795836" c="0.0446143"/>
+            <distortion model="ptlens" focal="19.9" a="0.0029708" b="-0.0119583" c="0.0128255"/>
+            <distortion model="ptlens" focal="25.6" a="-0.000803" b="0.0115638" c="0.006816"/>
+            <distortion model="ptlens" focal="35.1" a="0.0020615" b="0.0085916" c="0.0181414"/>
+            <distortion model="ptlens" focal="45.2" a="-0.0005957" b="0.0191411" c="0.010844"/>
+            <distortion model="ptlens" focal="55" a="0.0029654" b="0.0118419" c="0.0167544"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
