@@ -324,10 +324,13 @@
         <maker>Samyang</maker>
         <model>Samyang 800mm f/8 Mirror DX</model>
         <mount>T2</mount>
+        <aperture min="8" max="8"/>
         <cropfactor>1.0</cropfactor>
         <calibration>
             <!-- Taken with Pentax K-1 -->
             <distortion model="ptlens" focal="800" a="0.0007774" b="-0.001311" c="0.0162526"/>
+            <vignetting model="pa" focal="800" aperture="8" distance="10" k1="-0.9956" k2="1.0935" k3="-0.5253"/>
+            <vignetting model="pa" focal="800" aperture="8" distance="1000" k1="-0.9956" k2="1.0935" k3="-0.5253"/>
         </calibration>
     </lens>
 
