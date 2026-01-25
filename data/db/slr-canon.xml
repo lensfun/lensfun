@@ -7538,10 +7538,12 @@
         <maker>Canon</maker>
         <model>Canon EF 50mm f/1.8 STM</model>
         <mount>Canon EF</mount>
-        <cropfactor>1.005</cropfactor>
+        <cropfactor>1.0</cropfactor>
         <calibration>
             <!-- Taken with Canon 6D -->
             <distortion model="ptlens" focal="50" a="0.0061844" b="-0.0313122" c="0.0314815"/>
+            <!-- Taken with 5D II-->
+            <tca model="poly3" focal="50" vr="1.0000409" vb="0.9999893"/>
             <!-- Taken with 5D III upload 514b8f #317-->
             <vignetting model="pa" focal="50" aperture="1.8" distance="10" k1="-1.5829" k2="1.2949" k3="-0.5012"/>
             <vignetting model="pa" focal="50" aperture="1.8" distance="1000" k1="-1.5829" k2="1.2949" k3="-0.5012"/>
