@@ -1215,6 +1215,7 @@
         <cropfactor>1.0</cropfactor>
         <calibration>
 			<!-- Taken with Pentax K-1 -->
+			<distortion model="ptlens" focal="90" a="-0.0104456" b="0.036081" c="-0.0377206"/>
 			<tca model="poly3" focal="90" vr="1.0000582" vb="0.9997952"/>
 			<vignetting model="pa" focal="90" aperture="2.8" distance="0.29" k1="0.1359" k2="-0.8212" k3="0.2673"/>
             <vignetting model="pa" focal="90" aperture="2.8" distance="0.5" k1="-0.2835" k2="-0.2935" k3="0.1846"/>
