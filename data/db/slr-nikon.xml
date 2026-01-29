@@ -6604,6 +6604,12 @@
         <cropfactor>1.523</cropfactor>
         <calibration>
 			<!-- Taken with Nikon D90 -->
+            <distortion model="ptlens" focal="55.0" a="0.02731" b="-0.10187" c="0.07794" />
+            <distortion model="ptlens" focal="72.0" a="-0.00394" b="0.01059" c="-0.02353" />
+            <distortion model="ptlens" focal="102.0" a="0.0013" b="-0.00186" c="0.00103" />
+            <distortion model="ptlens" focal="130.0" a="0.0015" b="0.00166" c="-0.00401" />
+            <distortion model="ptlens" focal="170.0" a="-0.00766" b="0.03108" c="-0.03389" />
+            <distortion model="ptlens" focal="200.0" a="-0.00034" b="0.00899" c="-0.01234" />
             <tca model="poly3" focal="55.0"  vr="1.00017" vb="1.00011" />
             <tca model="poly3" focal="70.0"  vr="1.00002" vb="1.00008" />
             <tca model="poly3" focal="85.0"  vr="0.99989" vb="1.00005" />
