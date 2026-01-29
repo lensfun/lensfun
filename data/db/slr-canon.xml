@@ -5277,6 +5277,25 @@
         <cropfactor>1</cropfactor>
         <calibration>
             <distortion model="poly3" focal="90" k1="0.001333"/>
+
+            <!-- Taken with Canon EOS 6D -->
+            <tca model="poly3" focal="90" vr="0.99997" vb="1.00003" />
+            <vignetting model="pa" focal="90" aperture="2.8" distance="0.4" k1="-0.3805" k2="0.1801" k3="-0.0424"/>
+            <vignetting model="pa" focal="90" aperture="2.8" distance="100" k1="-0.5454" k2="0.1321" k3="0.0361"/>
+            <vignetting model="pa" focal="90" aperture="4" distance="0.4" k1="-0.0563" k2="-0.0265" k3="0.0467"/>
+            <vignetting model="pa" focal="90" aperture="4" distance="100" k1="-0.1173" k2="-0.0175" k3="0.0448"/>
+            <vignetting model="pa" focal="90" aperture="5.6" distance="0.4" k1="-0.0574" k2="-0.0250" k3="0.0480"/>
+            <vignetting model="pa" focal="90" aperture="5.6" distance="100" k1="-0.1183" k2="-0.0175" k3="0.0462"/>
+            <vignetting model="pa" focal="90" aperture="8" distance="0.4" k1="-0.0557" k2="-0.0294" k3="0.0508"/>
+            <vignetting model="pa" focal="90" aperture="8" distance="100" k1="-0.1189" k2="-0.0175" k3="0.0479"/>
+            <vignetting model="pa" focal="90" aperture="11" distance="0.4" k1="-0.0528" k2="-0.0375" k3="0.0556"/>
+            <vignetting model="pa" focal="90" aperture="11" distance="100" k1="-0.1144" k2="-0.0276" k3="0.0550"/>
+            <vignetting model="pa" focal="90" aperture="16" distance="0.4" k1="-0.0535" k2="-0.0379" k3="0.0567"/>
+            <vignetting model="pa" focal="90" aperture="16" distance="100" k1="-0.1139" k2="-0.0342" k3="0.0596"/>
+            <vignetting model="pa" focal="90" aperture="22" distance="0.4" k1="-0.0544" k2="-0.0361" k3="0.0543"/>
+            <vignetting model="pa" focal="90" aperture="22" distance="100" k1="-0.1164" k2="-0.0331" k3="0.0601"/>
+            <vignetting model="pa" focal="90" aperture="32" distance="0.4" k1="-0.0659" k2="-0.0133" k3="0.0376"/>
+            <vignetting model="pa" focal="90" aperture="32" distance="100" k1="-0.1236" k2="-0.0265" k3="0.0580"/>
         </calibration>
     </lens>
 
