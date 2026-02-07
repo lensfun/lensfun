@@ -1725,6 +1725,13 @@
             <distortion model="ptlens" focal="71" a="0.0217279" b="-0.0524758" c="0.0602329"/>
             <distortion model="ptlens" focal="102" a="0.0036604" b="0.0048073" c="0.0039707"/>
             <distortion model="ptlens" focal="140" a="-0.0003256" b="0.0156438" c="-0.0038843"/>
+			<tca model="poly3" focal="18.0" vr="1.00018" vb="1.00041"/>
+            <tca model="poly3" focal="24.0" vr="1.00002" vb="1.00047"/>
+            <tca model="poly3" focal="35.0" vr="0.99997" vb="1.00035"/>
+            <tca model="poly3" focal="50.0" vr="0.99991" vb="1.00022"/>
+            <tca model="poly3" focal="72.0" vr="0.99981" vb="1.00002"/>
+            <tca model="poly3" focal="104.0" vr="0.99976" vb="0.99965"/>
+            <tca model="poly3" focal="140.0" vr="0.99974" vb="0.99936"/>
         </calibration>
     </lens>
 
