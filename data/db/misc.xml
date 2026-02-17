@@ -1738,6 +1738,25 @@
     </lens>
 
     <lens>
+        <maker>7Artisans</maker>
+        <model>7Artisans APS-C 25mm f/1.8</model>
+        <mount>Sony E</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Canon EF-M</mount>
+        <mount>Micro 4/3 System</mount>
+        <focal value="25"/>
+        <aperture min="1.8" max="16"/>
+        <cropfactor>1.534</cropfactor>
+	<calibration>
+            <!-- Taken with Sony ILCE-6400 -->
+            <distortion focal="25" model="ptlens" a="0.00545707" b="-0.0116589" c="0.00122675"/>
+            <tca model="poly3" focal="25" vr="1.0000490" vb="1.0000197"/>
+            <vignetting model="pa" focal="25" aperture="1.8" distance="10" k1="-0.2439" k2="-0.1058" k3="-0.0803"/>
+            <vignetting model="pa" focal="25" aperture="1.8" distance="1000" k1="-0.2439" k2="-0.1058" k3="-0.0803"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <maker>Viltrox</maker>
         <model>Viltrox 16mm F1.8 FE</model>
         <model lang="en">Viltrox AF 16mm F1.8 FE/L/Z</model>
