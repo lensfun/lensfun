@@ -5273,8 +5273,23 @@
         <cropfactor>1</cropfactor>
         <calibration>
             <distortion model="ptlens" focal="45" a="0.00211" b="-0.007388" c="0"/>
-            <!-- Taken with Canon EOS 6D -->
+
+            <!-- Taken with Canon EOS 6D with tilt=0deg, shift=0mm -->
             <tca model="poly3" focal="45" vr="1.00030" vb="1.00017" />
+            <vignetting model="pa" focal="45" aperture="2.8" distance="0.4" k1="-0.3278" k2="-0.1640" k3="0.1344"/>
+            <vignetting model="pa" focal="45" aperture="2.8" distance="10" k1="-0.3482" k2="-0.2983" k3="0.2313"/>
+            <vignetting model="pa" focal="45" aperture="4" distance="0.4" k1="-0.2515" k2="0.0421" k3="0.0106"/>
+            <vignetting model="pa" focal="45" aperture="4" distance="10" k1="-0.3163" k2="0.1056" k3="-0.0366"/>
+            <vignetting model="pa" focal="45" aperture="5.6" distance="0.4" k1="-0.2493" k2="0.0160" k3="0.0392"/>
+            <vignetting model="pa" focal="45" aperture="5.6" distance="10" k1="-0.2993" k2="0.0195" k3="0.0512"/>
+            <vignetting model="pa" focal="45" aperture="8" distance="0.4" k1="-0.2446" k2="-0.0064" k3="0.0567"/>
+            <vignetting model="pa" focal="45" aperture="8" distance="10" k1="-0.3011" k2="0.0145" k3="0.0572"/>
+            <vignetting model="pa" focal="45" aperture="11" distance="0.4" k1="-0.2310" k2="-0.0491" k3="0.0866"/>
+            <vignetting model="pa" focal="45" aperture="11" distance="10" k1="-0.2980" k2="-0.0045" k3="0.0720"/>
+            <vignetting model="pa" focal="45" aperture="16" distance="0.4" k1="-0.2371" k2="-0.0462" k3="0.0856"/>
+            <vignetting model="pa" focal="45" aperture="16" distance="10" k1="-0.3000" k2="-0.0095" k3="0.0759"/>
+            <vignetting model="pa" focal="45" aperture="22" distance="0.4" k1="-0.2400" k2="-0.0476" k3="0.0865"/>
+            <vignetting model="pa" focal="45" aperture="22" distance="10" k1="-0.3014" k2="-0.0155" k3="0.0793"/>
         </calibration>
     </lens>
 
