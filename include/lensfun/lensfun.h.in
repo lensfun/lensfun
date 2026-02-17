@@ -2715,6 +2715,9 @@ LF_EXPORT int lf_modifier_enable_scaling (lfModifier *modifier, float scale);
 /** @sa lfModifier::EnableDistortionCorrection */
 LF_EXPORT int lf_modifier_enable_distortion_correction (lfModifier *modifier);
 
+/** @sa lfModifier::EnableDistortionCorrection */
+LF_EXPORT int lf_modifier_enable_distortion_correction_lcd (lfModifier *modifier, const lfLensCalibDistortion* lcd);
+
 /** @sa lfModifier::EnableTCACorrection */
 LF_EXPORT int lf_modifier_enable_tca_correction (lfModifier *modifier);
 
