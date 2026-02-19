@@ -952,6 +952,28 @@
 
     <lens>
         <maker>Venus</maker>
+        <model>Laowa 15mm f/2.0 Zero-D</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-7M3 (α7 III) -->
+            <distortion model="ptlens" focal="15" a="0.011" b="-0.039" c="0.037" />
+            <tca model="poly3" focal="15.0" br="0.0000531" vr="1.0000188" bb="-0.0000209" vb="1.0002574" />
+            <vignetting model="pa" focal="15.0" aperture="2.0" distance="10" k1="-2.2078764" k2="2.2634768" k3="-0.8871928" />
+            <vignetting model="pa" focal="15.0" aperture="2.0" distance="1000" k1="-2.2078764" k2="2.2634768" k3="-0.8871928" />
+            <vignetting model="pa" focal="15.0" aperture="2.8" distance="10" k1="-1.5619761" k2="1.1635995" k3="-0.3595095" />
+            <vignetting model="pa" focal="15.0" aperture="2.8" distance="1000" k1="-1.5619761" k2="1.1635995" k3="-0.3595095" />
+            <vignetting model="pa" focal="15.0" aperture="4.0" distance="10" k1="-1.5690378" k2="1.4012558" k3="-0.5505992" />
+            <vignetting model="pa" focal="15.0" aperture="4.0" distance="1000" k1="-1.5690378" k2="1.4012558" k3="-0.5505992" />
+            <vignetting model="pa" focal="15.0" aperture="5.6" distance="10" k1="-1.5725713" k2="1.3957040" k3="-0.5204646" />
+            <vignetting model="pa" focal="15.0" aperture="5.6" distance="1000" k1="-1.5725713" k2="1.3957040" k3="-0.5204646" />
+            <vignetting model="pa" focal="15.0" aperture="22.0" distance="10" k1="-1.5953936" k2="1.4430328" k3="-0.5461794" />
+            <vignetting model="pa" focal="15.0" aperture="22.0" distance="1000" k1="-1.5953936" k2="1.4430328" k3="-0.5461794" />
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Venus</maker>
         <model>Laowa 12mm f/2.8 Zero-D</model>
         <mount>Canon EF</mount>
         <mount>Nikon F</mount>
