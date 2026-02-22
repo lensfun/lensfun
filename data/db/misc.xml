@@ -863,6 +863,42 @@
     </lens>
 
     <lens>
+        <maker>Meike</maker>
+        <!-- Note: the LensModel string is actually "SKY85mm f/1.8 DCM "$FIRMWARE_DATE so
+                    the latest EF name is "SKY85mm f/1.8 DCM Mar  7", but that is terrile to match
+                    so we list this as the actual lens name -->
+        <model>Meike 85mm f/1.8 DCM</model>
+        <mount>Nikon F AF</mount>
+        <mount>Canon EF</mount>
+        <mount>Fujifilm X</mount>
+        <mount>Nikon Z</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1.005</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS 6D -->
+            <tca model="poly3" focal="85" vr="1.00003" vb="0.99998" />
+            <vignetting model="pa" focal="85" aperture="1.8" distance="0.84" k1="-0.3107" k2="-0.4079" k3="0.2468"/>
+            <vignetting model="pa" focal="85" aperture="1.8" distance="81" k1="-1.0522" k2="0.7454" k3="-0.3115"/>
+            <vignetting model="pa" focal="85" aperture="2" distance="0.84" k1="-0.1687" k2="-0.0209" k3="-0.1517"/>
+            <vignetting model="pa" focal="85" aperture="2" distance="81" k1="-0.1365" k2="-0.7079" k3="0.3600"/>
+            <vignetting model="pa" focal="85" aperture="2.8" distance="0.84" k1="-0.2808" k2="0.3726" k3="-0.3106"/>
+            <vignetting model="pa" focal="85" aperture="2.8" distance="81" k1="-0.0531" k2="-0.0432" k3="-0.2276"/>
+            <vignetting model="pa" focal="85" aperture="4" distance="0.84" k1="-0.2182" k2="0.0570" k3="0.0143"/>
+            <vignetting model="pa" focal="85" aperture="4" distance="81" k1="-0.2781" k2="0.7198" k3="-0.6362"/>
+            <vignetting model="pa" focal="85" aperture="5.6" distance="0.84" k1="-0.2409" k2="0.0966" k3="-0.0052"/>
+            <vignetting model="pa" focal="85" aperture="5.6" distance="81" k1="-0.1903" k2="0.2795" k3="-0.1731"/>
+            <vignetting model="pa" focal="85" aperture="8" distance="0.84" k1="-0.2595" k2="0.1309" k3="-0.0240"/>
+            <vignetting model="pa" focal="85" aperture="8" distance="81" k1="-0.1708" k2="0.1512" k3="-0.0373"/>
+            <vignetting model="pa" focal="85" aperture="11" distance="0.84" k1="-0.2773" k2="0.1671" k3="-0.0459"/>
+            <vignetting model="pa" focal="85" aperture="11" distance="81" k1="-0.1865" k2="0.1781" k3="-0.0527"/>
+            <vignetting model="pa" focal="85" aperture="16" distance="0.84" k1="-0.2920" k2="0.1965" k3="-0.0649"/>
+            <vignetting model="pa" focal="85" aperture="16" distance="81" k1="-0.2017" k2="0.2017" k3="-0.0665"/>
+            <vignetting model="pa" focal="85" aperture="22" distance="0.84" k1="-0.3007" k2="0.2079" k3="-0.0700"/>
+            <vignetting model="pa" focal="85" aperture="22" distance="81" k1="-0.2133" k2="0.2207" k3="-0.0789"/>
+        </calibration>
+    </lens>
+
+    <lens>
         <maker>Meke</maker>
 		<maker lang="en">Meike</maker>
         <model>MEKE SL 85mm F1.8 STM PRO</model>
