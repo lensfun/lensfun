@@ -907,6 +907,7 @@
         <calibration>
             <!-- Taken with Panasonic DC-S5M2 -->
             <distortion model="ptlens" focal="35" a="0.0113377" b="-0.0419105" c="0.0261978"/>
+			<tca model="poly3" focal="35" vr="1.0001955" vb="0.9999741"/>
 			<vignetting model="pa" focal="35" aperture="1.8" distance="10" k1="-1.1656" k2="0.6250" k3="-0.1447"/>
             <vignetting model="pa" focal="35" aperture="1.8" distance="1000" k1="-1.1656" k2="0.6250" k3="-0.1447"/>
             <vignetting model="pa" focal="35" aperture="2" distance="10" k1="-0.6787" k2="-0.2233" k3="0.2773"/>
