@@ -108,11 +108,11 @@ name.
 
 ### 4. Determine distortion coefficients with Hugin
 
-Open the generated TIFF files from `distortion/` in Hugin's lens calibration
-tool. For each focal length, Hugin will compute distortion coefficients
+Open the generated TIFF files from `distortion/` in Hugin and follow instructions
+from the full tutorial. For each focal length, Hugin will compute distortion coefficients
 (a, b, c for the `ptlens` model, or a single k1 for the `poly3` model).
 
-Use Hugin → Lens Calibration → Load images → Optimize → read the a/b/c values
+Use Hugin → Load images → Optimize → read the a/b/c values
 
 ### 5. Fill in lenses.txt
 
