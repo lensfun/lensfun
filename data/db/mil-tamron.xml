@@ -916,4 +916,29 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Tamron</maker>
+        <model>E 70-300mm F4.5-6.3 A047</model>
+        <model lang="en">Tamron 70-300mm F4.5-6.3 Di III RXD</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7M3, coeffients fitted from exif data by lf_fitexif_se -->
+            <distortion model="ptlens" focal="70" a="0.0005432" b="-0.0016490" c="0.0011314" />
+            <distortion model="ptlens" focal="84" a="0.0010368" b="0.0033696" c="0.0003841" />
+            <distortion model="ptlens" focal="99" a="0.0024747" b="0.0039465" c="0.0027842" />
+            <distortion model="ptlens" focal="135" a="0.0025879" b="0.0080483" c="0.0011016" />
+            <distortion model="ptlens" focal="169" a="0.0028228" b="0.0078993" c="0.0018809" />
+            <distortion model="ptlens" focal="219" a="0.0023915" b="0.0084324" c="0.0015956" />
+            <distortion model="ptlens" focal="300" a="0.0017707" b="0.0080129" c="0.0015260" />
+            <tca model="poly3" focal="70" vr="1.0002234" cr="-0.0000583" br="-0.0000480" vb="0.9999148" cb="0.0000173" bb="0.0000717" />
+            <tca model="poly3" focal="84" vr="1.0002171" cr="-0.0001375" br="-0.0000073" vb="0.9999199" cb="-0.0000460" bb="0.0000861" />
+            <tca model="poly3" focal="99" vr="1.0001374" cr="-0.0001048" br="-0.0000049" vb="0.9998762" cb="-0.0000557" bb="0.0000805" />
+            <tca model="poly3" focal="135" vr="0.9999978" cr="-0.0000172" br="-0.0000179" vb="0.9999592" cb="-0.0001868" bb="0.0000940" />
+            <tca model="poly3" focal="169" vr="0.9999127" cr="0.0000077" br="-0.0000241" vb="0.9998256" cb="-0.0000553" bb="0.0000480" />
+            <tca model="poly3" focal="219" vr="0.9999074" cr="-0.0000650" br="-0.0000097" vb="0.9995988" cb="0.0001948" bb="-0.0000395" />
+            <tca model="poly3" focal="300" vr="0.9998962" cr="-0.0001102" br="-0.0000206" vb="0.9996057" cb="0.0001012" bb="0.0000116" />
+        </calibration>
+    </lens>
+
 </lensdatabase>
