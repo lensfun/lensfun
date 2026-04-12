@@ -941,4 +941,29 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Tamron</maker>
+        <model>Tamron 35-100mm F2.8 A078 Z / E</model>
+        <model lang="en">Tamron 35-100mm F2.8 Di III VXD</model>
+        <mount>Nikon Z</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon Z6 MII -->
+            <distortion model="ptlens" focal="100" a="0.0063339" b="-0.0025274" c="0.0163412"/>
+            <distortion model="ptlens" focal="35" a="0.0112273" b="-0.0378035" c="0.0279334"/>
+            <distortion model="ptlens" focal="38" a="0.0069302" b="-0.015636" c="0.0102125"/>
+            <distortion model="ptlens" focal="42" a="0.0076344" b="-0.0127669" c="0.0135344"/>
+            <distortion model="ptlens" focal="50" a="0.0043278" b="0.0043085" c="0.0019532"/>
+            <distortion model="ptlens" focal="70" a="0.0086278" b="-0.00927" c="0.0237967"/>
+            <distortion model="ptlens" focal="85" a="0.0042292" b="0.0050566" c="0.0087686"/>
+            <tca model="poly3" focal="38" vr="1.0001895" vb="1.0000269"/>
+            <tca model="poly3" focal="42" vr="1.0001381" vb="1.0000400"/>
+            <tca model="poly3" focal="50" vr="1.0000608" vb="1.0000307"/>
+            <tca model="poly3" focal="70" vr="1.0000034" vb="0.9999859"/>
+            <tca model="poly3" focal="85" vr="0.9999522" vb="0.9999623"/>
+            <tca model="poly3" focal="100" vr="0.9999091" vb="0.9999670"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
