@@ -2824,4 +2824,15 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Pentax</maker>
+        <model>smc PENTAX-DA 14mm F2.8 ED[IF]</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.538</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-7 -->
+            <distortion model="ptlens" focal="14" a="0.0429699" b="-0.1173794" c="0.0671895"/>
+            <tca model="poly3" focal="14" vr="1.0005368" vb="1.0001582"/>
+        </calibration>
+	
 </lensdatabase>
