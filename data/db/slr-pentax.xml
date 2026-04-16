@@ -2625,6 +2625,26 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Pentax</maker>
+        <model>smc PENTAX DA* 60-250mm F4 [IF] SDM</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-1 MII -->
+            <distortion model="ptlens" focal="60" a="-0.0029915" b="-0.0020869" c="0.0050556"/>
+            <distortion model="ptlens" focal="88" a="0.0038862" b="-0.006559" c="0.003656"/>
+            <distortion model="ptlens" focal="140" a="-0.0049887" b="0.0311241" c="-0.0348148"/>
+            <distortion model="ptlens" focal="200" a="0.0061007" b="-0.015317" c="0.0292148"/>
+            <distortion model="ptlens" focal="250" a="0.0025618" b="0.0086546" c="-0.0095542"/>
+            <tca model="poly3" focal="60" vr="1.0002610" vb="1.0000856"/>
+            <tca model="poly3" focal="80" vr="1.0001293" vb="1.0000377"/>
+            <tca model="poly3" focal="140" vr="1.0000105" vb="0.9999450"/>
+            <tca model="poly3" focal="200" vr="0.9999374" vb="0.9997658"/>
+            <tca model="poly3" focal="250" vr="0.9999235" vb="0.9996221"/>
+        </calibration>
+    </lens>
+
     <lens>
         <maker>Pentax</maker>
         <model>HD Pentax-DA 55-300mm f/4.5-6.3 ED PLM WR RE</model>
