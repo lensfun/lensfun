@@ -2881,4 +2881,16 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-M 135mm f/3.5</model>
+        <mount>Pentax K</mount>
+        <cropfactor>1.538</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-7 -->
+            <distortion model="ptlens" focal="135" a="-0.0358928" b="0.1288986" c="-0.1418313"/>
+            <tca model="poly3" focal="135" vr="0.9997741" vb="0.9998006"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
