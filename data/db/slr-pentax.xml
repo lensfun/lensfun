@@ -2868,4 +2868,17 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-M 75-150mm f/4</model>
+        <mount>Pentax K</mount>
+        <cropfactor>1.538</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-7 -->
+            <distortion model="ptlens" focal="75" a="-0.000331" b="-0.0004547" c="-0.0025575"/>
+            <distortion model="ptlens" focal="100" a="0.0006544" b="-0.0014648" c="0.003557"/>
+            <distortion model="ptlens" focal="150" a="-0.0008448" b="0.0092123" c="-0.008351"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
