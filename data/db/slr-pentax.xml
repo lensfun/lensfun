@@ -2893,4 +2893,26 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-M 80-200mm f/4.5</model>
+        <mount>Pentax K</mount>
+        <cropfactor>1.538</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-7 -->
+            <distortion model="ptlens" focal="80" a="-0.0011918" b="0.0006076" c="-0.0076855"/>
+            <distortion model="ptlens" focal="100" a="-0.0007597" b="0.001453" c="-0.0046796"/>
+            <distortion model="ptlens" focal="120" a="0.0034215" b="-0.0108548" c="0.0116506"/>
+            <distortion model="ptlens" focal="135" a="-0.0005343" b="0.0031428" c="-0.0030633"/>
+            <distortion model="ptlens" focal="150" a="-0.0014844" b="0.0098306" c="-0.0142578"/>
+            <distortion model="ptlens" focal="200" a="0.0020308" b="-0.0041402" c="0.0074852"/>
+            <tca model="poly3" focal="80" vr="1.0000658" vb="0.9999063"/>
+            <tca model="poly3" focal="100" vr="0.9999524" vb="1.0000469"/>
+            <tca model="poly3" focal="120" vr="0.9998794" vb="1.0000908"/>
+            <tca model="poly3" focal="135" vr="0.9997181" vb="0.9999980"/>
+            <tca model="poly3" focal="150" vr="0.9997462" vb="0.9999250"/>
+            <tca model="poly3" focal="200" vr="0.9997311" vb="0.9996391"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
