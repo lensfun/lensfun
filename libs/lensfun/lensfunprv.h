@@ -21,48 +21,6 @@
 #define NEWTON_EPS 0.00001
 
 /**
- * @brief Return the absolute value of a number.
- * @param x
- *     A number
- * @return
- *     The absolute value of x
- */
-template<typename T> static inline T absolute (T x)
-{
-    return (x < 0) ? -x : x;
-}
-
-/**
- * @brief Return the square of the argument.
- * @param x
- *     A floating-point number.
- */
-template<typename T> static inline T square (T x)
-{
-    return x * x;
-}
-
-/**
- * @brief Clamp a double value between 0 and max, then convert to given type.
- * @param x
- *     The number to clamp.
- * @param min
- *     The minimal value.
- * @param max
- *     The maximal value. If equal to 0, no clamping by upper boundary is done.
- * @return
- *     The clamped value.
- */
-template<typename T> static inline T clampd (double x, double min, double max)
-{
-    if (x < min)
-        return static_cast<T> (min);
-    else if (max != 0.0 && x > max)
-        return static_cast<T> (max);
-    return static_cast<T> (x);
-}
-
-/**
  * @brief Make a copy of given value into given variable using g_strdup,
  * freeing the old value if defined.
  * @param var
