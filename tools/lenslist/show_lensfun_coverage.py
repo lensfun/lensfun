@@ -125,16 +125,19 @@ outfile = open(cmdline_args['outfile'], "w")
 # write HTML table or markdown formatted list
 if cmdline_args['markdown'] == False:
 
+    with open(os.path.join(os.path.dirname(__file__), 'table-sorting-script.js'), 'r') as input_file:
+        sorting_js = input_file.read()
+
     #----------------------------------------------------------------------
     # HTML table
     if cmdline_args['table_only'] == False:
-        outfile.write("<html><head><title>Lensfun's coverage</title></head><body><h1>Lensfun coverage</h1><h2>Lenses (count: {})</h2>"
+        outfile.write("<html><head><title>Lensfun's coverage</title><script>{}</script></head><body><h1>Lensfun coverage</h1><h2>Lenses (count: {})</h2>"
                   "<p>This table was generated on {} from current Lensfun sources.  Your Lensfun version may be older, resulting in "
                   "less coverage.  If your lens is not included, see</p><ul><li><a href='/calibration'>Upload calibration pictures</a>"
-                  "</li><li><a href='lens_calibration_tutorial/'>Lens calibration for Lensfun</a></li></ul>\n".format(
-                      len(lenses), datetime.date.today()))
+                  "</li><li><a href='lens_calibration_tutorial/'>Lens calibration for Lensfun</a></li></ul>Filter this table: <input type='search' id='searchbox' placeholder='Search terms' style='width: 40em; margin: 0.25em 0.5em;'/> <input type='button' id='searchclear' value='Clear' disabled/> (use '!' to negate a term)\n".format(sorting_js,
+                        len(lenses), datetime.date.today()))
 
-    outfile.write("<table border='1'><thead><tr><th>manufacturer</th><th>model</th><th>crop</th><th>dist.</th><th>TCA</th>"
+    outfile.write("<table border='1' id='searchableTable'><thead><tr><th>manufacturer</th><th>model</th><th>crop</th><th>dist.</th><th>TCA</th>"
                   "<th>vign.</th></tr></thead><tbody>\n")
     number_of_makers = 0
     previous_maker = None
@@ -143,8 +146,8 @@ if cmdline_args['markdown'] == False:
         if lens.maker.lower() != previous_maker:
             number_of_makers += 1
 
-        outfile.write("""<tr{}><td>{}</td><td>{}</td><td>{}</td><td{}</td><td{}</td><td{}</td></tr>\n""".format(
-            ' class="lenslist-bg1"' if number_of_makers % 2 else ' class="lenslist-bg2"',
+        outfile.write("""<tr{} data-maker="{}" data-model="{}" data-first="{}"><td>{}</td><td>{}</td><td>{}</td><td title="Distortion" {}</td><td title="TCA" {}</td><td title="Vignetting" {}</td></tr>\n""".format(
+            ' class="lenslist-bg1"' if number_of_makers % 2 else ' class="lenslist-bg2"', lens.maker, lens.model, lens.maker.lower() != previous_maker,
             lens.maker if lens.maker.lower() != previous_maker else "", lens.model, lens.crop or "?",
             print_x(lens.distortion), print_x(lens.tca), print_x(lens.vignetting)))
         previous_maker = lens.maker.lower()
