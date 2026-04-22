@@ -2074,6 +2074,8 @@
         <calibration>
             <!-- This lens really has no reliably measurable distortion. -->
             <distortion model="poly3" focal="150" k1="0"/>
+            <!-- Taken with Canon 6D -->
+            <tca model="poly3" focal="150" vr="1.00007" vb="0.99988"/>
             <!-- Taken with Canon EOS 5D Mark III -->
             <vignetting model="pa" focal="150" aperture="2.8" distance="10" k1="-1.3884" k2="1.3762" k3="-0.6260"/>
             <vignetting model="pa" focal="150" aperture="2.8" distance="1000" k1="-1.3884" k2="1.3762" k3="-0.6260"/>
