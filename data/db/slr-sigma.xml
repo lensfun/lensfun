@@ -4056,7 +4056,7 @@
     <lens>
         <maker>Sigma</maker>
         <model>100-400mm F5-6.3 DG OS HSM | Contemporary 017</model>
-        <model lang="en">100-400mm F5-6.3 DG OS HSM | C</model>
+        <model lang="en">Sigma 100-400mm F5-6.3 DG OS HSM | C</model>
         <mount>Canon EF</mount>
         <mount>Sigma SA</mount>
         <mount>Nikon F AF</mount>
@@ -4141,10 +4141,35 @@
             <vignetting model="pa" focal="400" aperture="25" distance="81.91" k1="-0.0865" k2="0.0494" k3="0.0067"/>
             <vignetting model="pa" focal="400" aperture="29" distance="1.6" k1="-0.1121" k2="0.0882" k3="-0.0127"/>
             <vignetting model="pa" focal="400" aperture="29" distance="81.91" k1="-0.0870" k2="0.0492" k3="0.0074"/>
-
         </calibration>
     </lens>
-    
+
+	<lens>
+        <maker>Sigma</maker>
+        <model>100-400mm F5-6.3 DG OS HSM | Contemporary 017 extender +1.4x</model>
+        <model lang="en">Sigma 100-400mm f/5-6.3 DG OS HSM | C +1.4x ext.</model>
+        <mount>Canon EF</mount>
+        <mount>Sigma SA</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sony E</mount>
+        <cropfactor>1</cropfactor>
+        <calibration>
+            <!-- Taken with Canon 6D -->
+            <distortion model="ptlens" focal="140" a="-0.00138" b="0.00447" c="-0.00274"/>
+            <distortion model="ptlens" focal="193" a="0.00973" b="-0.03519" c="0.04287"/>
+            <distortion model="ptlens" focal="284" a="-0.0035" b="0.01141" c="-0.00569"/>
+            <distortion model="ptlens" focal="410" a="-0.0074" b="0.02347" c="-0.0154"/>
+            <distortion model="ptlens" focal="560" a="0.00305" b="-0.01075" c="0.01869"/>
+            <tca model="poly3" focal="140" vr="1.00013" vb="1.00006"/>
+            <tca model="poly3" focal="200" vr="1.00001" vb="1.00009"/>
+            <tca model="poly3" focal="260" vr="0.99993" vb="1.00012"/>
+            <tca model="poly3" focal="340" vr="0.99986" vb="1.00012"/>
+            <tca model="poly3" focal="430" vr="0.99980" vb="1.00010"/>
+            <tca model="poly3" focal="500" vr="0.99977" vb="1.00006"/>
+            <tca model="poly3" focal="560" vr="0.99975" vb="1.00002"/>
+        </calibration>
+    </lens>
+
     <lens>
         <!-- Photos taken with MC-11 on Sony ILCE-7M3 and ILCE-9 -->
         <maker>Sigma</maker>
