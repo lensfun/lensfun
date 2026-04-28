@@ -2068,6 +2068,34 @@
     <lens>
         <maker>Sigma</maker>
         <model>Sigma 150mm f/2.8 EX DG APO HSM Macro</model>
+        <mount>Nikon F AF</mount>
+        <mount>Canon EF</mount>
+        <cropfactor>1.53</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="150" a="-0.00339" b="0.01239" c="-0.01342"/>
+            <tca model="poly3" focal="150" vr="1.00011" vb="0.99984"/>
+            <vignetting model="pa" focal="150" aperture="2.8" distance="10" k1="-0.7541" k2="0.6715" k3="-0.2971"/>
+            <vignetting model="pa" focal="150" aperture="2.8" distance="1000" k1="-0.7541" k2="0.6715" k3="-0.2971"/>
+            <vignetting model="pa" focal="150" aperture="4" distance="10" k1="0.0674" k2="-0.5360" k3="0.2746"/>
+            <vignetting model="pa" focal="150" aperture="4" distance="1000" k1="0.0674" k2="-0.5360" k3="0.2746"/>
+            <vignetting model="pa" focal="150" aperture="5.6" distance="0.4" k1="0.0075" k2="-0.3428" k3="0.1917"/>
+            <vignetting model="pa" focal="150" aperture="5.6" distance="22" k1="-0.0504" k2="0.0924" k3="-0.1052"/>
+            <vignetting model="pa" focal="150" aperture="8" distance="0.4" k1="-0.0477" k2="-0.0054" k3="-0.0032"/>
+            <vignetting model="pa" focal="150" aperture="8" distance="22" k1="-0.0269" k2="0.0007" k3="-0.0066"/>
+            <vignetting model="pa" focal="150" aperture="11" distance="0.4" k1="-0.0472" k2="-0.0088" k3="0.0010"/>
+            <vignetting model="pa" focal="150" aperture="11" distance="22" k1="-0.0279" k2="0.0038" k3="-0.0063"/>
+            <vignetting model="pa" focal="150" aperture="16" distance="0.4" k1="-0.0761" k2="0.0213" k3="-0.0053"/>
+            <vignetting model="pa" focal="150" aperture="16" distance="22" k1="-0.0530" k2="0.0448" k3="-0.0238"/>
+            <vignetting model="pa" focal="150" aperture="22" distance="0.4" k1="-0.0759" k2="0.0339" k3="-0.0165"/>
+            <vignetting model="pa" focal="150" aperture="22" distance="22" k1="-0.0676" k2="0.0746" k3="-0.0391"/>
+            <vignetting model="pa" focal="150" aperture="32" distance="0.4" k1="-0.0838" k2="0.0413" k3="-0.0177"/>
+            <vignetting model="pa" focal="150" aperture="45" distance="0.4" k1="-0.0754" k2="0.0273" k3="-0.0131"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Sigma</maker>
+        <model>Sigma 150mm f/2.8 EX DG APO HSM Macro</model>
         <mount>Canon EF</mount>
         <mount>Nikon F AF</mount>
         <cropfactor>1</cropfactor>
