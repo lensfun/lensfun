@@ -5102,4 +5102,33 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Sigma</maker>
+        <model>Sigma 150mm f/2.8 EX DG APO HSM Macro extender + 1.4x TC</model>
+        <mount>Nikon F AF</mount>
+        <mount>Canon EF</mount>
+        <cropfactor>1.53</cropfactor>
+        <calibration>
+            <!-- Taken with Nikon D90 -->
+            <distortion model="ptlens" focal="210" a="0.00377" b="-0.00923" c="0.01027"/>
+            <tca model="poly3" focal="210" vr="0.99986" vb="0.99996"/>
+            <vignetting model="pa" focal="210" aperture="4" distance="10" k1="-0.5322" k2="0.4814" k3="-0.2534"/>
+            <vignetting model="pa" focal="210" aperture="4" distance="1000" k1="-0.5322" k2="0.4814" k3="-0.2534"/>
+            <vignetting model="pa" focal="210" aperture="5.6" distance="10" k1="-0.0352" k2="-0.0913" k3="0.0108"/>
+            <vignetting model="pa" focal="210" aperture="5.6" distance="1000" k1="-0.0352" k2="-0.0913" k3="0.0108"/>
+            <vignetting model="pa" focal="210" aperture="8" distance="0.4" k1="-0.0769" k2="-0.1760" k3="0.1192"/>
+            <vignetting model="pa" focal="210" aperture="8" distance="22" k1="-0.0729" k2="0.0044" k3="0.0016"/>
+            <vignetting model="pa" focal="210" aperture="11" distance="0.4" k1="-0.2011" k2="0.1675" k3="-0.0703"/>
+            <vignetting model="pa" focal="210" aperture="11" distance="22" k1="-0.1134" k2="0.0666" k3="-0.0257"/>
+            <vignetting model="pa" focal="210" aperture="16" distance="0.4" k1="-0.2591" k2="0.2560" k3="-0.1145"/>
+            <vignetting model="pa" focal="210" aperture="16" distance="22" k1="-0.1769" k2="0.1759" k3="-0.0843"/>
+            <vignetting model="pa" focal="210" aperture="22" distance="0.4" k1="-0.3278" k2="0.3775" k3="-0.1797"/>
+            <vignetting model="pa" focal="210" aperture="22" distance="22" k1="-0.2419" k2="0.2770" k3="-0.1318"/>
+            <vignetting model="pa" focal="210" aperture="32" distance="0.4" k1="-0.3615" k2="0.4367" k3="-0.2121"/>
+            <vignetting model="pa" focal="210" aperture="32" distance="22" k1="-0.2866" k2="0.3516" k3="-0.1723"/>
+            <vignetting model="pa" focal="210" aperture="45" distance="0.4" k1="-0.3737" k2="0.4606" k3="-0.2281"/>
+            <vignetting model="pa" focal="210" aperture="64" distance="0.4" k1="-0.3829" k2="0.4718" k3="-0.2307"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
