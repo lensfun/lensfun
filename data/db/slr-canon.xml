@@ -3148,6 +3148,50 @@
 
     <lens>
         <maker>Canon</maker>
+        <model>Canon MP-E 65mm f/2.8 1-5x Macro Photo</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.005</cropfactor>
+        <calibration>
+            <!-- This lens's distortion is, within rounding errors, near zero -->
+            <distortion model="ptlens" focal="65" a="0" b="0" c="0"/>
+            <!-- This lens's TCA vr is 1.00001 @1x and 0.99999 @5x, but overall is extremely good -->
+            <tca model="poly3" focal="65" vr="1.00000" vb="0.99999"/>
+            <!-- NOTE: distance is the zoom factor, not the focal distance -->
+            <vignetting model="pa" focal="65" aperture="2.8" distance="1" k1="-0.9861" k2="0.9166" k3="-0.3818"/>
+            <vignetting model="pa" focal="65" aperture="2.8" distance="2" k1="-0.2060" k2="-0.2427" k3="0.2280"/>
+            <vignetting model="pa" focal="65" aperture="2.8" distance="3" k1="-0.1269" k2="0.0393" k3="-0.0038"/>
+            <vignetting model="pa" focal="65" aperture="2.8" distance="4" k1="-0.1071" k2="0.0833" k3="-0.0419"/>
+            <vignetting model="pa" focal="65" aperture="2.8" distance="5" k1="-0.1457" k2="0.3201" k3="-0.2826"/>
+            <vignetting model="pa" focal="65" aperture="4" distance="1" k1="0.0513" k2="-0.3605" k3="0.1553"/>
+            <vignetting model="pa" focal="65" aperture="4" distance="2" k1="-0.0407" k2="-0.0054" k3="0.0325"/>
+            <vignetting model="pa" focal="65" aperture="4" distance="3" k1="-0.0318" k2="-0.0359" k3="0.0572"/>
+            <vignetting model="pa" focal="65" aperture="4" distance="4" k1="-0.0500" k2="-0.0177" k3="0.0488"/>
+            <vignetting model="pa" focal="65" aperture="4" distance="5" k1="-0.1132" k2="0.1500" k3="-0.0913"/>
+            <vignetting model="pa" focal="65" aperture="5.6" distance="1" k1="-0.0512" k2="-0.0122" k3="0.0451"/>
+            <vignetting model="pa" focal="65" aperture="5.6" distance="2" k1="-0.0430" k2="-0.0128" k3="0.0438"/>
+            <vignetting model="pa" focal="65" aperture="5.6" distance="3" k1="-0.0344" k2="-0.0344" k3="0.0576"/>
+            <vignetting model="pa" focal="65" aperture="5.6" distance="4" k1="-0.0756" k2="0.0153" k3="0.0358"/>
+            <vignetting model="pa" focal="65" aperture="5.6" distance="5" k1="-0.1262" k2="0.0748" k3="0.0055"/>
+            <vignetting model="pa" focal="65" aperture="8" distance="1" k1="-0.0566" k2="-0.0069" k3="0.0435"/>
+            <vignetting model="pa" focal="65" aperture="8" distance="2" k1="-0.0511" k2="0.0033" k3="0.0338"/>
+            <vignetting model="pa" focal="65" aperture="8" distance="3" k1="-0.0410" k2="-0.0246" k3="0.0523"/>
+            <vignetting model="pa" focal="65" aperture="8" distance="4" k1="-0.1087" k2="0.0753" k3="0.0019"/>
+            <vignetting model="pa" focal="65" aperture="8" distance="5" k1="-0.1804" k2="0.1619" k3="-0.0400"/>
+            <vignetting model="pa" focal="65" aperture="11" distance="1" k1="-0.0637" k2="0.0025" k3="0.0393"/>
+            <vignetting model="pa" focal="65" aperture="11" distance="2" k1="-0.0533" k2="0.0041" k3="0.0335"/>
+            <vignetting model="pa" focal="65" aperture="11" distance="3" k1="-0.0460" k2="-0.0173" k3="0.0490"/>
+            <vignetting model="pa" focal="65" aperture="11" distance="4" k1="-0.1303" k2="0.1114" k3="-0.0167"/>
+            <vignetting model="pa" focal="65" aperture="11" distance="5" k1="-0.2149" k2="0.2293" k3="-0.0795"/>
+            <vignetting model="pa" focal="65" aperture="16" distance="1" k1="-0.0740" k2="0.0219" k3="0.0275"/>
+            <vignetting model="pa" focal="65" aperture="16" distance="2" k1="-0.0576" k2="0.0114" k3="0.0291"/>
+            <vignetting model="pa" focal="65" aperture="16" distance="3" k1="-0.0502" k2="-0.0108" k3="0.0444"/>
+            <vignetting model="pa" focal="65" aperture="16" distance="4" k1="-0.1399" k2="0.1228" k3="-0.0204"/>
+            <vignetting model="pa" focal="65" aperture="16" distance="5" k1="-0.2361" k2="0.2775" k3="-0.1107"/>
+        </calibration>
+    </lens>
+
+    <lens>
+        <maker>Canon</maker>
         <model>Canon EF 70-200mm f/2.8L USM</model>
         <mount>Canon EF</mount>
         <cropfactor>1</cropfactor>
