@@ -1319,6 +1319,18 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Pentax</maker>
+        <model>smc Pentax-FA 43mm f/1.9 Limited</model>
+        <mount>Pentax KAF2</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+             <!-- Taken with Pentax K1 -->
+            <distortion model="ptlens" focal="43" a="0.0122457" b="-0.0336066" c="0.0109325"/>
+            <tca model="poly3" focal="43" vr="1.0001318" vb="1.0000847"/>
+        </calibration>
+    </lens>
+
     <lens>
         <maker>Pentax</maker>
         <model>smc Pentax-FA 77mm f/1.8 Limited</model>
