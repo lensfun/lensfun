@@ -3211,4 +3211,16 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Sony</maker>
+        <model>E 15mm F1.4 G</model>
+        <mount>Sony E</mount>
+        <cropfactor>1.534</cropfactor>
+        <calibration>
+            <!-- Taken with Sony ILCE-6700 -->
+            <distortion model="ptlens" focal="15" a="-0.0069089" b="-0.0026383" c="-0.055656"/>
+            <tca model="poly3" focal="15" vr="1.0003160" vb="1.0000452"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
