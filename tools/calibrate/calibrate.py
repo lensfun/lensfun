@@ -267,7 +267,7 @@ def evaluate_image_set(exif_data, filepaths):
         codecs.open(gnuplot_filename, "w", encoding="utf-8").write("""set grid
 set title "{6}, {7} mm, f/{8}, {9} m"
 plot "{0}" with dots title "samples", "{1}" with linespoints lw 4 title "average", \\
-     {2} * (1 + ({3}) * x**2 + ({4}) * x**4 + ({5}) * x**6) title "fit"
+     {2} * (1 + ({3}) * x**2 + ({4}) * x**4 + ({5}) * x**6) lt rgb "red" lw 3 title "fit"
 pause -1
 """.format(all_points_filename, bins_filename, A, k1, k2, k3, lens_name, focal_length, aperture, distance))
 
