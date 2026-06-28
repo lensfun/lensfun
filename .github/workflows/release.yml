@@ -1,0 +1,147 @@
+name: Release Packaging
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  package-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install dependencies
+      run: sudo apt update && sudo apt install libxml2-utils libglib2.0-dev
+      
+    - name: Setup python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+        
+    - name: Install python build dependencies
+      run: python -m pip install --upgrade pip build
+      
+    - name: Configure CMake
+      run: cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/build/install
+      
+    - name: Build
+      run: cmake --build build --config Release
+      
+    - name: Install
+      run: cmake --build build --target install
+      
+    - name: Create package
+      run: tar -czvf lensfun-linux.tar.gz -C build/install .
+      
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./lensfun-linux.tar.gz
+        asset_name: lensfun-linux.tar.gz
+        asset_content_type: application/gzip
+
+  package-macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    # 1. 安装构建依赖以及 dylibbundler (关键工具)
+    - name: Install dependencies
+      run: |
+        brew update
+        brew install glib pkg-config dylibbundler
+
+    - name: Setup python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+        
+    - name: Install python build dependencies
+      run: python -m pip install --upgrade pip build
+
+    - name: Configure CMake
+      run: cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/build/install
+
+    - name: Build
+      run: cmake --build build --config Release
+
+    - name: Install
+      run: cmake --build build --target install
+
+    # 2. 关键步骤：自动查找并复制依赖，修复 @rpath 为 @loader_path
+    - name: Bundle dependencies (Fix dylib paths)
+      run: |
+        cd build/install/lib
+        # -of: 覆盖已存在文件
+        # -b:  捆绑依赖项
+        # -x:  指定要修复的二进制文件
+        # -d:  依赖库复制到的目标目录 (当前目录 .)
+        # -p:  修改依赖路径前缀为相对路径 (@loader_path/)
+        dylibbundler -of -b -x liblensfun.dylib -d . -p @loader_path/
+        
+        # 打印一下结果，方便在 GitHub Action 日志中检查
+        echo "=== Deployment check ==="
+        ls -l
+        otool -L liblensfun.dylib
+
+    - name: Create package
+      run: tar -czvf lensfun-macos.tar.gz -C build/install .
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./lensfun-macos.tar.gz
+        asset_name: lensfun-macos.tar.gz
+        asset_content_type: application/gzip
+
+  package-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install vcpkg dependencies
+      run: |
+        vcpkg install glib libpng --triplet=x64-windows
+        vcpkg integrate install
+        
+    - name: Install xsltproc
+      run: choco install xsltproc
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+        
+    - name: Install setuptools
+      run: python -m pip install --upgrade pip build setuptools
+
+    - name: Build and Install using CMake
+      run: |
+        mkdir build
+        cd build
+        cmake .. -G "Visual Studio 17 2022" -A x64 -DBUILD_STATIC=OFF -DBUILD_LENSTOOL=OFF -DBUILD_TESTS=OFF -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/build/install -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake -DGLIB2_BASE_DIR=c:/vcpkg/installed/x64-windows
+        cmake --build . --config Release
+        cmake --build . --target install --config Release
+
+    # Windows 下手动复制 DLL (你原来的逻辑是对的)
+    - name: Copy dependency DLLs
+      run: Copy-Item -Path C:\vcpkg\installed\x64-windows\bin\*.dll -Destination ${{ github.workspace }}\build\install\lib\
+
+    - name: Create package
+      run: Compress-Archive -Path build/install/* -DestinationPath lensfun-windows.zip
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./lensfun-windows.zip
+        asset_name: lensfun-windows.zip
+        asset_content_type: application/zip
