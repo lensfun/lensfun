@@ -13,7 +13,7 @@ directory – albeit highly unlikely – might contain entries that override dat
 in that XML file.
 """
 
-import os, argparse, sys, re, copy, glob, multiprocessing
+import os, argparse, sys, re, copy, glob, hashlib, multiprocessing
 from xml.etree import ElementTree
 
 # Top-level definitions for multiprocessing compatibility on Windows
@@ -67,6 +67,14 @@ class LensfunLens:
         self.element = element
         model = child_without_attributes(element, "model").text
         self.normalized_model = self.normalize_lens_model_name(model)
+        self.normalized_models = []
+        for model_element in element.findall("model"):
+            if model_element.text:
+                normalized_model = self.normalize_lens_model_name(model_element.text)
+                if normalized_model and normalized_model not in self.normalized_models:
+                    self.normalized_models.append(normalized_model)
+        if not self.normalized_models:
+            self.normalized_models.append(self.normalized_model)
         self.cropfactor = float(element.find("cropfactor").text)
         first_mount = element.find("mount").text
         if first_mount[0].islower():
@@ -104,26 +112,25 @@ class LensfunLens:
     def matches(self, names, cropfactor, fixed_lens_mount):
         if self.fixed_lens_mount and fixed_lens_mount == self.fixed_lens_mount and not self.chdk:
             return (1000, 0)
-        scores = []
+        scores = (-1000, 0)
         for name in names:
-            normalized_model = list(self.normalized_model)
-            try:
-                for token in self.normalize_lens_model_name(name):
-                    normalized_model.remove(token)
-            except ValueError:
-                continue
-            unmatched_tokens = len(normalized_model)
-            if unmatched_tokens < 4:
-                scores.append(10 - unmatched_tokens)
-                break
-        else:
+            for lensfun_model in self.normalized_models:
+                normalized_model = list(lensfun_model)
+                try:
+                    for token in self.normalize_lens_model_name(name):
+                        normalized_model.remove(token)
+                except ValueError:
+                    continue
+                unmatched_tokens = len(normalized_model)
+                if unmatched_tokens < 4:
+                    scores = max(scores, (10 - unmatched_tokens, 0))
+        if scores[0] < 0:
             return (-1000, 0)
         cropfactor_ratio = cropfactor / self.cropfactor
         if not 0.96 < cropfactor_ratio < 1.041:
             return (-1000, 0)
         else:
-            scores.append(10 - 100 * abs(1 - cropfactor_ratio))
-        return tuple(scores)
+            return (scores[0], 10 - 100 * abs(1 - cropfactor_ratio))
 
 class FieldNotFoundError(Exception):
     pass
@@ -141,6 +148,36 @@ rdf_ns = "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}"
 unusable_lens_name_regex = re.compile(r"[-0-9.]+\s*mm(\s*f/?[-0-9.]+)?|Sigma Lens$", re.IGNORECASE)
 # This regex is used for finding a focal length in a string.
 focal_length_regex = re.compile(r"([0-9.]+)\s*mm\b", re.IGNORECASE)
+# This regex recognizes fixed-lens cameras not already present in the Lensfun DB.
+compact_camera_regex = re.compile(
+    r"coolpix|finepix|powershot|ixus|cyber-?shot|sony dsc|"
+    r"\biphone\b|\bipad\b|\bapple\b|\bpixel\b|\bgoogle\b|"
+    r"\bgalaxy\b|\bsm-[a-z0-9]+|xperia|huawei|honou?r|oppo|oneplus|"
+    r"xiaomi|redmi|poco|vivo|realme|motorola|\bmoto\b|lge|nexus|"
+    r"gopro|\bhero\b|\bdji\b|osmo|inspire|mavic|phantom|zenmuse|\bfc[0-9]+\b|cgo2g|"
+    r"bebop|parrot|skydio|hmd|nokia|dxo one|samsung ex1|wb2000",
+    re.IGNORECASE)
+alternate_focal_alias_regex = re.compile(r"@\d+(\.\d+)?$")
+
+def unique_nonempty(items):
+    result = []
+    seen = set()
+    for item in items:
+        if item is None:
+            continue
+        item = item.strip()
+        if item and item not in seen:
+            result.append(item)
+            seen.add(item)
+    return result
+
+def normalize_key_text(text):
+    return " ".join(text.lower().split())
+
+def stable_compact_mount_name(camera_make, camera_model, lens_model, cropfactor):
+    key = "\0".join((camera_make, camera_model, lens_model, str(cropfactor)))
+    digest = hashlib.sha1(key.encode("utf-8")).hexdigest()[:16]
+    return "compactCamera" + digest
 
 # Global data for worker processes, populated by init_worker
 g_lensfun_cameras = None
@@ -156,7 +193,6 @@ def init_worker(lensfun_cameras_arg, lensfun_lenses_arg, args_arg):
 
 class LCPLens:
     """An entry in the LCP database.  It is identical with a single LCP file."""
-    compact_cameras = []
 
     def __init__(self, filepath):
         tree = ElementTree.parse(filepath)
@@ -194,6 +230,11 @@ class LCPLens:
         if model_lower.startswith("hero"): return "GoPro"
         if model_lower.startswith("iphone"): return "Apple"
         if model_lower.startswith("inspire"): return "DJI"
+        if model_lower.startswith("dji"): return "DJI"
+        if model_lower.startswith("zenmuse"): return "DJI"
+        if model_lower.startswith("dxo"): return "DxO"
+        if model_lower.startswith("hmd global") or "nokia" in model_lower: return "HMD Global"
+        if model_lower.startswith("oppo"): return "OPPO"
         if model_lower.startswith("schneider"): return "Schneider-Kreuznach"
         if model_lower.startswith("phase one"): return "Phase One"
         if model_lower.startswith("venus optics"): return "Venus Optics"
@@ -205,6 +246,28 @@ class LCPLens:
         if "handevision" in model_lower: return "HandeVision"
         maker = model.split()[0].capitalize()
         return maker
+
+    @staticmethod
+    def add_jpeg_suffix(model):
+        return model if model.endswith(" (JPEGs)") else model + " (JPEGs)"
+
+    @staticmethod
+    def strip_jpeg_suffix(model):
+        suffix = " (JPEGs)"
+        return model[:-len(suffix)] if model.endswith(suffix) else model
+
+    def read_alternate_lens_names(self, entry):
+        alt_names_element = entry.find(camera_ns + "AlternateLensNames")
+        if alt_names_element is None:
+            return []
+        seq_element = alt_names_element.find(rdf_ns + "Seq")
+        if seq_element is None:
+            return []
+        return unique_nonempty(li_element.text for li_element in seq_element.findall(rdf_ns + "li"))
+
+    @staticmethod
+    def usable_lens_name(name):
+        return bool(name) and not unusable_lens_name_regex.match(name)
 
     def make_model_en_prettier(self):
         if "nikkor" in self.model_en.lower() and self.model_en.lower().startswith("nikon"):
@@ -235,46 +298,65 @@ class LCPLens:
     def read_first_entry(self):
         entry = self.calibration_entries[0]
         camera_make = self.read_field(entry, "Make")
+        self.camera_make = camera_make
         self.camera_model = self.read_field(entry, "Model", camera_make)
         camera = g_lensfun_cameras.get((camera_make.lower(), self.camera_model.lower()))
-        self.model_en = self.read_field(entry, "LensPrettyName")
-        if self.read_field(entry, "CameraRawProfile", "True").lower() == "false":
-            self.model_en += " (JPEGs)"
-            self.raw = False
-        else:
-            self.raw = True
-        self.maker = self.clean_lens_maker(self.model_en)
+
+        self.raw = self.read_field(entry, "CameraRawProfile", "True").lower() != "false"
+        lens_pretty_name = self.read_field(entry, "LensPrettyName").strip()
+        self.model_en = LensfunLens.sanitize_lcp_lens_model_name(lens_pretty_name)
+        if not self.raw:
+            self.model_en = self.add_jpeg_suffix(self.model_en)
+        self.maker = self.clean_lens_maker(lens_pretty_name)
+
+        lens_name = None
         try:
-            self.model = self.read_field(entry, "Lens")
+            lens_name = self.read_field(entry, "Lens").strip()
         except FieldNotFoundError:
+            pass
+        if self.usable_lens_name(lens_name):
+            self.model = LensfunLens.sanitize_lcp_lens_model_name(lens_name)
+        else:
             self.model = self.model_en
-        if unusable_lens_name_regex.match(self.model):
-            self.model = self.model_en
-        self.model = LensfunLens.sanitize_lcp_lens_model_name(self.model)
-        self.model_en = LensfunLens.sanitize_lcp_lens_model_name(self.model_en)
         self.make_model_en_prettier()
+
+        model_en_for_matching = self.strip_jpeg_suffix(self.model_en)
+        alternate_names = []
+        for name in self.read_alternate_lens_names(entry):
+            if self.usable_lens_name(name) and not alternate_focal_alias_regex.search(name):
+                alternate_names.append(LensfunLens.sanitize_lcp_lens_model_name(name))
+        alternate_names = unique_nonempty(alternate_names)
+
+        self.match_models = unique_nonempty(
+            [lens_name if self.usable_lens_name(lens_name) else None,
+             self.model,
+             lens_pretty_name,
+             model_en_for_matching] +
+            alternate_names)
+        self.models = unique_nonempty([self.model, self.model_en] + alternate_names)
         try:
             self.cropfactor = float(self.read_field(entry, "SensorFormatFactor"))
         except FieldNotFoundError:
             self.cropfactor = camera and camera.cropfactor or 1
         self.fixed_lens_mount = None
+        self.compact_camera = None
         if camera:
             if camera.mount[0].islower():
                 self.fixed_lens_mount = camera.mount
-        elif re.search(r"coolpix|finefix|powershot|sony dsc|cyber-?shot|apple|iphone|hero|inspire|cgo2gb|samsung ex1",
-                    self.model_en, re.IGNORECASE):
-            self.fixed_lens_mount = "compactCamera" + str(abs(hash(self.model_en)))
+        elif compact_camera_regex.search(" ".join((camera_make, self.camera_model, self.model_en))):
+            self.fixed_lens_mount = stable_compact_mount_name(
+                camera_make, self.camera_model, model_en_for_matching, self.cropfactor)
             camera_element = ElementTree.Element("camera")
             ElementTree.SubElement(camera_element, "maker").text = camera_make
             ElementTree.SubElement(camera_element, "model").text = self.camera_model
+            ElementTree.SubElement(camera_element, "variant").text = "{} ({})".format(self.model_en, self.cropfactor)
             ElementTree.SubElement(camera_element, "mount").text = self.fixed_lens_mount
             ElementTree.SubElement(camera_element, "cropfactor").text = str(self.cropfactor)
-            self.compact_cameras.append(camera_element)
+            self.compact_camera = camera_element
         self.lensfun_lens = None
-        models = [self.model] if self.model == self.model_en else [self.model, self.model_en]
         best_scores = (-1000, 0)
         for lens in g_lensfun_lenses:
-            scores = lens.matches(models, self.cropfactor, self.fixed_lens_mount)
+            scores = lens.matches(self.match_models, self.cropfactor, self.fixed_lens_mount)
             if scores > best_scores:
                 best_scores = scores
                 self.lensfun_lens = lens
@@ -424,9 +506,34 @@ class LCPLens:
         elif self.maker == "Pentax":
             mounts.add("Mamiya 645" if "645" in self.model else "Pentax KAF")
         elif self.maker == "Sigma":
-            mounts.add("Sony E" if "E " in self.model else "Sigma SA")
-            if "E " not in self.model:
-                mounts.update({"Nikon F AF", "Sony Alpha", "Pentax KAF", "Canon EF", "Minolta AF", "Canon FD", "Olympus OM", "4/3 System"})
+            model_text = " ".join((self.model, self.model_en)).upper()
+            camera_text = " ".join((self.camera_make, self.camera_model)).upper()
+            if " DN" in model_text or model_text.endswith(" DN"):
+                if "SONY" in camera_text:
+                    mounts.add("Sony E")
+                elif "FUJIFILM" in camera_text:
+                    mounts.add("Fujifilm X")
+                elif "CANON" in camera_text:
+                    mounts.update({"Canon RF", "Canon EF-M"} if "DC DN" in model_text else {"Canon RF"})
+                elif "NIKON" in camera_text:
+                    mounts.add("Nikon Z")
+                elif "OLYMPUS" in camera_text or "PANASONIC" in camera_text:
+                    mounts.add("Micro 4/3 System")
+                elif "SIGMA" in camera_text or "LEICA" in camera_text:
+                    mounts.add("Leica L")
+                if not mounts:
+                    if "DG DN" in model_text:
+                        mounts.update({"Sony E", "Leica L"})
+                    elif "DC DN" in model_text:
+                        mounts.update({"Sony E", "Fujifilm X", "Canon RF", "Canon EF-M", "Micro 4/3 System", "Leica L"})
+                    else:
+                        mounts.update({"Sony E", "Micro 4/3 System"})
+            elif " DG" in model_text or " DC" in model_text:
+                mounts.update({"Sigma SA", "Nikon F AF", "Sony Alpha", "Pentax KAF", "Canon EF", "Minolta AF", "Canon FD", "Olympus OM", "4/3 System"})
+            else:
+                mounts.add("Sony E" if "E " in self.model else "Sigma SA")
+                if "E " not in self.model:
+                    mounts.update({"Nikon F AF", "Sony Alpha", "Pentax KAF", "Canon EF", "Minolta AF", "Canon FD", "Olympus OM", "4/3 System"})
         elif self.maker == "Zeiss":
             mounts.add("Sony E" if "E " in self.model else "Nikon F AF")
             if "E " not in self.model:
@@ -458,7 +565,7 @@ class LCPLens:
             print("Warning: Fall back to default mounts for {} / {}.".format(self.maker, self.model))
             mounts = {"Sigma SA", "Nikon F AF", "Sony Alpha", "Pentax KAF", "Canon EF", "Minolta AF", "Canon FD", "Olympus OM", "4/3 System","Sony E","Canon RF","Nikon Z","Fujifilm X","Leica L"}
         elements = []
-        for mount in mounts:
+        for mount in sorted(mounts):
             element = ElementTree.Element("mount")
             element.text = mount
             elements.append(element)
@@ -467,6 +574,11 @@ class LCPLens:
     def xml_element(self):
         if self.lensfun_lens:
             lens = copy.deepcopy(self.lensfun_lens.element)
+            existing_models = {model.text for model in lens.findall("model") if model.text}
+            for model in self.models:
+                if model not in existing_models:
+                    ElementTree.SubElement(lens, "model").text = model
+                    existing_models.add(model)
             calibration = lens.find("calibration")
             if calibration is None:
                 calibration = ElementTree.SubElement(lens, "calibration")
@@ -477,7 +589,10 @@ class LCPLens:
                     type_ = lens.find("type")
                     if fisheye:
                         if type_ is not None: type_.text = "fisheye"
-                        else: lens.insert(max(len(lens) - 1, 0), ElementTree.Element("type", text="fisheye"))
+                        else:
+                            type_ = ElementTree.Element("type")
+                            type_.text = "fisheye"
+                            lens.insert(max(len(lens) - 1, 0), type_)
                     elif type_ is not None:
                         lens.remove(type_)
                     for entry in calibration.findall("distortion"): calibration.remove(entry)
@@ -500,15 +615,21 @@ class LCPLens:
         else:
             lens = ElementTree.Element("lens")
             ElementTree.SubElement(lens, "maker").text = self.maker
-            ElementTree.SubElement(lens, "model").text = self.model
+            written_models = set()
+            for model in self.models:
+                if model in written_models:
+                    continue
+                attributes = {"lang": "en"} if model == self.model_en and model != self.models[0] else {}
+                ElementTree.SubElement(lens, "model", attributes).text = model
+                written_models.add(model)
             if self.fixed_lens_mount:
                 suffix = "" if self.raw else " (JPEGs)"
-                ElementTree.SubElement(lens, "model", lang="en").text = "fixed lens" + suffix
-                ElementTree.SubElement(lens, "model", lang="de").text = "festes Objektiv" + suffix
+                if "fixed lens" + suffix not in written_models:
+                    ElementTree.SubElement(lens, "model", lang="en").text = "fixed lens" + suffix
+                if "festes Objektiv" + suffix not in written_models:
+                    ElementTree.SubElement(lens, "model", lang="de").text = "festes Objektiv" + suffix
                 ElementTree.SubElement(lens, "mount").text = self.fixed_lens_mount
             else:
-                if self.model != self.model_en:
-                    ElementTree.SubElement(lens, "model", {"lang": "en"}).text = self.model_en
                 lens.extend(self.guess_ilc_mounts())
             ElementTree.SubElement(lens, "cropfactor").text = str(self.cropfactor)
             entries, fisheye = self.generate_distortion_entries()
@@ -536,6 +657,14 @@ class LCPLens:
         elif 1.58 <= self.cropfactor <= 1.63: return 1.6
         elif 1.2 <= self.cropfactor <= 1.3: return 1.3
         else: return round(self.cropfactor * 10) / 10
+
+    @property
+    def dedupe_key(self):
+        if self.lensfun_lens:
+            cropfactor = float(self.xml_element.find("cropfactor").text)
+        else:
+            cropfactor = self.normalized_cropfactor
+        return normalize_key_text(self.maker), normalize_key_text(self.model), cropfactor
 
 def read_lcp_file(filepath):
     """Worker function to read and parse a single LCP file."""
@@ -601,39 +730,50 @@ def main():
                             os.path.expanduser("~/.local/share/lensfun")]
         for path in paths_search_list:
             crawl_directory(path)
-        return lensfun_cameras, set(lensfun_lenses_dict.values())
+        lensfun_lenses = sorted(lensfun_lenses_dict.values(),
+                                key=lambda lens: (child_without_attributes(lens.element, "maker").text.lower(),
+                                                  child_without_attributes(lens.element, "model").text.lower(),
+                                                  lens.cropfactor))
+        return lensfun_cameras, lensfun_lenses
 
     local_lensfun_cameras, local_lensfun_lenses = read_lensfun_database()
     if not local_lensfun_cameras and not local_lensfun_lenses:
         print("Warning: No Lensfun database found.")
 
     def read_lcp_files():
-        pool = multiprocessing.Pool(initializer=init_worker, initargs=(local_lensfun_cameras, local_lensfun_lenses, local_args))
         filepaths = []
         for root, __, filenames in os.walk(local_args.input_directory):
             for filename in filenames:
                 if filename.lower().endswith('.lcp'):
                     filepaths.append(os.path.join(root, filename))
-        
-        results = pool.map(read_lcp_file, filepaths)
-        pool.close()
-        pool.join()
+
+        with multiprocessing.Pool(initializer=init_worker, initargs=(local_lensfun_cameras, local_lensfun_lenses, local_args)) as pool:
+            results = pool.map(read_lcp_file, filepaths)
 
         lcp_lenses_dict = {}
+        compact_cameras = {}
         for lcp_lens in results:
             if lcp_lens:
-                key = (lcp_lens.maker, lcp_lens.model, lcp_lens.normalized_cropfactor)
+                if lcp_lens.compact_camera is not None:
+                    compact_cameras[lcp_lens.compact_camera.find("mount").text] = lcp_lens.compact_camera
+                key = lcp_lens.dedupe_key
                 already_existing_lens = lcp_lenses_dict.get(key)
                 if not already_existing_lens or \
                    already_existing_lens.correction_coverage < lcp_lens.correction_coverage or \
                    (already_existing_lens.correction_coverage == lcp_lens.correction_coverage and already_existing_lens.cropfactor > lcp_lens.cropfactor):
                     lcp_lenses_dict[key] = lcp_lens
-        return set(lcp_lenses_dict.values())
+        lcp_lenses = sorted(lcp_lenses_dict.values(),
+                            key=lambda lens: (lens.maker.lower(), lens.model.lower(), lens.normalized_cropfactor, lens.cropfactor))
+        compact_cameras = sorted(compact_cameras.values(),
+                                 key=lambda camera: (camera.find("maker").text.lower(),
+                                                     camera.find("model").text.lower(),
+                                                     camera.find("mount").text))
+        return lcp_lenses, compact_cameras
 
-    lcp_lenses = read_lcp_files()
+    lcp_lenses, compact_cameras = read_lcp_files()
 
     output = ElementTree.Element("lensdatabase", {"version": "2"})
-    for camera in LCPLens.compact_cameras:
+    for camera in compact_cameras:
         output.append(camera)
     for lens in lcp_lenses:
         output.append(lens.xml_element)
