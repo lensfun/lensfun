@@ -422,7 +422,7 @@
     <lens>
         <maker>Tamron</maker>
         <model>E 18-300mm F3.5-6.3 B061</model>
-	<model lang="en">Tamron E 18-300mm F3.5-6.3 B061</model>
+	    <model lang="en">Tamron E 18-300mm F3.5-6.3 B061</model>
         <mount>Sony E</mount>
         <cropfactor>1.534</cropfactor>
         <calibration>
@@ -440,6 +440,29 @@
             <distortion model="ptlens" focal="241.0" a="0.00321" b="-0.01004" c="0.01943" />
             <distortion model="ptlens" focal="277.0" a="0.01905" b="-0.04979" c="0.03944" />
             <distortion model="ptlens" focal="300.0" a="0.03685" b="-0.12817" c="0.15026" />
+        </calibration>
+    </lens>
+
+	<lens>
+        <maker>Tamron</maker>
+        <model>Tamron 18-300mm F3.5-6.3 B061 RF</model>
+        <mount>Canon RF</mount>
+        <cropfactor>1.611</cropfactor>
+        <calibration>
+            <distortion model="ptlens" focal="18.0" a="0.003" b="-0.01" c="-0.053" />
+            <distortion model="ptlens" focal="36.0" a="0.013" b="-0.042" c="0.053" />
+            <distortion model="ptlens" focal="50.0" a="0.012" b="-0.037" c="0.053" />
+            <distortion model="ptlens" focal="70.0" a="0.017" b="-0.056" c="0.078" />
+            <distortion model="ptlens" focal="103.0" a="0.018" b="-0.069" c="0.101" />
+            <distortion model="ptlens" focal="205.0" a="-0.008" b="0.035" c="-0.039" />
+            <distortion model="ptlens" focal="300.0" a="-0.001" b="0.012" c="-0.015" />
+            <tca model="poly3" focal="18.0" vr="1.0001336" vb="1.0002210" />
+            <tca model="poly3" focal="36.0" vr="1.0001341" vb="1.0001382" />
+            <tca model="poly3" focal="50.0" vr="1.0000922" vb="1.0001031" />
+            <tca model="poly3" focal="70.0" vr="1.0000245" vb="1.0001101" />
+            <tca model="poly3" focal="103.0" vr="0.9999215" vb="1.0000912" />
+            <tca model="poly3" focal="205.0" vr="0.9995808" vb="1.0000172" />
+            <tca model="poly3" focal="300.0" vr="0.9995403" vb="0.9998811" />
         </calibration>
     </lens>
 
