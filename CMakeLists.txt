@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 IF (MSVC)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
 ELSE()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wformat-security -pedantic -Wextra -fexceptions")
@@ -71,10 +72,6 @@ IF(WIN32 AND CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 ENDIF()
 
 # overwrite some folders before GNUInstallDirs is loaded
-IF (WIN32 AND NOT DEFINED CMAKE_INSTALL_DATAROOTDIR)
-    SET(CMAKE_INSTALL_DATAROOTDIR "$ENV{ALLUSERSPROFILE}" CACHE PATH "read-only architecture-independent data root (share)")
-ENDIF()
-
 # get standard GNU install directories for the current platform
 INCLUDE(GNUInstallDirs)
 IF(NOT DEFINED CMAKE_INSTALL_DATAROOTDIR)
@@ -124,38 +121,6 @@ IF(BUILD_STATIC)
   ADD_DEFINITIONS(-DCONF_LENSFUN_STATIC)
 ENDIF()
 
-
-# some windows and MSVC specific settings
-IF(WIN32)
-
-  IF (MSVC)
-    IF(BUILD_WITH_MSVC_STATIC_RUNTIME)
-      # compile everything for the static C runtime
-      FOREACH(TYPE C CXX)
-        # makefiles use blank configuration
-        FOREACH(CFG "_DEBUG" "_MINSIZEREL" "_RELEASE" "_RELWITHDEBINFO")
-          SET(NEW_FLAGS "${CMAKE_${TYPE}_FLAGS${CFG}}")
-          # fix up static libc flags
-          STRING(REPLACE "/MD" "/MT" NEW_FLAGS "${NEW_FLAGS}")
-          # *FORCE* to override what's already placed into the cache
-          SET(CMAKE_${TYPE}_FLAGS${CFG} "${NEW_FLAGS}" CACHE STRING
-            "CMAKE_${TYPE}_FLAGS${CFG} (overwritten to ensure static build)" FORCE)
-        ENDFOREACH(CFG)
-      ENDFOREACH(TYPE)
-      # link only with the static C runtime !! THIS IS A MUST !!
-      SET(NEW_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
-      # ensure that the flags are not duplicaated on subsequent runs
-      STRING(REPLACE " /NODEFAULTLIB:\"MSVCRT.lib\" /NODEFAULTLIB:\"MSVCRTd.lib\"" "" NEW_FLAGS "${NEW_FLAGS}")
-      # note that flag names (NODEFAULTLIB) etc.) are case sensitive
-      SET(CMAKE_EXE_LINKER_FLAGS
-          "${NEW_FLAGS} /NODEFAULTLIB:\"MSVCRT.lib\" /NODEFAULTLIB:\"MSVCRTd.lib\""
-          CACHE STRING "for MSVC" FORCE
-      )
-    ENDIF()
-  ENDIF(MSVC)
-ENDIF(WIN32)
-
-
 # create config.h file
 CONFIGURE_FILE(include/lensfun/config.h.in.cmake ${CMAKE_BINARY_DIR}/config.h)
 # create lensfun.h file
@@ -198,7 +163,7 @@ IF(WIN32 AND NOT BUILD_STATIC)
             NAMES glib-2.0-0.dll glib-2.dll glib-2-vs9.dll
             PATHS "${GLIB2_BASE_DIR}/bin"
             NO_SYSTEM_ENVIRONMENT_PATH)
-  INSTALL(FILES ${GLIB2_DLL} DESTINATION ${CMAKE_INSTALL_BINDIR})
+  INSTALL(FILES ${GLIB2_DLL} DESTINATION ${CMAKE_INSTALL_LIBDIR})
 ENDIF()
 
 # print some information
