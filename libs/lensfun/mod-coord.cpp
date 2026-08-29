@@ -1243,6 +1243,11 @@ int lf_modifier_enable_distortion_correction (lfModifier *modifier)
     return modifier->EnableDistortionCorrection();
 }
 
+int lf_modifier_enable_distortion_correction_lcd (lfModifier *modifier, const lfLensCalibDistortion* lcd)
+{
+    return modifier->EnableDistortionCorrection(*lcd);
+}
+
 int lf_modifier_enable_projection_transform (
     lfModifier *modifier, lfLensType target_projection)
 {
