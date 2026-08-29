@@ -451,7 +451,7 @@ float lfModifier::GetTransformedDistance (lfPoint point) const
 
         // If rd1 is very close to rd, this means our delta is too small
         // and we can hit the precision limit of the float format...
-        if (absolute (rd1 - rd) < 0.00001)
+        if (std::abs (rd1 - rd) < 0.00001)
         {
             dx *= 2;
             continue;
