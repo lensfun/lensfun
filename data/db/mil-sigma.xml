@@ -1324,4 +1324,30 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Sigma</maker>
+        <model>20-200mm F3.5-6.3 DG | Contemporary 025</model>
+        <model lang="en">Sigma 20-200mm F3.5-6.3 DG | Contemporary</model>
+        <mount>Sony E</mount>
+        <mount>Leica L</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with ILCE-7M4 -->
+            <distortion model="ptlens" focal="20" a="0.0577064" b="-0.1643201" c="0.0562888"/>
+            <distortion model="ptlens" focal="28.5" a="0.0230511" b="-0.0604836" c="0.0222392"/>
+            <distortion model="ptlens" focal="35.7" a="0.0114348" b="-0.0231363" c="0.0102122"/>
+            <distortion model="ptlens" focal="50" a="0.0084532" b="-0.0065116" c="0.0085379"/>
+            <distortion model="ptlens" focal="84.2" a="0.0002339" b="0.0156445" c="0.0032421"/>
+            <distortion model="ptlens" focal="134.7" a="0.0067804" b="-0.0026299" c="0.0210915"/>
+            <distortion model="ptlens" focal="200" a="-0.0035746" b="0.0325748" c="-0.0224712"/>
+            <tca model="poly3" focal="20" br="-0.0001569" vr="1.0005799" bb="0.0002338" vb="0.9997508"/>
+            <tca model="poly3" focal="28.5" br="-0.0000717" vr="1.0005179" bb="0.0001189" vb="0.9996799"/>
+            <tca model="poly3" focal="35.7" br="-0.0000001" vr="1.0003085" bb="0.0000723" vb="0.9997633"/>
+            <tca model="poly3" focal="50" br="-0.0000418" vr="1.0002088" bb="0.0000489" vb="0.9998210"/>
+            <tca model="poly3" focal="84.2" br="-0.0000332" vr="1.0000342" bb="0.0000249" vb="0.9999139"/>
+            <tca model="poly3" focal="134.7" br="0.0000221" vr="0.9999156" bb="0.0000295" vb="0.9998818"/>
+            <tca model="poly3" focal="200" br="0.0000096" vr="0.9999006" bb="0.0000152" vb="0.9999212"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
