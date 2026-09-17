@@ -6,6 +6,8 @@
 #include "config.h"
 #include "lensfun.h"
 #include "lensfunprv.h"
+#include <algorithm>
+#include <limits>
 #include <math.h>
 
 /* See modifier.cpp for general info about the coordinate systems. */
@@ -183,17 +185,6 @@ bool lfModifier::ApplyColorModification (
     return true;
 }
 
-// Helper template to return the maximal value for a type.
-// By default returns 0.0, which means to not clamp by upper boundary.
-template<typename T>inline double type_max (T)
-{ return 0.0; }
-
-template<>inline double type_max (lf_u16)
-{ return 65535.0; }
-
-template<>inline double type_max (lf_u32)
-{ return 4294967295.0; }
-
 template<typename T>static inline T *apply_multiplier (T *pixels, double c, int &cr)
 {
     for (;;)
@@ -211,7 +202,7 @@ template<typename T>static inline T *apply_multiplier (T *pixels, double c, int 
                 break;
 
             default:
-                *pixels = clampd<T> (*pixels * c, 0.0, type_max (T (0)));
+                *pixels = std::clamp(*pixels * c, 0.0,  static_cast<double>(std::numeric_limits<T>::max()));
                 break;
         }
         pixels++;
