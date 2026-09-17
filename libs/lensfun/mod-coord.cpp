@@ -4,8 +4,19 @@
 
     Most of the math in this file has been borrowed from PanoTools.
     Thanks to the PanoTools team for their pioneering work.
+*/
 
-    See modifier.cpp for general info about the coordinate systems.
+#include "config.h"
+#include "lensfun.h"
+#include "lensfunprv.h"
+#include <math.h>
+#include "windows/mathconstants.h"
+#include <limits>
+#include <cassert>
+
+/*
+    Rescale polynomial coefficients to fit the internal (natural) coordinate
+    system. See modifier.cpp for general info about the coordinate systems.
 
     Note about PT-based distortion models: Due to the "d" parameter in the
     PanoTools/Hugin formula for the modelling of distortion, its application
@@ -25,16 +36,7 @@
 
     The same applies to the poly3 model, where a, b, c are 0, k1, 0.
 */
-
-#include "config.h"
-#include "lensfun.h"
-#include "lensfunprv.h"
-#include <math.h>
-#include "windows/mathconstants.h"
-#include <limits>
-#include <cassert>
-
-lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistortion& lcd_, double real_focal)
+lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistortion& lcd_, double real_focal, float& legacyScaleFactor)
 {
     // FixMe: The ACM probably bases on the nominal focal length.  This needs
     // to be found out.  It this is true, we have to scale its coefficient by
@@ -48,6 +50,7 @@ lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistorti
         case LF_DIST_MODEL_POLY3:
         {
             const float d = 1 - lcd.Terms [0];
+            legacyScaleFactor = d;
             lcd.Terms [0] *= pow (hugin_scaling, 2) / pow (d, 3);
             break;
         }
@@ -58,6 +61,7 @@ lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistorti
         case LF_DIST_MODEL_PTLENS:
         {
             const float d = 1 - lcd.Terms [0] - lcd.Terms [1] - lcd.Terms [2];
+            legacyScaleFactor = d;
             lcd.Terms [0] *= pow (hugin_scaling, 3) / pow (d, 4);
             lcd.Terms [1] *= pow (hugin_scaling, 2) / pow (d, 3);
             lcd.Terms [2] *= hugin_scaling / pow (d, 2);
@@ -70,9 +74,10 @@ lfLensCalibDistortion rescale_polynomial_coefficients (const lfLensCalibDistorti
     return lcd;
 }
 
-int lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd_)
+int lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd_, bool legacyScaling /*= false*/)
 {
-    const lfLensCalibDistortion lcd = rescale_polynomial_coefficients (lcd_, RealFocal);
+    float legacyScaleFactor = 1.0f;
+    const lfLensCalibDistortion lcd = rescale_polynomial_coefficients (lcd_, RealFocal, legacyScaleFactor);
     if (Reverse)
         switch (lcd.Model)
         {
@@ -143,15 +148,30 @@ int lfModifier::EnableDistortionCorrection (const lfLensCalibDistortion& lcd_)
         }
 
     EnabledMods |= LF_MODIFY_DISTORTION;
+
+    // Optionally add an additional scaling callback to get results after distortion
+    // correction with the LF_DIST_MODEL_POLY3 and LF_DIST_MODEL_PTLENS models
+    // that are scaled similar as in legacy Lensfun versions < 0.4.
+    if (legacyScaling && (legacyScaleFactor != 1.0f))
+    {
+        lfCoordScaleCallbackData* cd = new lfCoordScaleCallbackData;
+
+        cd->callback = ModifyCoord_Scale;
+        cd->priority = 100;
+        cd->scale_factor = legacyScaleFactor;
+
+        CoordCallbacks.insert(cd);
+    }
+
     return EnabledMods;
 }
 
-int lfModifier::EnableDistortionCorrection ()
+int lfModifier::EnableDistortionCorrection (bool legacyScaling /*= false*/)
 {
     lfLensCalibDistortion lcd;
     if (Lens->InterpolateDistortion (Crop, Focal, lcd))
     {
-        return EnableDistortionCorrection (lcd);
+        return EnableDistortionCorrection (lcd, legacyScaling);
     }
 
     return EnabledMods;
