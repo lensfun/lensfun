@@ -2,9 +2,10 @@
 #
 # Copyright 2012-2016 Torsten Bronger <bronger@physik.rwth-aachen.de>
 
-missing_packages = set()
+import subprocess, os, os.path, sys, multiprocessing, math, re, contextlib, glob, struct, argparse
+import xml.etree.ElementTree as ET
 
-import subprocess, os, os.path, sys, multiprocessing, math, re, contextlib, glob, codecs, struct, argparse
+missing_packages = set()
 try:
     import numpy
 except ImportError:
@@ -13,11 +14,13 @@ try:
     from scipy.optimize import leastsq
 except ImportError:
     missing_packages.add("python3-scipy")
+
 def test_program(program, package_name):
     try:
-        subprocess.call([program], stdout=open(os.devnull, "w"), stderr=open(os.devnull, "w"))
+        subprocess.call([program], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     except OSError:
         missing_packages.add(package_name)
+
 convert_program = "convert"
 if os.name == 'nt':
     # on Windows, there is a system binary called convert.exe to convert FAT partitions to NTFS, so we need to call
@@ -29,13 +32,12 @@ test_program(convert_program, "imagemagick")
 test_program("tca_correct", "hugin-tools")
 test_program("exiv2", "exiv2")
 if missing_packages:
-    print("The following packages are missing (Ubuntu packages, names may differ on other systems):\n    {0}\nAbort.".
-          format("  ".join(missing_packages)))
+    print(f"The following packages are missing (Ubuntu packages, names may differ on other systems):\n    {'  '.join(missing_packages)}\nAbort.")
     sys.exit()
 try:
-    dcraw_version = float(subprocess.Popen(["dcraw_emu"], stdout=subprocess.PIPE).communicate()[0].splitlines()[1].
-                          rpartition("v")[2])
-except:
+    dcraw_version = float(subprocess.run(["dcraw_emu"], stdout=subprocess.PIPE, check=False).stdout.splitlines()[1].
+                          rpartition(b"v")[2])
+except (OSError, IndexError, ValueError):
     dcraw_version = 0
 h_option = [] if 8.99 < dcraw_version < 9.18 else ["-h"]
 
@@ -80,12 +82,12 @@ def chdir(dirname=None):
         os.chdir(curdir)
 
 
-class Lens(object):
+class Lens:
 
     def __init__(self, name, maker, mount, cropfactor, aspect_ratio, type_):
         self.name, self.maker, self.mount, self.cropfactor, self.aspect_ratio, self.type_ = \
                     name, maker, mount, cropfactor, aspect_ratio, type_
-        self.calibration_lines = []
+        self.calibration_elements = []
         self.minimal_focal_length = float("inf")
 
     def add_focal_length(self, focal_length):
@@ -94,25 +96,21 @@ class Lens(object):
     def __lt__(self, other):
         return self.minimal_focal_length < other.minimal_focal_length
 
-    def write(self, outfile):
-        type_line = "        <type>{0}</type>\n".format(self.type_) if self.type_ else ""
-        outfile.write("""
-    <lens>
-        <maker>{0}</maker>
-        <model>{1}</model>
-        <mount>{2}</mount>
-        <cropfactor>{3}</cropfactor>
-""".format(self.maker, self.name, self.mount, self.cropfactor))
+    def to_element(self):
+        lens_elem = ET.Element("lens")
+        ET.SubElement(lens_elem, "maker").text = self.maker
+        ET.SubElement(lens_elem, "model").text = self.name
+        ET.SubElement(lens_elem, "mount").text = self.mount
+        ET.SubElement(lens_elem, "cropfactor").text = self.cropfactor
         if self.type_:
-            outfile.write("        <type>{0}</type>\n".format(self.type_))
+            ET.SubElement(lens_elem, "type").text = self.type_
         if self.aspect_ratio and self.aspect_ratio != "3:2":
-            outfile.write("        <aspect-ratio>{0}</aspect-ratio>\n".format(self.aspect_ratio))
-        if self.calibration_lines:
-            outfile.write("        <calibration>\n")
-            for line in self.calibration_lines:
-                outfile.write("            {0}\n".format(line))
-            outfile.write("        </calibration>\n")
-        outfile.write("    </lens>\n")
+            ET.SubElement(lens_elem, "aspect-ratio").text = self.aspect_ratio
+        if self.calibration_elements:
+            calibration_elem = ET.SubElement(lens_elem, "calibration")
+            for elem in self.calibration_elements:
+                calibration_elem.append(elem)
+        return lens_elem
 
 
 def generate_raw_conversion_call(filename, dcraw_options):
@@ -124,8 +122,8 @@ def generate_raw_conversion_call(filename, dcraw_options):
             result.extend(["-colorspace", "RGB", "-depth", "16"])
         result.append("tiff:-" if "-" in dcraw_options else basename + ".tiff")
         return result
-    else:
-        return ["dcraw_emu", "-T", "-t", "0"] + dcraw_options + [filename]
+
+    return ["dcraw_emu", "-T", "-t", "0"] + dcraw_options + [filename]
 
 
 raw_file_extensions = ["3fr", "ari", "arw", "bay", "crw", "cr2", "cr3", "cap", "dcs", "dcr", "dng", "drf", "eip", "erf", "fff",
@@ -152,11 +150,11 @@ def browse_directory(directory):
                     exiv2_candidates.append(full_filename)
 
 def call_exiv2(candidate_group):
-    exiv2_process = subprocess.Popen(
+    result_proc = subprocess.run(
         ["exiv2", "-PEkt", "-g", "Exif.Photo.LensModel", "-g", "Exif.Photo.FocalLength", "-g", "Exif.Photo.FNumber"]
-        + candidate_group, stdout=subprocess.PIPE)
-    lines = exiv2_process.communicate()[0].decode("utf-8").splitlines()
-    assert exiv2_process.returncode in [0, 253]
+        + candidate_group, stdout=subprocess.PIPE, check=False)
+    lines = result_proc.stdout.decode("utf-8").splitlines()
+    assert result_proc.returncode in [0, 253]
     result = {}
     for line in lines:
         filename, data = line.split("Exif.Photo.")
@@ -186,31 +184,32 @@ def generate_tca_tiffs(filename):
     return None, None, None
 
 def evaluate_image_set(exif_data, filepaths):
-    output_filename = "{0}--{1}--{2}--{3}".format(*exif_data).replace(" ", "_").replace("/", "__").replace(":", "___"). \
+    output_filename = f"{exif_data[0]}--{exif_data[1]}--{exif_data[2]}--{exif_data[3]}".replace(" ", "_").replace("/", "__").replace(":", "___"). \
                       replace("*", "++").replace("=", "##")
-    gnuplot_filename = "{0}.gp".format(output_filename)
+    gnuplot_filename = f"{output_filename}.gp"
     try:
-        gnuplot_line = codecs.open(gnuplot_filename, encoding="utf-8").readlines()[3]
+        with open(gnuplot_filename, encoding="utf-8") as gnuplot_file:
+            gnuplot_line = gnuplot_file.readlines()[3]
         match = re.match(r'     [-e.0-9]+ \* \(1 \+ \((?P<k1>[-e.0-9]+)\) \* x\*\*2 \+ \((?P<k2>[-e.0-9]+)\) \* x\*\*4 \+ '
                          r'\((?P<k3>[-e.0-9]+)\) \* x\*\*6\) title "fit"', gnuplot_line)
         k1, k2, k3 = [float(k) for k in match.groups()]
-    except IOError:
+    except OSError:
         radii, intensities = [], []
         for filepath in filepaths:
             maximal_radius = 1
             try:
-                sidecar_file = open(os.path.splitext(filepath)[0] + ".txt")
+                with open(os.path.splitext(filepath)[0] + ".txt", encoding="utf-8") as sidecar_file:
+                    for line in sidecar_file:
+                        if line.startswith("maximal_radius"):
+                            maximal_radius = float(line.partition(":")[2])
             except FileNotFoundError:
                 pass
-            else:
-                for line in sidecar_file:
-                    if line.startswith("maximal_radius"):
-                        maximal_radius = float(line.partition(":")[2])
-            dcraw_process = subprocess.Popen(generate_raw_conversion_call(filepath, ["-4", "-M", "-o", "0", "-Z", "-"] + h_option),
-                                             stdout=subprocess.PIPE)
-            image_data = subprocess.check_output(
-                [convert_program, "tiff:-", "-set", "colorspace", "RGB", "-resize", "250", "pgm:-"], stdin=dcraw_process.stdout,
-                stderr=open(os.devnull, "w"))
+            with subprocess.Popen(generate_raw_conversion_call(filepath, ["-4", "-M", "-o", "0", "-Z", "-"] + h_option),
+                                  stdout=subprocess.PIPE) as dcraw_process:
+                image_data = subprocess.check_output(
+                    [convert_program, "tiff:-", "-set", "colorspace", "RGB", "-resize", "250", "pgm:-"], stdin=dcraw_process.stdout,
+                    stderr=subprocess.DEVNULL)
+                dcraw_process.stdout.close()
             width, height = None, None
             header_size = 0
             for i, line in enumerate(image_data.splitlines(True)):
@@ -224,20 +223,20 @@ def evaluate_image_set(exif_data, filepaths):
                             width, height = line.split()
                             width, height = int(width), int(height)
                         else:
-                            assert line == b"65535", "Wrong grayscale depth: {} (must be 65535)".format(int(line))
+                            assert line == b"65535", f"Wrong grayscale depth: {int(line)} (must be 65535)"
                             break
             half_diagonal = math.hypot(width // 2, height // 2)
-            image_data = struct.unpack("!{0}s{1}H".format(header_size, width * height), image_data)[1:]
+            image_data = struct.unpack(f"!{header_size}s{width * height}H", image_data)[1:]
             for i, intensity in enumerate(image_data):
                 y, x = divmod(i, width)
                 radius = math.hypot(x - width // 2, y - height // 2) / half_diagonal
                 if radius <= maximal_radius:
                     radii.append(radius)
                     intensities.append(intensity)
-        all_points_filename = "{0}-all_points.dat".format(output_filename)
-        with open(all_points_filename, "w") as outfile:
+        all_points_filename = f"{output_filename}-all_points.dat"
+        with open(all_points_filename, "w", encoding="utf-8") as outfile:
             for radius, intensity in zip(radii, intensities):
-                outfile.write("{0} {1}\n".format(radius, intensity))
+                outfile.write(f"{radius} {intensity}\n")
         number_of_bins = 16
         bins = [[] for i in range(number_of_bins)]
         for radius, intensity in zip(radii, intensities):
@@ -250,10 +249,10 @@ def evaluate_image_set(exif_data, filepaths):
             bins[bin_index].append(intensity)
         radii = [i / (number_of_bins - 1) * maximal_radius for i in range(number_of_bins)]
         intensities = [numpy.median(bin) for bin in bins]
-        bins_filename = "{0}-bins.dat".format(output_filename)
-        with open(bins_filename, "w") as outfile:
+        bins_filename = f"{output_filename}-bins.dat"
+        with open(bins_filename, "w", encoding="utf-8") as outfile:
             for radius, intensity in zip(radii, intensities):
-                outfile.write("{0} {1}\n".format(radius, intensity))
+                outfile.write(f"{radius} {intensity}\n")
         radii, intensities = numpy.array(radii), numpy.array(intensities)
 
         def fit_function(radius, A, k1, k2, k3):
@@ -263,13 +262,14 @@ def evaluate_image_set(exif_data, filepaths):
 
         lens_name, focal_length, aperture, distance = exif_data
         if distance == float("inf"):
-            distance = "∞"
-        codecs.open(gnuplot_filename, "w", encoding="utf-8").write("""set grid
-set title "{6}, {7} mm, f/{8}, {9} m"
-plot "{0}" with dots title "samples", "{1}" with linespoints lw 4 title "average", \\
-     {2} * (1 + ({3}) * x**2 + ({4}) * x**4 + ({5}) * x**6) title "fit"
+            distance = "\u221e"
+        with open(gnuplot_filename, "w", encoding="utf-8") as gnuplot_file:
+            gnuplot_file.write(f"""set grid
+set title "{lens_name}, {focal_length} mm, f/{aperture}, {distance} m"
+plot "{all_points_filename}" with dots title "samples", "{bins_filename}" with linespoints lw 4 title "average", \\
+     {A} * (1 + ({k1}) * x**2 + ({k2}) * x**4 + ({k3}) * x**6) title "fit"
 pause -1
-""".format(all_points_filename, bins_filename, A, k1, k2, k3, lens_name, focal_length, aperture, distance))
+""")
 
     return (k1, k2, k3)
 
@@ -299,17 +299,15 @@ if __name__ == '__main__':
             candidate_groups.append(candidate_group)
         del exiv2_candidates[:candidates_per_group]
 
-    pool = multiprocessing.Pool()
-    for group_exif_data in pool.map(call_exiv2, candidate_groups):
-        file_exif_data.update(group_exif_data)
-    pool.close()
-    pool.join()
+    with multiprocessing.Pool() as pool:
+        for group_exif_data in pool.map(call_exiv2, candidate_groups):
+            file_exif_data.update(group_exif_data)
     for filename in list(file_exif_data):  # list() because I change the dict during iteration
         lens_model, focal_length, aperture = file_exif_data[filename]
         if not lens_model:
             lens_model = "Standard"
             if not missing_lens_model_warning_printed:
-                print(filename + ":")
+                print(f"{filename}:")
                 print("""I couldn't detect the lens model name and assumed "Standard".
 For cameras without interchangeable lenses, this may be correct.
 However, this fails if there is data of different undetectable lenses.
@@ -318,11 +316,11 @@ A newer version of exiv2 (if available) may help.
                 missing_lens_model_warning_printed = True
             file_exif_data[filename] = (lens_model, focal_length, aperture)
         if numpy.isnan(focal_length) or numpy.isnan(aperture):
-            print(filename + ":")
+            print(f"{filename}:")
             print("""Aperture and/or focal length EXIF data is missing in this RAW file.
 You have to rename them according to the scheme "Lens_name--16mm--1.4.RAW"
 (Use your RAW file extension of course.)  Abort.""")
-            sys.exit()
+            sys.exit(1)
 
 
     #
@@ -332,22 +330,23 @@ You have to rename them according to the scheme "Lens_name--16mm--1.4.RAW"
 
     if os.path.exists("distortion"):
         with chdir("distortion"):
-            pool = multiprocessing.Pool()
-            results = set()
-            for filename in find_raw_files():
-                if not os.path.exists(os.path.splitext(filename)[0] + ".tiff"):
-                    results.add(pool.apply_async(subprocess.call, [generate_raw_conversion_call(filename, ["-w", "-Z", "tiff"])]))
-            pool.close()
-            pool.join()
-            [result.get() for result in results]
+            with multiprocessing.Pool() as pool:
+                results = set()
+                for filename in find_raw_files():
+                    if not os.path.exists(os.path.splitext(filename)[0] + ".tiff"):
+                        results.add(pool.apply_async(subprocess.call, [generate_raw_conversion_call(filename, ["-w", "-Z", "tiff"])]))
+                pool.close()
+                pool.join()
+                for result in results:
+                    result.get()
 
 
     #
     # Parse/generate lenses.txt
     #
-    
+
     log("Parsing/generating lenses.txt")
-    
+
     lens_line_pattern = re.compile(
         r"(?P<name>.+):\s*(?P<maker>[^,]+)\s*,\s*(?P<mount>[^,]+)\s*,\s*(?P<cropfactor>[^,]+)"
         r"(\s*,\s*(?P<aspect_ratio>\d+:\d+|[0-9.]+))?(\s*,\s*(?P<type>[^,]+))?")
@@ -355,37 +354,44 @@ You have to rename them according to the scheme "Lens_name--16mm--1.4.RAW"
                                          r"(?P<a>[-.0-9e]+)(?:\s*,\s*(?P<b>[-.0-9e]+)\s*,\s*(?P<c>[-.0-9e]+))?")
     lenses = {}
     try:
-        for linenumber, original_line in enumerate(open("lenses.txt")):
-            linenumber += 1
-            line = original_line.strip()
-            if line and not line.startswith("#"):
-                match = lens_line_pattern.match(line)
-                if match:
-                    data = match.groupdict()
-                    current_lens = Lens(data["name"], data["maker"], data["mount"], data["cropfactor"],
-                                        data["aspect_ratio"], data["type"])
-                    lenses[data["name"]] = current_lens
-                else:
-                    match = distortion_line_pattern.match(line)
-                    if not match:
-                        print("Invalid line {0} in lenses.txt:\n{1}Abort.".format(linenumber, original_line))
-                        sys.exit()
-                    data = list(match.groups())
-                    data[0] = float(data[0])
-                    current_lens.add_focal_length(data[0])
-                    if data[2] is None:
-                        current_lens.calibration_lines.append(
-                            """<distortion model="poly3" focal="{0:g}" k1="{1}"/>""".format(data[0], data[1]))
+        with open("lenses.txt", encoding="utf-8") as lenses_file:
+            for linenumber, original_line in enumerate(lenses_file, start=1):
+                line = original_line.strip()
+                if line and not line.startswith("#"):
+                    match = lens_line_pattern.match(line)
+                    if match:
+                        data = match.groupdict()
+                        current_lens = Lens(data["name"], data["maker"], data["mount"], data["cropfactor"],
+                                            data["aspect_ratio"], data["type"])
+                        lenses[data["name"]] = current_lens
                     else:
-                        current_lens.calibration_lines.append(
-                            """<distortion model="ptlens" focal="{0:g}" a="{1}" b="{2}" c="{3}"/>""".format(*data))
-    except IOError:
+                        match = distortion_line_pattern.match(line)
+                        if not match:
+                            print(f"Invalid line {linenumber} in lenses.txt:\n{original_line}Abort.")
+                            sys.exit(1)
+                        data = list(match.groups())
+                        focal_length = float(data[0])
+                        current_lens.add_focal_length(focal_length)
+                        if data[2] is None:
+                            elem = ET.Element("distortion")
+                            elem.set("model", "poly3")
+                            elem.set("focal", f"{focal_length:g}")
+                            elem.set("k1", data[1])
+                        else:
+                            elem = ET.Element("distortion")
+                            elem.set("model", "ptlens")
+                            elem.set("focal", f"{focal_length:g}")
+                            elem.set("a", data[1])
+                            elem.set("b", data[2])
+                            elem.set("c", data[3])
+                        current_lens.calibration_elements.append(elem)
+    except OSError:
         focal_lengths = {}
         for exif_data in file_exif_data.values():
             focal_lengths.setdefault(exif_data[0], set()).add(exif_data[1])
         lens_names_by_focal_length = sorted((min(lengths), lens_name) for lens_name, lengths in focal_lengths.items())
         lens_names_by_focal_length = [item[1] for item in lens_names_by_focal_length]
-        with open("lenses.txt", "w") as outfile:
+        with open("lenses.txt", "w", encoding="utf-8") as outfile:
             if focal_lengths:
                 outfile.write("""# For suggestions for <maker> and <mount> see
 # <https://github.com/lensfun/lensfun/tree/master/data/db>.
@@ -393,18 +399,18 @@ You have to rename them according to the scheme "Lens_name--16mm--1.4.RAW"
 # Omit <type> for rectilinear lenses.
 """)
                 for lens_name in lens_names_by_focal_length:
-                    outfile.write("\n{0}: <maker>, <mount>, <cropfactor>, <aspect-ratio>, <type>\n".format(lens_name))
+                    outfile.write(f"\n{lens_name}: <maker>, <mount>, <cropfactor>, <aspect-ratio>, <type>\n")
                     # FixMe: Only generate focal lengths that are available for
                     # *distortion*.
                     for length in sorted(focal_lengths[lens_name]):
-                        outfile.write("distortion({0}mm) = , , \n".format(length))
+                        outfile.write(f"distortion({length}mm) = , , \n")
             else:
                 outfile.write("""# No RAW images found (or no focal lengths in them).
 # Please have a look at
 # http://wilson.bronger.org/lens_calibration_tutorial/
 """)
         print("I wrote a template lenses.txt.  Please fill this file with proper information.  Abort.")
-        sys.exit()
+        sys.exit(1)
 
 
     #
@@ -413,49 +419,56 @@ You have to rename them according to the scheme "Lens_name--16mm--1.4.RAW"
     log("Running TCA correction")
 
     if os.path.exists("tca"):
-        
+
         with chdir("tca"):
-            pool = multiprocessing.Pool()
-            results = set()
-            raw_files = find_raw_files()
-            for filename, tiff_filename, tca_filename in pool.map(generate_tca_tiffs, raw_files):
-                if filename:
-                    output = subprocess.check_output(["tca_correct", "-o", "bv" if args.complex_tca else "v", tiff_filename],
-                                                     stderr=open(os.devnull, "w")).splitlines()[-1].strip()
-                    exif_data = file_exif_data[os.path.join("tca", filename)]
-                    with open(tca_filename, "w") as outfile:
-                        outfile.write("{0}\n{1}\n{2}\n".format(exif_data[0], exif_data[1], output.decode("ascii")))
-            pool.close()
-            pool.join()
-            calibration_lines = {}
+            with multiprocessing.Pool() as pool:
+                raw_files = find_raw_files()
+                for filename, tiff_filename, tca_filename in pool.map(generate_tca_tiffs, raw_files):
+                    if filename:
+                        output = subprocess.check_output(["tca_correct", "-o", "bv" if args.complex_tca else "v", tiff_filename],
+                                                         stderr=subprocess.DEVNULL).splitlines()[-1].strip()
+                        exif_data = file_exif_data[os.path.join("tca", filename)]
+                        with open(tca_filename, "w", encoding="utf-8") as outfile:
+                            outfile.write(f"{exif_data[0]}\n{exif_data[1]}\n{output.decode('ascii')}\n")
+            calibration_elements = {}
             for filename in find_raw_files():
-                lens_name, focal_length, tca_output = [line.rstrip("\n") for line in open(filename + ".tca").readlines()]
+                with open(filename + ".tca", encoding="utf-8") as tca_file:
+                    lens_name, focal_length, tca_output = [line.rstrip("\n") for line in tca_file.readlines()]
                 focal_length = float(focal_length)
                 data = re.match(
                     r"-r [.0]+:(?P<br>[-.0-9]+):[.0]+:(?P<vr>[-.0-9]+) -b [.0]+:(?P<bb>[-.0-9]+):[.0]+:(?P<vb>[-.0-9]+)",
                     tca_output).groupdict()
-                open(filename + "_tca.gp", "w").write(
-                    """set title "{}"
-plot [0:1.8] {} * x**2 + {} title "red", {} * x**2 + {} title "blue"
-pause -1""".format(filename, data["br"], data["vr"], data["bb"], data["vb"]))
-                calibration_lines.setdefault(lens_name, []).append((focal_length,
-                    """<tca model="poly3" focal="{0:g}" br="{1}" vr="{2}" bb="{3}" vb="{4}"/>""".format(
-                        focal_length, data["br"], data["vr"], data["bb"], data["vb"]) if args.complex_tca else
-                    """<tca model="poly3" focal="{0:g}" vr="{1}" vb="{2}"/>""".format(
-                        focal_length, data["vr"], data["vb"])))
-            for lens_name, lines in calibration_lines.items():
-                lines.sort()
-                lenses[lens_name].calibration_lines.extend(line[1] for line in lines)
+                with open(filename + "_tca.gp", "w", encoding="utf-8") as gp_file:
+                    gp_file.write(
+                        f'set title "{filename}"\n'
+                        f'plot [0:1.8] {data["br"]} * x**2 + {data["vr"]} title "red", '
+                        f'{data["bb"]} * x**2 + {data["vb"]} title "blue"\n'
+                        f'pause -1')
+                elem = ET.Element("tca")
+                elem.set("model", "poly3")
+                elem.set("focal", f"{focal_length:g}")
+                if args.complex_tca:
+                    elem.set("br", data["br"])
+                    elem.set("vr", data["vr"])
+                    elem.set("bb", data["bb"])
+                    elem.set("vb", data["vb"])
+                else:
+                    elem.set("vr", data["vr"])
+                    elem.set("vb", data["vb"])
+                calibration_elements.setdefault(lens_name, []).append((focal_length, elem))
+            for lens_name, elements in calibration_elements.items():
+                elements.sort(key=lambda x: x[0])
+                lenses[lens_name].calibration_elements.extend(elem for _, elem in elements)
 
 
     #
     # Vignetting
     #
     log("Running vignetting correction")
-    
+
     images = {}
     distances_per_triplett = {}
-        
+
     for vignetting_directory in glob.glob("vignetting*"):
         distance = float(vignetting_directory.partition("_")[2] or "inf")
         assert distance == float("inf") or distance < 1000
@@ -467,14 +480,12 @@ pause -1""".format(filename, data["br"], data["vr"], data["bb"], data["vb"]))
 
     vignetting_db_entries = {}
 
-    pool = multiprocessing.Pool()
-    results = {}
-    for exif_data, filepaths in images.items():
-        results[exif_data] = pool.apply_async(evaluate_image_set, [exif_data, filepaths])
-    for exif_data, result in results.items():
-        vignetting_db_entries[exif_data] = result.get()
-    pool.close()
-    pool.join()
+    with multiprocessing.Pool() as pool:
+        results = {}
+        for exif_data, filepaths in images.items():
+            results[exif_data] = pool.apply_async(evaluate_image_set, [exif_data, filepaths])
+        for exif_data, result in results.items():
+            vignetting_db_entries[exif_data] = result.get()
 
     new_vignetting_db_entries = {}
     for configuration, vignetting in vignetting_db_entries.items():
@@ -496,17 +507,25 @@ pause -1""".format(filename, data["br"], data["vr"], data["bb"], data["vb"]))
         if distance == float("inf"):
             distance = 1000
         try:
-            lenses[lens].calibration_lines.append(
-                """<vignetting model="pa" focal="{focal_length:g}" aperture="{aperture:g}" distance="{distance:g}" """
-                """k1="{vignetting[0]:.4f}" k2="{vignetting[1]:.4f}" k3="{vignetting[2]:.4f}"/>""".format(
-                    focal_length=focal_length, aperture=aperture, vignetting=vignetting, distance=distance))
+            elem = ET.Element("vignetting")
+            elem.set("model", "pa")
+            elem.set("focal", f"{focal_length:g}")
+            elem.set("aperture", f"{aperture:g}")
+            elem.set("distance", f"{distance:g}")
+            elem.set("k1", f"{vignetting[0]:.4f}")
+            elem.set("k2", f"{vignetting[1]:.4f}")
+            elem.set("k3", f"{vignetting[2]:.4f}")
+            lenses[lens].calibration_elements.append(elem)
         except KeyError:
-            print("""Lens "{0}" not found in lenses.txt.  Abort.""".format(lens))
-            sys.exit()
+            print(f'Lens "{lens}" not found in lenses.txt.  Abort.')
+            sys.exit(1)
 
     log("Updating lensfun.xml")
-    outfile = open("lensfun.xml", "w")
-    outfile.write("<lensdatabase>\n")
+    root = ET.Element("lensdatabase")
     for lens in sorted(lenses.values()):
-        lens.write(outfile)
-    outfile.write("\n</lensdatabase>\n")
+        root.append(lens.to_element())
+    ET.indent(root, space="    ")
+    tree = ET.ElementTree(root)
+    with open("lensfun.xml", "w", encoding="utf-8") as outfile:
+        tree.write(outfile, encoding="unicode", xml_declaration=False)
+        outfile.write("\n")
