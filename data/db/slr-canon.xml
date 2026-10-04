@@ -2830,7 +2830,7 @@
             <vignetting model="pa" focal="50" aperture="22" distance="1000" k1="-0.2485" k2="-0.0389" k3="0.0790"/>
         </calibration>
     </lens>
-
+    
     <lens>
         <maker>Canon</maker>
         <model>Canon EF 55-200mm f/4.5-5.6</model>
@@ -2850,6 +2850,56 @@
         </calibration>
     </lens>
 
+    <lens>
+        <maker>Canon</maker>
+        <model>Canon EF 55-200mm f/4.5-5.6 II USM</model>
+        <mount>Canon EF</mount>
+        <cropfactor>1.6</cropfactor>
+
+        <!-- ======================================================= -->
+        <!-- Distortion (ptlens model recalculated for 1.6x APS-C)   -->
+        <!-- ======================================================= -->
+        <distortion model="ptlens" focal="55"  a="0.0" b="-0.0092" c="0.0" />
+        <distortion model="ptlens" focal="70"  a="0.0" b="-0.0019" c="0.0" />
+        <distortion model="ptlens" focal="100" a="0.0" b="0.0035"  c="0.0" />
+        <distortion model="ptlens" focal="135" a="0.0" b="0.0059"  c="0.0" />
+        <distortion model="ptlens" focal="200" a="0.0" b="0.0073"  c="0.0" />
+
+        <!-- ======================================================= -->
+        <!-- Transverse Chromatic Aberration (poly3 model on APS-C)  -->
+        <!-- ======================================================= -->
+        <!-- 55mm: Linear shift unchanged; cubic curvature scaled down by 2.56 -->
+        <tca model="poly3" focal="55"  vr="1.0003200" br="-0.0000625" vb="0.9994800" bb="0.0001484" />
+
+        <!-- 70mm -->
+        <tca model="poly3" focal="70"  vr="1.0001200" br="-0.0000234" vb="0.9997800" bb="0.0000586" />
+
+        <!-- 100mm -->
+        <tca model="poly3" focal="100" vr="1.0000200" br="-0.0000039" vb="0.9999400" bb="0.0000156" />
+
+        <!-- 135mm -->
+        <tca model="poly3" focal="135" vr="0.9998200" br="0.0000547"  vb="1.0002200" bb="-0.0000625" />
+
+        <!-- 200mm -->
+        <tca model="poly3" focal="200" vr="0.9992800" br="0.0002266"  vb="1.0006800" bb="-0.0002109" />
+
+        <!-- ======================================================= -->
+        <!-- Vignetting (pa model: corner falloff scaled to APS-C)   -->
+        <!-- ======================================================= -->
+        <!-- 55mm -->
+        <vignetting model="pa" focal="55" aperture="4.5" distance="10" k1="-0.2266" k2="0.0214" k3="0.0" />
+        <vignetting model="pa" focal="55" aperture="5.6" distance="10" k1="-0.1406" k2="0.0122" k3="0.0" />
+        <vignetting model="pa" focal="55" aperture="8.0" distance="10" k1="-0.0703" k2="0.0046" k3="0.0" />
+
+        <!-- 100mm -->
+        <vignetting model="pa" focal="100" aperture="5.0" distance="10" k1="-0.2031" k2="0.0168" k3="0.0" />
+        <vignetting model="pa" focal="100" aperture="8.0" distance="10" k1="-0.0625" k2="0.0031" k3="0.0" />
+
+        <!-- 200mm -->
+        <vignetting model="pa" focal="200" aperture="5.6" distance="10" k1="-0.2578" k2="0.0244" k3="0.0" />
+        <vignetting model="pa" focal="200" aperture="8.0" distance="10" k1="-0.0859" k2="0.0061" k3="0.0" />
+    </lens>
+    
     <lens>
         <maker>Canon</maker>
         <model>Canon EF-S 55-250mm f/4-5.6 IS</model>
