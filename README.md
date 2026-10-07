@@ -105,6 +105,9 @@ The following CMake options can be set (defaults are upper case):
     -DBUILD_FOR_SSE2=off|ON     build with SSE2 optimisaiton
     -DBUILD_DOC=OFF|on          build documentation
 
+    -DCMAKE_CXX_CLANG_TIDY=clang-tidy       run clang-tidy automatically, alongside with a regular compiler
+    -DCMAKE_EXPORT_COMPILE_COMMANDS=OFF|on  run clang-tidy manually, for example: 'clang-tidy -p . ../libs/lensfun/*.cpp'
+
 If you want to have more detailed output when running 'make' you can simply add
 'VERBOSE=1' to the make command line.
 
