@@ -1440,4 +1440,41 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Sigma</maker>
+        <model>Sigma 70mm f/2.8 DG Macro | Art 018</model>
+        <mount>Canon EF</mount>
+        <mount>Sony E</mount>
+        <mount>Leica L</mount>
+        <mount>Nikon F AF</mount>
+        <mount>Sigma SA</mount>
+        <cropfactor>1.0</cropfactor>
+        <calibration>
+            <!-- Taken with Canon EOS R6II -->
+            <distortion model="ptlens" focal="70" a="-9.29e-05" b="-0.0004472" c="-0.0010439"/>
+            <tca model="poly3" focal="70" vr="1.0000556" vb="1.0000259"/>
+            <vignetting model="pa" focal="70" aperture="2.8" distance="0.258" k1="-0.0718" k2="-0.7479" k3="0.2989"/>
+            <vignetting model="pa" focal="70" aperture="2.8" distance="0.5" k1="-1.3454" k2="1.2466" k3="-0.5398"/>
+            <vignetting model="pa" focal="70" aperture="2.8" distance="1000" k1="-1.3975" k2="1.2280" k3="-0.4923"/>
+            <vignetting model="pa" focal="70" aperture="4" distance="0.258" k1="-0.1105" k2="0.0277" k3="-0.3040"/>
+            <vignetting model="pa" focal="70" aperture="4" distance="0.5" k1="-0.1007" k2="-0.3559" k3="0.1029"/>
+            <vignetting model="pa" focal="70" aperture="4" distance="1000" k1="-0.1092" k2="-0.6498" k3="0.3613"/>
+            <vignetting model="pa" focal="70" aperture="5.6" distance="0.258" k1="-0.2884" k2="0.5927" k3="-0.5981"/>
+            <vignetting model="pa" focal="70" aperture="5.6" distance="0.5" k1="-0.2112" k2="0.0877" k3="-0.0461"/>
+            <vignetting model="pa" focal="70" aperture="5.6" distance="1000" k1="-0.2172" k2="0.1005" k3="-0.1049"/>
+            <vignetting model="pa" focal="70" aperture="8" distance="0.258" k1="-0.2399" k2="0.3243" k3="-0.2703"/>
+            <vignetting model="pa" focal="70" aperture="8" distance="0.5" k1="-0.1758" k2="-0.0229" k3="0.0535"/>
+            <vignetting model="pa" focal="70" aperture="8" distance="1000" k1="-0.1898" k2="-0.0131" k3="0.0470"/>
+            <vignetting model="pa" focal="70" aperture="11" distance="0.258" k1="-0.1514" k2="-0.0243" k3="0.0530"/>
+            <vignetting model="pa" focal="70" aperture="11" distance="0.5" k1="-0.1766" k2="-0.0160" k3="0.0511"/>
+            <vignetting model="pa" focal="70" aperture="11" distance="1000" k1="-0.1901" k2="-0.0159" k3="0.0527"/>
+            <vignetting model="pa" focal="70" aperture="16" distance="0.258" k1="-0.1586" k2="-0.0166" k3="0.0524"/>
+            <vignetting model="pa" focal="70" aperture="16" distance="0.5" k1="-0.1761" k2="-0.0220" k3="0.0588"/>
+            <vignetting model="pa" focal="70" aperture="16" distance="1000" k1="-0.1937" k2="-0.0067" k3="0.0492"/>
+            <vignetting model="pa" focal="70" aperture="22" distance="0.258" k1="-0.1612" k2="-0.0066" k3="0.0460"/>
+            <vignetting model="pa" focal="70" aperture="22" distance="0.5" k1="-0.1793" k2="-0.0189" k3="0.0582"/>
+            <vignetting model="pa" focal="70" aperture="22" distance="1000" k1="-0.2002" k2="0.0095" k3="0.0397"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
