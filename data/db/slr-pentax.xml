@@ -2927,4 +2927,16 @@
         </calibration>
     </lens>
 
+	<lens>
+        <maker>Pentax</maker>
+        <model>Super-Multi-Coated Takumar 28mm f/3.5</model>
+        <mount>M42</mount>
+        <cropfactor>1.526</cropfactor>
+        <calibration>
+            <!-- Taken with Pentax K-5 -->
+            <distortion model="ptlens" focal="28" a="0.0014309" b="-0.007504" c="-0.0037751"/>
+            <tca model="poly3" focal="28" vr="1.0007086" vb="0.9993130"/>
+        </calibration>
+    </lens>
+
 </lensdatabase>
