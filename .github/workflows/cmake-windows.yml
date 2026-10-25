@@ -32,7 +32,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake .. -G "Visual Studio 17 2022" -A ${{env.ARCH}} -DBUILD_STATIC=OFF -DBUILD_LENSTOOL=OFF -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=install -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake -DGLIB2_BASE_DIR=c:/vcpkg/installed/${{env.ARCH}}-windows
+        cmake .. -G "Visual Studio 18 2026" -A ${{env.ARCH}} -DBUILD_STATIC=OFF -DBUILD_LENSTOOL=OFF -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=install -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake -DGLIB2_BASE_DIR=c:/vcpkg/installed/${{env.ARCH}}-windows
         cmake --build . --config ${{env.BUILD_TYPE}}
         cmake --build . --target install
     - name: Test
