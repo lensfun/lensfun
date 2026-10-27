@@ -21,7 +21,6 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.x'
-        check-latest: false
     - name: Install python build
       run: python -m pip install --upgrade pip build
     - name: Install glib-2.0
