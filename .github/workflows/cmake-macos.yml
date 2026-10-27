@@ -13,18 +13,21 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       # Most deps already installed; libxml2 part of system
       - name: Setup python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: '3.x'
+          check-latest: true
       - name: Install python build
         run: python -m pip install --upgrade pip build
-      - name: Configure CMake
-        run: cmake -B ${{github.workspace}}/cm-build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_TESTS=ON
-      - name: Build
-        run: cmake --build ${{github.workspace}}/cm-build --config ${{env.BUILD_TYPE}}
+      - name: Build with cmake
+        run: |
+          mkdir cm-build
+          cd cm-build
+          cmake -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_TESTS=ON ..
+          cmake --build . --config ${{env.BUILD_TYPE}}
       - name: Test
         working-directory: ${{github.workspace}}/cm-build
         run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure
