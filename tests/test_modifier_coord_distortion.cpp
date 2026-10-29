@@ -100,6 +100,33 @@ void test_mod_coord_distortion_parallel(lfFixture *lfFix, gconstpointer data)
 }
 #endif
 
+// A whole-row call must give the same coordinates as single-pixel calls,
+// which take neither the SSE code nor a sum along the row. Uses a wide
+// image, where the errors of both used to reach tenths of a pixel.
+void test_mod_coord_distortion_row_vs_point(lfFixture *lfFix, gconstpointer data)
+{
+  lfTestParams *p = (lfTestParams *)data;
+
+  const int width = 6000, height = 4000;
+  lfModifier mod(lfFix->lens, 24.0f, 1.0f, width, height, LF_PF_F32, p->reverse);
+  mod.EnableDistortionCorrection();
+
+  float *row = (float *)lf_alloc_align(4 * sizeof(float), 2 * width * sizeof(float));
+  const int rows[] = { 0, 1000, 2000, height - 1 };
+  for(int y : rows)
+  {
+    g_assert_true(mod.ApplyGeometryDistortion(0.0, y, width, 1, row));
+    for(int x = 0; x < width; x++)
+    {
+      float point[2];
+      g_assert_true(mod.ApplyGeometryDistortion(x, y, 1, 1, point));
+      g_assert_cmpfloat(fabs(row[2 * x] - point[0]), <=, 2e-3);
+      g_assert_cmpfloat(fabs(row[2 * x + 1] - point[1]), <=, 2e-3);
+    }
+  }
+  lf_free_align(row);
+}
+
 gchar *describe(lfTestParams *p, const char *prefix)
 {
   gchar alignment[32] = "";
@@ -122,6 +149,14 @@ void add_set_item(lfTestParams *p)
   g_test_add(desc, lfFixture, p, mod_setup, test_mod_coord_distortion, mod_teardown);
   g_free(desc);
   desc = NULL;
+
+  if(p->alignment == 0)
+  {
+    desc = describe(p, "modifier/coord/rowVsPoint");
+    g_test_add(desc, lfFixture, p, mod_setup, test_mod_coord_distortion_row_vs_point, mod_teardown);
+    g_free(desc);
+    desc = NULL;
+  }
 
 #ifdef _OPENMP
   desc = describe(p, "modifier/coord/parallelFor");
