@@ -54,7 +54,9 @@ void lfModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int 
 
     // We don't check for zero, but set it to a very small value instead
     rd = _mm_max_ps (rd, very_small);
-    rd = _mm_rcp_ps (_mm_rsqrt_ps (rd));
+    // _mm_rcp_ps (_mm_rsqrt_ps ()) is only accurate to about 12 bits, which
+    // is up to a third of a pixel at the corners of a large image
+    rd = _mm_sqrt_ps (rd);
     __m128 ru = rd;
     for (int step = 0; step < 4; step++)
     {
@@ -83,7 +85,7 @@ void lfModifier::ModifyCoord_UnDist_PTLens_SSE (void *data, float *iocoord, int 
     ru = _mm_max_ps (ru, very_small);
 
     // ru /= rd
-    ru = _mm_mul_ps (ru, _mm_rcp_ps(rd));
+    ru = _mm_div_ps (ru, rd);
     x = _mm_mul_ps (x, ru);
     y = _mm_mul_ps (y, ru);
 
@@ -128,7 +130,9 @@ void lfModifier::ModifyCoord_Dist_PTLens_SSE (void *data, float *iocoord, int co
     __m128 y = _mm_shuffle_ps (c0, c1, _MM_SHUFFLE (3, 1, 3, 1));
 
     __m128 ru2 = _mm_add_ps (_mm_mul_ps (x, x), _mm_mul_ps (y, y));
-    __m128 ru = _mm_rcp_ps (_mm_rsqrt_ps (ru2));
+    // see ModifyCoord_UnDist_PTLens_SSE for why this is not
+    // _mm_rcp_ps (_mm_rsqrt_ps ())
+    __m128 ru = _mm_sqrt_ps (ru2);
 
     // Calculate poly3 = a_ * ru2 * ru + b_ * ru2 + c_ * ru + 1;
     __m128 t = _mm_mul_ps (ru2, b_);
