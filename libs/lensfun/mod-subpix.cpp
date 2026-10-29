@@ -129,13 +129,16 @@ bool lfModifier::ApplySubpixelDistortion (
     xu = xu * NormScale - CenterX;
     yu = yu * NormScale - CenterY;
 
-    for (float y = yu; height; y += NormScale, height--)
+    // Compute each coordinate from its index instead of adding NormScale
+    // once per pixel, as the rounding errors of the sum add up along a row
+    for (int j = 0; j < height; j++)
     {
         int i;
-        float x = xu;
+        const float y = yu + j * NormScale;
         float *out = res;
-        for (i = 0; i < width; i++, x += NormScale)
+        for (i = 0; i < width; i++)
         {
+            const float x = xu + i * NormScale;
             out [0] = out [2] = out [4] = x;
             out [1] = out [3] = out [5] = y;
             out += 6;
@@ -166,13 +169,16 @@ bool lfModifier::ApplySubpixelGeometryDistortion (
     xu = xu * NormScale - CenterX;
     yu = yu * NormScale - CenterY;
 
-    for (float y = yu; height; y += NormScale, height--)
+    // Compute each coordinate from its index instead of adding NormScale
+    // once per pixel, as the rounding errors of the sum add up along a row
+    for (int j = 0; j < height; j++)
     {
         int i;
-        float x = xu;
+        const float y = yu + j * NormScale;
         float *out = res;
-        for (i = 0; i < width; i++, x += NormScale)
+        for (i = 0; i < width; i++)
         {
+            const float x = xu + i * NormScale;
             out [0] = out [2] = out [4] = x;
             out [1] = out [3] = out [5] = y;
             out += 6;

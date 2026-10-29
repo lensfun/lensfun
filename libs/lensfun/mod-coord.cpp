@@ -521,13 +521,15 @@ bool lfModifier::ApplyGeometryDistortion (
     xu = xu * NormScale - CenterX;
     yu = yu * NormScale - CenterY;
 
-    for (float y = yu; height; y += NormScale, height--)
+    // Compute each coordinate from its index instead of adding NormScale
+    // once per pixel, as the rounding errors of the sum add up along a row
+    for (int j = 0; j < height; j++)
     {
         int i;
-        float x = xu;
-        for (i = 0; i < width; i++, x += NormScale)
+        const float y = yu + j * NormScale;
+        for (i = 0; i < width; i++)
         {
-            res [i * 2] = x;
+            res [i * 2] = xu + i * NormScale;
             res [i * 2 + 1] = y;
         }
 
