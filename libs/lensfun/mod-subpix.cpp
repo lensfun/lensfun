@@ -129,13 +129,16 @@ bool lfModifier::ApplySubpixelDistortion (
     xu = xu * NormScale - CenterX;
     yu = yu * NormScale - CenterY;
 
-    for (float y = yu; height; y += NormScale, height--)
+    // Compute each coordinate from its index instead of adding NormScale
+    // once per pixel, as the rounding errors of the sum add up along a row
+    for (int j = 0; j < height; j++)
     {
         int i;
-        float x = xu;
+        const float y = yu + j * NormScale;
         float *out = res;
-        for (i = 0; i < width; i++, x += NormScale)
+        for (i = 0; i < width; i++)
         {
+            const float x = xu + i * NormScale;
             out [0] = out [2] = out [4] = x;
             out [1] = out [3] = out [5] = y;
             out += 6;
@@ -166,13 +169,16 @@ bool lfModifier::ApplySubpixelGeometryDistortion (
     xu = xu * NormScale - CenterX;
     yu = yu * NormScale - CenterY;
 
-    for (float y = yu; height; y += NormScale, height--)
+    // Compute each coordinate from its index instead of adding NormScale
+    // once per pixel, as the rounding errors of the sum add up along a row
+    for (int j = 0; j < height; j++)
     {
         int i;
-        float x = xu;
+        const float y = yu + j * NormScale;
         float *out = res;
-        for (i = 0; i < width; i++, x += NormScale)
+        for (i = 0; i < width; i++)
         {
+            const float x = xu + i * NormScale;
             out [0] = out [2] = out [4] = x;
             out [1] = out [3] = out [5] = y;
             out += 6;
@@ -246,7 +252,7 @@ void lfModifier::ModifyCoord_UnTCA_Poly3 (void *data, float *iocoord, int count)
         {
             ru2 = ru * ru;
             double fru = br * ru2 * ru + cr * ru2 + vr * ru - rd;
-            if (fru >= -NEWTON_EPS && fru < NEWTON_EPS)
+            if (fru >= -NEWTON_EPS_RADIUS && fru < NEWTON_EPS_RADIUS)
                 break;
             if (step > 5)
                 // Does not converge, no real solution in this area?
@@ -274,7 +280,7 @@ next_subpixel_r:
         {
             ru2 = ru * ru;
             double fru = bb * ru2 * ru + cb * ru2 + vb * ru - rd;
-            if (fru >= -NEWTON_EPS && fru < NEWTON_EPS)
+            if (fru >= -NEWTON_EPS_RADIUS && fru < NEWTON_EPS_RADIUS)
                 break;
             if (step > 5)
                 // Does not converge, no real solution in this area?

@@ -20,6 +20,12 @@
 // adjusted for the lens calibration data/camera crop factors.
 #define NEWTON_EPS 0.00001
 
+// The tolerance of the Newton iterations that invert the distortion and
+// TCA models. Their coordinates are normalized by the focal length, so one
+// unit is the focal length in pixels: 10^4 to 10^5 pixels for a normal or
+// long lens, where NEWTON_EPS would stop up to a few tenths of a pixel short.
+#define NEWTON_EPS_RADIUS 1e-9
+
 /**
  * @brief Return the absolute value of a number.
  * @param x

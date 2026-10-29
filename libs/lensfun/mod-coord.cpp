@@ -521,13 +521,15 @@ bool lfModifier::ApplyGeometryDistortion (
     xu = xu * NormScale - CenterX;
     yu = yu * NormScale - CenterY;
 
-    for (float y = yu; height; y += NormScale, height--)
+    // Compute each coordinate from its index instead of adding NormScale
+    // once per pixel, as the rounding errors of the sum add up along a row
+    for (int j = 0; j < height; j++)
     {
         int i;
-        float x = xu;
-        for (i = 0; i < width; i++, x += NormScale)
+        const float y = yu + j * NormScale;
+        for (i = 0; i < width; i++)
         {
-            res [i * 2] = x;
+            res [i * 2] = xu + i * NormScale;
             res [i * 2 + 1] = y;
         }
 
@@ -587,7 +589,7 @@ void lfModifier::ModifyCoord_UnDist_Poly3 (void *data, float *iocoord, int count
         for (int step = 0; ; step++)
         {
             double fru = ru * ru * ru + ru * inv_k1_ - rd_div_k1_;
-            if (fru >= -NEWTON_EPS && fru < NEWTON_EPS)
+            if (fru >= -NEWTON_EPS_RADIUS && fru < NEWTON_EPS_RADIUS)
                 break;
             if (step > 5)
             {
@@ -652,7 +654,7 @@ void lfModifier::ModifyCoord_UnDist_Poly5 (void *data, float *iocoord, int count
         {
             double ru2 = ru * ru;
             double fru = ru * (1.0 + k1 * ru2 + k2 * ru2 * ru2) - rd;
-            if (fru >= -NEWTON_EPS && fru < NEWTON_EPS)
+            if (fru >= -NEWTON_EPS_RADIUS && fru < NEWTON_EPS_RADIUS)
                 break;
             if (step > 5)
                 // Does not converge, no real solution in this area?
@@ -713,7 +715,7 @@ void lfModifier::ModifyCoord_UnDist_PTLens (void *data, float *iocoord, int coun
         for (int step = 0; ; step++)
         {
             double fru = ru * (a_ * ru * ru * ru + b_ * ru * ru + c_ * ru + 1) - rd;
-            if (fru >= -NEWTON_EPS && fru < NEWTON_EPS)
+            if (fru >= -NEWTON_EPS_RADIUS && fru < NEWTON_EPS_RADIUS)
                 break;
             if (step > 5)
                 // Does not converge, no real solution in this area?
