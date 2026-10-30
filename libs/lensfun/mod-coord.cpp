@@ -425,6 +425,10 @@ float lfModifier::GetTransformedDistance (lfPoint point) const
     // the original edge.
     float ru = dist; // Initial approximation
     float dx = 0.0001F;
+    // Stop within 0.01 pixels of the edge.  The coordinates are normalized
+    // by the focal length, so a fixed tolerance in those units would be
+    // several pixels for a normal or long lens.
+    const double eps = 0.01 * NormScale;
     for (int countdown = 50; ; countdown--)
     {
         float res [2];
@@ -434,7 +438,7 @@ float lfModifier::GetTransformedDistance (lfPoint point) const
             cb->callback (cb, res, 1);
 
         double rd = AutoscaleResidualDistance (res);
-        if (rd > -NEWTON_EPS * 100 && rd < NEWTON_EPS * 100)
+        if (rd > -eps && rd < eps)
             break;
 
         if (!countdown)
