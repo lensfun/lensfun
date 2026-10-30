@@ -83,8 +83,24 @@ void test_verify_dist_poly3 (lfFixture *lfFix, gconstpointer data)
     delete mod;
     delete lens;
 
+    // Preserve scaling as in legacy Lensfun versions < 0.4
+    mod = new lfModifier (lenses[0], 80.89f, 1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
+    mod->EnableDistortionCorrection(true);
+
+    float expected_x_legacy[] = {-9.5310, 750.9914, 809.9232, 1272.1215};
+    float expected_y_legacy[] = {-6.3518, 497.0142, 936.4454, 98.3716};
+
+    for (unsigned int i = 0; i < sizeof(x) / sizeof(float); i++)
+    {
+        g_assert_true(mod->ApplyGeometryDistortion (x[i], y[i], 1, 1, coords));
+        // g_print("\n%.8f, %.8f\n", coords[0], coords[1]);
+        g_assert_cmpfloat (fabs (coords [0] - expected_x_legacy [i]), <=, 5e-2);
+        g_assert_cmpfloat (fabs (coords [1] - expected_y_legacy [i]), <=, 5e-2);
+    }
+
     lf_free (lenses);
 }
+
 
 void test_verify_dist_poly5 (lfFixture *lfFix, gconstpointer data)
 {
@@ -147,6 +163,24 @@ void test_verify_dist_ptlens (lfFixture *lfFix, gconstpointer data)
     }
 
     delete mod;
+
+    // Preserve scaling as in legacy Lensfun versions < 0.4
+    mod = new lfModifier (lenses[0], 30.89f, 1.534f, lfFix->img_width, lfFix->img_height, LF_PF_F32, false);
+    mod->EnableDistortionCorrection(true);
+
+    float expected_x_legacy[] = {12.5644, 751.0357, 810.1391f, 1266.9501};
+    float expected_y_legacy[] = {8.3735, 496.9404, 938.0061, 102.3407};
+
+    for (unsigned int i = 0; i < sizeof(x) / sizeof(float); i++)
+    {
+        g_assert_true(mod->ApplyGeometryDistortion (x[i], y[i], 1, 1, coords));
+        // g_print("\n%.8f, %.8f\n", coords[0], coords[1]);
+        g_assert_cmpfloat (fabs (coords [0] - expected_x_legacy [i]), <=, 5e-2);
+        g_assert_cmpfloat (fabs (coords [1] - expected_y_legacy [i]), <=, 5e-2);
+    }
+
+    delete mod;
+
     lf_free (lenses);
 }
 
@@ -164,16 +198,15 @@ void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
     float x[] = {0, 751, 810, 1270};
     float y[] = {0, 497, 937, 100};
 
-    lf_u16 expected[] = {22406, 22406, 24156, 28803};
-
-    lf_u16 coords [3] = {16000, 16000, 16000};
+    lf_u16 expected[] = {22406, 16000, 17250, 19078};
     for (unsigned int i = 0; i < sizeof(x) / sizeof(float); i++)
     {
-        g_assert_true(mod->ApplyColorModification(&coords[0], x[i], y[i], 1, 1, LF_CR_3(RED,GREEN,BLUE), 0));
-        //g_print("\n%d, %d, %d\n", coords[0], coords[1], coords[2]);
-        g_assert_cmpfloat (fabs (coords [0] - expected [i]), <=, 1e-3);
-        g_assert_cmpfloat (fabs (coords [1] - expected [i]), <=, 1e-3);
-        g_assert_cmpfloat (fabs (coords [2] - expected [i]), <=, 1e-3);
+        lf_u16 grey_pixel [3] = {16000, 16000, 16000};
+        g_assert_true(mod->ApplyColorModification(&grey_pixel[0], x[i], y[i], 1, 1, LF_CR_3(RED,GREEN,BLUE), 0));
+        //g_print("\n%d, %d, %d\n", grey_pixel[0], grey_pixel[1], grey_pixel[2]);
+        g_assert_cmpfloat (fabs (grey_pixel [0] - expected [i]), <=, 1e-3);
+        g_assert_cmpfloat (fabs (grey_pixel [1] - expected [i]), <=, 1e-3);
+        g_assert_cmpfloat (fabs (grey_pixel [2] - expected [i]), <=, 1e-3);
     }
 
     delete mod;
@@ -189,14 +222,14 @@ void test_verify_vignetting_pa (lfFixture *lfFix, gconstpointer data)
     mod = new lfModifier (lens, 17.89f, 2.0f, lfFix->img_width, lfFix->img_height, LF_PF_U16, false);
     mod->EnableVignettingCorrection(5.0f, 1000.0f);
 
-    coords[0] = 16000; coords[1] = 16000; coords[2] = 16000;
     for (unsigned int i = 0; i < sizeof(x) / sizeof(float); i++)
     {
-        g_assert_true(mod->ApplyColorModification(&coords[0], x[i], y[i], 1, 1, LF_CR_3(RED,GREEN,BLUE), 0));
-        //g_print("\n%d, %d, %d\n", coords[0], coords[1], coords[2]);
-        g_assert_cmpfloat (fabs (coords [0] - expected [i]), <=, 1e-3);
-        g_assert_cmpfloat (fabs (coords [1] - expected [i]), <=, 1e-3);
-        g_assert_cmpfloat (fabs (coords [2] - expected [i]), <=, 1e-3);
+        lf_u16 grey_pixel [3] = {16000, 16000, 16000};
+        g_assert_true(mod->ApplyColorModification(&grey_pixel[0], x[i], y[i], 1, 1, LF_CR_3(RED,GREEN,BLUE), 0));
+        //g_print("\n%d, %d, %d\n", grey_pixel[0], grey_pixel[1], grey_pixel[2]);
+        g_assert_cmpfloat (fabs (grey_pixel [0] - expected [i]), <=, 1e-3);
+        g_assert_cmpfloat (fabs (grey_pixel [1] - expected [i]), <=, 1e-3);
+        g_assert_cmpfloat (fabs (grey_pixel [2] - expected [i]), <=, 1e-3);
     }
 
     delete mod;
@@ -333,6 +366,42 @@ void test_verify_geom_fisheye_rectlinear (lfFixture *lfFix, gconstpointer data)
 }
 
 
+void test_verify_scaling (lfFixture *lfFix, gconstpointer data)
+{
+    (void)data;
+    // select a lens from database
+    const lfLens** lenses = lfFix->db->FindLenses (NULL, NULL, "M.Zuiko Digital ED 8mm f/1.8 Fisheye");
+    g_assert_nonnull(lenses);
+    g_assert_cmpstr(lenses[0]->Model, ==, "Olympus M.Zuiko Digital ED 8mm f/1.8 Fisheye Pro");
+
+    lfModifier* mod = new lfModifier (lenses[0], 8.0f, 2.0f, 301, 301, LF_PF_U16, false);
+
+    mod->EnableScaling(2.0f);
+
+    float coords [2];
+
+    // Image center is unscaled
+    g_assert_true(mod->ApplyGeometryDistortion (150, 150, 1, 1, coords));
+    g_assert_cmpfloat (fabs (coords [0] - 150.0f), <=, 1e-1);
+    g_assert_cmpfloat (fabs (coords [1] - 150.0f), <=, 1e-1);
+
+    // Other coordinates are scaled by the proper factor
+    g_assert_true(mod->ApplyGeometryDistortion (200, 200, 1, 1, coords));
+    g_assert_cmpfloat (fabs (coords [0] - 175.0f), <=, 1e-1);
+    g_assert_cmpfloat (fabs (coords [1] - 175.0f), <=, 1e-1);
+
+    g_assert_true(mod->ApplyGeometryDistortion (100, 100, 1, 1, coords));
+    g_assert_cmpfloat (fabs (coords [0] - 125.0f), <=, 1e-1);
+    g_assert_cmpfloat (fabs (coords [1] - 125.0f), <=, 1e-1);
+
+
+    g_print("\n%.8f, %.8f\n", coords[0], coords[1]);
+
+    delete mod;
+    lf_free (lenses);
+}
+
+
 int main (int argc, char **argv)
 {
   setlocale (LC_ALL, "");
@@ -351,6 +420,9 @@ int main (int argc, char **argv)
 
   g_test_add ("/modifier/coord/geom/verify_equisolid_linrect", lfFixture, NULL,
               mod_setup, test_verify_geom_fisheye_rectlinear, mod_teardown);
+
+  g_test_add ("/modifier/coord/scaling/verify_scaling", lfFixture, NULL,
+              mod_setup, test_verify_scaling, mod_teardown);
 
   g_test_add ("/modifier/color/vignetting/verify_pa", lfFixture, NULL,
               mod_setup, test_verify_vignetting_pa, mod_teardown);
